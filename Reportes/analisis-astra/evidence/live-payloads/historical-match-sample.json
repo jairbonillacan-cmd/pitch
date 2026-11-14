@@ -1,0 +1,218 @@
+{
+  "stored": false,
+  "match": {
+    "id": 401873006,
+    "kickoff": "2026-10-18T20:25Z",
+    "status": "final",
+    "league": "NFL",
+    "home": {
+      "id": 12,
+      "name": "Kansas City Chiefs",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/kc.png"
+    },
+    "away": {
+      "id": 24,
+      "name": "Los Angeles Chargers",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/lac.png"
+    },
+    "home_score": 22,
+    "away_score": 6,
+    "venue": "Arrowhead Stadium"
+  },
+  "live": {
+    "sport": "nfl",
+    "match_id": 401873006,
+    "state": "final",
+    "elapsed": null,
+    "updated_at": "2026-11-14T18:06:22.686Z",
+    "info": {
+      "venue": "Arrowhead Stadium",
+      "city": "Kansas City"
+    },
+    "statistics": [
+      {
+        "key": "totalYards",
+        "label": "Yardas totales",
+        "home": "422",
+        "away": "259"
+      },
+      {
+        "key": "yardsPerPlay",
+        "label": "Yardas por jugada",
+        "home": "7.4",
+        "away": "4.1"
+      },
+      {
+        "key": "firstDowns",
+        "label": "Primeros downs",
+        "home": "22",
+        "away": "15"
+      },
+      {
+        "key": "netPassingYards",
+        "label": "Yardas por pase",
+        "home": "272",
+        "away": "186"
+      },
+      {
+        "key": "completionAttempts",
+        "label": "Pases completos / intentos",
+        "home": "23/30",
+        "away": "22/37"
+      },
+      {
+        "key": "rushingYards",
+        "label": "Yardas por tierra",
+        "home": "150",
+        "away": "73"
+      },
+      {
+        "key": "rushingAttempts",
+        "label": "Acarreos",
+        "home": "27",
+        "away": "22"
+      },
+      {
+        "key": "yardsPerRushAttempt",
+        "label": "Yardas por acarreo",
+        "home": "5.6",
+        "away": "3.3"
+      },
+      {
+        "key": "thirdDownEff",
+        "label": "Terceras oportunidades",
+        "home": "3-10",
+        "away": "5-16"
+      },
+      {
+        "key": "fourthDownEff",
+        "label": "Cuartas oportunidades",
+        "home": "0-1",
+        "away": "0-3"
+      },
+      {
+        "key": "redZoneAttempts",
+        "label": "Zona roja",
+        "home": "1-4",
+        "away": "0-3"
+      },
+      {
+        "key": "turnovers",
+        "label": "Pérdidas de balón",
+        "home": "2",
+        "away": "2"
+      },
+      {
+        "key": "interceptions",
+        "label": "Intercepciones lanzadas",
+        "home": "1",
+        "away": "1"
+      },
+      {
+        "key": "fumblesLost",
+        "label": "Balones sueltos perdidos",
+        "home": "1",
+        "away": "1"
+      },
+      {
+        "key": "sacksYardsLost",
+        "label": "Capturas recibidas (yardas)",
+        "home": "0-0",
+        "away": "4-18"
+      },
+      {
+        "key": "totalPenaltiesYards",
+        "label": "Castigos (yardas)",
+        "home": "8-89",
+        "away": "7-59"
+      },
+      {
+        "key": "possessionTime",
+        "label": "Tiempo de posesión",
+        "home": "30:26",
+        "away": "29:34"
+      }
+    ],
+    "events": [
+      {
+        "minute": 3,
+        "side": "home",
+        "kind": "goal",
+        "label": "Gol de campo · 3-0"
+      },
+      {
+        "minute": 7,
+        "side": "home",
+        "kind": "goal",
+        "label": "Touchdown · 9-0"
+      },
+      {
+        "minute": 13,
+        "side": "away",
+        "kind": "goal",
+        "label": "Gol de campo · 9-3"
+      },
+      {
+        "minute": 28,
+        "side": "home",
+        "kind": "goal",
+        "label": "Touchdown · 16-3"
+      },
+      {
+        "minute": 29,
+        "side": "home",
+        "kind": "goal",
+        "label": "Gol de campo · 19-3"
+      },
+      {
+        "minute": 34,
+        "side": "away",
+        "kind": "goal",
+        "label": "Gol de campo · 19-6"
+      },
+      {
+        "minute": 56,
+        "side": "home",
+        "kind": "goal",
+        "label": "Gol de campo · 22-6"
+      }
+    ],
+    "momentum": [
+      {
+        "minute": 3,
+        "home": 3,
+        "away": 0
+      },
+      {
+        "minute": 7,
+        "home": 6,
+        "away": 0
+      },
+      {
+        "minute": 13,
+        "home": 0,
+        "away": 3
+      },
+      {
+        "minute": 28,
+        "home": 7,
+        "away": 0
+      },
+      {
+        "minute": 29,
+        "home": 3,
+        "away": 0
+      },
+      {
+        "minute": 34,
+        "home": 0,
+        "away": 3
+      },
+      {
+        "minute": 56,
+        "home": 3,
+        "away": 0
+      }
+    ]
+  }
+}

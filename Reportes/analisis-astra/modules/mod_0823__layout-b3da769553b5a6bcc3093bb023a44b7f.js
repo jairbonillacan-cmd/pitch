@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Arimo_600SemiBold.d39c110135b2d9a08ce628df62d7a30e.woff2"},823,[]);

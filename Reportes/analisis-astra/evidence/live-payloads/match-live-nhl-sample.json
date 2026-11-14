@@ -1,0 +1,378 @@
+[
+  {
+    "sport": "nhl",
+    "match_id": 2026020310,
+    "state": "final",
+    "elapsed": null,
+    "updated_at": "2026-11-14T09:58:00.783209+00:00",
+    "info": {
+      "venue": "Rogers Arena",
+      "period": 3,
+      "source": "NHL",
+      "momentum_method": "shots"
+    },
+    "statistics": [
+      {
+        "key": "sog",
+        "away": 31,
+        "home": 28,
+        "label": "Tiros a puerta"
+      },
+      {
+        "key": "faceoffWinningPctg",
+        "away": "40.4%",
+        "home": "59.6%",
+        "label": "Saques ganados"
+      },
+      {
+        "key": "faceoffWins",
+        "away": "21/52",
+        "home": "31/52",
+        "label": "Saques ganados / disputados"
+      },
+      {
+        "key": "powerPlay",
+        "away": "1/2",
+        "home": "0/4",
+        "label": "Power play"
+      },
+      {
+        "key": "powerPlayPctg",
+        "away": "50%",
+        "home": "0%",
+        "label": "Eficacia en power play"
+      },
+      {
+        "key": "pim",
+        "away": 8,
+        "home": 4,
+        "label": "Minutos de penalización"
+      },
+      {
+        "key": "hits",
+        "away": 21,
+        "home": 28,
+        "label": "Golpes"
+      },
+      {
+        "key": "blockedShots",
+        "away": 21,
+        "home": 10,
+        "label": "Tiros bloqueados"
+      },
+      {
+        "key": "giveaways",
+        "away": 12,
+        "home": 12,
+        "label": "Pérdidas"
+      },
+      {
+        "key": "takeaways",
+        "away": 3,
+        "home": 8,
+        "label": "Recuperaciones"
+      }
+    ],
+    "events": [
+      {
+        "kind": "penalty",
+        "side": "away",
+        "label": "Penalización",
+        "minute": 6
+      },
+      {
+        "kind": "goal",
+        "side": "home",
+        "label": "Gol",
+        "minute": 12
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "label": "Gol",
+        "minute": 18
+      },
+      {
+        "kind": "penalty",
+        "side": "away",
+        "label": "Penalización",
+        "minute": 23
+      },
+      {
+        "kind": "penalty",
+        "side": "home",
+        "label": "Penalización",
+        "minute": 26
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "label": "Gol",
+        "minute": 28
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "label": "Gol",
+        "minute": 33
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "label": "Gol",
+        "minute": 35
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "label": "Gol",
+        "minute": 36
+      },
+      {
+        "kind": "penalty",
+        "side": "away",
+        "label": "Penalización",
+        "minute": 43
+      },
+      {
+        "kind": "penalty",
+        "side": "home",
+        "label": "Penalización",
+        "minute": 47
+      },
+      {
+        "kind": "penalty",
+        "side": "away",
+        "label": "Penalización",
+        "minute": 49
+      }
+    ],
+    "momentum": [
+      {
+        "away": 4,
+        "home": 3,
+        "minute": 0
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 1
+      },
+      {
+        "away": 2,
+        "home": 2,
+        "minute": 2
+      },
+      {
+        "away": 1,
+        "home": 2,
+        "minute": 3
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 4
+      },
+      {
+        "away": 2,
+        "home": 1,
+        "minute": 5
+      },
+      {
+        "away": 0,
+        "home": 1,
+        "minute": 7
+      },
+      {
+        "away": 2,
+        "home": 2,
+        "minute": 11
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 12
+      },
+      {
+        "away": 2,
+        "home": 2,
+        "minute": 14
+      },
+      {
+        "away": 6,
+        "home": 2,
+        "minute": 15
+      },
+      {
+        "away": 0,
+        "home": 3,
+        "minute": 16
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 18
+      },
+      {
+        "away": 0,
+        "home": 3,
+        "minute": 19
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 20
+      },
+      {
+        "away": 6,
+        "home": 0,
+        "minute": 21
+      },
+      {
+        "away": 2,
+        "home": 3,
+        "minute": 22
+      },
+      {
+        "away": 0,
+        "home": 1,
+        "minute": 23
+      },
+      {
+        "away": 0,
+        "home": 1,
+        "minute": 24
+      },
+      {
+        "away": 3,
+        "home": 2,
+        "minute": 25
+      },
+      {
+        "away": 1,
+        "home": 1,
+        "minute": 26
+      },
+      {
+        "away": 5,
+        "home": 0,
+        "minute": 28
+      },
+      {
+        "away": 3,
+        "home": 0,
+        "minute": 29
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 33
+      },
+      {
+        "away": 1,
+        "home": 2,
+        "minute": 34
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 35
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 36
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 38
+      },
+      {
+        "away": 0,
+        "home": 7,
+        "minute": 40
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 41
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 43
+      },
+      {
+        "away": 0,
+        "home": 3,
+        "minute": 44
+      },
+      {
+        "away": 2,
+        "home": 2,
+        "minute": 45
+      },
+      {
+        "away": 4,
+        "home": 0,
+        "minute": 46
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 47
+      },
+      {
+        "away": 2,
+        "home": 0,
+        "minute": 48
+      },
+      {
+        "away": 3,
+        "home": 0,
+        "minute": 49
+      },
+      {
+        "away": 0,
+        "home": 3,
+        "minute": 50
+      },
+      {
+        "away": 0,
+        "home": 4,
+        "minute": 51
+      },
+      {
+        "away": 4,
+        "home": 1,
+        "minute": 52
+      },
+      {
+        "away": 1,
+        "home": 1,
+        "minute": 53
+      },
+      {
+        "away": 0,
+        "home": 4,
+        "minute": 54
+      },
+      {
+        "away": 0,
+        "home": 2,
+        "minute": 56
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "minute": 57
+      },
+      {
+        "away": 2,
+        "home": 2,
+        "minute": 58
+      }
+    ]
+  }
+]

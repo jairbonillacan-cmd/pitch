@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";e.__esModule=!0,e.default=void 0;var t=r(d[0]),s={registerAsset:t.registerAsset,getAssetByID:t.getAssetByID};e.default=s;m.exports=e.default},923,[924]);

@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),e.useAssets=function(u){const[c,n]=(0,t.useState)(),[o,f]=(0,t.useState)();return(0,t.useEffect)(()=>{s.Asset.loadAsync(u).then(n).catch(f)},[]),[c,o]};var t=r(d[0]),s=r(d[1])},813,[12,803]);

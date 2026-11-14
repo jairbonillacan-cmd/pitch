@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Figtree_400Regular_Italic.2ba6eb85f2edffb444a2aaa318c566e0.woff2"},828,[]);

@@ -1,0 +1,812 @@
+{
+  "metadata": {
+    "target": "Astra AI (https://astraanalisis.com/)",
+    "legal_owner": "Astra Analysis",
+    "legal_updated_notice": "Última actualización: 20 de octubre de 2026",
+    "analysis_methodology": "100% static JavaScript/Metro bundle analysis (25 chunks, 286 modules) + passive REA browser scenario capture inspection",
+    "security_compliance": {
+      "admin_endpoints_invoked": false,
+      "destructive_endpoints_invoked": false,
+      "rls_bypass_attempted": false,
+      "credentials_or_session_jwts_stored": false,
+      "publishable_key_partially_redacted": true
+    },
+    "rea_evidence_sources": [
+      {
+        "file": "Reportes/analisis-astra/raw/01-landing-capture.json",
+        "evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+        "derived_environment_manifest_view_id": "ev_56aa2d7c5b4019cb1248ab8fa63f39055c7f42f1e0a405b83390c196855bb432"
+      },
+      {
+        "file": "Reportes/analisis-astra/raw/02-authenticated-tour.json",
+        "evidence_id": "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6"
+      },
+      {
+        "file": "Reportes/analisis-astra/raw/03-futbol-summary.json",
+        "evidence_id": "ev_fc43c6696ef7a62da591fe98b66a05d96f17be9fcbb4d51ab6e6d9c4c60b57d3"
+      },
+      {
+        "file": "Reportes/analisis-astra/raw/rea-evidence-bundle.json",
+        "js_application_evidence_id": "ev_87d52f5c34a65dd9f3669f452fc3fd0e3cbb89aa735d2471899965d48008996e",
+        "derived_summary_view_id": "ev_2744fc1f92054aec44d95f63967705876973dd057392eda4779cee8c43db9559"
+      }
+    ]
+  },
+  "infrastructure": {
+    "canonical_site_url": "https://astraanalisis.com",
+    "redirect_hosts": [
+      "astra-ai.expo.app",
+      "www.astraanalisis.com"
+    ],
+    "origin_hosting": "Expo / EAS Hosting (astra-ai.expo.app)",
+    "cloudflare": {
+      "edge_protocol": "h3",
+      "rum_script_url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+      "rum_beacon_endpoint": "https://astraanalisis.com/cdn-cgi/rum?",
+      "rum_site_token": "a2e12c4123a6420ca4eb3f4855145537",
+      "rum_beacon_version": "2024.11.0",
+      "rum_js_version": "2026.10.1",
+      "rum_spa_mode": 2,
+      "observed_response_header_names": [
+        "access-control-allow-origin",
+        "alt-svc",
+        "cache-control",
+        "cf-cache-status",
+        "cf-ray",
+        "content-encoding",
+        "content-type",
+        "date",
+        "etag",
+        "link",
+        "nel",
+        "priority",
+        "referrer-policy",
+        "report-to",
+        "server",
+        "server-timing",
+        "vary",
+        "x-content-type-options"
+      ]
+    },
+    "preconnect_origins": [
+      "https://bbfjdshvlcynngjdkvsk.supabase.co",
+      "https://media.api-sports.io"
+    ],
+    "asset_cdns_by_sport": {
+      "futbol": "https://media.api-sports.io",
+      "nhl": "https://assets.nhle.com/logos/nhl/svg/{ABBREV}_dark.svg",
+      "mlb": "https://www.mlbstatic.com/team-logos/{TEAM_ID}.svg",
+      "nba": "https://a.espncdn.com/i/teamlogos/nba/500-dark/{abbrev}.png",
+      "nfl": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/{abbrev}.png"
+    },
+    "declared_subprocessors": [
+      "Supabase",
+      "Expo",
+      "Resend",
+      "Stripe",
+      "Mercado Pago",
+      "Google",
+      "Apple",
+      "RevenueCat",
+      "Anthropic Claude"
+    ]
+  },
+  "supabase_client": {
+    "module_id": 778,
+    "sdk_module_id": 936,
+    "sdk_package": "@supabase/supabase-js",
+    "sdk_version": "2.118.0",
+    "gotrue_api_version": "2024-01-01",
+    "project_ref": "bbfjdshvlcynngjdkvsk",
+    "project_url": "https://bbfjdshvlcynngjdkvsk.supabase.co",
+    "publishable_key_redacted": "sb_publishable_MgTkWL...<REDACTED>...Wdlx",
+    "publishable_key_format": {
+      "prefix": "sb_publishable_",
+      "length": 46,
+      "is_jwt": false,
+      "functions_omit_apikey_as_bearer": true
+    },
+    "demo_mode_enabled": false,
+    "realtime_websockets_used": false,
+    "auth_config": {
+      "storage": "@react-native-async-storage/async-storage (window.localStorage on web)",
+      "storage_key": "sb-bbfjdshvlcynngjdkvsk-auth-token",
+      "persistSession": true,
+      "autoRefreshToken": true,
+      "detectSessionInUrl": false,
+      "defaultFlowType": "implicit",
+      "manualUrlCallbackRoutes": {
+        "/confirmado": {
+          "module_id": 756,
+          "behavior": "Checks #error or ?error, cleans URL via history.replaceState, prompts login"
+        },
+        "/restablecer": {
+          "module_id": 767,
+          "behavior": "Supports both Implicit (#access_token + #refresh_token -> auth.setSession) and PKCE (?code -> auth.exchangeCodeForSession), cleans URL, calls auth.updateUser({ password }), then auth.signOut()"
+        }
+      },
+      "signup_metadata": {
+        "fields": [
+          "display_name",
+          "birth_date"
+        ],
+        "birth_date_format": "YYYY-MM-DD",
+        "server_age_gate": "PostgreSQL trigger on auth.users enforces age >= 18; client maps /database error saving new user/i to 'Astra AI es solo para mayores de 18 años.'",
+        "trial_activation": "7-day trial stamped upon email_confirmed_at"
+      }
+    },
+    "client_local_storage_keys": [
+      "sb-bbfjdshvlcynngjdkvsk-auth-token",
+      "astra.pinnedLeagues",
+      "astra.followed-matches.v1"
+    ],
+    "observed_gateway_response_headers": [
+      "sb-gateway-version",
+      "sb-project-ref",
+      "sb-request-id",
+      "sb-jwt-alg",
+      "sb-jwt-iss",
+      "sb-jwt-sub",
+      "sb-auth-refresh-token-prefix",
+      "sb-auth-session-id",
+      "sb-auth-user-id",
+      "strict-transport-security",
+      "x-envoy-attempt-count",
+      "x-envoy-upstream-service-time"
+    ]
+  },
+  "postgresql_schema": {
+    "tables": {
+      "leagues": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": false,
+        "embedded_via": [
+          "fixtures.league:leagues!inner"
+        ],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "id"
+        ],
+        "columns": {
+          "id": { "type": "int4", "nullable": false, "description": "API-Sports league ID (e.g. 262 Liga MX, 140 LaLiga)" },
+          "name": { "type": "text", "nullable": false },
+          "country": { "type": "text", "nullable": true },
+          "logo": { "type": "text", "nullable": true },
+          "flag": { "type": "text", "nullable": true },
+          "sort_order": { "type": "int4", "nullable": false }
+        }
+      },
+      "teams": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": false,
+        "embedded_via": [
+          "fixtures.home:teams!fixtures_home_id_fkey",
+          "fixtures.away:teams!fixtures_away_id_fkey",
+          "standings.team:teams",
+          "rpc:search_teams"
+        ],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "id"
+        ],
+        "columns": {
+          "id": { "type": "int4", "nullable": false, "description": "API-Sports team ID" },
+          "name": { "type": "text", "nullable": false },
+          "logo": { "type": "text", "nullable": true }
+        }
+      },
+      "fixtures": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": true,
+        "modules": [776, 835, 866],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "id"
+        ],
+        "foreign_keys": [
+          { "constraint": "fixtures_league_id_fkey (inferred, !inner)", "columns": ["league_id"], "references": "leagues(id)" },
+          { "constraint": "fixtures_home_id_fkey", "columns": ["home_id"], "references": "teams(id)" },
+          { "constraint": "fixtures_away_id_fkey", "columns": ["away_id"], "references": "teams(id)" }
+        ],
+        "columns": {
+          "id": { "type": "int8", "nullable": false, "description": "API-Sports fixture ID (e.g. 1550951, 1528974)" },
+          "league_id": { "type": "int4", "nullable": false },
+          "season": { "type": "int4", "nullable": true },
+          "home_id": { "type": "int4", "nullable": false },
+          "away_id": { "type": "int4", "nullable": false },
+          "kickoff": { "type": "timestamptz", "nullable": false },
+          "status": {
+            "type": "text",
+            "nullable": true,
+            "enum_observed": ["NS", "TBD", "1H", "HT", "2H", "ET", "BT", "P", "INT", "LIVE", "FT", "AET", "PEN", "PST", "CANC", "ABD", "SUSP"]
+          },
+          "elapsed": { "type": "int4", "nullable": true },
+          "round": { "type": "text", "nullable": true },
+          "venue": { "type": "text", "nullable": true },
+          "referee": { "type": "text", "nullable": true },
+          "home_goals": { "type": "int4", "nullable": true },
+          "away_goals": { "type": "int4", "nullable": true },
+          "ft_home": { "type": "int4", "nullable": true, "description": "90-minute goals used when status in ('AET','PEN')" },
+          "ft_away": { "type": "int4", "nullable": true, "description": "90-minute goals used when status in ('AET','PEN')" },
+          "forecast_ready": { "type": "bool", "nullable": false },
+          "analysis_ready": { "type": "bool", "nullable": false }
+        }
+      },
+      "match_marks": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": false,
+        "embedded_via": [
+          "fixtures.mark:match_marks(label)"
+        ],
+        "cardinality": "1:1 with fixtures",
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "fixture_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "match_marks_fixture_id_fkey", "columns": ["fixture_id"], "references": "fixtures(id)" }
+        ],
+        "columns": {
+          "fixture_id": { "type": "int8", "nullable": false },
+          "label": { "type": "text", "nullable": false }
+        }
+      },
+      "predictions": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": true,
+        "modules": [776, 784, 866, 1025, 1029],
+        "cardinality": "1:1 with fixtures",
+        "rls_read_access": "entitled_users_only (has_access = true; returns null in embedded join otherwise)",
+        "primary_key": [
+          "fixture_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "predictions_fixture_id_fkey", "columns": ["fixture_id"], "references": "fixtures(id)" }
+        ],
+        "columns": {
+          "fixture_id": { "type": "int8", "nullable": false },
+          "model_mode": { "type": "text", "nullable": true, "example": "league_v2" },
+          "lambda_home": { "type": "float8", "nullable": false },
+          "lambda_away": { "type": "float8", "nullable": false },
+          "p_home": { "type": "float8", "nullable": false },
+          "p_draw": { "type": "float8", "nullable": false },
+          "p_away": { "type": "float8", "nullable": false },
+          "over_05": { "type": "float8", "nullable": true },
+          "over_15": { "type": "float8", "nullable": true },
+          "over_25": { "type": "float8", "nullable": true },
+          "btts": { "type": "float8", "nullable": true },
+          "corners_home": { "type": "float8", "nullable": true },
+          "corners_away": { "type": "float8", "nullable": true },
+          "corners_total": { "type": "float8", "nullable": true },
+          "fouls_home": { "type": "float8", "nullable": true },
+          "fouls_away": { "type": "float8", "nullable": true },
+          "fouls_total": { "type": "float8", "nullable": true },
+          "context": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": {
+              "home_ratings": {
+                "goals_for_vs_avg_opponent": "number",
+                "goals_against_vs_avg_opponent": "number",
+                "corners_for_vs_avg": "number",
+                "corners_against_vs_avg": "number",
+                "fouls_for_vs_avg": "number",
+                "fouls_against_vs_avg": "number",
+                "shots_for_vs_avg": "number",
+                "shots_on_target_for_vs_avg": "number",
+                "yellow_cards_for_vs_avg": "number",
+                "matches_current": "number",
+                "matches_previous": "number"
+              },
+              "away_ratings": "same as home_ratings"
+            }
+          },
+          "generated_at": { "type": "timestamptz", "nullable": false }
+        }
+      },
+      "analyses": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": false,
+        "embedded_via": [
+          "fixtures.analysis:analyses(sections,created_at)"
+        ],
+        "cardinality": "1:1 with fixtures",
+        "rls_read_access": "entitled_users_only (has_access = true)",
+        "primary_key": [
+          "fixture_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "analyses_fixture_id_fkey", "columns": ["fixture_id"], "references": "fixtures(id)" }
+        ],
+        "columns": {
+          "fixture_id": { "type": "int8", "nullable": false },
+          "sections": {
+            "type": "jsonb",
+            "nullable": false,
+            "json_schema": {
+              "resumen": "string",
+              "goles": "string",
+              "tiros_de_esquina": "string (optional)",
+              "faltas": "string (optional)",
+              "corners_faltas": "string (legacy fallback)",
+              "contexto": "string",
+              "a_tener_en_cuenta": "string"
+            }
+          },
+          "created_at": { "type": "timestamptz", "nullable": false }
+        }
+      },
+      "standings": {
+        "schema": "public",
+        "domain": "futbol",
+        "direct_from_query": true,
+        "modules": [1021],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "league_id",
+          "season",
+          "group_name",
+          "team_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "standings_league_id_fkey", "columns": ["league_id"], "references": "leagues(id)" },
+          { "constraint": "standings_team_id_fkey", "columns": ["team_id"], "references": "teams(id)" }
+        ],
+        "columns": {
+          "league_id": { "type": "int4", "nullable": false },
+          "season": { "type": "int4", "nullable": false },
+          "group_name": { "type": "text", "nullable": true },
+          "team_id": { "type": "int4", "nullable": false },
+          "rank": { "type": "int4", "nullable": false },
+          "played": { "type": "int4", "nullable": false },
+          "goal_diff": { "type": "int4", "nullable": false },
+          "points": { "type": "int4", "nullable": false }
+        }
+      },
+      "sport_teams": {
+        "schema": "public",
+        "domain": "multi_sport (nhl, nba, nfl, mlb)",
+        "direct_from_query": true,
+        "modules": [1011],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "sport",
+          "id"
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false, "enum": ["nhl", "nba", "nfl", "mlb"] },
+          "id": { "type": "int4", "nullable": false, "description": "Provider native team ID (NHL / ESPN / MLB)" },
+          "name": { "type": "text", "nullable": false },
+          "abbrev": { "type": "text", "nullable": false },
+          "logo": { "type": "text", "nullable": true }
+        }
+      },
+      "games": {
+        "schema": "public",
+        "domain": "multi_sport (nhl, nba, nfl, mlb)",
+        "direct_from_query": true,
+        "modules": [1011, 835, 866],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "sport",
+          "id"
+        ],
+        "foreign_keys": [
+          { "constraint": "games_home_fkey", "columns": ["sport", "home_id"], "references": "sport_teams(sport, id)" },
+          { "constraint": "games_away_fkey", "columns": ["sport", "away_id"], "references": "sport_teams(sport, id)" }
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false, "enum": ["nhl", "nba", "nfl", "mlb"] },
+          "id": { "type": "int8", "nullable": false, "description": "Provider native game ID (e.g. NHL 2026020310, ESPN NBA 401909296)" },
+          "league": { "type": "text", "nullable": false },
+          "home_id": { "type": "int4", "nullable": false },
+          "away_id": { "type": "int4", "nullable": false },
+          "start_time": { "type": "timestamptz", "nullable": false },
+          "status": { "type": "text", "nullable": false, "enum_observed": ["upcoming", "live", "final", "postponed"] },
+          "detail": { "type": "text", "nullable": true },
+          "home_score": { "type": "int4", "nullable": true },
+          "away_score": { "type": "int4", "nullable": true },
+          "venue": { "type": "text", "nullable": true },
+          "forecast_ready": { "type": "bool", "nullable": false },
+          "analysis_ready": { "type": "bool", "nullable": false }
+        }
+      },
+      "game_predictions": {
+        "schema": "public",
+        "domain": "multi_sport (nhl, nba, nfl, mlb)",
+        "direct_from_query": true,
+        "modules": [1011, 866, 867, 1029],
+        "cardinality": "1:1 with games",
+        "rls_read_access": "entitled_users_only (has_access = true)",
+        "primary_key": [
+          "sport",
+          "game_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "game_predictions_sport_game_id_fkey", "columns": ["sport", "game_id"], "references": "games(sport, id)" }
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false },
+          "game_id": { "type": "int8", "nullable": false },
+          "rows": { "type": "jsonb", "nullable": false, "json_schema": "Array<{ label: string, value: string }>" },
+          "win": { "type": "jsonb", "nullable": false, "json_schema": "{ title: string, home: number, draw: null, away: number }" },
+          "context": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": {
+              "nhl": "digest.fuerza_por_60_min.{home|away}.{ev5_xgf60, ev5_xga60, sog_for, sog_against, pp_xgf60, pk_xga60}",
+              "nba": "digest.ratings.{home|away}.{off, def, net, elo}",
+              "nfl": "digest.ratings.{home|away}.{ataque_puntos, defensa_puntos_evitados|defensa_puntos, epa_ataque_por_jugada, epa_evitado_por_jugada|epa_defensa_por_jugada, elo}",
+              "mlb": "digest.{local|visita}.{wOBA, bullpen: { FIP }}"
+            }
+          },
+          "is_retrospective": { "type": "bool", "nullable": false },
+          "generated_at": { "type": "timestamptz", "nullable": false }
+        }
+      },
+      "game_analyses": {
+        "schema": "public",
+        "domain": "multi_sport (nhl, nba, nfl, mlb)",
+        "direct_from_query": false,
+        "embedded_via": [
+          "games.analysis:game_analyses(sections,created_at,is_retrospective)"
+        ],
+        "cardinality": "1:1 with games",
+        "rls_read_access": "entitled_users_only (has_access = true)",
+        "primary_key": [
+          "sport",
+          "game_id"
+        ],
+        "foreign_keys": [
+          { "constraint": "game_analyses_sport_game_id_fkey", "columns": ["sport", "game_id"], "references": "games(sport, id)" }
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false },
+          "game_id": { "type": "int8", "nullable": false },
+          "sections": { "type": "jsonb", "nullable": false, "json_schema": "Array<{ titulo: string, texto: string }>" },
+          "is_retrospective": { "type": "bool", "nullable": false },
+          "created_at": { "type": "timestamptz", "nullable": false }
+        }
+      },
+      "astra_picks": {
+        "schema": "public",
+        "domain": "all_sports",
+        "direct_from_query": true,
+        "modules": [1010],
+        "rls_read_access": "entitled_users_only (has_access = true)",
+        "primary_key": [
+          "sport",
+          "match_id"
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false, "enum": ["futbol", "nhl", "nba", "nfl", "mlb"] },
+          "match_id": { "type": "int8", "nullable": false },
+          "pick": { "type": "text", "nullable": false }
+        }
+      },
+      "match_live": {
+        "schema": "public",
+        "domain": "all_sports",
+        "direct_from_query": true,
+        "modules": [1015, 835, 869],
+        "rls_read_access": "public (anon + authenticated)",
+        "primary_key": [
+          "sport",
+          "match_id"
+        ],
+        "columns": {
+          "sport": { "type": "text", "nullable": false },
+          "match_id": { "type": "int8", "nullable": false },
+          "state": { "type": "text", "nullable": true },
+          "elapsed": { "type": "int4", "nullable": true },
+          "updated_at": { "type": "timestamptz", "nullable": true },
+          "info": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": "{ source, venue, city, country, weather, referee, officials, referee_country_code, referee_nationality, referee_averages: { red, yellow, games } }"
+          },
+          "statistics": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": "Array<{ key: string, label: string, home: string|number|null, away: string|number|null }>"
+          },
+          "events": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": "Array<{ minute: number|null, extra?: number|null, side: 'home'|'away', kind: 'goal'|'red'|'yellow'|'sub'|'var'|string, injury?: boolean, label?: string }>"
+          },
+          "momentum": {
+            "type": "jsonb",
+            "nullable": true,
+            "json_schema": "Array<{ minute: number, start?: number|null, home: number, away: number }>"
+          }
+        }
+      },
+      "profiles": {
+        "schema": "public",
+        "domain": "users",
+        "direct_from_query": true,
+        "modules": [834, 859],
+        "rls_read_access": "owner_only (auth.uid() = id)",
+        "rls_write_access": "owner_update_only (display_name, avatar_path)",
+        "primary_key": [
+          "id"
+        ],
+        "foreign_keys": [
+          { "constraint": "profiles_id_fkey", "columns": ["id"], "references": "auth.users(id) ON DELETE CASCADE" }
+        ],
+        "columns": {
+          "id": { "type": "uuid", "nullable": false },
+          "display_name": { "type": "text", "nullable": true, "validation": "1..60 chars, no ASCII control chars" },
+          "avatar_path": { "type": "text", "nullable": true, "format": "<uuid_lowercase>/avatar.jpg" },
+          "created_at": { "type": "timestamptz", "nullable": false }
+        }
+      }
+    },
+    "inferred_internal_backend_tables": {
+      "orders_or_payments": {
+        "provenance": "Inferred from Edge Function 'payments' + static client reading of 'admin_dashboard' (mod 755) + 'delete-account' (mod 758)",
+        "retention_policy": "Retained on account deletion with user_id/email anonymized to NULL ('Cuenta eliminada') for Mexican tax compliance",
+        "columns_inferred": [
+          "id",
+          "user_id (ON DELETE SET NULL)",
+          "provider ('stripe' | 'mercadopago' | store)",
+          "status ('created' | 'pending' | 'paid' | 'approved' | 'failed' | 'expired' | 'refunded' | 'cancelled')",
+          "amount_mxn (numeric, nullable for native IAP)",
+          "is_test (boolean)",
+          "created_at",
+          "paid_at"
+        ]
+      },
+      "ai_views_or_activity": {
+        "provenance": "Inferred from RPC 'record_ai_view' (mod 1017) + static client reading of 'admin_dashboard' (mod 755)",
+        "deduplication": "1 row per (user_id, sport, match_id) per 30-minute window; authenticated users only",
+        "columns_inferred": [
+          "user_id",
+          "sport",
+          "match_id",
+          "viewed_at"
+        ]
+      }
+    }
+  },
+  "storage_buckets": {
+    "profile-avatars": {
+      "public": false,
+      "modules": [834, 859, 860],
+      "object_path_pattern": "{user_id_lowercase}/avatar.jpg",
+      "client_validation": {
+        "user_id_regex": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "max_base64_chars": 2800000,
+        "max_binary_bytes": 2097152,
+        "required_magic_bytes": [255, 216, 255],
+        "mime_type": "image/jpeg"
+      },
+      "upload_options": {
+        "contentType": "image/jpeg",
+        "upsert": true,
+        "cacheControl": "60"
+      },
+      "signed_url": {
+        "expires_in_seconds": 3600,
+        "client_refresh_interval_ms": 2700000,
+        "cache_buster_query": "&v={Date.now()}"
+      }
+    }
+  },
+  "postgresql_rpcs": {
+    "my_access": {
+      "endpoint": "POST /rest/v1/rpc/my_access",
+      "module_id": 834,
+      "auth_required": false,
+      "polling_interval_ms": 300000,
+      "arguments": {},
+      "return_schema": {
+        "leagues": "number (live observed: 48)",
+        "is_admin": "boolean",
+        "livemode": "boolean (live observed: true)",
+        "logged_in": "boolean",
+        "price_mxn": "number (live observed: 199)",
+        "has_access": "boolean",
+        "paid_until": "string | null",
+        "trial_days": "number (live observed: 7)",
+        "trial_ends_at": "string | null",
+        "period_days": "number (live observed: 30)",
+        "contact_email": "string (live observed: 'eliasgutierrezhr@gmail.com')",
+        "iap_product_id": "string (live observed: 'astra_30_dias')",
+        "iap_ios_key": "string | null (live observed: null)",
+        "iap_android_key": "string | null (live observed: null)"
+      }
+    },
+    "search_teams": {
+      "endpoint": "POST /rest/v1/rpc/search_teams",
+      "module_id": 776,
+      "auth_required": false,
+      "debounce_ms": 250,
+      "min_query_length": 2,
+      "arguments": {
+        "q": "string"
+      },
+      "return_schema": "Array<{ id: number, name: string, logo: string | null }>"
+    },
+    "record_ai_view": {
+      "endpoint": "POST /rest/v1/rpc/record_ai_view",
+      "module_id": 1017,
+      "auth_required": true,
+      "client_dedup_window_ms": 1800000,
+      "client_lru_max": 300,
+      "abort_timeout_ms": 4000,
+      "arguments": {
+        "p_sport": "'futbol' | 'nhl' | 'nba' | 'nfl' | 'mlb'",
+        "p_match_id": "number"
+      },
+      "return_schema": "void"
+    },
+    "admin_dashboard": {
+      "provenance": "100% OBSERVADO en código cliente estático (mod 755 administracion.tsx y mod 839); jamás invocado en red",
+      "endpoint": "POST /rest/v1/rpc/admin_dashboard",
+      "module_ids": [755, 839],
+      "owner_email_gate": "eliasgutierrezhr@gmail.com",
+      "server_error_codes_handled": ["42501", "PGRST301"],
+      "max_page_cap": 400,
+      "display_timezone": "America/Mexico_City",
+      "arguments": {
+        "p_section": "'overview' | 'accounts' | 'activity' | 'purchases'",
+        "p_page": "number (1-based)",
+        "p_search": "string (max 100 chars)"
+      },
+      "return_schema_by_section": {
+        "overview": {
+          "accounts": "number",
+          "confirmed": "number",
+          "new_today": "number",
+          "signed_in_today": "number",
+          "ai_views_today": "number",
+          "ai_users_today": "number",
+          "active_subscriptions": "number",
+          "paid_orders": "number",
+          "revenue_mxn": "number",
+          "daily": "Array<{ day: string, registrations: number, ai_views: number }> (14 days)",
+          "ai_by_sport": "Array<{ sport: string, views: number }> (30 days)",
+          "tracking_since": "string",
+          "generated_at": "string"
+        },
+        "accounts": {
+          "total": "number",
+          "page": "number",
+          "page_size": "number",
+          "rows": "Array<{ id: string, display_name: string|null, email: string, email_confirmed_at: string|null, created_at: string|null, last_sign_in_at: string|null, trial_ends_at: string|null, paid_until: string|null, ai_views_30d: number, last_ai_view: string|null }>"
+        },
+        "activity": {
+          "total": "number",
+          "page": "number",
+          "page_size": "number",
+          "rows": "Array<{ user_id: string, email: string, sport: string, match_id: number, match_name: string|null, viewed_at: string }>"
+        },
+        "purchases": {
+          "total": "number",
+          "page": "number",
+          "page_size": "number",
+          "rows": "Array<{ id: string, email: string|null, amount_mxn: number|null, status: string, is_test: boolean, provider: string, created_at: string|null, paid_at: string|null }>"
+        }
+      }
+    }
+  },
+  "edge_functions": {
+    "league-standings": {
+      "endpoint": "POST /functions/v1/league-standings",
+      "module_ids": [1021, 1020],
+      "auth_required": false,
+      "client_refresh_ms": 300000,
+      "invocation_condition": "Upcoming/postponed matches; fallback when public.standings is empty for football, primary source for nhl/nba/nfl/mlb",
+      "request_schema": {
+        "futbol": { "sport": "futbol", "league_id": "number", "season": "number" },
+        "other_sports": { "sport": "'nhl' | 'nba' | 'nfl' | 'mlb'" }
+      },
+      "response_schema": {
+        "groups": "Array<{ name: string, rows: Array<{ id: string, code?: string, name: string, logo: string|null, rank: number|null, played: number|null, difference?: number|string|null, points?: number|string|null, record?: string|null, percentage?: string|null }> }>"
+      }
+    },
+    "match-odds": {
+      "endpoint": "POST /functions/v1/match-odds",
+      "module_ids": [1023, 1022],
+      "auth_required": false,
+      "client_cache": { "lru_max": 300, "ttl_ms": 900000, "inflight_dedup": true },
+      "request_schema": {
+        "sport": "'futbol' | 'nhl' | 'nba' | 'nfl' | 'mlb'",
+        "match_id": "number"
+      },
+      "response_schema": {
+        "odds": "{ home: number (>1), draw: number (>1) | null (must be null when sport !== 'futbol'), away: number (>1) } | null"
+      }
+    },
+    "nba-players": {
+      "endpoint": "POST /functions/v1/nba-players",
+      "module_ids": [1027, 1026, 1028],
+      "auth_required": false,
+      "upstream_provider": "ESPN",
+      "client_cache": { "lru_max": 100, "ttl_live_ms": 60000, "ttl_final_ms": 300000, "inflight_dedup": true },
+      "request_schema": {
+        "match_id": "number"
+      },
+      "response_schema": {
+        "match_id": "number",
+        "state": "'live' | 'final' | string",
+        "updated_at": "string | null",
+        "teams": "Array<{ id: string|number, name: string, logo: string|null, players: Array<{ id: string|number, name: string, photo: string|null, jersey: string|null, position: string|null, starter: boolean|null, did_not_play: boolean, ejected: boolean, reason: string|null, stats: { minutes, points, rebounds, assists, steals, blocks, turnovers, fouls, offensiveRebounds, defensiveRebounds, plusMinus, fieldGoals, threePointers, freeThrows } }> }>"
+      }
+    },
+    "team-profile": {
+      "endpoint": "POST /functions/v1/team-profile",
+      "module_ids": [866, 865, 760],
+      "auth_required": false,
+      "client_cache": { "profile_lru_max": 100, "profile_ttl_ms": 120000 },
+      "modes": {
+        "team_summary_and_history": {
+          "request_schema": { "sport": "string", "team_id": "number", "page": "number (0-based)" },
+          "response_schema": {
+            "team": "{ id: number, name: string, logo: string|null }",
+            "summary": "{ games: number, metrics: Array<{ key: string, label: string, value: number|null, n?: number|null }> }",
+            "info": "{ venue: string|null, coach: string|null, country: string|null, city: string|null, founded: string|number|null }",
+            "history": "Array<{ id: number, kickoff: string, league: string, home: TeamRef, away: TeamRef, home_score: number|null, away_score: number|null, stored: boolean }>",
+            "has_more": "boolean",
+            "partial": "boolean (optional)",
+            "source": "string",
+            "updated_at": "string"
+          }
+        },
+        "historical_match_detail": {
+          "request_schema": { "sport": "string", "team_id": "number", "match_id": "number" },
+          "response_schema": {
+            "stored": "boolean",
+            "match": "{ id: number, kickoff: string, league: string, venue: string|null, home: TeamRef, away: TeamRef, home_score: number|null, away_score: number|null }",
+            "live": "MatchLiveRow | null"
+          }
+        }
+      }
+    },
+    "payments": {
+      "endpoint": "POST /functions/v1/payments",
+      "module_ids": [834, 863, 764],
+      "auth_required": true,
+      "business_model": "One-time prepaid 30-day cumulative pass ($199 MXN), non-recurring",
+      "actions": {
+        "checkout": {
+          "request_schema": { "action": "'checkout'", "provider": "'stripe' | 'mercadopago'" },
+          "response_schema": { "url": "string", "error": "string (optional)" }
+        },
+        "order_status": {
+          "request_schema": { "action": "'order_status'", "order_id": "string" },
+          "polling_behavior": "Every 3000 ms, max 20 attempts, aborts to error state after 3 consecutive network exceptions",
+          "response_schema": {
+            "status": "'paid' | 'pending' | 'created' | 'failed' | 'expired' | 'refunded'",
+            "duplicate": "boolean (optional)",
+            "paid_until": "string | null (optional)"
+          }
+        }
+      }
+    },
+    "iap-confirm": {
+      "endpoint": "POST /functions/v1/iap-confirm",
+      "module_ids": [834, 929],
+      "auth_required": true,
+      "upstream_provider": "RevenueCat (product: astra_30_dias)",
+      "request_schema": {},
+      "response_schema": "Reconciliation confirmation object or HTTP error { error: string }"
+    },
+    "delete-account": {
+      "endpoint": "POST /functions/v1/delete-account",
+      "module_ids": [834, 758],
+      "auth_required": true,
+      "ui_confirmation": "Requires typing 'ELIMINAR' + window.confirm",
+      "request_schema": {},
+      "response_schema": { "ok": true }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),Object.defineProperty(e,"resolveFetch",{enumerable:!0,get:function(){return t}});const t=t=>t?(...n)=>t(...n):(...t)=>fetch(...t)},941,[]);

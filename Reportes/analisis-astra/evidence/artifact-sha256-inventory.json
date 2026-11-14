@@ -1,0 +1,302 @@
+[
+  {
+    "relative_path": "app/[id]-1c9b77ff32fe4b75c1b5df98e4b4acc2.js",
+    "bytes": 9641,
+    "sha256": "24633ab7b1a398ccfa04a3ff3c9c9d77af7b8c5dc66b07ce831997166b162d06"
+  },
+  {
+    "relative_path": "app/[id]-640d8e37fab6cdee75166c44fc39efd5.js",
+    "bytes": 2919,
+    "sha256": "cd0c23a7845fea20d15b5f1e30a4c942b194fdb7523693de8018f4dffed98688"
+  },
+  {
+    "relative_path": "app/[id]-a7d7ec8ae26ff91045d9d5a83bfb5536.js",
+    "bytes": 705,
+    "sha256": "1137d1e34ea736728157ad40bf5bed431b22e44a5f161a5594fbb8cdf44ef1da"
+  },
+  {
+    "relative_path": "app/[id]-d958bd3185d181ad162a4cc99da35d2c.js",
+    "bytes": 929,
+    "sha256": "4247fa5cd96e86cf14679228c82ffa2a084f8f70b4e391beda3c2dac3a891561"
+  },
+  {
+    "relative_path": "app/[matchId]-bffa67a80cc9ec9e08ea55e97555b4e2.js",
+    "bytes": 5010,
+    "sha256": "2dfabcb5d7d852d29d8da2b6011606ae00c4f78ee95553a09e44fb9585af7df1"
+  },
+  {
+    "relative_path": "app/__common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+    "bytes": 662415,
+    "sha256": "c4a4cead00034bc5492bc041e4fdafa13bb057d5f9e58b9ac75e0c356c017492"
+  },
+  {
+    "relative_path": "app/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js",
+    "bytes": 3751,
+    "sha256": "80e3ab02b3bac22608cdf29a2e3cc1270616a695bbe479f7f500941e8d2bbe41"
+  },
+  {
+    "relative_path": "app/_layout-9e71532af65e3f948330147e2b7b16d2.js",
+    "bytes": 399,
+    "sha256": "c753d9cd12a830828bd4373fed8304883c9ab367c1218213c09ceffe693d72ae"
+  },
+  {
+    "relative_path": "app/_layout-b3da769553b5a6bcc3093bb023a44b7f.js",
+    "bytes": 38589,
+    "sha256": "ba86c397ba7c6ae85d0472322ccada83eaec70509bdb6890386e7292c7177c43"
+  },
+  {
+    "relative_path": "app/administracion-db0312943212c59d203e733a9a3ecfed.js",
+    "bytes": 11221,
+    "sha256": "94b440fd61491e82755ea64b7ff667972b4d257267b46b067478eb36860c61b2"
+  },
+  {
+    "relative_path": "app/confirmado-ea12a64b546d50dfee3ef1e3fbad2714.js",
+    "bytes": 1694,
+    "sha256": "9f65290681661577bc37fc35fe6dd37c5e1d0552559563dae7c84c4d5f6fa607"
+  },
+  {
+    "relative_path": "app/cuenta-6de60b93179704310df6552a70994b81.js",
+    "bytes": 37938,
+    "sha256": "9590f80cf74538a54c822e2006dd7daa90917bf025b5b7ab18eaa4b822f0283c"
+  },
+  {
+    "relative_path": "app/eliminar-cuenta-8b00a1afa1f45f3250627a9ca3154efc.js",
+    "bytes": 3138,
+    "sha256": "e99e40df1f59959322d7fb61a7ed72c18fef9692775c8756933b1f22a4bbf246"
+  },
+  {
+    "relative_path": "app/entry-2f163e0b9ce05e4953b73986af77f2b7.js",
+    "bytes": 1109576,
+    "sha256": "4a2898b1d46769bde7a43cd2a5f91bd89d39c203df11222ccd70a2ba22a4d98d"
+  },
+  {
+    "relative_path": "app/index-1423f7b5e0c45b7b203640adbdc42677.js",
+    "bytes": 17924,
+    "sha256": "0d61b1aa4bb889eadabdefff77023632827636808e026e063c532e241a91d117"
+  },
+  {
+    "relative_path": "app/index.html",
+    "bytes": 2492,
+    "sha256": "4be76fa6d2268b4e7e409fcb8ab560e1e7ce5948894fd1ff8b6923510fc5e7a7"
+  },
+  {
+    "relative_path": "app/instalar-0a3225cb4bb3206b7795b8e128e050ca.js",
+    "bytes": 1145,
+    "sha256": "08e1ded65d93fbea104aa0ec6f3d2a9063c345392aceef111ec795ee98db1d87"
+  },
+  {
+    "relative_path": "app/mlb-4d63e84434c3dbe316f6e762cf54c167.js",
+    "bytes": 370,
+    "sha256": "783e80cb8aa96c4d8bd1a2fbc8132df40810c20bcbcbf77bb36866d25d1ace9e"
+  },
+  {
+    "relative_path": "app/nba-be21dcd74fed6ac8380a1113c6326078.js",
+    "bytes": 370,
+    "sha256": "9627c359b1152bb8eeb3b23c43aad3821f43e7567bb0981ce9b0c30cf05a5ec7"
+  },
+  {
+    "relative_path": "app/nfl-eeea91192df42b63b6337f868b652d37.js",
+    "bytes": 370,
+    "sha256": "de83502abb98743e54b00f399548a764c8c85989a64faa402baac6ab68f1203e"
+  },
+  {
+    "relative_path": "app/nhl-35c5dcf527e2b32f27cbcd14d44d27ef.js",
+    "bytes": 370,
+    "sha256": "7c96ba03a3ce22694992d87ded4879908fb004c85796bbc5595f6ea28121b33d"
+  },
+  {
+    "relative_path": "app/nosotros-1087ff396845303a336510385643566a.js",
+    "bytes": 5419,
+    "sha256": "e8f00c5b1dc6aac5030683c3f9564d95f4386eb64bf43ede2baf360b332a5ef1"
+  },
+  {
+    "relative_path": "app/privacidad-ebdf8782b2c1e7d6e3ccaa3f6f362872.js",
+    "bytes": 4168,
+    "sha256": "aafb72411aa16565428dc62da6745034e89fbb27ec9683793e845883ef0ad3df"
+  },
+  {
+    "relative_path": "app/restablecer-ee313ddec28ef0dd0fb73115ff93f170.js",
+    "bytes": 2847,
+    "sha256": "80c76835a2d8f9389c8ec09726d1faeb8f5833ef5acb29f758eb65eec926fa9d"
+  },
+  {
+    "relative_path": "app/siguiendo-df598f9acb2b09505d43493f8aa5f151.js",
+    "bytes": 469,
+    "sha256": "0b348ae77c09cb24438cd97431bba11d4fd24df46357dced8b89615d9a1b5b57"
+  },
+  {
+    "relative_path": "app/terminos-cc492529fdf523d3fadb0c2fd1304f5c.js",
+    "bytes": 3136,
+    "sha256": "21952ae98e71ec65cbfba6d6a2f4c8e85d394320034c7b53030050da6d5e87f5"
+  },
+  {
+    "relative_path": "screenshots/01-home-futbol.png",
+    "bytes": 174251,
+    "sha256": "5c40a92f4044dde4d1951a1e52f87c8561a7930491e230d3b9760253eb5c85ce"
+  },
+  {
+    "relative_path": "screenshots/02-partido-pronostico-ia.png",
+    "bytes": 323489,
+    "sha256": "1b122a0bbf9a839cb35974535f042e59108b78871d153d14083344e221624ccc"
+  },
+  {
+    "relative_path": "screenshots/03-nba-juego-jugadores.png",
+    "bytes": 185339,
+    "sha256": "bb7340e66edf3527f3c9f28181544f12cdf79e0b8587fb055b6cc123b8fa94cf"
+  },
+  {
+    "relative_path": "screenshots/04-nhl-juego.png",
+    "bytes": 320508,
+    "sha256": "6014a5d0935659fcc3f55cac325827bbfaeec0ffef1311e51d822b237cfe01f0"
+  },
+  {
+    "relative_path": "screenshots/05-nfl-cartelera-o-juego.png",
+    "bytes": 375258,
+    "sha256": "e838472e3d30c489a8da6167b9044fff8376845ca143cd1448484da8dfd06305"
+  },
+  {
+    "relative_path": "screenshots/06-equipo-perfil.png",
+    "bytes": 74187,
+    "sha256": "123fa75d23195c91825327d114ed41513fdf6c80c0ddf2434008415f1d371b7a"
+  },
+  {
+    "relative_path": "screenshots/07-cuenta-acceso.png",
+    "bytes": 57999,
+    "sha256": "a487616ddc08f9ce38e5ed10ad6e9b2e13bb44103fb0979a438c98ac1679af71"
+  },
+  {
+    "relative_path": "screenshots/08-nosotros-metodologia.png",
+    "bytes": 110020,
+    "sha256": "e01ab495454586ee8f2d7190006663e77855f6419a2751cd4d7d7294c09e84ad"
+  },
+  {
+    "relative_path": "screenshots/09-futbol-finalizado-estadisticas-xg.png",
+    "bytes": 317829,
+    "sha256": "1b68ea7e2be0cfebc5701dfc3a75083a68b7fab8fb80ad2cc022a658fe09bf3b"
+  },
+  {
+    "relative_path": "screenshots/10-futbol-momento-partido.png",
+    "bytes": 315781,
+    "sha256": "f9d72e4bc8c5ce86b9418fb4ef3d4d834cef9c27f3736a4e9191b35892950719"
+  },
+  {
+    "relative_path": "screenshots/11-equipo-nfl-modelo-epa.png",
+    "bytes": 84568,
+    "sha256": "1d3a519a290eee3f069c99afefc55c2e3802dbbbc07d8aae6bb5213091ff2bc7"
+  },
+  {
+    "relative_path": "screenshots/12-mlb-temporada-baja.png",
+    "bytes": 90755,
+    "sha256": "d59958a96a3afa321c05cccf29ef89fc91fd66ed12839961da076974ac020869"
+  },
+  {
+    "relative_path": "screenshots/13-historial-nfl-externo.png",
+    "bytes": 200797,
+    "sha256": "b057171ae22c9a3e9a669f5284402428d30f89a595c2ceda909a2556dcb992bf"
+  },
+  {
+    "relative_path": "screenshots/14-equipo-mlb-dodgers.png",
+    "bytes": 70757,
+    "sha256": "47ab141dff406eb67b909b119a040ca9d414e10641fd17127708aa7e0f7efdf8"
+  },
+  {
+    "relative_path": "evidence/live-payloads/astra-pick-sample.json",
+    "bytes": 55,
+    "sha256": "aae54277b9da41a353f794df314bb1f59a49b40cda1680aa7fc2040bfd8ddc13"
+  },
+  {
+    "relative_path": "evidence/live-payloads/fixture-detail-sample.json",
+    "bytes": 6590,
+    "sha256": "bb6be484930e935f1cd51f003b96c9fc859c559178c894d8c0abdd3a54ada6d5"
+  },
+  {
+    "relative_path": "evidence/live-payloads/football-standings-sample.json",
+    "bytes": 4966,
+    "sha256": "f66771a7106e144a7124d93f96aee42341dc21947965518f994965f69d9452a1"
+  },
+  {
+    "relative_path": "evidence/live-payloads/historical-match-sample.json",
+    "bytes": 4493,
+    "sha256": "62d2fc71ba1c47008afa13a367553c2fbbe5ff2147827f945a7bc9b9bb76cbad"
+  },
+  {
+    "relative_path": "evidence/live-payloads/league-standings-sample.json",
+    "bytes": 10811,
+    "sha256": "57584bb73234e4de383ddea1c6e0869cb0210f73b4a1395eb51261306c0ace3e"
+  },
+  {
+    "relative_path": "evidence/live-payloads/match-live-futbol-sample.json",
+    "bytes": 10142,
+    "sha256": "15d2e39bac0aa20a9412c294c9f08932b16dcf703faf833282a1b3bf2e0d1adb"
+  },
+  {
+    "relative_path": "evidence/live-payloads/match-live-nhl-sample.json",
+    "bytes": 6398,
+    "sha256": "bb9153c7050f5352b29139f8556f46d3d3158e0b57c5cbd7b8f8695f0715f771"
+  },
+  {
+    "relative_path": "evidence/live-payloads/match-odds-sample.json",
+    "bytes": 188,
+    "sha256": "e61948495ede93798f2af75c17da1bca09e0ccd87e17e58593371b1689c00191"
+  },
+  {
+    "relative_path": "evidence/live-payloads/match-odds-us-sports-sample.json",
+    "bytes": 181,
+    "sha256": "133e3b29f001dbb0e0f8bd34fee5d3dd2577a00d9b482331fea7ac236599e536"
+  },
+  {
+    "relative_path": "evidence/live-payloads/mlb-team-profile-sample.json",
+    "bytes": 11194,
+    "sha256": "136fe2683ed890ffb44f7ceda23e65434868552ed897239313efa47b4185700b"
+  },
+  {
+    "relative_path": "evidence/live-payloads/my-access-sample.json",
+    "bytes": 376,
+    "sha256": "23c9cdf140a4b950eea74c230bcd597274b4735cb1eaeb7c5cc098974d387a6b"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nba-game-detail-sample.json",
+    "bytes": 2981,
+    "sha256": "8d6100b2e3eb677a9283008e77fb39c41cb6cae4056b61a6a758e9bcc7e8fbbd"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nba-model-context-sample.json",
+    "bytes": 4112,
+    "sha256": "4cf68d067b6e52a819b3923357631060ecb5102344420d5fd4fe9923415effc9"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nba-players-sample.json",
+    "bytes": 23027,
+    "sha256": "dbef746060830c8fcaadd5aa3b325fe9c45e0e26d0795070e8dc62b89f9a550c"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nfl-game-detail-sample.json",
+    "bytes": 2831,
+    "sha256": "f14dbaddf34b70ecf2315088b54dd9861a4eff58eee2462cec36f2b0f9e494d6"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nfl-model-context-sample.json",
+    "bytes": 6122,
+    "sha256": "eb9f98e0f315fa363ed8dcb4f8a1902bccf56b7c2827112f386404e7c12a7179"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nhl-game-detail-sample.json",
+    "bytes": 3106,
+    "sha256": "2d65081b108a1811df7fb7b21a0a46cf09254483e0f5dd3d1668a062bc70330a"
+  },
+  {
+    "relative_path": "evidence/live-payloads/nhl-model-context-sample.json",
+    "bytes": 4118,
+    "sha256": "b283914d4b4d4ea234937b9babb2593932eac95070d6c9835ac2b2e54b6cc060"
+  },
+  {
+    "relative_path": "evidence/live-payloads/public_model_samples.json",
+    "bytes": 171525,
+    "sha256": "419f7506ee85f47ca3bdc298e7673e19ed073cfec2d2816097d4c773b499d649"
+  },
+  {
+    "relative_path": "evidence/live-payloads/team-profile-sample.json",
+    "bytes": 12082,
+    "sha256": "363d8fed9a5e403d19a6b1b4cedc0b3f73123166609d51255b79115dd2e017a3"
+  }
+]

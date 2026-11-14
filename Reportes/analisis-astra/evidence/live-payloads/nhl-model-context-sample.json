@@ -1,0 +1,157 @@
+[
+  {
+    "game_id": 2026020312,
+    "context": {
+      "digest": {
+        "tipo": "temporada regular",
+        "avisos": [],
+        "partido": "Chicago Blackhawks vs Winnipeg Jets",
+        "descanso": {
+          "away": {
+            "back_to_back": false,
+            "last_game_id": 2026020306,
+            "hours_since_last_game": 43.5
+          },
+          "home": {
+            "back_to_back": false,
+            "last_game_id": 2026020305,
+            "hours_since_last_game": 43.5
+          }
+        },
+        "porteros": {
+          "local": {
+            "nombre": "Spencer Knight",
+            "origen": "most_starts",
+            "confirmado": false,
+            "factor_goles": 0.9871
+          },
+          "visita": {
+            "nombre": "Stuart Skinner",
+            "origen": "most_starts",
+            "confirmado": false,
+            "factor_goles": 0.9907
+          }
+        },
+        "pronostico": {
+          "tiros_a_puerta": {
+            "projected_away": 14.15,
+            "projected_home": 13.08,
+            "projected_total": 27.22
+          },
+          "goles_esperados": {
+            "away": 3.017,
+            "home": 2.689,
+            "total": 5.706,
+            "away_regulation": 2.907,
+            "home_regulation": 2.586
+          },
+          "tiempo_regular_pct": {
+            "away": 44,
+            "draw": 21,
+            "home": 34
+          },
+          "totales_mas_de_pct": {
+            "4.5": 72,
+            "5.0": 46,
+            "5.5": 46,
+            "6.0": 37,
+            "6.5": 37,
+            "7.0": 18,
+            "7.5": 18
+          },
+          "va_a_tiempo_extra_pct": 21,
+          "marcadores_mas_probables": [
+            {
+              "prob": 0.0739,
+              "score": "2-2"
+            },
+            {
+              "prob": 0.0619,
+              "score": "1-4"
+            },
+            {
+              "prob": 0.0564,
+              "score": "3-3"
+            }
+          ],
+          "gana_con_tiempo_extra_pct": {
+            "away": 55,
+            "home": 45
+          },
+          "ambos_anotan_tiempo_regular_pct": 86
+        },
+        "fuerza_por_60_min": {
+          "away": {
+            "sog_for": 15.11,
+            "pk_xga60": 6.695,
+            "pp_xgf60": 6.988,
+            "ev5_xga60": 2.575,
+            "ev5_xgf60": 2.449,
+            "sog_against": 15.09,
+            "finishing_mult": 1.008,
+            "pp_minutes_drawn": 2.91,
+            "pp_minutes_given": 2.97
+          },
+          "home": {
+            "sog_for": 12.22,
+            "pk_xga60": 7.023,
+            "pp_xgf60": 6.272,
+            "ev5_xga60": 2.821,
+            "ev5_xgf60": 2.296,
+            "sog_against": 14.27,
+            "finishing_mult": 0.9925,
+            "pp_minutes_drawn": 2.71,
+            "pp_minutes_given": 2.7
+          }
+        }
+      },
+      "model_components": {
+        "xg_away_60": 2.694,
+        "xg_home_60": 2.427,
+        "calibration": {
+          "source": "default",
+          "effect_scale": 1,
+          "goal_level_mult": 1
+        },
+        "home_ice_ev5": 0.049,
+        "team_finishing": {
+          "away": 1.008,
+          "home": 0.993
+        },
+        "league_finishing": 1.001,
+        "goalie_goals_mult": {
+          "away_goalie": 0.9907,
+          "home_goalie": 0.9871
+        },
+        "xg_breakdown_away": {
+          "pp": 0.309,
+          "sh": 0.014,
+          "ev5": 2.357,
+          "evo": 0.013
+        },
+        "xg_breakdown_home": {
+          "pp": 0.284,
+          "sh": 0.014,
+          "ev5": 2.118,
+          "evo": 0.011
+        },
+        "expected_pp_minutes": {
+          "away": 2.619,
+          "home": 2.696
+        },
+        "xg_model_validation": {
+          "holdout_xg": 1574.3,
+          "holdout_auc": 0.7477,
+          "train_shots": 93598,
+          "holdout_goals": 1586,
+          "holdout_shots": 23094,
+          "holdout_logloss": 0.22524,
+          "baseline_logloss": 0.2502
+        },
+        "lambda_away_goals_60": 2.684,
+        "lambda_home_goals_60": 2.389
+      }
+    },
+    "generated_at": "2026-11-13T17:16:52.469252+00:00"
+  }
+]

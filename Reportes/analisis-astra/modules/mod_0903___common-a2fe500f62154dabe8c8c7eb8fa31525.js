@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){'use strict';m.exports=t=>{if('[object Object]'!==Object.prototype.toString.call(t))return!1;const o=Object.getPrototypeOf(t);return null===o||o===Object.prototype}},903,[]);

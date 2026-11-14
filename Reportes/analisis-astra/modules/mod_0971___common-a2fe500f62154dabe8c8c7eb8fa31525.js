@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),e.memoryLocalStorageAdapter=function(t={}){return{getItem:o=>t[o]||null,setItem:(o,n)=>{t[o]=n},removeItem:o=>{delete t[o]}}}},971,[]);

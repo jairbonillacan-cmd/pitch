@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),e.fetchAstraPick=async function(n,s){if(!t.supabase)return null;const{data:c,error:u}=await t.supabase.from('astra_picks').select('pick').eq('sport',n).eq('match_id',s).maybeSingle();if(u||!c)return null;return String(c.pick??'').trim()||null};var t=r(d[0])},1010,[778]);

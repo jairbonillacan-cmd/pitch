@@ -1,0 +1,144 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history",
+      "storage"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-email",
+      "timeout_ms": 20000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-home-data",
+      "action": "wait_for_timeout",
+      "duration_ms": 7000
+    },
+    {
+      "step_id": "goto-cuenta-auth",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/cuenta"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-cuenta-auth",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "goto-nba",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nba"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nba",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-nfl",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nfl"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nfl",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-nhl",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nhl"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nhl",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    }
+  ]
+}

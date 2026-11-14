@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";function t({dispatch:t,isPreloaded:o,isRemovalPrevented:n,state:s}){return{isPreloaded:o,isRemovalPrevented:n,routeNames:s.routeNames,preload:o=>t({type:'PRELOAD',payload:{name:o}})}}Object.defineProperty(e,"__esModule",{value:!0}),Object.defineProperty(e,"createBaseTabProps",{enumerable:!0,get:function(){return t}})},879,[]);

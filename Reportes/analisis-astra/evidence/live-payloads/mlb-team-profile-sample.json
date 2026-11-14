@@ -1,0 +1,439 @@
+{
+  "team": {
+    "id": 119,
+    "name": "Los Angeles Dodgers",
+    "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-dark/119.svg",
+    "abbrev": "LAD"
+  },
+  "info": {
+    "venue": "UNIQLO Field at Dodger Stadium",
+    "coach": "Dave Roberts",
+    "country": "USA",
+    "city": "Los Angeles",
+    "founded": "1884"
+  },
+  "summary": {
+    "games": 20,
+    "metrics": [
+      {
+        "key": "scored",
+        "label": "Anotados",
+        "value": 4.05,
+        "n": 20
+      },
+      {
+        "key": "conceded",
+        "label": "Recibidos",
+        "value": 2.85,
+        "n": 20
+      }
+    ]
+  },
+  "history": [
+    {
+      "id": 849810,
+      "kickoff": "2026-10-16T00:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "logo": "https://www.mlbstatic.com/team-logos/158.svg"
+      },
+      "home_score": 4,
+      "away_score": 6,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 849811,
+      "kickoff": "2026-10-15T00:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "logo": "https://www.mlbstatic.com/team-logos/158.svg"
+      },
+      "home_score": 2,
+      "away_score": 6,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 849812,
+      "kickoff": "2026-10-12T21:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "logo": "https://www.mlbstatic.com/team-logos/158.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 7,
+      "away_score": 4,
+      "venue": "American Family Field",
+      "stored": false
+    },
+    {
+      "id": 849809,
+      "kickoff": "2026-10-12T00:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "logo": "https://www.mlbstatic.com/team-logos/158.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 2,
+      "away_score": 1,
+      "venue": "American Family Field",
+      "stored": false
+    },
+    {
+      "id": 849822,
+      "kickoff": "2026-10-07T22:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 144,
+        "name": "Atlanta Braves",
+        "logo": "https://www.mlbstatic.com/team-logos/144.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 1,
+      "away_score": 4,
+      "venue": "Truist Park",
+      "stored": false
+    },
+    {
+      "id": 849819,
+      "kickoff": "2026-10-06T22:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 144,
+        "name": "Atlanta Braves",
+        "logo": "https://www.mlbstatic.com/team-logos/144.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 1,
+      "away_score": 3,
+      "venue": "Truist Park",
+      "stored": false
+    },
+    {
+      "id": 849823,
+      "kickoff": "2026-10-05T00:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 144,
+        "name": "Atlanta Braves",
+        "logo": "https://www.mlbstatic.com/team-logos/144.svg"
+      },
+      "home_score": 2,
+      "away_score": 3,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 849828,
+      "kickoff": "2026-10-03T20:00:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 144,
+        "name": "Atlanta Braves",
+        "logo": "https://www.mlbstatic.com/team-logos/144.svg"
+      },
+      "home_score": 5,
+      "away_score": 3,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823164,
+      "kickoff": "2026-09-27T19:05:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 1,
+      "away_score": 5,
+      "venue": "Oracle Park",
+      "stored": false
+    },
+    {
+      "id": 823165,
+      "kickoff": "2026-09-26T20:05:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 3,
+      "away_score": 4,
+      "venue": "Oracle Park",
+      "stored": false
+    },
+    {
+      "id": 823167,
+      "kickoff": "2026-09-26T02:15:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 0,
+      "away_score": 2,
+      "venue": "Oracle Park",
+      "stored": false
+    },
+    {
+      "id": 823895,
+      "kickoff": "2026-09-25T02:10:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 135,
+        "name": "San Diego Padres",
+        "logo": "https://www.mlbstatic.com/team-logos/135.svg"
+      },
+      "home_score": 2,
+      "away_score": 4,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823894,
+      "kickoff": "2026-09-24T02:10:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 135,
+        "name": "San Diego Padres",
+        "logo": "https://www.mlbstatic.com/team-logos/135.svg"
+      },
+      "home_score": 1,
+      "away_score": 5,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823897,
+      "kickoff": "2026-09-23T02:10:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 135,
+        "name": "San Diego Padres",
+        "logo": "https://www.mlbstatic.com/team-logos/135.svg"
+      },
+      "home_score": 7,
+      "away_score": 0,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823896,
+      "kickoff": "2026-09-20T20:10:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "home_score": 3,
+      "away_score": 1,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823899,
+      "kickoff": "2026-09-20T01:10:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "home_score": 10,
+      "away_score": 4,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 823898,
+      "kickoff": "2026-09-19T02:15:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "away": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "logo": "https://www.mlbstatic.com/team-logos/137.svg"
+      },
+      "home_score": 8,
+      "away_score": 2,
+      "venue": "UNIQLO Field at Dodger Stadium",
+      "stored": false
+    },
+    {
+      "id": 824464,
+      "kickoff": "2026-09-17T16:40:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 113,
+        "name": "Cincinnati Reds",
+        "logo": "https://www.mlbstatic.com/team-logos/113.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 2,
+      "away_score": 8,
+      "venue": "Great American Ball Park",
+      "stored": false
+    },
+    {
+      "id": 824467,
+      "kickoff": "2026-09-16T22:40:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 113,
+        "name": "Cincinnati Reds",
+        "logo": "https://www.mlbstatic.com/team-logos/113.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 6,
+      "away_score": 2,
+      "venue": "Great American Ball Park",
+      "stored": false
+    },
+    {
+      "id": 824466,
+      "kickoff": "2026-09-15T22:40:00Z",
+      "status": "final",
+      "league": "MLB",
+      "home": {
+        "id": 113,
+        "name": "Cincinnati Reds",
+        "logo": "https://www.mlbstatic.com/team-logos/113.svg"
+      },
+      "away": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "logo": "https://www.mlbstatic.com/team-logos/119.svg"
+      },
+      "home_score": 0,
+      "away_score": 4,
+      "venue": "Great American Ball Park",
+      "stored": false
+    }
+  ],
+  "page": 0,
+  "has_more": true,
+  "source": "MLB",
+  "partial": false,
+  "updated_at": "2026-11-14T18:06:28.973Z"
+}

@@ -1,0 +1,299 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta"
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 960,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 50000,
+      "max_event_allocation_bytes": 268435456,
+      "max_total_event_allocation_bytes": 536870912,
+      "max_network_transactions": 8192,
+      "max_network_body_bytes": 33554432,
+      "max_network_body_allocation_bytes": 268435456,
+      "max_network_header_allocation_bytes": 16777216,
+      "max_network_metadata_allocation_bytes": 16777216
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-email",
+      "timeout_ms": 20000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-after-login",
+      "action": "wait_for_timeout",
+      "duration_ms": 6500
+    },
+    {
+      "step_id": "goto-nba-upcoming-401909980",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nba/401909980"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nba-upcoming-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "click-nba-upcoming-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-nba-upcoming-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "goto-nba-final-401909296",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nba/401909296"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nba-final-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nba-final-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-nba-final-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "click-nba-final-stats-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Estadísticas"
+      }
+    },
+    {
+      "step_id": "wait-nba-final-players",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "goto-nhl-upcoming-2026020312",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nhl/2026020312"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nhl-upcoming-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "click-nhl-upcoming-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-nhl-upcoming-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "goto-nhl-final-2026020310",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nhl/2026020310"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nhl-final-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nhl-final-stats-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Estadísticas"
+      }
+    },
+    {
+      "step_id": "wait-nhl-final-stats",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "click-nav-nfl",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "link",
+        "name": "NFL"
+      }
+    },
+    {
+      "step_id": "wait-nfl-today",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    },
+    {
+      "step_id": "click-nfl-next-day-sunday",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Día siguiente"
+      }
+    },
+    {
+      "step_id": "wait-nfl-sunday-2026-11-15",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nfl-next-day-monday",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Día siguiente"
+      }
+    },
+    {
+      "step_id": "wait-nfl-monday-2026-11-16",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "goto-mlb-offseason",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/mlb"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mlb-offseason",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    }
+  ]
+}

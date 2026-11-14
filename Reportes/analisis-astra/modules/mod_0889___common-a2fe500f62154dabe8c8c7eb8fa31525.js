@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";function t(t){return null}function n(t){return null}Object.defineProperty(e,"__esModule",{value:!0}),(function(t,n){for(var o in n)Object.defineProperty(t,o,{enumerable:!0,get:Object.getOwnPropertyDescriptor(n,o).get})})(e,{get Material3Color(){return n},get Material3DynamicColor(){return t}})},889,[]);

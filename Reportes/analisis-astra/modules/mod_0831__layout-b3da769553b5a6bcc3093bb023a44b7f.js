@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Figtree_700Bold.db913db65ba64eddc3928ba88b0a4ded.woff2"},831,[]);

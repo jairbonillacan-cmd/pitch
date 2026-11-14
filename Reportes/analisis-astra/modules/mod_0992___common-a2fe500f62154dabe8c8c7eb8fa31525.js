@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),e.resolveBlurhashString=function(t){const[h,u="",s=""]=t.replace(/^blurhash:\//,'').split('/');return{uri:'blurhash:/'+h,width:parseInt(u,10)||16,height:parseInt(s,10)||16}},e.resolveThumbhashString=function(t){return{uri:'thumbhash:/'+t.replace(/^thumbhash:\//,'')}}},992,[]);

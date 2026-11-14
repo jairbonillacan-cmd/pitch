@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,_e,d){"use strict";Object.defineProperty(_e,'__esModule',{value:!0}),_e.useAsyncStorage=function(e){return{getItem:(...t)=>u.default.getItem(e,...t),setItem:(...t)=>u.default.setItem(e,...t),mergeItem:(...t)=>u.default.mergeItem(e,...t),removeItem:(...t)=>u.default.removeItem(e,...t)}};var e,t=r(d[0]),u=(e=t)&&e.__esModule?e:{default:e}},904,[900]);

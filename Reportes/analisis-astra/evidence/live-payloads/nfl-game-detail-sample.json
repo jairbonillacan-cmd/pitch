@@ -1,0 +1,85 @@
+[
+  {
+    "sport": "nfl",
+    "id": 401873063,
+    "league": "NFL",
+    "start_time": "2026-11-15T21:25:00+00:00",
+    "status": "upcoming",
+    "detail": null,
+    "home_score": null,
+    "away_score": null,
+    "venue": "AT&T Stadium",
+    "forecast_ready": true,
+    "analysis_ready": true,
+    "home": {
+      "id": 6,
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/dal.png",
+      "name": "Dallas Cowboys",
+      "abbrev": "DAL"
+    },
+    "away": {
+      "id": 25,
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/sf.png",
+      "name": "San Francisco 49ers",
+      "abbrev": "SF"
+    },
+    "prediction": {
+      "win": {
+        "away": 0.6908,
+        "draw": null,
+        "home": 0.3092,
+        "title": "Probabilidad de victoria"
+      },
+      "rows": [
+        {
+          "label": "Puntos esperados",
+          "value": "25.6 – 32.0"
+        },
+        {
+          "label": "Total de puntos",
+          "value": "57.6"
+        },
+        {
+          "label": "Más de 57.5 puntos",
+          "value": "50%"
+        },
+        {
+          "label": "Margen esperado",
+          "value": "San Francisco 49ers por 6.5"
+        },
+        {
+          "label": "Hándicap SF -5.5",
+          "value": "53%"
+        }
+      ],
+      "generated_at": "2026-11-14T01:48:14.542723+00:00",
+      "is_retrospective": false
+    },
+    "analysis": {
+      "sections": [
+        {
+          "texto": "Los 49ers llegan mejor y son favoritos. El modelo les da 69% de probabilidad de ganar, contra 31% de los Cowboys. Su ventaja viene de un mejor ataque por jugada y de una defensa más sólida en puntos evitados.",
+          "titulo": "Resumen"
+        },
+        {
+          "texto": "Los 49ers tienen 32.0 puntos esperados y los Cowboys 25.6, para un total de 57.6. El total de referencia más cercano es 57.5, con 50% de probabilidad de superarlo.",
+          "titulo": "Puntos"
+        },
+        {
+          "texto": "El margen esperado es de 6.5 puntos a favor de San Francisco. Los Cowboys cubren el hándicap de +6.5 con 50% de probabilidad, así que el partido está muy parejo en esa línea.",
+          "titulo": "Margen y hándicap"
+        },
+        {
+          "texto": "Brock Purdy juega por San Francisco, con un EPA por dropback de 0.082. Dak Prescott juega por Dallas, con 0.056. Ambos son titulares y ninguno aparece como baja.",
+          "titulo": "Quarterbacks y bajas"
+        },
+        {
+          "texto": "El modelo no incluye bajas como Mike Evans y Brandon Aiyuk, ambos fuera, ni las dudas de varios defensivos. Esas ausencias pueden mover el resultado, sobre todo en el juego de pases y en la defensa de Dallas.",
+          "titulo": "A tener en cuenta"
+        }
+      ],
+      "created_at": "2026-11-14T01:50:16.94482+00:00",
+      "is_retrospective": false
+    }
+  }
+]

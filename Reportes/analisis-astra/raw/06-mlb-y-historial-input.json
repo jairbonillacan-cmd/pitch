@@ -1,0 +1,132 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta"
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "screenshot"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 25000,
+      "max_event_allocation_bytes": 134217728,
+      "max_total_event_allocation_bytes": 268435456,
+      "max_network_transactions": 4096,
+      "max_network_body_bytes": 16777216,
+      "max_network_body_allocation_bytes": 134217728
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-email",
+      "timeout_ms": 20000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-after-login",
+      "action": "wait_for_timeout",
+      "duration_ms": 6000
+    },
+    {
+      "step_id": "goto-historial-unstored-nfl",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/historial/nfl/12/401873006"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-historial-unstored-nfl",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-equipo-mlb-119",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/mlb/119"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-mlb-119",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    }
+  ]
+}

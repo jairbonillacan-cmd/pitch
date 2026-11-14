@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Astra AI</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#07080A" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Astra AI" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <script>
+      // Capture Chromium's one-use prompt before the async app mounts.
+      window.addEventListener('beforeinstallprompt', function (event) {
+        event.preventDefault(); window.__astraInstallPrompt = event;
+      });
+      window.addEventListener('appinstalled', function () { window.__astraInstallPrompt = null; });
+    </script>
+    <!-- Open public-data and crest connections while the app bundle downloads. -->
+    <link rel="preconnect" href="https://bbfjdshvlcynngjdkvsk.supabase.co" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://media.api-sports.io" />
+    <style id="expo-reset">
+      html, body, #root { height: 100%; background: #07080A; }
+      body { margin: 0; overflow: hidden; }
+      #root { display: flex; flex: 1; }
+    </style>
+  <meta name="theme-color" content="#07080A">
+<meta name="description" content="Pronósticos y seguimiento de fútbol, NBA, NHL y MLB con modelos estadísticos y análisis de IA.">
+<link rel="icon" href="/favicon.ico"/></head>
+  <body>
+    <noscript>Activa JavaScript para usar Astra AI.</noscript>
+    <div id="root"></div>
+  <script src="/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js" defer></script><script src="/_expo/static/js/web/__common-a2fe500f62154dabe8c8c7eb8fa31525.js" defer></script><script src="/_expo/static/js/web/entry-2f163e0b9ce05e4953b73986af77f2b7.js" defer></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"a2e12c4123a6420ca4eb3f4855145537","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

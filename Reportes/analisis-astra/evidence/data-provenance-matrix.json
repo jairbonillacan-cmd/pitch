@@ -1,0 +1,590 @@
+{
+  "metadata": {
+    "target": "Astra AI (https://astraanalisis.com/)",
+    "supabase_project_ref": "bbfjdshvlcynngjdkvsk",
+    "supabase_edge_region": "us-east-2",
+    "generated_at": "2026-11-14T18:15:00Z",
+    "analyst_role": "Subagente 5 — Data Provenance, Sports Feeds & Odds Forensics",
+    "methodology": "Static analysis of 286 decompiled Metro modules + passive REA browser captures + anonymous read-only public PostgREST/Edge Function verification (zero mutations, zero admin calls, zero persisted tokens)",
+    "certainty_scale": {
+      "OBSERVADO": "Directly verified via wire payloads, explicit provider attribution strings (`source`), official provider CDN URLs, or native provider IDs.",
+      "INFERIDO": "High-confidence structural correspondence with upstream API/library schemas, column enums, or mathematical transformations.",
+      "DESCONOCIDO": "Not observable from client bundle or passive read-only public responses (server-side private worker internals)."
+    },
+    "rea_evidence_ids": [
+      "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+      "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6",
+      "ev_fc43c6696ef7a62da591fe98b66a05d96f17be9fcbb4d51ab6e6d9c4c60b57d3",
+      "ev_b2082a83f40b298b1f62d60e156ccb00dfa1bb20161c30653505db326b4395e3",
+      "ev_b24b4829a5c7f11fb2e112bbe5fbe70dc4ff30a2a7546d50e6b0f7af41b1a064",
+      "ev_e52736567cadbd39a0b55e562c49fa30b55e562c49fa30b6cb8480ed0194b87db7da07203be21b"
+    ]
+  },
+  "public_database_footprint_observed": {
+    "leagues": {
+      "row_count": 48,
+      "id_range": [2, 848],
+      "tier_1_curated_count": 29,
+      "tier_1_sort_order_range": [0, 28],
+      "tier_2_formulaic_count": 19,
+      "tier_2_sort_order_formula": "100 + api_sports_league_id"
+    },
+    "teams": {
+      "row_count": 1692,
+      "id_range": [1, 27960]
+    },
+    "fixtures": {
+      "row_count": 30891,
+      "kickoff_min_utc": "2024-10-13T00:00:00+00:00",
+      "kickoff_max_utc": "2027-06-06T15:00:00+00:00"
+    },
+    "standings": {
+      "row_count": 905,
+      "scope": "Football leagues only; falls back to Edge Function league-standings when empty for a league/season"
+    },
+    "sport_teams": {
+      "row_count": 124,
+      "breakdown_by_sport": {
+        "mlb": 30,
+        "nba": 30,
+        "nfl": 32,
+        "nhl": 32
+      }
+    },
+    "games": {
+      "row_count": 485,
+      "start_time_min_utc": "2026-10-17T17:00:00+00:00",
+      "start_time_max_utc": "2026-11-20T01:15:00+00:00"
+    },
+    "match_live": {
+      "row_count": 2193,
+      "updated_at_min_utc": "2026-10-18T13:49:52.110979+00:00",
+      "updated_at_max_utc": "2026-11-14T18:12:01.845240+00:00",
+      "live_cron_cadence": "*/2 * * * * (every 2 minutes at :01s UTC)"
+    },
+    "astra_picks": {
+      "row_count": 5,
+      "created_at_range_utc": ["2026-10-22T04:43:41.616587+00:00", "2026-11-07T17:32:43.155992+00:00"]
+    },
+    "match_marks": {
+      "row_count": 3,
+      "created_at_utc": "2026-11-07T17:32:43.155992+00:00"
+    }
+  },
+  "sports_provenance": {
+    "futbol": {
+      "primary_provider": "API-Football v3 (API-Sports)",
+      "upstream_api_base": "https://v3.football.api-sports.io",
+      "upstream_cdn_hosts": [
+        "media.api-sports.io"
+      ],
+      "certainty": "OBSERVADO",
+      "supported_competitions": "48 leagues in public.leagues (declared dynamically via my_access.leagues = 48)",
+      "entities": [
+        {
+          "entity": "leagues_and_flags",
+          "provider": "API-Sports (v3.football.api-sports.io/leagues)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://media.api-sports.io/football/leagues/{league_id}.png",
+            "https://media.api-sports.io/flags/{iso_code}.svg"
+          ],
+          "native_id_examples": {
+            "2": "UEFA Champions League (sort_order=6, featured=true)",
+            "3": "UEFA Europa League (sort_order=7, featured=true)",
+            "5": "UEFA Nations League (sort_order=9)",
+            "39": "Premier League (sort_order=1, featured=true)",
+            "61": "Ligue 1 (sort_order=5, featured=true)",
+            "71": "Brazil Serie A (sort_order=16)",
+            "78": "Bundesliga (sort_order=4, featured=true)",
+            "135": "Serie A Italy (sort_order=3, featured=true)",
+            "140": "La Liga Spain (sort_order=2, featured=true)",
+            "262": "Liga MX Mexico (sort_order=0, highest priority, featured=true)",
+            "848": "UEFA Europa Conference League (sort_order=8)"
+          },
+          "attribution_proofs": [
+            "All 48 rows in public.leagues use https://media.api-sports.io/football/leagues/{id}.png and https://media.api-sports.io/flags/{cc}.svg (including gb-eng.svg and gb-sct.svg).",
+            "mod_0788 hardcodes featured trending league IDs [2, 3, 39, 140, 135, 78, 61, 262, 94], all exact API-Football v3 IDs.",
+            "mod_1008 offline demo fixtures hardcode API-Football IDs (league 140 LaLiga, teams 529 Barcelona, 541 Real Madrid, 530 Atletico Madrid, 536 Sevilla)."
+          ],
+          "supabase_surfaces": ["public.leagues", "rpc/my_access"],
+          "client_modules": ["mod_0776", "mod_0788", "mod_1008"]
+        },
+        {
+          "entity": "teams_fixtures_and_statuses",
+          "provider": "API-Sports (v3.football.api-sports.io/fixtures & /teams)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://media.api-sports.io/football/teams/{team_id}.png"
+          ],
+          "native_id_examples": {
+            "teams": {
+              "529": "Barcelona",
+              "541": "Real Madrid",
+              "2281": "Toluca",
+              "2282": "Monterrey"
+            },
+            "fixtures": {
+              "1528974": "Portugal vs Denmark (UEFA Nations League)",
+              "1550951": "Liga MX fixture",
+              "1570024": "Real Valladolid vs Real Zaragoza (LaLiga Hypermotion)"
+            }
+          },
+          "attribution_proofs": [
+            "1,692 teams in public.teams with media.api-sports.io/football/teams/{id}.png crests.",
+            "mod_0777 matchState and statusLabel map exact API-Football fixture.status.short codes: upcoming=['NS','TBD'], live=['1H','HT','2H','ET','BT','P','INT','LIVE'], finished=['FT','AET','PEN'], other=['PST','CANC','ABD','SUSP'].",
+            "team-profile Edge Function returns source='API-Sports · historial de Astra' and integer founded=1945 matching API-Sports team.founded."
+          ],
+          "supabase_surfaces": ["public.teams", "public.fixtures", "rpc/search_teams", "functions/v1/team-profile"],
+          "client_modules": ["mod_0776", "mod_0777", "mod_0865", "mod_0866"]
+        },
+        {
+          "entity": "live_stats_events_momentum_and_referees",
+          "provider": "API-Sports (v3.football.api-sports.io/fixtures?live=all & /fixtures?id={id})",
+          "certainty": "OBSERVADO",
+          "url_patterns": [],
+          "native_id_examples": {
+            "1570024": "info.source = 'API-Sports', momentum_method = 'sampled'",
+            "1607726": "info.source = 'API-Sports', referee_averages = {games: 5, yellow: '4.20', red: '0.00'}"
+          },
+          "attribution_proofs": [
+            "public.match_live rows for sport='futbol' explicitly declare info.source = 'API-Sports', rendered in UI by LiveStatistics (mod_0869) as 'API-Sports · Actualizado HH:MM'.",
+            "Untranslated residual API-Football statistic label 'Free Kicks' alongside translated API-Football statistics ('Goles esperados (xG)', 'Tiros dentro del área', 'Tiros fuera del área', 'Tiros bloqueados').",
+            "mod_1018 footballEventPeriods buckets API-Football events (minute + extra, kinds goal/yellow/red/sub/var) into 1-45, 46-90, 91-105, 106-120.",
+            "mod_1019 refereeDetails parses API-Football 'Name, Country' referee strings and enriches bare referee names via a hardcoded lookup of 95 referees across 38 countries (including 30 Liga MX and 23 Spanish referees)."
+          ],
+          "supabase_surfaces": ["public.match_live"],
+          "client_modules": ["mod_0869", "mod_1015", "mod_1018", "mod_1019"]
+        },
+        {
+          "entity": "standings",
+          "provider": "API-Sports (v3.football.api-sports.io/standings)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://media.api-sports.io/football/teams/{team_id}.png"
+          ],
+          "native_id_examples": {
+            "league_44": "Stored in public.standings (905 total rows)",
+            "league_5_season_2026": "Fetched live via functions/v1/league-standings returning source='API-Sports'"
+          },
+          "attribution_proofs": [
+            "mod_1021 fetchFootballStandings queries public.standings first; when empty (e.g. UEFA Nations League id=5), invokes POST /functions/v1/league-standings which returns {'source': 'API-Sports', 'season_type': 'regular', 'groups': [...]}.",
+            "Includes custom Liga MX 'apertura'/'clausura' group_name filter in mod_1021."
+          ],
+          "supabase_surfaces": ["public.standings", "functions/v1/league-standings"],
+          "client_modules": ["mod_1020", "mod_1021"]
+        }
+      ]
+    },
+    "nba": {
+      "primary_provider": "ESPN Hidden Public Site API",
+      "upstream_api_base": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba (and /apis/v2/sports/basketball/nba/standings)",
+      "upstream_cdn_hosts": [
+        "a.espncdn.com"
+      ],
+      "certainty": "OBSERVADO",
+      "entities": [
+        {
+          "entity": "teams_schedule_and_live_feed",
+          "provider": "ESPN Public Site API (/scoreboard & /summary)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://a.espncdn.com/i/teamlogos/leagues/500/nba.png",
+            "https://a.espncdn.com/i/teamlogos/nba/500-dark/{abbrev}.png",
+            "https://a.espncdn.com/i/teamlogos/nba/500/{abbrev}.png",
+            "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/{abbrev}.png"
+          ],
+          "native_id_examples": {
+            "games": {
+              "401909296": "NY Knicks @ Indiana Pacers (ESPN 9-digit eventId)",
+              "401909302": "Golden State Warriors @ San Antonio Spurs",
+              "401909980": "Upcoming NBA game"
+            },
+            "teams": {
+              "3": "New Orleans Pelicans (abbrev='NO' — ESPN specific, vs NBA.com 'NOP' / 1610612740)",
+              "9": "Golden State Warriors (abbrev='GS' — ESPN specific, vs NBA.com 'GSW' / 1610612744)",
+              "11": "Indiana Pacers (abbrev='IND')",
+              "18": "New York Knicks (abbrev='NY' — ESPN specific, vs NBA.com 'NYK')",
+              "24": "San Antonio Spurs (abbrev='SA' — ESPN specific, vs NBA.com 'SAS')",
+              "26": "Utah Jazz (abbrev='UTAH' — ESPN specific, vs NBA.com 'UTA')"
+            }
+          },
+          "attribution_proofs": [
+            "public.match_live rows for sport='nba' contain info.source = 'ESPN' and momentum_method = 'points'.",
+            "functions/v1/league-standings for sport='nba' returns source = 'ESPN' and ESPN scoreboard dark logos.",
+            "Team IDs (1..30) and non-standard 2/4-letter abbreviations ('NO', 'GS', 'NY', 'SA', 'UTAH', 'WSH') are 100% unique to ESPN's database (ruling out NBA.com stats API or Sportradar as primary feed).",
+            "game_predictions.context.digest.bajas_reportadas uses exact ESPN Injury API statuses ('Out', 'Day-To-Day').",
+            "functions/v1/team-profile masks source label as 'NBA' in UI while returning ESPN eventIds, ESPN dark logos, and founded=null."
+          ],
+          "supabase_surfaces": ["public.sport_teams", "public.games", "public.match_live", "functions/v1/league-standings", "functions/v1/team-profile"],
+          "client_modules": ["mod_0865", "mod_0866", "mod_0867", "mod_0869", "mod_1011", "mod_1021"]
+        },
+        {
+          "entity": "player_boxscores_and_headshots",
+          "provider": "ESPN Public Site API (/summary?event={match_id} boxscore.players)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/{espn_athlete_id}.png&w=96&h=70&scale=crop&cquality=80&location=origin"
+          ],
+          "native_id_examples": {
+            "3149673": "Pascal Siakam (ESPN athlete.id)",
+            "3934719": "OG Anunoby (ESPN athlete.id)",
+            "5106060": "Jarace Walker (did_not_play=true, reason=\"COACH'S DECISION\")"
+          },
+          "attribution_proofs": [
+            "mod_1026 NbaPlayersCard explicitly hardcodes UI attribution caption: 'ESPN · Actualizado HH:MM'.",
+            "mod_1026 explicitly translates ESPN's literal DNP string: \"COACH'S DECISION\" === s.reason ? 'Decisión del entrenador' : s.reason.",
+            "Live response from POST /functions/v1/nba-players returns ESPN Combiner headshot URLs and ESPN string athlete IDs."
+          ],
+          "supabase_surfaces": ["functions/v1/nba-players"],
+          "client_modules": ["mod_1026", "mod_1027", "mod_1028"]
+        }
+      ]
+    },
+    "nfl": {
+      "primary_provider": "ESPN Hidden Public Site API + nflverse/nflfastR (offline model enrichment)",
+      "upstream_api_base": "https://site.api.espn.com/apis/site/v2/sports/football/nfl",
+      "upstream_cdn_hosts": [
+        "a.espncdn.com"
+      ],
+      "certainty": "OBSERVADO",
+      "entities": [
+        {
+          "entity": "teams_schedule_standings_and_live_feed",
+          "provider": "ESPN Public Site API (/scoreboard, /summary, /standings)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://a.espncdn.com/i/teamlogos/leagues/500/nfl.png",
+            "https://a.espncdn.com/i/teamlogos/nfl/500-dark/{abbrev}.png",
+            "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/{abbrev}.png"
+          ],
+          "native_id_examples": {
+            "games": {
+              "401873050": "Tampa Bay Buccaneers @ Chicago Bears (ESPN 9-digit eventId)",
+              "401873053": "Upcoming Sunday NFL game",
+              "401873063": "Upcoming Sunday NFL game"
+            },
+            "teams": {
+              "2": "Buffalo Bills (BUF)",
+              "3": "Chicago Bears (CHI)",
+              "8": "Detroit Lions (DET)",
+              "9": "Green Bay Packers (GB)",
+              "12": "Kansas City Chiefs (KC)"
+            }
+          },
+          "attribution_proofs": [
+            "public.match_live rows for sport='nfl' contain info.source = 'ESPN' and momentum_method = 'points'.",
+            "functions/v1/league-standings for sport='nfl' returns source = 'ESPN' and 8 NFL divisions.",
+            "game_predictions.context.digest.bajas_reportadas uses exact ESPN NFL injury designations ('Out', 'Questionable').",
+            "functions/v1/team-profile masks source label as 'NFL' while serving ESPN IDs, ESPN logos, and founded=null."
+          ],
+          "supabase_surfaces": ["public.sport_teams", "public.games", "public.match_live", "functions/v1/league-standings", "functions/v1/team-profile"],
+          "client_modules": ["mod_0865", "mod_0866", "mod_0867", "mod_0869", "mod_1011", "mod_1021"]
+        },
+        {
+          "entity": "epa_play_by_play_and_qb_metrics",
+          "provider": "nflverse / nfl_data_py (nflfastR open-source play-by-play dataset)",
+          "certainty": "INFERIDO",
+          "url_patterns": [],
+          "native_id_examples": {
+            "roof_enum": "techo_estadio: 'dome' | 'outdoors'"
+          },
+          "attribution_proofs": [
+            "game_predictions.context.digest includes epa_ataque_por_jugada, epa_evitado_por_jugada, quarterback epa_por_dropback, and techo_estadio values ('dome', 'outdoors') that match nflfastR/nfl_data_py's exact roof enum and EPA definitions (not provided by ESPN public scoreboard)."
+          ],
+          "supabase_surfaces": ["public.game_predictions"],
+          "client_modules": ["mod_1029"]
+        }
+      ]
+    },
+    "nhl": {
+      "primary_provider": "NHL Official Web API (api-web.nhle.com)",
+      "upstream_api_base": "https://api-web.nhle.com/v1",
+      "upstream_cdn_hosts": [
+        "assets.nhle.com"
+      ],
+      "certainty": "OBSERVADO",
+      "entities": [
+        {
+          "entity": "teams_schedule_standings_live_and_shot_pbp",
+          "provider": "NHL Official Web API (api-web.nhle.com/v1/schedule, /standings/now, /gamecenter/{id}/play-by-play, /club-schedule-season)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://assets.nhle.com/logos/nhl/svg/NHL_light.svg",
+            "https://assets.nhle.com/logos/nhl/svg/{ABBREV}_dark.svg",
+            "https://assets.nhle.com/logos/nhl/svg/{ABBREV}_light.svg"
+          ],
+          "native_id_examples": {
+            "games": {
+              "2026020310": "Season 2026, Type 02 (Regular Season), Game 0310 (NYR @ VAN)",
+              "2026020311": "Season 2026, Type 02, Game 0311 (NSH @ VGK)",
+              "2026020321": "Season 2026, Type 02, Game 0321 (NHL Global Series at Veikkaus Arena)"
+            },
+            "teams": {
+              "1": "New Jersey Devils (NJD — official NHL franchise/team ID)",
+              "3": "New York Rangers (NYR)",
+              "23": "Vancouver Canucks (VAN)",
+              "52": "Winnipeg Jets (WPG)",
+              "54": "Vegas Golden Knights (VGK)",
+              "55": "Seattle Kraken (SEA)"
+            }
+          },
+          "attribution_proofs": [
+            "10-digit NHL gameId format YYYYTTNNNN (2026020310..2026020321) native exclusively to api-web.nhle.com.",
+            "Official NHL team IDs (54 VGK, 55 SEA, 52 WPG, 23 VAN) and assets.nhle.com SVG dark/light logos.",
+            "Explicit source='NHL' across public.match_live (momentum_method='shots'), functions/v1/league-standings, and functions/v1/team-profile.",
+            "game_predictions.context.model_components.xg_model_validation reveals Astra trained an internal shot-level xG model (train_shots=93598, holdout_shots=23094, holdout_auc=0.7477) directly on NHL API play-by-play coordinates and derives probable goalies via most_starts."
+          ],
+          "supabase_surfaces": ["public.sport_teams", "public.games", "public.match_live", "public.game_predictions", "functions/v1/league-standings", "functions/v1/team-profile"],
+          "client_modules": ["mod_0865", "mod_0866", "mod_0867", "mod_0869", "mod_1011", "mod_1021", "mod_1029"]
+        }
+      ]
+    },
+    "mlb": {
+      "primary_provider": "MLB Official StatsAPI + pybaseball/FanGraphs (sabermetric model enrichment)",
+      "upstream_api_base": "https://statsapi.mlb.com/api/v1 (and /api/v1.1/game/{gamePk}/feed/live)",
+      "upstream_cdn_hosts": [
+        "www.mlbstatic.com"
+      ],
+      "certainty": "OBSERVADO",
+      "entities": [
+        {
+          "entity": "teams_schedule_standings_and_live_gumbo_feed",
+          "provider": "MLB Official StatsAPI (statsapi.mlb.com)",
+          "certainty": "OBSERVADO",
+          "url_patterns": [
+            "https://www.mlbstatic.com/team-logos/league-on-light/1.svg",
+            "https://www.mlbstatic.com/team-logos/team-cap-on-dark/{team_id}.svg",
+            "https://www.mlbstatic.com/team-logos/{team_id}.svg"
+          ],
+          "native_id_examples": {
+            "games": {
+              "849799": "MLB 6-digit gamePk (Brewers @ Rays)",
+              "849803": "MLB 6-digit gamePk (Brewers @ Rays)",
+              "849810": "MLB 6-digit gamePk (Brewers @ Dodgers)"
+            },
+            "teams": {
+              "108": "Los Angeles Angels (LAA)",
+              "119": "Los Angeles Dodgers (LAD, founded='1884' from StatsAPI firstYearOfPlay)",
+              "139": "Tampa Bay Rays (TB)",
+              "147": "New York Yankees (NYY)",
+              "158": "Milwaukee Brewers (MIL)"
+            }
+          },
+          "attribution_proofs": [
+            "6-digit MLB gamePk IDs (849799, 849803, 849810) and official MLB teamIds (108-158) with www.mlbstatic.com SVG logos.",
+            "Explicit source='MLB' across public.match_live, functions/v1/league-standings, and functions/v1/team-profile.",
+            "public.match_live (849799, 849803) contains verbatim English MLB GUMBO liveData.plays.allPlays[].result.description strings, StatsAPI weather.condition ('Roof Closed', 'Dome'), and full 6-umpire crew strings.",
+            "functions/v1/team-profile for team_id=119 returns string founded='1884' and venue='UNIQLO Field at Dodger Stadium', exact fields from statsapi.mlb.com/api/v1/teams/119?hydrate=venue."
+          ],
+          "supabase_surfaces": ["public.sport_teams", "public.games", "public.match_live", "functions/v1/league-standings", "functions/v1/team-profile"],
+          "client_modules": ["mod_0865", "mod_0866", "mod_0867", "mod_0869", "mod_1011", "mod_1021"]
+        },
+        {
+          "entity": "sabermetric_model_inputs",
+          "provider": "pybaseball / FanGraphs / Baseball Savant (Statcast)",
+          "certainty": "INFERIDO",
+          "url_patterns": [],
+          "native_id_examples": {
+            "metrics": ["wOBA", "FIP", "ERA", "park_factor"]
+          },
+          "attribution_proofs": [
+            "game_predictions.context.digest uses offensive wOBA (0.3171, 0.3249), starter & bullpen FIP (2.17, 3.57), and park_factor (0.96 Tropicana Field), standard FanGraphs/Statcast sabermetric constants not natively served as pre-aggregated team/bullpen FIP in basic MLB StatsAPI boxscores."
+          ],
+          "supabase_surfaces": ["public.game_predictions"],
+          "client_modules": ["mod_1029"]
+        }
+      ]
+    }
+  },
+  "odds_provenance": {
+    "edge_function": "POST /functions/v1/match-odds",
+    "client_modules": ["mod_1022 (MatchOddsCard)", "mod_1023 (fetchMatchOdds)"],
+    "ui_lifecycle": "Pre-match ONLY (mounted solely when status is upcoming/postponed; unmounted on live and finished/final)",
+    "ui_bookmaker_visibility": "Hidden in UI (MatchOddsCard strips bookmaker and updated_at, displaying only decimal prices toFixed(2))",
+    "markets_exposed": {
+      "futbol": "3-way Match Winner / 1X2 (90 minutes regulation)",
+      "nba": "2-way Moneyline (includes overtime)",
+      "nfl": "2-way Moneyline (includes overtime)",
+      "nhl": "2-way Moneyline (includes overtime and shootout)",
+      "mlb": "2-way Moneyline (includes extra innings)"
+    },
+    "upstream_by_sport": {
+      "futbol": {
+        "provider": "API-Football v3 (v3.football.api-sports.io/odds?fixture={id})",
+        "bookmaker_observed_on_wire": {
+          "id": 2,
+          "name": "Marathonbet"
+        },
+        "certainty": "OBSERVADO",
+        "attribution_proofs": [
+          "Every sampled football match-odds response (1528974, 1528978, 1492455, 1520970, 1551883, 1550951, 1640019) returns bookmaker={'id': 2, 'name': 'Marathonbet'} (integer id=2 is Marathonbet in API-Sports v3, selected because API-Sports sorts bookmakers by id ascending and id=2 is the first bookmaker with wide global coverage) plus ISO updated_at."
+        ]
+      },
+      "us_sports_nba_nfl_nhl_mlb": {
+        "provider": "ESPN Public Scoreboard Embedded Odds (site.api.espn.com/.../scoreboard -> competitions[0].odds)",
+        "bookmaker_observed_on_wire": {
+          "id": "100",
+          "name": "DraftKings"
+        },
+        "certainty": "OBSERVADO",
+        "attribution_proofs": [
+          "Every sampled upcoming NBA (401909980, 401909981), NHL (2026020312, 2026020313, 2026020321), and NFL (401873053, 401873058) match-odds response returns bookmaker={'id': '100', 'name': 'DraftKings'} (string '100' is ESPN's provider.id for its official sportsbook partner DraftKings) and updated_at=null.",
+          "Exact IEEE-754 floating-point values prove server-side conversion from ESPN's integer American Moneyline odds: e.g. 1.1612903225806452 = 1 + 100/620 (-620), 1.2531645569620253 = 1 + 100/395 (-395), 1.6756756756756757 = 1 + 100/148 (-148), 1.5882352941176472 = 1 + 100/170 (-170).",
+          "For NHL (which uses 10-digit NHL gameIds in public.games), match-odds resolves home/away team abbreviations and game date in Supabase and cross-matches ESPN's NHL scoreboard to obtain DraftKings odds at $0 cost."
+        ]
+      }
+    }
+  },
+  "ai_synthesis_provenance": {
+    "provider": "Anthropic Claude API (likely Batch API / Haiku 4.5 or Sonnet 4.5)",
+    "certainty": "OBSERVADO",
+    "attribution_proofs": [
+      "mod_1011 line 1 explicitly states in fallback copy: 'En la app real el análisis sale del modelo y de Claude.'",
+      "Bulk identical created_at timestamps across dozens of football analyses (e.g. 2026-11-12T04:28:10.098947+00:00) and US sports game_analyses (2026-11-12T17:46:06.716904+00:00, ~7 min after game_predictions.generated_at 17:39:02Z) prove offline batch generation and bulk PostgreSQL upsert."
+    ],
+    "supabase_surfaces": ["public.analyses", "public.game_analyses"]
+  },
+  "caching_and_polling_matrix": [
+    {
+      "layer": "Server Worker (Live Feed)",
+      "component": "External Python/Cron -> public.match_live & fixtures/games",
+      "ttl_or_interval": "120,000 ms (cron */2 * * * *, writes at :01s UTC)",
+      "max_entries": null,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Server Worker (Models + Claude)",
+      "component": "Batch Pipeline -> predictions / analyses / game_predictions / game_analyses",
+      "ttl_or_interval": "24h–72h pre-match batch (1–2 daily runs)",
+      "max_entries": null,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Memory Cache",
+      "component": "createScheduleCache (mod_1009) used by fetchDay (mod_0776) & fetchSportDay (mod_1011)",
+      "ttl_or_interval": "30,000 ms (30s)",
+      "max_entries": 14,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Polling + Memory Cache",
+      "component": "MatchOddsCard (mod_1022) + fetchMatchOdds (mod_1023)",
+      "ttl_or_interval": "900,000 ms (15 min)",
+      "max_entries": 300,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Polling + Memory Cache",
+      "component": "NbaPlayersCard (mod_1026) + fetchNbaPlayers (mod_1027)",
+      "ttl_or_interval": "60,000 ms live / 300,000 ms final",
+      "max_entries": 100,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Memory Cache",
+      "component": "fetchTeamProfile (mod_0866)",
+      "ttl_or_interval": "120,000 ms (2 min)",
+      "max_entries": 100,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Polling (useLoad)",
+      "component": "MatchDetail / SportDetail fetchLiveMatch (mod_0784 / mod_0867)",
+      "ttl_or_interval": "30,000 ms (30s, paused when document.visibilityState === 'hidden')",
+      "max_entries": null,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Polling (useLoad)",
+      "component": "MatchDetail / SportDetail fetchFixture & fetchSportGame + TrendingMatches (mod_0784 / mod_0867 / mod_0788)",
+      "ttl_or_interval": "60,000 ms (60s, paused when tab hidden)",
+      "max_entries": null,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Polling (useLoad)",
+      "component": "StandingsCard (mod_1020) & AuthProvider my_access (mod_0834)",
+      "ttl_or_interval": "300,000 ms (5 min)",
+      "max_entries": null,
+      "certainty": "OBSERVADO"
+    },
+    {
+      "layer": "Client Telemetry Dedupe",
+      "component": "useAiActivity -> rpc/record_ai_view (mod_1017)",
+      "ttl_or_interval": "1,800,000 ms (30 min bucket)",
+      "max_entries": 300,
+      "certainty": "OBSERVADO"
+    }
+  ],
+  "monthly_operating_cost_estimate": {
+    "currency": "USD",
+    "line_items": [
+      {
+        "service": "API-Sports (API-Football v3 — Pro 7.5k/day or Ultra 75k/day)",
+        "low_usd": 19,
+        "high_usd": 29,
+        "certainty": "INFERIDO",
+        "notes": "Covers all 48 football leagues: fixtures, live stats/events every 2 min, standings, team profiles, and Marathonbet pre-match 1X2 odds."
+      },
+      {
+        "service": "ESPN Hidden Public Site API (NBA, NFL, injuries, US DraftKings odds)",
+        "low_usd": 0,
+        "high_usd": 0,
+        "certainty": "OBSERVADO",
+        "notes": "Unauthenticated public endpoints (site.api.espn.com & a.espncdn.com)."
+      },
+      {
+        "service": "NHL Official Web API (api-web.nhle.com & assets.nhle.com)",
+        "low_usd": 0,
+        "high_usd": 0,
+        "certainty": "OBSERVADO",
+        "notes": "Unauthenticated public endpoints including shot-level play-by-play."
+      },
+      {
+        "service": "MLB Official StatsAPI (statsapi.mlb.com & www.mlbstatic.com)",
+        "low_usd": 0,
+        "high_usd": 0,
+        "certainty": "OBSERVADO",
+        "notes": "Unauthenticated public GUMBO live feed, schedule, standings, and team logos."
+      },
+      {
+        "service": "Open Sports Analytics Libraries (nflverse/nfl_data_py + pybaseball/FanGraphs)",
+        "low_usd": 0,
+        "high_usd": 0,
+        "certainty": "INFERIDO",
+        "notes": "Free open-source datasets for NFL EPA/roof and MLB wOBA/FIP/park factors."
+      },
+      {
+        "service": "Anthropic Claude API (Batch Spanish narrative generation ~2.5k–3.5k matches/month)",
+        "low_usd": 8,
+        "high_usd": 35,
+        "certainty": "INFERIDO",
+        "notes": "Generated once per match in bulk pre-match batches; zero per-user LLM cost."
+      },
+      {
+        "service": "Supabase (PostgreSQL + Auth + Storage + Deno Edge Functions in us-east-2)",
+        "low_usd": 25,
+        "high_usd": 25,
+        "certainty": "INFERIDO",
+        "notes": "Supabase Pro base plan ($25/mo) easily covers current DB size (~31k fixtures) and Edge Function invocations."
+      },
+      {
+        "service": "Cron Worker Host (VPS / Railway / GitHub Actions) + Domain / Cloudflare / Expo Hosting",
+        "low_usd": 5,
+        "high_usd": 12,
+        "certainty": "INFERIDO",
+        "notes": "Runs */2 * * * * live poller and daily Python statistical models."
+      }
+    ],
+    "sports_data_feeds_only_usd": {
+      "low": 19,
+      "high": 29
+    },
+    "total_all_in_monthly_usd": {
+      "low": 57,
+      "high": 101
+    },
+    "breakeven_subscribers_at_199_mxn": "6 to 11 active paying subscribers per month"
+  }
+}

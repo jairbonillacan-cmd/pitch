@@ -1,0 +1,4901 @@
+{
+  "captured_at": "2026-11-14T17:42:00Z",
+  "method": "Passive read-only anonymous public queries on finished matches + public match-odds Edge Function",
+  "football_finished": [
+    {
+      "id": 1551877,
+      "kickoff": "2026-11-14T15:30:00+00:00",
+      "status": "FT",
+      "home_goals": 4,
+      "away_goals": 2,
+      "ft_home": 4,
+      "ft_away": 2,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 89,
+        "name": "Eerste Divisie",
+        "country": "Netherlands"
+      },
+      "home": {
+        "id": 203,
+        "name": "NAC Breda"
+      },
+      "away": {
+        "id": 208,
+        "name": "Emmen"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.6574,
+        "p_away": 0.2544,
+        "p_draw": 0.2228,
+        "p_home": 0.5228,
+        "context": {
+          "shots": {
+            "away_expected": 11.859,
+            "home_expected": 15.352
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 48.9,
+            "home_pct": 51.1
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.05,
+            "name": "Eerste Divisie",
+            "teams": 23,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.006,
+              "shots": 1.524,
+              "corners": 1.311,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.153
+            },
+            "tournament_id": 89,
+            "home_advantage_log": 0.1771,
+            "possession_home_logit": 0.0225,
+            "goals_first_half_share": 0.4389,
+            "goals_per_team_neutral": 1.563,
+            "matches_current_season": 139,
+            "matches_previous_season": 392,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.431,
+            "home_goals_expected_vs_equal": 1.708
+          },
+          "away_ratings": {
+            "name": "Emmen",
+            "attack": 0.1245,
+            "defense": -0.1379,
+            "net_rating": -0.0134,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 12.9,
+            "matches_previous": 38,
+            "shots_for_vs_avg": 14.53,
+            "corners_for_vs_avg": 5.69,
+            "possession_strength": 0.1224,
+            "fouls_against_vs_avg": 11.14,
+            "shots_against_vs_avg": 13.16,
+            "corners_against_vs_avg": 4.96,
+            "yellow_cards_for_vs_avg": 1.99,
+            "goals_for_vs_avg_opponent": 1.77,
+            "shots_on_target_for_vs_avg": 5.45,
+            "yellow_cards_against_vs_avg": 1.48,
+            "goals_against_vs_avg_opponent": 1.794,
+            "shots_on_target_against_vs_avg": 5.65
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "NAC Breda",
+            "attack": 0.0176,
+            "defense": 0.1318,
+            "net_rating": 0.1493,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 11.22,
+            "matches_previous": 0,
+            "shots_for_vs_avg": 16.12,
+            "corners_for_vs_avg": 4.94,
+            "possession_strength": 0.1443,
+            "fouls_against_vs_avg": 14.85,
+            "shots_against_vs_avg": 12.01,
+            "corners_against_vs_avg": 5.06,
+            "yellow_cards_for_vs_avg": 1.66,
+            "goals_for_vs_avg_opponent": 1.591,
+            "shots_on_target_for_vs_avg": 5.15,
+            "yellow_cards_against_vs_avg": 2.11,
+            "goals_against_vs_avg_opponent": 1.37,
+            "shots_on_target_against_vs_avg": 4.52
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 4.65,
+            "home_expected": 6.128
+          },
+          "correct_score_top3": {
+            "1-1": 0.0963,
+            "2-0": 0.0677,
+            "2-1": 0.0938
+          }
+        },
+        "over_05": 0.963,
+        "over_15": 0.8611,
+        "over_25": 0.6661,
+        "warnings": [],
+        "fixture_id": 1551877,
+        "fouls_away": 15.572,
+        "fouls_home": 10.032,
+        "model_mode": "league_v3",
+        "fouls_total": 25.603,
+        "lambda_away": 1.386,
+        "lambda_home": 2.044,
+        "corners_away": 4.825,
+        "corners_home": 5.292,
+        "generated_at": "2026-11-11T17:15:51.141167+00:00",
+        "corners_total": 10.117
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Se esperan 2.0 goles para NAC Breda y 1.4 para Emmen. Hay 86 % de probabilidad de más de 1.5 goles y 67 % de más de 2.5. Que ambos anoten tiene 66 % de probabilidad.",
+          "faltas": "Se esperan 25.6 faltas en total: 10.0 de NAC Breda y 15.6 de Emmen. Emmen comete más faltas que el promedio de su liga, por lo que se espera un partido con más interrupciones de su parte.",
+          "resumen": "NAC Breda llega como favorito moderado en casa, con 52 % de victoria local, 22 % de empate y 25 % de victoria de Emmen. Es un partido bastante parejo, con el local algo por encima por su ventaja de jugar en casa y su mejor forma reciente.",
+          "contexto": "NAC Breda está cuarto con 25 puntos y Emmen sexto también con 25. Breda llega con forma EGEGG y Emmen con PPGGG, con tres victorias seguidas pero antes dos derrotas. Breda tiene 7.9 días de descanso y Emmen 6.0.",
+          "corners_faltas": "El total esperado es de 10.1 tiros de esquina, con 5.3 para NAC Breda y 4.8 para Emmen. El volumen está bastante repartido entre los dos equipos, con una ligera ventaja local.\n\nSe esperan 25.6 faltas en total: 10.0 de NAC Breda y 15.6 de Emmen. Emmen comete más faltas que el promedio de su liga, por lo que se espera un partido con más interrupciones de su parte.",
+          "tiros_de_esquina": "El total esperado es de 10.1 tiros de esquina, con 5.3 para NAC Breda y 4.8 para Emmen. El volumen está bastante repartido entre los dos equipos, con una ligera ventaja local.",
+          "a_tener_en_cuenta": "La incertidumbre principal está en la forma irregular de Emmen, que pasó de dos derrotas a tres victorias seguidas. El marcador más probable es 2-1 y 1-1, con 9.4 % y 9.6 % respectivamente, así que el resultado sigue muy abierto."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1570022,
+      "kickoff": "2026-11-14T15:15:00+00:00",
+      "status": "FT",
+      "home_goals": 2,
+      "away_goals": 2,
+      "ft_home": 2,
+      "ft_away": 2,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 141,
+        "name": "Segunda División",
+        "country": "Spain"
+      },
+      "home": {
+        "id": 9585,
+        "name": "Real Sociedad II"
+      },
+      "away": {
+        "id": 731,
+        "name": "Sporting Gijon"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.5598,
+        "p_away": 0.3719,
+        "p_draw": 0.2717,
+        "p_home": 0.3564,
+        "context": {
+          "shots": {
+            "away_expected": 11.996,
+            "home_expected": 14.604
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 51.7,
+            "home_pct": 48.3
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.06,
+            "name": "Segunda División",
+            "teams": 29,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.041,
+              "shots": 1.512,
+              "corners": 1.344,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.028
+            },
+            "tournament_id": 141,
+            "home_advantage_log": 0.2478,
+            "possession_home_logit": 0.0798,
+            "goals_first_half_share": 0.4497,
+            "goals_per_team_neutral": 1.384,
+            "matches_current_season": 140,
+            "matches_previous_season": 468,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.223,
+            "home_goals_expected_vs_equal": 1.566
+          },
+          "away_ratings": {
+            "name": "Sporting Gijon",
+            "attack": -0.0668,
+            "defense": 0.0981,
+            "net_rating": 0.0312,
+            "matches_current": 13,
+            "fouls_for_vs_avg": 11.94,
+            "matches_previous": 42,
+            "shots_for_vs_avg": 12.44,
+            "corners_for_vs_avg": 4.54,
+            "possession_strength": -0.0165,
+            "fouls_against_vs_avg": 12.18,
+            "shots_against_vs_avg": 12.29,
+            "corners_against_vs_avg": 5.07,
+            "yellow_cards_for_vs_avg": 2.7,
+            "goals_for_vs_avg_opponent": 1.294,
+            "shots_on_target_for_vs_avg": 4.37,
+            "yellow_cards_against_vs_avg": 2.56,
+            "goals_against_vs_avg_opponent": 1.255,
+            "shots_on_target_against_vs_avg": 4.08
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Real Sociedad II",
+            "attack": -0.0242,
+            "defense": -0.1543,
+            "net_rating": -0.1785,
+            "matches_current": 13,
+            "fouls_for_vs_avg": 16.4,
+            "matches_previous": 42,
+            "shots_for_vs_avg": 13.51,
+            "corners_for_vs_avg": 4.47,
+            "possession_strength": -0.1626,
+            "fouls_against_vs_avg": 12.15,
+            "shots_against_vs_avg": 14.08,
+            "corners_against_vs_avg": 4.93,
+            "yellow_cards_for_vs_avg": 3.07,
+            "goals_for_vs_avg_opponent": 1.351,
+            "shots_on_target_for_vs_avg": 4.29,
+            "yellow_cards_against_vs_avg": 2.5,
+            "goals_against_vs_avg_opponent": 1.615,
+            "shots_on_target_against_vs_avg": 4.45
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 3.931,
+            "home_expected": 4.614
+          },
+          "correct_score_top3": {
+            "0-1": 0.0834,
+            "1-1": 0.1291,
+            "1-2": 0.0839
+          }
+        },
+        "over_05": 0.9268,
+        "over_15": 0.7623,
+        "over_25": 0.5113,
+        "warnings": [],
+        "fixture_id": 1570022,
+        "fouls_away": 10.891,
+        "fouls_home": 14.877,
+        "model_mode": "league_v3",
+        "fouls_total": 25.767,
+        "lambda_away": 1.377,
+        "lambda_home": 1.343,
+        "corners_away": 4.215,
+        "corners_home": 5.514,
+        "generated_at": "2026-11-11T17:15:50.900727+00:00",
+        "corners_total": 9.729
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Los goles esperados son 1.34 para Real Sociedad II y 1.38 para Sporting Gijón. Hay 76 % de probabilidad de ver más de 1.5 goles y 51 % de superar 2.5. La probabilidad de que ambos equipos anoten es de 56 %, así que es un partido con marcadores bajos pero con posibilidad de goles de los dos lados.",
+          "faltas": "Se esperan 25.8 faltas en total: 14.9 para Real Sociedad II y 10.9 para Sporting Gijón. No hay árbitro asignado en los datos, así que la proyección se basa solo en el comportamiento de los equipos.",
+          "resumen": "El partido llega muy parejo. Sporting Gijón trae mejor forma y más puntos en la tabla, pero la probabilidad de victoria es casi igual para ambos: 36 % local, 27 % empate y 37 % visita. Real Sociedad II atraviesa una mala racha, con cuatro derrotas en sus últimos cinco partidos.",
+          "contexto": "Sporting Gijón es séptimo con 22 puntos y Real Sociedad II es decimoséptimo con 12. El Sporting llega con tres victorias en sus últimos cinco partidos y tiene cinco días de descanso, frente a los 4.8 del local. Real Sociedad II viene de cuatro derrotas seguidas y recibe más goles de lo esperado por su liga.",
+          "corners_faltas": "Se esperan 9.7 tiros de esquina en total. Real Sociedad II proyecta 5.5 y Sporting Gijón 4.2, así que el volumen de córners lo aporta sobre todo el local. Real Sociedad II concede más de lo habitual en este tipo de partidos, lo que puede sumar córners a favor del Sporting.\n\nSe esperan 25.8 faltas en total: 14.9 para Real Sociedad II y 10.9 para Sporting Gijón. No hay árbitro asignado en los datos, así que la proyección se basa solo en el comportamiento de los equipos.",
+          "tiros_de_esquina": "Se esperan 9.7 tiros de esquina en total. Real Sociedad II proyecta 5.5 y Sporting Gijón 4.2, así que el volumen de córners lo aporta sobre todo el local. Real Sociedad II concede más de lo habitual en este tipo de partidos, lo que puede sumar córners a favor del Sporting.",
+          "a_tener_en_cuenta": "La principal fuente de incertidumbre es la diferencia de contexto entre los dos equipos: uno está en media tabla con buena forma y el otro en la zona baja con racha negativa. El marcador más probable es 1-1, con 12.9 % de probabilidad, seguido de 0-1 y 1-2. No hay bajas ni avisos registrados, así que cualquier cambio de alineación podría modificar la lectura."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1564403,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 1,
+      "away_goals": 0,
+      "ft_home": 1,
+      "ft_away": 0,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 41,
+        "name": "League One",
+        "country": "England"
+      },
+      "home": {
+        "id": 1333,
+        "name": "AFC Wimbledon"
+      },
+      "away": {
+        "id": 1356,
+        "name": "Blackpool"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.5421,
+        "p_away": 0.3816,
+        "p_draw": 0.2796,
+        "p_home": 0.3388,
+        "context": {
+          "shots": {
+            "away_expected": 12.297,
+            "home_expected": 14.494
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 52.2,
+            "home_pct": 47.8
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.07,
+            "name": "League One",
+            "teams": 31,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.526,
+              "corners": 1.323,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.143
+            },
+            "tournament_id": 41,
+            "home_advantage_log": 0.1856,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4288,
+            "goals_per_team_neutral": 1.36,
+            "matches_current_season": 158,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.24,
+            "home_goals_expected_vs_equal": 1.493
+          },
+          "away_ratings": {
+            "name": "Blackpool",
+            "attack": -0.0671,
+            "defense": -0.1576,
+            "net_rating": -0.2247,
+            "matches_current": 12,
+            "fouls_for_vs_avg": 11.7,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 12.2,
+            "corners_for_vs_avg": 5.29,
+            "possession_strength": -0.0838,
+            "fouls_against_vs_avg": 11.76,
+            "shots_against_vs_avg": 15.63,
+            "corners_against_vs_avg": 6.38,
+            "yellow_cards_for_vs_avg": 2.02,
+            "goals_for_vs_avg_opponent": 1.272,
+            "shots_on_target_for_vs_avg": 3.95,
+            "yellow_cards_against_vs_avg": 1.52,
+            "goals_against_vs_avg_opponent": 1.592,
+            "shots_on_target_against_vs_avg": 5.12
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "AFC Wimbledon",
+            "attack": -0.2927,
+            "defense": -0.1285,
+            "net_rating": -0.4212,
+            "matches_current": 13,
+            "fouls_for_vs_avg": 12.09,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 11.39,
+            "corners_for_vs_avg": 5.52,
+            "possession_strength": -0.2057,
+            "fouls_against_vs_avg": 10.34,
+            "shots_against_vs_avg": 13.95,
+            "corners_against_vs_avg": 5.42,
+            "yellow_cards_for_vs_avg": 1.56,
+            "goals_for_vs_avg_opponent": 1.015,
+            "shots_on_target_for_vs_avg": 3.1,
+            "yellow_cards_against_vs_avg": 1.65,
+            "goals_against_vs_avg_opponent": 1.547,
+            "shots_on_target_against_vs_avg": 4.71
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 4.249,
+            "home_expected": 4.139
+          },
+          "correct_score_top3": {
+            "0-1": 0.0897,
+            "1-1": 0.1334,
+            "1-2": 0.0846
+          }
+        },
+        "over_05": 0.9187,
+        "over_15": 0.7459,
+        "over_25": 0.4875,
+        "warnings": [],
+        "fixture_id": 1564403,
+        "fouls_away": 10.642,
+        "fouls_home": 11.634,
+        "model_mode": "league_v3",
+        "fouls_total": 22.276,
+        "lambda_away": 1.358,
+        "lambda_home": 1.266,
+        "corners_away": 5.045,
+        "corners_home": 6.801,
+        "generated_at": "2026-11-11T17:15:50.891787+00:00",
+        "corners_total": 11.846
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Se esperan 1.27 goles para AFC Wimbledon y 1.36 para Blackpool. Hay 75 % de probabilidad de más de 1.5 goles y 49 % de más de 2.5. Que ambos anoten tiene 54 % de probabilidad.",
+          "faltas": "Se esperan 22.3 faltas en total: 11.6 de AFC Wimbledon y 10.6 de Blackpool. No hay dato de árbitro, así que la proyección no se ajusta por ese factor.",
+          "resumen": "Llega mejor Blackpool, que está un poco por encima en forma y en ataque. El partido está muy parejo: 38 % gana la visita, 34 % el local y 28 % empate. Ninguno de los dos equipos tiene una ventaja clara.",
+          "contexto": "AFC Wimbledon está en el puesto 18 con 13 puntos y diferencia de goles de -12, y viene con una racha negativa de PEPPP. Blackpool está en el 19 con 12 puntos y diferencia de -4, con forma EPGPP. Wimbledon descansó 14 días y Blackpool 13.",
+          "corners_faltas": "Se esperan 11.8 tiros de esquina en total: 6.8 para AFC Wimbledon y 5.0 para Blackpool. El local aporta más volumen, porque concede poco y genera más. Blackpool concede más esquinas de lo que es habitual, por eso el equipo local tiene la mayor proyección.\n\nSe esperan 22.3 faltas en total: 11.6 de AFC Wimbledon y 10.6 de Blackpool. No hay dato de árbitro, así que la proyección no se ajusta por ese factor.",
+          "tiros_de_esquina": "Se esperan 11.8 tiros de esquina en total: 6.8 para AFC Wimbledon y 5.0 para Blackpool. El local aporta más volumen, porque concede poco y genera más. Blackpool concede más esquinas de lo que es habitual, por eso el equipo local tiene la mayor proyección.",
+          "a_tener_en_cuenta": "La principal fuente de incertidumbre es lo parejo del partido, con probabilidades muy cercanas entre los tres resultados. Los marcadores más probables son 1-1, 0-1 y 1-2, pero ninguno pasa de 13 %."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1564410,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 3,
+      "away_goals": 0,
+      "ft_home": 3,
+      "ft_away": 0,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 41,
+        "name": "League One",
+        "country": "England"
+      },
+      "home": {
+        "id": 74,
+        "name": "Sheffield Wednesday"
+      },
+      "away": {
+        "id": 1357,
+        "name": "Plymouth"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.6075,
+        "p_away": 0.381,
+        "p_draw": 0.2597,
+        "p_home": 0.3592,
+        "context": {
+          "shots": {
+            "away_expected": 14.504,
+            "home_expected": 14.373
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 42.5,
+            "home_pct": 57.5
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.07,
+            "name": "League One",
+            "teams": 31,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.526,
+              "corners": 1.323,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.143
+            },
+            "tournament_id": 41,
+            "home_advantage_log": 0.1856,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4288,
+            "goals_per_team_neutral": 1.36,
+            "matches_current_season": 158,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.24,
+            "home_goals_expected_vs_equal": 1.493
+          },
+          "away_ratings": {
+            "name": "Plymouth",
+            "attack": 0.1299,
+            "defense": 0.0152,
+            "net_rating": 0.1451,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 12.66,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 14.19,
+            "corners_for_vs_avg": 5.56,
+            "possession_strength": -0.146,
+            "fouls_against_vs_avg": 11.66,
+            "shots_against_vs_avg": 13.24,
+            "corners_against_vs_avg": 5.85,
+            "yellow_cards_for_vs_avg": 1.78,
+            "goals_for_vs_avg_opponent": 1.549,
+            "shots_on_target_for_vs_avg": 4.74,
+            "yellow_cards_against_vs_avg": 1.96,
+            "goals_against_vs_avg_opponent": 1.34,
+            "shots_on_target_against_vs_avg": 4.09
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Sheffield Wednesday",
+            "attack": 0.0214,
+            "defense": -0.0446,
+            "net_rating": -0.0232,
+            "matches_current": 13,
+            "fouls_for_vs_avg": 11.16,
+            "matches_previous": 0,
+            "shots_for_vs_avg": 13.34,
+            "corners_for_vs_avg": 5.2,
+            "possession_strength": 0.1249,
+            "fouls_against_vs_avg": 12.01,
+            "shots_against_vs_avg": 14.15,
+            "corners_against_vs_avg": 5.89,
+            "yellow_cards_for_vs_avg": 1.93,
+            "goals_for_vs_avg_opponent": 1.39,
+            "shots_on_target_for_vs_avg": 4.55,
+            "yellow_cards_against_vs_avg": 1.79,
+            "goals_against_vs_avg_opponent": 1.422,
+            "shots_on_target_against_vs_avg": 4.23
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 4.581,
+            "home_expected": 4.845
+          },
+          "correct_score_top3": {
+            "1-1": 0.1207,
+            "1-2": 0.0854,
+            "2-1": 0.0826
+          }
+        },
+        "over_05": 0.9412,
+        "over_15": 0.8055,
+        "over_25": 0.5719,
+        "warnings": [],
+        "fixture_id": 1564410,
+        "fouls_away": 13.377,
+        "fouls_home": 10.645,
+        "model_mode": "league_v3",
+        "fouls_total": 24.022,
+        "lambda_away": 1.514,
+        "lambda_home": 1.464,
+        "corners_away": 5.728,
+        "corners_home": 5.889,
+        "generated_at": "2026-11-11T17:15:50.882979+00:00",
+        "corners_total": 11.617
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Sheffield Wednesday tiene 1.46 goles esperados y Plymouth 1.51. Hay 81 % de probabilidad de más de 1.5 goles y 57 % de más de 2.5. Que ambos anoten tiene 61 % de probabilidad, y el marcador más probable es 1-1.",
+          "faltas": "Se esperan 24 faltas en total: 10.6 de Sheffield Wednesday y 13.4 de Plymouth. Plymouth comete más faltas en promedio, así que es el equipo que más aporta en este apartado.",
+          "resumen": "Es un partido muy parejo. Plymouth llega un poco mejor por tabla y forma, con 38 % de ganar de visita, 36 % de ganar en casa Sheffield Wednesday y 26 % de empate. Ningún equipo tiene una ventaja clara.",
+          "contexto": "Sheffield Wednesday es noveno con 20 puntos y forma EEPPG. Plymouth es quinto con 23 puntos y forma EGPPG. Sheffield Wednesday llega con 13 días de descanso y Plymouth con 14.1.",
+          "corners_faltas": "Se esperan 11.6 tiros de esquina en total: 5.9 para Sheffield Wednesday y 5.7 para Plymouth. El volumen está repartido casi igual, así que ningún lado domina en córners.\n\nSe esperan 24 faltas en total: 10.6 de Sheffield Wednesday y 13.4 de Plymouth. Plymouth comete más faltas en promedio, así que es el equipo que más aporta en este apartado.",
+          "tiros_de_esquina": "Se esperan 11.6 tiros de esquina en total: 5.9 para Sheffield Wednesday y 5.7 para Plymouth. El volumen está repartido casi igual, así que ningún lado domina en córners.",
+          "a_tener_en_cuenta": "La principal fuente de incertidumbre es lo parejo del cruce, porque la diferencia entre victoria local y visitante es mínima. Los datos de bajas y árbitro no están disponibles, así que no se consideran en este análisis."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1564412,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 3,
+      "away_goals": 1,
+      "ft_home": 3,
+      "ft_away": 1,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 41,
+        "name": "League One",
+        "country": "England"
+      },
+      "home": {
+        "id": 4686,
+        "name": "Stockport County"
+      },
+      "away": {
+        "id": 53,
+        "name": "Reading"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.5739,
+        "p_away": 0.2651,
+        "p_draw": 0.2576,
+        "p_home": 0.4773,
+        "context": {
+          "shots": {
+            "away_expected": 9.742,
+            "home_expected": 15.247
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 37.7,
+            "home_pct": 62.3
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.07,
+            "name": "League One",
+            "teams": 31,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.526,
+              "corners": 1.323,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.143
+            },
+            "tournament_id": 41,
+            "home_advantage_log": 0.1856,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4288,
+            "goals_per_team_neutral": 1.36,
+            "matches_current_season": 158,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.24,
+            "home_goals_expected_vs_equal": 1.493
+          },
+          "away_ratings": {
+            "name": "Reading",
+            "attack": 0.1465,
+            "defense": 0.142,
+            "net_rating": 0.2884,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 11.7,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 13.36,
+            "corners_for_vs_avg": 4.97,
+            "possession_strength": -0.091,
+            "fouls_against_vs_avg": 11.85,
+            "shots_against_vs_avg": 12.42,
+            "corners_against_vs_avg": 5.1,
+            "yellow_cards_for_vs_avg": 1.86,
+            "goals_for_vs_avg_opponent": 1.575,
+            "shots_on_target_for_vs_avg": 4.41,
+            "yellow_cards_against_vs_avg": 1.44,
+            "goals_against_vs_avg_opponent": 1.18,
+            "shots_on_target_against_vs_avg": 4.11
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Stockport County",
+            "attack": 0.2376,
+            "defense": 0.1665,
+            "net_rating": 0.4041,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 9.72,
+            "matches_previous": 49,
+            "shots_for_vs_avg": 15.08,
+            "corners_for_vs_avg": 6.25,
+            "possession_strength": 0.3792,
+            "fouls_against_vs_avg": 10.12,
+            "shots_against_vs_avg": 10.09,
+            "corners_against_vs_avg": 4.66,
+            "yellow_cards_for_vs_avg": 1.39,
+            "goals_for_vs_avg_opponent": 1.725,
+            "shots_on_target_for_vs_avg": 4.51,
+            "yellow_cards_against_vs_avg": 1.7,
+            "goals_against_vs_avg_opponent": 1.152,
+            "shots_on_target_against_vs_avg": 3.88
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 3.918,
+            "home_expected": 4.832
+          },
+          "correct_score_top3": {
+            "1-0": 0.0872,
+            "1-1": 0.1216,
+            "2-1": 0.095
+          }
+        },
+        "over_05": 0.9351,
+        "over_15": 0.7878,
+        "over_25": 0.546,
+        "warnings": [],
+        "fixture_id": 1564412,
+        "fouls_away": 10.423,
+        "fouls_home": 9.424,
+        "model_mode": "league_v3",
+        "fouls_total": 19.847,
+        "lambda_away": 1.194,
+        "lambda_home": 1.671,
+        "corners_away": 3.782,
+        "corners_home": 6.455,
+        "generated_at": "2026-11-11T17:15:50.714831+00:00",
+        "corners_total": 10.237
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Stockport tiene 1.67 goles esperados y Reading 1.19. Hay 94 % de probabilidad de más de 0.5 goles, 79 % de más de 1.5 y 55 % de más de 2.5. Ambos anotan con 57 %. El marcador más probable es 1-1, seguido de 1-0 y 2-1.",
+          "faltas": "Se esperan 19.8 faltas en total, con 9.4 para Stockport y 10.4 para Reading. El volumen de faltas es parejo y no hay árbitro asignado para ajustar la proyección.",
+          "resumen": "Stockport llega como local, segundo en la tabla y con mejor forma reciente, así que es el equipo favorito. La probabilidad de victoria local es de 48 %, de empate 26 % y de visita 27 %, lo que deja un partido bastante abierto. Reading viene algo más irregular.",
+          "contexto": "Stockport es segundo con 26 puntos y diferencia de goles de +12, frente al sexto lugar de Reading con 22 puntos y +10. Stockport tiene 14 días de descanso contra 9.8 de Reading, y su forma reciente incluye tres partidos sin perder.",
+          "corners_faltas": "Se esperan 10.2 tiros de esquina en total. Stockport proyecta 6.5 y Reading 3.8, así que el local aporta más volumen. Stockport genera más córners de los que concede a su rival promedio, mientras que Reading concede algo más de los que consigue.\n\nSe esperan 19.8 faltas en total, con 9.4 para Stockport y 10.4 para Reading. El volumen de faltas es parejo y no hay árbitro asignado para ajustar la proyección.",
+          "tiros_de_esquina": "Se esperan 10.2 tiros de esquina en total. Stockport proyecta 6.5 y Reading 3.8, así que el local aporta más volumen. Stockport genera más córners de los que concede a su rival promedio, mientras que Reading concede algo más de los que consigue.",
+          "a_tener_en_cuenta": "La principal fuente de incertidumbre es el empate, con 26 % de probabilidad, que es alto para un partido con favorito claro. Un resultado cerrado o un gol temprano podrían cambiar la lectura del partido."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1563857,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 0,
+      "away_goals": 1,
+      "ft_home": 0,
+      "ft_away": 1,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 42,
+        "name": "League Two",
+        "country": "England"
+      },
+      "home": {
+        "id": 1339,
+        "name": "Rochdale"
+      },
+      "away": {
+        "id": 1828,
+        "name": "York"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.6074,
+        "p_away": 0.485,
+        "p_draw": 0.2451,
+        "p_home": 0.2699,
+        "context": {
+          "shots": {
+            "away_expected": 14.646,
+            "home_expected": 12.923
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 53.0,
+            "home_pct": 47.0
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.06,
+            "name": "League Two",
+            "teams": 30,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.513,
+              "corners": 1.299,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.077
+            },
+            "tournament_id": 42,
+            "home_advantage_log": 0.241,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4431,
+            "goals_per_team_neutral": 1.388,
+            "matches_current_season": 164,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.231,
+            "home_goals_expected_vs_equal": 1.566
+          },
+          "away_ratings": {
+            "name": "York",
+            "attack": 0.0598,
+            "defense": -0.0583,
+            "net_rating": 0.0015,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 10.09,
+            "matches_previous": 0,
+            "shots_for_vs_avg": 13.23,
+            "corners_for_vs_avg": 4.71,
+            "possession_strength": 0.2326,
+            "fouls_against_vs_avg": 12.38,
+            "shots_against_vs_avg": 14.01,
+            "corners_against_vs_avg": 5.07,
+            "yellow_cards_for_vs_avg": 1.56,
+            "goals_for_vs_avg_opponent": 1.474,
+            "shots_on_target_for_vs_avg": 3.94,
+            "yellow_cards_against_vs_avg": 1.84,
+            "goals_against_vs_avg_opponent": 1.472,
+            "shots_on_target_against_vs_avg": 4.32
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Rochdale",
+            "attack": -0.1923,
+            "defense": -0.2441,
+            "net_rating": -0.4364,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 11.42,
+            "matches_previous": 0,
+            "shots_for_vs_avg": 10.6,
+            "corners_for_vs_avg": 4.48,
+            "possession_strength": 0.0779,
+            "fouls_against_vs_avg": 11.59,
+            "shots_against_vs_avg": 14.89,
+            "corners_against_vs_avg": 5.17,
+            "yellow_cards_for_vs_avg": 1.65,
+            "goals_for_vs_avg_opponent": 1.146,
+            "shots_on_target_for_vs_avg": 3.23,
+            "yellow_cards_against_vs_avg": 1.87,
+            "goals_against_vs_avg_opponent": 1.772,
+            "shots_on_target_against_vs_avg": 4.72
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 4.182,
+            "home_expected": 4.021
+          },
+          "correct_score_top3": {
+            "0-1": 0.0768,
+            "1-1": 0.1131,
+            "1-2": 0.095
+          }
+        },
+        "over_05": 0.9469,
+        "over_15": 0.8166,
+        "over_25": 0.591,
+        "warnings": [],
+        "fixture_id": 1563857,
+        "fouls_away": 10.268,
+        "fouls_home": 11.828,
+        "model_mode": "league_v3",
+        "fouls_total": 22.096,
+        "lambda_away": 1.781,
+        "lambda_home": 1.283,
+        "corners_away": 4.822,
+        "corners_home": 4.934,
+        "generated_at": "2026-11-11T17:15:50.723867+00:00",
+        "corners_total": 9.756
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Los goles esperados son 1.28 para Rochdale y 1.78 para York. La probabilidad de más de 1.5 goles es 82 % y la de más de 2.5 es 59 %. Que ambos anoten tiene 61 % de probabilidad, y el marcador más probable es 1-1.",
+          "faltas": "Se esperan 22.1 faltas en total: 11.8 cometidas por Rochdale y 10.3 por York. El dato de árbitro no está disponible, así que no se ajusta esta cifra.",
+          "resumen": "York llega mejor al partido: ocupa el séptimo lugar con 20 puntos y su forma reciente incluye una victoria. Rochdale está en el puesto 20 y viene de cinco resultados donde solo sumó cuatro puntos. Las probabilidades son 27 % local, 25 % empate y 48 % visita, así que el favoritismo visitante es claro pero no definitivo.",
+          "contexto": "Rochdale recibe en promedio 1.77 goles por partido frente a rivales promedio, mientras que York recibe 1.47, lo que sugiere una defensa visitante más sólida. York también anota más, con 1.47 goles a favor frente a 1.15 de los locales. Ambos equipos llegan con 14 días de descanso.",
+          "corners_faltas": "Se esperan 9.8 tiros de esquina en total, con 4.9 para Rochdale y 4.8 para York. Ambos equipos proyectan volúmenes parecidos, así que ningún lado domina en este apartado.\n\nSe esperan 22.1 faltas en total: 11.8 cometidas por Rochdale y 10.3 por York. El dato de árbitro no está disponible, así que no se ajusta esta cifra.",
+          "tiros_de_esquina": "Se esperan 9.8 tiros de esquina en total, con 4.9 para Rochdale y 4.8 para York. Ambos equipos proyectan volúmenes parecidos, así que ningún lado domina en este apartado.",
+          "a_tener_en_cuenta": "La principal incertidumbre está en la defensa local, que ha recibido muchos goles en su racha reciente. Si Rochdale logra mantener el marcador cerrado en los primeros minutos, el partido podría ser más parejo de lo que sugiere el pronóstico."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1564408,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 6,
+      "away_goals": 2,
+      "ft_home": 6,
+      "ft_away": 2,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 41,
+        "name": "League One",
+        "country": "England"
+      },
+      "home": {
+        "id": 1348,
+        "name": "Milton Keynes Dons"
+      },
+      "away": {
+        "id": 748,
+        "name": "Burton Albion"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.5515,
+        "p_away": 0.2557,
+        "p_draw": 0.2625,
+        "p_home": 0.4818,
+        "context": {
+          "shots": {
+            "away_expected": 12.201,
+            "home_expected": 14.165
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 49.2,
+            "home_pct": 50.8
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.07,
+            "name": "League One",
+            "teams": 31,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.526,
+              "corners": 1.323,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.143
+            },
+            "tournament_id": 41,
+            "home_advantage_log": 0.1856,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4288,
+            "goals_per_team_neutral": 1.36,
+            "matches_current_season": 158,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.24,
+            "home_goals_expected_vs_equal": 1.493
+          },
+          "away_ratings": {
+            "name": "Burton Albion",
+            "attack": -0.158,
+            "defense": 0.0067,
+            "net_rating": -0.1512,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 12.07,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 11.9,
+            "corners_for_vs_avg": 5.26,
+            "possession_strength": -0.0973,
+            "fouls_against_vs_avg": 12.13,
+            "shots_against_vs_avg": 13.13,
+            "corners_against_vs_avg": 5.48,
+            "yellow_cards_for_vs_avg": 1.66,
+            "goals_for_vs_avg_opponent": 1.161,
+            "shots_on_target_for_vs_avg": 3.77,
+            "yellow_cards_against_vs_avg": 1.85,
+            "goals_against_vs_avg_opponent": 1.351,
+            "shots_on_target_against_vs_avg": 3.98
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Milton Keynes Dons",
+            "attack": 0.0723,
+            "defense": -0.084,
+            "net_rating": -0.0117,
+            "matches_current": 13,
+            "fouls_for_vs_avg": 11.85,
+            "matches_previous": 0,
+            "shots_for_vs_avg": 13.25,
+            "corners_for_vs_avg": 5.0,
+            "possession_strength": -0.0977,
+            "fouls_against_vs_avg": 11.2,
+            "shots_against_vs_avg": 14.2,
+            "corners_against_vs_avg": 5.74,
+            "yellow_cards_for_vs_avg": 1.81,
+            "goals_for_vs_avg_opponent": 1.462,
+            "shots_on_target_for_vs_avg": 3.74,
+            "yellow_cards_against_vs_avg": 1.74,
+            "goals_against_vs_avg_opponent": 1.479,
+            "shots_on_target_against_vs_avg": 4.48
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 3.864,
+            "home_expected": 3.881
+          },
+          "correct_score_top3": {
+            "1-0": 0.0954,
+            "1-1": 0.1249,
+            "2-1": 0.095
+          }
+        },
+        "over_05": 0.9282,
+        "over_15": 0.7693,
+        "over_25": 0.5197,
+        "warnings": [],
+        "fixture_id": 1564408,
+        "fouls_away": 11.888,
+        "fouls_home": 11.761,
+        "model_mode": "league_v3",
+        "fouls_total": 23.649,
+        "lambda_away": 1.127,
+        "lambda_home": 1.627,
+        "corners_away": 4.957,
+        "corners_home": 5.616,
+        "generated_at": "2026-11-11T17:15:50.75032+00:00",
+        "corners_total": 10.573
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Milton Keynes Dons espera 1.6 goles y Burton Albion 1.1. Hay 77 % de probabilidad de más de 1.5 goles y 52 % de más de 2.5. Ambos anotan en 55 % de los casos, así que el marcador 1-1 es de los más probables.",
+          "faltas": "Se esperan 23.6 faltas en total, prácticamente igual para cada equipo: 11.8 para el local y 11.9 para la visita. No hay dato de árbitro para ajustar esta cifra.",
+          "resumen": "Milton Keynes Dons llega mejor, con una forma de cuatro victorias en cinco partidos y la localía a favor. Tiene 48 % de ganar, 26 % de empate y 26 % de victoria de Burton Albion. Es un partido bastante parejo, aunque el local parte con ventaja clara.",
+          "contexto": "Milton Keynes Dons ocupa el puesto 12 con 18 puntos y diferencia de +2. Burton Albion está en el 15 con 17 puntos y -3, y llega con dos empates en sus últimos cinco partidos. Ambos tienen 14 días de descanso.",
+          "corners_faltas": "Se esperan 10.6 tiros de esquina en total, con 5.6 para el local y 5.0 para la visita. El volumen está bastante repartido entre los dos equipos, sin un lado claramente dominante.\n\nSe esperan 23.6 faltas en total, prácticamente igual para cada equipo: 11.8 para el local y 11.9 para la visita. No hay dato de árbitro para ajustar esta cifra.",
+          "tiros_de_esquina": "Se esperan 10.6 tiros de esquina en total, con 5.6 para el local y 5.0 para la visita. El volumen está bastante repartido entre los dos equipos, sin un lado claramente dominante.",
+          "a_tener_en_cuenta": "El margen entre ambos equipos es estrecho y el empate tiene 26 % de probabilidad, así que el resultado puede cambiar fácilmente. La lectura podría variar si aparecen bajas o cambios que el modelo no considera."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    },
+    {
+      "id": 1563851,
+      "kickoff": "2026-11-14T15:00:00+00:00",
+      "status": "FT",
+      "home_goals": 0,
+      "away_goals": 2,
+      "ft_home": 0,
+      "ft_away": 2,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "league": {
+        "id": 42,
+        "name": "League Two",
+        "country": "England"
+      },
+      "home": {
+        "id": 1334,
+        "name": "Bristol Rovers"
+      },
+      "away": {
+        "id": 1345,
+        "name": "Chesterfield"
+      },
+      "mark": null,
+      "prediction": {
+        "btts": 0.6216,
+        "p_away": 0.3942,
+        "p_draw": 0.2527,
+        "p_home": 0.3532,
+        "context": {
+          "shots": {
+            "away_expected": 12.458,
+            "home_expected": 12.302
+          },
+          "referee": null,
+          "possession": {
+            "away_pct": 58.9,
+            "home_pct": 41.1
+          },
+          "away_league": null,
+          "home_league": {
+            "rho": -0.06,
+            "name": "League Two",
+            "teams": 30,
+            "xg_weight": 0.7,
+            "dispersion": {
+              "fouls": 1.0,
+              "shots": 1.513,
+              "corners": 1.299,
+              "yellow_cards": 1.0,
+              "shots_on_target": 1.077
+            },
+            "tournament_id": 42,
+            "home_advantage_log": 0.241,
+            "possession_home_logit": 0.0332,
+            "goals_first_half_share": 0.4431,
+            "goals_per_team_neutral": 1.388,
+            "matches_current_season": 164,
+            "matches_previous_season": 557,
+            "corners_first_half_share": 0.47,
+            "away_goals_expected_vs_equal": 1.231,
+            "home_goals_expected_vs_equal": 1.566
+          },
+          "away_ratings": {
+            "name": "Chesterfield",
+            "attack": 0.2075,
+            "defense": 0.0584,
+            "net_rating": 0.2659,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 9.93,
+            "matches_previous": 48,
+            "shots_for_vs_avg": 14.74,
+            "corners_for_vs_avg": 5.55,
+            "possession_strength": 0.3517,
+            "fouls_against_vs_avg": 12.1,
+            "shots_against_vs_avg": 10.51,
+            "corners_against_vs_avg": 4.0,
+            "yellow_cards_for_vs_avg": 1.93,
+            "goals_for_vs_avg_opponent": 1.709,
+            "shots_on_target_for_vs_avg": 4.84,
+            "yellow_cards_against_vs_avg": 2.24,
+            "goals_against_vs_avg_opponent": 1.31,
+            "shots_on_target_against_vs_avg": 3.54
+          },
+          "cross_league": null,
+          "home_ratings": {
+            "name": "Bristol Rovers",
+            "attack": 0.0419,
+            "defense": -0.0086,
+            "net_rating": 0.0333,
+            "matches_current": 14,
+            "fouls_for_vs_avg": 13.0,
+            "matches_previous": 46,
+            "shots_for_vs_avg": 13.44,
+            "corners_for_vs_avg": 4.82,
+            "possession_strength": -0.0411,
+            "fouls_against_vs_avg": 10.59,
+            "shots_against_vs_avg": 11.37,
+            "corners_against_vs_avg": 4.36,
+            "yellow_cards_for_vs_avg": 2.2,
+            "goals_for_vs_avg_opponent": 1.448,
+            "shots_on_target_for_vs_avg": 3.95,
+            "yellow_cards_against_vs_avg": 2.07,
+            "goals_against_vs_avg_opponent": 1.4,
+            "shots_on_target_against_vs_avg": 3.71
+          },
+          "cup_goal_level": null,
+          "shots_on_target": {
+            "away_expected": 4.037,
+            "home_expected": 4.032
+          },
+          "correct_score_top3": {
+            "1-1": 0.1158,
+            "1-2": 0.0864,
+            "2-1": 0.0813
+          }
+        },
+        "over_05": 0.947,
+        "over_15": 0.8176,
+        "over_25": 0.5923,
+        "warnings": [],
+        "fixture_id": 1563851,
+        "fouls_away": 9.236,
+        "fouls_home": 13.164,
+        "model_mode": "league_v3",
+        "fouls_total": 22.4,
+        "lambda_away": 1.582,
+        "lambda_home": 1.488,
+        "corners_away": 4.599,
+        "corners_home": 4.347,
+        "generated_at": "2026-11-11T17:15:50.813292+00:00",
+        "corners_total": 8.946
+      },
+      "analysis": {
+        "sections": {
+          "goles": "Bristol Rovers tiene 1.49 goles esperados y Chesterfield 1.58. Hay 82 % de probabilidad de más de 1.5 goles y 59 % de más de 2.5. Ambos anotan con 62 %, y el marcador más probable es 1-1 con 11.6 %.",
+          "faltas": "Se esperan 22.4 faltas en total, 13.2 cometidas por Bristol Rovers y 9.2 por Chesterfield. El local es el que más faltas comete, un patrón que se repite en su temporada.",
+          "resumen": "Chesterfield llega mejor: está décimo con 19 puntos y tiene una forma reciente más sólida que Bristol Rovers, que está 17º y solo ganó uno de sus últimos cinco partidos. El modelo da 39 % de victoria visitante, 35 % local y 25 % empate, así que es un partido bastante parejo con ligera ventaja para la visita.",
+          "contexto": "Chesterfield tiene +3 de diferencia de goles y Bristol Rovers -6. Bristol Rovers llega con 14 días de descanso y Chesterfield con 14.8. Chesterfield viene de un 5-1 ante Crewe, pero también de una derrota 1-4 en Newport County.",
+          "corners_faltas": "Se esperan 8.9 tiros de esquina en total: 4.3 para Bristol Rovers y 4.6 para Chesterfield. La visita aporta un poco más de volumen, impulsada por su buena producción ofensiva en córners frente a un rival promedio.\n\nSe esperan 22.4 faltas en total, 13.2 cometidas por Bristol Rovers y 9.2 por Chesterfield. El local es el que más faltas comete, un patrón que se repite en su temporada.",
+          "tiros_de_esquina": "Se esperan 8.9 tiros de esquina en total: 4.3 para Bristol Rovers y 4.6 para Chesterfield. La visita aporta un poco más de volumen, impulsada por su buena producción ofensiva en córners frente a un rival promedio.",
+          "a_tener_en_cuenta": "La principal fuente de incertidumbre es el empate, que tiene 25 % de probabilidad en un partido con marcadores cercanos. Como no hay datos de bajas ni de árbitro, la lectura se basa solo en el rendimiento y la forma de cada equipo."
+        },
+        "created_at": "2026-11-12T04:28:10.098947+00:00"
+      }
+    }
+  ],
+  "football_upcoming_anon_rls": [
+    {
+      "id": 1556699,
+      "kickoff": "2026-10-31T15:00:00+00:00",
+      "status": "NS",
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "mark": null,
+      "home": {
+        "id": 257,
+        "name": "Rangers"
+      },
+      "away": {
+        "id": 252,
+        "name": "Aberdeen"
+      },
+      "prediction": null,
+      "analysis": null
+    },
+    {
+      "id": 1551883,
+      "kickoff": "2026-11-14T19:00:00+00:00",
+      "status": "NS",
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "mark": null,
+      "home": {
+        "id": 417,
+        "name": "Waalwijk"
+      },
+      "away": {
+        "id": 421,
+        "name": "Den Bosch"
+      },
+      "prediction": null,
+      "analysis": null
+    },
+    {
+      "id": 1551882,
+      "kickoff": "2026-11-14T19:00:00+00:00",
+      "status": "NS",
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "mark": null,
+      "home": {
+        "id": 204,
+        "name": "VVV Venlo"
+      },
+      "away": {
+        "id": 422,
+        "name": "FC Eindhoven"
+      },
+      "prediction": null,
+      "analysis": null
+    }
+  ],
+  "football_national_v3_samples": [
+    {
+      "fixture_id": 1528971,
+      "model_mode": "national_v3",
+      "lambda_home": 1.878,
+      "lambda_away": 0.814,
+      "p_home": 0.6189,
+      "p_draw": 0.2307,
+      "p_away": 0.1504,
+      "over_05": 0.9261,
+      "over_15": 0.7562,
+      "over_25": 0.5045,
+      "btts": 0.4781,
+      "warnings": [
+        "Selecciones: el modelo junta los partidos internacionales de los últimos dos años (Mundial, eliminatorias, Nations League, copas continentales y amistosos) como si fueran una sola liga."
+      ],
+      "context": {
+        "shots": {
+          "away_expected": 8.42,
+          "home_expected": 14.811
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 50.9,
+          "home_pct": 49.1
+        },
+        "away_league": null,
+        "home_league": {
+          "rho": -0.06,
+          "name": "Selecciones nacionales",
+          "teams": 591,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.285,
+            "shots": 1.762,
+            "corners": 1.204,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.073
+          },
+          "tournament_id": 0,
+          "home_advantage_log": 0.223,
+          "possession_home_logit": 0.0638,
+          "goals_first_half_share": 0.4532,
+          "goals_per_team_neutral": 1.29,
+          "matches_current_season": 0,
+          "matches_previous_season": 2592,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.154,
+          "home_goals_expected_vs_equal": 1.442
+        },
+        "away_ratings": {
+          "name": "Israel",
+          "attack": -0.0471,
+          "defense": -0.0199,
+          "net_rating": -0.0671,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 9.99,
+          "matches_previous": 18,
+          "shots_for_vs_avg": 10.1,
+          "corners_for_vs_avg": 4.03,
+          "possession_strength": 0.0576,
+          "fouls_against_vs_avg": 11.23,
+          "shots_against_vs_avg": 11.92,
+          "corners_against_vs_avg": 4.2,
+          "yellow_cards_for_vs_avg": 1.43,
+          "goals_for_vs_avg_opponent": 1.231,
+          "shots_on_target_for_vs_avg": 3.6,
+          "yellow_cards_against_vs_avg": 1.44,
+          "goals_against_vs_avg_opponent": 1.316,
+          "shots_on_target_against_vs_avg": 3.83
+        },
+        "cross_league": null,
+        "home_ratings": {
+          "name": "Kosovo",
+          "attack": 0.1734,
+          "defense": 0.231,
+          "net_rating": 0.4044,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 10.67,
+          "matches_previous": 20,
+          "shots_for_vs_avg": 12.44,
+          "corners_for_vs_avg": 3.59,
+          "possession_strength": -0.0415,
+          "fouls_against_vs_avg": 12.81,
+          "shots_against_vs_avg": 9.83,
+          "corners_against_vs_avg": 3.96,
+          "yellow_cards_for_vs_avg": 1.48,
+          "goals_for_vs_avg_opponent": 1.535,
+          "shots_on_target_for_vs_avg": 4.38,
+          "yellow_cards_against_vs_avg": 1.67,
+          "goals_against_vs_avg_opponent": 1.024,
+          "shots_on_target_against_vs_avg": 3.43
+        },
+        "cup_goal_level": null,
+        "shots_on_target": {
+          "away_expected": 2.981,
+          "home_expected": 4.799
+        },
+        "correct_score_top3": {
+          "1-0": 0.121,
+          "1-1": 0.1098,
+          "2-0": 0.1194
+        }
+      }
+    },
+    {
+      "fixture_id": 1644692,
+      "model_mode": "national_v3",
+      "lambda_home": 0.682,
+      "lambda_away": 1.794,
+      "p_home": 0.13,
+      "p_draw": 0.2353,
+      "p_away": 0.6347,
+      "over_05": 0.9098,
+      "over_15": 0.714,
+      "over_25": 0.4501,
+      "btts": 0.4183,
+      "warnings": [
+        "Selecciones: el modelo junta los partidos internacionales de los últimos dos años (Mundial, eliminatorias, Nations League, copas continentales y amistosos) como si fueran una sola liga."
+      ],
+      "context": {
+        "shots": {
+          "away_expected": 11.877,
+          "home_expected": 7.075
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 55.3,
+          "home_pct": 44.7
+        },
+        "away_league": null,
+        "home_league": {
+          "rho": -0.06,
+          "name": "Selecciones nacionales",
+          "teams": 591,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.285,
+            "shots": 1.762,
+            "corners": 1.204,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.073
+          },
+          "tournament_id": 0,
+          "home_advantage_log": 0.223,
+          "possession_home_logit": 0.0638,
+          "goals_first_half_share": 0.4532,
+          "goals_per_team_neutral": 1.29,
+          "matches_current_season": 0,
+          "matches_previous_season": 2592,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.154,
+          "home_goals_expected_vs_equal": 1.442
+        },
+        "away_ratings": {
+          "name": "Canada",
+          "attack": 0.0833,
+          "defense": 0.6867,
+          "net_rating": 0.77,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 13.05,
+          "matches_previous": 29,
+          "shots_for_vs_avg": 11.73,
+          "corners_for_vs_avg": 6.51,
+          "possession_strength": 0.1508,
+          "fouls_against_vs_avg": 11.93,
+          "shots_against_vs_avg": 5.94,
+          "corners_against_vs_avg": 2.77,
+          "yellow_cards_for_vs_avg": 1.62,
+          "goals_for_vs_avg_opponent": 1.402,
+          "shots_on_target_for_vs_avg": 4.43,
+          "yellow_cards_against_vs_avg": 1.72,
+          "goals_against_vs_avg_opponent": 0.649,
+          "shots_on_target_against_vs_avg": 2.06
+        },
+        "cross_league": null,
+        "home_ratings": {
+          "name": "Guatemala",
+          "attack": 0.0748,
+          "defense": -0.2208,
+          "net_rating": -0.146,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 9.33,
+          "matches_previous": 23,
+          "shots_for_vs_avg": 11.92,
+          "corners_for_vs_avg": 4.05,
+          "possession_strength": -0.1255,
+          "fouls_against_vs_avg": 11.22,
+          "shots_against_vs_avg": 11.94,
+          "corners_against_vs_avg": 4.07,
+          "yellow_cards_for_vs_avg": 1.95,
+          "goals_for_vs_avg_opponent": 1.39,
+          "shots_on_target_for_vs_avg": 3.77,
+          "yellow_cards_against_vs_avg": 1.72,
+          "goals_against_vs_avg_opponent": 1.609,
+          "shots_on_target_against_vs_avg": 4.13
+        },
+        "cup_goal_level": null,
+        "shots_on_target": {
+          "away_expected": 4.431,
+          "home_expected": 2.218
+        },
+        "correct_score_top3": {
+          "0-1": 0.1447,
+          "0-2": 0.1353,
+          "1-1": 0.109
+        }
+      }
+    },
+    {
+      "fixture_id": 1545615,
+      "model_mode": "national_v3",
+      "lambda_home": 0.723,
+      "lambda_away": 0.997,
+      "p_home": 0.2496,
+      "p_draw": 0.3488,
+      "p_away": 0.4016,
+      "over_05": 0.8132,
+      "over_15": 0.5208,
+      "over_25": 0.2481,
+      "btts": 0.3326,
+      "warnings": [
+        "Selecciones: el modelo junta los partidos internacionales de los últimos dos años (Mundial, eliminatorias, Nations League, copas continentales y amistosos) como si fueran una sola liga."
+      ],
+      "context": {
+        "shots": {
+          "away_expected": 4.357,
+          "home_expected": 9.855
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 46.5,
+          "home_pct": 53.5
+        },
+        "away_league": null,
+        "home_league": {
+          "rho": -0.06,
+          "name": "Selecciones nacionales",
+          "teams": 591,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.285,
+            "shots": 1.762,
+            "corners": 1.204,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.073
+          },
+          "tournament_id": 0,
+          "home_advantage_log": 0.223,
+          "possession_home_logit": 0.0638,
+          "goals_first_half_share": 0.4532,
+          "goals_per_team_neutral": 1.29,
+          "matches_current_season": 0,
+          "matches_previous_season": 2592,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.154,
+          "home_goals_expected_vs_equal": 1.442
+        },
+        "away_ratings": {
+          "name": "Gibraltar",
+          "attack": -0.4201,
+          "defense": -0.298,
+          "net_rating": -0.7181,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 11.83,
+          "matches_previous": 20,
+          "shots_for_vs_avg": 5.13,
+          "corners_for_vs_avg": 2.5,
+          "possession_strength": -0.4341,
+          "fouls_against_vs_avg": 14.04,
+          "shots_against_vs_avg": 13.85,
+          "corners_against_vs_avg": 6.84,
+          "yellow_cards_for_vs_avg": 1.96,
+          "goals_for_vs_avg_opponent": 0.848,
+          "shots_on_target_for_vs_avg": 2.42,
+          "yellow_cards_against_vs_avg": 2.08,
+          "goals_against_vs_avg_opponent": 1.738,
+          "shots_on_target_against_vs_avg": 5.38
+        },
+        "cross_league": null,
+        "home_ratings": {
+          "name": "Andorra",
+          "attack": -0.9258,
+          "defense": -0.2113,
+          "net_rating": -1.1371,
+          "matches_current": 0,
+          "fouls_for_vs_avg": 14.08,
+          "matches_previous": 21,
+          "shots_for_vs_avg": 7.12,
+          "corners_for_vs_avg": 3.16,
+          "possession_strength": -0.359,
+          "fouls_against_vs_avg": 11.87,
+          "shots_against_vs_avg": 10.01,
+          "corners_against_vs_avg": 5.23,
+          "yellow_cards_for_vs_avg": 2.36,
+          "goals_for_vs_avg_opponent": 0.511,
+          "shots_on_target_for_vs_avg": 2.54,
+          "yellow_cards_against_vs_avg": 1.4,
+          "goals_against_vs_avg_opponent": 1.594,
+          "shots_on_target_against_vs_avg": 4.8
+        },
+        "cup_goal_level": null,
+        "shots_on_target": {
+          "away_expected": 2.811,
+          "home_expected": 3.897
+        },
+        "correct_score_top3": {
+          "0-0": 0.1868,
+          "0-1": 0.1708,
+          "1-1": 0.1368
+        }
+      }
+    }
+  ],
+  "football_cross_league_v3_samples": [
+    {
+      "fixture_id": 1638311,
+      "model_mode": "cross_league_v3",
+      "lambda_home": 0.998,
+      "lambda_away": 3.142,
+      "p_home": 0.0808,
+      "p_draw": 0.1302,
+      "p_away": 0.789,
+      "warnings": [
+        "Partido entre ligas femeniles: se toma la misma fuerza para todas las ligas, porque el coeficiente UEFA de pais es de la rama varonil."
+      ],
+      "context": {
+        "shots": {
+          "away_expected": 17.475,
+          "home_expected": 10.247
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 63.6,
+          "home_pct": 36.4
+        },
+        "away_league": {
+          "rho": -0.09,
+          "name": "Feminine Division 1",
+          "teams": 14,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.0,
+            "shots": 1.618,
+            "corners": 1.406,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.088
+          },
+          "tournament_id": 64,
+          "home_advantage_log": 0.1916,
+          "possession_home_logit": -0.2342,
+          "goals_first_half_share": 0.4757,
+          "goals_per_team_neutral": 1.284,
+          "matches_current_season": 46,
+          "matches_previous_season": 131,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.167,
+          "home_goals_expected_vs_equal": 1.414
+        },
+        "home_league": {
+          "rho": -0.08,
+          "name": "Serie A Women",
+          "teams": 13,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.104,
+            "shots": 1.458,
+            "corners": 1.353,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.0
+          },
+          "tournament_id": 139,
+          "home_advantage_log": 0.2197,
+          "possession_home_logit": 0.0427,
+          "goals_first_half_share": 0.4474,
+          "goals_per_team_neutral": 1.291,
+          "matches_current_season": 36,
+          "matches_previous_season": 132,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.157,
+          "home_goals_expected_vs_equal": 1.441
+        },
+        "away_ratings": {
+          "name": "Lyon W",
+          "attack": 0.8945,
+          "defense": 0.5704,
+          "net_rating": 1.4649,
+          "matches_current": 8,
+          "fouls_for_vs_avg": 11.11,
+          "matches_previous": 24,
+          "shots_for_vs_avg": 19.08,
+          "corners_for_vs_avg": 6.67,
+          "possession_strength": 0.6777,
+          "fouls_against_vs_avg": 9.43,
+          "shots_against_vs_avg": 7.41,
+          "corners_against_vs_avg": 3.02,
+          "yellow_cards_for_vs_avg": 1.65,
+          "goals_for_vs_avg_opponent": 3.142,
+          "shots_on_target_for_vs_avg": 8.29,
+          "yellow_cards_against_vs_avg": 1.83,
+          "goals_against_vs_avg_opponent": 0.726,
+          "shots_on_target_against_vs_avg": 2.61
+        },
+        "cross_league": {
+          "exponent": 0.5,
+          "away_factor": 1.0,
+          "away_league": "Feminine Division 1",
+          "home_factor": 1.0,
+          "home_league": "Serie A Women",
+          "away_country": null,
+          "home_country": null,
+          "exponent_corners": 0.2
+        },
+        "home_ratings": {
+          "name": "Juventus W",
+          "attack": 0.2962,
+          "defense": -0.0076,
+          "net_rating": 0.2887,
+          "matches_current": 6,
+          "fouls_for_vs_avg": 9.21,
+          "matches_previous": 22,
+          "shots_for_vs_avg": 16.01,
+          "corners_for_vs_avg": 5.78,
+          "possession_strength": 0.2151,
+          "fouls_against_vs_avg": 9.39,
+          "shots_against_vs_avg": 11.44,
+          "corners_against_vs_avg": 4.36,
+          "yellow_cards_for_vs_avg": 1.16,
+          "goals_for_vs_avg_opponent": 1.736,
+          "shots_on_target_for_vs_avg": 5.11,
+          "yellow_cards_against_vs_avg": 0.92,
+          "goals_against_vs_avg_opponent": 1.301,
+          "shots_on_target_against_vs_avg": 4.21
+        },
+        "cup_goal_level": 1.0044,
+        "shots_on_target": {
+          "away_expected": 7.442,
+          "home_expected": 3.358
+        },
+        "correct_score_top3": {
+          "0-2": 0.0787,
+          "0-3": 0.0824,
+          "1-3": 0.0822
+        }
+      }
+    },
+    {
+      "fixture_id": 1636245,
+      "model_mode": "cross_league_v3",
+      "lambda_home": 1.072,
+      "lambda_away": 1.041,
+      "p_home": 0.3492,
+      "p_draw": 0.3173,
+      "p_away": 0.3336,
+      "warnings": [
+        "Partido entre ligas: la fuerza relativa usa el coeficiente UEFA del pais."
+      ],
+      "context": {
+        "shots": {
+          "away_expected": 11.1,
+          "home_expected": 11.116
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 42.4,
+          "home_pct": 57.6
+        },
+        "away_league": {
+          "rho": -0.07,
+          "name": "Jupiler Pro League",
+          "teams": 22,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.0,
+            "shots": 1.461,
+            "corners": 1.335,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.0
+          },
+          "tournament_id": 144,
+          "home_advantage_log": 0.2305,
+          "possession_home_logit": 0.054,
+          "goals_first_half_share": 0.4473,
+          "goals_per_team_neutral": 1.459,
+          "matches_current_season": 89,
+          "matches_previous_season": 321,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.3,
+          "home_goals_expected_vs_equal": 1.638
+        },
+        "home_league": {
+          "rho": -0.07,
+          "name": "La Liga",
+          "teams": 23,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.0,
+            "shots": 1.606,
+            "corners": 1.34,
+            "yellow_cards": 1.0,
+            "shots_on_target": 1.0
+          },
+          "tournament_id": 140,
+          "home_advantage_log": 0.2513,
+          "possession_home_logit": 0.0398,
+          "goals_first_half_share": 0.4305,
+          "goals_per_team_neutral": 1.359,
+          "matches_current_season": 109,
+          "matches_previous_season": 380,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.198,
+          "home_goals_expected_vs_equal": 1.541
+        },
+        "away_ratings": {
+          "name": "Union St. Gilloise",
+          "attack": 0.2058,
+          "defense": 0.3936,
+          "net_rating": 0.5993,
+          "matches_current": 10,
+          "fouls_for_vs_avg": 11.44,
+          "matches_previous": 40,
+          "shots_for_vs_avg": 15.58,
+          "corners_for_vs_avg": 5.61,
+          "possession_strength": 0.0934,
+          "fouls_against_vs_avg": 11.19,
+          "shots_against_vs_avg": 10.22,
+          "corners_against_vs_avg": 3.88,
+          "yellow_cards_for_vs_avg": 1.79,
+          "goals_for_vs_avg_opponent": 1.793,
+          "shots_on_target_for_vs_avg": 5.96,
+          "yellow_cards_against_vs_avg": 2.01,
+          "goals_against_vs_avg_opponent": 0.985,
+          "shots_on_target_against_vs_avg": 2.99
+        },
+        "cross_league": {
+          "exponent": 0.5,
+          "away_factor": 0.6096,
+          "away_league": "Jupiler Pro League",
+          "home_factor": 1.0128,
+          "home_league": "La Liga",
+          "away_country": "Belgium",
+          "home_country": "Spain",
+          "exponent_corners": 0.2
+        },
+        "home_ratings": {
+          "name": "Celta Vigo",
+          "attack": -0.1967,
+          "defense": 0.1039,
+          "net_rating": -0.0927,
+          "matches_current": 11,
+          "fouls_for_vs_avg": 12.23,
+          "matches_previous": 38,
+          "shots_for_vs_avg": 10.15,
+          "corners_for_vs_avg": 3.6,
+          "possession_strength": -0.0525,
+          "fouls_against_vs_avg": 12.94,
+          "shots_against_vs_avg": 13.28,
+          "corners_against_vs_avg": 4.5,
+          "yellow_cards_for_vs_avg": 1.85,
+          "goals_for_vs_avg_opponent": 1.116,
+          "shots_on_target_for_vs_avg": 3.44,
+          "yellow_cards_against_vs_avg": 1.9,
+          "goals_against_vs_avg_opponent": 1.225,
+          "shots_on_target_against_vs_avg": 4.45
+        },
+        "cup_goal_level": 0.9578,
+        "shots_on_target": {
+          "away_expected": 4.141,
+          "home_expected": 3.358
+        },
+        "correct_score_top3": {
+          "0-0": 0.1303,
+          "1-0": 0.1201,
+          "1-1": 0.1443
+        }
+      }
+    }
+  ],
+  "football_referee_sample": {
+    "fixture_id": 1528964,
+    "model_mode": "national_v3",
+    "referee": {
+      "name": "Goga Kikacheishvili",
+      "games": 9,
+      "cards_multiplier": 0.847,
+      "yellow_cards_total": 27,
+      "shrunk_yellow_per_game": 4.293
+    },
+    "fouls": [
+      13.053,
+      14.55,
+      27.603
+    ]
+  },
+  "football_league_rhos": {
+    "Selecciones nacionales": -0.06,
+    "Eerste Divisie": -0.05,
+    "Segunda División": -0.06,
+    "League One": -0.07,
+    "League Two": -0.06,
+    "FA WSL": -0.08,
+    "Feminine Division 1": -0.09,
+    "Serie A Women": -0.08
+  },
+  "nba_finished": [
+    {
+      "sport": "nba",
+      "id": 401909304,
+      "league": "NBA",
+      "start_time": "2026-11-14T03:30:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 113,
+      "away_score": 112,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 12,
+        "name": "LA Clippers",
+        "abbrev": "LAC"
+      },
+      "away": {
+        "id": 25,
+        "name": "Oklahoma City Thunder",
+        "abbrev": "OKC"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.6294,
+          "draw": null,
+          "home": 0.3706,
+          "title": "Probabilidad de victoria, con prórroga"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "108.2 – 112.2"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "220.4"
+          },
+          {
+            "label": "Más de 220.5 puntos",
+            "value": "50%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "Oklahoma City Thunder por 4.0"
+          },
+          {
+            "label": "Hándicap OKC -4.5",
+            "value": "48%"
+          },
+          {
+            "label": "Prórroga",
+            "value": "5%"
+          }
+        ],
+        "sport": "nba",
+        "context": {
+          "digest": {
+            "liga": {
+              "puntos_por_equipo": 113.582,
+              "ventaja_local_puntos": 1.781
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "partido": "LA Clippers vs Oklahoma City Thunder",
+            "ratings": {
+              "away": {
+                "def": 3.886,
+                "elo": 1630.0,
+                "net": 2.403,
+                "off": -1.483,
+                "name": "Oklahoma City Thunder",
+                "games": {
+                  "current_nba": 10,
+                  "previous_nba": 97,
+                  "current_preseason": 5
+                },
+                "prior_net": 6.747
+              },
+              "home": {
+                "def": -0.386,
+                "elo": 1454.1,
+                "net": -3.395,
+                "off": -3.009,
+                "name": "LA Clippers",
+                "games": {
+                  "current_nba": 9,
+                  "previous_nba": 83,
+                  "current_preseason": 3
+                },
+                "prior_net": 0.773
+              }
+            },
+            "descanso": {
+              "away": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 48.5
+              },
+              "home": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 73.5
+              }
+            },
+            "pronostico": {
+              "prorroga_pct": 5.0,
+              "primera_mitad": {
+                "total": 110.81,
+                "local_gana_pct": 39
+              },
+              "puntos_esperados": {
+                "local": 108.18,
+                "total": 220.4,
+                "visitante": 112.23
+              },
+              "totales_mas_de_pct": {
+                "218.5": 54,
+                "219.5": 52,
+                "220.5": 50,
+                "221.5": 48,
+                "222.5": 45
+              },
+              "gana_con_prorroga_pct": {
+                "away": 63,
+                "home": 37
+              },
+              "handicap_local_cubre_pct": {
+                "2.5": 45,
+                "3.5": 48,
+                "4.5": 52,
+                "5.5": 55,
+                "6.5": 58
+              },
+              "margen_local_tiempo_regular": -4.05
+            },
+            "sede_neutral": false,
+            "forma_reciente": {
+              "away": {
+                "ultimos": [
+                  "P 108-118 en Portland Trail Blazers",
+                  "P 103-123 en Portland Trail Blazers",
+                  "G 124-116 vs Cleveland Cavaliers",
+                  "G 117-112 en Cleveland Cavaliers",
+                  "P 98-119 en Houston Rockets"
+                ],
+                "puntos_a_favor_promedio": 110.0,
+                "puntos_en_contra_promedio": 117.6
+              },
+              "home": {
+                "ultimos": [
+                  "P 110-133 en Phoenix Suns",
+                  "P 116-117 vs Miami Heat (TE)",
+                  "P 118-125 vs Toronto Raptors",
+                  "P 112-124 en Golden State Warriors",
+                  "P 101-127 en Minnesota Timberwolves"
+                ],
+                "puntos_a_favor_promedio": 111.4,
+                "puntos_en_contra_promedio": 125.2
+              }
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Ajay Mitchell",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jaylin Williams",
+                  "posicion": "F"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Thomas Sorber",
+                  "posicion": "C"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Cason Wallace",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Chet Holmgren",
+                  "posicion": "C"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jalen Williams",
+                  "posicion": "G"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Cam Christie",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Yanic Konan Niederhauser",
+                  "posicion": "C"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Brandon Ingram",
+                  "posicion": "F"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Bradley Beal",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jordan Miller",
+                  "posicion": "G"
+                }
+              ]
+            }
+          },
+          "model_components": {
+            "final_margin": -4.05,
+            "margin_from_elo": -4.14,
+            "rest_adjustment": 0.0,
+            "elo_blend_weight": 0.25,
+            "elo_win_prob_home": 0.3391,
+            "league_avg_points": 113.582,
+            "margin_from_ratings": -4.02,
+            "preseason_adjustment": false,
+            "home_advantage_points": 1.781
+          }
+        },
+        "game_id": 401909304,
+        "warnings": [],
+        "generated_at": "2026-11-12T17:39:02.779465+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Oklahoma City Thunder llega como favorito. Con prórroga incluida, su probabilidad de ganar es de 63%, contra 37% de LA Clippers. El modelo ve al Thunder mejor en ofensa y defensa en esta temporada.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Los Clippers suman 108.2 puntos esperados y el Thunder 112.2, para un total de 220.4. Las líneas de total se mueven entre 218.5 y 222.5, con probabilidades de que se supere cercanas a 50%.",
+            "titulo": "Puntos"
+          },
+          {
+            "texto": "El margen esperado en tiempo regular es de 4.1 puntos a favor del Thunder. El hándicap de 5.5 puntos a favor de los Clippers tiene una probabilidad de cubrirse de 55%, y el de 2.5 de 45%.",
+            "titulo": "Margen y hándicap"
+          },
+          {
+            "texto": "Ninguno de los dos equipos juega dos días seguidos. Los Clippers han recibido más puntos de los que anotan en sus últimos cinco partidos, y el Thunder también encaja más de lo que anota.",
+            "titulo": "Descanso y bajas"
+          },
+          {
+            "texto": "Los Thunder llegan sin Chet Holmgren, Jalen Williams y Jaylin Williams, y los Clippers sin Brandon Ingram y Bradley Beal. El modelo no incluye estas bajas, así que la lectura puede cambiar si alguna ausencia es decisiva.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T17:46:06.716904+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "nba",
+      "id": 401909303,
+      "league": "NBA",
+      "start_time": "2026-11-14T03:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 107,
+      "away_score": 120,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 23,
+        "name": "Sacramento Kings",
+        "abbrev": "SAC"
+      },
+      "away": {
+        "id": 22,
+        "name": "Portland Trail Blazers",
+        "abbrev": "POR"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.8364,
+          "draw": null,
+          "home": 0.1636,
+          "title": "Probabilidad de victoria, con prórroga"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "109.2 – 121.2"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "230.4"
+          },
+          {
+            "label": "Más de 230.5 puntos",
+            "value": "50%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "Portland Trail Blazers por 12.0"
+          },
+          {
+            "label": "Hándicap POR -11.5",
+            "value": "52%"
+          },
+          {
+            "label": "Prórroga",
+            "value": "3%"
+          }
+        ],
+        "sport": "nba",
+        "context": {
+          "digest": {
+            "liga": {
+              "puntos_por_equipo": 113.582,
+              "ventaja_local_puntos": 1.781
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "partido": "Sacramento Kings vs Portland Trail Blazers",
+            "ratings": {
+              "away": {
+                "def": 2.33,
+                "elo": 1586.1,
+                "net": 6.351,
+                "off": 4.021,
+                "name": "Portland Trail Blazers",
+                "games": {
+                  "current_nba": 9,
+                  "previous_nba": 88,
+                  "current_preseason": 3
+                },
+                "prior_net": 0.259
+              },
+              "home": {
+                "def": -4.946,
+                "elo": 1332.0,
+                "net": -9.087,
+                "off": -4.141,
+                "name": "Sacramento Kings",
+                "games": {
+                  "current_nba": 9,
+                  "previous_nba": 82,
+                  "current_preseason": 5
+                },
+                "prior_net": -5.795
+              }
+            },
+            "descanso": {
+              "away": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 48.0
+              },
+              "home": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 72.0
+              }
+            },
+            "pronostico": {
+              "prorroga_pct": 3.2,
+              "primera_mitad": {
+                "total": 116.12,
+                "local_gana_pct": 23
+              },
+              "puntos_esperados": {
+                "local": 109.24,
+                "total": 230.45,
+                "visitante": 121.21
+              },
+              "totales_mas_de_pct": {
+                "228.5": 54,
+                "229.5": 52,
+                "230.5": 50,
+                "231.5": 48,
+                "232.5": 45
+              },
+              "gana_con_prorroga_pct": {
+                "away": 84,
+                "home": 16
+              },
+              "handicap_local_cubre_pct": {
+                "9.5": 42,
+                "10.5": 45,
+                "11.5": 48,
+                "12.5": 52,
+                "13.5": 55
+              },
+              "margen_local_tiempo_regular": -11.98
+            },
+            "sede_neutral": false,
+            "forma_reciente": {
+              "away": {
+                "ultimos": [
+                  "G 118-108 vs Oklahoma City Thunder",
+                  "G 123-103 vs Oklahoma City Thunder",
+                  "G 132-119 en Phoenix Suns",
+                  "G 118-110 en Denver Nuggets",
+                  "G 112-90 en Utah Jazz"
+                ],
+                "puntos_a_favor_promedio": 120.6,
+                "puntos_en_contra_promedio": 106.0
+              },
+              "home": {
+                "ultimos": [
+                  "P 100-107 vs Orlando Magic",
+                  "P 103-116 vs Los Angeles Lakers",
+                  "G 115-100 en Dallas Mavericks",
+                  "P 105-136 en Memphis Grizzlies",
+                  "P 120-132 en New Orleans Pelicans"
+                ],
+                "puntos_a_favor_promedio": 108.6,
+                "puntos_en_contra_promedio": 118.2
+              }
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Chris Youngblood",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Vit Krejci",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Ja Morant",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Shaedon Sharpe",
+                  "posicion": "G"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Precious Achiuwa",
+                  "posicion": "F"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Maxime Raynaud",
+                  "posicion": "C"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Ben Simmons",
+                  "posicion": "G"
+                }
+              ]
+            }
+          },
+          "model_components": {
+            "final_margin": -11.98,
+            "margin_from_elo": -6.93,
+            "rest_adjustment": 0.0,
+            "elo_blend_weight": 0.25,
+            "elo_win_prob_home": 0.2466,
+            "league_avg_points": 113.582,
+            "margin_from_ratings": -13.66,
+            "preseason_adjustment": false,
+            "home_advantage_points": 1.781
+          }
+        },
+        "game_id": 401909303,
+        "warnings": [],
+        "generated_at": "2026-11-12T17:39:02.626167+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Portland llega como favorito según el modelo, con una probabilidad de ganar de 84% cuando se incluye la prórroga. Sacramento tiene 16% de probabilidad de ganar, con una ventaja de local que no alcanza para compensar la diferencia de forma y de rating.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Portland tiene una ofensiva esperada de 121.2 puntos y Sacramento de 109.2, para un total de 230.5 puntos. La línea de 230.5 queda prácticamente en el 50% de probabilidad de rebasarse.",
+            "titulo": "Puntos"
+          },
+          {
+            "texto": "El margen esperado en tiempo regular es de 12 puntos a favor de Portland. La probabilidad de que Sacramento cubra un hándicap de +13.5 es de 55%, y la de cubrir +9.5 es de 42%.",
+            "titulo": "Margen y hándicap"
+          },
+          {
+            "texto": "Portland descansó 48 horas y Sacramento 72, sin partidos seguidos en ninguno de los dos. Portland viene de cinco victorias en sus últimos cinco partidos, mientras Sacramento perdió sus últimos tres y promedia 118.2 puntos en contra.",
+            "titulo": "Descanso y bajas"
+          },
+          {
+            "texto": "El modelo no incluye bajas, y Portland tiene a Ja Morant, Shaedon Sharpe y Vit Krejci fuera, mientras Sacramento tiene a Maxime Raynaud y Ben Simmons fuera. Esa ausencia de jugadores puede mover el resultado real frente a lo que proyecta el pronóstico.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T17:46:06.716904+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "nba",
+      "id": 401909302,
+      "league": "NBA",
+      "start_time": "2026-11-14T02:30:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 123,
+      "away_score": 85,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 24,
+        "name": "San Antonio Spurs",
+        "abbrev": "SA"
+      },
+      "away": {
+        "id": 9,
+        "name": "Golden State Warriors",
+        "abbrev": "GS"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.3629,
+          "draw": null,
+          "home": 0.6371,
+          "title": "Probabilidad de victoria, con prórroga"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "114.8 – 110.5"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "225.3"
+          },
+          {
+            "label": "Más de 225.5 puntos",
+            "value": "49%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "San Antonio Spurs por 4.3"
+          },
+          {
+            "label": "Hándicap SA -4.5",
+            "value": "49%"
+          },
+          {
+            "label": "Prórroga",
+            "value": "5%"
+          }
+        ],
+        "sport": "nba",
+        "context": {
+          "digest": {
+            "liga": {
+              "puntos_por_equipo": 113.582,
+              "ventaja_local_puntos": 1.781
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "partido": "San Antonio Spurs vs Golden State Warriors",
+            "ratings": {
+              "away": {
+                "def": 3.021,
+                "elo": 1523.2,
+                "net": 5.611,
+                "off": 2.59,
+                "name": "Golden State Warriors",
+                "games": {
+                  "current_nba": 11,
+                  "previous_nba": 84,
+                  "current_preseason": 6
+                },
+                "prior_net": -1.008
+              },
+              "home": {
+                "def": 4.714,
+                "elo": 1700.9,
+                "net": 6.731,
+                "off": 2.017,
+                "name": "San Antonio Spurs",
+                "games": {
+                  "current_nba": 10,
+                  "previous_nba": 106,
+                  "current_preseason": 5
+                },
+                "prior_net": 6.68
+              }
+            },
+            "descanso": {
+              "away": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 48.0
+              },
+              "home": {
+                "dos_dias_seguidos": false,
+                "horas_desde_ultimo": 49.5
+              }
+            },
+            "pronostico": {
+              "prorroga_pct": 5.0,
+              "primera_mitad": {
+                "total": 113.27,
+                "local_gana_pct": 57
+              },
+              "puntos_esperados": {
+                "local": 114.78,
+                "total": 225.26,
+                "visitante": 110.48
+              },
+              "totales_mas_de_pct": {
+                "223.5": 54,
+                "224.5": 52,
+                "225.5": 49,
+                "226.5": 47,
+                "227.5": 45
+              },
+              "gana_con_prorroga_pct": {
+                "away": 36,
+                "home": 64
+              },
+              "handicap_local_cubre_pct": {
+                "-2.5": 56,
+                "-3.5": 53,
+                "-4.5": 49,
+                "-5.5": 46,
+                "-6.5": 43
+              },
+              "margen_local_tiempo_regular": 4.3
+            },
+            "sede_neutral": false,
+            "forma_reciente": {
+              "away": {
+                "ultimos": [
+                  "P 108-115 en Houston Rockets",
+                  "G 138-87 vs New Orleans Pelicans",
+                  "G 120-100 vs Miami Heat",
+                  "G 116-113 vs Phoenix Suns",
+                  "G 124-112 vs LA Clippers"
+                ],
+                "puntos_a_favor_promedio": 121.2,
+                "puntos_en_contra_promedio": 105.4
+              },
+              "home": {
+                "ultimos": [
+                  "G 124-119 en Chicago Bulls",
+                  "G 122-96 en Phoenix Suns",
+                  "G 112-111 vs Dallas Mavericks",
+                  "G 119-97 vs Utah Jazz",
+                  "G 121-111 vs Minnesota Timberwolves"
+                ],
+                "puntos_a_favor_promedio": 119.6,
+                "puntos_en_contra_promedio": 106.8
+              }
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Out",
+                  "nombre": "Stephen Curry",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Gary Payton II",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Brandon Williams",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Kristaps Porzingis",
+                  "posicion": "C"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Moses Moody",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jimmy Butler III",
+                  "posicion": "F"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Day-To-Day",
+                  "nombre": "Devin Vassell",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Tobias Harris",
+                  "posicion": "F"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jayden Quaintance",
+                  "posicion": "F"
+                }
+              ]
+            }
+          },
+          "model_components": {
+            "final_margin": 4.3,
+            "margin_from_elo": 8.49,
+            "rest_adjustment": 0.0,
+            "elo_blend_weight": 0.25,
+            "elo_win_prob_home": 0.7972,
+            "league_avg_points": 113.582,
+            "margin_from_ratings": 2.9,
+            "preseason_adjustment": false,
+            "home_advantage_points": 1.781
+          }
+        },
+        "game_id": 401909302,
+        "warnings": [],
+        "generated_at": "2026-11-12T17:39:02.397923+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Spurs llegan con mejor rating neto y Elo más alto, y el modelo les da 64% de ganar el partido incluyendo prórroga. Los Warriors tienen 36%, aunque su forma reciente en puntos es buena.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "El modelo espera 114.8 puntos para San Antonio y 110.5 para Golden State, con un total de 225.3. La línea de 225.5 queda prácticamente en equilibrio, con 49% de probabilidad de superarla.",
+            "titulo": "Puntos"
+          },
+          {
+            "texto": "El margen esperado en tiempo regular es de 4.3 puntos a favor de San Antonio. Para el hándicap de -2.5 el modelo da 56% de cubrir, y a partir de -4.5 la probabilidad baja a menos de 50%.",
+            "titulo": "Margen y hándicap"
+          },
+          {
+            "texto": "Ninguno de los dos equipos juega dos días seguidos y ambos descansaron unas 48 horas. Golden State viene de una buena racha, con 121 puntos a favor de promedio en sus últimos cinco partidos.",
+            "titulo": "Descanso y bajas"
+          },
+          {
+            "texto": "Golden State no tiene a Stephen Curry ni a Kristaps Porzingis, y el modelo no incluye bajas en sus cálculos. Esa ausencia puede cambiar bastante el equilibrio ofensivo del partido.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T17:46:06.716904+00:00",
+        "is_retrospective": false
+      }
+    }
+  ],
+  "nhl_finished": [
+    {
+      "sport": "nhl",
+      "id": 2026020311,
+      "league": "NHL",
+      "start_time": "2026-11-14T03:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 2,
+      "away_score": 3,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 54,
+        "name": "Vegas Golden Knights",
+        "abbrev": "VGK"
+      },
+      "away": {
+        "id": 18,
+        "name": "Nashville Predators",
+        "abbrev": "NSH"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.3843,
+          "draw": null,
+          "home": 0.6157,
+          "title": "Probabilidad de victoria, con tiempo extra y shootout"
+        },
+        "rows": [
+          {
+            "label": "Goles esperados",
+            "value": "3.21 – 2.50"
+          },
+          {
+            "label": "Más de 5.5 goles",
+            "value": "47%"
+          },
+          {
+            "label": "Más de 6.5 goles",
+            "value": "37%"
+          },
+          {
+            "label": "Ambos anotan en tiempo regular",
+            "value": "85%"
+          },
+          {
+            "label": "Empate en tiempo regular",
+            "value": "21%"
+          },
+          {
+            "label": "Total de tiros a puerta",
+            "value": "30"
+          },
+          {
+            "label": "Porteros",
+            "value": "Carter Hart – Justus Annunen"
+          }
+        ],
+        "sport": "nhl",
+        "context": {
+          "digest": {
+            "tipo": "temporada regular",
+            "avisos": [],
+            "partido": "Vegas Golden Knights vs Nashville Predators",
+            "descanso": {
+              "away": {
+                "back_to_back": false,
+                "last_game_id": 2026020297,
+                "hours_since_last_game": 48.0
+              },
+              "home": {
+                "back_to_back": false,
+                "last_game_id": 2026020296,
+                "hours_since_last_game": 48.5
+              }
+            },
+            "porteros": {
+              "local": {
+                "nombre": "Carter Hart",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 1.0185
+              },
+              "visita": {
+                "nombre": "Justus Annunen",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 0.9676
+              }
+            },
+            "pronostico": {
+              "tiros_a_puerta": {
+                "projected_away": 12.74,
+                "projected_home": 17.19,
+                "projected_total": 29.93
+              },
+              "goles_esperados": {
+                "away": 2.504,
+                "home": 3.206,
+                "total": 5.71,
+                "away_regulation": 2.408,
+                "home_regulation": 3.095
+              },
+              "tiempo_regular_pct": {
+                "away": 29,
+                "draw": 21,
+                "home": 50
+              },
+              "totales_mas_de_pct": {
+                "4.5": 72,
+                "5.0": 47,
+                "5.5": 47,
+                "6.0": 37,
+                "6.5": 37,
+                "7.0": 18,
+                "7.5": 18
+              },
+              "va_a_tiempo_extra_pct": 21,
+              "marcadores_mas_probables": [
+                {
+                  "prob": 0.0717,
+                  "score": "2-2"
+                },
+                {
+                  "prob": 0.07,
+                  "score": "4-1"
+                },
+                {
+                  "prob": 0.0547,
+                  "score": "3-3"
+                }
+              ],
+              "gana_con_tiempo_extra_pct": {
+                "away": 38,
+                "home": 62
+              },
+              "ambos_anotan_tiempo_regular_pct": 85
+            },
+            "fuerza_por_60_min": {
+              "away": {
+                "sog_for": 13.15,
+                "pk_xga60": 6.703,
+                "pp_xgf60": 6.558,
+                "ev5_xga60": 2.666,
+                "ev5_xgf60": 2.463,
+                "sog_against": 14.36,
+                "finishing_mult": 1.0031,
+                "pp_minutes_drawn": 2.96,
+                "pp_minutes_given": 2.87
+              },
+              "home": {
+                "sog_for": 16.18,
+                "pk_xga60": 5.911,
+                "pp_xgf60": 7.746,
+                "ev5_xga60": 2.304,
+                "ev5_xgf60": 2.613,
+                "sog_against": 14.18,
+                "finishing_mult": 1.0162,
+                "pp_minutes_drawn": 3.25,
+                "pp_minutes_given": 2.56
+              }
+            }
+          },
+          "model_components": {
+            "xg_away_60": 2.18,
+            "xg_home_60": 2.917,
+            "calibration": {
+              "source": "default",
+              "effect_scale": 1.0,
+              "goal_level_mult": 1.0
+            },
+            "home_ice_ev5": 0.051,
+            "team_finishing": {
+              "away": 1.003,
+              "home": 1.016
+            },
+            "league_finishing": 0.999,
+            "goalie_goals_mult": {
+              "away_goalie": 0.9676,
+              "home_goalie": 1.0185
+            },
+            "xg_breakdown_away": {
+              "pp": 0.241,
+              "sh": 0.017,
+              "ev5": 1.91,
+              "evo": 0.011
+            },
+            "xg_breakdown_home": {
+              "pp": 0.422,
+              "sh": 0.014,
+              "ev5": 2.467,
+              "evo": 0.013
+            },
+            "expected_pp_minutes": {
+              "away": 2.609,
+              "home": 3.233
+            },
+            "xg_model_validation": {
+              "holdout_xg": 1574.3,
+              "holdout_auc": 0.7477,
+              "train_shots": 93598,
+              "holdout_goals": 1586,
+              "holdout_shots": 23094,
+              "holdout_logloss": 0.22524,
+              "baseline_logloss": 0.2502
+            },
+            "lambda_away_goals_60": 2.224,
+            "lambda_home_goals_60": 2.864
+          }
+        },
+        "game_id": 2026020311,
+        "warnings": [
+          "Portero home NO confirmado (Carter Hart, most_starts). Confirmar y pasar el override.",
+          "Portero away NO confirmado (Justus Annunen, most_starts). Confirmar y pasar el override."
+        ],
+        "generated_at": "2026-11-12T17:39:39.98147+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Vegas llega mejor sobre el papel y tiene 50% de ganar en tiempo regular, contra 29% de Nashville, con 21% de empate que se va a tiempo extra. Con prórroga, Vegas gana 62% de las veces, así que su probabilidad total de victoria es la más alta del partido.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Vegas espera 3.2 goles y Nashville 2.5, para un total esperado de 5.7. Hay 47% de probabilidad de pasar de 5.5 goles y 85% de que ambos equipos anoten en tiempo regular.",
+            "titulo": "Goles"
+          },
+          {
+            "texto": "Carter Hart (Vegas) y Justus Annunen (Nashville) aparecen como probables, pero ninguno está confirmado. Se esperan 17.2 tiros a puerta para Vegas y 12.7 para Nashville.",
+            "titulo": "Porteros y tiros"
+          },
+          {
+            "texto": "Ambos equipos descansaron unas 48 horas y ninguno juega back to back. Vegas tiene ventaja clara en power play, con 7.7 goles esperados por 60 minutos contra 6.6 de Nashville.",
+            "titulo": "Contexto"
+          },
+          {
+            "texto": "La principal incertidumbre es el portero titular, que no está confirmado y mueve bastante el resultado. Si cambia el arquero probable, las cifras de goles y de ganador pueden variar.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T17:46:21.93588+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "nhl",
+      "id": 2026020310,
+      "league": "NHL",
+      "start_time": "2026-11-14T02:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 1,
+      "away_score": 5,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 23,
+        "name": "Vancouver Canucks",
+        "abbrev": "VAN"
+      },
+      "away": {
+        "id": 3,
+        "name": "New York Rangers",
+        "abbrev": "NYR"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.5734,
+          "draw": null,
+          "home": 0.4266,
+          "title": "Probabilidad de victoria, con tiempo extra y shootout"
+        },
+        "rows": [
+          {
+            "label": "Goles esperados",
+            "value": "2.59 – 3.03"
+          },
+          {
+            "label": "Más de 5.5 goles",
+            "value": "45%"
+          },
+          {
+            "label": "Más de 6.5 goles",
+            "value": "36%"
+          },
+          {
+            "label": "Ambos anotan en tiempo regular",
+            "value": "85%"
+          },
+          {
+            "label": "Empate en tiempo regular",
+            "value": "21%"
+          },
+          {
+            "label": "Total de tiros a puerta",
+            "value": "28"
+          },
+          {
+            "label": "Porteros",
+            "value": "Leevi Meriläinen – Joonas Korpisalo"
+          }
+        ],
+        "sport": "nhl",
+        "context": {
+          "digest": {
+            "tipo": "temporada regular",
+            "avisos": [],
+            "partido": "Vancouver Canucks vs New York Rangers",
+            "descanso": {
+              "away": {
+                "back_to_back": false,
+                "last_game_id": 2026020294,
+                "hours_since_last_game": 49.5
+              },
+              "home": {
+                "back_to_back": false,
+                "last_game_id": 2026020284,
+                "hours_since_last_game": 95.5
+              }
+            },
+            "porteros": {
+              "local": {
+                "nombre": "Leevi Meriläinen",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 1.0078
+              },
+              "visita": {
+                "nombre": "Joonas Korpisalo",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 0.988
+              }
+            },
+            "pronostico": {
+              "tiros_a_puerta": {
+                "projected_away": 14.58,
+                "projected_home": 13.11,
+                "projected_total": 27.69
+              },
+              "goles_esperados": {
+                "away": 3.031,
+                "home": 2.591,
+                "total": 5.622,
+                "away_regulation": 2.92,
+                "home_regulation": 2.49
+              },
+              "tiempo_regular_pct": {
+                "away": 46,
+                "draw": 21,
+                "home": 33
+              },
+              "totales_mas_de_pct": {
+                "4.5": 71,
+                "5.0": 45,
+                "5.5": 45,
+                "6.0": 36,
+                "6.5": 36,
+                "7.0": 17,
+                "7.5": 17
+              },
+              "va_a_tiempo_extra_pct": 21,
+              "marcadores_mas_probables": [
+                {
+                  "prob": 0.0748,
+                  "score": "2-2"
+                },
+                {
+                  "prob": 0.066,
+                  "score": "1-4"
+                },
+                {
+                  "prob": 0.0577,
+                  "score": "3-3"
+                }
+              ],
+              "gana_con_tiempo_extra_pct": {
+                "away": 57,
+                "home": 43
+              },
+              "ambos_anotan_tiempo_regular_pct": 85
+            },
+            "fuerza_por_60_min": {
+              "away": {
+                "sog_for": 13.36,
+                "pk_xga60": 6.608,
+                "pp_xgf60": 7.004,
+                "ev5_xga60": 2.473,
+                "ev5_xgf60": 2.357,
+                "sog_against": 14.29,
+                "finishing_mult": 0.9972,
+                "pp_minutes_drawn": 3.04,
+                "pp_minutes_given": 3.06
+              },
+              "home": {
+                "sog_for": 12.39,
+                "pk_xga60": 7.613,
+                "pp_xgf60": 6.401,
+                "ev5_xga60": 2.89,
+                "ev5_xgf60": 2.242,
+                "sog_against": 15.98,
+                "finishing_mult": 1.0048,
+                "pp_minutes_drawn": 2.92,
+                "pp_minutes_given": 2.74
+              }
+            }
+          },
+          "model_components": {
+            "xg_away_60": 2.683,
+            "xg_home_60": 2.314,
+            "calibration": {
+              "source": "default",
+              "effect_scale": 1.0,
+              "goal_level_mult": 1.0
+            },
+            "home_ice_ev5": 0.051,
+            "team_finishing": {
+              "away": 0.997,
+              "home": 1.005
+            },
+            "league_finishing": 0.999,
+            "goalie_goals_mult": {
+              "away_goalie": 0.988,
+              "home_goalie": 1.0078
+            },
+            "xg_breakdown_away": {
+              "pp": 0.365,
+              "sh": 0.017,
+              "ev5": 2.288,
+              "evo": 0.013
+            },
+            "xg_breakdown_home": {
+              "pp": 0.329,
+              "sh": 0.015,
+              "ev5": 1.959,
+              "evo": 0.011
+            },
+            "expected_pp_minutes": {
+              "away": 2.874,
+              "home": 3.095
+            },
+            "xg_model_validation": {
+              "holdout_xg": 1574.3,
+              "holdout_auc": 0.7477,
+              "train_shots": 93598,
+              "holdout_goals": 1586,
+              "holdout_shots": 23094,
+              "holdout_logloss": 0.22524,
+              "baseline_logloss": 0.2502
+            },
+            "lambda_away_goals_60": 2.693,
+            "lambda_home_goals_60": 2.294
+          }
+        },
+        "game_id": 2026020310,
+        "warnings": [
+          "Portero home NO confirmado (Leevi Meriläinen, most_starts). Confirmar y pasar el override.",
+          "Portero away NO confirmado (Joonas Korpisalo, most_starts). Confirmar y pasar el override."
+        ],
+        "generated_at": "2026-11-12T17:39:39.230822+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Rangers llegan con ligera ventaja. Tienen 57% de probabilidad de ganar si el partido se decide en tiempo extra, y el pronóstico general les da la mayor opción de victoria. Los Canucks ganan en tiempo regular con 46% contra 33% de los Rangers, pero la probabilidad de empate es alta, con 21% de ir a tiempo extra.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Se esperan 5.6 goles en total, con 3.0 para Vancouver y 2.6 para Nueva York. La probabilidad de más de 5.5 goles es de 45%. Ambos equipos anotan en tiempo regular con 85% de probabilidad, y el marcador más probable es 2-2.",
+            "titulo": "Goles"
+          },
+          {
+            "texto": "Ninguno de los porteros está confirmado, así que el análisis usa a los que más han arrancado: Leevi Meriläinen en Vancouver y Joonas Korpisalo en Nueva York. Se proyectan 27.7 tiros a puerta en total, con 14.6 de Nueva York y 13.1 de Vancouver.",
+            "titulo": "Porteros y tiros"
+          },
+          {
+            "texto": "Ambos equipos llegan con descanso suficiente y sin partidos seguidos. Vancouver tiene un power play más fuerte, con 7.0 goles esperados por cada 60 minutos, frente a 6.4 de Nueva York. Nueva York tiene mejor penalty kill, con 7.6 goles esperados en contra por hora contra 6.6 de Vancouver.",
+            "titulo": "Contexto"
+          },
+          {
+            "texto": "La principal fuente de incertidumbre es el portero, porque ninguno de los dos está confirmado y pueden cambiar las proyecciones de goles. Si el titular de algún equipo es distinto al esperado, la lectura del partido podría moverse de forma importante.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T17:46:21.93588+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "nhl",
+      "id": 2026020308,
+      "league": "NHL",
+      "start_time": "2026-11-13T03:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 2,
+      "away_score": 5,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 26,
+        "name": "Los Angeles Kings",
+        "abbrev": "LAK"
+      },
+      "away": {
+        "id": 2,
+        "name": "New York Islanders",
+        "abbrev": "NYI"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.491,
+          "draw": null,
+          "home": 0.509,
+          "title": "Probabilidad de victoria, con tiempo extra y shootout"
+        },
+        "rows": [
+          {
+            "label": "Goles esperados",
+            "value": "2.75 – 2.70"
+          },
+          {
+            "label": "Más de 5.5 goles",
+            "value": "42%"
+          },
+          {
+            "label": "Más de 6.5 goles",
+            "value": "33%"
+          },
+          {
+            "label": "Ambos anotan en tiempo regular",
+            "value": "84%"
+          },
+          {
+            "label": "Empate en tiempo regular",
+            "value": "22%"
+          },
+          {
+            "label": "Total de tiros a puerta",
+            "value": "28"
+          },
+          {
+            "label": "Porteros",
+            "value": "Anton Forsberg – Ilya Sorokin"
+          }
+        ],
+        "sport": "nhl",
+        "context": {
+          "digest": {
+            "tipo": "temporada regular",
+            "avisos": [],
+            "partido": "Los Angeles Kings vs New York Islanders",
+            "descanso": {
+              "away": {
+                "back_to_back": false,
+                "last_game_id": 2026020285,
+                "hours_since_last_game": 72.0
+              },
+              "home": {
+                "back_to_back": false,
+                "last_game_id": 2026020292,
+                "hours_since_last_game": 48.0
+              }
+            },
+            "porteros": {
+              "local": {
+                "nombre": "Anton Forsberg",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 0.9973
+              },
+              "visita": {
+                "nombre": "Ilya Sorokin",
+                "origen": "most_starts",
+                "confirmado": false,
+                "factor_goles": 0.9493
+              }
+            },
+            "pronostico": {
+              "tiros_a_puerta": {
+                "projected_away": 12.98,
+                "projected_home": 14.67,
+                "projected_total": 27.65
+              },
+              "goles_esperados": {
+                "away": 2.697,
+                "home": 2.755,
+                "total": 5.452,
+                "away_regulation": 2.587,
+                "home_regulation": 2.644
+              },
+              "tiempo_regular_pct": {
+                "away": 38,
+                "draw": 22,
+                "home": 40
+              },
+              "totales_mas_de_pct": {
+                "4.5": 69,
+                "5.0": 42,
+                "5.5": 42,
+                "6.0": 33,
+                "6.5": 33,
+                "7.0": 15,
+                "7.5": 15
+              },
+              "va_a_tiempo_extra_pct": 22,
+              "marcadores_mas_probables": [
+                {
+                  "prob": 0.0784,
+                  "score": "2-2"
+                },
+                {
+                  "prob": 0.056,
+                  "score": "4-1"
+                },
+                {
+                  "prob": 0.0551,
+                  "score": "3-3"
+                }
+              ],
+              "gana_con_tiempo_extra_pct": {
+                "away": 49,
+                "home": 51
+              },
+              "ambos_anotan_tiempo_regular_pct": 84
+            },
+            "fuerza_por_60_min": {
+              "away": {
+                "sog_for": 14.01,
+                "pk_xga60": 7.56,
+                "pp_xgf60": 6.508,
+                "ev5_xga60": 2.57,
+                "ev5_xgf60": 2.578,
+                "sog_against": 14.29,
+                "finishing_mult": 0.9866,
+                "pp_minutes_drawn": 2.9,
+                "pp_minutes_given": 3.07
+              },
+              "home": {
+                "sog_for": 13.55,
+                "pk_xga60": 6.761,
+                "pp_xgf60": 6.456,
+                "ev5_xga60": 2.401,
+                "ev5_xgf60": 2.446,
+                "sog_against": 13.22,
+                "finishing_mult": 0.9794,
+                "pp_minutes_drawn": 2.62,
+                "pp_minutes_given": 2.7
+              }
+            }
+          },
+          "model_components": {
+            "xg_away_60": 2.414,
+            "xg_home_60": 2.615,
+            "calibration": {
+              "source": "default",
+              "effect_scale": 1.0,
+              "goal_level_mult": 1.0
+            },
+            "home_ice_ev5": 0.053,
+            "team_finishing": {
+              "away": 0.987,
+              "home": 0.979
+            },
+            "league_finishing": 0.998,
+            "goalie_goals_mult": {
+              "away_goalie": 0.9493,
+              "home_goalie": 0.9973
+            },
+            "xg_breakdown_away": {
+              "pp": 0.292,
+              "sh": 0.015,
+              "ev5": 2.095,
+              "evo": 0.012
+            },
+            "xg_breakdown_home": {
+              "pp": 0.345,
+              "sh": 0.015,
+              "ev5": 2.242,
+              "evo": 0.012
+            },
+            "expected_pp_minutes": {
+              "away": 2.758,
+              "home": 2.84
+            },
+            "xg_model_validation": {
+              "holdout_xg": 1574.3,
+              "holdout_auc": 0.7477,
+              "train_shots": 93598,
+              "holdout_goals": 1586,
+              "holdout_shots": 23094,
+              "holdout_logloss": 0.22524,
+              "baseline_logloss": 0.2502
+            },
+            "lambda_away_goals_60": 2.37,
+            "lambda_home_goals_60": 2.426
+          }
+        },
+        "game_id": 2026020308,
+        "warnings": [
+          "Portero home NO confirmado (Anton Forsberg, most_starts). Confirmar y pasar el override.",
+          "Portero away NO confirmado (Ilya Sorokin, most_starts). Confirmar y pasar el override."
+        ],
+        "generated_at": "2026-11-11T17:16:07.765194+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Kings llegan ligeramente mejor, con 51% de probabilidad de ganar contra 49% de los Islanders si el partido va a tiempo extra. En tiempo regular la ventaja local es mínima: 40% para Los Angeles, 38% para Nueva York y 22% de empate.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Se esperan 5.45 goles en total, con 2.76 para Los Angeles y 2.70 para Nueva York. Hay 84% de probabilidad de que ambos equipos anoten en tiempo regular, y 42% de que el partido supere 5.5 goles.",
+            "titulo": "Goles"
+          },
+          {
+            "texto": "Anton Forsberg y Ilya Sorokin son los porteros probables, pero ninguno está confirmado. Se proyectan 27.7 tiros a puerta en total, 14.7 para Los Angeles y 13.0 para Nueva York.",
+            "titulo": "Porteros y tiros"
+          },
+          {
+            "texto": "Ambos equipos descansaron más de 48 horas y ninguno juega back to back. Los dos tienen ataques de power play similares, con 6.5 y 6.5 goles esperados por cada 60 minutos.",
+            "titulo": "Contexto"
+          },
+          {
+            "texto": "La principal incertidumbre es la confirmación de los porteros, que puede mover el resultado. Si Sorokin o Forsberg no son los titulares, la lectura del partido podría cambiar.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T04:24:51.679283+00:00",
+        "is_retrospective": false
+      }
+    }
+  ],
+  "nfl_finished": [
+    {
+      "sport": "nfl",
+      "id": 401873052,
+      "league": "NFL",
+      "start_time": "2026-11-13T01:15:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 21,
+      "away_score": 24,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 19,
+        "name": "New York Giants",
+        "abbrev": "NYG"
+      },
+      "away": {
+        "id": 28,
+        "name": "Washington Commanders",
+        "abbrev": "WSH"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.4718,
+          "draw": null,
+          "home": 0.5282,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "23.2 – 22.3"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "45.5"
+          },
+          {
+            "label": "Más de 45.5 puntos",
+            "value": "50%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "New York Giants por 0.9"
+          },
+          {
+            "label": "Hándicap NYG -0.5",
+            "value": "51%"
+          }
+        ],
+        "sport": "nfl",
+        "context": {
+          "digest": {
+            "liga": {
+              "ventaja_local": 0.82,
+              "puntos_por_equipo": 23.0
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "semana": 10,
+            "partido": "New York Giants vs Washington Commanders",
+            "ratings": {
+              "away": {
+                "elo": 1415,
+                "ataque_puntos": -0.9,
+                "srs_temporada": -5.699,
+                "partidos_temporada": 8,
+                "epa_ataque_por_jugada": 0.003,
+                "epa_evitado_por_jugada": -0.05,
+                "defensa_puntos_evitados": -2.3
+              },
+              "home": {
+                "elo": 1489,
+                "ataque_puntos": -1.3,
+                "srs_temporada": -3.051,
+                "partidos_temporada": 8,
+                "epa_ataque_por_jugada": -0.006,
+                "epa_evitado_por_jugada": -0.019,
+                "defensa_puntos_evitados": -0.4
+              }
+            },
+            "pronostico": {
+              "gana_pct": {
+                "away": 47,
+                "home": 53
+              },
+              "margen_local": 0.9,
+              "puntos_esperados": {
+                "local": 23.2,
+                "total": 45.5,
+                "visitante": 22.3
+              },
+              "totales_mas_de_pct": {
+                "44.5": 53,
+                "45.5": 50,
+                "46.5": 47
+              },
+              "handicap_local_cubre_pct": {
+                "0.5": 54,
+                "-0.5": 51,
+                "-1.5": 48
+              }
+            },
+            "quarterbacks": {
+              "away": {
+                "nombre": "Jayden Daniels",
+                "ajuste_puntos": 0.7,
+                "sin_historial": false,
+                "epa_por_dropback": 0.007
+              },
+              "home": {
+                "nombre": "J.J. McCarthy",
+                "ajuste_puntos": -1.1,
+                "sin_historial": false,
+                "epa_por_dropback": -0.091
+              }
+            },
+            "sede_neutral": false,
+            "descanso_dias": {
+              "away": 4,
+              "home": 4
+            },
+            "techo_estadio": "outdoors",
+            "forma_reciente": {
+              "away": [
+                {
+                  "local": true,
+                  "rival": "IND",
+                  "marcador": "13-30",
+                  "resultado": "P"
+                },
+                {
+                  "local": true,
+                  "rival": "NYG",
+                  "marcador": "27-27",
+                  "resultado": "E"
+                },
+                {
+                  "local": false,
+                  "rival": "SF",
+                  "marcador": "17-23",
+                  "resultado": "P"
+                },
+                {
+                  "local": true,
+                  "rival": "PHI",
+                  "marcador": "27-10",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "LA",
+                  "marcador": "13-20",
+                  "resultado": "P"
+                }
+              ],
+              "home": [
+                {
+                  "local": true,
+                  "rival": "ARI",
+                  "marcador": "36-24",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "WAS",
+                  "marcador": "27-27",
+                  "resultado": "E"
+                },
+                {
+                  "local": true,
+                  "rival": "NO",
+                  "marcador": "27-34",
+                  "resultado": "P"
+                },
+                {
+                  "local": false,
+                  "rival": "HOU",
+                  "marcador": "27-21",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "PHI",
+                  "marcador": "19-11",
+                  "resultado": "G"
+                }
+              ]
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Questionable",
+                  "nombre": "Treylon Burks",
+                  "posicion": "WR"
+                },
+                {
+                  "estado": "Doubtful",
+                  "nombre": "Lucas Patrick",
+                  "posicion": "G"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Colson Yankoff",
+                  "posicion": "TE"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Questionable",
+                  "nombre": "J.J. McCarthy",
+                  "posicion": "QB"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Cam Skattebo",
+                  "posicion": "RB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Colton Hood",
+                  "posicion": "CB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Malik Harrison",
+                  "posicion": "LB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Abdul Carter",
+                  "posicion": "LB"
+                }
+              ]
+            },
+            "rivales_de_division": true,
+            "componentes_del_margen": {
+              "pesos": {
+                "elo": 0.35,
+                "epa": 0.3,
+                "puntos": 0.35
+              },
+              "descanso": 0.0,
+              "qb_local": -1.1,
+              "margen_elo": 3.77,
+              "margen_epa": 1.93,
+              "techo_total": -0.6,
+              "total_final": 45.53,
+              "margen_final": 0.92,
+              "qb_visitante": 0.7,
+              "margen_puntos": 2.34,
+              "ventaja_local": 0.82
+            }
+          },
+          "model_components": {
+            "pesos": {
+              "elo": 0.35,
+              "epa": 0.3,
+              "puntos": 0.35
+            },
+            "descanso": 0.0,
+            "qb_local": -1.1,
+            "margen_elo": 3.77,
+            "margen_epa": 1.93,
+            "techo_total": -0.6,
+            "total_final": 45.53,
+            "margen_final": 0.92,
+            "qb_visitante": 0.7,
+            "margen_puntos": 2.34,
+            "ventaja_local": 0.82
+          }
+        },
+        "game_id": 401873052,
+        "warnings": [],
+        "generated_at": "2026-11-11T01:28:54.303625+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Commanders llegan con ligera ventaja en rating y una probabilidad de ganar del 53% para el local, Washington, frente al 47% de los Giants. Es un partido muy parejo y el resultado puede inclinarse hacia cualquier lado.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Washington espera anotar 23.2 puntos y Nueva York 22.3, para un total de 45.5. Las probabilidades de que el total sea mayor a 44.5 son del 53%, a 45.5 del 50% y a 46.5 del 47%.",
+            "titulo": "Puntos"
+          },
+          {
+            "texto": "El margen esperado es de 0.9 puntos a favor de Washington. La probabilidad de que Washington cubra -0.5 es del 51%, y de que cubra +0.5 del 54%, por lo que el partido queda muy cerrado.",
+            "titulo": "Margen y hándicap"
+          },
+          {
+            "texto": "Jayden Daniels, titular de los Giants, tiene un EPA por dropback de 0.007. J.J. McCarthy, de Washington, aparece como cuestionable y tiene un EPA por dropback de -0.091, lo que resta puntos al equipo local en el modelo.",
+            "titulo": "Quarterbacks y bajas"
+          },
+          {
+            "texto": "El modelo solo ajusta por el quarterback, así que la ausencia de Cam Skattebo (fuera) y la condición de cuestionable de varios jugadores de Washington pueden cambiar el panorama. El partido se juega al aire libre y es un duelo de división.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-11-12T04:20:46.523108+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "nfl",
+      "id": 401873051,
+      "league": "NFL",
+      "start_time": "2026-11-10T01:15:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 6,
+      "away_score": 23,
+      "forecast_ready": true,
+      "analysis_ready": false,
+      "home": {
+        "id": 16,
+        "name": "Minnesota Vikings",
+        "abbrev": "MIN"
+      },
+      "away": {
+        "id": 2,
+        "name": "Buffalo Bills",
+        "abbrev": "BUF"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.5133,
+          "draw": null,
+          "home": 0.4867,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "23.7 – 24.1"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "47.8"
+          },
+          {
+            "label": "Más de 47.5 puntos",
+            "value": "51%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "Buffalo Bills por 0.4"
+          },
+          {
+            "label": "Hándicap BUF -0.5",
+            "value": "50%"
+          }
+        ],
+        "sport": "nfl",
+        "context": {
+          "digest": {
+            "liga": {
+              "ventaja_local": 0.91,
+              "puntos_por_equipo": 23.0
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "semana": 9,
+            "partido": "Minnesota Vikings vs Buffalo Bills",
+            "ratings": {
+              "away": {
+                "elo": 1679,
+                "ataque_puntos": 6.9,
+                "srs_temporada": 5.975,
+                "partidos_temporada": 7,
+                "epa_ataque_por_jugada": 0.118,
+                "epa_evitado_por_jugada": -0.02,
+                "defensa_puntos_evitados": -1.0
+              },
+              "home": {
+                "elo": 1627,
+                "ataque_puntos": -2.5,
+                "srs_temporada": 7.534,
+                "partidos_temporada": 7,
+                "epa_ataque_por_jugada": -0.074,
+                "epa_evitado_por_jugada": 0.123,
+                "defensa_puntos_evitados": 6.5
+              }
+            },
+            "pronostico": {
+              "gana_pct": {
+                "away": 51,
+                "home": 49
+              },
+              "margen_local": -0.4,
+              "puntos_esperados": {
+                "local": 23.7,
+                "total": 47.8,
+                "visitante": 24.1
+              },
+              "totales_mas_de_pct": {
+                "46.5": 54,
+                "47.5": 51,
+                "48.5": 48
+              },
+              "handicap_local_cubre_pct": {
+                "0.5": 50,
+                "1.5": 53,
+                "-0.5": 47
+              }
+            },
+            "quarterbacks": {
+              "away": {
+                "nombre": "Josh Allen",
+                "ajuste_puntos": 0.2,
+                "sin_historial": false,
+                "epa_por_dropback": 0.108
+              },
+              "home": {
+                "nombre": "Kyler Murray",
+                "ajuste_puntos": 1.0,
+                "sin_historial": false,
+                "epa_por_dropback": -0.027
+              }
+            },
+            "sede_neutral": false,
+            "descanso_dias": {
+              "away": 8,
+              "home": 8
+            },
+            "techo_estadio": "dome",
+            "forma_reciente": {
+              "away": [
+                {
+                  "local": true,
+                  "rival": "LAC",
+                  "marcador": "24-16",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "NE",
+                  "marcador": "26-29",
+                  "resultado": "P"
+                },
+                {
+                  "local": false,
+                  "rival": "LA",
+                  "marcador": "37-34",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "LV",
+                  "marcador": "33-30",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "BAL",
+                  "marcador": "36-10",
+                  "resultado": "G"
+                }
+              ],
+              "home": [
+                {
+                  "local": false,
+                  "rival": "TB",
+                  "marcador": "23-16",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "MIA",
+                  "marcador": "15-10",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "NO",
+                  "marcador": "23-13",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "IND",
+                  "marcador": "16-10",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "DET",
+                  "marcador": "15-19",
+                  "resultado": "P"
+                }
+              ]
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Out",
+                  "nombre": "Tyrell Shavers",
+                  "posicion": "WR"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Joshua Palmer",
+                  "posicion": "WR"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Alec Anderson",
+                  "posicion": "OT"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Dion Dawkins",
+                  "posicion": "OT"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Greg Gaines",
+                  "posicion": "DT"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Out",
+                  "nombre": "Kyler Murray",
+                  "posicion": "QB"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Demond Claiborne",
+                  "posicion": "RB"
+                },
+                {
+                  "estado": "Out",
+                  "nombre": "Jauan Jennings",
+                  "posicion": "WR"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Jay Ward",
+                  "posicion": "S"
+                }
+              ]
+            },
+            "rivales_de_division": false,
+            "componentes_del_margen": {
+              "pesos": {
+                "elo": 0.35,
+                "epa": 0.3,
+                "puntos": 0.35
+              },
+              "descanso": 0.0,
+              "qb_local": 1.0,
+              "margen_elo": -1.16,
+              "margen_epa": -1.54,
+              "techo_total": 1.9,
+              "total_final": 47.83,
+              "margen_final": -0.43,
+              "qb_visitante": 0.2,
+              "margen_puntos": -1.04,
+              "ventaja_local": 0.91
+            }
+          },
+          "model_components": {
+            "pesos": {
+              "elo": 0.35,
+              "epa": 0.3,
+              "puntos": 0.35
+            },
+            "descanso": 0.0,
+            "qb_local": 1.0,
+            "margen_elo": -1.16,
+            "margen_epa": -1.54,
+            "techo_total": 1.9,
+            "total_final": 47.83,
+            "margen_final": -0.43,
+            "qb_visitante": 0.2,
+            "margen_puntos": -1.04,
+            "ventaja_local": 0.91
+          }
+        },
+        "game_id": 401873051,
+        "warnings": [],
+        "generated_at": "2026-11-09T01:13:53.148306+00:00",
+        "is_retrospective": false
+      },
+      "analysis": null
+    },
+    {
+      "sport": "nfl",
+      "id": 401873050,
+      "league": "NFL",
+      "start_time": "2026-11-09T01:20:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 27,
+      "away_score": 24,
+      "forecast_ready": true,
+      "analysis_ready": false,
+      "home": {
+        "id": 3,
+        "name": "Chicago Bears",
+        "abbrev": "CHI"
+      },
+      "away": {
+        "id": 27,
+        "name": "Tampa Bay Buccaneers",
+        "abbrev": "TB"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.3655,
+          "draw": null,
+          "home": 0.6345,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Puntos esperados",
+            "value": "25.8 – 21.3"
+          },
+          {
+            "label": "Total de puntos",
+            "value": "47.1"
+          },
+          {
+            "label": "Más de 46.5 puntos",
+            "value": "52%"
+          },
+          {
+            "label": "Margen esperado",
+            "value": "Chicago Bears por 4.5"
+          },
+          {
+            "label": "Hándicap CHI -3.5",
+            "value": "53%"
+          }
+        ],
+        "sport": "nfl",
+        "context": {
+          "digest": {
+            "liga": {
+              "ventaja_local": 1.06,
+              "puntos_por_equipo": 23.1
+            },
+            "tipo": "Temporada regular",
+            "avisos": [],
+            "semana": 9,
+            "partido": "Chicago Bears vs Tampa Bay Buccaneers",
+            "ratings": {
+              "away": {
+                "elo": 1503,
+                "ataque_puntos": -0.5,
+                "srs_temporada": 5.313,
+                "partidos_temporada": 8,
+                "epa_ataque_por_jugada": -0.037,
+                "epa_evitado_por_jugada": 0.07,
+                "defensa_puntos_evitados": 2.0
+              },
+              "home": {
+                "elo": 1638,
+                "ataque_puntos": 3.3,
+                "srs_temporada": 7.699,
+                "partidos_temporada": 8,
+                "epa_ataque_por_jugada": 0.052,
+                "epa_evitado_por_jugada": 0.006,
+                "defensa_puntos_evitados": 0.9
+              }
+            },
+            "pronostico": {
+              "gana_pct": {
+                "away": 37,
+                "home": 63
+              },
+              "margen_local": 4.5,
+              "puntos_esperados": {
+                "local": 25.8,
+                "total": 47.1,
+                "visitante": 21.3
+              },
+              "totales_mas_de_pct": {
+                "45.5": 55,
+                "46.5": 52,
+                "47.5": 49
+              },
+              "handicap_local_cubre_pct": {
+                "-2.5": 56,
+                "-3.5": 53,
+                "-4.5": 50
+              }
+            },
+            "quarterbacks": {
+              "away": {
+                "nombre": "Baker Mayfield",
+                "ajuste_puntos": 0.9,
+                "sin_historial": false,
+                "epa_por_dropback": -0.022
+              },
+              "home": {
+                "nombre": "Caleb Williams",
+                "ajuste_puntos": 1.3,
+                "sin_historial": false,
+                "epa_por_dropback": 0.034
+              }
+            },
+            "sede_neutral": false,
+            "descanso_dias": {
+              "away": 7,
+              "home": 6
+            },
+            "techo_estadio": "outdoors",
+            "forma_reciente": {
+              "away": [
+                {
+                  "local": true,
+                  "rival": "GB",
+                  "marcador": "14-17",
+                  "resultado": "P"
+                },
+                {
+                  "local": false,
+                  "rival": "DAL",
+                  "marcador": "24-16",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "PIT",
+                  "marcador": "19-26",
+                  "resultado": "P"
+                },
+                {
+                  "local": false,
+                  "rival": "CAR",
+                  "marcador": "43-13",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "ATL",
+                  "marcador": "16-0",
+                  "resultado": "G"
+                }
+              ],
+              "home": [
+                {
+                  "local": true,
+                  "rival": "NYJ",
+                  "marcador": "23-12",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "GB",
+                  "marcador": "7-31",
+                  "resultado": "P"
+                },
+                {
+                  "local": false,
+                  "rival": "ATL",
+                  "marcador": "31-23",
+                  "resultado": "G"
+                },
+                {
+                  "local": true,
+                  "rival": "NE",
+                  "marcador": "30-24",
+                  "resultado": "G"
+                },
+                {
+                  "local": false,
+                  "rival": "SEA",
+                  "marcador": "34-17",
+                  "resultado": "G"
+                }
+              ]
+            },
+            "bajas_reportadas": {
+              "away": [
+                {
+                  "estado": "Out",
+                  "nombre": "Yaya Diaby",
+                  "posicion": "LB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Emeka Egbuka",
+                  "posicion": "WR"
+                }
+              ],
+              "home": [
+                {
+                  "estado": "Questionable",
+                  "nombre": "Tyrique Stevenson Sr.",
+                  "posicion": "CB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Malik Muhammad II",
+                  "posicion": "CB"
+                },
+                {
+                  "estado": "Questionable",
+                  "nombre": "Kyle Monangai",
+                  "posicion": "RB"
+                }
+              ]
+            },
+            "rivales_de_division": false,
+            "componentes_del_margen": {
+              "pesos": {
+                "elo": 0.35,
+                "epa": 0.3,
+                "puntos": 0.35
+              },
+              "descanso": -0.2,
+              "qb_local": 1.3,
+              "margen_elo": 6.45,
+              "margen_epa": 2.28,
+              "techo_total": -0.6,
+              "total_final": 47.09,
+              "margen_final": 4.47,
+              "qb_visitante": 0.9,
+              "margen_puntos": 3.79,
+              "ventaja_local": 1.06
+            }
+          },
+          "model_components": {
+            "pesos": {
+              "elo": 0.35,
+              "epa": 0.3,
+              "puntos": 0.35
+            },
+            "descanso": -0.2,
+            "qb_local": 1.3,
+            "margen_elo": 6.45,
+            "margen_epa": 2.28,
+            "techo_total": -0.6,
+            "total_final": 47.09,
+            "margen_final": 4.47,
+            "qb_visitante": 0.9,
+            "margen_puntos": 3.79,
+            "ventaja_local": 1.06
+          }
+        },
+        "game_id": 401873050,
+        "warnings": [],
+        "generated_at": "2026-11-08T00:54:56.178301+00:00",
+        "is_retrospective": false
+      },
+      "analysis": null
+    }
+  ],
+  "mlb_finished": [
+    {
+      "sport": "mlb",
+      "id": 849799,
+      "league": "MLB",
+      "start_time": "2026-10-29T00:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 1,
+      "away_score": 4,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 139,
+        "name": "Tampa Bay Rays",
+        "abbrev": "TB"
+      },
+      "away": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "abbrev": "MIL"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.5696,
+          "draw": null,
+          "home": 0.4304,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Carreras esperadas",
+            "value": "2.71 – 3.21"
+          },
+          {
+            "label": "Más de 5.5 carreras",
+            "value": "52%"
+          },
+          {
+            "label": "Más de 6.5 carreras",
+            "value": "38%"
+          },
+          {
+            "label": "Carreras en 5 entradas",
+            "value": "1.17 – 1.55"
+          },
+          {
+            "label": "Empate tras 5 entradas",
+            "value": "24%"
+          },
+          {
+            "label": "Tampa Bay Rays gana por 2 o más",
+            "value": "23%"
+          },
+          {
+            "label": "Abridores",
+            "value": "Drew Rasmussen – Jacob Misiorowski"
+          }
+        ],
+        "sport": "mlb",
+        "context": {
+          "digest": {
+            "fase": "Serie Mundial",
+            "liga": {
+              "avg_wOBA": 0.3137,
+              "avg_pitching_quality": 4.178
+            },
+            "local": {
+              "wOBA": 0.3171,
+              "nombre": "Tampa Bay Rays",
+              "abridor": {
+                "ERA": 2.67,
+                "FIP": 2.81,
+                "nombre": "Drew Rasmussen",
+                "entradas": 172.0
+              },
+              "bullpen": {
+                "FIP": 3.76,
+                "entradas": 382.0
+              }
+            },
+            "avisos": [],
+            "visita": {
+              "wOBA": 0.3249,
+              "nombre": "Milwaukee Brewers",
+              "abridor": {
+                "ERA": 1.8,
+                "FIP": 2.17,
+                "nombre": "Jacob Misiorowski",
+                "entradas": 174.7
+              },
+              "bullpen": {
+                "FIP": 3.57,
+                "entradas": 399.7
+              }
+            },
+            "estadio": "Tropicana Field",
+            "partido": "Tampa Bay Rays vs Milwaukee Brewers",
+            "pronostico": {
+              "gana_pct": {
+                "local": 43,
+                "visita": 57
+              },
+              "primeras_5": {
+                "pct": {
+                  "tie": 24,
+                  "away": 45,
+                  "home": 30
+                },
+                "carreras": {
+                  "local": 1.17,
+                  "visita": 1.552
+                }
+              },
+              "carreras_esperadas": {
+                "local": 2.71,
+                "total": 5.924,
+                "visita": 3.214
+              },
+              "totales_mas_de_pct": {
+                "4.5": 66,
+                "5.5": 52,
+                "6.5": 38,
+                "7.5": 27
+              },
+              "local_gana_por_2_o_mas_pct": 23
+            },
+            "factor_parque": 0.96
+          },
+          "park_factor": 0.96
+        },
+        "game_id": 849799,
+        "warnings": [],
+        "generated_at": "2026-10-28T22:17:52.707624+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Brewers llegan con ventaja y un 57% de probabilidad de ganar, contra un 43% de los Rays. Su ofensiva supera el promedio de la liga y su abridor, Misiorowski, tiene un FIP muy bajo. Aun así, el partido sigue muy abierto.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Se esperan 3.21 carreras para Milwaukee y 2.71 para Tampa Bay, con un total de 5.92. La línea de más de 5.5 carreras tiene una probabilidad de 52%, y la de más de 4.5 llega al 66%.",
+            "titulo": "Carreras"
+          },
+          {
+            "texto": "El duelo de abridores favorece a Milwaukee: Misiorowski tiene FIP de 2.17 contra 2.81 de Rasmussen. En las primeras 5 entradas, Milwaukee tiene 45% de ventaja, Tampa Bay 30% y el empate 24%.",
+            "titulo": "Abridores"
+          },
+          {
+            "texto": "El bullpen de Milwaukee tiene FIP de 3.57, mejor que el de Tampa Bay con 3.76, lo que le da ventaja en las entradas finales. Tropicana Field tiene factor de parque de 0.96, que ligeramente reduce las carreras esperadas.",
+            "titulo": "Bullpen y contexto"
+          },
+          {
+            "texto": "La principal incertidumbre es el resultado de un solo abridor en un partido de postemporada, ya que cualquiera de los dos puede cambiar el rumbo temprano. Tampa Bay tiene 23% de probabilidad de ganar por dos o más carreras, así que una victoria local amplia no es descartable.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-10-27T15:59:00.583954+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "mlb",
+      "id": 849803,
+      "league": "MLB",
+      "start_time": "2026-10-28T00:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 4,
+      "away_score": 3,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 139,
+        "name": "Tampa Bay Rays",
+        "abbrev": "TB"
+      },
+      "away": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "abbrev": "MIL"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.5303,
+          "draw": null,
+          "home": 0.4697,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Carreras esperadas",
+            "value": "3.50 – 3.74"
+          },
+          {
+            "label": "Más de 6.5 carreras",
+            "value": "56%"
+          },
+          {
+            "label": "Más de 7.5 carreras",
+            "value": "43%"
+          },
+          {
+            "label": "Carreras en 5 entradas",
+            "value": "1.96 – 2.08"
+          },
+          {
+            "label": "Empate tras 5 entradas",
+            "value": "19%"
+          },
+          {
+            "label": "Tampa Bay Rays gana por 2 o más",
+            "value": "28%"
+          },
+          {
+            "label": "Abridores",
+            "value": "Griffin Jax – Dustin May"
+          }
+        ],
+        "sport": "mlb",
+        "context": {
+          "digest": {
+            "fase": "Serie Mundial",
+            "liga": {
+              "avg_wOBA": 0.3137,
+              "avg_pitching_quality": 4.178
+            },
+            "local": {
+              "wOBA": 0.3171,
+              "nombre": "Tampa Bay Rays",
+              "abridor": {
+                "ERA": 3.53,
+                "FIP": 3.76,
+                "nombre": "Griffin Jax",
+                "entradas": 112.3
+              },
+              "bullpen": {
+                "FIP": 3.76,
+                "entradas": 382.0
+              }
+            },
+            "avisos": [],
+            "visita": {
+              "wOBA": 0.3249,
+              "nombre": "Milwaukee Brewers",
+              "abridor": {
+                "ERA": 4.7,
+                "FIP": 3.63,
+                "nombre": "Dustin May",
+                "entradas": 145.7
+              },
+              "bullpen": {
+                "FIP": 3.57,
+                "entradas": 399.7
+              }
+            },
+            "estadio": "Tropicana Field",
+            "partido": "Tampa Bay Rays vs Milwaukee Brewers",
+            "pronostico": {
+              "gana_pct": {
+                "local": 47,
+                "visita": 53
+              },
+              "primeras_5": {
+                "pct": {
+                  "tie": 19,
+                  "away": 43,
+                  "home": 39
+                },
+                "carreras": {
+                  "local": 1.957,
+                  "visita": 2.077
+                }
+              },
+              "carreras_esperadas": {
+                "local": 3.497,
+                "total": 7.236,
+                "visita": 3.739
+              },
+              "totales_mas_de_pct": {
+                "5.5": 68,
+                "6.5": 56,
+                "7.5": 43,
+                "8.5": 32
+              },
+              "local_gana_por_2_o_mas_pct": 28
+            },
+            "factor_parque": 0.96
+          },
+          "park_factor": 0.96
+        },
+        "game_id": 849803,
+        "warnings": [],
+        "generated_at": "2026-10-27T22:15:14.048708+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Los Brewers llegan con ligera ventaja y 53% de probabilidad de ganar, frente a 47% de los Rays. Su ofensiva (wOBA 0.3249) supera el promedio de la liga, mientras que la de Tampa Bay (0.3171) queda un poco por debajo.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Se esperan 3.5 carreras para Tampa Bay y 3.7 para Milwaukee, con un total de 7.2. La línea de más de 6.5 carreras tiene 56% de probabilidad, y la de más de 7.5 baja a 43%.",
+            "titulo": "Carreras"
+          },
+          {
+            "texto": "Dustin May tiene mejor FIP (3.63) que Griffin Jax (3.76), así que el duelo inicial favorece ligeramente a los visitantes. En las primeras 5 entradas, la probabilidad de ventaja para Milwaukee es 43%, contra 39% para Tampa Bay y 19% de empate.",
+            "titulo": "Abridores"
+          },
+          {
+            "texto": "El bullpen de Milwaukee (FIP 3.57) es un poco mejor que el de Tampa Bay (3.76), lo que pesa en las entradas 6 a 9. Tropicana Field tiene factor de parque de 0.96, que tiende a reducir las carreras y ayuda al pitcheo local.",
+            "titulo": "Bullpen y contexto"
+          },
+          {
+            "texto": "El abridor de Tampa Bay tiene menos entradas (112.3) que el de Milwaukee (145.7), lo que deja más incertidumbre sobre cuánto aguantará Jax. Son probabilidades del modelo, no un resultado asegurado.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-10-26T16:13:58.930403+00:00",
+        "is_retrospective": false
+      }
+    },
+    {
+      "sport": "mlb",
+      "id": 849804,
+      "league": "MLB",
+      "start_time": "2026-10-27T00:00:00+00:00",
+      "status": "final",
+      "detail": null,
+      "home_score": 1,
+      "away_score": 10,
+      "forecast_ready": true,
+      "analysis_ready": true,
+      "home": {
+        "id": 139,
+        "name": "Tampa Bay Rays",
+        "abbrev": "TB"
+      },
+      "away": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "abbrev": "MIL"
+      },
+      "prediction": {
+        "win": {
+          "away": 0.5248,
+          "draw": null,
+          "home": 0.4752,
+          "title": "Probabilidad de victoria"
+        },
+        "rows": [
+          {
+            "label": "Carreras esperadas",
+            "value": "3.82 – 4.03"
+          },
+          {
+            "label": "Más de 7.5 carreras",
+            "value": "51%"
+          },
+          {
+            "label": "Más de 8.5 carreras",
+            "value": "39%"
+          },
+          {
+            "label": "Carreras en 5 entradas",
+            "value": "2.28 – 2.36"
+          },
+          {
+            "label": "Empate tras 5 entradas",
+            "value": "17%"
+          },
+          {
+            "label": "Tampa Bay Rays gana por 2 o más",
+            "value": "29%"
+          },
+          {
+            "label": "Abridores",
+            "value": "Freddy Peralta – Robert Gasser"
+          }
+        ],
+        "sport": "mlb",
+        "context": {
+          "digest": {
+            "fase": "Serie Mundial",
+            "liga": {
+              "avg_wOBA": 0.3137,
+              "avg_pitching_quality": 4.178
+            },
+            "local": {
+              "wOBA": 0.3171,
+              "nombre": "Tampa Bay Rays",
+              "abridor": {
+                "ERA": 4.42,
+                "FIP": 4.28,
+                "nombre": "Freddy Peralta",
+                "entradas": 169.0
+              },
+              "bullpen": {
+                "FIP": 3.76,
+                "entradas": 382.0
+              }
+            },
+            "avisos": [],
+            "visita": {
+              "wOBA": 0.3249,
+              "nombre": "Milwaukee Brewers",
+              "abridor": {
+                "ERA": 3.87,
+                "FIP": 4.23,
+                "nombre": "Robert Gasser",
+                "entradas": 109.3
+              },
+              "bullpen": {
+                "FIP": 3.57,
+                "entradas": 399.7
+              }
+            },
+            "estadio": "Tropicana Field",
+            "partido": "Tampa Bay Rays vs Milwaukee Brewers",
+            "pronostico": {
+              "gana_pct": {
+                "local": 48,
+                "visita": 52
+              },
+              "primeras_5": {
+                "pct": {
+                  "tie": 17,
+                  "away": 43,
+                  "home": 40
+                },
+                "carreras": {
+                  "local": 2.28,
+                  "visita": 2.364
+                }
+              },
+              "carreras_esperadas": {
+                "local": 3.82,
+                "total": 7.846,
+                "visita": 4.026
+              },
+              "totales_mas_de_pct": {
+                "6.5": 63,
+                "7.5": 51,
+                "8.5": 39,
+                "9.5": 28
+              },
+              "local_gana_por_2_o_mas_pct": 29
+            },
+            "factor_parque": 0.96
+          },
+          "park_factor": 0.96
+        },
+        "game_id": 849804,
+        "warnings": [],
+        "generated_at": "2026-10-25T15:46:03.380611+00:00",
+        "is_retrospective": false
+      },
+      "analysis": {
+        "sections": [
+          {
+            "texto": "Milwaukee Brewers llega con ligera ventaja, con 52% de probabilidad de ganar contra 48% de los Tampa Bay Rays. La ofensiva visitante tiene un wOBA de 0.325 frente al 0.317 local, por encima del promedio de la liga.",
+            "titulo": "Resumen"
+          },
+          {
+            "texto": "Se esperan 4.03 carreras para Milwaukee y 3.82 para Tampa Bay, con un total de 7.85. La línea de más de 7.5 carreras tiene 51% de probabilidad, mientras que la de más de 8.5 baja a 39%.",
+            "titulo": "Carreras"
+          },
+          {
+            "texto": "El duelo de abridores está parejo: Robert Gasser tiene FIP de 4.23 y Freddy Peralta de 4.28. En las primeras cinco entradas, Milwaukee proyecta 2.36 carreras y Tampa Bay 2.28, con 43% de probabilidad de ventaja visitante y 17% de empate.",
+            "titulo": "Abridores"
+          },
+          {
+            "texto": "El bullpen de Tampa Bay tiene mejor FIP (3.76) que el de Milwaukee (3.57 en ese caso, por encima), así que la ventaja de relevo es visitante. Tropicana Field tiene factor de parque de 0.96, lo que reduce ligeramente la producción esperada.",
+            "titulo": "Bullpen y contexto"
+          },
+          {
+            "texto": "Robert Gasser tiene 109.3 entradas en la temporada, una muestra menor que la de Freddy Peralta con 169.0, por lo que su rendimiento es más incierto. Los porcentajes son probabilidades del modelo, no certezas.",
+            "titulo": "A tener en cuenta"
+          }
+        ],
+        "created_at": "2026-10-25T15:49:05.869219+00:00",
+        "is_retrospective": false
+      }
+    }
+  ],
+  "retrospective_samples": [
+    {
+      "sport": "nba",
+      "game_id": 401909091,
+      "win": {
+        "away": 0.4301,
+        "draw": null,
+        "home": 0.5699,
+        "title": "Probabilidad de victoria, con prórroga"
+      },
+      "rows": [
+        {
+          "label": "Puntos esperados",
+          "value": "121.1 – 118.9"
+        },
+        {
+          "label": "Total de puntos",
+          "value": "240.0"
+        },
+        {
+          "label": "Más de 239.5 puntos",
+          "value": "51%"
+        },
+        {
+          "label": "Margen esperado",
+          "value": "Miami Heat por 2.2"
+        },
+        {
+          "label": "Hándicap MIA -2.5",
+          "value": "49%"
+        },
+        {
+          "label": "Prórroga",
+          "value": "5%"
+        }
+      ],
+      "is_retrospective": true,
+      "generated_at": "2026-10-22T07:45:09.613551+00:00"
+    },
+    {
+      "sport": "nba",
+      "game_id": 401909834,
+      "win": {
+        "away": 0.4438,
+        "draw": null,
+        "home": 0.5562,
+        "title": "Probabilidad de victoria, con prórroga"
+      },
+      "rows": [
+        {
+          "label": "Puntos esperados",
+          "value": "117.2 – 115.5"
+        },
+        {
+          "label": "Total de puntos",
+          "value": "232.7"
+        },
+        {
+          "label": "Más de 232.5 puntos",
+          "value": "50%"
+        },
+        {
+          "label": "Margen esperado",
+          "value": "Orlando Magic por 1.7"
+        },
+        {
+          "label": "Hándicap ORL -1.5",
+          "value": "51%"
+        },
+        {
+          "label": "Prórroga",
+          "value": "5%"
+        }
+      ],
+      "is_retrospective": true,
+      "generated_at": "2026-10-22T07:45:17.814128+00:00"
+    },
+    {
+      "sport": "nba",
+      "game_id": 401909835,
+      "win": {
+        "away": 0.4942,
+        "draw": null,
+        "home": 0.5058,
+        "title": "Probabilidad de victoria, con prórroga"
+      },
+      "rows": [
+        {
+          "label": "Puntos esperados",
+          "value": "116.2 – 116.0"
+        },
+        {
+          "label": "Total de puntos",
+          "value": "232.3"
+        },
+        {
+          "label": "Más de 232.5 puntos",
+          "value": "50%"
+        },
+        {
+          "label": "Margen esperado",
+          "value": "Washington Wizards por 0.2"
+        },
+        {
+          "label": "Hándicap WSH -0.5",
+          "value": "49%"
+        },
+        {
+          "label": "Prórroga",
+          "value": "5%"
+        }
+      ],
+      "is_retrospective": true,
+      "generated_at": "2026-10-22T07:45:24.485219+00:00"
+    }
+  ],
+  "match_marks": [
+    {
+      "fixture_id": 1555420,
+      "label": "Ambos marcan",
+      "created_at": "2026-11-07T17:32:43.155992+00:00"
+    },
+    {
+      "fixture_id": 1575217,
+      "label": "Más de 2.25 goles",
+      "created_at": "2026-11-07T17:32:43.155992+00:00"
+    },
+    {
+      "fixture_id": 1575213,
+      "label": "Selección de Astra: más de 2.5 goles",
+      "created_at": "2026-11-07T17:32:43.155992+00:00"
+    }
+  ],
+  "astra_picks": [
+    {
+      "sport": "nba",
+      "match_id": 401909846,
+      "pick": "Toronto Raptors a ganar",
+      "created_at": "2026-10-23T23:08:02.839371+00:00",
+      "updated_at": "2026-10-23T23:08:02.839371+00:00"
+    },
+    {
+      "sport": "nba",
+      "match_id": 401909842,
+      "pick": "LA Clippers ganador",
+      "created_at": "2026-10-22T04:43:41.616587+00:00",
+      "updated_at": "2026-10-22T05:02:31.504866+00:00"
+    },
+    {
+      "sport": "futbol",
+      "match_id": 1636288,
+      "pick": "Más de 8.5 tiros de esquina",
+      "created_at": "2026-10-22T07:13:00.123889+00:00",
+      "updated_at": "2026-10-22T07:13:00.123889+00:00"
+    },
+    {
+      "sport": "futbol",
+      "match_id": 1636276,
+      "pick": "Más de 8.5 tiros de esquinas",
+      "created_at": "2026-10-22T07:13:00.123889+00:00",
+      "updated_at": "2026-10-22T07:13:00.123889+00:00"
+    },
+    {
+      "sport": "futbol",
+      "match_id": 1575213,
+      "pick": "Más de 2.5 goles",
+      "created_at": "2026-11-07T17:32:43.155992+00:00",
+      "updated_at": "2026-11-07T17:32:43.155992+00:00"
+    }
+  ],
+  "match_odds_samples": {
+    "futbol": {
+      "fixture": {
+        "id": 1551883,
+        "kickoff": "2026-11-14T19:00:00+00:00",
+        "status": "NS",
+        "league": {
+          "name": "Eerste Divisie"
+        },
+        "home": {
+          "name": "Waalwijk"
+        },
+        "away": {
+          "name": "Den Bosch"
+        }
+      },
+      "response": {
+        "odds": {
+          "home": 1.96,
+          "draw": 3.85,
+          "away": 3.16,
+          "bookmaker": {
+            "id": 2,
+            "name": "Marathonbet"
+          },
+          "updated_at": "2026-11-14T12:32:16+00:00"
+        }
+      }
+    },
+    "nba_401909980": {
+      "odds": {
+        "home": 5.54,
+        "draw": null,
+        "away": 1.1612903225806452,
+        "bookmaker": {
+          "id": "100",
+          "name": "DraftKings"
+        },
+        "updated_at": null
+      }
+    },
+    "nhl_2026020321": {
+      "odds": {
+        "home": 1.2531645569620253,
+        "draw": null,
+        "away": 4.1,
+        "bookmaker": {
+          "id": "100",
+          "name": "DraftKings"
+        },
+        "updated_at": null
+      }
+    }
+  }
+}

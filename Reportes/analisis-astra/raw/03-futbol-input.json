@@ -1,0 +1,240 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta"
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 960,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 30000,
+      "max_event_allocation_bytes": 33554432,
+      "max_total_event_allocation_bytes": 134217728,
+      "max_network_transactions": 4096,
+      "max_network_body_bytes": 16777216,
+      "max_network_body_allocation_bytes": 67108864,
+      "max_network_header_allocation_bytes": 8388608,
+      "max_network_metadata_allocation_bytes": 8388608
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-email",
+      "timeout_ms": 20000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-home-futbol",
+      "action": "wait_for_timeout",
+      "duration_ms": 7000
+    },
+    {
+      "step_id": "open-upcoming-ligamx",
+      "timeout_ms": 15000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label^='Club Queretaro contra Monterrey']"
+      }
+    },
+    {
+      "step_id": "wait-ligamx-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "click-ligamx-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-ligamx-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "open-upcoming-uefa",
+      "timeout_ms": 15000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label^='Portugal contra Denmark']"
+      }
+    },
+    {
+      "step_id": "wait-uefa-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "click-uefa-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-uefa-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "filter-finalizados",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Finalizados"
+      }
+    },
+    {
+      "step_id": "wait-finalizados-list",
+      "action": "wait_for_timeout",
+      "duration_ms": 1500
+    },
+    {
+      "step_id": "open-finished-match",
+      "timeout_ms": 15000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label^='Valladolid contra Castell']"
+      }
+    },
+    {
+      "step_id": "wait-finished-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "click-finished-stats-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Estadísticas"
+      }
+    },
+    {
+      "step_id": "wait-finished-stats",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    },
+    {
+      "step_id": "click-finished-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-finished-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    },
+    {
+      "step_id": "goto-partido-route-1636276",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/partido/1636276"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-partido-1636276",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    }
+  ]
+}

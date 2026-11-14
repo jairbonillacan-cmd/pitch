@@ -1,0 +1,152 @@
+[
+  {
+    "game_id": 401909990,
+    "context": {
+      "digest": {
+        "liga": {
+          "puntos_por_equipo": 113.58,
+          "ventaja_local_puntos": 1.967
+        },
+        "tipo": "Temporada regular",
+        "avisos": [],
+        "partido": "Toronto Raptors vs New York Knicks",
+        "ratings": {
+          "away": {
+            "def": 6.658,
+            "elo": 1660.6,
+            "net": 3.859,
+            "off": -2.8,
+            "name": "New York Knicks",
+            "games": {
+              "current_nba": 11,
+              "previous_nba": 102,
+              "current_preseason": 5
+            },
+            "prior_net": 6.524
+          },
+          "home": {
+            "def": 0.56,
+            "elo": 1502,
+            "net": 1.156,
+            "off": 0.596,
+            "name": "Toronto Raptors",
+            "games": {
+              "current_nba": 11,
+              "previous_nba": 89,
+              "current_preseason": 5
+            },
+            "prior_net": 1.987
+          }
+        },
+        "descanso": {
+          "away": {
+            "dos_dias_seguidos": false,
+            "horas_desde_ultimo": 47
+          },
+          "home": {
+            "dos_dias_seguidos": false,
+            "horas_desde_ultimo": 71
+          }
+        },
+        "pronostico": {
+          "prorroga_pct": 5.3,
+          "primera_mitad": {
+            "total": 110.04,
+            "local_gana_pct": 45
+          },
+          "puntos_esperados": {
+            "local": 108.81,
+            "total": 219.04,
+            "visitante": 110.24
+          },
+          "totales_mas_de_pct": {
+            "217.5": 53,
+            "218.5": 51,
+            "219.5": 49,
+            "220.5": 47,
+            "221.5": 45
+          },
+          "gana_con_prorroga_pct": {
+            "away": 55,
+            "home": 45
+          },
+          "handicap_local_cubre_pct": {
+            "0.5": 47,
+            "1.5": 50,
+            "2.5": 54,
+            "3.5": 57,
+            "-0.5": 44
+          },
+          "margen_local_tiempo_regular": -1.43
+        },
+        "sede_neutral": false,
+        "forma_reciente": {
+          "away": {
+            "ultimos": [
+              "P 104-106 en Indiana Pacers",
+              "P 107-115 vs Cleveland Cavaliers",
+              "G 117-85 vs Milwaukee Bucks",
+              "G 135-105 vs Chicago Bulls",
+              "G 103-90 vs Brooklyn Nets"
+            ],
+            "puntos_a_favor_promedio": 113.2,
+            "puntos_en_contra_promedio": 100.2
+          },
+          "home": {
+            "ultimos": [
+              "P 112-123 en Philadelphia 76ers",
+              "P 93-98 vs Boston Celtics",
+              "P 102-118 vs Memphis Grizzlies",
+              "P 109-128 en Denver Nuggets",
+              "G 125-118 en LA Clippers"
+            ],
+            "puntos_a_favor_promedio": 108.2,
+            "puntos_en_contra_promedio": 117
+          }
+        },
+        "bajas_reportadas": {
+          "away": [],
+          "home": [
+            {
+              "estado": "Day-To-Day",
+              "nombre": "Kevin McCullar Jr.",
+              "posicion": "G"
+            },
+            {
+              "estado": "Day-To-Day",
+              "nombre": "Trayce Jackson-Davis",
+              "posicion": "F"
+            },
+            {
+              "estado": "Out",
+              "nombre": "Scottie Barnes",
+              "posicion": "F"
+            },
+            {
+              "estado": "Out",
+              "nombre": "Kawhi Leonard",
+              "posicion": "F"
+            },
+            {
+              "estado": "Out",
+              "nombre": "Nate Bittle",
+              "posicion": "C"
+            }
+          ]
+        }
+      },
+      "model_components": {
+        "final_margin": -1.43,
+        "margin_from_elo": -3.52,
+        "rest_adjustment": 0,
+        "elo_blend_weight": 0.25,
+        "elo_win_prob_home": 0.3617,
+        "league_avg_points": 113.58,
+        "margin_from_ratings": -0.73,
+        "preseason_adjustment": false,
+        "home_advantage_points": 1.967
+      }
+    },
+    "generated_at": "2026-11-14T15:52:21.4139+00:00"
+  }
+]

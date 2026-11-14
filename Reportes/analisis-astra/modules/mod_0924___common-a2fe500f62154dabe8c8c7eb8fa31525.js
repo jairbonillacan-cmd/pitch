@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";e.__esModule=!0,e.getAssetByID=function(t){return s[t-1]},e.registerAsset=function(t){return s.push(t)};var t='undefined'!=typeof globalThis?globalThis:void 0!==g?g:'undefined'!=typeof window?window:{},n=Symbol.for('react-native-web.AssetRegistry');t[n]||(t[n]=[]);var s=t[n]},924,[]);

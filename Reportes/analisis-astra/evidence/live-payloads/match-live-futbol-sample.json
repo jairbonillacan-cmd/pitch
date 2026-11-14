@@ -1,0 +1,539 @@
+[
+  {
+    "sport": "futbol",
+    "match_id": 1570024,
+    "state": "FT",
+    "elapsed": 90,
+    "updated_at": "2026-11-14T17:36:03.364918+00:00",
+    "info": {
+      "city": "Valladolid",
+      "round": "Regular Season - 14",
+      "venue": "Estadio José Zorrilla",
+      "league": "Segunda División",
+      "source": "API-Sports",
+      "country": "Spain",
+      "referee": "Salvador Lax",
+      "halftime": {
+        "away": 0,
+        "home": 0
+      },
+      "momentum_method": "sampled",
+      "referee_averages": null
+    },
+    "statistics": [
+      {
+        "key": "expected_goals",
+        "away": "1.76",
+        "home": "0.82",
+        "label": "Goles esperados (xG)"
+      },
+      {
+        "key": "Passes accurate",
+        "away": 453,
+        "home": 324,
+        "label": "Pases completados"
+      },
+      {
+        "key": "Shots insidebox",
+        "away": 9,
+        "home": 6,
+        "label": "Tiros dentro del área"
+      },
+      {
+        "key": "Shots outsidebox",
+        "away": 6,
+        "home": 1,
+        "label": "Tiros fuera del área"
+      },
+      {
+        "key": "Free Kicks",
+        "away": 11,
+        "home": 12,
+        "label": "Free Kicks"
+      },
+      {
+        "key": "Shots on Goal",
+        "away": 3,
+        "home": 3,
+        "label": "Tiros a puerta"
+      },
+      {
+        "key": "Goalkeeper Saves",
+        "away": 3,
+        "home": 2,
+        "label": "Paradas"
+      },
+      {
+        "key": "Shots off Goal",
+        "away": 8,
+        "home": 4,
+        "label": "Tiros fuera"
+      },
+      {
+        "key": "Offsides",
+        "away": 2,
+        "home": 3,
+        "label": "Fuera de juego"
+      },
+      {
+        "key": "Total passes",
+        "away": 532,
+        "home": 400,
+        "label": "Pases"
+      },
+      {
+        "key": "Total Shots",
+        "away": 15,
+        "home": 7,
+        "label": "Tiros totales"
+      },
+      {
+        "key": "Yellow Cards",
+        "away": 3,
+        "home": 4,
+        "label": "Tarjetas amarillas"
+      },
+      {
+        "key": "Corner Kicks",
+        "away": 9,
+        "home": 3,
+        "label": "Tiros de esquina"
+      },
+      {
+        "key": "Blocked Shots",
+        "away": 4,
+        "home": 0,
+        "label": "Tiros bloqueados"
+      },
+      {
+        "key": "Fouls",
+        "away": 13,
+        "home": 11,
+        "label": "Faltas"
+      },
+      {
+        "key": "Red Cards",
+        "away": 0,
+        "home": 0,
+        "label": "Tarjetas rojas"
+      },
+      {
+        "key": "Ball Possession",
+        "away": "58%",
+        "home": "42%",
+        "label": "Posesión"
+      }
+    ],
+    "events": [
+      {
+        "kind": "sub",
+        "side": "home",
+        "extra": null,
+        "label": "Álvaro Pérez Campo · Ramón Martínez",
+        "injury": false,
+        "minute": 5
+      },
+      {
+        "kind": "yellow",
+        "side": "home",
+        "extra": null,
+        "label": "Carlos Clerc",
+        "minute": 28
+      },
+      {
+        "kind": "yellow",
+        "side": "home",
+        "extra": null,
+        "label": "Julien Ponceau",
+        "minute": 45
+      },
+      {
+        "kind": "yellow",
+        "side": "home",
+        "extra": 4,
+        "label": "Thiago Ezequiel Ojeda",
+        "minute": 45
+      },
+      {
+        "kind": "yellow",
+        "side": "away",
+        "extra": 4,
+        "label": "Alberto Jiménez",
+        "minute": 45
+      },
+      {
+        "kind": "sub",
+        "side": "away",
+        "extra": null,
+        "label": "Pablo Santiago · antonio gala",
+        "injury": false,
+        "minute": 58
+      },
+      {
+        "kind": "yellow",
+        "side": "away",
+        "extra": null,
+        "label": "Alvaro Martin",
+        "minute": 59
+      },
+      {
+        "kind": "sub",
+        "side": "home",
+        "extra": null,
+        "label": "Thiago Ezequiel Ojeda · Mathis Lachuer",
+        "injury": false,
+        "minute": 61
+      },
+      {
+        "kind": "sub",
+        "side": "home",
+        "extra": null,
+        "label": "Tay Abed · Luis Rodríguez Chacón",
+        "injury": false,
+        "minute": 61
+      },
+      {
+        "kind": "yellow",
+        "side": "home",
+        "extra": null,
+        "label": "Mathis Lachuer",
+        "minute": 66
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "extra": null,
+        "label": "Adam Jakobsen",
+        "minute": 67
+      },
+      {
+        "kind": "goal",
+        "side": "away",
+        "extra": null,
+        "label": "Adam Jakobsen",
+        "minute": 67
+      },
+      {
+        "kind": "sub",
+        "side": "away",
+        "extra": null,
+        "label": "Alvaro Martin · Jari Vlak",
+        "injury": false,
+        "minute": 69
+      },
+      {
+        "kind": "sub",
+        "side": "away",
+        "extra": null,
+        "label": "Juanjo Nieto · Raúl Sánchez",
+        "injury": false,
+        "minute": 69
+      },
+      {
+        "kind": "sub",
+        "side": "home",
+        "extra": null,
+        "label": "Víctor Fernández · Ryotaro Ito",
+        "injury": false,
+        "minute": 71
+      },
+      {
+        "kind": "sub",
+        "side": "home",
+        "extra": null,
+        "label": "Stanko Jurić · Victor Barbera",
+        "injury": false,
+        "minute": 71
+      },
+      {
+        "kind": "yellow",
+        "side": "away",
+        "extra": null,
+        "label": "Adam Jakobsen",
+        "minute": 80
+      },
+      {
+        "kind": "sub",
+        "side": "away",
+        "extra": null,
+        "label": "Adam Jakobsen · Lucas Alcázar",
+        "injury": false,
+        "minute": 82
+      },
+      {
+        "kind": "sub",
+        "side": "away",
+        "extra": null,
+        "label": "Ousmane Camara · Álvaro García Arana",
+        "injury": false,
+        "minute": 82
+      }
+    ],
+    "momentum": [
+      {
+        "away": 0,
+        "home": 0,
+        "start": 2,
+        "minute": 4
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 4,
+        "minute": 6
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 6,
+        "minute": 8
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 8,
+        "minute": 10
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 10,
+        "minute": 12
+      },
+      {
+        "away": 0,
+        "home": 3,
+        "start": 12,
+        "minute": 14
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 14,
+        "minute": 16
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 16,
+        "minute": 18
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 18,
+        "minute": 20
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 20,
+        "minute": 22
+      },
+      {
+        "away": 2.5,
+        "home": 0,
+        "start": 22,
+        "minute": 24
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 24,
+        "minute": 26
+      },
+      {
+        "away": 3,
+        "home": 0,
+        "start": 26,
+        "minute": 28
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 28,
+        "minute": 30
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 30,
+        "minute": 32
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 32,
+        "minute": 34
+      },
+      {
+        "away": 0,
+        "home": 1.5,
+        "start": 34,
+        "minute": 36
+      },
+      {
+        "away": 0,
+        "home": 1,
+        "start": 36,
+        "minute": 38
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 38,
+        "minute": 40
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 40,
+        "minute": 42
+      },
+      {
+        "away": 1.5,
+        "home": 3,
+        "start": 42,
+        "minute": 44
+      },
+      {
+        "away": 2.5,
+        "home": 0,
+        "start": 44,
+        "minute": 45
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 45,
+        "minute": 48
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 48,
+        "minute": 50
+      },
+      {
+        "away": 1.5,
+        "home": 0,
+        "start": 50,
+        "minute": 52
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 52,
+        "minute": 54
+      },
+      {
+        "away": 1.5,
+        "home": 0,
+        "start": 54,
+        "minute": 56
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 56,
+        "minute": 58
+      },
+      {
+        "away": 1.5,
+        "home": 0,
+        "start": 58,
+        "minute": 60
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 60,
+        "minute": 62
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 62,
+        "minute": 64
+      },
+      {
+        "away": 1.5,
+        "home": 1,
+        "start": 64,
+        "minute": 66
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 66,
+        "minute": 68
+      },
+      {
+        "away": 6,
+        "home": 0,
+        "start": 68,
+        "minute": 70
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 70,
+        "minute": 72
+      },
+      {
+        "away": 1.5,
+        "home": 0,
+        "start": 72,
+        "minute": 74
+      },
+      {
+        "away": 1,
+        "home": 0,
+        "start": 74,
+        "minute": 76
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 76,
+        "minute": 78
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 78,
+        "minute": 80
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 80,
+        "minute": 82
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 82,
+        "minute": 84
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 84,
+        "minute": 86
+      },
+      {
+        "away": 0,
+        "home": 0,
+        "start": 86,
+        "minute": 88
+      },
+      {
+        "away": 1.5,
+        "home": 0,
+        "start": 88,
+        "minute": 90
+      }
+    ]
+  }
+]

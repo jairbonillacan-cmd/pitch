@@ -1,0 +1,89 @@
+[
+  {
+    "sport": "nba",
+    "id": 401909296,
+    "league": "NBA",
+    "start_time": "2026-11-14T00:00:00+00:00",
+    "status": "final",
+    "detail": null,
+    "home_score": 106,
+    "away_score": 104,
+    "venue": "Gainbridge Fieldhouse",
+    "forecast_ready": true,
+    "analysis_ready": true,
+    "home": {
+      "id": 11,
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500-dark/ind.png",
+      "name": "Indiana Pacers",
+      "abbrev": "IND"
+    },
+    "away": {
+      "id": 18,
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500-dark/ny.png",
+      "name": "New York Knicks",
+      "abbrev": "NY"
+    },
+    "prediction": {
+      "win": {
+        "away": 0.7114,
+        "draw": null,
+        "home": 0.2886,
+        "title": "Probabilidad de victoria, con prórroga"
+      },
+      "rows": [
+        {
+          "label": "Puntos esperados",
+          "value": "106.2 – 113.0"
+        },
+        {
+          "label": "Total de puntos",
+          "value": "219.2"
+        },
+        {
+          "label": "Más de 219.5 puntos",
+          "value": "49%"
+        },
+        {
+          "label": "Margen esperado",
+          "value": "New York Knicks por 6.8"
+        },
+        {
+          "label": "Hándicap NY -6.5",
+          "value": "51%"
+        },
+        {
+          "label": "Prórroga",
+          "value": "5%"
+        }
+      ],
+      "generated_at": "2026-11-12T17:39:00.686748+00:00",
+      "is_retrospective": false
+    },
+    "analysis": {
+      "sections": [
+        {
+          "texto": "Los Knicks llegan mejor en el modelo y son favoritos claros. Tienen 71% de probabilidad de ganar contando prórroga, contra 29% de los Pacers. Su rating neto es de +4.3 frente a -3.7 de Indiana.",
+          "titulo": "Resumen"
+        },
+        {
+          "texto": "Se esperan 113.0 puntos para Nueva York y 106.2 para Indiana, con un total de 219.2. Las líneas de total van de 217.5 con 54% de probabilidad de superarla, hasta 221.5 con 45%.",
+          "titulo": "Puntos"
+        },
+        {
+          "texto": "El margen esperado en tiempo regular es de 6.8 a favor de los visitantes. El hándicap local de +4.5 cubre con 42%, y el de +8.5 cubre con 56%, así que la cobertura depende mucho de la línea.",
+          "titulo": "Margen y hándicap"
+        },
+        {
+          "texto": "Indiana y Nueva York descansaron 48 horas y ninguno juega en días seguidos. Los Pacers llegan con dos derrotas en sus últimos tres duelos y con una defensa que ha recibido 107 puntos por partido en su racha reciente.",
+          "titulo": "Descanso y bajas"
+        },
+        {
+          "texto": "Indiana no tiene a Tyrese Haliburton (baja confirmada), y Aaron Nesmith aparece como día a día. El modelo no incluye bajas, así que el pronóstico puede cambiar si el equipo local juega sin ellos.",
+          "titulo": "A tener en cuenta"
+        }
+      ],
+      "created_at": "2026-11-12T17:46:06.716904+00:00",
+      "is_retrospective": false
+    }
+  }
+]

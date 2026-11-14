@@ -1,0 +1,93 @@
+[
+  {
+    "sport": "nhl",
+    "id": 2026020312,
+    "league": "NHL",
+    "start_time": "2026-11-14T20:30:00+00:00",
+    "status": "upcoming",
+    "detail": null,
+    "home_score": null,
+    "away_score": null,
+    "venue": "United Center",
+    "forecast_ready": true,
+    "analysis_ready": true,
+    "home": {
+      "id": 16,
+      "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg",
+      "name": "Chicago Blackhawks",
+      "abbrev": "CHI"
+    },
+    "away": {
+      "id": 52,
+      "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_dark.svg",
+      "name": "Winnipeg Jets",
+      "abbrev": "WPG"
+    },
+    "prediction": {
+      "win": {
+        "away": 0.5546,
+        "draw": null,
+        "home": 0.4454,
+        "title": "Probabilidad de victoria, con tiempo extra y shootout"
+      },
+      "rows": [
+        {
+          "label": "Goles esperados",
+          "value": "2.69 – 3.02"
+        },
+        {
+          "label": "Más de 5.5 goles",
+          "value": "46%"
+        },
+        {
+          "label": "Más de 6.5 goles",
+          "value": "37%"
+        },
+        {
+          "label": "Ambos anotan en tiempo regular",
+          "value": "86%"
+        },
+        {
+          "label": "Empate en tiempo regular",
+          "value": "21%"
+        },
+        {
+          "label": "Total de tiros a puerta",
+          "value": "27"
+        },
+        {
+          "label": "Porteros",
+          "value": "Spencer Knight – Stuart Skinner"
+        }
+      ],
+      "generated_at": "2026-11-13T17:16:52.469252+00:00",
+      "is_retrospective": false
+    },
+    "analysis": {
+      "sections": [
+        {
+          "texto": "Winnipeg llega con ventaja según el modelo: gana en tiempo regular 44% contra 34% de Chicago, y en total tiene 55% de ganar si el partido se va a tiempo extra. Chicago tiene 45% en esa definición, así que el partido se ve cerrado pero inclinado hacia los Jets.",
+          "titulo": "Resumen"
+        },
+        {
+          "texto": "Se esperan 5.7 goles en total, con 3.0 para Winnipeg y 2.7 para Chicago. La probabilidad de empate al final del tiempo regular es de 21%, y 86% de que ambos equipos anoten.",
+          "titulo": "Goles"
+        },
+        {
+          "texto": "Spencer Knight y Stuart Skinner son los porteros probables, aunque ninguno está confirmado. Se proyectan 14.2 tiros a puerta para Winnipeg y 13.1 para Chicago.",
+          "titulo": "Porteros y tiros"
+        },
+        {
+          "texto": "Ambos equipos descansaron 43.5 horas desde su último partido, así que no hay ventaja por cansancio. En power play, Winnipeg genera más peligro que Chicago, con 7.0 contra 6.3 goles esperados por hora.",
+          "titulo": "Contexto"
+        },
+        {
+          "texto": "El portero titular es la mayor fuente de incertidumbre, porque ninguno de los dos está confirmado y el modelo lo usa como estimación. Un cambio de portero podría mover la lectura del partido.",
+          "titulo": "A tener en cuenta"
+        }
+      ],
+      "created_at": "2026-11-13T17:22:05.209838+00:00",
+      "is_retrospective": false
+    }
+  }
+]

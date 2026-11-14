@@ -1,0 +1,237 @@
+[
+  {
+    "game_id": 401873058,
+    "context": {
+      "digest": {
+        "liga": {
+          "ventaja_local": 0.8,
+          "puntos_por_equipo": 23
+        },
+        "tipo": "Temporada regular",
+        "avisos": [],
+        "semana": 10,
+        "partido": "Atlanta Falcons vs Kansas City Chiefs",
+        "ratings": {
+          "away": {
+            "elo": 1561,
+            "ataque_puntos": 0.2,
+            "srs_temporada": 4.761,
+            "partidos_temporada": 8,
+            "epa_ataque_por_jugada": 0.055,
+            "epa_evitado_por_jugada": 0.019,
+            "defensa_puntos_evitados": 3.1
+          },
+          "home": {
+            "elo": 1435,
+            "ataque_puntos": -1.8,
+            "srs_temporada": -0.903,
+            "partidos_temporada": 9,
+            "epa_ataque_por_jugada": -0.033,
+            "epa_evitado_por_jugada": 0.003,
+            "defensa_puntos_evitados": -0.8
+          }
+        },
+        "pronostico": {
+          "gana_pct": {
+            "away": 65,
+            "home": 35
+          },
+          "margen_local": -5.2,
+          "puntos_esperados": {
+            "local": 18.9,
+            "total": 43,
+            "visitante": 24.1
+          },
+          "totales_mas_de_pct": {
+            "41.5": 54,
+            "42.5": 51,
+            "43.5": 49
+          },
+          "handicap_local_cubre_pct": {
+            "3.5": 45,
+            "4.5": 48,
+            "5.5": 51
+          }
+        },
+        "quarterbacks": {
+          "away": {
+            "nombre": "Patrick Mahomes",
+            "ajuste_puntos": 0.5,
+            "sin_historial": false,
+            "epa_por_dropback": 0.053
+          },
+          "home": {
+            "nombre": "Michael Penix Jr.",
+            "ajuste_puntos": -0.1,
+            "sin_historial": false,
+            "epa_por_dropback": -0.046
+          }
+        },
+        "sede_neutral": false,
+        "descanso_dias": {
+          "away": 7,
+          "home": 7
+        },
+        "techo_estadio": null,
+        "forma_reciente": {
+          "away": [
+            {
+              "local": false,
+              "rival": "LV",
+              "marcador": "30-27",
+              "resultado": "G"
+            },
+            {
+              "local": true,
+              "rival": "LAC",
+              "marcador": "22-6",
+              "resultado": "G"
+            },
+            {
+              "local": false,
+              "rival": "SEA",
+              "marcador": "3-20",
+              "resultado": "P"
+            },
+            {
+              "local": false,
+              "rival": "DEN",
+              "marcador": "24-28",
+              "resultado": "P"
+            },
+            {
+              "local": true,
+              "rival": "NYJ",
+              "marcador": "35-12",
+              "resultado": "G"
+            }
+          ],
+          "home": [
+            {
+              "local": true,
+              "rival": "BAL",
+              "marcador": "23-30",
+              "resultado": "P"
+            },
+            {
+              "local": true,
+              "rival": "CHI",
+              "marcador": "23-31",
+              "resultado": "P"
+            },
+            {
+              "local": true,
+              "rival": "SF",
+              "marcador": "29-20",
+              "resultado": "G"
+            },
+            {
+              "local": false,
+              "rival": "TB",
+              "marcador": "0-16",
+              "resultado": "P"
+            },
+            {
+              "local": true,
+              "rival": "CIN",
+              "marcador": "17-34",
+              "resultado": "P"
+            }
+          ]
+        },
+        "bajas_reportadas": {
+          "away": [
+            {
+              "estado": "Out",
+              "nombre": "Peter Woods",
+              "posicion": "DT"
+            },
+            {
+              "estado": "Out",
+              "nombre": "Jaylon Moore",
+              "posicion": "OT"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "Jaydn Ott",
+              "posicion": "RB"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "Mansoor Delane",
+              "posicion": "CB"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "Kenneth Walker III",
+              "posicion": "RB"
+            }
+          ],
+          "home": [
+            {
+              "estado": "Out",
+              "nombre": "Zachariah Branch",
+              "posicion": "WR"
+            },
+            {
+              "estado": "Doubtful",
+              "nombre": "Divine Deablo",
+              "posicion": "LB"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "Josh Woods",
+              "posicion": "LB"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "James Pearce Jr.",
+              "posicion": "LB"
+            },
+            {
+              "estado": "Questionable",
+              "nombre": "Gervon Dexter Sr.",
+              "posicion": "DT"
+            }
+          ]
+        },
+        "rivales_de_division": false,
+        "componentes_del_margen": {
+          "pesos": {
+            "elo": 0.35,
+            "epa": 0.3,
+            "puntos": 0.35
+          },
+          "descanso": 0,
+          "qb_local": -0.1,
+          "margen_elo": -4.23,
+          "margen_epa": -4.35,
+          "techo_total": 0.65,
+          "total_final": 43.01,
+          "margen_final": -5.17,
+          "qb_visitante": 0.5,
+          "margen_puntos": -5.08,
+          "ventaja_local": 0.8
+        }
+      },
+      "model_components": {
+        "pesos": {
+          "elo": 0.35,
+          "epa": 0.3,
+          "puntos": 0.35
+        },
+        "descanso": 0,
+        "qb_local": -0.1,
+        "margen_elo": -4.23,
+        "margen_epa": -4.35,
+        "techo_total": 0.65,
+        "total_final": 43.01,
+        "margen_final": -5.17,
+        "qb_visitante": 0.5,
+        "margen_puntos": -5.08,
+        "ventaja_local": 0.8
+      }
+    },
+    "generated_at": "2026-11-14T01:48:12.646953+00:00"
+  }
+]

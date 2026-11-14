@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),Object.defineProperty(e,"getBundleUrl",{enumerable:!0,get:function(){return t.getBundleUrl}}),e.getBundleOrigin=function(n=(0,t.getBundleUrl)()){if(!n)return null;try{const{protocol:t,origin:u}=new URL(n);return'http:'===t||'https:'===t?u:null}catch{return null}};var t=r(d[0])},805,[624]);

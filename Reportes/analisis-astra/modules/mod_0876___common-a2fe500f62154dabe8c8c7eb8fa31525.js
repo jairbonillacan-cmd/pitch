@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";function n(){const t=r(d[0]);return n=function(){return t},t}Object.defineProperty(e,"__esModule",{value:!0}),Object.defineProperty(e,"useIsNavigating",{enumerable:!0,get:function(){return u}});const t=r(d[1]);function u(){return(0,n().use)(t.NavigationPendingContext)}},876,[12,358]);

@@ -1,0 +1,2519 @@
+{
+  "ok": true,
+  "meta": {
+    "command": "capture-browser-scenario",
+    "duration": "128141ms"
+  },
+  "evidence_id": "ev_b2082a83f40b298b1f62d60e156ccb00dfa1bb20161c30653505db326b4395e3",
+  "provider": {
+    "id": "rea-playwright-browser-scenario",
+    "name": "REA Playwright browser scenario capture provider",
+    "version": "1"
+  },
+  "predicate_type": "rea.browser-scenario-capture",
+  "operation": "capture_browser_scenario",
+  "confidence": "observed",
+  "authority": "controlled-replay",
+  "environment": {
+    "id": "Chromium@157.0.8103.52",
+    "platform": "unknown",
+    "architecture": "unknown",
+    "isolation": "process"
+  },
+  "scenario_parameters": {
+    "start_url": {
+      "url": "https://astraanalisis.com/cuenta",
+      "query": []
+    },
+    "environment": {
+      "viewport": {
+        "width": 1440,
+        "height": 1200,
+        "device_scale_factor": 1
+      },
+      "locale": "es-MX",
+      "timezone": "America/Mexico_City",
+      "color_scheme": "dark",
+      "reduced_motion": "reduce",
+      "service_workers": "block"
+    },
+    "action_count": 49,
+    "secret_references": [
+      "astra_password"
+    ],
+    "limits": {
+      "max_events": 50000,
+      "max_event_allocation_bytes": 268435456,
+      "max_total_event_allocation_bytes": 536870912,
+      "max_network_transactions": 8192,
+      "max_network_body_bytes": 33554432,
+      "max_network_body_allocation_bytes": 268435456,
+      "max_network_header_allocation_bytes": 16777216,
+      "max_network_metadata_allocation_bytes": 16777216
+    },
+    "scenario_sha256": "bbe4e506f5cab951965664caa733f72628cceee936562fdaac3d6b4bc606c248"
+  },
+  "browser": {
+    "mode": "launch",
+    "process_ownership": "provider-owned",
+    "cleanup": "terminated-owned-process",
+    "product": "Chromium",
+    "version": "157.0.8103.52"
+  },
+  "duration_ms": 126671,
+  "completeness": {
+    "status": "incomplete",
+    "equality_eligible": false,
+    "missing_sections": [
+      "events"
+    ],
+    "truncated_sections": []
+  },
+  "events_summary": {
+    "retained": 3067,
+    "dropped": 0,
+    "omissions": {
+      "by_kind": [],
+      "network_transactions": [],
+      "network_transaction_range": null
+    }
+  },
+  "steps": [
+    {
+      "step_index": 0,
+      "step_id": "scenario_start",
+      "action": "goto_start",
+      "status": "completed",
+      "elapsed_ms": 4882,
+      "before_url": {
+        "url": "about:blank",
+        "origin": null,
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "d4f37002b387455131427940eaa5760d3d2f4f1e94d7a4c94bd32e0326c2dd3a",
+      "screenshot_bytes": 7765,
+      "dom_sha256": "4089c685adba8ee3983aa6b5b0c89583ea8bfd8948927ad1c5f31595cfe6feb8",
+      "dom_bytes": 6212
+    },
+    {
+      "step_index": 1,
+      "step_id": "wait-email",
+      "action": "wait_for",
+      "status": "completed",
+      "elapsed_ms": 582,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "f79dec757cb088223ebf1aa6780c2949ca4d94a8c0415d210c4ec74c466ed19e",
+      "dom_bytes": 19052
+    },
+    {
+      "step_index": 2,
+      "step_id": "fill-email",
+      "action": "fill",
+      "status": "completed",
+      "elapsed_ms": 189,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "58c9873af036a0d687853a589f4932e86e6942c968dedb8fac2e3dbb71af56aa",
+      "dom_bytes": 19097
+    },
+    {
+      "step_index": 3,
+      "step_id": "fill-password",
+      "action": "fill",
+      "status": "completed",
+      "elapsed_ms": 156,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "3a93ef781333b385d9165950887a84fdee981e4e2ec00e73097d5f8905731b04",
+      "dom_bytes": 19122
+    },
+    {
+      "step_index": 4,
+      "step_id": "submit-login",
+      "action": "press",
+      "status": "completed",
+      "elapsed_ms": 302,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "6a7a5679e5830635db1ad7384cc39680ddac7d41220cdfc3cd15d87743bc74be",
+      "dom_bytes": 19628
+    },
+    {
+      "step_index": 5,
+      "step_id": "wait-after-login",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 6799,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "65a28cf3a3f80ab5153cf016dafb9ed6575c1a5c502313682e5efa8461827c36",
+      "screenshot_bytes": 174320,
+      "dom_sha256": "8de94664b50d8a4cf89c32852c9506091169b71b20dbe5c1d7e20963998cd069",
+      "dom_bytes": 304945
+    },
+    {
+      "step_index": 6,
+      "step_id": "dismiss-install-banner",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 499,
+      "before_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5c40a92f4044dde4d1951a1e52f87c8561a7930491e230d3b9760253eb5c85ce",
+      "screenshot_bytes": 174251,
+      "dom_sha256": "dfc8516a9925e72cda153651c1f84f172c4fab8da66cc07314246c7e9e520005",
+      "dom_bytes": 304705
+    },
+    {
+      "step_index": 7,
+      "step_id": "wait-after-dismiss",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 921,
+      "before_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5c40a92f4044dde4d1951a1e52f87c8561a7930491e230d3b9760253eb5c85ce",
+      "screenshot_bytes": 174251,
+      "dom_sha256": "dfc8516a9925e72cda153651c1f84f172c4fab8da66cc07314246c7e9e520005",
+      "dom_bytes": 304705
+    },
+    {
+      "step_index": 8,
+      "step_id": "goto-nba-final-401909296",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 812,
+      "before_url": {
+        "url": "https://astraanalisis.com/",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "ff890c5259409cda23f61ba99a7875d7f63400c9239dfe3575736294d7f9a616",
+      "dom_bytes": 38473
+    },
+    {
+      "step_index": 9,
+      "step_id": "wait-nba-final-loaded",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 4912,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5fa88fa28d19ca4c33839d3e371f3d2aae3e733e002bfdfaa7b1e5b6f8d7f393",
+      "screenshot_bytes": 322334,
+      "dom_sha256": "58274fef5095828809ef13f5366967ca29cd13578aa71af47b04e7b2dda075e3",
+      "dom_bytes": 122235
+    },
+    {
+      "step_index": 10,
+      "step_id": "click-nba-stats-tab",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 558,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "05361e5fc097137892d926c643243f318a29aa6714ec6a9ad7895ff02f8a0b78",
+      "screenshot_bytes": 334757,
+      "dom_sha256": "9b622f86bd0292a62e7dea6b33df8924abbe731b5bed26694fa1898c683db998",
+      "dom_bytes": 142380
+    },
+    {
+      "step_index": 11,
+      "step_id": "wait-nba-players-loaded",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 4887,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "05361e5fc097137892d926c643243f318a29aa6714ec6a9ad7895ff02f8a0b78",
+      "screenshot_bytes": 334757,
+      "dom_sha256": "e4249c9589f08f6e2d6227a6fe40e53b1d1129628392ef1a1cdcbf2d24cd1f06",
+      "dom_bytes": 189102
+    },
+    {
+      "step_index": 12,
+      "step_id": "click-expand-pascal-siakam",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 466,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "520626b638990cecdb2526c96743e5ceb0b2a0a00d86783dd84db221c127a8d7",
+      "screenshot_bytes": 182230,
+      "dom_sha256": "e547490a74d11bdec730ee1e27890f307a666772dd8fa0182e8aa21e22ad2407",
+      "dom_bytes": 193710
+    },
+    {
+      "step_index": 13,
+      "step_id": "wait-pascal-siakam-expanded",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 1815,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "bb7340e66edf3527f3c9f28181544f12cdf79e0b8587fb055b6cc123b8fa94cf",
+      "screenshot_bytes": 185339,
+      "dom_sha256": "e547490a74d11bdec730ee1e27890f307a666772dd8fa0182e8aa21e22ad2407",
+      "dom_bytes": 193710
+    },
+    {
+      "step_index": 14,
+      "step_id": "goto-nfl-hub",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 4071,
+      "before_url": {
+        "url": "https://astraanalisis.com/nba?juego=401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5e014eff5610938d5b07b53ce5302338a767ddba53a68f8ca2573c6bec5c5ec6",
+      "screenshot_bytes": 92538,
+      "dom_sha256": "d64cd4ae3e9c72b500e077d0d2347ef6abebf4ed0f5211419aef144e18eacf95",
+      "dom_bytes": 94863
+    },
+    {
+      "step_index": 15,
+      "step_id": "wait-nfl-hub",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 3715,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5e014eff5610938d5b07b53ce5302338a767ddba53a68f8ca2573c6bec5c5ec6",
+      "screenshot_bytes": 92538,
+      "dom_sha256": "d64cd4ae3e9c72b500e077d0d2347ef6abebf4ed0f5211419aef144e18eacf95",
+      "dom_bytes": 94863
+    },
+    {
+      "step_index": 16,
+      "step_id": "click-nfl-sunday",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 2660,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "e57be6bba14faf02d9d6eaa54a89f81292ffd1106911e27d36bb292a27166f43",
+      "screenshot_bytes": 87356,
+      "dom_sha256": "37008193fd0ceb448cfdef6c5853a69f2e2cda4b60c3b5ee335d82c709cb6b3c",
+      "dom_bytes": 124281
+    },
+    {
+      "step_index": 17,
+      "step_id": "wait-nfl-sunday-list",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 4749,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "3bf938a11ee88e7a0a7242cdf3a9de99e28111ee4635de7b749990941581f94b",
+      "screenshot_bytes": 152810,
+      "dom_sha256": "37008193fd0ceb448cfdef6c5853a69f2e2cda4b60c3b5ee335d82c709cb6b3c",
+      "dom_bytes": 124281
+    },
+    {
+      "step_index": 18,
+      "step_id": "click-nfl-game-401873063",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 341,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "ee6a88487d1d467e4d094fd23306b39abe6feca6e0b9fe2364aaa9c00b0f57af",
+      "screenshot_bytes": 159286,
+      "dom_sha256": "465eec2d4522c1ddfcbd3e0eabeb975d34b4df30da1a2afab1352b33f9eb4ac6",
+      "dom_bytes": 125071
+    },
+    {
+      "step_index": 19,
+      "step_id": "wait-nfl-game-detail",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5867,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "c3ec6903e13eb85cadccb7fbfe01f4278ffc2a8eb4d0f218f1e058b8a53210e9",
+      "screenshot_bytes": 360541,
+      "dom_sha256": "e531a9e95beee7116844cc3eb9eac7dc9e2815a362ae77953a2c7d57da7b3daa",
+      "dom_bytes": 180619
+    },
+    {
+      "step_index": 20,
+      "step_id": "click-nfl-ai-tab",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 1726,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "e838472e3d30c489a8da6167b9044fff8376845ca143cd1448484da8dfd06305",
+      "screenshot_bytes": 375258,
+      "dom_sha256": "79a2f8d84b1b609da948e078726d5bcdd071982286a0d62260c5876f85e24df7",
+      "dom_bytes": 139493
+    },
+    {
+      "step_index": 21,
+      "step_id": "wait-nfl-ai-loaded",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 6382,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "e838472e3d30c489a8da6167b9044fff8376845ca143cd1448484da8dfd06305",
+      "screenshot_bytes": 375258,
+      "dom_sha256": "79a2f8d84b1b609da948e078726d5bcdd071982286a0d62260c5876f85e24df7",
+      "dom_bytes": 139493
+    },
+    {
+      "step_index": 22,
+      "step_id": "goto-equipo-english-slug",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 2193,
+      "before_url": {
+        "url": "https://astraanalisis.com/nfl?fecha=2026-11-15&juego=401873063",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [
+          "fecha",
+          "juego"
+        ],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/football/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "bdfb41e557e6e88ca3b4d18e6d3ede8cfa9664e8e20a97d52219bfd67c9c5251",
+      "dom_bytes": 15026
+    },
+    {
+      "step_index": 23,
+      "step_id": "wait-equipo-english-slug",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 2150,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/football/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/football/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "87387f3ce52a0f7b7bd430dccf6d306757dd1e7eb489fbfe8f1d9199cb8777d5",
+      "screenshot_bytes": 10284,
+      "dom_sha256": "81aff9252b33e051cdf0d581c7d98355b5c9128c15a6d7fbf6ab222cfaa0f985",
+      "dom_bytes": 12180
+    },
+    {
+      "step_index": 24,
+      "step_id": "goto-equipo-futbol-2282",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 617,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/football/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "d4f37002b387455131427940eaa5760d3d2f4f1e94d7a4c94bd32e0326c2dd3a",
+      "screenshot_bytes": 7765,
+      "dom_sha256": "ba45b37071f6ae1e154ee95d6b10aaeb27aeb69a37d7b75fcd0dbb8189bf5268",
+      "dom_bytes": 15449
+    },
+    {
+      "step_index": 25,
+      "step_id": "wait-equipo-futbol-2282",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5919,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "123fa75d23195c91825327d114ed41513fdf6c80c0ddf2434008415f1d371b7a",
+      "screenshot_bytes": 74187,
+      "dom_sha256": "85caa5535e81e718981a7bfe1a5e2fe0b7ad19e46f5b65ae2a20c329b3d903dd",
+      "dom_bytes": 23181
+    },
+    {
+      "step_index": 26,
+      "step_id": "click-equipo-futbol-history-tab",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 1039,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "1c897276c177f9ebd55f952195ddfaa5658bd8d6f79fd920d9c2f6fd377cb804",
+      "screenshot_bytes": 71017,
+      "dom_sha256": "bf1cdca6f3422ddb125d53e029ee95a3c2862b99fa9d5cf716a6f6f1d88444f3",
+      "dom_bytes": 65354
+    },
+    {
+      "step_index": 27,
+      "step_id": "wait-equipo-futbol-history",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 2703,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "2ef554b54f29037562188601f903dcf27f2c7040e751d08c8879451a02d5db56",
+      "screenshot_bytes": 78022,
+      "dom_sha256": "bf1cdca6f3422ddb125d53e029ee95a3c2862b99fa9d5cf716a6f6f1d88444f3",
+      "dom_bytes": 65354
+    },
+    {
+      "step_index": 28,
+      "step_id": "goto-equipo-nba-18",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 655,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nba/18",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "ba45b37071f6ae1e154ee95d6b10aaeb27aeb69a37d7b75fcd0dbb8189bf5268",
+      "dom_bytes": 15449
+    },
+    {
+      "step_index": 29,
+      "step_id": "wait-equipo-nba-18",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5859,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nba/18",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nba/18",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "f23eb204f9cc193dc9ca3f981d284177d68a6eab3cc3f73ea49e82d8981923a5",
+      "screenshot_bytes": 82671,
+      "dom_sha256": "a08fd1bc791cbb87b939cb172059e2a1be9224876d255883bed309567e556063",
+      "dom_bytes": 18482
+    },
+    {
+      "step_index": 30,
+      "step_id": "goto-equipo-nhl-16",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 1076,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nba/18",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nhl/16",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "ba45b37071f6ae1e154ee95d6b10aaeb27aeb69a37d7b75fcd0dbb8189bf5268",
+      "dom_bytes": 15449
+    },
+    {
+      "step_index": 31,
+      "step_id": "wait-equipo-nhl-16",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5662,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nhl/16",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nhl/16",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "5fc821d83202b0e672f6913cdf80bd3a8ba839b8dbcbc79352a68961a1b03365",
+      "screenshot_bytes": 80340,
+      "dom_sha256": "f3ae8b0721681453d4876a0972b187a4a05fb4cc1f6c5464516b48d8fc8cfa06",
+      "dom_bytes": 19121
+    },
+    {
+      "step_index": 32,
+      "step_id": "goto-equipo-nfl-12",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 1302,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nhl/16",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nfl/12",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "ba45b37071f6ae1e154ee95d6b10aaeb27aeb69a37d7b75fcd0dbb8189bf5268",
+      "dom_bytes": 15449
+    },
+    {
+      "step_index": 33,
+      "step_id": "wait-equipo-nfl-12",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5280,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nfl/12",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/nfl/12",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "1d3a519a290eee3f069c99afefc55c2e3802dbbbc07d8aae6bb5213091ff2bc7",
+      "screenshot_bytes": 84568,
+      "dom_sha256": "1713f9adf29ecb1756ab56b9ab7bf9a66445950eb01c5b1f1525863ad40133c4",
+      "dom_bytes": 18844
+    },
+    {
+      "step_index": 34,
+      "step_id": "goto-equipo-mlb-19",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 1996,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/nfl/12",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/mlb/19",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "b84556e7ce403a9559ae5e2a8c1ac57e72a4edeaa94f894b5ab24c8b5bc6117f",
+      "dom_bytes": 15348
+    },
+    {
+      "step_index": 35,
+      "step_id": "wait-equipo-mlb-19",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 5197,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/mlb/19",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/equipo/mlb/19",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "44b3e823ab5b6566d4c1b007b1e39810f3510a5748453ab3e5e5b65ec99a0b4f",
+      "screenshot_bytes": 15556,
+      "dom_sha256": "207ce2082bbb82861a597eb63b3bebbfb4681ef01b54bd2c4be2b5e6ef35062f",
+      "dom_bytes": 12502
+    },
+    {
+      "step_index": 36,
+      "step_id": "goto-historial-nba",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 526,
+      "before_url": {
+        "url": "https://astraanalisis.com/equipo/mlb/19",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/historial/nba/18/401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "3999fff0ee5590f8d1896e44f3cdd70779362216f9f1354d0576610467efcd08",
+      "dom_bytes": 15449
+    },
+    {
+      "step_index": 37,
+      "step_id": "wait-historial-nba",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 4747,
+      "before_url": {
+        "url": "https://astraanalisis.com/historial/nba/18/401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/historial/nba/18/401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "1a71faa3f6a10339d0a38444569cb5a68fb188e852b978ee73c26e77c387111c",
+      "screenshot_bytes": 251088,
+      "dom_sha256": "db6ceddd3087abd28db3dd7f88f4d375963358ebc0f7d3ed5e802ad928e833f6",
+      "dom_bytes": 23081
+    },
+    {
+      "step_index": 38,
+      "step_id": "goto-cuenta-authenticated",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 501,
+      "before_url": {
+        "url": "https://astraanalisis.com/historial/nba/18/401909296",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "3bfc48ca26be34cac69cb2ea416d8c78256c64e69586336f4f6832f0d983df47",
+      "dom_bytes": 18444
+    },
+    {
+      "step_index": 39,
+      "step_id": "wait-cuenta-authenticated",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 4275,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "a487616ddc08f9ce38e5ed10ad6e9b2e13bb44103fb0979a438c98ac1679af71",
+      "screenshot_bytes": 57999,
+      "dom_sha256": "a1dae8fb10bbb8f8761c337036f53ba0938d1a7f026c8e5364b3c09fd09cffab",
+      "dom_bytes": 16457
+    },
+    {
+      "step_index": 40,
+      "step_id": "goto-siguiendo",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 665,
+      "before_url": {
+        "url": "https://astraanalisis.com/cuenta",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/siguiendo",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "3f81118fc9b20f6a750ab0dc59aaa203bf8ed631dd22102870864bb6a3fcb53d",
+      "dom_bytes": 15781
+    },
+    {
+      "step_index": 41,
+      "step_id": "wait-siguiendo",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 3431,
+      "before_url": {
+        "url": "https://astraanalisis.com/siguiendo",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/siguiendo",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "c73c9b27f446b891efd90f896a7f9f9e5d0b0d895aabfb531358a4a5a83e6f43",
+      "screenshot_bytes": 34895,
+      "dom_sha256": "071ed2439de86db00eb1716e2f529db172ddd53dcb5f3af77c94e9a15efbf337",
+      "dom_bytes": 12935
+    },
+    {
+      "step_index": 42,
+      "step_id": "goto-nosotros",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 1291,
+      "before_url": {
+        "url": "https://astraanalisis.com/siguiendo",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "76f02d1c1c732d4f288e1590864c349694559a357f52adfc0be92a0df4c3a9dd",
+      "dom_bytes": 17860
+    },
+    {
+      "step_index": 43,
+      "step_id": "wait-nosotros",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 3051,
+      "before_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "61847a7beaa019e88ca93700570c21e092c619a0fa1c8e604f65e30907946569",
+      "screenshot_bytes": 29152,
+      "dom_sha256": "e5e1e208d03f278bde9ce0594854218966bf344e28f84a7a99a34c4e508b7931",
+      "dom_bytes": 15014
+    },
+    {
+      "step_index": 44,
+      "step_id": "click-nosotros-faq-ia",
+      "action": "click",
+      "status": "completed",
+      "elapsed_ms": 340,
+      "before_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "e01ab495454586ee8f2d7190006663e77855f6419a2751cd4d7d7294c09e84ad",
+      "screenshot_bytes": 110020,
+      "dom_sha256": "f0ee84cf7721c1507262009445d0ca7f9073024e6991201b4195bddfaeb5fe2e",
+      "dom_bytes": 16693
+    },
+    {
+      "step_index": 45,
+      "step_id": "wait-nosotros-faq-expanded",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 1647,
+      "before_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "e01ab495454586ee8f2d7190006663e77855f6419a2751cd4d7d7294c09e84ad",
+      "screenshot_bytes": 110020,
+      "dom_sha256": "f0ee84cf7721c1507262009445d0ca7f9073024e6991201b4195bddfaeb5fe2e",
+      "dom_bytes": 16693
+    },
+    {
+      "step_index": 46,
+      "step_id": "goto-privacidad",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 705,
+      "before_url": {
+        "url": "https://astraanalisis.com/nosotros",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/privacidad",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "308a17498a6813553ddcf02240d10854cbdf8fb718a57a0f9fc4881c4a4ffd06",
+      "dom_bytes": 23557
+    },
+    {
+      "step_index": 47,
+      "step_id": "wait-privacidad",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 2682,
+      "before_url": {
+        "url": "https://astraanalisis.com/privacidad",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/privacidad",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "bd36c770df36a85a5710e4873e055eb1128208f48ef4f08bb08bc77ebca5c6cb",
+      "screenshot_bytes": 136396,
+      "dom_sha256": "b889124ea17e18a83a342f589679d8d462b30259897ef19b9dee2ef2d3c0822a",
+      "dom_bytes": 20711
+    },
+    {
+      "step_index": 48,
+      "step_id": "goto-terminos",
+      "action": "goto",
+      "status": "completed",
+      "elapsed_ms": 436,
+      "before_url": {
+        "url": "https://astraanalisis.com/privacidad",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/terminos",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "826467f79771ca9d6205294c3b7830d486649a1f6df0456c85ebb27e8ebca988",
+      "screenshot_bytes": 17291,
+      "dom_sha256": "c6b1a668830b60dee416c4d09f47f0366d7667546a964eb7adaaf7ed33f1d377",
+      "dom_bytes": 20813
+    },
+    {
+      "step_index": 49,
+      "step_id": "wait-terminos",
+      "action": "wait_for_timeout",
+      "status": "completed",
+      "elapsed_ms": 2662,
+      "before_url": {
+        "url": "https://astraanalisis.com/terminos",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "after_url": {
+        "url": "https://astraanalisis.com/terminos",
+        "origin": "https://astraanalisis.com",
+        "query_parameter_names": [],
+        "redacted": false
+      },
+      "error": null,
+      "screenshot_sha256": "8fb78f0aa9a3fcecab79e7fd5b5193d0087e24e3781d49a092f3959cfb0a47e6",
+      "screenshot_bytes": 130686,
+      "dom_sha256": "90c46c79ddfbaa289a80a533f0210da60d4d811f76e758732ea15a7c1615bebf",
+      "dom_bytes": 17967
+    }
+  ],
+  "supabase_api_transactions": [
+    {
+      "transaction_id": "request-20",
+      "step_index": 1,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 318,
+      "response_sha256": "8ec95a84da45cde4588e4fdeda7b24cfcc259cb854490f0c2ddc75c99d094a82",
+      "saved_scratch_file": "request-20_step1_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-21",
+      "step_index": 4,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/auth/v1/token?grant_type=password",
+      "status": 200,
+      "request_body": {
+        "email": "laded35829@chuwel.com",
+        "password": "[REDACTED:astra_password]",
+        "gotrue_meta_security": {}
+      },
+      "response_body_state": "captured",
+      "response_bytes": 2381,
+      "response_sha256": "9721ae8aa901ef575cd849b34f1f0e4c3ecdf36f794f7243c907cc4154e0ee70",
+      "saved_scratch_file": "request-21_step4_auth_v1_token_grant_type_password.json"
+    },
+    {
+      "transaction_id": "request-22",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-22_step5_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-23",
+      "step_index": 5,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-23_step5_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-26",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Ckickoff%2Cstatus%2Celapsed%2Cround%2Chome_goals%2Caway_goals%2Cleague%3Aleagues%21inner%28id%2Cname%2Ccountry%2Clogo%2Cflag%2Csort_order%29%2Chome%3Ateams%21fixtures_home_id_fkey%28id%2Cname%2Clogo%29%2Caway%3Ateams%21fixtures_away_id_fkey%28id%2Cname%2Clogo%29%2Cforecast_ready%2Canalysis_ready%2Cmark%3Amatch_marks%28label%29&kickoff=gte.2026-11-14T06%3A00%3A00.000Z&kickoff=lt.2026-11-15T06%3A00%3A00.000Z&order=kickoff.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 48596,
+      "response_sha256": "1a2c91a3bc94ba82e5e9d12d35ad222116e5bcbf7ceae12c9626be6ea5dadd0a",
+      "saved_scratch_file": "request-26_step5_rest_v1_fixtures_select_id_2Ckickoff_2Cstatus_2Celapsed_2Cround_2Chome.json"
+    },
+    {
+      "transaction_id": "request-27",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nhl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 6376,
+      "response_sha256": "f70170ecfacc4da4f397cfd5c5a5b686bd72a6f457e40ea993e3f0a88bf9d43a",
+      "saved_scratch_file": "request-27_step5_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-28",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nba&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2299,
+      "response_sha256": "6c42be2cc72d7d4cbfdbb0799fc9b2523088af82714d6ac9ece96a10f8cb8390",
+      "saved_scratch_file": "request-28_step5_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-29",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.mlb&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-29_step5_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-30",
+      "step_index": 5,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nfl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-30_step5_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-128",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-128_step8_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-129",
+      "step_index": 8,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-129_step8_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-133",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Ckickoff%2Cstatus%2Celapsed%2Cround%2Chome_goals%2Caway_goals%2Cleague%3Aleagues%21inner%28id%2Cname%2Ccountry%2Clogo%2Cflag%2Csort_order%29%2Chome%3Ateams%21fixtures_home_id_fkey%28id%2Cname%2Clogo%29%2Caway%3Ateams%21fixtures_away_id_fkey%28id%2Cname%2Clogo%29%2Cforecast_ready%2Canalysis_ready%2Cmark%3Amatch_marks%28label%29&kickoff=gte.2026-11-14T06%3A00%3A00.000Z&kickoff=lt.2026-11-15T06%3A00%3A00.000Z&order=kickoff.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 48596,
+      "response_sha256": "1a2c91a3bc94ba82e5e9d12d35ad222116e5bcbf7ceae12c9626be6ea5dadd0a",
+      "saved_scratch_file": "request-133_step8_rest_v1_fixtures_select_id_2Ckickoff_2Cstatus_2Celapsed_2Cround_2Chome.json"
+    },
+    {
+      "transaction_id": "request-134",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nhl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 6376,
+      "response_sha256": "f70170ecfacc4da4f397cfd5c5a5b686bd72a6f457e40ea993e3f0a88bf9d43a",
+      "saved_scratch_file": "request-134_step8_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-135",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nba&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2299,
+      "response_sha256": "6c42be2cc72d7d4cbfdbb0799fc9b2523088af82714d6ac9ece96a10f8cb8390",
+      "saved_scratch_file": "request-135_step8_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-136",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.mlb&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-136_step8_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-137",
+      "step_index": 8,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nfl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-137_step8_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-158",
+      "step_index": 9,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/match_live?select=sport%2Cmatch_id%2Cstate%2Celapsed%2Cupdated_at%2Cinfo%2Cstatistics%2Cevents%2Cmomentum&sport=eq.nba&match_id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 3469,
+      "response_sha256": "0d5d192c1b4a88b2b145a77f84ff5f638ef6465cc28effa3a1ca9c6cf8f20920",
+      "saved_scratch_file": "request-158_step9_rest_v1_match_live_select_sport_2Cmatch_id_2Cstate_2Celapsed_2Cupdated.json"
+    },
+    {
+      "transaction_id": "request-159",
+      "step_index": 9,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/astra_picks?select=pick&sport=eq.nba&match_id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-159_step9_rest_v1_astra_picks_select_pick_sport_eq_nba_match_id_eq_401909296.json"
+    },
+    {
+      "transaction_id": "request-160",
+      "step_index": 9,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Cvenue%2Cforecast_ready%2Canalysis_ready%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cprediction%3Agame_predictions%28rows%2Cwin%2Cgenerated_at%2Cis_retrospective%29%2Canalysis%3Agame_analyses%28sections%2Ccreated_at%2Cis_retrospective%29&sport=eq.nba&id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2296,
+      "response_sha256": "4865d7179c053837246b0d38e6bbe5a5a617672ba71c4d4ddca920a1e1dc951b",
+      "saved_scratch_file": "request-160_step9_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-171",
+      "step_index": 10,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/nba-players",
+      "status": 200,
+      "request_body": {
+        "match_id": 401909296
+      },
+      "response_body_state": "captured",
+      "response_bytes": 13923,
+      "response_sha256": "e30dba6f1f49bf85b3ddc15a56651d59ae07ededb77ccc40f03e546f2f2806ef",
+      "saved_scratch_file": "request-171_step10_functions_v1_nba-players.json"
+    },
+    {
+      "transaction_id": "request-211",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Ckickoff%2Cstatus%2Celapsed%2Cround%2Chome_goals%2Caway_goals%2Cleague%3Aleagues%21inner%28id%2Cname%2Ccountry%2Clogo%2Cflag%2Csort_order%29%2Chome%3Ateams%21fixtures_home_id_fkey%28id%2Cname%2Clogo%29%2Caway%3Ateams%21fixtures_away_id_fkey%28id%2Cname%2Clogo%29%2Cforecast_ready%2Canalysis_ready%2Cmark%3Amatch_marks%28label%29&kickoff=gte.2026-11-14T06%3A00%3A00.000Z&kickoff=lt.2026-11-15T06%3A00%3A00.000Z&order=kickoff.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 48596,
+      "response_sha256": "1a2c91a3bc94ba82e5e9d12d35ad222116e5bcbf7ceae12c9626be6ea5dadd0a",
+      "saved_scratch_file": "request-211_step14_rest_v1_fixtures_select_id_2Ckickoff_2Cstatus_2Celapsed_2Cround_2Chome.json"
+    },
+    {
+      "transaction_id": "request-212",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nhl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 6376,
+      "response_sha256": "f70170ecfacc4da4f397cfd5c5a5b686bd72a6f457e40ea993e3f0a88bf9d43a",
+      "saved_scratch_file": "request-212_step14_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-213",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nba&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2299,
+      "response_sha256": "6c42be2cc72d7d4cbfdbb0799fc9b2523088af82714d6ac9ece96a10f8cb8390",
+      "saved_scratch_file": "request-213_step14_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-214",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.mlb&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-214_step14_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-215",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nfl&start_time=gte.2026-11-14T06%3A00%3A00.000Z&start_time=lt.2026-11-15T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-215_step14_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-216",
+      "step_index": 14,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-216_step14_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-217",
+      "step_index": 14,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-217_step14_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-240",
+      "step_index": 16,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cforecast_ready%2Canalysis_ready&sport=eq.nfl&start_time=gte.2026-11-15T06%3A00%3A00.000Z&start_time=lt.2026-11-16T06%3A00%3A00.000Z&order=start_time.asc",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 5534,
+      "response_sha256": "c12791e1dc6b5a6980aed7319669415e1f80010c42e3dc7bdf2e88f13f7fc30d",
+      "saved_scratch_file": "request-240_step16_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-265",
+      "step_index": 18,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/match_live?select=sport%2Cmatch_id%2Cstate%2Celapsed%2Cupdated_at%2Cinfo%2Cstatistics%2Cevents%2Cmomentum&sport=eq.nfl&match_id=eq.401873063",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-265_step18_rest_v1_match_live_select_sport_2Cmatch_id_2Cstate_2Celapsed_2Cupdated.json"
+    },
+    {
+      "transaction_id": "request-266",
+      "step_index": 18,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/astra_picks?select=pick&sport=eq.nfl&match_id=eq.401873063",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-266_step18_rest_v1_astra_picks_select_pick_sport_eq_nfl_match_id_eq_401873063.json"
+    },
+    {
+      "transaction_id": "request-267",
+      "step_index": 18,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Cvenue%2Cforecast_ready%2Canalysis_ready%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cprediction%3Agame_predictions%28rows%2Cwin%2Cgenerated_at%2Cis_retrospective%29%2Canalysis%3Agame_analyses%28sections%2Ccreated_at%2Cis_retrospective%29&sport=eq.nfl&id=eq.401873063",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2184,
+      "response_sha256": "8762ab9daa4731da7070baa9077ab02188f900a8972a22182aa3e8c53983c922",
+      "saved_scratch_file": "request-267_step18_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-269",
+      "step_index": 19,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/match-odds",
+      "status": 200,
+      "request_body": {
+        "sport": "nfl",
+        "match_id": 401873063
+      },
+      "response_body_state": "captured",
+      "response_bytes": 122,
+      "response_sha256": "dc5c91c999b2d4e1bd3f083f93388493731e022fe93a24196d9c4268f708630e",
+      "saved_scratch_file": "request-269_step19_functions_v1_match-odds.json"
+    },
+    {
+      "transaction_id": "request-270",
+      "step_index": 19,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/league-standings",
+      "status": 200,
+      "request_body": {
+        "sport": "nfl"
+      },
+      "response_body_state": "captured",
+      "response_bytes": 7093,
+      "response_sha256": "443bf79dda766f72ab15712a07b9e2ff4fbef93f338e0e4dfa4bd113d47c0126",
+      "saved_scratch_file": "request-270_step19_functions_v1_league-standings.json"
+    },
+    {
+      "transaction_id": "request-297",
+      "step_index": 20,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/record_ai_view",
+      "status": 204,
+      "request_body": {
+        "p_sport": "nfl",
+        "p_match_id": 401873063
+      },
+      "response_body_state": "captured",
+      "response_bytes": 0,
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_scratch_file": null
+    },
+    {
+      "transaction_id": "request-317",
+      "step_index": 22,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-317_step22_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-318",
+      "step_index": 22,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-318_step22_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-340",
+      "step_index": 24,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 200,
+      "request_body": {
+        "sport": "futbol",
+        "team_id": 2282,
+        "page": 0
+      },
+      "response_body_state": "captured",
+      "response_bytes": 8142,
+      "response_sha256": "7ae3f5770ffa4cfc71d90ede6978a909cfda9fc5e228b9b55fa8f5e43da7aab4",
+      "saved_scratch_file": "request-340_step24_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-341",
+      "step_index": 24,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.2282%2Caway_id.eq.2282%29&order=kickoff.desc&limit=30",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 196,
+      "response_sha256": "8c4dede62eacccc237d1f4d99ebe002ffe13b0815075fd15d840d2af117fea26",
+      "saved_scratch_file": "request-341_step24_rest_v1_fixtures_select_id_2Chome_id_forecast_ready_eq_true_or_28home_.json"
+    },
+    {
+      "transaction_id": "request-342",
+      "step_index": 24,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.2282%2Caway_id.eq.2282%29&order=kickoff.desc&limit=30",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 196,
+      "response_sha256": "8c4dede62eacccc237d1f4d99ebe002ffe13b0815075fd15d840d2af117fea26",
+      "saved_scratch_file": "request-342_step24_rest_v1_fixtures_select_id_2Chome_id_forecast_ready_eq_true_or_28home_.json"
+    },
+    {
+      "transaction_id": "request-343",
+      "step_index": 24,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-343_step24_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-344",
+      "step_index": 24,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-344_step24_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-345",
+      "step_index": 25,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/fixtures?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.2282%2Caway_id.eq.2282%29&order=kickoff.desc&limit=30",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 196,
+      "response_sha256": "8c4dede62eacccc237d1f4d99ebe002ffe13b0815075fd15d840d2af117fea26",
+      "saved_scratch_file": "request-345_step25_rest_v1_fixtures_select_id_2Chome_id_forecast_ready_eq_true_or_28home_.json"
+    },
+    {
+      "transaction_id": "request-346",
+      "step_index": 25,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/predictions?select=fixture_id%2Ccontext%2Cgenerated_at&fixture_id=in.%281550951%2C1551034%2C1551025%2C1551014%2C1551007%2C1551001%29&order=generated_at.desc&limit=1",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2089,
+      "response_sha256": "c9a4ae34139018398619e6721fad7eabb16c11caa3b7593d704dd002a20ebe3b",
+      "saved_scratch_file": "request-346_step25_rest_v1_predictions_select_fixture_id_2Ccontext_2Cgenerated_at_fixture.json"
+    },
+    {
+      "transaction_id": "request-347",
+      "step_index": 25,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/predictions?select=fixture_id%2Ccontext%2Cgenerated_at&fixture_id=in.%281550951%2C1551034%2C1551025%2C1551014%2C1551007%2C1551001%29&order=generated_at.desc&limit=1",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2089,
+      "response_sha256": "c9a4ae34139018398619e6721fad7eabb16c11caa3b7593d704dd002a20ebe3b",
+      "saved_scratch_file": "request-347_step25_rest_v1_predictions_select_fixture_id_2Ccontext_2Cgenerated_at_fixture.json"
+    },
+    {
+      "transaction_id": "request-348",
+      "step_index": 25,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/predictions?select=fixture_id%2Ccontext%2Cgenerated_at&fixture_id=in.%281550951%2C1551034%2C1551025%2C1551014%2C1551007%2C1551001%29&order=generated_at.desc&limit=1",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2089,
+      "response_sha256": "c9a4ae34139018398619e6721fad7eabb16c11caa3b7593d704dd002a20ebe3b",
+      "saved_scratch_file": "request-348_step25_rest_v1_predictions_select_fixture_id_2Ccontext_2Cgenerated_at_fixture.json"
+    },
+    {
+      "transaction_id": "request-384",
+      "step_index": 28,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 200,
+      "request_body": {
+        "sport": "nba",
+        "team_id": 18,
+        "page": 0
+      },
+      "response_body_state": "captured",
+      "response_bytes": 7934,
+      "response_sha256": "b3ac1abb90fbeefb3e2c5414585018ee0bb945c4ab29a0c0027710fe297bbc2f",
+      "saved_scratch_file": "request-384_step28_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-385",
+      "step_index": 28,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.18%2Caway_id.eq.18%29&order=start_time.desc&limit=30&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 391,
+      "response_sha256": "fe3a25a783b98b41c26d5f6485f6998b7864ab07785a40326c5ae75ea21323b5",
+      "saved_scratch_file": "request-385_step28_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-386",
+      "step_index": 28,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.18%2Caway_id.eq.18%29&order=start_time.desc&limit=30&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 391,
+      "response_sha256": "fe3a25a783b98b41c26d5f6485f6998b7864ab07785a40326c5ae75ea21323b5",
+      "saved_scratch_file": "request-386_step28_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-387",
+      "step_index": 28,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-387_step28_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-388",
+      "step_index": 28,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-388_step28_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-390",
+      "step_index": 28,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.18%2Caway_id.eq.18%29&order=start_time.desc&limit=30&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 391,
+      "response_sha256": "fe3a25a783b98b41c26d5f6485f6998b7864ab07785a40326c5ae75ea21323b5",
+      "saved_scratch_file": "request-390_step28_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-391",
+      "step_index": 28,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401909990%2C401909296%2C401909967%2C401909960%2C401909940%2C401909926%2C401909910%2C401909280%2C401909886%2C401909878%2C401909863%2C401909095%29&order=generated_at.desc&limit=1&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2425,
+      "response_sha256": "8adfc1562218f70404ba24c25b8f0fa63fd2eeff17c1a20c2d5db2296e6daba8",
+      "saved_scratch_file": "request-391_step28_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-392",
+      "step_index": 29,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401909990%2C401909296%2C401909967%2C401909960%2C401909940%2C401909926%2C401909910%2C401909280%2C401909886%2C401909878%2C401909863%2C401909095%29&order=generated_at.desc&limit=1&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2425,
+      "response_sha256": "8adfc1562218f70404ba24c25b8f0fa63fd2eeff17c1a20c2d5db2296e6daba8",
+      "saved_scratch_file": "request-392_step29_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-393",
+      "step_index": 29,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401909990%2C401909296%2C401909967%2C401909960%2C401909940%2C401909926%2C401909910%2C401909280%2C401909886%2C401909878%2C401909863%2C401909095%29&order=generated_at.desc&limit=1&sport=eq.nba",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2425,
+      "response_sha256": "8adfc1562218f70404ba24c25b8f0fa63fd2eeff17c1a20c2d5db2296e6daba8",
+      "saved_scratch_file": "request-393_step29_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-415",
+      "step_index": 30,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 200,
+      "request_body": {
+        "sport": "nhl",
+        "team_id": 16,
+        "page": 0
+      },
+      "response_body_state": "captured",
+      "response_bytes": 7745,
+      "response_sha256": "49a7d899c5fde95ccd715c5fe26d0a54eb5352900d532b8a9da50f6d6bd675f5",
+      "saved_scratch_file": "request-415_step30_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-416",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.16%2Caway_id.eq.16%29&order=start_time.desc&limit=30&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 371,
+      "response_sha256": "008822fe5ab9136e7f98d407a90ba6140e7b0d92be9aae39beac6d01046cd79a",
+      "saved_scratch_file": "request-416_step30_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-417",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.16%2Caway_id.eq.16%29&order=start_time.desc&limit=30&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 371,
+      "response_sha256": "008822fe5ab9136e7f98d407a90ba6140e7b0d92be9aae39beac6d01046cd79a",
+      "saved_scratch_file": "request-417_step30_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-418",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-418_step30_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-419",
+      "step_index": 30,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-419_step30_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-420",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.16%2Caway_id.eq.16%29&order=start_time.desc&limit=30&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 371,
+      "response_sha256": "008822fe5ab9136e7f98d407a90ba6140e7b0d92be9aae39beac6d01046cd79a",
+      "saved_scratch_file": "request-420_step30_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-421",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%282026020312%2C2026020305%2C2026020271%2C2026020253%2C2026020248%2C2026020234%2C2026020217%2C2026020203%2C2026020190%2C2026020180%2C2026020166%29&order=generated_at.desc&limit=1&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2483,
+      "response_sha256": "203264dd6720a5d57a06ac15e250c3b2f86341a1ef5633904e90813a7800b6cf",
+      "saved_scratch_file": "request-421_step30_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-422",
+      "step_index": 30,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%282026020312%2C2026020305%2C2026020271%2C2026020253%2C2026020248%2C2026020234%2C2026020217%2C2026020203%2C2026020190%2C2026020180%2C2026020166%29&order=generated_at.desc&limit=1&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2483,
+      "response_sha256": "203264dd6720a5d57a06ac15e250c3b2f86341a1ef5633904e90813a7800b6cf",
+      "saved_scratch_file": "request-422_step30_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-423",
+      "step_index": 31,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%282026020312%2C2026020305%2C2026020271%2C2026020253%2C2026020248%2C2026020234%2C2026020217%2C2026020203%2C2026020190%2C2026020180%2C2026020166%29&order=generated_at.desc&limit=1&sport=eq.nhl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2483,
+      "response_sha256": "203264dd6720a5d57a06ac15e250c3b2f86341a1ef5633904e90813a7800b6cf",
+      "saved_scratch_file": "request-423_step31_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-444",
+      "step_index": 32,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 200,
+      "request_body": {
+        "sport": "nfl",
+        "team_id": 12,
+        "page": 0
+      },
+      "response_body_state": "captured",
+      "response_bytes": 7891,
+      "response_sha256": "2338eae8b901db220994110aac845b3c23a90087f97f564567602bb894eeb4d4",
+      "saved_scratch_file": "request-444_step32_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-445",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.12%2Caway_id.eq.12%29&order=start_time.desc&limit=30&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 128,
+      "response_sha256": "a8be6902681d03b0394b3b83661c23d7704b754e1f0c9929615d56a0449ce15a",
+      "saved_scratch_file": "request-445_step32_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-447",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.12%2Caway_id.eq.12%29&order=start_time.desc&limit=30&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 128,
+      "response_sha256": "a8be6902681d03b0394b3b83661c23d7704b754e1f0c9929615d56a0449ce15a",
+      "saved_scratch_file": "request-447_step32_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-448",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-448_step32_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-449",
+      "step_index": 32,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-449_step32_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-450",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.12%2Caway_id.eq.12%29&order=start_time.desc&limit=30&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 128,
+      "response_sha256": "a8be6902681d03b0394b3b83661c23d7704b754e1f0c9929615d56a0449ce15a",
+      "saved_scratch_file": "request-450_step32_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-451",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401873058%2C401873045%2C401873033%2C401873022%29&order=generated_at.desc&limit=1&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 3375,
+      "response_sha256": "8cdf5dce7433dbc91c968bc7b789b08e215620daa03d5bf1cfb7366f0fb74686",
+      "saved_scratch_file": "request-451_step32_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-452",
+      "step_index": 32,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401873058%2C401873045%2C401873033%2C401873022%29&order=generated_at.desc&limit=1&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 3375,
+      "response_sha256": "8cdf5dce7433dbc91c968bc7b789b08e215620daa03d5bf1cfb7366f0fb74686",
+      "saved_scratch_file": "request-452_step32_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-453",
+      "step_index": 33,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/game_predictions?select=game_id%2Ccontext%2Cgenerated_at&game_id=in.%28401873058%2C401873045%2C401873033%2C401873022%29&order=generated_at.desc&limit=1&sport=eq.nfl",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 3375,
+      "response_sha256": "8cdf5dce7433dbc91c968bc7b789b08e215620daa03d5bf1cfb7366f0fb74686",
+      "saved_scratch_file": "request-453_step33_rest_v1_game_predictions_select_game_id_2Ccontext_2Cgenerated_at_game_.json"
+    },
+    {
+      "transaction_id": "request-474",
+      "step_index": 34,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 404,
+      "request_body": {
+        "sport": "mlb",
+        "team_id": 19,
+        "page": 0
+      },
+      "response_body_state": "captured",
+      "response_bytes": 32,
+      "response_sha256": "37e48540e0a732b5f257743ba7607a8a75ab5daa61282fe44d4fb35d2f118b62",
+      "saved_scratch_file": "request-474_step34_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-475",
+      "step_index": 34,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.19%2Caway_id.eq.19%29&order=start_time.desc&limit=30&sport=eq.mlb",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-475_step34_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-476",
+      "step_index": 34,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.19%2Caway_id.eq.19%29&order=start_time.desc&limit=30&sport=eq.mlb",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-476_step34_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-477",
+      "step_index": 34,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-477_step34_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-478",
+      "step_index": 34,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-478_step34_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-480",
+      "step_index": 34,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=id%2Chome_id&forecast_ready=eq.true&or=%28home_id.eq.19%2Caway_id.eq.19%29&order=start_time.desc&limit=30&sport=eq.mlb",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-480_step34_rest_v1_games_select_id_2Chome_id_forecast_ready_eq_true_or_28home_id_.json"
+    },
+    {
+      "transaction_id": "request-500",
+      "step_index": 36,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-500_step36_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-501",
+      "step_index": 36,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-501_step36_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-503",
+      "step_index": 36,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+      "status": 200,
+      "request_body": {
+        "sport": "nba",
+        "team_id": 18,
+        "match_id": 401909296
+      },
+      "response_body_state": "captured",
+      "response_bytes": 15,
+      "response_sha256": "fd5c54dc69d08b4b1c7717f97b87beb88eda9c7a43085703c60872aa147899b4",
+      "saved_scratch_file": "request-503_step36_functions_v1_team-profile.json"
+    },
+    {
+      "transaction_id": "request-504",
+      "step_index": 37,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/match_live?select=sport%2Cmatch_id%2Cstate%2Celapsed%2Cupdated_at%2Cinfo%2Cstatistics%2Cevents%2Cmomentum&sport=eq.nba&match_id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 3469,
+      "response_sha256": "0d5d192c1b4a88b2b145a77f84ff5f638ef6465cc28effa3a1ca9c6cf8f20920",
+      "saved_scratch_file": "request-504_step37_rest_v1_match_live_select_sport_2Cmatch_id_2Cstate_2Celapsed_2Cupdated.json"
+    },
+    {
+      "transaction_id": "request-505",
+      "step_index": 37,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/astra_picks?select=pick&sport=eq.nba&match_id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2,
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "saved_scratch_file": "request-505_step37_rest_v1_astra_picks_select_pick_sport_eq_nba_match_id_eq_401909296.json"
+    },
+    {
+      "transaction_id": "request-506",
+      "step_index": 37,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/games?select=sport%2Cid%2Cleague%2Cstart_time%2Cstatus%2Cdetail%2Chome_score%2Caway_score%2Cvenue%2Cforecast_ready%2Canalysis_ready%2Chome%3Asport_teams%21games_home_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Caway%3Asport_teams%21games_away_fkey%28id%2Cname%2Cabbrev%2Clogo%29%2Cprediction%3Agame_predictions%28rows%2Cwin%2Cgenerated_at%2Cis_retrospective%29%2Canalysis%3Agame_analyses%28sections%2Ccreated_at%2Cis_retrospective%29&sport=eq.nba&id=eq.401909296",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 2296,
+      "response_sha256": "4865d7179c053837246b0d38e6bbe5a5a617672ba71c4d4ddca920a1e1dc951b",
+      "saved_scratch_file": "request-506_step37_rest_v1_games_select_sport_2Cid_2Cleague_2Cstart_time_2Cstatus_2Cdetai.json"
+    },
+    {
+      "transaction_id": "request-529",
+      "step_index": 38,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-529_step38_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-530",
+      "step_index": 38,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-530_step38_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-551",
+      "step_index": 40,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-551_step40_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-552",
+      "step_index": 40,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-552_step40_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-573",
+      "step_index": 42,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-573_step42_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-574",
+      "step_index": 42,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-574_step42_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-595",
+      "step_index": 46,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-595_step46_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-596",
+      "step_index": 46,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-596_step46_rest_v1_rpc_my_access.json"
+    },
+    {
+      "transaction_id": "request-617",
+      "step_index": 48,
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/profiles?select=id%2Cdisplay_name%2Ccreated_at%2Cavatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+      "status": 200,
+      "request_body": null,
+      "response_body_state": "captured",
+      "response_bytes": 142,
+      "response_sha256": "20be8f63c29485b827bb626d93ad51297a97add5a2097f8f3e2c4c35cf6757fe",
+      "saved_scratch_file": "request-617_step48_rest_v1_profiles_select_id_2Cdisplay_name_2Ccreated_at_2Cavatar_path_i.json"
+    },
+    {
+      "transaction_id": "request-618",
+      "step_index": 48,
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/my_access",
+      "status": 200,
+      "request_body": {},
+      "response_body_state": "captured",
+      "response_bytes": 346,
+      "response_sha256": "639f404cccbd2f60ef401c4bffac64f70bad2d3613d75c397ff853594cd6bcab",
+      "saved_scratch_file": "request-618_step48_rest_v1_rpc_my_access.json"
+    }
+  ],
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+    "Network content is retained only when selected; Playwright response-body bytes are API results and are not guaranteed to match wire bytes.",
+    "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+    "Network content reads settle within 5 seconds each and the observer does not request bodies from unfinished responses.",
+    "Captured response-body bytes are the result of Playwright's Response.body() API. Playwright may satisfy that API with a credentialed follow-up load of the request URL when CDP has no body, so transaction and event links do not verify that retained bytes came from the original network transaction.",
+    "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+    "Storage values are hashed only after declared-secret redaction.",
+    "Some selected network content was unavailable; per-transaction content states retain the reason.",
+    "Browser host platform and architecture were not observed."
+  ]
+}

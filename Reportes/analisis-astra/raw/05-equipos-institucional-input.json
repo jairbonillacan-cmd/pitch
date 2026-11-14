@@ -1,0 +1,425 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta"
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 50000,
+      "max_event_allocation_bytes": 268435456,
+      "max_total_event_allocation_bytes": 536870912,
+      "max_network_transactions": 8192,
+      "max_network_body_bytes": 33554432,
+      "max_network_body_allocation_bytes": 268435456,
+      "max_network_header_allocation_bytes": 16777216,
+      "max_network_metadata_allocation_bytes": 16777216
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-email",
+      "timeout_ms": 20000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-after-login",
+      "action": "wait_for_timeout",
+      "duration_ms": 6500
+    },
+    {
+      "step_id": "dismiss-install-banner",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar aviso de instalación"
+      }
+    },
+    {
+      "step_id": "wait-after-dismiss",
+      "action": "wait_for_timeout",
+      "duration_ms": 600
+    },
+    {
+      "step_id": "goto-nba-final-401909296",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nba/401909296"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nba-final-loaded",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nba-stats-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Estadísticas"
+      }
+    },
+    {
+      "step_id": "wait-nba-players-loaded",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-expand-pascal-siakam",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Estadísticas de Pascal Siakam"
+      }
+    },
+    {
+      "step_id": "wait-pascal-siakam-expanded",
+      "action": "wait_for_timeout",
+      "duration_ms": 1500
+    },
+    {
+      "step_id": "goto-nfl-hub",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nfl"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nfl-hub",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    },
+    {
+      "step_id": "click-nfl-sunday",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Día siguiente"
+      }
+    },
+    {
+      "step_id": "wait-nfl-sunday-list",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nfl-game-401873063",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "San Francisco 49ers en Dallas Cowboys, 3:25 p.m."
+      }
+    },
+    {
+      "step_id": "wait-nfl-game-detail",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-nfl-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-nfl-ai-loaded",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "goto-equipo-english-slug",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/football/2282"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-english-slug",
+      "action": "wait_for_timeout",
+      "duration_ms": 2000
+    },
+    {
+      "step_id": "goto-equipo-futbol-2282",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/futbol/2282"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-futbol-2282",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "click-equipo-futbol-history-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Últimos partidos"
+      }
+    },
+    {
+      "step_id": "wait-equipo-futbol-history",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "goto-equipo-nba-18",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/nba/18"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-nba-18",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "goto-equipo-nhl-16",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/nhl/16"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-nhl-16",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-equipo-nfl-12",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/nfl/12"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-nfl-12",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-equipo-mlb-19",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/equipo/mlb/19"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-equipo-mlb-19",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-historial-nba",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/historial/nba/18/401909296"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-historial-nba",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "goto-cuenta-authenticated",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/cuenta"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-cuenta-authenticated",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "goto-siguiendo",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/siguiendo"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-siguiendo",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    },
+    {
+      "step_id": "goto-nosotros",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nosotros"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nosotros",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "click-nosotros-faq-ia",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "¿Cómo funciona la IA?"
+      }
+    },
+    {
+      "step_id": "wait-nosotros-faq-expanded",
+      "action": "wait_for_timeout",
+      "duration_ms": 1500
+    },
+    {
+      "step_id": "goto-privacidad",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/privacidad"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-privacidad",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "goto-terminos",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/terminos"
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-terminos",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    }
+  ]
+}

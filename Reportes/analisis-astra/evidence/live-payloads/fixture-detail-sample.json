@@ -1,0 +1,157 @@
+[
+  {
+    "id": 1550951,
+    "season": 2026,
+    "kickoff": "2026-11-14T23:00:00+00:00",
+    "status": "NS",
+    "elapsed": null,
+    "round": "Apertura - 7",
+    "venue": "Estadio La Corregidora",
+    "referee": null,
+    "home_goals": null,
+    "away_goals": null,
+    "ft_home": null,
+    "ft_away": null,
+    "forecast_ready": true,
+    "analysis_ready": true,
+    "league": {
+      "id": 262,
+      "flag": "https://media.api-sports.io/flags/mx.svg",
+      "logo": "https://media.api-sports.io/football/leagues/262.png",
+      "name": "Liga MX",
+      "country": "Mexico",
+      "sort_order": 0
+    },
+    "home": {
+      "id": 2290,
+      "logo": "https://media.api-sports.io/football/teams/2290.png",
+      "name": "Club Queretaro"
+    },
+    "away": {
+      "id": 2282,
+      "logo": "https://media.api-sports.io/football/teams/2282.png",
+      "name": "Monterrey"
+    },
+    "prediction": {
+      "btts": 0.6036,
+      "p_away": 0.3995,
+      "p_draw": 0.2601,
+      "p_home": 0.3404,
+      "context": {
+        "shots": {
+          "away_expected": 14.47,
+          "home_expected": 12.346
+        },
+        "referee": null,
+        "possession": {
+          "away_pct": 60.1,
+          "home_pct": 39.9
+        },
+        "away_league": null,
+        "home_league": {
+          "rho": -0.07,
+          "name": "Liga MX",
+          "teams": 19,
+          "xg_weight": 0.7,
+          "dispersion": {
+            "fouls": 1.095,
+            "shots": 1.708,
+            "corners": 1.497,
+            "yellow_cards": 1,
+            "shots_on_target": 1.007
+          },
+          "tournament_id": 262,
+          "home_advantage_log": 0.2062,
+          "possession_home_logit": 0.09,
+          "goals_first_half_share": 0.4522,
+          "goals_per_team_neutral": 1.424,
+          "matches_current_season": 143,
+          "matches_previous_season": 337,
+          "corners_first_half_share": 0.47,
+          "away_goals_expected_vs_equal": 1.285,
+          "home_goals_expected_vs_equal": 1.579
+        },
+        "away_ratings": {
+          "name": "Monterrey",
+          "attack": 0.0646,
+          "defense": 0.0497,
+          "net_rating": 0.1143,
+          "matches_current": 15,
+          "fouls_for_vs_avg": 11.69,
+          "matches_previous": 38,
+          "shots_for_vs_avg": 14.69,
+          "corners_for_vs_avg": 5.61,
+          "possession_strength": 0.2139,
+          "fouls_against_vs_avg": 11.83,
+          "shots_against_vs_avg": 11.2,
+          "corners_against_vs_avg": 4.5,
+          "yellow_cards_for_vs_avg": 1.97,
+          "goals_for_vs_avg_opponent": 1.519,
+          "shots_on_target_for_vs_avg": 5.28,
+          "yellow_cards_against_vs_avg": 1.87,
+          "goals_against_vs_avg_opponent": 1.355,
+          "shots_on_target_against_vs_avg": 4.51
+        },
+        "cross_league": null,
+        "home_ratings": {
+          "name": "Club Queretaro",
+          "attack": -0.0268,
+          "defense": -0.087,
+          "net_rating": -0.1138,
+          "matches_current": 15,
+          "fouls_for_vs_avg": 11.94,
+          "matches_previous": 34,
+          "shots_for_vs_avg": 13.9,
+          "corners_for_vs_avg": 5.21,
+          "possession_strength": -0.2844,
+          "fouls_against_vs_avg": 10.56,
+          "shots_against_vs_avg": 15.25,
+          "corners_against_vs_avg": 5.71,
+          "yellow_cards_for_vs_avg": 2.51,
+          "goals_for_vs_avg_opponent": 1.387,
+          "shots_on_target_for_vs_avg": 4.17,
+          "yellow_cards_against_vs_avg": 1.83,
+          "goals_against_vs_avg_opponent": 1.554,
+          "shots_on_target_against_vs_avg": 4.69
+        },
+        "cup_goal_level": null,
+        "shots_on_target": {
+          "away_expected": 4.761,
+          "home_expected": 4.383
+        },
+        "correct_score_top3": {
+          "1-1": 0.1212,
+          "1-2": 0.0876,
+          "2-1": 0.08
+        }
+      },
+      "over_05": 0.9403,
+      "over_15": 0.8028,
+      "over_25": 0.5679,
+      "warnings": [],
+      "fixture_id": 1550951,
+      "fouls_away": 10.274,
+      "fouls_home": 11.829,
+      "model_mode": "league_v3",
+      "fouls_total": 22.103,
+      "lambda_away": 1.547,
+      "lambda_home": 1.414,
+      "corners_away": 5.51,
+      "corners_home": 5.094,
+      "generated_at": "2026-11-11T23:12:37.548334+00:00",
+      "corners_total": 10.603
+    },
+    "analysis": {
+      "sections": {
+        "goles": "Monterrey tiene 1.55 goles esperados y Querétaro 1.41. Hay 80 % de probabilidad de más de 1.5 goles y 57 % de más de 2.5. Que ambos anoten tiene 60 % de probabilidad, la opción más probable entre los mercados de goles.",
+        "faltas": "Se esperan 22.1 faltas en total: 11.8 de Querétaro y 10.3 de Monterrey. Ambos equipos cometen cifras cercanas a su promedio, así que no hay un lado claramente más disciplinado en este cálculo.",
+        "resumen": "Monterrey llega mejor: suma 21 puntos, está en la 10.ª posición y viene de tres resultados entre victorias y empates, mientras Querétaro acumula cinco derrotas seguidas. El pronóstico da 40 % de victoria para Monterrey, 34 % para Querétaro y 26 % de empate, así que el partido es bastante parejo pero con ligera ventaja visitante.",
+        "contexto": "Monterrey está 10.º con 21 puntos y diferencia de goles de +1, mientras Querétaro está 12.º con 20 puntos y -5. Querétaro juega con 6.0 días de descanso y Monterrey con 6.9, sin diferencia relevante. La localía ayuda poco: el modelo ubica a Querétaro en 1.39 goles a favor frente a un rival promedio, por debajo de los 1.52 de Monterrey.",
+        "corners_faltas": "Se esperan 10.6 tiros de esquina en total, con 5.5 para Monterrey y 5.1 para Querétaro. Monterrey genera más volumen ofensivo y concede menos córners que el promedio, mientras Querétaro cede más de los que recibe en promedio.\n\nSe esperan 22.1 faltas en total: 11.8 de Querétaro y 10.3 de Monterrey. Ambos equipos cometen cifras cercanas a su promedio, así que no hay un lado claramente más disciplinado en este cálculo.",
+        "tiros_de_esquina": "Se esperan 10.6 tiros de esquina en total, con 5.5 para Monterrey y 5.1 para Querétaro. Monterrey genera más volumen ofensivo y concede menos córners que el promedio, mientras Querétaro cede más de los que recibe en promedio.",
+        "a_tener_en_cuenta": "El análisis no incluye árbitro, bajas ni alineaciones, así que no se puede medir su efecto. Como el partido está parejo, un gol temprano o una expulsión podrían cambiar la lectura de forma importante."
+      },
+      "created_at": "2026-11-12T04:28:10.098947+00:00"
+    }
+  }
+]
