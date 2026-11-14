@@ -118,9 +118,25 @@ Backtest walk-forward Liga MX (781 partidos evaluados, `--include-research-histo
 
 Mejora pequeña y **no significativa** (el intervalo del bootstrap cruza 0). Comparar: `pnpm --filter @pitchlab/ingest backtest:history --leagues=liga-mx --include-research-history --xg-source=base|merged|merged-any`.
 
+### Extensión research-only de Liga MX (hecho 2026-11-14)
+
+openfootball no publica Liga MX 2021-22 a 2023-24 ni de 2025-26 en adelante (404), y tampoco las liguillas. `history:link` ahora genera `research/extended/liga-mx.jsonl` con los partidos de Bzzoiro que faltan, con el mismo formato e `id` del corpus (equipos traducidos con el mapa aprendido; fecha local de CDMX; liguilla numerada por fase). Son **1,550 partidos** (2020-21 a 2026-27). Viven fuera de Git y **no** entran al corpus publicable; el backtest los suma con `--extend-corpus`.
+
+Backtest walk-forward Liga MX con extensión (**2,532 partidos** evaluados, log loss 1X2; Δ contra el modelo actual con IC 95 % de bootstrap pareado):
+
+| Modelo | Sin xG de Bzzoiro | Solo xG medido (480, desde Apertura 2025) | xG de Bzzoiro medido + estimado (1,469) |
+|---|---|---|---|
+| Modelo actual (sin xG) | 1.0259 | 1.0259 | 1.0259 |
+| Mezcla con xG | 1.0241 · Δ −0.0019 [−0.0040, +0.0004] | 1.0244 · Δ −0.0015 [−0.0039, +0.0009] | **1.0221 · Δ −0.0039 [−0.0068, −0.0005]** |
+| Mezcla con xG ajustada | 1.0244 · Δ −0.0015 [−0.0028, −0.0001] | 1.0245 · Δ −0.0014 [−0.0028, 0.0000] | **1.0228 · Δ −0.0032 [−0.0050, −0.0011]** |
+
+**Conclusión:** con el xG de Bzzoiro (incluido el estimado de años anteriores) la mezcla le gana al modelo actual de forma significativa en Liga MX. El xG solo medido todavía es poco (480 partidos) para entrenar el sub-modelo de xG (pide ≥ 200 en la ventana); mejorará solo conforme avance la temporada.
+
+Reproducir: `pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=liga-mx --seasons=6`, luego `history:link` y `backtest:history --leagues=liga-mx --include-research-history --extend-corpus --xg-source=merged-any`.
+
 ## 7. Siguientes pasos
 
-1. **Extender el corpus de Liga MX** a 2025-26 y 2026-27 (y rellenar 2021–2024) con una fuente publicable. Sin eso el xG medido de Bzzoiro no se puede evaluar; es el cuello de botella.
+1. **Promover la mezcla con xG de Bzzoiro al motor de Liga MX en producción** (Spacetime), alimentando el xG de los partidos recientes desde `history:providers` en el workflow diario.
 2. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 3. Correr Bzzoiro en las ligas europeas: ahí el corpus sí llega a 2026-27 y el xG medido traslapa.
 4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).

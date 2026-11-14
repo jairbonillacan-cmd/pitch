@@ -8,11 +8,14 @@
  *   data/history/research/provider-ids/<liga>.teams.json   mapa de equipos con votos
  *   data/history/research/xg-bzzoiro/<liga>.jsonl          xG medido (lo lee el backtest)
  *   data/history/research/match-context/<liga>.jsonl       bajas, córners, tarjetas y cierre Bet365
+ *   data/history/research/extended/liga-mx.jsonl           partidos que openfootball no publica
+ *                                                          (lo usa `backtest:history --extend-corpus`)
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import type { BzzoiroMatchRow } from "./bzzoiro.js";
 import type { FiveDollarMatchRow } from "./fivedollar.js";
+import { buildLigaMxExtension } from "./extend-corpus.js";
 import { linkProviderGames, type CorpusGame, type LinkResult, type ProviderGame } from "./link.js";
 
 const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..", "..");
@@ -77,6 +80,22 @@ function main(): void {
     const byId = new Map<string, { id: string; bzzoiro?: number; fivedollar?: number }>();
     for (const [pid, id] of bzLink.links) byId.set(id, { ...(byId.get(id) ?? { id }), bzzoiro: pid });
     for (const [pid, id] of fdLink.links) byId.set(id, { ...(byId.get(id) ?? { id }), fivedollar: pid });
+
+    // Liga MX: partidos que openfootball no publica → extensión research-only del corpus.
+    if (corpusLeague === "liga-mx" && bz.length) {
+      const extension = buildLigaMxExtension(bz, {
+        teamMap: new Map([...bzLink.teamMap].map(([pid, t]) => [pid, t.team])),
+        linked: new Set(bzLink.links.keys()),
+        corpusIds: new Set(corpus.map((g) => g.id)),
+      });
+      writeJsonl(join(RESEARCH, "extended", `${corpusLeague}.jsonl`), extension);
+      for (const game of extension) {
+        byId.set(game.id, { id: game.id, bzzoiro: Number(game.sourceId.slice("bzzoiro:".length)) });
+      }
+      const seasons = [...new Set(extension.map((g) => g.season))].sort().join(", ");
+      console.log(`[link] ${corpusLeague}: extensión research-only con ${extension.length} partidos (${seasons})`);
+    }
+
     const ids = [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
     writeJsonl(join(RESEARCH, "provider-ids", `${corpusLeague}.jsonl`), ids);
     writeFileSync(

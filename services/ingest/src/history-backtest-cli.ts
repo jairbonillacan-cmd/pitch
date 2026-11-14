@@ -5,6 +5,7 @@
  *   --window-days=1095             ventana móvil de entrenamiento
  *   --min-train=200                mínimo de partidos para ajustar
  *   --bootstrap=2000               iteraciones del bootstrap pareado
+ *   --extend-corpus                suma la extensión research-only (Liga MX desde Bzzoiro)
  *   --xg-source=merged             base | bzzoiro | merged | merged-any (xG de Bzzoiro encima)
  */
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -25,6 +26,7 @@ interface CliOptions {
   bootstrapIterations?: number;
   includeHistoricalResearch?: boolean;
   xgSource?: "base" | "bzzoiro" | "merged" | "merged-any";
+  extendCorpus?: boolean;
   includeStack?: boolean;
   exportFeaturesPath?: string;
   exportNflPath?: string;
@@ -43,6 +45,10 @@ function parseArgs(argv: readonly string[]): CliOptions {
   for (const arg of argv) {
     if (arg === "--include-research-history") {
       options.includeHistoricalResearch = true;
+      continue;
+    }
+    if (arg === "--extend-corpus") {
+      options.extendCorpus = true;
       continue;
     }
     if (arg === "--with-stack") {
@@ -105,6 +111,7 @@ function main(): void {
       : {}),
     ...(options.includeStack ? { includeStack: true } : {}),
     ...(options.xgSource ? { xgSource: options.xgSource } : {}),
+    ...(options.extendCorpus ? { extendCorpus: true } : {}),
     ...(options.exportFeaturesPath
       ? { exportFeaturesPath: options.exportFeaturesPath }
       : {}),

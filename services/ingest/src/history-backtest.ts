@@ -31,6 +31,7 @@ import {
 } from "@pitchlab/models";
 import { HistoricalGameSchema, type HistoricalGame } from "./history/schema.js";
 import { ResearchGameSchema, type ResearchGame } from "./history/research-schema.js";
+import { z } from "zod";
 
 const DAY_MS = 86_400_000;
 
@@ -50,6 +51,11 @@ export interface HistoryBacktestOptions {
   includeHistoricalResearch?: boolean;
   /** Fuente de xG en modo research (por defecto `merged`). */
   xgSource?: XgSourcePreference;
+  /**
+   * Suma al corpus la extensión research-only (`research/extended/<liga>.jsonl`, hoy Liga MX
+   * desde Bzzoiro). Las métricas resultantes son de investigación, no del corpus publicable.
+   */
+  extendCorpus?: boolean;
   /**
    * Añade el stacking logístico (Dixon-Coles + Elo + descanso, forma y tiros).
    * Desactivado por defecto: es un candidato experimental y alarga el benchmark.
@@ -189,6 +195,28 @@ export function loadHistoryGames(rootDir: string, league: string): HistoricalGam
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
   return lines.map((line) => HistoricalGameSchema.parse(JSON.parse(line)));
+}
+
+/**
+ * Partidos research-only que extienden el corpus (`data/history/research/extended/<liga>.jsonl`).
+ * Mismo formato e `id` que el corpus; se descartan los que ya existen en él.
+ */
+export function loadExtendedGames(
+  rootDir: string,
+  league: string,
+  corpus: readonly HistoricalGame[],
+): HistoricalGame[] {
+  const path = join(rootDir, "data", "history", "research", "extended", `${league}.jsonl`);
+  if (!existsSync(path)) return [];
+  const known = new Set(corpus.map((g) => g.id));
+  const schema = HistoricalGameSchema.extend({ source: z.string() });
+  const out: HistoricalGame[] = [];
+  for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    const game = schema.parse(JSON.parse(line)) as unknown as HistoricalGame;
+    if (!known.has(game.id)) out.push(game);
+  }
+  return out;
 }
 
 /** Fila mínima para entrenar (sirve para el corpus y para el histórico research). */
@@ -1381,7 +1409,13 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
       : undefined;
 
   for (const league of leagues) {
-    const games = loadHistoryGames(options.rootDir, league);
+    const corpusGames = loadHistoryGames(options.rootDir, league);
+    const games =
+      options.extendCorpus === true
+        ? [...corpusGames, ...loadExtendedGames(options.rootDir, league, corpusGames)].sort((a, b) =>
+            `${a.date} ${a.kickoff ?? ""}`.localeCompare(`${b.date} ${b.kickoff ?? ""}`),
+          )
+        : corpusGames;
     if (games.length === 0) continue;
     if (league === "nfl") {
       nfl = runNfl(games, resolved, options.onNflPrediction);
