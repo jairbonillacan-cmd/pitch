@@ -120,9 +120,10 @@ export function createProviderClient(cfg: ProviderConfig, options: ProviderClien
       try {
         response = await fetchImpl(`${cfg.baseUrl}${pathWithQuery}`, {
           headers: cfg.headers,
-          signal: AbortSignal.timeout(20_000),
+          signal: AbortSignal.timeout(45_000),
         });
       } catch (error) {
+        log(`${cfg.displayName}: sin respuesta (${error instanceof Error ? error.name : "error"}), reintento`);
         if (attempt === retries) throw error;
         await sleep(1_000 * (attempt + 1));
         continue;
@@ -144,8 +145,18 @@ export function createProviderClient(cfg: ProviderConfig, options: ProviderClien
         throw new ProviderHttpError(cfg.displayName, response.status, pathWithQuery);
       }
 
-      const text = await response.text();
-      const parsed = JSON.parse(text) as T;
+      // El cuerpo también puede cortarse por timeout o llegar truncado: se reintenta.
+      let text: string;
+      let parsed: T;
+      try {
+        text = await response.text();
+        parsed = JSON.parse(text) as T;
+      } catch (error) {
+        log(`${cfg.displayName}: respuesta incompleta (${error instanceof Error ? error.name : "error"}), reintento`);
+        if (attempt === retries) throw error;
+        await sleep(2_000 * (attempt + 1));
+        continue;
+      }
       if (useCache) {
         mkdirSync(join(options.cacheDir, cfg.id), { recursive: true });
         writeFileSync(file, text, "utf8");

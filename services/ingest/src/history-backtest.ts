@@ -48,6 +48,8 @@ export interface HistoryBacktestOptions {
    * versionado. Actívalo con `--include-research-history` para experimentar.
    */
   includeHistoricalResearch?: boolean;
+  /** Fuente de xG en modo research (por defecto `merged`). */
+  xgSource?: XgSourcePreference;
   /**
    * Añade el stacking logístico (Dixon-Coles + Elo + descanso, forma y tiros).
    * Desactivado por defecto: es un candidato experimental y alarga el benchmark.
@@ -228,21 +230,33 @@ export function loadResearchHistory(rootDir: string, league: string): TrainingGa
   });
 }
 
+export type XgSourcePreference = "base" | "bzzoiro" | "merged" | "merged-any";
+
 /**
- * Carga el xG research de una liga (`data/history/research/xg/<liga>.jsonl`), por `id`.
+ * Carga el xG research de una liga, por `id`:
+ *  - `base`: `data/history/research/xg/<liga>.jsonl` (Understat, football-data o estimado por tiros).
+ *  - `bzzoiro`: solo `research/xg-bzzoiro/<liga>.jsonl` (xG medido por tiro, `pnpm history:link`).
+ *  - `merged` (por defecto): base, con el xG medido de Bzzoiro encima cuando no es estimado.
+ *  - `merged-any`: igual, pero también con el xG que Bzzoiro estima (ligas o años sin medición).
  */
 export function loadXgGames(
   rootDir: string,
   league: string,
+  prefer: XgSourcePreference = "merged",
 ): Map<string, { homeXg: number; awayXg: number }> {
-  const path = join(rootDir, "data", "history", "research", "xg", `${league}.jsonl`);
-  if (!existsSync(path)) return new Map();
   const map = new Map<string, { homeXg: number; awayXg: number }>();
-  for (const line of readFileSync(path, "utf8").split("\n")) {
-    if (!line.trim()) continue;
-    const row = JSON.parse(line) as { id: string; homeXg: number; awayXg: number };
-    map.set(row.id, { homeXg: row.homeXg, awayXg: row.awayXg });
-  }
+  const read = (dir: string, onlyMeasured: boolean): void => {
+    const path = join(rootDir, "data", "history", "research", dir, `${league}.jsonl`);
+    if (!existsSync(path)) return;
+    for (const line of readFileSync(path, "utf8").split("\n")) {
+      if (!line.trim()) continue;
+      const row = JSON.parse(line) as { id: string; homeXg: number; awayXg: number; estimated?: boolean };
+      if (onlyMeasured && row.estimated === true) continue;
+      map.set(row.id, { homeXg: row.homeXg, awayXg: row.awayXg });
+    }
+  };
+  if (prefer !== "bzzoiro") read("xg", false);
+  if (prefer !== "base") read("xg-bzzoiro", prefer !== "merged-any");
   return map;
 }
 
@@ -1379,7 +1393,7 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
       // El xG es research-only (Understat): solo entra al benchmark research.
       const xgById =
         options.includeHistoricalResearch === true
-          ? loadXgGames(options.rootDir, league)
+          ? loadXgGames(options.rootDir, league, options.xgSource ?? "merged")
           : new Map<string, { homeXg: number; awayXg: number }>();
       football.push(
         runFootballLeague(

@@ -97,11 +97,32 @@ Reglas: una petición por segundo como máximo, caché en disco, `User-Agent` ho
 - 5Dollar gratis: ~55 peticiones por corrida, una por minuto; Liga MX se salta hasta tener Pro.
 - Primera corrida: Liga MX Apertura y Clausura 2026 desde Bzzoiro, 310 partidos, 100 % con xG medido, alineación confirmada y 425 bajas; Premier League desde 5Dollar, 100 partidos con córners y tarjetas.
 
-## 6. Siguientes pasos
+## 6. Emparejamiento y primer backtest (hecho 2026-11-14)
 
-1. Correr Bzzoiro con `--seasons=5` en todas las ligas (cabe en la cuota diaria en 2–3 días gracias a la caché) y 5Dollar con momios cada hora hasta completar la ventana.
-2. Emparejar las filas con el `match_id` canónico del corpus (`data/history/<liga>.jsonl`) por equipos y fecha, y guardar la tabla `provider_ids`.
-3. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
-3. Históricos para entrenar en `research/prediction-lab` y backtest walk-forward contra el modelo actual.
-4. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
-5. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
+`pnpm --filter @pitchlab/ingest history:link` (código en `providers/link.ts`) empareja por fecha ±1 día y marcador, aprende el mapa de equipos del proveedor por mayoría de votos y hace una segunda pasada con ese mapa. No depende de que los nombres se parezcan («Querétaro FC» queda como `gallos-blancos`). Escribe, por `id` canónico: `research/provider-ids/`, `research/xg-bzzoiro/` (lo lee el backtest) y `research/match-context/` (bajas, córners, tarjetas y cierre Bet365).
+
+| Liga | Emparejados | Nota |
+|---|---|---|
+| Liga MX (Bzzoiro 2024–2026) | 312 de 990 | Son **todos** los partidos que existen en el corpus para esas fechas: el corpus termina en mayo 2025 |
+| Premier League (5Dollar) | 45 de 100 | Todos los del corpus, que termina el 20 sep 2026 |
+
+**Hallazgo:** Bzzoiro solo **mide** xG en Liga MX desde el Apertura 2025; antes publica una estimación propia (`xg_estimated: true`). Como el corpus de Liga MX termina en mayo 2025, hoy no hay traslape con xG medido.
+
+Backtest walk-forward Liga MX (781 partidos evaluados, `--include-research-history`, log loss 1X2, menor es mejor):
+
+| Modelo | xG base (estimado por tiros ESPN, 53 partidos) | xG estimado por Bzzoiro (312 partidos) |
+|---|---|---|
+| Elo con xG | 1.0088 | 1.0062 |
+| Mezcla con xG | 1.0038 | 1.0024 |
+| Modelo actual (sin xG) | 1.0043 | 1.0043 |
+
+Mejora pequeña y **no significativa** (el intervalo del bootstrap cruza 0). Comparar: `pnpm --filter @pitchlab/ingest backtest:history --leagues=liga-mx --include-research-history --xg-source=base|merged|merged-any`.
+
+## 7. Siguientes pasos
+
+1. **Extender el corpus de Liga MX** a 2025-26 y 2026-27 (y rellenar 2021–2024) con una fuente publicable. Sin eso el xG medido de Bzzoiro no se puede evaluar; es el cuello de botella.
+2. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
+3. Correr Bzzoiro en las ligas europeas: ahí el corpus sí llega a 2026-27 y el xG medido traslapa.
+4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
+5. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
+6. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
