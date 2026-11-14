@@ -5,8 +5,8 @@ import { EMAIL_TEMPLATES, EMAIL_WIRING, renderEmail, type EmailTemplateId } from
 const ids = Object.keys(EMAIL_TEMPLATES) as EmailTemplateId[];
 
 describe("correos de PitchLab", () => {
-  it("hay 26 plantillas", () => {
-    expect(ids).toHaveLength(26);
+  it("hay 27 plantillas", () => {
+    expect(ids).toHaveLength(27);
   });
 
   it.each(ids)("%s: genera asunto, HTML con marca y texto plano", async (id) => {
@@ -73,6 +73,7 @@ describe("correos de PitchLab", () => {
       "renewal-reminder",
       "tipster-new-subscriber",
       "tipster-payout",
+      "transfer-coupon",
       "transfer-rejected",
       "trial-ended",
       "trial-ending",

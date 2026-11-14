@@ -5,22 +5,15 @@ import { createDb, normalizeCouponCode, validateCouponPreview, type Db } from "@
 import { CanjearCouponView, type CouponPreviewState } from "@pitchlab/ui/canjear";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { loadPublicPlatformState } from "../../src/server/platform-data";
+import { COUPON_ERROR_COPY } from "../../src/server/transfer-helpers";
 import { getViewerAccess } from "../../src/server/viewer-access";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Canjear cupón · PitchLab",
-  description: "Activa días de acceso a Pase PitchLab Ultra con tu código de cupón.",
+  description: "Activa tu suscripción de Pase PitchLab Ultra con tu código de cupón.",
   robots: { index: false, follow: false },
-};
-
-const PREVIEW_MESSAGES: Record<string, string> = {
-  no_existe: "No encontramos ese código. Revisa que esté bien escrito.",
-  inactivo: "Este cupón fue desactivado por el equipo de PitchLab.",
-  vencido: "La fecha límite de este cupón ya venció.",
-  agotado: "Este cupón ya alcanzó su límite máximo de canjes.",
-  ya_canjeado: "Ya canjeaste este cupón en tu cuenta.",
 };
 
 let cachedDb: Db | null = null;
@@ -60,18 +53,24 @@ export default async function PublicCanjearPage({
             coupon: {
               code: res.coupon.code,
               days: res.coupon.days,
+              maxRedemptions: res.coupon.maxRedemptions,
               expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+              isTransferCoupon: res.coupon.isTransferCoupon,
+              isPersonal: res.coupon.isPersonal,
             },
           }
         : {
             valid: false,
             reason: res.reason,
-            error: PREVIEW_MESSAGES[res.reason] ?? "Cupón no disponible.",
+            error: COUPON_ERROR_COPY[res.reason]?.message ?? "Cupón no disponible.",
             coupon: res.coupon
               ? {
                   code: res.coupon.code,
                   days: res.coupon.days,
+                  maxRedemptions: res.coupon.maxRedemptions,
                   expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+                  isTransferCoupon: res.coupon.isTransferCoupon,
+                  isPersonal: res.coupon.isPersonal,
                 }
               : null,
           };

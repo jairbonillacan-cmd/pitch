@@ -1,5 +1,5 @@
 import { siteUrl } from "../brand";
-import { Cta, Eyebrow, Facts, greeting, Notice, P, Stat, Title } from "../components";
+import { Cta, Eyebrow, Facts, FallbackLink, greeting, Notice, P, Stat, Title } from "../components";
 import { EmailLayout } from "../layout";
 
 /* 8 · Pago confirmado ------------------------------------------------------------------- */
@@ -269,6 +269,63 @@ export function TransferRejectedEmail({
       />
       <Notice tone="warning">{reason}</Notice>
       <Cta href={retryUrl}>Revisar mi plan</Cta>
+    </EmailLayout>
+  );
+}
+
+/* 13c · Cupón emitido al confirmar transferencia SPEI ----------------------------------- */
+
+export interface TransferCouponProps {
+  name?: string;
+  planName: string;
+  amountLabel: string;
+  referenceCode: string;
+  couponCode: string;
+  days: number;
+  expiresOn: string;
+  redeemUrl: string;
+}
+
+export const transferCouponSubject = ({ couponCode }: TransferCouponProps) =>
+  `Tu cupón de acceso a PitchLab: ${couponCode}`;
+
+export function TransferCouponEmail({
+  name,
+  planName,
+  amountLabel,
+  referenceCode,
+  couponCode,
+  days,
+  expiresOn,
+  redeemUrl,
+}: TransferCouponProps) {
+  return (
+    <EmailLayout preview={`Confirmamos tu transferencia. Canjea tu cupón ${couponCode} antes del ${expiresOn}.`}>
+      <Eyebrow>Cobro</Eyebrow>
+      <Title>Tu cupón está listo</Title>
+      <P>
+        {greeting(name)} Confirmamos tu transferencia SPEI de {amountLabel}. Canjea este código en PitchLab para
+        activar tus {days} días de {planName}.
+      </P>
+      <Stat
+        value={couponCode}
+        label={`Cupón personal de un solo uso · vigente hasta el ${expiresOn}`}
+        tone="brand"
+      />
+      <Facts
+        rows={[
+          ["Plan", planName],
+          ["Periodo por activar", `${days} días`],
+          ["Monto confirmado", amountLabel],
+          ["Referencia SPEI", referenceCode],
+          ["Vigencia del cupón", `Hasta el ${expiresOn} (1 uso)`],
+        ]}
+      />
+      <Cta href={redeemUrl}>Canjear mi cupón</Cta>
+      <FallbackLink href={redeemUrl} />
+      <P muted>
+        Este código está ligado a tu cuenta y solo puede usarse una vez antes de su fecha de vigencia.
+      </P>
     </EmailLayout>
   );
 }

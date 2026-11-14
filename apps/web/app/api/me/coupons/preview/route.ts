@@ -54,7 +54,10 @@ export async function GET(request: Request): Promise<NextResponse> {
           ? {
               code: res.coupon.code,
               days: res.coupon.days,
+              maxRedemptions: res.coupon.maxRedemptions,
               expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+              isTransferCoupon: res.coupon.isTransferCoupon,
+              isPersonal: res.coupon.isPersonal,
             }
           : null,
       },
@@ -68,7 +71,10 @@ export async function GET(request: Request): Promise<NextResponse> {
       coupon: {
         code: res.coupon.code,
         days: res.coupon.days,
+        maxRedemptions: res.coupon.maxRedemptions,
         expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+        isTransferCoupon: res.coupon.isTransferCoupon,
+        isPersonal: res.coupon.isPersonal,
       },
     },
     { headers: { "Cache-Control": "no-store" } },

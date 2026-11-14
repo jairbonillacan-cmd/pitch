@@ -8,7 +8,9 @@
  *
  * Sin `RESEND_API_KEY` (desarrollo) los correos se imprimen en la consola del servidor.
  */
-import { supportEmail } from "@pitchlab/emails";
+import { noreplySender, supportEmail } from "@pitchlab/emails";
+
+export { noreplySender };
 
 export interface OutgoingEmail {
   to: string;
@@ -73,7 +75,8 @@ export function consoleMailer(log: (line: string) => void = console.info): Maile
   return {
     async send(email) {
       const when = email.scheduledAt ? ` (programado para ${email.scheduledAt.toISOString()})` : "";
-      log(`[correo] ${email.subject} → ${email.to}${when}`);
+      const sender = email.from ? ` [desde ${email.from}]` : "";
+      log(`[correo]${sender} ${email.subject} → ${email.to}${when}`);
       return { id: null };
     },
     async cancel(id) {

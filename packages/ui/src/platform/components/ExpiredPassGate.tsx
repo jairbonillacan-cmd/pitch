@@ -235,7 +235,7 @@ export function ExpiredPassGate({
             <div>
               <h2 className="m-0 text-base font-bold">¿Tienes un cupón de acceso?</h2>
               <p className="m-0 text-xs mt-1" style={{ color: "var(--pl-text-secondary)" }}>
-                Canjéalo aquí para sumar días gratis al instante y volver al tablero principal.
+                Ingresa aquí el cupón que recibiste desde <strong className="num">noreply@pitchlab.mx</strong> al confirmar tu transferencia (o un cupón promocional) para activar tus días al instante.
               </p>
             </div>
 

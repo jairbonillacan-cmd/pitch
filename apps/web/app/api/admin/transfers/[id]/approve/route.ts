@@ -15,7 +15,7 @@ import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** POST /api/admin/transfers/[id]/approve — aprueba SPEI, suma días, dispara referidos/comisiones y recibo. */
+/** POST /api/admin/transfers/[id]/approve — confirma el pago SPEI, emite cupón personal de 1 uso con vigencia y lo envía desde noreply@pitchlab.mx. */
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -68,9 +68,17 @@ export async function POST(
   return NextResponse.json({
     ok: true,
     alreadyApproved: res.alreadyApproved,
-    request: serializeTransferRequest(res.request),
-    grantId: res.grantId,
-    newAccessUntilIso: res.newAccessUntil ? res.newAccessUntil.toISOString() : null,
-    paidEffects: res.paidEffects,
+    request: serializeTransferRequest({
+      ...res.request,
+      couponExpiresAt: res.coupon.expiresAt,
+      couponRedeemedAt: null,
+    }),
+    coupon: {
+      id: res.coupon.id,
+      code: res.coupon.code,
+      days: res.coupon.days,
+      maxRedemptions: res.coupon.maxRedemptions,
+      expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+    },
   });
 }

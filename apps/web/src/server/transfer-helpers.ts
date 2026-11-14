@@ -77,13 +77,14 @@ export function parseTransferReceiptFields(
 
 export function serializeAdminTransferRequest(row: AdminTransferRequestItem) {
   return {
-    ...serializeTransferRequest(row as TransferRequestRow),
+    ...serializeTransferRequest(row),
     userId: row.userId,
     userEmail: row.userEmail,
     userHandle: row.userHandle,
     userDisplayName: row.userDisplayName,
     adminNotes: row.adminNotes ?? null,
     entitlementGrantId: row.entitlementGrantId ?? null,
+    issuedCouponCode: row.issuedCouponCode ?? null,
   };
 }
 
@@ -98,14 +99,19 @@ export const COUPON_ERROR_COPY: Record<CouponErrorReason, { status: number; mess
   },
   vencido: {
     status: 410,
-    message: "La fecha límite de este cupón ya venció.",
+    message: "La vigencia de este cupón ya terminó.",
   },
   agotado: {
     status: 409,
-    message: "Este cupón ya alcanzó su límite máximo de canjes.",
+    message: "Este cupón es de un solo uso y ya fue canjeado (o alcanzó su límite máximo de canjes).",
   },
   ya_canjeado: {
     status: 409,
     message: "Ya canjeaste este cupón en tu cuenta.",
+  },
+  cuenta_distinta: {
+    status: 403,
+    message:
+      "Este cupón personal está ligado a otra cuenta. Inicia sesión con el correo que realizó la transferencia.",
   },
 };

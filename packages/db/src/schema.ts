@@ -7,6 +7,7 @@
  */
 import { sql } from "drizzle-orm";
 import {
+  type AnyPgColumn,
   boolean,
   char,
   check,
@@ -43,6 +44,8 @@ export const users = pgTable("users", {
   xUsername: text("x_username"),
   xLinkedAt: ts("x_linked_at"),
   referralCode: text("referral_code").unique(),
+  /** Referencia SPEI permanente y única ligada a la cuenta del socio (`PL-{HANDLE}-{4}`). */
+  speiReferenceCode: text("spei_reference_code").unique(),
   isAmbassador: boolean("is_ambassador").notNull().default(false),
   isAdult: boolean("is_adult").notNull().default(false),
   publicProfile: boolean("public_profile").notNull().default(true),
@@ -818,13 +821,16 @@ export const transferPaymentRequests = pgTable(
     reportedAmountCentavosMxn: integer("reported_amount_centavos_mxn"),
     amountMismatch: boolean("amount_mismatch").notNull().default(false),
     referralDiscountApplied: boolean("referral_discount_applied").notNull().default(false),
-    referenceCode: text("reference_code").notNull().unique(),
+    referenceCode: text("reference_code").notNull(),
     originBank: text("origin_bank"),
     receiptReference: text("receipt_reference"),
     payerName: text("payer_name"),
     transferDate: text("transfer_date"),
     userNote: text("user_note"),
     status: text("status").notNull().default("pending_review"),
+    issuedCouponId: uuid("issued_coupon_id").references((): AnyPgColumn => accessCoupons.id, {
+      onDelete: "set null",
+    }),
     entitlementGrantId: uuid("entitlement_grant_id").references(() => entitlementGrants.id),
     reviewedByUserId: uuid("reviewed_by_user_id").references(() => users.id, { onDelete: "set null" }),
     reviewedAt: ts("reviewed_at"),
@@ -836,8 +842,12 @@ export const transferPaymentRequests = pgTable(
   (t) => [
     index("transfer_requests_user_created_idx").on(t.userId, t.createdAt),
     index("transfer_requests_status_created_idx").on(t.status, t.createdAt),
+    index("transfer_requests_reference_code_idx").on(t.referenceCode),
     uniqueIndex("transfer_requests_one_pending_per_user_uq")
       .on(t.userId)
+      .where(sql`${t.status} = 'pending_review'`),
+    uniqueIndex("transfer_requests_pending_ref_uq")
+      .on(t.referenceCode)
       .where(sql`${t.status} = 'pending_review'`),
     check("transfer_requests_interval_ck", sql`${t.planInterval} IN ('monthly', 'annual')`),
     check("transfer_requests_amount_ck", sql`${t.amountCentavosMxn} > 0`),
@@ -863,6 +873,12 @@ export const accessCoupons = pgTable(
     expiresAt: ts("expires_at"),
     active: boolean("active").notNull().default(true),
     note: text("note"),
+    transferRequestId: uuid("transfer_request_id")
+      .unique()
+      .references((): AnyPgColumn => transferPaymentRequests.id, { onDelete: "set null" }),
+    restrictedToUserId: uuid("restricted_to_user_id").references(() => users.id, {
+      onDelete: "set null",
+    }),
     createdBy: uuid("created_by").references(() => users.id, { onDelete: "set null" }),
     createdAt: createdAt(),
     updatedAt: ts("updated_at").notNull().defaultNow(),

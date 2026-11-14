@@ -199,9 +199,10 @@ En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportami
 
 1. **Variables en Vercel (Production y Preview):**
    - `PITCHLAB_PAYMENTS_MODE=transfer`
-   - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para emitir referencias SPEI en `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
+   - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para mostrar la cuenta destino y la referencia única ligada a la cuenta en `/precio` y `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
+   - `EMAIL_NOREPLY_FROM` (por defecto `PitchLab <noreply@pitchlab.mx>`, remitente de los cupones SPEI y comprobantes).
    - `CRON_SECRET` para que Vercel Cron ejecute `/api/cron/tipster-payouts` diariamente (promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails` dentro de la ventana de 28 días).
-2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite aprobar/rechazar transferencias SPEI (con disparo automático de recibo, recompensa bilateral `+7 días` de referidos, récord de renovación/vencimiento y comisión de tipster), crear o desactivar cupones, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
+2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite revisar transferencias SPEI pendientes con la referencia única del socio y confirmarlas (lo que genera un cupón personal de un solo uso con vigencia de 30 días y lo envía desde `noreply@pitchlab.mx` para canjear en `/canjear`; al canjearlo se activan los días pagados, el recibo, la recompensa bilateral `+7 días` de referidos, los avisos de renovación/vencimiento y la comisión de tipster), rechazar transferencias con motivo, crear o desactivar cupones promocionales, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
 
 ### Recetas SQL útiles en Neon (emergencia o auditoría)
 

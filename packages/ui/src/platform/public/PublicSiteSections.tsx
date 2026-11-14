@@ -30,9 +30,11 @@ import {
   PricingCardIsland,
   PublicNavBarClient,
   ResultsFilterListIsland,
+  SpeiTransferPricingIsland,
   UltraPassCardStageIsland,
 } from "./LandingClientIslands";
 
+export { MEMBERSHIP_SPEC };
 export type PublicNavPath =
   | "/"
   | "/como-funciona"
@@ -2502,10 +2504,85 @@ export function ComunidadPageSurface({
   );
 }
 
-export function PrecioPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
+export interface PrecioTransferRequestSummary {
+  id: string;
+  planInterval: "monthly" | "annual";
+  amountCentavosMxn: number;
+  reportedAmountCentavosMxn: number | null;
+  amountMismatch: boolean;
+  referralDiscountApplied: boolean;
+  referenceCode: string;
+  originBank: string | null;
+  receiptReference: string | null;
+  payerName: string | null;
+  transferDate: string | null;
+  userNote: string | null;
+  status: "pending_review" | "approved" | "rejected" | "canceled";
+  rejectionReason: string | null;
+  reviewedAtIso: string | null;
+  couponExpiresAtIso: string | null;
+  couponRedeemedAtIso: string | null;
+  awaitingCouponRedemption: boolean;
+  createdAtIso: string;
+  updatedAtIso: string;
+}
+
+export interface PrecioTransferContext {
+  paymentMode: "transfer" | "stripe";
+  accountsEnabled: boolean;
+  viewerState: "guest" | "incomplete_signup" | "member" | "beta_preview";
+  memberHandle: string | null;
+  speiReferenceCode: string | null;
+  bank: {
+    configured: boolean;
+    bank: string | null;
+    beneficiary: string | null;
+    clabe: string | null;
+    clabeMasked: string | null;
+    instructions: string | null;
+    supportEmail: string;
+  } | null;
+  quotes: {
+    monthlyCentavos: number;
+    annualCentavos: number;
+    referralDiscountApplied: boolean;
+  };
+  activePending: PrecioTransferRequestSummary | null;
+  latestApproved: PrecioTransferRequestSummary | null;
+  latestRejected: PrecioTransferRequestSummary | null;
+  activePass: boolean;
+}
+
+export function PrecioPageSurface({
+  hasSession = false,
+  transferContext,
+}: {
+  hasSession?: boolean;
+  transferContext?: PrecioTransferContext;
+} = {}): React.JSX.Element {
+  const effectiveContext: PrecioTransferContext = transferContext ?? {
+    paymentMode: "transfer",
+    accountsEnabled: true,
+    viewerState: "guest",
+    memberHandle: null,
+    speiReferenceCode: null,
+    bank: null,
+    quotes: {
+      monthlyCentavos: MEMBERSHIP_SPEC.monthlyMxn * 100,
+      annualCentavos: MEMBERSHIP_SPEC.annualMxn * 100,
+      referralDiscountApplied: false,
+    },
+    activePending: null,
+    latestApproved: null,
+    latestRejected: null,
+    activePass: false,
+  };
+
   return (
     <PublicSiteShell activePath="/precio" hasSession={hasSession} className="pl-lp--precio">
       <PricingSection variant="page" hasSession={hasSession} />
+
+      <SpeiTransferPricingIsland context={effectiveContext} />
 
       <section id="referidos" className="pl-lp-section">
         <div className="pl-lp-wrap pl-lp-stack">

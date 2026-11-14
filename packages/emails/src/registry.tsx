@@ -31,6 +31,8 @@ import {
   subscriptionCanceledSubject,
   TipsterPayoutEmail,
   tipsterPayoutSubject,
+  TransferCouponEmail,
+  transferCouponSubject,
   TransferRejectedEmail,
   transferRejectedSubject,
   type CfdiInvoiceProps,
@@ -39,6 +41,7 @@ import {
   type RefundProps,
   type SubscriptionCanceledProps,
   type TipsterPayoutProps,
+  type TransferCouponProps,
   type TransferRejectedProps,
 } from "./templates/billing";
 import { ContentRemovedEmail, contentRemovedSubject, type ContentRemovedProps } from "./templates/community";
@@ -189,6 +192,22 @@ export const EMAIL_TEMPLATES = {
       periodLabel: "12 nov – 12 dic 2026",
       cardLast4: "4242",
       receiptUrl: EXAMPLE_URL,
+    },
+  }),
+  "transfer-coupon": define<TransferCouponProps>({
+    phase: "C",
+    label: "Cupón por pago SPEI confirmado",
+    Component: TransferCouponEmail,
+    subject: transferCouponSubject,
+    sample: {
+      name: "Sofía",
+      planName: "Pase PitchLab Ultra mensual",
+      amountLabel: "$299.00 MXN",
+      referenceCode: "PL-SOFIANFL-7K9M",
+      couponCode: "PL-8M4R-2W7K",
+      days: 30,
+      expiresOn: "12 de diciembre de 2026",
+      redeemUrl: "https://pitchlab.mx/canjear?codigo=PL-8M4R-2W7K",
     },
   }),
   "transfer-rejected": define<TransferRejectedProps>({

@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useId, useState } from "react";
 import { usePlatform } from "../platform-provider";
+import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
 import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
 import {
   AtmosphereStage,
@@ -12,12 +13,22 @@ import {
 
 export interface CouponPreviewState {
   valid: boolean;
-  reason?: "no_existe" | "inactivo" | "vencido" | "agotado" | "ya_canjeado" | "no_configurado";
+  reason?:
+    | "no_existe"
+    | "inactivo"
+    | "vencido"
+    | "agotado"
+    | "ya_canjeado"
+    | "cuenta_distinta"
+    | "no_configurado";
   error?: string;
   coupon?: {
     code: string;
     days: number;
+    maxRedemptions?: number | null;
     expiresAtIso: string | null;
+    isTransferCoupon?: boolean;
+    isPersonal?: boolean;
   } | null;
 }
 
@@ -97,9 +108,28 @@ export function CouponRedeemBox({
       }
 
       if (!accountsEnabled) {
+        const previewRes = redeemPreviewCoupon(cleaned);
+        if (!previewRes.ok) {
+          setStatus("error");
+          setMessage(previewRes.error);
+          return;
+        }
         setStatus("redeemed");
-        setGrantedDays(15);
-        setMessage(`Vista previa lista: con cuentas activas el código ${cleaned} sumaría sus días a tu cuenta.`);
+        setGrantedDays(previewRes.days);
+        setNewUntilIso(previewRes.newAccessUntilIso);
+        const untilPreview = formatCouponDate(previewRes.newAccessUntilIso);
+        const okPreview = previewRes.transferActivated
+          ? `¡Cupón ${previewRes.code} canjeado! Tu suscripción Pase PitchLab Ultra quedó activa por +${previewRes.days} días${
+              untilPreview ? ` (hasta el ${untilPreview})` : ""
+            }.`
+          : `Vista previa lista: con cuentas activas el código ${previewRes.code} sumaría +${previewRes.days} días a tu cuenta.`;
+        setMessage(okPreview);
+        pushToast(`+${previewRes.days} días abonados a tu pase`, "success");
+        onRedeemed?.({
+          code: previewRes.code,
+          days: previewRes.days,
+          newAccessUntilIso: previewRes.newAccessUntilIso,
+        });
         return;
       }
 
@@ -123,6 +153,7 @@ export function CouponRedeemBox({
           ok?: boolean;
           code?: string;
           days?: number;
+          transferActivated?: boolean;
           newAccessUntilIso?: string | null;
           error?: string;
         } | null;
@@ -138,9 +169,13 @@ export function CouponRedeemBox({
         setGrantedDays(redeemedDays);
         setNewUntilIso(json.newAccessUntilIso ?? null);
         const untilText = formatCouponDate(json.newAccessUntilIso);
-        const okText = untilText
-          ? `¡Cupón ${json.code ?? cleaned} canjeado! Sumaste +${redeemedDays} días (acceso hasta el ${untilText}).`
-          : `¡Cupón ${json.code ?? cleaned} canjeado! Sumaste +${redeemedDays} días a tu pase.`;
+        const okText = json.transferActivated
+          ? `¡Cupón ${json.code ?? cleaned} canjeado! Tu suscripción Pase PitchLab Ultra quedó activa por +${redeemedDays} días${
+              untilText ? ` (hasta el ${untilText})` : ""
+            }.`
+          : untilText
+            ? `¡Cupón ${json.code ?? cleaned} canjeado! Sumaste +${redeemedDays} días (acceso hasta el ${untilText}).`
+            : `¡Cupón ${json.code ?? cleaned} canjeado! Sumaste +${redeemedDays} días a tu pase.`;
         setMessage(okText);
         pushToast(`+${redeemedDays} días abonados a tu pase`, "success");
         if (typeof window !== "undefined") {
@@ -182,6 +217,7 @@ export function CouponRedeemBox({
           type="text"
           name="codigo"
           autoComplete="off"
+          autoCorrect="off"
           autoCapitalize="characters"
           spellCheck={false}
           maxLength={32}
@@ -286,6 +322,19 @@ export function CanjearCouponView({
   );
   const previewInputId = useId();
 
+  useEffect(() => {
+    if (accountsEnabled || storyOverride || !normalizedInitial) return;
+    const looked = lookupPreviewCoupon(normalizedInitial);
+    if (looked.found) {
+      setPreview({
+        valid: looked.valid,
+        reason: looked.reason,
+        error: looked.error,
+        coupon: looked.coupon ?? null,
+      });
+    }
+  }, [accountsEnabled, normalizedInitial, storyOverride]);
+
   const handleCheckCode = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
@@ -299,9 +348,19 @@ export function CanjearCouponView({
         return;
       }
       if (!accountsEnabled) {
+        const looked = lookupPreviewCoupon(cleaned);
+        if (looked.found) {
+          setPreview({
+            valid: looked.valid,
+            reason: looked.reason,
+            error: looked.error,
+            coupon: looked.coupon ?? null,
+          });
+          return;
+        }
         setPreview({
           valid: true,
-          coupon: { code: cleaned, days: 15, expiresAtIso: null },
+          coupon: { code: cleaned, days: 15, maxRedemptions: 1, expiresAtIso: null },
         });
         return;
       }
@@ -349,11 +408,12 @@ export function CanjearCouponView({
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
             {preview?.valid && preview.coupon
-              ? `Este código suma +${preview.coupon.days} ${preview.coupon.days === 1 ? "día" : "días"} gratis`
+              ? `Canjea un cupón de acceso · +${preview.coupon.days} ${preview.coupon.days === 1 ? "día" : "días"}`
               : "Canjea un cupón de acceso"}
           </h1>
           <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-            Los días del cupón se acumulan al final de tu acceso vigente sin pedir tarjeta ni cobros automáticos.
+            Si confirmamos tu transferencia SPEI, ingresa aquí el cupón de un solo uso que recibiste desde{" "}
+            <strong className="num">noreply@pitchlab.mx</strong> para activar tu suscripción. Los días se acumulan sin pedir tarjeta ni cobros automáticos.
           </p>
         </div>
 
@@ -365,9 +425,17 @@ export function CanjearCouponView({
             data-coupon-preview={preview.valid ? "valid" : "invalid"}
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="font-extrabold tracking-wider num text-base" style={{ color: "var(--pl-text)" }}>
-                {preview.coupon?.code ?? activeCode}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-extrabold tracking-wider num text-base" style={{ color: "var(--pl-text)" }}>
+                  {preview.coupon?.code ?? activeCode}
+                </span>
+                {preview.coupon?.maxRedemptions === 1 ? (
+                  <span className="pl-pill pl-pill--info">Un solo uso</span>
+                ) : null}
+                {preview.coupon?.isTransferCoupon || preview.coupon?.isPersonal ? (
+                  <span className="pl-pill pl-pill--brand">Transferencia SPEI</span>
+                ) : null}
+              </div>
               {preview.valid && preview.coupon ? (
                 <span className="pl-pill pl-pill--success num">
                   <MaestroIcon name="check" size={13} />
@@ -381,9 +449,9 @@ export function CanjearCouponView({
               )}
             </div>
 
-            {preview.valid && preview.coupon?.expiresAtIso ? (
+            {preview.coupon?.expiresAtIso ? (
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Válido para canjear hasta el {formatCouponDate(preview.coupon.expiresAtIso)}.
+                Vigencia para canjear: hasta el {formatCouponDate(preview.coupon.expiresAtIso)}.
               </p>
             ) : null}
 
@@ -413,6 +481,10 @@ export function CanjearCouponView({
                     type="text"
                     value={lookupCode}
                     maxLength={32}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="characters"
+                    spellCheck={false}
                     placeholder="PL-XXXX-XXXX"
                     onChange={(e) => setLookupCode(normalizeInputCode(e.target.value))}
                     className="glass-input flex-1 min-h-[44px] px-3.5 text-base font-extrabold uppercase tracking-wider num"

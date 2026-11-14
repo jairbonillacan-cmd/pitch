@@ -4,6 +4,12 @@ import React, { useCallback, useEffect, useId, useState } from "react";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { usePlatform } from "../platform-provider";
+import {
+  approvePreviewTransfer,
+  PREVIEW_SPEI_EVENT,
+  readPreviewSpeiState,
+  rejectPreviewTransfer,
+} from "../preview-spei-store";
 import { TabPanel, UnderlineTabs, type TabDef } from "./community-ui";
 
 export type AdminOpsTabKey = "transfers" | "members" | "coupons" | "payouts";
@@ -36,6 +42,10 @@ export interface AdminTransferRow {
   status: "pending_review" | "approved" | "rejected" | "canceled";
   rejectionReason: string | null;
   reviewedAtIso: string | null;
+  issuedCouponCode?: string | null;
+  couponExpiresAtIso?: string | null;
+  couponRedeemedAtIso?: string | null;
+  awaitingCouponRedemption?: boolean;
   createdAtIso: string;
 }
 
@@ -70,6 +80,8 @@ export interface AdminCouponItem {
   expiresAtIso: string | null;
   active: boolean;
   note: string | null;
+  transferRequestId?: string | null;
+  restrictedToUserId?: string | null;
   createdAtIso: string;
 }
 
@@ -245,7 +257,79 @@ export function AdminPaymentsCouponsSection({
   const [grantDays, setGrantDays] = useState("15");
   const [payoutRef, setPayoutRef] = useState("");
 
+  const isPreviewMode = !canFetchAdmin && !isStoryMock && !accountsEnabled;
+
+  const syncPreviewAdminData = useCallback(() => {
+    if (!isPreviewMode) return;
+    const st = readPreviewSpeiState();
+    const mappedTransfers: AdminTransferRow[] = st.requests
+      .filter((r) => (transferFilter === "all" ? true : r.status === transferFilter))
+      .filter((r) => {
+        const q = transferQuery.trim().toLowerCase();
+        if (!q) return true;
+        return (
+          r.referenceCode.toLowerCase().includes(q) ||
+          (r.issuedCouponCode ?? "").toLowerCase().includes(q) ||
+          "socio@pitchlab.mx".includes(q) ||
+          "socio_mx".includes(q)
+        );
+      })
+      .map((r) => ({
+        id: r.id,
+        userId: "preview-user",
+        userEmail: "socio@pitchlab.mx",
+        userHandle: "socio_mx",
+        userDisplayName: "Socio Vista Previa",
+        planInterval: r.planInterval,
+        amountCentavosMxn: r.amountCentavosMxn,
+        reportedAmountCentavosMxn: r.reportedAmountCentavosMxn,
+        amountMismatch: r.amountMismatch,
+        referralDiscountApplied: r.referralDiscountApplied,
+        referenceCode: r.referenceCode,
+        originBank: r.originBank,
+        receiptReference: r.receiptReference,
+        payerName: r.payerName,
+        transferDate: r.transferDate,
+        userNote: r.userNote,
+        adminNotes: r.adminNotes,
+        status: r.status,
+        rejectionReason: r.rejectionReason,
+        reviewedAtIso: r.reviewedAtIso,
+        issuedCouponCode: r.issuedCouponCode,
+        couponExpiresAtIso: r.couponExpiresAtIso,
+        couponRedeemedAtIso: r.couponRedeemedAtIso,
+        awaitingCouponRedemption: r.awaitingCouponRedemption,
+        createdAtIso: r.createdAtIso,
+      }));
+    setTransfers(mappedTransfers);
+    setCoupons(
+      st.coupons.map((c) => ({
+        id: c.id,
+        code: c.code,
+        days: c.days,
+        maxRedemptions: c.maxRedemptions,
+        redeemedCount: c.redeemedCount,
+        expiresAtIso: c.expiresAtIso,
+        active: c.active,
+        note: c.note,
+        transferRequestId: c.transferRequestId,
+        createdAtIso: c.createdAtIso,
+      })),
+    );
+  }, [isPreviewMode, transferFilter, transferQuery]);
+
+  useEffect(() => {
+    if (!isPreviewMode) return;
+    syncPreviewAdminData();
+    window.addEventListener(PREVIEW_SPEI_EVENT, syncPreviewAdminData);
+    return () => window.removeEventListener(PREVIEW_SPEI_EVENT, syncPreviewAdminData);
+  }, [isPreviewMode, syncPreviewAdminData]);
+
   const loadTransfers = useCallback(async () => {
+    if (isPreviewMode) {
+      syncPreviewAdminData();
+      return;
+    }
     if (!canFetchAdmin) return;
     setTransfersLoading(true);
     setTransfersError(null);
@@ -381,8 +465,24 @@ export function AdminPaymentsCouponsSection({
 
   const handleConfirmApprove = async () => {
     if (dialog?.kind !== "approve") return;
+    if (isPreviewMode) {
+      const approved = approvePreviewTransfer(dialog.row.id, dialogNote.trim() || null);
+      if (approved) {
+        pushToast(
+          `Pago ${approved.request.referenceCode} confirmado · Cupón ${approved.coupon.code} enviado desde noreply@pitchlab.mx.`,
+          "success",
+        );
+      }
+      setDialog(null);
+      setDialogNote("");
+      syncPreviewAdminData();
+      return;
+    }
     if (!canFetchAdmin) {
-      pushToast(`Aprobación simulada (${dialog.row.referenceCode}).`, "success");
+      pushToast(
+        `Confirmación simulada (${dialog.row.referenceCode}) · Cupón enviado desde noreply@pitchlab.mx.`,
+        "success",
+      );
       setDialog(null);
       return;
     }
@@ -394,18 +494,26 @@ export function AdminPaymentsCouponsSection({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ adminNotes: dialogNote.trim() || null }),
       });
-      const json = (await res.json().catch(() => null)) as { error?: string } | null;
+      const json = (await res.json().catch(() => null)) as {
+        coupon?: { code: string; days: number; expiresAtIso: string | null };
+        error?: string;
+      } | null;
       if (!res.ok) {
-        pushToast(json?.error ?? "No se pudo aprobar la transferencia.", "danger");
+        pushToast(json?.error ?? "No se pudo confirmar la transferencia.", "danger");
         return;
       }
-      pushToast(`Transferencia ${dialog.row.referenceCode} aprobada y pase activado.`, "success");
+      const couponText = json?.coupon?.code ? ` · Cupón ${json.coupon.code}` : "";
+      pushToast(
+        `Pago ${dialog.row.referenceCode} confirmado${couponText} enviado desde noreply@pitchlab.mx.`,
+        "success",
+      );
       setDialog(null);
       setDialogNote("");
       await loadTransfers();
+      await loadCoupons();
     } catch (err) {
       void err;
-      pushToast("Error de conexión al aprobar.", "danger");
+      pushToast("Error de conexión al confirmar el pago.", "danger");
     } finally {
       setBusyAction(false);
     }
@@ -416,6 +524,15 @@ export function AdminPaymentsCouponsSection({
     if (dialog?.kind !== "reject") return;
     if (dialogReason.trim().length < 3) {
       pushToast("Escribe el motivo del rechazo (mínimo 3 caracteres).", "warning");
+      return;
+    }
+    if (isPreviewMode) {
+      rejectPreviewTransfer(dialog.row.id, dialogReason.trim(), dialogNote.trim() || null);
+      pushToast(`Solicitud ${dialog.row.referenceCode} rechazada.`, "default");
+      setDialog(null);
+      setDialogReason("");
+      setDialogNote("");
+      syncPreviewAdminData();
       return;
     }
     if (!canFetchAdmin) {
@@ -678,7 +795,7 @@ export function AdminPaymentsCouponsSection({
             Cobros SPEI, socios, cupones y liquidaciones
           </h2>
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Aprueba transferencias, ajusta vigencias con auditoría, crea cupones de regalo y liquida comisiones de tipsters.
+            Confirma pagos SPEI para enviar cupones personales desde noreply@pitchlab.mx, ajusta vigencias con auditoría y liquida comisiones de tipsters.
           </p>
         </div>
 
@@ -843,6 +960,44 @@ export function AdminPaymentsCouponsSection({
                       </p>
                     ) : null}
 
+                    {row.status === "approved" && row.issuedCouponCode ? (
+                      <div
+                        className="flex flex-wrap items-center justify-between gap-2 pt-2 hairline-t text-xs"
+                        data-admin-coupon-summary={row.referenceCode}
+                      >
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span style={{ color: "var(--pl-text-muted)" }}>Cupón emitido (1 uso):</span>
+                          <strong
+                            className="font-extrabold tracking-wider num"
+                            style={{ color: "var(--pl-brand)" }}
+                            data-admin-issued-coupon={row.issuedCouponCode}
+                          >
+                            {row.issuedCouponCode}
+                          </strong>
+                          <span
+                            className={
+                              row.couponRedeemedAtIso
+                                ? "pl-pill pl-pill--success"
+                                : "pl-pill pl-pill--info"
+                            }
+                          >
+                            {row.couponRedeemedAtIso
+                              ? `Canjeado el ${formatDateMx(row.couponRedeemedAtIso)}`
+                              : `Pendiente de canje · vence ${formatDateMx(row.couponExpiresAtIso)}`}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => void copyCouponLink(row.issuedCouponCode!)}
+                          className="pl-btn-glass glass-ring min-h-9 px-3 text-xs"
+                          data-admin-copy-issued={row.issuedCouponCode}
+                        >
+                          <MaestroIcon name="copy" size={13} />
+                          <span>Copiar liga /canjear</span>
+                        </button>
+                      </div>
+                    ) : null}
+
                     {row.status === "pending_review" ? (
                       <div className="flex flex-wrap items-center justify-end gap-2 pt-1">
                         <button
@@ -868,7 +1023,7 @@ export function AdminPaymentsCouponsSection({
                           data-admin-approve={row.referenceCode}
                         >
                           <MaestroIcon name="check" size={14} />
-                          <span>Aprobar y activar</span>
+                          <span>Confirmar pago y enviar cupón</span>
                         </button>
                       </div>
                     ) : null}
@@ -1101,7 +1256,10 @@ export function AdminPaymentsCouponsSection({
                   {coupons.map((c) => (
                     <tr key={c.id} className="hairline-b row-hover">
                       <th scope="row" className="py-2.5 pr-3 font-extrabold" style={{ color: "var(--pl-brand)" }}>
-                        {c.code}
+                        <span>{c.code}</span>
+                        {c.transferRequestId ? (
+                          <span className="ml-2 pl-pill pl-pill--info">SPEI · 1 uso</span>
+                        ) : null}
                       </th>
                       <td className="py-2.5 px-2">+{c.days}d</td>
                       <td className="py-2.5 px-2">
@@ -1274,12 +1432,12 @@ export function AdminPaymentsCouponsSection({
         {dialog?.kind === "approve" ? (
           <div className="p-5 space-y-3">
             <h3 id={dialogTitleId} className="m-0 text-base font-extrabold">
-              Aprobar transferencia {dialog.row.referenceCode}
+              Confirmar pago {dialog.row.referenceCode} y enviar cupón
             </h3>
             <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-              Se activarán{" "}
-              <strong>{dialog.row.planInterval === "annual" ? "365 días (anual)" : "30 días (mensual)"}</strong>{" "}
-              para <strong>{dialog.row.userEmail}</strong> ({formatMxn(dialog.row.amountCentavosMxn)}), se premiarán referidos/tipster y se enviará su recibo por correo.
+              Se generará un cupón personal de <strong>un solo uso</strong> con vigencia de <strong>30 días</strong> por{" "}
+              <strong>{dialog.row.planInterval === "annual" ? "365 días (anual)" : "30 días (mensual)"}</strong> ({formatMxn(dialog.row.amountCentavosMxn)}) y se enviará a{" "}
+              <strong>{dialog.row.userEmail}</strong> desde <strong className="num">noreply@pitchlab.mx</strong> para que lo canjee en <strong className="num">/canjear</strong>.
             </p>
             <input
               type="text"
@@ -1302,8 +1460,9 @@ export function AdminPaymentsCouponsSection({
                 disabled={busyAction}
                 onClick={() => void handleConfirmApprove()}
                 className="pl-btn-primary min-h-[44px] px-4 text-xs"
+                data-admin-confirm-approve=""
               >
-                {busyAction ? "Aprobando…" : "Confirmar aprobación"}
+                {busyAction ? "Confirmando…" : "Confirmar y enviar cupón"}
               </button>
             </div>
           </div>

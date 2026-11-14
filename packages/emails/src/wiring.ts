@@ -84,7 +84,11 @@ export const EMAIL_WIRING = {
 
   "payment-receipt": {
     state: "live",
-    trigger: "Al aprobar una transferencia SPEI (`/api/admin/transfers/[id]/approve`) o al liquidar factura de Stripe.",
+    trigger: "Al canjear en `/canjear` el cupón de un pago SPEI confirmado (`/api/me/redeem`) o al liquidar factura de Stripe.",
+  },
+  "transfer-coupon": {
+    state: "live",
+    trigger: "Al confirmar una transferencia SPEI en `/app/admin` (`/api/admin/transfers/[id]/approve`), enviado desde `noreply@pitchlab.mx`.",
   },
   "transfer-rejected": {
     state: "live",

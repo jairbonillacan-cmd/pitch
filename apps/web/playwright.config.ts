@@ -44,6 +44,10 @@ export default defineConfig({
     env: {
       PREVIEW_ACCESS_CODE: "2026",
       BETA_COOKIE_SECRET: betaCookieSecret,
+      PITCHLAB_PREVIEW_TOOLS: "1",
+      PITCHLAB_TRANSFER_BANK: "Banco Ejemplo Test",
+      PITCHLAB_TRANSFER_BENEFICIARY: "PitchLab Demo Test",
+      PITCHLAB_TRANSFER_CLABE: "000000000000000000",
     },
   },
 });

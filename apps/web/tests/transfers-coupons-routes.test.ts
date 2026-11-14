@@ -261,7 +261,7 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     expect(connectRes.status).toBe(409);
   });
 
-  it("ciclo SPEI completo: cotización con referido, 409 duplicado, comprobante, rechazo, reenvío y aprobación idempotente", async () => {
+  it("ciclo SPEI + cupón completo: referencia única permanente, cotización con referido, rechazo, cupón desde noreply@pitchlab.mx y activación al canjear", async () => {
     const admin = await signInUser(sharedDb, "admin@example.com", {
       handle: "admin_pl",
       emailVerified: true,
@@ -278,36 +278,44 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       referralCode: hostRow!.referralCode,
     });
 
-    // Cotización inicial aplica primer mes a $209 MXN por referido y muestra CLABE desde env
+    // Cotización inicial aplica primer mes a $209 MXN por referido, devuelve referencia única de cuenta y CLABE desde env
     const quoteRes = await getTransfers(
       new Request(`${ORIGIN}/api/me/transfers`, { headers: { cookie: friend.cookieHeader } }),
     );
     expect(quoteRes.status).toBe(200);
     const quoteJson = (await quoteRes.json()) as {
       paymentMode: string;
+      speiReferenceCode: string;
       bank: { configured: boolean; clabe: string; clabeMasked: string };
       quotes: { monthly: { amountCentavosMxn: number; referralDiscountApplied: boolean } };
     };
     expect(quoteJson.paymentMode).toBe("transfer");
+    expect(quoteJson.speiReferenceCode).toMatch(
+      /^PL-INVITADOMX-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/,
+    );
     expect(quoteJson.bank.configured).toBe(true);
     expect(quoteJson.bank.clabe).toBe("000000000000000001");
     expect(quoteJson.quotes.monthly.amountCentavosMxn).toBe(20_900);
     expect(quoteJson.quotes.monthly.referralDiscountApplied).toBe(true);
 
-    // Crear solicitud mensual -> 201; duplicada pendiente -> 409
+    // Crear solicitud mensual -> 201 con la misma referencia única; duplicada pendiente -> 409
     const create1 = await postTransfers(
       jsonReq("/api/me/transfers", "POST", friend.cookieHeader, { planInterval: "monthly" }),
     );
     expect(create1.status).toBe(201);
-    const created1 = (await create1.json()) as { request: { id: string; referenceCode: string } };
-    expect(created1.request.referenceCode).toMatch(/^PL-/);
+    const created1 = (await create1.json()) as {
+      speiReferenceCode: string;
+      request: { id: string; referenceCode: string };
+    };
+    expect(created1.request.referenceCode).toBe(quoteJson.speiReferenceCode);
+    expect(created1.speiReferenceCode).toBe(quoteJson.speiReferenceCode);
 
     const createDup = await postTransfers(
       jsonReq("/api/me/transfers", "POST", friend.cookieHeader, { planInterval: "annual" }),
     );
     expect(createDup.status).toBe(409);
 
-    // Cancelar la primera y crear una nueva
+    // Cancelar la primera y crear una nueva -> conserva la misma referencia única
     const cancelRes = await deleteTransfer(
       new Request(`${ORIGIN}/api/me/transfers/${created1.request.id}`, {
         method: "DELETE",
@@ -321,7 +329,8 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       jsonReq("/api/me/transfers", "POST", friend.cookieHeader, { planInterval: "monthly" }),
     );
     expect(create2.status).toBe(201);
-    const created2 = (await create2.json()) as { request: { id: string } };
+    const created2 = (await create2.json()) as { request: { id: string; referenceCode: string } };
+    expect(created2.request.referenceCode).toBe(quoteJson.speiReferenceCode);
 
     // Capturar comprobante con monto distinto detecta amountMismatch
     const patchRes = await patchTransfer(
@@ -356,7 +365,7 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       true,
     );
 
-    // Socio crea tercera solicitud exacta y admin la aprueba
+    // Socio crea tercera solicitud exacta y admin la aprueba -> emite cupón de 1 uso con vigencia y envía correo desde noreply@pitchlab.mx
     const create3 = await postTransfers(
       jsonReq("/api/me/transfers", "POST", friend.cookieHeader, {
         planInterval: "monthly",
@@ -366,7 +375,8 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       }),
     );
     expect(create3.status).toBe(201);
-    const created3 = (await create3.json()) as { request: { id: string } };
+    const created3 = (await create3.json()) as { request: { id: string; referenceCode: string } };
+    expect(created3.request.referenceCode).toBe(quoteJson.speiReferenceCode);
 
     const adminList = await getAdminTransfers(
       new Request(`${ORIGIN}/api/admin/transfers?status=pending_review`, {
@@ -374,9 +384,13 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       }),
     );
     expect(adminList.status).toBe(200);
-    const adminListJson = (await adminList.json()) as { requests: Array<{ id: string }>; pendingCount: number };
+    const adminListJson = (await adminList.json()) as {
+      requests: Array<{ id: string; referenceCode: string }>;
+      pendingCount: number;
+    };
     expect(adminListJson.pendingCount).toBe(1);
     expect(adminListJson.requests[0]!.id).toBe(created3.request.id);
+    expect(adminListJson.requests[0]!.referenceCode).toBe(quoteJson.speiReferenceCode);
 
     const mailsBeforeApprove = sentEmails.length;
     const approve1 = await postAdminApproveTransfer(
@@ -390,11 +404,47 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     const approveJson1 = (await approve1.json()) as {
       ok: boolean;
       alreadyApproved: boolean;
-      newAccessUntilIso: string;
+      coupon: {
+        id: string;
+        code: string;
+        days: number;
+        maxRedemptions: number;
+        expiresAtIso: string | null;
+      };
     };
     expect(approveJson1.ok).toBe(true);
     expect(approveJson1.alreadyApproved).toBe(false);
-    expect(approveJson1.newAccessUntilIso).toBeTruthy();
+    expect(approveJson1.coupon.code).toMatch(
+      /^PL-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/,
+    );
+    expect(approveJson1.coupon.days).toBe(30);
+    expect(approveJson1.coupon.maxRedemptions).toBe(1);
+    expect(approveJson1.coupon.expiresAtIso).toBeTruthy();
+
+    const couponEmail = sentEmails.find(
+      (m) => m.to === friend.email && m.tags?.some((t) => t.value === "transfer_coupon"),
+    );
+    expect(couponEmail).toBeDefined();
+    expect(couponEmail?.from).toBe("PitchLab <noreply@pitchlab.mx>");
+    expect(couponEmail?.html).toContain(approveJson1.coupon.code);
+
+    // Antes de canjear el cupón, el plan sigue inactivo pero marca cupón pendiente de canje
+    const planBeforeRedeem = await getPlan(
+      new Request(`${ORIGIN}/api/me/plan`, { headers: { cookie: friend.cookieHeader } }),
+    );
+    const planBeforeJson = (await planBeforeRedeem.json()) as {
+      active: boolean;
+      speiReferenceCode: string;
+      latestApprovedTransfer: {
+        couponExpiresAtIso: string | null;
+        awaitingCouponRedemption: boolean;
+      } | null;
+    };
+    expect(planBeforeJson.active).toBe(false);
+    expect(planBeforeJson.speiReferenceCode).toBe(quoteJson.speiReferenceCode);
+    expect(planBeforeJson.latestApprovedTransfer?.awaitingCouponRedemption).toBe(true);
+    expect(planBeforeJson.latestApprovedTransfer?.couponExpiresAtIso).toBeTruthy();
+    expect("issuedCouponCode" in (planBeforeJson.latestApprovedTransfer ?? {})).toBe(false);
 
     // Segunda aprobación es idempotente y no vuelve a enviar correos
     const mailsAfterApprove = sentEmails.length;
@@ -410,19 +460,76 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     expect(((await approve2.json()) as { alreadyApproved: boolean }).alreadyApproved).toBe(true);
     expect(sentEmails.length).toBe(mailsAfterApprove);
 
-    // Ambos recibieron sus días y el socio ve plan activo + transferencia aprobada
+    // Otra cuenta (`host`) no puede previsualizar ni canjear el cupón personal de `friend`
+    const wrongPreview = await getCouponPreview(
+      new Request(`${ORIGIN}/api/me/coupons/preview?codigo=${approveJson1.coupon.code}`, {
+        headers: { cookie: host.cookieHeader },
+      }),
+    );
+    expect(await wrongPreview.json()).toMatchObject({
+      valid: false,
+      reason: "cuenta_distinta",
+    });
+
+    const wrongRedeem = await postRedeem(
+      jsonReq("/api/me/redeem", "POST", host.cookieHeader, { code: approveJson1.coupon.code }),
+    );
+    expect(wrongRedeem.status).toBe(403);
+    expect(await wrongRedeem.json()).toMatchObject({
+      ok: false,
+      reason: "cuenta_distinta",
+    });
+
+    // El titular (`friend`) ve preview válido de 1 solo uso y canjea -> activa suscripción y envía recibo desde noreply@pitchlab.mx
+    const ownerPreview = await getCouponPreview(
+      new Request(`${ORIGIN}/api/me/coupons/preview?codigo=${approveJson1.coupon.code}`, {
+        headers: { cookie: friend.cookieHeader },
+      }),
+    );
+    expect(await ownerPreview.json()).toMatchObject({
+      valid: true,
+      coupon: {
+        code: approveJson1.coupon.code,
+        days: 30,
+        maxRedemptions: 1,
+        isTransferCoupon: true,
+        isPersonal: true,
+      },
+    });
+
+    const redeemOk = await postRedeem(
+      jsonReq("/api/me/redeem", "POST", friend.cookieHeader, { code: approveJson1.coupon.code }),
+    );
+    expect(redeemOk.status).toBe(200);
+    expect(await redeemOk.json()).toMatchObject({
+      ok: true,
+      code: approveJson1.coupon.code,
+      days: 30,
+      transferActivated: true,
+    });
+
+    const receiptEmail = sentEmails.find(
+      (m) => m.to === friend.email && m.tags?.some((t) => t.value === "payment_receipt"),
+    );
+    expect(receiptEmail).toBeDefined();
+    expect(receiptEmail?.from).toBe("PitchLab <noreply@pitchlab.mx>");
+
+    // Ambos recibieron sus días y el socio ve plan activo + cupón ya canjeado
     const friendPlan = await getPlan(new Request(`${ORIGIN}/api/me/plan`, { headers: { cookie: friend.cookieHeader } }));
     const friendPlanJson = (await friendPlan.json()) as {
       active: boolean;
       planState: string;
       accessSourceKind: string;
       trialDaysRemaining: number;
+      latestApprovedTransfer: { awaitingCouponRedemption: boolean; couponRedeemedAtIso: string | null } | null;
       transferHistory: Array<{ status: string }>;
     };
     expect(friendPlanJson.active).toBe(true);
     expect(friendPlanJson.planState).toBe("mensual");
     expect(friendPlanJson.accessSourceKind).toBe("referral_friend_15d");
     expect(friendPlanJson.trialDaysRemaining).toBeGreaterThanOrEqual(30 + REFERRAL_REWARD_DAYS - 1);
+    expect(friendPlanJson.latestApprovedTransfer?.awaitingCouponRedemption).toBe(false);
+    expect(friendPlanJson.latestApprovedTransfer?.couponRedeemedAtIso).toBeTruthy();
     expect(friendPlanJson.transferHistory[0]?.status).toBe("approved");
 
     const hostPlan = await getPlan(new Request(`${ORIGIN}/api/me/plan`, { headers: { cookie: host.cookieHeader } }));
@@ -682,6 +789,13 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
       { params: Promise.resolve({ id: reqObj.id }) },
     );
     expect(appTr.status).toBe(200);
+    const appTrJson = (await appTr.json()) as { coupon: { code: string; days: number } };
+    expect(appTrJson.coupon.days).toBe(365);
+
+    const buyerRedeem = await postRedeem(
+      jsonReq("/api/me/redeem", "POST", buyer.cookieHeader, { code: appTrJson.coupon.code }),
+    );
+    expect(buyerRedeem.status).toBe(200);
 
     // Recordatorio anual (>28 días) quedó como pending en scheduled_emails
     const pendingAnnualEmails = await sharedDb

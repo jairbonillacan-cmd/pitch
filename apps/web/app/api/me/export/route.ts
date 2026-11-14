@@ -52,6 +52,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         avatarUrl: users.avatarUrl,
         xUsername: users.xUsername,
         referralCode: users.referralCode,
+        speiReferenceCode: users.speiReferenceCode,
         isAmbassador: users.isAmbassador,
         isAdult: users.isAdult,
         publicProfile: users.publicProfile,

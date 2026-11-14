@@ -1,11 +1,12 @@
 /**
- * Despacho de correos para el ciclo de transferencia SPEI, aprobaciones, rechazos y
- * liquidaciones manuales a tipsters (Beta 1.0).
+ * Despacho de correos para el ciclo de transferencia SPEI, cupones de acceso, rechazos y
+ * liquidaciones manuales a tipsters (COBRO-SPEI-2).
  *
- * Respeta el límite máximo de 30 días de `scheduledAt` en Resend usando una ventana de
- * 28 días: cualquier recordatorio más lejano (ej. pase anual a 365 días) queda en
- * `scheduled_emails` con estado `pending` y el cron diario `/api/cron/tipster-payouts`
- * lo programa o envía en cuanto entra en ventana.
+ * - Al confirmar el pago SPEI en `/app/admin`, se envía el cupón personal de un solo uso con
+ *   vigencia desde `noreply@pitchlab.mx` (`sendTransferApprovedEmails`).
+ * - Al canjear ese cupón en `/canjear` (`POST /api/me/redeem`), se envía el recibo de activación,
+ *   se programan los avisos de renovación/vencimiento (respetando la ventana de 28 días de Resend)
+ *   y se notifican recompensas de referidos y comisiones de tipster (`sendTransferRedeemedEmails`).
  */
 import {
   accessUntil,
@@ -19,13 +20,15 @@ import {
   releaseEmail,
   tipsterAttributions,
   tipsterProfiles,
+  TRANSFER_COUPON_VALIDITY_DAYS,
   users,
+  type ActivatedTransferPayment,
   type ApproveTransferResult,
   type Db,
   type RejectTransferResult,
   type ScheduledEmailKind,
 } from "@pitchlab/db";
-import { renderEmail, siteUrl } from "@pitchlab/emails";
+import { noreplySender, renderEmail, siteUrl } from "@pitchlab/emails";
 import { MEMBERSHIP_SPEC } from "@pitchlab/ui";
 import { cancelTrialEmails } from "./account-emails";
 import { firstName, formatLongDate } from "./email-format";
@@ -75,6 +78,7 @@ async function reserveOrScheduleEmail(
     cycleKey: string;
     sendAt: Date;
     now: Date;
+    from?: string;
     build: () => Promise<{ subject: string; html: string; text: string }>;
   },
 ): Promise<void> {
@@ -97,6 +101,7 @@ async function reserveOrScheduleEmail(
     const { subject, html, text } = await input.build();
     const shouldSchedule = deltaMs > SCHEDULE_THRESHOLD_MS;
     const { id } = await mailer.send({
+      ...(input.from ? { from: input.from } : {}),
       to: input.email,
       subject,
       html,
@@ -112,14 +117,68 @@ async function reserveOrScheduleEmail(
   }
 }
 
+/**
+ * Paso 3 del flujo SPEI: al confirmar el pago en la consola, envía al socio su cupón personal de un
+ * solo uso con vigencia desde `noreply@pitchlab.mx` para que lo canjee en `/canjear`.
+ */
 export async function sendTransferApprovedEmails(
-  db: Db,
+  _db: Db,
   mailer: Mailer,
   approved: Extract<ApproveTransferResult, { ok: true }>,
   now: Date,
 ): Promise<void> {
   if (approved.alreadyApproved) return;
-  const { request, user, newAccessUntil, paidEffects } = approved;
+  const { request, coupon, user } = approved;
+  const baseUrl = siteUrl();
+  const planName =
+    request.planInterval === "annual"
+      ? `${MEMBERSHIP_SPEC.name} anual`
+      : `${MEMBERSHIP_SPEC.name} mensual`;
+  const amountLabel = formatMxnAmountLabel(request.amountCentavosMxn);
+  const expiresAt =
+    coupon.expiresAt ?? new Date(now.getTime() + TRANSFER_COUPON_VALIDITY_DAYS * DAY_MS);
+
+  try {
+    const rendered = await renderEmail("transfer-coupon", {
+      name: firstName(user.displayName),
+      planName,
+      amountLabel,
+      referenceCode: request.referenceCode,
+      couponCode: coupon.code,
+      days: coupon.days,
+      expiresOn: formatLongDate(expiresAt, true),
+      redeemUrl: `${baseUrl}/canjear?codigo=${encodeURIComponent(coupon.code)}`,
+    });
+
+    await mailer.send({
+      from: noreplySender(),
+      to: user.email,
+      subject: rendered.subject,
+      html: rendered.html,
+      text: rendered.text,
+      idempotencyKey: `transfer-coupon:${request.id}`,
+      tags: [{ name: "tipo", value: "transfer_coupon" }],
+    });
+  } catch (error) {
+    console.error("[correo] error enviando cupón de transferencia SPEI:", error);
+  }
+}
+
+/**
+ * Paso 4 del flujo SPEI: cuando el socio canjea en `/canjear` el cupón de su transferencia,
+ * emite el recibo de activación, programa recordatorios de vencimiento y notifica a referidos/tipsters.
+ */
+export async function sendTransferRedeemedEmails(
+  db: Db,
+  mailer: Mailer,
+  input: {
+    activated: ActivatedTransferPayment;
+    newAccessUntil: Date | null;
+    now: Date;
+  },
+): Promise<void> {
+  const { activated, newAccessUntil, now } = input;
+  const { request, paidEffects, user } = activated;
   const baseUrl = siteUrl();
   const planName =
     request.planInterval === "annual"
@@ -129,12 +188,14 @@ export async function sendTransferApprovedEmails(
   const name = firstName(user.displayName);
   const cycleKey = `transfer:${request.id}`;
 
-  // 1. Cancelar avisos de prueba y ciclos previos antes de emitir los del nuevo ciclo.
+  // 1. Cancelar avisos de prueba y ciclos previos antes de emitir los del nuevo ciclo activo.
   await cancelTrialEmails(db, mailer, user.id);
   await cancelPreviousCycleEmails(db, mailer, user.id);
 
-  // 2. Recibo inmediato.
-  const endsAt = newAccessUntil ?? new Date(now.getTime() + (request.planInterval === "annual" ? 365 : 30) * DAY_MS);
+  // 2. Recibo de activación.
+  const endsAt =
+    newAccessUntil ??
+    new Date(now.getTime() + (request.planInterval === "annual" ? 365 : 30) * DAY_MS);
   await reserveOrScheduleEmail(db, mailer, {
     userId: user.id,
     email: user.email,
@@ -142,6 +203,7 @@ export async function sendTransferApprovedEmails(
     cycleKey,
     sendAt: now,
     now,
+    from: noreplySender(),
     build: () =>
       renderEmail("payment-receipt", {
         name,
@@ -149,7 +211,7 @@ export async function sendTransferApprovedEmails(
         amountLabel,
         paidOn: formatLongDate(now, true),
         periodLabel: formatPeriodRange(now, endsAt),
-        paymentMethodLabel: "Transferencia SPEI",
+        paymentMethodLabel: "Transferencia SPEI + cupón",
         referenceCode: request.referenceCode,
         receiptUrl: `${baseUrl}/app/account?tab=plan`,
       }),
@@ -175,7 +237,7 @@ export async function sendTransferApprovedEmails(
             request.planInterval === "annual" ? 239_000 : 29_900,
           ),
           paymentMode: "transfer",
-          manageUrl: `${baseUrl}/app/account?tab=plan`,
+          manageUrl: `${baseUrl}/precio#transferencia`,
         }),
     });
   }
@@ -193,7 +255,7 @@ export async function sendTransferApprovedEmails(
         name,
         planName,
         paymentMode: "transfer",
-        updateCardUrl: `${baseUrl}/app/account?tab=plan`,
+        updateCardUrl: `${baseUrl}/precio#transferencia`,
       }),
   });
 
@@ -203,7 +265,8 @@ export async function sendTransferApprovedEmails(
       const ref = await lookupReferrerByReferredUserId(db, user.id);
       if (ref) {
         const refUntil = await accessUntil(db, ref.referrerUserId, now);
-        const friendLabel = firstName(user.displayName) ?? (user.handle ? `@${user.handle}` : "tu invitado");
+        const friendLabel =
+          firstName(user.displayName) ?? (user.handle ? `@${user.handle}` : "tu invitado");
         const rewarded = await renderEmail("referral-rewarded", {
           name: firstName(ref.referrerName),
           friendName: friendLabel,
@@ -256,7 +319,9 @@ export async function sendTransferApprovedEmails(
         .from(tipsterAttributions)
         .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterAttributions.tipsterUserId))
         .innerJoin(users, eq(users.id, tipsterProfiles.userId))
-        .where(and(eq(tipsterAttributions.referredUserId, user.id), eq(tipsterProfiles.isActive, true)))
+        .where(
+          and(eq(tipsterAttributions.referredUserId, user.id), eq(tipsterProfiles.isActive, true)),
+        )
         .limit(1);
 
       if (tip) {
@@ -302,9 +367,10 @@ export async function sendTransferRejectedEmail(
       amountLabel: formatMxnAmountLabel(request.amountCentavosMxn),
       referenceCode: request.referenceCode,
       reason: request.rejectionReason ?? "No pudimos verificar el movimiento.",
-      retryUrl: `${siteUrl()}/app/account?tab=plan`,
+      retryUrl: `${siteUrl()}/precio#transferencia`,
     });
     await mailer.send({
+      from: noreplySender(),
       to: user.email,
       subject: rendered.subject,
       html: rendered.html,
@@ -380,14 +446,14 @@ export async function dispatchDueScheduledEmails(
           renewsOn: formatLongDate(targetDate, true),
           amountLabel: formatMxnAmountLabel(MEMBERSHIP_SPEC.monthlyMxn * 100),
           paymentMode: mode,
-          manageUrl: `${baseUrl}/app/account?tab=plan`,
+          manageUrl: `${baseUrl}/precio#transferencia`,
         });
       } else if (row.kind === "access_expired") {
         rendered = await renderEmail("access-expired", {
           name,
           planName: MEMBERSHIP_SPEC.name,
           paymentMode: mode,
-          updateCardUrl: `${baseUrl}/app/account?tab=plan`,
+          updateCardUrl: `${baseUrl}/precio#transferencia`,
         });
       }
 
