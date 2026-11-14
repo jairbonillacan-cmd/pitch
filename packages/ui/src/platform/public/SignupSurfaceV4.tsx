@@ -18,9 +18,22 @@ import {
   type EmailConfirmationStep,
 } from "./email-confirmation";
 
-import { normalizeSignupHandle, SIGNUP_HANDLE_PATTERN, useHandleAvailability } from "./use-handle-availability";
+import {
+  buildLocalHandleSuggestions,
+  handleSuggestionQueryFromBases,
+  normalizeSignupHandle,
+  SIGNUP_HANDLE_PATTERN,
+  useHandleAvailability,
+  useHandleSuggestions,
+} from "./use-handle-availability";
 
-export { normalizeSignupHandle, SIGNUP_HANDLE_PATTERN, type HandleStatus } from "./use-handle-availability";
+export {
+  buildLocalHandleSuggestions,
+  handleSuggestionQueryFromBases,
+  normalizeSignupHandle,
+  SIGNUP_HANDLE_PATTERN,
+  type HandleStatus,
+} from "./use-handle-availability";
 
 export type SignupStep = "method" | "details" | EmailConfirmationStep;
 
@@ -340,6 +353,7 @@ export function SignupSurfaceV4({
     dobHint: `${uid}-dob-hint`,
     nameError: `${uid}-name-error`,
     handleHint: `${uid}-handle-hint`,
+    handleSuggestionsLabel: `${uid}-handle-suggestions`,
     dobError: `${uid}-dob-error`,
   };
 
@@ -363,6 +377,12 @@ export function SignupSurfaceV4({
   const [handle, setHandle] = useState(initialHandle);
   const [handleTouched, setHandleTouched] = useState(Boolean(initialHandle));
   const handleStatus = useHandleAvailability(handle, accountsEnabled);
+  const handleSuggestions = useHandleSuggestions({
+    name: displayName,
+    email,
+    accountsEnabled,
+    enabled: step === "details",
+  });
   const [nameError, setNameError] = useState("");
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
@@ -377,6 +397,7 @@ export function SignupSurfaceV4({
   const [resendNotice, setResendNotice] = useState("");
 
   const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const handleInputRef = useRef<HTMLInputElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const didMountRef = useRef(false);
 
@@ -894,6 +915,7 @@ export function SignupSurfaceV4({
                         Usuario
                       </label>
                       <input
+                        ref={handleInputRef}
                         id="auth-handle"
                         name="username"
                         type="text"
@@ -918,6 +940,43 @@ export function SignupSurfaceV4({
                         ) : (
                           <p className="pl-auth-fineprint pl-auth-fineprint--left">{handleMessage}</p>
                         )}
+                      </div>
+                      <div
+                        className="pl-handle-suggestions"
+                        role="group"
+                        aria-labelledby={ids.handleSuggestionsLabel}
+                      >
+                        <p id={ids.handleSuggestionsLabel} className="pl-handle-suggestions-label">
+                          {handleSuggestions.loading && handleSuggestions.suggestions.length === 0
+                            ? "Buscando usuarios libres…"
+                            : handleSuggestions.error
+                              ? "Sugerencias calculadas en tu navegador (sin verificar ahorita):"
+                              : !accountsEnabled
+                                ? "Sugerencias calculadas aquí (sin verificar disponibilidad):"
+                                : handleSuggestions.suggestions.length > 0
+                                  ? "Sugerencias libres para usar:"
+                                  : "Sin sugerencias disponibles ahorita; escribe el usuario que prefieras arriba."}
+                        </p>
+                        {handleSuggestions.suggestions.length > 0 ? (
+                          <div className="pl-handle-chips">
+                            {handleSuggestions.suggestions.map((candidate) => (
+                              <button
+                                key={candidate}
+                                type="button"
+                                className="pl-handle-chip"
+                                aria-pressed={shownHandle === candidate}
+                                onClick={() => {
+                                  setHandleTouched(true);
+                                  setHandle(candidate);
+                                  handleInputRef.current?.focus();
+                                }}
+                              >
+                                <span className="pl-handle-chip-verb">Usar </span>
+                                <span className="pl-handle-chip-handle">@{candidate}</span>
+                              </button>
+                            ))}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
 

@@ -3,7 +3,7 @@
  * referido y la prueba de 7 días sin tarjeta (Mes 1), con el escudo de un solo correo por prueba.
  */
 import { createHash } from "node:crypto";
-import { and, countDistinct, eq, gte, isNotNull, ne, sql } from "drizzle-orm";
+import { and, countDistinct, eq, gte, inArray, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
 import { referralGrants, tipsterAttributions, tipsterProfiles, trialFingerprints, users } from "./schema";
 
@@ -79,6 +79,144 @@ export async function suggestHandle(db: Db, base: string): Promise<string> {
     if (checkHandleFormat(candidate).ok && (await isHandleAvailable(db, candidate))) return candidate;
   }
   return `${stem.slice(0, 12)}${Math.floor(1000 + Math.random() * 9000)}`;
+}
+
+function cleanHandleToken(raw: string): string {
+  return raw.replace(/[^a-z0-9]/g, "");
+}
+
+function addCandidate(list: string[], seen: Set<string>, raw: string): void {
+  const clean = raw
+    .replace(/[^a-z0-9_]+/g, "_")
+    .replace(/^[^a-z]+/, "")
+    .replace(/_+/g, "_")
+    .replace(/_+$/, "")
+    .slice(0, 20);
+  if (!clean || seen.has(clean)) return;
+  if (!checkHandleFormat(clean).ok) return;
+  seen.add(clean);
+  list.push(clean);
+}
+
+/**
+ * Genera una lista ordenada de candidatos válidos para `@usuario` (sin consultar BD):
+ * combina nombre, nombre+apellido, inicial+apellido, variantes compactas y sufijos numéricos.
+ */
+export function buildHandleCandidates(bases: readonly string[], limit = 24): string[] {
+  const max = Math.max(1, Math.min(60, Math.floor(limit)));
+  const primary: string[] = [];
+  const seen = new Set<string>();
+  const fallbackStems: string[] = [];
+
+  for (const rawBase of bases) {
+    const trimmed = rawBase.trim();
+    if (!trimmed) continue;
+    // En correos tomamos solo la parte local sin +etiqueta para nunca filtrar dominios en sugerencias.
+    const local = trimmed.includes("@") ? (trimmed.split("@")[0] ?? "").split("+")[0] ?? "" : trimmed;
+    const ascii = local.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+    const tokens = ascii.split(/[^a-z0-9]+/).map(cleanHandleToken).filter(Boolean);
+    if (tokens.length === 0) continue;
+
+    const first = tokens[0] ?? "";
+    const last = tokens[tokens.length - 1] ?? "";
+    const letterFirst = first.replace(/^[^a-z]+/, "");
+    const letterLast = last.replace(/^[^a-z]+/, "");
+
+    if (tokens.length >= 2 && letterFirst.length > 0 && letterLast.length > 0) {
+      addCandidate(primary, seen, `${letterFirst}_${letterLast}`);
+      if (letterFirst.length >= 3) addCandidate(primary, seen, letterFirst);
+      addCandidate(primary, seen, `${letterFirst[0]}_${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst}${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst[0]}${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst}_${letterLast[0]}`);
+    } else if (tokens.length === 1) {
+      if (letterFirst.length >= 3) {
+        addCandidate(primary, seen, letterFirst);
+      } else {
+        fallbackStems.push(`socio${tokens[0] ?? ""}`);
+      }
+    } else {
+      const joined = tokens.join("_").replace(/^[^a-z]+/, "");
+      fallbackStems.push(joined.length >= 3 ? joined : `socio${tokens.join("")}`);
+    }
+    if (primary.length >= max) break;
+  }
+
+  if (primary.length === 0) {
+    for (const stem of fallbackStems) {
+      if (primary.length >= max) break;
+      addCandidate(primary, seen, stem);
+    }
+  }
+  if (primary.length === 0) {
+    addCandidate(primary, seen, "socio");
+  }
+
+  const result = [...primary];
+  const suffixBases = primary.slice(0, 4);
+  for (let num = 2; num <= 25 && result.length < max; num += 1) {
+    const suffix = String(num);
+    for (const stem of suffixBases) {
+      if (result.length >= max) break;
+      const head = stem.slice(0, 20 - suffix.length).replace(/_+$/, "");
+      addCandidate(result, seen, `${head}${suffix}`);
+    }
+  }
+
+  return result.slice(0, max);
+}
+
+/**
+ * Devuelve hasta `count` `@usuario` distintos, válidos y libres para proponer en el registro.
+ */
+export async function suggestHandles(
+  db: Db,
+  bases: readonly string[],
+  count = 3,
+  options?: { exceptUserId?: string },
+): Promise<string[]> {
+  const target = Math.floor(count);
+  if (target <= 0) return [];
+  const capped = Math.min(10, target);
+  const candidates = buildHandleCandidates(bases, Math.max(24, capped * 8));
+
+  const takenRows =
+    candidates.length > 0
+      ? await db
+          .select({ handle: users.handle })
+          .from(users)
+          .where(
+            options?.exceptUserId
+              ? and(inArray(users.handle, candidates), ne(users.id, options.exceptUserId))
+              : inArray(users.handle, candidates),
+          )
+      : [];
+  const taken = new Set(takenRows.map((row) => row.handle).filter((h): h is string => Boolean(h)));
+
+  const chosen: string[] = [];
+  const pickedSet = new Set<string>();
+  for (const candidate of candidates) {
+    if (!taken.has(candidate) && !pickedSet.has(candidate)) {
+      chosen.push(candidate);
+      pickedSet.add(candidate);
+      if (chosen.length >= capped) return chosen;
+    }
+  }
+
+  // Respaldo aleatorio si todos los sufijos cortos ya estaban tomados.
+  const baseStem = (candidates[0] ?? "socio").slice(0, 12).replace(/_+$/, "") || "socio";
+  for (let attempt = 0; attempt < 24 && chosen.length < capped; attempt += 1) {
+    const candidate = `${baseStem}${Math.floor(1000 + Math.random() * 9000)}`;
+    if (
+      !pickedSet.has(candidate) &&
+      checkHandleFormat(candidate).ok &&
+      (await isHandleAvailable(db, candidate, options?.exceptUserId))
+    ) {
+      chosen.push(candidate);
+      pickedSet.add(candidate);
+    }
+  }
+  return chosen;
 }
 
 /** Nombre visible: 2 a 40 caracteres, sin saltos de línea. */

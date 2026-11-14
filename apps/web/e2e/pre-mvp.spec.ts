@@ -378,6 +378,18 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("body")).toContainText("juanperez@gmail.com");
     await expect(page.getByRole("button", { name: "Crear cuenta" })).toBeDisabled();
 
+    // Chips de usuario sugerido en paso 2 (7/7): llena el campo, conserva foco y sigue editable.
+    await page.locator("#auth-name").fill("Juan Pérez");
+    const chipGroup = page.getByRole("group", { name: /Sugerencias/i });
+    await expect(chipGroup).toBeVisible();
+    const chipButtons = chipGroup.getByRole("button", { name: /^Usar @/ });
+    await expect(chipButtons).toHaveCount(3);
+    await page.getByRole("button", { name: "Usar @j_perez" }).click();
+    await expect(page.locator("#auth-handle")).toHaveValue("j_perez");
+    await expect(page.locator("#auth-handle")).toBeFocused();
+    await page.locator("#auth-handle").fill("j_perez_mx");
+    await expect(page.locator("#auth-handle")).toHaveValue("j_perez_mx");
+
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `signup-${testInfo.project.name}-dark.png`),
     });

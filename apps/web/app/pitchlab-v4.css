@@ -7285,9 +7285,81 @@ html[data-theme="light"] .pl-stage.pl-auth,
   }
 }
 
+.pl-handle-suggestions {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-handle-suggestions-label {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--pl-text-secondary);
+}
+
+.pl-handle-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pl-handle-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border-strong);
+  background: var(--pl-auth-field);
+  color: var(--pl-text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.25;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.pl-handle-chip:hover {
+  background: var(--pl-auth-field-hover);
+  border-color: var(--pl-pill-brand-border);
+}
+
+.pl-handle-chip[aria-pressed="true"] {
+  border-color: var(--pl-pill-brand-border);
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
+}
+
+.pl-handle-chip:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-handle-chip-verb {
+  color: var(--pl-text-secondary);
+  font-weight: 400;
+}
+
+.pl-handle-chip[aria-pressed="true"] .pl-handle-chip-verb {
+  color: var(--pl-pill-brand-fg);
+}
+
+.pl-handle-chip-handle {
+  font-weight: 600;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pl-auth-check input,
-  .pl-auth-step {
+  .pl-auth-step,
+  .pl-handle-chip {
     transition: none;
   }
 }

@@ -200,3 +200,23 @@ export const RegistroVencidoOscuro = {
 export const RegistroVencidoClaro = {
   render: () => <ConfirmationStory theme="light" mode="signup" step="expired" />,
 };
+
+function SignupStep2SuggestionsStory({ theme }: { theme: "dark" | "light" }) {
+  return (
+    <LoginStoryFrame theme={theme} accountsEnabled={false}>
+      <SignupSurfaceV4
+        initialStep="details"
+        initialDisplayName="Ana López"
+        initialEmail="ana.lopez@ejemplo.mx"
+      />
+    </LoginStoryFrame>
+  );
+}
+
+export const RegistroPaso2SugerenciasOscuro = {
+  render: () => <SignupStep2SuggestionsStory theme="dark" />,
+};
+
+export const RegistroPaso2SugerenciasClaro = {
+  render: () => <SignupStep2SuggestionsStory theme="light" />,
+};
