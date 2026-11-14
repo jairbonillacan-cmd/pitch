@@ -8,7 +8,7 @@ import {
   buildOfficialDailyParlay,
   DAILY_PARLAY_STYLE_SPECS,
   DAILY_PARLAY_STYLES,
-  resolveOfficialParlayDay,
+  pickOfficialParlayDay,
 } from "../../daily-parlay";
 import { usePlatform } from "../../platform-provider";
 import type { PlatformGame, RiskBand } from "../../types";
@@ -30,8 +30,8 @@ export function OfficialDailyParlayCard({
   const [selectedRisk, setSelectedRisk] = useState<RiskBand>(riskPreference);
 
   const officialDay = useMemo(
-    () => resolveOfficialParlayDay(games, selectedDay, today),
-    [games, selectedDay, today],
+    () => pickOfficialParlayDay(games, selectedDay, today, selectedRisk, viewerRole),
+    [games, selectedDay, today, selectedRisk, viewerRole],
   );
 
   const parlaysByRisk = useMemo(() => {
@@ -41,24 +41,21 @@ export function OfficialDailyParlayCard({
         games,
         risk: "conservador",
         viewerRole,
-        allowFinished: isPastDay,
       }),
       medio: buildOfficialDailyParlay({
         dayId: officialDay,
         games,
         risk: "medio",
         viewerRole,
-        allowFinished: isPastDay,
       }),
       arriesgado: buildOfficialDailyParlay({
         dayId: officialDay,
         games,
         risk: "arriesgado",
         viewerRole,
-        allowFinished: isPastDay,
       }),
     } as const;
-  }, [officialDay, games, viewerRole, isPastDay]);
+  }, [officialDay, games, viewerRole]);
 
   const active = parlaysByRisk[selectedRisk];
   const spec = DAILY_PARLAY_STYLE_SPECS[selectedRisk];
@@ -80,7 +77,9 @@ export function OfficialDailyParlayCard({
     return "pending" as const;
   }, [isPastDay, active]);
 
-  const hasOpenLegs = active.legs.some((l) => l.pick.gameStatus !== "FT");
+  // Solo se cargan al boleto las selecciones de partidos que no han empezado.
+  const openPicks = active.legs.map((l) => l.pick).filter((pick) => pick.gameStatus === "NS");
+  const hasOpenLegs = openPicks.length > 0;
 
   return (
     <section
@@ -205,13 +204,7 @@ export function OfficialDailyParlayCard({
                 className="pl-btn-primary min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
                 data-load-daily-parlay=""
                 onClick={() =>
-                  loadParlayPicks(
-                    active.legs.map((l) => l.pick),
-                    {
-                      allowSgp: false,
-                      toastText: `Parlay del día (${spec.label}) cargado con ${active.legs.length} selecciones.`,
-                    },
-                  )
+                  loadParlayPicks(openPicks, { allowSgp: false, label: `Parlay del día (${spec.label})` })
                 }
               >
                 <MaestroIcon name="layers" size={14} />
@@ -221,13 +214,7 @@ export function OfficialDailyParlayCard({
                 type="button"
                 className="pl-btn-glass min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
                 onClick={() => {
-                  loadParlayPicks(
-                    active.legs.map((l) => l.pick),
-                    {
-                      allowSgp: false,
-                      toastText: `Parlay del día (${spec.label}) cargado.`,
-                    },
-                  );
+                  loadParlayPicks(openPicks, { allowSgp: false, label: `Parlay del día (${spec.label})` });
                   navigateTo("/app/parlays");
                 }}
               >

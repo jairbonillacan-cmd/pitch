@@ -302,9 +302,10 @@ export interface PlatformContextValue {
     /** Partidos de donde elegir (p. ej. los días que ve el Inicio); sin él, toda la jornada. */
     games?: readonly PlatformGame[];
   }) => number;
+  /** Reemplaza el boleto por estas selecciones (las incompatibles se omiten); devuelve cuántas entraron. */
   loadParlayPicks: (
     picks: readonly MatchPick[],
-    options?: { allowSgp?: boolean; toastText?: string },
+    options?: { allowSgp?: boolean; label?: string },
   ) => number;
 
   journal: JournalEntry[];
@@ -1043,10 +1044,9 @@ export function PlatformProvider({
   const loadParlayPicks = useCallback(
     (
       picks: readonly MatchPick[],
-      options?: { allowSgp?: boolean; toastText?: string },
+      options?: { allowSgp?: boolean; label?: string },
     ): number => {
       const nextAllowSgp = options?.allowSgp ?? false;
-      setAllowSgp(nextAllowSgp);
       const accepted: ParlayLeg[] = [];
       for (const pick of picks) {
         if (checkParlayCompatibility(accepted, pick, nextAllowSgp).allowed) {
@@ -1054,9 +1054,14 @@ export function PlatformProvider({
         }
       }
       if (accepted.length > 0) {
+        const replaced = parlayLegs.length > 0;
+        setAllowSgp(nextAllowSgp);
         setParlayLegs(accepted);
+        const skipped = picks.length - accepted.length;
         pushToast(
-          options?.toastText ?? `Parlay cargado con ${accepted.length} selecciones.`,
+          `${options?.label ?? "Parlay"} cargado con ${accepted.length} ${accepted.length === 1 ? "selección" : "selecciones"}` +
+            (skipped > 0 ? ` (${skipped} ya no se podían agregar)` : "") +
+            (replaced ? ". Reemplazó tu boleto anterior." : "."),
           "success",
         );
       } else {
@@ -1067,7 +1072,7 @@ export function PlatformProvider({
       }
       return accepted.length;
     },
-    [pushToast],
+    [parlayLegs.length, pushToast],
   );
 
   const sealPickToJournal = useCallback(

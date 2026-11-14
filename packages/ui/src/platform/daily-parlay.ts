@@ -210,6 +210,29 @@ function canAddSinglePerGame(selected: readonly ParlayLeg[], candidate: MatchPic
 }
 
 /**
+ * Día del Parlay oficial en «Próximos 7 días»: el primer día con partidos por jugar en el que
+ * el estilo elegido sí reúne sus selecciones. Si ninguno alcanza, el primer día con partidos.
+ * Con un día elegido en la barra se respeta ese día.
+ */
+export function pickOfficialParlayDay(
+  games: readonly PlatformGame[],
+  selectedDay: string,
+  today: string,
+  risk: RiskBand,
+  viewerRole: ViewerRole = "member",
+): string {
+  const fallback = resolveOfficialParlayDay(games, selectedDay, today);
+  if (selectedDay !== UPCOMING) return fallback;
+  const openDays = Array.from(
+    new Set(games.filter((g) => g.status === "NS" && g.dayId >= today).map((g) => g.dayId)),
+  ).sort();
+  return (
+    openDays.find((dayId) => buildOfficialDailyParlay({ dayId, games, risk, viewerRole }).status === "ready") ??
+    fallback
+  );
+}
+
+/**
  * Determina el `dayId` (`YYYY-MM-DD`) activo para mostrar el Parlay oficial del día en Inicio:
  * - Si el socio eligió un día específico en la barra, usa ese día.
  * - Si eligió «Próximos 7 días», prioriza `today` si tiene partidos abiertos; si no, el próximo día con partidos abiertos.
@@ -243,25 +266,22 @@ export function resolveOfficialParlayDay(
 /**
  * Parlay oficial del día (determinista): mismo `dayId`, mismos partidos y mismo estilo
  * siempre producen exactamente las mismas selecciones y momio justo.
+ *
+ * Se arma con todos los partidos del día, sin importar si ya empezaron o terminaron, y con
+ * la regla de un pick por partido: así el parlay que se ve en la mañana es el mismo que se
+ * ve en la tarde y el mismo que se califica en Resultados.
  */
 export function buildOfficialDailyParlay(options: {
   dayId: string;
   games: readonly PlatformGame[];
   risk: RiskBand;
   viewerRole?: ViewerRole;
-  allowFinished?: boolean;
 }): DailyParlayResult {
-  const {
-    dayId,
-    games,
-    risk,
-    viewerRole = "member",
-    allowFinished = false,
-  } = options;
+  const { dayId, games, risk, viewerRole = "member" } = options;
   const spec = DAILY_PARLAY_STYLE_SPECS[risk];
 
   const dayGames = games
-    .filter((g) => g.dayId === dayId && (allowFinished || g.status !== "FT"))
+    .filter((g) => g.dayId === dayId)
     .slice()
     .sort((a, b) => a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id));
 
@@ -287,10 +307,7 @@ export function buildOfficialDailyParlay(options: {
   const legs: ParlayLeg[] = [];
   for (const item of candidates) {
     if (legs.length >= spec.maxLegs) break;
-    const compatOk = allowFinished
-      ? canAddSinglePerGame(legs, item.pick)
-      : checkParlayCompatibility(legs, item.pick, false).allowed;
-    if (compatOk) {
+    if (canAddSinglePerGame(legs, item.pick)) {
       legs.push({ pick: item.pick });
     }
   }
@@ -365,7 +382,6 @@ export function gradeOfficialDailyParlays(
         games: dayGames,
         risk,
         viewerRole: "member",
-        allowFinished: true,
       });
 
       if (parlay.status !== "ready" || parlay.legs.length === 0) {

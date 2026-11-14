@@ -77,13 +77,7 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
     if (preview.legs.length === 0) return;
     loadParlayPicks(
       preview.legs.map((l) => l.pick),
-      {
-        allowSgp: false,
-        toastText:
-          preview.status === "partial"
-            ? `Parlay personal armado con ${preview.legs.length} de ${legCount} selecciones disponibles.`
-            : `Parlay personal (${DAILY_PARLAY_STYLE_SPECS[risk].label}) cargado con ${preview.legs.length} selecciones.`,
-      },
+      { allowSgp: false, label: `Parlay personal (${DAILY_PARLAY_STYLE_SPECS[risk].label})` },
     );
   };
 

@@ -311,6 +311,23 @@ describe("Parlay oficial del día y generador personal (Punto 4)", () => {
     }
   });
 
+  it("no cambia cuando partidos del día empiezan o terminan: es el mismo que se califica", () => {
+    const dataset = buildTestDataset();
+    const dayGames = dataset.games.filter((g) => g.dayId === "2026-11-14");
+    const [first] = [...dayGames].sort((x, y) => x.kickoffUtc.localeCompare(y.kickoffUtc));
+    const finishedFirst = dataset.games.map((g) =>
+      g.id === first!.id ? { ...g, status: "FT" as const, score: { home: 2, away: 0 } } : g,
+    );
+    for (const risk of ["conservador", "medio", "arriesgado"] as const) {
+      const morning = buildOfficialDailyParlay({ dayId: "2026-11-14", games: dataset.games, risk });
+      const afternoon = buildOfficialDailyParlay({ dayId: "2026-11-14", games: finishedFirst, risk });
+      expect(afternoon.legs.map((l) => l.pick.id)).toEqual(morning.legs.map((l) => l.pick.id));
+      const graded = gradeOfficialDailyParlays(finishedFirst).find((d) => d.dayId === "2026-11-14");
+      const entry = graded?.entries.find((e) => e.risk === risk);
+      expect(entry?.parlay.legs.map((l) => l.pick.id)).toEqual(morning.legs.map((l) => l.pick.id));
+    }
+  });
+
   it("respeta umbrales de probabilidad, número de selecciones, 1 pick por partido y 1/p", () => {
     const dataset = buildTestDataset();
 

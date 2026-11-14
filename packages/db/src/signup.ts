@@ -187,11 +187,13 @@ export async function suggestHandles(
           .from(users)
           .where(
             options?.exceptUserId
-              ? and(inArray(users.handle, candidates), ne(users.id, options.exceptUserId))
-              : inArray(users.handle, candidates),
+              ? and(inArray(sql`lower(${users.handle})`, candidates), ne(users.id, options.exceptUserId))
+              : inArray(sql`lower(${users.handle})`, candidates),
           )
       : [];
-  const taken = new Set(takenRows.map((row) => row.handle).filter((h): h is string => Boolean(h)));
+  const taken = new Set(
+    takenRows.map((row) => row.handle?.toLowerCase()).filter((h): h is string => Boolean(h)),
+  );
 
   const chosen: string[] = [];
   const pickedSet = new Set<string>();
