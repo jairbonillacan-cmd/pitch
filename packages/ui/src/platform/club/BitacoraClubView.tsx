@@ -330,7 +330,7 @@ export function BitacoraClubView({
                 <div>
                   <span className="pl-pill pl-pill--brand">
                     <MaestroIcon name="ticket" size={13} />
-                    <span>Sellado antes del partido · CLV automático</span>
+                    <span>Sellado antes del partido</span>
                   </span>
                 </div>
                 <h1 className="pl-rec-title">Mi récord</h1>
@@ -357,7 +357,7 @@ export function BitacoraClubView({
                       leagueLabel: "Mi récord",
                       pickLabel: `${stats.won}G-${stats.lost}P · ${formatSignedUnits(stats.netUnits)}${
                         stats.avgClvPct !== null
-                          ? ` · CLV ${formatSignedPctValue(stats.avgClvPct)}`
+                          ? ` · Ventaja ${formatSignedPctValue(stats.avgClvPct)}`
                           : ""
                       }`,
                       probability: Math.max(
@@ -438,7 +438,7 @@ export function BitacoraClubView({
 
               <div className="pl-rec-kpi glass-ring">
                 <div className="pl-rec-kpi-head">
-                  <span>Rendimiento y CLV</span>
+                  <span>Rendimiento</span>
                   <MaestroIcon
                     name="bolt"
                     size={15}
@@ -457,8 +457,8 @@ export function BitacoraClubView({
                   {stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—"}
                 </strong>
                 <span className="pl-rec-kpi-sub">
-                  CLV {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
-                  {stats.roiPct !== null ? ` · ROI ${formatSignedPctValue(stats.roiPct)}` : ""}
+                  Ventaja {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
+                  {stats.roiPct !== null ? ` · Retorno ${formatSignedPctValue(stats.roiPct)}` : ""}
                 </span>
               </div>
 

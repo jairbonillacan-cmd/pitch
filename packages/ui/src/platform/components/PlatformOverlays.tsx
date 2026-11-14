@@ -166,7 +166,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
               className="m-0 text-xs"
               style={{ color: "var(--pl-text-muted)" }}
             >
-              Justa Geodesic:{" "}
+              Momio justo:{" "}
               <span className="num">
                 {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
               </span>{" "}
@@ -430,7 +430,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                   htmlFor="composer-odds-input"
                   className="text-xs font-semibold"
                 >
-                  Cuota decimal para auditoría CLV
+                  Tu momio en decimal
                 </label>
                 <div
                   className="seg-well glass-ring"
@@ -511,8 +511,8 @@ export function PickComposerModal(): React.JSX.Element | null {
                     evLivePct >= 0 ? "pl-pill--success" : "pl-pill--warning"
                   }`}
                 >
-                  CLV {clvLivePct >= 0 ? "+" : ""}
-                  {clvLivePct.toFixed(1)} % · EV {evLivePct >= 0 ? "+" : ""}
+                  Ventaja {clvLivePct >= 0 ? "+" : ""}
+                  {clvLivePct.toFixed(1)} % · Valor esperado {evLivePct >= 0 ? "+" : ""}
                   {evLivePct.toFixed(1)} %
                 </span>
               </div>
@@ -526,7 +526,7 @@ export function PickComposerModal(): React.JSX.Element | null {
               >
                 {edgeLive >= 0
                   ? `Ventaja positiva +${edgeLive.toFixed(1)} pts sobre la cuota (${oddsMode === "observed" ? "Cuota observada" : "Captura manual"})`
-                  : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo Geodesic`}
+                  : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo`}
               </p>
             </div>
 
@@ -646,7 +646,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
     if (!card) return;
     const units = `${shareTicket.units.toFixed(1)}u`;
     const footerLine = shareTicket.promoCode
-      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
+      ? `Código ${shareTicket.promoCode} · 5 días gratis`
       : "7 días gratis + 15d ambos al suscribirse";
     const base = {
       aspect,
@@ -880,11 +880,11 @@ export function ShareTicketModal(): React.JSX.Element | null {
               >
                 <div>
                   <span
-                    className="block font-extrabold tracking-wide"
+                    className="block font-extrabold"
                     style={{ color: "var(--share-card-fg)" }}
                   >
                     {shareTicket.promoCode
-                      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
+                      ? `Código ${shareTicket.promoCode} · 5 días gratis`
                       : "7 días gratis + 15d ambos al suscribirse"}
                   </span>
                   <span style={{ color: "var(--share-card-muted)" }}>
@@ -1212,7 +1212,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Tipsters Verificados (CLV Auditado)
+                  Tipsters verificados
                 </p>
                 <div className="space-y-1">
                   {matchingTipsters.map((creator) => (
@@ -1250,7 +1250,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         </span>
                       </span>
                       <span className="pl-pill pl-pill--success num shrink-0">
-                        {creator.verifiedUnits} · CLV {creator.clvAvg}
+                        {creator.verifiedUnits} · Ventaja {creator.clvAvg}
                       </span>
                     </a>
                   ))}

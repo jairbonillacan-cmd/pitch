@@ -74,8 +74,8 @@ describe("Mi récord (/app/lab) y Récord público en perfil", () => {
     expect(bancaHtml).toContain("Siempre privado · Nadie más ve pesos");
     expect(bancaHtml).toContain("data-bitacora-mxn-balance");
     expect(bancaHtml).toContain("Curva de saldo en el tiempo");
-    expect(bancaHtml).toContain("Rendimiento y ROI");
-    expect(bancaHtml).toContain("CLV y momio promedio");
+    expect(bancaHtml).toContain("Rendimiento y retorno");
+    expect(bancaHtml).toContain("Ventaja y momio promedio");
     expect(bancaHtml).toContain("Rachas y meses extremos");
     expect(bancaHtml).toContain("Acierto por liga");
     expect(bancaHtml).toContain("Acierto por mercado");

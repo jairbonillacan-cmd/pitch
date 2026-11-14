@@ -286,7 +286,7 @@ export function TipsterPortalClubView({
           <ExampleNotice>
             {hasAccountSessionAuth && tipsterMeLoaded
               ? "Vista de ejemplo del Portal Tipster. Tu cuenta aún no tiene un perfil de creador activo; para emitir códigos entra a Admin."
-              : `Así funcionará el Portal Tipster. @${sofia.handle} es un perfil de ejemplo: sus unidades, CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.`}
+              : `Así funcionará el Portal Tipster. @${sofia.handle} es un perfil de ejemplo: sus unidades, ventaja y referidos son ficticios. El pick que muestra sí sale de nuestro modelo.`}
           </ExampleNotice>
         ) : null}
         {paymentMode !== "transfer" && connectNotice === "ready" ? (
@@ -539,7 +539,7 @@ export function TipsterPortalClubView({
               </div>
               <strong className="block text-xl font-extrabold">1 / 1 disp.</strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Cero fuga en los otros 4
+                Los otros 4 quedan bloqueados
               </span>
             </div>
           </div>
@@ -980,8 +980,8 @@ export function TipsterPortalClubView({
                 }}
               >
                 <div className="text-xs">
-                  <div className="font-extrabold tracking-wide">
-                    CÓDIGO: {activeTipster.promoCode} · {activeTipster.freeDays} DÍAS GRATIS
+                  <div className="font-extrabold">
+                    Código {activeTipster.promoCode} · {activeTipster.freeDays} días gratis
                   </div>
                   <div style={{ color: "var(--share-card-muted)" }}>
                     Desbloquea los otros 4 picks en pitchlab.mx
@@ -1027,7 +1027,7 @@ export function TipsterPortalClubView({
                       units: "",
                       mainLine: previewSelectionLabel,
                       detailLine: `Prob. ${(previewProb * 100).toFixed(1)} % · ${previewOddsText}`,
-                      footerLine: `CÓDIGO: ${activeTipster.promoCode} · ${activeTipster.freeDays} DÍAS GRATIS`,
+                      footerLine: `Código ${activeTipster.promoCode} · ${activeTipster.freeDays} días gratis`,
                       footerSub: "Desbloquea los demás picks en pitchlab.mx",
                       watermark: "18+",
                     },
@@ -1130,15 +1130,15 @@ export function TipsterPortalClubView({
                   className="text-xs font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (Cero fuga sin suscripción):
+                  Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (con Pase PitchLab Ultra):
                 </div>
                 {(lockedSiblingPicks.length > 0
                   ? lockedSiblingPicks.slice(0, 4)
                   : [
-                      { id: "lk-1", categoryLabel: "Escudo Conservador", engineName: "Tachyon v3.0" },
-                      { id: "lk-2", categoryLabel: "Línea de Totales", engineName: "Singularity v3.0" },
-                      { id: "lk-3", categoryLabel: "Ángulo Táctico", engineName: "Cortex IA" },
-                      { id: "lk-4", categoryLabel: "Valor Geodesic", engineName: "Geodesic v2.0" },
+                      { id: "lk-1", categoryLabel: "Muy probable", engineName: "Tachyon v3.0" },
+                      { id: "lk-2", categoryLabel: "Goles totales", engineName: "Singularity v3.0" },
+                      { id: "lk-3", categoryLabel: "Lectura del partido", engineName: "Cortex IA" },
+                      { id: "lk-4", categoryLabel: "Valor contra la casa", engineName: "Geodesic v2.0" },
                     ]
                 ).map((lp) => (
                   <div
