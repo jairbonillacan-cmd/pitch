@@ -122,23 +122,24 @@ Mejora pequeña y **no significativa** (el intervalo del bootstrap cruza 0). Com
 
 openfootball no publica Liga MX 2021-22 a 2023-24 ni de 2025-26 en adelante (404), y tampoco las liguillas. `history:link` ahora genera `research/extended/liga-mx.jsonl` con los partidos de Bzzoiro que faltan, con el mismo formato e `id` del corpus (equipos traducidos con el mapa aprendido; fecha local de CDMX; liguilla numerada por fase). Son **1,550 partidos** (2020-21 a 2026-27). Viven fuera de Git y **no** entran al corpus publicable; el backtest los suma con `--extend-corpus`.
 
-Backtest walk-forward Liga MX con extensión (**2,532 partidos** evaluados, log loss 1X2; Δ contra el modelo actual con IC 95 % de bootstrap pareado):
+Backtest walk-forward Liga MX con extensión (**2,532 partidos** evaluados, log loss 1X2; Δ con IC 95 % de bootstrap pareado). Ojo: producción (`pipeline.ts`) **no** usa el Dixon-Coles solo, sino la **mezcla DC + Elo de goles 0.5/0.5** (`HISTORY_BLEND_WEIGHT`); esa es la referencia que importa.
 
-| Modelo | Sin xG de Bzzoiro | Solo xG medido (480, desde Apertura 2025) | xG de Bzzoiro medido + estimado (1,469) |
+| Modelo | Log loss | Δ contra DC solo | Δ contra la mezcla de producción |
 |---|---|---|---|
-| Modelo actual (sin xG) | 1.0259 | 1.0259 | 1.0259 |
-| Mezcla con xG | 1.0241 · Δ −0.0019 [−0.0040, +0.0004] | 1.0244 · Δ −0.0015 [−0.0039, +0.0009] | **1.0221 · Δ −0.0039 [−0.0068, −0.0005]** |
-| Mezcla con xG ajustada | 1.0244 · Δ −0.0015 [−0.0028, −0.0001] | 1.0245 · Δ −0.0014 [−0.0028, 0.0000] | **1.0228 · Δ −0.0032 [−0.0050, −0.0011]** |
+| Dixon-Coles solo | 1.0259 | — | — |
+| **Producción: DC + Elo de goles** | **1.0237** | −0.0022 [−0.0045, 0.0000] | — |
+| DC + Elo de xG Bzzoiro | 1.0221 | −0.0039 [−0.0068, −0.0005] | −0.0017 [−0.0043, +0.0010] |
+| (DC goles + DC xG) + Elo de xG | 1.0212 | −0.0048 [−0.0083, −0.0008] | −0.0025 [−0.0057, +0.0007] |
 
-**Conclusión:** con el xG de Bzzoiro (incluido el estimado de años anteriores) la mezcla le gana al modelo actual de forma significativa en Liga MX. El xG solo medido todavía es poco (480 partidos) para entrenar el sub-modelo de xG (pide ≥ 200 en la ventana); mejorará solo conforme avance la temporada.
+**Conclusión:** el xG de Bzzoiro le gana con claridad al Dixon-Coles solo, pero contra la mezcla que ya está en producción la mejora (−0.0017 a −0.0025) **todavía no es significativa**: el intervalo cruza 0. Con estos datos no se justifica cambiar producción. Dos cosas pueden volverla significativa: más partidos con xG **medido** (Bzzoiro mide Liga MX solo desde el Apertura 2025; hoy son 480) y sumar las ligas europeas, donde hay xG medido de varios años. Revisar de nuevo al cierre del Clausura 2027. El backtest ya reporta `deltaBlendXgVsBlend` y `deltaBlendDcMixVsBlend` para esta comparación.
 
 Reproducir: `pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=liga-mx --seasons=6`, luego `history:link` y `backtest:history --leagues=liga-mx --include-research-history --extend-corpus --xg-source=merged-any`.
 
 ## 7. Siguientes pasos
 
-1. **Promover la mezcla con xG de Bzzoiro al motor de Liga MX en producción** (Spacetime), alimentando el xG de los partidos recientes desde `history:providers` en el workflow diario.
+1. Correr Bzzoiro en las ligas europeas (ahí el corpus llega a 2026-27 y el xG medido traslapa varios años) y repetir la comparación contra la mezcla de producción.
 2. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
-3. Correr Bzzoiro en las ligas europeas: ahí el corpus sí llega a 2026-27 y el xG medido traslapa.
+3. Promover el xG a producción (`pipeline.ts`, Elo de xG en lugar de Elo de goles) **solo** cuando `deltaBlendXgVsBlend` sea significativo, alimentando el xG reciente desde `history:providers` en el workflow diario.
 4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
 5. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
 6. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.

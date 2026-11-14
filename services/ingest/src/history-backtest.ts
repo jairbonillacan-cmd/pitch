@@ -130,6 +130,9 @@ export interface FootballBacktestResult {
   deltaBlendXgTuned: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendXgTunedMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMix: { meanDiff: number; lower: number; upper: number } | null;
+  /** Contra la mezcla que usa producción (DC + Elo de goles, 0.5/0.5), no contra el DC solo. */
+  deltaBlendXgVsBlend: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendDcMixVsBlend: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMixMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendXgMarket: { meanDiff: number; lower: number; upper: number } | null;
@@ -1121,6 +1124,14 @@ function runFootballLeague(
     deltaBlendDcMix:
       blendDcMixLosses.length > 0
         ? pairedBootstrap(modelLosses, blendDcMixLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendXgVsBlend:
+      blendXgLosses.length > 0 && blendXgLosses.length === blendLosses.length
+        ? pairedBootstrap(blendLosses, blendXgLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendDcMixVsBlend:
+      blendDcMixLosses.length > 0 && blendDcMixLosses.length === blendLosses.length
+        ? pairedBootstrap(blendLosses, blendDcMixLosses, options.bootstrapIterations)
         : null,
     deltaBlendDcMixMarket:
       blendDcMixMarketLosses.length > 0
