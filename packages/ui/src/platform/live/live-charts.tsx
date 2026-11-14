@@ -215,7 +215,8 @@ export function XgRaceChart({ points, homeLabel, awayLabel, estimated }: XgRaceC
       d += ` L${x(p.minute).toFixed(1)},${y(prev).toFixed(1)} L${x(p.minute).toFixed(1)},${y(p[side]).toFixed(1)}`;
       prev = p[side];
     }
-    return `${d} L${x(maxMinute)},${y(prev).toFixed(1)}`;
+    // La línea termina en el último minuto leído: en vivo no se inventa el resto del partido.
+    return `${d} L${x(points[points.length - 1]!.minute).toFixed(1)},${y(prev).toFixed(1)}`;
   };
   const last = points[points.length - 1]!;
   return (
