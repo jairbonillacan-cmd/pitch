@@ -82,10 +82,26 @@ Endpoints que usará el adaptador (base `MLB_STATSAPI_BASE_URL`, por defecto `ht
 
 Reglas: una petición por segundo como máximo, caché en disco, `User-Agent` honesto (`PITCHLAB_DATA_USER_AGENT`) y nunca enlazar `mlbstatic.com` desde la app.
 
-## 5. Siguientes pasos
+## 5. Recolección de históricos (hecho 2026-11-14)
 
-1. Cargar `BZZOIRO_API_KEY` y `FIVEDOLLAR_FOOTBALL_API_KEY` en `.env.local` y correr `providers:check`.
-2. Adaptadores en `services/ingest/src/adapters/`: `bzzoiro.ts` (xG, alineaciones, bajas), `fivedollar.ts` (córners, tarjetas, momios), `mlb-statsapi.ts` y `nhl-web.ts`, todos con `source` por registro y mapeo a `match_id` propio.
+`pnpm --filter @pitchlab/ingest history:providers` (código en `services/ingest/src/providers/`):
+
+| Comando | Qué hace |
+|---|---|
+| `--provider=bzzoiro --leagues=liga-mx --seasons=3` | Partidos terminados con xG, tiros, córners, tarjetas, alineación confirmada y bajas (2 peticiones por partido) |
+| `--provider=fivedollar --max-odds=40` | Partidos con córners y tarjetas (1 petición por liga) y momios de Bet365 apertura/cierre (1 por partido) |
+| `--offline` | Reprocesa solo desde caché |
+
+- Salida en `data/history/research/<proveedor>/<liga>.jsonl` + `manifest.json`; caché cruda en `data/history/raw/<proveedor>/`. Ambas ignoradas por Git (la licencia no permite redistribuir el dato crudo).
+- Cada corrida suma a lo guardado: la ventana de 3 meses del plan gratis de 5Dollar se acumula si se corre al menos una vez al mes.
+- 5Dollar gratis: ~55 peticiones por corrida, una por minuto; Liga MX se salta hasta tener Pro.
+- Primera corrida: Liga MX Apertura y Clausura 2026 desde Bzzoiro, 310 partidos, 100 % con xG medido, alineación confirmada y 425 bajas; Premier League desde 5Dollar, 100 partidos con córners y tarjetas.
+
+## 6. Siguientes pasos
+
+1. Correr Bzzoiro con `--seasons=5` en todas las ligas (cabe en la cuota diaria en 2–3 días gracias a la caché) y 5Dollar con momios cada hora hasta completar la ventana.
+2. Emparejar las filas con el `match_id` canónico del corpus (`data/history/<liga>.jsonl`) por equipos y fecha, y guardar la tabla `provider_ids`.
+3. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
 3. Históricos para entrenar en `research/prediction-lab` y backtest walk-forward contra el modelo actual.
 4. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
 5. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
