@@ -97,11 +97,71 @@ Reglas: una petición por segundo como máximo, caché en disco, `User-Agent` ho
 - 5Dollar gratis: ~55 peticiones por corrida, una por minuto; Liga MX se salta hasta tener Pro.
 - Primera corrida: Liga MX Apertura y Clausura 2026 desde Bzzoiro, 310 partidos, 100 % con xG medido, alineación confirmada y 425 bajas; Premier League desde 5Dollar, 100 partidos con córners y tarjetas.
 
-## 6. Siguientes pasos
+## 6. Emparejamiento y primer backtest (hecho 2026-11-14)
 
-1. Correr Bzzoiro con `--seasons=5` en todas las ligas (cabe en la cuota diaria en 2–3 días gracias a la caché) y 5Dollar con momios cada hora hasta completar la ventana.
-2. Emparejar las filas con el `match_id` canónico del corpus (`data/history/<liga>.jsonl`) por equipos y fecha, y guardar la tabla `provider_ids`.
-3. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
-3. Históricos para entrenar en `research/prediction-lab` y backtest walk-forward contra el modelo actual.
-4. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
-5. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
+`pnpm --filter @pitchlab/ingest history:link` (código en `providers/link.ts`) empareja por fecha ±1 día y marcador, aprende el mapa de equipos del proveedor por mayoría de votos y hace una segunda pasada con ese mapa. No depende de que los nombres se parezcan («Querétaro FC» queda como `gallos-blancos`). Escribe, por `id` canónico: `research/provider-ids/`, `research/xg-bzzoiro/` (lo lee el backtest) y `research/match-context/` (bajas, córners, tarjetas y cierre Bet365).
+
+| Liga | Emparejados | Nota |
+|---|---|---|
+| Liga MX (Bzzoiro 2024–2026) | 312 de 990 | Son **todos** los partidos que existen en el corpus para esas fechas: el corpus termina en mayo 2025 |
+| Premier League (5Dollar) | 45 de 100 | Todos los del corpus, que termina el 20 sep 2026 |
+
+**Hallazgo:** Bzzoiro solo **mide** xG en Liga MX desde el Apertura 2025; antes publica una estimación propia (`xg_estimated: true`). Como el corpus de Liga MX termina en mayo 2025, hoy no hay traslape con xG medido.
+
+Backtest walk-forward Liga MX (781 partidos evaluados, `--include-research-history`, log loss 1X2, menor es mejor):
+
+| Modelo | xG base (estimado por tiros ESPN, 53 partidos) | xG estimado por Bzzoiro (312 partidos) |
+|---|---|---|
+| Elo con xG | 1.0088 | 1.0062 |
+| Mezcla con xG | 1.0038 | 1.0024 |
+| Modelo actual (sin xG) | 1.0043 | 1.0043 |
+
+Mejora pequeña y **no significativa** (el intervalo del bootstrap cruza 0). Comparar: `pnpm --filter @pitchlab/ingest backtest:history --leagues=liga-mx --include-research-history --xg-source=base|merged|merged-any`.
+
+### Extensión research-only de Liga MX (hecho 2026-11-14)
+
+openfootball no publica Liga MX 2021-22 a 2023-24 ni de 2025-26 en adelante (404), y tampoco las liguillas. `history:link` ahora genera `research/extended/liga-mx.jsonl` con los partidos de Bzzoiro que faltan, con el mismo formato e `id` del corpus (equipos traducidos con el mapa aprendido; fecha local de CDMX; liguilla numerada por fase). Son **1,550 partidos** (2020-21 a 2026-27). Viven fuera de Git y **no** entran al corpus publicable; el backtest los suma con `--extend-corpus`.
+
+Backtest walk-forward Liga MX con extensión (**2,532 partidos** evaluados, log loss 1X2; Δ con IC 95 % de bootstrap pareado). Ojo: producción (`pipeline.ts`) **no** usa el Dixon-Coles solo, sino la **mezcla DC + Elo de goles 0.5/0.5** (`HISTORY_BLEND_WEIGHT`); esa es la referencia que importa.
+
+| Modelo | Log loss | Δ contra DC solo | Δ contra la mezcla de producción |
+|---|---|---|---|
+| Dixon-Coles solo | 1.0259 | — | — |
+| **Producción: DC + Elo de goles** | **1.0237** | −0.0022 [−0.0045, 0.0000] | — |
+| DC + Elo de xG Bzzoiro | 1.0221 | −0.0039 [−0.0068, −0.0005] | −0.0017 [−0.0043, +0.0010] |
+| (DC goles + DC xG) + Elo de xG | 1.0212 | −0.0048 [−0.0083, −0.0008] | −0.0025 [−0.0057, +0.0007] |
+
+**Conclusión:** el xG de Bzzoiro le gana con claridad al Dixon-Coles solo, pero contra la mezcla que ya está en producción la mejora (−0.0017 a −0.0025) **todavía no es significativa**: el intervalo cruza 0. Con estos datos no se justifica cambiar producción. Dos cosas pueden volverla significativa: más partidos con xG **medido** (Bzzoiro mide Liga MX solo desde el Apertura 2025; hoy son 480) y sumar las ligas europeas, donde hay xG medido de varios años. Revisar de nuevo al cierre del Clausura 2027. El backtest ya reporta `deltaBlendXgVsBlend` y `deltaBlendDcMixVsBlend` para esta comparación.
+
+Reproducir: `pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=liga-mx --seasons=6`, luego `history:link` y `backtest:history --leagues=liga-mx --include-research-history --extend-corpus --xg-source=merged-any`.
+
+### Premier League (hecho 2026-11-14)
+
+Bzzoiro **mide** el xG de la Premier al menos desde 2021-22. Se bajaron 4 temporadas (2023-24 a 2026-27): 1,158 de 1,240 partidos emparejados con el corpus, todos con xG medido. Understat (`history:xg`, research-only) cubre 4,280 partidos (70 % del corpus).
+
+Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2; Δ contra la mezcla de producción con IC 95 % de bootstrap pareado):
+
+| xG usado | DC + Elo de xG | Δ contra producción (0.9726) | (DC goles + DC xG) + Elo de xG | Δ contra producción |
+|---|---|---|---|---|
+| Understat (4,280) | 0.9700 | **−0.0026 [−0.0046, −0.0005]** | 0.9698 | **−0.0028 [−0.0054, −0.0003]** |
+| Solo Bzzoiro (1,158, 3 temporadas) | 0.9713 | **−0.0014 [−0.0022, −0.0005]** | 0.9710 | **−0.0016 [−0.0027, −0.0004]** |
+| Understat + Bzzoiro encima | 0.9698 | **−0.0028 [−0.0049, −0.0008]** | 0.9696 | **−0.0030 [−0.0057, −0.0005]** |
+
+**Conclusión:** en la Premier el xG sí le gana a la mezcla de producción de forma significativa, con cualquiera de las dos fuentes. Bzzoiro rinde igual que Understat donde coinciden (0.9698 contra 0.9700) y tiene dos ventajas: su licencia permite uso comercial de las salidas derivadas (Understat es research-only) y cubre Liga MX. Con solo 3 temporadas ya es significativo; el efecto crecerá con más temporadas.
+
+### En producción (hecho 2026-11-14)
+
+- `services/ingest/src/xg-feed.ts` arma una búsqueda de xG **medido** por fecha (±1 día) y equipos, con los mismos ids del pipeline (`remapTeam`). Solo las ligas de `XG_ELO_LEAGUES` (hoy `premier-league`) la usan.
+- `pipeline.ts` → `buildHistoryRatings(..., xgLookup)`: cada partido con xG actualiza el Elo de largo plazo con su xG en vez de goles; el resto sigue con goles. La mezcla 1X2 queda **DC + Elo de xG 0.5/0.5**, la variante validada en el backtest.
+- `pre-mvp-snapshot.yml` restaura la caché de `data/history/raw/bzzoiro`, corre `history:providers` (Premier, 4 temporadas, máx. 1,500 peticiones por corte) y `history:link` antes del corte, y guarda la caché. El primer corte baja la mitad; el segundo completa.
+- **Requiere** el secreto `BZZOIRO_API_KEY` en GitHub Actions. Sin él, o si Bzzoiro falla, el pipeline sigue con Elo de goles sin romperse.
+- Verificado con datos reales: los 1,158 partidos del corpus desde 2023-24 encuentran su xG con los ids del pipeline.
+
+## 7. Siguientes pasos
+
+1. Cargar `BZZOIRO_API_KEY` como secreto de GitHub Actions para encender el xG en producción.
+2. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
+3. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
+4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
+5. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
+6. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.

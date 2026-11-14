@@ -17,6 +17,7 @@
     "health:check": "tsx src/health-check-cli.ts",
     "providers:check": "tsx src/providers/check-cli.ts",
     "history:providers": "tsx src/providers/collect-cli.ts",
+    "history:link": "tsx src/providers/link-cli.ts",
     "history": "tsx src/history/cli.ts",
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",

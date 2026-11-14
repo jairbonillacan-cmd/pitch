@@ -31,6 +31,7 @@ import {
 } from "@pitchlab/models";
 import { HistoricalGameSchema, type HistoricalGame } from "./history/schema.js";
 import { ResearchGameSchema, type ResearchGame } from "./history/research-schema.js";
+import { z } from "zod";
 
 const DAY_MS = 86_400_000;
 
@@ -48,6 +49,13 @@ export interface HistoryBacktestOptions {
    * versionado. Actívalo con `--include-research-history` para experimentar.
    */
   includeHistoricalResearch?: boolean;
+  /** Fuente de xG en modo research (por defecto `merged`). */
+  xgSource?: XgSourcePreference;
+  /**
+   * Suma al corpus la extensión research-only (`research/extended/<liga>.jsonl`, hoy Liga MX
+   * desde Bzzoiro). Las métricas resultantes son de investigación, no del corpus publicable.
+   */
+  extendCorpus?: boolean;
   /**
    * Añade el stacking logístico (Dixon-Coles + Elo + descanso, forma y tiros).
    * Desactivado por defecto: es un candidato experimental y alarga el benchmark.
@@ -122,6 +130,9 @@ export interface FootballBacktestResult {
   deltaBlendXgTuned: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendXgTunedMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMix: { meanDiff: number; lower: number; upper: number } | null;
+  /** Contra la mezcla que usa producción (DC + Elo de goles, 0.5/0.5), no contra el DC solo. */
+  deltaBlendXgVsBlend: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendDcMixVsBlend: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMixMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendXgMarket: { meanDiff: number; lower: number; upper: number } | null;
@@ -189,6 +200,28 @@ export function loadHistoryGames(rootDir: string, league: string): HistoricalGam
   return lines.map((line) => HistoricalGameSchema.parse(JSON.parse(line)));
 }
 
+/**
+ * Partidos research-only que extienden el corpus (`data/history/research/extended/<liga>.jsonl`).
+ * Mismo formato e `id` que el corpus; se descartan los que ya existen en él.
+ */
+export function loadExtendedGames(
+  rootDir: string,
+  league: string,
+  corpus: readonly HistoricalGame[],
+): HistoricalGame[] {
+  const path = join(rootDir, "data", "history", "research", "extended", `${league}.jsonl`);
+  if (!existsSync(path)) return [];
+  const known = new Set(corpus.map((g) => g.id));
+  const schema = HistoricalGameSchema.extend({ source: z.string() });
+  const out: HistoricalGame[] = [];
+  for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    const game = schema.parse(JSON.parse(line)) as unknown as HistoricalGame;
+    if (!known.has(game.id)) out.push(game);
+  }
+  return out;
+}
+
 /** Fila mínima para entrenar (sirve para el corpus y para el histórico research). */
 export interface TrainingGame {
   id: string;
@@ -228,21 +261,33 @@ export function loadResearchHistory(rootDir: string, league: string): TrainingGa
   });
 }
 
+export type XgSourcePreference = "base" | "bzzoiro" | "merged" | "merged-any";
+
 /**
- * Carga el xG research de una liga (`data/history/research/xg/<liga>.jsonl`), por `id`.
+ * Carga el xG research de una liga, por `id`:
+ *  - `base`: `data/history/research/xg/<liga>.jsonl` (Understat, football-data o estimado por tiros).
+ *  - `bzzoiro`: solo `research/xg-bzzoiro/<liga>.jsonl` (xG medido por tiro, `pnpm history:link`).
+ *  - `merged` (por defecto): base, con el xG medido de Bzzoiro encima cuando no es estimado.
+ *  - `merged-any`: igual, pero también con el xG que Bzzoiro estima (ligas o años sin medición).
  */
 export function loadXgGames(
   rootDir: string,
   league: string,
+  prefer: XgSourcePreference = "merged",
 ): Map<string, { homeXg: number; awayXg: number }> {
-  const path = join(rootDir, "data", "history", "research", "xg", `${league}.jsonl`);
-  if (!existsSync(path)) return new Map();
   const map = new Map<string, { homeXg: number; awayXg: number }>();
-  for (const line of readFileSync(path, "utf8").split("\n")) {
-    if (!line.trim()) continue;
-    const row = JSON.parse(line) as { id: string; homeXg: number; awayXg: number };
-    map.set(row.id, { homeXg: row.homeXg, awayXg: row.awayXg });
-  }
+  const read = (dir: string, onlyMeasured: boolean): void => {
+    const path = join(rootDir, "data", "history", "research", dir, `${league}.jsonl`);
+    if (!existsSync(path)) return;
+    for (const line of readFileSync(path, "utf8").split("\n")) {
+      if (!line.trim()) continue;
+      const row = JSON.parse(line) as { id: string; homeXg: number; awayXg: number; estimated?: boolean };
+      if (onlyMeasured && row.estimated === true) continue;
+      map.set(row.id, { homeXg: row.homeXg, awayXg: row.awayXg });
+    }
+  };
+  if (prefer !== "bzzoiro") read("xg", false);
+  if (prefer !== "base") read("xg-bzzoiro", prefer !== "merged-any");
   return map;
 }
 
@@ -1080,6 +1125,14 @@ function runFootballLeague(
       blendDcMixLosses.length > 0
         ? pairedBootstrap(modelLosses, blendDcMixLosses, options.bootstrapIterations)
         : null,
+    deltaBlendXgVsBlend:
+      blendXgLosses.length > 0 && blendXgLosses.length === blendLosses.length
+        ? pairedBootstrap(blendLosses, blendXgLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendDcMixVsBlend:
+      blendDcMixLosses.length > 0 && blendDcMixLosses.length === blendLosses.length
+        ? pairedBootstrap(blendLosses, blendDcMixLosses, options.bootstrapIterations)
+        : null,
     deltaBlendDcMixMarket:
       blendDcMixMarketLosses.length > 0
         ? pairedBootstrap(marketLosses, blendDcMixMarketLosses, options.bootstrapIterations)
@@ -1367,7 +1420,13 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
       : undefined;
 
   for (const league of leagues) {
-    const games = loadHistoryGames(options.rootDir, league);
+    const corpusGames = loadHistoryGames(options.rootDir, league);
+    const games =
+      options.extendCorpus === true
+        ? [...corpusGames, ...loadExtendedGames(options.rootDir, league, corpusGames)].sort((a, b) =>
+            `${a.date} ${a.kickoff ?? ""}`.localeCompare(`${b.date} ${b.kickoff ?? ""}`),
+          )
+        : corpusGames;
     if (games.length === 0) continue;
     if (league === "nfl") {
       nfl = runNfl(games, resolved, options.onNflPrediction);
@@ -1379,7 +1438,7 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
       // El xG es research-only (Understat): solo entra al benchmark research.
       const xgById =
         options.includeHistoricalResearch === true
-          ? loadXgGames(options.rootDir, league)
+          ? loadXgGames(options.rootDir, league, options.xgSource ?? "merged")
           : new Map<string, { homeXg: number; awayXg: number }>();
       football.push(
         runFootballLeague(

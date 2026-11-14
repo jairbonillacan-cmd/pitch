@@ -173,9 +173,10 @@ async function runBzzoiro(flags: Flags): Promise<void> {
   );
   const entries: ManifestEntry[] = [];
   let exhausted = false;
+  let fatal: unknown = null;
 
   for (const league of leagues) {
-    if (exhausted) break;
+    if (exhausted || fatal) break;
     const collected = [];
     try {
       for (const leagueId of BZZOIRO_LEAGUES[league]) {
@@ -195,9 +196,14 @@ async function runBzzoiro(flags: Flags): Promise<void> {
         }
       }
     } catch (error) {
-      if (!(error instanceof ProviderBudgetExhaustedError)) throw error;
-      console.log(`[bzzoiro] ${error.message} Guardo lo juntado y sigo en la próxima corrida.`);
-      exhausted = true;
+      if (error instanceof ProviderBudgetExhaustedError) {
+        console.log(`[bzzoiro] ${error.message} Guardo lo juntado y sigo en la próxima corrida.`);
+        exhausted = true;
+      } else {
+        // Lo bajado ya está en caché; se guarda lo juntado y se reporta el error al final.
+        console.log(`[bzzoiro] Error en ${league}; guardo lo juntado. Vuelve a correr para seguir.`);
+        fatal = error;
+      }
     }
 
     const file = join(OUT_DIR, "bzzoiro", `${league}.jsonl`);
@@ -220,6 +226,7 @@ async function runBzzoiro(flags: Flags): Promise<void> {
 
   const manifest = writeManifest("bzzoiro", entries, { requestsThisRun: client.stats.requests });
   console.log(`[bzzoiro] peticiones: ${client.stats.requests} · desde caché: ${client.stats.cacheHits} · ${manifest}`);
+  if (fatal) throw fatal;
 }
 
 async function runFiveDollar(flags: Flags): Promise<void> {

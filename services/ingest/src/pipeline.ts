@@ -45,6 +45,7 @@ import {
   type NflMatchRow,
   type NflRatingsModel,
 } from "@pitchlab/models";
+import type { XgLookup } from "./xg-feed.js";
 import {
   addMatchContext,
   enrichPreservedAnalysis,
@@ -280,6 +281,11 @@ export function buildFootballSnapshot(params: {
   history?: readonly EloMatch[];
   /** Peso de esas ratings en el 1X2 (validado en `backtest:blend`). */
   historyBlendWeight?: number;
+  /**
+   * xG medido por partido (`xg-feed.ts`). Si existe, las ratings de largo plazo se alimentan
+   * con xG en lugar de goles donde lo haya (Elo de xG, validado en la Premier).
+   */
+  xgLookup?: XgLookup | null;
 }): LeagueSnapshot {
   const {
     league,
@@ -297,6 +303,7 @@ export function buildFootballSnapshot(params: {
     priorMatches,
     history,
     historyBlendWeight = HISTORY_BLEND_WEIGHT,
+    xgLookup = null,
   } = params;
 
   const seasonRows = seasonGames ? toFootballMatchRows(seasonGames) : [];
@@ -308,7 +315,7 @@ export function buildFootballSnapshot(params: {
   const priorBeforeSeason = (priorMatches ?? []).filter((row) => row.date < seasonStart);
 
   const ratings = history?.length
-    ? buildHistoryRatings(history, seasonRows, seasonStart, seasonId)
+    ? buildHistoryRatings(history, seasonRows, seasonStart, seasonId, xgLookup)
     : null;
 
   const footballModel =
@@ -420,23 +427,33 @@ export const HISTORY_BLEND_WEIGHT = 0.5;
 /**
  * Ratings incrementales con todo el historial anterior a la temporada y los partidos ya
  * jugados de la temporada en curso, en orden cronológico.
+ *
+ * Con `xgLookup`, cada partido con xG medido actualiza las ratings con su xG en lugar de los
+ * goles (Elo de xG); los partidos sin xG siguen con goles.
  */
 export function buildHistoryRatings(
   history: readonly EloMatch[],
   seasonRows: readonly FootballMatchRow[],
   seasonStart: string,
   seasonId: string,
+  xgLookup: XgLookup | null = null,
 ): EloTracker {
   const tracker = createEloTracker();
+  const withXg = <T extends { date: string; home: string; away: string; homeGoals: number; awayGoals: number }>(
+    match: T,
+  ): T => {
+    const xg = xgLookup?.get(match.date, match.home, match.away);
+    return xg ? { ...match, homeGoals: xg.homeXg, awayGoals: xg.awayXg } : match;
+  };
   for (const match of history) {
     if (match.date >= seasonStart) break;
     tracker.beginSeason(match.season);
-    tracker.update(match);
+    tracker.update(withXg(match));
   }
   tracker.beginSeason(seasonId);
   const played = [...seasonRows].sort((a, b) => a.date.localeCompare(b.date));
   for (const row of played) {
-    tracker.update({ ...row, season: seasonId });
+    tracker.update(withXg({ ...row, season: seasonId }));
   }
   return tracker;
 }

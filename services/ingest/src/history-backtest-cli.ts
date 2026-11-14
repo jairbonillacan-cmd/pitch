@@ -5,6 +5,8 @@
  *   --window-days=1095             ventana móvil de entrenamiento
  *   --min-train=200                mínimo de partidos para ajustar
  *   --bootstrap=2000               iteraciones del bootstrap pareado
+ *   --extend-corpus                suma la extensión research-only (Liga MX desde Bzzoiro)
+ *   --xg-source=merged             base | bzzoiro | merged | merged-any (xG de Bzzoiro encima)
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -23,6 +25,8 @@ interface CliOptions {
   minTrainRows?: number;
   bootstrapIterations?: number;
   includeHistoricalResearch?: boolean;
+  xgSource?: "base" | "bzzoiro" | "merged" | "merged-any";
+  extendCorpus?: boolean;
   includeStack?: boolean;
   exportFeaturesPath?: string;
   exportNflPath?: string;
@@ -41,6 +45,10 @@ function parseArgs(argv: readonly string[]): CliOptions {
   for (const arg of argv) {
     if (arg === "--include-research-history") {
       options.includeHistoricalResearch = true;
+      continue;
+    }
+    if (arg === "--extend-corpus") {
+      options.extendCorpus = true;
       continue;
     }
     if (arg === "--with-stack") {
@@ -69,6 +77,12 @@ function parseArgs(argv: readonly string[]): CliOptions {
       case "export-features":
         options.exportFeaturesPath = resolve(ROOT_DIR, value!);
         break;
+      case "xg-source":
+        if (value !== "base" && value !== "bzzoiro" && value !== "merged" && value !== "merged-any") {
+          throw new Error("--xg-source debe ser base, bzzoiro, merged o merged-any.");
+        }
+        options.xgSource = value;
+        break;
       case "export-nfl":
         options.exportNflPath = resolve(ROOT_DIR, value!);
         break;
@@ -96,6 +110,8 @@ function main(): void {
       ? { includeHistoricalResearch: true }
       : {}),
     ...(options.includeStack ? { includeStack: true } : {}),
+    ...(options.xgSource ? { xgSource: options.xgSource } : {}),
+    ...(options.extendCorpus ? { extendCorpus: true } : {}),
     ...(options.exportFeaturesPath
       ? { exportFeaturesPath: options.exportFeaturesPath }
       : {}),

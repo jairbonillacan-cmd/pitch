@@ -8,6 +8,7 @@ import {
 } from "./adapters/nflverse.js";
 import { loadRootEnvFiles } from "./env.js";
 import { loadLeagueHistory, loadPriorMatches } from "./prior-season.js";
+import { loadXgLookup } from "./xg-feed.js";
 import {
   fetchOpenFootballBundesliga,
   fetchOpenFootballLaliga,
@@ -372,6 +373,7 @@ async function main() {
             seasonGames: normPl.allGames,
             priorMatches: priorPl,
             history: loadLeagueHistory("premier-league", dateStr),
+            xgLookup: loadXgLookup("premier-league"),
             modelVersion,
           });
         },
