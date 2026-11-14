@@ -14,3 +14,4 @@ export * from "./transfers";
 export * from "./coupons";
 export * from "./preferences";
 export * from "./votes";
+export * from "./badges";

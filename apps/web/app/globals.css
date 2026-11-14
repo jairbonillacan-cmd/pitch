@@ -36,6 +36,7 @@
 @import "./community-social.css" layer(components);
 @import "./account-v2.css" layer(components);
 @import "./record-v2.css" layer(components);
+@import "./badges.css" layer(components);
 @import "./blog.css" layer(components);
 @import "./login-motion.css" layer(components);
 @import "./precio-motion.css" layer(components);

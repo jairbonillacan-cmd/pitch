@@ -32,6 +32,8 @@ export interface UserPreferencesRecord {
   recordPrivacy: Record<string, unknown>;
   /** Banca inicial en pesos (centavos); siempre privada. */
   bankrollStartMxnCentavos: number | null;
+  /** Insignias destacadas (máximo 3); la app las filtra contra las que el socio ya ganó. */
+  featuredBadges: string[];
   updatedAt: Date | null;
 }
 
@@ -53,6 +55,7 @@ export interface UserPreferencesPatch {
   responsiblePauseKind?: ResponsiblePauseKind | null;
   recordPrivacy?: Record<string, unknown>;
   bankrollStartMxnCentavos?: number | null;
+  featuredBadges?: string[];
 }
 
 const PAUSE_DURATIONS_MS: Record<ResponsiblePauseKind, number> = {
@@ -83,6 +86,7 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
     responsiblePauseUntil: null,
     recordPrivacy: {},
     bankrollStartMxnCentavos: null,
+    featuredBadges: [],
     updatedAt: null,
   };
 }
@@ -92,7 +96,15 @@ export async function getUserPreferences(db: Db, userId: string): Promise<UserPr
     db.select().from(userPreferences).where(eq(userPreferences.userId, userId)).limit(1),
     db.select({ publicProfile: users.publicProfile }).from(users).where(eq(users.id, userId)).limit(1),
   ]);
-  const fallbackPublic = user?.publicProfile ?? true;
+  return toUserPreferencesRecord(pref, user?.publicProfile ?? null);
+}
+
+/** Fila de `user_preferences` (o su ausencia) a preferencias completas. */
+export function toUserPreferencesRecord(
+  pref: typeof userPreferences.$inferSelect | undefined,
+  publicProfile: boolean | null,
+): UserPreferencesRecord {
+  const fallbackPublic = publicProfile ?? true;
   if (!pref) return defaultUserPreferences(fallbackPublic);
 
   return {
@@ -106,7 +118,7 @@ export async function getUserPreferences(db: Db, userId: string): Promise<UserPr
     favoriteLeagues: pref.favoriteLeagues.length > 0 ? pref.favoriteLeagues : [...DEFAULT_LEAGUES],
     unitMxnCentavos: pref.unitMxnCentavos,
     showMxnBalance: pref.showMxnBalance,
-    publicRecordVisible: user ? user.publicProfile : pref.publicRecordVisible,
+    publicRecordVisible: publicProfile ?? pref.publicRecordVisible,
     emailPickResults: pref.emailPickResults,
     emailValueAlerts: pref.emailValueAlerts,
     emailBeforeMatch: pref.emailBeforeMatch,
@@ -123,6 +135,7 @@ export async function getUserPreferences(db: Db, userId: string): Promise<UserPr
     recordPrivacy:
       pref.recordPrivacy && typeof pref.recordPrivacy === "object" ? (pref.recordPrivacy as Record<string, unknown>) : {},
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos ?? null,
+    featuredBadges: pref.featuredBadges ?? [],
     updatedAt: pref.updatedAt,
   };
 }
@@ -164,6 +177,10 @@ export async function upsertUserPreferences(
         : patch.bankrollStartMxnCentavos === null
           ? null
           : Math.min(1_000_000_000, Math.max(0, Math.round(patch.bankrollStartMxnCentavos)));
+    const featuredBadges =
+      patch.featuredBadges !== undefined
+        ? Array.from(new Set(patch.featuredBadges.map((b) => b.trim()).filter(Boolean))).slice(0, 3)
+        : current.featuredBadges;
 
     let responsiblePauseKind = current.responsiblePauseKind;
     let responsiblePauseUntil = current.responsiblePauseUntil;
@@ -199,6 +216,7 @@ export async function upsertUserPreferences(
         responsiblePauseUntil,
         recordPrivacy,
         bankrollStartMxnCentavos,
+        featuredBadges,
         updatedAt: now,
       })
       .onConflictDoUpdate({
@@ -222,6 +240,7 @@ export async function upsertUserPreferences(
           responsiblePauseUntil,
           recordPrivacy,
           bankrollStartMxnCentavos,
+          featuredBadges,
           updatedAt: now,
         },
       });

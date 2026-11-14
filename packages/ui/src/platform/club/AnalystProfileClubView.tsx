@@ -47,7 +47,14 @@ import {
   profileRecord,
 } from "../profile-stats";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
-import type { PublicRecordPayload, PublicRecordView } from "../record-stats";
+import { DEFAULT_RECORD_PRIVACY, type PublicRecordPayload, type PublicRecordView } from "../record-stats";
+import {
+  badgeFactsFromEntries,
+  computeBadges,
+  publicBadges as publicBadgeList,
+  type BadgeView,
+} from "../badges";
+import { FeaturedBadgeRow, ProfileBadgesSection, useOwnBadges } from "./badges/ProfileBadges";
 import type { JournalEntry, OddsFormat, SocialPost } from "../types";
 import {
   BalanceCurveFigure,
@@ -171,6 +178,7 @@ export function AnalystProfileClubView({
   handle,
   memberProfile,
   publicRecord,
+  badges,
   avatarEnabled = false,
   xEnabled = false,
   xLinkError = false,
@@ -178,6 +186,8 @@ export function AnalystProfileClubView({
   handle: string;
   memberProfile?: PublicMemberProfile | null;
   publicRecord?: PublicRecordPayload | null;
+  /** Insignias públicas del socio (las arma el servidor). */
+  badges?: { public: BadgeView[]; featured: BadgeView[] } | null;
   avatarEnabled?: boolean;
   xEnabled?: boolean;
   xLinkError?: boolean;
@@ -347,6 +357,39 @@ export function AnalystProfileClubView({
   const effectivePublicRecord =
     publicRecord !== undefined ? publicRecord : fetchedRecord;
 
+  // Insignias calculadas en el navegador: perfiles de ejemplo y tu récord sin cuenta real.
+  const localBadges = useMemo(
+    () =>
+      profile && (profile.isExample || (isOwn && !memberProfile))
+        ? computeBadges(
+            badgeFactsFromEntries(profile.journal, {
+              joinedAtIso: profile.joinedAt ? `${profile.joinedAt.slice(0, 10)}T12:00:00Z` : null,
+              isTipster: profile.isTipster,
+            }),
+            today,
+          )
+        : [],
+    [isOwn, memberProfile, profile, today],
+  );
+  const ownBadges = useOwnBadges({
+    enabled: isOwn,
+    serverBacked: Boolean(memberProfile),
+    localBadges,
+    onError: (message) => pushToast(message, "warning"),
+  });
+  const visibleBadges = useMemo<{ public: BadgeView[]; featured: BadgeView[] }>(() => {
+    if (profile?.isExample) {
+      const pub = publicBadgeList(localBadges, {
+        privacy: DEFAULT_RECORD_PRIVACY,
+        recordVisible: true,
+        showInRanking: true,
+      });
+      return { public: pub, featured: pub.slice(0, 3) };
+    }
+    if (isOwn) return { public: [], featured: ownBadges.featured };
+    return badges ?? { public: [], featured: [] };
+  }, [badges, isOwn, localBadges, ownBadges.featured, profile?.isExample]);
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath={`/app/u/${profile?.handle ?? cleanHandle}`}>
@@ -356,6 +399,20 @@ export function AnalystProfileClubView({
             isOwn={isOwn}
             ownHandle={own?.handle ?? null}
             publicRecord={effectivePublicRecord}
+            featuredBadges={visibleBadges.featured}
+            badgesSection={
+              <ProfileBadgesSection
+                isOwn={isOwn && !profile.isExample}
+                publicBadges={visibleBadges.public}
+                own={ownBadges.own}
+                onToggleFeatured={ownBadges.toggle}
+                onNavigate={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                  e.preventDefault();
+                  navigateTo("/app/lab?tab=privacidad");
+                }}
+              />
+            }
             onEdit={isOwn && memberProfile ? saveProfile : undefined}
             avatarEnabled={avatarEnabled}
             xEnabled={xEnabled}
@@ -400,6 +457,8 @@ function ProfileContent({
   isOwn,
   ownHandle,
   publicRecord,
+  featuredBadges,
+  badgesSection,
   onEdit,
   avatarEnabled,
   xEnabled,
@@ -418,6 +477,8 @@ function ProfileContent({
   isOwn: boolean;
   ownHandle: string | null;
   publicRecord?: PublicRecordPayload | null;
+  featuredBadges: readonly BadgeView[];
+  badgesSection: React.ReactNode;
   onEdit?: (profile: EditableProfile) => void;
   avatarEnabled: boolean;
   xEnabled: boolean;
@@ -582,6 +643,7 @@ function ProfileContent({
               {profile.isTipster ? <VerifiedSeal size={22} className="pl-prof-seal" /> : null}
             </h1>
             {profile.isTipster ? <TipsterVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
+            <FeaturedBadgeRow badges={featuredBadges} />
           </div>
           <p className="pl-prof-handle">
             @{profile.handle}{profile.specialty ? ` · ${profile.specialty}` : ""}
@@ -719,6 +781,8 @@ function ProfileContent({
           </div>
         )}
       </section>
+
+      {badgesSection}
 
       {/* Tipster: pick gratis de la semana */}
       {profile.isTipster && profile.weeklyPickSlug ? (

@@ -22,6 +22,7 @@
     "./community-examples": "./src/platform/community-examples.ts",
     "./canjear": "./src/platform/components/CanjearCouponView.tsx",
     "./record-stats": "./src/platform/record-stats.ts",
+    "./badges": "./src/platform/badges.ts",
     "./record": "./src/platform/club/BitacoraClubView.tsx"
   },
   "scripts": {

@@ -47,6 +47,7 @@ export interface ServerSocialPost {
   likedByMe: boolean;
   isMine: boolean;
   comments: ServerSocialComment[];
+  authorBadge?: { id: string; family: string; label: string; criterion: string } | null;
 }
 
 /** «Ahora», «Hace 5 min», «Hace 3 h», «Hace 2 d» o la fecha corta. */
@@ -116,6 +117,7 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
     likes: p.likes,
     likedByMe: p.likedByMe,
     isMine: p.isMine,
+    authorBadge: p.authorBadge ?? null,
     fromServer: true,
     comments: p.comments.map((c) => fromServerComment(c, now)),
     pick: p.pick

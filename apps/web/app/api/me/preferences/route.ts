@@ -10,6 +10,8 @@ import {
   type UserPreferencesRecord,
 } from "@pitchlab/db";
 import { normalizeRecordPrivacy } from "@pitchlab/ui/record-stats";
+import { sanitizeFeaturedBadges } from "@pitchlab/ui/badges";
+import { loadMemberBadges } from "../../../../src/server/badges";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
@@ -47,12 +49,18 @@ function serializePreferences(pref: UserPreferencesRecord) {
     responsiblePauseUntilIso: pref.responsiblePauseUntil ? pref.responsiblePauseUntil.toISOString() : null,
     recordPrivacy: normalizeRecordPrivacy(pref.recordPrivacy),
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos,
+    featuredBadges: pref.featuredBadges,
     updatedAtIso: pref.updatedAt ? pref.updatedAt.toISOString() : null,
   };
 }
 
-function parsePatch(body: Record<string, unknown>): { patch?: UserPreferencesPatch; error?: string } {
+function parsePatch(body: Record<string, unknown>): {
+  patch?: UserPreferencesPatch;
+  featuredBadges?: string[];
+  error?: string;
+} {
   const patch: UserPreferencesPatch = {};
+  let featuredBadges: string[] | undefined;
 
   if (body.oddsFormat !== undefined) {
     if (typeof body.oddsFormat !== "string" || !ODDS_FORMATS.has(body.oddsFormat as OddsFormatPref)) {
@@ -172,7 +180,17 @@ function parsePatch(body: Record<string, unknown>): { patch?: UserPreferencesPat
     }
   }
 
-  return { patch };
+  if (body.featuredBadges !== undefined) {
+    if (!Array.isArray(body.featuredBadges) || body.featuredBadges.some((b) => typeof b !== "string")) {
+      return { error: "Insignias destacadas inválidas." };
+    }
+    if (body.featuredBadges.length > 3) {
+      return { error: "Puedes destacar hasta 3 insignias." };
+    }
+    featuredBadges = (body.featuredBadges as string[]).map((b) => b.slice(0, 80));
+  }
+
+  return { patch, featuredBadges };
 }
 
 /** GET /api/me/preferences — devuelve preferencias persistidas del socio. */
@@ -213,7 +231,20 @@ export async function PUT(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: parsed.error ?? "Preferencias inválidas." }, { status: 400 });
   }
 
-  const preferences = await upsertUserPreferences(member.db, member.userId, parsed.patch, new Date());
+  const now = new Date();
+  let preferences = await upsertUserPreferences(member.db, member.userId, parsed.patch, now);
+  if (parsed.featuredBadges !== undefined) {
+    // Solo se destacan insignias ganadas y visibles con la privacidad que acaba de guardarse.
+    const badges = await loadMemberBadges(member.db, member.userId, now);
+    const featured = sanitizeFeaturedBadges(parsed.featuredBadges, badges?.public ?? []);
+    if (featured.length !== parsed.featuredBadges.length) {
+      return NextResponse.json(
+        { error: "Solo puedes destacar insignias que ya ganaste y que son públicas." },
+        { status: 400 },
+      );
+    }
+    preferences = await upsertUserPreferences(member.db, member.userId, { featuredBadges: featured }, now);
+  }
   return NextResponse.json(
     { ok: true, preferences: serializePreferences(preferences) },
     { headers: NO_STORE },

@@ -130,6 +130,8 @@ export const userPreferences = pgTable(
     recordPrivacy: jsonb("record_privacy").notNull().default(sql`'{}'::jsonb`),
     /** Banca inicial en pesos (centavos); nunca pública. */
     bankrollStartMxnCentavos: integer("bankroll_start_mxn_centavos"),
+    /** Hasta 3 insignias destacadas en el perfil; la app vuelve a validarlas al leer. */
+    featuredBadges: text("featured_badges").array().notNull().default(sql`'{}'::text[]`),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
@@ -140,6 +142,7 @@ export const userPreferences = pgTable(
       "user_preferences_bankroll_ck",
       sql`${t.bankrollStartMxnCentavos} IS NULL OR (${t.bankrollStartMxnCentavos} >= 0 AND ${t.bankrollStartMxnCentavos} <= 1000000000)`,
     ),
+    check("user_preferences_featured_badges_ck", sql`cardinality(${t.featuredBadges}) <= 3`),
     check(
       "user_preferences_pause_ck",
       sql`${t.responsiblePauseKind} IS NULL OR ${t.responsiblePauseKind} IN ('24h', '7d', '30d')`,

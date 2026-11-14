@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { deleteSocialPost, getSocialPostById } from "@pitchlab/db";
+import { withAuthorBadges } from "../../../../../src/server/badges";
 import { requireMember } from "../../../../../src/server/session-user";
 import { requireSocialMember } from "../../../../../src/server/social";
 
@@ -14,7 +15,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   if (!/^[0-9a-f-]{36}$/i.test(id)) return NextResponse.json({ error: "Publicación inválida" }, { status: 400 });
   const post = await getSocialPostById(member.db, member.userId, id);
   return post
-    ? NextResponse.json({ post })
+    ? NextResponse.json({ post: (await withAuthorBadges(member.db, [post]))[0] })
     : NextResponse.json({ error: "Publicación no encontrada." }, { status: 404 });
 }
 

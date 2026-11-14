@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSocialPost, listSocialFeed } from "@pitchlab/db";
+import { withAuthorBadges } from "../../../../src/server/badges";
 import { parseNewPost, reasonResponse, requireSocialMember } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -18,7 +19,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     authorHandle: url.searchParams.get("author") ?? undefined,
     following: url.searchParams.get("following") === "1",
   });
-  return NextResponse.json({ posts });
+  return NextResponse.json({ posts: await withAuthorBadges(member.db, posts) });
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -30,5 +31,6 @@ export async function POST(request: Request): Promise<NextResponse> {
   const result = await createSocialPost(member.db, member.userId, parsed.post, new Date());
   if (!result.ok) return reasonResponse(result.reason);
   const [post] = await listSocialFeed(member.db, member.userId, { limit: 1 });
-  return NextResponse.json({ post: post?.id === result.id ? post : { id: result.id } }, { status: 201 });
+  const [withBadge] = post?.id === result.id ? await withAuthorBadges(member.db, [post]) : [];
+  return NextResponse.json({ post: withBadge ?? { id: result.id } }, { status: 201 });
 }

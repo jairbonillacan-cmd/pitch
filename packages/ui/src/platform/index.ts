@@ -38,3 +38,4 @@ export * from "./club/SocialAndTipsterViews";
 export * from "./club/LedgerAccountAdminViews";
 export * from "./club/account/account-helpers";
 export * from "./record-stats";
+export * from "./badges";

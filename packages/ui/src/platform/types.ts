@@ -378,6 +378,8 @@ export interface SocialPost {
   fromServer?: boolean;
   /** La escribió quien está viendo (puede borrarla). */
   isMine?: boolean;
+  /** Primera insignia destacada del autor (solo si es pública). */
+  authorBadge?: { id: string; family: string; label: string; criterion: string } | null;
 }
 
 export interface PlayerPropItem {

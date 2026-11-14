@@ -68,7 +68,9 @@
 2. `pnpm --filter @pitchlab/web build`
 3. `pnpm --filter @pitchlab/web exec playwright test e2e/mi-record.spec.ts` (confirmar `2/2` en `desktop` `1440px` y `mobile` `390px` tras el fix de `<Switch.Content>`).
 
-### Punto 2 · Insignias (Badges)
+### Punto 2 · Insignias (Badges) — ✅ hecho el 2026-11-13 (ver INSIGNIAS-1 en `PROJECT_STATE.md`)
+- **Diferencias con lo planeado:** `featured_badges` es `text[]` (con `CHECK` de máximo 3), no `jsonb`; «Bitácora al día» se llama **«Récord al día»** por el renombre del punto 1; «Fundador beta» = cuenta creada hasta `BETA_FOUNDER_UNTIL_ISO` (31 dic 2026, hora CDMX), fecha a confirmar por el fundador.
+- **Quedan sin otorgarse hasta el punto 3:** «Lectura del partido» (requiere cruzar votos con resultados) y «Top 10 semanal/mensual» (requiere el ranking 7d/30d). El motor ya las admite (`pollHits`, `topTenWeeks`, `topTenMonthly`); hoy el servidor manda `null` y la UI las muestra como «Pronto».
 - **Reglas cerradas (Q6–Q9):**
   - **10 insignias en 4 familias:**
     1. *Precisión:* «Ojo fino» (`≥ 60 %` de acierto en `30+` picks cerrados), «Contra el cierre» (CLV medio `> 0` en 30 días con `20+` picks cerrados), «Especialista {liga}» (`≥ 55 %` en `20+` picks cerrados de esa liga).
@@ -126,4 +128,4 @@
   - Al tocar un chip se rellena el campo en un toque, manteniendo el input editable.
 
 ### Antes de desplegar a producción (recordatorio operativo)
-- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`** y **`0017_mi_record_privacidad`**, más las que se sumen en el punto 2) antes de desplegar en Vercel.
+- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`**, **`0017_mi_record_privacidad`** y **`0018_insignias_destacadas`**) antes de desplegar en Vercel.

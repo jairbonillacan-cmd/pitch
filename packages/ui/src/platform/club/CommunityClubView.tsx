@@ -13,6 +13,7 @@ import {
   type ConsensusGame,
 } from "../community-stats";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
+import { BadgeChip } from "./badges/ProfileBadges";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-provider";
@@ -775,6 +776,7 @@ function PostCard({
               {author.name}
             </a>
             {author.isTipster ? <VerifiedSeal size={16} /> : null}
+            {post.authorBadge ? <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" /> : null}
             {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
           </p>
           <p className="pl-com-post-sub num">
