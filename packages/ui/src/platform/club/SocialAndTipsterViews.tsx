@@ -846,7 +846,7 @@ export function TipsterPortalClubView({
                 className="text-xs font-extrabold"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Boleto Oficial para Redes
+                Boleto para compartir
               </span>
               <div
                 className="seg-well"
