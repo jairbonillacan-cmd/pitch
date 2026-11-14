@@ -135,11 +135,25 @@ Backtest walk-forward Liga MX con extensión (**2,532 partidos** evaluados, log 
 
 Reproducir: `pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=liga-mx --seasons=6`, luego `history:link` y `backtest:history --leagues=liga-mx --include-research-history --extend-corpus --xg-source=merged-any`.
 
+### Premier League (hecho 2026-11-14)
+
+Bzzoiro **mide** el xG de la Premier al menos desde 2021-22. Se bajaron 4 temporadas (2023-24 a 2026-27): 1,158 de 1,240 partidos emparejados con el corpus, todos con xG medido. Understat (`history:xg`, research-only) cubre 4,280 partidos (70 % del corpus).
+
+Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2; Δ contra la mezcla de producción con IC 95 % de bootstrap pareado):
+
+| xG usado | DC + Elo de xG | Δ contra producción (0.9726) | (DC goles + DC xG) + Elo de xG | Δ contra producción |
+|---|---|---|---|---|
+| Understat (4,280) | 0.9700 | **−0.0026 [−0.0046, −0.0005]** | 0.9698 | **−0.0028 [−0.0054, −0.0003]** |
+| Solo Bzzoiro (1,158, 3 temporadas) | 0.9713 | **−0.0014 [−0.0022, −0.0005]** | 0.9710 | **−0.0016 [−0.0027, −0.0004]** |
+| Understat + Bzzoiro encima | 0.9698 | **−0.0028 [−0.0049, −0.0008]** | 0.9696 | **−0.0030 [−0.0057, −0.0005]** |
+
+**Conclusión:** en la Premier el xG sí le gana a la mezcla de producción de forma significativa, con cualquiera de las dos fuentes. Bzzoiro rinde igual que Understat donde coinciden (0.9698 contra 0.9700) y tiene dos ventajas: su licencia permite uso comercial de las salidas derivadas (Understat es research-only) y cubre Liga MX. Con solo 3 temporadas ya es significativo; el efecto crecerá con más temporadas.
+
 ## 7. Siguientes pasos
 
-1. Correr Bzzoiro en las ligas europeas (ahí el corpus llega a 2026-27 y el xG medido traslapa varios años) y repetir la comparación contra la mezcla de producción.
-2. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
-3. Promover el xG a producción (`pipeline.ts`, Elo de xG en lugar de Elo de goles) **solo** cuando `deltaBlendXgVsBlend` sea significativo, alimentando el xG reciente desde `history:providers` en el workflow diario.
+1. **Promover el xG a producción en la Premier** (`pipeline.ts`: Elo de xG en lugar de Elo de goles, o la variante con DC de xG) con xG de Bzzoiro, alimentado a diario desde `history:providers`. En Liga MX esperar a que la comparación sea significativa.
+2. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
+3. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
 5. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
 6. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
