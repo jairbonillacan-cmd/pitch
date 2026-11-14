@@ -1,15 +1,15 @@
 {
   "generated_at": "2026-11-14T19:32:00Z",
-  "total_files_in_dossier": 523,
-  "total_bytes_in_dossier_approx": 17262841,
+  "total_files_in_dossier": 524,
+  "total_bytes_in_dossier_approx": 17295691,
   "root_app_directory_sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
   "astra_first_party_directory_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
-  "tracked_primary_artifacts": 109,
+  "tracked_primary_artifacts": 110,
   "artifacts": [
     {
       "path": "00-REPORTE-MAESTRO-ASTRA-ANALISIS.md",
-      "bytes": 42080,
-      "sha256": "afed262f992de3c99766c98b0d1dc28805065f992d932a1a80ecbdb54b5fd501"
+      "bytes": 42529,
+      "sha256": "bf0fa4afa9f44ee7f89a76b1ab1eb17979bcbf741a16eef6d7eba0dab84aa950"
     },
     {
       "path": "01-arquitectura-frontend-y-rutas.md",
@@ -90,6 +90,11 @@
       "path": "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
       "bytes": 66655,
       "sha256": "d9cf7e86cec41b4de9d724bb46fb67082e878d405b3b1b6cf8ef951f8f68aee6"
+    },
+    {
+      "path": "17-plan-mejoras-pitchlab-vs-astra-motores-y-funciones.md",
+      "bytes": 23245,
+      "sha256": "9163629b2204b2ebcaa150d77c3353124235e7418bbf5b996ec9c0caa580a3e0"
     },
     {
       "path": "app/index.html",
@@ -238,8 +243,8 @@
     },
     {
       "path": "evidence/rea-evidence-ledger.json",
-      "bytes": 25610,
-      "sha256": "f0b4de8bf084c81bcbd7056c20f4f5feb88034c10d67b05f377636627dceaf17"
+      "bytes": 24999,
+      "sha256": "7e8a19d2e25822223563aba16d6c4e0b967ac5bbea87dce71fdd9ed6047b0260"
     },
     {
       "path": "evidence/rea-semantic-and-agentenv-audit.json",
@@ -348,8 +353,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 10692,
-      "sha256": "59160e0e1caa70ad35b2a0e7a6b5b4f4907d96ed6b1b2fc9b916a9fa83abfe5b"
+      "bytes": 11243,
+      "sha256": "e45fb7251b9e62e284192bda4a1223ad186803be997ce062381344f3f7931687"
     },
     {
       "path": "screenshots/01-home-futbol.png",
