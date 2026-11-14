@@ -10,3 +10,4 @@ export * from "./nfl/ratings.js";
 export * from "./nfl/form.js";
 export * from "./nfl/analyze.js";
 export * from "./backtest/metrics.js";
+export * from "./us-sports/ratings.js";
