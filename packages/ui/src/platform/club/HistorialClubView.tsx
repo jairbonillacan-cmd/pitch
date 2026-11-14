@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { LeagueBadge } from "../../sports";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
+import { DailyParlaysResultsSection } from "./DailyParlaysResultsSection";
 import { usePlatform } from "../platform-provider";
 import type { PlatformGame } from "../types";
 
@@ -72,7 +73,7 @@ const DAY_FMT = new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeri
  * oficial. Acierto por liga y por tipo de pick, racha reciente y lista por día.
  */
 export function HistorialClubView(): React.JSX.Element {
-  const { dataset, navigateTo } = usePlatform();
+  const { dataset, navigateTo, oddsFormat } = usePlatform();
   const [outcome, setOutcome] = useState<Outcome>("all");
   const [league, setLeague] = useState("all");
   const [shown, setShown] = useState(20);
@@ -159,6 +160,8 @@ export function HistorialClubView(): React.JSX.Element {
             </span>
           </div>
         </section>
+
+        <DailyParlaysResultsSection games={dataset.games} oddsFormat={oddsFormat} />
 
         {scoped.length > 0 ? (
           <div className="pl-hist-grid">

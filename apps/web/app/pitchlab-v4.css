@@ -9402,3 +9402,203 @@ html[data-theme="light"] .pl-stage.pl-auth,
 .pl-mkt-toolbar .seg-btn {
   min-height: 44px;
 }
+
+/* ---------- Parlay oficial del día y generador rápido (Punto 4) ---------- */
+.pl-daily-parlay {
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  border-color: color-mix(in oklab, var(--pl-brand) 34%, var(--pl-border));
+}
+.pl-daily-parlay-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pl-daily-parlay-kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pl-daily-kpi {
+  border-radius: 14px;
+  padding: 8px 12px;
+  display: grid;
+  gap: 2px;
+  background: var(--pl-surface);
+  box-shadow: inset 0 0 0 1px var(--pl-border);
+}
+.pl-daily-kpi > span {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+.pl-daily-kpi > strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.pl-daily-styles {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.pl-daily-style-btn {
+  flex: 1 1 92px;
+  min-height: 44px;
+  justify-content: center;
+}
+.pl-daily-style-btn[aria-pressed="true"],
+.pl-quickbar-count[aria-pressed="true"],
+.pl-quickbar-pill[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--pl-brand) 60%, var(--pl-border));
+  font-weight: 700;
+}
+.pl-daily-legs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.pl-daily-leg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--pl-surface);
+  min-width: 0;
+}
+.pl-daily-leg-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.pl-daily-empty {
+  border-radius: 16px;
+  padding: 14px;
+  background: var(--pl-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pl-hist-parlays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+.pl-daily-hist-legs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.pl-daily-hist-leg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.pl-daily-hist-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  flex-shrink: 0;
+}
+.pl-daily-hist-mark.is-hit {
+  color: var(--pl-success);
+  background: color-mix(in oklab, var(--pl-success) 16%, transparent);
+}
+.pl-daily-hist-mark.is-miss {
+  color: var(--pl-text-secondary);
+  background: var(--pl-surface-hover);
+}
+.pl-daily-hist-mark.is-pending {
+  color: var(--pl-text-muted);
+  background: var(--pl-surface);
+}
+
+.pl-quickbar {
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.pl-quickbar-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pl-quickbar-preview {
+  display: flex;
+  align-items: center;
+}
+.pl-quickbar-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 10px;
+  align-items: end;
+}
+.pl-quickbar-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.pl-quickbar-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-quickbar-well {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.pl-quickbar-count {
+  flex: 1 1 44px;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+.pl-quickbar-pill {
+  flex: 1 1 76px;
+  min-height: 44px;
+  justify-content: center;
+}
+.pl-quickbar-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pl-text);
+  border-radius: 12px;
+}
+.pl-quickbar-select:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+.pl-quickbar-action {
+  display: flex;
+  align-items: flex-end;
+}
+.pl-quickbar-submit {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 18px;
+}

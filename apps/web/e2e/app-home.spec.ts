@@ -30,8 +30,25 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Elegir día" })).toBeVisible();
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
-  await expect(sportGroup).toBeVisible();
+  await expect(page.getByRole("group", { name: "Elegir deporte" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Tu parlay" })).toBeVisible();
+  await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
+  await page.locator('[data-daily-risk="conservador"]').click();
+  await page.locator('[data-daily-risk="arriesgado"]').click();
+  await page.locator('[data-daily-risk="medio"]').click();
+
+  const firstMatchHref = await page
+    .locator('a[href^="/app/"][href*="/games/"]')
+    .first()
+    .getAttribute("href");
+  if (width <= 640) {
+    await page.setViewportSize({ width: 375, height: 844 });
+    const overflow375 = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflow375).toBe(false);
+    await page.setViewportSize({ width, height: 900 });
+  }
 
   // Deporte → liga: elegir un deporte deja solo sus ligas y marca el botón
   const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
@@ -93,11 +110,22 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     .getByRole("button", { name: "Cerrar" })
     .click();
 
-  // 1) Armador Inteligente de Parlays & SGP
+  // 1) Armador Inteligente de Parlays & Generador personal
   await page.goto("/app/parlays");
   await expect(
     page.getByRole("heading", { name: /Armar parlay/i }),
   ).toBeVisible();
+  await expect(page.locator("[data-personal-parlay-quickbar]")).toBeVisible();
+  await page.locator('[data-quick-count="4"]').click();
+  await page.locator('[data-quick-risk="conservador"]').click();
+  if (width <= 640) {
+    await page.setViewportSize({ width: 375, height: 844 });
+    const overflowParlays375 = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflowParlays375).toBe(false);
+    await page.setViewportSize({ width, height: 900 });
+  }
   await page.locator("[data-generate-parlay]").click();
   await expect(page.getByRole("button", { name: /Sellar Parlay/i })).toBeEnabled();
   await page.getByRole("button", { name: /Sellar Parlay/i }).click();
@@ -159,6 +187,38 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.locator("[data-copy-short-link]:visible").click();
   await expect(page.locator("[data-copy-short-link]:visible")).toHaveText("Copiado");
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
+
+  // 6) Resultados: Parlays oficiales del día calificados
+  await page.goto("/app/historial");
+  await expect(page.locator("[data-hist-daily-parlays]")).toBeVisible();
+  if (width <= 640) {
+    await page.setViewportSize({ width: 375, height: 844 });
+    const overflowHist375 = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflowHist375).toBe(false);
+    await page.setViewportSize({ width, height: 900 });
+  }
+
+  // 7) Ficha de partido: Mercados agrupados y derivados del motor v3.2
+  if (firstMatchHref) {
+    await page.goto(firstMatchHref);
+    const marketsTab = page.getByRole("tab", { name: /^Mercados/i });
+    await expect(marketsTab).toBeVisible();
+    await marketsTab.click();
+    await expect(page.locator(".pl-mkt-wrap")).toBeVisible();
+    await expect(page.getByText(/Derivado del motor/i).first()).toBeVisible();
+    const bodyText = await page.locator("body").innerText();
+    expect(bodyText).not.toMatch(/\b(Poisson|Dixon-Coles|sigma|matriz|tipstar)\b/i);
+    if (width <= 640) {
+      await page.setViewportSize({ width: 375, height: 844 });
+      const overflowMatch375 = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      );
+      expect(overflowMatch375).toBe(false);
+      await page.setViewportSize({ width, height: 900 });
+    }
+  }
 
   expect(errors).toEqual([]);
 });

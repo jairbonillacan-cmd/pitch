@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { OddsCompareClubView } from "./OddsCompareView";
+import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import { getTeamColors } from "@pitchlab/sports-assets";
@@ -140,6 +141,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             elige selecciones manualmente con bloqueo en vivo de mercados contradictorios.
           </p>
         </section>
+
+        <PersonalParlayQuickBar />
 
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
           {/* Columna izquierda: 4 Pasos Numerados + Catálogo Manual */}

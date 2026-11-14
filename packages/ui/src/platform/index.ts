@@ -7,6 +7,7 @@ export { OWN_PROFILE_ALIASES } from "./club/community-ui";
 export * from "./community-stats";
 export * from "./match-picks-engine";
 export * from "./parlay-engine";
+export * from "./daily-parlay";
 export * from "./notifications";
 export * from "./platform-provider";
 
@@ -33,6 +34,8 @@ export * from "./public/ReferralInviteSurface";
 export * from "./club/CoreMatchViews";
 export * from "./club/match/MatchMarketsGrid";
 export { HomeClubView } from "./club/home/HomeClubView";
+export { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
+export { PersonalParlayQuickBar } from "./club/PersonalParlayQuickBar";
 export { HomeMatchCard } from "./components/HomeMatchCard";
 export * from "./club/ParlayAndQuantViews";
 export * from "./club/SocialAndTipsterViews";
