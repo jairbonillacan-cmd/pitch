@@ -3,6 +3,7 @@ import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts
 import { CortexAnalysisCard } from "./club/match/CortexAnalysisCard";
 import { MatchCommunityPoll } from "./club/match/MatchCommunityPoll";
 import { MatchContextPanel } from "./club/match/MatchContextPanel";
+import { MatchMarketsGrid } from "./club/match/MatchMarketsGrid";
 import { MatchSimulator } from "./club/match/MatchSimulator";
 import { ConfidenceChip } from "./components/ConfidenceChip";
 import { HomeMatchCard } from "./components/HomeMatchCard";
@@ -172,3 +173,190 @@ export const ContextoClaro = { ...Contexto, ...light };
 
 export const BoletoGanador = { render: () => <Provider><WinningStory /></Provider> };
 export const BoletoGanadorClaro = { ...BoletoGanador, ...light };
+
+const SAMPLE_DERIVED_FOOTBALL_ROWS = [
+  ...GAME.markets.map((m, idx) => ({
+    ...m,
+    isDerived: false,
+    isMostLikely: idx === 0,
+  })),
+  {
+    group: "Goles · Querétaro",
+    market: "team_goals_home",
+    selection: "home_over_1.5",
+    label: "Querétaro · Más de 1.5 goles",
+    p: 0.452,
+    fairDecimal: 2.21,
+    fairAmerican: 121,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "goles" as const,
+    cardTitle: "Goles Querétaro (1.5)",
+    isMostLikely: false,
+  },
+  {
+    group: "Goles · Querétaro",
+    market: "team_goals_home",
+    selection: "home_under_1.5",
+    label: "Querétaro · Menos de 1.5 goles",
+    p: 0.548,
+    fairDecimal: 1.82,
+    fairAmerican: -122,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "goles" as const,
+    cardTitle: "Goles Querétaro (1.5)",
+    isMostLikely: true,
+  },
+  {
+    group: "Marcador exacto",
+    market: "correct_score",
+    selection: "1-1",
+    label: "Marcador 1-1",
+    p: 0.118,
+    fairDecimal: 8.47,
+    fairAmerican: 747,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "marcador" as const,
+    cardTitle: "Marcador exacto · Top 6",
+    isMostLikely: true,
+  },
+  {
+    group: "1er tiempo · Resultado",
+    market: "ht_1x2",
+    selection: "ht_draw",
+    label: "1T · Empate",
+    p: 0.415,
+    fairDecimal: 2.41,
+    fairAmerican: 141,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "primer_tiempo" as const,
+    cardTitle: "1er tiempo · Resultado 1X2",
+    isMostLikely: true,
+  },
+];
+
+const SAMPLE_DERIVED_NFL_ROWS = [
+  {
+    group: "Ganador",
+    market: "moneyline",
+    selection: "home",
+    label: "Chiefs ganan",
+    p: 0.62,
+    fairDecimal: 1.61,
+    fairAmerican: -163,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: false,
+    cardCategory: "resultado" as const,
+    cardTitle: "Ganador",
+    isMostLikely: true,
+  },
+  {
+    group: "Hándicap",
+    market: "spread",
+    selection: "home_-3.5",
+    label: "Chiefs (-3.5)",
+    p: 0.52,
+    fairDecimal: 1.92,
+    fairAmerican: -108,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "handicap" as const,
+    cardTitle: "Hándicap (-3.5)",
+    isMostLikely: true,
+  },
+  {
+    group: "Hándicap",
+    market: "spread",
+    selection: "away_+3.5",
+    label: "Bills (+3.5)",
+    p: 0.48,
+    fairDecimal: 2.08,
+    fairAmerican: 108,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "handicap" as const,
+    cardTitle: "Hándicap (-3.5)",
+    isMostLikely: false,
+  },
+  {
+    group: "Total de puntos",
+    market: "totals",
+    selection: "over_47.5",
+    label: "Más de 47.5 pts",
+    p: 0.54,
+    fairDecimal: 1.85,
+    fairAmerican: -117,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "goles" as const,
+    cardTitle: "Total de puntos (47.5)",
+    isMostLikely: true,
+  },
+  {
+    group: "Total de puntos",
+    market: "totals",
+    selection: "under_47.5",
+    label: "Menos de 47.5 pts",
+    p: 0.46,
+    fairDecimal: 2.17,
+    fairAmerican: 117,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    isDerived: true,
+    cardCategory: "goles" as const,
+    cardTitle: "Total de puntos (47.5)",
+    isMostLikely: false,
+  },
+];
+
+export const MercadosDerivados = {
+  render: () => (
+    <Provider>
+      <MatchMarketsGrid
+        sport="football"
+        markets={SAMPLE_DERIVED_FOOTBALL_ROWS}
+        oddsFormat="american"
+        watermark="@socio_demo"
+        onHouseOddChange={() => undefined}
+        onSealRow={() => undefined}
+      />
+    </Provider>
+  ),
+};
+export const MercadosDerivadosClaro = { ...MercadosDerivados, ...light };
+
+export const MercadosDerivadosNFL = {
+  render: () => (
+    <Provider>
+      <MatchMarketsGrid
+        sport="american-football"
+        markets={SAMPLE_DERIVED_NFL_ROWS}
+        oddsFormat="decimal"
+        watermark="@socio_demo"
+        onHouseOddChange={() => undefined}
+        onSealRow={() => undefined}
+      />
+    </Provider>
+  ),
+};
+export const MercadosDerivadosNFLClaro = { ...MercadosDerivadosNFL, ...light };

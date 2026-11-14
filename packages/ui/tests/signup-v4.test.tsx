@@ -64,6 +64,12 @@ describe("SignupSurfaceV4 (SIGNUP-2)", () => {
     expect(html.match(/Opcional/g)?.length).toBe(2);
     expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Crear cuenta<\/button>/);
     expect(html).toContain('autoComplete="bday-day"');
+    expect(html).toContain('role="group"');
+    expect(html).toContain("Sugerencias calculadas aquí (sin verificar disponibilidad):");
+    expect(html).toContain("@ana");
+    expect(html).toContain("@ana2");
+    expect(html).toContain("@ana3");
+    expect((html.match(/class="pl-handle-chip"/g) ?? []).length).toBe(3);
   });
 
   it("invitación: nombre del creador, código sin nombre o nada", () => {

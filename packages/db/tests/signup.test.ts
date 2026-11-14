@@ -13,7 +13,9 @@ import {
   publicProfileByHandle,
   setMemberAvatarUrl,
   updateMemberProfile,
+  buildHandleCandidates,
   suggestHandle,
+  suggestHandles,
   tipsterAttributions,
   tipsterProfiles,
   referralGrants,
@@ -202,6 +204,54 @@ describe("usuario (@handle)", () => {
     await completeSignup(db, base(u.id, { handle: "jose_perez" }));
     expect(await suggestHandle(db, "José Pérez")).toBe("jose_perez2");
     expect(await suggestHandle(db, "42@example.com")).toMatch(/^socio/);
+  });
+
+  it("suggestHandles genera 3 sugerencias únicas, variadas y disponibles", async () => {
+    const firstBatch = await suggestHandles(db, ["José Pérez", "jose.perez@example.com"], 3);
+    expect(firstBatch).toHaveLength(3);
+    expect(new Set(firstBatch).size).toBe(3);
+    expect(firstBatch).toEqual(["jose_perez", "jose", "j_perez"]);
+    for (const h of firstBatch) {
+      expect(checkHandleFormat(h).ok).toBe(true);
+    }
+
+    // Al tomar los primeros usuarios ya ocupados, salta a variantes compactas y sufijos numéricos.
+    const u1 = await user("u1@example.com");
+    const u2 = await user("u2@example.com");
+    const u3 = await user("u3@example.com");
+    await completeSignup(db, base(u1.id, { handle: "jose_perez" }));
+    await completeSignup(db, base(u2.id, { handle: "jose" }));
+    await completeSignup(db, base(u3.id, { handle: "j_perez" }));
+
+    const nextBatch = await suggestHandles(db, ["José Pérez"], 3);
+    expect(nextBatch).toHaveLength(3);
+    expect(new Set(nextBatch).size).toBe(3);
+    for (const taken of firstBatch) {
+      expect(nextBatch).not.toContain(taken);
+    }
+    expect(nextBatch[0]).toBe("joseperez");
+
+    // También evita reservados aunque coincidan con la base y excluye exceptUserId cuando se solicita.
+    const reservedFiltered = await suggestHandles(db, ["admin", "soporte"], 3);
+    expect(reservedFiltered).toHaveLength(3);
+    for (const h of reservedFiltered) {
+      expect(checkHandleFormat(h).ok).toBe(true);
+      expect(h).not.toBe("admin");
+      expect(h).not.toBe("soporte");
+    }
+
+    const ownException = await suggestHandles(db, ["José Pérez"], 3, { exceptUserId: u1.id });
+    expect(ownException[0]).toBe("jose_perez");
+
+    // Entradas numéricas o vacías caen en prefijos socio válidos y nunca repiten dominios del correo.
+    expect(await suggestHandles(db, ["42+promo@secretdomain.mx"], 3)).toEqual([
+      "socio42",
+      "socio422",
+      "socio423",
+    ]);
+    expect(await suggestHandles(db, [""], 3)).toEqual(["socio", "socio2", "socio3"]);
+    expect(buildHandleCandidates(["Ana María López"])).not.toContain("root");
+    expect(await suggestHandles(db, ["José"], 0)).toEqual([]);
   });
 });
 

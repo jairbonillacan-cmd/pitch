@@ -14,6 +14,7 @@ import {
   usePlatformActions,
   usePlatformCore,
 } from "../../platform-provider";
+import { OfficialDailyParlayCard } from "./OfficialDailyParlayCard";
 import { profileRecord } from "../../profile-stats";
 import type { MatchPick, PlatformGame, RiskBand } from "../../types";
 import {
@@ -507,6 +508,13 @@ export function HomeClubView(): React.JSX.Element {
                 </div>
               </section>
             ) : null}
+
+            <OfficialDailyParlayCard
+              games={dataset.games}
+              selectedDay={day}
+              today={today}
+              isPastDay={isPast}
+            />
 
             {sections.map((section) => (
               <section key={section.sport} aria-label={section.label} className="flex flex-col gap-5">

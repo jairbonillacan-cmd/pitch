@@ -302,6 +302,10 @@ export interface PlatformContextValue {
     /** Partidos de donde elegir (p. ej. los días que ve el Inicio); sin él, toda la jornada. */
     games?: readonly PlatformGame[];
   }) => number;
+  loadParlayPicks: (
+    picks: readonly MatchPick[],
+    options?: { allowSgp?: boolean; toastText?: string },
+  ) => number;
 
   journal: JournalEntry[];
   sealPickToJournal: (
@@ -448,6 +452,7 @@ const ACTION_KEYS = [
   "removePickFromParlay",
   "clearParlay",
   "generateAutoParlay",
+  "loadParlayPicks",
   "sealPickToJournal",
   "sealParlayToJournal",
   "exportJournalCsv",
@@ -1033,6 +1038,36 @@ export function PlatformProvider({
       return built.length;
     },
     [dataset.games, viewerRole, pushToast],
+  );
+
+  const loadParlayPicks = useCallback(
+    (
+      picks: readonly MatchPick[],
+      options?: { allowSgp?: boolean; toastText?: string },
+    ): number => {
+      const nextAllowSgp = options?.allowSgp ?? false;
+      setAllowSgp(nextAllowSgp);
+      const accepted: ParlayLeg[] = [];
+      for (const pick of picks) {
+        if (checkParlayCompatibility(accepted, pick, nextAllowSgp).allowed) {
+          accepted.push({ pick });
+        }
+      }
+      if (accepted.length > 0) {
+        setParlayLegs(accepted);
+        pushToast(
+          options?.toastText ?? `Parlay cargado con ${accepted.length} selecciones.`,
+          "success",
+        );
+      } else {
+        pushToast(
+          "No hay selecciones compatibles disponibles para cargar al boleto.",
+          "warning",
+        );
+      }
+      return accepted.length;
+    },
+    [pushToast],
   );
 
   const sealPickToJournal = useCallback(
@@ -1753,6 +1788,7 @@ export function PlatformProvider({
       removePickFromParlay,
       clearParlay,
       generateAutoParlay,
+      loadParlayPicks,
       journal,
       sealPickToJournal,
       sealParlayToJournal,
@@ -1837,6 +1873,7 @@ export function PlatformProvider({
       removePickFromParlay,
       clearParlay,
       generateAutoParlay,
+      loadParlayPicks,
       journal,
       sealPickToJournal,
       sealParlayToJournal,

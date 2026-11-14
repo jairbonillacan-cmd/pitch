@@ -14,6 +14,7 @@ import {
   decimalToAmericanInt,
   formatEdgePts,
   formatOddsValue,
+  getSessionWatermark,
   isPreGameIntelUnlocked,
 } from "../access-guard";
 import {
@@ -33,6 +34,7 @@ import { ConfidenceChip } from "../components/ConfidenceChip";
 import { CortexAnalysisCard } from "./match/CortexAnalysisCard";
 import { MatchCommunityPoll } from "./match/MatchCommunityPoll";
 import { MatchContextPanel } from "./match/MatchContextPanel";
+import { MatchMarketsGrid } from "./match/MatchMarketsGrid";
 import { MatchSimulator } from "./match/MatchSimulator";
 import { PicksFinderClubView } from "./PicksFinderView";
 import { MatchOutlookStrip } from "../components/MatchOutlookStrip";
@@ -50,60 +52,6 @@ import type {
   PlatformMarketRow,
   RiskBand,
 } from "../types";
-
-function matchesMarketCategory(
-  row: PlatformMarketRow,
-  filter: "all" | "resultado" | "totales" | "btts_handicap" | "doble",
-): boolean {
-  if (filter === "all") return true;
-  const g = row.group.toLowerCase();
-  const m = row.market.toLowerCase();
-  const l = row.label.toLowerCase();
-
-  if (filter === "resultado") {
-    return (
-      g.includes("resultado") ||
-      g.includes("ganador") ||
-      g.includes("1x2") ||
-      m === "h2h" ||
-      m.includes("moneyline") ||
-      m === "1x2"
-    );
-  }
-  if (filter === "totales") {
-    return (
-      g.includes("total") ||
-      g.includes("goles") ||
-      g.includes("puntos") ||
-      g.includes("equipo") ||
-      m.includes("total") ||
-      m.includes("ou") ||
-      l.includes("más de") ||
-      l.includes("menos de")
-    );
-  }
-  if (filter === "btts_handicap") {
-    return (
-      g.includes("ambos") ||
-      g.includes("hándicap") ||
-      g.includes("handicap") ||
-      g.includes("spread") ||
-      g.includes("línea") ||
-      m.includes("btts") ||
-      m.includes("spread") ||
-      m.includes("handicap") ||
-      l.includes("ambos anotan")
-    );
-  }
-  return (
-    g.includes("doble") ||
-    g.includes("empate") ||
-    m.includes("double") ||
-    m.includes("dnb") ||
-    l.includes("o empate") ||
-    l.includes("sin empate")
-  );
-}
 
 const GRID_PAGE = 12;
 
@@ -409,6 +357,7 @@ export function MatchStudioClubView({
   const {
     dataset,
     viewerRole,
+    viewerIdentity,
     oddsFormat,
     watchlistGameIds,
     toggleWatchlistGame,
@@ -423,10 +372,9 @@ export function MatchStudioClubView({
   const [activeTab, setActiveTab] = useState<
     "picks" | "mercados" | "contexto" | "comunidad" | "dinero"
   >("picks");
-  const [marketGroupFilter, setMarketGroupFilter] = useState<
-    "all" | "resultado" | "totales" | "btts_handicap" | "doble"
-  >("all");
   const [marketUserOddsRaw, setMarketUserOddsRaw] = useState<string>("");
+  const [houseOddsByKey, setHouseOddsByKey] = useState<Record<string, string>>({});
+  const [sealedMarketKeys, setSealedMarketKeys] = useState<Set<string>>(() => new Set());
   const [debateBody, setDebateBody] = useState<string>("");
   const [debateError, setDebateError] = useState<string>("");
 
@@ -456,15 +404,10 @@ export function MatchStudioClubView({
     game.picks[0]?.engineName ??
     (isNfl ? "PitchLab Minkowski v3.0" : "PitchLab Tachyon v3.0");
 
-  const parsedMarketUserDec = useMemo(
-    () => (marketUserOddsRaw.trim() ? parseUserOdds(marketUserOddsRaw) : null),
-    [marketUserOddsRaw],
-  );
-
-  const filteredMarkets = useMemo(
-    () => game.markets.filter((m) => matchesMarketCategory(m, marketGroupFilter)),
-    [game.markets, marketGroupFilter],
-  );
+  const activeMarkets = useMemo(() => {
+    if (!intelUnlocked && !isFinished && game.markets.length === 0) return [];
+    return detail?.markets && detail.markets.length > 0 ? detail.markets : game.markets;
+  }, [detail?.markets, game.markets, intelUnlocked, isFinished]);
 
   const matchLabelShort = `${game.home.shortName} vs ${game.away.shortName}`;
 
@@ -504,16 +447,20 @@ export function MatchStudioClubView({
     setDebateBody("");
   };
 
-  const handleSealMarketRow = (m: PlatformMarketRow, idx: number) => {
+  const handleSealMarketRow = (
+    m: PlatformMarketRow,
+    idx: number,
+    rowCustomOddsRaw?: string,
+  ) => {
     const existingPick = game.picks.find((p) => p.label === m.label);
     if (existingPick) {
       openComposer(existingPick);
       return;
     }
+    const effectiveRaw = rowCustomOddsRaw?.trim() || marketUserOddsRaw.trim();
+    const parsedUserDec = effectiveRaw ? parseUserOdds(effectiveRaw) : null;
     const effectiveBookDec =
-      parsedMarketUserDec && parsedMarketUserDec > 1
-        ? parsedMarketUserDec
-        : m.currentDecimal;
+      parsedUserDec && parsedUserDec > 1 ? parsedUserDec : m.currentDecimal;
     const edgeForSeal =
       effectiveBookDec === null ? null : Math.round((m.p - 1 / effectiveBookDec) * 1000) / 10;
     const syntheticPick: MatchPick = {
@@ -534,7 +481,7 @@ export function MatchStudioClubView({
       selectionKey: m.selection,
       conflictGroup: "independent",
       label: m.label,
-      rationale: `Línea directa de la matriz de mercados (${(m.p * 100).toFixed(1)} % de probabilidad real).`,
+      rationale: `Línea directa del panel de mercados (${(m.p * 100).toFixed(1)} % de probabilidad real).`,
       p: m.p,
       fairDecimal: m.fairDecimal,
       fairAmerican: m.fairAmerican,
@@ -821,7 +768,7 @@ export function MatchStudioClubView({
           {(
             [
               { id: "picks", label: `Picks (${game.picks.length})` },
-              { id: "mercados", label: `Mercados (${game.markets.length})` },
+              { id: "mercados", label: `Mercados (${activeMarkets.length})` },
               { id: "contexto", label: "Contexto" },
               { id: "comunidad", label: `Comunidad (${matchDebateItems.length})` },
               { id: "dinero", label: "¿Dónde está el dinero?" },
@@ -895,7 +842,7 @@ export function MatchStudioClubView({
           </section>
         ) : null}
 
-        {/* Pestaña 2: Matriz de Mercados + Filtros + Calculadora Momio + Sellar */}
+        {/* Pestaña 2: Mercados del partido + Agrupados + Derivados del motor + Sellar */}
         {activeTab === "mercados" ? (
           <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -938,158 +885,33 @@ export function MatchStudioClubView({
               </div>
             </div>
 
-            {detail?.outlook && detail.markets.length > 0 ? (
+            {detail?.outlook && activeMarkets.length > 0 ? (
               <MatchOutlookStrip outlook={detail.outlook} oddsFormat={oddsFormat} />
             ) : null}
 
-            {/* Píldoras de filtro por grupo de mercado */}
-            <div
-              className="seg-well"
-              role="group"
-              aria-label="Filtrar matriz por grupo de mercado"
-            >
-              {(
-                [
-                  { id: "all", label: "Todos" },
-                  { id: "resultado", label: "Resultado" },
-                  { id: "totales", label: "Totales" },
-                  { id: "btts_handicap", label: "Ambos Anotan / Hándicap" },
-                  { id: "doble", label: "Doble Oportunidad" },
-                ] as const
-              ).map((grp) => (
-                <button
-                  key={grp.id}
-                  type="button"
-                  className="seg-btn text-xs"
-                  aria-pressed={marketGroupFilter === grp.id}
-                  onClick={() => setMarketGroupFilter(grp.id)}
-                >
-                  {grp.label}
-                </button>
-              ))}
-            </div>
-
-            {game.markets.length === 0 ? (
-              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Los mercados de este partido están disponibles con Pase PitchLab Ultra.
-              </p>
-            ) : filteredMarkets.length === 0 ? (
-              <div
-                className="rounded-2xl p-4 flex flex-wrap items-center justify-between gap-2 text-xs"
-                style={{ background: "var(--pl-surface)" }}
-              >
-                <span style={{ color: "var(--pl-text-secondary)" }}>
-                  No hay líneas en este grupo para {game.leagueLabel}.
-                </span>
-                <button
-                  type="button"
-                  className="pl-btn-glass text-xs min-h-8 px-3"
-                  onClick={() => setMarketGroupFilter("all")}
-                >
-                  Ver todos los mercados
-                </button>
-              </div>
-            ) : (
-              <div
-                className="pl-table-region"
-                tabIndex={0}
-                role="region"
-                aria-label="Mercados y momios justos"
-              >
-                <table className="w-full text-left border-collapse text-sm">
-                  <thead>
-                    <tr
-                      className="hairline-b text-xs"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      <th scope="col" className="py-2 pr-3">
-                        Grupo
-                      </th>
-                      <th scope="col" className="py-2 pr-3">
-                        Selección
-                      </th>
-                      <th scope="col" className="py-2 px-3">
-                        Probabilidad
-                      </th>
-                      <th scope="col" className="py-2 px-2 text-right">
-                        Justa
-                      </th>
-                      <th scope="col" className="py-2 px-2 text-right">
-                        {parsedMarketUserDec ? "Tu Momio" : "Casa"}
-                      </th>
-                      <th scope="col" className="py-2 px-2 text-right">
-                        Ventaja
-                      </th>
-                      <th scope="col" className="py-2 pl-2 text-right">
-                        Acción
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredMarkets.map((m, idx) => {
-                      const activeBookDec =
-                        parsedMarketUserDec && parsedMarketUserDec > 1
-                          ? parsedMarketUserDec
-                          : m.currentDecimal;
-                      const activeEdgePts =
-                        parsedMarketUserDec && parsedMarketUserDec > 1
-                          ? (m.p - 1 / parsedMarketUserDec) * 100
-                          : m.edgePts;
-
-                      return (
-                        <tr
-                          key={`${m.market}-${m.selection}-${idx}`}
-                          className="hairline-b"
-                        >
-                          <td
-                            className="py-2.5 pr-3 text-xs font-semibold"
-                            style={{ color: "var(--pl-text-muted)" }}
-                          >
-                            {m.group}
-                          </td>
-                          <td className="py-2.5 pr-3 font-bold">{m.label}</td>
-                          <td className="py-2.5 px-3 w-44">
-                            <div className="space-y-1">
-                              <span className="text-xs num font-bold">
-                                {(m.p * 100).toFixed(1)} %
-                              </span>
-                              <PBar p={m.p} lead={m.p >= 0.55} />
-                            </div>
-                          </td>
-                          <td className="py-2.5 px-2 text-right num font-semibold">
-                            {formatOddsValue(m.fairDecimal, oddsFormat)}
-                          </td>
-                          <td className="py-2.5 px-2 text-right num font-bold">
-                            {activeBookDec === null ? "—" : formatOddsValue(activeBookDec, oddsFormat)}
-                          </td>
-                          <td
-                            className="py-2.5 px-2 text-right num font-extrabold"
-                            style={{
-                              color:
-                                activeEdgePts !== null && activeEdgePts >= 0
-                                  ? "var(--pl-success)"
-                                  : "var(--pl-text-muted)",
-                            }}
-                          >
-                            {formatEdgePts(activeEdgePts)}
-                          </td>
-                          <td className="py-2.5 pl-2 text-right">
-                            <button
-                              type="button"
-                              className="pl-btn-glass text-xs min-h-7 px-2.5 inline-flex items-center gap-1"
-                              onClick={() => handleSealMarketRow(m, idx)}
-                            >
-                              <MaestroIcon name="plus" size={11} />
-                              <span>Sellar</span>
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            )}
+            <MatchMarketsGrid
+              sport={game.sport}
+              markets={activeMarkets}
+              oddsFormat={oddsFormat}
+              watermark={getSessionWatermark(viewerRole, viewerIdentity)}
+              locked={!intelUnlocked && !isFinished && activeMarkets.length === 0}
+              isFinished={isFinished}
+              canSeal={viewerRole !== "visitor"}
+              sealedKeys={sealedMarketKeys}
+              globalHouseOddRaw={marketUserOddsRaw}
+              houseOddsByKey={houseOddsByKey}
+              onHouseOddChange={(key, value) =>
+                setHouseOddsByKey((prev) => ({ ...prev, [key]: value }))
+              }
+              onSealRow={(row, rowKey) => {
+                setSealedMarketKeys((prev) => {
+                  const next = new Set(prev);
+                  next.add(rowKey);
+                  return next;
+                });
+                handleSealMarketRow(row, sealedMarketKeys.size, houseOddsByKey[rowKey]);
+              }}
+            />
           </section>
         ) : null}
 

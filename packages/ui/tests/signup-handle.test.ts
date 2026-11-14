@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { ownHandleFor } from "../src/platform/platform-provider";
 import {
+  buildLocalHandleSuggestions,
+  handleSuggestionQueryFromBases,
   normalizeSignupHandle,
   SIGNUP_HANDLE_PATTERN,
   suggestSignupHandle,
@@ -18,6 +20,19 @@ describe("usuario en el registro", () => {
     expect(SIGNUP_HANDLE_PATTERN.test("ana_lopez")).toBe(true);
     expect(SIGNUP_HANDLE_PATTERN.test("1ana")).toBe(false);
     expect(SIGNUP_HANDLE_PATTERN.test("ab")).toBe(false);
+  });
+
+  it("genera 3 sugerencias locales variadas y evita poner correos completos en la URL", () => {
+    expect(buildLocalHandleSuggestions(["José Pérez", "jose.perez@gmail.com"], 3)).toEqual([
+      "jose_perez",
+      "jose",
+      "j_perez",
+    ]);
+    expect(buildLocalHandleSuggestions(["42"], 3)).toEqual(["socio42", "socio422", "socio423"]);
+    expect(buildLocalHandleSuggestions(["ana@gmail.com"], 3)).toEqual(["ana", "ana2", "ana3"]);
+    expect(handleSuggestionQueryFromBases("Ana López", "ana@secreto.mx")).toBe("Ana López");
+    expect(handleSuggestionQueryFromBases("", "ana.lopez+promo@secreto.mx")).toBe("ana lopez");
+    expect(handleSuggestionQueryFromBases("", "ana@secreto.mx")).not.toContain("@");
   });
 
   it("con cuenta usa el usuario real; con PIN, el de ejemplo", () => {
