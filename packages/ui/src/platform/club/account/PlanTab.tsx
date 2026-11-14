@@ -6,6 +6,11 @@ import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/Maest
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
 import { usePlatform } from "../../platform-provider";
+import {
+  PREVIEW_SPEI_EVENT,
+  readPreviewSpeiState,
+  type PreviewSpeiState,
+} from "../../preview-spei-store";
 import type { PaymentMode } from "../../types";
 import {
   annualSavingsMxn,
@@ -47,6 +52,9 @@ export interface TransferRequestItem {
   status: "pending_review" | "approved" | "rejected" | "canceled";
   rejectionReason: string | null;
   reviewedAtIso: string | null;
+  couponExpiresAtIso?: string | null;
+  couponRedeemedAtIso?: string | null;
+  awaitingCouponRedemption?: boolean;
   createdAtIso: string;
   updatedAtIso: string;
 }
@@ -69,9 +77,11 @@ export interface ServerPlanPayload {
   eligibleForReferralDiscount?: boolean;
   quotedMonthlyCentavos?: number;
   quotedAnnualCentavos?: number;
+  speiReferenceCode?: string;
   transferBank?: TransferBankInfo;
   transferHistory?: TransferRequestItem[];
   activePendingTransfer?: TransferRequestItem | null;
+  latestApprovedTransfer?: TransferRequestItem | null;
 }
 
 export interface PlanTabStoryOverride {
@@ -184,6 +194,15 @@ export function PlanTab({
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const [simPlanState, setSimPlanState] = useState<PlanStateOverride | null>(null);
+  const [previewSpei, setPreviewSpei] = useState<PreviewSpeiState | null>(null);
+
+  useEffect(() => {
+    if (accountsEnabled || storyOverride) return;
+    const sync = () => setPreviewSpei(readPreviewSpeiState());
+    sync();
+    window.addEventListener(PREVIEW_SPEI_EVENT, sync);
+    return () => window.removeEventListener(PREVIEW_SPEI_EVENT, sync);
+  }, [accountsEnabled, storyOverride]);
 
   const [serverPlan, setServerPlan] = useState<ServerPlanPayload | null>(
     storyOverride?.serverPlan ?? initialServerPlan ?? null,
@@ -289,7 +308,8 @@ export function PlanTab({
     storyOverride?.paymentMode ?? serverPlan?.paymentMode ?? ctxPaymentMode;
   const isTransferMode = effectivePaymentMode === "transfer";
   const activePending = serverPlan?.activePendingTransfer ?? null;
-  const transferHistory = serverPlan?.transferHistory ?? [];
+  const transferHistory =
+    serverPlan?.transferHistory ?? (!accountsEnabled ? (previewSpei?.requests ?? []) : []);
   const transferBank = serverPlan?.transferBank ?? {
     configured: false,
     bank: null,
@@ -319,13 +339,16 @@ export function PlanTab({
     setUserNote(activePending.userNote ?? "");
   }, [activePending]);
 
-  // Sin cuentas, el estado predeterminado es «prueba» (§4), salvo override de Storybook o simulador.
+  // Sin cuentas, el estado predeterminado es «prueba» (§4), salvo override de Storybook, simulador o canje SPEI en sesión preview.
   const baseState: PlanStateOverride = useMemo(() => {
     if (simPlanState) return simPlanState;
     if (storyOverride?.planState) return storyOverride.planState;
     if (accountsEnabled && serverPlan) return serverPlan.planState;
+    if (!accountsEnabled && previewSpei?.activeInterval) {
+      return previewSpei.activeInterval === "annual" ? "anual" : "mensual";
+    }
     return "prueba";
-  }, [accountsEnabled, serverPlan, simPlanState, storyOverride?.planState]);
+  }, [accountsEnabled, previewSpei?.activeInterval, serverPlan, simPlanState, storyOverride?.planState]);
 
   const stripeConfigured =
     storyOverride?.stripeConfigured ?? serverPlan?.stripeConfigured ?? false;
@@ -885,7 +908,7 @@ export function PlanTab({
         }
         setTransferFeedback({
           kind: "ok",
-          text: "Comprobante registrado. Validaremos tu transferencia pronto y recibirás tu recibo por correo.",
+          text: "Comprobante registrado. Al confirmar tu pago en consola recibirás un cupón de un solo uso desde noreply@pitchlab.mx para canjearlo en /canjear.",
         });
         pushToast("Comprobante SPEI enviado", "success");
       } catch (err) {
@@ -1409,14 +1432,38 @@ export function PlanTab({
             </h3>
             <p className="m-0 text-xs pt-1" style={{ color: "var(--pl-text-muted)" }}>
               {isTransferMode
-                ? "Paso 1: genera tu referencia y transfiere por SPEI. Paso 2: registra tu comprobante para activar tus días."
+                ? "Paso 1: transfiere con tu referencia única SPEI. Paso 2: confirmamos tu pago y te enviamos un cupón desde noreply@pitchlab.mx para canjearlo aquí o en /canjear."
                 : "Si recibiste un código promocional o regalo, súmalo a tu acceso actual."}
             </p>
           </div>
           {activePending ? (
             <span className="pl-pill pl-pill--warning">En revisión</span>
+          ) : transferHistory.some((item) => item.awaitingCouponRedemption) ? (
+            <span className="pl-pill pl-pill--info">Cupón enviado</span>
           ) : null}
         </div>
+
+        {transferHistory.some((item) => item.awaitingCouponRedemption) ? (
+          <div
+            role="status"
+            aria-live="polite"
+            className="glass-ring rounded-xl p-3.5 text-xs space-y-1"
+            style={{ background: "var(--pl-surface)" }}
+            data-plan-awaiting-redemption=""
+          >
+            <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-success)" }}>
+              Pago confirmado · Revisa tu correo para canjear tu cupón
+            </strong>
+            <p className="m-0 leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
+              Te enviamos un cupón personal de un solo uso (vigencia de 30 días) desde{" "}
+              <strong className="num">noreply@pitchlab.mx</strong>. Ingrésalo en la caja de canje de abajo o en{" "}
+              <a href="/canjear" className="underline font-bold" style={{ color: "var(--pl-brand)" }}>
+                /canjear
+              </a>{" "}
+              para activar tus días pagados.
+            </p>
+          </div>
+        ) : null}
 
         {transferFeedback ? (
           <div
@@ -1474,9 +1521,12 @@ export function PlanTab({
                           void handleCopyText(activePending.referenceCode, "ref", "Concepto SPEI")
                         }
                       >
-                        <MaestroIcon name="copy" size={12} />
+                        <MaestroIcon name={copiedKey === "ref" ? "check" : "copy"} size={12} />
                         <span>{copiedKey === "ref" ? "Copiado" : "Copiar"}</span>
                       </button>
+                      <span className="sr-only" role="status" aria-live="polite">
+                        {copiedKey === "ref" ? "Concepto SPEI copiado al portapapeles" : ""}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1506,9 +1556,12 @@ export function PlanTab({
                             void handleCopyText(transferBank.clabe!, "clabe", "CLABE")
                           }
                         >
-                          <MaestroIcon name="copy" size={12} />
+                          <MaestroIcon name={copiedKey === "clabe" ? "check" : "copy"} size={12} />
                           <span>{copiedKey === "clabe" ? "Copiada" : "Copiar"}</span>
                         </button>
+                        <span className="sr-only" role="status" aria-live="polite">
+                          {copiedKey === "clabe" ? "CLABE copiada al portapapeles" : ""}
+                        </span>
                       </dd>
                     </div>
                   </dl>
@@ -1578,6 +1631,10 @@ export function PlanTab({
                     <input
                       type="text"
                       maxLength={120}
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="none"
+                      spellCheck={false}
                       placeholder="Folio de tu comprobante"
                       value={receiptReference}
                       onChange={(e) => setReceiptReference(e.target.value)}
@@ -1669,7 +1726,9 @@ export function PlanTab({
                       )}`}
                 </strong>
                 <span style={{ color: "var(--pl-text-muted)" }}>
-                  Genera tu concepto único para identificar el pago rápido y sin errores.
+                  {serverPlan?.speiReferenceCode
+                    ? `Tu referencia única permanente es ${serverPlan.speiReferenceCode}. Registra tu transferencia para recibir tu cupón por correo.`
+                    : "Usa tu referencia única ligada a tu cuenta para identificar tu transferencia y recibir tu cupón."}
                 </span>
               </div>
               <button
@@ -1681,7 +1740,7 @@ export function PlanTab({
                 className="pl-acct-btn pl-acct-btn--primary shrink-0"
                 data-create-transfer=""
               >
-                {transferBusy ? "Generando…" : "Generar referencia SPEI"}
+                {transferBusy ? "Preparando…" : "Ver cuenta SPEI y referencia"}
               </button>
             </div>
           )
@@ -1738,7 +1797,7 @@ export function PlanTab({
             {!accountsEnabled ? <ExampleBadge /> : null}
           </div>
 
-          {accountsEnabled ? (
+          {accountsEnabled || transferHistory.length > 0 ? (
             transferHistory.length === 0 ? (
               <p className="pl-acct-empty-line">
                 {isTransferMode
@@ -1748,7 +1807,11 @@ export function PlanTab({
             ) : (
               <ul className="pl-acct-payments" role="list" data-transfer-history="">
                 {transferHistory.map((item) => {
-                  const meta = TRANSFER_STATUS_META[item.status];
+                  const meta = item.awaitingCouponRedemption
+                    ? { label: "Cupón enviado", pillClass: "pl-pill--info" }
+                    : item.status === "approved"
+                      ? { label: "Suscripción activa", pillClass: "pl-pill--success" }
+                      : TRANSFER_STATUS_META[item.status];
                   return (
                     <li key={item.id} className="pl-acct-payment-row">
                       <div className="pl-acct-payment-meta">
@@ -1757,6 +1820,11 @@ export function PlanTab({
                           {item.planInterval === "annual" ? "Pase anual" : "Pase mensual"} ·{" "}
                           <span className="num">{item.referenceCode}</span>
                         </span>
+                        {item.awaitingCouponRedemption ? (
+                          <span className="block text-xs pt-0.5" style={{ color: "var(--pl-brand)" }}>
+                            Revisa tu correo (noreply@pitchlab.mx) y canjea tu cupón en /canjear
+                          </span>
+                        ) : null}
                         {item.status === "rejected" && item.rejectionReason ? (
                           <span className="block text-xs pt-0.5" style={{ color: "var(--pl-danger)" }}>
                             Motivo: {item.rejectionReason}

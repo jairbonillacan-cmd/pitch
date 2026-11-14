@@ -18,6 +18,7 @@ import {
   createAccessCoupon,
   createTipsterCode,
   createTransferRequest,
+  ensureUserSpeiReference,
   entitlementGrants,
   getUserPreferences,
   grantDays,
@@ -59,9 +60,14 @@ beforeEach(async () => {
 });
 
 describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
-  it("evita doble solicitud pendiente por socio, detecta diferencia de monto y aprueba de forma idempotente", async () => {
+  it("asigna referencia única permanente por cuenta, evita doble pendiente, emite cupón personal de 1 uso con vigencia al aprobar y activa días al canjear", async () => {
     const socio = await newUser("socio@example.com", "lupita_mx");
+    const intruso = await newUser("intruso@example.com", "otro_mx");
     const admin = await newUser("admin@example.com", "jair_op");
+
+    const permanentRef = await ensureUserSpeiReference(db, socio.id);
+    expect(permanentRef).toMatch(/^PL-LUPITAMX-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
+    expect(await ensureUserSpeiReference(db, socio.id)).toBe(permanentRef);
 
     const first = await createTransferRequest(db, {
       userId: socio.id,
@@ -76,7 +82,7 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     if (!first.ok) throw new Error("unexpected");
     expect(first.request.amountCentavosMxn).toBe(29900);
     expect(first.request.amountMismatch).toBe(false);
-    expect(first.request.referenceCode).toMatch(/^PL-LUPITAMX-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
+    expect(first.request.referenceCode).toBe(permanentRef);
 
     // Segunda pendiente bloqueada
     const dup = await createTransferRequest(db, {
@@ -97,7 +103,7 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     expect(updated.ok).toBe(true);
     if (updated.ok) expect(updated.request.amountMismatch).toBe(true);
 
-    // Aprobar primera vez otorga 30 días
+    // Aprobar primera vez emite cupón de un solo uso con vigencia de 30 días, sin activar días aún
     const approved1 = await approveTransferRequest(db, {
       requestId: first.request.id,
       adminUserId: admin.id,
@@ -107,9 +113,18 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     expect(approved1.ok).toBe(true);
     if (!approved1.ok) throw new Error("unexpected");
     expect(approved1.alreadyApproved).toBe(false);
-    expect(approved1.newAccessUntil?.getTime()).toBe(now.getTime() + 30 * DAY);
+    expect(approved1.coupon.code).toMatch(
+      /^PL-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/,
+    );
+    expect(approved1.coupon.days).toBe(30);
+    expect(approved1.coupon.maxRedemptions).toBe(1);
+    expect(approved1.coupon.restrictedToUserId).toBe(socio.id);
+    expect(approved1.coupon.transferRequestId).toBe(first.request.id);
+    expect(approved1.coupon.expiresAt?.getTime()).toBe(now.getTime() + 30 * DAY);
+    expect(await accessUntil(db, socio.id, now)).toBeNull();
+    expect(await db.select().from(entitlementGrants)).toHaveLength(0);
 
-    // Aprobar segunda vez NO duplica días ni auditoría
+    // Aprobar segunda vez es idempotente y devuelve el mismo cupón
     const approved2 = await approveTransferRequest(db, {
       requestId: first.request.id,
       adminUserId: admin.id,
@@ -117,12 +132,62 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
       paidAt: now,
     });
     expect(approved2.ok).toBe(true);
-    if (approved2.ok) expect(approved2.alreadyApproved).toBe(true);
+    if (!approved2.ok) throw new Error("unexpected");
+    expect(approved2.alreadyApproved).toBe(true);
+    expect(approved2.coupon.id).toBe(approved1.coupon.id);
+    expect(approved2.coupon.code).toBe(approved1.coupon.code);
+
+    // Otra cuenta no puede previsualizar ni canjear el cupón personal
+    expect(
+      await validateCouponPreview(db, {
+        code: approved1.coupon.code,
+        userId: intruso.id,
+        now,
+      }),
+    ).toMatchObject({ valid: false, reason: "cuenta_distinta" });
+    expect(
+      await redeemAccessCoupon(db, {
+        userId: intruso.id,
+        code: approved1.coupon.code,
+        now,
+      }),
+    ).toEqual({ ok: false, reason: "cuenta_distinta" });
+
+    // Si pasó la vigencia de 30 días, falla con `vencido`
+    expect(
+      await redeemAccessCoupon(db, {
+        userId: socio.id,
+        code: approved1.coupon.code,
+        now: new Date(now.getTime() + 31 * DAY),
+      }),
+    ).toEqual({ ok: false, reason: "vencido" });
+
+    // El socio titular canjea dentro de vigencia -> activa los 30 días de `transfer_payment`
+    const redeemed = await redeemAccessCoupon(db, {
+      userId: socio.id,
+      code: approved1.coupon.code,
+      now,
+    });
+    expect(redeemed.ok).toBe(true);
+    if (!redeemed.ok) throw new Error("unexpected");
+    expect(redeemed.transferActivated?.request.id).toBe(first.request.id);
+    expect(redeemed.newAccessUntil?.getTime()).toBe(now.getTime() + 30 * DAY);
     expect((await accessUntil(db, socio.id, now))!.getTime()).toBe(now.getTime() + 30 * DAY);
-    expect(await db.select().from(entitlementGrants)).toHaveLength(1);
+    const grants = await db.select().from(entitlementGrants);
+    expect(grants).toHaveLength(1);
+    expect(grants[0]!.sourceKind).toBe("transfer_payment");
+
+    // Un segundo intento del mismo socio devuelve `ya_canjeado`
+    expect(
+      await redeemAccessCoupon(db, {
+        userId: socio.id,
+        code: approved1.coupon.code,
+        now,
+      }),
+    ).toEqual({ ok: false, reason: "ya_canjeado" });
   });
 
-  it("rechazar no otorga acceso y cancelar libera al socio para intentar otro plan", async () => {
+  it("rechazar no otorga acceso, cancelar libera al socio y conserva la misma referencia única SPEI", async () => {
     const socio = await newUser("rechazo@example.com", "carlos_mx");
     const admin = await newUser("admin2@example.com");
 
@@ -148,11 +213,12 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     expect(rejected.ok).toBe(true);
     expect(await accessUntil(db, socio.id, now)).toBeNull();
 
-    // Tras rechazar puede crear una nueva solicitud anual y luego cancelarla
+    // Tras rechazar puede crear una nueva solicitud anual con la MISMA referencia única y luego cancelarla
     const req2 = await createTransferRequest(db, { userId: socio.id, planInterval: "annual", now });
     expect(req2.ok).toBe(true);
     if (!req2.ok) throw new Error("unexpected");
     expect(req2.request.amountCentavosMxn).toBe(239000);
+    expect(req2.request.referenceCode).toBe(req1.request.referenceCode);
 
     const canceled = await cancelTransferRequest(db, { requestId: req2.request.id, userId: socio.id, now });
     expect(canceled.ok).toBe(true);
@@ -163,7 +229,7 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     expect(row!.status).toBe("canceled");
   });
 
-  it("dispara referido doble vía (precio $209) y comisión tipster una sola vez al aprobar transferencia", async () => {
+  it("dispara referido doble vía (precio $209) y comisión tipster al canjear el cupón emitido por transferencia", async () => {
     const host = await newUser("host@example.com");
     const friend = await newUser("friend@example.com", "amigo_mx");
     const admin = await newUser("admin3@example.com");
@@ -195,29 +261,45 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     expect(req.request.amountCentavosMxn).toBe(20900);
     expect(req.request.referralDiscountApplied).toBe(true);
 
-    const res = await approveTransferRequest(db, {
+    const approved = await approveTransferRequest(db, {
       requestId: req.request.id,
       adminUserId: admin.id,
       adminEmail: admin.email,
       paidAt: now,
     });
-    expect(res.ok).toBe(true);
-    if (!res.ok) throw new Error("unexpected");
-    expect(res.paidEffects.referralRewarded).toBe(true);
+    expect(approved.ok).toBe(true);
+    if (!approved.ok) throw new Error("unexpected");
+    // Antes de canjear el cupón no se activan días ni comisión
+    expect(await accessUntil(db, friend.id, now)).toBeNull();
+    expect(await db.select().from(tipsterCommissionLedger)).toHaveLength(0);
+
+    const redeemed = await redeemAccessCoupon(db, {
+      userId: friend.id,
+      code: approved.coupon.code,
+      now,
+    });
+    expect(redeemed.ok).toBe(true);
+    if (!redeemed.ok) throw new Error("unexpected");
+    expect(redeemed.transferActivated?.paidEffects.referralRewarded).toBe(true);
     // Neto 20900 / 1.16 = 18017; comisión 25 % = 4504
-    expect(res.paidEffects.commissionCentavos).toBe(4504);
+    expect(redeemed.transferActivated?.paidEffects.commissionCentavos).toBe(4504);
 
     // Amigo: 30 días de la transferencia + los del referido; anfitrión: los del referido
-    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + (30 + REFERRAL_REWARD_DAYS) * DAY);
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
+    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(
+      now.getTime() + (30 + REFERRAL_REWARD_DAYS) * DAY,
+    );
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(
+      now.getTime() + REFERRAL_REWARD_DAYS * DAY,
+    );
 
-    // Al aprobar de nuevo no vuelve a premiar ni duplicar comisión
+    // Al aprobar de nuevo o intentar recanjear no vuelve a premiar ni duplicar comisión
     await approveTransferRequest(db, {
       requestId: req.request.id,
       adminUserId: admin.id,
       adminEmail: admin.email,
       paidAt: now,
     });
+    await redeemAccessCoupon(db, { userId: friend.id, code: approved.coupon.code, now });
     expect(await db.select().from(tipsterCommissionLedger)).toHaveLength(1);
 
     // Liquidación manual tras 14 días sin colisión por referencia repetida
@@ -309,7 +391,7 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
       reason: "inactivo",
     });
 
-    // Acumulación real: prueba 7d + transferencia 30d + cupón 15d = 52d
+    // Acumulación real: prueba 7d + cupón SPEI 30d + cupón promocional 15d = 52d
     const uCombo = await newUser("combo@example.com", "combo_mx");
     await grantDays(db, {
       userId: uCombo.id,
@@ -320,12 +402,15 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     });
     const reqCombo = await createTransferRequest(db, { userId: uCombo.id, planInterval: "monthly", now });
     if (!reqCombo.ok) throw new Error("unexpected");
-    await approveTransferRequest(db, {
+    const appCombo = await approveTransferRequest(db, {
       requestId: reqCombo.request.id,
       adminUserId: admin.id,
       adminEmail: admin.email,
       paidAt: now,
     });
+    if (!appCombo.ok) throw new Error("unexpected");
+    await redeemAccessCoupon(db, { userId: uCombo.id, code: appCombo.coupon.code, now });
+
     const cCombo = await createAccessCoupon(db, {
       adminUserId: admin.id,
       adminEmail: admin.email,
@@ -336,7 +421,7 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     if (!cCombo.ok) throw new Error("unexpected");
     await redeemAccessCoupon(db, { userId: uCombo.id, code: "EXTRA15", now });
     expect((await accessUntil(db, uCombo.id, now))!.getTime()).toBe(now.getTime() + 52 * DAY);
-    expect(await db.select().from(couponRedemptions)).toHaveLength(2);
+    expect(await db.select().from(couponRedemptions)).toHaveLength(3);
   });
 
   it("permite al admin buscar socios, dar o revocar días con auditoría, guardar preferencias y encolar correos por ciclo", async () => {

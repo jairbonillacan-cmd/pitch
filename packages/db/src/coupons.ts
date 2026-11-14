@@ -1,15 +1,30 @@
 /**
- * Cupones de acceso temporal (Beta 1.0).
+ * Cupones de acceso temporal y activación de pases pagados por SPEI (COBRO-SPEI-2).
  *
  * - Códigos generados automáticamente sin `0/O` ni `1/I` (alfabeto `23456789ABCDEFGHJKLMNPQRSTUVWXYZ`).
- * - Canje atómico en transacción con bloqueo de fila `FOR UPDATE`, 1 uso por usuario y respaldo
- *   SQL (`access_coupons_quota_ck` + índice único `(coupon_id, user_id)`).
+ * - Soporta cupones promocionales y cupones personales de un solo uso con vigencia emitidos al
+ *   confirmar una transferencia SPEI (`transfer_request_id`, `restricted_to_user_id`, `max_redemptions = 1`).
+ * - Canje atómico en transacción con bloqueo de fila `FOR UPDATE`, respaldo SQL y activación del
+ *   periodo pagado (`sourceKind: "transfer_payment"`, referidos bilaterales y comisión de tipster).
  */
 import { randomInt } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
-import { accessUntil, grantDays, type Db } from "./billing";
+import {
+  accessUntil,
+  applyInvoicePaidEffects,
+  grantDays,
+  type Db,
+  type InvoicePaidResult,
+} from "./billing";
 import { recordAdminAudit } from "./admin";
-import { accessCoupons, couponRedemptions, tipsterProfiles, users } from "./schema";
+import {
+  accessCoupons,
+  couponRedemptions,
+  tipsterProfiles,
+  transferPaymentRequests,
+  users,
+} from "./schema";
+import { computeIncludedVatBreakdown, type TransferRequestRow } from "./transfers";
 
 const COUPON_ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
@@ -70,17 +85,23 @@ export async function createAccessCoupon(
   return db.transaction(async (tx) => {
     const t = tx as unknown as Db;
 
-    const [[existingCoupon], [existingReferral], [existingPromo]] = await Promise.all([
-      t.select({ id: accessCoupons.id }).from(accessCoupons).where(eq(accessCoupons.code, code)).limit(1),
-      t.select({ id: users.id }).from(users).where(sql`upper(${users.referralCode}) = ${code}`).limit(1),
-      t
-        .select({ id: tipsterProfiles.userId })
-        .from(tipsterProfiles)
-        .where(sql`upper(${tipsterProfiles.promoCode}) = ${code}`)
-        .limit(1),
-    ]);
+    const [[existingCoupon], [existingReferral], [existingPromo], [existingSpeiRef]] =
+      await Promise.all([
+        t.select({ id: accessCoupons.id }).from(accessCoupons).where(eq(accessCoupons.code, code)).limit(1),
+        t.select({ id: users.id }).from(users).where(sql`upper(${users.referralCode}) = ${code}`).limit(1),
+        t
+          .select({ id: tipsterProfiles.userId })
+          .from(tipsterProfiles)
+          .where(sql`upper(${tipsterProfiles.promoCode}) = ${code}`)
+          .limit(1),
+        t
+          .select({ id: users.id })
+          .from(users)
+          .where(eq(users.speiReferenceCode, code))
+          .limit(1),
+      ]);
 
-    if (existingCoupon || existingReferral || existingPromo) {
+    if (existingCoupon || existingReferral || existingPromo || existingSpeiRef) {
       return { ok: false, reason: "duplicado" } as const;
     }
 
@@ -176,7 +197,13 @@ export async function listCouponRedemptionsAdmin(db: Db, couponId: string): Prom
     .orderBy(desc(couponRedemptions.createdAt));
 }
 
-export type CouponErrorReason = "no_existe" | "inactivo" | "vencido" | "agotado" | "ya_canjeado";
+export type CouponErrorReason =
+  | "no_existe"
+  | "inactivo"
+  | "vencido"
+  | "agotado"
+  | "ya_canjeado"
+  | "cuenta_distinta";
 
 export interface CouponPreviewSummary {
   id: string;
@@ -185,6 +212,8 @@ export interface CouponPreviewSummary {
   expiresAt: Date | null;
   maxRedemptions: number | null;
   redeemedCount: number;
+  isTransferCoupon: boolean;
+  isPersonal: boolean;
 }
 
 export type ValidateCouponPreviewResult =
@@ -199,6 +228,8 @@ function toSummary(c: AccessCouponRow): CouponPreviewSummary {
     expiresAt: c.expiresAt,
     maxRedemptions: c.maxRedemptions,
     redeemedCount: c.redeemedCount,
+    isTransferCoupon: Boolean(c.transferRequestId),
+    isPersonal: Boolean(c.restrictedToUserId),
   };
 }
 
@@ -215,10 +246,7 @@ export async function validateCouponPreview(
 
   const summary = toSummary(coupon);
   if (!coupon.active) return { valid: false, reason: "inactivo", coupon: summary };
-  const now = input.now ?? new Date();
-  if (coupon.expiresAt && coupon.expiresAt.getTime() <= now.getTime()) {
-    return { valid: false, reason: "vencido", coupon: summary };
-  }
+
   if (input.userId) {
     const [existing] = await db
       .select({ id: couponRedemptions.id })
@@ -226,6 +254,15 @@ export async function validateCouponPreview(
       .where(and(eq(couponRedemptions.couponId, coupon.id), eq(couponRedemptions.userId, input.userId)))
       .limit(1);
     if (existing) return { valid: false, reason: "ya_canjeado", coupon: summary };
+
+    if (coupon.restrictedToUserId && coupon.restrictedToUserId !== input.userId) {
+      return { valid: false, reason: "cuenta_distinta", coupon: summary };
+    }
+  }
+
+  const now = input.now ?? new Date();
+  if (coupon.expiresAt && coupon.expiresAt.getTime() <= now.getTime()) {
+    return { valid: false, reason: "vencido", coupon: summary };
   }
   if (coupon.maxRedemptions !== null && coupon.redeemedCount >= coupon.maxRedemptions) {
     return { valid: false, reason: "agotado", coupon: summary };
@@ -233,11 +270,23 @@ export async function validateCouponPreview(
   return { valid: true, coupon: summary };
 }
 
+export interface ActivatedTransferPayment {
+  request: TransferRequestRow;
+  paidEffects: InvoicePaidResult;
+  user: { id: string; email: string; displayName: string | null; handle: string | null };
+}
+
 export type RedeemCouponResult =
-  | { ok: true; coupon: CouponPreviewSummary; grantId: string; newAccessUntil: Date | null }
+  | {
+      ok: true;
+      coupon: CouponPreviewSummary;
+      grantId: string;
+      newAccessUntil: Date | null;
+      transferActivated: ActivatedTransferPayment | null;
+    }
   | { ok: false; reason: CouponErrorReason };
 
-/** Canjea un cupón en transacción con bloqueo de fila (`FOR UPDATE`), sumando días al acceso actual. */
+/** Canjea un cupón en transacción con bloqueo de fila (`FOR UPDATE`), activando el periodo correspondiente. */
 export async function redeemAccessCoupon(
   db: Db,
   input: { userId: string; code: string; now?: Date },
@@ -256,9 +305,6 @@ export async function redeemAccessCoupon(
 
     if (!coupon) return { ok: false, reason: "no_existe" } as const;
     if (!coupon.active) return { ok: false, reason: "inactivo" } as const;
-    if (coupon.expiresAt && coupon.expiresAt.getTime() <= now.getTime()) {
-      return { ok: false, reason: "vencido" } as const;
-    }
 
     const [already] = await t
       .select({ id: couponRedemptions.id })
@@ -267,25 +313,97 @@ export async function redeemAccessCoupon(
       .limit(1);
     if (already) return { ok: false, reason: "ya_canjeado" } as const;
 
+    if (coupon.restrictedToUserId && coupon.restrictedToUserId !== input.userId) {
+      return { ok: false, reason: "cuenta_distinta" } as const;
+    }
+
+    if (coupon.expiresAt && coupon.expiresAt.getTime() <= now.getTime()) {
+      return { ok: false, reason: "vencido" } as const;
+    }
+
     if (coupon.maxRedemptions !== null && coupon.redeemedCount >= coupon.maxRedemptions) {
       return { ok: false, reason: "agotado" } as const;
     }
 
-    const grantId = await grantDays(t, {
-      userId: input.userId,
-      sourceKind: "coupon",
-      days: coupon.days,
-      idempotencyKey: `coupon:${coupon.id}:${input.userId}`,
-      now,
-      note: `Cupón ${coupon.code}`,
-    });
+    let grantId: string;
+    let transferActivated: ActivatedTransferPayment | null = null;
 
-    await t.insert(couponRedemptions).values({
-      couponId: coupon.id,
-      userId: input.userId,
-      entitlementGrantId: grantId,
-      createdAt: now,
-    });
+    if (coupon.transferRequestId) {
+      const [transferRow] = await t
+        .select()
+        .from(transferPaymentRequests)
+        .where(eq(transferPaymentRequests.id, coupon.transferRequestId))
+        .for("update");
+
+      if (!transferRow) {
+        return { ok: false, reason: "inactivo" } as const;
+      }
+
+      const idempotencyKey = `transfer:${transferRow.id}`;
+      grantId = await grantDays(t, {
+        userId: input.userId,
+        sourceKind: "transfer_payment",
+        days: coupon.days,
+        idempotencyKey,
+        now,
+        note: `Transferencia ${transferRow.referenceCode} · Cupón ${coupon.code}`,
+      });
+
+      const vat = computeIncludedVatBreakdown(transferRow.amountCentavosMxn);
+      const paidEffects = await applyInvoicePaidEffects(t, {
+        userId: input.userId,
+        stripeInvoiceId: idempotencyKey,
+        grossCentavos: vat.grossCentavos,
+        vatCentavos: vat.vatCentavos,
+        gatewayFeeCentavos: 0,
+        paidAt: now,
+      });
+
+      const [updatedTransfer] = await t
+        .update(transferPaymentRequests)
+        .set({
+          entitlementGrantId: grantId,
+          updatedAt: now,
+        })
+        .where(eq(transferPaymentRequests.id, transferRow.id))
+        .returning();
+
+      const [member] = await t
+        .select({ id: users.id, email: users.email, displayName: users.displayName, handle: users.handle })
+        .from(users)
+        .where(eq(users.id, input.userId));
+
+      await t.insert(couponRedemptions).values({
+        couponId: coupon.id,
+        userId: input.userId,
+        entitlementGrantId: grantId,
+        transferRequestId: transferRow.id,
+        createdAt: now,
+      });
+
+      transferActivated = {
+        request: updatedTransfer ?? transferRow,
+        paidEffects,
+        user: member!,
+      };
+    } else {
+      grantId = await grantDays(t, {
+        userId: input.userId,
+        sourceKind: "coupon",
+        days: coupon.days,
+        idempotencyKey: `coupon:${coupon.id}:${input.userId}`,
+        now,
+        note: `Cupón ${coupon.code}`,
+      });
+
+      await t.insert(couponRedemptions).values({
+        couponId: coupon.id,
+        userId: input.userId,
+        entitlementGrantId: grantId,
+        transferRequestId: null,
+        createdAt: now,
+      });
+    }
 
     const [updatedCoupon] = await t
       .update(accessCoupons)
@@ -297,6 +415,12 @@ export async function redeemAccessCoupon(
       .returning();
 
     const newAccessUntil = await accessUntil(t, input.userId, now);
-    return { ok: true, coupon: toSummary(updatedCoupon ?? coupon), grantId, newAccessUntil } as const;
+    return {
+      ok: true,
+      coupon: toSummary(updatedCoupon ?? coupon),
+      grantId,
+      newAccessUntil,
+      transferActivated,
+    } as const;
   });
 }

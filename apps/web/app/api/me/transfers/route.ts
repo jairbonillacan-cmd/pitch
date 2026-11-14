@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   createTransferRequest,
+  ensureUserSpeiReference,
   listUserTransferRequests,
   quoteTransferAmountCentavos,
   type TransferPlanInterval,
@@ -26,10 +27,11 @@ export async function GET(request: Request): Promise<NextResponse> {
   const member = await requireMember(request);
   if ("error" in member) return member.error;
 
-  const [monthly, annual, rows] = await Promise.all([
+  const [monthly, annual, rows, speiReferenceCode] = await Promise.all([
     quoteTransferAmountCentavos(member.db, member.userId, "monthly"),
     quoteTransferAmountCentavos(member.db, member.userId, "annual"),
     listUserTransferRequests(member.db, member.userId, 20),
+    ensureUserSpeiReference(member.db, member.userId),
   ]);
 
   const history = rows.map(serializeTransferRequest);
@@ -38,6 +40,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   return NextResponse.json(
     {
       paymentMode: paymentMode(),
+      speiReferenceCode,
       bank: getTransferBankConfig(),
       quotes: { monthly, annual },
       activePending,
@@ -107,6 +110,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   return NextResponse.json(
     {
       ok: true,
+      speiReferenceCode: res.request.referenceCode,
       request: serializeTransferRequest(res.request),
       bank: getTransferBankConfig(),
     },

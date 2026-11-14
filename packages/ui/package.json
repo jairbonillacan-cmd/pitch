@@ -24,7 +24,8 @@
     "./record-stats": "./src/platform/record-stats.ts",
     "./badges": "./src/platform/badges.ts",
     "./ranking": "./src/platform/ranking.ts",
-    "./record": "./src/platform/club/BitacoraClubView.tsx"
+    "./record": "./src/platform/club/BitacoraClubView.tsx",
+    "./legal": "./src/platform/public/LegalSurfaces.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

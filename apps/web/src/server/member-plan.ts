@@ -2,6 +2,7 @@ import {
   accessUntil,
   and,
   desc,
+  ensureUserSpeiReference,
   entitlementGrants,
   eq,
   hasActivePaseTotal,
@@ -14,6 +15,7 @@ import {
   users,
   type Db,
   type TransferRequestRow,
+  type UserTransferRequestItem,
 } from "@pitchlab/db";
 import { supportEmail } from "@pitchlab/emails";
 import { referralEarnedDays } from "@pitchlab/ui";
@@ -49,11 +51,25 @@ export interface TransferRequestSummary {
   status: "pending_review" | "approved" | "rejected" | "canceled";
   rejectionReason: string | null;
   reviewedAtIso: string | null;
+  couponExpiresAtIso: string | null;
+  couponRedeemedAtIso: string | null;
+  awaitingCouponRedemption: boolean;
   createdAtIso: string;
   updatedAtIso: string;
 }
 
-export function serializeTransferRequest(row: TransferRequestRow): TransferRequestSummary {
+export function serializeTransferRequest(
+  row: TransferRequestRow | UserTransferRequestItem,
+): TransferRequestSummary {
+  const rawExpires = "couponExpiresAt" in row ? row.couponExpiresAt : null;
+  const rawRedeemed = "couponRedeemedAt" in row ? row.couponRedeemedAt : null;
+  const couponExpiresAtIso = rawExpires ? new Date(rawExpires).toISOString() : null;
+  const couponRedeemedAtIso = rawRedeemed ? new Date(rawRedeemed).toISOString() : null;
+  const status =
+    row.status === "approved" || row.status === "rejected" || row.status === "canceled"
+      ? row.status
+      : "pending_review";
+
   return {
     id: row.id,
     planInterval: row.planInterval === "annual" ? "annual" : "monthly",
@@ -67,12 +83,13 @@ export function serializeTransferRequest(row: TransferRequestRow): TransferReque
     payerName: row.payerName ?? null,
     transferDate: row.transferDate ?? null,
     userNote: row.userNote ?? null,
-    status:
-      row.status === "approved" || row.status === "rejected" || row.status === "canceled"
-        ? row.status
-        : "pending_review",
+    status,
     rejectionReason: row.rejectionReason ?? null,
     reviewedAtIso: row.reviewedAt ? new Date(row.reviewedAt).toISOString() : null,
+    couponExpiresAtIso,
+    couponRedeemedAtIso,
+    awaitingCouponRedemption:
+      status === "approved" && !row.entitlementGrantId && !couponRedeemedAtIso,
     createdAtIso: new Date(row.createdAt).toISOString(),
     updatedAtIso: new Date(row.updatedAt).toISOString(),
   };
@@ -96,12 +113,17 @@ export interface MemberPlanSummary {
   eligibleForReferralDiscount: boolean;
   quotedMonthlyCentavos: number;
   quotedAnnualCentavos: number;
+  speiReferenceCode: string;
   transferBank: TransferBankSummary;
   transferHistory: TransferRequestSummary[];
   activePendingTransfer: TransferRequestSummary | null;
+  latestApprovedTransfer: TransferRequestSummary | null;
 }
 
-/** Consulta de solo lectura del estado del pase de un socio. Nunca escribe en la base. */
+/**
+ * Consulta del estado del pase de un socio y su referencia SPEI permanente (`users.spei_reference_code`,
+ * generada perezosamente una sola vez si era nula).
+ */
 export async function loadMemberPlanSummary(
   db: Db,
   userId: string,
@@ -127,6 +149,7 @@ export async function loadMemberPlanSummary(
     annualQuote,
     activeGrants,
     rawTransfers,
+    speiReferenceCode,
   ] = await Promise.all([
     hasActivePaseTotal(db, userId, now),
     accessUntil(db, userId, now),
@@ -150,6 +173,7 @@ export async function loadMemberPlanSummary(
       .where(and(eq(entitlementGrants.userId, userId), isNull(entitlementGrants.revokedAt)))
       .orderBy(desc(entitlementGrants.endsAt)),
     listUserTransferRequests(db, userId, 20),
+    ensureUserSpeiReference(db, userId),
   ]);
 
   const transferHistory = rawTransfers.map(serializeTransferRequest);
@@ -225,11 +249,13 @@ export async function loadMemberPlanSummary(
     eligibleForReferralDiscount: monthlyQuote.referralDiscountApplied,
     quotedMonthlyCentavos: monthlyQuote.amountCentavosMxn,
     quotedAnnualCentavos: annualQuote.amountCentavosMxn,
+    speiReferenceCode,
     transferBank: {
       ...bankConfig,
       supportEmail: supportEmail(),
     },
     transferHistory,
     activePendingTransfer,
+    latestApprovedTransfer,
   };
 }

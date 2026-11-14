@@ -9,11 +9,19 @@ import {
   ULTRA_LANDING_FEATURES,
 } from "../spacetime-catalog";
 import { LensGlowOrbs } from "../components/MaestroPrimitives";
+import {
+  cancelPreviewTransfer,
+  createOrUpdatePreviewTransfer,
+  PREVIEW_SPEI_EVENT,
+  readPreviewSpeiState,
+} from "../preview-spei-store";
 import { CountUpNumber } from "./CountUpNumber";
 import { ReferralCard3D } from "./ReferralCard3D";
 import type {
   LandingFinishedResultItem,
   LandingHeroLeagueCard,
+  PrecioTransferContext,
+  PrecioTransferRequestSummary,
   PublicNavPath,
 } from "./PublicSiteSections";
 
@@ -534,6 +542,12 @@ export function PricingCardIsland({
   animated?: boolean;
 } = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
+  const selectBilling = (next: "monthly" | "annual") => {
+    setBilling(next);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("pitchlab:pricing-cycle", { detail: next }));
+    }
+  };
   const isAnnual = billing === "annual";
   const amount = isAnnual ? MEMBERSHIP_SPEC.annualMxn : MEMBERSHIP_SPEC.monthlyMxn;
   const amountLabel = formatMxnAmount(amount);
@@ -570,7 +584,7 @@ export function PricingCardIsland({
           type="button"
           className="pl-lp-tab"
           aria-pressed={!isAnnual}
-          onClick={() => setBilling("monthly")}
+          onClick={() => selectBilling("monthly")}
         >
           Mensual
         </button>
@@ -578,7 +592,7 @@ export function PricingCardIsland({
           type="button"
           className="pl-lp-tab"
           aria-pressed={isAnnual}
-          onClick={() => setBilling("annual")}
+          onClick={() => selectBilling("annual")}
         >
           Anual · ahorras 4 meses
         </button>
@@ -819,5 +833,843 @@ export function ResultsFilterListIsland({
         )}
       </div>
     </div>
+  );
+}
+
+const SHORT_DATE_MX = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "America/Mexico_City",
+});
+
+function formatIsoDateEsMx(iso: string | null | undefined): string | null {
+  if (!iso) return null;
+  const ms = Date.parse(iso);
+  if (!Number.isFinite(ms)) return null;
+  return SHORT_DATE_MX.format(new Date(ms)).replace(/\./g, "");
+}
+
+function formatCentavosMxnPublic(centavos: number): string {
+  const pesos = centavos / 100;
+  return `$${pesos.toLocaleString("es-MX", {
+    minimumFractionDigits: centavos % 100 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  })} MXN`;
+}
+
+export function AccessibleCopyButton({
+  value,
+  idleLabel,
+  copiedLabel = "Copiado",
+  announceLabel,
+  dataAttr,
+}: {
+  value: string;
+  idleLabel: string;
+  copiedLabel?: string;
+  announceLabel: string;
+  dataAttr?: "ref" | "clabe";
+}): React.JSX.Element {
+  const [copied, setCopied] = useState(false);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null && typeof window !== "undefined") {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+      timerRef.current = window.setTimeout(() => {
+        setCopied(false);
+        timerRef.current = null;
+      }, 2000);
+    } catch (err) {
+      void err;
+    }
+  };
+
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center" }}>
+      <button
+        type="button"
+        onClick={() => void handleCopy()}
+        className="pl-lp-btn pl-lp-btn--compact pl-lp-btn-ghost"
+        style={{ minHeight: 44, padding: "8px 14px", fontSize: 13 }}
+        data-copy-spei={dataAttr}
+      >
+        {copied ? (
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            style={{ color: "var(--pl-success)" }}
+          >
+            <path d="M5 12l5 5 9-10" />
+          </svg>
+        ) : (
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+        )}
+        <span>{copied ? copiedLabel : idleLabel}</span>
+      </button>
+      <span className="sr-only" role="status" aria-live="polite">
+        {copied ? `${announceLabel} copiado al portapapeles` : ""}
+      </span>
+    </span>
+  );
+}
+
+export function SpeiTransferPricingIsland({
+  context,
+}: {
+  context: PrecioTransferContext;
+}): React.JSX.Element | null {
+  const [selectedInterval, setSelectedInterval] = useState<"monthly" | "annual">(
+    context.activePending?.planInterval ?? "monthly",
+  );
+  const [speiRef, setSpeiRef] = useState<string | null>(context.speiReferenceCode);
+  const [activePending, setActivePending] = useState<PrecioTransferRequestSummary | null>(
+    context.activePending,
+  );
+  const [latestApproved, setLatestApproved] = useState<PrecioTransferRequestSummary | null>(
+    context.latestApproved,
+  );
+  const [latestRejected, setLatestRejected] = useState<PrecioTransferRequestSummary | null>(
+    context.latestRejected,
+  );
+  const [activePass, setActivePass] = useState<boolean>(context.activePass);
+
+  const [originBank, setOriginBank] = useState<string>(context.activePending?.originBank ?? "");
+  const [receiptReference, setReceiptReference] = useState<string>(
+    context.activePending?.receiptReference ?? "",
+  );
+  const [busy, setBusy] = useState(false);
+  const [feedback, setFeedback] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
+
+  const bankInputId = useId();
+  const trackingInputId = useId();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onCycle = (ev: Event) => {
+      const detail = (ev as CustomEvent<"monthly" | "annual">).detail;
+      if ((detail === "monthly" || detail === "annual") && !activePending) {
+        setSelectedInterval(detail);
+      }
+    };
+    window.addEventListener("pitchlab:pricing-cycle", onCycle);
+    return () => window.removeEventListener("pitchlab:pricing-cycle", onCycle);
+  }, [activePending]);
+
+  // Hidratación del almacén de vista previa cuando la app corre con PIN de beta (!accountsEnabled)
+  useEffect(() => {
+    if (context.viewerState !== "beta_preview" || context.accountsEnabled) return;
+    const syncFromPreview = () => {
+      const st = readPreviewSpeiState();
+      setSpeiRef(st.speiReferenceCode);
+      const pending = st.requests.find((r) => r.status === "pending_review") ?? null;
+      const approved = st.requests.find((r) => r.status === "approved") ?? null;
+      const rejected = st.requests.find((r) => r.status === "rejected") ?? null;
+      setActivePending(pending);
+      setLatestApproved(approved);
+      setLatestRejected(rejected);
+      setActivePass(Boolean(st.activeUntilIso && Date.parse(st.activeUntilIso) > Date.now()));
+      if (pending) {
+        setOriginBank(pending.originBank ?? "");
+        setReceiptReference(pending.receiptReference ?? "");
+      }
+    };
+    syncFromPreview();
+    window.addEventListener(PREVIEW_SPEI_EVENT, syncFromPreview);
+    return () => window.removeEventListener(PREVIEW_SPEI_EVENT, syncFromPreview);
+  }, [context.accountsEnabled, context.viewerState]);
+
+  if (context.paymentMode !== "transfer") {
+    return null;
+  }
+
+  const isPreview = context.viewerState === "beta_preview" && !context.accountsEnabled;
+  const canTransact = context.viewerState === "member" || isPreview;
+  const effectiveInterval = activePending?.planInterval ?? selectedInterval;
+  const quotedAmountCentavos = activePending
+    ? activePending.amountCentavosMxn
+    : effectiveInterval === "annual"
+      ? context.quotes.annualCentavos
+      : context.quotes.monthlyCentavos;
+
+  const handleSubmitNotice = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!canTransact) return;
+
+    if (isPreview) {
+      const saved = createOrUpdatePreviewTransfer({
+        planInterval: effectiveInterval,
+        amountCentavosMxn: quotedAmountCentavos,
+        originBank: originBank.trim() || null,
+        reportedAmountCentavosMxn: quotedAmountCentavos,
+        receiptReference: receiptReference.trim() || null,
+      });
+      setActivePending(saved);
+      setFeedback({
+        kind: "ok",
+        text: `Transferencia ${saved.referenceCode} registrada en revisión (modo vista previa). Al confirmar el pago en la consola del fundador se generará tu cupón de un solo uso y se enviará desde noreply@pitchlab.mx.`,
+      });
+      return;
+    }
+
+    setBusy(true);
+    setFeedback(null);
+    try {
+      if (activePending) {
+        const res = await fetch(`/api/me/transfers/${activePending.id}`, {
+          method: "PATCH",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            originBank: originBank.trim() || null,
+            reportedAmountCentavosMxn: quotedAmountCentavos,
+            receiptReference: receiptReference.trim() || null,
+          }),
+        });
+        const json = (await res.json().catch(() => null)) as {
+          ok?: boolean;
+          request?: PrecioTransferRequestSummary;
+          error?: string;
+        } | null;
+        if (!res.ok || !json?.ok) {
+          setFeedback({
+            kind: "error",
+            text: json?.error ?? "No se pudo actualizar tu aviso de transferencia.",
+          });
+          return;
+        }
+        if (json.request) setActivePending(json.request);
+        setFeedback({
+          kind: "ok",
+          text: "Datos actualizados. En cuanto confirmemos tu pago te enviaremos tu cupón desde noreply@pitchlab.mx.",
+        });
+        return;
+      }
+
+      const res = await fetch("/api/me/transfers", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          planInterval: effectiveInterval,
+          originBank: originBank.trim() || null,
+          reportedAmountCentavosMxn: quotedAmountCentavos,
+          receiptReference: receiptReference.trim() || null,
+        }),
+      });
+      const json = (await res.json().catch(() => null)) as {
+        ok?: boolean;
+        speiReferenceCode?: string;
+        request?: PrecioTransferRequestSummary;
+        activePending?: PrecioTransferRequestSummary | null;
+        error?: string;
+      } | null;
+
+      if (!res.ok) {
+        if (res.status === 409 && json?.activePending) {
+          setActivePending(json.activePending);
+          setFeedback({
+            kind: "ok",
+            text: "Ya tienes una transferencia en revisión con tu referencia única.",
+          });
+          return;
+        }
+        setFeedback({
+          kind: "error",
+          text: json?.error ?? "No pudimos registrar tu aviso de transferencia.",
+        });
+        return;
+      }
+
+      if (json?.speiReferenceCode) setSpeiRef(json.speiReferenceCode);
+      if (json?.request) setActivePending(json.request);
+      setFeedback({
+        kind: "ok",
+        text: "Aviso registrado en revisión. Al confirmar tu pago te enviaremos un cupón de un solo uso desde noreply@pitchlab.mx para canjearlo en /canjear.",
+      });
+    } catch (err) {
+      void err;
+      setFeedback({
+        kind: "error",
+        text: "Error de conexión al registrar la transferencia. Intenta de nuevo.",
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleCancelPending = async () => {
+    if (!activePending) return;
+    if (isPreview) {
+      cancelPreviewTransfer(activePending.id);
+      setActivePending(null);
+      setFeedback({
+        kind: "ok",
+        text: "Aviso cancelado. Tu referencia única sigue disponible para cuando decidas transferir.",
+      });
+      return;
+    }
+    setBusy(true);
+    setFeedback(null);
+    try {
+      const res = await fetch(`/api/me/transfers/${activePending.id}`, {
+        method: "DELETE",
+        credentials: "same-origin",
+      });
+      if (!res.ok) {
+        const json = (await res.json().catch(() => null)) as { error?: string } | null;
+        setFeedback({
+          kind: "error",
+          text: json?.error ?? "No se pudo cancelar el aviso pendiente.",
+        });
+        return;
+      }
+      setActivePending(null);
+      setFeedback({
+        kind: "ok",
+        text: "Aviso cancelado. Conservas la misma referencia única ligada a tu cuenta.",
+      });
+    } catch (err) {
+      void err;
+      setFeedback({
+        kind: "error",
+        text: "No pudimos cancelar el aviso. Intenta de nuevo.",
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <section
+      id="transferencia"
+      className="pl-lp-section"
+      aria-labelledby="pl-lp-spei-heading"
+      data-precio-spei-section=""
+    >
+      <div className="pl-lp-wrap pl-lp-stack">
+        <div className="pl-lp-section-head">
+          <p className="pl-lp-eyebrow">Activación por transferencia + cupón</p>
+          <h2 id="pl-lp-spei-heading" className="pl-lp-h2">
+            Paga por transferencia SPEI sin cargos automáticos.
+          </h2>
+          <p className="pl-lp-lede">
+            Transfiere desde tu banca móvil usando tu referencia única, recibe por correo tu cupón personal desde{" "}
+            <strong className="num">noreply@pitchlab.mx</strong> y activa tus días en{" "}
+            <a href="/canjear" style={{ color: "var(--pl-brand)", textDecoration: "underline" }}>
+              /canjear
+            </a>
+            .
+          </p>
+        </div>
+
+        <ol className="pl-lp-steps" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+          <li>
+            <span className="pl-lp-step-idx num">01</span>
+            <div className="pl-lp-step-body">
+              <h3 className="pl-lp-h3">Copia tu referencia única</h3>
+              <p style={{ margin: 0, color: "var(--pl-text-secondary)", lineHeight: 1.5, fontSize: 14 }}>
+                Cada cuenta tiene un código permanente <span className="num">PL-…</span> para poner como concepto o referencia al transferir.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span className="pl-lp-step-idx num">02</span>
+            <div className="pl-lp-step-body">
+              <h3 className="pl-lp-h3">Confirmamos tu pago</h3>
+              <p style={{ margin: 0, color: "var(--pl-text-secondary)", lineHeight: 1.5, fontSize: 14 }}>
+                Revisamos las transferencias pendientes con esa referencia y validamos el depósito recibido.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span className="pl-lp-step-idx num">03</span>
+            <div className="pl-lp-step-body">
+              <h3 className="pl-lp-h3">Recibes tu cupón por correo</h3>
+              <p style={{ margin: 0, color: "var(--pl-text-secondary)", lineHeight: 1.5, fontSize: 14 }}>
+                Te enviamos un cupón personal de un solo uso con 30 días de vigencia desde{" "}
+                <span className="num">noreply@pitchlab.mx</span>.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span className="pl-lp-step-idx num">04</span>
+            <div className="pl-lp-step-body">
+              <h3 className="pl-lp-h3">Canjéalo en /canjear</h3>
+              <p style={{ margin: 0, color: "var(--pl-text-secondary)", lineHeight: 1.5, fontSize: 14 }}>
+                Ingresa tu código en <span className="num">/canjear</span> y tu suscripción queda activa por el periodo pagado.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div className="pl-lp-card glass-card glass-ring" style={{ padding: 24, display: "flex", flexDirection: "column", gap: 20 }}>
+          {isPreview ? (
+            <div className="pl-lp-row pl-lp-row--between" style={{ flexWrap: "wrap", gap: 8 }}>
+              <span style={{ fontSize: 13, color: "var(--pl-text-secondary)" }}>
+                Modo vista previa activo: referencia y avisos de demostración en esta sesión.
+              </span>
+              <span className="pl-lp-pill" data-example-badge="">
+                Ejemplo
+              </span>
+            </div>
+          ) : null}
+
+          {!canTransact ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <h3 className="pl-lp-h3" style={{ margin: "0 0 6px" }}>
+                  {context.viewerState === "incomplete_signup"
+                    ? "Termina el paso 2 de tu registro para ver tu cuenta destino y tu referencia única"
+                    : "Inicia sesión para ver la cuenta destino y tu referencia única SPEI"}
+                </h3>
+                <p style={{ margin: 0, fontSize: 14, color: "var(--pl-text-secondary)", lineHeight: 1.55 }}>
+                  Tu código de referencia está ligado directamente a tu cuenta de PitchLab para identificar tu transferencia sin confusiones y enviarte el cupón a tu correo registrado.
+                </p>
+              </div>
+              <div className="pl-lp-hero-ctas" style={{ marginTop: 0 }}>
+                {context.viewerState === "incomplete_signup" ? (
+                  <a
+                    className="pl-lp-btn pl-lp-btn-primary"
+                    href="/signup?paso=2&via=cuenta&next=%2Fprecio%23transferencia"
+                  >
+                    Completar mi registro{" "}
+                    <span className="pl-lp-arr" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
+                ) : (
+                  <>
+                    <a
+                      className="pl-lp-btn pl-lp-btn-primary"
+                      href="/login?next=%2Fprecio%23transferencia"
+                    >
+                      Iniciar sesión y ver mi referencia{" "}
+                      <span className="pl-lp-arr" aria-hidden="true">
+                        →
+                      </span>
+                    </a>
+                    <a className="pl-lp-btn pl-lp-btn-ghost" href="/signup">
+                      Crear cuenta (7 días sin costo)
+                    </a>
+                  </>
+                )}
+                <a className="pl-lp-btn pl-lp-btn-ghost" href="/canjear">
+                  Ya tengo mi cupón · Ir a /canjear
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {/* Banners claros para cada estado del flujo */}
+              {latestApproved?.awaitingCouponRedemption ? (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="glass-ring"
+                  style={{
+                    borderRadius: 16,
+                    padding: 16,
+                    background: "var(--pl-surface-raised, var(--pl-surface))",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 12,
+                  }}
+                  data-spei-state="awaiting_redemption"
+                >
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4, maxWidth: 680 }}>
+                    <strong style={{ fontSize: 14, color: "var(--pl-success)" }}>
+                      Pago confirmado · Te enviamos tu cupón por correo
+                    </strong>
+                    <p style={{ margin: 0, fontSize: 13, color: "var(--pl-text-secondary)", lineHeight: 1.5 }}>
+                      Revisa tu bandeja (remitente <strong className="num">noreply@pitchlab.mx</strong>). Tu cupón es de un solo uso
+                      {latestApproved.couponExpiresAtIso
+                        ? ` y tiene vigencia hasta el ${formatIsoDateEsMx(latestApproved.couponExpiresAtIso)}`
+                        : ""}
+                      . Canjéalo para activar tus días pagados.
+                    </p>
+                  </div>
+                  <a className="pl-lp-btn pl-lp-btn-primary" href="/canjear" data-spei-go-redeem="">
+                    Ir a /canjear{" "}
+                    <span className="pl-lp-arr" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
+                </div>
+              ) : latestApproved && !latestApproved.awaitingCouponRedemption && activePass ? (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="glass-ring"
+                  style={{
+                    borderRadius: 16,
+                    padding: 16,
+                    background: "var(--pl-surface-raised, var(--pl-surface))",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 12,
+                  }}
+                  data-spei-state="redeemed_active"
+                >
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <strong style={{ fontSize: 14, color: "var(--pl-success)" }}>
+                      Cupón canjeado · Tu suscripción Pase PitchLab Ultra está activa
+                    </strong>
+                    <p style={{ margin: 0, fontSize: 13, color: "var(--pl-text-secondary)" }}>
+                      Si decides extender otro periodo más adelante, puedes volver a usar tu misma referencia única.
+                    </p>
+                  </div>
+                  <a className="pl-lp-btn pl-lp-btn-ghost" href="/app">
+                    Abrir el tablero
+                  </a>
+                </div>
+              ) : null}
+
+              {!activePending && latestRejected?.rejectionReason ? (
+                <div
+                  role="status"
+                  className="glass-ring"
+                  style={{
+                    borderRadius: 16,
+                    padding: 16,
+                    background: "var(--pl-surface)",
+                  }}
+                  data-spei-state="rejected"
+                >
+                  <strong style={{ display: "block", fontSize: 14, color: "var(--pl-danger)", marginBottom: 4 }}>
+                    Tu aviso anterior no pudo confirmarse
+                  </strong>
+                  <p style={{ margin: 0, fontSize: 13, color: "var(--pl-text-secondary)", lineHeight: 1.5 }}>
+                    Motivo: {latestRejected.rejectionReason}. Verifica tu comprobante y registra un nuevo aviso abajo con tu misma referencia única.
+                  </p>
+                </div>
+              ) : null}
+
+              {/* Selección de periodo (sin usar la palabra "Anual" en botones para no colisionar con el selector principal de /precio) */}
+              {!activePending ? (
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700 }}>Periodo que vas a transferir:</span>
+                  <div role="group" aria-label="Duración a pagar por transferencia" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    <button
+                      type="button"
+                      className="pl-lp-tab num"
+                      style={{ minHeight: 44 }}
+                      aria-pressed={effectiveInterval === "monthly"}
+                      onClick={() => setSelectedInterval("monthly")}
+                      data-spei-period="monthly"
+                    >
+                      30 días · {formatCentavosMxnPublic(context.quotes.monthlyCentavos)}
+                      {context.quotes.referralDiscountApplied ? " (-30 %)" : ""}
+                    </button>
+                    <button
+                      type="button"
+                      className="pl-lp-tab num"
+                      style={{ minHeight: 44 }}
+                      aria-pressed={effectiveInterval === "annual"}
+                      onClick={() => setSelectedInterval("annual")}
+                      data-spei-period="annual"
+                    >
+                      365 días · {formatCentavosMxnPublic(context.quotes.annualCentavos)}
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Datos bancarios + Referencia única ligada a la cuenta */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: 16,
+                }}
+              >
+                <div
+                  className="glass-ring"
+                  style={{
+                    borderRadius: 16,
+                    padding: 16,
+                    background: "var(--pl-surface)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--pl-text-muted)", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    Referencia / concepto obligatorio
+                  </span>
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                    <strong
+                      className="num"
+                      style={{ fontSize: 20, fontWeight: 800, letterSpacing: "0.04em", color: "var(--pl-brand)" }}
+                      data-precio-spei-ref=""
+                    >
+                      {speiRef ?? "PL-PENDIENTE"}
+                    </strong>
+                    {speiRef ? (
+                      <AccessibleCopyButton
+                        value={speiRef}
+                        idleLabel="Copiar referencia"
+                        copiedLabel="Referencia copiada"
+                        announceLabel="Referencia SPEI"
+                        dataAttr="ref"
+                      />
+                    ) : null}
+                  </div>
+                  <p style={{ margin: 0, fontSize: 12, color: "var(--pl-text-muted)", lineHeight: 1.45 }}>
+                    Código único ligado a {context.memberHandle ? `@${context.memberHandle}` : "tu cuenta"}. Escríbelo tal cual en el concepto o referencia de tu transferencia.
+                  </p>
+                </div>
+
+                <div
+                  className="glass-ring"
+                  style={{
+                    borderRadius: 16,
+                    padding: 16,
+                    background: "var(--pl-surface)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--pl-text-muted)", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    Cuenta destino SPEI · Monto exacto {formatCentavosMxnPublic(quotedAmountCentavos)}
+                  </span>
+
+                  {context.bank?.configured && context.bank.clabe ? (
+                    <>
+                      <dl style={{ margin: 0, display: "grid", gridTemplateColumns: "1fr", gap: 8, fontSize: 13 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                          <dt style={{ color: "var(--pl-text-muted)" }}>Banco:</dt>
+                          <dd style={{ margin: 0, fontWeight: 700 }} data-precio-spei-bank="">
+                            {context.bank.bank}
+                          </dd>
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                          <dt style={{ color: "var(--pl-text-muted)" }}>Beneficiario:</dt>
+                          <dd style={{ margin: 0, fontWeight: 700 }} data-precio-spei-beneficiary="">
+                            {context.bank.beneficiary}
+                          </dd>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                          <dt style={{ color: "var(--pl-text-muted)", fontSize: 12 }}>CLABE (18 dígitos):</dt>
+                          <dd
+                            style={{
+                              margin: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              gap: 8,
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            <span className="num" style={{ fontWeight: 800, fontSize: 15 }} data-precio-spei-clabe="">
+                              {context.bank.clabe}
+                            </span>
+                            <AccessibleCopyButton
+                              value={context.bank.clabe}
+                              idleLabel="Copiar CLABE"
+                              copiedLabel="CLABE copiada"
+                              announceLabel="CLABE interbancaria"
+                              dataAttr="clabe"
+                            />
+                          </dd>
+                        </div>
+                      </dl>
+                      {context.bank.instructions ? (
+                        <p style={{ margin: "2px 0 0", fontSize: 12, color: "var(--pl-text-muted)" }}>
+                          {context.bank.instructions}
+                        </p>
+                      ) : null}
+                    </>
+                  ) : (
+                    <p style={{ margin: 0, fontSize: 13, color: "var(--pl-text-secondary)", lineHeight: 1.5 }} data-precio-spei-unconfigured="">
+                      La cuenta CLABE se lee de las variables de entorno <span className="num">PITCHLAB_TRANSFER_*</span> y aún no está activa en esta instancia. Escribe a{" "}
+                      <strong>{context.bank?.supportEmail ?? "soporte@pitchlab.mx"}</strong> indicando tu referencia{" "}
+                      <strong className="num">{speiRef}</strong>.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Formulario para avisar que ya transfirió / estado pendiente */}
+              <form
+                onSubmit={(e) => void handleSubmitNotice(e)}
+                noValidate
+                style={{
+                  borderTop: "1px solid var(--pl-border)",
+                  paddingTop: 18,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 14,
+                }}
+                data-precio-spei-form=""
+              >
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                  <div>
+                    <strong style={{ fontSize: 15 }}>
+                      {activePending
+                        ? "Tu transferencia está pendiente de confirmación"
+                        : "¿Ya hiciste la transferencia? Avísanos aquí"}
+                    </strong>
+                    <p style={{ margin: "2px 0 0", fontSize: 13, color: "var(--pl-text-muted)" }}>
+                      {activePending
+                        ? `Revisaremos en consola tu pago de ${formatCentavosMxnPublic(activePending.amountCentavosMxn)} con referencia ${activePending.referenceCode} y te enviaremos el cupón desde noreply@pitchlab.mx.`
+                        : "Registrar tu aviso coloca tu transferencia en la fila de revisión del fundador."}
+                    </p>
+                  </div>
+                  {activePending ? (
+                    <span className="pl-lp-pill" data-spei-state="pending_review">
+                      En revisión
+                    </span>
+                  ) : null}
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <label htmlFor={bankInputId} style={{ fontSize: 13, fontWeight: 600, color: "var(--pl-text-secondary)" }}>
+                      Banco desde el que transfieres (opcional)
+                    </label>
+                    <input
+                      id={bankInputId}
+                      type="text"
+                      maxLength={80}
+                      placeholder="Ej. BBVA, Nu, Banorte"
+                      value={originBank}
+                      onChange={(e) => setOriginBank(e.target.value)}
+                      className="glass-input"
+                      style={{ minHeight: 44, padding: "0 12px", fontSize: 16 }}
+                      data-precio-origin-bank=""
+                    />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <label htmlFor={trackingInputId} style={{ fontSize: 13, fontWeight: 600, color: "var(--pl-text-secondary)" }}>
+                      Clave de rastreo o folio SPEI (opcional)
+                    </label>
+                    <input
+                      id={trackingInputId}
+                      type="text"
+                      maxLength={120}
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      placeholder="Folio de tu comprobante"
+                      value={receiptReference}
+                      onChange={(e) => setReceiptReference(e.target.value)}
+                      className="glass-input num"
+                      style={{ minHeight: 44, padding: "0 12px", fontSize: 16 }}
+                      data-precio-tracking-key=""
+                    />
+                  </div>
+                </div>
+
+                {feedback ? (
+                  <p
+                    role={feedback.kind === "error" ? "alert" : "status"}
+                    aria-live="polite"
+                    style={{
+                      margin: 0,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: feedback.kind === "error" ? "var(--pl-danger)" : "var(--pl-success)",
+                    }}
+                    data-precio-spei-feedback={feedback.kind}
+                  >
+                    {feedback.text}
+                  </p>
+                ) : null}
+
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                    <button
+                      type="submit"
+                      disabled={busy}
+                      className="pl-lp-btn pl-lp-btn-primary"
+                      style={{ minHeight: 44 }}
+                      data-precio-spei-submit=""
+                    >
+                      {busy
+                        ? "Guardando…"
+                        : activePending
+                          ? "Actualizar datos de mi transferencia"
+                          : "Ya transferí · Registrar aviso"}
+                    </button>
+                    {activePending ? (
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => void handleCancelPending()}
+                        className="pl-lp-btn pl-lp-btn-ghost"
+                        style={{ minHeight: 44 }}
+                        data-precio-spei-cancel=""
+                      >
+                        Cancelar aviso
+                      </button>
+                    ) : null}
+                  </div>
+                  <a
+                    href="/canjear"
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "var(--pl-text-secondary)",
+                      textDecoration: "underline",
+                      minHeight: 44,
+                      display: "inline-flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    ¿Ya recibiste tu cupón? Canjéalo en /canjear
+                  </a>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -274,7 +274,8 @@ export const LANDING_FAQS: readonly LandingFaqItem[] = [
   },
   {
     question: "¿Puedo facturar?",
-    answer: "Sí. El precio incluye IVA y puedes pedir tu CFDI desde tu cuenta.",
+    answer:
+      "Sí. El precio incluye IVA y puedes solicitar tu CFDI por correo a soporte@pitchlab.mx con tus datos fiscales.",
   },
 ] as const;
 

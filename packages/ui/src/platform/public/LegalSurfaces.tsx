@@ -28,6 +28,7 @@ export function LegalDocumentSurface({
   eyebrow,
   title,
   lede,
+  lastUpdated,
   intro,
   sections,
   hasSession = false,
@@ -36,6 +37,8 @@ export function LegalDocumentSurface({
   eyebrow: string;
   title: string;
   lede: string;
+  /** Fecha legible de última revisión del documento. */
+  lastUpdated?: string;
   /** Párrafos antes de la primera sección. */
   intro?: React.ReactNode;
   sections: readonly LegalSection[];
@@ -58,6 +61,11 @@ export function LegalDocumentSurface({
                 {title}
               </h1>
               <p className="pl-lp-lede pl-blog-lede">{lede}</p>
+              {lastUpdated ? (
+                <p className="pl-lp-fine" style={{ marginTop: 10 }}>
+                  {lastUpdated}
+                </p>
+              ) : null}
             </div>
             <nav aria-label="Documentos legales" className="pl-blog-cats">
               <ul>
@@ -101,11 +109,12 @@ export function LegalDocumentSurface({
             </div>
 
             <footer className="pl-blog-article-foot">
-              <aside className="pl-blog-note" aria-label="Contacto">
+              <aside className="pl-blog-note" aria-label="Contacto y preferencias">
                 <p>
-                  <strong>¿Dudas sobre este documento?</strong> Escríbenos a{" "}
-                  <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>. PitchLab no acepta apuestas y es
-                  solo para mayores de 18.
+                  <strong>¿Dudas, derechos ARCO o preferencias de correo?</strong> Escríbenos a{" "}
+                  <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a> o administra tus
+                  avisos en <a href="/baja">/baja</a>. PitchLab ofrece análisis estadístico, no
+                  acepta apuestas y es exclusivo para mayores de 18 años en México.
                 </p>
               </aside>
             </footer>

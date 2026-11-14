@@ -38,6 +38,11 @@ export function supportEmail(): string {
   return process.env.PITCHLAB_SUPPORT_EMAIL ?? "soporte@pitchlab.mx";
 }
 
+/** Remitente sin respuesta para cupones y avisos automáticos de cobro SPEI. */
+export function noreplySender(): string {
+  return process.env.EMAIL_NOREPLY_FROM?.trim() || "PitchLab <noreply@pitchlab.mx>";
+}
+
 /** PNG generado por `pnpm --filter @pitchlab/emails logos` (Gmail y Outlook no muestran SVG). */
 export function logoUrl(): string {
   // Para la vista previa local (archivo en disco) o un CDN distinto.

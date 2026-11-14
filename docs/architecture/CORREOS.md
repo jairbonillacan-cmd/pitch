@@ -1,6 +1,6 @@
 # Correos de PitchLab
 
-> **Estado:** 2026-11-12 · 25 plantillas con la marca en `packages/emails`; 12 conectadas.
+> **Estado:** 2026-11-14 · 26 plantillas con la marca en `packages/emails`; 13 conectadas.
 > **Fuente de verdad del estado:** `packages/emails/src/wiring.ts` (la galería y esta tabla salen de ahí).
 > **Ver las plantillas:** `pnpm --filter @pitchlab/emails preview` (genera `packages/emails/.preview/index.html`).
 
@@ -11,7 +11,7 @@
   - **Programar:** Resend guarda un correo y lo manda a la hora indicada (`scheduled_at`, hasta 30 días; en la app despachamos cuando falta ≤ 28 días mediante el cron diario).
   - **Cancelar:** `cancel(id)` cancela un correo programado que aún no salió.
   - **Sin duplicados:** cada envío lleva `Idempotency-Key`, y la tabla `scheduled_emails` (llave única `(user_id, kind, cycle_key)`) guarda qué se mandó, cuándo programar (`send_at`) y el id de Resend.
-  - **Responder a:** `PITCHLAB_SUPPORT_EMAIL`. **Remitente:** `EMAIL_FROM` (por defecto `PitchLab <hola@pitchlab.mx>`; el dominio debe estar verificado en Resend, paso 5 de `docs/product/GUIA_CUENTAS_Y_DESPLIEGUE.md`).
+  - **Responder a:** `PITCHLAB_SUPPORT_EMAIL`. **Remitente general:** `EMAIL_FROM` (por defecto `PitchLab <hola@pitchlab.mx>`). **Remitente de cobro SPEI y cupones:** `EMAIL_NOREPLY_FROM` (por defecto `PitchLab <noreply@pitchlab.mx>`). El dominio debe estar verificado en Resend (paso 5 de `docs/product/GUIA_CUENTAS_Y_DESPLIEGUE.md`).
 - Un fallo de correo **nunca** rompe el registro ni la calificación de un pick: se registra en consola y, si era un envío de cuenta, se libera la reserva para reintentarlo.
 
 ## Lo que sale hoy
@@ -19,7 +19,7 @@
 1. **Enlace de acceso:** al pedir entrar (`auth.ts`).
 2. **Bienvenida:** al terminar el paso 2 (`POST /api/me/signup`). Si la persona ya usó su prueba, no menciona la prueba.
 3. **Día 5 y día 7 de la prueba:** se programan en Resend en ese mismo momento (`startAccountEmails`): el aviso «quedan 2 días» a los 5 días y «tu prueba terminó» a los 7.
-4. **Ciclo SPEI y referidos:** recibo de pago aprobado (`payment-receipt`), aviso de rechazo con motivo (`transfer-rejected`), recompensa bilateral (`referral-rewarded`) y bono embajador (`referral-ambassador`), más recordatorio de renovación (−3 días) y aviso de pase vencido (`renewal-reminder`, `access-expired`) registrados en `scheduled_emails` y despachados por `/api/cron/tipster-payouts` cuando entran en la ventana de 28 días.
+4. **Ciclo SPEI + cupón y referidos:** al confirmar una transferencia pendiente en `/app/admin`, se genera un cupón personal de un solo uso con vigencia de 30 días y se envía `transfer-coupon` desde `noreply@pitchlab.mx`. Al canjear ese cupón en `/canjear`, se activa la suscripción y salen el recibo de activación (`payment-receipt`, desde `noreply@pitchlab.mx`), la recompensa bilateral (`referral-rewarded`) y el bono embajador (`referral-ambassador`), más los recordatorios (`renewal-reminder`, `access-expired`) en `scheduled_emails`. Si la transferencia se rechaza, sale `transfer-rejected` desde `noreply@pitchlab.mx`.
 5. **Tipsters:** aviso de nueva suscripción pagada con su código (`tipster-new-subscriber`) y notificación de pago de comisión (`tipster-payout`, manual en `/app/admin` o vía cron).
 6. **Solicitud de baja (`POST /api/me/deletion-request`):** aviso interno por correo al equipo de soporte y registro en auditoría.
 
@@ -43,7 +43,8 @@ Tres estados:
 | Bienvenida (día 0) (`welcome`) · Cuenta y prueba | Al terminar el paso 2 del registro (`POST /api/me/signup`). | — |
 | Quedan 2 días (día 5) (`trial-ending`) · Cuenta y prueba | Programado en Resend al registrarse: día 5 de la prueba. | Al encender Stripe (F4), llamar `cancelTrialEmails` desde el webhook cuando alguien se suscribe antes de que acabe la prueba; si no, este aviso le llega a quien ya pagó. |
 | Fin de la prueba (día 7) (`trial-ended`) · Cuenta y prueba | Programado en Resend al registrarse: día 7, cuando termina la prueba sin tarjeta. | Lo mismo que el aviso del día 5: cancelarlo con `cancelTrialEmails` si la persona se suscribe antes. |
-| Pago confirmado (`payment-receipt`) · Cobro | Al aprobar una transferencia SPEI (`/api/admin/transfers/[id]/approve`) o al liquidar factura de Stripe. | — |
+| Cupón por transferencia SPEI (`transfer-coupon`) · Cobro | Al confirmar una transferencia SPEI pendiente en `/app/admin` (`/api/admin/transfers/[id]/approve`), desde `noreply@pitchlab.mx`. | — |
+| Pago confirmado (`payment-receipt`) · Cobro | Al canjear el cupón emitido por transferencia SPEI (`/api/me/redeem`, desde `noreply@pitchlab.mx`) o al liquidar factura de Stripe. | — |
 | Transferencia rechazada (`transfer-rejected`) · Cobro | Al rechazar una solicitud SPEI con motivo en `/app/admin` (`/api/admin/transfers/[id]/reject`). | — |
 | Tu plan se renueva (`renewal-reminder`) · Cobro | Se registra en `scheduled_emails` al aprobar transferencia SPEI (3 días antes del vencimiento) y se envía/programa en el cron diario. | — |
 | Acceso en pausa por falta de pago (`access-expired`) · Cobro | Se registra en `scheduled_emails` al finalizar el periodo aprobado por transferencia SPEI y se envía/programa en el cron diario. | — |

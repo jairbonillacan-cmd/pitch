@@ -12,6 +12,7 @@ import { CanjearCouponView, type CanjearCouponViewProps } from "./components/Can
 import { ExpiredPassGate, type ExpiredPassGateProps } from "./components/ExpiredPassGate";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
+import { PrecioPageSurface, type PrecioTransferContext } from "./public/PublicSiteSections";
 
 const EMPTY_DATASET = buildPlatformDataset([]);
 
@@ -95,6 +96,29 @@ const SAMPLE_TRANSFER_REJECTED: TransferRequestItem = {
   updatedAtIso: "2026-11-07T16:10:00Z",
 };
 
+const SAMPLE_TRANSFER_APPROVED_COUPON_SENT: TransferRequestItem = {
+  id: "tr-app-1",
+  planInterval: "monthly",
+  amountCentavosMxn: 29_900,
+  reportedAmountCentavosMxn: 29_900,
+  amountMismatch: false,
+  referralDiscountApplied: false,
+  referenceCode: "PL-CARLOS_MX-8K4P",
+  originBank: "BBVA México",
+  receiptReference: "SPEI-20261112-1048",
+  payerName: "Carlos Méndez",
+  transferDate: "2026-11-12",
+  userNote: null,
+  status: "approved",
+  rejectionReason: null,
+  reviewedAtIso: "2026-11-12T17:00:00Z",
+  couponExpiresAtIso: "2026-12-12T17:00:00Z",
+  couponRedeemedAtIso: null,
+  awaitingCouponRedemption: true,
+  createdAtIso: "2026-11-12T15:00:00Z",
+  updatedAtIso: "2026-11-12T17:00:00Z",
+};
+
 function makeServerPlan(overrides: Partial<ServerPlanPayload>): ServerPlanPayload {
   return {
     active: true,
@@ -114,6 +138,7 @@ function makeServerPlan(overrides: Partial<ServerPlanPayload>): ServerPlanPayloa
     eligibleForReferralDiscount: true,
     quotedMonthlyCentavos: 20_900,
     quotedAnnualCentavos: 239_000,
+    speiReferenceCode: "PL-CARLOS_MX-8K4P",
     transferBank: SAMPLE_BANK_CONFIGURED,
     transferHistory: [],
     activePendingTransfer: null,
@@ -226,6 +251,10 @@ const ADMIN_OVERRIDE: AdminPaymentsStoryOverride = {
       status: "approved",
       rejectionReason: null,
       reviewedAtIso: "2026-11-11T19:00:00Z",
+      issuedCouponCode: "PL-SPEI-9M4K2P",
+      couponExpiresAtIso: "2026-12-11T19:00:00Z",
+      couponRedeemedAtIso: null,
+      awaitingCouponRedemption: true,
       createdAtIso: "2026-11-11T15:00:00Z",
     },
   ],
@@ -263,6 +292,18 @@ const ADMIN_OVERRIDE: AdminPaymentsStoryOverride = {
     },
   ],
   coupons: [
+    {
+      id: "cp-spei-1",
+      code: "PL-SPEI-9M4K2P",
+      days: 365,
+      maxRedemptions: 1,
+      redeemedCount: 0,
+      expiresAtIso: "2026-12-11T19:00:00Z",
+      active: true,
+      note: "Pago SPEI PL-ANNUAL-441 (anual)",
+      transferRequestId: "adm-tr-2",
+      createdAtIso: "2026-11-11T19:00:00Z",
+    },
     {
       id: "cp-1",
       code: "BETAMX30",
@@ -670,4 +711,215 @@ export const AdminLiquidacionesTipstersOscuro = {
 export const AdminLiquidacionesTipstersClaro = {
   globals: { theme: "light" },
   render: () => <AdminOpsStory theme="light" initialTab="payouts" />,
+};
+
+/* ---------- /precio · Cuenta SPEI + Referencia única + Cupón enviado ---------- */
+
+const SAMPLE_PRECIO_CONTEXT_MEMBER: PrecioTransferContext = {
+  paymentMode: "transfer",
+  accountsEnabled: true,
+  viewerState: "member",
+  memberHandle: "carlos_mx",
+  speiReferenceCode: "PL-CARLOS_MX-8K4P",
+  bank: SAMPLE_BANK_CONFIGURED,
+  quotes: {
+    monthlyCentavos: 29_900,
+    annualCentavos: 239_000,
+    referralDiscountApplied: false,
+  },
+  activePending: null,
+  latestApproved: null,
+  latestRejected: null,
+  activePass: false,
+};
+
+function PrecioTransferStory({
+  theme,
+  context,
+}: {
+  theme: "dark" | "light";
+  context: PrecioTransferContext;
+}) {
+  return (
+    <Beta1StoryFrame theme={theme} initialRole="member">
+      <PrecioPageSurface hasSession transferContext={context} />
+    </Beta1StoryFrame>
+  );
+}
+
+export const PrecioSpeiSocioConReferenciaOscuro = {
+  render: () => (
+    <PrecioTransferStory theme="dark" context={SAMPLE_PRECIO_CONTEXT_MEMBER} />
+  ),
+};
+
+export const PrecioSpeiSocioConReferenciaClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <PrecioTransferStory theme="light" context={SAMPLE_PRECIO_CONTEXT_MEMBER} />
+  ),
+};
+
+export const PrecioSpeiCuponEnviadoOscuro = {
+  render: () => (
+    <PrecioTransferStory
+      theme="dark"
+      context={{
+        ...SAMPLE_PRECIO_CONTEXT_MEMBER,
+        latestApproved: {
+          ...SAMPLE_TRANSFER_APPROVED_COUPON_SENT,
+          couponExpiresAtIso: "2026-12-12T17:00:00Z",
+          couponRedeemedAtIso: null,
+          awaitingCouponRedemption: true,
+        },
+      }}
+    />
+  ),
+};
+
+export const PrecioSpeiCuponEnviadoClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <PrecioTransferStory
+      theme="light"
+      context={{
+        ...SAMPLE_PRECIO_CONTEXT_MEMBER,
+        latestApproved: {
+          ...SAMPLE_TRANSFER_APPROVED_COUPON_SENT,
+          couponExpiresAtIso: "2026-12-12T17:00:00Z",
+          couponRedeemedAtIso: null,
+          awaitingCouponRedemption: true,
+        },
+      }}
+    />
+  ),
+};
+
+export const PlanSpeiCuponEnviadoOscuro = {
+  render: () =>
+    renderPlanStory(
+      "dark",
+      makeServerPlan({
+        transferHistory: [SAMPLE_TRANSFER_APPROVED_COUPON_SENT],
+      }),
+    ),
+};
+
+export const PlanSpeiCuponEnviadoClaro = {
+  globals: { theme: "light" },
+  render: () =>
+    renderPlanStory(
+      "light",
+      makeServerPlan({
+        transferHistory: [SAMPLE_TRANSFER_APPROVED_COUPON_SENT],
+      }),
+    ),
+};
+
+export const CanjearCuponSpeiUnSoloUsoOscuro = {
+  render: () => (
+    <CanjearStory
+      theme="dark"
+      mode="club"
+      initialCode="PL-SPEI-9M4K2P"
+      storyOverride={{
+        accountsEnabled: true,
+        hasAccountSession: true,
+        preview: {
+          valid: true,
+          coupon: {
+            code: "PL-SPEI-9M4K2P",
+            days: 30,
+            maxRedemptions: 1,
+            expiresAtIso: "2026-12-12T17:00:00Z",
+            isTransferCoupon: true,
+            isPersonal: true,
+          },
+        },
+      }}
+    />
+  ),
+};
+
+export const CanjearCuponSpeiUnSoloUsoClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <CanjearStory
+      theme="light"
+      mode="club"
+      initialCode="PL-SPEI-9M4K2P"
+      storyOverride={{
+        accountsEnabled: true,
+        hasAccountSession: true,
+        preview: {
+          valid: true,
+          coupon: {
+            code: "PL-SPEI-9M4K2P",
+            days: 30,
+            maxRedemptions: 1,
+            expiresAtIso: "2026-12-12T17:00:00Z",
+            isTransferCoupon: true,
+            isPersonal: true,
+          },
+        },
+      }}
+    />
+  ),
+};
+
+export const CanjearCuponCuentaDistintaOscuro = {
+  render: () => (
+    <CanjearStory
+      theme="dark"
+      mode="club"
+      initialCode="PL-SPEI-9M4K2P"
+      storyOverride={{
+        accountsEnabled: true,
+        hasAccountSession: true,
+        preview: {
+          valid: false,
+          reason: "cuenta_distinta",
+          error:
+            "Este cupón personal está ligado a otra cuenta. Inicia sesión con el correo que realizó la transferencia.",
+          coupon: {
+            code: "PL-SPEI-9M4K2P",
+            days: 30,
+            maxRedemptions: 1,
+            expiresAtIso: "2026-12-12T17:00:00Z",
+            isTransferCoupon: true,
+            isPersonal: true,
+          },
+        },
+      }}
+    />
+  ),
+};
+
+export const CanjearCuponCuentaDistintaClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <CanjearStory
+      theme="light"
+      mode="club"
+      initialCode="PL-SPEI-9M4K2P"
+      storyOverride={{
+        accountsEnabled: true,
+        hasAccountSession: true,
+        preview: {
+          valid: false,
+          reason: "cuenta_distinta",
+          error:
+            "Este cupón personal está ligado a otra cuenta. Inicia sesión con el correo que realizó la transferencia.",
+          coupon: {
+            code: "PL-SPEI-9M4K2P",
+            days: 30,
+            maxRedemptions: 1,
+            expiresAtIso: "2026-12-12T17:00:00Z",
+            isTransferCoupon: true,
+            isPersonal: true,
+          },
+        },
+      }}
+    />
+  ),
 };

@@ -6,6 +6,7 @@ import { createHash } from "node:crypto";
 import { and, countDistinct, eq, gte, inArray, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
 import { referralGrants, tipsterAttributions, tipsterProfiles, trialFingerprints, users } from "./schema";
+import { ensureUserSpeiReference } from "./transfers";
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
@@ -338,6 +339,8 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
           marketingConsent: input.marketingConsent,
         })
         .where(eq(users.id, input.userId));
+
+      await ensureUserSpeiReference(tx as unknown as Db, input.userId);
 
       const referral = await attributeReferral(tx, input.userId, input.referralCode, current.referralCode);
       return grantSignupTrial(tx, input, referral);

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { redeemAccessCoupon } from "@pitchlab/db";
+import { getMailer } from "../../../../src/server/mailer";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
@@ -7,6 +8,7 @@ import {
   verifySameOriginMutation,
 } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
+import { sendTransferRedeemedEmails } from "../../../../src/server/transfer-emails";
 import { COUPON_ERROR_COPY } from "../../../../src/server/transfer-helpers";
 
 export const runtime = "nodejs";
@@ -39,10 +41,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ ok: false, error: "Escribe el código de tu cupón." }, { status: 400 });
   }
 
+  const now = new Date();
   const res = await redeemAccessCoupon(member.db, {
     userId: member.userId,
     code: rawCode,
-    now: new Date(),
+    now,
   });
 
   if (!res.ok) {
@@ -53,12 +56,21 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
+  if (res.transferActivated) {
+    await sendTransferRedeemedEmails(member.db, getMailer(), {
+      activated: res.transferActivated,
+      newAccessUntil: res.newAccessUntil,
+      now,
+    });
+  }
+
   return NextResponse.json(
     {
       ok: true,
       code: res.coupon.code,
       days: res.coupon.days,
       grantId: res.grantId,
+      transferActivated: Boolean(res.transferActivated),
       newAccessUntilIso: res.newAccessUntil ? res.newAccessUntil.toISOString() : null,
     },
     { headers: { "Cache-Control": "no-store" } },

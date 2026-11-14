@@ -21,6 +21,8 @@ function serializeCoupon(row: AccessCouponRow) {
     expiresAtIso: row.expiresAt ? row.expiresAt.toISOString() : null,
     active: row.active,
     note: row.note,
+    transferRequestId: row.transferRequestId ?? null,
+    restrictedToUserId: row.restrictedToUserId ?? null,
     createdAtIso: row.createdAt.toISOString(),
     updatedAtIso: row.updatedAt.toISOString(),
   };

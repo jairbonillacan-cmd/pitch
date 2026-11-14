@@ -34,8 +34,8 @@ async function assertNoForbiddenCopy(page: Page, contextLabel: string): Promise<
   }
 }
 
-test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y Axe AA", () => {
-  test("superficie pública /canjear y redirecciones 308 /plans|/pricing -> /precio en oscuro y claro", async ({
+test.describe("Beta 1.0 · SPEI + cupón de 1 uso, páginas legales México y Axe AA", () => {
+  test("1. superficie pública /precio (sin filtrar CLABE a visitantes), /canjear y redirecciones 308 en oscuro y claro", async ({
     page,
   }, testInfo) => {
     const width = testInfo.project.name === "mobile" ? 390 : 1440;
@@ -63,6 +63,9 @@ test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y
     await page.goto("/precio");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Un solo pase");
     await expect(page.locator("body")).toContainText("299");
+    // Un visitante sin sesión no debe recibir la CLABE bancaria en el HTML público
+    expect(await page.content()).not.toContain("000000000000000000");
+    await expect(page.locator("#transferencia")).toContainText("Inicia sesión para ver la cuenta destino");
     await page.getByRole("button", { name: /Anual/i }).click();
     await expect(page.locator("body")).toContainText("2,390");
     await assertNoHorizontalOverflow(page, "/precio");
@@ -103,11 +106,10 @@ test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y
     expect(consoleErrors).toEqual([]);
   });
 
-  test("club con PIN beta: /app, /app/canjear, /app/account (Plan, Prefs, CFDI) y /app/tipster sin 401 ni overflow", async ({
+  test("2. club con PIN beta: /app, /app/canjear, /app/account (Plan, Prefs, CFDI) y /app/tipster sin 401 ni overflow", async ({
     page,
   }, testInfo) => {
-    // Recorre 4 páginas del Club con Axe en oscuro y claro: 60 s no alcanzan con la página real.
-    test.setTimeout(120_000);
+    test.setTimeout(180_000);
     const width = testInfo.project.name === "mobile" ? 390 : 1440;
     await page.setViewportSize({ width, height: 900 });
 
@@ -195,6 +197,216 @@ test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y
     await assertNoForbiddenCopy(page, "/app/tipster");
 
     expect(responses401, "Cero respuestas 401 navegando el Club con PIN de beta").toEqual([]);
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("3. recorrido completo SPEI + cupón: /precio referencia única -> /app/admin confirma y emite cupón -> /canjear activa y bloquea 2do uso", async ({
+    page,
+  }, testInfo) => {
+    test.setTimeout(120_000);
+    const width = testInfo.project.name === "mobile" ? 390 : 1440;
+    await page.setViewportSize({ width, height: 900 });
+
+    const pageErrors: string[] = [];
+    const consoleErrors: string[] = [];
+    page.on("pageerror", (err) => pageErrors.push(err.message));
+    page.on("console", (msg) => {
+      if (msg.type() === "error") consoleErrors.push(msg.text());
+    });
+
+    const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+    const unlock = await page.request.post("/api/beta/unlock", {
+      headers: { "x-forwarded-for": uniqueIp, origin: "http://127.0.0.1:3100" },
+      data: { code: "2026", next: "/precio" },
+    });
+    expect(unlock.ok()).toBe(true);
+
+    // Paso 1: en /precio el usuario con sesión ve la cuenta destino y su referencia única fácil de copiar
+    await page.goto("/precio");
+    const refLocator = page.locator("[data-precio-spei-ref]");
+    await expect(refLocator).toBeVisible();
+    const speiRef = ((await refLocator.textContent()) ?? "").trim();
+    expect(speiRef).toMatch(/^PL-[A-Z0-9]+-[A-Z0-9]{4}$/);
+
+    await expect(page.locator("[data-precio-spei-bank]")).toHaveText("Banco Ejemplo Test");
+    await expect(page.locator("[data-precio-spei-beneficiary]")).toHaveText("PitchLab Demo Test");
+    await expect(page.locator("[data-precio-spei-clabe]")).toHaveText("000000000000000000");
+
+    const copyRefBtn = page.locator('[data-copy-spei="ref"]');
+    await copyRefBtn.click();
+    await expect(copyRefBtn).toContainText("Referencia copiada");
+
+    await page.locator("[data-precio-origin-bank]").fill("BBVA México");
+    await page.locator("[data-precio-tracking-key]").fill("SPEI-E2E-7788");
+    await page.locator("[data-precio-spei-submit]").click();
+
+    await expect(page.locator('[data-spei-state="pending_review"]')).toBeVisible();
+    await expect(page.locator('[data-precio-spei-feedback="ok"]')).toContainText("noreply@pitchlab.mx");
+    await assertNoHorizontalOverflow(page, "/precio con aviso SPEI");
+    await assertNoForbiddenCopy(page, "/precio con aviso SPEI");
+
+    const precioSpeiA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(precioSpeiA11y.violations).toEqual([]);
+
+    // Paso 2 y 3: en /app/admin el fundador ve la transferencia pendiente con esa referencia y confirma el pago -> genera cupón de 1 uso con vigencia
+    await page.goto("/app/admin");
+    const pendingRow = page.locator(`[data-admin-transfer-row="${speiRef}"]`);
+    await expect(pendingRow).toBeVisible();
+    await expect(pendingRow).toContainText("BBVA México");
+    await expect(pendingRow).toContainText("SPEI-E2E-7788");
+
+    await page.locator(`[data-admin-approve="${speiRef}"]`).click();
+    await expect(page.locator("[data-admin-confirm-approve]")).toBeVisible();
+    await page.locator("[data-admin-confirm-approve]").click();
+
+    // Al filtrar por Aprobadas aparece el cupón emitido (PL-SPEI-...) con 1 uso y vigencia
+    await page
+      .getByRole("group", { name: "Filtrar transferencias" })
+      .getByRole("button", { name: "Aprobadas" })
+      .click();
+    const couponSummary = page.locator(`[data-admin-coupon-summary="${speiRef}"]`);
+    await expect(couponSummary).toBeVisible();
+    await expect(couponSummary).toContainText("Pendiente de canje");
+    const issuedCode = (
+      (await couponSummary.locator("[data-admin-issued-coupon]").textContent()) ?? ""
+    ).trim();
+    expect(issuedCode).toMatch(/^PL-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
+
+    const adminA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(adminA11y.violations).toEqual([]);
+
+    // En /precio el socio ve el estado intermedio «Pago confirmado · Te enviamos tu cupón por correo»
+    await page.goto("/precio");
+    await expect(page.locator('[data-spei-state="awaiting_redemption"]')).toBeVisible();
+    await expect(page.locator('[data-spei-state="awaiting_redemption"]')).toContainText(
+      "noreply@pitchlab.mx",
+    );
+
+    // Paso 4: el socio canjea el cupón en /canjear y activa su suscripción por el periodo pagado (30 días)
+    await page.goto(`/canjear?codigo=${encodeURIComponent(issuedCode)}`);
+    const validPreview = page.locator('[data-coupon-preview="valid"]');
+    await expect(validPreview).toBeVisible();
+    await expect(validPreview).toContainText("Un solo uso");
+    await expect(validPreview).toContainText("Transferencia SPEI");
+    await expect(validPreview).toContainText("+30 días disponibles");
+    await expect(validPreview).toContainText("Vigencia para canjear");
+
+    await page.locator("[data-redeem-submit]").click();
+    await expect(page.locator('[data-coupon-feedback="success"]')).toContainText(issuedCode);
+    await expect(page.locator('[data-coupon-feedback="success"]')).toContainText("+30 días");
+
+    // Al recargar /canjear con el mismo código, el cupón de un solo uso ya no puede volver a canjearse
+    await page.goto(`/canjear?codigo=${encodeURIComponent(issuedCode)}`);
+    await expect(page.locator('[data-coupon-preview="invalid"]')).toBeVisible();
+    await expect(page.locator('[data-coupon-preview="invalid"]')).toContainText("Ya canjeaste");
+    await page.locator("[data-redeem-submit]").click();
+    await expect(page.locator('[data-coupon-feedback="error"]')).toContainText("Ya canjeaste");
+
+    // En /precio y en Mi cuenta -> Plan figura la suscripción activada con el cupón
+    await page.goto("/precio");
+    await expect(page.locator('[data-spei-state="redeemed_active"]')).toBeVisible();
+
+    await page.goto("/app/account?tab=plan");
+    await expect(page.locator("body")).toContainText(speiRef);
+    await assertNoHorizontalOverflow(page, "/app/account?tab=plan tras canje");
+
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("4. páginas legales públicas para México (/legal/terminos, /legal/privacidad, /legal/juego-responsable, /legal/creditos y /baja) en oscuro y claro con Axe AA", async ({
+    page,
+  }, testInfo) => {
+    test.setTimeout(120_000);
+    const width = testInfo.project.name === "mobile" ? 390 : 1440;
+    await page.setViewportSize({ width, height: 900 });
+
+    const pageErrors: string[] = [];
+    const consoleErrors: string[] = [];
+    page.on("pageerror", (err) => pageErrors.push(err.message));
+    page.on("console", (msg) => {
+      if (msg.type() === "error") consoleErrors.push(msg.text());
+    });
+
+    // 1) Términos de uso
+    const termRes = await page.goto("/legal/terminos");
+    expect(termRes?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Términos de uso");
+    const termText = (await page.locator("body").textContent()) ?? "";
+    expect(termText).toContain("mayores de 18 años");
+    expect(termText).toContain("no es casa de apuestas");
+    expect(termText).toContain("transferencia interbancaria SPEI");
+    expect(termText).toContain("cupón personal de un solo uso");
+    expect(termText).toContain("noreply@pitchlab.mx");
+    expect(termText).toContain("Mi récord");
+    expect(termText).toContain("Ranking");
+    await assertNoHorizontalOverflow(page, "/legal/terminos (oscuro)");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+
+    await togglePublicTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await page.waitForTimeout(200);
+    await assertNoHorizontalOverflow(page, "/legal/terminos (claro)");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+    await togglePublicTheme(page);
+
+    // 2) Aviso de privacidad (LFPDPPP + Derechos ARCO + cookies + analítica + perfil público)
+    const privRes = await page.goto("/legal/privacidad");
+    expect(privRes?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Aviso de privacidad");
+    const privText = (await page.locator("body").textContent()) ?? "";
+    expect(privText).toContain("LFPDPPP");
+    expect(privText).toContain("Derechos ARCO");
+    expect(privText).toContain("20 días hábiles");
+    expect(privText).toContain("15 días hábiles");
+    expect(privText).toContain("Descargar mis datos");
+    expect(privText).toContain("analyticsConsent");
+    expect(privText).toContain("Cookies técnicas");
+    expect(privText).toContain("Perfil público");
+    await assertNoHorizontalOverflow(page, "/legal/privacidad (oscuro)");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+
+    await togglePublicTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await page.waitForTimeout(200);
+    await assertNoHorizontalOverflow(page, "/legal/privacidad (claro)");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+    await togglePublicTheme(page);
+
+    // 3) Juego responsable (+18, pausas voluntarias y Línea de la Vida)
+    const jrRes = await page.goto("/legal/juego-responsable");
+    expect(jrRes?.status()).toBe(200);
+    const jrText = (await page.locator("body").textContent()) ?? "";
+    expect(jrText).toContain("800 911 2000");
+    expect(jrText).toContain("24 horas");
+    expect(jrText).toContain("7 días");
+    expect(jrText).toContain("30 días");
+    expect(jrText).toContain("Pausar Comunidad");
+    await assertNoHorizontalOverflow(page, "/legal/juego-responsable");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+
+    // 4) Créditos de datos (licencias abiertas obligatorias)
+    const credRes = await page.goto("/legal/creditos");
+    expect(credRes?.status()).toBe(200);
+    const credText = (await page.locator("body").textContent()) ?? "";
+    expect(credText).toContain("nflverse");
+    expect(credText).toContain("CC-BY 4.0");
+    expect(credText).toContain("openfootball");
+    expect(credText).toContain("CC0");
+    await assertNoHorizontalOverflow(page, "/legal/creditos");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+
+    // 5) /baja (preferencias de correo y remitentes transaccionales)
+    const bajaRes = await page.goto("/baja");
+    expect(bajaRes?.status()).toBe(200);
+    const bajaText = (await page.locator("body").textContent()) ?? "";
+    expect(bajaText).toContain("noreply@pitchlab.mx");
+    expect(bajaText).toContain("acceso@pitchlab.mx");
+    expect(bajaText).toContain("/app/account?tab=prefs");
+    await assertNoHorizontalOverflow(page, "/baja");
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
+
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
   });
