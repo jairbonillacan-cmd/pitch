@@ -4,7 +4,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-13T21:19:32.952Z",
+  "updatedAt": "2026-11-14T05:44:28.107Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4954433355846064,
-      "adjustedAgainst": 1.3817725290575957
+      "adjustedFor": 1.4953334388397006,
+      "adjustedAgainst": 1.3818217095884113
     },
     "premier-league.arsenal": {
       "teamId": "premier-league.arsenal",
@@ -28,8 +28,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.652687996929494,
-      "adjustedAgainst": 0.8688237459350073
+      "adjustedFor": 1.6525543879664308,
+      "adjustedAgainst": 0.8690260571464529
     },
     "premier-league.aston-villa": {
       "teamId": "premier-league.aston-villa",
@@ -39,8 +39,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4622620952469543,
-      "adjustedAgainst": 1.4004981787253141
+      "adjustedFor": 1.4621726273704938,
+      "adjustedAgainst": 1.4005327574257553
     },
     "premier-league.brentford": {
       "teamId": "premier-league.brentford",
@@ -50,8 +50,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5981137126334783,
-      "adjustedAgainst": 1.2273541394352177
+      "adjustedFor": 1.59798845577604,
+      "adjustedAgainst": 1.2274485076414783
     },
     "premier-league.brighton-hove-albion": {
       "teamId": "premier-league.brighton-hove-albion",
@@ -61,8 +61,8 @@
       "forPerGame": 3.2,
       "againstPerGame": 1,
       "gamesPlayed": 5,
-      "adjustedFor": 1.8516928151121563,
-      "adjustedAgainst": 1.2049375217497158
+      "adjustedFor": 1.8514500940330962,
+      "adjustedAgainst": 1.2050193477556266
     },
     "premier-league.chelsea": {
       "teamId": "premier-league.chelsea",
@@ -72,8 +72,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6078031080463697,
-      "adjustedAgainst": 1.4821836069105905
+      "adjustedFor": 1.6076366779041225,
+      "adjustedAgainst": 1.4821972331731874
     },
     "premier-league.coventry-city": {
       "teamId": "premier-league.coventry-city",
@@ -83,8 +83,8 @@
       "forPerGame": 0.2,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 0.8226788361034623,
-      "adjustedAgainst": 1.4953657578920596
+      "adjustedFor": 0.823179459022582,
+      "adjustedAgainst": 1.495297399292759
     },
     "premier-league.crystal-palace": {
       "teamId": "premier-league.crystal-palace",
@@ -94,8 +94,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3544811615111154,
-      "adjustedAgainst": 1.7026977246675594
+      "adjustedFor": 1.354457308307712,
+      "adjustedAgainst": 1.7026048722415272
     },
     "premier-league.everton": {
       "teamId": "premier-league.everton",
@@ -105,8 +105,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.267015829868021,
-      "adjustedAgainst": 1.1505877861315303
+      "adjustedFor": 1.2670440623061547,
+      "adjustedAgainst": 1.1507080878725198
     },
     "premier-league.fulham": {
       "teamId": "premier-league.fulham",
@@ -116,8 +116,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2365900023236445,
-      "adjustedAgainst": 1.4227871386290296
+      "adjustedFor": 1.2366143118135113,
+      "adjustedAgainst": 1.4228184379291102
     },
     "premier-league.hull-city": {
       "teamId": "premier-league.hull-city",
@@ -127,8 +127,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.414157446645809,
-      "adjustedAgainst": 1.132836942873082
+      "adjustedFor": 1.414113637214073,
+      "adjustedAgainst": 1.1330192403484767
     },
     "premier-league.ipswich-town": {
       "teamId": "premier-league.ipswich-town",
@@ -138,8 +138,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 2.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2845702041179183,
-      "adjustedAgainst": 1.7898921369187082
+      "adjustedFor": 1.284612954605176,
+      "adjustedAgainst": 1.7895923614804825
     },
     "premier-league.leeds-united": {
       "teamId": "premier-league.leeds-united",
@@ -149,8 +149,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.485895556251124,
-      "adjustedAgainst": 1.2535747652616147
+      "adjustedFor": 1.4857985919353731,
+      "adjustedAgainst": 1.2536683220517475
     },
     "premier-league.liverpool": {
       "teamId": "premier-league.liverpool",
@@ -160,8 +160,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6282921456593566,
-      "adjustedAgainst": 1.2969642986940526
+      "adjustedFor": 1.6281689357636944,
+      "adjustedAgainst": 1.2970231952898137
     },
     "premier-league.manchester-city": {
       "teamId": "premier-league.manchester-city",
@@ -171,8 +171,8 @@
       "forPerGame": 2.6,
       "againstPerGame": 1,
       "gamesPlayed": 5,
-      "adjustedFor": 1.92017222149413,
-      "adjustedAgainst": 0.9843357625462401
+      "adjustedFor": 1.9199394315992178,
+      "adjustedAgainst": 0.9844878416228915
     },
     "premier-league.manchester-united": {
       "teamId": "premier-league.manchester-united",
@@ -182,8 +182,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.637441062851,
-      "adjustedAgainst": 1.3168827469627038
+      "adjustedFor": 1.6372915416483742,
+      "adjustedAgainst": 1.3169401026951197
     },
     "premier-league.newcastle-united": {
       "teamId": "premier-league.newcastle-united",
@@ -193,8 +193,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.570263316434619,
-      "adjustedAgainst": 1.4406385853639796
+      "adjustedFor": 1.570132738172865,
+      "adjustedAgainst": 1.4406598111144435
     },
     "premier-league.nottingham-forest": {
       "teamId": "premier-league.nottingham-forest",
@@ -204,8 +204,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2912041205002431,
-      "adjustedAgainst": 1.2792882418117055
+      "adjustedFor": 1.2912064536462944,
+      "adjustedAgainst": 1.27934696144304
     },
     "premier-league.sunderland": {
       "teamId": "premier-league.sunderland",
@@ -215,8 +215,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2706121415667229,
-      "adjustedAgainst": 1.4688409305097863
+      "adjustedFor": 1.2706187578764074,
+      "adjustedAgainst": 1.4688467099433942
     },
     "premier-league.tottenham-hotspur": {
       "teamId": "premier-league.tottenham-hotspur",
@@ -226,8 +226,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 2.6666666666666665,
       "gamesPlayed": 3,
-      "adjustedFor": 1.139316679911733,
-      "adjustedAgainst": 1.6399496264417939
+      "adjustedFor": 1.1393792607628401,
+      "adjustedAgainst": 1.6399022444089466
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-13T12:00:00.000Z",
+        "observedAt": "2026-11-14T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -4929,145 +4929,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.6513212791263907,
-        "away": 0.9010131079252647,
-        "total": 2.5523343870516553,
-        "margin": 0.750308171201126
+        "home": 1.6514172786898846,
+        "away": 0.9011759990685425,
+        "total": 2.5525932777584273,
+        "margin": 0.7502412796213421
       },
       "x12": [
-        0.6744372907418064,
-        0.18677204612273507,
-        0.13879066313545868
+        0.6744285185850819,
+        0.18676752311548483,
+        0.13880395829943326
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Arsenal gana",
-          "p": 0.6744372907418064,
-          "fairOdds": 1.4827175390911596
+          "p": 0.6744285185850819,
+          "fairOdds": 1.4827368245013588
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.18677204612273507,
-          "fairOdds": 5.354120280627336
+          "p": 0.18676752311548483,
+          "fairOdds": 5.354249943024973
         },
         {
           "market": "h2h",
           "selection": "Hull City gana",
-          "p": 0.13879066313545868,
-          "fairOdds": 7.20509562681466
+          "p": 0.13880395829943326,
+          "fairOdds": 7.2044054957190875
         },
         {
           "market": "double_chance",
           "selection": "Arsenal o empate",
-          "p": 0.8612093368645415,
-          "fairOdds": 1.1611578709083232
+          "p": 0.8611960417005667,
+          "fairOdds": 1.1611757968898035
         },
         {
           "market": "double_chance",
           "selection": "Hull City o empate",
-          "p": 0.32556270925819375,
-          "fairOdds": 3.0716048600238515
+          "p": 0.3255714814149181,
+          "fairOdds": 3.0715220990918732
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.8132279538772651,
-          "fairOdds": 1.2296675184765269
+          "p": 0.8132324768845152,
+          "fairOdds": 1.2296606793557843
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.7291758613147516,
-          "fairOdds": 1.3714112782024006
+          "p": 0.7292247258322742,
+          "fairOdds": 1.371319381496131
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.4913755176387684,
-          "fairOdds": 2.0351034272227286
+          "p": 0.4914393310336067,
+          "fairOdds": 2.0348391690522134
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.5086244823612316,
-          "fairOdds": 1.9660870341073893
+          "p": 0.5085606689663933,
+          "fairOdds": 1.9663337356237471
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.2638111868404691,
-          "fairOdds": 3.790589822882364
+          "p": 0.2638670316805589,
+          "fairOdds": 3.7897875821433193
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.7361888131595309,
-          "fairOdds": 1.3583471823053928
+          "p": 0.7361329683194411,
+          "fairOdds": 1.358450229831379
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4583810646599413,
-          "fairOdds": 2.181590988584725
+          "p": 0.4584460007962663,
+          "fairOdds": 2.1812819792584484
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5416189353400587,
-          "fairOdds": 1.8463165424084444
+          "p": 0.5415539992037337,
+          "fairOdds": 1.8465379287574941
         },
         {
           "market": "team_totals",
           "selection": "Arsenal más de 1.5",
           "line": 1.5,
-          "p": 0.5645437162704776,
-          "fairOdds": 1.7713420080312994
+          "p": 0.5645799721110318,
+          "fairOdds": 1.7712282571074578
         },
         {
           "market": "team_totals",
           "selection": "Arsenal menos de 1.5",
           "line": 1.5,
-          "p": 0.4354562837295224,
-          "fairOdds": 2.2964417723757915
+          "p": 0.43542002788896816,
+          "fairOdds": 2.2966329887218677
         },
         {
           "market": "team_totals",
           "selection": "Hull City más de 1.5",
           "line": 1.5,
-          "p": 0.1809876434248987,
-          "fairOdds": 5.52523907752273
+          "p": 0.18103552360684572,
+          "fairOdds": 5.523777765140155
         },
         {
           "market": "team_totals",
           "selection": "Hull City menos de 1.5",
           "line": 1.5,
-          "p": 0.8190123565751013,
-          "fairOdds": 1.2209827995535285
+          "p": 0.8189644763931543,
+          "fairOdds": 1.2210541834539077
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.16295108231089284,
-          "fairOdds": 6.136811034443511
+          "p": 0.1629226599739451,
+          "fairOdds": 6.137881619167781
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.12874236683513757,
-          "fairOdds": 7.767450797922341
+          "p": 0.12872639117678364,
+          "fairOdds": 7.768414781601943
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.11599856006378181,
-          "fairOdds": 8.62079666721854
+          "p": 0.11600513417522601,
+          "fairOdds": 8.620308119203568
         }
       ],
       "marketGroups": [
@@ -5078,22 +5078,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Arsenal gana",
-              "p": 0.6744372907418064,
-              "fairOdds": 1.4827175390911596
+              "p": 0.6744285185850819,
+              "fairOdds": 1.4827368245013588
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.18677204612273507,
-              "fairOdds": 5.354120280627336
+              "p": 0.18676752311548483,
+              "fairOdds": 5.354249943024973
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Hull City gana",
-              "p": 0.13879066313545868,
-              "fairOdds": 7.20509562681466
+              "p": 0.13880395829943326,
+              "fairOdds": 7.2044054957190875
             }
           ]
         },
@@ -5104,22 +5104,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Arsenal o empate",
-              "p": 0.8612093368645415,
-              "fairOdds": 1.1611578709083232
+              "p": 0.8611960417005667,
+              "fairOdds": 1.1611757968898035
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Hull City o empate",
-              "p": 0.32556270925819375,
-              "fairOdds": 3.0716048600238515
+              "p": 0.3255714814149181,
+              "fairOdds": 3.0715220990918732
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.8132279538772651,
-              "fairOdds": 1.2296675184765269
+              "p": 0.8132324768845152,
+              "fairOdds": 1.2296606793557843
             }
           ]
         },
@@ -5131,40 +5131,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.7291758613147516,
-              "fairOdds": 1.3714112782024006
+              "p": 0.7292247258322742,
+              "fairOdds": 1.371319381496131
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.4913755176387684,
-              "fairOdds": 2.0351034272227286
+              "p": 0.4914393310336067,
+              "fairOdds": 2.0348391690522134
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.5086244823612316,
-              "fairOdds": 1.9660870341073893
+              "p": 0.5085606689663933,
+              "fairOdds": 1.9663337356237471
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.2638111868404691,
-              "fairOdds": 3.790589822882364
+              "p": 0.2638670316805589,
+              "fairOdds": 3.7897875821433193
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.7361888131595309,
-              "fairOdds": 1.3583471823053928
+              "p": 0.7361329683194411,
+              "fairOdds": 1.358450229831379
             }
           ]
         },
@@ -5175,15 +5175,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4583810646599413,
-              "fairOdds": 2.181590988584725
+              "p": 0.4584460007962663,
+              "fairOdds": 2.1812819792584484
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5416189353400587,
-              "fairOdds": 1.8463165424084444
+              "p": 0.5415539992037337,
+              "fairOdds": 1.8465379287574941
             }
           ]
         },
@@ -5195,32 +5195,32 @@
               "selection": "home_over",
               "label": "Arsenal más de 1.5",
               "line": 1.5,
-              "p": 0.5645437162704776,
-              "fairOdds": 1.7713420080312994
+              "p": 0.5645799721110318,
+              "fairOdds": 1.7712282571074578
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Arsenal menos de 1.5",
               "line": 1.5,
-              "p": 0.4354562837295224,
-              "fairOdds": 2.2964417723757915
+              "p": 0.43542002788896816,
+              "fairOdds": 2.2966329887218677
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Hull City más de 1.5",
               "line": 1.5,
-              "p": 0.1809876434248987,
-              "fairOdds": 5.52523907752273
+              "p": 0.18103552360684572,
+              "fairOdds": 5.523777765140155
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Hull City menos de 1.5",
               "line": 1.5,
-              "p": 0.8190123565751013,
-              "fairOdds": 1.2209827995535285
+              "p": 0.8189644763931543,
+              "fairOdds": 1.2210541834539077
             }
           ]
         },
@@ -5231,22 +5231,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.16295108231089284,
-              "fairOdds": 6.136811034443511
+              "p": 0.1629226599739451,
+              "fairOdds": 6.137881619167781
             },
             {
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.12874236683513757,
-              "fairOdds": 7.767450797922341
+              "p": 0.12872639117678364,
+              "fairOdds": 7.768414781601943
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.11599856006378181,
-              "fairOdds": 8.62079666721854
+              "p": 0.11600513417522601,
+              "fairOdds": 8.620308119203568
             }
           ]
         }
@@ -5254,7 +5254,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.16295108231089284
+        "p": 0.1629226599739451
       },
       "factors": [
         {
@@ -5290,8 +5290,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.8–4.2",
-          "detail": "local 39%–91% · 507 partidos"
+          "value": "goles 1.6–4.2",
+          "detail": "local 40%–94% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -5325,20 +5325,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · ARS 1.21 / 0.64 · HUL 1.04 / 0.83",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.65 – 0.90 · total 2.55",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.16295108231089284
+        "p": 0.1629226599739451
       },
       "insights": {
         "why": [
@@ -5395,145 +5395,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1210151150545058,
-        "away": 1.8014003924644808,
-        "total": 2.922415507518987,
-        "margin": -0.680385277409975
+        "home": 1.1211657514515376,
+        "away": 1.8012267072839072,
+        "total": 2.9223924587354446,
+        "margin": -0.6800609558323696
       },
       "x12": [
-        0.21571513956520338,
-        0.22432614039857363,
-        0.5599587200362233
+        0.21574536633622746,
+        0.22433344850018191,
+        0.5599211851635901
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Nottingham Forest gana",
-          "p": 0.21571513956520338,
-          "fairOdds": 4.635743239976598
+          "p": 0.21574536633622746,
+          "fairOdds": 4.635093754187769
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.22432614039857363,
-          "fairOdds": 4.457795236093486
+          "p": 0.22433344850018191,
+          "fairOdds": 4.457650014679773
         },
         {
           "market": "h2h",
           "selection": "Manchester City gana",
-          "p": 0.5599587200362233,
-          "fairOdds": 1.7858459279557444
+          "p": 0.5599211851635901,
+          "fairOdds": 1.7859656439108187
         },
         {
           "market": "double_chance",
           "selection": "Nottingham Forest o empate",
-          "p": 0.440041279963777,
-          "fairOdds": 2.2725140697761748
+          "p": 0.44007881483640937,
+          "fairOdds": 2.2723202442083705
         },
         {
           "market": "double_chance",
           "selection": "Manchester City o empate",
-          "p": 0.784284860434797,
-          "fairOdds": 1.2750469254826793
+          "p": 0.784254633663772,
+          "fairOdds": 1.2750960683883228
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7756738596014267,
-          "fairOdds": 1.2892016246542606
+          "p": 0.7756665514998176,
+          "fairOdds": 1.289213771131957
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.7855115939816284,
-          "fairOdds": 1.273055684552236
+          "p": 0.7855093865502049,
+          "fairOdds": 1.2730592620818877
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.5594397704054709,
-          "fairOdds": 1.7875025210939504
+          "p": 0.5594380599967932,
+          "fairOdds": 1.7875079861490515
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.4405602295945291,
-          "fairOdds": 2.2698372045982294
+          "p": 0.4405619400032068,
+          "fairOdds": 2.269828392331669
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.33736818476786523,
-          "fairOdds": 2.964120640741733
+          "p": 0.3373650896057283,
+          "fairOdds": 2.9641478351203427
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.6626318152321348,
-          "fairOdds": 1.5091336953835783
+          "p": 0.6626349103942717,
+          "fairOdds": 1.5091266462326804
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5577027952165702,
-          "fairOdds": 1.7930697292124465
+          "p": 0.5577213447988344,
+          "fairOdds": 1.7930100924516201
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4422972047834298,
-          "fairOdds": 2.2609231737958835
+          "p": 0.4422786552011656,
+          "fairOdds": 2.261017999037645
         },
         {
           "market": "team_totals",
           "selection": "Nottingham Forest más de 1.5",
           "line": 1.5,
-          "p": 0.2939563249738215,
-          "fairOdds": 3.4018659067433084
+          "p": 0.2939911764216936,
+          "fairOdds": 3.4014626294961485
         },
         {
           "market": "team_totals",
           "selection": "Nottingham Forest menos de 1.5",
           "line": 1.5,
-          "p": 0.7060436750261785,
-          "fairOdds": 1.4163429761805064
+          "p": 0.7060088235783064,
+          "fairOdds": 1.4164128925919661
         },
         {
           "market": "team_totals",
           "selection": "Manchester City más de 1.5",
           "line": 1.5,
-          "p": 0.5527904483115251,
-          "fairOdds": 1.809003760926871
+          "p": 0.5527624644155993,
+          "fairOdds": 1.8090953427115146
         },
         {
           "market": "team_totals",
           "selection": "Manchester City menos de 1.5",
           "line": 1.5,
-          "p": 0.44720955168847487,
-          "fairOdds": 2.2360881967400323
+          "p": 0.4472375355844007,
+          "fairOdds": 2.2359482834849946
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.10644843867495114,
-          "fairOdds": 9.394219515549498
+          "p": 0.10644909414562946,
+          "fairOdds": 9.394161669726689
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.10504009767562951,
-          "fairOdds": 9.52017393479644
+          "p": 0.10504296156524069,
+          "fairOdds": 9.519914376927712
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.10177619958395834,
-          "fairOdds": 9.825479867472051
+          "p": 0.1017799623339019,
+          "fairOdds": 9.825116624816337
         }
       ],
       "marketGroups": [
@@ -5544,22 +5544,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Nottingham Forest gana",
-              "p": 0.21571513956520338,
-              "fairOdds": 4.635743239976598
+              "p": 0.21574536633622746,
+              "fairOdds": 4.635093754187769
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.22432614039857363,
-              "fairOdds": 4.457795236093486
+              "p": 0.22433344850018191,
+              "fairOdds": 4.457650014679773
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Manchester City gana",
-              "p": 0.5599587200362233,
-              "fairOdds": 1.7858459279557444
+              "p": 0.5599211851635901,
+              "fairOdds": 1.7859656439108187
             }
           ]
         },
@@ -5570,22 +5570,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Nottingham Forest o empate",
-              "p": 0.440041279963777,
-              "fairOdds": 2.2725140697761748
+              "p": 0.44007881483640937,
+              "fairOdds": 2.2723202442083705
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Manchester City o empate",
-              "p": 0.784284860434797,
-              "fairOdds": 1.2750469254826793
+              "p": 0.784254633663772,
+              "fairOdds": 1.2750960683883228
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7756738596014267,
-              "fairOdds": 1.2892016246542606
+              "p": 0.7756665514998176,
+              "fairOdds": 1.289213771131957
             }
           ]
         },
@@ -5597,40 +5597,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.7855115939816284,
-              "fairOdds": 1.273055684552236
+              "p": 0.7855093865502049,
+              "fairOdds": 1.2730592620818877
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.5594397704054709,
-              "fairOdds": 1.7875025210939504
+              "p": 0.5594380599967932,
+              "fairOdds": 1.7875079861490515
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.4405602295945291,
-              "fairOdds": 2.2698372045982294
+              "p": 0.4405619400032068,
+              "fairOdds": 2.269828392331669
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.33736818476786523,
-              "fairOdds": 2.964120640741733
+              "p": 0.3373650896057283,
+              "fairOdds": 2.9641478351203427
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.6626318152321348,
-              "fairOdds": 1.5091336953835783
+              "p": 0.6626349103942717,
+              "fairOdds": 1.5091266462326804
             }
           ]
         },
@@ -5641,15 +5641,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5577027952165702,
-              "fairOdds": 1.7930697292124465
+              "p": 0.5577213447988344,
+              "fairOdds": 1.7930100924516201
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4422972047834298,
-              "fairOdds": 2.2609231737958835
+              "p": 0.4422786552011656,
+              "fairOdds": 2.261017999037645
             }
           ]
         },
@@ -5661,32 +5661,32 @@
               "selection": "home_over",
               "label": "Nottingham Forest más de 1.5",
               "line": 1.5,
-              "p": 0.2939563249738215,
-              "fairOdds": 3.4018659067433084
+              "p": 0.2939911764216936,
+              "fairOdds": 3.4014626294961485
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Nottingham Forest menos de 1.5",
               "line": 1.5,
-              "p": 0.7060436750261785,
-              "fairOdds": 1.4163429761805064
+              "p": 0.7060088235783064,
+              "fairOdds": 1.4164128925919661
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Manchester City más de 1.5",
               "line": 1.5,
-              "p": 0.5527904483115251,
-              "fairOdds": 1.809003760926871
+              "p": 0.5527624644155993,
+              "fairOdds": 1.8090953427115146
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Manchester City menos de 1.5",
               "line": 1.5,
-              "p": 0.44720955168847487,
-              "fairOdds": 2.2360881967400323
+              "p": 0.4472375355844007,
+              "fairOdds": 2.2359482834849946
             }
           ]
         },
@@ -5697,22 +5697,22 @@
               "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.10644843867495114,
-              "fairOdds": 9.394219515549498
+              "p": 0.10644909414562946,
+              "fairOdds": 9.394161669726689
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.10504009767562951,
-              "fairOdds": 9.52017393479644
+              "p": 0.10504296156524069,
+              "fairOdds": 9.519914376927712
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.10177619958395834,
-              "fairOdds": 9.825479867472051
+              "p": 0.1017799623339019,
+              "fairOdds": 9.825116624816337
             }
           ]
         }
@@ -5720,7 +5720,7 @@
       "mostLikelyScore": {
         "home": 0,
         "away": 1,
-        "p": 0.10644843867495114
+        "p": 0.10644909414562946
       },
       "factors": [
         {
@@ -5756,7 +5756,7 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.2–4.0",
+          "value": "goles 2.1–4.1",
           "detail": "local 9%–39% · 507 partidos"
         },
         {
@@ -5791,20 +5791,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · NFO 0.95 / 0.94 · MCI 1.41 / 0.72",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.12 – 1.80 · total 2.92",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.10177619958395834
+        "p": 0.1017799623339019
       },
       "insights": {
         "why": [
@@ -5860,145 +5860,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.1492755250829236,
-        "away": 1.0473609050765147,
-        "total": 3.1966364301594385,
-        "margin": 1.101914620006409
+        "home": 2.1490260524301217,
+        "away": 1.047474525534879,
+        "total": 3.1965005779650006,
+        "margin": 1.1015515268952427
       },
       "x12": [
-        0.5928631567789875,
-        0.21366937130925626,
-        0.19346747191175676
+        0.592825371293867,
+        0.2136814248535212,
+        0.19349320385261218
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Leeds United gana",
-          "p": 0.5928631567789875,
-          "fairOdds": 1.686729877823709
+          "p": 0.592825371293867,
+          "fairOdds": 1.6868373865603234
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.21366937130925626,
-          "fairOdds": 4.680127965335009
+          "p": 0.2136814248535212,
+          "fairOdds": 4.679863964242568
         },
         {
           "market": "h2h",
           "selection": "Tottenham gana",
-          "p": 0.19346747191175676,
-          "fairOdds": 5.168827555963072
+          "p": 0.19349320385261218,
+          "fairOdds": 5.168140172828607
         },
         {
           "market": "double_chance",
           "selection": "Leeds United o empate",
-          "p": 0.8065325280882437,
-          "fairOdds": 1.2398755972934408
+          "p": 0.8065067961473882,
+          "fairOdds": 1.239915156049412
         },
         {
           "market": "double_chance",
           "selection": "Tottenham o empate",
-          "p": 0.407136843221013,
-          "fairOdds": 2.4561766311509
+          "p": 0.4071746287061334,
+          "fairOdds": 2.4559486998924025
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7863306286907442,
-          "fairOdds": 1.271729681527247
+          "p": 0.7863185751464792,
+          "fairOdds": 1.2717491759796151
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8211185183030918,
-          "fairOdds": 1.2178509894851492
+          "p": 0.8211046495297467,
+          "fairOdds": 1.2178715594567735
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6099498612902592,
-          "fairOdds": 1.6394790186272805
+          "p": 0.609929037825623,
+          "fairOdds": 1.6395349917507898
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.3900501387097408,
-          "fairOdds": 2.5637729634142206
+          "p": 0.390070962174377,
+          "fairOdds": 2.5636360995078658
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.39274543557471175,
-          "fairOdds": 2.5461785406536457
+          "p": 0.39272126954107434,
+          "fairOdds": 2.546335219298355
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.6072545644252882,
-          "fairOdds": 1.6467558394499842
+          "p": 0.6072787304589257,
+          "fairOdds": 1.6466903084919366
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5767383725385402,
-          "fairOdds": 1.7338884451167251
+          "p": 0.5767484972376207,
+          "fairOdds": 1.7338580070681997
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4232616274614598,
-          "fairOdds": 2.362604911760056
+          "p": 0.42325150276237933,
+          "fairOdds": 2.3626614281897003
         },
         {
           "market": "team_totals",
           "selection": "Leeds United más de 1.5",
           "line": 1.5,
-          "p": 0.6116522904718144,
-          "fairOdds": 1.6349158101388344
+          "p": 0.6116143447201492,
+          "fairOdds": 1.6350172435173358
         },
         {
           "market": "team_totals",
           "selection": "Leeds United menos de 1.5",
           "line": 1.5,
-          "p": 0.38834770952818565,
-          "fairOdds": 2.5750119685653035
+          "p": 0.3883856552798508,
+          "fairOdds": 2.5747603867590096
         },
         {
           "market": "team_totals",
           "selection": "Tottenham más de 1.5",
           "line": 1.5,
-          "p": 0.29510656192728735,
-          "fairOdds": 3.388606452764661
+          "p": 0.2951300535976773,
+          "fairOdds": 3.388336727520149
         },
         {
           "market": "team_totals",
           "selection": "Tottenham menos de 1.5",
           "line": 1.5,
-          "p": 0.7048934380727127,
-          "fairOdds": 1.4186541482555919
+          "p": 0.7048699464023227,
+          "fairOdds": 1.418701428687703
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09808629288284337,
-          "fairOdds": 10.195104439255585
+          "p": 0.09809199449833526,
+          "fairOdds": 10.194511846906845
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.09312931031778299,
-          "fairOdds": 10.73775803329503
+          "p": 0.09313568101473661,
+          "fairOdds": 10.737023545699662
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.08891807004289456,
-          "fairOdds": 11.2463079722445
+          "p": 0.08891450698257135,
+          "fairOdds": 11.246758644188578
         }
       ],
       "marketGroups": [
@@ -6009,22 +6009,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Leeds United gana",
-              "p": 0.5928631567789875,
-              "fairOdds": 1.686729877823709
+              "p": 0.592825371293867,
+              "fairOdds": 1.6868373865603234
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.21366937130925626,
-              "fairOdds": 4.680127965335009
+              "p": 0.2136814248535212,
+              "fairOdds": 4.679863964242568
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Tottenham gana",
-              "p": 0.19346747191175676,
-              "fairOdds": 5.168827555963072
+              "p": 0.19349320385261218,
+              "fairOdds": 5.168140172828607
             }
           ]
         },
@@ -6035,22 +6035,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Leeds United o empate",
-              "p": 0.8065325280882437,
-              "fairOdds": 1.2398755972934408
+              "p": 0.8065067961473882,
+              "fairOdds": 1.239915156049412
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Tottenham o empate",
-              "p": 0.407136843221013,
-              "fairOdds": 2.4561766311509
+              "p": 0.4071746287061334,
+              "fairOdds": 2.4559486998924025
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7863306286907442,
-              "fairOdds": 1.271729681527247
+              "p": 0.7863185751464792,
+              "fairOdds": 1.2717491759796151
             }
           ]
         },
@@ -6062,40 +6062,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8211185183030918,
-              "fairOdds": 1.2178509894851492
+              "p": 0.8211046495297467,
+              "fairOdds": 1.2178715594567735
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6099498612902592,
-              "fairOdds": 1.6394790186272805
+              "p": 0.609929037825623,
+              "fairOdds": 1.6395349917507898
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.3900501387097408,
-              "fairOdds": 2.5637729634142206
+              "p": 0.390070962174377,
+              "fairOdds": 2.5636360995078658
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.39274543557471175,
-              "fairOdds": 2.5461785406536457
+              "p": 0.39272126954107434,
+              "fairOdds": 2.546335219298355
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.6072545644252882,
-              "fairOdds": 1.6467558394499842
+              "p": 0.6072787304589257,
+              "fairOdds": 1.6466903084919366
             }
           ]
         },
@@ -6106,15 +6106,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5767383725385402,
-              "fairOdds": 1.7338884451167251
+              "p": 0.5767484972376207,
+              "fairOdds": 1.7338580070681997
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4232616274614598,
-              "fairOdds": 2.362604911760056
+              "p": 0.42325150276237933,
+              "fairOdds": 2.3626614281897003
             }
           ]
         },
@@ -6126,32 +6126,32 @@
               "selection": "home_over",
               "label": "Leeds United más de 1.5",
               "line": 1.5,
-              "p": 0.6116522904718144,
-              "fairOdds": 1.6349158101388344
+              "p": 0.6116143447201492,
+              "fairOdds": 1.6350172435173358
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Leeds United menos de 1.5",
               "line": 1.5,
-              "p": 0.38834770952818565,
-              "fairOdds": 2.5750119685653035
+              "p": 0.3883856552798508,
+              "fairOdds": 2.5747603867590096
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Tottenham más de 1.5",
               "line": 1.5,
-              "p": 0.29510656192728735,
-              "fairOdds": 3.388606452764661
+              "p": 0.2951300535976773,
+              "fairOdds": 3.388336727520149
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Tottenham menos de 1.5",
               "line": 1.5,
-              "p": 0.7048934380727127,
-              "fairOdds": 1.4186541482555919
+              "p": 0.7048699464023227,
+              "fairOdds": 1.418701428687703
             }
           ]
         },
@@ -6162,22 +6162,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09808629288284337,
-              "fairOdds": 10.195104439255585
+              "p": 0.09809199449833526,
+              "fairOdds": 10.194511846906845
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.09312931031778299,
-              "fairOdds": 10.73775803329503
+              "p": 0.09313568101473661,
+              "fairOdds": 10.737023545699662
             },
             {
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.08891807004289456,
-              "fairOdds": 11.2463079722445
+              "p": 0.08891450698257135,
+              "fairOdds": 11.246758644188578
             }
           ]
         }
@@ -6185,7 +6185,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09808629288284337
+        "p": 0.09809199449833526
       },
       "factors": [
         {
@@ -6221,8 +6221,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.3–4.8",
-          "detail": "local 37%–81% · 507 partidos"
+          "value": "goles 2.3–4.6",
+          "detail": "local 40%–80% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -6256,20 +6256,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · LEE 1.09 / 0.92 · TOT 0.84 / 1.20",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.15 – 1.05 · total 3.20",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.09312931031778299
+        "p": 0.09313568101473661
       },
       "insights": {
         "why": [
@@ -6325,145 +6325,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.57128177972411,
-        "away": 1.6383778879996183,
-        "total": 3.209659667723728,
-        "margin": -0.06709610827550816
+        "home": 1.5713013635394908,
+        "away": 1.6382431510301783,
+        "total": 3.209544514569669,
+        "margin": -0.06694178749068747
       },
       "x12": [
-        0.3726080083621695,
-        0.25853302520465415,
-        0.3688589664331766
+        0.37262312674507175,
+        0.25853546171796443,
+        0.3688414115369638
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Fulham gana",
-          "p": 0.3726080083621695,
-          "fairOdds": 2.6837855804430664
+          "p": 0.37262312674507175,
+          "fairOdds": 2.6836766916084223
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.25853302520465415,
-          "fairOdds": 3.867977792037989
+          "p": 0.25853546171796443,
+          "fairOdds": 3.867941339091413
         },
         {
           "market": "h2h",
           "selection": "Newcastle gana",
-          "p": 0.3688589664331766,
-          "fairOdds": 2.7110632816381934
+          "p": 0.3688414115369638,
+          "fairOdds": 2.711192313880905
         },
         {
           "market": "double_chance",
           "selection": "Fulham o empate",
-          "p": 0.6311410335668237,
-          "fairOdds": 1.5844319206257444
+          "p": 0.6311585884630362,
+          "fairOdds": 1.5843878516097623
         },
         {
           "market": "double_chance",
           "selection": "Newcastle o empate",
-          "p": 0.6273919916378308,
-          "fairOdds": 1.5938998478279294
+          "p": 0.6273768732549283,
+          "fairOdds": 1.5939382572581058
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7414669747953462,
-          "fairOdds": 1.3486777348053998
+          "p": 0.7414645382820355,
+          "fairOdds": 1.3486821666710966
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8255595356794073,
-          "fairOdds": 1.2112996783170025
+          "p": 0.8255445861928657,
+          "fairOdds": 1.2113216133021525
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.611987190074524,
-          "fairOdds": 1.634021130210628
+          "p": 0.6119639980497259,
+          "fairOdds": 1.6340830558446409
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.38801280992547604,
-          "fairOdds": 2.5772344995312544
+          "p": 0.3880360019502741,
+          "fairOdds": 2.577080464116697
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.399539371351194,
-          "fairOdds": 2.502882248170238
+          "p": 0.39951410917321317,
+          "fairOdds": 2.5030405110584977
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.600460628648806,
-          "fairOdds": 1.6653881241976887
+          "p": 0.6004858908267868,
+          "fairOdds": 1.665318062049946
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6426386063852818,
-          "fairOdds": 1.5560845396836755
+          "p": 0.6426202088988565,
+          "fairOdds": 1.5561290886159982
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3573613936147182,
-          "fairOdds": 2.7982877218072675
+          "p": 0.3573797911011435,
+          "fairOdds": 2.7981436692848307
         },
         {
           "market": "team_totals",
           "selection": "Fulham más de 1.5",
           "line": 1.5,
-          "p": 0.4727334732653774,
-          "fairOdds": 2.115356869257769
+          "p": 0.4727291537904297,
+          "fairOdds": 2.115376197938746
         },
         {
           "market": "team_totals",
           "selection": "Fulham menos de 1.5",
           "line": 1.5,
-          "p": 0.5272665267346226,
-          "fairOdds": 1.8965740271680624
+          "p": 0.5272708462095703,
+          "fairOdds": 1.896558490174019
         },
         {
           "market": "team_totals",
           "selection": "Newcastle más de 1.5",
           "line": 1.5,
-          "p": 0.473421088651367,
-          "fairOdds": 2.1122844418458344
+          "p": 0.4733887815259338,
+          "fairOdds": 2.112428597856869
         },
         {
           "market": "team_totals",
           "selection": "Newcastle menos de 1.5",
           "line": 1.5,
-          "p": 0.526578911348633,
-          "fairOdds": 1.8990506046641284
+          "p": 0.5266112184740662,
+          "fairOdds": 1.8989340996146031
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11428725318042572,
-          "fairOdds": 8.74988217996014
+          "p": 0.11429102248250553,
+          "fairOdds": 8.749593610058652
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.08134231714631715,
-          "fairOdds": 12.293724042815468
+          "p": 0.08134374646673768,
+          "fairOdds": 12.293508025339237
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.07799373255817563,
-          "fairOdds": 12.821543054810189
+          "p": 0.07799394643798441,
+          "fairOdds": 12.821507894784288
         }
       ],
       "marketGroups": [
@@ -6474,22 +6474,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Fulham gana",
-              "p": 0.3726080083621695,
-              "fairOdds": 2.6837855804430664
+              "p": 0.37262312674507175,
+              "fairOdds": 2.6836766916084223
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.25853302520465415,
-              "fairOdds": 3.867977792037989
+              "p": 0.25853546171796443,
+              "fairOdds": 3.867941339091413
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Newcastle gana",
-              "p": 0.3688589664331766,
-              "fairOdds": 2.7110632816381934
+              "p": 0.3688414115369638,
+              "fairOdds": 2.711192313880905
             }
           ]
         },
@@ -6500,22 +6500,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Fulham o empate",
-              "p": 0.6311410335668237,
-              "fairOdds": 1.5844319206257444
+              "p": 0.6311585884630362,
+              "fairOdds": 1.5843878516097623
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Newcastle o empate",
-              "p": 0.6273919916378308,
-              "fairOdds": 1.5938998478279294
+              "p": 0.6273768732549283,
+              "fairOdds": 1.5939382572581058
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7414669747953462,
-              "fairOdds": 1.3486777348053998
+              "p": 0.7414645382820355,
+              "fairOdds": 1.3486821666710966
             }
           ]
         },
@@ -6527,40 +6527,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8255595356794073,
-              "fairOdds": 1.2112996783170025
+              "p": 0.8255445861928657,
+              "fairOdds": 1.2113216133021525
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.611987190074524,
-              "fairOdds": 1.634021130210628
+              "p": 0.6119639980497259,
+              "fairOdds": 1.6340830558446409
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.38801280992547604,
-              "fairOdds": 2.5772344995312544
+              "p": 0.3880360019502741,
+              "fairOdds": 2.577080464116697
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.399539371351194,
-              "fairOdds": 2.502882248170238
+              "p": 0.39951410917321317,
+              "fairOdds": 2.5030405110584977
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.600460628648806,
-              "fairOdds": 1.6653881241976887
+              "p": 0.6004858908267868,
+              "fairOdds": 1.665318062049946
             }
           ]
         },
@@ -6571,15 +6571,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6426386063852818,
-              "fairOdds": 1.5560845396836755
+              "p": 0.6426202088988565,
+              "fairOdds": 1.5561290886159982
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3573613936147182,
-              "fairOdds": 2.7982877218072675
+              "p": 0.3573797911011435,
+              "fairOdds": 2.7981436692848307
             }
           ]
         },
@@ -6591,32 +6591,32 @@
               "selection": "home_over",
               "label": "Fulham más de 1.5",
               "line": 1.5,
-              "p": 0.4727334732653774,
-              "fairOdds": 2.115356869257769
+              "p": 0.4727291537904297,
+              "fairOdds": 2.115376197938746
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Fulham menos de 1.5",
               "line": 1.5,
-              "p": 0.5272665267346226,
-              "fairOdds": 1.8965740271680624
+              "p": 0.5272708462095703,
+              "fairOdds": 1.896558490174019
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Newcastle más de 1.5",
               "line": 1.5,
-              "p": 0.473421088651367,
-              "fairOdds": 2.1122844418458344
+              "p": 0.4733887815259338,
+              "fairOdds": 2.112428597856869
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Newcastle menos de 1.5",
               "line": 1.5,
-              "p": 0.526578911348633,
-              "fairOdds": 1.8990506046641284
+              "p": 0.5266112184740662,
+              "fairOdds": 1.8989340996146031
             }
           ]
         },
@@ -6627,22 +6627,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11428725318042572,
-              "fairOdds": 8.74988217996014
+              "p": 0.11429102248250553,
+              "fairOdds": 8.749593610058652
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.08134231714631715,
-              "fairOdds": 12.293724042815468
+              "p": 0.08134374646673768,
+              "fairOdds": 12.293508025339237
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.07799373255817563,
-              "fairOdds": 12.821543054810189
+              "p": 0.07799394643798441,
+              "fairOdds": 12.821507894784288
             }
           ]
         }
@@ -6650,7 +6650,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.11428725318042572
+        "p": 0.11429102248250553
       },
       "factors": [
         {
@@ -6686,8 +6686,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.3–4.6",
-          "detail": "local 18%–64% · 507 partidos"
+          "value": "goles 2.5–4.5",
+          "detail": "local 16%–61% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -6721,20 +6721,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · FUL 0.91 / 1.04 · NEW 1.15 / 1.06",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.57 – 1.64 · total 3.21",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.08134231714631715
+        "p": 0.08134374646673768
       },
       "insights": {
         "why": [
@@ -7222,145 +7222,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.5494383169451738,
-        "away": 2.0331599484091814,
-        "total": 3.5825982653543553,
-        "margin": -0.4837216314640076
+        "home": 1.5494474138848597,
+        "away": 2.0328523862191874,
+        "total": 3.582299800104047,
+        "margin": -0.48340497233432766
       },
       "x12": [
-        0.27989668703119414,
-        0.23322892505888237,
-        0.4868743879099234
+        0.27992222435895414,
+        0.23323688903296094,
+        0.4868408866080847
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Crystal Palace gana",
-          "p": 0.27989668703119414,
-          "fairOdds": 3.5727468252904018
+          "p": 0.27992222435895414,
+          "fairOdds": 3.5724208833010156
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.23322892505888237,
-          "fairOdds": 4.2876328472016665
+          "p": 0.23323688903296094,
+          "fairOdds": 4.287486444130544
         },
         {
           "market": "h2h",
           "selection": "Liverpool gana",
-          "p": 0.4868743879099234,
-          "fairOdds": 2.053917858141698
+          "p": 0.4868408866080847,
+          "fairOdds": 2.054059195740922
         },
         {
           "market": "double_chance",
           "selection": "Crystal Palace o empate",
-          "p": 0.5131256120900765,
-          "fairOdds": 1.9488405498349113
+          "p": 0.5131591133919151,
+          "fairOdds": 1.9487133208842962
         },
         {
           "market": "double_chance",
           "selection": "Liverpool o empate",
-          "p": 0.7201033129688057,
-          "fairOdds": 1.388689625488946
+          "p": 0.7200777756410457,
+          "fairOdds": 1.3887388749218859
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7667710749411175,
-          "fairOdds": 1.3041702180494912
+          "p": 0.7667631109670389,
+          "fairOdds": 1.3041837637947966
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.869165013597982,
-          "fairOdds": 1.1505295132168465
+          "p": 0.8691352998085677,
+          "fairOdds": 1.1505688472442162
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6868944728980615,
-          "fairOdds": 1.4558276990946248
+          "p": 0.6868436619729614,
+          "fairOdds": 1.4559353974782203
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.3131055271019385,
-          "fairOdds": 3.1938113940557415
+          "p": 0.31315633802703857,
+          "fairOdds": 3.1932931848042556
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.48157390860852933,
-          "fairOdds": 2.0765244589131147
+          "p": 0.4815116363166012,
+          "fairOdds": 2.0767930088868813
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5184260913914707,
-          "fairOdds": 1.9289152621851477
+          "p": 0.5184883636833988,
+          "fairOdds": 1.9286835926189148
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6871702093873439,
-          "fairOdds": 1.4552435282250724
+          "p": 0.687137189370464,
+          "fairOdds": 1.4553134591888008
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.31282979061265614,
-          "fairOdds": 3.196626504277509
+          "p": 0.312862810629536,
+          "fairOdds": 3.196289127454365
         },
         {
           "market": "team_totals",
           "selection": "Crystal Palace más de 1.5",
           "line": 1.5,
-          "p": 0.45337541867742037,
-          "fairOdds": 2.205677588161229
+          "p": 0.45335933973691733,
+          "fairOdds": 2.205755815200137
         },
         {
           "market": "team_totals",
           "selection": "Crystal Palace menos de 1.5",
           "line": 1.5,
-          "p": 0.5466245813225796,
-          "fairOdds": 1.8294091304501177
+          "p": 0.5466406602630827,
+          "fairOdds": 1.8293553200355208
         },
         {
           "market": "team_totals",
           "selection": "Liverpool más de 1.5",
           "line": 1.5,
-          "p": 0.6047007749029462,
-          "fairOdds": 1.6537104655777874
+          "p": 0.6046379841173448,
+          "fairOdds": 1.6538822010327514
         },
         {
           "market": "team_totals",
           "selection": "Liverpool menos de 1.5",
           "line": 1.5,
-          "p": 0.39529922509705384,
-          "fairOdds": 2.529729219060523
+          "p": 0.3953620158826552,
+          "fairOdds": 2.529327451367517
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09458898881161434,
-          "fairOdds": 10.572055083405358
+          "p": 0.09459935203279218,
+          "fairOdds": 10.570896930175136
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.08761818284484887,
-          "fairOdds": 11.413156122750959
+          "p": 0.0876241735979037,
+          "fairOdds": 11.412375819815136
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07841566388913658,
-          "fairOdds": 12.75255415058134
+          "p": 0.0784128520488753,
+          "fairOdds": 12.753011449917581
         }
       ],
       "marketGroups": [
@@ -7371,22 +7371,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Crystal Palace gana",
-              "p": 0.27989668703119414,
-              "fairOdds": 3.5727468252904018
+              "p": 0.27992222435895414,
+              "fairOdds": 3.5724208833010156
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.23322892505888237,
-              "fairOdds": 4.2876328472016665
+              "p": 0.23323688903296094,
+              "fairOdds": 4.287486444130544
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Liverpool gana",
-              "p": 0.4868743879099234,
-              "fairOdds": 2.053917858141698
+              "p": 0.4868408866080847,
+              "fairOdds": 2.054059195740922
             }
           ]
         },
@@ -7397,22 +7397,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Crystal Palace o empate",
-              "p": 0.5131256120900765,
-              "fairOdds": 1.9488405498349113
+              "p": 0.5131591133919151,
+              "fairOdds": 1.9487133208842962
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Liverpool o empate",
-              "p": 0.7201033129688057,
-              "fairOdds": 1.388689625488946
+              "p": 0.7200777756410457,
+              "fairOdds": 1.3887388749218859
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7667710749411175,
-              "fairOdds": 1.3041702180494912
+              "p": 0.7667631109670389,
+              "fairOdds": 1.3041837637947966
             }
           ]
         },
@@ -7424,40 +7424,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.869165013597982,
-              "fairOdds": 1.1505295132168465
+              "p": 0.8691352998085677,
+              "fairOdds": 1.1505688472442162
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6868944728980615,
-              "fairOdds": 1.4558276990946248
+              "p": 0.6868436619729614,
+              "fairOdds": 1.4559353974782203
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.3131055271019385,
-              "fairOdds": 3.1938113940557415
+              "p": 0.31315633802703857,
+              "fairOdds": 3.1932931848042556
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.48157390860852933,
-              "fairOdds": 2.0765244589131147
+              "p": 0.4815116363166012,
+              "fairOdds": 2.0767930088868813
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5184260913914707,
-              "fairOdds": 1.9289152621851477
+              "p": 0.5184883636833988,
+              "fairOdds": 1.9286835926189148
             }
           ]
         },
@@ -7468,15 +7468,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6871702093873439,
-              "fairOdds": 1.4552435282250724
+              "p": 0.687137189370464,
+              "fairOdds": 1.4553134591888008
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.31282979061265614,
-              "fairOdds": 3.196626504277509
+              "p": 0.312862810629536,
+              "fairOdds": 3.196289127454365
             }
           ]
         },
@@ -7488,32 +7488,32 @@
               "selection": "home_over",
               "label": "Crystal Palace más de 1.5",
               "line": 1.5,
-              "p": 0.45337541867742037,
-              "fairOdds": 2.205677588161229
+              "p": 0.45335933973691733,
+              "fairOdds": 2.205755815200137
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Crystal Palace menos de 1.5",
               "line": 1.5,
-              "p": 0.5466245813225796,
-              "fairOdds": 1.8294091304501177
+              "p": 0.5466406602630827,
+              "fairOdds": 1.8293553200355208
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Liverpool más de 1.5",
               "line": 1.5,
-              "p": 0.6047007749029462,
-              "fairOdds": 1.6537104655777874
+              "p": 0.6046379841173448,
+              "fairOdds": 1.6538822010327514
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Liverpool menos de 1.5",
               "line": 1.5,
-              "p": 0.39529922509705384,
-              "fairOdds": 2.529729219060523
+              "p": 0.3953620158826552,
+              "fairOdds": 2.529327451367517
             }
           ]
         },
@@ -7524,22 +7524,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09458898881161434,
-              "fairOdds": 10.572055083405358
+              "p": 0.09459935203279218,
+              "fairOdds": 10.570896930175136
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.08761818284484887,
-              "fairOdds": 11.413156122750959
+              "p": 0.0876241735979037,
+              "fairOdds": 11.412375819815136
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07841566388913658,
-              "fairOdds": 12.75255415058134
+              "p": 0.0784128520488753,
+              "fairOdds": 12.753011449917581
             }
           ]
         }
@@ -7547,7 +7547,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09458898881161434
+        "p": 0.09459935203279218
       },
       "factors": [
         {
@@ -7583,8 +7583,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.7–5.0",
-          "detail": "local 12%–50% · 507 partidos"
+          "value": "goles 2.7–5.4",
+          "detail": "local 11%–50% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -7618,20 +7618,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · CRY 0.99 / 1.25 · LIV 1.19 / 0.95",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.55 – 2.03 · total 3.58",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.08761818284484887
+        "p": 0.0876241735979037
       },
       "insights": {
         "why": [
@@ -7687,145 +7687,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.6610714266650557,
-        "away": 1.7318460845836445,
-        "total": 3.3929175112487,
-        "margin": -0.07077465791858883
+        "home": 1.6610589225894503,
+        "away": 1.7316371256171044,
+        "total": 3.3926960482065547,
+        "margin": -0.07057820302765405
       },
       "x12": [
-        0.359075271599087,
-        0.25661743312379,
-        0.3843072952771232
+        0.35909344394872145,
+        0.2566214975368521,
+        0.38428505851442607
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Sunderland gana",
-          "p": 0.359075271599087,
-          "fairOdds": 2.784931403231006
+          "p": 0.35909344394872145,
+          "fairOdds": 2.784790468474273
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.25661743312379,
-          "fairOdds": 3.8968513862330187
+          "p": 0.2566214975368521,
+          "fairOdds": 3.896789667266263
         },
         {
           "market": "h2h",
           "selection": "Chelsea gana",
-          "p": 0.3843072952771232,
-          "fairOdds": 2.6020843535611315
+          "p": 0.38428505851442607,
+          "fairOdds": 2.602234923902096
         },
         {
           "market": "double_chance",
           "selection": "Sunderland o empate",
-          "p": 0.615692704722877,
-          "fairOdds": 1.624186858686428
+          "p": 0.6157149414855736,
+          "fairOdds": 1.624128200604062
         },
         {
           "market": "double_chance",
           "selection": "Chelsea o empate",
-          "p": 0.6409247284009132,
-          "fairOdds": 1.5602456196298873
+          "p": 0.6409065560512781,
+          "fairOdds": 1.5602898590414658
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7433825668762102,
-          "fairOdds": 1.345202382404701
+          "p": 0.7433785024631475,
+          "fairOdds": 1.3452097372826224
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.84851389780551,
-          "fairOdds": 1.178531079557182
+          "p": 0.8484881438748856,
+          "fairOdds": 1.1785668511915657
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6479725927881099,
-          "fairOdds": 1.5432751494892387
+          "p": 0.6479304456063729,
+          "fairOdds": 1.5433755378853031
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.3520274072118901,
-          "fairOdds": 2.840687910978722
+          "p": 0.3520695543936271,
+          "fairOdds": 2.840347844681742
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.44026940015608906,
-          "fairOdds": 2.27133659447027
+          "p": 0.44022098485580885,
+          "fairOdds": 2.2715863950182715
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5597305998439109,
-          "fairOdds": 1.7865737558012098
+          "p": 0.5597790151441911,
+          "fairOdds": 1.786419234994749
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6723100105924974,
-          "fairOdds": 1.4874090586851652
+          "p": 0.6722768736147858,
+          "fairOdds": 1.4874823740746426
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3276899894075026,
-          "fairOdds": 3.0516647817289244
+          "p": 0.32772312638521417,
+          "fairOdds": 3.0513562195930426
         },
         {
           "market": "team_totals",
           "selection": "Sunderland más de 1.5",
           "line": 1.5,
-          "p": 0.4928571483165296,
-          "fairOdds": 2.028985484771271
+          "p": 0.49283955475318364,
+          "fairOdds": 2.029057916223475
         },
         {
           "market": "team_totals",
           "selection": "Sunderland menos de 1.5",
           "line": 1.5,
-          "p": 0.5071428516834704,
-          "fairOdds": 1.97183100714223
+          "p": 0.5071604452468164,
+          "fairOdds": 1.9717626036733538
         },
         {
           "market": "team_totals",
           "selection": "Chelsea más de 1.5",
           "line": 1.5,
-          "p": 0.5120178040874209,
-          "fairOdds": 1.9530570851580427
+          "p": 0.5119663464070954,
+          "fairOdds": 1.953253386707648
         },
         {
           "market": "team_totals",
           "selection": "Chelsea menos de 1.5",
           "line": 1.5,
-          "p": 0.4879821959125791,
-          "fairOdds": 2.0492550924524875
+          "p": 0.4880336535929046,
+          "fairOdds": 2.049039021465012
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.10867980850813534,
-          "fairOdds": 9.20134120336754
+          "p": 0.10868759332739751,
+          "fairOdds": 9.200682151344722
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.08227404836404123,
-          "fairOdds": 12.154500962141313
+          "p": 0.08226939478020541,
+          "fairOdds": 12.155188483781176
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.07919726812061736,
-          "fairOdds": 12.626698164348307
+          "p": 0.07919918576183561,
+          "fairOdds": 12.626392435487368
         }
       ],
       "marketGroups": [
@@ -7836,22 +7836,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Sunderland gana",
-              "p": 0.359075271599087,
-              "fairOdds": 2.784931403231006
+              "p": 0.35909344394872145,
+              "fairOdds": 2.784790468474273
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.25661743312379,
-              "fairOdds": 3.8968513862330187
+              "p": 0.2566214975368521,
+              "fairOdds": 3.896789667266263
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Chelsea gana",
-              "p": 0.3843072952771232,
-              "fairOdds": 2.6020843535611315
+              "p": 0.38428505851442607,
+              "fairOdds": 2.602234923902096
             }
           ]
         },
@@ -7862,22 +7862,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Sunderland o empate",
-              "p": 0.615692704722877,
-              "fairOdds": 1.624186858686428
+              "p": 0.6157149414855736,
+              "fairOdds": 1.624128200604062
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Chelsea o empate",
-              "p": 0.6409247284009132,
-              "fairOdds": 1.5602456196298873
+              "p": 0.6409065560512781,
+              "fairOdds": 1.5602898590414658
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7433825668762102,
-              "fairOdds": 1.345202382404701
+              "p": 0.7433785024631475,
+              "fairOdds": 1.3452097372826224
             }
           ]
         },
@@ -7889,40 +7889,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.84851389780551,
-              "fairOdds": 1.178531079557182
+              "p": 0.8484881438748856,
+              "fairOdds": 1.1785668511915657
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6479725927881099,
-              "fairOdds": 1.5432751494892387
+              "p": 0.6479304456063729,
+              "fairOdds": 1.5433755378853031
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.3520274072118901,
-              "fairOdds": 2.840687910978722
+              "p": 0.3520695543936271,
+              "fairOdds": 2.840347844681742
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.44026940015608906,
-              "fairOdds": 2.27133659447027
+              "p": 0.44022098485580885,
+              "fairOdds": 2.2715863950182715
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5597305998439109,
-              "fairOdds": 1.7865737558012098
+              "p": 0.5597790151441911,
+              "fairOdds": 1.786419234994749
             }
           ]
         },
@@ -7933,15 +7933,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6723100105924974,
-              "fairOdds": 1.4874090586851652
+              "p": 0.6722768736147858,
+              "fairOdds": 1.4874823740746426
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3276899894075026,
-              "fairOdds": 3.0516647817289244
+              "p": 0.32772312638521417,
+              "fairOdds": 3.0513562195930426
             }
           ]
         },
@@ -7953,32 +7953,32 @@
               "selection": "home_over",
               "label": "Sunderland más de 1.5",
               "line": 1.5,
-              "p": 0.4928571483165296,
-              "fairOdds": 2.028985484771271
+              "p": 0.49283955475318364,
+              "fairOdds": 2.029057916223475
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Sunderland menos de 1.5",
               "line": 1.5,
-              "p": 0.5071428516834704,
-              "fairOdds": 1.97183100714223
+              "p": 0.5071604452468164,
+              "fairOdds": 1.9717626036733538
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Chelsea más de 1.5",
               "line": 1.5,
-              "p": 0.5120178040874209,
-              "fairOdds": 1.9530570851580427
+              "p": 0.5119663464070954,
+              "fairOdds": 1.953253386707648
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Chelsea menos de 1.5",
               "line": 1.5,
-              "p": 0.4879821959125791,
-              "fairOdds": 2.0492550924524875
+              "p": 0.4880336535929046,
+              "fairOdds": 2.049039021465012
             }
           ]
         },
@@ -7989,22 +7989,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.10867980850813534,
-              "fairOdds": 9.20134120336754
+              "p": 0.10868759332739751,
+              "fairOdds": 9.200682151344722
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.08227404836404123,
-              "fairOdds": 12.154500962141313
+              "p": 0.08226939478020541,
+              "fairOdds": 12.155188483781176
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.07919726812061736,
-              "fairOdds": 12.626698164348307
+              "p": 0.07919918576183561,
+              "fairOdds": 12.626392435487368
             }
           ]
         }
@@ -8012,7 +8012,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.10867980850813534
+        "p": 0.10868759332739751
       },
       "factors": [
         {
@@ -8048,8 +8048,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.5–4.7",
-          "detail": "local 16%–61% · 507 partidos"
+          "value": "goles 2.6–4.9",
+          "detail": "local 20%–61% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -8083,20 +8083,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · SUN 0.93 / 1.08 · CHE 1.18 / 1.09",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.66 – 1.73 · total 3.39",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.07919726812061736
+        "p": 0.07919918576183561
       },
       "insights": {
         "why": [
@@ -8152,145 +8152,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.5655527289144178,
-        "away": 1.9629013966595183,
-        "total": 3.528454125573936,
-        "margin": -0.3973486677451006
+        "home": 1.5656262222445572,
+        "away": 1.9623870538683563,
+        "total": 3.5280132761129135,
+        "margin": -0.39676083162379916
       },
       "x12": [
-        0.2748724034967034,
-        0.22928624120680488,
-        0.49584135529649204
+        0.27492297460770226,
+        0.22929866890902556,
+        0.49577835648327223
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Ipswich Town gana",
-          "p": 0.2748724034967034,
-          "fairOdds": 3.6380516460685484
+          "p": 0.27492297460770226,
+          "fairOdds": 3.6373824393066343
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.22928624120680488,
-          "fairOdds": 4.361360693675681
+          "p": 0.22929866890902556,
+          "fairOdds": 4.36112431335897
         },
         {
           "market": "h2h",
           "selection": "Bournemouth gana",
-          "p": 0.49584135529649204,
-          "fairOdds": 2.016774093806763
+          "p": 0.49577835648327223,
+          "fairOdds": 2.017030366338189
         },
         {
           "market": "double_chance",
           "selection": "Ipswich Town o empate",
-          "p": 0.5041586447035082,
-          "fairOdds": 1.9835026345488773
+          "p": 0.5042216435167278,
+          "fairOdds": 1.9832548103755179
         },
         {
           "market": "double_chance",
           "selection": "Bournemouth o empate",
-          "p": 0.725127596503297,
-          "fairOdds": 1.3790676355750215
+          "p": 0.7250770253922978,
+          "fairOdds": 1.379163819814808
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7707137587931954,
-          "fairOdds": 1.297498570112239
+          "p": 0.7707013310909745,
+          "fairOdds": 1.2975194925178595
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8640070233952153,
-          "fairOdds": 1.1573979990004997
+          "p": 0.8639606125966987,
+          "fairOdds": 1.1574601728595297
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.679599506783528,
-          "fairOdds": 1.4714548642521732
+          "p": 0.6795222848790469,
+          "fairOdds": 1.4716220825311084
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.320400493216472,
-          "fairOdds": 3.1210938221757685
+          "p": 0.32047771512095313,
+          "fairOdds": 3.1203417673599705
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.47096464045207387,
-          "fairOdds": 2.1233016538993477
+          "p": 0.47087047605925936,
+          "fairOdds": 2.1237262704789956
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5290353595479261,
-          "fairOdds": 1.8902328208355013
+          "p": 0.5291295239407406,
+          "fairOdds": 1.8898964332067663
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6801631587477457,
-          "fairOdds": 1.470235467973756
+          "p": 0.6801150717359313,
+          "fairOdds": 1.4703394198390454
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3198368412522543,
-          "fairOdds": 3.126594159962026
+          "p": 0.31988492826406867,
+          "fairOdds": 3.1261241516652154
         },
         {
           "market": "team_totals",
           "selection": "Ipswich Town más de 1.5",
           "line": 1.5,
-          "p": 0.4440626268589638,
-          "fairOdds": 2.2519346135327987
+          "p": 0.4440500444395157,
+          "fairOdds": 2.2519984234259223
         },
         {
           "market": "team_totals",
           "selection": "Ipswich Town menos de 1.5",
           "line": 1.5,
-          "p": 0.5559373731410362,
-          "fairOdds": 1.7987637606553017
+          "p": 0.5559499555604843,
+          "fairOdds": 1.7987230505160199
         },
         {
           "market": "team_totals",
           "selection": "Bournemouth más de 1.5",
           "line": 1.5,
-          "p": 0.6013604029913133,
-          "fairOdds": 1.6628963181242997
+          "p": 0.6012558134262118,
+          "fairOdds": 1.663185582026349
         },
         {
           "market": "team_totals",
           "selection": "Bournemouth menos de 1.5",
           "line": 1.5,
-          "p": 0.3986395970086867,
-          "fairOdds": 2.5085315345083723
+          "p": 0.3987441865737882,
+          "fairOdds": 2.5078735531983702
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09416776627065185,
-          "fairOdds": 10.619345022221879
+          "p": 0.09418290794570966,
+          "fairOdds": 10.617637762644101
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.09212833801673975,
-          "fairOdds": 10.854423530556902
+          "p": 0.09213765060828955,
+          "fairOdds": 10.853326445790998
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07615262106188642,
-          "fairOdds": 13.131524379014309
+          "p": 0.0761484829203873,
+          "fairOdds": 13.132237986218227
         }
       ],
       "marketGroups": [
@@ -8301,22 +8301,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Ipswich Town gana",
-              "p": 0.2748724034967034,
-              "fairOdds": 3.6380516460685484
+              "p": 0.27492297460770226,
+              "fairOdds": 3.6373824393066343
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.22928624120680488,
-              "fairOdds": 4.361360693675681
+              "p": 0.22929866890902556,
+              "fairOdds": 4.36112431335897
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Bournemouth gana",
-              "p": 0.49584135529649204,
-              "fairOdds": 2.016774093806763
+              "p": 0.49577835648327223,
+              "fairOdds": 2.017030366338189
             }
           ]
         },
@@ -8327,22 +8327,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Ipswich Town o empate",
-              "p": 0.5041586447035082,
-              "fairOdds": 1.9835026345488773
+              "p": 0.5042216435167278,
+              "fairOdds": 1.9832548103755179
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Bournemouth o empate",
-              "p": 0.725127596503297,
-              "fairOdds": 1.3790676355750215
+              "p": 0.7250770253922978,
+              "fairOdds": 1.379163819814808
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7707137587931954,
-              "fairOdds": 1.297498570112239
+              "p": 0.7707013310909745,
+              "fairOdds": 1.2975194925178595
             }
           ]
         },
@@ -8354,40 +8354,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8640070233952153,
-              "fairOdds": 1.1573979990004997
+              "p": 0.8639606125966987,
+              "fairOdds": 1.1574601728595297
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.679599506783528,
-              "fairOdds": 1.4714548642521732
+              "p": 0.6795222848790469,
+              "fairOdds": 1.4716220825311084
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.320400493216472,
-              "fairOdds": 3.1210938221757685
+              "p": 0.32047771512095313,
+              "fairOdds": 3.1203417673599705
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.47096464045207387,
-              "fairOdds": 2.1233016538993477
+              "p": 0.47087047605925936,
+              "fairOdds": 2.1237262704789956
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5290353595479261,
-              "fairOdds": 1.8902328208355013
+              "p": 0.5291295239407406,
+              "fairOdds": 1.8898964332067663
             }
           ]
         },
@@ -8398,15 +8398,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6801631587477457,
-              "fairOdds": 1.470235467973756
+              "p": 0.6801150717359313,
+              "fairOdds": 1.4703394198390454
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3198368412522543,
-              "fairOdds": 3.126594159962026
+              "p": 0.31988492826406867,
+              "fairOdds": 3.1261241516652154
             }
           ]
         },
@@ -8418,32 +8418,32 @@
               "selection": "home_over",
               "label": "Ipswich Town más de 1.5",
               "line": 1.5,
-              "p": 0.4440626268589638,
-              "fairOdds": 2.2519346135327987
+              "p": 0.4440500444395157,
+              "fairOdds": 2.2519984234259223
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Ipswich Town menos de 1.5",
               "line": 1.5,
-              "p": 0.5559373731410362,
-              "fairOdds": 1.7987637606553017
+              "p": 0.5559499555604843,
+              "fairOdds": 1.7987230505160199
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Bournemouth más de 1.5",
               "line": 1.5,
-              "p": 0.6013604029913133,
-              "fairOdds": 1.6628963181242997
+              "p": 0.6012558134262118,
+              "fairOdds": 1.663185582026349
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Bournemouth menos de 1.5",
               "line": 1.5,
-              "p": 0.3986395970086867,
-              "fairOdds": 2.5085315345083723
+              "p": 0.3987441865737882,
+              "fairOdds": 2.5078735531983702
             }
           ]
         },
@@ -8454,22 +8454,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09416776627065185,
-              "fairOdds": 10.619345022221879
+              "p": 0.09418290794570966,
+              "fairOdds": 10.617637762644101
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.09212833801673975,
-              "fairOdds": 10.854423530556902
+              "p": 0.09213765060828955,
+              "fairOdds": 10.853326445790998
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07615262106188642,
-              "fairOdds": 13.131524379014309
+              "p": 0.0761484829203873,
+              "fairOdds": 13.132237986218227
             }
           ]
         }
@@ -8477,7 +8477,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09416776627065185
+        "p": 0.09418290794570966
       },
       "factors": [
         {
@@ -8513,8 +8513,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.5–5.2",
-          "detail": "local 8%–58% · 507 partidos"
+          "value": "goles 2.6–5.2",
+          "detail": "local 8%–54% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -8544,24 +8544,24 @@
           "key": "long_memory",
           "label": "Memoria larga",
           "value": "−4 pts al local",
-          "detail": "historia 23% / 25% / 52% · temporada 31% / 21% / 48%"
+          "detail": "historia 23% / 25% / 52% · temporada 32% / 21% / 48%"
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · IPS 0.94 / 1.31 · BOU 1.10 / 1.01",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.57 – 1.96 · total 3.53",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.09212833801673975
+        "p": 0.09213765060828955
       },
       "insights": {
         "why": [
@@ -8597,145 +8597,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.0045280329473854,
-        "away": 1.4121273636943859,
-        "total": 3.4166553966417714,
-        "margin": 0.5924006692529995
+        "home": 2.004375428188662,
+        "away": 1.4120828064568496,
+        "total": 3.4164582346455115,
+        "margin": 0.5922926217318123
       },
       "x12": [
-        0.5082288779221741,
-        0.23107570020473983,
-        0.2606954218730862
+        0.5082173712245435,
+        0.2310802705250392,
+        0.26070235825041777
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Brighton gana",
-          "p": 0.5082288779221741,
-          "fairOdds": 1.9676174326975802
+          "p": 0.5082173712245435,
+          "fairOdds": 1.9676619820973698
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.23107570020473983,
-          "fairOdds": 4.327586150832696
+          "p": 0.2310802705250392,
+          "fairOdds": 4.327500559558341
         },
         {
           "market": "h2h",
           "selection": "Brentford gana",
-          "p": 0.2606954218730862,
-          "fairOdds": 3.8358939823915583
+          "p": 0.26070235825041777,
+          "fairOdds": 3.8357919226777746
         },
         {
           "market": "double_chance",
           "selection": "Brighton o empate",
-          "p": 0.7393045781269139,
-          "fairOdds": 1.3526224909002706
+          "p": 0.7392976417495827,
+          "fairOdds": 1.3526351817293139
         },
         {
           "market": "double_chance",
           "selection": "Brentford o empate",
-          "p": 0.49177112207782603,
-          "fairOdds": 2.0334662917472883
+          "p": 0.491782628775457,
+          "fairOdds": 2.033418712836622
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7689242997952603,
-          "fairOdds": 1.300518139778217
+          "p": 0.7689197294749612,
+          "fairOdds": 1.3005258698236635
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8511017452257752,
-          "fairOdds": 1.1749476553296527
+          "p": 0.8510795049404682,
+          "fairOdds": 1.1749783588901586
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6568397411462152,
-          "fairOdds": 1.5224413770320209
+          "p": 0.6568033526763184,
+          "fairOdds": 1.5225257239099594
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.34316025885378476,
-          "fairOdds": 2.914090353411478
+          "p": 0.3431966473236816,
+          "fairOdds": 2.9137813781055457
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.44546828079443257,
-          "fairOdds": 2.244828741154443
+          "p": 0.4454258207977162,
+          "fairOdds": 2.2450427283472094
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5545317192055674,
-          "fairOdds": 1.8033233544018343
+          "p": 0.5545741792022838,
+          "fairOdds": 1.8031852861206594
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6561549816027984,
-          "fairOdds": 1.524030188046865
+          "p": 0.6561283295372428,
+          "fairOdds": 1.524092094461589
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3438450183972016,
-          "fairOdds": 2.908287008668608
+          "p": 0.34387167046275724,
+          "fairOdds": 2.908061599416647
         },
         {
           "market": "team_totals",
           "selection": "Brighton más de 1.5",
           "line": 1.5,
-          "p": 0.5944459025431019,
-          "fairOdds": 1.6822388643304549
+          "p": 0.5944107927472283,
+          "fairOdds": 1.682338228379456
         },
         {
           "market": "team_totals",
           "selection": "Brighton menos de 1.5",
           "line": 1.5,
-          "p": 0.4055540974568981,
-          "fairOdds": 2.4657622898416878
+          "p": 0.4055892072527717,
+          "fairOdds": 2.4655488413348707
         },
         {
           "market": "team_totals",
           "selection": "Brentford más de 1.5",
           "line": 1.5,
-          "p": 0.40926333437550133,
-          "fairOdds": 2.4434145842209616
+          "p": 0.4092420108455914,
+          "fairOdds": 2.4435418981882187
         },
         {
           "market": "team_totals",
           "selection": "Brentford menos de 1.5",
           "line": 1.5,
-          "p": 0.5907366656244987,
-          "fairOdds": 1.6928016461325412
+          "p": 0.5907579891544086,
+          "fairOdds": 1.6927405441124324
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09854124335435577,
-          "fairOdds": 10.148035136962756
+          "p": 0.0985476571409388,
+          "fairOdds": 10.147374671422591
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.09139291448702336,
-          "fairOdds": 10.941767265141625
+          "p": 0.09139612596395662,
+          "fairOdds": 10.941382793340326
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07340412125971311,
-          "fairOdds": 13.623213286102464
+          "p": 0.07340099420261909,
+          "fairOdds": 13.623793667420355
         }
       ],
       "marketGroups": [
@@ -8746,22 +8746,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Brighton gana",
-              "p": 0.5082288779221741,
-              "fairOdds": 1.9676174326975802
+              "p": 0.5082173712245435,
+              "fairOdds": 1.9676619820973698
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.23107570020473983,
-              "fairOdds": 4.327586150832696
+              "p": 0.2310802705250392,
+              "fairOdds": 4.327500559558341
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Brentford gana",
-              "p": 0.2606954218730862,
-              "fairOdds": 3.8358939823915583
+              "p": 0.26070235825041777,
+              "fairOdds": 3.8357919226777746
             }
           ]
         },
@@ -8772,22 +8772,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Brighton o empate",
-              "p": 0.7393045781269139,
-              "fairOdds": 1.3526224909002706
+              "p": 0.7392976417495827,
+              "fairOdds": 1.3526351817293139
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Brentford o empate",
-              "p": 0.49177112207782603,
-              "fairOdds": 2.0334662917472883
+              "p": 0.491782628775457,
+              "fairOdds": 2.033418712836622
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7689242997952603,
-              "fairOdds": 1.300518139778217
+              "p": 0.7689197294749612,
+              "fairOdds": 1.3005258698236635
             }
           ]
         },
@@ -8799,40 +8799,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8511017452257752,
-              "fairOdds": 1.1749476553296527
+              "p": 0.8510795049404682,
+              "fairOdds": 1.1749783588901586
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6568397411462152,
-              "fairOdds": 1.5224413770320209
+              "p": 0.6568033526763184,
+              "fairOdds": 1.5225257239099594
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.34316025885378476,
-              "fairOdds": 2.914090353411478
+              "p": 0.3431966473236816,
+              "fairOdds": 2.9137813781055457
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.44546828079443257,
-              "fairOdds": 2.244828741154443
+              "p": 0.4454258207977162,
+              "fairOdds": 2.2450427283472094
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5545317192055674,
-              "fairOdds": 1.8033233544018343
+              "p": 0.5545741792022838,
+              "fairOdds": 1.8031852861206594
             }
           ]
         },
@@ -8843,15 +8843,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6561549816027984,
-              "fairOdds": 1.524030188046865
+              "p": 0.6561283295372428,
+              "fairOdds": 1.524092094461589
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3438450183972016,
-              "fairOdds": 2.908287008668608
+              "p": 0.34387167046275724,
+              "fairOdds": 2.908061599416647
             }
           ]
         },
@@ -8863,32 +8863,32 @@
               "selection": "home_over",
               "label": "Brighton más de 1.5",
               "line": 1.5,
-              "p": 0.5944459025431019,
-              "fairOdds": 1.6822388643304549
+              "p": 0.5944107927472283,
+              "fairOdds": 1.682338228379456
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Brighton menos de 1.5",
               "line": 1.5,
-              "p": 0.4055540974568981,
-              "fairOdds": 2.4657622898416878
+              "p": 0.4055892072527717,
+              "fairOdds": 2.4655488413348707
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Brentford más de 1.5",
               "line": 1.5,
-              "p": 0.40926333437550133,
-              "fairOdds": 2.4434145842209616
+              "p": 0.4092420108455914,
+              "fairOdds": 2.4435418981882187
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Brentford menos de 1.5",
               "line": 1.5,
-              "p": 0.5907366656244987,
-              "fairOdds": 1.6928016461325412
+              "p": 0.5907579891544086,
+              "fairOdds": 1.6927405441124324
             }
           ]
         },
@@ -8899,22 +8899,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09854124335435577,
-              "fairOdds": 10.148035136962756
+              "p": 0.0985476571409388,
+              "fairOdds": 10.147374671422591
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.09139291448702336,
-              "fairOdds": 10.941767265141625
+              "p": 0.09139612596395662,
+              "fairOdds": 10.941382793340326
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07340412125971311,
-              "fairOdds": 13.623213286102464
+              "p": 0.07340099420261909,
+              "fairOdds": 13.623793667420355
             }
           ]
         }
@@ -8922,7 +8922,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09854124335435577
+        "p": 0.0985476571409388
       },
       "factors": [
         {
@@ -8946,7 +8946,7 @@
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.20 concedidos/partido",
+          "value": "1.21 concedidos/partido",
           "detail": "12 % menos que la media · ajustado por rival"
         },
         {
@@ -8959,7 +8959,7 @@
           "key": "uncertainty",
           "label": "Intervalo 90%",
           "value": "goles 2.6–4.9",
-          "detail": "local 30%–76% · 507 partidos"
+          "detail": "local 32%–72% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -8993,20 +8993,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · BHA 1.36 / 0.88 · BRE 1.17 / 0.90",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.00 – 1.41 · total 3.42",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.09139291448702336
+        "p": 0.09139612596395662
       },
       "insights": {
         "why": [
@@ -9062,145 +9062,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.0226536690767154,
-        "away": 1.4121277658497844,
-        "total": 3.4347814349265,
-        "margin": 0.610525903226931
+        "home": 2.0224745581298196,
+        "away": 1.412073099777338,
+        "total": 3.4345476579071574,
+        "margin": 0.6104014583524815
       },
       "x12": [
-        0.5094405636310569,
-        0.2307545038233076,
-        0.25980493254563586
+        0.5094274200430898,
+        0.2307598495627031,
+        0.2598127303942071
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Man. United gana",
-          "p": 0.5094405636310569,
-          "fairOdds": 1.9629375267498568
+          "p": 0.5094274200430898,
+          "fairOdds": 1.9629881719272495
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2307545038233076,
-          "fairOdds": 4.333609890300195
+          "p": 0.2307598495627031,
+          "fairOdds": 4.3335094987062535
         },
         {
           "market": "h2h",
           "selection": "Aston Villa gana",
-          "p": 0.25980493254563586,
-          "fairOdds": 3.849041625968151
+          "p": 0.2598127303942071,
+          "fairOdds": 3.848926103361933
         },
         {
           "market": "double_chance",
           "selection": "Man. United o empate",
-          "p": 0.7401950674543645,
-          "fairOdds": 1.3509952227041198
+          "p": 0.740187269605793,
+          "fairOdds": 1.3510094553944132
         },
         {
           "market": "double_chance",
           "selection": "Aston Villa o empate",
-          "p": 0.49055943636894345,
-          "fairOdds": 2.0384889696585367
+          "p": 0.49057257995691017,
+          "fairOdds": 2.038434353766441
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7692454961766928,
-          "fairOdds": 1.299975111937872
+          "p": 0.769240150437297,
+          "fairOdds": 1.299984145954317
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8530747578182595,
-          "fairOdds": 1.1722302070659107
+          "p": 0.853048717726624,
+          "fairOdds": 1.1722659904641803
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6600117064036839,
-          "fairOdds": 1.5151246414232062
+          "p": 0.6599688568802061,
+          "fairOdds": 1.5152230132906324
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.3399882935963161,
-          "fairOdds": 2.941277740542874
+          "p": 0.3400311431197939,
+          "fairOdds": 2.9409070911122317
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.4492625979236661,
-          "fairOdds": 2.2258696909594717
+          "p": 0.4492123801023361,
+          "fairOdds": 2.226118522762413
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5507374020763339,
-          "fairOdds": 1.8157473892819012
+          "p": 0.5507876198976639,
+          "fairOdds": 1.8155818393045937
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6582844700981639,
-          "fairOdds": 1.5191000933849756
+          "p": 0.658252989783401,
+          "fairOdds": 1.5191727428827195
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.34171552990183607,
-          "fairOdds": 2.9264107495707554
+          "p": 0.34174701021659903,
+          "fairOdds": 2.9261411807705375
         },
         {
           "market": "team_totals",
           "selection": "Man. United más de 1.5",
           "line": 1.5,
-          "p": 0.5977838054309075,
-          "fairOdds": 1.6728455855025353
+          "p": 0.5977427525109305,
+          "fairOdds": 1.6729604763910773
         },
         {
           "market": "team_totals",
           "selection": "Man. United menos de 1.5",
           "line": 1.5,
-          "p": 0.4022161945690925,
-          "fairOdds": 2.4862251035698177
+          "p": 0.40225724748906955,
+          "fairOdds": 2.4859713684267994
         },
         {
           "market": "team_totals",
           "selection": "Aston Villa más de 1.5",
           "line": 1.5,
-          "p": 0.4106849184190813,
-          "fairOdds": 2.4349567153560656
+          "p": 0.41065927560224913,
+          "fairOdds": 2.435108761474967
         },
         {
           "market": "team_totals",
           "selection": "Aston Villa menos de 1.5",
           "line": 1.5,
-          "p": 0.5893150815809187,
-          "fairOdds": 1.6968851320033462
+          "p": 0.5893407243977509,
+          "fairOdds": 1.6968112987981665
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09802867989264082,
-          "fairOdds": 10.201096261779526
+          "p": 0.0980363006627926,
+          "fairOdds": 10.200303288060795
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.0909207592250449,
-          "fairOdds": 10.998588314961424
+          "p": 0.09092462645604904,
+          "fairOdds": 10.998120520004314
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07368262281003622,
-          "fairOdds": 13.571721009146694
+          "p": 0.07367897326878395,
+          "fairOdds": 13.572393257326734
         }
       ],
       "marketGroups": [
@@ -9211,22 +9211,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Man. United gana",
-              "p": 0.5094405636310569,
-              "fairOdds": 1.9629375267498568
+              "p": 0.5094274200430898,
+              "fairOdds": 1.9629881719272495
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2307545038233076,
-              "fairOdds": 4.333609890300195
+              "p": 0.2307598495627031,
+              "fairOdds": 4.3335094987062535
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Aston Villa gana",
-              "p": 0.25980493254563586,
-              "fairOdds": 3.849041625968151
+              "p": 0.2598127303942071,
+              "fairOdds": 3.848926103361933
             }
           ]
         },
@@ -9237,22 +9237,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Man. United o empate",
-              "p": 0.7401950674543645,
-              "fairOdds": 1.3509952227041198
+              "p": 0.740187269605793,
+              "fairOdds": 1.3510094553944132
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Aston Villa o empate",
-              "p": 0.49055943636894345,
-              "fairOdds": 2.0384889696585367
+              "p": 0.49057257995691017,
+              "fairOdds": 2.038434353766441
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7692454961766928,
-              "fairOdds": 1.299975111937872
+              "p": 0.769240150437297,
+              "fairOdds": 1.299984145954317
             }
           ]
         },
@@ -9264,40 +9264,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8530747578182595,
-              "fairOdds": 1.1722302070659107
+              "p": 0.853048717726624,
+              "fairOdds": 1.1722659904641803
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6600117064036839,
-              "fairOdds": 1.5151246414232062
+              "p": 0.6599688568802061,
+              "fairOdds": 1.5152230132906324
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.3399882935963161,
-              "fairOdds": 2.941277740542874
+              "p": 0.3400311431197939,
+              "fairOdds": 2.9409070911122317
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.4492625979236661,
-              "fairOdds": 2.2258696909594717
+              "p": 0.4492123801023361,
+              "fairOdds": 2.226118522762413
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5507374020763339,
-              "fairOdds": 1.8157473892819012
+              "p": 0.5507876198976639,
+              "fairOdds": 1.8155818393045937
             }
           ]
         },
@@ -9308,15 +9308,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6582844700981639,
-              "fairOdds": 1.5191000933849756
+              "p": 0.658252989783401,
+              "fairOdds": 1.5191727428827195
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.34171552990183607,
-              "fairOdds": 2.9264107495707554
+              "p": 0.34174701021659903,
+              "fairOdds": 2.9261411807705375
             }
           ]
         },
@@ -9328,32 +9328,32 @@
               "selection": "home_over",
               "label": "Man. United más de 1.5",
               "line": 1.5,
-              "p": 0.5977838054309075,
-              "fairOdds": 1.6728455855025353
+              "p": 0.5977427525109305,
+              "fairOdds": 1.6729604763910773
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Man. United menos de 1.5",
               "line": 1.5,
-              "p": 0.4022161945690925,
-              "fairOdds": 2.4862251035698177
+              "p": 0.40225724748906955,
+              "fairOdds": 2.4859713684267994
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Aston Villa más de 1.5",
               "line": 1.5,
-              "p": 0.4106849184190813,
-              "fairOdds": 2.4349567153560656
+              "p": 0.41065927560224913,
+              "fairOdds": 2.435108761474967
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Aston Villa menos de 1.5",
               "line": 1.5,
-              "p": 0.5893150815809187,
-              "fairOdds": 1.6968851320033462
+              "p": 0.5893407243977509,
+              "fairOdds": 1.6968112987981665
             }
           ]
         },
@@ -9364,22 +9364,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09802867989264082,
-              "fairOdds": 10.201096261779526
+              "p": 0.0980363006627926,
+              "fairOdds": 10.200303288060795
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.0909207592250449,
-              "fairOdds": 10.998588314961424
+              "p": 0.09092462645604904,
+              "fairOdds": 10.998120520004314
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07368262281003622,
-              "fairOdds": 13.571721009146694
+              "p": 0.07367897326878395,
+              "fairOdds": 13.572393257326734
             }
           ]
         }
@@ -9387,7 +9387,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09802867989264082
+        "p": 0.0980363006627926
       },
       "factors": [
         {
@@ -9423,8 +9423,8 @@
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.6–4.8",
-          "detail": "local 29%–73% · 507 partidos"
+          "value": "goles 2.5–4.9",
+          "detail": "local 27%–73% · 507 partidos"
         },
         {
           "key": "home_position",
@@ -9458,20 +9458,20 @@
         }
       ],
       "steps": [
-        "Sincronizando Premier League · corte 13 nov 2026, 21:19",
+        "Sincronizando Premier League · corte 14 nov 2026, 05:44",
         "Fuerza ajustada por rival · MUN 1.20 / 0.97 · AVL 1.07 / 1.03",
-        "Ponderando 144.7 partidos por antigüedad y calidad del rival",
+        "Ponderando 144.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.02 – 1.41 · total 3.43",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-13T21:19:32.952Z",
-      "publishedAt": "2026-11-13T21:19:32.952Z",
+      "inputsAsOf": "2026-11-14T05:44:28.107Z",
+      "publishedAt": "2026-11-14T05:44:28.107Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.0909207592250449
+        "p": 0.09092462645604904
       },
       "insights": {
         "why": [
