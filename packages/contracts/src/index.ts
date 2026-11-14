@@ -12,3 +12,5 @@ export * from "./view-models";
 export * from "./external-links";
 export * from "./profiles";
 export * from "./trial-email";
+export * from "./injuries-lineups";
+export * from "./data-health";

@@ -94,7 +94,28 @@ const DRIVER_LABELS: Record<string, string> = {
 const BOOK_LABELS: Record<string, string> = {
   caliente_mx: "Caliente",
   pinnacle: "Pinnacle",
+  betfair_exchange: "Betfair Exchange",
+  smarkets: "Smarkets",
+  matchbook: "Matchbook",
+  bet365: "Bet365",
+  draftkings: "DraftKings",
+  fanduel: "FanDuel",
+  betmgm: "BetMGM",
+  codere: "Codere",
+  williamhill: "William Hill",
+  unibet: "Unibet",
 };
+
+export function formatBookLabel(book: string): string {
+  const clean = book.trim().toLowerCase();
+  if (BOOK_LABELS[clean]) return BOOK_LABELS[clean]!;
+  if (!clean) return "Casa";
+  return clean
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
 
 function tokens(raw: string): string[] {
   return raw

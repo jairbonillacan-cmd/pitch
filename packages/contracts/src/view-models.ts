@@ -1,4 +1,5 @@
 import type { MarketPulseView } from "./market-pulse";
+import type { TeamInjuryEntry } from "./injuries-lineups";
 import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
@@ -99,6 +100,11 @@ export interface MatchAnalysis {
   restDays?: { home?: number; away?: number };
   /** Volumen por resultado en mercados de predicción (FD-20). Se adjunta en el servidor. */
   marketPulse?: MarketPulseView;
+  /** Bajas y dudas reportadas por fuentes gratuitas y verificadas para ambos clubes. */
+  injuries?: {
+    home: TeamInjuryEntry[];
+    away: TeamInjuryEntry[];
+  };
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {
@@ -146,6 +152,38 @@ export function formatFreshnessEs(
     label: `Actualizado ${formattedCut}`,
     isStale: diffMin > 24 * 60,
   };
+}
+
+const oddsCaptureFormat = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+  timeZone: "America/Mexico_City",
+});
+
+/**
+ * Formatea la hora de captura de un momio en horario del centro de México (`"14 nov · 12:30"`).
+ * Devuelve `null` si la cadena no es una fecha válida.
+ */
+export function formatOddsCaptureEs(capturedAtIso: string | null | undefined): string | null {
+  if (!capturedAtIso) return null;
+  const ms = Date.parse(capturedAtIso);
+  if (!Number.isFinite(ms)) return null;
+  const parts = oddsCaptureFormat.formatToParts(new Date(ms));
+  let day = "";
+  let month = "";
+  let hour = "";
+  let minute = "";
+  for (const p of parts) {
+    if (p.type === "day") day = p.value;
+    else if (p.type === "month") month = p.value.replace(".", "").toLowerCase();
+    else if (p.type === "hour") hour = p.value === "24" ? "00" : p.value;
+    else if (p.type === "minute") minute = p.value;
+  }
+  if (!day || !month || !hour || !minute) return null;
+  return `${day} ${month} · ${hour}:${minute}`;
 }
 
 const WEEKDAY_MAP: Record<number, { id: string; short: string; long: string }> = {

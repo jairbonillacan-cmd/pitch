@@ -4,6 +4,8 @@
 export * from "./src/service";
 export * from "./src/devig";
 export * from "./src/engine";
+export * from "./src/odds";
+export type { NFLLiveArtifactConfig } from "./src/nfl_live";
 export type * from "./src/types";
 // v3.2: panorama público por mercado (probabilidad y momio justo, sin stake).
 export {
@@ -12,6 +14,8 @@ export {
   DEFAULT_MAX_SHARP_AGE_MINUTES,
   buildMatchOutlook,
   probabilityToFairOdds,
+  type BuildMatchOutlookInput,
+  type OutlookMarketQuoteInput,
   type MatchOutlook,
   type MarketOutlook,
   type SelectionOutlook,

@@ -219,6 +219,7 @@ export interface MarketQuoteContext {
   readonly book: string;
   readonly tsCaptured: string;
   readonly overround: number;
+  readonly oddsBySelection?: Readonly<Record<string, number>>;
 }
 
 export interface MarketOutlook {
@@ -1205,6 +1206,7 @@ function buildMarketOutlookBlock(params: {
           book: contextQuote.book,
           tsCaptured: contextQuote.tsCaptured,
           overround: contextQuote.overround,
+          oddsBySelection: Object.freeze({ ...contextQuote.oddsBySelection }),
         })
       : null;
 

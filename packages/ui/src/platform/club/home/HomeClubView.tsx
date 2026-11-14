@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge, PBar } from "../../../sports";
 import { formatOddsValue, isPickUnlocked } from "../../access-guard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
@@ -370,6 +370,15 @@ function ValueRail({ items }: { items: ReadonlyArray<{ game: PlatformGame; pick:
             <span className="flex flex-col items-end num">
               <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>justo {formatOddsValue(pick.fairDecimal, oddsFormat)}</span>
               <strong className="text-[15px]">casa {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)}</strong>
+              {pick.marketCapturedAtUtc ? (
+                <time
+                  dateTime={pick.marketCapturedAtUtc}
+                  className="text-[10px] leading-tight"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  {formatOddsCaptureEs(pick.marketCapturedAtUtc)}
+                </time>
+              ) : null}
             </span>
           </div>
           <PBar p={pick.p} />

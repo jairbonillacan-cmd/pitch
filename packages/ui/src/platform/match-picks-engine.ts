@@ -419,6 +419,11 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       fairAmerican: decimalToAmericanInt(fairDecimal),
       marketDecimal,
       marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
+      marketBookLabel:
+        marketDecimal === null
+          ? null
+          : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
+      marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
       edgePts: edgeAgainst(p, marketDecimal),
       confidenceScore: Math.min(96, Math.max(48, Math.round(confScore - idx * 3))),
       suggestedUnits: item.units,
@@ -474,24 +479,47 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   }
 
   const absences: LineupAbsenceItem[] = [];
-  const avail = signal?.availability;
-  const pushAbsence = (side: "home" | "away", injured: number | null, missingPct: number | null) => {
-    if (injured === null || injured <= 0) return;
-    const team = side === "home" ? match.home.shortName : match.away.shortName;
-    absences.push({
-      teamSide: side,
-      player: `${injured} ${injured === 1 ? "lesionado" : "lesionados"} · ${team}`,
-      role: "Reporte de disponibilidad",
-      status: "Baja",
-      impactNote:
-        missingPct !== null && missingPct > 0
-          ? `Ausencias equivalentes al ${missingPct.toFixed(1)} % del valor de la plantilla.`
-          : "Impacto incluido en la probabilidad del motor.",
-    });
-  };
-  if (avail) {
-    pushAbsence("home", avail.homeInjured, avail.homeMissingValuePct);
-    pushAbsence("away", avail.awayInjured, avail.awayMissingValuePct);
+  const realHomeInjuries = match.injuries?.home ?? [];
+  const realAwayInjuries = match.injuries?.away ?? [];
+  if (realHomeInjuries.length > 0 || realAwayInjuries.length > 0) {
+    for (const item of realHomeInjuries) {
+      absences.push({
+        teamSide: "home",
+        player: item.player,
+        role: item.position ? `${item.position} · ${match.home.shortName}` : match.home.shortName,
+        status: item.status,
+        impactNote: item.detail,
+      });
+    }
+    for (const item of realAwayInjuries) {
+      absences.push({
+        teamSide: "away",
+        player: item.player,
+        role: item.position ? `${item.position} · ${match.away.shortName}` : match.away.shortName,
+        status: item.status,
+        impactNote: item.detail,
+      });
+    }
+  } else {
+    const avail = signal?.availability;
+    const pushAbsence = (side: "home" | "away", injured: number | null, missingPct: number | null) => {
+      if (injured === null || injured <= 0) return;
+      const team = side === "home" ? match.home.shortName : match.away.shortName;
+      absences.push({
+        teamSide: side,
+        player: `${injured} ${injured === 1 ? "lesionado" : "lesionados"} · ${team}`,
+        role: "Reporte de disponibilidad",
+        status: "Baja",
+        impactNote:
+          missingPct !== null && missingPct > 0
+            ? `Ausencias equivalentes al ${missingPct.toFixed(1)} % del valor de la plantilla.`
+            : "Impacto incluido en la probabilidad del motor.",
+      });
+    };
+    if (avail) {
+      pushAbsence("home", avail.homeInjured, avail.homeMissingValuePct);
+      pushAbsence("away", avail.awayInjured, avail.awayMissingValuePct);
+    }
   }
 
   let moneyFlow: PreGameIntel["moneyFlow"] = null;
@@ -562,6 +590,8 @@ function buildPlatformMarkets(
       fairAmerican: decimalToAmericanInt(fairDecimal),
       openDecimal: null,
       currentDecimal,
+      quoteBookLabel: currentDecimal === null ? null : (signal?.market?.bookLabel ?? null),
+      quoteCapturedAtUtc: currentDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
       edgePts: edgeAgainst(row.p, currentDecimal),
     };
   });

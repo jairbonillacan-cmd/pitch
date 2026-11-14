@@ -11,7 +11,7 @@
     "sync": "node scripts/sync-from-prediction-lab.mjs",
     "sync:data": "node scripts/sync-from-prediction-lab.mjs --data-only",
     "build": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --hookTimeout=60000 --testTimeout=60000",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
   },

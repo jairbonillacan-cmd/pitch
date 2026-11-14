@@ -5,8 +5,8 @@ import { EMAIL_TEMPLATES, EMAIL_WIRING, renderEmail, type EmailTemplateId } from
 const ids = Object.keys(EMAIL_TEMPLATES) as EmailTemplateId[];
 
 describe("correos de PitchLab", () => {
-  it("hay 25 plantillas", () => {
-    expect(ids).toHaveLength(25);
+  it("hay 26 plantillas", () => {
+    expect(ids).toHaveLength(26);
   });
 
   it.each(ids)("%s: genera asunto, HTML con marca y texto plano", async (id) => {
@@ -65,6 +65,7 @@ describe("correos de PitchLab", () => {
     const live = ids.filter((id) => EMAIL_WIRING[id].state === "live");
     expect(live.sort()).toEqual([
       "access-expired",
+      "data-health-alert",
       "magic-link",
       "payment-receipt",
       "referral-ambassador",

@@ -1,6 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { FounderAdminClubView } from "@pitchlab/ui";
+import { FounderAdminClubView } from "@pitchlab/ui/admin";
+import { loadServerDataHealthReport } from "../../../src/server/data-health";
 import { previewToolsEnabled } from "../../../src/server/platform-data";
 import { getViewerAccess } from "../../../src/server/viewer-access";
 
@@ -11,5 +12,6 @@ export default async function ClubAdminPage(): Promise<React.JSX.Element> {
   if (!access.isAdmin && !previewToolsEnabled(access.isAdmin)) {
     notFound();
   }
-  return <FounderAdminClubView />;
+  const initialDataHealth = loadServerDataHealthReport();
+  return <FounderAdminClubView initialDataHealth={initialDataHealth} />;
 }

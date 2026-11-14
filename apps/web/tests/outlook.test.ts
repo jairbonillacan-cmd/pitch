@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { findOutlook, outlookDetailFor } from "../src/server/outlook";
+import {
+  applyOutlookWithMatchOutlook,
+  findOutlook,
+  outlookDetailFor,
+  outlookDetailFromMatchOutlook,
+} from "../src/server/outlook";
 
 const unionLeipzig = {
   league: "bundesliga",
@@ -23,7 +28,8 @@ describe("panorama v3.2 en la ficha del partido", () => {
   });
 
   it("arma filas con momio justo, sin cuota de casa inventada y con nombres de la app", () => {
-    const detail = outlookDetailFor(unionLeipzig);
+    const expiredNow = Date.parse("2030-01-01T00:00:00Z");
+    const detail = outlookDetailFor(unionLeipzig, expiredNow);
     expect(detail).not.toBeNull();
     const rows = detail!.markets;
     expect(rows.length).toBeGreaterThanOrEqual(11 * 2);
@@ -49,7 +55,8 @@ describe("panorama v3.2 en la ficha del partido", () => {
   });
 
   it("resume lo más probable, 6 marcadores y la calidad de datos", () => {
-    const { outlook } = outlookDetailFor(unionLeipzig)!;
+    const expiredNow = Date.parse("2030-01-01T00:00:00Z");
+    const { outlook } = outlookDetailFor(unionLeipzig, expiredNow)!;
     expect(outlook.mostLikely?.label).toBe("Gana 1. FC Union Berlin");
     expect(outlook.scorelines).toHaveLength(6);
     expect(outlook.scorelines[0]!.p).toBeGreaterThanOrEqual(outlook.scorelines[1]!.p);
@@ -90,7 +97,9 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       expect(g.x12[1]).toBeCloseTo(p("draw"), 3);
       expect(g.x12[2]).toBeCloseTo(p("away"), 3);
       expect(g.spacetime?.outlookDriven ?? true).toBe(true);
-      expect(g.spacetime?.market ?? null).toBeNull();
+      if (!o.marketsByKey["1x2"]?.market) {
+        expect(g.spacetime?.market ?? null).toBeNull();
+      }
       // Cada pick usa una probabilidad publicada por v3.2 para ese mercado.
       const published = new Set(
         o.markets.flatMap((m) => m.selections.map((s) => s.p.toFixed(6))).concat(o.topScorelines.map((s) => s.p.toFixed(6))),
@@ -130,5 +139,105 @@ describe("confianza sobre el panorama v3.2", () => {
     expect(c.score).toBe(Math.round(weighted * 100));
     expect(["alta", "media", "baja"]).toContain(c.level);
     expect(c.reasons.length).toBeGreaterThan(0);
+  });
+});
+
+describe("vigencia < 72 h y hora de captura en panorama v3.2", () => {
+  it("expone cuota y hora de captura cuando la cotización tiene menos de 72 h y la oculta al vencer", async () => {
+    const baseOutlook = findOutlook(unionLeipzig)!;
+    const capturedAtUtc = "2026-11-14T18:20:00Z";
+    const freshNowMs = Date.parse("2026-11-14T18:50:00Z"); // 30 min después (< 72 h)
+    const expiredNowMs = Date.parse("2026-11-17T19:00:00Z"); // > 72 h después
+
+    const marketQuote = {
+      book: "pinnacle",
+      tsCaptured: capturedAtUtc,
+      overround: 1.028,
+      oddsBySelection: { home: 2.38, draw: 3.4, away: 3.05 },
+    };
+
+    const withQuote = {
+      ...baseOutlook,
+      markets: baseOutlook.markets.map((m) =>
+        m.marketKey === "1x2" ? { ...m, market: marketQuote } : m,
+      ),
+      marketsByKey: {
+        ...baseOutlook.marketsByKey,
+        "1x2": baseOutlook.marketsByKey["1x2"]
+          ? { ...baseOutlook.marketsByKey["1x2"], market: marketQuote }
+          : undefined,
+      },
+    };
+
+    const freshDetail = outlookDetailFromMatchOutlook(withQuote, unionLeipzig, {
+      nowMs: freshNowMs,
+    })!;
+    expect(freshDetail.outlook.hasRecentQuote).toBe(true);
+    expect(freshDetail.outlook.latestQuote).toEqual({
+      bookLabel: "Pinnacle",
+      capturedAtUtc,
+    });
+    const x12Fresh = freshDetail.markets.filter((r) => r.market === "1x2");
+    expect(x12Fresh.map((r) => r.currentDecimal)).toEqual([2.38, 3.4, 3.05]);
+    expect(x12Fresh.every((r) => r.quoteBookLabel === "Pinnacle")).toBe(true);
+    expect(x12Fresh.every((r) => r.quoteCapturedAtUtc === capturedAtUtc)).toBe(true);
+    expect(x12Fresh.every((r) => r.edgePts === null)).toBe(true);
+
+    const expiredDetail = outlookDetailFromMatchOutlook(withQuote, unionLeipzig, {
+      nowMs: expiredNowMs,
+    })!;
+    expect(expiredDetail.outlook.hasRecentQuote).toBe(false);
+    expect(expiredDetail.outlook.latestQuote).toBeNull();
+    expect(expiredDetail.markets.every((r) => r.currentDecimal === null)).toBe(true);
+    expect(expiredDetail.markets.every((r) => (r.quoteBookLabel ?? null) === null)).toBe(true);
+    expect(expiredDetail.markets.every((r) => (r.quoteCapturedAtUtc ?? null) === null)).toBe(true);
+
+    const { loadLeagueSnapshotEnvelope } = await import("../src/server/snapshots");
+    const sampleMatch = loadLeagueSnapshotEnvelope("bundesliga").data?.games.find(
+      (g) => g.status !== "FT",
+    );
+    if (sampleMatch) {
+      const dummySignal = {
+        engineName: "PitchLab Tachyon v3.0",
+        sportsEngineName: "PitchLab Tachyon v3.0",
+        outlookDriven: true,
+        probs: { home: 0.44, draw: 0.27, away: 0.29 },
+        market: null,
+        value: [],
+        expectedTotal: 2.7,
+        expectedMargin: 0.3,
+        drivers: [],
+        availability: {
+          homeInjured: 0,
+          awayInjured: 0,
+          homeMissingValuePct: null,
+          awayMissingValuePct: null,
+        },
+        stadium: null,
+      };
+      const appliedFresh = applyOutlookWithMatchOutlook(
+        sampleMatch,
+        dummySignal as never,
+        withQuote,
+        freshNowMs,
+      );
+      expect(appliedFresh.signal?.market).not.toBeNull();
+      expect(appliedFresh.signal?.market?.asOfUtc).toBe(capturedAtUtc);
+      expect(appliedFresh.signal?.market?.bookLabel).toContain("Pinnacle");
+      expect(appliedFresh.signal?.market?.odds).toEqual({
+        home: 2.38,
+        draw: 3.4,
+        away: 3.05,
+      });
+      expect(appliedFresh.signal?.value).toEqual([]);
+
+      const appliedExpired = applyOutlookWithMatchOutlook(
+        sampleMatch,
+        dummySignal as never,
+        withQuote,
+        expiredNowMs,
+      );
+      expect(appliedExpired.signal?.market).toBeNull();
+    }
   });
 });

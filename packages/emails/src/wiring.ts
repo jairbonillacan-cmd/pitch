@@ -128,4 +128,9 @@ export const EMAIL_WIRING = {
     trigger: "Cuando un moderador retira una publicación.",
     needs: "La acción de moderar (hoy solo existe la tabla `social_moderation_logs`, sin pantalla ni API) y las publicaciones en el servidor.",
   },
+  "data-health-alert": {
+    state: "live",
+    trigger:
+      "Al fallar un workflow/fuente, rechazarse validación o superar el umbral de vejez por liga (`health-monitor.ts` → `PITCHLAB_ADMIN_EMAILS`, sin repetir avisos abiertos).",
+  },
 } as const satisfies Record<EmailTemplateId, EmailWiring>;

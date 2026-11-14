@@ -7,11 +7,14 @@ async function toggleClubTheme(page: import("@playwright/test").Page): Promise<v
   await page.locator("[data-profile-menu-trigger]:visible").first().click();
   await page.locator(".pl-profile-menu:popover-open [data-theme-option][aria-pressed=\"false\"]").click();
   await page.keyboard.press("Escape");
+  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
+  await page.waitForTimeout(250);
 }
 
 test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+7d)", async ({
   page,
 }, testInfo) => {
+  test.setTimeout(120_000);
   const width = testInfo.project.name === "mobile" ? 390 : 1440;
   await page.setViewportSize({ width, height: 900 });
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { formatOddsCaptureEs } from "@pitchlab/contracts";
 import { PBar } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import type { MatchOutlookSummary } from "../types";
@@ -94,7 +95,24 @@ export function MatchOutlookStrip({
             ) : null}
           </span>
         </span>
-        {hasRecentQuote ? null : (
+        {hasRecentQuote ? (
+          outlook.latestQuote ? (
+            <p
+              className="m-0 leading-relaxed num"
+              style={{ color: "var(--pl-text-secondary)" }}
+              data-odds-capture-stamp=""
+            >
+              Cuota de casa: <strong>{outlook.latestQuote.bookLabel}</strong> · capturada{" "}
+              <time dateTime={outlook.latestQuote.capturedAtUtc}>
+                {formatOddsCaptureEs(outlook.latestQuote.capturedAtUtc)}
+              </time>
+            </p>
+          ) : (
+            <p className="m-0 leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
+              Cuota de casa verificada en las últimas 72 h.
+            </p>
+          )
+        ) : (
           <p className="m-0 leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
             Sin cuota real reciente (menos de 72 h). Escribe el momio de tu casa en «Probar momio»
             para compararlo con el momio justo.

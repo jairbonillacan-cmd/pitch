@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   LeagueBadge,
@@ -659,7 +659,16 @@ export function MatchStudioClubView({
               <div className="flex items-center justify-between gap-2">
                 <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
                 <span className="pl-pill pl-pill--brand text-[10px] num">
-                  {game.spacetime?.market?.bookLabel ?? "Mercado"}
+                  {game.spacetime?.market?.asOfUtc ? (
+                    <>
+                      {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
+                      <time dateTime={game.spacetime.market.asOfUtc}>
+                        {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
+                      </time>
+                    </>
+                  ) : (
+                    game.spacetime?.market?.bookLabel ?? "Mercado"
+                  )}
                 </span>
               </div>
 
@@ -1011,17 +1020,16 @@ export function MatchStudioClubView({
                   Hacia dónde se mueve el dinero de las apuestas, comparado con la probabilidad del modelo.
                 </p>
               </div>
-              <span className="pl-pill pl-pill--info">
-                {game.spacetime?.market?.bookLabel ?? "Mercado"}
-                {Number.isFinite(Date.parse(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt))
-                  ? ` · Corte ${new Date(
-                      game.spacetime?.market?.asOfUtc ?? dataset.generatedAt,
-                    ).toLocaleDateString("es-MX", {
-                      timeZone: "America/Mexico_City",
-                      day: "2-digit",
-                      month: "short",
-                    })}`
-                  : ""}
+              <span className="pl-pill pl-pill--info num">
+                {game.spacetime?.market?.bookLabel.split(" · ")[0] ?? "Mercado"}
+                {Number.isFinite(Date.parse(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt)) ? (
+                  <>
+                    {" · Capturado "}
+                    <time dateTime={game.spacetime?.market?.asOfUtc ?? dataset.generatedAt}>
+                      {formatOddsCaptureEs(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt)}
+                    </time>
+                  </>
+                ) : null}
               </span>
             </div>
 

@@ -42,6 +42,7 @@ export { HomeMatchCard } from "./components/HomeMatchCard";
 export * from "./club/ParlayAndQuantViews";
 export * from "./club/SocialAndTipsterViews";
 export * from "./club/LedgerAccountAdminViews";
+export * from "./club/AdminDataHealthSection";
 export * from "./club/account/account-helpers";
 export * from "./record-stats";
 export * from "./badges";

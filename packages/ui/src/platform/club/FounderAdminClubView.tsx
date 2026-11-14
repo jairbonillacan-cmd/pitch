@@ -2,12 +2,14 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
+import type { DataHealthReport } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
 import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { SocialReportReason } from "../types";
+import { AdminDataHealthSection } from "./AdminDataHealthSection";
 import { AdminPaymentsCouponsSection } from "./AdminPaymentsCouponsSection";
 import { SOCIAL_REPORT_REASON_OPTIONS } from "./community-ui";
 
@@ -104,8 +106,12 @@ interface AdminPromoRow {
 
 export function FounderAdminClubView({
   storyModeration,
+  initialDataHealth = null,
+  storyDataHealth = null,
 }: {
   storyModeration?: ModerationPanelResponse;
+  initialDataHealth?: DataHealthReport | null;
+  storyDataHealth?: DataHealthReport | null;
 } = {}): React.JSX.Element {
   const {
     dataset,
@@ -486,6 +492,13 @@ export function FounderAdminClubView({
             </div>
           </div>
         </section>
+
+        <AdminDataHealthSection
+          dataset={dataset}
+          initialReport={initialDataHealth}
+          storyReport={storyDataHealth}
+          enableLiveFetch={!storyDataHealth}
+        />
 
         <AdminPaymentsCouponsSection />
 

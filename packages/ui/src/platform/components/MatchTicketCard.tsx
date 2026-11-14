@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { formatOddsCaptureEs } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
@@ -172,6 +173,18 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                 <> / {formatOddsValue(effectiveMarketDecimal, oddsFormat)}</>
               )}
             </strong>
+            {!hasLiveUserOdds &&
+            effectiveMarketDecimal !== null &&
+            pick.marketCapturedAtUtc ? (
+              <time
+                dateTime={pick.marketCapturedAtUtc}
+                className="block text-[10px] leading-tight"
+                style={{ color: "var(--pl-text-muted)" }}
+                data-pick-odds-captured=""
+              >
+                {formatOddsCaptureEs(pick.marketCapturedAtUtc)}
+              </time>
+            ) : null}
           </div>
           {/* Sin momio de casa no hay ventaja que mostrar: la columna no aparece. */}
           {effectiveEdgePts !== null ? (
@@ -454,6 +467,15 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <span style={{ color: "var(--pl-text-muted)" }}>
                 {formatOddsValue(pickReferenceDecimal(mainPick), oddsFormat)}
               </span>
+              {mainPick.marketDecimal !== null && mainPick.marketCapturedAtUtc ? (
+                <time
+                  dateTime={mainPick.marketCapturedAtUtc}
+                  className="block text-[10px] leading-tight"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  {formatOddsCaptureEs(mainPick.marketCapturedAtUtc)}
+                </time>
+              ) : null}
             </div>
           </div>
         ) : (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatEdgePts, formatOddsValue } from "../access-guard";
@@ -692,6 +692,17 @@ export function PublicSharedPickSurface({
                         <strong style={{ color: "var(--share-card-success)" }}>
                           Momio {formatOddsValue(unlockedPick.marketDecimal, oddsFormat)} (
                           {formatEdgePts(unlockedPick.edgePts)})
+                          {unlockedPick.marketCapturedAtUtc ? (
+                            <span
+                              className="font-normal"
+                              style={{ color: "var(--share-card-secondary)" }}
+                            >
+                              {" · "}
+                              <time dateTime={unlockedPick.marketCapturedAtUtc}>
+                                {formatOddsCaptureEs(unlockedPick.marketCapturedAtUtc)}
+                              </time>
+                            </span>
+                          ) : null}
                         </strong>
                       ) : null}
                     </div>

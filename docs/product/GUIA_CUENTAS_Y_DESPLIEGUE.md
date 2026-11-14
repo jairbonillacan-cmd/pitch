@@ -34,6 +34,9 @@
 | `PITCHLAB_PAYMENTS_MODE` | `"transfer"` (SPEI/cupones Beta 1.0) o `"stripe"` | Cobro |
 | `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY`, `PITCHLAB_TRANSFER_CLABE`, `PITCHLAB_TRANSFER_INSTRUCTIONS` | Tu cuenta bancaria SPEI (opcional la nota) | Beta 1.0 |
 | `CRON_SECRET` | Secreto generado (cron `/api/cron/tipster-payouts`) | Diario |
+| `THE_ODDS_API_KEY` | The Odds API v4 (plan gratis 500 req/mes, en GitHub Actions Secrets) | Datos automáticos |
+| `BETFAIR_APP_KEY`, `BETFAIR_SESSION_TOKEN` | Betfair Exchange API-NG Delayed App Key (opcional, en GitHub Actions Secrets) | Datos automáticos |
+| `VERCEL_DEPLOY_HOOK_URL` | Vercel (**Settings → Git → Deploy Hooks**, en GitHub Actions Secrets) | Datos automáticos |
 
 **Cómo generar un secreto:** en una terminal dentro de la carpeta del proyecto, corre:
 
@@ -263,3 +266,15 @@ ORDER BY r.created_at ASC;
 - **Connect** para tipsters → `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`.
 - **Facturapi** → `FACTURAPI_KEY`, cuando definas con el contador quién factura.
 - **Upstash Redis** (opcional y gratis) → `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, para que el límite de intentos del PIN funcione en todas las instancias.
+
+## Datos automáticos y alertas en GitHub Actions (`main`)
+
+Los workflows `.github/workflows/odds-refresh.yml` (momios) y `.github/workflows/pre-mvp-snapshot.yml` (calendario, resultados y bajas) corren solos en la rama `main` (y bajo demanda con **Run workflow** en la pestaña **Actions**). Validan cada archivo antes de publicarlo, hacen un solo commit por corrida únicamente si hubo cambios, disparan un único redeploy en Vercel y avisan por correo si algo falla o envejece sin repetir el mismo correo en cada corrida.
+
+En GitHub, abre **Settings → Secrets and variables → Actions → New repository secret** y registra:
+
+1. **`THE_ODDS_API_KEY`** (recomendada, plan gratuito de 500 solicitudes/mes en <https://the-odds-api.com>): alimenta momios verificados `< 72 h` de las 7 ligas.
+2. **`BETFAIR_APP_KEY`** y **`BETFAIR_SESSION_TOKEN`** (opcionales, Delayed App Key gratuita del programa oficial Betfair API-NG): respaldo de intercambio para fútbol europeo.
+3. **`FOOTBALL_DATA_API_KEY`** (opcional, gratis en football-data.org): respaldo de calendario para Premier League.
+4. **`VERCEL_DEPLOY_HOOK_URL`**: en Vercel abre **Settings → Git → Deploy Hooks**, crea un hook llamado `github-data-pipeline` apuntando a `main` y pega la URL HTTPS.
+5. **`RESEND_API_KEY`**, **`EMAIL_FROM`** (`PitchLab <hola@pitchlab.mx>`) y **`PITCHLAB_ADMIN_EMAILS`** (tu correo): permiten que GitHub Actions te mande alerta inmediata cuando falle un workflow, se descarte un snapshot inválido o una liga supere su umbral de frescura (`30 h` calendario / `12 h` en jornada, `36 h` bajas, `36 h` momios).

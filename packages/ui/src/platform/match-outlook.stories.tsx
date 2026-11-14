@@ -20,6 +20,10 @@ const FUTBOL_COMPLETO: MatchOutlookSummary = {
   mostLikely: { label: "Gana Liverpool", p: 0.612, fairDecimal: 1.63 },
   quality: { flag: "ok", coveragePct: 92 },
   hasRecentQuote: true,
+  latestQuote: {
+    bookLabel: "Betfair Exchange",
+    capturedAtUtc: "2026-11-14T18:30:00Z",
+  },
 };
 
 const NFL_BASE: MatchOutlookSummary = {

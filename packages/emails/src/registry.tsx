@@ -86,6 +86,11 @@ import {
   type ReferralRewardedProps,
   type ReferralSignedUpProps,
 } from "./templates/referrals";
+import {
+  DataHealthAlertEmail,
+  dataHealthAlertSubject,
+  type DataHealthAlertProps,
+} from "./templates/ops";
 
 /** Cada correo: componente, asunto y datos de ejemplo (para la vista previa y las pruebas). */
 interface Definition<P> {
@@ -415,6 +420,26 @@ export const EMAIL_TEMPLATES = {
       location: "Ciudad de México, MX",
       when: "12 de noviembre de 2026, 11:42",
       secureUrl: EXAMPLE_URL,
+    },
+  }),
+  "data-health-alert": define<DataHealthAlertProps>({
+    phase: "D",
+    label: "Alerta de salud de datos",
+    Component: DataHealthAlertEmail,
+    subject: dataHealthAlertSubject,
+    sample: {
+      summaryLabel: "Liga MX · Momios con más de 36 h",
+      detectedAtLabel: "14 nov 2026 · 10:15",
+      severity: "warning",
+      adminUrl: "https://pitchlab.mx/app/admin#salud-datos",
+      incidents: [
+        {
+          targetLabel: "Liga MX · Momios",
+          kindLabel: "Datos vencidos (> 36 h)",
+          message: "La última captura válida tiene 38.4 h de antigüedad (umbral: 36 h).",
+          failingSinceLabel: "14 nov 2026 · 10:15 CDMX",
+        },
+      ],
     },
   }),
 } as const;

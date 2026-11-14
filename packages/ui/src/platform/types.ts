@@ -102,6 +102,9 @@ export interface MatchPick {
   /** Momio real de casa (Spacetime v3.0). `null` cuando no hay mercado verificado. */
   marketDecimal: number | null;
   marketAmerican: number | null;
+  /** Casa y sello UTC de captura del momio real (`null` cuando no hay cuota verificada). */
+  marketBookLabel?: string | null;
+  marketCapturedAtUtc?: string | null;
   /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
   edgePts: number | null;
   confidenceScore: number;
@@ -190,6 +193,9 @@ export interface PlatformMarketRow {
   openDecimal: number | null;
   /** Momio real de casa; `null` sin mercado verificado. */
   currentDecimal: number | null;
+  /** Nombre visible de la casa y momento UTC de captura del momio vigente (`< 72 h`). */
+  quoteBookLabel?: string | null;
+  quoteCapturedAtUtc?: string | null;
   edgePts: number | null;
   /** `true` cuando la línea se deriva localmente con el motor v3.2. */
   isDerived?: boolean;
@@ -324,6 +330,11 @@ export interface MatchOutlookSummary {
   };
   /** `true` si algún mercado tiene cuota real de casa capturada hace menos de 72 h. */
   hasRecentQuote: boolean;
+  /** Última cuota real de casa capturada (`< 72 h`) para mostrar sello horario visible. */
+  latestQuote?: {
+    bookLabel: string;
+    capturedAtUtc: string;
+  } | null;
 }
 
 export interface PlatformLeagueSummary {

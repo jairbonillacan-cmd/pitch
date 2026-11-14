@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { formatOddsCaptureEs } from "@pitchlab/contracts";
 import { parseUserOdds } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { edgeAgainstBook } from "../OddsCompareView";
@@ -329,6 +330,28 @@ export function MatchMarketsGrid({
                                 >
                                   Justo {fairText}
                                 </span>
+                                {!effectiveRaw && row.currentDecimal !== null ? (
+                                  <span
+                                    className="pl-mkt-row-fair num"
+                                    data-market-house-quote=""
+                                  >
+                                    Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
+                                    {row.quoteCapturedAtUtc ? (
+                                      <>
+                                        {" · "}
+                                        <time
+                                          dateTime={row.quoteCapturedAtUtc}
+                                          data-quote-captured=""
+                                        >
+                                          {row.quoteBookLabel
+                                            ? `${row.quoteBookLabel} · `
+                                            : ""}
+                                          {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
+                                        </time>
+                                      </>
+                                    ) : null}
+                                  </span>
+                                ) : null}
                               </div>
                             </div>
 

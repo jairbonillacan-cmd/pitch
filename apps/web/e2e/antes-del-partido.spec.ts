@@ -7,6 +7,8 @@ async function toggleClubTheme(page: import("@playwright/test").Page): Promise<v
     .locator('.pl-profile-menu:popover-open [data-theme-option][aria-pressed="false"]')
     .click();
   await page.keyboard.press("Escape");
+  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
+  await page.waitForTimeout(250);
 }
 
 test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, votos, campana y alineación apagada)", async ({

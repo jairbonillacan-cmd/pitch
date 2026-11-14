@@ -237,6 +237,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   Osasuna: "osasuna",
   "Club Atlético de Madrid": "atletico-madrid",
   "Atlético de Madrid": "atletico-madrid",
+  "Atlético Madrid": "atletico-madrid",
   "Atletico Madrid": "atletico-madrid",
   "Deportivo Alavés": "alaves",
   Alavés: "alaves",
@@ -259,6 +260,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "Deportivo de La Coruña": "deportivo-la-coruna",
   "Deportivo La Coruña": "deportivo-la-coruna",
   "RCD Espanyol de Barcelona": "espanyol",
+  "RCD Espanyol": "espanyol",
   Espanyol: "espanyol",
   "Rayo Vallecano de Madrid": "rayo-vallecano",
   "Rayo Vallecano": "rayo-vallecano",
@@ -268,6 +270,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "Real Madrid": "real-madrid",
   "Real Racing Club de Santander": "racing-santander",
   "Racing de Santander": "racing-santander",
+  "Racing Santander": "racing-santander",
   Racing: "racing-santander",
   "Real Sociedad de Fútbol": "real-sociedad",
   "Real Sociedad": "real-sociedad",
@@ -358,7 +361,15 @@ export function resolveCanonicalTeam(
     };
   }
 
-  const slug = table[trimmed];
+  let slug = table[trimmed];
+  if (!slug) {
+    const manifestMatch = Object.values(TEAM_ASSETS).find(
+      (a) => a.league === league && a.name === trimmed,
+    );
+    if (manifestMatch) {
+      slug = manifestMatch.slug;
+    }
+  }
   if (!slug) {
     const historic = HISTORIC_TEAMS[league]?.[trimmed];
     if (historic) {

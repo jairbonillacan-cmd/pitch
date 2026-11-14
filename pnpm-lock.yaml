@@ -553,12 +553,18 @@ importers:
       '@pitchlab/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@pitchlab/emails':
+        specifier: workspace:*
+        version: link:../../packages/emails
       '@pitchlab/engines-reference':
         specifier: workspace:*
         version: link:../../packages/engines-reference
       '@pitchlab/models':
         specifier: workspace:*
         version: link:../../packages/models
+      '@pitchlab/spacetime':
+        specifier: workspace:*
+        version: link:../../packages/spacetime
       '@pitchlab/sports-assets':
         specifier: workspace:*
         version: link:../../packages/sports-assets

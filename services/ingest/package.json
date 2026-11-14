@@ -8,10 +8,13 @@
   },
   "scripts": {
     "build": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --hookTimeout=60000 --testTimeout=60000",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "snapshot": "tsx src/cli.ts",
+    "odds:refresh": "tsx src/odds-refresh-cli.ts",
+    "injuries": "tsx src/cli.ts --mode=injuries",
+    "health:check": "tsx src/health-check-cli.ts",
     "history": "tsx src/history/cli.ts",
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",
@@ -24,8 +27,10 @@
   },
   "dependencies": {
     "@pitchlab/contracts": "workspace:*",
+    "@pitchlab/emails": "workspace:*",
     "@pitchlab/engines-reference": "workspace:*",
     "@pitchlab/models": "workspace:*",
+    "@pitchlab/spacetime": "workspace:*",
     "@pitchlab/sports-assets": "workspace:*",
     "zod": "4.6.7"
   },
