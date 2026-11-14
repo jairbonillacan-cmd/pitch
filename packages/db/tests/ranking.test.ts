@@ -3,7 +3,6 @@ import { drizzle } from "drizzle-orm/pglite";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
   applyMigrations,
-  eq,
   castMatchVote,
   loadMatchResults,
   loadRankingParticipants,
@@ -68,8 +67,6 @@ describe("loadRankingParticipants", () => {
     const privado = await member("privado", { publicProfile: false });
     const fuera = await member("fuera");
     await upsertUserPreferences(db, fuera.id, { showInRanking: false }, now);
-    // showInRanking=false también apaga el perfil público; se vuelve a encender a mano.
-    await db.update(users).set({ publicProfile: true }).where(eq(users.id, fuera.id));
     const pausa = await member("pausa");
     await upsertUserPreferences(db, pausa.id, { pauseCommunity: true }, now);
     await member("sin_cuenta", { authUserId: null });
@@ -102,5 +99,22 @@ describe("resultados y votos", () => {
 
     expect(await winnerVoteTallies(db, ["g1", "g2"])).toEqual([{ gameId: "g1", home: 1, draw: 0, away: 1 }]);
     expect((await loadWinnerVotes(db, ["g1"])).map((v) => v.choice).sort()).toEqual(["away", "home"]);
+  });
+});
+
+describe("perfil público y ranking", () => {
+  it("salir del ranking no vuelve privado el perfil; un perfil privado nunca está en el ranking", async () => {
+    const ana = await member("ana_mx");
+    const out = await upsertUserPreferences(db, ana.id, { showInRanking: false }, now);
+    expect(out).toMatchObject({ showInRanking: false, publicRecordVisible: true });
+
+    const back = await upsertUserPreferences(db, ana.id, { showInRanking: true }, now);
+    expect(back.showInRanking).toBe(true);
+
+    const hidden = await upsertUserPreferences(db, ana.id, { publicRecordVisible: false }, now);
+    expect(hidden).toMatchObject({ publicRecordVisible: false, showInRanking: false });
+    const forced = await upsertUserPreferences(db, ana.id, { showInRanking: true }, now);
+    expect(forced.showInRanking).toBe(false);
+    expect(await loadRankingParticipants(db)).toEqual([]);
   });
 });

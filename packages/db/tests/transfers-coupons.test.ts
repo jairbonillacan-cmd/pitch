@@ -395,7 +395,8 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     });
     expect(savedPrefs.responsiblePauseUntil?.getTime()).toBe(now.getTime() + 7 * DAY);
     const [reloaded] = await db.select({ publicProfile: users.publicProfile }).from(users).where(eq(users.id, target.id));
-    expect(reloaded!.publicProfile).toBe(false);
+    // Salir del ranking no vuelve privado el perfil.
+    expect(reloaded!.publicProfile).toBe(true);
     expect((await getUserPreferences(db, target.id)).themeMode).toBe("light");
 
     // Correos con cycleKey distinto no colisionan y listDuePendingEmails encuentra en ventana

@@ -163,8 +163,11 @@ export async function upsertUserPreferences(
         ? Math.min(10_000_000, Math.max(1_000, Math.round(patch.unitMxnCentavos)))
         : current.unitMxnCentavos;
     const showMxnBalance = patch.showMxnBalance ?? current.showMxnBalance;
-    const showInRanking = patch.showInRanking ?? current.showInRanking;
-    const publicRecordVisible = patch.publicRecordVisible ?? patch.showInRanking ?? current.publicRecordVisible;
+    // «Perfil público» y «Aparecer en el ranking» son independientes, con una sola regla:
+    // sin perfil público no hay ranking (el ranking muestra el récord). Salir del ranking
+    // no vuelve privado el perfil.
+    const publicRecordVisible = patch.publicRecordVisible ?? current.publicRecordVisible;
+    const showInRanking = publicRecordVisible ? (patch.showInRanking ?? current.showInRanking) : false;
     const emailPickResults = patch.emailPickResults ?? current.emailPickResults;
     const emailValueAlerts = patch.emailValueAlerts ?? current.emailValueAlerts;
     const emailBeforeMatch = patch.emailBeforeMatch ?? current.emailBeforeMatch;
@@ -245,14 +248,8 @@ export async function upsertUserPreferences(
         },
       });
 
-    const nextPublicProfile =
-      patch.publicRecordVisible !== undefined
-        ? publicRecordVisible
-        : patch.showInRanking !== undefined
-          ? showInRanking
-          : undefined;
-    if (nextPublicProfile !== undefined) {
-      await t.update(users).set({ publicProfile: nextPublicProfile }).where(eq(users.id, userId));
+    if (patch.publicRecordVisible !== undefined) {
+      await t.update(users).set({ publicProfile: publicRecordVisible }).where(eq(users.id, userId));
     }
 
     return getUserPreferences(t, userId);

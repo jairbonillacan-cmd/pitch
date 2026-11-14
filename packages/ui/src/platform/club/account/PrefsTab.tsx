@@ -101,7 +101,7 @@ const PRIVACY_ITEMS: ReadonlyArray<{
   {
     key: "showInRanking",
     title: "Aparecer en el ranking",
-    detail: "Tu nombre entra al ranking de Comunidad cuando tienes 20 picks cerrados en el mes.",
+    detail: "Tu nombre entra al ranking de Comunidad con 5 picks cerrados en la semana o 15 en el mes. Requiere perfil público.",
   },
   {
     key: "pauseCommunity",
