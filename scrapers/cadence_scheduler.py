@@ -39,6 +39,7 @@ from scrapers.sources.base import (  # noqa: E402
     TIMESERIES_JSONL_COLUMNS,
     validate_and_normalize_tick_rows,
 )
+from scrapers.sources.the_odds_api import BUDGET_LEDGER_FILENAME  # noqa: E402
 from scrapers.sources.registry import (  # noqa: E402
     build_active_source_adapters,
     get_allowed_canonical_books,
@@ -643,6 +644,11 @@ class CadenceScheduler:
         else:
             self.active_adapters = build_active_source_adapters(env=self._env)
 
+        # Libro de créditos de The Odds API junto a las series de cuotas (persiste entre ejecuciones)
+        for ad in self.active_adapters:
+            if hasattr(ad, "budget_path") and getattr(ad, "budget_path") is None:
+                ad.budget_path = self.output_dir / BUDGET_LEDGER_FILENAME
+
         self._last_captured_by_event: dict[str, datetime] = {}
 
     def plan_schedule(self, now_utc: datetime | None = None) -> list[ScheduledEventPlan]:
@@ -737,6 +743,11 @@ class CadenceScheduler:
             "rows_collected": len(collected_rows),
             "append_summary": append_summary,
             "errors": errors,
+            "credit_budget": {
+                a.metadata.source_id: a.last_budget_report
+                for a in self.active_adapters
+                if getattr(a, "last_budget_report", None)
+            },
             "health_path": str(health_path),
             "capture_status": health["capture_status"],
         }

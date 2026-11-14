@@ -34,6 +34,8 @@ from scrapers.sources import (  # noqa: E402
     ExponentialBackoffPolicy,
     HttpResponseData,
     MissingCredentialsError,
+    OddsApiBudget,
+    OddsApiBudgetConfig,
     PerSourceRateLimiter,
     RobotsDisallowedError,
     RobotsTxtPolicy,
@@ -551,7 +553,15 @@ def test_loop_multitick_health_and_prediction_lab_validator(tmp_path: Path) -> N
         low_level_requester=mock_requester,
     )
     env = {"THE_ODDS_API_KEY": "unit_test_key"}
-    adapter = TheOddsApiAdapter(env=env, transport=transport)
+    # Multi-tick cada pocos minutos = modo plan de pago (sin tope); el plan gratuito se cubre en tests aparte.
+    adapter = TheOddsApiAdapter(
+        env=env,
+        transport=transport,
+        regions="eu,uk,us",
+        markets="h2h,spreads,totals",
+        budget=OddsApiBudgetConfig.unlimited(),
+        precheck_events=False,
+    )
 
     edge_fixture = tmp_path / "calendar.json"
     edge_fixture.write_text(
