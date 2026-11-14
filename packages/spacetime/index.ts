@@ -28,3 +28,5 @@ export {
   type NFLOutlookMarketKey,
   type FairOdds,
 } from "./src/outlook";
+// Punto 5: mercados derivados deterministas para fútbol y NFL (sin editar `src/` sincronizado).
+export * from "./derived/outlook_derived";

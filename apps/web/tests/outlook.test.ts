@@ -40,12 +40,18 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(x12.reduce((s, r) => s + r.p, 0)).toBeCloseTo(1, 6);
     expect(rows.some((r) => r.group === "Doble oportunidad")).toBe(true);
     expect(rows.some((r) => r.group === "Hándicap asiático")).toBe(true);
+    // Mercados derivados de Punto 5: goles por equipo, 1er tiempo y top 6 de marcadores.
+    expect(rows.some((r) => r.market === "team_goals_home" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "team_goals_away" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_1x2" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_totals" && r.isDerived)).toBe(true);
+    expect(rows.filter((r) => r.market === "correct_score" && r.isDerived)).toHaveLength(6);
   });
 
-  it("resume lo más probable, 3 marcadores y la calidad de datos", () => {
+  it("resume lo más probable, 6 marcadores y la calidad de datos", () => {
     const { outlook } = outlookDetailFor(unionLeipzig)!;
     expect(outlook.mostLikely?.label).toBe("Gana 1. FC Union Berlin");
-    expect(outlook.scorelines).toHaveLength(3);
+    expect(outlook.scorelines).toHaveLength(6);
     expect(outlook.scorelines[0]!.p).toBeGreaterThanOrEqual(outlook.scorelines[1]!.p);
     expect(outlook.quality.coveragePct).toBeGreaterThanOrEqual(0);
     expect(outlook.quality.coveragePct).toBeLessThanOrEqual(100);
@@ -54,14 +60,16 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(outlook.hasRecentQuote).toBe(false);
   });
 
-  it("NFL: ganador sin marcadores exactos", () => {
+  it("NFL: ganador v3.2 más hándicap y totales derivados, sin marcadores exactos", () => {
     const detail = outlookDetailFor({
       league: "nfl",
       home: { name: "Buffalo Bills" },
       away: { name: "Minnesota Vikings" },
     });
     expect(detail).not.toBeNull();
-    expect(detail!.markets.every((r) => r.group === "Ganador")).toBe(true);
+    expect(detail!.markets.some((r) => r.group === "Ganador" && !r.isDerived)).toBe(true);
+    expect(detail!.markets.some((r) => r.cardCategory === "handicap" && r.isDerived)).toBe(true);
+    expect(detail!.markets.some((r) => r.cardCategory === "goles" && r.isDerived)).toBe(true);
     expect(detail!.outlook.scorelines).toEqual([]);
   });
 });

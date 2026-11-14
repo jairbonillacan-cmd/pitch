@@ -8,6 +8,10 @@ import type { MatchOutlook, MarketOutlook } from "@pitchlab/spacetime";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui";
 import { LEAGUE_TO_V3, teamScore } from "./spacetime";
+import {
+  annotatePublishedRows,
+  buildDerivedOutlookExtras,
+} from "./outlook-derived-rows";
 
 /**
  * Panorama por mercado del motor v3.2 (`MatchOutlook`) para la ficha del partido.
@@ -110,8 +114,17 @@ export interface OutlookDetail {
 export function outlookDetailFor(game: TeamNames): OutlookDetail | null {
   const o = findOutlook(game);
   if (!o) return null;
-  const markets = o.markets.flatMap((m) => rowsOf(m, o, game));
-  if (markets.length === 0) return null;
+  const publishedMarkets = o.markets.flatMap((m) =>
+    annotatePublishedRows(
+      m.marketKey,
+      m.line,
+      m.headline.selection,
+      rowsOf(m, o, game),
+    ),
+  );
+  if (publishedMarkets.length === 0) return null;
+  const derivedExtras = buildDerivedOutlookExtras(o, game);
+  const markets = [...publishedMarkets, ...derivedExtras.rows];
 
   const result = o.marketsByKey["1x2"] ?? o.marketsByKey.moneyline ?? null;
   return {
@@ -130,12 +143,7 @@ export function outlookDetailFor(game: TeamNames): OutlookDetail | null {
             fairDecimal: result.headline.fairOdds.decimal,
           }
         : null,
-      scorelines: o.topScorelines.slice(0, 3).map((s) => ({
-        home: s.homeGoals,
-        away: s.awayGoals,
-        p: s.p,
-        fairDecimal: s.fairOdds.decimal,
-      })),
+      scorelines: derivedExtras.scorelines,
       quality: {
         flag: o.dataQuality.flag,
         coveragePct: Math.round(o.dataQuality.coverageRatio * 100),

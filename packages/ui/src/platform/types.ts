@@ -138,6 +138,13 @@ export interface PreGameIntel {
   isRedacted?: boolean;
 }
 
+export type MarketCardCategory =
+  | "resultado"
+  | "goles"
+  | "handicap"
+  | "marcador"
+  | "primer_tiempo";
+
 export interface PlatformMarketRow {
   group: string;
   market: string;
@@ -151,6 +158,14 @@ export interface PlatformMarketRow {
   /** Momio real de casa; `null` sin mercado verificado. */
   currentDecimal: number | null;
   edgePts: number | null;
+  /** `true` cuando la línea se deriva localmente con el motor v3.2. */
+  isDerived?: boolean;
+  /** Categoría agrupada en la pestaña «Mercados». */
+  cardCategory?: MarketCardCategory;
+  /** Subtítulo de tarjeta dentro de la categoría. */
+  cardTitle?: string;
+  /** `true` si es la opción con mayor probabilidad de su tarjeta. */
+  isMostLikely?: boolean;
 }
 
 /** Salida de PitchLab Spacetime Suite v3.0 para un partido (calculada en servidor). */
