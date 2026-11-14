@@ -278,7 +278,8 @@ export function LiveMatchPanel({ game }: { game: PlatformGame }): React.JSX.Elem
   const supported = game.sport !== "american-football" && game.league !== "nfl";
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
-  return <LiveMatchPanelView game={game} detail={snap.data} loading={snap.loading} error={snap.error} />;
+  // En la ficha, «Siguiendo» ya está en la barra superior: aquí no se repite.
+  return <LiveMatchPanelView game={game} detail={snap.data} loading={snap.loading} error={snap.error} showFollow={false} />;
 }
 
 // ---------- Marcador del día ----------

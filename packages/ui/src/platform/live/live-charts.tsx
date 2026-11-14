@@ -272,7 +272,15 @@ export function LiveStatBars({
   homeLabel: string;
   awayLabel: string;
 }): React.JSX.Element {
-  const rows = STAT_ROWS.filter((r) => stats.home[r.key] !== null || stats.away[r.key] !== null);
+  const rows = STAT_ROWS.filter((r) => {
+    const h = stats.home[r.key];
+    const a = stats.away[r.key];
+    if (h === null && a === null) return false;
+    // Al arrancar, la fuente reporta 0 % / 100 % de posesión: es ruido, no un dato.
+    if (r.pct && (!h || !a)) return false;
+    return true;
+  });
+  if (rows.length === 0) return <></>;
   const fmt = (v: number | null, r: (typeof STAT_ROWS)[number]) =>
     v === null ? "—" : r.pct ? `${Math.round(v)} %` : r.digits ? v.toFixed(r.digits) : String(Math.round(v));
   return (
