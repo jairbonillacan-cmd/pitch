@@ -2,7 +2,8 @@ import React from "react";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { asLeagueId } from "@pitchlab/contracts";
-import { MatchStudioClubView, PlatformGamesSupplement } from "@pitchlab/ui";
+import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
+import { MatchStudioClubView } from "@pitchlab/ui/match-studio";
 import { cortexSummary } from "../../../../../src/server/cortex";
 import {
   buildServerRawPlatformDataset,

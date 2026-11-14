@@ -32,10 +32,10 @@ import {
 } from "../components/MatchTicketCard";
 import { ConfidenceChip } from "../components/ConfidenceChip";
 import { CortexAnalysisCard } from "./match/CortexAnalysisCard";
-import { MatchCommunityPoll } from "./match/MatchCommunityPoll";
 import { MatchContextPanel } from "./match/MatchContextPanel";
 import { MatchMarketsGrid } from "./match/MatchMarketsGrid";
 import { MatchSimulator } from "./match/MatchSimulator";
+import { PreMatchModule } from "./match/PreMatchModule";
 import { PicksFinderClubView } from "./PicksFinderView";
 import { MatchOutlookStrip } from "../components/MatchOutlookStrip";
 import {
@@ -634,62 +634,18 @@ export function MatchStudioClubView({
           </div>
         </section>
 
-        {/* Análisis de Cortex IA a lo ancho, con alineaciones y dinero al costado */}
-        <section aria-label="Antes del partido" className="pl-studio-main">
+        {/* Módulo «Antes del partido»: bajas reales, pick congelado 60 min antes, votos y aviso */}
+        {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
+
+        {/* Análisis de Cortex IA a lo ancho, con pulso de dinero al costado */}
+        <section aria-label="Análisis y pulso de mercado" className="pl-studio-main">
           <CortexAnalysisCard
             game={game}
             synthesis={cortexSynthesisOverride ?? game.preGame.cortexSynthesis}
             unlocked={intelUnlocked}
           />
           <div className="pl-studio-side">
-          {/* 2) Alineaciones y Bajas 60m */}
-          <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5">
-            <div className="flex items-center justify-between gap-2">
-              <h2 className="m-0 text-sm font-extrabold">Alineaciones y bajas</h2>
-              <span className="pl-pill pl-pill--info text-[10px]">
-                {game.preGame.lineupStatusLabel}
-              </span>
-            </div>
-
-            {intelUnlocked && game.preGame.absences.length > 0 ? (
-              <div className="space-y-2">
-                {game.preGame.absences.slice(0, 3).map((item, idx) => {
-                  const pillTone =
-                    item.status === "Confirmado XI"
-                      ? "pl-pill pl-pill--success"
-                      : item.status === "Baja"
-                        ? "pl-pill pl-pill--danger"
-                        : "pl-pill pl-pill--warning";
-                  return (
-                    <div
-                      key={idx}
-                      className="rounded-xl p-2.5 text-xs"
-                      style={{ background: "var(--pl-surface)" }}
-                    >
-                      <div className="flex items-center justify-between gap-2 font-bold">
-                        <span className="truncate">{item.player}</span>
-                        <span className={`${pillTone} text-[10px] shrink-0`}>
-                          {item.status}
-                        </span>
-                      </div>
-                      <p
-                        className="m-0 mt-0.5 text-[11px]"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        {item.impactNote}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Bajas reportadas y estado de alineaciones disponibles con Pase PitchLab Ultra.
-              </p>
-            )}
-          </div>
-
-          {/* 3) ¿Dónde está el dinero? Quick Summary */}
+          {/* ¿Dónde está el dinero? Quick Summary */}
           {!flow ? (
             <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5" data-no-market="">
               <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
@@ -756,10 +712,9 @@ export function MatchStudioClubView({
           </div>
         </section>
 
-        {isFinished ? null : (
-          <section aria-label="Comunidad y simulación" className="pl-studio-duo">
-            <MatchCommunityPoll game={game} />
-            {intelUnlocked ? <MatchSimulator game={game} /> : null}
+        {isFinished || !intelUnlocked ? null : (
+          <section aria-label="Simulador de escenarios">
+            <MatchSimulator game={game} />
           </section>
         )}
 

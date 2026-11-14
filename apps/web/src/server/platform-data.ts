@@ -1,19 +1,19 @@
 import { cache } from "react";
-import {
-  buildPlatformDataset,
-  redactDatasetForVisitor,
-  type PaymentMode,
-  type PlatformDataset,
-  type PlatformGame,
-  type PlatformGameDetail,
-  type RawLeagueInput,
-  type ViewerIdentity,
-  type ViewerRole,
-  type ViewerVia,
-} from "@pitchlab/ui";
+import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
+import { buildPlatformDataset, type RawLeagueInput } from "@pitchlab/ui/picks-engine";
+import type {
+  PaymentMode,
+  PlatformDataset,
+  PlatformGame,
+  PlatformGameDetail,
+  ViewerIdentity,
+  ViewerRole,
+  ViewerVia,
+} from "@pitchlab/ui/platform";
 import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
+import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
 import {
   createDb,
@@ -208,11 +208,14 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
   }
   // Partido por jugar en el panorama v3.2: sus mercados y su resumen reemplazan a los del snapshot.
   const v32 = game.status !== "FT" ? outlookDetailFor(game) : null;
+  const frozenMainPick =
+    game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
   return {
     markets: v32?.markets ?? game.markets,
     headToHead: game.headToHead,
     factors: game.factors,
     outlook: v32?.outlook ?? null,
+    frozenMainPick,
   };
 }
 

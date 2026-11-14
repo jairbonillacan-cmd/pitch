@@ -557,6 +557,7 @@ export function PlatformProvider({
   paymentMode = "transfer",
   viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
+  initialWatchlistGameIds,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -571,6 +572,8 @@ export function PlatformProvider({
   viewerIdentity?: ViewerIdentity | null;
   /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
   serverMonth1NoCardMode?: boolean;
+  /** Partidos pre-cargados en vigilancia (pruebas y Storybook). */
+  initialWatchlistGameIds?: readonly string[];
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -641,7 +644,9 @@ export function PlatformProvider({
   );
 
   const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
-  const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
+  const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>(() =>
+    initialWatchlistGameIds ? [...initialWatchlistGameIds] : [],
+  );
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
     rawDataset.leagues.slice(0, 3).map((l) => l.league),
   );

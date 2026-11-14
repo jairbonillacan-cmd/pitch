@@ -33,6 +33,8 @@ export * from "./public/ReferralInviteSurface";
 
 export * from "./club/CoreMatchViews";
 export * from "./club/match/MatchMarketsGrid";
+export * from "./club/match/PreMatchModule";
+export * from "./club/match/pre-match-logic";
 export { HomeClubView } from "./club/home/HomeClubView";
 export { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
 export { PersonalParlayQuickBar } from "./club/PersonalParlayQuickBar";

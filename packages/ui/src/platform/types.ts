@@ -121,11 +121,44 @@ export interface LineupAbsenceItem {
   impactNote: string;
 }
 
+export interface ConfirmedLineupPlayer {
+  name: string;
+  number?: number;
+  position?: string;
+}
+
+export interface VerifiedMatchLineups {
+  /** Nombre visible de la fuente verificada que publicó el once oficial. */
+  sourceLabel: string;
+  /** Momento ISO UTC de verificación de la alineación oficial. */
+  verifiedAtUtc: string;
+  homeFormation?: string;
+  awayFormation?: string;
+  homeStarters: ConfirmedLineupPlayer[];
+  awayStarters: ConfirmedLineupPlayer[];
+}
+
+export interface FrozenMainPickSnapshot {
+  gameId: string;
+  pickId: string;
+  label: string;
+  categoryLabel: string;
+  marketGroup: string;
+  selectionKey: string;
+  p: number;
+  fairDecimal: number;
+  fairAmerican: number;
+  kickoffUtc: string;
+  freezeAtUtc: string;
+}
+
 export interface PreGameIntel {
   cortexSynthesis: string;
   tacticalKeys: string[];
   lineupStatusLabel: string;
   lineupsConfirmed60m: boolean;
+  /** Alineación oficial verificada; `null` o ausente mientras no exista fuente real activa. */
+  confirmedLineups?: VerifiedMatchLineups | null;
   /** Solo bajas reportadas por fuentes reales; vacío si no hay reporte. */
   absences: LineupAbsenceItem[];
   /** Reparto real del mercado; `null` si no hay datos de mercado. */
@@ -269,6 +302,8 @@ export interface PlatformGame {
 export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors"> & {
   /** Panorama por mercado del motor v3.2; `null` si el partido no está en el snapshot. */
   outlook?: MatchOutlookSummary | null;
+  /** Pick principal congelado 60 min antes del inicio (persistido en servidor si ya cruzó el umbral). */
+  frozenMainPick?: FrozenMainPickSnapshot | null;
 };
 
 /**

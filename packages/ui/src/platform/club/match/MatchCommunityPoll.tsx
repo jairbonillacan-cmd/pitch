@@ -1,9 +1,22 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useId, useState } from "react";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
+import { parseKickoffUtcMs } from "./pre-match-logic";
+
+export interface MatchCommunityPollProps {
+  game: PlatformGame;
+  /** Nivel de encabezado (`3` cuando vive dentro del módulo «Antes del partido»). */
+  headingLevel?: 2 | 3;
+  /** Integra la tarjeta dentro de un módulo contenedor sin duplicar marco pesado. */
+  embedded?: boolean;
+  /** Pick principal congelado para mantener la segunda pregunta alineada tras `T - 60 min`. */
+  mainPickOverride?: { label: string; p: number } | null;
+  /** Reloj opcional para pruebas deterministas y Storybook. */
+  nowOverride?: Date | number;
+}
 
 interface Tally {
   ganador: { home: number; draw: number; away: number };
@@ -22,14 +35,35 @@ function pct(n: number, total: number): number {
  * se ven después de votar (para no inducir el voto) junto a lo que dice el modelo. Con
  * cuenta se guarda en el servidor; con el PIN de la beta el voto queda solo en esta vista.
  */
-export function MatchCommunityPoll({ game }: { game: PlatformGame }): React.JSX.Element {
+export function MatchCommunityPoll({
+  game,
+  headingLevel = 2,
+  embedded = false,
+  mainPickOverride,
+  nowOverride,
+}: MatchCommunityPollProps): React.JSX.Element {
   const { hasAccountSession } = usePlatformCore();
+  const titleId = useId();
   const [tally, setTally] = useState<Tally>(EMPTY);
   const [error, setError] = useState<string>("");
   const [busy, setBusy] = useState(false);
   const isNfl = game.sport === "american-football";
-  const mainPick = game.picks[0];
-  const closed = game.status !== "NS" || Date.parse(game.kickoffUtc) <= Date.now();
+  const rawMainPick = game.picks[0] && !game.picks[0].isRedacted ? game.picks[0] : null;
+  const activeMainPick =
+    mainPickOverride !== undefined
+      ? mainPickOverride
+      : rawMainPick
+        ? { label: rawMainPick.label, p: rawMainPick.p }
+        : null;
+  const nowMs =
+    nowOverride === undefined
+      ? Date.now()
+      : typeof nowOverride === "number"
+        ? nowOverride
+        : nowOverride.getTime();
+  const kickoffMs = parseKickoffUtcMs(game.kickoffUtc);
+  const closed = game.status !== "NS" || (Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
+  const HeadingTag = headingLevel === 3 ? "h3" : "h2";
 
   useEffect(() => {
     if (!hasAccountSession) return;
@@ -89,12 +123,16 @@ export function MatchCommunityPoll({ game }: { game: PlatformGame }): React.JSX.
   const pickTotal = tally.pick.si + tally.pick.no;
 
   return (
-    <section className="pl-poll glass-card glass-ring" aria-labelledby="poll-title">
+    <section
+      className={embedded ? "pl-poll pl-poll--embedded" : "pl-poll glass-card glass-ring"}
+      aria-labelledby={titleId}
+      data-community-poll=""
+    >
       <header className="flex items-start justify-between gap-3">
-        <div>
-          <h2 id="poll-title" className="m-0 text-base font-extrabold">
+        <div className="min-w-0">
+          <HeadingTag id={titleId} className="m-0 text-base font-extrabold">
             La comunidad vota
-          </h2>
+          </HeadingTag>
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
             {closed ? "Votación cerrada: el partido ya empezó." : "Vota y compara con el modelo. Puedes cambiar tu voto hasta el inicio."}
           </p>
@@ -116,12 +154,12 @@ export function MatchCommunityPoll({ game }: { game: PlatformGame }): React.JSX.
         onVote={(k) => vote("ganador", k)}
       />
 
-      {mainPick ? (
+      {activeMainPick ? (
         <PollQuestion
-          title={`¿Se dará «${mainPick.label}»?`}
+          title={`¿Se dará «${activeMainPick.label}»?`}
           options={[
-            { key: "si", label: "Sí", votes: tally.pick.si, modelP: mainPick.p },
-            { key: "no", label: "No", votes: tally.pick.no, modelP: 1 - mainPick.p },
+            { key: "si", label: "Sí", votes: tally.pick.si, modelP: activeMainPick.p },
+            { key: "no", label: "No", votes: tally.pick.no, modelP: 1 - activeMainPick.p },
           ]}
           total={pickTotal}
           mine={tally.mine.pick}

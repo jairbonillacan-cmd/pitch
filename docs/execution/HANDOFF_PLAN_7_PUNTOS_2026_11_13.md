@@ -1,8 +1,8 @@
 # Handoff · Plan de 7 puntos (Récord, Insignias, Comunidad, Parlay del día, Mercados v3.2, Antes del partido, @handle sugerido)
 
-> **Fecha:** 2026-11-13
-> **Rama:** `mi_record_backend_api` (basada en `e3803e1`)
-> **Estado general:** Punto 1 (**Mi récord**) completado al 100 % en código, migración, API, UI, stories, pruebas unitarias y build (`≤ 319 kB` en toda la app); puntos 2 al 7 documentados con diseño cerrado (sesión de preguntas Q1–Q23) listos para ejecutar en orden al retomar en casa.
+> **Fecha:** 2026-11-13 (actualizado al cerrar el plan el 2026-11-14)
+> **Rama:** `gemini-reestructura`
+> **Estado general:** ✅ **Plan de 7 puntos completado (7/7):** Punto 1 (**Mi récord**), Punto 2 (**Insignias**), Punto 3 (**Comunidad**), Punto 4 (**Parlay del día**), Punto 5 (**Mercados derivados v3.2**), Punto 6 (**Antes del partido**) y Punto 7 (**`@usuario` sugerido en `/signup`**) implementados y verificados (`First Load JS ≤ 320 kB` en toda la app y `18/18` en Playwright).
 
 ---
 
@@ -113,12 +113,13 @@
   - **Prueba obligatoria de paridad:** test unitario que verifique que la matriz reproduce al decimal los mercados `1X2` y `totals` publicados por v3.2 (`|Δ| < 1e-9`).
   - **UI en la ficha del partido (`CoreMatchViews.tsx`):** agrupar la pestaña `Mercados` en tarjetas (`Resultado · Goles · Hándicap · Marcador · 1er tiempo`) resaltando la opción más probable de cada una.
 
-### Punto 6 · «Antes del partido»
+### Punto 6 · «Antes del partido» — ✅ hecho el 2026-11-14 (ver ANTES-PARTIDO-1 en `PROJECT_STATE.md`)
+- **Implementado:** `PreMatchModule.tsx` + `pre-match-logic.ts` (`@pitchlab/ui/pre-match`) + `apps/web/app/pre-match.css` + migración `0020_picks_congelados.sql` (`match_frozen_picks`) + `apps/web/src/server/frozen-picks.ts` + 10 stories en oscuro y claro (`pre-match.stories.tsx`) + pruebas unitarias/componente/DB/servidor + E2E `antes-del-partido.spec.ts` (`284 kB` First Load JS en `/app/[league]/games/[gameId]`).
 - **Reglas cerradas (Q20–Q21):**
   - Módulo activo horas antes del saque inicial en la ficha del partido (`CoreMatchViews.tsx` / `packages/ui/src/platform/club/match/`):
-    - Bajas/lesiones reportadas disponibles en el contexto del partido.
-    - Pick principal y probabilidad **congelados 1 h antes del inicio** (con sello horario claro).
-    - Integración con la encuesta de la comunidad (`MatchCommunityPoll`).
+    - Bajas/lesiones reportadas disponibles en el contexto del partido (o aviso honesto «Sin bajas reportadas en nuestras fuentes»).
+    - Pick principal y probabilidad **congelados 1 h antes del inicio** (con sello horario claro e inmutable tras cruzar `kickoff - 60 min`).
+    - Integración con la encuesta de la comunidad (`MatchCommunityPoll`, sin duplicarla fuera del módulo).
     - Botón opcional de alerta en la campana **60 min antes** (`toggleWatchlistGame`).
     - Ranura preparada para «Alineación confirmada» que **solo** se enciende cuando exista fuente real verificada (nunca inventada).
 
@@ -129,4 +130,4 @@
   - Al tocar un chip se rellena el campo en un toque, manteniendo el input editable.
 
 ### Antes de desplegar a producción (recordatorio operativo)
-- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`**, **`0017_mi_record_privacidad`**, **`0018_insignias_destacadas`** y **`0019_resultados_partido`**) antes de desplegar en Vercel.
+- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`**, **`0017_mi_record_privacidad`**, **`0018_insignias_destacadas`**, **`0019_resultados_partido`** y **`0020_picks_congelados`**) antes de desplegar en Vercel.

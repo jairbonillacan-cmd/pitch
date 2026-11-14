@@ -16,3 +16,4 @@ export * from "./preferences";
 export * from "./votes";
 export * from "./badges";
 export * from "./ranking";
+export * from "./frozen-picks";

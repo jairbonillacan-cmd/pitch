@@ -524,6 +524,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     lineupStatusLabel:
       match.status === "FT" ? "Partido finalizado" : "Alineaciones oficiales pendientes",
     lineupsConfirmed60m: false,
+    confirmedLineups: null,
     absences,
     moneyFlow,
   };

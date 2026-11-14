@@ -948,3 +948,32 @@ export const matchResults = pgTable(
     check("match_results_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
   ],
 );
+
+/**
+ * Pick principal congelado 60 minutos antes del saque inicial («Antes del partido»).
+ * Se escribe una sola vez por `game_id` (`ON CONFLICT DO NOTHING`) para que no cambie
+ * aunque el motor o los snapshots se recalculen después.
+ */
+export const matchFrozenPicks = pgTable(
+  "match_frozen_picks",
+  {
+    gameId: text("game_id").primaryKey(),
+    pickId: text("pick_id").notNull(),
+    pickLabel: text("pick_label").notNull(),
+    categoryLabel: text("category_label").notNull(),
+    marketGroup: text("market_group").notNull(),
+    selectionKey: text("selection_key").notNull(),
+    probability: numeric("probability", { precision: 6, scale: 5 }).notNull(),
+    fairDecimal: numeric("fair_decimal", { precision: 8, scale: 3 }).notNull(),
+    fairAmerican: integer("fair_american").notNull(),
+    kickoffAt: ts("kickoff_at").notNull(),
+    freezeAt: ts("freeze_at").notNull(),
+    frozenAt: ts("frozen_at").notNull().defaultNow(),
+  },
+  (t) => [
+    check("match_frozen_picks_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
+    check("match_frozen_picks_probability_ck", sql`${t.probability} > 0 AND ${t.probability} < 1`),
+    check("match_frozen_picks_fair_decimal_ck", sql`${t.fairDecimal} > 1`),
+    check("match_frozen_picks_freeze_window_ck", sql`${t.freezeAt} < ${t.kickoffAt}`),
+  ],
+);

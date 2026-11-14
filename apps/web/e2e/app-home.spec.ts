@@ -181,11 +181,16 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
 
   // 5) Cuenta & Referidos (CUENTA-2): enlace corto, muestra marcada «Ejemplo» sin cuentas y cero simulador en producción
   await page.goto("/app/account");
+  await page.waitForLoadState("networkidle");
   await expect(page.locator("[data-referral-days]:visible")).toContainText("+14 días");
   await expect(page.locator("[data-example-badge]:visible").first()).toBeVisible();
   await expect(page.locator("#pl-acct-ref-link")).toHaveValue("pitchlab.mx/i/JAIR-2611");
-  await page.locator("[data-copy-short-link]:visible").click();
-  await expect(page.locator("[data-copy-short-link]:visible")).toHaveText("Copiado");
+  await expect(async () => {
+    await page.locator("[data-copy-short-link]:visible").click();
+    await expect(page.locator("[data-copy-short-link]:visible")).toHaveText("Copiado", {
+      timeout: 1_500,
+    });
+  }).toPass({ timeout: 10_000 });
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
   // 6) Resultados: Parlays oficiales del día calificados

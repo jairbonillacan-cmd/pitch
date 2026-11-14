@@ -24,7 +24,11 @@
     "./record-stats": "./src/platform/record-stats.ts",
     "./badges": "./src/platform/badges.ts",
     "./ranking": "./src/platform/ranking.ts",
-    "./record": "./src/platform/club/BitacoraClubView.tsx"
+    "./record": "./src/platform/club/BitacoraClubView.tsx",
+    "./match-studio": "./src/platform/club/CoreMatchViews.tsx",
+    "./games-supplement": "./src/platform/platform-provider.tsx",
+    "./pre-match": "./src/platform/club/match/pre-match-logic.ts",
+    "./picks-engine": "./src/platform/match-picks-engine.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",
