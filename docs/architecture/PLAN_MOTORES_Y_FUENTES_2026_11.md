@@ -1,0 +1,91 @@
+# Plan de motores y fuentes de datos · noviembre 2026
+
+> **Fecha:** 2026-11-14 · **Base:** reportes de Astra en la rama `scrap` (`Reportes/analisis-astra/06`, `07`, `14` y `17`) y los motores de `packages/spacetime`.
+> **Configuración de claves:** `.env.example` (bloque «Proveedores de datos») y `services/ingest/src/providers/config.ts`. Prueba: `pnpm --filter @pitchlab/ingest providers:check`.
+
+## 1. Qué tomar de Astra y qué no
+
+| Tomar | Por qué | Cómo lo hacemos mejor |
+|---|---|---|
+| Un análisis IA por partido, generado en lote | Costo marginal $0 por lector | DeepSeek con JSON que dice explícitamente quién es local y quién visitante, más validador de números y roles antes de guardar (Astra invirtió local/visitante en el 20.7 % de la NFL con Haiku) |
+| Momios gratis del scoreboard de ESPN (DraftKings) para NBA, NFL, NHL y MLB | Línea de referencia sin pagar | Mostrar casa y hora de captura, quitar margen y comparar contra nuestra cuota justa |
+| Modelo propio de xG de NHL entrenado con el play-by-play gratuito de `api-web.nhle.com` | AUC 0.75 con 116 mil tiros | Igual, pero con portero confirmado (Astra tuvo 100 % de porteros sin confirmar) |
+| Separar 5v5, power play y penalty kill en NHL; portería vacía; Monte Carlo para OT/SO | Es lo más fino de su NHL | Sumarlo a Curvature |
+| MLB por tramos: abridor + bullpen con Binomial Negativa; mercado F5 | Abre primeras 5 entradas y run line | Sin sus 4 errores (ver §2.2) |
+| Córners, tarjetas y tiros con Binomial Negativa y árbitro con shrinkage | Bet Builder | Condicionados al marcador esperado; Astra solo mejora 1.8 % sobre la media |
+| Recalcular en `T-60` cuando hay alineación, portero o QB confirmado | Astra no lo hace (corre 24–72 h antes) | Ya tenemos el pick congelado a T-60; falta re-correr el modelo antes de congelar |
+
+**No tomar:** IDs del proveedor como llave (usar `match_id` propio + tabla de mapeo, como ya hace `mappings.ts`), hotlinking de escudos, `select *` hacia el cliente, guardar `context` del modelo en tablas públicas, ni polling desde cada navegador.
+
+## 2. Mejoras por motor (en orden de impacto)
+
+### 2.1 Fútbol (Spacetime v3.x)
+1. **Entrenar con xG por tiro de Bzzoiro** (gratis): reemplaza el xG estimado en ligas sin Understat, sobre todo Liga MX.
+2. **Bajas reales por jugador** (`unavailable_players` de Bzzoiro) en vez de solo conteo: ponderar por minutos y xG+xA del jugador.
+3. **Alineación confirmada a T-60** (Bzzoiro la trae ~1 h antes): enciende la ranura «Alineación confirmada» y re-corre el modelo antes de congelar el pick.
+4. **Córners y tarjetas**: históricos de córners/tarjetas y sus líneas de Bet365 (5Dollar, todos los planes) + árbitros (Bzzoiro). Binomial Negativa condicionada a `λH − λA`. Publicar solo en ligas donde gane a la climatología fuera de muestra.
+5. **Ancla de mercado sharp**: 5Dollar Ultra trae Pinnacle con apertura/cierre e historial tick desde 2014; sirve para CLV y para calibrar el blend. Con el plan gratis, Bet365 apertura/cierre ya permite medir CLV.
+6. **Benchmark gratis**: Bzzoiro publica predicciones Dixon-Coles con ancla de mercado. Úsalas solo como rival a vencer en el backtest, nunca como entrada.
+
+### 2.2 MLB (Kepler v3.0) · temporada inicia en marzo, hay tiempo de entrenar
+Hoy da solo carreras esperadas y moneyline. Falta:
+1. **Distribución de carreras** por tramo: abridor (`E[IP]` según su historial, soporta *openers*) y bullpen, con Binomial Negativa → abre F5, totales y run line.
+2. **Extra innings**: si empatan en la 9.ª, sumar las carreras con corredor fantasma (Astra no lo hace y subestima los Overs 2.5–4 pp).
+3. **FIP del bullpen separado** y fatiga del bullpen (lanzamientos de los últimos 3 días, del boxscore).
+4. **Splits zurdo/derecho** del lineup contra la mano del abridor.
+5. **Shrinkage** del pitcheo con poca muestra (`< 100 IP`) hacia xFIP/media de liga.
+6. **Localía calibrada** (~53.5 %) en vez de 50/50 en duelos parejos.
+
+### 2.3 NHL (Curvature v3.0)
+1. Portero **confirmado** la mañana del juego y re-cálculo automático.
+2. xG propio por tiro desde el play-by-play de `api-web.nhle.com` (coordenadas, tipo de tiro, `situationCode`).
+3. Separar 5v5 / PP / PK, portería vacía y Monte Carlo para OT/SO.
+4. Back-to-back y viaje.
+
+### 2.4 NBA (Tensor v3.0)
+1. **Descanso y back-to-back** (Astra lo tiene, nosotros no).
+2. Bajas ponderadas por impacto del jugador (BPM/EPM × minutos) en lugar de −0.85 fijo por baja.
+3. Bandera de incertidumbre cuando una estrella está *Questionable*.
+
+### 2.5 Conexión pendiente
+NBA, MLB, NHL y NCAAF ya predicen, pero **no salen como `MatchOutlook`** (solo fútbol y NFL). Ese cableado es lo primero, antes de cualquier mejora de modelo.
+
+## 3. Fuentes: qué usar, con qué plan y para qué
+
+| Fuente | Costo | Qué aporta | Uso comercial |
+|---|---|---|---|
+| **Bzzoiro** | $0 (Unlimited $5, WebSocket $7) | xG por tiro, alineaciones, bajas, árbitros, managers, stats de jugador, Liga MX, momio de consenso | Sí, para mostrar y entrenar; no redistribuir el dato crudo; escudos fuera de la licencia |
+| **5DollarFootballAPI** | Free $0 · Pro $5 · Ultra $25 | Córners, tarjetas, stats de equipo, momios Bet365 apertura/cierre; Pro = Liga MX; Ultra = 20 casas + historial tick | Sí; en planes de $0 hay que mostrar «Football data by 5DollarFootballAPI» con enlace |
+| **MLB Stats API** | $0, sin clave | Calendario, abridores probables, lineups, boxscore, play-by-play, splits, clima de estadio | Aviso de MLBAM: no comercial sin licencia → entrenar sí, mostrar en la app de pago no |
+| **NHL Web API** | $0, sin clave | Calendario, play-by-play con coordenadas, porteros, standings | Mismo criterio que MLB |
+| **ESPN público** (ya en uso) | $0 | Calendario, lesiones, momios DraftKings | API no documentada, sin licencia; ya está en `FREE_DATA_STRATEGY.md` |
+| **nflverse** (ya en uso) | $0 | EPA, histórico NFL | CC-BY 4.0, comercial con atribución |
+| **Open-Meteo** (ya en uso) | $0 | Clima | Gratis solo no comercial; para cobrar hay que pasar a su plan de pago (revisar precio vigente) |
+
+**Qué comprar primero, si se compra algo:** 5Dollar **Pro ($5)** por Liga MX con córners, tarjetas y momios Bet365. Luego **Ultra ($25)** cuando haga falta el historial de Pinnacle para calibrar. Bzzoiro Unlimited ($5) solo si se quieren casas por nombre. API-Football ($19) ya no hace falta si 5Dollar + Bzzoiro cubren Liga MX.
+
+## 4. MLB Stats API: qué pedir
+
+No hay registro ni clave. No hay nada que pedir para entrenar. Para **mostrar** datos de MLB en la app de pago hay que pedir a MLB Advanced Media una licencia de datos, o comprar un proveedor con licencia (Sportradar, SportsDataIO). Mientras tanto, los datos de MLB solo alimentan el modelo; lo que ve el usuario es nuestra probabilidad y cuota justa (salida derivada).
+
+Endpoints que usará el adaptador (base `MLB_STATSAPI_BASE_URL`, por defecto `https://statsapi.mlb.com/api`):
+
+| Para qué | Endpoint |
+|---|---|
+| Calendario con abridores, lineups, clima y estadio | `/v1/schedule?sportId=1&date=AAAA-MM-DD&hydrate=probablePitcher,lineups,weather,venue,team` |
+| Juego completo (boxscore, jugada a jugada, lanzamientos) | `/v1.1/game/{gamePk}/feed/live` |
+| Boxscore ligero (fatiga del bullpen) | `/v1/game/{gamePk}/boxscore` |
+| Stats de pitcher por temporada y splits vs zurdos/derechos | `/v1/people/{id}/stats?stats=season,statSplits&group=pitching&season=AAAA&sitCodes=vl,vr` |
+| Bateo del equipo con splits | `/v1/teams/{id}/stats?stats=season,statSplits&group=hitting&season=AAAA&sitCodes=vl,vr` |
+| Roster y lista de lesionados | `/v1/teams/{id}/roster?rosterType=40Man` y `/v1/transactions?startDate=…&endDate=…` |
+| Standings | `/v1/standings?leagueId=103,104&season=AAAA` |
+
+Reglas: una petición por segundo como máximo, caché en disco, `User-Agent` honesto (`PITCHLAB_DATA_USER_AGENT`) y nunca enlazar `mlbstatic.com` desde la app.
+
+## 5. Siguientes pasos
+
+1. Cargar `BZZOIRO_API_KEY` y `FIVEDOLLAR_FOOTBALL_API_KEY` en `.env.local` y correr `providers:check`.
+2. Adaptadores en `services/ingest/src/adapters/`: `bzzoiro.ts` (xG, alineaciones, bajas), `fivedollar.ts` (córners, tarjetas, momios), `mlb-statsapi.ts` y `nhl-web.ts`, todos con `source` por registro y mapeo a `match_id` propio.
+3. Históricos para entrenar en `research/prediction-lab` y backtest walk-forward contra el modelo actual.
+4. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
+5. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
