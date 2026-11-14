@@ -36,6 +36,7 @@ import { MatchContextPanel } from "./match/MatchContextPanel";
 import { MatchMarketsGrid } from "./match/MatchMarketsGrid";
 import { MatchSimulator } from "./match/MatchSimulator";
 import { PreMatchModule } from "./match/PreMatchModule";
+import { FollowControl, LiveMatchPanel } from "../live/LiveMatchCenter";
 import { PicksFinderClubView } from "./PicksFinderView";
 import { MatchOutlookStrip } from "../components/MatchOutlookStrip";
 import {
@@ -359,8 +360,6 @@ export function MatchStudioClubView({
     viewerRole,
     viewerIdentity,
     oddsFormat,
-    watchlistGameIds,
-    toggleWatchlistGame,
     setSelectedTipsterPickId,
     socialPosts,
     publishSocialPost,
@@ -390,7 +389,6 @@ export function MatchStudioClubView({
   const flow = game.preGame.moneyFlow;
   const isFinished = game.status === "FT" && game.score !== undefined;
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
-  const watched = watchlistGameIds.includes(game.id);
 
   const homePrimary =
     getTeamColors(game.league, game.home.slug)?.[0] ??
@@ -510,18 +508,7 @@ export function MatchStudioClubView({
             <span>Volver a {game.leagueLabel}</span>
           </a>
 
-          <button
-            type="button"
-            className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
-            onClick={() => toggleWatchlistGame(game.id)}
-          >
-            <MaestroIcon
-              name="bell"
-              size={13}
-              style={{ color: watched ? "var(--pl-brand)" : undefined }}
-            />
-            <span>{watched ? "En vigilancia" : "Vigilar partido"}</span>
-          </button>
+          {isFinished ? null : <FollowControl gameId={game.id} />}
         </div>
 
         {/* Cabecera Estelar de Radiografía del Partido */}
@@ -633,6 +620,9 @@ export function MatchStudioClubView({
             />
           </div>
         </section>
+
+        {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
+        <LiveMatchPanel game={game} />
 
         {/* Módulo «Antes del partido»: bajas reales, pick congelado 60 min antes, votos y aviso */}
         {isFinished ? null : <PreMatchModule game={game} detail={detail} />}

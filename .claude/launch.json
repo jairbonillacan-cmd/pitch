@@ -154,6 +154,21 @@
       "env": {
         "PITCHLAB_DIST_DIR": ".next-9999"
       }
+    },
+    {
+      "name": "storybook-6116",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/ui",
+        "exec",
+        "storybook",
+        "dev",
+        "-p",
+        "6116",
+        "--no-open"
+      ],
+      "port": 6116
     }
   ]
 }

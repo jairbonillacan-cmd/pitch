@@ -24,6 +24,7 @@ import { sanitizeCsvCell } from "./club/account/account-helpers";
 const STORAGE_KEYS = {
   journal: "pl-journal-v1",
   watchlist: "pl-watchlist-v1",
+  followAlerts: "pl-follow-alerts-v1",
   ownPosts: "pl-own-posts-v1",
 } as const;
 
@@ -109,6 +110,28 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
     note: row.note ?? undefined,
   };
+}
+
+export interface FollowAlerts {
+  kickoff: boolean;
+  goals: boolean;
+  final: boolean;
+}
+
+export const DEFAULT_FOLLOW_ALERTS: FollowAlerts = { kickoff: true, goals: true, final: true };
+
+function sanitizeFollowAlerts(raw: Record<string, unknown>): Record<string, FollowAlerts> {
+  const out: Record<string, FollowAlerts> = {};
+  for (const [gameId, value] of Object.entries(raw)) {
+    if (!/^[a-zA-Z0-9._-]{1,128}$/.test(gameId) || !value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    out[gameId] = {
+      kickoff: v.kickoff !== false,
+      goals: v.goals !== false,
+      final: v.final !== false,
+    };
+  }
+  return out;
 }
 
 async function getJson<T>(url: string): Promise<T | null> {
@@ -356,6 +379,9 @@ export interface PlatformContextValue {
 
   watchlistGameIds: string[];
   toggleWatchlistGame: (gameId: string) => void;
+  /** Avisos por partido de «Siguiendo» (inicio, goles, final). Sin entrada = todos encendidos. */
+  followAlerts: Record<string, FollowAlerts>;
+  setFollowAlerts: (gameId: string, alerts: FollowAlerts) => void;
   favoriteLeagues: LeagueId[];
   setFavoriteLeagues: (leagues: LeagueId[]) => void;
   riskPreference: RiskBand;
@@ -468,6 +494,7 @@ const ACTION_KEYS = [
   "ensureSocialPostLoaded",
   "reportSocialContent",
   "toggleWatchlistGame",
+  "setFollowAlerts",
   "setFavoriteLeagues",
   "setRiskPreference",
   "setUserTimezone",
@@ -647,6 +674,7 @@ export function PlatformProvider({
   const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>(() =>
     initialWatchlistGameIds ? [...initialWatchlistGameIds] : [],
   );
+  const [followAlerts, setFollowAlertsState] = useState<Record<string, FollowAlerts>>({});
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
     rawDataset.leagues.slice(0, 3).map((l) => l.league),
   );
@@ -788,6 +816,15 @@ export function PlatformProvider({
     if (savedJournal.length > 0) setJournal(savedJournal);
     const savedWatch = readStoredArray<string>(STORAGE_KEYS.watchlist, (v): v is string => typeof v === "string");
     if (savedWatch.length > 0) setWatchlistGameIds(savedWatch);
+    try {
+      const rawAlerts = window.localStorage.getItem(STORAGE_KEYS.followAlerts);
+      const parsedAlerts = rawAlerts ? (JSON.parse(rawAlerts) as unknown) : null;
+      if (parsedAlerts && typeof parsedAlerts === "object") {
+        setFollowAlertsState(sanitizeFollowAlerts(parsedAlerts as Record<string, unknown>));
+      }
+    } catch (err) {
+      void err;
+    }
     const ownPosts = readStoredArray<SocialPost>(STORAGE_KEYS.ownPosts, isOwnSocialPost);
     if (ownPosts.length > 0) {
       setSocialPosts((prev) => [...ownPosts, ...prev.filter((p) => !ownPosts.some((o) => o.id === p.id))]);
@@ -804,8 +841,15 @@ export function PlatformProvider({
     let active = true;
     setMemberReferralsLoaded(false);
     void (async () => {
-      const watch = await getJson<{ gameIds?: string[] }>("/api/me/watchlist");
+      const watch = await getJson<{ gameIds?: string[]; follows?: { gameId: string; alerts: FollowAlerts }[] }>(
+        "/api/me/watchlist",
+      );
       if (active && watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      if (active && Array.isArray(watch?.follows)) {
+        setFollowAlertsState(
+          sanitizeFollowAlerts(Object.fromEntries(watch.follows.map((f) => [f.gameId, f.alerts]))),
+        );
+      }
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
       if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
       const refs = await getJson<
@@ -841,6 +885,14 @@ export function PlatformProvider({
   useEffect(() => {
     if (userDataLoaded) writeStored(STORAGE_KEYS.watchlist, watchlistGameIds);
   }, [watchlistGameIds, userDataLoaded]);
+  useEffect(() => {
+    if (!userDataLoaded) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.followAlerts, JSON.stringify(followAlerts));
+    } catch (err) {
+      void err;
+    }
+  }, [followAlerts, userDataLoaded]);
   useEffect(() => {
     if (userDataLoaded && !socialOnServer) {
       writeStored(
@@ -1660,8 +1712,8 @@ export function PlatformProvider({
         const exists = prev.includes(gameId);
         pushToast(
           exists
-            ? "Partido retirado de tu vigilancia."
-            : "Partido en vigilancia: te avisaremos si aparece valor nuevo.",
+            ? "Dejaste de seguir este partido."
+            : "Siguiendo: te avisamos del inicio, los goles y el final.",
           "default",
         );
         if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
@@ -1669,6 +1721,15 @@ export function PlatformProvider({
       });
     },
     [pushToast, hasAccountSessionAuth],
+  );
+
+  const setFollowAlerts = useCallback(
+    (gameId: string, alerts: FollowAlerts) => {
+      setFollowAlertsState((prev) => ({ ...prev, [gameId]: alerts }));
+      setWatchlistGameIds((prev) => (prev.includes(gameId) ? prev : [...prev, gameId]));
+      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: true, alerts });
+    },
+    [hasAccountSessionAuth],
   );
 
   const simulateFriendFirstPayment = useCallback(() => {
@@ -1819,6 +1880,8 @@ export function PlatformProvider({
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,
+      followAlerts,
+      setFollowAlerts,
       favoriteLeagues,
       setFavoriteLeagues,
       riskPreference,
@@ -1904,6 +1967,8 @@ export function PlatformProvider({
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,
+      followAlerts,
+      setFollowAlerts,
       favoriteLeagues,
       setFavoriteLeagues,
       riskPreference,

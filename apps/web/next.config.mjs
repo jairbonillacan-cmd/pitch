@@ -57,6 +57,7 @@ const baseConfig = {
     "@pitchlab/contracts",
     "@pitchlab/db",
     "@pitchlab/emails",
+    "@pitchlab/ingest",
     "@pitchlab/sports-assets",
     "@pitchlab/spacetime",
     "@pitchlab/ui",

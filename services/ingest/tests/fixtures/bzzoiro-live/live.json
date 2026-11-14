@@ -1,0 +1,61 @@
+{
+ "count": 3,
+ "events": [
+  {
+   "id": 654339,
+   "league_id": 80,
+   "league_name": "Categoría Primera A",
+   "home_team_id": 3733,
+   "home_team": "Deportivo Cali",
+   "away_team_id": 781,
+   "away_team": "Deportes Tolima",
+   "event_date": "2026-11-14T20:30:00Z",
+   "status": "inprogress",
+   "period": "2nd_half",
+   "current_minute": 87,
+   "home_score": 2,
+   "away_score": 2,
+   "penalty_shootout": null,
+   "extra_time_score": null,
+   "home_score_ht": 1,
+   "away_score_ht": 0
+  },
+  {
+   "id": 7339,
+   "league_id": 9,
+   "league_name": "Brasileirão Serie A",
+   "home_team_id": 151,
+   "home_team": "Mirassol",
+   "away_team_id": 155,
+   "away_team": "Atlético Mineiro",
+   "event_date": "2026-11-14T21:30:00Z",
+   "status": "inprogress",
+   "period": "halftime",
+   "current_minute": 45,
+   "home_score": 0,
+   "away_score": 0,
+   "penalty_shootout": null,
+   "extra_time_score": null,
+   "home_score_ht": 0,
+   "away_score_ht": 0
+  },
+  {
+   "id": 602407,
+   "league_id": 19,
+   "home_team_id": 309,
+   "home_team": "Querétaro FC",
+   "away_team_id": 317,
+   "away_team": "CF Monterrey",
+   "event_date": "2026-11-14T23:00:00+00:00",
+   "status": "inprogress",
+   "period": "1st_half",
+   "current_minute": 34,
+   "home_score": 0,
+   "away_score": 1,
+   "penalty_shootout": null,
+   "extra_time_score": null,
+   "home_score_ht": null,
+   "away_score_ht": null
+  }
+ ]
+}

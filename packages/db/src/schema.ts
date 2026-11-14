@@ -102,8 +102,12 @@ export const watchlist = pgTable(
       .references(() => users.id, { onDelete: "cascade" }),
     gameId: text("game_id").notNull(),
     createdAt: createdAt(),
+    /** Avisos de «Siguiendo» (EN-VIVO-1, migración 0022). */
+    alertKickoff: boolean("alert_kickoff").notNull().default(true),
+    alertGoals: boolean("alert_goals").notNull().default(true),
+    alertFinal: boolean("alert_final").notNull().default(true),
   },
-  (t) => [primaryKey({ columns: [t.userId, t.gameId] })],
+  (t) => [primaryKey({ columns: [t.userId, t.gameId] }), index("watchlist_game_idx").on(t.gameId)],
 );
 
 export const userPreferences = pgTable(
@@ -991,5 +995,83 @@ export const matchFrozenPicks = pgTable(
     check("match_frozen_picks_probability_ck", sql`${t.probability} > 0 AND ${t.probability} < 1`),
     check("match_frozen_picks_fair_decimal_ck", sql`${t.fairDecimal} > 1`),
     check("match_frozen_picks_freeze_window_ck", sql`${t.freezeAt} < ${t.kickoffAt}`),
+  ],
+);
+
+/**
+ * EN-VIVO-1 (migración 0022). Id del proveedor ↔ id propio del partido. Las URLs y las demás
+ * tablas usan siempre `game_id`; el id del proveedor solo vive aquí.
+ */
+export const providerMatchLinks = pgTable(
+  "provider_match_links",
+  {
+    provider: text("provider").notNull(),
+    gameId: text("game_id").notNull(),
+    providerEventId: text("provider_event_id").notNull(),
+    method: text("method").notNull(),
+    linkedAt: ts("linked_at").notNull().defaultNow(),
+  },
+  (t) => [
+    primaryKey({ name: "provider_match_links_pk", columns: [t.provider, t.gameId] }),
+    uniqueIndex("provider_match_links_event_uidx").on(t.provider, t.providerEventId),
+    check("provider_match_links_provider_ck", sql`${t.provider} IN ('bzzoiro')`),
+    check("provider_match_links_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
+    check("provider_match_links_event_ck", sql`${t.providerEventId} ~ '^[0-9]{1,18}$'`),
+  ],
+);
+
+/**
+ * Caché compartida del lector en vivo: todas las instancias del servidor leen de aquí y solo una
+ * (la que toma el `refresh_lease_until`) consulta al proveedor. Guarda el estado ya normalizado,
+ * nunca el dato crudo del proveedor.
+ */
+export const liveFeedCache = pgTable(
+  "live_feed_cache",
+  {
+    cacheKey: text("cache_key").primaryKey(),
+    payload: jsonb("payload").notNull(),
+    fetchedAt: ts("fetched_at").notNull(),
+    freshUntil: ts("fresh_until").notNull(),
+    refreshLeaseUntil: ts("refresh_lease_until"),
+  },
+  (t) => [check("live_feed_cache_key_ck", sql`${t.cacheKey} ~ '^[a-z0-9:._-]{1,160}$'`)],
+);
+
+/** Peticiones del día por proveedor y lo que el proveedor dice que queda (`RateLimit`). */
+export const providerQuota = pgTable(
+  "provider_quota",
+  {
+    provider: text("provider").notNull(),
+    day: date("day").notNull(),
+    requests: integer("requests").notNull().default(0),
+    remaining: integer("remaining"),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    primaryKey({ name: "provider_quota_pk", columns: [t.provider, t.day] }),
+    check("provider_quota_requests_ck", sql`${t.requests} >= 0`),
+  ],
+);
+
+/** Momentos del partido detectados por el lector en vivo; alimentan los avisos de «Siguiendo». */
+export const liveMatchEvents = pgTable(
+  "live_match_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    gameId: text("game_id").notNull(),
+    kind: text("kind").notNull(),
+    side: text("side"),
+    minute: integer("minute"),
+    homeScore: integer("home_score").notNull(),
+    awayScore: integer("away_score").notNull(),
+    dedupeKey: text("dedupe_key").notNull().unique("live_match_events_dedupe_key_unique"),
+    occurredAt: ts("occurred_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("live_match_events_game_time_idx").on(t.gameId, t.occurredAt),
+    check("live_match_events_kind_ck", sql`${t.kind} IN ('kickoff', 'goal', 'halftime', 'final')`),
+    check("live_match_events_side_ck", sql`${t.side} IS NULL OR ${t.side} IN ('home', 'away')`),
+    check("live_match_events_scores_ck", sql`${t.homeScore} >= 0 AND ${t.awayScore} >= 0`),
+    check("live_match_events_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
   ],
 );

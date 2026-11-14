@@ -5,6 +5,7 @@ import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge, PBar } from "../../../sports";
 import { formatOddsValue, isPickUnlocked } from "../../access-guard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
+import { LiveScoreboardStrip } from "../../live/LiveMatchCenter";
 import { HomeMatchCard } from "../../components/HomeMatchCard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
@@ -496,6 +497,8 @@ export function HomeClubView(): React.JSX.Element {
             <span className="text-sm" style={{ color: "var(--pl-text-muted)" }}>{subtitle}</span>
           </div>
         </section>
+
+        <LiveScoreboardStrip />
 
         <DayStrip games={games} today={today} selected={day} onSelect={pickDay} />
         <SportLeaguePicker dayGames={dayGames} sport={sport} league={league} onSport={pickSport} onLeague={setLeague} />

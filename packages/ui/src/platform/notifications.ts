@@ -6,7 +6,7 @@
  * contenido se recalcule. Funciones puras: `now` entra como argumento.
  */
 import { formatOddsValue } from "./access-guard";
-import type { LeagueId } from "@pitchlab/contracts";
+import type { LeagueId, LiveScoreboardEntry } from "@pitchlab/contracts";
 import type { JournalEntry, OddsFormat, PlatformGame } from "./types";
 
 export type NotificationKind = "partidos" | "cuotas" | "picks" | "comunidad" | "resumen";
@@ -374,4 +374,110 @@ export function mergePlatformNotifications(
     .sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso))
     .slice(0, limit);
   return { items, serverReadIds };
+}
+
+/* ---------- Avisos en vivo de «Siguiendo» (EN-VIVO-1) ---------- */
+
+/** Fila de `GET /api/live/alerts` (momentos detectados por el lector en vivo del servidor). */
+export interface LiveAlertRow {
+  id: string;
+  gameId: string;
+  kind: "kickoff" | "goal" | "halftime" | "final";
+  side: "home" | "away" | null;
+  minute: number | null;
+  homeScore: number;
+  awayScore: number;
+  occurredAtIso: string;
+}
+
+export interface LiveAlertPrefs {
+  kickoff: boolean;
+  goals: boolean;
+  final: boolean;
+}
+
+export interface BuildLiveNotificationsInput {
+  /** Avisos del servidor (socios con cuenta). `null` = derivarlos del marcador (PIN de beta). */
+  alerts: readonly LiveAlertRow[] | null;
+  entries: readonly LiveScoreboardEntry[];
+  games: readonly PlatformGame[];
+  watchlistGameIds: readonly string[];
+  followAlerts: Readonly<Record<string, LiveAlertPrefs>>;
+  now: Date;
+  /** Hora de la última lectura del marcador (para fechar lo derivado). */
+  observedAtIso?: string | null;
+}
+
+function liveTitle(row: Pick<LiveAlertRow, "kind" | "side" | "homeScore" | "awayScore">, g: PlatformGame): string {
+  const line = `${g.home.shortName} ${row.homeScore}–${row.awayScore} ${g.away.shortName}`;
+  switch (row.kind) {
+    case "kickoff":
+      return `Empezó ${matchTitle(g)}`;
+    case "goal":
+      return `Gol de ${row.side === "away" ? g.away.shortName : g.home.shortName} · ${line}`;
+    case "halftime":
+      return `Medio tiempo · ${line}`;
+    case "final":
+      return `Final · ${line}`;
+  }
+}
+
+function allowed(kind: LiveAlertRow["kind"], prefs: LiveAlertPrefs): boolean {
+  if (kind === "kickoff") return prefs.kickoff;
+  if (kind === "final") return prefs.final;
+  return prefs.goals;
+}
+
+/**
+ * Avisos de inicio, gol, medio tiempo y final de los partidos seguidos. Con cuenta vienen del
+ * servidor (funcionan en cualquier dispositivo); con el PIN de beta se derivan del marcador.
+ * El id es el mismo en ambos casos (`live:<partido>:<momento>:<marcador>`) para que «leído» no se
+ * duplique al pasar de uno a otro.
+ */
+export function buildLiveNotifications(input: BuildLiveNotificationsInput): PlatformNotification[] {
+  const now = input.now.getTime();
+  const byId = new Map(input.games.map((g) => [g.id, g]));
+  const watched = new Set(input.watchlistGameIds);
+  const prefsFor = (gameId: string): LiveAlertPrefs =>
+    input.followAlerts[gameId] ?? { kickoff: true, goals: true, final: true };
+
+  const rows: LiveAlertRow[] = [];
+  if (input.alerts) {
+    rows.push(...input.alerts);
+  } else {
+    const at = input.observedAtIso ?? input.now.toISOString();
+    for (const e of input.entries) {
+      if (!watched.has(e.gameId) || e.phase === "scheduled" || e.phase === "unknown") continue;
+      const s = e.score ?? { home: 0, away: 0 };
+      const base = { gameId: e.gameId, minute: e.minute, homeScore: s.home, awayScore: s.away };
+      rows.push({ ...base, id: "", kind: "kickoff", side: null, homeScore: 0, awayScore: 0, occurredAtIso: e.kickoffUtc });
+      if (s.home + s.away > 0) rows.push({ ...base, id: "", kind: "goal", side: null, occurredAtIso: at });
+      if (e.phase === "halftime") rows.push({ ...base, id: "", kind: "halftime", side: null, occurredAtIso: at });
+      if (e.phase === "final") rows.push({ ...base, id: "", kind: "final", side: null, occurredAtIso: at });
+    }
+  }
+
+  const out: PlatformNotification[] = [];
+  for (const row of rows) {
+    const g = byId.get(row.gameId);
+    if (!g || !watched.has(row.gameId) || !allowed(row.kind, prefsFor(row.gameId))) continue;
+    const atMs = Date.parse(row.occurredAtIso);
+    const title =
+      row.kind === "goal" && row.side === null
+        ? `Gol · ${g.home.shortName} ${row.homeScore}–${row.awayScore} ${g.away.shortName}`
+        : liveTitle(row, g);
+    out.push({
+      id: `live:${row.gameId}:${row.kind}:${row.homeScore}-${row.awayScore}`,
+      kind: "partidos",
+      priority: row.kind === "goal" || row.kind === "final" ? "urgent" : "normal",
+      title,
+      context: {
+        text: `${row.minute !== null && row.kind === "goal" ? `Minuto ${row.minute} · ` : ""}${g.leagueLabel} · Siguiendo`,
+      },
+      atIso: clampToNow(Number.isNaN(atMs) ? now : atMs, now),
+      actionLabel: "Ver en vivo",
+      href: `/app/${g.league}/games/${g.id}`,
+    });
+  }
+  return out.sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso));
 }

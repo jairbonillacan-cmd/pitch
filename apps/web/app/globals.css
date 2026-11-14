@@ -41,6 +41,7 @@
 @import "./login-motion.css" layer(components);
 @import "./precio-motion.css" layer(components);
 @import "./pre-match.css" layer(components);
+@import "./live.css" layer(components);
 @import "./data-health.css" layer(components);
 
 @source "../../../packages/ui/src";

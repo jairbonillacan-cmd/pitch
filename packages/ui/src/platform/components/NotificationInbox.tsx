@@ -8,6 +8,7 @@
  */
 import React, { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
+  buildLiveNotifications,
   buildNotifications,
   formatBadgeCount,
   formatNotificationTime,
@@ -17,8 +18,10 @@ import {
   type NotificationGroup,
   type NotificationKind,
   type PlatformNotification,
+  type LiveAlertRow,
   type ServerSocialNotification,
 } from "../notifications";
+import { useLiveScoreboard } from "../live/live-store";
 import { usePlatform } from "../platform-provider";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 
@@ -163,6 +166,50 @@ function useSocialNotifications(enabled: boolean): readonly ServerSocialNotifica
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, [enabled]);
   return enabled ? rows : EMPTY_SOCIAL;
+}
+
+/* ---------- Avisos en vivo de «Siguiendo» ---------- */
+
+let liveAlertsSnapshot: readonly LiveAlertRow[] | null = null;
+let liveAlertsPromise: Promise<void> | null = null;
+const liveAlertsListeners = new Set<() => void>();
+
+function fetchLiveAlerts(): void {
+  if (liveAlertsPromise || typeof window === "undefined") return;
+  liveAlertsPromise = (async () => {
+    try {
+      const res = await fetch("/api/live/alerts", { credentials: "same-origin", signal: AbortSignal.timeout(8_000) });
+      if (!res.ok) return;
+      const data = (await res.json().catch(() => null)) as { alerts?: LiveAlertRow[] } | null;
+      if (data && Array.isArray(data.alerts)) {
+        liveAlertsSnapshot = data.alerts;
+        for (const fn of liveAlertsListeners) fn();
+      }
+    } catch (err) {
+      void err;
+    } finally {
+      liveAlertsPromise = null;
+    }
+  })();
+}
+
+function subscribeLiveAlerts(fn: () => void): () => void {
+  liveAlertsListeners.add(fn);
+  return () => {
+    liveAlertsListeners.delete(fn);
+  };
+}
+
+/**
+ * Con cuenta, los avisos vienen del servidor. Se vuelven a pedir solo cuando el marcador
+ * compartido trae una lectura nueva y hay un partido seguido en juego (sin sondeo propio).
+ */
+function useLiveAlerts(enabled: boolean, trigger: string | null): readonly LiveAlertRow[] | null {
+  const rows = useSyncExternalStore(subscribeLiveAlerts, () => liveAlertsSnapshot, () => null);
+  useEffect(() => {
+    if (enabled) fetchLiveAlerts();
+  }, [enabled, trigger]);
+  return enabled ? rows : null;
 }
 
 /** Reloj por minuto; `null` en el servidor y antes de montar (evita desajustes de hidratación). */
@@ -366,11 +413,18 @@ export function NotificationBell(): React.JSX.Element {
     hasAccountSessionAuth,
     viewerIdentity,
     navigateTo,
+    followAlerts,
   } = usePlatform();
   const socialEnabled = Boolean(hasAccountSessionAuth && viewerIdentity);
   const now = useMinuteClock();
   const localReadIds = useReadIds();
   const socialRows = useSocialNotifications(socialEnabled);
+  // El marcador compartido solo se escucha si sigues algún partido (cero sondeo si no).
+  const board = useLiveScoreboard(watchlistGameIds.length > 0);
+  const followedLive = (board.data?.entries ?? []).some(
+    (e) => watchlistGameIds.includes(e.gameId) && e.phase !== "scheduled",
+  );
+  const liveAlerts = useLiveAlerts(socialEnabled && watchlistGameIds.length > 0, followedLive ? board.data?.sourceFetchedAt ?? null : null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const uid = useId().replace(/:/g, "");
@@ -394,15 +448,29 @@ export function NotificationBell(): React.JSX.Element {
 
   const { items, effectiveReadIds } = useMemo(() => {
     if (!now) return { items: [] as PlatformNotification[], effectiveReadIds: localReadIds };
-    const derived = buildNotifications({
+    const live = buildLiveNotifications({
+      alerts: liveAlerts,
+      entries: board.data?.entries ?? [],
       games: dataset.games,
       watchlistGameIds,
-      journal,
-      favoriteLeagues,
-      oddsFormat,
+      followAlerts,
       now,
-      generatedAtIso: dataset.generatedAt,
+      observedAtIso: board.data?.sourceFetchedAt ?? null,
     });
+    const liveGames = new Set(live.map((n) => n.href));
+    const derived = [
+      ...live,
+      // El aviso «ya empezó» por reloj sobra cuando ya hay avisos en vivo de ese partido.
+      ...buildNotifications({
+        games: dataset.games,
+        watchlistGameIds,
+        journal,
+        favoriteLeagues,
+        oddsFormat,
+        now,
+        generatedAtIso: dataset.generatedAt,
+      }).filter((n) => !(n.id.startsWith("kickoff:") && liveGames.has(n.href))),
+    ].sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso));
     if (socialRows.length === 0) {
       return { items: derived, effectiveReadIds: localReadIds };
     }
@@ -420,6 +488,9 @@ export function NotificationBell(): React.JSX.Element {
     now,
     socialRows,
     localReadIds,
+    liveAlerts,
+    board.data,
+    followAlerts,
   ]);
 
   const count = unreadCount(items, effectiveReadIds);

@@ -282,7 +282,10 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
       }),
     );
     expect(watchlistOk.status).toBe(200);
-    expect(await watchlistOk.json()).toEqual({ gameIds: ["nfl-game-1"] });
+    expect(await watchlistOk.json()).toMatchObject({
+      gameIds: ["nfl-game-1"],
+      follows: [{ gameId: "nfl-game-1", alerts: { kickoff: true, goals: true, final: true } }],
+    });
   }, 60_000);
 
   it("SEC-05: apaga el PIN de beta en producción con cuentas activas o secretos de ejemplo y responde 403 en /api/beta/unlock", async () => {

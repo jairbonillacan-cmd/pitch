@@ -227,6 +227,9 @@ importers:
       '@pitchlab/emails':
         specifier: workspace:*
         version: link:../../packages/emails
+      '@pitchlab/ingest':
+        specifier: workspace:*
+        version: link:../../services/ingest
       '@pitchlab/spacetime':
         specifier: workspace:*
         version: link:../../packages/spacetime
