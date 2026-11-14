@@ -8,8 +8,143 @@
   "root_app_directory_sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
   "astra_first_party_directory_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
   "total_evidence_records": 83,
-  "wave1_mcp_records": [],
-  "wave1_cli_records": [],
+  "wave1_mcp_records": [
+    {
+      "evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+      "source": "MCP",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "scope": "Landing page https://astraanalisis.com/ anonymous initial reconnaissance (118 events, HTML, manifest, initial PostgREST & my_access queries)"
+    },
+    {
+      "evidence_id": "ev_87d52f5c34a65dd9f3669f452fc3fd0e3cbb89aa735d2471899965d48008996e",
+      "source": "MCP",
+      "operation": "analyze_javascript_application",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "Full directory Reportes/analisis-astra/app (26 files, root SHA-256 cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6, 205,723 AST nodes)"
+    },
+    {
+      "evidence_id": "ev_06e64c17364017f73c15a045e58ee4b196cf76f035801944f4802b98175dffcb",
+      "source": "MCP",
+      "operation": "analyze_javascript_application",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "Explicit source_paths over all 22 Expo Router route chunks (148,771 bytes, 44,694 AST nodes, 100% semantic coverage without truncation)"
+    },
+    {
+      "evidence_id": "ev_79b34436d8a68b8d8e0cfa57dfe273135f3851875b2be7776fe5408425768de5",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "Summary view of ev_06e64c17... (22/22 complete route chunks, 132 findings, 0 parse failures)"
+    },
+    {
+      "evidence_id": "ev_267a3a963e9c079e6c7afa2371070946d3c184e9f15b673df8a3603cac53ffd1",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "Module collection page (147 nodes) of ev_06e64c17..."
+    },
+    {
+      "evidence_id": "ev_ff621e6d81d0c2142b93fa36ded6127d0a25c95518366602854601c48dbfdb2f",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "javascript-routes (routes) view over 22 leaf route chunks"
+    },
+    {
+      "evidence_id": "ev_86f4effd51e3429c8818ae84f21084804c129fb851627eea5b10a17dbbdb282a",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "javascript-routes (summary) view over 22 leaf route chunks"
+    },
+    {
+      "evidence_id": "ev_056ff46d3093b4745ffe522786f74a58c01a7e31d8d0e2d4c58e9a54a110b878",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "javascript-routes (sources) view over 22 leaf route chunks"
+    },
+    {
+      "evidence_id": "ev_9128d949f1c6848ac0415f7e3c5ec6e730b5e713df6d1d5218bce46d86373799",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "javascript-routes (routes) view over ev_87d52f5c... (__common chunk static route literals)"
+    },
+    {
+      "evidence_id": "ev_2744fc1f92054aec44d95f63967705876973dd057392eda4779cee8c43db9559",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "scope": "Module inspection view over ev_87d52f5c..."
+    },
+    {
+      "evidence_id": "ev_56aa2d7c5b4019cb1248ab8fa63f39055c7f42f1e0a405b83390c196855bb432",
+      "source": "MCP",
+      "operation": "inspect_analysis_view",
+      "authority": "controlled-replay",
+      "confidence": "derived",
+      "scope": "Capture inspection view over initial landing scenario"
+    }
+  ],
+  "wave1_cli_records": [
+    {
+      "evidence_id": "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6",
+      "source": "CLI",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "file": "raw/02-authenticated-tour.json",
+      "scope": "Authenticated login at /cuenta (has_access: true, 7-day trial) + tour across /, /cuenta, /nba, /nfl, /nhl (14/14 steps completed)"
+    },
+    {
+      "evidence_id": "ev_fc43c6696ef7a62da591fe98b66a05d96f17be9fcbb4d51ab6e6d9c4c60b57d3",
+      "source": "CLI",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "file": "raw/03-futbol-summary.json",
+      "scope": "Authenticated Football deep dive (24 steps): Liga MX 1550951, Nations League 1528974, LaLiga2 1570024, Europa League 1636276 (predictions, analyses, astra_picks, match-odds, standings, league-standings, match_live, record_ai_view)"
+    },
+    {
+      "evidence_id": "ev_ae93e5b0dd674307ba47ef7bc3b4deb222bbd235d3dabb26bcfec8634219f46c",
+      "source": "CLI",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "file": "raw/04-us-sports-summary.json",
+      "scope": "Authenticated US Sports deep dive (32 steps, 0 dropped): NBA 401909980 & 401909296 (nba-players), NHL 2026020312 & 2026020310, NFL Sunday Nov 15 & Monday Nov 16, MLB offseason"
+    },
+    {
+      "evidence_id": "ev_b2082a83f40b298b1f62d60e156ccb00dfa1bb20161c30653505db326b4395e3",
+      "source": "CLI",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "file": "raw/05-equipos-institucional-summary.json",
+      "scope": "Authenticated Team Profiles, NFL Game 401873063, NBA player modal, /equipo/{futbol,nba,nhl,nfl}, /historial, /siguiendo, /cuenta, /nosotros, /privacidad, /terminos (50 steps)"
+    },
+    {
+      "evidence_id": "ev_b24b4829a5c7f11fb2e112bbe5fbe70dc4ff30a2a7546d50e6b0f7af41b1a064",
+      "source": "CLI",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "file": "raw/06-mlb-y-historial-summary.json",
+      "scope": "Authenticated MLB Dodgers /equipo/mlb/119 (MLB StatsAPI) + external unstored NFL match /historial/nfl/12/401873006 (10 steps)"
+    }
+  ],
   "wave2_records": [
     {
       "evidence_id": "ev_037006908ce6d24f5d7131089bcc18dee56fa5f9c85315b5878a0d9008d81d2e",
@@ -18,24 +153,6 @@
         "10-registro-evidencia-y-limitaciones.md",
         "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
         "evidence/rea-semantic-and-agentenv-audit.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_056ff46d3093b4745ffe522786f74a58c01a7e31d8d0e2d4c58e9a54a110b878",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "evidence/module-map.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_06e64c17364017f73c15a045e58ee4b196cf76f035801944f4802b98175dffcb",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "02-ux-diseno-y-funcionalidades-cliente.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/module-map.json"
       ]
     },
     {
@@ -88,21 +205,6 @@
       ]
     },
     {
-      "evidence_id": "ev_267a3a963e9c079e6c7afa2371070946d3c184e9f15b673df8a3603cac53ffd1",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "evidence/module-map.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_2744fc1f92054aec44d95f63967705876973dd057392eda4779cee8c43db9559",
-      "wave": 2,
-      "referenced_in": [
-        "evidence/database-and-api-contracts.json"
-      ]
-    },
-    {
       "evidence_id": "ev_2a82f5c631c847ecd194bdf3adc6b16caabd8c893e9fe876745eca14041eda54",
       "wave": 2,
       "referenced_in": [
@@ -147,21 +249,6 @@
         "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
         "evidence/code-secrets-and-anomalies.json",
         "evidence/rea-semantic-and-agentenv-audit.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "03-backend-supabase-y-esquema-bd.md",
-        "05-evidencia-runtime-y-payloads-reales.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/data-provenance-matrix.json",
-        "evidence/database-and-api-contracts.json",
-        "evidence/module-map.json",
-        "evidence/supabase-deep-surface.json",
-        "raw/02-authenticated-tour.json"
       ]
     },
     {
@@ -231,16 +318,6 @@
       ]
     },
     {
-      "evidence_id": "ev_56aa2d7c5b4019cb1248ab8fa63f39055c7f42f1e0a405b83390c196855bb432",
-      "wave": 2,
-      "referenced_in": [
-        "03-backend-supabase-y-esquema-bd.md",
-        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
-        "evidence/database-and-api-contracts.json",
-        "evidence/supabase-deep-surface.json"
-      ]
-    },
-    {
       "evidence_id": "ev_5c21a4284fd2d429eb0ea313bed55c8deecbbf88a84349e68039f733cf94e378",
       "wave": 2,
       "referenced_in": [
@@ -269,22 +346,6 @@
       "wave": 2,
       "referenced_in": [
         "evidence/rea-semantic-and-agentenv-audit.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "03-backend-supabase-y-esquema-bd.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
-        "evidence/data-provenance-matrix.json",
-        "evidence/database-and-api-contracts.json",
-        "evidence/module-map.json",
-        "evidence/rea-semantic-and-agentenv-audit.json",
-        "evidence/supabase-deep-surface.json",
-        "raw/01-landing-capture.json"
       ]
     },
     {
@@ -342,15 +403,6 @@
       ]
     },
     {
-      "evidence_id": "ev_79b34436d8a68b8d8e0cfa57dfe273135f3851875b2be7776fe5408425768de5",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "02-ux-diseno-y-funcionalidades-cliente.md",
-        "evidence/module-map.json"
-      ]
-    },
-    {
       "evidence_id": "ev_7d198d841d6e774499436b3e95fc8a750f6fb781c5039009dccaf0172648e8a5",
       "wave": 2,
       "referenced_in": [
@@ -382,14 +434,6 @@
       ]
     },
     {
-      "evidence_id": "ev_86f4effd51e3429c8818ae84f21084804c129fb851627eea5b10a17dbbdb282a",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "evidence/module-map.json"
-      ]
-    },
-    {
       "evidence_id": "ev_87450bf389d1032c88ea5ee67e8f082cc0025b26dd2e9a3aa520f2d7a59204ac",
       "wave": 2,
       "referenced_in": [
@@ -397,29 +441,10 @@
       ]
     },
     {
-      "evidence_id": "ev_87d52f5c34a65dd9f3669f452fc3fd0e3cbb89aa735d2471899965d48008996e",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "03-backend-supabase-y-esquema-bd.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/database-and-api-contracts.json",
-        "evidence/module-map.json"
-      ]
-    },
-    {
       "evidence_id": "ev_8d5623e725f298fdb1332373b985a7e2a8575c8be1fc81755a82cb069bb65db1",
       "wave": 2,
       "referenced_in": [
         "evidence/rea-semantic-and-agentenv-audit.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_9128d949f1c6848ac0415f7e3c5ec6e730b5e713df6d1d5218bce46d86373799",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "evidence/module-map.json"
       ]
     },
     {
@@ -477,16 +502,6 @@
       ]
     },
     {
-      "evidence_id": "ev_ae93e5b0dd674307ba47ef7bc3b4deb222bbd235d3dabb26bcfec8634219f46c",
-      "wave": 2,
-      "referenced_in": [
-        "05-evidencia-runtime-y-payloads-reales.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/supabase-deep-surface.json",
-        "raw/04-us-sports-summary.json"
-      ]
-    },
-    {
       "evidence_id": "ev_b09a16ba6f4b0343221fcc53af3b053ac9cc8cba87cd39988f67bfb7eca26214",
       "wave": 2,
       "referenced_in": [
@@ -497,28 +512,6 @@
         "evidence/code-secrets-and-anomalies.json",
         "evidence/rea-100-first-party-summary.json",
         "evidence/rea-semantic-and-agentenv-audit.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_b2082a83f40b298b1f62d60e156ccb00dfa1bb20161c30653505db326b4395e3",
-      "wave": 2,
-      "referenced_in": [
-        "05-evidencia-runtime-y-payloads-reales.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/data-provenance-matrix.json",
-        "evidence/supabase-deep-surface.json",
-        "raw/05-equipos-institucional-summary.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_b24b4829a5c7f11fb2e112bbe5fbe70dc4ff30a2a7546d50e6b0f7af41b1a064",
-      "wave": 2,
-      "referenced_in": [
-        "05-evidencia-runtime-y-payloads-reales.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/data-provenance-matrix.json",
-        "evidence/supabase-deep-surface.json",
-        "raw/06-mlb-y-historial-summary.json"
       ]
     },
     {
@@ -681,26 +674,6 @@
       "referenced_in": [
         "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
         "evidence/code-secrets-and-anomalies.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_fc43c6696ef7a62da591fe98b66a05d96f17be9fcbb4d51ab6e6d9c4c60b57d3",
-      "wave": 2,
-      "referenced_in": [
-        "05-evidencia-runtime-y-payloads-reales.md",
-        "10-registro-evidencia-y-limitaciones.md",
-        "evidence/data-provenance-matrix.json",
-        "evidence/database-and-api-contracts.json",
-        "evidence/supabase-deep-surface.json",
-        "raw/03-futbol-summary.json"
-      ]
-    },
-    {
-      "evidence_id": "ev_ff621e6d81d0c2142b93fa36ded6127d0a25c95518366602854601c48dbfdb2f",
-      "wave": 2,
-      "referenced_in": [
-        "01-arquitectura-frontend-y-rutas.md",
-        "evidence/module-map.json"
       ]
     },
     {

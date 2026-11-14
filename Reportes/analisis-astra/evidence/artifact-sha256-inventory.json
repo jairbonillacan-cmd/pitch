@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-14T19:32:00Z",
-  "total_files_in_dossier": 524,
-  "total_bytes_in_dossier_approx": 17295691,
+  "generated_at": "2026-11-14T19:43:00Z",
+  "total_files_in_dossier": 523,
+  "total_bytes_in_dossier_approx": 17296499,
   "root_app_directory_sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
   "astra_first_party_directory_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
   "tracked_primary_artifacts": 110,
@@ -243,8 +243,8 @@
     },
     {
       "path": "evidence/rea-evidence-ledger.json",
-      "bytes": 24999,
-      "sha256": "7e8a19d2e25822223563aba16d6c4e0b967ac5bbea87dce71fdd9ed6047b0260"
+      "bytes": 25610,
+      "sha256": "f0b4de8bf084c81bcbd7056c20f4f5feb88034c10d67b05f377636627dceaf17"
     },
     {
       "path": "evidence/rea-semantic-and-agentenv-audit.json",
