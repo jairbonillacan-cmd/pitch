@@ -1,0 +1,396 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/",
+    "query": []
+  },
+  "environment": {
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "device_scale_factor": 2
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom",
+      "storage"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history",
+      "storage"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 50000,
+      "max_event_allocation_bytes": 268435456,
+      "max_total_event_allocation_bytes": 536870912,
+      "max_network_transactions": 8192,
+      "max_network_body_bytes": 33554432,
+      "max_network_body_allocation_bytes": 268435456,
+      "max_network_header_allocation_bytes": 16777216,
+      "max_network_metadata_allocation_bytes": 16777216
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-mobile-trial-welcome",
+      "action": "wait_for_timeout",
+      "duration_ms": 3800
+    },
+    {
+      "step_id": "wait-close-trial-home",
+      "timeout_ms": 12000,
+      "action": "wait_for",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label='Cerrar anuncio']"
+      },
+      "state": "visible"
+    },
+    {
+      "step_id": "close-trial-home",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar anuncio"
+      }
+    },
+    {
+      "step_id": "wait-mobile-home-install-banner",
+      "action": "wait_for_timeout",
+      "duration_ms": 900
+    },
+    {
+      "step_id": "close-install-announcement",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar aviso de instalación"
+      }
+    },
+    {
+      "step_id": "wait-mobile-nba-banner",
+      "action": "wait_for_timeout",
+      "duration_ms": 900
+    },
+    {
+      "step_id": "close-nba-announcement",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar aviso de NBA"
+      }
+    },
+    {
+      "step_id": "wait-mobile-clean-home",
+      "action": "wait_for_timeout",
+      "duration_ms": 800
+    },
+    {
+      "step_id": "goto-mobile-partido-1550951",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/partido/1550951",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-partido-1550951",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "close-trial-partido",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar anuncio"
+      }
+    },
+    {
+      "step_id": "wait-mobile-partido-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 1000
+    },
+    {
+      "step_id": "click-mobile-partido-ai-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-mobile-partido-paywall",
+      "action": "wait_for_timeout",
+      "duration_ms": 1200
+    },
+    {
+      "step_id": "goto-mobile-juego-nba-401909296",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nba/401909296",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-nba-401909296",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "close-trial-nba-401909296",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar anuncio"
+      }
+    },
+    {
+      "step_id": "wait-mobile-nba-401909296-details",
+      "action": "wait_for_timeout",
+      "duration_ms": 1000
+    },
+    {
+      "step_id": "click-mobile-nba-401909296-ai",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-mobile-nba-401909296-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 1000
+    },
+    {
+      "step_id": "goto-mobile-juego-nba-401909980",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/nba/401909980",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-nba-401909980",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "close-trial-nba-401909980",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar anuncio"
+      }
+    },
+    {
+      "step_id": "click-mobile-nba-401909980-ai",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-mobile-nba-401909980-paywall",
+      "action": "wait_for_timeout",
+      "duration_ms": 1200
+    },
+    {
+      "step_id": "goto-mobile-juego-mlb-849810",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/juego/mlb/849810",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-mlb-849810",
+      "action": "wait_for_timeout",
+      "duration_ms": 3800
+    },
+    {
+      "step_id": "close-trial-mlb-849810",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Cerrar anuncio"
+      }
+    },
+    {
+      "step_id": "wait-mobile-mlb-849810-empty",
+      "action": "wait_for_timeout",
+      "duration_ms": 800
+    },
+    {
+      "step_id": "goto-mobile-instalar",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/instalar",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-instalar",
+      "action": "wait_for_timeout",
+      "duration_ms": 2800
+    },
+    {
+      "step_id": "click-mobile-install-button",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label='Instalar Astra AI']:not(:has(+ [aria-label='Mis partidos']))"
+      }
+    },
+    {
+      "step_id": "wait-mobile-install-modal",
+      "action": "wait_for_timeout",
+      "duration_ms": 1000
+    },
+    {
+      "step_id": "goto-mobile-cuenta-login",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/cuenta",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-cuenta-ready",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "fill-mobile-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-mobile-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-mobile-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-mobile-auth-home",
+      "action": "wait_for_timeout",
+      "duration_ms": 6000
+    },
+    {
+      "step_id": "goto-mobile-auth-partido-1550951",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/partido/1550951",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mobile-auth-partido",
+      "action": "wait_for_timeout",
+      "duration_ms": 4000
+    },
+    {
+      "step_id": "click-mobile-auth-partido-ai",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Análisis con IA"
+      }
+    },
+    {
+      "step_id": "wait-mobile-auth-partido-ai",
+      "action": "wait_for_timeout",
+      "duration_ms": 2000
+    }
+  ]
+}

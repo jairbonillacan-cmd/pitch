@@ -1,11 +1,14 @@
 {
   "target": "https://astraanalisis.com/",
+  "alternate_host": "https://astra-ai.expo.app/",
+  "sister_platform_discovered": "https://tipsterzone.org/t/astra (https://astraanalysisorg-astra.expo.app/)",
   "analyzed_at": "2026-11-14",
   "rea_version": "6.8.0",
   "skill_version": "49",
   "root_app_directory_sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
-  "total_evidence_records": 16,
-  "mcp_records": [
+  "astra_first_party_directory_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
+  "total_evidence_records": 83,
+  "wave1_mcp_records": [
     {
       "evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
       "source": "MCP",
@@ -95,7 +98,7 @@
       "scope": "Capture inspection view over initial landing scenario"
     }
   ],
-  "cli_records": [
+  "wave1_cli_records": [
     {
       "evidence_id": "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6",
       "source": "CLI",
@@ -140,6 +143,546 @@
       "confidence": "observed",
       "file": "raw/06-mlb-y-historial-summary.json",
       "scope": "Authenticated MLB Dodgers /equipo/mlb/119 (MLB StatsAPI) + external unstored NFL match /historial/nfl/12/401873006 (10 steps)"
+    }
+  ],
+  "wave2_records": [
+    {
+      "evidence_id": "ev_037006908ce6d24f5d7131089bcc18dee56fa5f9c85315b5878a0d9008d81d2e",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_06efb8f666defd84c48d1f8d085cfff66c39ce9d601529ffd12811e98a2f3d54",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_09ca3613e7465b12042d27ec51dc65d22879faacc836b9c52feec7dcd778ad35",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_0b9b4ca937598659b4d21df5a3cc6633c6024cf6b292e4caa1d39bd091990509",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json",
+        "raw/08-hidden-routes-flows-summary.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_1b3f88e87b4106020869c3079c2111548b75e3742deda9c9d13e9c71ca9aa92a",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_2419d91436d53ee14eadaf5ff8b8de8ff2996e4a98c3a9eaaa52f9af2bb5d0d3",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_2a82f5c631c847ecd194bdf3adc6b16caabd8c893e9fe876745eca14041eda54",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_2e4cb4ae18ee7040acb49d711f1dbb895119fb6777e5e0ea4ab58058d3d48b2a",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_330821a082ff440d87bef30ba438d8c82210a6c2bc5ccb73f95617607ede47f0",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_33fc56fdb2d7c15f24f5f80178722f61a879e003350e2193db5330cd772f62f0",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_35b1b248153a80021505881b0dd1604d6efe8ad593cacdbe54739b9ece77303d",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_3a751cc14748855d21603394b47e49dfcce01cf5a51186013e888fe45eedc17c",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_42eac5429af393c73488ea60b47eecd361d50db5b59ae212beeab8c78c86f18a",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_44b4cd0cec47b41d70d45172dc9ca8f412047c3593db6050b786d140bc2d42e5",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_4767a9f5792a4cb1e60c74351921dc5f1a96447d0bf9568e2ce0b07509e66813",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_4eeb11a34ac4ea21cbc3673c8a508474079b8fde6e148182df54a755256cdd5c",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_557cad9e34a874d4f40164a4adfff89946c9a31acd35e399fadb712ef994672e",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_55e3dbd9d2c1b52d72210042ac2928476117860fd45465e98b4ea1a7d7398318",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_5657ddb5971db038ca9b233b554b3ca1251e9b474383aa494d25ef74a8912b30",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_56684417ff30a6b644d1dd65c9c9dee1f9c59d7434fbbcaab9fc81a0fc232493",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/code-secrets-and-anomalies.json",
+        "evidence/rea-100-first-party-summary.json",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_5c21a4284fd2d429eb0ea313bed55c8deecbbf88a84349e68039f733cf94e378",
+      "wave": 2,
+      "referenced_in": [
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_62349ffbb1a2ab2730e4e5671eae6a3fedc2c2dccc88722f3b186368cd6128fe",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_642943aae80ac19a593dcde0c0cf1d907bc43a206781ca063f1fcfbde570b22a",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_643a3435d4e756eea9d00672d5bec25c075ee34178f7afcb40584a11e0fb6877",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_6a3a9d5d9f0d4ab0f31417a7b02358f22b6101987cc9b11ddea03c11857b4813",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_6a6a57bba0bd2fcc0cc929110578444abe7d875b40934c8a6b7e255d254ecb89",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_6c8a2beabfc5304d8fa8ee3d2684bd2a9f9bcf74c7eba9197b4ef182236d7c2e",
+      "wave": 2,
+      "referenced_in": [
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json",
+        "raw/07-mobile-unopened-summary.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_721bd9360d86353b5c6ea4466e2112edc392a61159d4361db9afc58a5a73d8e3",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_77c66f1c4d29c06bc7233b774962e4a39e5930400587a1b6e1dc4a848339142a",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_789f40b9900a304bd5609e0ae2bb119d6bcc3fc97fc4905d3b4a80dbbb71b67a",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_7d198d841d6e774499436b3e95fc8a750f6fb781c5039009dccaf0172648e8a5",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_7e937483016aa30a74594ac0330f21dea44206c059b0812b04e4fad63c87f9cd",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_7efc300325fca8439dfe6d591c94147428856ee990deea7597861a023d69fa41",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_7fa74f6c8278bdf8cd46740a2f8161d53fa415683794e53c6f45e3b5f2e7d026",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_87450bf389d1032c88ea5ee67e8f082cc0025b26dd2e9a3aa520f2d7a59204ac",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_8d5623e725f298fdb1332373b985a7e2a8575c8be1fc81755a82cb069bb65db1",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_94c24a77eab7715061e49be92c4a01c9dca072c35871a01e3dea812e93b459f2",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_9a34a3fe91662a8025fc1362a15afe654201a6992355671b29a2efacf3d8c1d2",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_9a570cd610d0b6c5b5f0a4f482ec5986c9018cfab52f5dfd7717a1ee1ae22cb8",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_9cc9d041a22380baa7775b9c60e0cc87d61f845e8996fcd07670a030d4ffa503",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_9fa97b206a21f4c442ca1ba8c7a447a1c95b5714993b39f53c5e8ef4b2b19766",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_a04025ae526f264ecd27dc9b1a3ca60fc14ac4c8028ee8a35d89c51377014a9a",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_a12c56444758b01159ebed0c2a3c6364203302485f6de6029af0290ea7b7412c",
+      "wave": 2,
+      "referenced_in": [
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_b09a16ba6f4b0343221fcc53af3b053ac9cc8cba87cd39988f67bfb7eca26214",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "14-auditoria-empirica-bd-calibracion-picks-y-alucinaciones.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/code-secrets-and-anomalies.json",
+        "evidence/rea-100-first-party-summary.json",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_b88bf00335551935ead6872e00d865edf0fe1f1a067989973ae777e6e9b1e65f",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_b9616be3f8de0d13ffa0e5da7696043ae14a2a7a817063039b4499c1e225d360",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_bb32bca0316332ea9977120a68cd4a4e58e8e3579b36016d77916e1423e6993c",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_bf4171cb84026d4fe450aaff78dcc866b2adf479748ba2e4372f30b4ad7039a4",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_c0c0d7f0281d0bf5c18f1960f63a759b52b887834bfbd61c8f1a5bed48ff348b",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_c4ae614568eea4187b57ac1de27977f46f55e97903829c340e371bc3c4216773",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_c7ab0ddf68a56e9119b8ec57de9f17bf154520aa83a0de89cc97ba72551032d1",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_d098b9b2c55ec561117d25a486c08e72b08d90f8548f09e9babc7eb6a520f80a",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+        "evidence/wave2-routes-and-mobile-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_df89ab63ba83b6b150be217d81ef82b739def62178ce380924df02af11a485d2",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_e572cc534777d16efe96f3b8de72766fdb3ccca5558ba7253c9897580fcc5c18",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_e5979de3b375a2cd17627ca77e33a08055b441229eeab930953399b1aa82ef28",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "15-infraestructura-expo-eas-dns-y-superficie-externa.md",
+        "evidence/infra-eas-osint-audit.json",
+        "raw/09-expo-host-redirect-summary.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_e94886e8e3aad4fbb18ea6fc2dcb0b6ed957b53bb2ccdec32a8179a0716903cb",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_ec2f26487f2a357b10ad709105de2cf59224789fc5ece61d6e7c68e5d4bc06e2",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_f0c2ce34cdbf2707cd4da658103aaf317bdc098a169fba05709051c9f2daffc5",
+      "wave": 2,
+      "referenced_in": [
+        "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+        "evidence/supabase-deep-surface.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_f1219184e190e9c73b5fc75b9b45e31d555962647a741360f96e317591aa74df",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_f62ec6967ae7ab982cd824cc8c9151fd2170a9157adb392ff2edda9207b1615d",
+      "wave": 2,
+      "referenced_in": [
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_f8005defccbcc5953cffdd66dfa58848e4c3ec5b1e051257cc8bfaa4ec1602c4",
+      "wave": 2,
+      "referenced_in": [
+        "10-registro-evidencia-y-limitaciones.md",
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_f91a76d9ab9404aaad2ca9ce997cdc8e99bfabe995d308fd9bc6713c6bdd6095",
+      "wave": 2,
+      "referenced_in": [
+        "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+        "evidence/code-secrets-and-anomalies.json"
+      ]
+    },
+    {
+      "evidence_id": "ev_ff903aee39d5fd42f6fd157d419ef9f6664f4260a1bfda7ca3ab75c7bc19532e",
+      "wave": 2,
+      "referenced_in": [
+        "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+        "evidence/rea-semantic-and-agentenv-audit.json"
+      ]
     }
   ]
 }

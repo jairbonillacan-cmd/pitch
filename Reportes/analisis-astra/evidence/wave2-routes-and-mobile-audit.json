@@ -1,0 +1,920 @@
+{
+  "metadata": {
+    "title": "Wave 2 Forensic Live Audit — Unopened Routes, Mobile Liquid-Glass UI & Interactive Flows (Astra AI)",
+    "target_origin": "https://astraanalisis.com",
+    "audit_date": "2026-11-14",
+    "timezone": "America/Mexico_City",
+    "tooling": {
+      "rea_cli": "rea-agents@6.8.0",
+      "provider": "rea-playwright-browser-scenario v1 + rea-cdp-browser v2",
+      "browser_engine": "Google Chrome / Chromium 157.0.8103.52"
+    },
+    "security_and_safety_compliance": {
+      "secret_injection": "Environment variable ASTRA_PASSWORD via REA secret_id 'astra_password'",
+      "jwt_or_refresh_tokens_on_disk": 0,
+      "passwords_on_disk": 0,
+      "eliminar_cuenta_interaction": "Strictly visual/DOM read-only (0 characters typed, 0 clicks on delete button)",
+      "payments_checkout_invocations": 0,
+      "payments_order_status_uuid_tested": "00000000-0000-0000-0000-000000000000",
+      "admin_guard_bypass_attempts": 0,
+      "admin_dashboard_rpc_calls_observed": 0
+    }
+  },
+  "rea_evidence_ids": [
+    {
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "operation": "capture_browser_scenario",
+      "scenario_name": "07 — Mobile Retina Viewport (390x844 @ 2x) Anonymous + Authenticated",
+      "input_file": "Reportes/analisis-astra/raw/07-mobile-unopened-input.json",
+      "summary_file": "Reportes/analisis-astra/raw/07-mobile-unopened-summary.json",
+      "scenario_sha256": "e8483c8c0492ff2c0c3555488570fcbd1a1d606a0d04870534b403fb33e8fc86",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "device_scale_factor": 2,
+        "rendered_png_px": "780x1688"
+      },
+      "steps_completed": "44/44",
+      "duration_ms": 64963,
+      "events_retained": 1886,
+      "events_dropped": 0,
+      "scope": "Anonymous mobile entry on /, LaunchSplash, TrialWelcome modal, AppAnnouncements -> NbaLaunchNotice cascade, 7-day DateStrip, GlassSportsBar Liquid Glass dock, direct fullscreen /partido/1550951 (+ anonymous Paywall $199 MXN), /juego/nba/401909296 (finished RLS bug), /juego/nba/401909980 (anonymous Paywall), /juego/mlb/849810, /instalar PWA flow + native beforeinstallprompt trigger, mobile login & authenticated /partido/1550951 AI forecast."
+    },
+    {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "operation": "capture_browser_scenario",
+      "scenario_name": "08 — Exhaustive Unopened Routes, Search, Populated /siguiendo & Historical MLB",
+      "input_file": "Reportes/analisis-astra/raw/08-hidden-routes-flows-input.json",
+      "summary_file": "Reportes/analisis-astra/raw/08-hidden-routes-flows-summary.json",
+      "scenario_sha256": "83fdc60c0046d9fdb335412a80365b04725dc1f383b91e8e3f8b0bc5789fe82f",
+      "viewport": {
+        "width": 1440,
+        "height": 1080,
+        "device_scale_factor": 1,
+        "rendered_png_px": "1440x1080"
+      },
+      "steps_completed": "58/58",
+      "duration_ms": 100296,
+      "events_retained": 3189,
+      "events_dropped": 0,
+      "scope": "Authenticated desktop flows: SearchBar on / ('monterrey', 'america' -> rpc/search_teams + dual fixtures queries), pinning leagues (astra.pinnedLeagues), following match 1570024 + 2 live metrics, populated /siguiendo + CompetitionSidebar 'Mis equipos' + AppUtilities strip, NBA search on /nba ('knicks' -> sport_teams + games), historical MLB (/mlb?fecha=2026-10-15, /mlb?fecha=2026-10-25, /mlb?juego=849810 vs /historial/mlb/119/849810), read-only /eliminar-cuenta, /pago/00000000-0000-0000-0000-000000000000 3x HTTP 404 polling, /administracion client guard (0 RPC calls), /confirmado + same-doc hash bug, /restablecer empty + invalid PKCE code (HTTP 400), and /ruta-oculta-no-existe-404 Unmatched Route."
+    },
+    {
+      "evidence_id": "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a",
+      "operation": "capture_browser_scenario",
+      "scenario_name": "09 — Cold-Mount /confirmado#error=... & Production /_sitemap Exposure",
+      "scenario_sha256": "7e1b5c6f14fdeb40ba18b27e251a0f6d4f0b6f365043a2fa2688e2bf598df560",
+      "viewport": {
+        "width": 1440,
+        "height": 1080,
+        "device_scale_factor": 1,
+        "rendered_png_px": "1440x1080"
+      },
+      "steps_completed": "6/6",
+      "duration_ms": 11644,
+      "events_retained": 211,
+      "events_dropped": 0,
+      "scope": "Cold document navigation to /confirmado#error=access_denied&error_description=Enlace+expirado (verifying 'El enlace ya no sirve' UI and URL hash persistence race condition) and clicking 'Sitemap' on /ruta-oculta-no-existe-404 to capture /_sitemap live in production."
+    },
+    {
+      "evidence_id": "ev_1b3f88e87b4106020869c3079c2111548b75e3742deda9c9d13e9c71ca9aa92a",
+      "operation": "capture_browser_scenario",
+      "scenario_name": "10 — /pago/[id] Anonymous Login Guard & 10s Terminal Error State",
+      "viewport": {
+        "width": 1440,
+        "height": 1080,
+        "device_scale_factor": 1,
+        "rendered_png_px": "1440x1080"
+      },
+      "steps_completed": "10/10",
+      "duration_ms": 26547,
+      "events_dropped": 0,
+      "scope": "Anonymous navigation to /pago/00000000-0000-0000-0000-000000000000 ('Entra con tu cuenta', 0 payments calls) followed by login and 10s wait on /pago/00000000-0000-0000-0000-000000000000 capturing terminal 'error' state ('No pudimos revisar tu pago') after 3 consecutive HTTP 404 responses."
+    },
+    {
+      "evidence_id": "ev_5c21a4284fd2d429eb0ea313bed55c8deecbbf88a84349e68039f733cf94e378",
+      "operation": "compare_web_screenshots",
+      "before_screenshot": "17-movil-home-anuncio-instalar-y-dock.png",
+      "after_screenshot": "18-movil-home-anuncio-nba-y-dock.png",
+      "before_sha256": "0bf6f9869d2b4da12bfc03d5792578fd05f420066e01637e9f805a0f288acbc4",
+      "after_sha256": "f2ae1a48c0879707f3838cf81c7be46d09ed4c0fa10c677367b90b0d2d931d21",
+      "dimensions": "780x1688",
+      "status": "different",
+      "compared_pixels": 1316640,
+      "changed_pixels": 543102,
+      "changed_ratio": 0.41249088589135985,
+      "finding": "Quantifies the sequential announcement cascade on mobile / when dismissing AppAnnouncements ('Instala Astra AI') reveals NbaLaunchNotice ('Nuestra IA de NBA ya llegó') and shifts the match list upward."
+    },
+    {
+      "evidence_id": "ev_6c8a2beabfc5304d8fa8ee3d2684bd2a9f9bcf74c7eba9197b4ef182236d7c2e",
+      "operation": "compare_web_screenshots",
+      "before_screenshot": "35-confirmado-correo-exito.png",
+      "after_screenshot": "Scenario 08 step 51 same-document /confirmado#error=access_denied...",
+      "before_sha256": "22c0b516dc6cc2a26e9cae13fc4525dbde6e2af8ff3819d664449533395f4b9a",
+      "after_sha256": "22c0b516dc6cc2a26e9cae13fc4525dbde6e2af8ff3819d664449533395f4b9a",
+      "dimensions": "1440x1080",
+      "status": "identical",
+      "compared_pixels": 1555200,
+      "changed_pixels": 0,
+      "changed_ratio": 0,
+      "finding": "Mathematically proves that mod_0756 ignores same-document #hash changes because its URL parser runs only inside useEffect(..., []) on initial mount without a hashchange listener."
+    },
+    {
+      "evidence_id": "ev_a12c56444758b01159ebed0c2a3c6364203302485f6de6029af0290ea7b7412c",
+      "operation": "compare_web_screenshots",
+      "before_screenshot": "35-confirmado-correo-exito.png",
+      "after_screenshot": "36-confirmado-error-enlace-expirado.png",
+      "before_sha256": "22c0b516dc6cc2a26e9cae13fc4525dbde6e2af8ff3819d664449533395f4b9a",
+      "after_sha256": "888e0602835401b8b6701c20787d790bf7b3eb463bd247cb4a4e15726b56b08e",
+      "dimensions": "1440x1080",
+      "status": "different",
+      "compared_pixels": 1555200,
+      "changed_pixels": 37164,
+      "changed_ratio": 0.023896604938271605,
+      "finding": "Confirms visual transition from 'Correo confirmado' to 'El enlace ya no sirve' + 'Solicitar un nuevo correo de confirmación' when /confirmado#error=access_denied... is cold-mounted."
+    }
+  ],
+  "wave1_corrections": [
+    {
+      "topic": "Stack.Screen declarations in mod_0754 (app/_layout.tsx)",
+      "wave1_claim": "Report 01 §5.3 claimed 15 explicit Stack.Screen declarations with per-screen animation='fade' and stated 'instalar' lacked an explicit Stack.Screen.",
+      "wave2_verified_fact": "mod_0754_RootLayout.js explicitly declares all 16 Stack.Screen entries — INCLUDING (t.Stack.Screen, {name: 'instalar'}) — under a single global screenOptions={{headerShown: false, contentStyle: {backgroundColor: '#0B0F10'}, animation: 'slide_from_right'}}."
+    },
+    {
+      "topic": "Client-side guard message on /administracion (mod_0755)",
+      "wave1_claim": "Report 01 §5.2 stated mod_0755 displays 'No disponible' when isDashboardOwner(email) fails.",
+      "wave2_verified_fact": "Both mod_0755_AdminDashboardRoute.js and live screenshot 34-administracion-acceso-restringido.png confirm the exact rendered UI is Title: 'Acceso restringido' and Body: 'Este panel es exclusivo de la cuenta administradora.' with 0 calls to rpc/admin_dashboard."
+    },
+    {
+      "topic": "URL hash cleanup on /confirmado (mod_0756)",
+      "wave1_claim": "Report 01 §5.2 assumed window.history.replaceState cleanly strips #error=... from the browser URL.",
+      "wave2_verified_fact": "Live REA capture ev_dbc43f3c... proves #error=access_denied&error_description=Enlace+expirado remains in window.location after cold mount (Expo Router's initial linking synchronization overwrites mod_0756's early replaceState), and ev_6c8a2bea... proves SPA hash navigation never triggers the mount-only useEffect at all."
+    },
+    {
+      "topic": "Football team search RPC parameter name (mod_0776)",
+      "wave1_claim": "Inferred parameter naming conventions (p_* like p_sport / p_section).",
+      "wave2_verified_fact": "POST /rest/v1/rpc/search_teams takes {\"q\": \"<term>\"} (not p_query), whereas record_ai_view and admin_dashboard use p_* prefixed parameters."
+    }
+  ],
+  "routes_matrix": [
+    {
+      "module_id": "mod_0754",
+      "source_file": "./_layout.tsx",
+      "url_pattern": "(Root Layout)",
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "Mounts SafeAreaProvider -> AuthProvider -> FollowedProvider -> InstallProvider -> Stack (16 screens) + TrialWelcome + LaunchSplash (2000ms).",
+      "mobile_behavior": "Identical provider tree; LaunchSplash and TrialWelcome adapt to 390x844 (maxWidth: 440 card).",
+      "wave2_screenshots": ["15-movil-launch-splash.png", "16-movil-trial-welcome-modal.png"]
+    },
+    {
+      "module_id": "mod_0748",
+      "source_file": "./(tabs)/_layout.tsx",
+      "url_pattern": "(Tabs Group Layout)",
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "width >= 1024px: Renders topbar (AstraLogo, SearchBar, InstallButton, StarIcon /siguiendo, AboutButton, AccountButton), horizontal 5-sport nav bar, TrendingMatches, AppAnnouncements, AppUtilities, and 3-column MatchWorkspace.",
+      "mobile_behavior": "width < 1024px: Wraps content in BlurTargetView (AppAnnouncements, AppUtilities, Slot) and overlays floating GlassSportsBar (height 78, borderRadius 42, blur 26px saturate 165%) + bottom italic credit.",
+      "wave2_screenshots": ["17-movil-home-anuncio-instalar-y-dock.png", "18-movil-home-anuncio-nba-y-dock.png"]
+    },
+    {
+      "module_id": "mod_0749",
+      "source_file": "./(tabs)/index.tsx",
+      "url_pattern": "/",
+      "query_params_tested": ["?fecha=YYYY-MM-DD", "?partido=1570024", "SearchBar ('monterrey', 'america')"],
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "3-pane workspace (CompetitionSidebar + LeagueSection list + embedded MatchDetail). DateStrip shows ‹ date › steppers.",
+      "mobile_behavior": "Single-column list (maxWidth: 680px), inline SearchBar, 7-day horizontal DateStrip [today-3..today+3], tapping match pushes /partido/[id].",
+      "wave2_screenshots": ["17-movil-home-anuncio-instalar-y-dock.png", "18-movil-home-anuncio-nba-y-dock.png", "25-busqueda-futbol-monterrey.png", "26-seguimiento-estadisticas-activo.png"]
+    },
+    {
+      "module_id": "mod_0750",
+      "source_file": "./(tabs)/mlb.tsx",
+      "url_pattern": "/mlb",
+      "query_params_tested": ["?fecha=2026-10-15", "?fecha=2026-10-25", "?juego=849810"],
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "Queries games?sport=eq.mlb for selected UTC day; historical Oct 2026 dates return [] ('Aún no hay partidos de MLB con pronóstico de IA para este día.'); ?juego=849810 renders 'Juego no encontrado.' in right pane.",
+      "mobile_behavior": "Single-column SportScreen('mlb') with 7-day DateStrip and GlassSportsBar.",
+      "wave2_screenshots": ["29-mlb-juego-historico-no-almacenado.png"]
+    },
+    {
+      "module_id": "mod_0751",
+      "source_file": "./(tabs)/nba.tsx",
+      "url_pattern": "/nba",
+      "query_params_tested": ["?juego=401909296", "SearchBar ('knicks')"],
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "2-pane SportScreen('nba'); SearchBar queries sport_teams ilike '%knicks%' + upcoming games >= now-6h.",
+      "mobile_behavior": "Single-column NBA schedule; tapping game pushes /juego/nba/[id].",
+      "wave2_screenshots": ["28-busqueda-nba-knicks.png"]
+    },
+    {
+      "module_id": "mod_0752",
+      "source_file": "./(tabs)/nfl.tsx",
+      "url_pattern": "/nfl",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 (?fecha=2026-11-15, ?fecha=2026-11-16, ?juego=401873063).",
+      "mobile_behavior": "Shares SportScreen('nfl') architecture verified in mobile NBA/MLB.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0753",
+      "source_file": "./(tabs)/nhl.tsx",
+      "url_pattern": "/nhl",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 (?juego=2026020312, ?juego=2026020310).",
+      "mobile_behavior": "Shares SportScreen('nhl') architecture verified in mobile NBA/MLB.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0765",
+      "source_file": "./partido/[id].tsx",
+      "url_pattern": "/partido/:id",
+      "params_tested": ["/partido/1550951 (anonymous + authenticated)"],
+      "tested_in_wave1": "Redirect only",
+      "tested_in_wave2": true,
+      "desktop_behavior": "Redirects via <Redirect href='/?partido=:id' /> when width >= 1024px.",
+      "mobile_behavior": "FIRST LIVE RENDER IN WAVE 2: Fullscreen Stack screen outside (tabs) — no redirect, no GlassSportsBar, top back button + ShareButton + FollowButton, 3 tabs (Detalles, Estadísticas, Análisis con IA), anonymous Paywall ($199 MXN) vs authenticated AI forecast.",
+      "wave2_screenshots": ["19-movil-partido-fullscreen-detalles.png", "20-movil-partido-paywall-anonimo.png", "24-movil-partido-ia-autenticado.png"]
+    },
+    {
+      "module_id": "mod_0762",
+      "source_file": "./juego/[sport]/[id].tsx",
+      "url_pattern": "/juego/:sport/:id",
+      "params_tested": ["/juego/nba/401909296", "/juego/nba/401909980", "/juego/mlb/849810"],
+      "tested_in_wave1": "Redirect only",
+      "tested_in_wave2": true,
+      "desktop_behavior": "Redirects via <Redirect href='/:sport?juego=:id' /> when width >= 1024px.",
+      "mobile_behavior": "FIRST LIVE RENDER IN WAVE 2: Fullscreen SportDetail outside (tabs). Revealed anonymous RLS bug on finished game 401909296 ('Este partido no tuvo pronóstico previo registrado' instead of Paywall), proper Paywall on upcoming 401909980, and 'Juego no encontrado.' on unindexed MLB 849810.",
+      "wave2_screenshots": ["21-movil-juego-nba-fullscreen.png"]
+    },
+    {
+      "module_id": "mod_0759",
+      "source_file": "./equipo/[sport]/[id].tsx",
+      "url_pattern": "/equipo/:sport/:id",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 across all 5 sports + invalid 'football' slug.",
+      "mobile_behavior": "Uses responsive PageFrame maxWidth=720.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0760",
+      "source_file": "./historial/[sport]/[teamId]/[matchId].tsx",
+      "url_pattern": "/historial/:sport/:teamId/:matchId",
+      "params_tested": ["/historial/mlb/119/849810"],
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "Wave 2 verified MLB historical game 849810 (Dodgers 4 - 6 Brewers NLCS): team-profile returns stored=false with full MLB StatsAPI 9-inning momentum, 17 batting/pitching/fielding metrics, and play-by-play scoring events.",
+      "mobile_behavior": "Uses responsive PageFrame maxWidth=720.",
+      "wave2_screenshots": ["30-historial-mlb-dodgers-nlcs.png"]
+    },
+    {
+      "module_id": "mod_0768",
+      "source_file": "./siguiendo.tsx",
+      "url_pattern": "/siguiendo",
+      "tested_in_wave1": "Empty state only",
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST POPULATED RENDER IN WAVE 2: PageFrame maxWidth=560 displaying followed fixture 1570024 (Valladolid 0 - 1 Castellón), live-polled metrics (Goles esperados xG 0.82 vs 1.76, Pases completados 324 vs 453), removable chips, and 'Actualizar marcadores' button.",
+      "mobile_behavior": "Identical PageFrame maxWidth=560 reachable via AppUtilities 'Mis partidos' pill.",
+      "wave2_screenshots": ["27-siguiendo-poblado-metricas.png"]
+    },
+    {
+      "module_id": "mod_0757",
+      "source_file": "./cuenta.tsx",
+      "url_pattern": "/cuenta",
+      "tested_in_wave1": true,
+      "tested_in_wave2": true,
+      "desktop_behavior": "Login / Signup 18+ / Profile / Subscription card.",
+      "mobile_behavior": "Tested live in Scenario 07 for mobile authentication.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0764",
+      "source_file": "./pago/[id].tsx",
+      "url_pattern": "/pago/:id",
+      "params_tested": ["/pago/00000000-0000-0000-0000-000000000000 (anonymous + authenticated)"],
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Anonymous shows 'Entra con tu cuenta' (0 API calls). Authenticated polls POST /functions/v1/payments {action:'order_status', order_id} every 3000ms; dummy UUID returns HTTP 404 {'error':'Orden no encontrada.'} 3 times ('Revisando tu pago' -> 'No pudimos revisar tu pago' after 3rd failure at ~6.8s).",
+      "mobile_behavior": "Identical PageFrame maxWidth=440.",
+      "wave2_screenshots": ["32-pago-revisando-polling.png", "33-pago-uuid-inexistente-resultado.png", "40-pago-anonimo-guarda-login.png"]
+    },
+    {
+      "module_id": "mod_0756",
+      "source_file": "./confirmado.tsx",
+      "url_pattern": "/confirmado",
+      "params_tested": ["/confirmado", "/confirmado#error=access_denied&error_description=Enlace+expirado (same-doc + cold mount)"],
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Renders 'Correo confirmado' without error params; cold-mounting #error=access_denied renders 'El enlace ya no sirve' + 'Solicitar un nuevo correo de confirmación', but URL hash persists due to Expo Router linking sync; same-doc hash navigation fails to update state (0px diff).",
+      "mobile_behavior": "Identical PageFrame maxWidth=440.",
+      "wave2_screenshots": ["35-confirmado-correo-exito.png", "36-confirmado-error-enlace-expirado.png"]
+    },
+    {
+      "module_id": "mod_0767",
+      "source_file": "./restablecer.tsx",
+      "url_pattern": "/restablecer",
+      "params_tested": ["/restablecer", "/restablecer?code=invalid_test_code"],
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Without params renders 'El enlace ya no sirve' with 0 network calls. With ?code=invalid_test_code fires POST /auth/v1/token?grant_type=pkce {auth_code:'invalid_test_code', code_verifier:''} -> HTTP 400 -> renders 'El enlace ya no sirve' without clobbering active session and leaves ?code=... in URL.",
+      "mobile_behavior": "Identical PageFrame maxWidth=440.",
+      "wave2_screenshots": ["37-restablecer-codigo-pkce-invalido.png"]
+    },
+    {
+      "module_id": "mod_0758",
+      "source_file": "./eliminar-cuenta.tsx",
+      "url_pattern": "/eliminar-cuenta",
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2 (READ-ONLY): Authenticated view renders 'Eliminar mi cuenta', 'Se borra' (3 bullets), 'Se conserva sin tus datos' (1 fiscal bullet), input placeholder='ELIMINAR', and danger button 'Eliminar mi cuenta para siempre'. Critically, the button is NOT disabled when input is empty (disabled=false); validation occurs inside onPress.",
+      "mobile_behavior": "Identical PageFrame maxWidth=440.",
+      "wave2_screenshots": ["31-eliminar-cuenta-solo-lectura.png"]
+    },
+    {
+      "module_id": "mod_0755",
+      "source_file": "./administracion.tsx",
+      "url_pattern": "/administracion",
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Authenticated as non-owner (laded35829@chuwel.com), client guard isDashboardOwner(email) blocks mounting of inner dashboard component S, rendering 'Acceso restringido' / 'Este panel es exclusivo de la cuenta administradora.' with 0 network calls to rpc/admin_dashboard.",
+      "mobile_behavior": "Identical client guard.",
+      "wave2_screenshots": ["34-administracion-acceso-restringido.png"]
+    },
+    {
+      "module_id": "mod_0761",
+      "source_file": "./instalar.tsx",
+      "url_pattern": "/instalar",
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "PageFrame maxWidth=520 with InstallButton + OS-specific InstallInstructions.",
+      "mobile_behavior": "FIRST LIVE RENDER IN WAVE 2 (390x844 @ 2x): Captures early window.__astraInstallPrompt (canPrompt=true: 'El botón abre directamente el instalador. Solo tienes que confirmar.'); tapping 'Instalar Astra AI' invokes event.prompt(), transitions button to 'Abriendo instalador…', and switches card to manual browser instructions.",
+      "wave2_screenshots": ["22-movil-instalar-pwa.png", "23-movil-instalar-modal-fallback.png"]
+    },
+    {
+      "module_id": "mod_0763",
+      "source_file": "./nosotros.tsx",
+      "url_pattern": "/nosotros",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 (FAQ + Telegram/Instagram links).",
+      "mobile_behavior": "PageFrame maxWidth=680.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0766",
+      "source_file": "./privacidad.tsx",
+      "url_pattern": "/privacidad",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 (LFPDPPP privacy notice).",
+      "mobile_behavior": "DocPage maxWidth=680.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "mod_0769",
+      "source_file": "./terminos.tsx",
+      "url_pattern": "/terminos",
+      "tested_in_wave1": true,
+      "tested_in_wave2": false,
+      "desktop_behavior": "Verified in Wave 1 (dynamic price_mxn/period_days/trial_days).",
+      "mobile_behavior": "DocPage maxWidth=680.",
+      "wave2_screenshots": []
+    },
+    {
+      "module_id": "expo-router-unmatched",
+      "source_file": "(Built-in Expo Router <Unmatched /> — missing app/+not-found.tsx)",
+      "url_pattern": "/ruta-oculta-no-existe-404",
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Cloudflare SPA hosting returns HTTP 200 OK with index.html (2,454 B); Expo Router renders default English Unmatched screen ('Unmatched Route / Page could not be found. / Go back • Sitemap') with a live link to /_sitemap.",
+      "mobile_behavior": "Identical built-in Unmatched screen.",
+      "wave2_screenshots": ["38-ruta-404-unmatched.png"]
+    },
+    {
+      "module_id": "expo-router-sitemap",
+      "source_file": "(Built-in Expo Router /_sitemap)",
+      "url_pattern": "/_sitemap",
+      "tested_in_wave1": false,
+      "tested_in_wave2": true,
+      "desktop_behavior": "FIRST LIVE RENDER IN WAVE 2: Publicly accessible route directory listing internal file names (cuenta.tsx, instalar.tsx, administracion.tsx, eliminar-cuenta.tsx, pago/[id].tsx, etc.) clickable in production.",
+      "mobile_behavior": "Identical built-in Sitemap screen.",
+      "wave2_screenshots": ["39-expo-router-sitemap-expuesto.png"]
+    }
+  ],
+  "mobile_liquid_glass_audit": {
+    "breakpoints": {
+      "DESKTOP_MIN": 1024,
+      "MOBILE_MAX": 680,
+      "BOTTOM_BAR_SPACE": 120
+    },
+    "glass_sports_bar": {
+      "module": "mod_1014_GlassSportsBar.js",
+      "dimensions": {
+        "height": 78,
+        "maxWidth": 440,
+        "borderRadius": 42,
+        "bottomOffsetFormula": "16 + safeAreaInsets.bottom"
+      },
+      "visual_layers": [
+        "Frame: backgroundColor '#171E21DD', borderColor '#C6DBEF50', backdropFilter 'blur(26px) saturate(165%)'",
+        "BlurView (expo-blur mod_0895): intensity=65, tint='dark', blurMethod='dimezisBlurViewSdk31Plus', linked to BlurTargetView ref in AppShell",
+        "Sheen overlay: borderTopColor '#FFFFFF55', borderBottomColor '#8998A633'",
+        "Animated Sliding Lens: borderRadius 36, backgroundImage 'linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 55%,rgba(255,255,255,.1))', spring(damping:20, stiffness:220, mass:0.6) + PanResponder drag/press scale 1.07"
+      ],
+      "dead_import": "Imports expo-glass-effect (mod_0670) as d[9] without invoking it in JSX."
+    },
+    "newly_discovered_bugs_and_quirks": [
+      {
+        "id": "BUG-01",
+        "severity": "medium",
+        "component": "SportDetail (mod_0867) & MatchDetail (mod_0784)",
+        "title": "Anonymous Finished-Match Paywall Bypass to misleading 'No Prior Forecast' message",
+        "mechanism": "Supabase RLS hides game_predictions/predictions from anon (returning prediction: null) while leaving games.forecast_ready = true. In mod_0867, the ternary evaluates 'final' === z.status ? <PendingCard finished={true} /> BEFORE z.forecast_ready && !T?.has_access ? <Paywall />. Consequently, anonymous visitors opening finished games (e.g., /juego/nba/401909296) are falsely told 'Este partido no tuvo pronóstico previo registrado' instead of seeing the Paywall.",
+        "evidence": ["ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea"]
+      },
+      {
+        "id": "BUG-02",
+        "severity": "low",
+        "component": "EmailConfirmedRoute (mod_0756)",
+        "title": "Dual URL Hash Handling Bug on /confirmado",
+        "mechanism": "(1) Mount-only useEffect(..., []) ignores client-side SPA hash transitions (/confirmado -> /confirmado#error=...), leaving 'Correo confirmado' rendered with 0 pixel diff (ev_6c8a2bea...). (2) On cold document load (/confirmado#error=access_denied...), mod_0756's early history.replaceState(null, '', '/confirmado') is overwritten by Expo Router's initial URL synchronization, leaving #error=... visible in the address bar (ev_dbc43f3c...).",
+        "evidence": [
+          "ev_6c8a2beabfc5304d8fa8ee3d2684bd2a9f9bcf74c7eba9197b4ef182236d7c2e",
+          "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a"
+        ]
+      },
+      {
+        "id": "BUG-03",
+        "severity": "low",
+        "component": "Production Expo Router Configuration",
+        "title": "Missing custom +not-found.tsx exposes English <Unmatched /> and internal /_sitemap in production",
+        "mechanism": "Any unknown URL returns HTTP 200 OK (SPA fallback) and renders Expo Router's default English Unmatched screen with a working 'Sitemap' link to https://astraanalisis.com/_sitemap, enumerating all internal route filenames including administracion.tsx.",
+        "evidence": [
+          "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+          "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a"
+        ]
+      },
+      {
+        "id": "BUG-04",
+        "severity": "cosmetic",
+        "component": "AppShell (mod_0772)",
+        "title": "Mobile bottom credit text overlaps scrolled match cards beneath GlassSportsBar",
+        "mechanism": "creditMobile is positioned absolutely at bottom: Math.max(insets.bottom - 2, 1) (1px on standard viewports) with transparent background and pointerEvents: 'none', colliding directly with visible match text below the 16px-elevated GlassSportsBar.",
+        "evidence": ["18-movil-home-anuncio-nba-y-dock.png"]
+      },
+      {
+        "id": "BUG-05",
+        "severity": "cosmetic",
+        "component": "MatchInfoCard (mod_0869)",
+        "title": "Soccer ball icon hardcoded for NBA, MLB, NHL and NFL competition labels",
+        "mechanism": "MatchInfoCard maps icon === 'league' to <BallIcon /> (pentagon soccer ball SVG) across all sports, rendering a soccer ball next to 'Basquetbol, NBA' and 'MLB'.",
+        "evidence": ["21-movil-juego-nba-fullscreen.png", "30-historial-mlb-dodgers-nlcs.png"]
+      }
+    ]
+  },
+  "sanitized_live_payloads": {
+    "football_search_teams_monterrey": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "transaction_id": "request-106",
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/search_teams",
+      "status": 200,
+      "request_body": {
+        "q": "monterrey"
+      },
+      "response_bytes": 141,
+      "response_sha256": "352d80c96f95c542e107ae7fd47c073704b7dce32bc2a3459fc547e546f3ad87",
+      "response_body": [
+        {
+          "id": 2282,
+          "name": "Monterrey",
+          "logo": "https://media.api-sports.io/football/teams/2282.png",
+          "updated_at": "2026-10-18T13:49:12.420974+00:00"
+        }
+      ],
+      "parallel_followup_queries": [
+        {
+          "transaction_id": "request-107",
+          "url": "GET /rest/v1/fixtures?...&or=(home_id.in.(2282),away_id.in.(2282))&kickoff=gte.2026-11-14T19:02:41.439Z&order=kickoff.asc&limit=60",
+          "status": 200,
+          "rows_returned": 2,
+          "response_sha256": "a49d96a6db61daaa3738c4d14ff814c7f6e93f2084138c5540d4805b48174175"
+        },
+        {
+          "transaction_id": "request-108",
+          "url": "GET /rest/v1/fixtures?...&or=(home_id.in.(2282),away_id.in.(2282))&kickoff=lt.2026-11-14T19:02:41.439Z&order=kickoff.desc&limit=60",
+          "status": 200,
+          "rows_returned": 60,
+          "response_sha256": "fd3c6ce8afbcb69c583c5c3e55289b58b81c5f62342b442ac4677673920c7352"
+        }
+      ]
+    },
+    "football_search_teams_america": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "transaction_id": "request-109",
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/rpc/search_teams",
+      "status": 200,
+      "request_body": {
+        "q": "america"
+      },
+      "response_bytes": 440,
+      "response_sha256": "6303cd8138e8250cb829416daced385d5b9846daa5436feb82e18452d8789ac7",
+      "response_body": [
+        {
+          "id": 2287,
+          "name": "Club America",
+          "logo": "https://media.api-sports.io/football/teams/2287.png",
+          "updated_at": "2026-10-18T13:49:12.420974+00:00"
+        },
+        {
+          "id": 1138,
+          "name": "America de Cali",
+          "logo": "https://media.api-sports.io/football/teams/1138.png",
+          "updated_at": "2026-10-18T13:49:09.467459+00:00"
+        },
+        {
+          "id": 125,
+          "name": "America Mineiro",
+          "logo": "https://media.api-sports.io/football/teams/125.png",
+          "updated_at": "2026-10-18T13:49:13.291437+00:00"
+        }
+      ]
+    },
+    "nba_search_sport_teams_knicks": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "transaction_id": "request-289",
+      "method": "GET",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/rest/v1/sport_teams?select=id,name,abbrev,logo&sport=eq.nba&or=(name.ilike.%knicks%,abbrev.ilike.knicks)&limit=10",
+      "status": 200,
+      "response_bytes": 113,
+      "response_sha256": "91ee7ace784b1945c04adabb76ef3c3522f5b6e00a9b9d87e16400ef08dc2df8",
+      "response_body": [
+        {
+          "id": 18,
+          "name": "New York Knicks",
+          "abbrev": "NY",
+          "logo": "https://a.espncdn.com/i/teamlogos/nba/500-dark/ny.png"
+        }
+      ],
+      "followup_games_query": {
+        "transaction_id": "request-290",
+        "url": "GET /rest/v1/games?...&sport=eq.nba&or=(home_id.in.(18),away_id.in.(18))&start_time=gte.2026-11-14T13:03:13.426Z&order=start_time.asc&limit=40",
+        "window_formula": "Date.now() - 21600000 (6 hours) — upcoming/live games only, no past games query",
+        "status": 200,
+        "rows_returned": 1,
+        "response_sha256": "67084d6d261db26a383e27c32cd5c1b8241cc1a3e2ba06ef539374cd7ac4b6e7"
+      }
+    },
+    "payments_order_status_nonexistent_uuid": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "terminal_ui_evidence_id": "ev_1b3f88e87b4106020869c3079c2111548b75e3742deda9c9d13e9c71ca9aa92a",
+      "transaction_ids": ["request-534", "request-535", "request-536"],
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/payments",
+      "status": 404,
+      "polling_cadence_ms": 3000,
+      "attempts_before_terminal_error": 3,
+      "request_body": {
+        "action": "order_status",
+        "order_id": "00000000-0000-0000-0000-000000000000"
+      },
+      "response_bytes": 32,
+      "response_sha256": "3e2eb1f6d84cb0f90472d946db00b2f22143c24de09377884e1b0d3f2bf99acc",
+      "response_body": {
+        "error": "Orden no encontrada."
+      }
+    },
+    "restablecer_pkce_invalid_code": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "transaction_id": "request-628",
+      "method": "POST",
+      "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/auth/v1/token?grant_type=pkce",
+      "status": 400,
+      "request_body": {
+        "auth_code": "invalid_test_code",
+        "code_verifier": ""
+      },
+      "response_bytes": 110,
+      "response_sha256": "8fc119ea4ca4f2f1a7c12b4e58c313fe775ae4e9f7e8590a35e9310099ef97e5",
+      "session_impact": "Existing authenticated session remained intact (subsequent rpc/my_access returned logged_in: true, has_access: true)."
+    },
+    "followed_provider_live_polling": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "polling_cadence_ms": 60000,
+      "max_followed_matches": 20,
+      "max_metrics_per_match": 6,
+      "queries": [
+        {
+          "transaction_id": "request-228",
+          "url": "GET /rest/v1/fixtures?select=id,kickoff,status,elapsed,home_goals,away_goals,home:teams!fixtures_home_id_fkey(name,logo),away:teams!fixtures_away_id_fkey(name,logo)&id=in.(1570024)&limit=20",
+          "status": 200,
+          "response_bytes": 296,
+          "response_sha256": "ade6b50b3038b6614956e5b6017a915cfcd6cea2bc392af92a82f4df2ed99e7f"
+        },
+        {
+          "transaction_id": "request-229",
+          "url": "GET /rest/v1/match_live?select=sport,match_id,updated_at,statistics&or=(and(sport.eq.futbol,match_id.eq.1570024))&limit=20",
+          "status": 200,
+          "response_bytes": 1391,
+          "response_sha256": "bb77718899f365f19369426a8998ed6ff988ce901fd55f9e2718259168d42a42"
+        }
+      ]
+    },
+    "mlb_historical_supabase_vs_statsapi": {
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "supabase_games_table_queries": [
+        {
+          "route": "/mlb?fecha=2026-10-15",
+          "transaction_id": "request-322",
+          "status": 200,
+          "response_body": [],
+          "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        {
+          "route": "/mlb?fecha=2026-10-25",
+          "transaction_id": "request-372",
+          "status": 200,
+          "response_body": [],
+          "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        {
+          "route": "/mlb?juego=849810 (and mobile /juego/mlb/849810)",
+          "transaction_id": "request-423",
+          "status": 200,
+          "response_body": [],
+          "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "ui_message": "Juego no encontrado."
+        }
+      ],
+      "historical_edge_function_fallback": {
+        "route": "/historial/mlb/119/849810",
+        "transaction_id": "request-482",
+        "method": "POST",
+        "url": "https://bbfjdshvlcynngjdkvsk.supabase.co/functions/v1/team-profile",
+        "request_body": {
+          "sport": "mlb",
+          "team_id": 119,
+          "match_id": 849810
+        },
+        "status": 200,
+        "response_bytes": 3044,
+        "response_sha256": "e7563306206d6dc87bae159aec00a2aa85c3e4e03b08bc0bb3715b25c8482490",
+        "summary": "Returns {stored: false, match: {id: 849810, kickoff: '2026-10-16T00:00:00Z', home: 'Los Angeles Dodgers' (4), away: 'Milwaukee Brewers' (6), venue: 'UNIQLO Field at Dodger Stadium'}, live: {17 MLB StatsAPI metrics, 7 scoring play-by-play events incl. Shohei Ohtani 2nd-inning HR, 9-inning momentum array}}."
+      }
+    }
+  },
+  "local_storage_audit": [
+    {
+      "key": "astra.notice.install-2026-10-21.dismissed",
+      "writer_module": "mod_1012_AppAnnouncements.js",
+      "exact_serialized_value": "1",
+      "observed_value_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "purpose": "Suppresses 'Instala Astra AI' top banner and unlocks cascading NbaLaunchNotice."
+    },
+    {
+      "key": "astra.notice.nba-launch-2026-10-21.dismissed",
+      "writer_module": "mod_1013_NbaLaunchNotice.js",
+      "exact_serialized_value": "1",
+      "observed_value_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "purpose": "Suppresses 'Nuestra IA de NBA ya llegó' banner."
+    },
+    {
+      "key": "astra.pinnedLeagues",
+      "writer_module": "mod_0779_CoreHooks.js (usePinnedLeagues)",
+      "exact_serialized_value": "[262,-2]",
+      "observed_value_sha256": "0aa4a40b66ec055f5054d7bfa63674def978fc260af8c775b86aaceed53f3fd4",
+      "purpose": "Ordered JSON array of pinned football league IDs (262 = Liga MX, -2 = grouped international competition) sorted to top of FootballScreen and CompetitionSidebar."
+    },
+    {
+      "key": "astra.followed-matches.v1",
+      "writer_module": "mod_0835_FollowedProvider.js",
+      "exact_serialized_value": "[{\"sport\":\"futbol\",\"id\":1570024,\"metrics\":[{\"key\":\"expected_goals\",\"label\":\"Goles esperados (xG)\"},{\"key\":\"Passes accurate\",\"label\":\"Pases completados\"}]}]",
+      "observed_value_sha256": "b4af9cb6eabf6fa6bd4b92701f9a4a5e8b0b34feaaa1db8fcab7fcceed214c4a",
+      "purpose": "Device-local followed matches (max 20) and pinned live statistics (max 6 per match); drives AppUtilities horizontal strip, CompetitionSidebar 'Mis equipos', and /siguiendo."
+    },
+    {
+      "key": "sb-bbfjdshvlcynngjdkvsk-auth-token",
+      "writer_module": "mod_0778_SupabaseClientConfig.js (@supabase/auth-js)",
+      "exact_serialized_value": "[REDACTED_SUPABASE_SESSION_JSON]",
+      "observed_value_sha256": "694bff7f4e55c491654398256e5f3391229737066272433e30b4bc3bb9cd4712",
+      "purpose": "Persists GoTrue session tokens via AsyncStorage web adapter."
+    }
+  ],
+  "screenshots_manifest": [
+    {
+      "file": "15-movil-launch-splash.png",
+      "dimensions": "780x1688",
+      "bytes": 22735,
+      "sha256": "b5410c9725c720cc514b61671909035ccf754a4ffdc47746973d9e82b8d0d4b6",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile 2000ms LaunchSplash (mod_0832) centered AstraLogo over #0B0F10."
+    },
+    {
+      "file": "16-movil-trial-welcome-modal.png",
+      "dimensions": "780x1688",
+      "bytes": 154023,
+      "sha256": "599f86f82ac7fc13c83bc8c6ef7cacd339e5094cd646c86f3cded887a5318d6d",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile anonymous TrialWelcome modal ('7 días de acceso ilimitado a Astra AI') over blurred home & GlassSportsBar."
+    },
+    {
+      "file": "17-movil-home-anuncio-instalar-y-dock.png",
+      "dimensions": "780x1688",
+      "bytes": 175107,
+      "sha256": "0bf6f9869d2b4da12bfc03d5792578fd05f420066e01637e9f805a0f288acbc4",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile / showing AppAnnouncements ('Instala Astra AI'), AppUtilities pills, TrendingMatches, SearchBar, 7-day DateStrip, and GlassSportsBar Liquid Glass dock."
+    },
+    {
+      "file": "18-movil-home-anuncio-nba-y-dock.png",
+      "dimensions": "780x1688",
+      "bytes": 180392,
+      "sha256": "f2ae1a48c0879707f3838cf81c7be46d09ed4c0fa10c677367b90b0d2d931d21",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile / after dismissing install banner, revealing cascading NbaLaunchNotice ('Nuestra IA de NBA ya llegó') and bottom credit overlap beneath GlassSportsBar."
+    },
+    {
+      "file": "19-movil-partido-fullscreen-detalles.png",
+      "dimensions": "780x1688",
+      "bytes": 387980,
+      "sha256": "75fe6a167a981ac78057795ede4820a76c809f739a08bab65a45c3d30bbf16cb",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Direct mobile fullscreen /partido/1550951 (Club Querétaro vs Monterrey) without desktop redirect or GlassSportsBar."
+    },
+    {
+      "file": "20-movil-partido-paywall-anonimo.png",
+      "dimensions": "780x1688",
+      "bytes": 396301,
+      "sha256": "b139d0efd7dcd278983da53f74796304d1026951cf80d9c62581a94b735a454b",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Anonymous mobile Paywall on /partido/1550951 'Análisis con IA' tab ('Pronóstico de la IA bloqueado ... por solo $199')."
+    },
+    {
+      "file": "21-movil-juego-nba-fullscreen.png",
+      "dimensions": "780x1688",
+      "bytes": 364079,
+      "sha256": "6779d7e7709ef5833379025bcb4cc3d8175a6c781e0148eb6bb02f13d7b2c34d",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Direct mobile fullscreen /juego/nba/401909296 (Knicks 104 - 106 Pacers) showing MomentumCard and hardcoded soccer ball icon next to 'Basquetbol, NBA'."
+    },
+    {
+      "file": "22-movil-instalar-pwa.png",
+      "dimensions": "780x1688",
+      "bytes": 87521,
+      "sha256": "878bbe49b2acca74c2cfab51bb307b7ad51fbe194e822e079f01db8b100ed308",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile /instalar PWA assistant with active native beforeinstallprompt ('El botón abre directamente el instalador')."
+    },
+    {
+      "file": "23-movil-instalar-modal-fallback.png",
+      "dimensions": "780x1688",
+      "bytes": 89048,
+      "sha256": "2a90a62fbe5e3742e19d1826cb4f16c430ddefb8aad8500be9b03b1bb2a8bb26",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Mobile /instalar after clicking 'Instalar Astra AI', showing busy state 'Abriendo instalador…' and fallback manual browser instructions."
+    },
+    {
+      "file": "24-movil-partido-ia-autenticado.png",
+      "dimensions": "780x1688",
+      "bytes": 442286,
+      "sha256": "9c3558108fbba51aa06dd23103a7567d6d4b3ab8f03dac22c8677a7b195469bb",
+      "evidence_id": "ev_6eeb8dd5a5d6eee02222d677dfc193890dce23841503272ab2cde41605df83ea",
+      "description": "Authenticated mobile fullscreen /partido/1550951 'Análisis con IA' unlocked (xG 1.41 vs 1.55, 1X2 34%/26%/40% + narrative)."
+    },
+    {
+      "file": "25-busqueda-futbol-monterrey.png",
+      "dimensions": "1440x1080",
+      "bytes": 111653,
+      "sha256": "ae1b891df7d13316a46180dd5c699a820eb67cf3d44ee74a01a6b3580c57da7d",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Football SearchBar results for 'monterrey' showing Monterrey next AI fixture ('Hoy · 5:00 p.m. · en Club Queretaro')."
+    },
+    {
+      "file": "26-seguimiento-estadisticas-activo.png",
+      "dimensions": "1440x1080",
+      "bytes": 346429,
+      "sha256": "1267097af618371febfeab10d7ac7879414e083469eb0db8c206fe5bf314db84",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Active follow state on 1570024: green 'Siguiendo' pill, 2★ metrics ('Siguiendo' on xG and Pases completados), top AppUtilities live card, and sidebar 'Mis equipos' populated with Valladolid & Castellón."
+    },
+    {
+      "file": "27-siguiendo-poblado-metricas.png",
+      "dimensions": "1440x1080",
+      "bytes": 56406,
+      "sha256": "59c2d5cac7d665b22b7f63e1d2eb7fb00eca5e7928559ba63c3e30484e95acb7",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Populated /siguiendo route showing Valladolid 0 - 1 Castellón, tracked live metrics, removable metric chips, and 'Actualizar marcadores'."
+    },
+    {
+      "file": "28-busqueda-nba-knicks.png",
+      "dimensions": "1440x1080",
+      "bytes": 96139,
+      "sha256": "3736cfd6c5186d8c20aa406df69a3606090e7ac13242018ff2b61bf21cf44a8a",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "NBA SearchBar results for 'knicks' on /nba showing New York Knicks ('Mañana · 5:00 p.m. · en Toronto Raptors') + persistent followed match bar."
+    },
+    {
+      "file": "29-mlb-juego-historico-no-almacenado.png",
+      "dimensions": "1440x1080",
+      "bytes": 106802,
+      "sha256": "414399ceadd609d7b931bc6a8599dab97ca781110d5478a4d3d24cdb39d17b64",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "/mlb?juego=849810 confirming historical MLB postseason games are absent from Supabase games table ('Juego no encontrado.')."
+    },
+    {
+      "file": "30-historial-mlb-dodgers-nlcs.png",
+      "dimensions": "1440x1080",
+      "bytes": 240328,
+      "sha256": "c81d1f21a990e139d6b11d6789488f76f0974d8366de2695b166dbc0136086ed",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "/historial/mlb/119/849810 rendering NLCS Dodgers 4 - 6 Brewers via live MLB StatsAPI fallback in team-profile (9-inning momentum + Ohtani HR)."
+    },
+    {
+      "file": "31-eliminar-cuenta-solo-lectura.png",
+      "dimensions": "1440x1080",
+      "bytes": 45501,
+      "sha256": "e276240729937f45431da30914d74e065e1f719fa84271fe22937bc34ff07a2d",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Read-only capture of authenticated /eliminar-cuenta showing 'Se borra', 'Se conserva sin tus datos', empty 'ELIMINAR' field, and non-disabled danger button."
+    },
+    {
+      "file": "32-pago-revisando-polling.png",
+      "dimensions": "1440x1080",
+      "bytes": 14780,
+      "sha256": "6953e2e12ddc81b6c1d1f407216d2d1da21ea92a49359ffcad9fed5ef1649027",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Authenticated /pago/00000000-0000-0000-0000-000000000000 during initial 'checking' polling state ('Revisando tu pago' spinner)."
+    },
+    {
+      "file": "33-pago-uuid-inexistente-resultado.png",
+      "dimensions": "1440x1080",
+      "bytes": 25872,
+      "sha256": "d0a253b25d81c0404200c691250b1b41142584036d0d214615b79651bb0384df",
+      "evidence_id": "ev_1b3f88e87b4106020869c3079c2111548b75e3742deda9c9d13e9c71ca9aa92a",
+      "description": "Authenticated /pago/00000000-0000-0000-0000-000000000000 terminal 'error' state ('No pudimos revisar tu pago') after 3 consecutive HTTP 404 responses."
+    },
+    {
+      "file": "34-administracion-acceso-restringido.png",
+      "dimensions": "1440x1080",
+      "bytes": 18000,
+      "sha256": "2e1062d47e9c6ba5171b5aeaf8e5bedf9e9c27ca89f754a6feac45d2a4fc6100",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "Authenticated /administracion as non-owner displaying 'Acceso restringido / Este panel es exclusivo de la cuenta administradora.'"
+    },
+    {
+      "file": "35-confirmado-correo-exito.png",
+      "dimensions": "1440x1080",
+      "bytes": 24863,
+      "sha256": "22c0b516dc6cc2a26e9cae13fc4525dbde6e2af8ff3819d664449533395f4b9a",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "/confirmado default success card ('Correo confirmado / Tu cuenta de Astra AI está lista.')."
+    },
+    {
+      "file": "36-confirmado-error-enlace-expirado.png",
+      "dimensions": "1440x1080",
+      "bytes": 28931,
+      "sha256": "888e0602835401b8b6701c20787d790bf7b3eb463bd247cb4a4e15726b56b08e",
+      "evidence_id": "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a",
+      "description": "Cold-mounted /confirmado#error=access_denied&error_description=Enlace+expirado rendering 'El enlace ya no sirve' + 'Solicitar un nuevo correo de confirmación'."
+    },
+    {
+      "file": "37-restablecer-codigo-pkce-invalido.png",
+      "dimensions": "1440x1080",
+      "bytes": 23076,
+      "sha256": "83878a2c10152b4a4f13c3b66752e2fd6994d8effd0188b7582b9a62a82189c1",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "/restablecer?code=invalid_test_code after HTTP 400 from GoTrue PKCE exchange ('El enlace ya no sirve')."
+    },
+    {
+      "file": "38-ruta-404-unmatched.png",
+      "dimensions": "1440x1080",
+      "bytes": 26118,
+      "sha256": "0f7056d4a36857fcfdbb8349179b65e91ed80e983ce4622c1b31610e7bd4be59",
+      "evidence_id": "ev_0d41e898056efd259e9bae992b2db1ae3e13c1cca3fb394270efd40edf773d36",
+      "description": "/ruta-oculta-no-existe-404 rendering Expo Router built-in English 'Unmatched Route' with 'Go back • Sitemap'."
+    },
+    {
+      "file": "39-expo-router-sitemap-expuesto.png",
+      "dimensions": "1440x1080",
+      "bytes": 57177,
+      "sha256": "84d987a2aa3daa6eabe7b391d338f1ca3cab0218b26fc13f0e40a2a1b1150fde",
+      "evidence_id": "ev_dbc43f3c6ce8fe2c352b35863559c0c1ada30e43878e7de23e7f08d11271ca1a",
+      "description": "Production https://astraanalisis.com/_sitemap exposed via 404 Sitemap link, enumerating all internal route files."
+    },
+    {
+      "file": "40-pago-anonimo-guarda-login.png",
+      "dimensions": "1440x1080",
+      "bytes": 21249,
+      "sha256": "fee0668cb4320678af45ab829add6f19d6bbd142aeada58c4a5faad4baa65b92",
+      "evidence_id": "ev_1b3f88e87b4106020869c3079c2111548b75e3742deda9c9d13e9c71ca9aa92a",
+      "description": "Anonymous /pago/00000000-0000-0000-0000-000000000000 showing 'Entra con tu cuenta' guard before any Edge Function call."
+    }
+  ]
+}

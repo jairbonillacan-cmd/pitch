@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports={uri:"/assets/assets/images/match-background.dbef350c57497aca5fb64c302927b5fc.jpeg",width:1333,height:1180,toString(){return this.uri}}},1024,[]);

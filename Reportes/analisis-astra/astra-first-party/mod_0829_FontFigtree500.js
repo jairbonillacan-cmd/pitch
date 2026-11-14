@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Figtree_500Medium.0710568e35ac185e42fa1b848529938f.woff2"},829,[]);

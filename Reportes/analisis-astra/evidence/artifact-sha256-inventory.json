@@ -1,302 +1,555 @@
-[
-  {
-    "relative_path": "app/[id]-1c9b77ff32fe4b75c1b5df98e4b4acc2.js",
-    "bytes": 9641,
-    "sha256": "24633ab7b1a398ccfa04a3ff3c9c9d77af7b8c5dc66b07ce831997166b162d06"
-  },
-  {
-    "relative_path": "app/[id]-640d8e37fab6cdee75166c44fc39efd5.js",
-    "bytes": 2919,
-    "sha256": "cd0c23a7845fea20d15b5f1e30a4c942b194fdb7523693de8018f4dffed98688"
-  },
-  {
-    "relative_path": "app/[id]-a7d7ec8ae26ff91045d9d5a83bfb5536.js",
-    "bytes": 705,
-    "sha256": "1137d1e34ea736728157ad40bf5bed431b22e44a5f161a5594fbb8cdf44ef1da"
-  },
-  {
-    "relative_path": "app/[id]-d958bd3185d181ad162a4cc99da35d2c.js",
-    "bytes": 929,
-    "sha256": "4247fa5cd96e86cf14679228c82ffa2a084f8f70b4e391beda3c2dac3a891561"
-  },
-  {
-    "relative_path": "app/[matchId]-bffa67a80cc9ec9e08ea55e97555b4e2.js",
-    "bytes": 5010,
-    "sha256": "2dfabcb5d7d852d29d8da2b6011606ae00c4f78ee95553a09e44fb9585af7df1"
-  },
-  {
-    "relative_path": "app/__common-a2fe500f62154dabe8c8c7eb8fa31525.js",
-    "bytes": 662415,
-    "sha256": "c4a4cead00034bc5492bc041e4fdafa13bb057d5f9e58b9ac75e0c356c017492"
-  },
-  {
-    "relative_path": "app/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js",
-    "bytes": 3751,
-    "sha256": "80e3ab02b3bac22608cdf29a2e3cc1270616a695bbe479f7f500941e8d2bbe41"
-  },
-  {
-    "relative_path": "app/_layout-9e71532af65e3f948330147e2b7b16d2.js",
-    "bytes": 399,
-    "sha256": "c753d9cd12a830828bd4373fed8304883c9ab367c1218213c09ceffe693d72ae"
-  },
-  {
-    "relative_path": "app/_layout-b3da769553b5a6bcc3093bb023a44b7f.js",
-    "bytes": 38589,
-    "sha256": "ba86c397ba7c6ae85d0472322ccada83eaec70509bdb6890386e7292c7177c43"
-  },
-  {
-    "relative_path": "app/administracion-db0312943212c59d203e733a9a3ecfed.js",
-    "bytes": 11221,
-    "sha256": "94b440fd61491e82755ea64b7ff667972b4d257267b46b067478eb36860c61b2"
-  },
-  {
-    "relative_path": "app/confirmado-ea12a64b546d50dfee3ef1e3fbad2714.js",
-    "bytes": 1694,
-    "sha256": "9f65290681661577bc37fc35fe6dd37c5e1d0552559563dae7c84c4d5f6fa607"
-  },
-  {
-    "relative_path": "app/cuenta-6de60b93179704310df6552a70994b81.js",
-    "bytes": 37938,
-    "sha256": "9590f80cf74538a54c822e2006dd7daa90917bf025b5b7ab18eaa4b822f0283c"
-  },
-  {
-    "relative_path": "app/eliminar-cuenta-8b00a1afa1f45f3250627a9ca3154efc.js",
-    "bytes": 3138,
-    "sha256": "e99e40df1f59959322d7fb61a7ed72c18fef9692775c8756933b1f22a4bbf246"
-  },
-  {
-    "relative_path": "app/entry-2f163e0b9ce05e4953b73986af77f2b7.js",
-    "bytes": 1109576,
-    "sha256": "4a2898b1d46769bde7a43cd2a5f91bd89d39c203df11222ccd70a2ba22a4d98d"
-  },
-  {
-    "relative_path": "app/index-1423f7b5e0c45b7b203640adbdc42677.js",
-    "bytes": 17924,
-    "sha256": "0d61b1aa4bb889eadabdefff77023632827636808e026e063c532e241a91d117"
-  },
-  {
-    "relative_path": "app/index.html",
-    "bytes": 2492,
-    "sha256": "4be76fa6d2268b4e7e409fcb8ab560e1e7ce5948894fd1ff8b6923510fc5e7a7"
-  },
-  {
-    "relative_path": "app/instalar-0a3225cb4bb3206b7795b8e128e050ca.js",
-    "bytes": 1145,
-    "sha256": "08e1ded65d93fbea104aa0ec6f3d2a9063c345392aceef111ec795ee98db1d87"
-  },
-  {
-    "relative_path": "app/mlb-4d63e84434c3dbe316f6e762cf54c167.js",
-    "bytes": 370,
-    "sha256": "783e80cb8aa96c4d8bd1a2fbc8132df40810c20bcbcbf77bb36866d25d1ace9e"
-  },
-  {
-    "relative_path": "app/nba-be21dcd74fed6ac8380a1113c6326078.js",
-    "bytes": 370,
-    "sha256": "9627c359b1152bb8eeb3b23c43aad3821f43e7567bb0981ce9b0c30cf05a5ec7"
-  },
-  {
-    "relative_path": "app/nfl-eeea91192df42b63b6337f868b652d37.js",
-    "bytes": 370,
-    "sha256": "de83502abb98743e54b00f399548a764c8c85989a64faa402baac6ab68f1203e"
-  },
-  {
-    "relative_path": "app/nhl-35c5dcf527e2b32f27cbcd14d44d27ef.js",
-    "bytes": 370,
-    "sha256": "7c96ba03a3ce22694992d87ded4879908fb004c85796bbc5595f6ea28121b33d"
-  },
-  {
-    "relative_path": "app/nosotros-1087ff396845303a336510385643566a.js",
-    "bytes": 5419,
-    "sha256": "e8f00c5b1dc6aac5030683c3f9564d95f4386eb64bf43ede2baf360b332a5ef1"
-  },
-  {
-    "relative_path": "app/privacidad-ebdf8782b2c1e7d6e3ccaa3f6f362872.js",
-    "bytes": 4168,
-    "sha256": "aafb72411aa16565428dc62da6745034e89fbb27ec9683793e845883ef0ad3df"
-  },
-  {
-    "relative_path": "app/restablecer-ee313ddec28ef0dd0fb73115ff93f170.js",
-    "bytes": 2847,
-    "sha256": "80c76835a2d8f9389c8ec09726d1faeb8f5833ef5acb29f758eb65eec926fa9d"
-  },
-  {
-    "relative_path": "app/siguiendo-df598f9acb2b09505d43493f8aa5f151.js",
-    "bytes": 469,
-    "sha256": "0b348ae77c09cb24438cd97431bba11d4fd24df46357dced8b89615d9a1b5b57"
-  },
-  {
-    "relative_path": "app/terminos-cc492529fdf523d3fadb0c2fd1304f5c.js",
-    "bytes": 3136,
-    "sha256": "21952ae98e71ec65cbfba6d6a2f4c8e85d394320034c7b53030050da6d5e87f5"
-  },
-  {
-    "relative_path": "screenshots/01-home-futbol.png",
-    "bytes": 174251,
-    "sha256": "5c40a92f4044dde4d1951a1e52f87c8561a7930491e230d3b9760253eb5c85ce"
-  },
-  {
-    "relative_path": "screenshots/02-partido-pronostico-ia.png",
-    "bytes": 323489,
-    "sha256": "1b122a0bbf9a839cb35974535f042e59108b78871d153d14083344e221624ccc"
-  },
-  {
-    "relative_path": "screenshots/03-nba-juego-jugadores.png",
-    "bytes": 185339,
-    "sha256": "bb7340e66edf3527f3c9f28181544f12cdf79e0b8587fb055b6cc123b8fa94cf"
-  },
-  {
-    "relative_path": "screenshots/04-nhl-juego.png",
-    "bytes": 320508,
-    "sha256": "6014a5d0935659fcc3f55cac325827bbfaeec0ffef1311e51d822b237cfe01f0"
-  },
-  {
-    "relative_path": "screenshots/05-nfl-cartelera-o-juego.png",
-    "bytes": 375258,
-    "sha256": "e838472e3d30c489a8da6167b9044fff8376845ca143cd1448484da8dfd06305"
-  },
-  {
-    "relative_path": "screenshots/06-equipo-perfil.png",
-    "bytes": 74187,
-    "sha256": "123fa75d23195c91825327d114ed41513fdf6c80c0ddf2434008415f1d371b7a"
-  },
-  {
-    "relative_path": "screenshots/07-cuenta-acceso.png",
-    "bytes": 57999,
-    "sha256": "a487616ddc08f9ce38e5ed10ad6e9b2e13bb44103fb0979a438c98ac1679af71"
-  },
-  {
-    "relative_path": "screenshots/08-nosotros-metodologia.png",
-    "bytes": 110020,
-    "sha256": "e01ab495454586ee8f2d7190006663e77855f6419a2751cd4d7d7294c09e84ad"
-  },
-  {
-    "relative_path": "screenshots/09-futbol-finalizado-estadisticas-xg.png",
-    "bytes": 317829,
-    "sha256": "1b68ea7e2be0cfebc5701dfc3a75083a68b7fab8fb80ad2cc022a658fe09bf3b"
-  },
-  {
-    "relative_path": "screenshots/10-futbol-momento-partido.png",
-    "bytes": 315781,
-    "sha256": "f9d72e4bc8c5ce86b9418fb4ef3d4d834cef9c27f3736a4e9191b35892950719"
-  },
-  {
-    "relative_path": "screenshots/11-equipo-nfl-modelo-epa.png",
-    "bytes": 84568,
-    "sha256": "1d3a519a290eee3f069c99afefc55c2e3802dbbbc07d8aae6bb5213091ff2bc7"
-  },
-  {
-    "relative_path": "screenshots/12-mlb-temporada-baja.png",
-    "bytes": 90755,
-    "sha256": "d59958a96a3afa321c05cccf29ef89fc91fd66ed12839961da076974ac020869"
-  },
-  {
-    "relative_path": "screenshots/13-historial-nfl-externo.png",
-    "bytes": 200797,
-    "sha256": "b057171ae22c9a3e9a669f5284402428d30f89a595c2ceda909a2556dcb992bf"
-  },
-  {
-    "relative_path": "screenshots/14-equipo-mlb-dodgers.png",
-    "bytes": 70757,
-    "sha256": "47ab141dff406eb67b909b119a040ca9d414e10641fd17127708aa7e0f7efdf8"
-  },
-  {
-    "relative_path": "evidence/live-payloads/astra-pick-sample.json",
-    "bytes": 55,
-    "sha256": "aae54277b9da41a353f794df314bb1f59a49b40cda1680aa7fc2040bfd8ddc13"
-  },
-  {
-    "relative_path": "evidence/live-payloads/fixture-detail-sample.json",
-    "bytes": 6590,
-    "sha256": "bb6be484930e935f1cd51f003b96c9fc859c559178c894d8c0abdd3a54ada6d5"
-  },
-  {
-    "relative_path": "evidence/live-payloads/football-standings-sample.json",
-    "bytes": 4966,
-    "sha256": "f66771a7106e144a7124d93f96aee42341dc21947965518f994965f69d9452a1"
-  },
-  {
-    "relative_path": "evidence/live-payloads/historical-match-sample.json",
-    "bytes": 4493,
-    "sha256": "62d2fc71ba1c47008afa13a367553c2fbbe5ff2147827f945a7bc9b9bb76cbad"
-  },
-  {
-    "relative_path": "evidence/live-payloads/league-standings-sample.json",
-    "bytes": 10811,
-    "sha256": "57584bb73234e4de383ddea1c6e0869cb0210f73b4a1395eb51261306c0ace3e"
-  },
-  {
-    "relative_path": "evidence/live-payloads/match-live-futbol-sample.json",
-    "bytes": 10142,
-    "sha256": "15d2e39bac0aa20a9412c294c9f08932b16dcf703faf833282a1b3bf2e0d1adb"
-  },
-  {
-    "relative_path": "evidence/live-payloads/match-live-nhl-sample.json",
-    "bytes": 6398,
-    "sha256": "bb9153c7050f5352b29139f8556f46d3d3158e0b57c5cbd7b8f8695f0715f771"
-  },
-  {
-    "relative_path": "evidence/live-payloads/match-odds-sample.json",
-    "bytes": 188,
-    "sha256": "e61948495ede93798f2af75c17da1bca09e0ccd87e17e58593371b1689c00191"
-  },
-  {
-    "relative_path": "evidence/live-payloads/match-odds-us-sports-sample.json",
-    "bytes": 181,
-    "sha256": "133e3b29f001dbb0e0f8bd34fee5d3dd2577a00d9b482331fea7ac236599e536"
-  },
-  {
-    "relative_path": "evidence/live-payloads/mlb-team-profile-sample.json",
-    "bytes": 11194,
-    "sha256": "136fe2683ed890ffb44f7ceda23e65434868552ed897239313efa47b4185700b"
-  },
-  {
-    "relative_path": "evidence/live-payloads/my-access-sample.json",
-    "bytes": 376,
-    "sha256": "23c9cdf140a4b950eea74c230bcd597274b4735cb1eaeb7c5cc098974d387a6b"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nba-game-detail-sample.json",
-    "bytes": 2981,
-    "sha256": "8d6100b2e3eb677a9283008e77fb39c41cb6cae4056b61a6a758e9bcc7e8fbbd"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nba-model-context-sample.json",
-    "bytes": 4112,
-    "sha256": "4cf68d067b6e52a819b3923357631060ecb5102344420d5fd4fe9923415effc9"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nba-players-sample.json",
-    "bytes": 23027,
-    "sha256": "dbef746060830c8fcaadd5aa3b325fe9c45e0e26d0795070e8dc62b89f9a550c"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nfl-game-detail-sample.json",
-    "bytes": 2831,
-    "sha256": "f14dbaddf34b70ecf2315088b54dd9861a4eff58eee2462cec36f2b0f9e494d6"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nfl-model-context-sample.json",
-    "bytes": 6122,
-    "sha256": "eb9f98e0f315fa363ed8dcb4f8a1902bccf56b7c2827112f386404e7c12a7179"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nhl-game-detail-sample.json",
-    "bytes": 3106,
-    "sha256": "2d65081b108a1811df7fb7b21a0a46cf09254483e0f5dd3d1668a062bc70330a"
-  },
-  {
-    "relative_path": "evidence/live-payloads/nhl-model-context-sample.json",
-    "bytes": 4118,
-    "sha256": "b283914d4b4d4ea234937b9babb2593932eac95070d6c9835ac2b2e54b6cc060"
-  },
-  {
-    "relative_path": "evidence/live-payloads/public_model_samples.json",
-    "bytes": 171525,
-    "sha256": "419f7506ee85f47ca3bdc298e7673e19ed073cfec2d2816097d4c773b499d649"
-  },
-  {
-    "relative_path": "evidence/live-payloads/team-profile-sample.json",
-    "bytes": 12082,
-    "sha256": "363d8fed9a5e403d19a6b1b4cedc0b3f73123166609d51255b79115dd2e017a3"
-  }
-]
+{
+  "generated_at": "2026-11-14T19:32:00Z",
+  "total_files_in_dossier": 523,
+  "total_bytes_in_dossier_approx": 17262841,
+  "root_app_directory_sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
+  "astra_first_party_directory_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
+  "tracked_primary_artifacts": 109,
+  "artifacts": [
+    {
+      "path": "00-REPORTE-MAESTRO-ASTRA-ANALISIS.md",
+      "bytes": 42080,
+      "sha256": "afed262f992de3c99766c98b0d1dc28805065f992d932a1a80ecbdb54b5fd501"
+    },
+    {
+      "path": "01-arquitectura-frontend-y-rutas.md",
+      "bytes": 56292,
+      "sha256": "1a2debb8e23e26fdefa969444751ebd23c4a8ba052f4581fa0b3d068ee61ee8c"
+    },
+    {
+      "path": "02-ux-diseno-y-funcionalidades-cliente.md",
+      "bytes": 45105,
+      "sha256": "ba1cb58491ea03f5ccbf6c270cac2891adc53dd64ce520c380a6e557c86dbe9d"
+    },
+    {
+      "path": "03-backend-supabase-y-esquema-bd.md",
+      "bytes": 53715,
+      "sha256": "d606c7b521346b11e8c3c6c1d1fb0cac5e444dec0c07ff5c7b9e0d8b1b079bfb"
+    },
+    {
+      "path": "04-edge-functions-rpcs-y-operacion.md",
+      "bytes": 37779,
+      "sha256": "7bd247fab42aaedd3f618a0033fea5ea79dfed02f72028792c85467c66aba1d9"
+    },
+    {
+      "path": "05-evidencia-runtime-y-payloads-reales.md",
+      "bytes": 42663,
+      "sha256": "4285f6261efa0f4ba424c5cbc5694be1d5602b19e2b09a6338ca6f5b0625d186"
+    },
+    {
+      "path": "06-modelos-estadisticos-picks-e-ia.md",
+      "bytes": 58762,
+      "sha256": "9dcf11d8de632d96addf9cb00a1e360a5d51c4e19f02d97408659130ef3f4c0c"
+    },
+    {
+      "path": "07-fuentes-de-datos-proveedores-y-momios.md",
+      "bytes": 49241,
+      "sha256": "0e566345d878bff59ab8182bf845e31815b60fe49318f1db2de73ffa0d7b804e"
+    },
+    {
+      "path": "08-autenticacion-pagos-monetizacion-y-legal.md",
+      "bytes": 41434,
+      "sha256": "c6dbe0ddef3ed75aec442d8e58ed03b892904f4026395572bd92f74c11b35024"
+    },
+    {
+      "path": "09-comparativa-estrategica-vs-pitchlab.md",
+      "bytes": 27996,
+      "sha256": "2c69949892383ca4a465d3aeb993b3a58518e7c902326392ec097e178c31cb91"
+    },
+    {
+      "path": "10-registro-evidencia-y-limitaciones.md",
+      "bytes": 15822,
+      "sha256": "3163d48053e0c5bf2c302aca8809c5e763a771ff33272c14ba1eb4d797a7d733"
+    },
+    {
+      "path": "11-rutas-ocultas-movil-y-flujos-no-explorados.md",
+      "bytes": 62701,
+      "sha256": "43724870df4352a3b81298b2f29e453631935e45f207211c83310836895de6f1"
+    },
+    {
+      "path": "12-secretos-codigo-fuente-y-auditoria-100-modulos.md",
+      "bytes": 75143,
+      "sha256": "3a1bf4597d8ed3a494ce5748e90c6bad3bda23148a2d65f0fc49fa683fa67763"
+    },
+    {
+      "path": "13-superficie-oculta-supabase-openapi-auth-y-rls.md",
+      "bytes": 59989,
+      "sha256": "6d8a24d060fbd209bd1175dcf725a84964ab4373b026ccb5de0a67cad1e3604b"
+    },
+    {
+      "path": "14-auditoria-empirica-bd-calibracion-picks-y-alucinaciones.md",
+      "bytes": 59969,
+      "sha256": "3b00cefc3912c5e8a5fe6fbb2bd95a89bd803e76c8b8a48dd69f6d7ab0e55ea8"
+    },
+    {
+      "path": "15-infraestructura-expo-eas-dns-y-superficie-externa.md",
+      "bytes": 49400,
+      "sha256": "a6f1580ea35b0699fe0d1496cfc5bb832988711c68dd36155803a410ceb2f6ae"
+    },
+    {
+      "path": "16-grafo-semantico-rea-agentenv-y-ventaja-pitchlab.md",
+      "bytes": 66655,
+      "sha256": "d9cf7e86cec41b4de9d724bb46fb67082e878d405b3b1b6cf8ef951f8f68aee6"
+    },
+    {
+      "path": "app/index.html",
+      "bytes": 2492,
+      "sha256": "4be76fa6d2268b4e7e409fcb8ab560e1e7ce5948894fd1ff8b6923510fc5e7a7"
+    },
+    {
+      "path": "evidence/code-secrets-and-anomalies.json",
+      "bytes": 64630,
+      "sha256": "712dbbc55991e50541619188d045ca96a6da9d6c2b8462e24c4035e220b82e2a"
+    },
+    {
+      "path": "evidence/data-provenance-matrix.json",
+      "bytes": 30301,
+      "sha256": "4b86450867ae1490aa011d80558cd2b2a5e6fad9ad5e4ae47a97916d07e4fc0a"
+    },
+    {
+      "path": "evidence/database-and-api-contracts.json",
+      "bytes": 34091,
+      "sha256": "623dedcc5db17a5070ebd30fd2cc0ea1bba4190edc33eb95501c487fa9f2f3ba"
+    },
+    {
+      "path": "evidence/infra-eas-osint-audit.json",
+      "bytes": 135571,
+      "sha256": "53384c6874d896c04434f4678943f9c3955ae2dc42dd2e5e67cb1d476cef6838"
+    },
+    {
+      "path": "evidence/live-payloads/astra-pick-sample.json",
+      "bytes": 55,
+      "sha256": "aae54277b9da41a353f794df314bb1f59a49b40cda1680aa7fc2040bfd8ddc13"
+    },
+    {
+      "path": "evidence/live-payloads/fixture-detail-sample.json",
+      "bytes": 6590,
+      "sha256": "bb6be484930e935f1cd51f003b96c9fc859c559178c894d8c0abdd3a54ada6d5"
+    },
+    {
+      "path": "evidence/live-payloads/football-standings-sample.json",
+      "bytes": 4966,
+      "sha256": "f66771a7106e144a7124d93f96aee42341dc21947965518f994965f69d9452a1"
+    },
+    {
+      "path": "evidence/live-payloads/historical-match-sample.json",
+      "bytes": 4493,
+      "sha256": "62d2fc71ba1c47008afa13a367553c2fbbe5ff2147827f945a7bc9b9bb76cbad"
+    },
+    {
+      "path": "evidence/live-payloads/league-standings-sample.json",
+      "bytes": 10811,
+      "sha256": "57584bb73234e4de383ddea1c6e0869cb0210f73b4a1395eb51261306c0ace3e"
+    },
+    {
+      "path": "evidence/live-payloads/match-live-futbol-sample.json",
+      "bytes": 10142,
+      "sha256": "15d2e39bac0aa20a9412c294c9f08932b16dcf703faf833282a1b3bf2e0d1adb"
+    },
+    {
+      "path": "evidence/live-payloads/match-live-nhl-sample.json",
+      "bytes": 6398,
+      "sha256": "bb9153c7050f5352b29139f8556f46d3d3158e0b57c5cbd7b8f8695f0715f771"
+    },
+    {
+      "path": "evidence/live-payloads/match-odds-sample.json",
+      "bytes": 188,
+      "sha256": "e61948495ede93798f2af75c17da1bca09e0ccd87e17e58593371b1689c00191"
+    },
+    {
+      "path": "evidence/live-payloads/match-odds-us-sports-sample.json",
+      "bytes": 181,
+      "sha256": "133e3b29f001dbb0e0f8bd34fee5d3dd2577a00d9b482331fea7ac236599e536"
+    },
+    {
+      "path": "evidence/live-payloads/mlb-prediction-sample.json",
+      "bytes": 42695,
+      "sha256": "15b5f3676c12ebc507a67878ad3fcbfcfdd763f97622be6c976d29cb0feaf313"
+    },
+    {
+      "path": "evidence/live-payloads/mlb-team-profile-sample.json",
+      "bytes": 11194,
+      "sha256": "136fe2683ed890ffb44f7ceda23e65434868552ed897239313efa47b4185700b"
+    },
+    {
+      "path": "evidence/live-payloads/my-access-sample.json",
+      "bytes": 376,
+      "sha256": "23c9cdf140a4b950eea74c230bcd597274b4735cb1eaeb7c5cc098974d387a6b"
+    },
+    {
+      "path": "evidence/live-payloads/nba-game-detail-sample.json",
+      "bytes": 2981,
+      "sha256": "8d6100b2e3eb677a9283008e77fb39c41cb6cae4056b61a6a758e9bcc7e8fbbd"
+    },
+    {
+      "path": "evidence/live-payloads/nba-model-context-sample.json",
+      "bytes": 4112,
+      "sha256": "4cf68d067b6e52a819b3923357631060ecb5102344420d5fd4fe9923415effc9"
+    },
+    {
+      "path": "evidence/live-payloads/nba-players-sample.json",
+      "bytes": 23027,
+      "sha256": "dbef746060830c8fcaadd5aa3b325fe9c45e0e26d0795070e8dc62b89f9a550c"
+    },
+    {
+      "path": "evidence/live-payloads/nfl-game-detail-sample.json",
+      "bytes": 2831,
+      "sha256": "f14dbaddf34b70ecf2315088b54dd9861a4eff58eee2462cec36f2b0f9e494d6"
+    },
+    {
+      "path": "evidence/live-payloads/nfl-model-context-sample.json",
+      "bytes": 6122,
+      "sha256": "eb9f98e0f315fa363ed8dcb4f8a1902bccf56b7c2827112f386404e7c12a7179"
+    },
+    {
+      "path": "evidence/live-payloads/nhl-game-detail-sample.json",
+      "bytes": 3106,
+      "sha256": "2d65081b108a1811df7fb7b21a0a46cf09254483e0f5dd3d1668a062bc70330a"
+    },
+    {
+      "path": "evidence/live-payloads/nhl-model-context-sample.json",
+      "bytes": 4118,
+      "sha256": "b283914d4b4d4ea234937b9babb2593932eac95070d6c9835ac2b2e54b6cc060"
+    },
+    {
+      "path": "evidence/live-payloads/public_model_samples.json",
+      "bytes": 171525,
+      "sha256": "419f7506ee85f47ca3bdc298e7673e19ed073cfec2d2816097d4c773b499d649"
+    },
+    {
+      "path": "evidence/live-payloads/team-profile-sample.json",
+      "bytes": 12082,
+      "sha256": "363d8fed9a5e403d19a6b1b4cedc0b3f73123166609d51255b79115dd2e017a3"
+    },
+    {
+      "path": "evidence/module-map.json",
+      "bytes": 456364,
+      "sha256": "7554c857396a949cd86119334ee17c5e9b99c0387554058e528fc953540915d0"
+    },
+    {
+      "path": "evidence/production-db-forensic-audit.json",
+      "bytes": 180986,
+      "sha256": "a88358c9327ed8654edcfddb2bfcfd9dbb4c86a9a4c6fac2eff95896e5b3edd4"
+    },
+    {
+      "path": "evidence/rea-100-first-party-summary.json",
+      "bytes": 14129,
+      "sha256": "610acd75b5102d8c79c40c9620fd516d6438df0eaa5a4549c60193ae92af8b31"
+    },
+    {
+      "path": "evidence/rea-evidence-ledger.json",
+      "bytes": 25610,
+      "sha256": "f0b4de8bf084c81bcbd7056c20f4f5feb88034c10d67b05f377636627dceaf17"
+    },
+    {
+      "path": "evidence/rea-semantic-and-agentenv-audit.json",
+      "bytes": 48392,
+      "sha256": "87eb72b454b5d02204f246ead3a5ca7cba3d551cce1645285eedf1b478087b15"
+    },
+    {
+      "path": "evidence/supabase-deep-surface.json",
+      "bytes": 114974,
+      "sha256": "df28d17d2531e0bb77fba7c0081e4ffccc8d0da386f9498255d64fe18e34d009"
+    },
+    {
+      "path": "evidence/verify_astra_math.py",
+      "bytes": 34568,
+      "sha256": "6855b1af06ccb8ee900957ea7e34119424ae89e6b0b8d8844e75b8919cc96f44"
+    },
+    {
+      "path": "evidence/wave2-routes-and-mobile-audit.json",
+      "bytes": 51534,
+      "sha256": "12b719d31fa9defb0632ac7c9103a4f3e19bf5057a412c697b1e942895608a0e"
+    },
+    {
+      "path": "raw/01-landing-capture.json",
+      "bytes": 413167,
+      "sha256": "51cdbd8197cf9dbe085abb14419a2bba0390f7626165455726f37926531945a0"
+    },
+    {
+      "path": "raw/02-authenticated-tour.json",
+      "bytes": 3799713,
+      "sha256": "65d8a4cdb7c4ed4cd70000c9f2cd428bfdb7ef8d2714772b60c6694b50135079"
+    },
+    {
+      "path": "raw/02-scenario-input.json",
+      "bytes": 3176,
+      "sha256": "3e2f2533315794ee8fe2f8ba59cc6addad49386a22dc4350bd56b77e42c9bb88"
+    },
+    {
+      "path": "raw/03-futbol-input.json",
+      "bytes": 5438,
+      "sha256": "9e158d0530120348c87413ecdb43214af15acdee4b47cba08144bc7bd24a85c5"
+    },
+    {
+      "path": "raw/03-futbol-summary.json",
+      "bytes": 58259,
+      "sha256": "649bb93420b4b4fc1f94c92026dc4d2adb02b041757bf43fe256b46a745d89d7"
+    },
+    {
+      "path": "raw/04-us-sports-input.json",
+      "bytes": 6857,
+      "sha256": "0067a0dd13ed44dd9f82ffb7cd4756c0c0a5fb02685668d13c063a43a0542b1a"
+    },
+    {
+      "path": "raw/04-us-sports-summary.json",
+      "bytes": 80608,
+      "sha256": "71e91ba2ef85c11483120fe5502f567ca2f3780f2967485152cd3dad651aeaf6"
+    },
+    {
+      "path": "raw/05-equipos-institucional-input.json",
+      "bytes": 9875,
+      "sha256": "da43f1cec361d74b9c56db171bd30798d71c9a9664d23ce2968badfb5fc7c802"
+    },
+    {
+      "path": "raw/05-equipos-institucional-summary.json",
+      "bytes": 106663,
+      "sha256": "3fdbebdb9d763192d5062aab1a0681665510571a207bdb9914442e9b424cb2c3"
+    },
+    {
+      "path": "raw/06-mlb-y-historial-input.json",
+      "bytes": 2996,
+      "sha256": "291fad4174b6c60b766d6b7b79ec51693e50ad0bf03bd63c12cf7fa408564cb9"
+    },
+    {
+      "path": "raw/06-mlb-y-historial-summary.json",
+      "bytes": 22674,
+      "sha256": "8153b835018a89be4226ef5017a01e5f66b0291597dfab88a536faab723849b7"
+    },
+    {
+      "path": "raw/07-mobile-unopened-input.json",
+      "bytes": 9303,
+      "sha256": "f94a1df6480e1c70490f5d369450e5c7032757617f9105b2896c02bff70f1f92"
+    },
+    {
+      "path": "raw/07-mobile-unopened-summary.json",
+      "bytes": 216164,
+      "sha256": "3e8fc3919ae05c5cb516b996f4f327569b3b0e194bfcaa8d64acbc77be023ea6"
+    },
+    {
+      "path": "raw/08-hidden-routes-flows-input.json",
+      "bytes": 12697,
+      "sha256": "4ca53a9b2af5c32f903aa70558a87a4de18ae28c660d100f441b5ffaee337a8e"
+    },
+    {
+      "path": "raw/08-hidden-routes-flows-summary.json",
+      "bytes": 439053,
+      "sha256": "1cd7c01d662de28e27182ad967bd1bae7ff7b6b682da6166b5eaa1a0df1ac020"
+    },
+    {
+      "path": "raw/09-expo-host-redirect-input.json",
+      "bytes": 2512,
+      "sha256": "f9ad28d7b8f2c7f6154325feb6c4babc59b2a2c3da0b59de86d77c9e4fda2cb9"
+    },
+    {
+      "path": "raw/09-expo-host-redirect-summary.json",
+      "bytes": 88104,
+      "sha256": "574fdb0ec8e431057fb4ef128a8a625f44e2016f55fc1939d41792f6d4862b2b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 10692,
+      "sha256": "59160e0e1caa70ad35b2a0e7a6b5b4f4907d96ed6b1b2fc9b916a9fa83abfe5b"
+    },
+    {
+      "path": "screenshots/01-home-futbol.png",
+      "bytes": 174251,
+      "sha256": "5c40a92f4044dde4d1951a1e52f87c8561a7930491e230d3b9760253eb5c85ce"
+    },
+    {
+      "path": "screenshots/02-partido-pronostico-ia.png",
+      "bytes": 323489,
+      "sha256": "1b122a0bbf9a839cb35974535f042e59108b78871d153d14083344e221624ccc"
+    },
+    {
+      "path": "screenshots/03-nba-juego-jugadores.png",
+      "bytes": 185339,
+      "sha256": "bb7340e66edf3527f3c9f28181544f12cdf79e0b8587fb055b6cc123b8fa94cf"
+    },
+    {
+      "path": "screenshots/04-nhl-juego.png",
+      "bytes": 320508,
+      "sha256": "6014a5d0935659fcc3f55cac325827bbfaeec0ffef1311e51d822b237cfe01f0"
+    },
+    {
+      "path": "screenshots/05-nfl-cartelera-o-juego.png",
+      "bytes": 375258,
+      "sha256": "e838472e3d30c489a8da6167b9044fff8376845ca143cd1448484da8dfd06305"
+    },
+    {
+      "path": "screenshots/06-equipo-perfil.png",
+      "bytes": 74187,
+      "sha256": "123fa75d23195c91825327d114ed41513fdf6c80c0ddf2434008415f1d371b7a"
+    },
+    {
+      "path": "screenshots/07-cuenta-acceso.png",
+      "bytes": 57999,
+      "sha256": "a487616ddc08f9ce38e5ed10ad6e9b2e13bb44103fb0979a438c98ac1679af71"
+    },
+    {
+      "path": "screenshots/08-nosotros-metodologia.png",
+      "bytes": 110020,
+      "sha256": "e01ab495454586ee8f2d7190006663e77855f6419a2751cd4d7d7294c09e84ad"
+    },
+    {
+      "path": "screenshots/09-futbol-finalizado-estadisticas-xg.png",
+      "bytes": 317829,
+      "sha256": "1b68ea7e2be0cfebc5701dfc3a75083a68b7fab8fb80ad2cc022a658fe09bf3b"
+    },
+    {
+      "path": "screenshots/10-futbol-momento-partido.png",
+      "bytes": 315781,
+      "sha256": "f9d72e4bc8c5ce86b9418fb4ef3d4d834cef9c27f3736a4e9191b35892950719"
+    },
+    {
+      "path": "screenshots/11-equipo-nfl-modelo-epa.png",
+      "bytes": 84568,
+      "sha256": "1d3a519a290eee3f069c99afefc55c2e3802dbbbc07d8aae6bb5213091ff2bc7"
+    },
+    {
+      "path": "screenshots/12-mlb-temporada-baja.png",
+      "bytes": 90755,
+      "sha256": "d59958a96a3afa321c05cccf29ef89fc91fd66ed12839961da076974ac020869"
+    },
+    {
+      "path": "screenshots/13-historial-nfl-externo.png",
+      "bytes": 200797,
+      "sha256": "b057171ae22c9a3e9a669f5284402428d30f89a595c2ceda909a2556dcb992bf"
+    },
+    {
+      "path": "screenshots/14-equipo-mlb-dodgers.png",
+      "bytes": 70757,
+      "sha256": "47ab141dff406eb67b909b119a040ca9d414e10641fd17127708aa7e0f7efdf8"
+    },
+    {
+      "path": "screenshots/15-movil-launch-splash.png",
+      "bytes": 22735,
+      "sha256": "b5410c9725c720cc514b61671909035ccf754a4ffdc47746973d9e82b8d0d4b6"
+    },
+    {
+      "path": "screenshots/16-movil-trial-welcome-modal.png",
+      "bytes": 154023,
+      "sha256": "599f86f82ac7fc13c83bc8c6ef7cacd339e5094cd646c86f3cded887a5318d6d"
+    },
+    {
+      "path": "screenshots/17-movil-home-anuncio-instalar-y-dock.png",
+      "bytes": 175107,
+      "sha256": "0bf6f9869d2b4da12bfc03d5792578fd05f420066e01637e9f805a0f288acbc4"
+    },
+    {
+      "path": "screenshots/18-movil-home-anuncio-nba-y-dock.png",
+      "bytes": 180392,
+      "sha256": "f2ae1a48c0879707f3838cf81c7be46d09ed4c0fa10c677367b90b0d2d931d21"
+    },
+    {
+      "path": "screenshots/19-movil-partido-fullscreen-detalles.png",
+      "bytes": 387980,
+      "sha256": "75fe6a167a981ac78057795ede4820a76c809f739a08bab65a45c3d30bbf16cb"
+    },
+    {
+      "path": "screenshots/20-movil-partido-paywall-anonimo.png",
+      "bytes": 396301,
+      "sha256": "b139d0efd7dcd278983da53f74796304d1026951cf80d9c62581a94b735a454b"
+    },
+    {
+      "path": "screenshots/21-movil-juego-nba-fullscreen.png",
+      "bytes": 364079,
+      "sha256": "6779d7e7709ef5833379025bcb4cc3d8175a6c781e0148eb6bb02f13d7b2c34d"
+    },
+    {
+      "path": "screenshots/22-movil-instalar-pwa.png",
+      "bytes": 87521,
+      "sha256": "878bbe49b2acca74c2cfab51bb307b7ad51fbe194e822e079f01db8b100ed308"
+    },
+    {
+      "path": "screenshots/23-movil-instalar-modal-fallback.png",
+      "bytes": 89048,
+      "sha256": "2a90a62fbe5e3742e19d1826cb4f16c430ddefb8aad8500be9b03b1bb2a8bb26"
+    },
+    {
+      "path": "screenshots/24-movil-partido-ia-autenticado.png",
+      "bytes": 442286,
+      "sha256": "9c3558108fbba51aa06dd23103a7567d6d4b3ab8f03dac22c8677a7b195469bb"
+    },
+    {
+      "path": "screenshots/25-busqueda-futbol-monterrey.png",
+      "bytes": 111653,
+      "sha256": "ae1b891df7d13316a46180dd5c699a820eb67cf3d44ee74a01a6b3580c57da7d"
+    },
+    {
+      "path": "screenshots/26-seguimiento-estadisticas-activo.png",
+      "bytes": 346429,
+      "sha256": "1267097af618371febfeab10d7ac7879414e083469eb0db8c206fe5bf314db84"
+    },
+    {
+      "path": "screenshots/27-siguiendo-poblado-metricas.png",
+      "bytes": 56406,
+      "sha256": "59c2d5cac7d665b22b7f63e1d2eb7fb00eca5e7928559ba63c3e30484e95acb7"
+    },
+    {
+      "path": "screenshots/28-busqueda-nba-knicks.png",
+      "bytes": 96139,
+      "sha256": "3736cfd6c5186d8c20aa406df69a3606090e7ac13242018ff2b61bf21cf44a8a"
+    },
+    {
+      "path": "screenshots/29-mlb-juego-historico-no-almacenado.png",
+      "bytes": 106802,
+      "sha256": "414399ceadd609d7b931bc6a8599dab97ca781110d5478a4d3d24cdb39d17b64"
+    },
+    {
+      "path": "screenshots/30-historial-mlb-dodgers-nlcs.png",
+      "bytes": 240328,
+      "sha256": "c81d1f21a990e139d6b11d6789488f76f0974d8366de2695b166dbc0136086ed"
+    },
+    {
+      "path": "screenshots/31-eliminar-cuenta-solo-lectura.png",
+      "bytes": 45501,
+      "sha256": "e276240729937f45431da30914d74e065e1f719fa84271fe22937bc34ff07a2d"
+    },
+    {
+      "path": "screenshots/32-pago-revisando-polling.png",
+      "bytes": 14780,
+      "sha256": "6953e2e12ddc81b6c1d1f407216d2d1da21ea92a49359ffcad9fed5ef1649027"
+    },
+    {
+      "path": "screenshots/33-pago-uuid-inexistente-resultado.png",
+      "bytes": 25872,
+      "sha256": "d0a253b25d81c0404200c691250b1b41142584036d0d214615b79651bb0384df"
+    },
+    {
+      "path": "screenshots/34-administracion-acceso-restringido.png",
+      "bytes": 18000,
+      "sha256": "2e1062d47e9c6ba5171b5aeaf8e5bedf9e9c27ca89f754a6feac45d2a4fc6100"
+    },
+    {
+      "path": "screenshots/35-confirmado-correo-exito.png",
+      "bytes": 24863,
+      "sha256": "22c0b516dc6cc2a26e9cae13fc4525dbde6e2af8ff3819d664449533395f4b9a"
+    },
+    {
+      "path": "screenshots/36-confirmado-error-enlace-expirado.png",
+      "bytes": 28931,
+      "sha256": "888e0602835401b8b6701c20787d790bf7b3eb463bd247cb4a4e15726b56b08e"
+    },
+    {
+      "path": "screenshots/37-restablecer-codigo-pkce-invalido.png",
+      "bytes": 23076,
+      "sha256": "83878a2c10152b4a4f13c3b66752e2fd6994d8effd0188b7582b9a62a82189c1"
+    },
+    {
+      "path": "screenshots/38-ruta-404-unmatched.png",
+      "bytes": 26118,
+      "sha256": "0f7056d4a36857fcfdbb8349179b65e91ed80e983ce4622c1b31610e7bd4be59"
+    },
+    {
+      "path": "screenshots/39-expo-router-sitemap-expuesto.png",
+      "bytes": 57177,
+      "sha256": "84d987a2aa3daa6eabe7b391d338f1ca3cab0218b26fc13f0e40a2a1b1150fde"
+    },
+    {
+      "path": "screenshots/40-pago-anonimo-guarda-login.png",
+      "bytes": 21249,
+      "sha256": "fee0668cb4320678af45ab829add6f19d6bbd142aeada58c4a5faad4baa65b92"
+    }
+  ]
+}

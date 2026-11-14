@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Figtree_600SemiBold.5aadf4f256256c0f203a44b73bcfda4d.woff2"},830,[]);

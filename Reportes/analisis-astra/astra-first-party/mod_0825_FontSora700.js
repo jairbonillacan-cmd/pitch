@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Sora_700Bold.c263194ab532d4bc28e68daebf8489a2.woff2"},825,[]);

@@ -1,0 +1,808 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-11-14T19:12:00Z",
+  "wave": "Wave 2 — Subagent 6",
+  "role": "Arquitecto de Grafo Semántico REA, Proyección AgentEnv y Estrategia Técnica Comparativa Real contra PitchLab (v3.2)",
+  "tooling": {
+    "rea_package": "rea-agents@6.8.0",
+    "providers": [
+      {
+        "id": "rea-javascript-application",
+        "name": "REA JavaScript application analyzer",
+        "version": "1"
+      },
+      {
+        "id": "rea-javascript-application-workflows",
+        "name": "REA JavaScript application workflows",
+        "version": "1"
+      },
+      {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      }
+    ]
+  },
+  "subject_artifacts": {
+    "astra_first_party": {
+      "path": "C:/Users/T490s/.gemini/antigravity/worktrees/PitchLab/analyze_pitchlab_competitor_rea/Reportes/analisis-astra/astra-first-party",
+      "sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
+      "file_count": 100,
+      "first_party_astra_modules": 98,
+      "expo_generated_modules": 2,
+      "total_bytes": 345913
+    },
+    "astra_app_bundle": {
+      "path": "C:/Users/T490s/.gemini/antigravity/worktrees/PitchLab/analyze_pitchlab_competitor_rea/Reportes/analisis-astra/app",
+      "sha256": "cb5a4ab3b3262cbfb2ee0b0f888cd19a192302dd1bd13e1fac29b13fc9020ad6",
+      "file_count": 26,
+      "js_chunk_count": 25,
+      "js_bytes": 1921311,
+      "index_html_bytes": 2492,
+      "total_app_dir_bytes": 1923803,
+      "manifest_webmanifest_bytes": 3202,
+      "total_with_manifest_bytes": 1927005,
+      "metro_module_id_span": "0..1029 (1030 total Metro modules: 930 vendor + 100 extracted)"
+    },
+    "pitchlab_repository": {
+      "path": "C:/Users/T490s/.gemini/antigravity/worktrees/PitchLab/analyze_pitchlab_competitor_rea",
+      "head_commit_pitchlab": "2960d77",
+      "head_commit_wave1": "2f85ab2",
+      "cycle": "PREDLAB-V3.2 (Gates 1-3 PASS: 50/50 controls, 0 open defects)",
+      "automated_tests": {
+        "vitest_files": 61,
+        "vitest_tests": 1153,
+        "pytest_prediction_lab": 120,
+        "pytest_web_scraping": 7,
+        "failures": 0
+      }
+    }
+  },
+  "evidence_ledger": {
+    "static_javascript_analysis": [
+      {
+        "evidence_id": "ev_56684417ff30a6b644d1dd65c9c9dee1f9c59d7434fbbcaab9fc81a0fc232493",
+        "operation": "analyze_javascript_application",
+        "target": "Reportes/analisis-astra/astra-first-party",
+        "authority": "shipped-artifact",
+        "confidence": "derived",
+        "parameters": {
+          "detail": "summary",
+          "max_semantic_nodes": 300000
+        },
+        "notes": "Primary retained JavaScript application + semantic graph parent (jag_... + jsrg_b7fcc049207383cda957809e2482b6b5cd9a232833ae10b318dbe0ec55638dbd)."
+      },
+      {
+        "evidence_id": "ev_b09a16ba6f4b0343221fcc53af3b053ac9cc8cba87cd39988f67bfb7eca26214",
+        "operation": "inspect_analysis_view",
+        "parent_evidence_id": "ev_56684417ff30a6b644d1dd65c9c9dee1f9c59d7434fbbcaab9fc81a0fc232493",
+        "view": "summary",
+        "authority": "shipped-artifact",
+        "confidence": "derived",
+        "notes": "Summary projection of 100 extracted modules: 114,883 AST nodes, 282 findings, 93 complete, 7 limited, 0 parse failures."
+      },
+      {
+        "evidence_id": "ev_557cad9e34a874d4f40164a4adfff89946c9a31acd35e399fadb712ef994672e",
+        "operation": "inspect_analysis_view",
+        "parent_evidence_id": "ev_56684417ff30a6b644d1dd65c9c9dee1f9c59d7434fbbcaab9fc81a0fc232493",
+        "view": "page (collection=modules, offset=0, limit=120)",
+        "authority": "shipped-artifact",
+        "confidence": "derived",
+        "notes": "Enumerates module nodes out of 421 total Application Graph (JAG) nodes."
+      },
+      {
+        "evidence_id": "ev_77c66f1c4d29c06bc7233b774962e4a39e5930400587a1b6e1dc4a848339142a",
+        "operation": "inspect_analysis_view",
+        "parent_evidence_id": "ev_56684417ff30a6b644d1dd65c9c9dee1f9c59d7434fbbcaab9fc81a0fc232493",
+        "view": "javascript-facts",
+        "authority": "shipped-artifact",
+        "confidence": "derived",
+        "notes": "Projects 29 normalized security/network/storage/state facts across mod_0834, mod_0839, mod_0758, mod_0866, mod_1017, etc."
+      }
+    ],
+    "feature_and_semantic_traces": [
+      {
+        "evidence_id": "ev_3a751cc14748855d21603394b47e49dfcce01cf5a51186013e888fe45eedc17c",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "string", "value": "my_access" },
+        "direction": "both",
+        "matched_seeds": 0,
+        "notes": "Demonstrates that inline PostgREST RPC string literals inside Metro __d wrappers are not promoted to standalone JAG endpoint nodes."
+      },
+      {
+        "evidence_id": "ev_643a3435d4e756eea9d00672d5bec25c075ee34178f7afcb40584a11e0fb6877",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0834_AuthProvider.js" },
+        "direction": "both",
+        "traced_nodes": 427,
+        "traced_edges": 482,
+        "terminal_paths": 5,
+        "notes": "Traverses the application graph hub around AuthProvider, recovering query/hash auth endpoint candidates (refresh_token, access_token, code, error) in mod_0767_ResetPasswordRoute.js and mod_0756_EmailConfirmedRoute.js."
+      },
+      {
+        "evidence_id": "ev_6a3a9d5d9f0d4ab0f31417a7b02358f22b6101987cc9b11ddea03c11857b4813",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0755_AdminDashboardRoute.js" },
+        "direction": "outgoing",
+        "traced_nodes": 19,
+        "traced_edges": 22,
+        "notes": "Maps AdminDashboardRoute UI and asset containment."
+      },
+      {
+        "evidence_id": "ev_9fa97b206a21f4c442ca1ba8c7a447a1c95b5714993b39f53c5e8ef4b2b19766",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0839_AdminService.js" },
+        "direction": "outgoing",
+        "traced_nodes": 2,
+        "traced_edges": 1,
+        "notes": "Asset->module containment edge for AdminService."
+      },
+      {
+        "evidence_id": "ev_33fc56fdb2d7c15f24f5f80178722f61a879e003350e2193db5330cd772f62f0",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0758_DeleteAccountRoute.js" },
+        "direction": "outgoing",
+        "traced_nodes": 9,
+        "traced_edges": 8,
+        "notes": "Maps DeleteAccountRoute UI symbols and state boundaries."
+      },
+      {
+        "evidence_id": "ev_721bd9360d86353b5c6ea4466e2112edc392a61159d4361db9afc58a5a73d8e3",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0863_PaywallAndSubscription.js" },
+        "direction": "outgoing",
+        "traced_nodes": 8,
+        "traced_edges": 7,
+        "notes": "Maps Paywall and subscription checkout UI components."
+      },
+      {
+        "evidence_id": "ev_6a6a57bba0bd2fcc0cc929110578444abe7d875b40934c8a6b7e255d254ecb89",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_0866_TeamProfileService.js" },
+        "direction": "outgoing",
+        "traced_nodes": 2,
+        "traced_edges": 1,
+        "notes": "Asset->module containment edge for TeamProfileService."
+      },
+      {
+        "evidence_id": "ev_ec2f26487f2a357b10ad709105de2cf59224789fc5ece61d6e7c68e5d4bc06e2",
+        "operation": "trace_application_feature",
+        "seed": { "kind": "module", "value": "mod_1017_AiActivityTracker.js" },
+        "direction": "outgoing",
+        "traced_nodes": 2,
+        "traced_edges": 1,
+        "notes": "Asset->module containment edge for AiActivityTracker."
+      },
+      {
+        "evidence_id": "ev_b88bf00335551935ead6872e00d865edf0fe1f1a067989973ae777e6e9b1e65f",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "literal", "value": "my_access" },
+        "direction": "forward-influence",
+        "status": "not-found",
+        "notes": "Inline string arguments without variable/property binding are not materialized as standalone literal semantic nodes; property-slot tracing is required."
+      },
+      {
+        "evidence_id": "ev_d098b9b2c55ec561117d25a486c08e72b08d90f8548f09e9babc7eb6a520f80a",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "rpc" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0834_AuthProvider.js (my_access)",
+          "mod_0839_AdminService.js (admin_dashboard)",
+          "mod_1017_AiActivityTracker.js (record_ai_view)",
+          "mod_0776_FootballRepository.js (search_teams)"
+        ],
+        "notes": "Exhaustive formal proof over all 100 modules that Astra AI invokes exactly 4 PostgREST RPCs."
+      },
+      {
+        "evidence_id": "ev_037006908ce6d24f5d7131089bcc18dee56fa5f9c85315b5878a0d9008d81d2e",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "invoke" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0834_AuthProvider.js (payments x2, delete-account, iap-confirm)",
+          "mod_0866_TeamProfileService.js (team-profile x2)",
+          "mod_1021_StandingsService.js (league-standings x2)",
+          "mod_1023_MatchOddsService.js (match-odds)",
+          "mod_1027_NbaPlayersService.js (nba-players)"
+        ],
+        "notes": "Exhaustive formal proof over all 100 modules that Astra AI invokes 7 Supabase Edge Function endpoints across exactly 5 client modules (10 call sites)."
+      },
+      {
+        "evidence_id": "ev_87450bf389d1032c88ea5ee67e8f082cc0025b26dd2e9a3aa520f2d7a59204ac",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "refreshAccess" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0764_PaymentStatusRoute.js (destructure:/refreshAccess col 427..428, wrapping mod_0834 rpc('my_access'))"
+        ]
+      },
+      {
+        "evidence_id": "ev_7d198d841d6e774499436b3e95fc8a750f6fb781c5039009dccaf0172648e8a5",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "fetchAdmin" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0839_AdminService.js (writes-property fetchAdmin -> rpc('admin_dashboard'))",
+          "mod_0755_AdminDashboardRoute.js (reads-property fetchAdmin)"
+        ]
+      },
+      {
+        "evidence_id": "ev_789f40b9900a304bd5609e0ae2bb119d6bcc3fc97fc4905d3b4a80dbbb71b67a",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "startCheckout" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0834_AuthProvider.js (provides startCheckout -> functions.invoke('payments', {action:'create'}))",
+          "mod_0863_PaywallAndSubscription.js (destructures startCheckout)"
+        ]
+      },
+      {
+        "evidence_id": "ev_2419d91436d53ee14eadaf5ff8b8de8ff2996e4a98c3a9eaaa52f9af2bb5d0d3",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "orderStatus" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0834_AuthProvider.js (provides orderStatus -> functions.invoke('payments', {action:'status'}))",
+          "mod_0764_PaymentStatusRoute.js (destructures orderStatus)"
+        ]
+      },
+      {
+        "evidence_id": "ev_09ca3613e7465b12042d27ec51dc65d22879faacc836b9c52feec7dcd778ad35",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "deleteMyAccount" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0834_AuthProvider.js (provides deleteMyAccount -> functions.invoke('delete-account'))",
+          "mod_0758_DeleteAccountRoute.js (destructures deleteMyAccount)"
+        ]
+      },
+      {
+        "evidence_id": "ev_bb32bca0316332ea9977120a68cd4a4e58e8e3579b36016d77916e1423e6993c",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "useAiActivity" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_1017_AiActivityTracker.js (writes-property useAiActivity -> rpc('record_ai_view'))",
+          "mod_0784_FootballMatchDetail.js (reads-property useAiActivity)",
+          "mod_0867_SportDetail.js (reads-property useAiActivity)"
+        ]
+      },
+      {
+        "evidence_id": "ev_f62ec6967ae7ab982cd824cc8c9151fd2170a9157adb392ff2edda9207b1615d",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "fetchTeamModel" },
+        "direction": "forward-influence",
+        "status": "found",
+        "matched_modules": [
+          "mod_0866_TeamProfileService.js (col 983..999 writes-property fetchTeamModel -> selects predictions.context & game_predictions.context)",
+          "mod_0865_TeamProfileScreen.js (col 442..458 reads-property fetchTeamModel)"
+        ]
+      },
+      {
+        "evidence_id": "ev_55e3dbd9d2c1b52d72210042ac2928476117860fd45465e98b4ea1a7d7398318",
+        "operation": "trace_javascript_semantics",
+        "seed": { "kind": "property", "property": "fetchTeamModel" },
+        "direction": "backward-provenance",
+        "status": "found",
+        "matched_modules": [
+          "mod_0866_TeamProfileService.js",
+          "mod_0865_TeamProfileScreen.js"
+        ]
+      }
+    ],
+    "agentenv_projections": [
+      {
+        "scenario": "Scenario A — Cold SPA Shell (Desktop Default)",
+        "capture_evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+        "manifest_evidence_id": "ev_2a82f5c631c847ecd194bdf3adc6b16caabd8c893e9fe876745eca14041eda54",
+        "coverage_evidence_id": "ev_b9616be3f8de0d13ffa0e5da7696043ae14a2a7a817063039b4499c1e225d360",
+        "state_evidence_id": "ev_5657ddb5971db038ca9b233b554b3ca1251e9b474383aa494d25ef74a8912b30",
+        "primary_origin_selected": "https://astraanalisis.com",
+        "manifest_tools": 2,
+        "served_tools": 1,
+        "excluded_groups": 21
+      },
+      {
+        "scenario": "Scenario B — Desktop Multi-Route (1280x720, Default Event Allocation Budget)",
+        "capture_evidence_id": "ev_06efb8f666defd84c48d1f8d085cfff66c39ce9d601529ffd12811e98a2f3d54",
+        "manifest_4rules_evidence_id": "ev_4767a9f5792a4cb1e60c74351921dc5f1a96447d0bf9568e2ce0b07509e66813",
+        "coverage_4rules_evidence_id": "ev_94c24a77eab7715061e49be92c4a01c9dca072c35871a01e3dea812e93b459f2",
+        "state_4rules_evidence_id": "ev_bf4171cb84026d4fe450aaff78dcc866b2adf479748ba2e4372f30b4ad7039a4",
+        "manifest_2rules_evidence_id": "ev_799b90075a742ca1f027657c732c4ca171f556abde5d018f2e24ea4c7376064ef",
+        "coverage_2rules_evidence_id": "ev_8d5623e725f298fdb1332373b985a7e2a8575c8be1fc81755a82cb069bb65db1",
+        "primary_origin_selected": "https://bbfjdshvlcynngjdkvsk.supabase.co",
+        "manifest_tools": 3,
+        "served_tools": 2,
+        "excluded_groups": 86,
+        "notes": "Desktop width >= 1024 triggered <Redirect href='/?partido=1550951'/>, loading ~100 home PNGs and saturating default max_total_event_allocation_bytes at request-139."
+      },
+      {
+        "scenario": "Scenario C — Mobile Multi-Route Full Supabase BaaS Projection (390x844, Raised Capture Limits, 0 Omissions)",
+        "capture_evidence_id": "ev_44b4cd0cec47b41d70d45172dc9ca8f412047c3593db6050b786d140bc2d42e5",
+        "manifest_4rules_evidence_id": "ev_a04025ae526f264ecd27dc9b1a3ca60fc14ac4c8028ee8a35d89c51377014a9a",
+        "coverage_4rules_evidence_id": "ev_df89ab63ba83b6b150be217d81ef82b739def62178ce380924df02af11a485d2",
+        "state_4rules_evidence_id": "ev_f8005defccbcc5953cffdd66dfa58848e4c3ec5b1e051257cc8bfaa4ec1602c4",
+        "manifest_2rules_evidence_id": "ev_ff903aee39d5fd42f6fd157d419ef9f6664f4260a1bfda7ca3ab75c7bc19532e",
+        "coverage_2rules_evidence_id": "ev_42eac5429af393c73488ea60b47eecd361d50db5b59ae212beeab8c78c86f18a",
+        "primary_origin_selected": "https://bbfjdshvlcynngjdkvsk.supabase.co",
+        "network_records": 96,
+        "manifest_tools": 9,
+        "served_tools": 6,
+        "excluded_groups": 44
+      }
+    ]
+  },
+  "semantic_graph_audit": {
+    "graph_id": "jsrg_b7fcc049207383cda957809e2482b6b5cd9a232833ae10b318dbe0ec55638dbd",
+    "ast_node_count": 114883,
+    "jag_node_count": 421,
+    "examination": {
+      "files_examined": 100,
+      "complete": 93,
+      "limited": 7,
+      "parse_failures": 0
+    },
+    "findings_by_family": {
+      "total": 282,
+      "module_inventory": 100,
+      "symbol_export": 100,
+      "ui_component": 53,
+      "state_store": 12,
+      "network_endpoint": 11,
+      "storage_sink": 4,
+      "dynamic_code_sink": 2
+    },
+    "semantic_unknowns": {
+      "total": 28666,
+      "object_flow": 14447,
+      "data_flow": 9550,
+      "call_flow": 4571,
+      "promise_ownership": 95,
+      "boundary": 2,
+      "timer": 1
+    },
+    "bundler_and_compiler_interaction": {
+      "metro_wrapper": "__d(function(g, r, i, a, m, e, d) { ... }, moduleId, [depIds])",
+      "react_compiler": "Symbol.for('react.memo_cache_sentinel') via (0, t.c)(N) memoization slots",
+      "impact_on_static_graphs": "Metro passes exports (e) as a callback parameter and resolves dependencies via dynamic array indexing r(d[k]) rather than ESM static imports. Consequently, JAG edges stay intra-module (contains + URL query parameter candidates), while JSRG recovers cross-module contracts via property-slot matching (writes-property <-> reads-property / destructures) accompanied by explicit object-flow ambiguous-target unknowns."
+    },
+    "exhaustive_backend_call_surface": {
+      "postgrest_rpcs": [
+        {
+          "rpc_name": "my_access",
+          "caller_module": "mod_0834_AuthProvider.js",
+          "exported_hook_or_fn": "useAuth().access / useAuth().refreshAccess",
+          "downstream_consumers": ["mod_0764_PaymentStatusRoute.js", "mod_0784_FootballMatchDetail.js", "mod_0867_SportDetail.js", "mod_0863_PaywallAndSubscription.js"]
+        },
+        {
+          "rpc_name": "admin_dashboard",
+          "caller_module": "mod_0839_AdminService.js",
+          "exported_hook_or_fn": "fetchAdmin(section, page, search)",
+          "downstream_consumers": ["mod_0755_AdminDashboardRoute.js"]
+        },
+        {
+          "rpc_name": "record_ai_view",
+          "caller_module": "mod_1017_AiActivityTracker.js",
+          "exported_hook_or_fn": "useAiActivity(sport, matchId, active)",
+          "downstream_consumers": ["mod_0784_FootballMatchDetail.js", "mod_0867_SportDetail.js"]
+        },
+        {
+          "rpc_name": "search_teams",
+          "caller_module": "mod_0776_FootballRepository.js",
+          "exported_hook_or_fn": "searchFootballTeams(query)",
+          "downstream_consumers": ["mod_0754_SearchModalRoute.js"]
+        }
+      ],
+      "edge_functions": [
+        {
+          "function_name": "payments",
+          "call_sites": 2,
+          "caller_module": "mod_0834_AuthProvider.js",
+          "actions": ["create (startCheckout)", "status (orderStatus)"],
+          "downstream_consumers": ["mod_0863_PaywallAndSubscription.js", "mod_0764_PaymentStatusRoute.js"]
+        },
+        {
+          "function_name": "delete-account",
+          "call_sites": 1,
+          "caller_module": "mod_0834_AuthProvider.js",
+          "actions": ["POST empty body with Bearer JWT (deleteMyAccount)"],
+          "downstream_consumers": ["mod_0758_DeleteAccountRoute.js"]
+        },
+        {
+          "function_name": "iap-confirm",
+          "call_sites": 1,
+          "caller_module": "mod_0834_AuthProvider.js",
+          "actions": ["RevenueCat native mobile purchase sync"],
+          "downstream_consumers": ["mod_0836_NativePurchasesAdapter.js (web stub returns null)"]
+        },
+        {
+          "function_name": "team-profile",
+          "call_sites": 2,
+          "caller_module": "mod_0866_TeamProfileService.js",
+          "actions": ["fetchTeamProfile(sport, team_id)", "fetchTeamHistoryPage(sport, team_id, page)"],
+          "downstream_consumers": ["mod_0865_TeamProfileScreen.js"]
+        },
+        {
+          "function_name": "league-standings",
+          "call_sites": 2,
+          "caller_module": "mod_1021_StandingsService.js",
+          "actions": ["on-demand fallback when public.standings is empty ({sport:'futbol', league_id, season})"],
+          "downstream_consumers": ["mod_1020_StandingsCard.js", "mod_0865_TeamProfileScreen.js"]
+        },
+        {
+          "function_name": "match-odds",
+          "call_sites": 1,
+          "caller_module": "mod_1023_MatchOddsService.js",
+          "actions": ["fetchMatchOdds(sport, match_id)"],
+          "downstream_consumers": ["mod_1022_MatchOddsCard.js"]
+        },
+        {
+          "function_name": "nba-players",
+          "call_sites": 1,
+          "caller_module": "mod_1027_NbaPlayersService.js",
+          "actions": ["fetchNbaPlayers(game_id)"],
+          "downstream_consumers": ["mod_1026_NbaPlayersCard.js"]
+        }
+      ]
+    }
+  },
+  "agentenv_projection": {
+    "canonical_scenario": "Scenario C (ev_44b4cd0cec47b41d70d45172dc9ca8f412047c3593db6050b786d140bc2d42e5)",
+    "primary_origin": "https://bbfjdshvlcynngjdkvsk.supabase.co",
+    "template_rules_tested": [
+      ["after-uid-literal", "opaque-token", "sibling-variance", "prefix-variance"],
+      ["after-uid-literal", "opaque-token"]
+    ],
+    "sibling_variance_result": "Identical 9-tool catalog under both rule sets; REA preserves distinct PostgREST table nouns (/rest/v1/fixtures, /rest/v1/games, /rest/v1/standings, /rest/v1/predictions, /rest/v1/astra_picks, /rest/v1/match_live) and Edge Function nouns (/functions/v1/match-odds, /functions/v1/team-profile) because their query signatures and response schemas diverge.",
+    "tools_modeled": [
+      {
+        "name": "get_rest_fixtures",
+        "method": "GET",
+        "path_template": "/rest/v1/fixtures",
+        "classification": "read:state (list, id_field='id')",
+        "served_in_bundle": true,
+        "record_ordinals": [21, 66]
+      },
+      {
+        "name": "get_rest_games",
+        "method": "GET",
+        "path_template": "/rest/v1/games",
+        "classification": "read:state (list, id_field='id')",
+        "served_in_bundle": true,
+        "record_ordinals": [92]
+      },
+      {
+        "name": "get_rest_standings",
+        "method": "GET",
+        "path_template": "/rest/v1/standings",
+        "classification": "read:state (list, id_field='team_id', 18 Liga MX entities)",
+        "served_in_bundle": true,
+        "record_ordinals": [25]
+      },
+      {
+        "name": "get_rest_predictions",
+        "method": "GET",
+        "path_template": "/rest/v1/predictions",
+        "classification": "read:state (document — raw context JSONB leaked to anon!)",
+        "served_in_bundle": true,
+        "record_ordinals": [67]
+      },
+      {
+        "name": "get_rest_astra_picks",
+        "method": "GET",
+        "path_template": "/rest/v1/astra_picks",
+        "classification": "read:recorded (reason='query-varies')",
+        "served_in_bundle": true,
+        "record_ordinals": [20, 91]
+      },
+      {
+        "name": "get_rest_match_live",
+        "method": "GET",
+        "path_template": "/rest/v1/match_live",
+        "classification": "read:recorded (reason='query-varies')",
+        "served_in_bundle": true,
+        "record_ordinals": [19, 90]
+      },
+      {
+        "name": "post_functions_match_odds",
+        "method": "POST",
+        "path_template": "/functions/v1/match-odds",
+        "classification": "write:withheld (effect='none', reason='no-state-target')",
+        "served_in_bundle": false,
+        "record_ordinals": [24]
+      },
+      {
+        "name": "post_functions_team_profile",
+        "method": "POST",
+        "path_template": "/functions/v1/team-profile",
+        "classification": "write:withheld (effect='none', reason='no-state-target')",
+        "served_in_bundle": false,
+        "record_ordinals": [65]
+      },
+      {
+        "name": "post_rest_rpc_my_access",
+        "method": "POST",
+        "path_template": "/rest/v1/rpc/my_access",
+        "classification": "write:withheld (effect='none', reason='no-state-target')",
+        "served_in_bundle": false,
+        "record_ordinals": [22, 63, 88]
+      }
+    ],
+    "dry_run_bundle_plan": {
+      "status": "planned",
+      "name": "astra-ai-supabase-baas-env",
+      "served_tool_count": 6,
+      "withheld_write_count": 3,
+      "excluded_other_origin_groups": 44,
+      "planned_files": [
+        { "path": "README.md", "bytes": 3298 },
+        { "path": "envs/astra-ai-supabase-baas-env/env.toml", "bytes": 48 },
+        { "path": "envs/astra-ai-supabase-baas-env/Dockerfile", "bytes": 404 },
+        { "path": "artifacts/check_astra-ai-supabase-baas-env/verify.py", "bytes": 1604 },
+        { "path": "tasks/smoke.json", "bytes": 322 },
+        { "path": "envs/astra-ai-supabase-baas-env/manifest.json", "bytes": 17293 },
+        { "path": "envs/astra-ai-supabase-baas-env/evidence.json", "bytes": 9111797 }
+      ],
+      "total_planned_bytes": 9134766,
+      "security_warnings": [
+        {
+          "code": "credential-named-members",
+          "pointers": ["event 31 request /siteToken", "event 255 request /siteToken", "event 378 request /siteToken"],
+          "explanation": "Cloudflare Web Analytics RUM POSTs (/cdn-cgi/rum) include a JSON key named siteToken, triggering REA's pre-publication secret hygiene heuristic."
+        }
+      ]
+    }
+  },
+  "wave1_consistency_errata": [
+    {
+      "id": "ERR-01",
+      "severity": "high",
+      "topic": "URLs de redes sociales (Telegram/Instagram) y conteo de preguntas frecuentes en /nosotros",
+      "conflicting_reports": ["01-arquitectura-frontend-y-rutas.md (L224) vs 05-evidencia-runtime-y-payloads-reales.md (L130) y 08-autenticacion-pagos-monetizacion-y-legal.md (L267-268)"],
+      "ground_truth_source": "astra-first-party/mod_0870_AboutContentAndSocials.js + mod_0763_AboutRoute.js",
+      "verified_truth": "ABOUT_FAQ contiene exactamente 3 preguntas ('¿Cómo funciona la IA?' con 7 párrafos, '¿Los pronósticos son confiables?' con 1 párrafo y '¿Quiénes somos?' con 1 párrafo). ASTRA_SOCIALS define telegram='https://t.me/+9jzp7DYLucM4MDYx' e instagram='https://www.instagram.com/astra_analysis/'. El reporte 01 inventó 6 FAQs y URLs inexistentes (t.me/astraanalysis e instagram.com/astra.analysis)."
+    },
+    {
+      "id": "ERR-02",
+      "severity": "critical",
+      "topic": "Política RLS y visibilidad anónima en partidos finalizados (FT/final) + exposición de context JSONB",
+      "conflicting_reports": ["00 (L238), 06 (L19, L23-24) y 10 (L42) vs 03 (L509, L540, L583, L597, L692), 08 (L184) y 09 (L50, L122, L139)"],
+      "ground_truth_source": "ev_f8005def... (environment-state en vivo 2026-11-14) + public_model_samples.json (171,525 B) + mod_0784_FootballMatchDetail.js + mod_0867_SportDetail.js",
+      "verified_truth": "Las políticas RLS de predictions, analyses, game_predictions y game_analyses abren SELECT público al rol anon cuando el partido pasa a FT/AET/PEN o final. En UI, un invitado anónimo SÍ ve StatCard + WinBox + AnalysisCard completos en partidos finalizados con pronóstico previo (ej. Pacers 106-104 Knicks en ev_f8005def...); PendingCard(finished=true) solo aparece cuando nunca se generó pronóstico previo. Además, al visitar /equipo/futbol/:id, cualquier visitante anónimo descarga predictions.context crudo (rho, xg_weight, dispersion, home_advantage_log, ratings). Corregir [DESCONOCIDO] en 08 L184, las políticas RLS incompletas en 03 y la afirmación falsa de opacidad en 09."
+    },
+    {
+      "id": "ERR-03",
+      "severity": "high",
+      "topic": "Nombres y conteo de claves en analyses.sections (fútbol)",
+      "conflicting_reports": ["00-REPORTE-MAESTRO-ASTRA-ANALISIS.md (L110, L178) vs 03 (L530), 05 (L121) y 06 (L385-393)"],
+      "ground_truth_source": "astra-first-party/mod_1025_FootballAnalysisSectionsBuilder.js + raw/samples/fixture-detail-sample.json",
+      "verified_truth": "analyses.sections almacena 6 secciones en producción: resumen, goles, tiros_de_esquina, faltas (o legacy corners_faltas en mod_1008), contexto y a_tener_en_cuenta. Las 4 claves citadas en 00 ('panorama', 'tactica', 'factores', 'proyeccion') no existen en Astra AI."
+    },
+    {
+      "id": "ERR-04",
+      "severity": "high",
+      "topic": "Esquema expuesto de public.astra_picks",
+      "conflicting_reports": ["00-REPORTE-MAESTRO-ASTRA-ANALISIS.md (L116) vs 03 (L621-630), 05 (L72, L95) y 06 (L302-322)"],
+      "ground_truth_source": "astra-first-party/mod_1010_AstraPickService.js + raw/samples/astra-pick-sample.json (55 B)",
+      "verified_truth": "mod_1010 consulta únicamente .from('astra_picks').select('pick').eq('sport', ...).eq('match_id', ...), devolviendo [{\"pick\": \"Visita gana o empata\"}]. Las columnas confidence_pct, tier y outcome atribuidas en 00 L116 no existen en el cliente ni en el payload REST de Astra AI."
+    },
+    {
+      "id": "ERR-05",
+      "severity": "high",
+      "topic": "Contrato y conteo de KPIs de admin_dashboard()",
+      "conflicting_reports": ["00 (L22, L127) y 10 (L65) vs 02 (L255-258) vs 04 (L169-196)"],
+      "ground_truth_source": "astra-first-party/mod_0755_AdminDashboardRoute.js + mod_0839_AdminService.js",
+      "verified_truth": "El reporte 04 es 100% exacto: overview renderiza 9 KPIs (accounts, confirmed, new_today, signed_in_today, ai_views_today, ai_users_today, active_subscriptions, paid_orders, revenue_mxn en pesos MXN, NO centavos), serie daily de 14 días con 2 columnas (registrations, ai_views), desglose ai_by_sport (30d) y 3 pestañas paginadas (accounts, activity, purchases con guardia page >= 400). Corregir '14 KPIs / revenue_cents / últimas 80 filas' en 00 y 10, y los nombres inventados en 02."
+    },
+    {
+      "id": "ERR-06",
+      "severity": "medium",
+      "topic": "Nombre de columna model_mode vs model_version y versión activa league_v3 vs league_v2",
+      "conflicting_reports": ["02 (L188), 03 (L283) y 04 (L15) vs 05 (L118) y 06 (L13, L37)"],
+      "ground_truth_source": "raw/samples/fixture-detail-sample.json + astra-first-party/mod_1008_FootballDemoFixtures.js",
+      "verified_truth": "La columna real en public.predictions es model_mode (no model_version como escribe 02 L188). En producción activa emite 'league_v3' (y variantes 'national_v3' / 'cross_league_v3'); el string 'league_v2' solo permanece congelado en el mock offline mod_1008_FootballDemoFixtures.js."
+    },
+    {
+      "id": "ERR-07",
+      "severity": "medium",
+      "topic": "Proyección PostgREST de fetchSportGame sobre game_predictions",
+      "conflicting_reports": ["03 (L208) vs 05 (L54) vs 08 (L146)"],
+      "ground_truth_source": "astra-first-party/mod_1011_SportsRepository.js + ev_f8005def... (ordinal 92)",
+      "verified_truth": "El SELECT real en mod_1011 es prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective). El reporte 05 L54 cita una columna inexistente 'prediction' dentro de game_predictions y 08 L146 escribe game_predictions(*); precisamente porque mod_1011 NO pide context en /juego/:sport/:id, game_predictions.context solo se descarga desde mod_0866::fetchTeamModel en /equipo/:sport/:id."
+    },
+    {
+      "id": "ERR-08",
+      "severity": "medium",
+      "topic": "Semántica del CheckIcon verde (#5FD39A) en WinBox al finalizar un partido",
+      "conflicting_reports": ["02-ui-ux-pantallas-y-flujos.md (L53, L218) vs 06-modelos-estadisticos-picks-e-ia.md (L348)"],
+      "ground_truth_source": "astra-first-party/mod_0868_MatchDetailCards.js",
+      "verified_truth": "En mod_0868, w === e.id renderiza CheckIcon(#5FD39A) con la leyenda fija 'Resultado real del partido' sobre la casilla del desenlace real ocurrido (home, draw o away), independientemente de cuál tenía mayor probabilidad o qué sugería astra_picks. Corregir en 02 que NO es un indicador de 'pronóstico acertado'."
+    },
+    {
+      "id": "ERR-09",
+      "severity": "medium",
+      "topic": "Slug canónico de deporte 'futbol' vs 'football' en rutas y AsyncStorage",
+      "conflicting_reports": ["01 (L214) y 02 (L179) vs 05 (L188)"],
+      "ground_truth_source": "astra-first-party/mod_0866_TeamProfileService.js + mod_1016_FollowDomainLogic.js",
+      "verified_truth": "Tanto teamSport(t) en mod_0866 como parseFollows en mod_1016 validan exclusivamente ['futbol','nba','nfl','nhl','mlb']. El slug 'football' es rechazado (retorna null / se filtra)."
+    },
+    {
+      "id": "ERR-10",
+      "severity": "low",
+      "topic": "Umbral de redirección Desktop (1024 px vs 960 px) y mecanismo (<Redirect/> vs router.replace)",
+      "conflicting_reports": ["01 (L131) y 02 (L9) vs 05 (L70)"],
+      "ground_truth_source": "astra-first-party/mod_0775_ThemeTokens.js + mod_0779_CoreHooks.js + mod_0765_FootballMatchRoute.js + mod_0762_SportGameRoute.js",
+      "verified_truth": "DESKTOP_MIN = 1024 px (width >= 1024 en useIsDesktop) y las rutas retornan declarativamente <Redirect href={{pathname: ..., params: ...}}/>."
+    },
+    {
+      "id": "ERR-11",
+      "severity": "low",
+      "topic": "Condición de disparo de MatchOddsCard/StandingsCard en partidos en vivo y payload de league-standings",
+      "conflicting_reports": ["04 (L247, L265) y 07 (L231) vs 05 (L57, L78)"],
+      "ground_truth_source": "astra-first-party/mod_0784_FootballMatchDetail.js + mod_0867_SportDetail.js + mod_1021_StandingsService.js",
+      "verified_truth": "MatchOddsCard y StandingsCard solo se montan cuando el partido está upcoming/NS o PST/postponed (se desmontan tanto en live como en FT/final). Además, mod_1021 siempre incluye sport: 'futbol' en el body de functions/v1/league-standings."
+    },
+    {
+      "id": "ERR-12",
+      "severity": "low",
+      "topic": "Conteo exacto de países y árbitros estáticos en mod_1019_RefereeNationalityLookup.js",
+      "conflicting_reports": ["02 (L214) y 07 (L259) vs 06 (L409)"],
+      "ground_truth_source": "astra-first-party/mod_1019_RefereeNationalityLookup.js",
+      "verified_truth": "mod_1019 contiene exactamente 38 países en el arreglo o y 98 entradas nominales de árbitros mapeadas a código ISO-2 en el diccionario t (no '~65 países sin lista estática' como afirma 06 L409)."
+    },
+    {
+      "id": "ERR-13",
+      "severity": "medium",
+      "topic": "Conteo de bytes del bundle web y total de módulos Metro (1,030 vs 1,029 vs 286)",
+      "conflicting_reports": ["00 (L12, L210), 01 (L19-20), 03 (L4, L29), 06 (L3), 07 (L4) y 10 (L13, L37)"],
+      "ground_truth_source": "evidence/artifact-sha256-inventory.json + app/_expo/static/js/web/entry-2f163e0b9ce05e4953b73986af77f2b7.js",
+      "verified_truth": "Los 25 chunks JS suman 1,921,311 B; más index.html (2,492 B) = 1,923,803 B en app/; más manifest.webmanifest (3,202 B) = 1,927,005 B. El grafo Metro abarca IDs 0..1029 = 1,030 módulos únicos (930 vendor + 100 en astra-first-party/ = 98 propios de Astra + 2 generados por Expo mod_0009/mod_0393). El número 286/287 en 00/03/06/07 era solo un subconjunto indexado preliminarmente en module-map.json."
+    },
+    {
+      "id": "ERR-14",
+      "severity": "low",
+      "topic": "Conteo de pasos ejecutados en el escenario 02-authenticated-tour (14 vs 11)",
+      "conflicting_reports": ["00 (L13) y 10 (L76) vs 05 (L14)"],
+      "ground_truth_source": "raw/02-scenario-input.json + evidence/rea-evidence-ledger.json",
+      "verified_truth": "02-scenario-input.json ejecuta start_url + 13 acciones = 14/14 pasos completados; la suma de los escenarios 02..06 es 14 + 24 + 32 + 50 + 10 = 130 pasos (no 127)."
+    },
+    {
+      "id": "ERR-15",
+      "severity": "low",
+      "topic": "Instante exacto de activación de trial_ends_at (confirmación de correo vs registro)",
+      "conflicting_reports": ["03 (L180-182) vs 05 (L160) y 08 (L135)"],
+      "ground_truth_source": "mod_0756_EmailConfirmedRoute.js + mod_0863_PaywallAndSubscription.js + evidencia runtime escenario 02",
+      "verified_truth": "trial_ends_at permanece null al crear la fila en auth.users/profiles y se estampa con NOW() + INTERVAL '7 days' únicamente cuando el usuario confirma su correo (email_confirmed_at), como advierte explícitamente la UI ('Confirma tu correo para activar tus 7 días gratis')."
+    }
+  ],
+  "pitchlab_vs_astra_comparison": {
+    "pitchlab_crushes_astra": [
+      {
+        "dimension": "Rigor probabilístico y calibración contra cierre sharp",
+        "pitchlab_evidence": "Dixon-Coles bivariado con decaimiento temporal exponencial + Elo + regresión logística regularizada + blend logit contra cierre sin margen de Pinnacle/Smarkets (power=38, proportional=16, shin=6 en walk_forward_dev de 56,649 eventos; ECE=0.0025 [0.0017, 0.0056]; paridad TS<->Py < 1e-12 en math.ts/outlook.ts).",
+        "astra_evidence": "Ratings ataque/defensa + corrección rho fija por liga (-0.08 en Liga MX, -0.0595 en UEFA) sin de-vigging, sin blend con cierre sharp, sin intervalos bootstrap ni auditoría de calibración ECE/log-loss."
+      },
+      {
+        "dimension": "Gobernanza anti-fuga temporal (holdout sellado + validación prospectiva)",
+        "pitchlab_evidence": "holdout_sealed (14,163 eventos >= 2025-02-02) congelado permanentemente como 'holdout consumido'; 0/60 segmentos de apuestas encendidos hasta cumplir >=150 picks prospectivos reales con CLV% > 0 (IC 95% bootstrap mulberry32); 50/50 controles Red Team en PASS.",
+        "astra_evidence": "Sin holdout ni registro público de desempeño; esconde aciertos/fallos agregados, etiqueta picks con lenguaje direccional sin cuota ('Visita gana o empata') e incluso marca is_retrospective en backfills."
+      },
+      {
+        "dimension": "Integridad criptográfica del récord (PickLedger SHA-256 vs opacidad total)",
+        "pitchlab_evidence": "PickLedger append-only (src/domain/prediction/ledger.ts) con cadena SHA-256 determinista IEEE-754 desde GENESIS_HASH, separación inmutable pick / closing / settlement y liquidación exacta de 6 estados incluyendo líneas asiáticas (.25/.75).",
+        "astra_evidence": "Cero ledger, cero historial verificable de picks, cero métricas de ROI/CLV/hit-rate y un checkmark verde (#5FD39A) en WinBox que solo señala el resultado real del partido."
+      },
+      {
+        "dimension": "Disciplina económica de picks, EV, de-vigging y gestión de banca",
+        "pitchlab_evidence": "Prohibición total de aprobar picks por % de acierto (raw_hit_rate_used_for_approval=false); contrato público MatchOutlook sin stakes/picks engañosos (fairOdds=1/p en 11 mercados fútbol + 3 NFL); motor interno Quarter-Kelly contraído por sigma_p con topes duros 2u/2u/3u/5u + detector causal de Stale Lines con doble confirmación y cadencia derivada <=3.69 min en T-60m.",
+        "astra_evidence": "Muestra momios crudos de una sola casa recreativa (Bet365, ~5.3%-6.5% overround) sin calcular cuota justa, sin quitar margen, sin EV y emitiendo astra_picks desconectados del precio."
+      },
+      {
+        "dimension": "Seguridad de propiedad intelectual del modelo",
+        "pitchlab_evidence": "Pesos y snapshots auditados con hashes SHA-256 congelados, contratos Zod estrictos en packages/contracts y separación servidor/cliente sin exponer payloads internos crudos de submodelos por descuido RLS.",
+        "astra_evidence": "Fuga crítica por RLS en public.predictions: cualquier visitante anónimo extrae predictions.context completo (rho, xg_weight=0.7, dispersiones NB2, home_advantage_log, ratings exactos de cada club) vía PostgREST o al abrir /equipo/futbol/:id."
+      },
+      {
+        "dimension": "Cobertura causal de lesiones/EPA en NFL y sentimiento de mercado internacional",
+        "pitchlab_evidence": "Candidato NFL Minkowski v3.2 (model_nfl_v3_2_candidate.json, 41 features EPA causales w'<w sobre nflverse PBP 1999..2024, cobertura viva 83.83%) + contrato MarketPulse (Polymarket/Kalshi con umbral de liquidez US$5,000 / 10,000 contratos).",
+        "astra_evidence": "Modelo NBA y US Sports completamente ciego a lesiones/bajas titulares (admitido textualmente en game_analyses: 'El modelo no incluye bajas', ej. Pacers sin Haliburton donde Astra dio 71.1% a Knicks y perdió 106-104)."
+      }
+    ],
+    "astra_real_advantages": [
+      {
+        "dimension": "Cobertura viva multi-deporte y multi-liga lista para el usuario final",
+        "astra_strength": "5 deportes activos hoy en producción (Fútbol con 48 ligas/torneos, NBA, NFL, NHL y MLB) con ingesta automatizada cada pocos minutos y fichas dedicadas por partido y equipo.",
+        "pitchlab_gap": "Snapshot vivo v3.2 cubre hoy 130 eventos (84 fútbol + 46 NFL) con cobertura de features en vivo aún baja en fútbol (38/113 = 33.63%, 'low_coverage') y motores diarios MLB/NHL/NBA aún en estado TODO (priors estacionales S-1->S)."
+      },
+      {
+        "dimension": "Arbitraje pragmático de costos de datos en vivo ($19-$29 USD/mes)",
+        "astra_strength": "Combina $0 USD en NBA/NFL (ESPN pública), NHL (api-web.nhle.com) y MLB (statsapi.mlb.com) con una única suscripción barata de API-Sports ($19-$29 USD/mes) cacheada en Supabase para alimentar 48 ligas de fútbol, momios Bet365 pre-partido, standings y eventos minuto a minuto.",
+        "pitchlab_gap": "Infraestructura B3 (cuotas multi-tick) y B7 (XI confirmado) ya escrita y testeada, pero en espera de aprovisionar THE_ODDS_API_KEY / API_FOOTBALL_KEY (active_sources = 0 hoy)."
+      },
+      {
+        "dimension": "Fricción cero de conversión comercial en México ($199 MXN / 30d + Trial 7d sin tarjeta)",
+        "astra_strength": "Trial automático de 7 días al confirmar correo (sin pedir tarjeta, reduciendo abandono inicial), seguido de pase prepago único de $199 MXN por 30 días acumulables vía Stripe (Tarjeta/Apple Pay/Google Pay) y Mercado Pago (efectivo OXXO/SPEI/billetera MP), sin miedo a cargos recurrentes forzosos.",
+        "pitchlab_gap": "Contratos de billing ('free' | 'pro' | 'elite') diseñados en SHARED_CONTRACTS.md, pero el flujo comercial web vivo de cobro MXN (SPEI/Mercado Pago/Stripe) aún no está desplegado frente al usuario."
+      },
+      {
+        "dimension": "UX Mobile-First multi-superficie + Match Center en vivo + Narrativa digerible",
+        "astra_strength": "Una sola base Expo RN Web sirve Desktop split-pane (>=1024px), PWA móvil instalable (con guía iOS/Android en /instalar) y binario nativo listo para tiendas (RevenueCat stub), con marcador live cada 30s, barra de Momentum, eventos minuto a minuto, boxscore NBA por jugador y resumen en lenguaje natural en 6 secciones.",
+        "pitchlab_gap": "Capas visuales apps/web y packages/ui pendientes de sincronizar con live_matchday_v3_snapshot.json.outlooks (SYNC_NOTES.md), sin centro en vivo minuto a minuto ni resúmenes narrativos deterministas conectados al nuevo MatchOutlook."
+      }
+    ],
+    "prioritized_roadmap": {
+      "quick_wins_1_week": [
+        {
+          "id": "QW-1",
+          "title": "Conectar MatchOutlook v3.2 + Fair Odds + MarketPulse en la UI pre-partido con explicabilidad determinista (plantillas verificadas sobre factores reales, 0 alucinaciones LLM)",
+          "effort": "3-4 días",
+          "impact": "Neutraliza la narrativa LLM de Astra AI entregando secciones legibles ('Panorama de Probabilidad', 'Línea Justa vs Mercado', 'Factores Clave de Ataque/Defensa/Descanso') 100% ancladas a math.ts/outlook.ts sin costo de tokens ni contradicciones."
+        },
+        {
+          "id": "QW-2",
+          "title": "Encender API_FOOTBALL_KEY ($19-$29/mes) + THE_ODDS_API_KEY en el scheduler legal B3/B7 para cerrar el 'low_coverage' (38/113 -> >95%) y poblar cuotas multi-tick reales",
+          "effort": "1-2 días",
+          "impact": "Activa inmediatamente cadence_scheduler.py (<=203.46s en T-60m), habilita market_sharp_novig / blend_v3_1 en 93 segmentos de MatchOutlook y arranca la acumulación real de los 150 picks prospectivos."
+        },
+        {
+          "id": "QW-3",
+          "title": "Publicar el Centro de Transparencia Cuantitativa ('Auditoría Abierta PitchLab': ECE, Log-Loss vs Pinnacle y cadena SHA-256 verificable)",
+          "effort": "2 días",
+          "impact": "Convierte la mayor debilidad de Astra AI (ocultar su tasa de acierto y usar un checkmark ambiguo) en un foso competitivo imposible de copiar por tipsters o wrappers de LLM."
+        },
+        {
+          "id": "QW-4",
+          "title": "Higiene SEO/SSR por partido y equipo + PWA instalable limpia (bloqueando rutas internas y evitando la trampa SPA vacía de Astra AI)",
+          "effort": "2 días",
+          "impact": "Captura tráfico orgánico de búsqueda ('pronóstico América vs Cruz Azul probabilidades') donde Astra AI es 100% ciega a crawlers por servir un cascarón SPA estático sin SSR ni sitemap.xml real."
+        }
+      ],
+      "structural_advantages_1_month": [
+        {
+          "id": "SA-1",
+          "title": "Embudo híbrido mexicano: Capa Gratuita Real (MatchOutlook básico + Récord Auditable) + Trial 7d sin tarjeta + Pase Prepago Acumulable SPEI Directo / Stripe / Mercado Pago",
+          "effort": "2 semanas",
+          "impact": "Supera el muro ciego de Astra AI (que bloquea el 100% de partidos futuros a anónimos) usando los pronósticos calibrados gratuitos como imán SEO/viral y monetizando herramientas Pro (comparador multi-casa en tiempo real, Stale Lines verificadas, alertas Telegram/Push en T-60m y Props Lab) con comisión mínima vía SPEI."
+        },
+        {
+          "id": "SA-2",
+          "title": "Ingesta gratuita legal multi-deporte ($0 USD vía api-web.nhle.com, statsapi.mlb.com y nflverse) con ajuste explícito de abridor/portero/bajas confirmadas",
+          "effort": "2-3 semanas",
+          "impact": "iguala el catálogo 5-deportes de Astra AI pero aplasta su talón de Aquiles técnico (ceguera a bajas en NBA/US Sports y ausencia de abridor/bullpen real)."
+        },
+        {
+          "id": "SA-3",
+          "title": "Validador determinista post-generación si se usa LLM redactor + Blindaje RLS/API de columnas sensibles",
+          "effort": "1 semana",
+          "impact": "Garantiza 0 contradicciones numéricas entre prosa y probabilidades (auditando regex de cifras contra el JSON canónico antes de persistir) y 0 fugas de hiperparámetros internos como el desastre de predictions.context en Astra AI."
+        },
+        {
+          "id": "SA-4",
+          "title": "Comunidad verificada con Pick Journal inmutable, CLV automático por usuario y Leaderboards anti-cherry-picking (SHARED_CONTRACTS.md §7)",
+          "effort": "3-4 semanas",
+          "impact": "Crea efectos de red y retención orgánica que una app unidireccional de solo lectura como Astra AI no posee en absoluto."
+        }
+      ],
+      "anti_contamination_guardrails": [
+        "PROHIBIDO exponer columnas JSONB de features/pesos internos en lecturas cliente o vistas públicas post-partido (evitar la vulnerabilidad predictions.context de Astra AI).",
+        "PROHIBIDO generar picks o textos con un LLM sin inyectar cuotas sin margen y sin pasar por un validador determinista que rechace cualquier cifra fuera del contrato MatchOutlook.",
+        "PROHIBIDO mostrar cuotas de una sola casa recreativa (Bet365) como si fueran probabilidades reales sin de-vigging ni referencia sharp (Pinnacle/Smarkets).",
+        "PROHIBIDO emitir pronósticos NBA/MLB/NHL sin bandera explícita de disponibilidad de titulares/abridor/portero (evitar el fallo Pacers-Knicks sin Haliburton)."
+      ]
+    }
+  }
+}

@@ -555,28 +555,79 @@ def main() -> int:
     print(f"  OK -> {len(data['nhl_finished'])} partidos reales NHL verificados: descomposición xG_60, multiplicador de portero rival y conservación OT/SO exactos.")
 
     # ------------------------------------------------------------------------
-    # SUITE 7: MLB — Binomial Negativa (9 entradas y F5) + Factor de Parque
+    # SUITE 7: MLB — Ecuación exacta (5/9 FIP_SP + 4/9 FIP_BP)*(wOBA/avg)*PF + NegBin(5, 4)
     # ------------------------------------------------------------------------
-    print("\n[SUITE 7] Verificando coherencia Binomial Negativa MLB (F5 y partido completo)...")
-    for g in data["mlb_finished"]:
-        p = g["prediction"]
+    print("\n[SUITE 7] Verificando ecuación cerrada MLB (FIP + wOBA + PF) y convolución NegBin(5, 4)...")
+    mlb_sample_path = os.path.join(here, "live-payloads", "mlb-prediction-sample.json")
+    assert os.path.exists(mlb_sample_path), f"No se encontró {mlb_sample_path}"
+    with open(mlb_sample_path, "r", encoding="utf-8") as fp:
+        mlb_data = json.load(fp)
+
+    mlb_preds = [rec["game_prediction"] for rec in mlb_data["records"] if rec.get("game_prediction") is not None]
+    assert len(mlb_preds) == 6
+    max_mlb_run_err = 0.0
+    max_mlb_win_err = 0.0
+
+    def convolve_pmf(p1, p2, max_k=45):
+        out = [0.0] * (max_k + 1)
+        for i, v1 in enumerate(p1):
+            for j, v2 in enumerate(p2):
+                if i + j <= max_k:
+                    out[i + j] += v1 * v2
+        return out
+
+    for p in mlb_preds:
         dig = p["context"]["digest"]
         pr = dig["pronostico"]
-        mh = pr["carreras_esperadas"]["local"]
-        ma = pr["carreras_esperadas"]["visita"]
-        assert abs((mh + ma) - pr["carreras_esperadas"]["total"]) <= 0.01
+        avg_woba = dig["liga"]["avg_wOBA"]
+        pf = dig["factor_parque"]
+        loc = dig["local"]
+        vis = dig["visita"]
+
+        mu_f5_h = (5.0 / 9.0) * vis["abridor"]["FIP"] * (loc["wOBA"] / avg_woba) * pf
+        mu_l4_h = (4.0 / 9.0) * vis["bullpen"]["FIP"] * (loc["wOBA"] / avg_woba) * pf
+        mu_full_h = mu_f5_h + mu_l4_h
+
+        mu_f5_a = (5.0 / 9.0) * loc["abridor"]["FIP"] * (vis["wOBA"] / avg_woba) * pf
+        mu_l4_a = (4.0 / 9.0) * loc["bullpen"]["FIP"] * (vis["wOBA"] / avg_woba) * pf
+        mu_full_a = mu_f5_a + mu_l4_a
+
+        obs_f5_h = pr["primeras_5"]["carreras"]["local"]
+        obs_f5_a = pr["primeras_5"]["carreras"]["visita"]
+        obs_full_h = pr["carreras_esperadas"]["local"]
+        obs_full_a = pr["carreras_esperadas"]["visita"]
+
+        for calc_v, obs_v in [
+            (mu_f5_h, obs_f5_h),
+            (mu_f5_a, obs_f5_a),
+            (mu_full_h, obs_full_h),
+            (mu_full_a, obs_full_a),
+        ]:
+            err = abs(calc_v - obs_v)
+            max_mlb_run_err = max(max_mlb_run_err, err)
+            assert err <= 0.0008, f"Error carreras MLB excesivo: {calc_v} vs {obs_v}"
+
+        assert abs((obs_full_h + obs_full_a) - pr["carreras_esperadas"]["total"]) <= 0.002
         assert abs((p["win"]["home"] + p["win"]["away"]) - 1.0) <= 0.0002
 
-        # Evaluamos matriz Binomial Negativa con r = 5.5 (sobredispersión típica de carreras MLB)
-        r_mlb = 5.5
-        ph_nb = [negbin_pmf(i, mh, r_mlb) for i in range(40)]
-        pa_nb = [negbin_pmf(j, ma, r_mlb) for j in range(40)]
-        p_h_reg = sum(ph_nb[i] * pa_nb[j] for i in range(40) for j in range(40) if i > j)
-        p_tie_9 = sum(ph_nb[i] * pa_nb[i] for i in range(40))
-        p_h_win_est = p_h_reg + 0.5 * p_tie_9
-        assert abs(p_h_win_est - p["win"]["home"]) <= 0.015
+        ph_f5 = [negbin_pmf(k, mu_f5_h, 5.0) for k in range(31)]
+        ph_l4 = [negbin_pmf(k, mu_l4_h, 4.0) for k in range(31)]
+        pa_f5 = [negbin_pmf(k, mu_f5_a, 5.0) for k in range(31)]
+        pa_l4 = [negbin_pmf(k, mu_l4_a, 4.0) for k in range(31)]
+        ph_9 = convolve_pmf(ph_f5, ph_l4, 45)
+        pa_9 = convolve_pmf(pa_f5, pa_l4, 45)
 
-    print(f"  OK -> {len(data['mlb_finished'])} partidos reales MLB verificados con Binomial Negativa (r ~ 5.5).")
+        p_h_reg = sum(ph_9[i] * pa_9[j] for i in range(46) for j in range(46) if i > j)
+        p_tie_9 = sum(ph_9[i] * pa_9[i] for i in range(46))
+        p_h_win_conv = p_h_reg + 0.5 * p_tie_9
+        win_err = abs(p_h_win_conv - p["win"]["home"])
+        max_mlb_win_err = max(max_mlb_win_err, win_err)
+        assert win_err <= 0.004, f"Error win.home MLB excesivo: {p_h_win_conv} vs {p['win']['home']}"
+
+    print(
+        f"  OK -> {len(mlb_preds)} juegos reales MLB verificados: residuo máx. carreras = {max_mlb_run_err:.6f} "
+        f"| error máx. win.home NegBin(5,4) = {max_mlb_win_err:.4f}."
+    )
 
     # ------------------------------------------------------------------------
     # SUITE 8: Momios (match-odds), Conversión IEEE-754 Americana->Decimal y Overround/Vig

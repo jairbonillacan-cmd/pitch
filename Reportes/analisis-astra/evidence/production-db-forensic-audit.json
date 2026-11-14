@@ -1,0 +1,5553 @@
+{
+  "audit_metadata": {
+    "audited_at_utc": "2026-11-14T19:10:00Z",
+    "target_supabase_project": "bbfjdshvlcynngjdkvsk",
+    "http_methods_used": [
+      "GET",
+      "HEAD"
+    ],
+    "mutations_performed": 0,
+    "secrets_or_jwts_stored": 0,
+    "rls_empirical_behavior": "predictions, analyses, game_predictions, and game_analyses unlock 100.0% of finished matches anonymously via publishable key; upcoming matches require active subscription JWT in RLS, while fixtures and games expose forecast_ready and analysis_ready flags publicly for 100% of rows."
+  },
+  "investigation_1_genesis_and_inventory": {
+    "tables": {
+      "leagues": {
+        "total_readable": 48,
+        "content_range": "0-0/48",
+        "columns": [
+          "id",
+          "name",
+          "type",
+          "country",
+          "logo",
+          "flag",
+          "season",
+          "enabled",
+          "sort_order",
+          "updated_at"
+        ],
+        "timestamps": {
+          "updated_at": {
+            "non_null_count": 48,
+            "min": "2026-10-18T13:48:56.226584+00:00",
+            "max": "2026-11-11T23:11:17.069436+00:00"
+          }
+        }
+      },
+      "teams": {
+        "total_readable": 1692,
+        "content_range": "0-0/1692",
+        "columns": [
+          "id",
+          "name",
+          "logo",
+          "updated_at"
+        ],
+        "timestamps": {
+          "updated_at": {
+            "non_null_count": 1692,
+            "min": "2026-10-18T13:48:56.612231+00:00",
+            "max": "2026-11-11T23:11:41.399202+00:00"
+          }
+        }
+      },
+      "fixtures": {
+        "total_readable": 30891,
+        "content_range": "0-0/30891",
+        "columns": [
+          "id",
+          "league_id",
+          "season",
+          "round",
+          "kickoff",
+          "status",
+          "elapsed",
+          "venue",
+          "referee",
+          "home_id",
+          "away_id",
+          "home_goals",
+          "away_goals",
+          "ht_home",
+          "ht_away",
+          "ft_home",
+          "ft_away",
+          "stats_status",
+          "stats_checked_at",
+          "updated_at",
+          "forecast_ready",
+          "analysis_ready"
+        ],
+        "timestamps": {
+          "kickoff": {
+            "non_null_count": 30891,
+            "min": "2024-10-13T00:00:00+00:00",
+            "max": "2027-06-06T15:00:00+00:00"
+          },
+          "updated_at": {
+            "non_null_count": 30891,
+            "min": "2026-10-18T13:48:56.788978+00:00",
+            "max": "2026-11-14T18:46:01.037124+00:00"
+          }
+        }
+      },
+      "match_marks": {
+        "total_readable": 3,
+        "content_range": "0-0/3",
+        "columns": [
+          "fixture_id",
+          "label",
+          "created_at"
+        ],
+        "timestamps": {
+          "created_at": {
+            "non_null_count": 3,
+            "min": "2026-11-07T17:32:43.155992+00:00",
+            "max": "2026-11-07T17:32:43.155992+00:00"
+          }
+        }
+      },
+      "standings": {
+        "total_readable": 905,
+        "content_range": "0-0/905",
+        "columns": [
+          "league_id",
+          "season",
+          "team_id",
+          "group_name",
+          "rank",
+          "points",
+          "played",
+          "goal_diff",
+          "form"
+        ],
+        "timestamps": {}
+      },
+      "predictions": {
+        "total_readable": 1346,
+        "content_range": "0-0/1346",
+        "columns": [
+          "fixture_id",
+          "model_mode",
+          "lambda_home",
+          "lambda_away",
+          "p_home",
+          "p_draw",
+          "p_away",
+          "over_05",
+          "over_15",
+          "over_25",
+          "btts",
+          "corners_home",
+          "corners_away",
+          "corners_total",
+          "fouls_home",
+          "fouls_away",
+          "fouls_total",
+          "warnings",
+          "context",
+          "generated_at"
+        ],
+        "timestamps": {
+          "generated_at": {
+            "non_null_count": 1346,
+            "min": "2026-10-18T13:58:47.04009+00:00",
+            "max": "2026-11-11T23:28:59.540451+00:00"
+          }
+        },
+        "snapshot_downloaded_rows": 1347
+      },
+      "analyses": {
+        "total_readable": 1397,
+        "content_range": "0-0/1397",
+        "columns": [
+          "fixture_id",
+          "model",
+          "sections",
+          "input_tokens",
+          "output_tokens",
+          "created_at"
+        ],
+        "timestamps": {
+          "created_at": {
+            "non_null_count": 1397,
+            "min": "2026-10-18T14:02:02.049634+00:00",
+            "max": "2026-11-12T04:28:10.098947+00:00"
+          }
+        },
+        "snapshot_downloaded_rows": 1398
+      },
+      "sport_teams": {
+        "total_readable": 124,
+        "content_range": "0-0/124",
+        "columns": [
+          "sport",
+          "id",
+          "name",
+          "abbrev",
+          "logo"
+        ],
+        "timestamps": {}
+      },
+      "games": {
+        "total_readable": 485,
+        "content_range": "0-0/485",
+        "columns": [
+          "sport",
+          "id",
+          "league",
+          "season",
+          "game_type",
+          "start_time",
+          "status",
+          "detail",
+          "home_id",
+          "away_id",
+          "home_score",
+          "away_score",
+          "venue",
+          "updated_at",
+          "forecast_ready",
+          "analysis_ready"
+        ],
+        "timestamps": {
+          "start_time": {
+            "non_null_count": 485,
+            "min": "2026-10-17T17:00:00+00:00",
+            "max": "2026-11-20T01:15:00+00:00"
+          },
+          "updated_at": {
+            "non_null_count": 485,
+            "min": "2026-10-18T13:16:14.545612+00:00",
+            "max": "2026-11-14T18:46:01.086563+00:00"
+          }
+        }
+      },
+      "game_predictions": {
+        "total_readable": 407,
+        "content_range": "0-0/407",
+        "columns": [
+          "sport",
+          "game_id",
+          "rows",
+          "win",
+          "warnings",
+          "context",
+          "generated_at",
+          "is_retrospective"
+        ],
+        "timestamps": {
+          "generated_at": {
+            "non_null_count": 407,
+            "min": "2026-10-18T13:16:27.801566+00:00",
+            "max": "2026-11-12T17:39:39.98147+00:00"
+          }
+        }
+      },
+      "game_analyses": {
+        "total_readable": 341,
+        "content_range": "0-0/341",
+        "columns": [
+          "sport",
+          "game_id",
+          "model",
+          "sections",
+          "input_tokens",
+          "output_tokens",
+          "created_at",
+          "is_retrospective"
+        ],
+        "timestamps": {
+          "created_at": {
+            "non_null_count": 341,
+            "min": "2026-10-18T13:20:30.48387+00:00",
+            "max": "2026-11-12T17:46:21.93588+00:00"
+          }
+        }
+      },
+      "astra_picks": {
+        "total_readable": 5,
+        "content_range": "0-0/5",
+        "columns": [
+          "sport",
+          "match_id",
+          "pick",
+          "created_at",
+          "updated_at"
+        ],
+        "timestamps": {
+          "created_at": {
+            "non_null_count": 5,
+            "min": "2026-10-22T04:43:41.616587+00:00",
+            "max": "2026-11-07T17:32:43.155992+00:00"
+          },
+          "updated_at": {
+            "non_null_count": 5,
+            "min": "2026-10-22T05:02:31.504866+00:00",
+            "max": "2026-11-07T17:32:43.155992+00:00"
+          }
+        }
+      },
+      "match_live": {
+        "total_readable": 2193,
+        "content_range": "0-0/2193",
+        "columns": [
+          "sport",
+          "match_id",
+          "state",
+          "elapsed",
+          "info",
+          "statistics",
+          "events",
+          "momentum",
+          "sample",
+          "updated_at"
+        ],
+        "timestamps": {
+          "updated_at": {
+            "non_null_count": 2193,
+            "min": "2026-10-18T13:49:52.110979+00:00",
+            "max": "2026-11-14T18:46:01.110434+00:00"
+          }
+        }
+      }
+    },
+    "sport_breakdowns": {
+      "futbol_fixtures": {
+        "all": 30891,
+        "forecast_ready_true": 1448,
+        "forecast_ready_false": 29443,
+        "analysis_ready_true": 1500,
+        "status_FT": 23722,
+        "status_AET": 95,
+        "status_PEN": 163,
+        "status_NS": 6766,
+        "status_PST": 26,
+        "status_CANC": 80,
+        "finished_with_forecast": 1346,
+        "upcoming_with_forecast": 79,
+        "upcoming_with_analysis": 86
+      },
+      "predictions_by_mode_probe": {
+        "league_v2": {
+          "count": 348,
+          "non_null_count": 348,
+          "min": "2026-10-18T13:58:47.04009+00:00",
+          "max": "2026-10-21T22:11:47.067968+00:00"
+        },
+        "league_v3": {
+          "count": 916,
+          "non_null_count": 916,
+          "min": "2026-10-22T09:56:18.768888+00:00",
+          "max": "2026-11-11T17:15:51.141167+00:00"
+        },
+        "national_v3": {
+          "count": 21,
+          "non_null_count": 21,
+          "min": "2026-11-11T23:28:56.302322+00:00",
+          "max": "2026-11-11T23:28:59.540451+00:00"
+        },
+        "cross_league_v2": {
+          "count": 30,
+          "non_null_count": 30,
+          "min": "2026-10-18T13:59:04.890767+00:00",
+          "max": "2026-10-19T22:10:30.813852+00:00"
+        },
+        "cross_league_v3": {
+          "count": 31,
+          "non_null_count": 31,
+          "min": "2026-10-31T22:14:21.837555+00:00",
+          "max": "2026-11-11T08:27:37.224003+00:00"
+        }
+      },
+      "futbol": {
+        "astra_picks_readable": 3,
+        "match_live_readable": 1790,
+        "match_live_updated_at": {
+          "non_null_count": 1790,
+          "min": "2026-10-18T13:49:52.110979+00:00",
+          "max": "2026-11-14T18:48:01.43092+00:00"
+        }
+      },
+      "nhl": {
+        "sport_teams": 32,
+        "games_total": 212,
+        "games_final": 191,
+        "games_upcoming": 20,
+        "games_live": 1,
+        "games_postponed": 0,
+        "games_forecast_ready": 196,
+        "games_analysis_ready": 174,
+        "games_final_forecast_ready": 177,
+        "games_upcoming_forecast_ready": 18,
+        "games_start_time": {
+          "non_null_count": 212,
+          "min": "2026-10-17T17:00:00+00:00",
+          "max": "2026-11-17T02:30:00+00:00"
+        },
+        "game_predictions_readable": 177,
+        "game_predictions_retro_true": 0,
+        "game_predictions_retro_false": 177,
+        "game_predictions_generated_at": {
+          "non_null_count": 177,
+          "min": "2026-10-18T13:31:54.34831+00:00",
+          "max": "2026-11-12T17:39:39.98147+00:00"
+        },
+        "game_predictions_nonretro_generated_at": {
+          "non_null_count": 177,
+          "min": "2026-10-18T13:31:54.34831+00:00",
+          "max": "2026-11-12T17:39:39.98147+00:00"
+        },
+        "game_predictions_retro_generated_at": {
+          "non_null_count": 0,
+          "min": null,
+          "max": null
+        },
+        "game_analyses_readable": 155,
+        "game_analyses_retro_true": 0,
+        "game_analyses_created_at": {
+          "non_null_count": 155,
+          "min": "2026-10-18T14:10:17.190707+00:00",
+          "max": "2026-11-12T17:46:21.93588+00:00"
+        },
+        "astra_picks_readable": 0,
+        "match_live_readable": 173,
+        "match_live_updated_at": {
+          "non_null_count": 173,
+          "min": "2026-10-20T08:46:00.981931+00:00",
+          "max": "2026-11-14T18:48:01.510196+00:00"
+        }
+      },
+      "nba": {
+        "sport_teams": 30,
+        "games_total": 205,
+        "games_final": 183,
+        "games_upcoming": 22,
+        "games_live": 0,
+        "games_postponed": 0,
+        "games_forecast_ready": 194,
+        "games_analysis_ready": 163,
+        "games_final_forecast_ready": 180,
+        "games_upcoming_forecast_ready": 14,
+        "games_start_time": {
+          "non_null_count": 205,
+          "min": "2026-10-20T19:00:00+00:00",
+          "max": "2026-11-17T02:00:00+00:00"
+        },
+        "game_predictions_readable": 180,
+        "game_predictions_retro_true": 8,
+        "game_predictions_retro_false": 172,
+        "game_predictions_generated_at": {
+          "non_null_count": 180,
+          "min": "2026-10-22T00:51:04.509841+00:00",
+          "max": "2026-11-12T17:39:02.779465+00:00"
+        },
+        "game_predictions_nonretro_generated_at": {
+          "non_null_count": 172,
+          "min": "2026-10-22T00:51:04.509841+00:00",
+          "max": "2026-11-12T17:39:02.779465+00:00"
+        },
+        "game_predictions_retro_generated_at": {
+          "non_null_count": 8,
+          "min": "2026-10-22T07:45:09.613551+00:00",
+          "max": "2026-10-22T07:51:37.153029+00:00"
+        },
+        "game_analyses_readable": 149,
+        "game_analyses_retro_true": 8,
+        "game_analyses_created_at": {
+          "non_null_count": 149,
+          "min": "2026-10-22T00:58:09.167263+00:00",
+          "max": "2026-11-12T17:46:06.716904+00:00"
+        },
+        "astra_picks_readable": 2,
+        "match_live_readable": 180,
+        "match_live_updated_at": {
+          "non_null_count": 180,
+          "min": "2026-10-22T04:34:01.280619+00:00",
+          "max": "2026-11-14T09:08:01.138759+00:00"
+        }
+      },
+      "nfl": {
+        "sport_teams": 32,
+        "games_total": 58,
+        "games_final": 44,
+        "games_upcoming": 14,
+        "games_live": 0,
+        "games_postponed": 0,
+        "games_forecast_ready": 56,
+        "games_analysis_ready": 42,
+        "games_final_forecast_ready": 44,
+        "games_upcoming_forecast_ready": 12,
+        "games_start_time": {
+          "non_null_count": 58,
+          "min": "2026-10-23T00:15:00+00:00",
+          "max": "2026-11-20T01:15:00+00:00"
+        },
+        "game_predictions_readable": 44,
+        "game_predictions_retro_true": 0,
+        "game_predictions_retro_false": 44,
+        "game_predictions_generated_at": {
+          "non_null_count": 44,
+          "min": "2026-10-22T22:03:13.208003+00:00",
+          "max": "2026-11-11T01:28:54.303625+00:00"
+        },
+        "game_predictions_nonretro_generated_at": {
+          "non_null_count": 44,
+          "min": "2026-10-22T22:03:13.208003+00:00",
+          "max": "2026-11-11T01:28:54.303625+00:00"
+        },
+        "game_predictions_retro_generated_at": {
+          "non_null_count": 0,
+          "min": null,
+          "max": null
+        },
+        "game_analyses_readable": 30,
+        "game_analyses_retro_true": 0,
+        "game_analyses_created_at": {
+          "non_null_count": 30,
+          "min": "2026-10-22T22:06:16.394399+00:00",
+          "max": "2026-11-12T04:20:46.523108+00:00"
+        },
+        "astra_picks_readable": 0,
+        "match_live_readable": 44,
+        "match_live_updated_at": {
+          "non_null_count": 44,
+          "min": "2026-10-23T06:02:01.570739+00:00",
+          "max": "2026-11-13T06:58:01.798499+00:00"
+        }
+      },
+      "mlb": {
+        "sport_teams": 30,
+        "games_total": 10,
+        "games_final": 8,
+        "games_upcoming": 2,
+        "games_live": 0,
+        "games_postponed": 0,
+        "games_forecast_ready": 6,
+        "games_analysis_ready": 8,
+        "games_final_forecast_ready": 6,
+        "games_upcoming_forecast_ready": 0,
+        "games_start_time": {
+          "non_null_count": 10,
+          "min": "2026-10-18T00:08:00+00:00",
+          "max": "2026-10-31T00:00:00+00:00"
+        },
+        "game_predictions_readable": 6,
+        "game_predictions_retro_true": 0,
+        "game_predictions_retro_false": 6,
+        "game_predictions_generated_at": {
+          "non_null_count": 6,
+          "min": "2026-10-18T13:16:27.801566+00:00",
+          "max": "2026-10-28T22:17:52.707624+00:00"
+        },
+        "game_predictions_nonretro_generated_at": {
+          "non_null_count": 6,
+          "min": "2026-10-18T13:16:27.801566+00:00",
+          "max": "2026-10-28T22:17:52.707624+00:00"
+        },
+        "game_predictions_retro_generated_at": {
+          "non_null_count": 0,
+          "min": null,
+          "max": null
+        },
+        "game_analyses_readable": 7,
+        "game_analyses_retro_true": 0,
+        "game_analyses_created_at": {
+          "non_null_count": 7,
+          "min": "2026-10-18T13:20:30.48387+00:00",
+          "max": "2026-10-27T15:59:00.583954+00:00"
+        },
+        "astra_picks_readable": 0,
+        "match_live_readable": 6,
+        "match_live_updated_at": {
+          "non_null_count": 6,
+          "min": "2026-10-20T09:50:00.794158+00:00",
+          "max": "2026-10-29T09:34:00.684507+00:00"
+        }
+      }
+    },
+    "chronological_sport_launch_order": [
+      {
+        "sport": "mlb",
+        "first_prediction_generated_at": "2026-10-18T13:16:27.801566+00:00",
+        "first_prediction_game_id": 849817,
+        "first_prediction_match": "Tampa Bay Rays @ Cleveland Guardians",
+        "first_game_start_time": "2026-10-18T21:08:00+00:00",
+        "first_analysis_created_at": "2026-10-18T13:20:30.48387+00:00",
+        "first_analysis_model": "claude-sonnet-5-5",
+        "readable_predictions": 6,
+        "total_forecast_ready_in_games": 6,
+        "launch_rank": 1
+      },
+      {
+        "sport": "nhl",
+        "first_prediction_generated_at": "2026-10-18T13:31:54.34831+00:00",
+        "first_prediction_game_id": 2026020135,
+        "first_prediction_match": "Columbus Blue Jackets @ Minnesota Wild",
+        "first_game_start_time": "2026-10-18T22:00:00+00:00",
+        "first_analysis_created_at": "2026-10-18T14:10:17.190707+00:00",
+        "first_analysis_model": "claude-sonnet-5-5",
+        "readable_predictions": 177,
+        "total_forecast_ready_in_games": 196,
+        "launch_rank": 2
+      },
+      {
+        "sport": "futbol",
+        "first_prediction_generated_at": "2026-10-18T13:58:47.04009+00:00",
+        "first_prediction_fixture_id": 1593336,
+        "first_prediction_model_mode": "league_v2",
+        "first_prediction_match": "Panetolikos vs Olympiakos Piraeus",
+        "first_game_start_time": "2026-10-18T14:00:00+00:00",
+        "first_analysis_created_at": "2026-10-18T14:02:02.049634+00:00",
+        "first_analysis_model": "claude-sonnet-5-5",
+        "readable_predictions": 1347,
+        "total_forecast_ready_in_fixtures": 1448,
+        "launch_rank": 3
+      },
+      {
+        "sport": "nba",
+        "first_prediction_generated_at": "2026-10-22T00:51:04.509841+00:00",
+        "first_prediction_game_id": 401909092,
+        "first_prediction_match": "Golden State Warriors @ Los Angeles Lakers",
+        "first_game_start_time": "2026-10-22T02:00:00+00:00",
+        "first_analysis_created_at": "2026-10-22T00:58:09.167263+00:00",
+        "first_analysis_model": "claude-sonnet-5-5",
+        "readable_predictions": 180,
+        "total_forecast_ready_in_games": 194,
+        "launch_rank": 4
+      },
+      {
+        "sport": "nfl",
+        "first_prediction_generated_at": "2026-10-22T22:03:13.208003+00:00",
+        "first_prediction_game_id": 401873010,
+        "first_prediction_match": "New England Patriots @ Chicago Bears",
+        "first_game_start_time": "2026-10-23T00:15:00+00:00",
+        "first_analysis_created_at": "2026-10-22T22:06:16.394399+00:00",
+        "first_analysis_model": "claude-sonnet-5-5",
+        "readable_predictions": 44,
+        "total_forecast_ready_in_games": 56,
+        "launch_rank": 5
+      }
+    ],
+    "football_model_mode_chronology": {
+      "cross_league_v2": {
+        "count": 30,
+        "first_generated_at": "2026-10-18T13:59:04.890767+00:00",
+        "first_fixture_id": 1635688,
+        "first_match": "Liverpool vs Villarreal",
+        "first_kickoff": "2026-10-20T19:00:00+00:00",
+        "last_generated_at": "2026-10-19T22:10:30.813852+00:00",
+        "last_fixture_id": 1636234,
+        "last_match": "Beşiktaş vs Crystal Palace"
+      },
+      "cross_league_v3": {
+        "count": 31,
+        "first_generated_at": "2026-10-31T22:14:21.837555+00:00",
+        "first_fixture_id": 1635669,
+        "first_match": "Galatasaray vs VfB Stuttgart",
+        "first_kickoff": "2026-11-03T17:45:00+00:00",
+        "last_generated_at": "2026-11-11T08:27:37.224003+00:00",
+        "last_fixture_id": 1638311,
+        "last_match": "Juventus W vs Lyon W"
+      },
+      "league_v2": {
+        "count": 348,
+        "first_generated_at": "2026-10-18T13:58:47.04009+00:00",
+        "first_fixture_id": 1593336,
+        "first_match": "Panetolikos vs Olympiakos Piraeus",
+        "first_kickoff": "2026-10-18T14:00:00+00:00",
+        "last_generated_at": "2026-10-21T22:11:47.067968+00:00",
+        "last_fixture_id": 1520944,
+        "last_match": "CRB vs Londrina"
+      },
+      "league_v3": {
+        "count": 917,
+        "first_generated_at": "2026-10-22T09:56:18.768888+00:00",
+        "first_fixture_id": 1493208,
+        "first_match": "San Lorenzo vs Newells Old Boys",
+        "first_kickoff": "2026-10-24T22:15:00+00:00",
+        "last_generated_at": "2026-11-11T17:15:51.150165+00:00",
+        "last_fixture_id": 1593176,
+        "last_match": "VfL Wolfsburg W vs Bayern Munich W"
+      },
+      "national_v3": {
+        "count": 21,
+        "first_generated_at": "2026-11-11T23:28:56.302322+00:00",
+        "first_fixture_id": 1528958,
+        "first_match": "Türkiye vs Belgium",
+        "first_kickoff": "2026-11-12T17:00:00+00:00",
+        "last_generated_at": "2026-11-11T23:28:59.540451+00:00",
+        "last_fixture_id": 1528971,
+        "last_match": "Kosovo vs Israel"
+      }
+    },
+    "football_v2_to_v3_changes": {
+      "switch_window_utc": "2026-10-21T22:11:47Z (last league_v2) -> 2026-10-22T09:56:18Z (first league_v3)",
+      "new_context_keys_in_v3": [
+        "cup_goal_level",
+        "cross_league.exponent_corners"
+      ],
+      "new_analyses_section_keys": "516 earlier analyses use 5 keys (resumen, goles, contexto, corners_faltas, a_tener_en_cuenta); 821 newer analyses use 7 keys adding dedicated tiros_de_esquina and faltas."
+    },
+    "llm_models_and_token_accounting": {
+      "astra:data-notice": {
+        "count": 62,
+        "by_sport": {
+          "futbol": 61,
+          "mlb": 1
+        },
+        "min_created_at": "2026-10-19T20:02:02.386419+00:00",
+        "max_created_at": "2026-11-11T23:28:59.491608+00:00",
+        "total_input_tokens": 0,
+        "total_output_tokens": 0,
+        "avg_input_tokens": 0.0,
+        "avg_output_tokens": 0.0,
+        "estimated_api_cost_usd_at_list_rates": 0.0,
+        "assumed_rate_per_mtok_usd": {
+          "in_per_mtok_usd": 0.0,
+          "out_per_mtok_usd": 0.0
+        }
+      },
+      "claude-haiku-5-5": {
+        "count": 1123,
+        "by_sport": {
+          "futbol": 844,
+          "mlb": 4,
+          "nba": 124,
+          "nfl": 29,
+          "nhl": 122
+        },
+        "min_created_at": "2026-10-23T09:57:04.191386+00:00",
+        "max_created_at": "2026-11-12T17:46:21.93588+00:00",
+        "total_input_tokens": 2770777,
+        "total_output_tokens": 672139,
+        "avg_input_tokens": 2467.3,
+        "avg_output_tokens": 598.5,
+        "estimated_api_cost_usd_at_list_rates": 6.13,
+        "assumed_rate_per_mtok_usd": {
+          "in_per_mtok_usd": 1.0,
+          "out_per_mtok_usd": 5.0
+        }
+      },
+      "claude-sonnet-5-5": {
+        "count": 554,
+        "by_sport": {
+          "futbol": 493,
+          "mlb": 2,
+          "nba": 25,
+          "nfl": 1,
+          "nhl": 33
+        },
+        "min_created_at": "2026-10-18T13:20:30.48387+00:00",
+        "max_created_at": "2026-10-22T22:17:41.843384+00:00",
+        "total_input_tokens": 1315061,
+        "total_output_tokens": 310010,
+        "avg_input_tokens": 2373.8,
+        "avg_output_tokens": 559.6,
+        "estimated_api_cost_usd_at_list_rates": 8.6,
+        "assumed_rate_per_mtok_usd": {
+          "in_per_mtok_usd": 3.0,
+          "out_per_mtok_usd": 15.0
+        }
+      }
+    },
+    "astra_data_notice_breakdown": {
+      "total_rows": 62,
+      "futbol_cross_league_missing_xg": 51,
+      "futbol_national_insufficient_sample": 10,
+      "mlb_opener_without_starts_849815": 1
+    }
+  },
+  "investigation_2_mlb_mathematical_model": {
+    "summary": {
+      "mu_f5_home": "(5/9) * FIP_away_starter * (wOBA_home / league_avg_wOBA) * park_factor",
+      "mu_late4_home": "(4/9) * FIP_away_bullpen * (wOBA_home / league_avg_wOBA) * park_factor",
+      "mu_full_home": "mu_f5_home + mu_late4_home",
+      "mu_f5_away": "(5/9) * FIP_home_starter * (wOBA_away / league_avg_wOBA) * park_factor",
+      "mu_late4_away": "(4/9) * FIP_home_bullpen * (wOBA_away / league_avg_wOBA) * park_factor",
+      "mu_full_away": "mu_f5_away + mu_late4_away",
+      "home_field_advantage_multiplier": 1.0,
+      "era_weight": 0.0,
+      "innings_split_starter_vs_bullpen": [
+        5.0,
+        4.0
+      ],
+      "probability_distribution": "Convolved Negative Binomial per segment with r_inning ≈ 1.0 (r_F5 ≈ 5.0, r_Late4 ≈ 4.0, r_9 ≈ 9.0–10.0); 9-inning ties split 50/50 for win probability; totals and -1.5 runline evaluated on 9-inning grid without extra-inning run accumulation.",
+      "max_run_expectation_residual_across_24_values": 0.000787
+    },
+    "per_game_verification": [
+      {
+        "game_id": 849817,
+        "matchup": "TB @ CLE",
+        "phase": "serie de campeonato",
+        "generated_at": "2026-10-18T13:16:27.801566+00:00",
+        "final_score": "3-1 (away-home)",
+        "f5_home": {
+          "observed": 1.704,
+          "formula_exact": 1.704347,
+          "abs_error": 0.000347
+        },
+        "f5_away": {
+          "observed": 1.468,
+          "formula_exact": 1.468009,
+          "abs_error": 9e-06
+        },
+        "full_home": {
+          "observed": 3.528,
+          "formula_exact": 3.528787,
+          "abs_error": 0.000787
+        },
+        "full_away": {
+          "observed": 2.903,
+          "formula_exact": 2.902545,
+          "abs_error": 0.000455
+        },
+        "win_home": {
+          "observed": 0.5829,
+          "negbin_conv_r1_5050": 0.5813,
+          "abs_error": 0.0016
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 37,
+          "negbin_9inn_pct": 37.05
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 22,
+            "away": 35,
+            "home": 43
+          },
+          "negbin_r5_pct": {
+            "home": 43.21,
+            "tie": 22.25,
+            "away": 34.55
+          }
+        },
+        "totals_over_pct": {
+          "5.0": {
+            "observed_pct": 59,
+            "calc_9inn_pct": 58.84
+          },
+          "6.0": {
+            "observed_pct": 45,
+            "calc_9inn_pct": 45.14
+          },
+          "7.0": {
+            "observed_pct": 33,
+            "calc_9inn_pct": 32.78
+          },
+          "8.0": {
+            "observed_pct": 23,
+            "calc_9inn_pct": 22.61
+          }
+        }
+      },
+      {
+        "game_id": 849805,
+        "matchup": "TB @ MIL",
+        "phase": "Serie Mundial",
+        "generated_at": "2026-10-22T22:10:43.454824+00:00",
+        "final_score": "2-3 (away-home)",
+        "f5_home": {
+          "observed": 2.301,
+          "formula_exact": 2.301332,
+          "abs_error": 0.000332
+        },
+        "f5_away": {
+          "observed": 1.231,
+          "formula_exact": 1.230808,
+          "abs_error": 0.000192
+        },
+        "full_home": {
+          "observed": 4.049,
+          "formula_exact": 4.049414,
+          "abs_error": 0.000414
+        },
+        "full_away": {
+          "observed": 2.851,
+          "formula_exact": 2.85071,
+          "abs_error": 0.00029
+        },
+        "win_home": {
+          "observed": 0.6509,
+          "negbin_conv_r1_5050": 0.6477,
+          "abs_error": 0.0032
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 45,
+          "negbin_9inn_pct": 44.74
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 19,
+            "away": 22,
+            "home": 59
+          },
+          "negbin_r5_pct": {
+            "home": 58.44,
+            "tie": 19.12,
+            "away": 22.44
+          }
+        },
+        "totals_over_pct": {
+          "5.5": {
+            "observed_pct": 64,
+            "calc_9inn_pct": 64.46
+          },
+          "6.5": {
+            "observed_pct": 51,
+            "calc_9inn_pct": 51.24
+          },
+          "7.5": {
+            "observed_pct": 39,
+            "calc_9inn_pct": 38.71
+          },
+          "8.5": {
+            "observed_pct": 28,
+            "calc_9inn_pct": 27.86
+          }
+        }
+      },
+      {
+        "game_id": 849802,
+        "matchup": "TB @ MIL",
+        "phase": "Serie Mundial",
+        "generated_at": "2026-10-23T15:52:33.639186+00:00",
+        "final_score": "4-5 (away-home)",
+        "f5_home": {
+          "observed": 1.633,
+          "formula_exact": 1.633016,
+          "abs_error": 1.6e-05
+        },
+        "f5_away": {
+          "observed": 1.883,
+          "formula_exact": 1.88308,
+          "abs_error": 8e-05
+        },
+        "full_home": {
+          "observed": 3.381,
+          "formula_exact": 3.381098,
+          "abs_error": 9.8e-05
+        },
+        "full_away": {
+          "observed": 3.503,
+          "formula_exact": 3.502982,
+          "abs_error": 1.8e-05
+        },
+        "win_home": {
+          "observed": 0.4843,
+          "negbin_conv_r1_5050": 0.4844,
+          "abs_error": 0.0001
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 29,
+          "negbin_9inn_pct": 28.95
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 21,
+            "away": 44,
+            "home": 35
+          },
+          "negbin_r5_pct": {
+            "home": 35.33,
+            "tie": 20.71,
+            "away": 43.96
+          }
+        },
+        "totals_over_pct": {
+          "5.5": {
+            "observed_pct": 64,
+            "calc_9inn_pct": 64.41
+          },
+          "6.5": {
+            "observed_pct": 51,
+            "calc_9inn_pct": 51.12
+          },
+          "7.5": {
+            "observed_pct": 39,
+            "calc_9inn_pct": 38.52
+          },
+          "8.5": {
+            "observed_pct": 28,
+            "calc_9inn_pct": 27.63
+          }
+        }
+      },
+      {
+        "game_id": 849804,
+        "matchup": "MIL @ TB",
+        "phase": "Serie Mundial",
+        "generated_at": "2026-10-25T15:46:03.380611+00:00",
+        "final_score": "10-1 (away-home)",
+        "f5_home": {
+          "observed": 2.28,
+          "formula_exact": 2.280451,
+          "abs_error": 0.000451
+        },
+        "f5_away": {
+          "observed": 2.364,
+          "formula_exact": 2.364164,
+          "abs_error": 0.000164
+        },
+        "full_home": {
+          "observed": 3.82,
+          "formula_exact": 3.82016,
+          "abs_error": 0.00016
+        },
+        "full_away": {
+          "observed": 4.026,
+          "formula_exact": 4.025708,
+          "abs_error": 0.000292
+        },
+        "win_home": {
+          "observed": 0.4752,
+          "negbin_conv_r1_5050": 0.4762,
+          "abs_error": 0.001
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 29,
+          "negbin_9inn_pct": 29.68
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 17,
+            "away": 43,
+            "home": 40
+          },
+          "negbin_r5_pct": {
+            "home": 40.23,
+            "tie": 17.1,
+            "away": 42.67
+          }
+        },
+        "totals_over_pct": {
+          "6.5": {
+            "observed_pct": 63,
+            "calc_9inn_pct": 62.57
+          },
+          "7.5": {
+            "observed_pct": 51,
+            "calc_9inn_pct": 50.37
+          },
+          "8.5": {
+            "observed_pct": 39,
+            "calc_9inn_pct": 38.79
+          },
+          "9.5": {
+            "observed_pct": 28,
+            "calc_9inn_pct": 28.64
+          }
+        }
+      },
+      {
+        "game_id": 849803,
+        "matchup": "MIL @ TB",
+        "phase": "Serie Mundial",
+        "generated_at": "2026-10-27T22:15:14.048708+00:00",
+        "final_score": "3-4 (away-home)",
+        "f5_home": {
+          "observed": 1.957,
+          "formula_exact": 1.956983,
+          "abs_error": 1.7e-05
+        },
+        "f5_away": {
+          "observed": 2.077,
+          "formula_exact": 2.07693,
+          "abs_error": 7e-05
+        },
+        "full_home": {
+          "observed": 3.497,
+          "formula_exact": 3.496692,
+          "abs_error": 0.000308
+        },
+        "full_away": {
+          "observed": 3.739,
+          "formula_exact": 3.738473,
+          "abs_error": 0.000527
+        },
+        "win_home": {
+          "observed": 0.4697,
+          "negbin_conv_r1_5050": 0.4706,
+          "abs_error": 0.0009
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 28,
+          "negbin_9inn_pct": 28.28
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 19,
+            "away": 43,
+            "home": 39
+          },
+          "negbin_r5_pct": {
+            "home": 38.65,
+            "tie": 18.88,
+            "away": 42.47
+          }
+        },
+        "totals_over_pct": {
+          "5.5": {
+            "observed_pct": 68,
+            "calc_9inn_pct": 68.34
+          },
+          "6.5": {
+            "observed_pct": 56,
+            "calc_9inn_pct": 55.54
+          },
+          "7.5": {
+            "observed_pct": 43,
+            "calc_9inn_pct": 42.95
+          },
+          "8.5": {
+            "observed_pct": 32,
+            "calc_9inn_pct": 31.67
+          }
+        }
+      },
+      {
+        "game_id": 849799,
+        "matchup": "MIL @ TB",
+        "phase": "Serie Mundial",
+        "generated_at": "2026-10-28T22:17:52.707624+00:00",
+        "final_score": "4-1 (away-home)",
+        "f5_home": {
+          "observed": 1.17,
+          "formula_exact": 1.169877,
+          "abs_error": 0.000123
+        },
+        "f5_away": {
+          "observed": 1.552,
+          "formula_exact": 1.552173,
+          "abs_error": 0.000173
+        },
+        "full_home": {
+          "observed": 2.71,
+          "formula_exact": 2.709586,
+          "abs_error": 0.000414
+        },
+        "full_away": {
+          "observed": 3.214,
+          "formula_exact": 3.213717,
+          "abs_error": 0.000283
+        },
+        "win_home": {
+          "observed": 0.4304,
+          "negbin_conv_r1_5050": 0.4307,
+          "abs_error": 0.0003
+        },
+        "runline_home_minus_1_5_pct": {
+          "observed": 23,
+          "negbin_9inn_pct": 22.76
+        },
+        "f5_3way_pct": {
+          "observed": {
+            "tie": 24,
+            "away": 45,
+            "home": 30
+          },
+          "negbin_r5_pct": {
+            "home": 30.13,
+            "tie": 24.52,
+            "away": 45.35
+          }
+        },
+        "totals_over_pct": {
+          "4.5": {
+            "observed_pct": 66,
+            "calc_9inn_pct": 66.57
+          },
+          "5.5": {
+            "observed_pct": 52,
+            "calc_9inn_pct": 51.99
+          },
+          "6.5": {
+            "observed_pct": 38,
+            "calc_9inn_pct": 38.17
+          },
+          "7.5": {
+            "observed_pct": 27,
+            "calc_9inn_pct": 26.45
+          }
+        }
+      }
+    ],
+    "structural_flaws_discovered": [
+      "Zero home-field advantage in run expectation (HCA = 1.000) and 50/50 coin-flip in extra innings, ignoring historical ~53-54% MLB home win rate in tied 9th innings.",
+      "ERA displayed in digest has 0.000 weight; 100% of pitching strength comes from FIP.",
+      "Rigid hardcoded 5.0 starter / 4.0 bullpen innings split even in ALCS and World Series games where starters routinely exit earlier or pitch deeper.",
+      "Totals (Over/Under) and -1.5 Runline percentages are computed on the 9-inning distribution without adding extra-inning runs when tied after 9 innings (~11% of games), systematically underestimating full-game Over probabilities by ~2.5-4.0 percentage points.",
+      "Cannot price games using an opener with 0 regular-season starts (hard-failed on ALCS Game 849815 Shawn Armstrong -> astra:data-notice).",
+      "2 cancelled/unneeded postseason games (849814 ALCS, 849801 WS) remain stuck in status='upcoming' weeks after the 2026 World Series ended."
+    ]
+  },
+  "investigation_3_paywall_claim_and_calibration": {
+    "paywall_claim_text": "Probamos los modelos en más de 10,000 partidos: los pronósticos con probabilidad alta acertaron más del 75% de las veces. (mod_0863)",
+    "production_prediction_volume": {
+      "total_predictions_ever_generated_in_prod": 1900,
+      "futbol_forecast_ready_true": 1448,
+      "us_sports_forecast_ready_true": 452,
+      "finished_predictions_audited": 1754,
+      "finished_non_retrospective": 1746,
+      "finished_retrospective": 8,
+      "historical_fixtures_without_predictions_backtest_pool": 29443,
+      "verdict_on_10000_claim": "Astra AI has only generated 1,900 live/production predictions in its entire existence (since Oct 18, 2026). The '>10,000 matches' figure refers to offline backtesting on the 29,443 historical API-Sports fixtures (kickoff >= 2024-10-13, forecast_ready=false) seeded into fixtures."
+    },
+    "is_retrospective_audit": {
+      "futbol_post_kickoff_predictions": 0,
+      "us_sports_post_start_predictions": 8,
+      "us_sports_is_retrospective_true": 8,
+      "undeclared_retrospective_backfills": 0,
+      "nba_retrospective_batch_window_utc": "2026-10-22T07:45:09.613551Z to 2026-10-22T07:51:37.153029Z",
+      "nba_retrospective_records": [
+        {
+          "sport": "nba",
+          "game_id": 401909091,
+          "match": "MIN @ MIA",
+          "start_time": "2026-10-21T23:30:00+00:00",
+          "generated_at": "2026-10-22T07:45:09.613551+00:00",
+          "delay_hours_after_start": 8.25,
+          "win_pred": {
+            "away": 0.4301,
+            "draw": null,
+            "home": 0.5699,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "131-106 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909834,
+          "match": "ATL @ ORL",
+          "start_time": "2026-10-21T23:00:00+00:00",
+          "generated_at": "2026-10-22T07:45:17.814128+00:00",
+          "delay_hours_after_start": 8.75,
+          "win_pred": {
+            "away": 0.4438,
+            "draw": null,
+            "home": 0.5562,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "132-125 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909835,
+          "match": "MIL @ WSH",
+          "start_time": "2026-10-21T23:00:00+00:00",
+          "generated_at": "2026-10-22T07:45:24.485219+00:00",
+          "delay_hours_after_start": 8.76,
+          "win_pred": {
+            "away": 0.4942,
+            "draw": null,
+            "home": 0.5058,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "116-128 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909836,
+          "match": "CHA @ BKN",
+          "start_time": "2026-10-21T23:30:00+00:00",
+          "generated_at": "2026-10-22T07:51:09.669792+00:00",
+          "delay_hours_after_start": 8.35,
+          "win_pred": {
+            "away": 0.6597,
+            "draw": null,
+            "home": 0.3403,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "110-103 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909837,
+          "match": "CHI @ TOR",
+          "start_time": "2026-10-21T23:30:00+00:00",
+          "generated_at": "2026-10-22T07:51:21.640138+00:00",
+          "delay_hours_after_start": 8.36,
+          "win_pred": {
+            "away": 0.2767,
+            "draw": null,
+            "home": 0.7233,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "92-135 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909838,
+          "match": "UTAH @ MEM",
+          "start_time": "2026-10-22T00:00:00+00:00",
+          "generated_at": "2026-10-22T07:51:27.141207+00:00",
+          "delay_hours_after_start": 7.86,
+          "win_pred": {
+            "away": 0.429,
+            "draw": null,
+            "home": 0.571,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "103-123 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909839,
+          "match": "IND @ NO",
+          "start_time": "2026-10-22T00:00:00+00:00",
+          "generated_at": "2026-10-22T07:51:31.989726+00:00",
+          "delay_hours_after_start": 7.86,
+          "win_pred": {
+            "away": 0.3784,
+            "draw": null,
+            "home": 0.6216,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "123-120 (away-home)"
+        },
+        {
+          "sport": "nba",
+          "game_id": 401909840,
+          "match": "DAL @ HOU",
+          "start_time": "2026-10-22T00:30:00+00:00",
+          "generated_at": "2026-10-22T07:51:37.153029+00:00",
+          "delay_hours_after_start": 7.36,
+          "win_pred": {
+            "away": 0.237,
+            "draw": null,
+            "home": 0.763,
+            "title": "Probabilidad de victoria, con prórroga"
+          },
+          "final_score": "110-128 (away-home)"
+        }
+      ]
+    },
+    "global_calibration_non_retrospective": {
+      "total_n": 1746,
+      "overall_favorite_wins": 1018,
+      "overall_favorite_hit_rate": 0.583,
+      "overall_mean_max_p": 0.5268,
+      "ece": 0.0563,
+      "disjoint_buckets": [
+        {
+          "bucket": "<50%",
+          "n": 780,
+          "wins": 366,
+          "mean_pred_prob": 0.423,
+          "actual_hit_rate": 0.4692,
+          "calibration_gap_actual_minus_pred": 0.0463,
+          "wilson_95_ci": [
+            0.4344,
+            0.5043
+          ]
+        },
+        {
+          "bucket": "50-55%",
+          "n": 309,
+          "wins": 187,
+          "mean_pred_prob": 0.5259,
+          "actual_hit_rate": 0.6052,
+          "calibration_gap_actual_minus_pred": 0.0793,
+          "wilson_95_ci": [
+            0.5497,
+            0.6581
+          ]
+        },
+        {
+          "bucket": "55-60%",
+          "n": 242,
+          "wins": 148,
+          "mean_pred_prob": 0.5725,
+          "actual_hit_rate": 0.6116,
+          "calibration_gap_actual_minus_pred": 0.039,
+          "wilson_95_ci": [
+            0.5489,
+            0.6708
+          ]
+        },
+        {
+          "bucket": "60-65%",
+          "n": 158,
+          "wins": 104,
+          "mean_pred_prob": 0.6239,
+          "actual_hit_rate": 0.6582,
+          "calibration_gap_actual_minus_pred": 0.0343,
+          "wilson_95_ci": [
+            0.5813,
+            0.7276
+          ]
+        },
+        {
+          "bucket": "65-70%",
+          "n": 90,
+          "wins": 68,
+          "mean_pred_prob": 0.6717,
+          "actual_hit_rate": 0.7556,
+          "calibration_gap_actual_minus_pred": 0.0838,
+          "wilson_95_ci": [
+            0.6575,
+            0.8327
+          ]
+        },
+        {
+          "bucket": "70-75%",
+          "n": 62,
+          "wins": 49,
+          "mean_pred_prob": 0.7214,
+          "actual_hit_rate": 0.7903,
+          "calibration_gap_actual_minus_pred": 0.0689,
+          "wilson_95_ci": [
+            0.6736,
+            0.8732
+          ]
+        },
+        {
+          "bucket": "75-80%",
+          "n": 59,
+          "wins": 52,
+          "mean_pred_prob": 0.7724,
+          "actual_hit_rate": 0.8814,
+          "calibration_gap_actual_minus_pred": 0.1089,
+          "wilson_95_ci": [
+            0.7748,
+            0.9413
+          ]
+        },
+        {
+          "bucket": ">=80%",
+          "n": 46,
+          "wins": 44,
+          "mean_pred_prob": 0.8568,
+          "actual_hit_rate": 0.9565,
+          "calibration_gap_actual_minus_pred": 0.0997,
+          "wilson_95_ci": [
+            0.8547,
+            0.988
+          ]
+        }
+      ],
+      "cumulative_thresholds": [
+        {
+          "threshold": ">=50%",
+          "n": 966,
+          "share_of_matches": 0.5533,
+          "wins": 652,
+          "mean_pred_prob": 0.6106,
+          "actual_hit_rate": 0.6749,
+          "calibration_gap_actual_minus_pred": 0.0644,
+          "wilson_95_ci": [
+            0.6448,
+            0.7037
+          ]
+        },
+        {
+          "threshold": ">=55%",
+          "n": 657,
+          "share_of_matches": 0.3763,
+          "wins": 465,
+          "mean_pred_prob": 0.6504,
+          "actual_hit_rate": 0.7078,
+          "calibration_gap_actual_minus_pred": 0.0574,
+          "wilson_95_ci": [
+            0.6719,
+            0.7413
+          ]
+        },
+        {
+          "threshold": ">=60%",
+          "n": 415,
+          "share_of_matches": 0.2377,
+          "wins": 317,
+          "mean_pred_prob": 0.6958,
+          "actual_hit_rate": 0.7639,
+          "calibration_gap_actual_minus_pred": 0.0681,
+          "wilson_95_ci": [
+            0.7207,
+            0.8022
+          ]
+        },
+        {
+          "threshold": ">=65%",
+          "n": 257,
+          "share_of_matches": 0.1472,
+          "wins": 213,
+          "mean_pred_prob": 0.74,
+          "actual_hit_rate": 0.8288,
+          "calibration_gap_actual_minus_pred": 0.0888,
+          "wilson_95_ci": [
+            0.778,
+            0.8699
+          ]
+        },
+        {
+          "threshold": ">=70%",
+          "n": 167,
+          "share_of_matches": 0.0956,
+          "wins": 145,
+          "mean_pred_prob": 0.7767,
+          "actual_hit_rate": 0.8683,
+          "calibration_gap_actual_minus_pred": 0.0915,
+          "wilson_95_ci": [
+            0.8086,
+            0.9114
+          ]
+        },
+        {
+          "threshold": ">=75%",
+          "n": 105,
+          "share_of_matches": 0.0601,
+          "wins": 96,
+          "mean_pred_prob": 0.8094,
+          "actual_hit_rate": 0.9143,
+          "calibration_gap_actual_minus_pred": 0.1049,
+          "wilson_95_ci": [
+            0.8451,
+            0.9543
+          ]
+        },
+        {
+          "threshold": ">=80%",
+          "n": 46,
+          "share_of_matches": 0.0263,
+          "wins": 44,
+          "mean_pred_prob": 0.8568,
+          "actual_hit_rate": 0.9565,
+          "calibration_gap_actual_minus_pred": 0.0997,
+          "wilson_95_ci": [
+            0.8547,
+            0.988
+          ]
+        }
+      ]
+    },
+    "global_calibration_including_retrospective": {
+      "total_n": 1754,
+      "overall_favorite_wins": 1023,
+      "overall_favorite_hit_rate": 0.5832,
+      "overall_mean_max_p": 0.5272,
+      "ece": 0.0561,
+      "disjoint_buckets": [
+        {
+          "bucket": "<50%",
+          "n": 780,
+          "wins": 366,
+          "mean_pred_prob": 0.423,
+          "actual_hit_rate": 0.4692,
+          "calibration_gap_actual_minus_pred": 0.0463,
+          "wilson_95_ci": [
+            0.4344,
+            0.5043
+          ]
+        },
+        {
+          "bucket": "50-55%",
+          "n": 310,
+          "wins": 188,
+          "mean_pred_prob": 0.5258,
+          "actual_hit_rate": 0.6065,
+          "calibration_gap_actual_minus_pred": 0.0806,
+          "wilson_95_ci": [
+            0.5511,
+            0.6592
+          ]
+        },
+        {
+          "bucket": "55-60%",
+          "n": 245,
+          "wins": 149,
+          "mean_pred_prob": 0.5725,
+          "actual_hit_rate": 0.6082,
+          "calibration_gap_actual_minus_pred": 0.0357,
+          "wilson_95_ci": [
+            0.5458,
+            0.6672
+          ]
+        },
+        {
+          "bucket": "60-65%",
+          "n": 159,
+          "wins": 104,
+          "mean_pred_prob": 0.6239,
+          "actual_hit_rate": 0.6541,
+          "calibration_gap_actual_minus_pred": 0.0302,
+          "wilson_95_ci": [
+            0.5773,
+            0.7236
+          ]
+        },
+        {
+          "bucket": "65-70%",
+          "n": 91,
+          "wins": 69,
+          "mean_pred_prob": 0.6716,
+          "actual_hit_rate": 0.7582,
+          "calibration_gap_actual_minus_pred": 0.0866,
+          "wilson_95_ci": [
+            0.661,
+            0.8346
+          ]
+        },
+        {
+          "bucket": "70-75%",
+          "n": 63,
+          "wins": 50,
+          "mean_pred_prob": 0.7214,
+          "actual_hit_rate": 0.7937,
+          "calibration_gap_actual_minus_pred": 0.0722,
+          "wilson_95_ci": [
+            0.6783,
+            0.8752
+          ]
+        },
+        {
+          "bucket": "75-80%",
+          "n": 60,
+          "wins": 53,
+          "mean_pred_prob": 0.7723,
+          "actual_hit_rate": 0.8833,
+          "calibration_gap_actual_minus_pred": 0.1111,
+          "wilson_95_ci": [
+            0.7782,
+            0.9423
+          ]
+        },
+        {
+          "bucket": ">=80%",
+          "n": 46,
+          "wins": 44,
+          "mean_pred_prob": 0.8568,
+          "actual_hit_rate": 0.9565,
+          "calibration_gap_actual_minus_pred": 0.0997,
+          "wilson_95_ci": [
+            0.8547,
+            0.988
+          ]
+        }
+      ],
+      "cumulative_thresholds": [
+        {
+          "threshold": ">=50%",
+          "n": 974,
+          "share_of_matches": 0.5553,
+          "wins": 657,
+          "mean_pred_prob": 0.6107,
+          "actual_hit_rate": 0.6745,
+          "calibration_gap_actual_minus_pred": 0.0639,
+          "wilson_95_ci": [
+            0.6445,
+            0.7032
+          ]
+        },
+        {
+          "threshold": ">=55%",
+          "n": 664,
+          "share_of_matches": 0.3786,
+          "wins": 469,
+          "mean_pred_prob": 0.6502,
+          "actual_hit_rate": 0.7063,
+          "calibration_gap_actual_minus_pred": 0.0561,
+          "wilson_95_ci": [
+            0.6706,
+            0.7397
+          ]
+        },
+        {
+          "threshold": ">=60%",
+          "n": 419,
+          "share_of_matches": 0.2389,
+          "wins": 320,
+          "mean_pred_prob": 0.6957,
+          "actual_hit_rate": 0.7637,
+          "calibration_gap_actual_minus_pred": 0.068,
+          "wilson_95_ci": [
+            0.7208,
+            0.8019
+          ]
+        },
+        {
+          "threshold": ">=65%",
+          "n": 260,
+          "share_of_matches": 0.1482,
+          "wins": 216,
+          "mean_pred_prob": 0.7397,
+          "actual_hit_rate": 0.8308,
+          "calibration_gap_actual_minus_pred": 0.0911,
+          "wilson_95_ci": [
+            0.7805,
+            0.8715
+          ]
+        },
+        {
+          "threshold": ">=70%",
+          "n": 169,
+          "share_of_matches": 0.0964,
+          "wins": 147,
+          "mean_pred_prob": 0.7763,
+          "actual_hit_rate": 0.8698,
+          "calibration_gap_actual_minus_pred": 0.0935,
+          "wilson_95_ci": [
+            0.8108,
+            0.9124
+          ]
+        },
+        {
+          "threshold": ">=75%",
+          "n": 106,
+          "share_of_matches": 0.0604,
+          "wins": 97,
+          "mean_pred_prob": 0.8089,
+          "actual_hit_rate": 0.9151,
+          "calibration_gap_actual_minus_pred": 0.1062,
+          "wilson_95_ci": [
+            0.8465,
+            0.9547
+          ]
+        },
+        {
+          "threshold": ">=80%",
+          "n": 46,
+          "share_of_matches": 0.0262,
+          "wins": 44,
+          "mean_pred_prob": 0.8568,
+          "actual_hit_rate": 0.9565,
+          "calibration_gap_actual_minus_pred": 0.0997,
+          "wilson_95_ci": [
+            0.8547,
+            0.988
+          ]
+        }
+      ]
+    },
+    "football_1x2_overall": {
+      "n": 1347,
+      "brier_3way_sum": 0.5738,
+      "brier_3way_mean_per_class": 0.1913,
+      "climatology_brier_3way": 0.6344,
+      "uniform_brier_3way": 0.6667,
+      "brier_skill_score_vs_climatology": 0.0956,
+      "logloss": 0.9673,
+      "climatology_logloss": 1.0507,
+      "uniform_logloss": 1.0986,
+      "actual_rates": {
+        "home": 0.4699,
+        "draw": 0.219,
+        "away": 0.3111
+      },
+      "mean_pred_rates": {
+        "home": 0.4381,
+        "draw": 0.2497,
+        "away": 0.3122
+      },
+      "calibration": {
+        "total_n": 1347,
+        "overall_favorite_wins": 750,
+        "overall_favorite_hit_rate": 0.5568,
+        "overall_mean_max_p": 0.4998,
+        "ece": 0.059,
+        "disjoint_buckets": [
+          {
+            "bucket": "<50%",
+            "n": 780,
+            "wins": 366,
+            "mean_pred_prob": 0.423,
+            "actual_hit_rate": 0.4692,
+            "calibration_gap_actual_minus_pred": 0.0463,
+            "wilson_95_ci": [
+              0.4344,
+              0.5043
+            ]
+          },
+          {
+            "bucket": "50-55%",
+            "n": 183,
+            "wins": 113,
+            "mean_pred_prob": 0.5258,
+            "actual_hit_rate": 0.6175,
+            "calibration_gap_actual_minus_pred": 0.0917,
+            "wilson_95_ci": [
+              0.5453,
+              0.6848
+            ]
+          },
+          {
+            "bucket": "55-60%",
+            "n": 152,
+            "wins": 95,
+            "mean_pred_prob": 0.5725,
+            "actual_hit_rate": 0.625,
+            "calibration_gap_actual_minus_pred": 0.0525,
+            "wilson_95_ci": [
+              0.5458,
+              0.698
+            ]
+          },
+          {
+            "bucket": "60-65%",
+            "n": 92,
+            "wins": 56,
+            "mean_pred_prob": 0.6231,
+            "actual_hit_rate": 0.6087,
+            "calibration_gap_actual_minus_pred": -0.0144,
+            "wilson_95_ci": [
+              0.5065,
+              0.7021
+            ]
+          },
+          {
+            "bucket": "65-70%",
+            "n": 56,
+            "wins": 44,
+            "mean_pred_prob": 0.6724,
+            "actual_hit_rate": 0.7857,
+            "calibration_gap_actual_minus_pred": 0.1133,
+            "wilson_95_ci": [
+              0.6618,
+              0.8729
+            ]
+          },
+          {
+            "bucket": "70-75%",
+            "n": 30,
+            "wins": 26,
+            "mean_pred_prob": 0.723,
+            "actual_hit_rate": 0.8667,
+            "calibration_gap_actual_minus_pred": 0.1437,
+            "wilson_95_ci": [
+              0.7032,
+              0.9469
+            ]
+          },
+          {
+            "bucket": "75-80%",
+            "n": 35,
+            "wins": 32,
+            "mean_pred_prob": 0.7713,
+            "actual_hit_rate": 0.9143,
+            "calibration_gap_actual_minus_pred": 0.143,
+            "wilson_95_ci": [
+              0.7762,
+              0.9704
+            ]
+          },
+          {
+            "bucket": ">=80%",
+            "n": 19,
+            "wins": 18,
+            "mean_pred_prob": 0.8619,
+            "actual_hit_rate": 0.9474,
+            "calibration_gap_actual_minus_pred": 0.0855,
+            "wilson_95_ci": [
+              0.7536,
+              0.9906
+            ]
+          }
+        ],
+        "cumulative_thresholds": [
+          {
+            "threshold": ">=50%",
+            "n": 567,
+            "share_of_matches": 0.4209,
+            "wins": 384,
+            "mean_pred_prob": 0.6054,
+            "actual_hit_rate": 0.6772,
+            "calibration_gap_actual_minus_pred": 0.0718,
+            "wilson_95_ci": [
+              0.6377,
+              0.7144
+            ]
+          },
+          {
+            "threshold": ">=55%",
+            "n": 384,
+            "share_of_matches": 0.2851,
+            "wins": 271,
+            "mean_pred_prob": 0.6434,
+            "actual_hit_rate": 0.7057,
+            "calibration_gap_actual_minus_pred": 0.0623,
+            "wilson_95_ci": [
+              0.6583,
+              0.7491
+            ]
+          },
+          {
+            "threshold": ">=60%",
+            "n": 232,
+            "share_of_matches": 0.1722,
+            "wins": 176,
+            "mean_pred_prob": 0.6898,
+            "actual_hit_rate": 0.7586,
+            "calibration_gap_actual_minus_pred": 0.0688,
+            "wilson_95_ci": [
+              0.6996,
+              0.8092
+            ]
+          },
+          {
+            "threshold": ">=65%",
+            "n": 140,
+            "share_of_matches": 0.1039,
+            "wins": 120,
+            "mean_pred_prob": 0.7337,
+            "actual_hit_rate": 0.8571,
+            "calibration_gap_actual_minus_pred": 0.1235,
+            "wilson_95_ci": [
+              0.7896,
+              0.9056
+            ]
+          },
+          {
+            "threshold": ">=70%",
+            "n": 84,
+            "share_of_matches": 0.0624,
+            "wins": 76,
+            "mean_pred_prob": 0.7745,
+            "actual_hit_rate": 0.9048,
+            "calibration_gap_actual_minus_pred": 0.1302,
+            "wilson_95_ci": [
+              0.8232,
+              0.9509
+            ]
+          },
+          {
+            "threshold": ">=75%",
+            "n": 54,
+            "share_of_matches": 0.0401,
+            "wins": 50,
+            "mean_pred_prob": 0.8032,
+            "actual_hit_rate": 0.9259,
+            "calibration_gap_actual_minus_pred": 0.1227,
+            "wilson_95_ci": [
+              0.8245,
+              0.9708
+            ]
+          },
+          {
+            "threshold": ">=80%",
+            "n": 19,
+            "share_of_matches": 0.0141,
+            "wins": 18,
+            "mean_pred_prob": 0.8619,
+            "actual_hit_rate": 0.9474,
+            "calibration_gap_actual_minus_pred": 0.0855,
+            "wilson_95_ci": [
+              0.7536,
+              0.9906
+            ]
+          }
+        ]
+      }
+    },
+    "football_1x2_by_model_mode": {
+      "cross_league_v2": {
+        "n": 30,
+        "brier_3way_sum": 0.5785,
+        "brier_3way_mean_per_class": 0.1928,
+        "climatology_brier_3way": 0.5978,
+        "uniform_brier_3way": 0.6667,
+        "brier_skill_score_vs_climatology": 0.0323,
+        "logloss": 0.9775,
+        "climatology_logloss": 0.9951,
+        "uniform_logloss": 1.0986,
+        "actual_rates": {
+          "home": 0.5333,
+          "draw": 0.1667,
+          "away": 0.3
+        },
+        "mean_pred_rates": {
+          "home": 0.4365,
+          "draw": 0.2393,
+          "away": 0.3242
+        },
+        "calibration": {
+          "total_n": 30,
+          "overall_favorite_wins": 17,
+          "overall_favorite_hit_rate": 0.5667,
+          "overall_mean_max_p": 0.5076,
+          "ece": 0.0894,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 19,
+              "wins": 9,
+              "mean_pred_prob": 0.441,
+              "actual_hit_rate": 0.4737,
+              "calibration_gap_actual_minus_pred": 0.0327,
+              "wilson_95_ci": [
+                0.2733,
+                0.6829
+              ]
+            },
+            {
+              "bucket": "50-55%",
+              "n": 2,
+              "wins": 1,
+              "mean_pred_prob": 0.5095,
+              "actual_hit_rate": 0.5,
+              "calibration_gap_actual_minus_pred": -0.0095,
+              "wilson_95_ci": [
+                0.0945,
+                0.9055
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 2,
+              "wins": 2,
+              "mean_pred_prob": 0.574,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.426,
+              "wilson_95_ci": [
+                0.3424,
+                1.0
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 2,
+              "wins": 2,
+              "mean_pred_prob": 0.6233,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.3767,
+              "wilson_95_ci": [
+                0.3424,
+                1.0
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 3,
+              "wins": 2,
+              "mean_pred_prob": 0.6756,
+              "actual_hit_rate": 0.6667,
+              "calibration_gap_actual_minus_pred": -0.009,
+              "wilson_95_ci": [
+                0.2077,
+                0.9385
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 2,
+              "wins": 1,
+              "mean_pred_prob": 0.7039,
+              "actual_hit_rate": 0.5,
+              "calibration_gap_actual_minus_pred": -0.2039,
+              "wilson_95_ci": [
+                0.0945,
+                0.9055
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": ">=80%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 11,
+              "share_of_matches": 0.3667,
+              "wins": 8,
+              "mean_pred_prob": 0.6226,
+              "actual_hit_rate": 0.7273,
+              "calibration_gap_actual_minus_pred": 0.1047,
+              "wilson_95_ci": [
+                0.4344,
+                0.9025
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 9,
+              "share_of_matches": 0.3,
+              "wins": 7,
+              "mean_pred_prob": 0.6477,
+              "actual_hit_rate": 0.7778,
+              "calibration_gap_actual_minus_pred": 0.1301,
+              "wilson_95_ci": [
+                0.4526,
+                0.9368
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 7,
+              "share_of_matches": 0.2333,
+              "wins": 5,
+              "mean_pred_prob": 0.6688,
+              "actual_hit_rate": 0.7143,
+              "calibration_gap_actual_minus_pred": 0.0455,
+              "wilson_95_ci": [
+                0.3589,
+                0.9178
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 5,
+              "share_of_matches": 0.1667,
+              "wins": 3,
+              "mean_pred_prob": 0.687,
+              "actual_hit_rate": 0.6,
+              "calibration_gap_actual_minus_pred": -0.087,
+              "wilson_95_ci": [
+                0.2307,
+                0.8824
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 2,
+              "share_of_matches": 0.0667,
+              "wins": 1,
+              "mean_pred_prob": 0.7039,
+              "actual_hit_rate": 0.5,
+              "calibration_gap_actual_minus_pred": -0.2039,
+              "wilson_95_ci": [
+                0.0945,
+                0.9055
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 0,
+              "share_of_matches": 0.0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "threshold": ">=80%",
+              "n": 0,
+              "share_of_matches": 0.0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ]
+        }
+      },
+      "cross_league_v3": {
+        "n": 31,
+        "brier_3way_sum": 0.5478,
+        "brier_3way_mean_per_class": 0.1826,
+        "climatology_brier_3way": 0.6327,
+        "uniform_brier_3way": 0.6667,
+        "brier_skill_score_vs_climatology": 0.1341,
+        "logloss": 0.9246,
+        "climatology_logloss": 1.0445,
+        "uniform_logloss": 1.0986,
+        "actual_rates": {
+          "home": 0.3548,
+          "draw": 0.1935,
+          "away": 0.4516
+        },
+        "mean_pred_rates": {
+          "home": 0.3928,
+          "draw": 0.2321,
+          "away": 0.3751
+        },
+        "calibration": {
+          "total_n": 31,
+          "overall_favorite_wins": 18,
+          "overall_favorite_hit_rate": 0.5806,
+          "overall_mean_max_p": 0.5212,
+          "ece": 0.1706,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 17,
+              "wins": 9,
+              "mean_pred_prob": 0.4322,
+              "actual_hit_rate": 0.5294,
+              "calibration_gap_actual_minus_pred": 0.0972,
+              "wilson_95_ci": [
+                0.3096,
+                0.7383
+              ]
+            },
+            {
+              "bucket": "50-55%",
+              "n": 2,
+              "wins": 2,
+              "mean_pred_prob": 0.5208,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.4792,
+              "wilson_95_ci": [
+                0.3424,
+                1.0
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 5,
+              "wins": 2,
+              "mean_pred_prob": 0.5752,
+              "actual_hit_rate": 0.4,
+              "calibration_gap_actual_minus_pred": -0.1752,
+              "wilson_95_ci": [
+                0.1176,
+                0.7693
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 3,
+              "wins": 1,
+              "mean_pred_prob": 0.6156,
+              "actual_hit_rate": 0.3333,
+              "calibration_gap_actual_minus_pred": -0.2823,
+              "wilson_95_ci": [
+                0.0615,
+                0.7923
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 1,
+              "wins": 1,
+              "mean_pred_prob": 0.6869,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.3131,
+              "wilson_95_ci": [
+                0.2065,
+                1.0
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "75-80%",
+              "n": 3,
+              "wins": 3,
+              "mean_pred_prob": 0.7861,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2139,
+              "wilson_95_ci": [
+                0.4385,
+                1.0
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 14,
+              "share_of_matches": 0.4516,
+              "wins": 9,
+              "mean_pred_prob": 0.6292,
+              "actual_hit_rate": 0.6429,
+              "calibration_gap_actual_minus_pred": 0.0136,
+              "wilson_95_ci": [
+                0.3876,
+                0.8366
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 12,
+              "share_of_matches": 0.3871,
+              "wins": 7,
+              "mean_pred_prob": 0.6473,
+              "actual_hit_rate": 0.5833,
+              "calibration_gap_actual_minus_pred": -0.064,
+              "wilson_95_ci": [
+                0.3195,
+                0.8067
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 7,
+              "share_of_matches": 0.2258,
+              "wins": 5,
+              "mean_pred_prob": 0.6989,
+              "actual_hit_rate": 0.7143,
+              "calibration_gap_actual_minus_pred": 0.0154,
+              "wilson_95_ci": [
+                0.3589,
+                0.9178
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 4,
+              "share_of_matches": 0.129,
+              "wins": 4,
+              "mean_pred_prob": 0.7613,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2387,
+              "wilson_95_ci": [
+                0.5101,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 3,
+              "share_of_matches": 0.0968,
+              "wins": 3,
+              "mean_pred_prob": 0.7861,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2139,
+              "wilson_95_ci": [
+                0.4385,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 3,
+              "share_of_matches": 0.0968,
+              "wins": 3,
+              "mean_pred_prob": 0.7861,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2139,
+              "wilson_95_ci": [
+                0.4385,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 0,
+              "share_of_matches": 0.0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ]
+        }
+      },
+      "league_v2": {
+        "n": 348,
+        "brier_3way_sum": 0.5999,
+        "brier_3way_mean_per_class": 0.2,
+        "climatology_brier_3way": 0.6452,
+        "uniform_brier_3way": 0.6667,
+        "brier_skill_score_vs_climatology": 0.0703,
+        "logloss": 1.0048,
+        "climatology_logloss": 1.0656,
+        "uniform_logloss": 1.0986,
+        "actual_rates": {
+          "home": 0.4339,
+          "draw": 0.227,
+          "away": 0.3391
+        },
+        "mean_pred_rates": {
+          "home": 0.4429,
+          "draw": 0.2578,
+          "away": 0.2993
+        },
+        "calibration": {
+          "total_n": 348,
+          "overall_favorite_wins": 181,
+          "overall_favorite_hit_rate": 0.5201,
+          "overall_mean_max_p": 0.484,
+          "ece": 0.0441,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 216,
+              "wins": 98,
+              "mean_pred_prob": 0.4179,
+              "actual_hit_rate": 0.4537,
+              "calibration_gap_actual_minus_pred": 0.0358,
+              "wilson_95_ci": [
+                0.3887,
+                0.5203
+              ]
+            },
+            {
+              "bucket": "50-55%",
+              "n": 50,
+              "wins": 27,
+              "mean_pred_prob": 0.5287,
+              "actual_hit_rate": 0.54,
+              "calibration_gap_actual_minus_pred": 0.0113,
+              "wilson_95_ci": [
+                0.404,
+                0.6703
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 36,
+              "wins": 21,
+              "mean_pred_prob": 0.5713,
+              "actual_hit_rate": 0.5833,
+              "calibration_gap_actual_minus_pred": 0.0121,
+              "wilson_95_ci": [
+                0.422,
+                0.7286
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 19,
+              "wins": 11,
+              "mean_pred_prob": 0.624,
+              "actual_hit_rate": 0.5789,
+              "calibration_gap_actual_minus_pred": -0.045,
+              "wilson_95_ci": [
+                0.3628,
+                0.7686
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 17,
+              "wins": 16,
+              "mean_pred_prob": 0.6682,
+              "actual_hit_rate": 0.9412,
+              "calibration_gap_actual_minus_pred": 0.273,
+              "wilson_95_ci": [
+                0.7302,
+                0.9895
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 4,
+              "wins": 3,
+              "mean_pred_prob": 0.7246,
+              "actual_hit_rate": 0.75,
+              "calibration_gap_actual_minus_pred": 0.0254,
+              "wilson_95_ci": [
+                0.3006,
+                0.9544
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 2,
+              "wins": 1,
+              "mean_pred_prob": 0.7679,
+              "actual_hit_rate": 0.5,
+              "calibration_gap_actual_minus_pred": -0.2679,
+              "wilson_95_ci": [
+                0.0945,
+                0.9055
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 4,
+              "wins": 4,
+              "mean_pred_prob": 0.8752,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1248,
+              "wilson_95_ci": [
+                0.5101,
+                1.0
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 132,
+              "share_of_matches": 0.3793,
+              "wins": 83,
+              "mean_pred_prob": 0.5921,
+              "actual_hit_rate": 0.6288,
+              "calibration_gap_actual_minus_pred": 0.0367,
+              "wilson_95_ci": [
+                0.5438,
+                0.7065
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 82,
+              "share_of_matches": 0.2356,
+              "wins": 56,
+              "mean_pred_prob": 0.6307,
+              "actual_hit_rate": 0.6829,
+              "calibration_gap_actual_minus_pred": 0.0523,
+              "wilson_95_ci": [
+                0.576,
+                0.7735
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 46,
+              "share_of_matches": 0.1322,
+              "wins": 35,
+              "mean_pred_prob": 0.6772,
+              "actual_hit_rate": 0.7609,
+              "calibration_gap_actual_minus_pred": 0.0837,
+              "wilson_95_ci": [
+                0.6206,
+                0.8609
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 27,
+              "share_of_matches": 0.0776,
+              "wins": 24,
+              "mean_pred_prob": 0.7146,
+              "actual_hit_rate": 0.8889,
+              "calibration_gap_actual_minus_pred": 0.1743,
+              "wilson_95_ci": [
+                0.7194,
+                0.9615
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 10,
+              "share_of_matches": 0.0287,
+              "wins": 8,
+              "mean_pred_prob": 0.7935,
+              "actual_hit_rate": 0.8,
+              "calibration_gap_actual_minus_pred": 0.0065,
+              "wilson_95_ci": [
+                0.4902,
+                0.9433
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 6,
+              "share_of_matches": 0.0172,
+              "wins": 5,
+              "mean_pred_prob": 0.8394,
+              "actual_hit_rate": 0.8333,
+              "calibration_gap_actual_minus_pred": -0.0061,
+              "wilson_95_ci": [
+                0.4365,
+                0.9699
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 4,
+              "share_of_matches": 0.0115,
+              "wins": 4,
+              "mean_pred_prob": 0.8752,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1248,
+              "wilson_95_ci": [
+                0.5101,
+                1.0
+              ]
+            }
+          ]
+        }
+      },
+      "league_v3": {
+        "n": 917,
+        "brier_3way_sum": 0.5669,
+        "brier_3way_mean_per_class": 0.189,
+        "climatology_brier_3way": 0.6281,
+        "uniform_brier_3way": 0.6667,
+        "brier_skill_score_vs_climatology": 0.0974,
+        "logloss": 0.9578,
+        "climatology_logloss": 1.0424,
+        "uniform_logloss": 1.0986,
+        "actual_rates": {
+          "home": 0.4875,
+          "draw": 0.2181,
+          "away": 0.2944
+        },
+        "mean_pred_rates": {
+          "home": 0.4398,
+          "draw": 0.248,
+          "away": 0.3122
+        },
+        "calibration": {
+          "total_n": 917,
+          "overall_favorite_wins": 521,
+          "overall_favorite_hit_rate": 0.5682,
+          "overall_mean_max_p": 0.5028,
+          "ece": 0.0664,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 522,
+              "wins": 248,
+              "mean_pred_prob": 0.4244,
+              "actual_hit_rate": 0.4751,
+              "calibration_gap_actual_minus_pred": 0.0507,
+              "wilson_95_ci": [
+                0.4326,
+                0.518
+              ]
+            },
+            {
+              "bucket": "50-55%",
+              "n": 126,
+              "wins": 81,
+              "mean_pred_prob": 0.5249,
+              "actual_hit_rate": 0.6429,
+              "calibration_gap_actual_minus_pred": 0.118,
+              "wilson_95_ci": [
+                0.5561,
+                0.7212
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 106,
+              "wins": 69,
+              "mean_pred_prob": 0.5725,
+              "actual_hit_rate": 0.6509,
+              "calibration_gap_actual_minus_pred": 0.0784,
+              "wilson_95_ci": [
+                0.5564,
+                0.735
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 65,
+              "wins": 40,
+              "mean_pred_prob": 0.6228,
+              "actual_hit_rate": 0.6154,
+              "calibration_gap_actual_minus_pred": -0.0074,
+              "wilson_95_ci": [
+                0.4938,
+                0.724
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 34,
+              "wins": 24,
+              "mean_pred_prob": 0.6734,
+              "actual_hit_rate": 0.7059,
+              "calibration_gap_actual_minus_pred": 0.0325,
+              "wilson_95_ci": [
+                0.5383,
+                0.8317
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 24,
+              "wins": 22,
+              "mean_pred_prob": 0.7243,
+              "actual_hit_rate": 0.9167,
+              "calibration_gap_actual_minus_pred": 0.1924,
+              "wilson_95_ci": [
+                0.7415,
+                0.9768
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 27,
+              "wins": 25,
+              "mean_pred_prob": 0.7683,
+              "actual_hit_rate": 0.9259,
+              "calibration_gap_actual_minus_pred": 0.1577,
+              "wilson_95_ci": [
+                0.7663,
+                0.9794
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 13,
+              "wins": 12,
+              "mean_pred_prob": 0.864,
+              "actual_hit_rate": 0.9231,
+              "calibration_gap_actual_minus_pred": 0.0591,
+              "wilson_95_ci": [
+                0.6669,
+                0.9863
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 395,
+              "share_of_matches": 0.4308,
+              "wins": 273,
+              "mean_pred_prob": 0.6065,
+              "actual_hit_rate": 0.6911,
+              "calibration_gap_actual_minus_pred": 0.0847,
+              "wilson_95_ci": [
+                0.6439,
+                0.7347
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 269,
+              "share_of_matches": 0.2933,
+              "wins": 192,
+              "mean_pred_prob": 0.6447,
+              "actual_hit_rate": 0.7138,
+              "calibration_gap_actual_minus_pred": 0.0691,
+              "wilson_95_ci": [
+                0.657,
+                0.7645
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 163,
+              "share_of_matches": 0.1778,
+              "wins": 123,
+              "mean_pred_prob": 0.6916,
+              "actual_hit_rate": 0.7546,
+              "calibration_gap_actual_minus_pred": 0.063,
+              "wilson_95_ci": [
+                0.6832,
+                0.8143
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 98,
+              "share_of_matches": 0.1069,
+              "wins": 83,
+              "mean_pred_prob": 0.7373,
+              "actual_hit_rate": 0.8469,
+              "calibration_gap_actual_minus_pred": 0.1097,
+              "wilson_95_ci": [
+                0.7627,
+                0.905
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 64,
+              "share_of_matches": 0.0698,
+              "wins": 59,
+              "mean_pred_prob": 0.7712,
+              "actual_hit_rate": 0.9219,
+              "calibration_gap_actual_minus_pred": 0.1507,
+              "wilson_95_ci": [
+                0.8298,
+                0.9662
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 40,
+              "share_of_matches": 0.0436,
+              "wins": 37,
+              "mean_pred_prob": 0.7994,
+              "actual_hit_rate": 0.925,
+              "calibration_gap_actual_minus_pred": 0.1256,
+              "wilson_95_ci": [
+                0.8014,
+                0.9742
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 13,
+              "share_of_matches": 0.0142,
+              "wins": 12,
+              "mean_pred_prob": 0.864,
+              "actual_hit_rate": 0.9231,
+              "calibration_gap_actual_minus_pred": 0.0591,
+              "wilson_95_ci": [
+                0.6669,
+                0.9863
+              ]
+            }
+          ]
+        }
+      },
+      "national_v3": {
+        "n": 21,
+        "brier_3way_sum": 0.4721,
+        "brier_3way_mean_per_class": 0.1574,
+        "climatology_brier_3way": 0.6531,
+        "uniform_brier_3way": 0.6667,
+        "brier_skill_score_vs_climatology": 0.2771,
+        "logloss": 0.8086,
+        "climatology_logloss": 1.077,
+        "uniform_logloss": 1.0986,
+        "actual_rates": {
+          "home": 0.381,
+          "draw": 0.2381,
+          "away": 0.381
+        },
+        "mean_pred_rates": {
+          "home": 0.3529,
+          "draw": 0.2313,
+          "away": 0.4158
+        },
+        "calibration": {
+          "total_n": 21,
+          "overall_favorite_wins": 13,
+          "overall_favorite_hit_rate": 0.619,
+          "overall_mean_max_p": 0.5848,
+          "ece": 0.1389,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 6,
+              "wins": 2,
+              "mean_pred_prob": 0.393,
+              "actual_hit_rate": 0.3333,
+              "calibration_gap_actual_minus_pred": -0.0596,
+              "wilson_95_ci": [
+                0.0968,
+                0.7
+              ]
+            },
+            {
+              "bucket": "50-55%",
+              "n": 3,
+              "wins": 2,
+              "mean_pred_prob": 0.5318,
+              "actual_hit_rate": 0.6667,
+              "calibration_gap_actual_minus_pred": 0.1349,
+              "wilson_95_ci": [
+                0.2077,
+                0.9385
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 3,
+              "wins": 1,
+              "mean_pred_prob": 0.5802,
+              "actual_hit_rate": 0.3333,
+              "calibration_gap_actual_minus_pred": -0.2469,
+              "wilson_95_ci": [
+                0.0615,
+                0.7923
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 3,
+              "wins": 2,
+              "mean_pred_prob": 0.6322,
+              "actual_hit_rate": 0.6667,
+              "calibration_gap_actual_minus_pred": 0.0344,
+              "wilson_95_ci": [
+                0.2077,
+                0.9385
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 1,
+              "wins": 1,
+              "mean_pred_prob": 0.6878,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.3122,
+              "wilson_95_ci": [
+                0.2065,
+                1.0
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "75-80%",
+              "n": 3,
+              "wins": 3,
+              "mean_pred_prob": 0.7864,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2136,
+              "wilson_95_ci": [
+                0.4385,
+                1.0
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 2,
+              "wins": 2,
+              "mean_pred_prob": 0.8217,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1783,
+              "wilson_95_ci": [
+                0.3424,
+                1.0
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 15,
+              "share_of_matches": 0.7143,
+              "wins": 11,
+              "mean_pred_prob": 0.6615,
+              "actual_hit_rate": 0.7333,
+              "calibration_gap_actual_minus_pred": 0.0718,
+              "wilson_95_ci": [
+                0.4805,
+                0.891
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 12,
+              "share_of_matches": 0.5714,
+              "wins": 9,
+              "mean_pred_prob": 0.694,
+              "actual_hit_rate": 0.75,
+              "calibration_gap_actual_minus_pred": 0.056,
+              "wilson_95_ci": [
+                0.4677,
+                0.9111
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 9,
+              "share_of_matches": 0.4286,
+              "wins": 8,
+              "mean_pred_prob": 0.7319,
+              "actual_hit_rate": 0.8889,
+              "calibration_gap_actual_minus_pred": 0.157,
+              "wilson_95_ci": [
+                0.565,
+                0.9801
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 6,
+              "share_of_matches": 0.2857,
+              "wins": 6,
+              "mean_pred_prob": 0.7817,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2183,
+              "wilson_95_ci": [
+                0.6097,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 5,
+              "share_of_matches": 0.2381,
+              "wins": 5,
+              "mean_pred_prob": 0.8005,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1995,
+              "wilson_95_ci": [
+                0.5655,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 5,
+              "share_of_matches": 0.2381,
+              "wins": 5,
+              "mean_pred_prob": 0.8005,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1995,
+              "wilson_95_ci": [
+                0.5655,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 2,
+              "share_of_matches": 0.0952,
+              "wins": 2,
+              "mean_pred_prob": 0.8217,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.1783,
+              "wilson_95_ci": [
+                0.3424,
+                1.0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "us_sports_2way_non_retrospective": {
+      "overall": {
+        "n": 399,
+        "brier_binary": 0.2146,
+        "brier_2way_sum": 0.4292,
+        "climatology_brier_binary": 0.2494,
+        "uniform_brier_binary": 0.25,
+        "brier_skill_score_vs_climatology": 0.1397,
+        "logloss": 0.616,
+        "climatology_logloss": 0.692,
+        "uniform_logloss": 0.6931,
+        "actual_home_win_rate": 0.5238,
+        "mean_pred_home_win_rate": 0.531,
+        "calibration": {
+          "total_n": 399,
+          "overall_favorite_wins": 268,
+          "overall_favorite_hit_rate": 0.6717,
+          "overall_mean_max_p": 0.6178,
+          "ece": 0.054,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "50-55%",
+              "n": 126,
+              "wins": 74,
+              "mean_pred_prob": 0.526,
+              "actual_hit_rate": 0.5873,
+              "calibration_gap_actual_minus_pred": 0.0613,
+              "wilson_95_ci": [
+                0.5,
+                0.6694
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 90,
+              "wins": 53,
+              "mean_pred_prob": 0.5726,
+              "actual_hit_rate": 0.5889,
+              "calibration_gap_actual_minus_pred": 0.0162,
+              "wilson_95_ci": [
+                0.4856,
+                0.6849
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 66,
+              "wins": 48,
+              "mean_pred_prob": 0.625,
+              "actual_hit_rate": 0.7273,
+              "calibration_gap_actual_minus_pred": 0.1023,
+              "wilson_95_ci": [
+                0.6096,
+                0.82
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 34,
+              "wins": 24,
+              "mean_pred_prob": 0.6706,
+              "actual_hit_rate": 0.7059,
+              "calibration_gap_actual_minus_pred": 0.0353,
+              "wilson_95_ci": [
+                0.5383,
+                0.8317
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 32,
+              "wins": 23,
+              "mean_pred_prob": 0.72,
+              "actual_hit_rate": 0.7188,
+              "calibration_gap_actual_minus_pred": -0.0012,
+              "wilson_95_ci": [
+                0.5463,
+                0.8444
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 24,
+              "wins": 20,
+              "mean_pred_prob": 0.774,
+              "actual_hit_rate": 0.8333,
+              "calibration_gap_actual_minus_pred": 0.0593,
+              "wilson_95_ci": [
+                0.6415,
+                0.9332
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 27,
+              "wins": 26,
+              "mean_pred_prob": 0.8532,
+              "actual_hit_rate": 0.963,
+              "calibration_gap_actual_minus_pred": 0.1098,
+              "wilson_95_ci": [
+                0.8172,
+                0.9934
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 399,
+              "share_of_matches": 1.0,
+              "wins": 268,
+              "mean_pred_prob": 0.6178,
+              "actual_hit_rate": 0.6717,
+              "calibration_gap_actual_minus_pred": 0.0538,
+              "wilson_95_ci": [
+                0.6242,
+                0.7159
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 273,
+              "share_of_matches": 0.6842,
+              "wins": 194,
+              "mean_pred_prob": 0.6602,
+              "actual_hit_rate": 0.7106,
+              "calibration_gap_actual_minus_pred": 0.0504,
+              "wilson_95_ci": [
+                0.6542,
+                0.7612
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 183,
+              "share_of_matches": 0.4586,
+              "wins": 141,
+              "mean_pred_prob": 0.7033,
+              "actual_hit_rate": 0.7705,
+              "calibration_gap_actual_minus_pred": 0.0672,
+              "wilson_95_ci": [
+                0.7044,
+                0.8255
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 117,
+              "share_of_matches": 0.2932,
+              "wins": 93,
+              "mean_pred_prob": 0.7475,
+              "actual_hit_rate": 0.7949,
+              "calibration_gap_actual_minus_pred": 0.0474,
+              "wilson_95_ci": [
+                0.7129,
+                0.8581
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 83,
+              "share_of_matches": 0.208,
+              "wins": 69,
+              "mean_pred_prob": 0.7789,
+              "actual_hit_rate": 0.8313,
+              "calibration_gap_actual_minus_pred": 0.0524,
+              "wilson_95_ci": [
+                0.7366,
+                0.8968
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 51,
+              "share_of_matches": 0.1278,
+              "wins": 46,
+              "mean_pred_prob": 0.8159,
+              "actual_hit_rate": 0.902,
+              "calibration_gap_actual_minus_pred": 0.086,
+              "wilson_95_ci": [
+                0.7902,
+                0.9574
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 27,
+              "share_of_matches": 0.0677,
+              "wins": 26,
+              "mean_pred_prob": 0.8532,
+              "actual_hit_rate": 0.963,
+              "calibration_gap_actual_minus_pred": 0.1098,
+              "wilson_95_ci": [
+                0.8172,
+                0.9934
+              ]
+            }
+          ]
+        }
+      },
+      "by_sport": {
+        "nhl": {
+          "n": 177,
+          "brier_binary": 0.238,
+          "brier_2way_sum": 0.4759,
+          "climatology_brier_binary": 0.2487,
+          "uniform_brier_binary": 0.25,
+          "brier_skill_score_vs_climatology": 0.043,
+          "logloss": 0.6685,
+          "climatology_logloss": 0.6904,
+          "uniform_logloss": 0.6931,
+          "actual_home_win_rate": 0.5367,
+          "mean_pred_home_win_rate": 0.5142,
+          "calibration": {
+            "total_n": 177,
+            "overall_favorite_wins": 112,
+            "overall_favorite_hit_rate": 0.6328,
+            "overall_mean_max_p": 0.5614,
+            "ece": 0.0713,
+            "disjoint_buckets": [
+              {
+                "bucket": "<50%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "50-55%",
+                "n": 84,
+                "wins": 53,
+                "mean_pred_prob": 0.526,
+                "actual_hit_rate": 0.631,
+                "calibration_gap_actual_minus_pred": 0.1049,
+                "wilson_95_ci": [
+                  0.5242,
+                  0.7263
+                ]
+              },
+              {
+                "bucket": "55-60%",
+                "n": 61,
+                "wins": 36,
+                "mean_pred_prob": 0.5726,
+                "actual_hit_rate": 0.5902,
+                "calibration_gap_actual_minus_pred": 0.0175,
+                "wilson_95_ci": [
+                  0.465,
+                  0.7046
+                ]
+              },
+              {
+                "bucket": "60-65%",
+                "n": 26,
+                "wins": 17,
+                "mean_pred_prob": 0.6213,
+                "actual_hit_rate": 0.6538,
+                "calibration_gap_actual_minus_pred": 0.0325,
+                "wilson_95_ci": [
+                  0.4622,
+                  0.8059
+                ]
+              },
+              {
+                "bucket": "65-70%",
+                "n": 4,
+                "wins": 4,
+                "mean_pred_prob": 0.6663,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.3337,
+                "wilson_95_ci": [
+                  0.5101,
+                  1.0
+                ]
+              },
+              {
+                "bucket": "70-75%",
+                "n": 2,
+                "wins": 2,
+                "mean_pred_prob": 0.7209,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.2791,
+                "wilson_95_ci": [
+                  0.3424,
+                  1.0
+                ]
+              },
+              {
+                "bucket": "75-80%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": ">=80%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              }
+            ],
+            "cumulative_thresholds": [
+              {
+                "threshold": ">=50%",
+                "n": 177,
+                "share_of_matches": 1.0,
+                "wins": 112,
+                "mean_pred_prob": 0.5614,
+                "actual_hit_rate": 0.6328,
+                "calibration_gap_actual_minus_pred": 0.0713,
+                "wilson_95_ci": [
+                  0.5596,
+                  0.7003
+                ]
+              },
+              {
+                "threshold": ">=55%",
+                "n": 93,
+                "share_of_matches": 0.5254,
+                "wins": 59,
+                "mean_pred_prob": 0.5934,
+                "actual_hit_rate": 0.6344,
+                "calibration_gap_actual_minus_pred": 0.041,
+                "wilson_95_ci": [
+                  0.533,
+                  0.7251
+                ]
+              },
+              {
+                "threshold": ">=60%",
+                "n": 32,
+                "share_of_matches": 0.1808,
+                "wins": 23,
+                "mean_pred_prob": 0.6332,
+                "actual_hit_rate": 0.7188,
+                "calibration_gap_actual_minus_pred": 0.0856,
+                "wilson_95_ci": [
+                  0.5463,
+                  0.8444
+                ]
+              },
+              {
+                "threshold": ">=65%",
+                "n": 6,
+                "share_of_matches": 0.0339,
+                "wins": 6,
+                "mean_pred_prob": 0.6845,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.3155,
+                "wilson_95_ci": [
+                  0.6097,
+                  1.0
+                ]
+              },
+              {
+                "threshold": ">=70%",
+                "n": 2,
+                "share_of_matches": 0.0113,
+                "wins": 2,
+                "mean_pred_prob": 0.7209,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.2791,
+                "wilson_95_ci": [
+                  0.3424,
+                  1.0
+                ]
+              },
+              {
+                "threshold": ">=75%",
+                "n": 0,
+                "share_of_matches": 0.0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "threshold": ">=80%",
+                "n": 0,
+                "share_of_matches": 0.0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              }
+            ]
+          }
+        },
+        "nba": {
+          "n": 172,
+          "brier_binary": 0.1963,
+          "brier_2way_sum": 0.3925,
+          "climatology_brier_binary": 0.2492,
+          "uniform_brier_binary": 0.25,
+          "brier_skill_score_vs_climatology": 0.2123,
+          "logloss": 0.5737,
+          "climatology_logloss": 0.6915,
+          "uniform_logloss": 0.6931,
+          "actual_home_win_rate": 0.5291,
+          "mean_pred_home_win_rate": 0.5494,
+          "calibration": {
+            "total_n": 172,
+            "overall_favorite_wins": 119,
+            "overall_favorite_hit_rate": 0.6919,
+            "overall_mean_max_p": 0.6708,
+            "ece": 0.0716,
+            "disjoint_buckets": [
+              {
+                "bucket": "<50%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "50-55%",
+                "n": 32,
+                "wins": 14,
+                "mean_pred_prob": 0.5273,
+                "actual_hit_rate": 0.4375,
+                "calibration_gap_actual_minus_pred": -0.0898,
+                "wilson_95_ci": [
+                  0.2817,
+                  0.6067
+                ]
+              },
+              {
+                "bucket": "55-60%",
+                "n": 21,
+                "wins": 14,
+                "mean_pred_prob": 0.5726,
+                "actual_hit_rate": 0.6667,
+                "calibration_gap_actual_minus_pred": 0.0941,
+                "wilson_95_ci": [
+                  0.4537,
+                  0.8281
+                ]
+              },
+              {
+                "bucket": "60-65%",
+                "n": 27,
+                "wins": 20,
+                "mean_pred_prob": 0.6265,
+                "actual_hit_rate": 0.7407,
+                "calibration_gap_actual_minus_pred": 0.1143,
+                "wilson_95_ci": [
+                  0.5532,
+                  0.8683
+                ]
+              },
+              {
+                "bucket": "65-70%",
+                "n": 22,
+                "wins": 14,
+                "mean_pred_prob": 0.6719,
+                "actual_hit_rate": 0.6364,
+                "calibration_gap_actual_minus_pred": -0.0356,
+                "wilson_95_ci": [
+                  0.4295,
+                  0.8027
+                ]
+              },
+              {
+                "bucket": "70-75%",
+                "n": 26,
+                "wins": 18,
+                "mean_pred_prob": 0.7189,
+                "actual_hit_rate": 0.6923,
+                "calibration_gap_actual_minus_pred": -0.0266,
+                "wilson_95_ci": [
+                  0.5001,
+                  0.835
+                ]
+              },
+              {
+                "bucket": "75-80%",
+                "n": 19,
+                "wins": 15,
+                "mean_pred_prob": 0.7744,
+                "actual_hit_rate": 0.7895,
+                "calibration_gap_actual_minus_pred": 0.0151,
+                "wilson_95_ci": [
+                  0.5667,
+                  0.9149
+                ]
+              },
+              {
+                "bucket": ">=80%",
+                "n": 25,
+                "wins": 24,
+                "mean_pred_prob": 0.8554,
+                "actual_hit_rate": 0.96,
+                "calibration_gap_actual_minus_pred": 0.1046,
+                "wilson_95_ci": [
+                  0.8046,
+                  0.9929
+                ]
+              }
+            ],
+            "cumulative_thresholds": [
+              {
+                "threshold": ">=50%",
+                "n": 172,
+                "share_of_matches": 1.0,
+                "wins": 119,
+                "mean_pred_prob": 0.6708,
+                "actual_hit_rate": 0.6919,
+                "calibration_gap_actual_minus_pred": 0.021,
+                "wilson_95_ci": [
+                  0.6193,
+                  0.756
+                ]
+              },
+              {
+                "threshold": ">=55%",
+                "n": 140,
+                "share_of_matches": 0.814,
+                "wins": 105,
+                "mean_pred_prob": 0.7036,
+                "actual_hit_rate": 0.75,
+                "calibration_gap_actual_minus_pred": 0.0464,
+                "wilson_95_ci": [
+                  0.6722,
+                  0.8144
+                ]
+              },
+              {
+                "threshold": ">=60%",
+                "n": 119,
+                "share_of_matches": 0.6919,
+                "wins": 91,
+                "mean_pred_prob": 0.7268,
+                "actual_hit_rate": 0.7647,
+                "calibration_gap_actual_minus_pred": 0.0379,
+                "wilson_95_ci": [
+                  0.681,
+                  0.8319
+                ]
+              },
+              {
+                "threshold": ">=65%",
+                "n": 92,
+                "share_of_matches": 0.5349,
+                "wins": 71,
+                "mean_pred_prob": 0.7562,
+                "actual_hit_rate": 0.7717,
+                "calibration_gap_actual_minus_pred": 0.0155,
+                "wilson_95_ci": [
+                  0.6761,
+                  0.8456
+                ]
+              },
+              {
+                "threshold": ">=70%",
+                "n": 70,
+                "share_of_matches": 0.407,
+                "wins": 57,
+                "mean_pred_prob": 0.7827,
+                "actual_hit_rate": 0.8143,
+                "calibration_gap_actual_minus_pred": 0.0316,
+                "wilson_95_ci": [
+                  0.7077,
+                  0.8881
+                ]
+              },
+              {
+                "threshold": ">=75%",
+                "n": 44,
+                "share_of_matches": 0.2558,
+                "wins": 39,
+                "mean_pred_prob": 0.8204,
+                "actual_hit_rate": 0.8864,
+                "calibration_gap_actual_minus_pred": 0.066,
+                "wilson_95_ci": [
+                  0.7602,
+                  0.9505
+                ]
+              },
+              {
+                "threshold": ">=80%",
+                "n": 25,
+                "share_of_matches": 0.1453,
+                "wins": 24,
+                "mean_pred_prob": 0.8554,
+                "actual_hit_rate": 0.96,
+                "calibration_gap_actual_minus_pred": 0.1046,
+                "wilson_95_ci": [
+                  0.8046,
+                  0.9929
+                ]
+              }
+            ]
+          }
+        },
+        "nfl": {
+          "n": 44,
+          "brier_binary": 0.1891,
+          "brier_2way_sum": 0.3782,
+          "climatology_brier_binary": 0.2479,
+          "uniform_brier_binary": 0.25,
+          "brier_skill_score_vs_climatology": 0.2372,
+          "logloss": 0.5635,
+          "climatology_logloss": 0.689,
+          "uniform_logloss": 0.6931,
+          "actual_home_win_rate": 0.4545,
+          "mean_pred_home_win_rate": 0.5287,
+          "calibration": {
+            "total_n": 44,
+            "overall_favorite_wins": 34,
+            "overall_favorite_hit_rate": 0.7727,
+            "overall_mean_max_p": 0.645,
+            "ece": 0.1928,
+            "disjoint_buckets": [
+              {
+                "bucket": "<50%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "50-55%",
+                "n": 7,
+                "wins": 6,
+                "mean_pred_prob": 0.5208,
+                "actual_hit_rate": 0.8571,
+                "calibration_gap_actual_minus_pred": 0.3364,
+                "wilson_95_ci": [
+                  0.4869,
+                  0.9743
+                ]
+              },
+              {
+                "bucket": "55-60%",
+                "n": 6,
+                "wins": 2,
+                "mean_pred_prob": 0.5721,
+                "actual_hit_rate": 0.3333,
+                "calibration_gap_actual_minus_pred": -0.2388,
+                "wilson_95_ci": [
+                  0.0968,
+                  0.7
+                ]
+              },
+              {
+                "bucket": "60-65%",
+                "n": 13,
+                "wins": 11,
+                "mean_pred_prob": 0.6293,
+                "actual_hit_rate": 0.8462,
+                "calibration_gap_actual_minus_pred": 0.2169,
+                "wilson_95_ci": [
+                  0.5777,
+                  0.9567
+                ]
+              },
+              {
+                "bucket": "65-70%",
+                "n": 7,
+                "wins": 5,
+                "mean_pred_prob": 0.6718,
+                "actual_hit_rate": 0.7143,
+                "calibration_gap_actual_minus_pred": 0.0425,
+                "wilson_95_ci": [
+                  0.3589,
+                  0.9178
+                ]
+              },
+              {
+                "bucket": "70-75%",
+                "n": 4,
+                "wins": 3,
+                "mean_pred_prob": 0.7262,
+                "actual_hit_rate": 0.75,
+                "calibration_gap_actual_minus_pred": 0.0238,
+                "wilson_95_ci": [
+                  0.3006,
+                  0.9544
+                ]
+              },
+              {
+                "bucket": "75-80%",
+                "n": 5,
+                "wins": 5,
+                "mean_pred_prob": 0.7727,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.2273,
+                "wilson_95_ci": [
+                  0.5655,
+                  1.0
+                ]
+              },
+              {
+                "bucket": ">=80%",
+                "n": 2,
+                "wins": 2,
+                "mean_pred_prob": 0.8262,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.1738,
+                "wilson_95_ci": [
+                  0.3424,
+                  1.0
+                ]
+              }
+            ],
+            "cumulative_thresholds": [
+              {
+                "threshold": ">=50%",
+                "n": 44,
+                "share_of_matches": 1.0,
+                "wins": 34,
+                "mean_pred_prob": 0.645,
+                "actual_hit_rate": 0.7727,
+                "calibration_gap_actual_minus_pred": 0.1277,
+                "wilson_95_ci": [
+                  0.6301,
+                  0.8716
+                ]
+              },
+              {
+                "threshold": ">=55%",
+                "n": 37,
+                "share_of_matches": 0.8409,
+                "wins": 28,
+                "mean_pred_prob": 0.6685,
+                "actual_hit_rate": 0.7568,
+                "calibration_gap_actual_minus_pred": 0.0882,
+                "wilson_95_ci": [
+                  0.5988,
+                  0.8664
+                ]
+              },
+              {
+                "threshold": ">=60%",
+                "n": 31,
+                "share_of_matches": 0.7045,
+                "wins": 26,
+                "mean_pred_prob": 0.6872,
+                "actual_hit_rate": 0.8387,
+                "calibration_gap_actual_minus_pred": 0.1515,
+                "wilson_95_ci": [
+                  0.6737,
+                  0.9291
+                ]
+              },
+              {
+                "threshold": ">=65%",
+                "n": 18,
+                "share_of_matches": 0.4091,
+                "wins": 15,
+                "mean_pred_prob": 0.7291,
+                "actual_hit_rate": 0.8333,
+                "calibration_gap_actual_minus_pred": 0.1043,
+                "wilson_95_ci": [
+                  0.6078,
+                  0.9416
+                ]
+              },
+              {
+                "threshold": ">=70%",
+                "n": 11,
+                "share_of_matches": 0.25,
+                "wins": 10,
+                "mean_pred_prob": 0.7655,
+                "actual_hit_rate": 0.9091,
+                "calibration_gap_actual_minus_pred": 0.1436,
+                "wilson_95_ci": [
+                  0.6226,
+                  0.9838
+                ]
+              },
+              {
+                "threshold": ">=75%",
+                "n": 7,
+                "share_of_matches": 0.1591,
+                "wins": 7,
+                "mean_pred_prob": 0.788,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.212,
+                "wilson_95_ci": [
+                  0.6457,
+                  1.0
+                ]
+              },
+              {
+                "threshold": ">=80%",
+                "n": 2,
+                "share_of_matches": 0.0455,
+                "wins": 2,
+                "mean_pred_prob": 0.8262,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.1738,
+                "wilson_95_ci": [
+                  0.3424,
+                  1.0
+                ]
+              }
+            ]
+          }
+        },
+        "mlb": {
+          "n": 6,
+          "brier_binary": 0.2366,
+          "brier_2way_sum": 0.4733,
+          "climatology_brier_binary": 0.25,
+          "uniform_brier_binary": 0.25,
+          "brier_skill_score_vs_climatology": 0.0534,
+          "logloss": 0.6653,
+          "climatology_logloss": 0.6931,
+          "uniform_logloss": 0.6931,
+          "actual_home_win_rate": 0.5,
+          "mean_pred_home_win_rate": 0.5156,
+          "calibration": {
+            "total_n": 6,
+            "overall_favorite_wins": 3,
+            "overall_favorite_hit_rate": 0.5,
+            "overall_mean_max_p": 0.5624,
+            "ece": 0.1787,
+            "disjoint_buckets": [
+              {
+                "bucket": "<50%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "50-55%",
+                "n": 3,
+                "wins": 1,
+                "mean_pred_prob": 0.5236,
+                "actual_hit_rate": 0.3333,
+                "calibration_gap_actual_minus_pred": -0.1903,
+                "wilson_95_ci": [
+                  0.0615,
+                  0.7923
+                ]
+              },
+              {
+                "bucket": "55-60%",
+                "n": 2,
+                "wins": 1,
+                "mean_pred_prob": 0.5762,
+                "actual_hit_rate": 0.5,
+                "calibration_gap_actual_minus_pred": -0.0762,
+                "wilson_95_ci": [
+                  0.0945,
+                  0.9055
+                ]
+              },
+              {
+                "bucket": "60-65%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "65-70%",
+                "n": 1,
+                "wins": 1,
+                "mean_pred_prob": 0.6509,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.3491,
+                "wilson_95_ci": [
+                  0.2065,
+                  1.0
+                ]
+              },
+              {
+                "bucket": "70-75%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": "75-80%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "bucket": ">=80%",
+                "n": 0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              }
+            ],
+            "cumulative_thresholds": [
+              {
+                "threshold": ">=50%",
+                "n": 6,
+                "share_of_matches": 1.0,
+                "wins": 3,
+                "mean_pred_prob": 0.5624,
+                "actual_hit_rate": 0.5,
+                "calibration_gap_actual_minus_pred": -0.0624,
+                "wilson_95_ci": [
+                  0.1876,
+                  0.8124
+                ]
+              },
+              {
+                "threshold": ">=55%",
+                "n": 3,
+                "share_of_matches": 0.5,
+                "wins": 2,
+                "mean_pred_prob": 0.6011,
+                "actual_hit_rate": 0.6667,
+                "calibration_gap_actual_minus_pred": 0.0655,
+                "wilson_95_ci": [
+                  0.2077,
+                  0.9385
+                ]
+              },
+              {
+                "threshold": ">=60%",
+                "n": 1,
+                "share_of_matches": 0.1667,
+                "wins": 1,
+                "mean_pred_prob": 0.6509,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.3491,
+                "wilson_95_ci": [
+                  0.2065,
+                  1.0
+                ]
+              },
+              {
+                "threshold": ">=65%",
+                "n": 1,
+                "share_of_matches": 0.1667,
+                "wins": 1,
+                "mean_pred_prob": 0.6509,
+                "actual_hit_rate": 1.0,
+                "calibration_gap_actual_minus_pred": 0.3491,
+                "wilson_95_ci": [
+                  0.2065,
+                  1.0
+                ]
+              },
+              {
+                "threshold": ">=70%",
+                "n": 0,
+                "share_of_matches": 0.0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "threshold": ">=75%",
+                "n": 0,
+                "share_of_matches": 0.0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              },
+              {
+                "threshold": ">=80%",
+                "n": 0,
+                "share_of_matches": 0.0,
+                "wins": 0,
+                "mean_pred_prob": null,
+                "actual_hit_rate": null,
+                "calibration_gap_actual_minus_pred": null,
+                "wilson_95_ci": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nba_retrospective_8_games_summary": {
+      "n": 8,
+      "brier_binary": 0.2122,
+      "brier_2way_sum": 0.4243,
+      "climatology_brier_binary": 0.25,
+      "uniform_brier_binary": 0.25,
+      "brier_skill_score_vs_climatology": 0.1513,
+      "logloss": 0.61,
+      "climatology_logloss": 0.6931,
+      "uniform_logloss": 0.6931,
+      "actual_home_win_rate": 0.5,
+      "mean_pred_home_win_rate": 0.5814,
+      "calibration": {
+        "total_n": 8,
+        "overall_favorite_wins": 5,
+        "overall_favorite_hit_rate": 0.625,
+        "overall_mean_max_p": 0.6213,
+        "ece": 0.3334,
+        "disjoint_buckets": [
+          {
+            "bucket": "<50%",
+            "n": 0,
+            "wins": 0,
+            "mean_pred_prob": null,
+            "actual_hit_rate": null,
+            "calibration_gap_actual_minus_pred": null,
+            "wilson_95_ci": null
+          },
+          {
+            "bucket": "50-55%",
+            "n": 1,
+            "wins": 1,
+            "mean_pred_prob": 0.5058,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.4942,
+            "wilson_95_ci": [
+              0.2065,
+              1.0
+            ]
+          },
+          {
+            "bucket": "55-60%",
+            "n": 3,
+            "wins": 1,
+            "mean_pred_prob": 0.5657,
+            "actual_hit_rate": 0.3333,
+            "calibration_gap_actual_minus_pred": -0.2324,
+            "wilson_95_ci": [
+              0.0615,
+              0.7923
+            ]
+          },
+          {
+            "bucket": "60-65%",
+            "n": 1,
+            "wins": 0,
+            "mean_pred_prob": 0.6216,
+            "actual_hit_rate": 0.0,
+            "calibration_gap_actual_minus_pred": -0.6216,
+            "wilson_95_ci": [
+              0.0,
+              0.7935
+            ]
+          },
+          {
+            "bucket": "65-70%",
+            "n": 1,
+            "wins": 1,
+            "mean_pred_prob": 0.6597,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.3403,
+            "wilson_95_ci": [
+              0.2065,
+              1.0
+            ]
+          },
+          {
+            "bucket": "70-75%",
+            "n": 1,
+            "wins": 1,
+            "mean_pred_prob": 0.7233,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.2767,
+            "wilson_95_ci": [
+              0.2065,
+              1.0
+            ]
+          },
+          {
+            "bucket": "75-80%",
+            "n": 1,
+            "wins": 1,
+            "mean_pred_prob": 0.763,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.237,
+            "wilson_95_ci": [
+              0.2065,
+              1.0
+            ]
+          },
+          {
+            "bucket": ">=80%",
+            "n": 0,
+            "wins": 0,
+            "mean_pred_prob": null,
+            "actual_hit_rate": null,
+            "calibration_gap_actual_minus_pred": null,
+            "wilson_95_ci": null
+          }
+        ],
+        "cumulative_thresholds": [
+          {
+            "threshold": ">=50%",
+            "n": 8,
+            "share_of_matches": 1.0,
+            "wins": 5,
+            "mean_pred_prob": 0.6213,
+            "actual_hit_rate": 0.625,
+            "calibration_gap_actual_minus_pred": 0.0037,
+            "wilson_95_ci": [
+              0.3057,
+              0.8632
+            ]
+          },
+          {
+            "threshold": ">=55%",
+            "n": 7,
+            "share_of_matches": 0.875,
+            "wins": 4,
+            "mean_pred_prob": 0.6378,
+            "actual_hit_rate": 0.5714,
+            "calibration_gap_actual_minus_pred": -0.0664,
+            "wilson_95_ci": [
+              0.2505,
+              0.8418
+            ]
+          },
+          {
+            "threshold": ">=60%",
+            "n": 4,
+            "share_of_matches": 0.5,
+            "wins": 3,
+            "mean_pred_prob": 0.6919,
+            "actual_hit_rate": 0.75,
+            "calibration_gap_actual_minus_pred": 0.0581,
+            "wilson_95_ci": [
+              0.3006,
+              0.9544
+            ]
+          },
+          {
+            "threshold": ">=65%",
+            "n": 3,
+            "share_of_matches": 0.375,
+            "wins": 3,
+            "mean_pred_prob": 0.7153,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.2847,
+            "wilson_95_ci": [
+              0.4385,
+              1.0
+            ]
+          },
+          {
+            "threshold": ">=70%",
+            "n": 2,
+            "share_of_matches": 0.25,
+            "wins": 2,
+            "mean_pred_prob": 0.7431,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.2569,
+            "wilson_95_ci": [
+              0.3424,
+              1.0
+            ]
+          },
+          {
+            "threshold": ">=75%",
+            "n": 1,
+            "share_of_matches": 0.125,
+            "wins": 1,
+            "mean_pred_prob": 0.763,
+            "actual_hit_rate": 1.0,
+            "calibration_gap_actual_minus_pred": 0.237,
+            "wilson_95_ci": [
+              0.2065,
+              1.0
+            ]
+          },
+          {
+            "threshold": ">=80%",
+            "n": 0,
+            "share_of_matches": 0.0,
+            "wins": 0,
+            "mean_pred_prob": null,
+            "actual_hit_rate": null,
+            "calibration_gap_actual_minus_pred": null,
+            "wilson_95_ci": null
+          }
+        ]
+      }
+    },
+    "football_secondary_binary_markets": {
+      "over_05": {
+        "n": 1347,
+        "brier_binary": 0.0463,
+        "climatology_brier_binary": 0.0459,
+        "brier_skill_score_vs_climatology": -0.0085,
+        "logloss": 0.1946,
+        "mean_pred_yes": 0.9309,
+        "actual_yes_rate": 0.9517,
+        "favorite_side_calibration": {
+          "total_n": 1347,
+          "overall_favorite_wins": 1282,
+          "overall_favorite_hit_rate": 0.9517,
+          "overall_mean_max_p": 0.9309,
+          "ece": 0.0208,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "50-55%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "55-60%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "60-65%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "65-70%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "70-75%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "75-80%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": ">=80%",
+              "n": 1347,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1282,
+              "mean_pred_prob": 0.9309,
+              "actual_hit_rate": 0.9517,
+              "calibration_gap_actual_minus_pred": 0.0208,
+              "wilson_95_ci": [
+                0.939,
+                0.962
+              ]
+            }
+          ]
+        }
+      },
+      "over_15": {
+        "n": 1347,
+        "brier_binary": 0.1569,
+        "climatology_brier_binary": 0.1571,
+        "brier_skill_score_vs_climatology": 0.0014,
+        "logloss": 0.4919,
+        "mean_pred_yes": 0.7803,
+        "actual_yes_rate": 0.8048,
+        "favorite_side_calibration": {
+          "total_n": 1347,
+          "overall_favorite_wins": 1084,
+          "overall_favorite_hit_rate": 0.8048,
+          "overall_mean_max_p": 0.7803,
+          "ece": 0.0244,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "50-55%",
+              "n": 1,
+              "wins": 1,
+              "mean_pred_prob": 0.5208,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.4792,
+              "wilson_95_ci": [
+                0.2065,
+                1.0
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 19,
+              "wins": 12,
+              "mean_pred_prob": 0.5799,
+              "actual_hit_rate": 0.6316,
+              "calibration_gap_actual_minus_pred": 0.0516,
+              "wilson_95_ci": [
+                0.4104,
+                0.8085
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 43,
+              "wins": 35,
+              "mean_pred_prob": 0.6266,
+              "actual_hit_rate": 0.814,
+              "calibration_gap_actual_minus_pred": 0.1873,
+              "wilson_95_ci": [
+                0.6738,
+                0.9026
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 109,
+              "wins": 78,
+              "mean_pred_prob": 0.6793,
+              "actual_hit_rate": 0.7156,
+              "calibration_gap_actual_minus_pred": 0.0363,
+              "wilson_95_ci": [
+                0.6247,
+                0.7918
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 232,
+              "wins": 175,
+              "mean_pred_prob": 0.7261,
+              "actual_hit_rate": 0.7543,
+              "calibration_gap_actual_minus_pred": 0.0282,
+              "wilson_95_ci": [
+                0.6951,
+                0.8053
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 366,
+              "wins": 295,
+              "mean_pred_prob": 0.7754,
+              "actual_hit_rate": 0.806,
+              "calibration_gap_actual_minus_pred": 0.0306,
+              "wilson_95_ci": [
+                0.7624,
+                0.8433
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 577,
+              "wins": 488,
+              "mean_pred_prob": 0.8428,
+              "actual_hit_rate": 0.8458,
+              "calibration_gap_actual_minus_pred": 0.0029,
+              "wilson_95_ci": [
+                0.814,
+                0.8729
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 1084,
+              "mean_pred_prob": 0.7803,
+              "actual_hit_rate": 0.8048,
+              "calibration_gap_actual_minus_pred": 0.0244,
+              "wilson_95_ci": [
+                0.7827,
+                0.825
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 1346,
+              "share_of_matches": 0.9993,
+              "wins": 1083,
+              "mean_pred_prob": 0.7805,
+              "actual_hit_rate": 0.8046,
+              "calibration_gap_actual_minus_pred": 0.0241,
+              "wilson_95_ci": [
+                0.7826,
+                0.8249
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 1327,
+              "share_of_matches": 0.9852,
+              "wins": 1071,
+              "mean_pred_prob": 0.7834,
+              "actual_hit_rate": 0.8071,
+              "calibration_gap_actual_minus_pred": 0.0237,
+              "wilson_95_ci": [
+                0.785,
+                0.8274
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 1284,
+              "share_of_matches": 0.9532,
+              "wins": 1036,
+              "mean_pred_prob": 0.7886,
+              "actual_hit_rate": 0.8069,
+              "calibration_gap_actual_minus_pred": 0.0182,
+              "wilson_95_ci": [
+                0.7844,
+                0.8275
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 1175,
+              "share_of_matches": 0.8723,
+              "wins": 958,
+              "mean_pred_prob": 0.7988,
+              "actual_hit_rate": 0.8153,
+              "calibration_gap_actual_minus_pred": 0.0165,
+              "wilson_95_ci": [
+                0.7921,
+                0.8365
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 943,
+              "share_of_matches": 0.7001,
+              "wins": 783,
+              "mean_pred_prob": 0.8167,
+              "actual_hit_rate": 0.8303,
+              "calibration_gap_actual_minus_pred": 0.0137,
+              "wilson_95_ci": [
+                0.805,
+                0.8529
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 577,
+              "share_of_matches": 0.4284,
+              "wins": 488,
+              "mean_pred_prob": 0.8428,
+              "actual_hit_rate": 0.8458,
+              "calibration_gap_actual_minus_pred": 0.0029,
+              "wilson_95_ci": [
+                0.814,
+                0.8729
+              ]
+            }
+          ]
+        }
+      },
+      "over_25": {
+        "n": 1347,
+        "brier_binary": 0.2418,
+        "climatology_brier_binary": 0.2453,
+        "brier_skill_score_vs_climatology": 0.0142,
+        "logloss": 0.6765,
+        "mean_pred_yes": 0.5434,
+        "actual_yes_rate": 0.5687,
+        "favorite_side_calibration": {
+          "total_n": 1347,
+          "overall_favorite_wins": 783,
+          "overall_favorite_hit_rate": 0.5813,
+          "overall_mean_max_p": 0.5875,
+          "ece": 0.024,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "50-55%",
+              "n": 452,
+              "wins": 242,
+              "mean_pred_prob": 0.524,
+              "actual_hit_rate": 0.5354,
+              "calibration_gap_actual_minus_pred": 0.0114,
+              "wilson_95_ci": [
+                0.4893,
+                0.5809
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 405,
+              "wins": 238,
+              "mean_pred_prob": 0.5736,
+              "actual_hit_rate": 0.5877,
+              "calibration_gap_actual_minus_pred": 0.0141,
+              "wilson_95_ci": [
+                0.5391,
+                0.6346
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 255,
+              "wins": 152,
+              "mean_pred_prob": 0.6219,
+              "actual_hit_rate": 0.5961,
+              "calibration_gap_actual_minus_pred": -0.0259,
+              "wilson_95_ci": [
+                0.5349,
+                0.6544
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 152,
+              "wins": 92,
+              "mean_pred_prob": 0.6709,
+              "actual_hit_rate": 0.6053,
+              "calibration_gap_actual_minus_pred": -0.0656,
+              "wilson_95_ci": [
+                0.5259,
+                0.6795
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 57,
+              "wins": 38,
+              "mean_pred_prob": 0.7184,
+              "actual_hit_rate": 0.6667,
+              "calibration_gap_actual_minus_pred": -0.0517,
+              "wilson_95_ci": [
+                0.5372,
+                0.7751
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 18,
+              "wins": 15,
+              "mean_pred_prob": 0.7707,
+              "actual_hit_rate": 0.8333,
+              "calibration_gap_actual_minus_pred": 0.0626,
+              "wilson_95_ci": [
+                0.6078,
+                0.9416
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 8,
+              "wins": 6,
+              "mean_pred_prob": 0.8501,
+              "actual_hit_rate": 0.75,
+              "calibration_gap_actual_minus_pred": -0.1001,
+              "wilson_95_ci": [
+                0.4093,
+                0.9285
+              ]
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 783,
+              "mean_pred_prob": 0.5875,
+              "actual_hit_rate": 0.5813,
+              "calibration_gap_actual_minus_pred": -0.0062,
+              "wilson_95_ci": [
+                0.5548,
+                0.6074
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 895,
+              "share_of_matches": 0.6644,
+              "wins": 541,
+              "mean_pred_prob": 0.6195,
+              "actual_hit_rate": 0.6045,
+              "calibration_gap_actual_minus_pred": -0.0151,
+              "wilson_95_ci": [
+                0.5721,
+                0.636
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 490,
+              "share_of_matches": 0.3638,
+              "wins": 303,
+              "mean_pred_prob": 0.6575,
+              "actual_hit_rate": 0.6184,
+              "calibration_gap_actual_minus_pred": -0.0392,
+              "wilson_95_ci": [
+                0.5746,
+                0.6603
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 235,
+              "share_of_matches": 0.1745,
+              "wins": 151,
+              "mean_pred_prob": 0.6961,
+              "actual_hit_rate": 0.6426,
+              "calibration_gap_actual_minus_pred": -0.0536,
+              "wilson_95_ci": [
+                0.5794,
+                0.7011
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 83,
+              "share_of_matches": 0.0616,
+              "wins": 59,
+              "mean_pred_prob": 0.7424,
+              "actual_hit_rate": 0.7108,
+              "calibration_gap_actual_minus_pred": -0.0316,
+              "wilson_95_ci": [
+                0.6057,
+                0.7973
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 26,
+              "share_of_matches": 0.0193,
+              "wins": 21,
+              "mean_pred_prob": 0.7951,
+              "actual_hit_rate": 0.8077,
+              "calibration_gap_actual_minus_pred": 0.0125,
+              "wilson_95_ci": [
+                0.6212,
+                0.9149
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 8,
+              "share_of_matches": 0.0059,
+              "wins": 6,
+              "mean_pred_prob": 0.8501,
+              "actual_hit_rate": 0.75,
+              "calibration_gap_actual_minus_pred": -0.1001,
+              "wilson_95_ci": [
+                0.4093,
+                0.9285
+              ]
+            }
+          ]
+        }
+      },
+      "btts": {
+        "n": 1347,
+        "brier_binary": 0.2436,
+        "climatology_brier_binary": 0.2459,
+        "brier_skill_score_vs_climatology": 0.0091,
+        "logloss": 0.6804,
+        "mean_pred_yes": 0.5518,
+        "actual_yes_rate": 0.5642,
+        "favorite_side_calibration": {
+          "total_n": 1347,
+          "overall_favorite_wins": 772,
+          "overall_favorite_hit_rate": 0.5731,
+          "overall_mean_max_p": 0.5751,
+          "ece": 0.0183,
+          "disjoint_buckets": [
+            {
+              "bucket": "<50%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            },
+            {
+              "bucket": "50-55%",
+              "n": 508,
+              "wins": 273,
+              "mean_pred_prob": 0.5241,
+              "actual_hit_rate": 0.5374,
+              "calibration_gap_actual_minus_pred": 0.0133,
+              "wilson_95_ci": [
+                0.4939,
+                0.5803
+              ]
+            },
+            {
+              "bucket": "55-60%",
+              "n": 422,
+              "wins": 246,
+              "mean_pred_prob": 0.5735,
+              "actual_hit_rate": 0.5829,
+              "calibration_gap_actual_minus_pred": 0.0094,
+              "wilson_95_ci": [
+                0.5354,
+                0.629
+              ]
+            },
+            {
+              "bucket": "60-65%",
+              "n": 288,
+              "wins": 174,
+              "mean_pred_prob": 0.6205,
+              "actual_hit_rate": 0.6042,
+              "calibration_gap_actual_minus_pred": -0.0164,
+              "wilson_95_ci": [
+                0.5467,
+                0.6589
+              ]
+            },
+            {
+              "bucket": "65-70%",
+              "n": 105,
+              "wins": 64,
+              "mean_pred_prob": 0.6707,
+              "actual_hit_rate": 0.6095,
+              "calibration_gap_actual_minus_pred": -0.0612,
+              "wilson_95_ci": [
+                0.5139,
+                0.6974
+              ]
+            },
+            {
+              "bucket": "70-75%",
+              "n": 23,
+              "wins": 14,
+              "mean_pred_prob": 0.7188,
+              "actual_hit_rate": 0.6087,
+              "calibration_gap_actual_minus_pred": -0.1101,
+              "wilson_95_ci": [
+                0.4079,
+                0.7784
+              ]
+            },
+            {
+              "bucket": "75-80%",
+              "n": 1,
+              "wins": 1,
+              "mean_pred_prob": 0.7571,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2429,
+              "wilson_95_ci": [
+                0.2065,
+                1.0
+              ]
+            },
+            {
+              "bucket": ">=80%",
+              "n": 0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ],
+          "cumulative_thresholds": [
+            {
+              "threshold": ">=50%",
+              "n": 1347,
+              "share_of_matches": 1.0,
+              "wins": 772,
+              "mean_pred_prob": 0.5751,
+              "actual_hit_rate": 0.5731,
+              "calibration_gap_actual_minus_pred": -0.002,
+              "wilson_95_ci": [
+                0.5465,
+                0.5993
+              ]
+            },
+            {
+              "threshold": ">=55%",
+              "n": 839,
+              "share_of_matches": 0.6229,
+              "wins": 499,
+              "mean_pred_prob": 0.606,
+              "actual_hit_rate": 0.5948,
+              "calibration_gap_actual_minus_pred": -0.0113,
+              "wilson_95_ci": [
+                0.5612,
+                0.6275
+              ]
+            },
+            {
+              "threshold": ">=60%",
+              "n": 417,
+              "share_of_matches": 0.3096,
+              "wins": 253,
+              "mean_pred_prob": 0.6389,
+              "actual_hit_rate": 0.6067,
+              "calibration_gap_actual_minus_pred": -0.0322,
+              "wilson_95_ci": [
+                0.5591,
+                0.6524
+              ]
+            },
+            {
+              "threshold": ">=65%",
+              "n": 129,
+              "share_of_matches": 0.0958,
+              "wins": 79,
+              "mean_pred_prob": 0.68,
+              "actual_hit_rate": 0.6124,
+              "calibration_gap_actual_minus_pred": -0.0676,
+              "wilson_95_ci": [
+                0.5262,
+                0.6921
+              ]
+            },
+            {
+              "threshold": ">=70%",
+              "n": 24,
+              "share_of_matches": 0.0178,
+              "wins": 15,
+              "mean_pred_prob": 0.7204,
+              "actual_hit_rate": 0.625,
+              "calibration_gap_actual_minus_pred": -0.0954,
+              "wilson_95_ci": [
+                0.4271,
+                0.7884
+              ]
+            },
+            {
+              "threshold": ">=75%",
+              "n": 1,
+              "share_of_matches": 0.0007,
+              "wins": 1,
+              "mean_pred_prob": 0.7571,
+              "actual_hit_rate": 1.0,
+              "calibration_gap_actual_minus_pred": 0.2429,
+              "wilson_95_ci": [
+                0.2065,
+                1.0
+              ]
+            },
+            {
+              "threshold": ">=80%",
+              "n": 0,
+              "share_of_matches": 0.0,
+              "wins": 0,
+              "mean_pred_prob": null,
+              "actual_hit_rate": null,
+              "calibration_gap_actual_minus_pred": null,
+              "wilson_95_ci": null
+            }
+          ]
+        }
+      }
+    },
+    "football_continuous_markets_vs_match_live_ft": {
+      "corners_total": {
+        "n": 1339,
+        "mean_pred": 9.83,
+        "mean_actual": 10.079,
+        "mean_bias_pred_minus_actual": -0.249,
+        "mae": 2.7375,
+        "climatology_mae": 2.7888,
+        "mae_skill_vs_climatology": 0.0184,
+        "rmse": 3.4594,
+        "climatology_rmse": 3.5279,
+        "rmse_skill_vs_climatology": 0.0194,
+        "pearson_r": 0.2156
+      },
+      "corners_home": {
+        "n": 1339,
+        "mean_pred": 5.491,
+        "mean_actual": 5.482,
+        "mean_bias_pred_minus_actual": 0.009,
+        "mae": 2.2316,
+        "climatology_mae": 2.3667,
+        "mae_skill_vs_climatology": 0.0571,
+        "rmse": 2.8279,
+        "climatology_rmse": 2.9914,
+        "rmse_skill_vs_climatology": 0.0547,
+        "pearson_r": 0.332
+      },
+      "corners_away": {
+        "n": 1339,
+        "mean_pred": 4.338,
+        "mean_actual": 4.597,
+        "mean_bias_pred_minus_actual": -0.258,
+        "mae": 2.0631,
+        "climatology_mae": 2.1753,
+        "mae_skill_vs_climatology": 0.0516,
+        "rmse": 2.6607,
+        "climatology_rmse": 2.7478,
+        "rmse_skill_vs_climatology": 0.0317,
+        "pearson_r": 0.2798
+      },
+      "fouls_total": {
+        "n": 1336,
+        "mean_pred": 24.293,
+        "mean_actual": 24.343,
+        "mean_bias_pred_minus_actual": -0.05,
+        "mae": 4.1584,
+        "climatology_mae": 4.696,
+        "mae_skill_vs_climatology": 0.1145,
+        "rmse": 5.2002,
+        "climatology_rmse": 5.8458,
+        "rmse_skill_vs_climatology": 0.1104,
+        "pearson_r": 0.4573
+      },
+      "fouls_home": {
+        "n": 1336,
+        "mean_pred": 12.125,
+        "mean_actual": 12.052,
+        "mean_bias_pred_minus_actual": 0.074,
+        "mae": 2.9115,
+        "climatology_mae": 3.1865,
+        "mae_skill_vs_climatology": 0.0863,
+        "rmse": 3.6686,
+        "climatology_rmse": 4.0463,
+        "rmse_skill_vs_climatology": 0.0933,
+        "pearson_r": 0.4224
+      },
+      "fouls_away": {
+        "n": 1336,
+        "mean_pred": 12.167,
+        "mean_actual": 12.291,
+        "mean_bias_pred_minus_actual": -0.124,
+        "mae": 2.919,
+        "climatology_mae": 3.2317,
+        "mae_skill_vs_climatology": 0.0968,
+        "rmse": 3.6209,
+        "climatology_rmse": 3.9882,
+        "rmse_skill_vs_climatology": 0.0921,
+        "pearson_r": 0.4207
+      },
+      "shots_total": {
+        "n": 1339,
+        "mean_pred": 26.596,
+        "mean_actual": 27.704,
+        "mean_bias_pred_minus_actual": -1.108,
+        "mae": 4.7398,
+        "climatology_mae": 4.9203,
+        "mae_skill_vs_climatology": 0.0367,
+        "rmse": 6.0664,
+        "climatology_rmse": 6.235,
+        "rmse_skill_vs_climatology": 0.027,
+        "pearson_r": 0.306
+      },
+      "shots_on_target_total": {
+        "n": 1339,
+        "mean_pred": 8.968,
+        "mean_actual": 9.298,
+        "mean_bias_pred_minus_actual": -0.33,
+        "mae": 2.5618,
+        "climatology_mae": 2.5954,
+        "mae_skill_vs_climatology": 0.0129,
+        "rmse": 3.2305,
+        "climatology_rmse": 3.26,
+        "rmse_skill_vs_climatology": 0.009,
+        "pearson_r": 0.2164
+      }
+    }
+  },
+  "investigation_4_astra_picks_marks_and_warnings": {
+    "astra_picks_summary": {
+      "total_rows": 5,
+      "nominal_record": "3W - 2L (60.0%)",
+      "strictly_pre_match_record": "1W - 1L (50.0%, or 1W - 2L = 33.3% including +8m NBA tip-off pick 401909846)",
+      "late_or_post_final_record": "2W - 0L (100.0%: NBA 401909842 created in 4Q & updated post-final; Bundesliga 1575213 inserted >70 min AFTER 5-2 final whistle!)",
+      "feature_abandoned_after": "2026-11-07T17:32:43.155992+00:00",
+      "records": [
+        {
+          "sport": "nba",
+          "match_id": 401909842,
+          "match": "Sacramento Kings @ LA Clippers",
+          "pick": "Clippers a ganar",
+          "scheduled_start_utc": "2026-10-22T02:30:00+00:00",
+          "created_at_utc": "2026-10-22T04:43:41.616587+00:00",
+          "updated_at_utc": "2026-10-22T05:02:31.504866+00:00",
+          "timing_forensic_status": "LATE_IN_PLAY_4Q_AND_UPDATED_POST_FINAL (+133.7 min created, +152.5 min updated after scheduled tip-off)",
+          "model_projection": "win.home (LAC) = 0.7834 (78.3%), margin = +8.55 pts",
+          "actual_outcome": "LAC 121 - 96 SAC (Final)",
+          "result": "WON",
+          "strictly_pre_match": false
+        },
+        {
+          "sport": "futbol",
+          "match_id": 1636276,
+          "match": "Juventus vs Stade Rennais (UEFA Europa League)",
+          "pick": "Más de 8.5 tiros de esquinas",
+          "scheduled_start_utc": "2026-10-22T16:45:00+00:00",
+          "created_at_utc": "2026-10-22T07:13:00.880971+00:00",
+          "updated_at_utc": "2026-10-22T07:13:00.880971+00:00",
+          "timing_forensic_status": "LEGITIMATE_PRE_MATCH (-9h 32m before kickoff)",
+          "model_projection": "corners_total = 10.67 (home 6.13 + away 4.54)",
+          "actual_outcome": "12 corners (Juventus 7 - 5 Rennes; score 2-2)",
+          "result": "WON",
+          "strictly_pre_match": true
+        },
+        {
+          "sport": "futbol",
+          "match_id": 1636288,
+          "match": "Lillestrom vs Real Sociedad (UEFA Europa League)",
+          "pick": "Más de 8.5 tiros de esquina",
+          "scheduled_start_utc": "2026-10-22T19:00:00+00:00",
+          "created_at_utc": "2026-10-22T07:13:00.880971+00:00",
+          "updated_at_utc": "2026-10-22T07:13:00.880971+00:00",
+          "timing_forensic_status": "LEGITIMATE_PRE_MATCH (-11h 47m before kickoff)",
+          "model_projection": "corners_total = 10.74 (home 3.92 + away 6.82)",
+          "actual_outcome": "6 corners (Lillestrom 3 - 3 Real Sociedad; score 0-6)",
+          "result": "LOST",
+          "strictly_pre_match": true
+        },
+        {
+          "sport": "nba",
+          "match_id": 401909846,
+          "match": "Toronto Raptors @ Washington Wizards",
+          "pick": "Toronto Raptors a ganar",
+          "scheduled_start_utc": "2026-10-23T23:00:00+00:00",
+          "created_at_utc": "2026-10-23T23:08:02.677807+00:00",
+          "updated_at_utc": "2026-10-23T23:08:02.677807+00:00",
+          "timing_forensic_status": "AROUND_NBA_TIPOFF (+8m 03s after scheduled start; NBA tip-off buffer ~7-10 min)",
+          "model_projection": "win.away (TOR) = 0.7796 (78.0%), margin = -8.40 pts (TOR favored)",
+          "actual_outcome": "WSH 112 - 102 TOR (Final)",
+          "result": "LOST",
+          "strictly_pre_match": false
+        },
+        {
+          "sport": "futbol",
+          "match_id": 1575213,
+          "match": "RB Leipzig vs FC Augsburg (Bundesliga)",
+          "pick": "Más de 2.5 goles",
+          "scheduled_start_utc": "2026-11-07T14:30:00+00:00",
+          "created_at_utc": "2026-11-07T17:32:43.155992+00:00",
+          "updated_at_utc": "2026-11-07T17:32:43.155992+00:00",
+          "timing_forensic_status": "POST_FINAL_RETROACTIVE_INSERTION (+3h 02m after kickoff; match had ALREADY ended 5-2 ~70 minutes earlier!)",
+          "model_projection": "over_25 = 0.6788 (67.9%), lambda = 2.382 - 1.132 (total 3.514)",
+          "actual_outcome": "7 goals (RB Leipzig 5 - 2 FC Augsburg; already 4-1 at halftime)",
+          "result": "WON (inserted post-FT)",
+          "strictly_pre_match": false
+        }
+      ]
+    },
+    "match_marks_summary": {
+      "total_rows": 3,
+      "single_batch_timestamp_utc": "2026-11-07T17:32:43.155992+00:00",
+      "nominal_record": "3W - 0L (100.0%)",
+      "strictly_pre_match_record": "0W - 0L (0 rows inserted pre-match: 2 inserted >1h post-FT, 1 inserted at min 32 in-play at 0-1)",
+      "records": [
+        {
+          "fixture_id": 1575213,
+          "match": "RB Leipzig vs FC Augsburg (Bundesliga)",
+          "label": "Más de 2.5 goles",
+          "kickoff_utc": "2026-11-07T14:30:00+00:00",
+          "created_at_utc": "2026-11-07T17:32:43.155992+00:00",
+          "timing_forensic_status": "POST_FINAL_RETROACTIVE_INSERTION (+3h 02m after kickoff; inserted >1h after 5-2 final whistle)",
+          "model_projection": "over_25 = 0.6788",
+          "actual_outcome": "RB Leipzig 5 - 2 FC Augsburg (7 goals)",
+          "result": "WON (inserted post-FT)"
+        },
+        {
+          "fixture_id": 1575217,
+          "match": "FSV Mainz 05 vs Bayern Munich (Bundesliga)",
+          "label": "Más de 2.25 goles",
+          "kickoff_utc": "2026-11-07T14:30:00+00:00",
+          "created_at_utc": "2026-11-07T17:32:43.155992+00:00",
+          "timing_forensic_status": "POST_FINAL_RETROACTIVE_INSERTION (+3h 02m after kickoff; inserted >1h after 1-2 final whistle with 90+2' goal)",
+          "model_projection": "over_15 = 0.8712, over_25 = 0.6927, lambda = 0.999 - 2.587",
+          "actual_outcome": "Mainz 1 - 2 Bayern Munich (3 goals: 14' Kimmich, 57' Karl, 90+2' Tietz)",
+          "result": "WON (inserted post-FT)"
+        },
+        {
+          "fixture_id": 1555420,
+          "match": "BSC Young Boys vs FC Luzern (Swiss Super League)",
+          "label": "Ambos marcan",
+          "kickoff_utc": "2026-11-07T17:00:00+00:00",
+          "created_at_utc": "2026-11-07T17:32:43.155992+00:00",
+          "timing_forensic_status": "IN_PLAY_INSERTION (+32m 43s after kickoff; 0-1 Fassnacht 22' ALREADY scored; VAR penalty check at 36' -> 1-1 at 38')",
+          "model_projection": "btts = 0.6939, lambda = 1.981 - 1.564",
+          "actual_outcome": "Young Boys 2 - 3 Luzern (BTTS cashed at 38')",
+          "result": "WON (inserted in-play at 0-1)"
+        }
+      ]
+    },
+    "nhl_goalie_confirmation_audit": {
+      "total_nhl_predictions": 177,
+      "total_goalie_slots": 354,
+      "confirmed_true_count": 0,
+      "unconfirmed_most_starts_count": 351,
+      "unconfirmed_backup_probable_b2b_count": 2,
+      "unconfirmed_none_count": 1
+    },
+    "normalized_warnings_taxonomy": [
+      {
+        "category_and_template": "nhl:warnings | Portero home NO confirmado (<DETAIL>). Confirmar y pasar el override.",
+        "count": 177,
+        "example": {
+          "id": 2026020135,
+          "literal": "Portero home NO confirmado (Jesper Wallstedt, most_starts). Confirmar y pasar el override."
+        }
+      },
+      {
+        "category_and_template": "nhl:warnings | Portero away NO confirmado (<DETAIL>). Confirmar y pasar el override.",
+        "count": 177,
+        "example": {
+          "id": 2026020135,
+          "literal": "Portero away NO confirmado (Cam Talbot, backup_probable_b2b). Confirmar y pasar el override."
+        }
+      },
+      {
+        "category_and_template": "futbol:cross_league_v3 | Partido entre ligas: la fuerza relativa usa el coeficiente UEFA del pais.",
+        "count": 30,
+        "example": {
+          "id": 1635606,
+          "literal": "Partido entre ligas: la fuerza relativa usa el coeficiente UEFA del pais."
+        }
+      },
+      {
+        "category_and_template": "futbol:cross_league_v2 | Partido entre ligas: la fuerza relativa usa el coeficiente UEFA del pais.",
+        "count": 30,
+        "example": {
+          "id": 1635621,
+          "literal": "Partido entre ligas: la fuerza relativa usa el coeficiente UEFA del pais."
+        }
+      },
+      {
+        "category_and_template": "futbol:national_v3 | Selecciones: el modelo junta los partidos internacionales de los últimos dos años (Mundial, eliminatorias, Nations League, copas continentales y amistosos) como si fueran una sola liga.",
+        "count": 21,
+        "example": {
+          "id": 1528958,
+          "literal": "Selecciones: el modelo junta los partidos internacionales de los últimos dos años (Mundial, eliminatorias, Nations League, copas continentales y amistosos) como si fueran una sola liga."
+        }
+      },
+      {
+        "category_and_template": "nhl:warnings | Inicio de temporada: <N> partidos actuales. Pesa mas la temporada pasada.",
+        "count": 19,
+        "example": {
+          "id": 2026020135,
+          "literal": "Inicio de temporada: 134 partidos actuales. Pesa mas la temporada pasada."
+        }
+      },
+      {
+        "category_and_template": "nba:warnings | No hay un archivo verificable de bajas previo al partido; no se incorporan lesiones actuales.",
+        "count": 8,
+        "example": {
+          "id": 401909091,
+          "literal": "No hay un archivo verificable de bajas previo al partido; no se incorporan lesiones actuales."
+        }
+      },
+      {
+        "category_and_template": "futbol:cross_league_v3 | Partido entre ligas femeniles: se toma la misma fuerza para todas las ligas, porque el coeficiente UEFA de pais es de la rama varonil.",
+        "count": 1,
+        "example": {
+          "id": 1638311,
+          "literal": "Partido entre ligas femeniles: se toma la misma fuerza para todas las ligas, porque el coeficiente UEFA de pais es de la rama varonil."
+        }
+      },
+      {
+        "category_and_template": "nfl:warnings | Baltimore Ravens juega con Tyler Huntley de quarterback, por debajo de su titular habitual (<DETAIL>).",
+        "count": 1,
+        "example": {
+          "id": 401873012,
+          "literal": "Baltimore Ravens juega con Tyler Huntley de quarterback, por debajo de su titular habitual (-3.6 puntos)."
+        }
+      },
+      {
+        "category_and_template": "nfl:warnings | Tampa Bay Buccaneers juega con Jalon Daniels de quarterback, por debajo de su titular habitual (<DETAIL>).",
+        "count": 1,
+        "example": {
+          "id": 401873018,
+          "literal": "Tampa Bay Buccaneers juega con Jalon Daniels de quarterback, por debajo de su titular habitual (-2.8 puntos)."
+        }
+      },
+      {
+        "category_and_template": "nfl:warnings | Baltimore Ravens juega con Joe Fagnano de quarterback, por debajo de su titular habitual (<DETAIL>).",
+        "count": 1,
+        "example": {
+          "id": 401873037,
+          "literal": "Baltimore Ravens juega con Joe Fagnano de quarterback, por debajo de su titular habitual (-6.1 puntos)."
+        }
+      },
+      {
+        "category_and_template": "nfl:warnings | Philadelphia Eagles juega con Joe Milton III de quarterback, por debajo de su titular habitual (<DETAIL>).",
+        "count": 1,
+        "example": {
+          "id": 401873044,
+          "literal": "Philadelphia Eagles juega con Joe Milton III de quarterback, por debajo de su titular habitual (-3.4 puntos)."
+        }
+      }
+    ]
+  },
+  "investigation_5_claude_hallucinations_audit": {
+    "total_analysis_rows_scanned": 1739,
+    "claude_llm_rows_scanned": 1677,
+    "data_notice_rows_excluded": 62,
+    "comparison_by_llm_model": {
+      "claude-sonnet-5-5": {
+        "rows_scanned": 554,
+        "verified_defects": 1,
+        "defect_rate_pct": 0.18,
+        "severe_factual_or_inversion_errors": 0,
+        "notes": "0 inversions, 0 contradictions, 0 truncations; only 1 minor prompt meta-reference ('el JSON') in fixture 1494307."
+      },
+      "claude-haiku-5-5": {
+        "rows_scanned": 1123,
+        "verified_defects": 15,
+        "defect_rate_pct": 1.34,
+        "by_sport_error_rate": {
+          "nfl": {
+            "defects": 8,
+            "rows": 29,
+            "rate_pct": 27.59,
+            "catastrophic_home_away_qb_inversions": 6,
+            "catastrophic_rate_pct": 20.69
+          },
+          "mlb": {
+            "defects": 1,
+            "rows": 4,
+            "rate_pct": 25.0
+          },
+          "nhl": {
+            "defects": 3,
+            "rows": 122,
+            "rate_pct": 2.46
+          },
+          "futbol": {
+            "defects": 3,
+            "rows": 844,
+            "rate_pct": 0.36
+          },
+          "nba": {
+            "defects": 0,
+            "rows": 124,
+            "rate_pct": 0.0
+          }
+        },
+        "root_cause_of_nfl_collapse": "NFL context.digest omits team names inside ratings.home/away and quarterbacks.home/away, relying solely on 'partido': 'Home Team vs Away Team'. Because US sports convention writes 'Away vs/@ Home', claude-haiku-5-5 inverted home and away in 6/29 (20.69%) NFL games (versus 0/124 in NBA where ratings.home.name explicitly binds the team name)."
+      }
+    },
+    "architectural_prompt_vs_model_disconnect": "In Football and NBA, the Python LLM script injects external player injury/suspension lists into Claude's JSON prompt even though the underlying mathematical models ignore injuries completely (explicitly admitted in NBA 401909094 and leaked in Football 1494307).",
+    "verified_defect_cases": [
+      {
+        "sport": "nfl",
+        "id": 401873013,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TOTAL_HOME_AWAY_AND_QB_INVERSION",
+        "match_db": "Cleveland Browns (AWAY) @ Tennessee Titans (HOME)",
+        "model_truth": "Browns (away) 62.97% win, 19.4 pts, Elo 1455, QB Deshaun Watson; Titans (home) 37.03% win, 15.1 pts, Elo 1312, QB Cam Ward, +4.5 underdog (51%).",
+        "claude_excerpt": "Los Titans llegan como favoritos claros según el modelo, con 63% de probabilidad de ganar contra 37% de los Browns... Los Titans (visitantes) anotan en promedio 19.4 puntos y los Browns 15.1... Deshaun Watson es titular para los Titans y Cam Ward para los Browns."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873015,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TOTAL_HOME_AWAY_AND_QB_INVERSION",
+        "match_db": "Miami Dolphins (AWAY) @ New York Jets (HOME)",
+        "model_truth": "Jets (home) 56.41% win, 21.0 pts, -2.1 margin, QB Geno Smith; Dolphins (away) 43.59% win, 18.9 pts, QB Malik Willis.",
+        "claude_excerpt": "Los Dolphins llegan con ventaja en el modelo y una probabilidad de ganar de 56% en casa, frente a 44% de los Jets... Los puntos esperados son 21.0 para Miami y 18.9 para Nueva York... Geno Smith es el titular de Miami y Malik Willis el de Nueva York."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873017,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TOTAL_HOME_AWAY_INVERSION_PLUS_UNEDITED_CHATBOT_SELF_CORRECTION",
+        "match_db": "San Francisco 49ers (AWAY) @ Atlanta Falcons (HOME)",
+        "model_truth": "49ers (away) 69.57% win, 28.3 pts, Elo 1684, QB Brock Purdy; Falcons (home) 30.43% win, 21.6 pts, Elo 1447, QB Michael Penix Jr.",
+        "claude_excerpt": "Los Falcons llegan mejor en casi todo y el modelo les da 70% de ganar como visitantes... Los 49ers, en casa, tienen 30%... Los 49ers anotan 21.6 puntos esperados y los Falcons 28.3... Brock Purdy abre como titular de los Falcons... perdón, de los 49ers visitantes con un EPA por dropback de 0.075."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873021,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TOTAL_HOME_AWAY_AND_QB_INVERSION",
+        "match_db": "Los Angeles Rams (AWAY) @ Las Vegas Raiders (HOME)",
+        "model_truth": "Rams (away) 62.85% win, 28.4 pts, Elo 1550, QB Matthew Stafford; Raiders (home) 37.15% win, 24.1 pts, Elo 1415, QB Kirk Cousins.",
+        "claude_excerpt": "El modelo da 63% de ganar a los Raiders y 37% a los Rams... Se esperan 28.4 puntos para los Raiders y 24.1 para los Rams... Matthew Stafford inicia por los Raiders y Kirk Cousins por los Rams."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873028,
+        "model": "claude-haiku-5-5",
+        "defect_type": "FAVORITE_POINTS_AND_SPREAD_INVERSION",
+        "match_db": "Indianapolis Colts (AWAY) @ Jacksonville Jaguars (HOME)",
+        "model_truth": "Jaguars (home) 76.76% win, 29.8 pts, -9.5 margin, Elo 1630; Colts (away) 23.24% win, 20.3 pts, Elo 1398.",
+        "claude_excerpt": "Los Colts llegan como favoritos claros en su visita a Jacksonville, con 77% de probabilidad de ganar para el local... Los Jaguars tienen 23%... Los Colts esperan anotar unos 29.8 puntos y los Jaguars unos 20.3... El margen esperado favorece a los Colts por unos 9.5 puntos."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873052,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TOTAL_HOME_AWAY_AND_QB_INVERSION",
+        "match_db": "Washington Commanders (AWAY) @ New York Giants (HOME)",
+        "model_truth": "Giants (home) 52.82% win, 23.2 pts, Elo 1489, QB J.J. McCarthy; Commanders (away) 47.18% win, 22.3 pts, Elo 1415, QB Jayden Daniels.",
+        "claude_excerpt": "Los Commanders llegan con ligera ventaja en rating y una probabilidad de ganar del 53% para el local, Washington, frente al 47% de los Giants... Washington espera anotar 23.2 puntos y Nueva York 22.3... Jayden Daniels, titular de los Giants... J.J. McCarthy, de Washington."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873033,
+        "model": "claude-haiku-5-5",
+        "defect_type": "METRIC_INVERSION_ELO",
+        "match_db": "Kansas City Chiefs (AWAY) @ Denver Broncos (HOME)",
+        "model_truth": "Denver Broncos Elo = 1637 vs Kansas City Chiefs Elo = 1560.",
+        "claude_excerpt": "Los Chiefs llegan con mejor ventaja en Elo y la probabilidad de ganar de Denver es de 54% en casa, frente a 46% de Kansas City."
+      },
+      {
+        "sport": "nfl",
+        "id": 401873011,
+        "model": "claude-haiku-5-5",
+        "defect_type": "NEUTRAL_VENUE_CONTRADICTION",
+        "match_db": "Pittsburgh Steelers (AWAY) @ New Orleans Saints (HOME) [sede_neutral = true]",
+        "model_truth": "sede_neutral = true in digest (neutral site game).",
+        "claude_excerpt": "Los Pittsburgh Steelers llegan mejor en los números y el modelo les da 61% de ganar como visitantes."
+      },
+      {
+        "sport": "mlb",
+        "id": 849804,
+        "model": "claude-haiku-5-5",
+        "defect_type": "SABERMETRIC_DIRECTION_AND_HOME_AWAY_INVERSION",
+        "match_db": "Milwaukee Brewers (AWAY) @ Tampa Bay Rays (HOME)",
+        "model_truth": "Lower FIP is better: Milwaukee bullpen FIP = 3.57 (better, visitor) vs Tampa Bay bullpen FIP = 3.76 (worse, home).",
+        "claude_excerpt": "El bullpen de Tampa Bay tiene mejor FIP (3.76) que el de Milwaukee (3.57 en ese caso, por encima), así que la ventaja de relevo es visitante."
+      },
+      {
+        "sport": "nhl",
+        "id": 2026020179,
+        "model": "claude-haiku-5-5",
+        "defect_type": "TRUNCATED_AND_GARBLED_GENERATION_MISSING_4_SECTIONS",
+        "match_db": "Minnesota Wild (AWAY) @ Seattle Kraken (HOME)",
+        "model_truth": "5 sections required; Minnesota regulation 44%, Seattle 35%, OT 21%; Minnesota total win 55%.",
+        "claude_excerpt": "[Only 1 section generated, 86 output tokens] Minnesota Wild llega como favorito ligero. Tiene 35% de ganar en tiempo regular para Seattle 35%..."
+      },
+      {
+        "sport": "nhl",
+        "id": 2026020217,
+        "model": "claude-haiku-5-5",
+        "defect_type": "PROBABILITY_FALLACY_AND_INVENTED_PERCENTAGE",
+        "match_db": "Chicago Blackhawks (AWAY) @ Boston Bruins (HOME)",
+        "model_truth": "Boston regulation win = 52%, Boston win INCLUDING OT/SO (win.home) = 63.22% (gana_con_tiempo_extra_pct = 63%).",
+        "claude_excerpt": "Tiene 52% de ganar en tiempo regular y 63% si se va a tiempo extra, así que su probabilidad total de victoria ronda el 67%."
+      },
+      {
+        "sport": "nhl",
+        "id": 2026020264,
+        "model": "claude-haiku-5-5",
+        "defect_type": "FAVORITE_AND_ARITHMETIC_SELF_CONTRADICTION",
+        "match_db": "Anaheim Ducks (AWAY) @ Calgary Flames (HOME)",
+        "model_truth": "Anaheim favored both in regulation (42% vs Calgary 38%) and including OT (52.4% vs Calgary 47.6%).",
+        "claude_excerpt": "Los Flames llegan con una ligera ventaja en el modelo, aunque el partido está muy parejo. Calgary tiene 38% de ganar en tiempo regular y Anaheim 42%... Tras el tiempo extra, la ventaja se invierte: Anaheim gana 52% y Calgary 48%."
+      },
+      {
+        "sport": "futbol",
+        "id": 1520951,
+        "model": "claude-haiku-5-5",
+        "defect_type": "FAVORITE_SELF_CONTRADICTION",
+        "match_db": "Botafogo SP (HOME) vs Sport Recife (AWAY)",
+        "model_truth": "p_home (Botafogo SP) = 43.81%, p_draw = 28.33%, p_away (Sport Recife) = 27.86%.",
+        "claude_excerpt": "Sport Recife llega como favorito ligero según el modelo, con 44 % para Botafogo SP, 28 % para el empate y 28 % para Sport Recife."
+      },
+      {
+        "sport": "futbol",
+        "id": 1552807,
+        "model": "claude-haiku-5-5",
+        "defect_type": "ARITHMETIC_INEQUALITY_HALLUCINATION",
+        "match_db": "Paris FC (HOME) vs Monaco (AWAY)",
+        "model_truth": "p_home (Paris FC) = 43.24%, p_draw = 27.17%, p_away (Monaco) = 29.59%.",
+        "claude_excerpt": "Monaco llega un poco mejor y tiene la mayor probabilidad de ganar, 30 %, frente a 43 % de Paris FC como local y 27 % de empate."
+      },
+      {
+        "sport": "futbol",
+        "id": 1569996,
+        "model": "claude-haiku-5-5",
+        "defect_type": "FAVORITE_DIRECTION_CONTRADICTION",
+        "match_db": "Eibar (HOME) vs Almeria (AWAY)",
+        "model_truth": "p_home (Eibar) = 43.52%, p_draw = 25.21%, p_away (Almeria) = 31.27%.",
+        "claude_excerpt": "El partido es bastante parejo, pero la ventaja se inclina hacia la visita: 44 % local, 25 % empate y 31 % visita."
+      },
+      {
+        "sport": "futbol",
+        "id": 1494307,
+        "model": "claude-sonnet-5-5",
+        "defect_type": "INTERNAL_JSON_PROMPT_META_LEAK",
+        "match_db": "GAIS (HOME) vs IFK Goteborg (AWAY)",
+        "model_truth": "User-facing copy should not reference internal JSON prompt structure.",
+        "claude_excerpt": "Las bajas de ambos lados también pueden cambiar la lectura, aunque el JSON no detalla su peso en el equipo."
+      }
+    ]
+  }
+}

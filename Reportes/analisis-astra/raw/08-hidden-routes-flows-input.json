@@ -1,0 +1,543 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astraanalisis.com/cuenta",
+    "query": []
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 1080,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "secrets": [
+    {
+      "secret_id": "astra_password",
+      "environment_variable": "ASTRA_PASSWORD"
+    }
+  ],
+  "capture": {
+    "after_each_step": [
+      "url",
+      "screenshot",
+      "dom",
+      "storage"
+    ],
+    "at_end": [
+      "url",
+      "screenshot",
+      "dom",
+      "accessibility",
+      "history",
+      "storage"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": true,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 50000,
+      "max_event_allocation_bytes": 268435456,
+      "max_total_event_allocation_bytes": 536870912,
+      "max_network_transactions": 8192,
+      "max_network_body_bytes": 33554432,
+      "max_network_body_allocation_bytes": 268435456,
+      "max_network_header_allocation_bytes": 16777216,
+      "max_network_metadata_allocation_bytes": 16777216
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-cuenta-ready",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "fill-email",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='tu@correo.com']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "laded35829@chuwel.com"
+      }
+    },
+    {
+      "step_id": "fill-password",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "value": {
+        "source": "secret",
+        "secret_id": "astra_password"
+      }
+    },
+    {
+      "step_id": "submit-login",
+      "timeout_ms": 10000,
+      "action": "press",
+      "locator": {
+        "kind": "css",
+        "selector": "input[type='password']"
+      },
+      "key": "Enter"
+    },
+    {
+      "step_id": "wait-after-login",
+      "action": "wait_for_timeout",
+      "duration_ms": 6500
+    },
+    {
+      "step_id": "fill-search-monterrey",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='Buscar equipos']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "monterrey"
+      }
+    },
+    {
+      "step_id": "wait-search-monterrey",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "fill-search-america",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='Buscar equipos']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "america"
+      }
+    },
+    {
+      "step_id": "wait-search-america",
+      "action": "wait_for_timeout",
+      "duration_ms": 3200
+    },
+    {
+      "step_id": "clear-search-futbol",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Borrar búsqueda"
+      }
+    },
+    {
+      "step_id": "wait-after-clear-search",
+      "action": "wait_for_timeout",
+      "duration_ms": 1000
+    },
+    {
+      "step_id": "pin-first-league",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "[aria-label='Todas las competiciones'] + div [aria-label^='Marcar favorita ']"
+      }
+    },
+    {
+      "step_id": "wait-after-pin",
+      "action": "wait_for_timeout",
+      "duration_ms": 800
+    },
+    {
+      "step_id": "goto-match-1570024",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/",
+        "query": [
+          {
+            "name": "partido",
+            "value": {
+              "source": "literal",
+              "value": "1570024"
+            }
+          }
+        ]
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-match-1570024-loaded",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "click-follow-match",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Seguir partido"
+      }
+    },
+    {
+      "step_id": "wait-after-follow-match",
+      "action": "wait_for_timeout",
+      "duration_ms": 1200
+    },
+    {
+      "step_id": "click-match-stats-tab",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "tab",
+        "name": "Estadísticas"
+      }
+    },
+    {
+      "step_id": "wait-match-stats-tab",
+      "action": "wait_for_timeout",
+      "duration_ms": 2000
+    },
+    {
+      "step_id": "follow-first-statistic",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "div:not(:has([aria-label^='Seguir '])) + div > [aria-label^='Seguir ']"
+      }
+    },
+    {
+      "step_id": "wait-after-first-stat",
+      "action": "wait_for_timeout",
+      "duration_ms": 900
+    },
+    {
+      "step_id": "follow-second-statistic",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "css",
+        "selector": "div:not(:has([aria-label^='Seguir '])) + div > [aria-label^='Seguir ']"
+      }
+    },
+    {
+      "step_id": "wait-after-second-stat",
+      "action": "wait_for_timeout",
+      "duration_ms": 1500
+    },
+    {
+      "step_id": "click-mis-partidos",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Mis partidos"
+      }
+    },
+    {
+      "step_id": "wait-siguiendo-populated",
+      "action": "wait_for_timeout",
+      "duration_ms": 2500
+    },
+    {
+      "step_id": "click-refresh-siguiendo",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Actualizar mis partidos"
+      }
+    },
+    {
+      "step_id": "wait-after-refresh-siguiendo",
+      "action": "wait_for_timeout",
+      "duration_ms": 1800
+    },
+    {
+      "step_id": "goto-nba-for-search",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/nba",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-nba-ready",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "pin-nba-sidebar",
+      "timeout_ms": 10000,
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Marcar favorita NBA"
+      }
+    },
+    {
+      "step_id": "fill-nba-search-knicks",
+      "timeout_ms": 10000,
+      "action": "fill",
+      "locator": {
+        "kind": "css",
+        "selector": "input[placeholder='Buscar equipos']"
+      },
+      "value": {
+        "source": "literal",
+        "value": "knicks"
+      }
+    },
+    {
+      "step_id": "wait-nba-search-knicks",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "goto-mlb-fecha-2026-10-15",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/mlb",
+        "query": [
+          {
+            "name": "fecha",
+            "value": {
+              "source": "literal",
+              "value": "2026-10-15"
+            }
+          }
+        ]
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mlb-fecha-2026-10-15",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "goto-mlb-fecha-2026-10-25",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/mlb",
+        "query": [
+          {
+            "name": "fecha",
+            "value": {
+              "source": "literal",
+              "value": "2026-10-25"
+            }
+          }
+        ]
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mlb-fecha-2026-10-25",
+      "action": "wait_for_timeout",
+      "duration_ms": 3200
+    },
+    {
+      "step_id": "goto-mlb-juego-849810",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/mlb",
+        "query": [
+          {
+            "name": "juego",
+            "value": {
+              "source": "literal",
+              "value": "849810"
+            }
+          }
+        ]
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-mlb-juego-849810",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "goto-historial-mlb-119-849810",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/historial/mlb/119/849810",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-historial-mlb-119-849810",
+      "action": "wait_for_timeout",
+      "duration_ms": 4500
+    },
+    {
+      "step_id": "goto-eliminar-cuenta",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/eliminar-cuenta",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-eliminar-cuenta",
+      "action": "wait_for_timeout",
+      "duration_ms": 3200
+    },
+    {
+      "step_id": "goto-pago-dummy",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/pago/00000000-0000-0000-0000-000000000000",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-pago-checking",
+      "action": "wait_for_timeout",
+      "duration_ms": 2600
+    },
+    {
+      "step_id": "wait-pago-settled",
+      "action": "wait_for_timeout",
+      "duration_ms": 5500
+    },
+    {
+      "step_id": "goto-administracion",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/administracion",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-administracion",
+      "action": "wait_for_timeout",
+      "duration_ms": 3200
+    },
+    {
+      "step_id": "goto-confirmado-ok",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/confirmado",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-confirmado-ok",
+      "action": "wait_for_timeout",
+      "duration_ms": 2800
+    },
+    {
+      "step_id": "goto-confirmado-error",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/confirmado#error=access_denied&error_description=Enlace+expirado",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-confirmado-error",
+      "action": "wait_for_timeout",
+      "duration_ms": 2800
+    },
+    {
+      "step_id": "goto-restablecer-no-token",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/restablecer",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-restablecer-no-token",
+      "action": "wait_for_timeout",
+      "duration_ms": 2800
+    },
+    {
+      "step_id": "goto-restablecer-invalid-code",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/restablecer",
+        "query": [
+          {
+            "name": "code",
+            "value": {
+              "source": "literal",
+              "value": "invalid_test_code"
+            }
+          }
+        ]
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-restablecer-invalid-code",
+      "action": "wait_for_timeout",
+      "duration_ms": 3500
+    },
+    {
+      "step_id": "goto-not-found-404",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astraanalisis.com/ruta-oculta-no-existe-404",
+        "query": []
+      },
+      "wait_until": "load"
+    },
+    {
+      "step_id": "wait-not-found-404",
+      "action": "wait_for_timeout",
+      "duration_ms": 3000
+    }
+  ]
+}

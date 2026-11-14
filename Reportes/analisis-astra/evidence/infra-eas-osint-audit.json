@@ -1,0 +1,3427 @@
+{
+  "audit_metadata": {
+    "title": "Astra AI Infrastructure, Alternate EAS Host (astra-ai.expo.app), EAS OTA Protocol, DNS/TLS/CT, and Public OSINT Audit",
+    "wave": "Wave 2 — Subagent 5",
+    "captured_at_utc": "2026-11-14T18:49:16Z/2026-11-14T19:05:50Z",
+    "methodology": "100% passive public HTTP GET/HEAD, Cloudflare DNS-over-HTTPS + Windows Resolve-DnsName, TLSv1.3 X.509 handshake inspection, CertSpotter Certificate Transparency API, Verisign/PIR RDAP, Expo Updates v1 protocol GET probes, public HTML preview parsing, search_web, and REA capture-browser-scenario.",
+    "rea_evidence_ids": [
+      {
+        "evidence_id": "ev_e5979de3b375a2cd17627ca77e33a08055b441229eeab930953399b1aa82ef28",
+        "operation": "capture_browser_scenario",
+        "confidence": "observed",
+        "authority": "controlled-replay",
+        "environment": "Chromium@157.0.8103.52",
+        "input_file": "Reportes/analisis-astra/raw/09-expo-host-redirect-input.json",
+        "summary_file": "Reportes/analisis-astra/raw/09-expo-host-redirect-summary.json",
+        "scenario_sha256": "693bbb4a29c1790deff056b09d4422f9f8cb1b60843d8dffa73cf6674b72fc5c",
+        "purpose": "Live runtime verification of client-side JS window.location.replace() redirect in mod_0754/mod_0778 from https://astra-ai.expo.app/nosotros (plain and with ?origen=rea&utm_medium=audit#contacto) and https://www.astraanalisis.com/nosotros?host=www#terminos to https://astraanalisis.com/nosotros preserving path, query, and hash without server-side HTTP 3xx redirects."
+      }
+    ]
+  },
+  "origin_comparison_and_redirect": {
+    "redirect_mechanism": {
+      "classification": "OBSERVADO",
+      "source_modules": [
+        "Reportes/analisis-astra/modules/mod_0778___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+        "Reportes/analisis-astra/modules/mod_0754__layout-b3da769553b5a6bcc3093bb023a44b7f.js"
+      ],
+      "site_url": "https://astraanalisis.com",
+      "redirect_hosts": [
+        "astra-ai.expo.app",
+        "www.astraanalisis.com"
+      ],
+      "server_http_3xx_on_https": false,
+      "http_port_80_behavior": "Each origin returns HTTP 301 only to its own HTTPS equivalent (e.g., http://astra-ai.expo.app/ -> https://astra-ai.expo.app/, http://www.astraanalisis.com/ -> https://www.astraanalisis.com/). Cross-host canonicalization happens exclusively at module evaluation time in client-side JS (mod_0754) via window.location.replace(SITE_URL + pathname + search + hash).",
+      "html_divergence_explanation": {
+        "raw_eas_hosting_html_bytes": 2087,
+        "raw_eas_hosting_html_sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "cloudflare_rum_injected_html_bytes": 2454,
+        "cloudflare_rum_injected_html_sha256": "96db530f7130f0234cb65cfbfe8cf56abca9d29a9641b1f48881cf762a5d76bf",
+        "workspace_crlf_normalized_app_index_bytes": 2492,
+        "workspace_crlf_normalized_app_index_sha256": "01944914ce3a93ac1020db7d9e7dc3c2a5376253726c16602483b3bb119f52b3",
+        "cloudflare_beacon_token": "a2e12c4123a6420ca4eb3f4855145537",
+        "mechanism": "astra-ai.expo.app serves the raw 2,087-byte EAS Hosting HTML regardless of Accept header. astraanalisis.com and www.astraanalisis.com pass through the customer's Cloudflare zone (Cloudflare O2O in front of EAS Hosting Cloudflare for SaaS): when Accept omits text/html (e.g. */*), they return the exact 2,087-byte HTML (a4e3b5dd...); when Accept includes text/html (browsers), Cloudflare's HTML rewriter appends the 367-byte static.cloudflareinsights.com/beacon.min.js script tag, yielding 2,454 bytes (96db530f...)."
+      },
+      "header_matrix_differences": {
+        "astra_ai_expo_app_only": {
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "last-modified": "Exposed from EAS R2 storage (e.g., Sun, 08 Nov 2026 13:11:22 GMT on /)",
+          "etag": "Strong MD5 ETag (e.g., \"118c8f01537c2861d13f4e65d9a09d92\" on /, \"c8ff779f4c384c1a38d580c96fdaf3c8\" on entry.js)",
+          "accept-ranges": "bytes",
+          "age": "Exposed edge cache age in seconds",
+          "cache-control_html": "must-revalidate, private, max-age=0",
+          "cache-control_js": "public, max-age=3600"
+        },
+        "astraanalisis_com_customer_cloudflare_zone": {
+          "strict-transport-security": null,
+          "last-modified": null,
+          "etag": "Weak ETag on assets (e.g., W/\"c7912e6696aee0b225251ea7f22dfbfe\" on entry.js), omitted on dynamic HTML",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "link": "<https://media.api-sports.io>; rel=\"preconnect\" (on HTML)",
+          "cf-cache-status": "DYNAMIC (HTML) / REVALIDATED or HIT (static assets)",
+          "nel_and_report_to": "cf-nel group enabled",
+          "cache-control_html": "public, max-age=0, must-revalidate",
+          "cache-control_js": "public, max-age=14400, must-revalidate"
+        },
+        "absent_on_both_origins": [
+          "content-security-policy",
+          "x-frame-options",
+          "permissions-policy",
+          "cross-origin-opener-policy",
+          "eas-*"
+        ]
+      },
+      "rea_live_scenario_verification": {
+        "evidence_id": "ev_e5979de3b375a2cd17627ca77e33a08055b441229eeab930953399b1aa82ef28",
+        "steps_verified": [
+          {
+            "pair": "step 0 -> step 1",
+            "initial_url": "https://astra-ai.expo.app/nosotros",
+            "initial_doc_tx": "request-1 (HTTP 200, 2087 B, sha256 a4e3b5dd..., redirected_from_transaction_id=null)",
+            "final_url": "https://astraanalisis.com/nosotros",
+            "redirected_doc_tx": "request-8 (HTTP 200, 2454 B, sha256 96db530f..., referer='https://astra-ai.expo.app/', redirected_from_transaction_id=null)",
+            "history_length_preserved": 2
+          },
+          {
+            "pair": "step 2 -> step 3",
+            "initial_url": "https://astra-ai.expo.app/nosotros?origen=rea&utm_medium=audit#contacto",
+            "initial_doc_tx": "request-29 (HTTP 200, 2087 B, sha256 a4e3b5dd..., dom_bytes=2226)",
+            "final_url": "https://astraanalisis.com/nosotros?origen=rea&utm_medium=audit#contacto",
+            "redirected_doc_tx": "request-36 (HTTP 200, 2454 B, sha256 96db530f..., referer='https://astra-ai.expo.app/', dom_bytes=20033)",
+            "history_length_preserved": 3
+          },
+          {
+            "pair": "step 4 -> step 5",
+            "initial_url": "https://www.astraanalisis.com/nosotros?host=www#terminos",
+            "initial_doc_tx": "request-57 (HTTP 200, 2454 B, sha256 96db530f..., dom_bytes=2496)",
+            "final_url": "https://astraanalisis.com/nosotros?host=www#terminos",
+            "redirected_doc_tx": "request-67 (HTTP 200, 2454 B, sha256 96db530f..., referer='https://www.astraanalisis.com/', dom_bytes=20022)",
+            "history_length_preserved": 4,
+            "aborted_inflight_requests_on_replace": [
+              "request-68 GET https://www.astraanalisis.com/_expo/static/js/web/nosotros-1087ff396845303a336510385643566a.js (net::ERR_ABORTED)",
+              "request-69 POST https://www.astraanalisis.com/cdn-cgi/rum? (net::ERR_ABORTED)"
+            ]
+          }
+        ]
+      }
+    },
+    "direct_http_probes_accept_any": {
+      "https://astraanalisis.com/": {
+        "status": 200,
+        "reason": "OK",
+        "bytes": 2087,
+        "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:16 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "x-content-type-options": "nosniff",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FUmS9rAwvkX44qe68iD4MctkwNQvtMVt5xmRgbZRu%2FHIQbwdb6D80Sm4YCA5xd0eCvhYuE5flXo57h626X6VV4X%2BKd%2F97DH2KJVvrnPeG1bmBDFoliHpti2T%2BHpixtXj8Fbthgkgvzymq9od0Q0dcA%3D%3D\"}]}",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "access-control-allow-origin": "*",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "link": "<https://media.api-sports.io>; rel=\"preconnect\"",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a831f29bf01711-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "https://www.astraanalisis.com/": {
+        "status": 200,
+        "reason": "OK",
+        "bytes": 2087,
+        "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:16 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "x-content-type-options": "nosniff",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nYV3%2F1DrpNYwnk2X4Rm84bAIvRObiqw4%2BVmXgc0mIHK3rTVZ%2BjcSUpYdWDnAt4PhNBZwH9rmwnfmZL8qty7DicmRLZlhUxf9DmDPUzc3x1LD4LT3rUzi1xuwsXQi4oZpn1PzPDigo20rvK6guDbhgnw9UHE%3D\"}]}",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "access-control-allow-origin": "*",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "link": "<https://media.api-sports.io>; rel=\"preconnect\"",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a831f50dcdc77c-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "https://astra-ai.expo.app/": {
+        "status": 200,
+        "reason": "OK",
+        "bytes": 2087,
+        "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:16 GMT",
+          "content-type": "text/html",
+          "content-length": "2087",
+          "connection": "close",
+          "cf-ray": "a5a831f75ecd44bc-DFW",
+          "accept-ranges": "bytes",
+          "age": "531350",
+          "cache-control": "must-revalidate, private, max-age=0",
+          "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+          "last-modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+          "server": "cloudflare",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "https://astra-ai.expo.app/nosotros": {
+        "status": 200,
+        "reason": "OK",
+        "bytes": 2087,
+        "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:17 GMT",
+          "content-type": "text/html",
+          "content-length": "2087",
+          "connection": "close",
+          "cf-ray": "a5a831fa3d8e2eb6-DFW",
+          "accept-ranges": "bytes",
+          "age": "531350",
+          "cache-control": "must-revalidate, private, max-age=0",
+          "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+          "last-modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+          "server": "cloudflare",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "http://astraanalisis.com/": {
+        "status": 301,
+        "reason": "Moved Permanently",
+        "bytes": 167,
+        "sha256": "446a6087825fa73eadb045e5a2e9e2adf7df241b571228187728191d961dda1f",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:17 GMT",
+          "content-type": "text/html; charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://astraanalisis.com/",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=j0tfVXtmk7psy46Hl53FuS0t5RZVOjeR1N%2FIiZ4j6BrevtpbTsb%2Fim1NBlHlOFBcQd9FeHbOAYRvVX%2F4z%2FL6HOOOarv6Nt%2BbKKMqZKxrotWOkRZ6P9Ezx%2F3eXMbibnY4QOmkmc4eJEXEwW1ZRQQS0A%3D%3D\"}]}",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a831fb0c436b49-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "http://www.astraanalisis.com/": {
+        "status": 301,
+        "reason": "Moved Permanently",
+        "bytes": 167,
+        "sha256": "446a6087825fa73eadb045e5a2e9e2adf7df241b571228187728191d961dda1f",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:17 GMT",
+          "content-type": "text/html; charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "location": "https://www.astraanalisis.com/",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YffqgGMut5KySJOQqyD9Oz4XJhAt9iNx1HmJfU6SexjNZytVbGYbmanEEY7XgDFeqDTdAvEQ33K%2Bia5yD11d2vS1N6rpI7ekPJ2wSD0QBDuiEQEKjDrzJYozRs7hkn3Y8HNVZW1keJgVlkLP6tp7MsAa0mk%3D\"}]}",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a831fbdf5e0e76-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "http://astra-ai.expo.app/": {
+        "status": 301,
+        "reason": "Moved Permanently",
+        "bytes": 167,
+        "sha256": "446a6087825fa73eadb045e5a2e9e2adf7df241b571228187728191d961dda1f",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:49:17 GMT",
+          "content-type": "text/html; charset=UTF-8",
+          "content-length": "167",
+          "connection": "close",
+          "location": "https://astra-ai.expo.app/",
+          "server": "cloudflare",
+          "cf-ray": "a5a831fc7afd3798-QRO",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      }
+    },
+    "direct_http_probes_accept_text_html": {
+      "https://astraanalisis.com/": {
+        "url": "https://astraanalisis.com/",
+        "method": "GET",
+        "status": 200,
+        "reason": "OK",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:51:37 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "x-content-type-options": "nosniff",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RDvD6THwnSIXjhHYVyNcSsebMjybGOl9qiCwqPsmOijakAPcdeej676yR6edvEtI3E%2Fo6tpQCGPZUMmMfgNm5rzb7mQBNuLlTx%2F0hLPhBeXIwIabkQpy5qtaKfsPiWY5%2B1cJfsjQwCH%2Bq2%2BZzllkSg%3D%3D\"}]}",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "access-control-allow-origin": "*",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "link": "<https://media.api-sports.io>; rel=\"preconnect\"",
+          "server-timing": "cfEdge;dur=27,cfOrigin;dur=38",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a83566fbe5c06e-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        },
+        "bytes": 2454,
+        "sha256": "96db530f7130f0234cb65cfbfe8cf56abca9d29a9641b1f48881cf762a5d76bf",
+        "has_cf_beacon": true,
+        "cf_beacon_tag": "<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092\" integrity=\"sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==\" data-cf-beacon='{\"version\":\"2024.11.0\",\"token\":\"a2e12c4123a6420ca4eb3f4855145537\",\"r\":1,\"spa\":2}' crossorigin=\"anonymous\"></script>"
+      },
+      "https://www.astraanalisis.com/": {
+        "url": "https://www.astraanalisis.com/",
+        "method": "GET",
+        "status": 200,
+        "reason": "OK",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:51:37 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "x-content-type-options": "nosniff",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NF0I5YspleGfaWA%2B0RU0pyp9J%2FYXjKcfuki4ZwvD2%2FbDrqRCIvFmRYzYF4h0lhAaBxcI5HyEQH84G7a05V2DDVQoMwKIklAxEwAMiO7yjt9FL1Tq3W7VS%2F5MtwZ8kzvQULT%2F2kdj6y8qSF9fL0TWq5jrO1o%3D\"}]}",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "access-control-allow-origin": "*",
+          "cache-control": "public, max-age=0, must-revalidate",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "link": "<https://media.api-sports.io>; rel=\"preconnect\"",
+          "server-timing": "cfEdge;dur=20,cfOrigin;dur=54",
+          "server": "cloudflare",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a5a835685adbf0bd-DFW",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        },
+        "bytes": 2454,
+        "sha256": "96db530f7130f0234cb65cfbfe8cf56abca9d29a9641b1f48881cf762a5d76bf",
+        "has_cf_beacon": true,
+        "cf_beacon_tag": "<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092\" integrity=\"sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==\" data-cf-beacon='{\"version\":\"2024.11.0\",\"token\":\"a2e12c4123a6420ca4eb3f4855145537\",\"r\":1,\"spa\":2}' crossorigin=\"anonymous\"></script>"
+      },
+      "https://astra-ai.expo.app/": {
+        "url": "https://astra-ai.expo.app/",
+        "method": "GET",
+        "status": 200,
+        "reason": "OK",
+        "headers": {
+          "date": "Sat, 14 Nov 2026 18:51:37 GMT",
+          "content-type": "text/html",
+          "content-length": "2087",
+          "connection": "close",
+          "cf-ray": "a5a8356a4e1fd921-DFW",
+          "accept-ranges": "bytes",
+          "age": "531491",
+          "cache-control": "must-revalidate, private, max-age=0",
+          "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+          "last-modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+          "server": "cloudflare",
+          "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        },
+        "bytes": 2087,
+        "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+        "has_cf_beacon": false,
+        "cf_beacon_tag": null
+      }
+    },
+    "bundle_sha256_comparison": {
+      "/_expo/static/js/web/entry-2f163e0b9ce05e4953b73986af77f2b7.js": {
+        "byte_identical_across_origins": true,
+        "sha256": "4a2898b1d46769bde7a43cd2a5f91bd89d39c203df11222ccd70a2ba22a4d98d",
+        "bytes": 1109576,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "bytes": 1109576,
+            "sha256": "4a2898b1d46769bde7a43cd2a5f91bd89d39c203df11222ccd70a2ba22a4d98d",
+            "content_type": "application/javascript",
+            "etag": "W/\"c7912e6696aee0b225251ea7f22dfbfe\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate",
+            "cf_cache_status": "REVALIDATED",
+            "strict_transport_security": null,
+            "access_control_allow_origin": "*"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "bytes": 1109576,
+            "sha256": "4a2898b1d46769bde7a43cd2a5f91bd89d39c203df11222ccd70a2ba22a4d98d",
+            "content_type": "application/javascript",
+            "etag": "\"c8ff779f4c384c1a38d580c96fdaf3c8\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+            "cache_control": "public, max-age=3600",
+            "cf_cache_status": null,
+            "strict_transport_security": null,
+            "access_control_allow_origin": null
+          }
+        }
+      },
+      "/_expo/static/js/web/__common-a2fe500f62154dabe8c8c7eb8fa31525.js": {
+        "byte_identical_across_origins": true,
+        "sha256": "c4a4cead00034bc5492bc041e4fdafa13bb057d5f9e58b9ac75e0c356c017492",
+        "bytes": 662415,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "bytes": 662415,
+            "sha256": "c4a4cead00034bc5492bc041e4fdafa13bb057d5f9e58b9ac75e0c356c017492",
+            "content_type": "application/javascript",
+            "etag": "W/\"fbeb8e609e21735a63bd4078c8be0e92\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate",
+            "cf_cache_status": "REVALIDATED",
+            "strict_transport_security": null,
+            "access_control_allow_origin": "*"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "bytes": 662415,
+            "sha256": "c4a4cead00034bc5492bc041e4fdafa13bb057d5f9e58b9ac75e0c356c017492",
+            "content_type": "application/javascript",
+            "etag": "\"a2fe500f62154dabe8c8c7eb8fa31525\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+            "cache_control": "public, max-age=3600",
+            "cf_cache_status": null,
+            "strict_transport_security": null,
+            "access_control_allow_origin": null
+          }
+        }
+      },
+      "/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js": {
+        "byte_identical_across_origins": true,
+        "sha256": "80e3ab02b3bac22608cdf29a2e3cc1270616a695bbe479f7f500941e8d2bbe41",
+        "bytes": 3751,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "bytes": 3751,
+            "sha256": "80e3ab02b3bac22608cdf29a2e3cc1270616a695bbe479f7f500941e8d2bbe41",
+            "content_type": "application/javascript",
+            "etag": "W/\"4c8332969841e66f6a1b2c580879a772\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate",
+            "cf_cache_status": "REVALIDATED",
+            "strict_transport_security": null,
+            "access_control_allow_origin": "*"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "bytes": 3751,
+            "sha256": "80e3ab02b3bac22608cdf29a2e3cc1270616a695bbe479f7f500941e8d2bbe41",
+            "content_type": "application/javascript",
+            "etag": "\"8c088df87a31e4e6accd81c554ec290d\"",
+            "last_modified": "Sun, 18 Oct 2026 00:48:33 GMT",
+            "cache_control": "public, max-age=3600",
+            "cf_cache_status": null,
+            "strict_transport_security": null,
+            "access_control_allow_origin": null
+          }
+        }
+      },
+      "/_expo/static/js/web/_layout-b3da769553b5a6bcc3093bb023a44b7f.js": {
+        "byte_identical_across_origins": true,
+        "sha256": "ba86c397ba7c6ae85d0472322ccada83eaec70509bdb6890386e7292c7177c43",
+        "bytes": 38589,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "bytes": 38589,
+            "sha256": "ba86c397ba7c6ae85d0472322ccada83eaec70509bdb6890386e7292c7177c43",
+            "content_type": "application/javascript",
+            "etag": "W/\"974d7780f5e291db3c068c5f816a7126\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate",
+            "cf_cache_status": "REVALIDATED",
+            "strict_transport_security": null,
+            "access_control_allow_origin": "*"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "bytes": 38589,
+            "sha256": "ba86c397ba7c6ae85d0472322ccada83eaec70509bdb6890386e7292c7177c43",
+            "content_type": "application/javascript",
+            "etag": "\"b3da769553b5a6bcc3093bb023a44b7f\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+            "cache_control": "public, max-age=3600",
+            "cf_cache_status": null,
+            "strict_transport_security": null,
+            "access_control_allow_origin": null
+          }
+        }
+      },
+      "/_expo/static/js/web/nosotros-1087ff396845303a336510385643566a.js": {
+        "byte_identical_across_origins": true,
+        "sha256": "e8f00c5b1dc6aac5030683c3f9564d95f4386eb64bf43ede2baf360b332a5ef1",
+        "bytes": 5419,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "bytes": 5419,
+            "sha256": "e8f00c5b1dc6aac5030683c3f9564d95f4386eb64bf43ede2baf360b332a5ef1",
+            "content_type": "application/javascript",
+            "etag": "W/\"9a85462b42506aaa109cb1ffc8d51803\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate",
+            "cf_cache_status": "REVALIDATED",
+            "strict_transport_security": null,
+            "access_control_allow_origin": "*"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "bytes": 5419,
+            "sha256": "e8f00c5b1dc6aac5030683c3f9564d95f4386eb64bf43ede2baf360b332a5ef1",
+            "content_type": "application/javascript",
+            "etag": "\"1087ff396845303a336510385643566a\"",
+            "last_modified": "Wed, 28 Oct 2026 20:22:00 GMT",
+            "cache_control": "public, max-age=3600",
+            "cf_cache_status": null,
+            "strict_transport_security": null,
+            "access_control_allow_origin": null
+          }
+        }
+      }
+    },
+    "eas_r2_deployment_timeline_38_assets": [
+      {
+        "path": "/",
+        "status": 200,
+        "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+        "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+        "content_length": "2087",
+        "content_type": "text/html",
+        "cache_control": null
+      },
+      {
+        "path": "/metadata.json",
+        "status": 200,
+        "last_modified": "Sun, 18 Oct 2026 00:48:31 GMT",
+        "etag": "\"37cb2e8fcdd3b2523b9bd2f4b09087db\"",
+        "content_length": "49",
+        "content_type": "application/json",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/manifest.webmanifest",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 03:21:11 GMT",
+        "etag": "\"a24c1624ad4479a98d67c776bf580b00\"",
+        "content_length": "497",
+        "content_type": "application/manifest+json",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/favicon.ico",
+        "status": 200,
+        "last_modified": "Sun, 18 Oct 2026 14:26:42 GMT",
+        "etag": "\"70509a1e3a4f627560e82006cc215658\"",
+        "content_length": "14510",
+        "content_type": "image/vnd.microsoft.icon",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/icons/apple-touch-icon.png",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 03:21:12 GMT",
+        "etag": "\"7283a4d4a2e2cb66657793d974575555\"",
+        "content_length": "2724",
+        "content_type": "image/png",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/icons/astra-192.png",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 03:21:12 GMT",
+        "etag": "\"5e42d87b75e3711d297b1005ed8fe57a\"",
+        "content_length": "2991",
+        "content_type": "image/png",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/icons/astra-512.png",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 03:21:14 GMT",
+        "etag": "\"a6e2add4dfa25d6254a2d09fc860f086\"",
+        "content_length": "11598",
+        "content_type": "image/png",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/images/match-background.dbef350c57497aca5fb64c302927b5fc.jpeg",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:02:49 GMT",
+        "etag": "\"dbef350c57497aca5fb64c302927b5fc\"",
+        "content_length": "126252",
+        "content_type": "image/jpeg",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/[id]-1c9b77ff32fe4b75c1b5df98e4b4acc2.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:01 GMT",
+        "etag": "\"1c9b77ff32fe4b75c1b5df98e4b4acc2\"",
+        "content_length": "9641",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/[id]-640d8e37fab6cdee75166c44fc39efd5.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:59 GMT",
+        "etag": "\"640d8e37fab6cdee75166c44fc39efd5\"",
+        "content_length": "2919",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/[id]-a7d7ec8ae26ff91045d9d5a83bfb5536.js",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 22:24:13 GMT",
+        "etag": "\"a7d7ec8ae26ff91045d9d5a83bfb5536\"",
+        "content_length": "705",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/[id]-d958bd3185d181ad162a4cc99da35d2c.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:57 GMT",
+        "etag": "\"d958bd3185d181ad162a4cc99da35d2c\"",
+        "content_length": null,
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/[matchId]-bffa67a80cc9ec9e08ea55e97555b4e2.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:58 GMT",
+        "etag": "\"bffa67a80cc9ec9e08ea55e97555b4e2\"",
+        "content_length": "5010",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/__common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+        "status": 200,
+        "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+        "etag": "\"a2fe500f62154dabe8c8c7eb8fa31525\"",
+        "content_length": "662415",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js",
+        "status": 200,
+        "last_modified": "Sun, 18 Oct 2026 00:48:33 GMT",
+        "etag": "\"8c088df87a31e4e6accd81c554ec290d\"",
+        "content_length": "3751",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/_layout-9e71532af65e3f948330147e2b7b16d2.js",
+        "status": 200,
+        "last_modified": "Thu, 22 Oct 2026 22:24:12 GMT",
+        "etag": "\"9e71532af65e3f948330147e2b7b16d2\"",
+        "content_length": "399",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/_layout-b3da769553b5a6bcc3093bb023a44b7f.js",
+        "status": 200,
+        "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+        "etag": "\"b3da769553b5a6bcc3093bb023a44b7f\"",
+        "content_length": "38589",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/administracion-db0312943212c59d203e733a9a3ecfed.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:58 GMT",
+        "etag": "\"db0312943212c59d203e733a9a3ecfed\"",
+        "content_length": null,
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/confirmado-ea12a64b546d50dfee3ef1e3fbad2714.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:57 GMT",
+        "etag": "\"ea12a64b546d50dfee3ef1e3fbad2714\"",
+        "content_length": "1694",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/cuenta-6de60b93179704310df6552a70994b81.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:02 GMT",
+        "etag": "\"6de60b93179704310df6552a70994b81\"",
+        "content_length": "37938",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/eliminar-cuenta-8b00a1afa1f45f3250627a9ca3154efc.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:00 GMT",
+        "etag": "\"8b00a1afa1f45f3250627a9ca3154efc\"",
+        "content_length": "3138",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/entry-2f163e0b9ce05e4953b73986af77f2b7.js",
+        "status": 200,
+        "last_modified": "Sun, 08 Nov 2026 13:11:24 GMT",
+        "etag": "\"c8ff779f4c384c1a38d580c96fdaf3c8\"",
+        "content_length": "1109576",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/index-1423f7b5e0c45b7b203640adbdc42677.js",
+        "status": 200,
+        "last_modified": "Sat, 07 Nov 2026 17:47:41 GMT",
+        "etag": "\"1423f7b5e0c45b7b203640adbdc42677\"",
+        "content_length": "17924",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/instalar-0a3225cb4bb3206b7795b8e128e050ca.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:57 GMT",
+        "etag": "\"0a3225cb4bb3206b7795b8e128e050ca\"",
+        "content_length": "1145",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/mlb-4d63e84434c3dbe316f6e762cf54c167.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:56 GMT",
+        "etag": "\"4d63e84434c3dbe316f6e762cf54c167\"",
+        "content_length": null,
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/nba-be21dcd74fed6ac8380a1113c6326078.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:55 GMT",
+        "etag": "\"be21dcd74fed6ac8380a1113c6326078\"",
+        "content_length": "370",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/nfl-eeea91192df42b63b6337f868b652d37.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:56 GMT",
+        "etag": "\"eeea91192df42b63b6337f868b652d37\"",
+        "content_length": null,
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/nhl-35c5dcf527e2b32f27cbcd14d44d27ef.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:55 GMT",
+        "etag": "\"35c5dcf527e2b32f27cbcd14d44d27ef\"",
+        "content_length": "370",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/nosotros-1087ff396845303a336510385643566a.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:00 GMT",
+        "etag": "\"1087ff396845303a336510385643566a\"",
+        "content_length": "5419",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/privacidad-ebdf8782b2c1e7d6e3ccaa3f6f362872.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:00 GMT",
+        "etag": "\"ebdf8782b2c1e7d6e3ccaa3f6f362872\"",
+        "content_length": "4168",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/restablecer-ee313ddec28ef0dd0fb73115ff93f170.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:59 GMT",
+        "etag": "\"ee313ddec28ef0dd0fb73115ff93f170\"",
+        "content_length": "2847",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/siguiendo-df598f9acb2b09505d43493f8aa5f151.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:21:56 GMT",
+        "etag": "\"df598f9acb2b09505d43493f8aa5f151\"",
+        "content_length": null,
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/_expo/static/js/web/terminos-cc492529fdf523d3fadb0c2fd1304f5c.js",
+        "status": 200,
+        "last_modified": "Wed, 28 Oct 2026 20:22:00 GMT",
+        "etag": "\"cc492529fdf523d3fadb0c2fd1304f5c\"",
+        "content_length": "3136",
+        "content_type": "application/javascript",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Arimo_600SemiBold.d39c110135b2d9a08ce628df62d7a30e.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:34 GMT",
+        "etag": "\"d39c110135b2d9a08ce628df62d7a30e\"",
+        "content_length": "135132",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Sora_600SemiBold.37aa816f225710668f86958f18aa3fc3.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"37aa816f225710668f86958f18aa3fc3\"",
+        "content_length": "23856",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Sora_700Bold.c263194ab532d4bc28e68daebf8489a2.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"c263194ab532d4bc28e68daebf8489a2\"",
+        "content_length": "24032",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Sora_800ExtraBold.03b61ed53fecad7ae48be6d459045e67.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:34 GMT",
+        "etag": "\"03b61ed53fecad7ae48be6d459045e67\"",
+        "content_length": "23504",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Figtree_400Regular.0cca936acae12ecc9d9701858573efb8.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"0cca936acae12ecc9d9701858573efb8\"",
+        "content_length": "16736",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Figtree_400Regular_Italic.2ba6eb85f2edffb444a2aaa318c566e0.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"2ba6eb85f2edffb444a2aaa318c566e0\"",
+        "content_length": "17204",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Figtree_500Medium.0710568e35ac185e42fa1b848529938f.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:34 GMT",
+        "etag": "\"0710568e35ac185e42fa1b848529938f\"",
+        "content_length": "16840",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Figtree_600SemiBold.5aadf4f256256c0f203a44b73bcfda4d.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"5aadf4f256256c0f203a44b73bcfda4d\"",
+        "content_length": "16772",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      },
+      {
+        "path": "/assets/assets/fonts/Figtree_700Bold.db913db65ba64eddc3928ba88b0a4ded.woff2",
+        "status": 200,
+        "last_modified": "Tue, 20 Oct 2026 15:56:33 GMT",
+        "etag": "\"db913db65ba64eddc3928ba88b0a4ded\"",
+        "content_length": "16692",
+        "content_type": "font/woff2",
+        "cache_control": "public, max-age=3600"
+      }
+    ]
+  },
+  "web_files_manifests_and_binary_assets": {
+    "probed_paths_matrix": {
+      "/manifest.webmanifest": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "application/manifest+json",
+            "bytes": 497,
+            "sha256": "f9ff0e337c53031453fbe3fcc4e0ee2b8608bd7d933b18b99ab060eecdb2ef04",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"253dbe5fe7dc0b1cbd403ef2d51addd3\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "application/manifest+json",
+            "bytes": 497,
+            "sha256": "f9ff0e337c53031453fbe3fcc4e0ee2b8608bd7d933b18b99ab060eecdb2ef04",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"a24c1624ad4479a98d67c776bf580b00\"",
+            "last_modified": "Thu, 22 Oct 2026 03:21:11 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/manifest.json": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/robots.txt": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": "Sat, 14 Nov 2026 18:49:23 GMT",
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/sitemap.xml": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/.well-known/apple-app-site-association": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/apple-app-site-association": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/.well-known/assetlinks.json": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/.well-known/security.txt": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/security.txt": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/_expo/routes.json": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/metadata.json": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "application/json",
+            "bytes": 49,
+            "sha256": "aa5f19cc84d41c0f8c70ececb2bc82e863227ea1e121632aca879eb616056991",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"e8751df8273da63ac1848c3559ecf929\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "application/json",
+            "bytes": 49,
+            "sha256": "aa5f19cc84d41c0f8c70ececb2bc82e863227ea1e121632aca879eb616056991",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"37cb2e8fcdd3b2523b9bd2f4b09087db\"",
+            "last_modified": "Sun, 18 Oct 2026 00:48:31 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/assetmap.json": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": null,
+            "cache_control": "public, max-age=0, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/expo-service-worker.js": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": "Sat, 14 Nov 2026 18:49:28 GMT",
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/sw.js": {
+        "real_distinct_resource": false,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": null,
+            "last_modified": "Sat, 14 Nov 2026 18:49:28 GMT",
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "text/html",
+            "bytes": 2087,
+            "sha256": "a4e3b5dd2515946d3585cb9c65848c95d77ac9e1eac94b27cf191693bca3972b",
+            "is_spa_index_html_fallback": true,
+            "etag": "\"118c8f01537c2861d13f4e65d9a09d92\"",
+            "last_modified": "Sun, 08 Nov 2026 13:11:22 GMT",
+            "cache_control": "must-revalidate, private, max-age=0"
+          }
+        }
+      },
+      "/favicon.ico": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "image/vnd.microsoft.icon",
+            "bytes": 14510,
+            "sha256": "816fa3756394f8c33877f3eaecc2ceab18dd1c982554ca4b101204473bc718f6",
+            "is_spa_index_html_fallback": false,
+            "etag": "W/\"1fc231f6a294f7d3236129c99a7b4377\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "image/vnd.microsoft.icon",
+            "bytes": 14510,
+            "sha256": "816fa3756394f8c33877f3eaecc2ceab18dd1c982554ca4b101204473bc718f6",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"70509a1e3a4f627560e82006cc215658\"",
+            "last_modified": "Sun, 18 Oct 2026 14:26:42 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/icons/apple-touch-icon.png": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 2724,
+            "sha256": "ead33f3ba89b1bd9caab94368b5d381914d6d390dd343270541188374375336b",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"80338994dc5bb336bdfe099efd003981\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 2724,
+            "sha256": "ead33f3ba89b1bd9caab94368b5d381914d6d390dd343270541188374375336b",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"7283a4d4a2e2cb66657793d974575555\"",
+            "last_modified": "Thu, 22 Oct 2026 03:21:12 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/assets/assets/images/match-background.dbef350c57497aca5fb64c302927b5fc.jpeg": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "image/jpeg",
+            "bytes": 126252,
+            "sha256": "56e9243e690ee54c03a53184f16318b4f33c5df95effd1cf9f30d416751793aa",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"04ffed68b0cd35cd2afb78085383b793\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "image/jpeg",
+            "bytes": 126252,
+            "sha256": "56e9243e690ee54c03a53184f16318b4f33c5df95effd1cf9f30d416751793aa",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"dbef350c57497aca5fb64c302927b5fc\"",
+            "last_modified": "Tue, 20 Oct 2026 15:02:49 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/icons/astra-192.png": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 2991,
+            "sha256": "d1709d3a5979e441434b2ca2d751a2c975e37422ad56e669bce1bfd44682ef50",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"bc74880a027db2501f79519e30236b2e\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 2991,
+            "sha256": "d1709d3a5979e441434b2ca2d751a2c975e37422ad56e669bce1bfd44682ef50",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"5e42d87b75e3711d297b1005ed8fe57a\"",
+            "last_modified": "Thu, 22 Oct 2026 03:21:12 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      },
+      "/icons/astra-512.png": {
+        "real_distinct_resource": true,
+        "origins": {
+          "https://astraanalisis.com": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 11598,
+            "sha256": "f738589c4e97d99080c8fe1391a8336bb990b769bc106129644e4fb968cb937d",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"b7a83dce20a627423787c8eb07d16c42\"",
+            "last_modified": null,
+            "cache_control": "public, max-age=14400, must-revalidate"
+          },
+          "https://astra-ai.expo.app": {
+            "status": 200,
+            "content_type": "image/png",
+            "bytes": 11598,
+            "sha256": "f738589c4e97d99080c8fe1391a8336bb990b769bc106129644e4fb968cb937d",
+            "is_spa_index_html_fallback": false,
+            "etag": "\"a6e2add4dfa25d6254a2d09fc860f086\"",
+            "last_modified": "Thu, 22 Oct 2026 03:21:14 GMT",
+            "cache_control": "public, max-age=3600"
+          }
+        }
+      }
+    },
+    "manifest_webmanifest": {
+      "bytes": 497,
+      "sha256": "f9ff0e337c53031453fbe3fcc4e0ee2b8608bd7d933b18b99ab060eecdb2ef04",
+      "last_modified_utc": "Thu, 22 Oct 2026 03:21:11 GMT",
+      "parsed_json": {
+        "id": "/",
+        "name": "Astra AI",
+        "short_name": "Astra AI",
+        "description": "Pronósticos y seguimiento de fútbol, NBA, NHL y MLB.",
+        "lang": "es-MX",
+        "start_url": "/",
+        "scope": "/",
+        "display": "standalone",
+        "background_color": "#07080A",
+        "theme_color": "#07080A",
+        "icons": [
+          {
+            "src": "/icons/astra-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+          },
+          {
+            "src": "/icons/astra-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+          }
+        ]
+      },
+      "notable_findings": [
+        "lang is 'es-MX', display is 'standalone', start_url and scope are '/'.",
+        "description ('Pronósticos y seguimiento de fútbol, NBA, NHL y MLB.') omits NFL, confirming NFL was added after the Oct 22, 2026 PWA manifest authoring.",
+        "Icons reuse single PNGs for 'purpose': 'any maskable' rather than providing separate safe-zone maskable icons.",
+        "Zero service worker exists (/sw.js and /expo-service-worker.js return SPA HTML fallback), so PWA installation is an online-only standalone shell."
+      ]
+    },
+    "metadata_json": {
+      "bytes": 49,
+      "sha256": "aa5f19cc84d41c0f8c70ececb2bc82e863227ea1e121632aca879eb616056991",
+      "last_modified_utc": "Sun, 18 Oct 2026 00:48:31 GMT",
+      "parsed_json": {
+        "version": 0,
+        "bundler": "metro",
+        "fileMetadata": {}
+      }
+    },
+    "binary_assets_forensics": {
+      "favicon_ico": {
+        "format": "ICO",
+        "image_count": 3,
+        "entries": [
+          {
+            "width": 16,
+            "height": 16,
+            "bpp": 32,
+            "planes": 1,
+            "bytes": 1064,
+            "offset": 54,
+            "subformat": "BMP/DIB"
+          },
+          {
+            "width": 32,
+            "height": 32,
+            "bpp": 32,
+            "planes": 1,
+            "bytes": 4136,
+            "offset": 1118,
+            "subformat": "BMP/DIB"
+          },
+          {
+            "width": 48,
+            "height": 48,
+            "bpp": 32,
+            "planes": 1,
+            "bytes": 9256,
+            "offset": 5254,
+            "subformat": "BMP/DIB"
+          }
+        ],
+        "bytes": 14510,
+        "sha256": "816fa3756394f8c33877f3eaecc2ceab18dd1c982554ca4b101204473bc718f6"
+      },
+      "apple_touch_icon_png": {
+        "format": "PNG",
+        "text_metadata": {},
+        "phys": {
+          "ppu_x": 2835,
+          "ppu_y": 2835,
+          "unit": 1,
+          "dpi_x": 72.01
+        },
+        "width": 180,
+        "height": 180,
+        "bit_depth": 8,
+        "color_type": 6,
+        "interlace": 0,
+        "chunk_summary": {
+          "IHDR": 1,
+          "pHYs": 1,
+          "IDAT": 1,
+          "IEND": 1
+        },
+        "bytes": 2724,
+        "sha256": "ead33f3ba89b1bd9caab94368b5d381914d6d390dd343270541188374375336b"
+      },
+      "astra_192_png": {
+        "format": "PNG",
+        "text_metadata": {},
+        "phys": {
+          "ppu_x": 2835,
+          "ppu_y": 2835,
+          "unit": 1,
+          "dpi_x": 72.01
+        },
+        "width": 192,
+        "height": 192,
+        "bit_depth": 8,
+        "color_type": 6,
+        "interlace": 0,
+        "chunk_summary": {
+          "IHDR": 1,
+          "pHYs": 1,
+          "IDAT": 1,
+          "IEND": 1
+        },
+        "bytes": 2991,
+        "sha256": "d1709d3a5979e441434b2ca2d751a2c975e37422ad56e669bce1bfd44682ef50"
+      },
+      "astra_512_png": {
+        "format": "PNG",
+        "text_metadata": {},
+        "phys": {
+          "ppu_x": 2835,
+          "ppu_y": 2835,
+          "unit": 1,
+          "dpi_x": 72.01
+        },
+        "width": 512,
+        "height": 512,
+        "bit_depth": 8,
+        "color_type": 6,
+        "interlace": 0,
+        "chunk_summary": {
+          "IHDR": 1,
+          "pHYs": 1,
+          "IDAT": 2,
+          "IEND": 1
+        },
+        "bytes": 11598,
+        "sha256": "f738589c4e97d99080c8fe1391a8336bb990b769bc106129644e4fb968cb937d"
+      },
+      "match_background_jpeg": {
+        "format": "JPEG",
+        "markers": [
+          "0xFFE0(16)",
+          "0xFFE1(140)",
+          "0xFFED(56)",
+          "0xFFC0(17)",
+          "0xFFC4(31)",
+          "0xFFC4(181)",
+          "0xFFC4(31)",
+          "0xFFC4(181)",
+          "0xFFDB(67)",
+          "0xFFDB(67)",
+          "0xFFDD(4)",
+          "0xFFDA(12)"
+        ],
+        "comments": [],
+        "app_segments": [
+          {
+            "marker": "APP0",
+            "length": 16,
+            "identifier": "JFIF"
+          },
+          {
+            "marker": "APP1",
+            "length": 140,
+            "identifier": "Exif"
+          },
+          {
+            "marker": "APP13",
+            "length": 56,
+            "identifier": "Photoshop 3.0"
+          }
+        ],
+        "precision": 8,
+        "height": 1180,
+        "width": 1333,
+        "components": 3,
+        "progressive": false,
+        "bytes": 126252,
+        "sha256": "56e9243e690ee54c03a53184f16318b4f33c5df95effd1cf9f30d416751793aa",
+        "exif_and_photoshop_8bim_decoded": {
+          "byte_order": "MM (Big-Endian / Motorola, standard Apple CoreGraphics / ImageIO & Photoshop)",
+          "ifd0": {
+            "Orientation": 1,
+            "XResolution": "72/1",
+            "YResolution": "72/1",
+            "ResolutionUnit": "inches (2)"
+          },
+          "exif_subifd": {
+            "ColorSpace": "sRGB (1)",
+            "PixelXDimension": 1333,
+            "PixelYDimension": 1180
+          },
+          "photoshop_8bim": {
+            "0x0404_iptc": "empty (0 bytes)",
+            "0x0425_iptc_digest_md5": "d41d8cd98f00b204e9800998ecf8427e (MD5 of empty string, typical macOS ImageIO/Preview/Photoshop export)"
+          }
+        }
+      }
+    }
+  },
+  "expo_eas_update_and_native_apps_audit": {
+    "eas_project_config_observed_in_mod_0393": {
+      "name": "Astra AI",
+      "slug": "astra-ai",
+      "version": "1.0.0",
+      "owner": "astraanalysisorg",
+      "sdkVersion": "58.0.0",
+      "eas_projectId": "f7056bae-387a-4cb8-856d-8504d0735629",
+      "ios_bundleIdentifier": null,
+      "android_package": null,
+      "scheme": "astraai"
+    },
+    "protocol_finding_summary": {
+      "classification": "OBSERVADO",
+      "project_exists_on_eas": true,
+      "proof_project_exists": "Non-existent control UUID 00000000-0000-4000-8000-000000000000 returns HTTP 400 'There is no app with ID \"00000000-0000-4000-8000-000000000000\"', whereas f7056bae-387a-4cb8-856d-8504d0735629 passes project lookup and returns HTTP 404 'There is no channel named <channel> for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629.' (and occasional HTTP 204 expo-reason-code: NO_UPDATE_AVAILABLE on ios edge replicas).",
+      "accept_header_requirement": "Sending Accept without 'multipart/mixed' returns HTTP 406: 'EAS Update clients must accept \"multipart/mixed\" responses'.",
+      "published_channels_found": [],
+      "ota_bundles_published": 0,
+      "native_store_apps_found": false,
+      "corroborating_signals": [
+        "mod_0393 omits ios.bundleIdentifier and android.package.",
+        "/.well-known/apple-app-site-association and /.well-known/assetlinks.json are absent (SPA HTML fallback).",
+        "my_access RPC live payload reports iap_ios_key: null and iap_android_key: null.",
+        "https://expo.dev/@astraanalysisorg/astra-ai returns HTTP 404.",
+        "Web searches across apps.apple.com and play.google.com show zero listings for Astra AI / astraanalysisorg / astraanalisis.com."
+      ]
+    },
+    "control_uuid_probes": {
+      "without_multipart_accept": {
+        "status": 406,
+        "headers": {
+          "Date": "Sat, 14 Nov 2026 18:57:25 GMT",
+          "Content-Type": "text/plain; charset=utf-8",
+          "Content-Length": "58",
+          "Connection": "close",
+          "via": "1.1 google",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "cf-cache-status": "DYNAMIC",
+          "cache-control": "no-cache, private, max-age=10",
+          "Server": "cloudflare",
+          "CF-RAY": "a5a83de3d9b23798-QRO"
+        },
+        "body": "EAS Update clients must accept \"multipart/mixed\" responses"
+      },
+      "with_multipart_accept": {
+        "status": 400,
+        "headers": {
+          "Date": "Sat, 14 Nov 2026 18:58:40 GMT",
+          "Content-Type": "text/plain; charset=utf-8",
+          "Content-Length": "62",
+          "Connection": "close",
+          "via": "1.1 google",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "cf-cache-status": "DYNAMIC",
+          "cache-control": "no-cache, private, max-age=10",
+          "Server": "cloudflare",
+          "CF-RAY": "a5a83fb80afa1654-QRO"
+        },
+        "body": "There is no app with ID \"00000000-0000-4000-8000-000000000000\""
+      }
+    },
+    "u_expo_dev_probes": [
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 204,
+        "reason": "No Content",
+        "expo_protocol_version": "1",
+        "expo_reason_code": "NO_UPDATE_AVAILABLE",
+        "via": "1.1 google",
+        "cf_ray": "a5a835b76cd0ae76-QRO",
+        "content_type": null,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_body": ""
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "android",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835b868ba127d-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 95,
+        "sha256": "42d1614229fb77d73c4a886f9bf47f288d39d2762e950b7b0a0b33a69b5c9bf6",
+        "response_body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "1.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835b9ca9cf55a-DFW",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 95,
+        "sha256": "42d1614229fb77d73c4a886f9bf47f288d39d2762e950b7b0a0b33a69b5c9bf6",
+        "response_body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "android",
+          "Expo-Runtime-Version": "1.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835ba9b03154b-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 95,
+        "sha256": "42d1614229fb77d73c4a886f9bf47f288d39d2762e950b7b0a0b33a69b5c9bf6",
+        "response_body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "exposdk:58.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835bc4b46f589-DFW",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 95,
+        "sha256": "42d1614229fb77d73c4a886f9bf47f288d39d2762e950b7b0a0b33a69b5c9bf6",
+        "response_body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "android",
+          "Expo-Runtime-Version": "exposdk:58.0.0",
+          "Expo-Channel-Name": "production"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835bd6ab9bc84-DFW",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 95,
+        "sha256": "42d1614229fb77d73c4a886f9bf47f288d39d2762e950b7b0a0b33a69b5c9bf6",
+        "response_body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "preview"
+        },
+        "status": 204,
+        "reason": "No Content",
+        "expo_protocol_version": "1",
+        "expo_reason_code": "NO_UPDATE_AVAILABLE",
+        "via": "1.1 google",
+        "cf_ray": "a5a835be58d4f863-QRO",
+        "content_type": null,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_body": ""
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "android",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "preview"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835bf3c618d36-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 92,
+        "sha256": "188b62abfbfdd1256adc77f3667236e7f50ccd454f4abaa4920d628987f5ba6a",
+        "response_body": "There is no channel named preview for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "main"
+        },
+        "status": 204,
+        "reason": "No Content",
+        "expo_protocol_version": "1",
+        "expo_reason_code": "NO_UPDATE_AVAILABLE",
+        "via": "1.1 google",
+        "cf_ray": "a5a835c06954aec5-QRO",
+        "content_type": null,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_body": ""
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "android",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "main"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835c18dacd749-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 89,
+        "sha256": "74e14e5dd88f61c33ea932fb2d0aa5c03b439df35068af5bbeb9f2b1ea9253d3",
+        "response_body": "There is no channel named main for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "1.0.0",
+          "Expo-Channel-Name": "preview"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835c30a073234-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 92,
+        "sha256": "188b62abfbfdd1256adc77f3667236e7f50ccd454f4abaa4920d628987f5ba6a",
+        "response_body": "There is no channel named preview for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "1.0.0",
+          "Expo-Channel-Name": "main"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835c4fabaddb2-DFW",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 89,
+        "sha256": "74e14e5dd88f61c33ea932fb2d0aa5c03b439df35068af5bbeb9f2b1ea9253d3",
+        "response_body": "There is no channel named main for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "1.0.0",
+          "Expo-Channel-Name": "default"
+        },
+        "status": 204,
+        "reason": "No Content",
+        "expo_protocol_version": "1",
+        "expo_reason_code": "NO_UPDATE_AVAILABLE",
+        "via": "1.1 google",
+        "cf_ray": "a5a835c5ed4fdccf-QRO",
+        "content_type": null,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_body": ""
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "default"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835c7ed082f48-DFW",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 92,
+        "sha256": "f1c27fa9c43975b469b18e50f428d1d7a2b051f6ab2d1579cd583a82399a48ec",
+        "response_body": "There is no channel named default for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json, multipart/mixed",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0",
+          "Expo-Channel-Name": "development"
+        },
+        "status": 204,
+        "reason": "No Content",
+        "expo_protocol_version": "1",
+        "expo_reason_code": "NO_UPDATE_AVAILABLE",
+        "via": "1.1 google",
+        "cf_ray": "a5a835c96c03f05f-DFW",
+        "content_type": null,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_body": ""
+      },
+      {
+        "url": "https://u.expo.dev/f7056bae-387a-4cb8-856d-8504d0735629",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json",
+          "Expo-Protocol-Version": "1",
+          "Expo-Platform": "ios",
+          "Expo-Runtime-Version": "58.0.0"
+        },
+        "status": 400,
+        "reason": "Bad Request",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835ca39b1ca13-QRO",
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 270,
+        "sha256": "edad7ec15c9958670fefdbf02e4ab333edbabd0f5a536b19f93e4e38eae2afc8",
+        "response_body": "\"channel-name\": Required. The headers \"expo-runtime-version\", \"expo-channel-name\", and \"expo-platform\" are required. They can also be set with the query parameters \"runtime-version\", \"channel-name\", and \"platform\". Learn more: https://expo.fyi/eas-update-missing-headers"
+      },
+      {
+        "url": "https://exp.host/@astraanalysisorg/astra-ai",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "application/expo+json, application/json"
+        },
+        "status": 400,
+        "reason": "Bad Request",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": null,
+        "content_type": "text/plain; charset=utf-8",
+        "bytes": 115,
+        "sha256": "0f568d5705140fb2a5d466658787de517aca2bf852dc6cc44bb4064ac4d3cfed",
+        "response_body": "The request for this experience was malformed. Include a runtime version or a list of SDK versions in your request."
+      },
+      {
+        "url": "https://expo.dev/@astraanalysisorg/astra-ai",
+        "method": "GET",
+        "request_headers": {
+          "Accept": "text/html"
+        },
+        "status": 404,
+        "reason": "Not Found",
+        "expo_protocol_version": null,
+        "expo_reason_code": null,
+        "via": "1.1 google",
+        "cf_ray": "a5a835cecdf53c4e-QRO",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 89476,
+        "sha256": "0f61a563a2f3ecb2f6e654d43b6ac0c922a4e543f71150ba95243f48424c8998",
+        "response_body": "<!DOCTYPE html><html lang=\"en\" data-scroll-behavior=\"smooth\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"stylesheet\" href=\"https://static.expo.dev/_next/static/chunks/2rt10m3-7cacg.css\" crossorigin=\"anonymous\" data-precedence=\"next\"/><link rel=\"stylesheet\" href=\"https://static.expo.dev/_next/static/chunks/3an8njf-vzwfi.css\" crossorigin=\"anonymous\" data-precedence=\"next\"/><link rel=\"stylesheet\" href=\"https://static.expo.dev/_next/st"
+      }
+    ],
+    "u_expo_dev_repeat_verification": [
+      {
+        "round": 1,
+        "platform": "ios",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7378c68b30-DFW",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 1,
+        "platform": "android",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a76292c2cb8-DFW",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 1,
+        "platform": "ios",
+        "runtime": "1.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a77bca5c677-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 1,
+        "platform": "ios",
+        "runtime": "1.0.0",
+        "channel": "default",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a792b0baec5-QRO",
+        "body": "There is no channel named default for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 1,
+        "platform": "android",
+        "runtime": "1.0.0",
+        "channel": "default",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7a4e1ef863-QRO",
+        "body": "There is no channel named default for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 1,
+        "platform": "web",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7bdeb7127d-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "ios",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7cfed45638-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "android",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7eafb2b1f2-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "ios",
+        "runtime": "1.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a7fdc37b6df-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "ios",
+        "runtime": "1.0.0",
+        "channel": "default",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a81bbd05638-QRO",
+        "body": "There is no channel named default for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "android",
+        "runtime": "1.0.0",
+        "channel": "default",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a82edd86152-QRO",
+        "body": "There is no channel named default for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      },
+      {
+        "round": 2,
+        "platform": "web",
+        "runtime": "58.0.0",
+        "channel": "production",
+        "status": 404,
+        "expo_reason_code": null,
+        "cf_ray": "a5a83a83fb0c127d-QRO",
+        "body": "There is no channel named production for the app with ID: f7056bae-387a-4cb8-856d-8504d0735629."
+      }
+    ]
+  },
+  "dns_tls_ct_rdap_and_email_security": {
+    "domain_rdap_verisign": {
+      "objectClassName": "domain",
+      "handle": "3165090050_DOMAIN_COM-VRSN",
+      "ldhName": "ASTRAANALISIS.COM",
+      "links": [
+        {
+          "value": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+          "rel": "self",
+          "href": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+          "type": "application/rdap+json"
+        },
+        {
+          "value": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+          "rel": "related",
+          "href": "https://rdap.cloudflare.com/rdap/v1/domain/ASTRAANALISIS.COM",
+          "type": "application/rdap+json"
+        }
+      ],
+      "status": [
+        "client transfer prohibited"
+      ],
+      "entities": [
+        {
+          "objectClassName": "entity",
+          "handle": "1910",
+          "roles": [
+            "registrar"
+          ],
+          "links": [
+            {
+              "href": "http://www.cloudflare.com",
+              "type": "text/html",
+              "value": "https://rdap.cloudflare.com/rdap/v1/",
+              "rel": "about"
+            }
+          ],
+          "publicIds": [
+            {
+              "type": "IANA Registrar ID",
+              "identifier": "1910"
+            }
+          ],
+          "vcardArray": [
+            "vcard",
+            [
+              [
+                "version",
+                {},
+                "text",
+                "4.0"
+              ],
+              [
+                "fn",
+                {},
+                "text",
+                "Cloudflare, Inc."
+              ]
+            ]
+          ],
+          "entities": [
+            {
+              "objectClassName": "entity",
+              "roles": [
+                "abuse"
+              ],
+              "vcardArray": [
+                "vcard",
+                [
+                  [
+                    "version",
+                    {},
+                    "text",
+                    "4.0"
+                  ],
+                  [
+                    "fn",
+                    {},
+                    "text",
+                    ""
+                  ],
+                  [
+                    "tel",
+                    {
+                      "type": "voice"
+                    },
+                    "uri",
+                    "tel:+1.6503198930"
+                  ],
+                  [
+                    "email",
+                    {},
+                    "text",
+                    "registrar-abuse@cloudflare.com"
+                  ]
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "eventAction": "registration",
+          "eventDate": "2026-11-08T11:02:28Z"
+        },
+        {
+          "eventAction": "expiration",
+          "eventDate": "2027-11-08T11:02:28Z"
+        },
+        {
+          "eventAction": "last changed",
+          "eventDate": "2026-11-08T11:02:28Z"
+        },
+        {
+          "eventAction": "last update of RDAP database",
+          "eventDate": "2026-11-14T18:52:05Z"
+        }
+      ],
+      "secureDNS": {
+        "delegationSigned": false
+      },
+      "nameservers": [
+        {
+          "objectClassName": "nameserver",
+          "ldhName": "JAVON.NS.CLOUDFLARE.COM"
+        },
+        {
+          "objectClassName": "nameserver",
+          "ldhName": "PRINCESS.NS.CLOUDFLARE.COM"
+        }
+      ],
+      "rdapConformance": [
+        "rdap_level_0",
+        "icann_rdap_technical_implementation_guide_1",
+        "icann_rdap_response_profile_1"
+      ],
+      "notices": [
+        {
+          "title": "Terms of Service",
+          "description": [
+            "Service subject to Terms of Use."
+          ],
+          "links": [
+            {
+              "href": "https://www.verisign.com/domain-names/registration-data-access-protocol/terms-service/index.xhtml",
+              "type": "text/html",
+              "value": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+              "rel": "terms-of-service"
+            }
+          ]
+        },
+        {
+          "title": "Status Codes",
+          "description": [
+            "For more information on domain status codes, please visit https://icann.org/epp"
+          ],
+          "links": [
+            {
+              "href": "https://icann.org/epp",
+              "type": "text/html",
+              "value": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+              "rel": "glossary"
+            }
+          ]
+        },
+        {
+          "title": "RDDS Inaccuracy Complaint Form",
+          "description": [
+            "URL of the ICANN RDDS Inaccuracy Complaint Form: https://icann.org/wicf"
+          ],
+          "links": [
+            {
+              "href": "https://icann.org/wicf",
+              "type": "text/html",
+              "value": "https://rdap.verisign.com/com/v1/domain/astraanalisis.com",
+              "rel": "help"
+            }
+          ]
+        }
+      ]
+    },
+    "dns_doh_queries": {
+      "astraanalisis.com:A": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astraanalisis.com",
+            "type": 1,
+            "TTL": 300,
+            "data": "172.67.139.85"
+          },
+          {
+            "name": "astraanalisis.com",
+            "type": 1,
+            "TTL": 300,
+            "data": "104.21.38.220"
+          }
+        ],
+        "Authority": []
+      },
+      "astraanalisis.com:AAAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astraanalisis.com",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700:3035::6815:26dc"
+          },
+          {
+            "name": "astraanalisis.com",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700:3032::ac43:8b55"
+          }
+        ],
+        "Authority": []
+      },
+      "astraanalisis.com:NS": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astraanalisis.com",
+            "type": 2,
+            "TTL": 86400,
+            "data": "javon.ns.cloudflare.com."
+          },
+          {
+            "name": "astraanalisis.com",
+            "type": 2,
+            "TTL": 86400,
+            "data": "princess.ns.cloudflare.com."
+          }
+        ],
+        "Authority": []
+      },
+      "astraanalisis.com:SOA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ],
+        "Authority": []
+      },
+      "astraanalisis.com:MX": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "astraanalisis.com:TXT": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "astraanalisis.com:CAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "www.astraanalisis.com:CNAME": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "www.astraanalisis.com:A": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "www.astraanalisis.com",
+            "type": 1,
+            "TTL": 300,
+            "data": "172.67.139.85"
+          },
+          {
+            "name": "www.astraanalisis.com",
+            "type": 1,
+            "TTL": 300,
+            "data": "104.21.38.220"
+          }
+        ],
+        "Authority": []
+      },
+      "www.astraanalisis.com:AAAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "www.astraanalisis.com",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700:3035::6815:26dc"
+          },
+          {
+            "name": "www.astraanalisis.com",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700:3032::ac43:8b55"
+          }
+        ],
+        "Authority": []
+      },
+      "_dmarc.astraanalisis.com:TXT": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "_dmarc.astraanalisis.com",
+            "type": 16,
+            "TTL": 300,
+            "data": "\"v=DMARC1; p=none;\""
+          }
+        ],
+        "Authority": []
+      },
+      "send.astraanalisis.com:MX": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "send.astraanalisis.com",
+            "type": 5,
+            "TTL": 300,
+            "data": "send.forge.rmta.net."
+          },
+          {
+            "name": "send.forge.rmta.net",
+            "type": 15,
+            "TTL": 300,
+            "data": "10 feedback.forge.rmta.net."
+          }
+        ],
+        "Authority": []
+      },
+      "send.astraanalisis.com:TXT": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "send.astraanalisis.com",
+            "type": 5,
+            "TTL": 300,
+            "data": "send.forge.rmta.net."
+          },
+          {
+            "name": "send.forge.rmta.net",
+            "type": 16,
+            "TTL": 300,
+            "data": "\"v=spf1 ip4:52.3.252.119 ip4:44.222.39.36 ip4:199.249.231.0/24 ~all\""
+          }
+        ],
+        "Authority": []
+      },
+      "send.astraanalisis.com:A": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "send.astraanalisis.com",
+            "type": 5,
+            "TTL": 300,
+            "data": "send.forge.rmta.net."
+          }
+        ],
+        "Authority": [
+          {
+            "name": "rmta.net",
+            "type": 6,
+            "TTL": 900,
+            "data": "ns-19.awsdns-02.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
+          }
+        ]
+      },
+      "bounces.astraanalisis.com:MX": {
+        "Status": 3,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "bounces.astraanalisis.com:TXT": {
+        "Status": 3,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "resend._domainkey.astraanalisis.com:TXT": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "resend._domainkey.astraanalisis.com",
+            "type": 16,
+            "TTL": 300,
+            "data": "\"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCoBPMAr976BMxTshCCKW+mr6tUlPGaD0VWtSRBOIixzYR3UWbRh4AA2OLujJiDRGBizJjpBoSvsLt04DxQCAROJRDODegpjDlsEoF9bTreliwVfDhIjUE0uZQ+e/EbRjm8fCHhrb1tXOh539l+YwTvYiVI00uNw3clCwZ6yewtBwIDAQAB\""
+          }
+        ],
+        "Authority": []
+      },
+      "resend._domainkey.astraanalisis.com:CNAME": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "default._domainkey.astraanalisis.com:TXT": {
+        "Status": 3,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "google._domainkey.astraanalisis.com:TXT": {
+        "Status": 3,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "s1._domainkey.astraanalisis.com:CNAME": {
+        "Status": 3,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "astraanalisis.com",
+            "type": 6,
+            "TTL": 1800,
+            "data": "javon.ns.cloudflare.com. dns.cloudflare.com. 2419628116 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "astra-ai.expo.app:CNAME": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "expo.app",
+            "type": 6,
+            "TTL": 1800,
+            "data": "brady.ns.cloudflare.com. dns.cloudflare.com. 2417294622 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "astra-ai.expo.app:A": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astra-ai.expo.app",
+            "type": 1,
+            "TTL": 300,
+            "data": "104.18.20.213"
+          },
+          {
+            "name": "astra-ai.expo.app",
+            "type": 1,
+            "TTL": 300,
+            "data": "104.18.21.213"
+          }
+        ],
+        "Authority": []
+      },
+      "astra-ai.expo.app:AAAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "astra-ai.expo.app",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700::6812:14d5"
+          },
+          {
+            "name": "astra-ai.expo.app",
+            "type": 28,
+            "TTL": 300,
+            "data": "2606:4700::6812:15d5"
+          }
+        ],
+        "Authority": []
+      },
+      "astra-ai.expo.app:TXT": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "expo.app",
+            "type": 6,
+            "TTL": 1800,
+            "data": "brady.ns.cloudflare.com. dns.cloudflare.com. 2417294622 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "expo.app:CAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "expo.app",
+            "type": 6,
+            "TTL": 1800,
+            "data": "brady.ns.cloudflare.com. dns.cloudflare.com. 2417294622 10000 2400 604800 1800"
+          }
+        ]
+      },
+      "expo.app:NS": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "expo.app",
+            "type": 2,
+            "TTL": 86400,
+            "data": "brady.ns.cloudflare.com."
+          },
+          {
+            "name": "expo.app",
+            "type": 2,
+            "TTL": 86400,
+            "data": "brit.ns.cloudflare.com."
+          }
+        ],
+        "Authority": []
+      },
+      "bbfjdshvlcynngjdkvsk.supabase.co:A": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [
+          {
+            "name": "bbfjdshvlcynngjdkvsk.supabase.co",
+            "type": 1,
+            "TTL": 300,
+            "data": "104.18.38.10"
+          },
+          {
+            "name": "bbfjdshvlcynngjdkvsk.supabase.co",
+            "type": 1,
+            "TTL": 300,
+            "data": "172.64.149.246"
+          }
+        ],
+        "Authority": []
+      },
+      "bbfjdshvlcynngjdkvsk.supabase.co:AAAA": {
+        "Status": 0,
+        "AD": false,
+        "Answer": [],
+        "Authority": [
+          {
+            "name": "supabase.co",
+            "type": 6,
+            "TTL": 30,
+            "data": "christina.ns.cloudflare.com. dns.cloudflare.com. 2420168029 10000 2400 604800 30"
+          }
+        ]
+      }
+    },
+    "transactional_email_posture": {
+      "provider": "Resend (send.forge.rmta.net / feedback.forge.rmta.net)",
+      "root_mx_records": [],
+      "root_spf_txt_records": [],
+      "subdomain_bounce_envelope": {
+        "domain": "send.astraanalisis.com",
+        "cname": "send.forge.rmta.net.",
+        "mx": "10 feedback.forge.rmta.net.",
+        "spf": "v=spf1 ip4:52.3.252.119 ip4:44.222.39.36 ip4:199.249.231.0/24 ~all"
+      },
+      "dkim": {
+        "selector": "resend._domainkey.astraanalisis.com",
+        "spki_der_bytes": 162,
+        "spki_sha256": "e65cd9303741d04e3e2dc4bd927f60c8bafe64a031e09275d3f5fa9cb1738cce",
+        "algorithm": "RSA",
+        "modulus_bits": 1024
+      },
+      "dmarc": {
+        "record_name": "_dmarc.astraanalisis.com",
+        "value": "v=DMARC1; p=none;",
+        "policy": "none",
+        "rua": null,
+        "ruf": null
+      },
+      "security_observations": [
+        "Root domain astraanalisis.com has NO MX records (cannot receive @astraanalisis.com email; legal/support routes use personal Gmail eliasgutierrezhr@gmail.com).",
+        "Root domain astraanalisis.com has NO SPF TXT record ('v=spf1 -all' is absent) and DMARC policy is 'p=none' without rua/ruf reporting, leaving @astraanalisis.com exposed to unauthenticated email spoofing.",
+        "Resend DKIM selector resend._domainkey.astraanalisis.com uses a 1024-bit RSA key rather than 2048-bit RSA."
+      ]
+    },
+    "tls_live_certificates": {
+      "astraanalisis.com": {
+        "hostname": "astraanalisis.com",
+        "peer_ip": "2606:4700:3032::ac43:8b55",
+        "tls_version": "TLSv1.3",
+        "alpn_protocol": "h2",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "subject": [
+          [
+            [
+              "commonName",
+              "astraanalisis.com"
+            ]
+          ]
+        ],
+        "issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "Google Trust Services"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "WE1"
+            ]
+          ]
+        ],
+        "serialNumber": "E34215B62BEC14BA13E5A6646B289172",
+        "notBefore": "Nov  8 11:55:10 2026 GMT",
+        "notAfter": "Feb  6 12:55:08 2027 GMT",
+        "subjectAltName": [
+          [
+            "DNS",
+            "astraanalisis.com"
+          ]
+        ],
+        "ocsp": null,
+        "caIssuers": [
+          "http://i.pki.goog/we1.crt"
+        ],
+        "crlDistributionPoints": [
+          "http://c.pki.goog/we1/Dat52U_KdLk.crl"
+        ],
+        "sha256_fingerprint": "5b3c35b85c2f99b4229a7a3629bca8b5bd3f1d0329d31dcf40fe9f9cd8b69ebf"
+      },
+      "www.astraanalisis.com": {
+        "hostname": "www.astraanalisis.com",
+        "peer_ip": "2606:4700:3035::6815:26dc",
+        "tls_version": "TLSv1.3",
+        "alpn_protocol": "h2",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "subject": [
+          [
+            [
+              "commonName",
+              "www.astraanalisis.com"
+            ]
+          ]
+        ],
+        "issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "Google Trust Services"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "WE1"
+            ]
+          ]
+        ],
+        "serialNumber": "FE7E499A47A9CE6013AC10ABA2CB08B2",
+        "notBefore": "Nov  8 11:55:46 2026 GMT",
+        "notAfter": "Feb  6 12:55:43 2027 GMT",
+        "subjectAltName": [
+          [
+            "DNS",
+            "www.astraanalisis.com"
+          ]
+        ],
+        "ocsp": null,
+        "caIssuers": [
+          "http://i.pki.goog/we1.crt"
+        ],
+        "crlDistributionPoints": [
+          "http://c.pki.goog/we1/kJKqMqFKJ1M.crl"
+        ],
+        "sha256_fingerprint": "06926f2dd33c140948667f88fbc42c8539511586eb293d3d1ada25febaabe168"
+      },
+      "astra-ai.expo.app": {
+        "hostname": "astra-ai.expo.app",
+        "peer_ip": "2606:4700::6812:15d5",
+        "tls_version": "TLSv1.3",
+        "alpn_protocol": "h2",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "subject": [
+          [
+            [
+              "commonName",
+              "expo.app"
+            ]
+          ]
+        ],
+        "issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "Google Trust Services"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "WE1"
+            ]
+          ]
+        ],
+        "serialNumber": "FC3E65F97EB00B1C0E8F7FB236424CDE",
+        "notBefore": "Oct  8 21:51:35 2026 GMT",
+        "notAfter": "Jan  6 22:51:30 2027 GMT",
+        "subjectAltName": [
+          [
+            "DNS",
+            "expo.app"
+          ],
+          [
+            "DNS",
+            "*.expo.app"
+          ]
+        ],
+        "ocsp": null,
+        "caIssuers": [
+          "http://i.pki.goog/we1.crt"
+        ],
+        "crlDistributionPoints": [
+          "http://c.pki.goog/we1/emOXSTt5k8o.crl"
+        ],
+        "sha256_fingerprint": "465fd337ae7b166c9d5747dcbed226cbce0196d24d623c75db59499c15b9e8b3"
+      },
+      "bbfjdshvlcynngjdkvsk.supabase.co": {
+        "hostname": "bbfjdshvlcynngjdkvsk.supabase.co",
+        "peer_ip": "172.64.149.246",
+        "tls_version": "TLSv1.3",
+        "alpn_protocol": "h2",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "subject": [
+          [
+            [
+              "commonName",
+              "supabase.co"
+            ]
+          ]
+        ],
+        "issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "Google Trust Services"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "WE1"
+            ]
+          ]
+        ],
+        "serialNumber": "D2B50611CD88E9C50E4E2231F4D3F059",
+        "notBefore": "Oct 24 13:22:36 2026 GMT",
+        "notAfter": "Jan 22 14:22:32 2027 GMT",
+        "subjectAltName": [
+          [
+            "DNS",
+            "supabase.co"
+          ],
+          [
+            "DNS",
+            "*.supabase.co"
+          ]
+        ],
+        "ocsp": null,
+        "caIssuers": [
+          "http://i.pki.goog/we1.crt"
+        ],
+        "crlDistributionPoints": [
+          "http://c.pki.goog/we1/C3XQBL8QE18.crl"
+        ],
+        "sha256_fingerprint": "eaff459adbbadb4654cbb9bb3ecf970baf05146c5732acbc70b32a7f4d3d62ae"
+      },
+      "u.expo.dev": {
+        "hostname": "u.expo.dev",
+        "peer_ip": "2606:4700::6812:468",
+        "tls_version": "TLSv1.3",
+        "alpn_protocol": "h2",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "subject": [
+          [
+            [
+              "commonName",
+              "expo.dev"
+            ]
+          ]
+        ],
+        "issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "Google Trust Services"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "WE1"
+            ]
+          ]
+        ],
+        "serialNumber": "1F5E4B5CA11DAA891399EA0CB6599FB2",
+        "notBefore": "Sep 23 12:34:59 2026 GMT",
+        "notAfter": "Dec 22 13:34:49 2026 GMT",
+        "subjectAltName": [
+          [
+            "DNS",
+            "expo.dev"
+          ],
+          [
+            "DNS",
+            "*.expo.dev"
+          ]
+        ],
+        "ocsp": null,
+        "caIssuers": [
+          "http://i.pki.goog/we1.crt"
+        ],
+        "crlDistributionPoints": [
+          "http://c.pki.goog/we1/FguhpAZVWYg.crl"
+        ],
+        "sha256_fingerprint": "a8f7ad68fc9f8407dd9b95d3bd61fa2016b3b90cc1f1c05b9e1b22d7c4094d09"
+      }
+    },
+    "certificate_transparency_certspotter": {
+      "crt_sh_note": "crt.sh returned HTTP 502 Bad Gateway on wildcard query %.astraanalisis.com due to upstream PostgreSQL load and [] on exact query due to indexing lag on a 6-day-old domain; CertSpotter v1 API returned all 6 logged CT certificates with full DER SHA-256 matching live TLS handshakes.",
+      "unique_hostnames_in_ct": [
+        "astraanalisis.com",
+        "*.astraanalisis.com",
+        "www.astraanalisis.com"
+      ],
+      "certificates": [
+        {
+          "id": "18245153568",
+          "tbs_sha256": "e9db02ef81144061c884360989661ba65fcb7e7c05b73b710e5615e4d2e144a1",
+          "cert_sha256": "3a520fa3be3c986629ac5a774c5d2e0cb244e71a869b1436999dc7b29be1490d",
+          "dns_names": [
+            "*.astraanalisis.com",
+            "astraanalisis.com"
+          ],
+          "pubkey_sha256": "cc5e1395a166a229631571a91c22a06f4adf8eda1a6b36e9bf6be3ce60e0341c",
+          "issuer": {
+            "friendly_name": "Let's Encrypt",
+            "pubkey_sha256": "6ebcefb4210b088654a38b03fea3d7d1c711b4fb1ddc363a45f9b1a4e53da01e",
+            "name": "C=US, O=Let's Encrypt, CN=YE1"
+          },
+          "not_before": "2026-11-08T10:06:04Z",
+          "not_after": "2027-02-06T10:06:03Z",
+          "revoked": false,
+          "computed_sha256": "3a520fa3be3c986629ac5a774c5d2e0cb244e71a869b1436999dc7b29be1490d"
+        },
+        {
+          "id": "18245169846",
+          "tbs_sha256": "3d693bcab2d2596987bdcdf748de327b5f4f508049197605a4dd2116e1cd2f45",
+          "cert_sha256": "837d69d6997ff42705389c10d0586d5ae38a676b1860e4cdbaefe7fad769b45d",
+          "dns_names": [
+            "*.astraanalisis.com",
+            "astraanalisis.com"
+          ],
+          "pubkey_sha256": "338cfe881dc40d8667e0749291841dad728d3323f143f2fd409e2e946a356753",
+          "issuer": {
+            "friendly_name": "SSL.com",
+            "pubkey_sha256": "1959e38fb7d3fc16bee5e20e834e2c6667bf0e9e6b9806b86bd40a6d66c716d0",
+            "name": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4"
+          },
+          "not_before": "2026-11-08T10:54:38Z",
+          "not_after": "2027-02-06T11:02:29Z",
+          "revoked": false,
+          "computed_sha256": "837d69d6997ff42705389c10d0586d5ae38a676b1860e4cdbaefe7fad769b45d"
+        },
+        {
+          "id": "18246851911",
+          "tbs_sha256": "055960c672c404bfbe32d81cd55729bbbf14e6e4e12e00d5215c840b5a446075",
+          "cert_sha256": "407645dc8be6dd8c8c9dbc5338f5c9baa95bc7ba002a1aaa4845b55b2a83224f",
+          "dns_names": [
+            "astraanalisis.com"
+          ],
+          "pubkey_sha256": "f5547dd70ecd0908d7478a96a57f1845706f67122e6aaedd2fa34a7d3911c0d2",
+          "issuer": {
+            "friendly_name": "Google Trust Services",
+            "pubkey_sha256": "c83bbda20db9e4d3791847fe0706bdad3aea150d04c9d674af514287d4dd016e",
+            "name": "C=US, O=Google Trust Services, CN=WR1"
+          },
+          "not_before": "2026-11-08T11:55:02Z",
+          "not_after": "2027-02-06T12:52:56Z",
+          "revoked": false,
+          "computed_sha256": "407645dc8be6dd8c8c9dbc5338f5c9baa95bc7ba002a1aaa4845b55b2a83224f"
+        },
+        {
+          "id": "18246852739",
+          "tbs_sha256": "09110a7c28dc315c2d8085df36a9c0796273ec97fe13c01354688c0ff5ec6106",
+          "cert_sha256": "5b3c35b85c2f99b4229a7a3629bca8b5bd3f1d0329d31dcf40fe9f9cd8b69ebf",
+          "dns_names": [
+            "astraanalisis.com"
+          ],
+          "pubkey_sha256": "36f290c604b5c74188e9561a412edf4067d3a9c4e0ab9a34b7c7f408105a5ba2",
+          "issuer": {
+            "friendly_name": "Google Trust Services",
+            "pubkey_sha256": "908769e8d34477cc2cba0632c88605b22d7294c0840f78596d247c645b1afc0e",
+            "name": "C=US, O=Google Trust Services, CN=WE1"
+          },
+          "not_before": "2026-11-08T11:55:10Z",
+          "not_after": "2027-02-06T12:55:08Z",
+          "revoked": false,
+          "computed_sha256": "5b3c35b85c2f99b4229a7a3629bca8b5bd3f1d0329d31dcf40fe9f9cd8b69ebf"
+        },
+        {
+          "id": "18246860932",
+          "tbs_sha256": "887cf253bcce84b30db8f2f1ada3d3417514965fc8c9c841a256b06f8ffbd279",
+          "cert_sha256": "cb64cd6602b3367b032edc10d6b83870308967685e85b0ce2f802e2ee64dfdf5",
+          "dns_names": [
+            "www.astraanalisis.com"
+          ],
+          "pubkey_sha256": "5883dc3f7f6e3bd01cad8e1a9b084d3096b426e9eb28b25f798c27068c2220bd",
+          "issuer": {
+            "friendly_name": "Google Trust Services",
+            "pubkey_sha256": "c83bbda20db9e4d3791847fe0706bdad3aea150d04c9d674af514287d4dd016e",
+            "name": "C=US, O=Google Trust Services, CN=WR1"
+          },
+          "not_before": "2026-11-08T11:55:37Z",
+          "not_after": "2027-02-06T12:53:33Z",
+          "revoked": false,
+          "computed_sha256": "cb64cd6602b3367b032edc10d6b83870308967685e85b0ce2f802e2ee64dfdf5"
+        },
+        {
+          "id": "18246874496",
+          "tbs_sha256": "a4a3ce497afc247dc498acd943072d061e25f164f94a1325b99fe302e4582ab8",
+          "cert_sha256": "06926f2dd33c140948667f88fbc42c8539511586eb293d3d1ada25febaabe168",
+          "dns_names": [
+            "www.astraanalisis.com"
+          ],
+          "pubkey_sha256": "1779fec7884bf8eafc0f61ea4f898f693614485bdef2bf877ec59a6a5c165705",
+          "issuer": {
+            "friendly_name": "Google Trust Services",
+            "pubkey_sha256": "908769e8d34477cc2cba0632c88605b22d7294c0840f78596d247c645b1afc0e",
+            "name": "C=US, O=Google Trust Services, CN=WE1"
+          },
+          "not_before": "2026-11-08T11:55:46Z",
+          "not_after": "2027-02-06T12:55:43Z",
+          "revoked": false,
+          "computed_sha256": "06926f2dd33c140948667f88fbc42c8539511586eb293d3d1ada25febaabe168"
+        }
+      ]
+    }
+  },
+  "public_osint_and_sister_ecosystem": {
+    "telegram_invite_channel": {
+      "url_in_mod_0870": "https://t.me/+9jzp7DYLucM4MDYx",
+      "channel_title": "Astra",
+      "subscribers_count": 3463,
+      "subscribers_raw_text": "3 463 subscribers",
+      "public_description": "Apuestas de Nivel Institucional 🏆 | 📲 Síguenos en Instagram: https://www.instagram.com/astraanalysis?xtok=dWgzZTk3OHB6MWky&utm_source=qr | TipsterZone: tipsterzone.org/t/astra | 📩 Contacto: @AstraAnalysis",
+      "raw_preview": {
+        "url": "https://t.me/+9jzp7DYLucM4MDYx",
+        "status": 200,
+        "og_title": "Astra",
+        "og_description": "Apuestas de Nivel Institucional 🏆\t\t📲 Síguenos en Instagram: https://www.instagram.com/astraanalysis?xtok=dWgzZTk3OHB6MWky&amp;utm_source=qr\t\tTipsterZone: tipsterzone.org/t/astra\t\t📩 Contacto: @AstraAnalysis",
+        "og_image": "https://cdn1.telesco.pe/file/jKICYaihslZrSii5okc5eGr6mQ_WDmOdjvIooiSPRgoGgOTAfqbRNsbcBTa2dpSrcDYcXLecV8fP4BfjBf9EQxm7PKKfnqHdG88E88OHhO1AAZxYB0L9_AwezIDxTVe4FrQGKNvMJNMMbclU5NwCDZ1GEK2FqAkAi8PQy8dFviXX3ylgIi4RMEm_dqifvWMfemEb1Ilmk6mTpkzJOZ5rWuz3_Y9VV78BUVKqd1KorO3dgJ4uhY7VFcqaC1sNvQJBffvhU9PXzTIlHfuvHRrXR35k-pV7H0KNRH4Lk-4jRQLfzwV5kfUixxYEBrK6QhQx5nmuT6T2aBkhZU9sWLM9LQ.jpg",
+        "twitter_title": "Astra",
+        "tgme_page_title": "Astra",
+        "tgme_page_extra": "3 463 subscribers",
+        "tgme_page_description": "Apuestas de Nivel Institucional 🏆📲 Síguenos en Instagram: https://www.instagram.com/astraanalysis?xtok=dWgzZTk3OHB6MWky&amp;utm_source=qrTipsterZone: tipsterzone.org/t/astra📩 Contacto: @AstraAnalysis",
+        "tgme_action_button": "Join Channel"
+      }
+    },
+    "telegram_contact_account": {
+      "requested_url": "https://t.me/AstraAnalysis",
+      "final_url": "https://t.me/AstraAnalysis",
+      "status": 200,
+      "bytes": 10956,
+      "title": "Telegram: Contact @AstraAnalysis",
+      "metas": {
+        "viewport": "width=device-width, initial-scale=1.0",
+        "og:title": "Astra Analysis",
+        "og:image": "https://cdn1.telesco.pe/file/BMrr4W4UUkvSnbpZ__j0JgbZFvI5WJGgiJ3LQaX-XsT-2KGZ5Ytuga_F-sMUZuGhuONA_21vG-285igQea8gIB5EKQ3xThSF9iQqSHIw-F8ZULgp55xRN7Qvw91aCHX4gcOI3GzBzPwxABMZOb70Dad4KrvPnq6uSMM4WaLBe-yhPx7SqJoIQqkpayT3WJiAttuMSXaTKdO-UTqEL-O1xfXmz7vYJrchCbIOROiZ8BXUR6I5LravYod-47YUV0Jl7cLIDr922ZD9N9wwgNWxBnMH9K1oag6g58a4FtjPT3qaGXqx61-ly-BfVDedEsF7Y9yQStqnHuUw1llRTQQDnA.jpg",
+        "og:site_name": "Telegram",
+        "og:description": "Canal gratuito 👉 https://t.me/+9jzp7DYLucM4MDYx",
+        "twitter:title": "Astra Analysis",
+        "twitter:image": "https://cdn1.telesco.pe/file/BMrr4W4UUkvSnbpZ__j0JgbZFvI5WJGgiJ3LQaX-XsT-2KGZ5Ytuga_F-sMUZuGhuONA_21vG-285igQea8gIB5EKQ3xThSF9iQqSHIw-F8ZULgp55xRN7Qvw91aCHX4gcOI3GzBzPwxABMZOb70Dad4KrvPnq6uSMM4WaLBe-yhPx7SqJoIQqkpayT3WJiAttuMSXaTKdO-UTqEL-O1xfXmz7vYJrchCbIOROiZ8BXUR6I5LravYod-47YUV0Jl7cLIDr922ZD9N9wwgNWxBnMH9K1oag6g58a4FtjPT3qaGXqx61-ly-BfVDedEsF7Y9yQStqnHuUw1llRTQQDnA.jpg",
+        "twitter:site": "@Telegram",
+        "twitter:card": "summary",
+        "twitter:description": "Canal gratuito 👉 https://t.me/+9jzp7DYLucM4MDYx\n",
+        "al:ios:app_store_id": "686449807",
+        "al:ios:app_name": "Telegram Messenger",
+        "al:ios:url": "tg://resolve?domain=AstraAnalysis",
+        "al:android:url": "tg://resolve?domain=AstraAnalysis",
+        "al:android:app_name": "Telegram",
+        "al:android:package": "org.telegram.messenger",
+        "twitter:app:name:iphone": "Telegram Messenger",
+        "twitter:app:id:iphone": "686449807",
+        "twitter:app:url:iphone": "tg://resolve?domain=AstraAnalysis",
+        "twitter:app:name:ipad": "Telegram Messenger",
+        "twitter:app:id:ipad": "686449807",
+        "twitter:app:url:ipad": "tg://resolve?domain=AstraAnalysis",
+        "twitter:app:name:googleplay": "Telegram",
+        "twitter:app:id:googleplay": "org.telegram.messenger",
+        "twitter:app:url:googleplay": "https://t.me/AstraAnalysis",
+        "apple-itunes-app": "app-id=686449807, app-argument: tg://resolve?domain=AstraAnalysis"
+      },
+      "tg_divs": {
+        "tgme_page_title": "Astra Analysis",
+        "tgme_page_extra": "@AstraAnalysis",
+        "tgme_page_description": "Canal gratuito 👉 https://t.me/+9jzp7DYLucM4MDYx"
+      },
+      "saved_file": "https_t.me_AstraAnalysis.html"
+    },
+    "instagram_handle_discrepancy": {
+      "classification": "OBSERVADO",
+      "frontend_mod_0870_url": "https://www.instagram.com/astra_analysis/",
+      "telegram_channel_bio_url": "https://www.instagram.com/astraanalysis?xtok=dWgzZTk3OHB6MWky&utm_source=qr",
+      "finding": "Frontend module mod_0870 hardcodes 'astra_analysis' (with underscore), whereas the official Telegram channel bio QR link points to 'astraanalysis' (without underscore)."
+    },
+    "sister_platform_tipsterzone": {
+      "classification": "OBSERVADO",
+      "domain": "tipsterzone.org",
+      "profile_url": "https://tipsterzone.org/t/astra",
+      "eas_hosting_origin": "https://astraanalysisorg-astra.expo.app",
+      "shared_infrastructure_proofs": [
+        "Hosted under the exact same Expo organization 'astraanalysisorg' (subdomain astraanalysisorg-astra.expo.app; REDIRECT_HOSTS = ['astraanalysisorg-astra.expo.app', 'www.tipsterzone.org']).",
+        "Uses the exact same Cloudflare nameserver pair: javon.ns.cloudflare.com and princess.ns.cloudflare.com.",
+        "Shares the exact same +html.tsx structural boilerplate (e.g. window.__tzInstallPrompt vs window.__astraInstallPrompt).",
+        "Public Telegram channel bio explicitly promotes 'TipsterZone: tipsterzone.org/t/astra'."
+      ],
+      "rdap": {
+        "ldhName": "tipsterzone.org",
+        "events": [
+          {
+            "eventAction": "expiration",
+            "eventDate": "2027-10-08T21:29:49.139Z"
+          },
+          {
+            "eventAction": "registration",
+            "eventDate": "2026-10-08T21:29:49.139Z"
+          },
+          {
+            "eventAction": "last changed",
+            "eventDate": "2026-10-13T21:30:13.369Z"
+          },
+          {
+            "eventAction": "last update of RDAP database",
+            "eventDate": "2026-11-14T18:57:26.725Z"
+          }
+        ],
+        "nameservers": [
+          "javon.ns.cloudflare.com",
+          "princess.ns.cloudflare.com"
+        ]
+      },
+      "eas_origin_head": {
+        "status": 200,
+        "headers": {
+          "Date": "Sat, 14 Nov 2026 18:58:40 GMT",
+          "Content-Type": "text/html",
+          "Content-Length": "5485",
+          "Connection": "close",
+          "CF-Ray": "a5a83fb9d856ca02-QRO",
+          "Accept-Ranges": "bytes",
+          "Age": "111909",
+          "ETag": "\"37d0dcfbf4e7d32778b776fd469ed666\"",
+          "Last-Modified": "Fri, 13 Nov 2026 11:03:27 GMT",
+          "Server": "cloudflare",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        }
+      },
+      "bundle_osint": {
+        "bundle_bytes": 3264794,
+        "supabase_urls": [
+          "https://ucnxbczjueyyjpetqhfi.supabase.co"
+        ],
+        "expo_apps": [
+          "astraanalysisorg-astra.expo.app"
+        ],
+        "eas_project_ids": [],
+        "expo_owners": [],
+        "emails": [
+          "nicolas.charpentier079@gmail.com"
+        ],
+        "has_publishable_key": false
+      },
+      "astra_tipster_row_in_tipsterzone_supabase": {
+        "id": "06c7a5f9-03f8-4bd8-938c-e4820795fbc3",
+        "public_name": "Astra",
+        "headline": "Fútbol",
+        "sports": [
+          "Fútbol"
+        ],
+        "verified": false,
+        "is_demo": false,
+        "single_price_mxn": 99,
+        "subscription_price_mxn": 499,
+        "created_at": "2026-10-07T07:30:47.477729+00:00",
+        "country": "MX",
+        "retired_at": null,
+        "name_changed_at": null,
+        "slug": "astra",
+        "bio": "",
+        "links": [
+          {
+            "url": "https://t.me/+9jzp7DYLucM4MDYx",
+            "label": "Mi Telegram"
+          }
+        ]
+      }
+    },
+    "chronological_reconstruction_utc": [
+      {
+        "timestamp": "2026-10-07T07:30:47Z",
+        "source": "TipsterZone public tipsters row",
+        "event": "Creation of 'Astra' tipster profile (slug='astra', country='MX', single_price_mxn=99, subscription_price_mxn=499) linking to https://t.me/+9jzp7DYLucM4MDYx."
+      },
+      {
+        "timestamp": "2026-10-08T21:29:49Z",
+        "source": "PIR RDAP (tipsterzone.org)",
+        "event": "Registration of sister domain tipsterzone.org on Cloudflare nameservers javon/princess."
+      },
+      {
+        "timestamp": "2026-10-18T00:48:31Z",
+        "source": "EAS R2 Last-Modified (astra-ai.expo.app)",
+        "event": "First Expo SDK 58 web deployment of Astra AI to astra-ai.expo.app (/metadata.json & __expo-metro-runtime)."
+      },
+      {
+        "timestamp": "2026-10-18T14:26:42Z",
+        "source": "EAS R2 Last-Modified",
+        "event": "Upload of /favicon.ico (14,510 B)."
+      },
+      {
+        "timestamp": "2026-10-20T15:02:49Z",
+        "source": "EAS R2 Last-Modified + mod_0766/0769",
+        "event": "Upload of match-background.jpeg (126,252 B) and 9 Google Fonts (.woff2); legal documents dated '20 de octubre de 2026'."
+      },
+      {
+        "timestamp": "2026-10-22T03:21:11Z",
+        "source": "EAS R2 Last-Modified",
+        "event": "Upload of /manifest.webmanifest and PWA icons (/icons/apple-touch-icon.png, astra-192.png, astra-512.png); tabs _layout and pago/[id] built at 22:24:12Z."
+      },
+      {
+        "timestamp": "2026-10-28T20:21:55Z",
+        "source": "EAS R2 Last-Modified",
+        "event": "Compilation of 18/22 route JS chunks (including nfl, mlb, nba, nhl, administracion, cuenta, nosotros, privacidad, terminos)."
+      },
+      {
+        "timestamp": "2026-11-07T17:47:41Z",
+        "source": "EAS R2 Last-Modified",
+        "event": "Update of main feed chunk index-1423f7b5e0c45b7b203640adbdc42677.js."
+      },
+      {
+        "timestamp": "2026-11-08T11:02:28Z",
+        "source": "Verisign RDAP + CertSpotter CT",
+        "event": "Registration of astraanalisis.com via Cloudflare Registrar (IANA 1910) on javon/princess.ns.cloudflare.com; Cloudflare Universal SSL wildcard certs issued (Let's Encrypt YE1 & SSL.com ECC CA 4)."
+      },
+      {
+        "timestamp": "2026-11-08T11:55:02Z",
+        "source": "CertSpotter CT + Live TLS",
+        "event": "Attachment of astraanalisis.com (11:55:02Z-11:55:10Z) and www.astraanalisis.com (11:55:37Z-11:55:46Z) as EAS Hosting Custom Domains (Google Trust Services WE1/WR1 single-SAN certs)."
+      },
+      {
+        "timestamp": "2026-11-08T13:11:22Z",
+        "source": "EAS R2 Last-Modified",
+        "event": "Current production deploy updating index.html, entry.js, __common.js, and _layout-b3da7695...js to add SITE_URL='https://astraanalisis.com' and REDIRECT_HOSTS=['astra-ai.expo.app','www.astraanalisis.com']."
+      },
+      {
+        "timestamp": "2026-11-13T11:03:27Z",
+        "source": "EAS R2 Last-Modified (astraanalysisorg-astra.expo.app)",
+        "event": "Latest web deployment on sister app tipsterzone.org / astraanalysisorg-astra.expo.app."
+      }
+    ]
+  }
+}

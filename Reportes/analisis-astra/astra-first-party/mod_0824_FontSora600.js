@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Sora_600SemiBold.37aa816f225710668f86958f18aa3fc3.woff2"},824,[]);

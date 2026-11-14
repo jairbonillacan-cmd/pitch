@@ -1,0 +1,113 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "start_url": {
+    "url": "https://astra-ai.expo.app/nosotros"
+  },
+  "environment": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200,
+      "device_scale_factor": 1
+    },
+    "locale": "es-MX",
+    "timezone": "America/Mexico_City",
+    "color_scheme": "dark",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "capture": {
+    "after_each_step": [
+      "url",
+      "history",
+      "screenshot",
+      "dom"
+    ],
+    "at_end": [
+      "url",
+      "history",
+      "screenshot"
+    ],
+    "events": [
+      "frames",
+      "network",
+      "console",
+      "page-errors"
+    ],
+    "network": {
+      "request_body": false,
+      "response_body": true,
+      "header_values": true
+    },
+    "limits": {
+      "max_events": 25000,
+      "max_event_allocation_bytes": 134217728,
+      "max_total_event_allocation_bytes": 268435456,
+      "max_network_transactions": 4096,
+      "max_network_body_bytes": 16777216,
+      "max_network_body_allocation_bytes": 134217728
+    }
+  },
+  "actions": [
+    {
+      "step_id": "wait-initial-expo-redirect",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-expo-query-hash",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://astra-ai.expo.app/nosotros#contacto",
+        "query": [
+          {
+            "name": "origen",
+            "value": {
+              "source": "literal",
+              "value": "rea"
+            }
+          },
+          {
+            "name": "utm_medium",
+            "value": {
+              "source": "literal",
+              "value": "audit"
+            }
+          }
+        ]
+      },
+      "wait_until": "commit"
+    },
+    {
+      "step_id": "wait-expo-query-hash-redirect",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    },
+    {
+      "step_id": "goto-www-redirect",
+      "timeout_ms": 15000,
+      "action": "goto",
+      "destination": {
+        "url": "https://www.astraanalisis.com/nosotros#terminos",
+        "query": [
+          {
+            "name": "host",
+            "value": {
+              "source": "literal",
+              "value": "www"
+            }
+          }
+        ]
+      },
+      "wait_until": "commit"
+    },
+    {
+      "step_id": "wait-www-redirect",
+      "action": "wait_for_timeout",
+      "duration_ms": 5000
+    }
+  ]
+}

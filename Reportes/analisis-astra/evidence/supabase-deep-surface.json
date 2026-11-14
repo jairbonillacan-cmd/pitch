@@ -1,0 +1,2981 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-11-14T19:08:00Z",
+  "analyst_role": "Subagent 3B (Wave 2) — Offline Forensics of Recorded Captures, @supabase/supabase-js v2.118.0 Internals, Overfetching & Repository Resilience",
+  "analysis_mode": "100% local & offline (zero external HTTP requests)",
+  "rea_evidence_ledger": {
+    "wave2_subagent_3b_generated": [
+      {
+        "evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+        "operation": "analyze_javascript_application",
+        "target": "Reportes/analisis-astra/modules (source_paths: mod_0936..mod_0978)",
+        "subject_sha256": "21dd834642548799b79561f4527d5feed1ab489cb4780cfa0a4e1a349eb57796",
+        "metrics": {
+          "parsed_files": 43,
+          "selected_bytes": 275806,
+          "ast_nodes": 71500,
+          "parse_failures": 0,
+          "findings": 23,
+          "data_flow": 43866,
+          "call_flow": 1483,
+          "promise_ownership": 558,
+          "timers": 37,
+          "requests": 5
+        },
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_f0c2ce34cdbf2707cd4da658103aaf317bdc098a169fba05709051c9f2daffc5",
+        "operation": "inspect_analysis_view (summary)",
+        "parent_evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_0b9b4ca937598659b4d21df5a3cc6633c6024cf6b292e4caa1d39bd091990509",
+        "operation": "inspect_analysis_view (modules)",
+        "parent_evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_330821a082ff440d87bef30ba438d8c82210a6c2bc5ccb73f95617607ede47f0",
+        "operation": "inspect_analysis_view (item: mod_0936_supabase-js.js)",
+        "parent_evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+        "artifact_sha256": "4c9451aaf18c7b8ae7585bbe593987e17601c97e8ae06bc5e67b7768066abd5a",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_9cc9d041a22380baa7775b9c60e0cc87d61f845e8996fcd07670a030d4ffa503",
+        "operation": "inspect_analysis_view (item: mod_0970_auth-js_GoTrueClient.js)",
+        "parent_evidence_id": "ev_cbf3b3d820cb123fa3cf6053f089c95c4bdbd0fb904dbd8f584ad5fa1752c557",
+        "artifact_sha256": "cc2e13e5f4d0b483b9882d8a0a5610bb67396897e8de29ae6be70e849e41888a",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_e572cc534777d16efe96f3b8de72766fdb3ccca5558ba7253c9897580fcc5c18",
+        "operation": "analyze_javascript_application",
+        "target": "Reportes/analisis-astra/astra-first-party (16 repository/client/service modules)",
+        "subject_sha256": "a75a10b23cf3e976df10993e1d0b351ab79c533938aa744758fafe4b141bf357",
+        "metrics": {
+          "parsed_files": 16,
+          "selected_bytes": 31817,
+          "ast_nodes": 9082,
+          "parse_failures": 0,
+          "findings": 34,
+          "data_flow": 5881,
+          "promise_ownership": 88,
+          "timers": 12
+        },
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_2e4cb4ae18ee7040acb49d711f1dbb895119fb6777e5e0ea4ab58058d3d48b2a",
+        "operation": "inspect_analysis_view (summary)",
+        "parent_evidence_id": "ev_e572cc534777d16efe96f3b8de72766fdb3ccca5558ba7253c9897580fcc5c18",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_9a34a3fe91662a8025fc1362a15afe654201a6992355671b29a2efacf3d8c1d2",
+        "operation": "inspect_analysis_view (modules)",
+        "parent_evidence_id": "ev_e572cc534777d16efe96f3b8de72766fdb3ccca5558ba7253c9897580fcc5c18",
+        "epistemic_status": "OBSERVADO"
+      },
+      {
+        "evidence_id": "ev_56aa2d7c5b4019cb1248ab8fa63f39055c7f42f1e0a405b83390c196855bb432",
+        "operation": "inspect_analysis_view (environment-manifest)",
+        "parent_evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+        "epistemic_status": "INFERIDO (projected from OBSERVADO capture)"
+      },
+      {
+        "evidence_id": "ev_62349ffbb1a2ab2730e4e5671eae6a3fedc2c2dccc88722f3b186368cd6128fe",
+        "operation": "inspect_analysis_view (environment-coverage)",
+        "parent_evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+        "epistemic_status": "INFERIDO (projected from OBSERVADO capture)"
+      }
+    ],
+    "wave1_parent_captures_audited": [
+      {
+        "file": "01-landing-capture.json",
+        "evidence_id": "ev_65da2d799f8e38fb47969ed42788d109282794ea80635bed7d2772a7977cc222",
+        "total_http_transactions": 26,
+        "supabase_transactions": 6,
+        "outcomes": {
+          "finished": 20,
+          "unfinished": 6
+        },
+        "header_values_captured": false,
+        "note": "Capture ran with capture.network.header_values=false; header_names and request/response bodies are retained, and cryptographic Evidence hash verified via REA inspect_analysis_view."
+      },
+      {
+        "file": "02-authenticated-tour.json",
+        "evidence_id": "ev_42e6c7319eb27372b49758df47887b2764d276a39d760c6d6f0874b7f5d03bc6",
+        "total_http_transactions": 273,
+        "supabase_transactions": 32,
+        "outcomes": {
+          "finished": 269,
+          "failed": 4
+        },
+        "header_values_captured": false,
+        "note": "Full 273-transaction authenticated tour; header_names, elapsed_ms, RUM beacons, and response bodies retained (post-capture password/JWT sanitization applied)."
+      },
+      {
+        "file": "03-futbol-summary.json",
+        "evidence_id": "ev_fc43c6696ef7a62da591fe98b66a05d96f17be9fcbb4d51ab6e6d9c4c60b57d3",
+        "duration_ms": 56419,
+        "supabase_transactions": 38,
+        "events_retained": 1466,
+        "events_dropped": 32
+      },
+      {
+        "file": "04-us-sports-summary.json",
+        "evidence_id": "ev_ae93e5b0dd674307ba47ef7bc3b4deb222bbd235d3dabb26bcfec8634219f46c",
+        "duration_ms": 147172,
+        "supabase_transactions": 67,
+        "events_retained": 2590,
+        "events_dropped": 0
+      },
+      {
+        "file": "05-equipos-institucional-summary.json",
+        "evidence_id": "ev_b2082a83f40b298b1f62d60e156ccb00dfa1bb20161c30653505db326b4395e3",
+        "duration_ms": 126671,
+        "supabase_transactions": 94,
+        "events_retained": 3067,
+        "events_dropped": 0
+      },
+      {
+        "file": "06-mlb-y-historial-summary.json",
+        "evidence_id": "ev_b24b4829a5c7f11fb2e112bbe5fbe70dc4ff30a2a7546d50e6b0f7af41b1a064",
+        "duration_ms": 24015,
+        "supabase_transactions": 17,
+        "events_retained": 796,
+        "events_dropped": 0
+      }
+    ]
+  },
+  "sdk_bundle_forensics": {
+    "common_bundle_file": "__common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+    "common_bundle_bytes": 662415,
+    "entry_bundle_bytes": 626512,
+    "supabase_suite_version": "2.118.0",
+    "supabase_43_modules_bytes": 275806,
+    "supabase_43_pct_of_common": 41.64,
+    "url_polyfill_6_modules_bytes": 23959,
+    "url_polyfill_6_pct_of_common": 3.62,
+    "combined_network_sdk_49_modules_bytes": 299765,
+    "combined_network_sdk_pct_of_common": 45.25,
+    "dead_whole_modules_bytes_in_network_sdk": 124049,
+    "dead_whole_modules_pct_of_network_sdk": 41.38,
+    "dead_whole_modules_pct_of_common": 18.73,
+    "first_party_demo_fixtures_dead_bytes": 3567,
+    "packages": [
+      {
+        "package": "react-native-url-polyfill@4.0.0",
+        "module_ids": [
+          "mod_0930",
+          "mod_0931",
+          "mod_0932",
+          "mod_0933",
+          "mod_0934",
+          "mod_0935"
+        ],
+        "module_count": 6,
+        "bytes": 23959,
+        "pct_of_common_bundle": 3.62,
+        "usage_classification": "redundant_on_web",
+        "modules": [
+          {
+            "id": "mod_0930",
+            "file": "mod_0930___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 73,
+            "sha256": "bfb4fd25ceb6e5927b2867dd7c3c1f8ccd9c30e0a3fd5de83a16fca2daa73822"
+          },
+          {
+            "id": "mod_0931",
+            "file": "mod_0931___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 732,
+            "sha256": "04024198386de8f2ad5d66283c1c230dfc897ec4e480fe33ddbd8369c8f2a9e8"
+          },
+          {
+            "id": "mod_0932",
+            "file": "mod_0932___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 137,
+            "sha256": "1425e95a3cd3ab43a565fdbfd4f351ed7283d2dd04918eb26e86bb4efc0eb278"
+          },
+          {
+            "id": "mod_0933",
+            "file": "mod_0933___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2489,
+            "sha256": "cd868a0bf4d981e23e6599d3572c7716c2f02d9f5584848b161e807cf991e16b"
+          },
+          {
+            "id": "mod_0934",
+            "file": "mod_0934___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 20312,
+            "sha256": "81dbd9b8237ffdaa7587fffc03ea16a2112b038e937dd8cdc94ef8d4c520d378"
+          },
+          {
+            "id": "mod_0935",
+            "file": "mod_0935___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 216,
+            "sha256": "78618a96458938f656eb128435df5ac5431b31154d2c319c65269b9ee7cbe89b"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/supabase-js@2.118.0",
+        "module_ids": [
+          "mod_0936",
+          "mod_0937"
+        ],
+        "module_count": 2,
+        "bytes": 13077,
+        "pct_of_common_bundle": 1.97,
+        "usage_classification": "active_core",
+        "modules": [
+          {
+            "id": "mod_0936",
+            "file": "mod_0936___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 12707,
+            "sha256": "4c9451aaf18c7b8ae7585bbe593987e17601c97e8ae06bc5e67b7768066abd5a"
+          },
+          {
+            "id": "mod_0937",
+            "file": "mod_0937___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 370,
+            "sha256": "7aa059a8e59e0cd8dc38a06d09761640bde83c74a3464f2d293091c32434d1e5"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/functions-js@2.118.0",
+        "module_ids": [
+          "mod_0938",
+          "mod_0939",
+          "mod_0941",
+          "mod_0942"
+        ],
+        "module_count": 4,
+        "bytes": 4740,
+        "pct_of_common_bundle": 0.72,
+        "usage_classification": "active_core",
+        "modules": [
+          {
+            "id": "mod_0938",
+            "file": "mod_0938___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 748,
+            "sha256": "1692d26e2b63e7ed2a4df6cd4a014ebeb94ce84ed72c7d0b3aa467824be2c7a2"
+          },
+          {
+            "id": "mod_0939",
+            "file": "mod_0939___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2329,
+            "sha256": "879ee28b0a8a7a6a3ac524d7c4da1afb28257433d695fcb1569d1830a942d265"
+          },
+          {
+            "id": "mod_0941",
+            "file": "mod_0941___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 229,
+            "sha256": "30731cad1e227bda925c2773dd82c130356d82e3c5134fdf677261c031f536f8"
+          },
+          {
+            "id": "mod_0942",
+            "file": "mod_0942___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1434,
+            "sha256": "eff284cb8d456b4ff7214b555a4c3780d40a5fc39c12f9b71a0805e0664382ed"
+          }
+        ]
+      },
+      {
+        "package": "tslib (Supabase helper)",
+        "module_ids": [
+          "mod_0940"
+        ],
+        "module_count": 1,
+        "bytes": 11360,
+        "pct_of_common_bundle": 1.71,
+        "usage_classification": "active_helper",
+        "modules": [
+          {
+            "id": "mod_0940",
+            "file": "mod_0940___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 11360,
+            "sha256": "e765c6c8b7c6e2dfa3c256dbd856a41a37887d0c11254f9267f988a244875c6f"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/postgrest-js@2.118.0",
+        "module_ids": [
+          "mod_0943"
+        ],
+        "module_count": 1,
+        "bytes": 18641,
+        "pct_of_common_bundle": 2.81,
+        "usage_classification": "active_core",
+        "modules": [
+          {
+            "id": "mod_0943",
+            "file": "mod_0943___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 18641,
+            "sha256": "098bedd2247095c6ac367e828864f8707b5b5efa21f6cd40df65d3041bbb314c"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/realtime-js@2.118.0",
+        "module_ids": [
+          "mod_0944",
+          "mod_0945",
+          "mod_0946",
+          "mod_0947",
+          "mod_0948",
+          "mod_0949",
+          "mod_0950",
+          "mod_0951",
+          "mod_0952",
+          "mod_0953",
+          "mod_0954",
+          "mod_0955",
+          "mod_0956",
+          "mod_0957",
+          "mod_0958"
+        ],
+        "module_count": 15,
+        "bytes": 67131,
+        "pct_of_common_bundle": 10.13,
+        "usage_classification": "dead_code_100pct",
+        "modules": [
+          {
+            "id": "mod_0944",
+            "file": "mod_0944___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1477,
+            "sha256": "805d9f2fe7acde26a1fa0faaa259cfdd2374b0a5b73467f9007794ec61da45e0"
+          },
+          {
+            "id": "mod_0945",
+            "file": "mod_0945___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 9729,
+            "sha256": "c4b5a8c87b78027573c441749a4415c5f2d344d83b35cb84ae51cb4e23921213"
+          },
+          {
+            "id": "mod_0946",
+            "file": "mod_0946___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2188,
+            "sha256": "bc4f77c7d0be1dee99311c8a4d3516f564568bf5fa313f95187153544d29898f"
+          },
+          {
+            "id": "mod_0947",
+            "file": "mod_0947___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1844,
+            "sha256": "e3c79cae55d79068e0245e449286df9ef92b993bcf3eb7ef77e8da270798fdbe"
+          },
+          {
+            "id": "mod_0948",
+            "file": "mod_0948___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 193,
+            "sha256": "07c5c8987056e2d4f333cc5f9ed10e0fd8de91c241a54319789922af5b2bcbd4"
+          },
+          {
+            "id": "mod_0949",
+            "file": "mod_0949___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 3784,
+            "sha256": "8a0f70b9e82afd531ffa32066446b800a83f59247acd2b1837661b1a0724004e"
+          },
+          {
+            "id": "mod_0950",
+            "file": "mod_0950___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2939,
+            "sha256": "85e2c23820fce756adad0e42764467c111b76068d3395cdd55bc9c380c416723"
+          },
+          {
+            "id": "mod_0951",
+            "file": "mod_0951___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 11480,
+            "sha256": "b1de562177193e4b50842b6cfaddce366437ed2ba2d7b3f3e2df7b76140960b6"
+          },
+          {
+            "id": "mod_0952",
+            "file": "mod_0952___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 561,
+            "sha256": "a3db1233303b715b74cd0c7e6e4b156e665a6558c2496b864f25bd6605b666c0"
+          },
+          {
+            "id": "mod_0953",
+            "file": "mod_0953___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1289,
+            "sha256": "e841687d0d0bca6500dfa70f24589c71ea890f7f19dbe69317858fd0849975fa"
+          },
+          {
+            "id": "mod_0954",
+            "file": "mod_0954___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 25954,
+            "sha256": "0a5c87699565fa0f58a2c5f1347d90502fa8b574927fec4700c71253182ea115"
+          },
+          {
+            "id": "mod_0955",
+            "file": "mod_0955___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 510,
+            "sha256": "c94bb1f2a40cf4a5aaa30b5000943cf0f27616bf0ac7f1b4b6848d75f4d61b37"
+          },
+          {
+            "id": "mod_0956",
+            "file": "mod_0956___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1853,
+            "sha256": "b0fe70c765eedc45efe5ff95029d56ee5646cfe59426b8d0ae8c96990be942db"
+          },
+          {
+            "id": "mod_0957",
+            "file": "mod_0957___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1466,
+            "sha256": "62cf8c329452da408ff809b32da80714cfac080365c7c105443fb196043d8076"
+          },
+          {
+            "id": "mod_0958",
+            "file": "mod_0958___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1864,
+            "sha256": "ff3856aab105fab823ebf7839def2b4dda86402ed54b00669d913b881bb65cd3"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/storage-js@2.118.0",
+        "module_ids": [
+          "mod_0959",
+          "mod_0960"
+        ],
+        "module_count": 2,
+        "bytes": 32447,
+        "pct_of_common_bundle": 4.9,
+        "usage_classification": "partially_dead",
+        "modules": [
+          {
+            "id": "mod_0959",
+            "file": "mod_0959___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 25764,
+            "sha256": "efe58f2da0281959c798fe32e686ed8d9e74fbc897ed41d6366b8a638dabb68c"
+          },
+          {
+            "id": "mod_0960",
+            "file": "mod_0960___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 6683,
+            "sha256": "1671786736587699ea15f47aa1f3267430e1e4c453ab14a51b86a4d0286a132a"
+          }
+        ]
+      },
+      {
+        "package": "@supabase/auth-js@2.118.0",
+        "module_ids": [
+          "mod_0961",
+          "mod_0962",
+          "mod_0963",
+          "mod_0964",
+          "mod_0965",
+          "mod_0966",
+          "mod_0967",
+          "mod_0968",
+          "mod_0969",
+          "mod_0970",
+          "mod_0971",
+          "mod_0972",
+          "mod_0973",
+          "mod_0974",
+          "mod_0975",
+          "mod_0976",
+          "mod_0977",
+          "mod_0978"
+        ],
+        "module_count": 18,
+        "bytes": 128410,
+        "pct_of_common_bundle": 19.39,
+        "usage_classification": "partially_dead",
+        "modules": [
+          {
+            "id": "mod_0961",
+            "file": "mod_0961___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1387,
+            "sha256": "23ae8f1465c39aa21c332bf97cf5f9a780aa85a3de461c34eb26331627c47d1c"
+          },
+          {
+            "id": "mod_0962",
+            "file": "mod_0962___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 9077,
+            "sha256": "4c5a8d849c76571697834ed0e1010441c796897fcbededd1ee7cf0cb2809757e"
+          },
+          {
+            "id": "mod_0963",
+            "file": "mod_0963___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 4065,
+            "sha256": "6a3a175806dec6fc3eefc2d21212da34515daa617d0a1248beaa44e72ef0f95a"
+          },
+          {
+            "id": "mod_0964",
+            "file": "mod_0964___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 1767,
+            "sha256": "c08559696482d84842deac82b69f6004a16517c4920a61365ea54e27616f1be9"
+          },
+          {
+            "id": "mod_0965",
+            "file": "mod_0965___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 193,
+            "sha256": "6c94831076750cc71e6df5b4f43c79168c925abf2ec5acef526cae61f80b1211"
+          },
+          {
+            "id": "mod_0966",
+            "file": "mod_0966___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 8968,
+            "sha256": "df0a036b3b5d1444bd65cd46c732f5464392d01196bbc7c93c44157ae0c19413"
+          },
+          {
+            "id": "mod_0967",
+            "file": "mod_0967___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 4230,
+            "sha256": "ed3570c73358c74f3387ca8d4e390a85e00069ed1232f90cc28169eb9c902130"
+          },
+          {
+            "id": "mod_0968",
+            "file": "mod_0968___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2684,
+            "sha256": "716794b5b1e7423a674e7e0ad15c18756995a6c6fa6e7d01c6cfae7ce625b6ba"
+          },
+          {
+            "id": "mod_0969",
+            "file": "mod_0969___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 219,
+            "sha256": "50e888cfadc17b0fcb186e3ac4f7023f2f6e12cfc6e1cee2fead9b30dfe8a098"
+          },
+          {
+            "id": "mod_0970",
+            "file": "mod_0970___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 73726,
+            "sha256": "cc2e13e5f4d0b483b9882d8a0a5610bb67396897e8de29ae6be70e849e41888a"
+          },
+          {
+            "id": "mod_0971",
+            "file": "mod_0971___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 225,
+            "sha256": "9ce456269a7b22bba1d827edac58a3d41947b76607b57773493e8ea15e5eb601"
+          },
+          {
+            "id": "mod_0972",
+            "file": "mod_0972___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 4024,
+            "sha256": "d55c5a3bf768db97aadb455632066556a38a3c0452787b9865c7194a1e38948b"
+          },
+          {
+            "id": "mod_0973",
+            "file": "mod_0973___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 399,
+            "sha256": "491149aeecd2d3363dcdb01066f648e82c5ec4789a949f347d98d80bdf6d6ca9"
+          },
+          {
+            "id": "mod_0974",
+            "file": "mod_0974___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 2063,
+            "sha256": "b204e88462d952d579b8873a77f0952b0950cc3eb850d494d556b04e7b5afb9c"
+          },
+          {
+            "id": "mod_0975",
+            "file": "mod_0975___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 10224,
+            "sha256": "67f02bb62cf3e3b02f1b8e1f8893ad340a1883a539c8d7247f84f7a840efb506"
+          },
+          {
+            "id": "mod_0976",
+            "file": "mod_0976___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 4665,
+            "sha256": "97161fc74112c3ef57e6548b064fadd0607ef3203395b52e9952f59e007ee542"
+          },
+          {
+            "id": "mod_0977",
+            "file": "mod_0977___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 247,
+            "sha256": "8a1a7a22c3527e9ce535a75eee0c190a3eb1e7e450addf448632dc2aed7f2fa4"
+          },
+          {
+            "id": "mod_0978",
+            "file": "mod_0978___common-a2fe500f62154dabe8c8c7eb8fa31525.js",
+            "bytes": 247,
+            "sha256": "260542c221e942a378607d8bb646e544c629d3b17786fd02d6c0f6be131942b8"
+          }
+        ]
+      }
+    ],
+    "dead_code_inventory": [
+      {
+        "component": "@supabase/realtime-js@2.118.0 (Phoenix Channels + WebSocket + Presence + Broadcast + Serializer)",
+        "module_ids": [
+          "mod_0944",
+          "mod_0945",
+          "mod_0946",
+          "mod_0947",
+          "mod_0948",
+          "mod_0949",
+          "mod_0950",
+          "mod_0951",
+          "mod_0952",
+          "mod_0953",
+          "mod_0954",
+          "mod_0955",
+          "mod_0956",
+          "mod_0957",
+          "mod_0958"
+        ],
+        "bytes": 67131,
+        "reason": "0 .channel() calls in Astra; SupabaseClient._initRealtimeClient instantiates RealtimeClient and _listenForAuthEvents calls setAuth(), defeating tree-shaking, while connect() is never called (0 WebSockets observed)."
+      },
+      {
+        "component": "react-native-url-polyfill@4.0.0 + whatwg-url-without-unicode",
+        "module_ids": [
+          "mod_0930",
+          "mod_0931",
+          "mod_0932",
+          "mod_0933",
+          "mod_0934",
+          "mod_0935"
+        ],
+        "bytes": 23959,
+        "reason": "Imported unconditionally by mod_0778_SupabaseClientConfig.js (auto.js), overwriting native Chromium/Blink globalThis.URL and globalThis.URLSearchParams on Web."
+      },
+      {
+        "component": "GoTrue WebAuthn / Passkeys API & CBOR/Base64URL helpers",
+        "module_ids": [
+          "mod_0975",
+          "mod_0976"
+        ],
+        "bytes": 14889,
+        "reason": "Astra only uses email+password and Google OAuth; zero auth.mfa or passkey calls."
+      },
+      {
+        "component": "GoTrueAdminApi (service_role user administration)",
+        "module_ids": [
+          "mod_0962",
+          "mod_0977"
+        ],
+        "bytes": 9324,
+        "reason": "Instantiated as auth.admin on GoTrueClient; unusable with sb_publishable_ key and never referenced by first-party code."
+      },
+      {
+        "component": "Storage Analytics IcebergRestCatalog",
+        "module_ids": [
+          "mod_0960"
+        ],
+        "bytes": 6683,
+        "reason": "Exported on StorageClient.analytics; never called by Astra (only profile-avatars upload/remove/createSignedUrl used)."
+      },
+      {
+        "component": "GoTrue Web3 / Sign-In-With-Ethereum (SIWE)",
+        "module_ids": [
+          "mod_0974"
+        ],
+        "bytes": 2063,
+        "reason": "signInWithWeb3 never called in Astra."
+      }
+    ],
+    "internal_constants_and_mechanics": {
+      "supabase_url": "https://bbfjdshvlcynngjdkvsk.supabase.co",
+      "publishable_key_redacted": "sb_publishable_MgTkWL...<REDACTED>...Wdlx",
+      "x_client_info": {
+        "supabase_js_web": "supabase-js/2.118.0; runtime=web",
+        "gotrue_internal_default": "gotrue-js/2.118.0 (overridden to supabase-js/2.118.0; runtime=web via mod_0936 headers)",
+        "storage_internal_default": "storage-js/2.118.0 (overridden via mod_0936 headers)",
+        "realtime_internal_default": "realtime-js/2.118.0 (Phoenix VSN 2.0.0)"
+      },
+      "gotrue_api_versions": {
+        "header_name": "X-Supabase-Api-Version",
+        "active_version": "2024-01-01",
+        "epoch_timestamp_ms": 1704067200000
+      },
+      "sb_publishable_and_omitApiKeyAsBearer": {
+        "validator_prefixes_accepted": [
+          "sb_publishable_",
+          "sb_secret_"
+        ],
+        "console_warn_exempt_prefixes": [
+          "sb_publishable_",
+          "sb_secret_",
+          "sb_temp_"
+        ],
+        "postgrest_and_storage_anonymous": "omitApiKeyAsBearer=false (default) -> sends BOTH `apikey: sb_publishable_...` AND `Authorization: Bearer sb_publishable_...`",
+        "functions_invoke_anonymous": "this.functionsFetch sets `{omitApiKeyAsBearer: true}` -> OMITS `Authorization` header when session token is null and key starts with `sb_publishable_`, sending ONLY `apikey`!",
+        "auth_gotrue_anonymous": "_initSupabaseAuthClient hardcodes `Authorization: Bearer ${supabaseKey}` + `apikey: ${supabaseKey}`"
+      },
+      "auth_session_and_pkce_vs_implicit": {
+        "configured_options_in_mod_0778": {
+          "persistSession": true,
+          "autoRefreshToken": true,
+          "detectSessionInUrl": false,
+          "storage": "AsyncStorage (localStorage wrapper on web)"
+        },
+        "effective_flowType": "implicit (default in GoTrueClient when flowType is omitted)",
+        "storageKey": "sb-bbfjdshvlcynngjdkvsk-auth-token",
+        "pkce_verifier_key_template": "sb-bbfjdshvlcynngjdkvsk-auth-token-code-verifier",
+        "PKCE_MAX_CONCURRENT_FLOWS": 5,
+        "PKCE_FLOW_ID_PARAM": "sb_flow_id",
+        "AUTO_REFRESH_TICK_DURATION_MS": 30000,
+        "AUTO_REFRESH_TICK_THRESHOLD_TICKS": 3,
+        "EXPIRY_MARGIN_MS": 90000,
+        "REFRESH_FAILURE_COOLDOWN_MS": 60000,
+        "JWKS_TTL_MS": 600000,
+        "navigator_lock": "navigator.locks.request('lock:sb-bbfjdshvlcynngjdkvsk-auth-token', {mode: 'exclusive'}) with steal:true recovery on AbortError",
+        "architectural_mismatch": "mod_0778 leaves flowType='implicit' and detectSessionInUrl=false, yet mod_0756 (/confirmado) and mod_0767 (/restablecer) manually parse BOTH ?code= (exchangeCodeForSession) and #access_token (setSession). Because flowType is implicit, resetPasswordForEmail/signUp never store a PKCE code_verifier in localStorage!"
+      },
+      "postgrest_retry_and_openapi": {
+        "retry_enabled_by_default": true,
+        "max_retries": 3,
+        "backoff_ms": [
+          1000,
+          2000,
+          4000
+        ],
+        "retryable_methods": [
+          "GET",
+          "HEAD",
+          "OPTIONS"
+        ],
+        "retryable_statuses": [
+          520,
+          503
+        ],
+        "post_rpc_retried": false,
+        "openapi_spec_helper": "supabase.getOpenApiSpec() -> GET /rest/v1/ with Accept: application/openapi+json",
+        "synthetic_errors": {
+          "PGRST116": "Synthesized client-side with HTTP 406 in maybeSingle() when array length > 1"
+        }
+      }
+    }
+  },
+  "recorded_network_and_gateway_telemetry": {
+    "total_recorded_transactions_01_06": 515,
+    "total_supabase_transactions_01_06": 254,
+    "epistemic_note_on_upstream_headers": {
+      "header_names_status": "OBSERVADO across all 289 responses in 01-landing-capture.json and 02-authenticated-tour.json.",
+      "header_values_status": "DESCONOCIDO (not_requested) because Wave 1 capture_browser_scenario ran with parameters.capture.network.header_values=false.",
+      "client_wire_elapsed_ms_status": "OBSERVADO with sub-millisecond precision via Playwright request-finished.elapsed_ms across 289 completed transactions in 01 & 02.",
+      "gateway_header_presence_findings": {
+        "x-envoy-upstream-service-time": "Present on 32/32 (100%) completed Supabase responses in 02-authenticated-tour.json (PostgREST + GoTrue).",
+        "x-envoy-attempt-count": "Present on 32/32 (100%) completed Supabase responses.",
+        "sb-gateway-version": "Present on 32/32 (100%) completed Supabase responses.",
+        "sb-jwt-alg_sb-jwt-iss_sb-jwt-sub": "Present on 30/30 authenticated PostgREST responses (step >= 5), ABSENT on anonymous sb_publishable_ RPC call (request-20 step 0) — proving Gateway-level JWT verification vs opaque publishable key translation!",
+        "sb-auth-session-id_sb-auth-user-id_sb-auth-refresh-token-prefix": "Present exclusively on POST /auth/v1/token response (request-21 step 4).",
+        "cf-cache-status": "Present on 18/20 responses in 01 and 225/269 responses in 02 (Cloudflare edge on astraanalisis.com and supabase.co).",
+        "server-timing": "Present on 19/20 responses in 01 and 129/269 responses in 02.",
+        "bunnycdn_headers_on_api_sports": "76/76 responses from media.api-sports.io carry cdn-cache, cdn-pullzone, cdn-edgestorageid, cdn-requesttime (median client latency 734.05 ms — slowest origin!)."
+      }
+    },
+    "supabase_endpoints": [
+      {
+        "endpoint": "GET /rest/v1/astra_picks",
+        "method": "GET",
+        "path": "/rest/v1/astra_picks",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 12,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 5,
+          "04-us-sports-summary.json": 4,
+          "05-equipos-institucional-summary.json": 3
+        },
+        "http_statuses": {
+          "200": 12
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 12,
+          "min": 2,
+          "p50": 2.0,
+          "p95": 42,
+          "max": 42,
+          "mean": 8.67,
+          "total": 104
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=pick&sport=eq.nba&match_id=eq.401909296",
+            "count": 3
+          },
+          {
+            "query": "select=pick&sport=eq.futbol&match_id=eq.1636276",
+            "count": 2
+          },
+          {
+            "query": "select=pick&sport=eq.futbol&match_id=eq.1550951",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.futbol&match_id=eq.1528974",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.futbol&match_id=eq.1570024",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.nba&match_id=eq.401909980",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.nhl&match_id=eq.2026020312",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.nhl&match_id=eq.2026020310",
+            "count": 1
+          },
+          {
+            "query": "select=pick&sport=eq.nfl&match_id=eq.401873063",
+            "count": 1
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "GET /rest/v1/fixtures",
+        "method": "GET",
+        "path": "/rest/v1/fixtures",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 25,
+        "calls_by_capture": {
+          "01-landing-capture.json": 1,
+          "02-authenticated-tour.json": 4,
+          "03-futbol-summary.json": 7,
+          "04-us-sports-summary.json": 6,
+          "05-equipos-institucional-summary.json": 6,
+          "06-mlb-y-historial-summary.json": 1
+        },
+        "http_statuses": {
+          "None": 1,
+          "200": 24
+        },
+        "client_elapsed_ms_01_02": {
+          "n": 4,
+          "min": 159.81,
+          "p50": 255.19,
+          "p95": 392.0,
+          "max": 392.0,
+          "mean": 265.55,
+          "total": 1062.2
+        },
+        "response_bytes_01_06": {
+          "n": 20,
+          "min": 196,
+          "p50": 48594.0,
+          "p95": 48596,
+          "max": 48596,
+          "mean": 30462.05,
+          "total": 609241
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=id,kickoff,status,elapsed,round,home_goals,away_goals,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),forecast_ready,analysis_ready,mark:match_marks(label)&kickoff=gte.2026-11-14T06:00:00.000Z&kickoff=lt.2026-11-15T06:00:00.000Z&order=kickoff.asc",
+            "count": 12
+          },
+          {
+            "query": "select=id,kickoff,status,elapsed,round,home_goals,away_goals,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),forecast_ready,analysis_ready,mark:match_marks(label)&kickoff=gte.2026-11-14T00:00:00.000Z&kickoff=lt.2026-11-15T00:00:00.000Z&order=kickoff.asc",
+            "count": 5
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.2282,away_id.eq.2282)&order=kickoff.desc&limit=30",
+            "count": 3
+          },
+          {
+            "query": "select=id,season,kickoff,status,elapsed,round,venue,referee,home_goals,away_goals,ft_home,ft_away,forecast_ready,analysis_ready,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),prediction:predictions(*),analysis:analyses(sections,created_at)&id=eq.1636276",
+            "count": 2
+          },
+          {
+            "query": "select=id,season,kickoff,status,elapsed,round,venue,referee,home_goals,away_goals,ft_home,ft_away,forecast_ready,analysis_ready,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),prediction:predictions(*),analysis:analyses(sections,created_at)&id=eq.1550951",
+            "count": 1
+          },
+          {
+            "query": "select=id,season,kickoff,status,elapsed,round,venue,referee,home_goals,away_goals,ft_home,ft_away,forecast_ready,analysis_ready,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),prediction:predictions(*),analysis:analyses(sections,created_at)&id=eq.1528974",
+            "count": 1
+          },
+          {
+            "query": "select=id,season,kickoff,status,elapsed,round,venue,referee,home_goals,away_goals,ft_home,ft_away,forecast_ready,analysis_ready,league:leagues!inner(id,name,country,logo,flag,sort_order),home:teams!fixtures_home_id_fkey(id,name,logo),away:teams!fixtures_away_id_fkey(id,name,logo),prediction:predictions(*),analysis:analyses(sections,created_at)&id=eq.1570024",
+            "count": 1
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [
+          "accept-language",
+          "accept-profile",
+          "apikey",
+          "authorization",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "user-agent",
+          "x-client-info"
+        ],
+        "observed_response_header_names_01_02": [
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "alt-svc",
+          "cf-cache-status",
+          "cf-ray",
+          "content-encoding",
+          "content-location",
+          "content-profile",
+          "content-range",
+          "content-type",
+          "date",
+          "priority",
+          "sb-gateway-version",
+          "sb-jwt-alg",
+          "sb-jwt-iss",
+          "sb-jwt-sub",
+          "sb-project-ref",
+          "sb-request-id",
+          "server",
+          "server-timing",
+          "strict-transport-security",
+          "vary",
+          "x-content-type-options",
+          "x-envoy-attempt-count",
+          "x-envoy-upstream-service-time"
+        ]
+      },
+      {
+        "endpoint": "GET /rest/v1/game_predictions",
+        "method": "GET",
+        "path": "/rest/v1/game_predictions",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 9,
+        "calls_by_capture": {
+          "05-equipos-institucional-summary.json": 9
+        },
+        "http_statuses": {
+          "200": 9
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 9,
+          "min": 2425,
+          "p50": 2483,
+          "p95": 3375,
+          "max": 3375,
+          "mean": 2761,
+          "total": 24849
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=game_id,context,generated_at&game_id=in.(401909990,401909296,401909967,401909960,401909940,401909926,401909910,401909280,401909886,401909878,401909863,401909095)&order=generated_at.desc&limit=1&sport=eq.nba",
+            "count": 3
+          },
+          {
+            "query": "select=game_id,context,generated_at&game_id=in.(2026020312,2026020305,2026020271,2026020253,2026020248,2026020234,2026020217,2026020203,2026020190,2026020180,2026020166)&order=generated_at.desc&limit=1&sport=eq.nhl",
+            "count": 3
+          },
+          {
+            "query": "select=game_id,context,generated_at&game_id=in.(401873058,401873045,401873033,401873022)&order=generated_at.desc&limit=1&sport=eq.nfl",
+            "count": 3
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "GET /rest/v1/games",
+        "method": "GET",
+        "path": "/rest/v1/games",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 92,
+        "calls_by_capture": {
+          "01-landing-capture.json": 4,
+          "02-authenticated-tour.json": 16,
+          "03-futbol-summary.json": 8,
+          "04-us-sports-summary.json": 30,
+          "05-equipos-institucional-summary.json": 28,
+          "06-mlb-y-historial-summary.json": 6
+        },
+        "http_statuses": {
+          "None": 4,
+          "200": 88
+        },
+        "client_elapsed_ms_01_02": {
+          "n": 16,
+          "min": 132.93,
+          "p50": 164.16,
+          "p95": 299.08,
+          "max": 416.86,
+          "mean": 200.83,
+          "total": 3213.26
+        },
+        "response_bytes_01_06": {
+          "n": 88,
+          "min": 2,
+          "p50": 391.0,
+          "p95": 6376,
+          "max": 6376,
+          "mean": 1800.56,
+          "total": 158449
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nhl&start_time=gte.2026-11-14T06:00:00.000Z&start_time=lt.2026-11-15T06:00:00.000Z&order=start_time.asc",
+            "count": 12
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nba&start_time=gte.2026-11-14T06:00:00.000Z&start_time=lt.2026-11-15T06:00:00.000Z&order=start_time.asc",
+            "count": 12
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.mlb&start_time=gte.2026-11-14T06:00:00.000Z&start_time=lt.2026-11-15T06:00:00.000Z&order=start_time.asc",
+            "count": 12
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nfl&start_time=gte.2026-11-14T06:00:00.000Z&start_time=lt.2026-11-15T06:00:00.000Z&order=start_time.asc",
+            "count": 12
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nhl&start_time=gte.2026-11-14T00:00:00.000Z&start_time=lt.2026-11-15T00:00:00.000Z&order=start_time.asc",
+            "count": 5
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nba&start_time=gte.2026-11-14T00:00:00.000Z&start_time=lt.2026-11-15T00:00:00.000Z&order=start_time.asc",
+            "count": 5
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.mlb&start_time=gte.2026-11-14T00:00:00.000Z&start_time=lt.2026-11-15T00:00:00.000Z&order=start_time.asc",
+            "count": 5
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nfl&start_time=gte.2026-11-14T00:00:00.000Z&start_time=lt.2026-11-15T00:00:00.000Z&order=start_time.asc",
+            "count": 5
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,venue,forecast_ready,analysis_ready,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.nba&id=eq.401909296",
+            "count": 3
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.18,away_id.eq.18)&order=start_time.desc&limit=30&sport=eq.nba",
+            "count": 3
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.16,away_id.eq.16)&order=start_time.desc&limit=30&sport=eq.nhl",
+            "count": 3
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.12,away_id.eq.12)&order=start_time.desc&limit=30&sport=eq.nfl",
+            "count": 3
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.19,away_id.eq.19)&order=start_time.desc&limit=30&sport=eq.mlb",
+            "count": 3
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nfl&start_time=gte.2026-11-15T06:00:00.000Z&start_time=lt.2026-11-16T06:00:00.000Z&order=start_time.asc",
+            "count": 2
+          },
+          {
+            "query": "select=id,home_id&forecast_ready=eq.true&or=(home_id.eq.119,away_id.eq.119)&order=start_time.desc&limit=30&sport=eq.mlb",
+            "count": 2
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,venue,forecast_ready,analysis_ready,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.nba&id=eq.401909980",
+            "count": 1
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,venue,forecast_ready,analysis_ready,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.nhl&id=eq.2026020312",
+            "count": 1
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,venue,forecast_ready,analysis_ready,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.nhl&id=eq.2026020310",
+            "count": 1
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),forecast_ready,analysis_ready&sport=eq.nfl&start_time=gte.2026-11-16T06:00:00.000Z&start_time=lt.2026-11-17T06:00:00.000Z&order=start_time.asc",
+            "count": 1
+          },
+          {
+            "query": "select=sport,id,league,start_time,status,detail,home_score,away_score,venue,forecast_ready,analysis_ready,home:sport_teams!games_home_fkey(id,name,abbrev,logo),away:sport_teams!games_away_fkey(id,name,abbrev,logo),prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.nfl&id=eq.401873063",
+            "count": 1
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [
+          "accept-language",
+          "accept-profile",
+          "apikey",
+          "authorization",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "user-agent",
+          "x-client-info"
+        ],
+        "observed_response_header_names_01_02": [
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "alt-svc",
+          "cf-cache-status",
+          "cf-ray",
+          "content-encoding",
+          "content-length",
+          "content-location",
+          "content-profile",
+          "content-range",
+          "content-type",
+          "date",
+          "priority",
+          "sb-gateway-version",
+          "sb-jwt-alg",
+          "sb-jwt-iss",
+          "sb-jwt-sub",
+          "sb-project-ref",
+          "sb-request-id",
+          "server",
+          "server-timing",
+          "strict-transport-security",
+          "vary",
+          "x-content-type-options",
+          "x-envoy-attempt-count",
+          "x-envoy-upstream-service-time"
+        ]
+      },
+      {
+        "endpoint": "GET /rest/v1/match_live",
+        "method": "GET",
+        "path": "/rest/v1/match_live",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 12,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 4,
+          "04-us-sports-summary.json": 5,
+          "05-equipos-institucional-summary.json": 3
+        },
+        "http_statuses": {
+          "200": 12
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 12,
+          "min": 2,
+          "p50": 3469.0,
+          "p95": 5719,
+          "max": 6061,
+          "mean": 2436.08,
+          "total": 29233
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.nba&match_id=eq.401909296",
+            "count": 4
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.futbol&match_id=eq.1550951",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.futbol&match_id=eq.1528974",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.futbol&match_id=eq.1570024",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.futbol&match_id=eq.1636276",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.nba&match_id=eq.401909980",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.nhl&match_id=eq.2026020312",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.nhl&match_id=eq.2026020310",
+            "count": 1
+          },
+          {
+            "query": "select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.nfl&match_id=eq.401873063",
+            "count": 1
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "GET /rest/v1/predictions",
+        "method": "GET",
+        "path": "/rest/v1/predictions",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 3,
+        "calls_by_capture": {
+          "05-equipos-institucional-summary.json": 3
+        },
+        "http_statuses": {
+          "200": 3
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 3,
+          "min": 2089,
+          "p50": 2089,
+          "p95": 2089,
+          "max": 2089,
+          "mean": 2089,
+          "total": 6267
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=fixture_id,context,generated_at&fixture_id=in.(1550951,1551034,1551025,1551014,1551007,1551001)&order=generated_at.desc&limit=1",
+            "count": 3
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "GET /rest/v1/profiles",
+        "method": "GET",
+        "path": "/rest/v1/profiles",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 31,
+        "calls_by_capture": {
+          "02-authenticated-tour.json": 5,
+          "03-futbol-summary.json": 2,
+          "04-us-sports-summary.json": 6,
+          "05-equipos-institucional-summary.json": 15,
+          "06-mlb-y-historial-summary.json": 3
+        },
+        "http_statuses": {
+          "200": 31
+        },
+        "client_elapsed_ms_01_02": {
+          "n": 5,
+          "min": 130.03,
+          "p50": 177.81,
+          "p95": 343.61,
+          "max": 343.61,
+          "mean": 220.58,
+          "total": 1102.9
+        },
+        "response_bytes_01_06": {
+          "n": 31,
+          "min": 142,
+          "p50": 142,
+          "p95": 142,
+          "max": 142,
+          "mean": 142,
+          "total": 4402
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=id,display_name,created_at,avatar_path&id=eq.08c96e3b-087d-4b97-8f34-5405b9be7f64",
+            "count": 31
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [
+          "accept-language",
+          "accept-profile",
+          "apikey",
+          "authorization",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "user-agent",
+          "x-client-info"
+        ],
+        "observed_response_header_names_01_02": [
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "alt-svc",
+          "cf-cache-status",
+          "cf-ray",
+          "content-encoding",
+          "content-location",
+          "content-profile",
+          "content-range",
+          "content-type",
+          "date",
+          "priority",
+          "sb-gateway-version",
+          "sb-jwt-alg",
+          "sb-jwt-iss",
+          "sb-jwt-sub",
+          "sb-project-ref",
+          "sb-request-id",
+          "server",
+          "server-timing",
+          "strict-transport-security",
+          "vary",
+          "x-content-type-options",
+          "x-envoy-attempt-count",
+          "x-envoy-upstream-service-time"
+        ]
+      },
+      {
+        "endpoint": "GET /rest/v1/standings",
+        "method": "GET",
+        "path": "/rest/v1/standings",
+        "subsystem": "postgrest_table",
+        "total_calls_recorded": 2,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 2
+        },
+        "http_statuses": {
+          "200": 2
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 2,
+          "min": 2,
+          "p50": 1861.0,
+          "p95": 3720,
+          "max": 3720,
+          "mean": 1861,
+          "total": 3722
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "select=team_id,group_name,rank,points,played,goal_diff,team:teams(id,name,logo)&league_id=eq.262&season=eq.2026&order=rank.asc",
+            "count": 1
+          },
+          {
+            "query": "select=team_id,group_name,rank,points,played,goal_diff,team:teams(id,name,logo)&league_id=eq.5&season=eq.2026&order=rank.asc",
+            "count": 1
+          }
+        ],
+        "unique_request_bodies": [],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "POST /auth/v1/token",
+        "method": "POST",
+        "path": "/auth/v1/token",
+        "subsystem": "auth_gotrue",
+        "total_calls_recorded": 5,
+        "calls_by_capture": {
+          "02-authenticated-tour.json": 1,
+          "03-futbol-summary.json": 1,
+          "04-us-sports-summary.json": 1,
+          "05-equipos-institucional-summary.json": 1,
+          "06-mlb-y-historial-summary.json": 1
+        },
+        "http_statuses": {
+          "200": 5
+        },
+        "client_elapsed_ms_01_02": {
+          "n": 1,
+          "min": 445.31,
+          "p50": 445.31,
+          "p95": 445.31,
+          "max": 445.31,
+          "mean": 445.31,
+          "total": 445.31
+        },
+        "response_bytes_01_06": {
+          "n": 5,
+          "min": 2381,
+          "p50": 2382,
+          "p95": 2382,
+          "max": 2382,
+          "mean": 2381.6,
+          "total": 11908
+        },
+        "unique_query_parameter_signatures": [
+          {
+            "query": "grant_type=password",
+            "count": 5
+          }
+        ],
+        "unique_request_bodies": [
+          {
+            "body": "{\"email\": \"laded35829@chuwel.com\", \"gotrue_meta_security\": {}, \"password\":\"<REDACTED>\"}",
+            "count": 4
+          },
+          {
+            "body": "{\"email\":\"laded35829@chuwel.com\",\"password\":\"<REDACTED>\",\"gotrue_meta_security\":{}}",
+            "count": 1
+          }
+        ],
+        "observed_request_header_names_01_02": [
+          "accept-language",
+          "apikey",
+          "authorization",
+          "content-type",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "user-agent",
+          "x-client-info",
+          "x-supabase-api-version"
+        ],
+        "observed_response_header_names_01_02": [
+          "access-control-allow-credentials",
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "alt-svc",
+          "cf-cache-status",
+          "cf-ray",
+          "content-encoding",
+          "content-type",
+          "date",
+          "priority",
+          "sb-auth-refresh-token-prefix",
+          "sb-auth-session-id",
+          "sb-auth-user-id",
+          "sb-gateway-version",
+          "sb-project-ref",
+          "sb-request-id",
+          "server",
+          "server-timing",
+          "strict-transport-security",
+          "vary",
+          "x-content-type-options",
+          "x-envoy-attempt-count",
+          "x-envoy-upstream-service-time"
+        ]
+      },
+      {
+        "endpoint": "POST /functions/v1/league-standings",
+        "method": "POST",
+        "path": "/functions/v1/league-standings",
+        "subsystem": "edge_function",
+        "total_calls_recorded": 4,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 1,
+          "04-us-sports-summary.json": 2,
+          "05-equipos-institucional-summary.json": 1
+        },
+        "http_statuses": {
+          "200": 4
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 4,
+          "min": 5387,
+          "p50": 6839.0,
+          "p95": 8118,
+          "max": 8118,
+          "mean": 6795.75,
+          "total": 27183
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{\"league_id\": 5, \"season\": 2026, \"sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"sport\": \"nba\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"sport\": \"nhl\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"sport\": \"nfl\"}",
+            "count": 1
+          }
+        ],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "POST /functions/v1/match-odds",
+        "method": "POST",
+        "path": "/functions/v1/match-odds",
+        "subsystem": "edge_function",
+        "total_calls_recorded": 5,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 2,
+          "04-us-sports-summary.json": 2,
+          "05-equipos-institucional-summary.json": 1
+        },
+        "http_statuses": {
+          "200": 5
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 5,
+          "min": 111,
+          "p50": 129,
+          "p95": 136,
+          "max": 136,
+          "mean": 125.4,
+          "total": 627
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{\"match_id\": 1550951, \"sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 1528974, \"sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 401909980, \"sport\": \"nba\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 2026020312, \"sport\": \"nhl\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 401873063, \"sport\": \"nfl\"}",
+            "count": 1
+          }
+        ],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "POST /functions/v1/nba-players",
+        "method": "POST",
+        "path": "/functions/v1/nba-players",
+        "subsystem": "edge_function",
+        "total_calls_recorded": 2,
+        "calls_by_capture": {
+          "04-us-sports-summary.json": 1,
+          "05-equipos-institucional-summary.json": 1
+        },
+        "http_statuses": {
+          "200": 2
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 2,
+          "min": 13923,
+          "p50": 13923.0,
+          "p95": 13923,
+          "max": 13923,
+          "mean": 13923,
+          "total": 27846
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{\"match_id\": 401909296}",
+            "count": 2
+          }
+        ],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "POST /functions/v1/team-profile",
+        "method": "POST",
+        "path": "/functions/v1/team-profile",
+        "subsystem": "edge_function",
+        "total_calls_recorded": 8,
+        "calls_by_capture": {
+          "05-equipos-institucional-summary.json": 6,
+          "06-mlb-y-historial-summary.json": 2
+        },
+        "http_statuses": {
+          "200": 7,
+          "404": 1
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 8,
+          "min": 15,
+          "p50": 7715.5,
+          "p95": 8142,
+          "max": 8142,
+          "mean": 5264.12,
+          "total": 42113
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{\"page\": 0, \"sport\": \"futbol\", \"team_id\": 2282}",
+            "count": 1
+          },
+          {
+            "body": "{\"page\": 0, \"sport\": \"nba\", \"team_id\": 18}",
+            "count": 1
+          },
+          {
+            "body": "{\"page\": 0, \"sport\": \"nhl\", \"team_id\": 16}",
+            "count": 1
+          },
+          {
+            "body": "{\"page\": 0, \"sport\": \"nfl\", \"team_id\": 12}",
+            "count": 1
+          },
+          {
+            "body": "{\"page\": 0, \"sport\": \"mlb\", \"team_id\": 19}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 401909296, \"sport\": \"nba\", \"team_id\": 18}",
+            "count": 1
+          },
+          {
+            "body": "{\"match_id\": 401873006, \"sport\": \"nfl\", \"team_id\": 12}",
+            "count": 1
+          },
+          {
+            "body": "{\"page\": 0, \"sport\": \"mlb\", \"team_id\": 119}",
+            "count": 1
+          }
+        ],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      },
+      {
+        "endpoint": "POST /rest/v1/rpc/my_access",
+        "method": "POST",
+        "path": "/rest/v1/rpc/my_access",
+        "subsystem": "postgrest_rpc",
+        "total_calls_recorded": 37,
+        "calls_by_capture": {
+          "01-landing-capture.json": 1,
+          "02-authenticated-tour.json": 6,
+          "03-futbol-summary.json": 3,
+          "04-us-sports-summary.json": 7,
+          "05-equipos-institucional-summary.json": 16,
+          "06-mlb-y-historial-summary.json": 4
+        },
+        "http_statuses": {
+          "None": 1,
+          "200": 36
+        },
+        "client_elapsed_ms_01_02": {
+          "n": 6,
+          "min": 134.23,
+          "p50": 191.62,
+          "p95": 461.44,
+          "max": 461.44,
+          "mean": 238.9,
+          "total": 1433.4
+        },
+        "response_bytes_01_06": {
+          "n": 36,
+          "min": 318,
+          "p50": 346.0,
+          "p95": 346,
+          "max": 346,
+          "mean": 342.11,
+          "total": 12316
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{}",
+            "count": 37
+          }
+        ],
+        "observed_request_header_names_01_02": [
+          "accept-language",
+          "apikey",
+          "authorization",
+          "content-profile",
+          "content-type",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "user-agent",
+          "x-client-info"
+        ],
+        "observed_response_header_names_01_02": [
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "alt-svc",
+          "cf-cache-status",
+          "cf-ray",
+          "content-encoding",
+          "content-profile",
+          "content-range",
+          "content-type",
+          "date",
+          "priority",
+          "sb-gateway-version",
+          "sb-jwt-alg",
+          "sb-jwt-iss",
+          "sb-jwt-sub",
+          "sb-project-ref",
+          "sb-request-id",
+          "server",
+          "server-timing",
+          "strict-transport-security",
+          "vary",
+          "x-content-type-options",
+          "x-envoy-attempt-count",
+          "x-envoy-upstream-service-time"
+        ]
+      },
+      {
+        "endpoint": "POST /rest/v1/rpc/record_ai_view",
+        "method": "POST",
+        "path": "/rest/v1/rpc/record_ai_view",
+        "subsystem": "postgrest_rpc",
+        "total_calls_recorded": 7,
+        "calls_by_capture": {
+          "03-futbol-summary.json": 3,
+          "04-us-sports-summary.json": 3,
+          "05-equipos-institucional-summary.json": 1
+        },
+        "http_statuses": {
+          "204": 7
+        },
+        "client_elapsed_ms_01_02": null,
+        "response_bytes_01_06": {
+          "n": 7,
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "mean": 0,
+          "total": 0
+        },
+        "unique_query_parameter_signatures": [],
+        "unique_request_bodies": [
+          {
+            "body": "{\"p_match_id\": 1550951, \"p_sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 1528974, \"p_sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 1570024, \"p_sport\": \"futbol\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 401909980, \"p_sport\": \"nba\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 401909296, \"p_sport\": \"nba\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 2026020312, \"p_sport\": \"nhl\"}",
+            "count": 1
+          },
+          {
+            "body": "{\"p_match_id\": 401873063, \"p_sport\": \"nfl\"}",
+            "count": 1
+          }
+        ],
+        "observed_request_header_names_01_02": [],
+        "observed_response_header_names_01_02": []
+      }
+    ],
+    "non_supabase_origins_01_02": [
+      {
+        "origin": "https://a.espncdn.com",
+        "calls_01_02": 32,
+        "statuses": {
+          "200": 32
+        },
+        "outcomes": {
+          "finished": 32
+        },
+        "client_elapsed_ms": {
+          "n": 32,
+          "min": 0.22,
+          "p50": 86.1,
+          "p95": 597.43,
+          "max": 660.76,
+          "mean": 146.14,
+          "total": 4676.62
+        },
+        "captured_response_bytes": {
+          "n": 3,
+          "min": 10102,
+          "p50": 18178,
+          "p95": 19058,
+          "max": 19058,
+          "mean": 15779.33,
+          "total": 47338
+        },
+        "key_gateway_cdn_headers_observed": {}
+      },
+      {
+        "origin": "https://assets.nhle.com",
+        "calls_01_02": 27,
+        "statuses": {
+          "200": 27
+        },
+        "outcomes": {
+          "finished": 27
+        },
+        "client_elapsed_ms": {
+          "n": 27,
+          "min": 0.2,
+          "p50": 26.57,
+          "p95": 207.79,
+          "max": 208.04,
+          "mean": 56.32,
+          "total": 1520.65
+        },
+        "captured_response_bytes": {
+          "n": 27,
+          "min": 2182,
+          "p50": 4460,
+          "p95": 25866,
+          "max": 25866,
+          "mean": 7783.33,
+          "total": 210150
+        },
+        "key_gateway_cdn_headers_observed": {
+          "cf-cache-status": 27,
+          "cf-ray": 27,
+          "age": 27
+        }
+      },
+      {
+        "origin": "https://astraanalisis.com",
+        "calls_01_02": 120,
+        "statuses": {
+          "200": 108,
+          "204": 8,
+          "None": 4
+        },
+        "outcomes": {
+          "finished": 116,
+          "failed": 4
+        },
+        "client_elapsed_ms": {
+          "n": 116,
+          "min": 0.13,
+          "p50": 3.82,
+          "p95": 231.01,
+          "max": 359.85,
+          "mean": 74.08,
+          "total": 8593.21
+        },
+        "captured_response_bytes": {
+          "n": 59,
+          "min": 0,
+          "p50": 2991,
+          "p95": 23856,
+          "max": 38589,
+          "mean": 7575.8,
+          "total": 446972
+        },
+        "key_gateway_cdn_headers_observed": {
+          "cf-cache-status": 108,
+          "server-timing": 116,
+          "cf-ray": 116
+        }
+      },
+      {
+        "origin": "https://media.api-sports.io",
+        "calls_01_02": 76,
+        "statuses": {
+          "200": 76
+        },
+        "outcomes": {
+          "finished": 76
+        },
+        "client_elapsed_ms": {
+          "n": 76,
+          "min": 0.24,
+          "p50": 734.05,
+          "p95": 736.88,
+          "max": 843.66,
+          "mean": 503.96,
+          "total": 38300.67
+        },
+        "captured_response_bytes": {
+          "n": 20,
+          "min": 304,
+          "p50": 9186.0,
+          "p95": 17798,
+          "max": 17798,
+          "mean": 9841.85,
+          "total": 196837
+        },
+        "key_gateway_cdn_headers_observed": {
+          "cf-cache-status": 76,
+          "cf-ray": 76,
+          "age": 76,
+          "cdn-cache": 76,
+          "cdn-pullzone": 76,
+          "cdn-status": 76,
+          "cdn-requesttime": 76
+        }
+      },
+      {
+        "origin": "https://static.cloudflareinsights.com",
+        "calls_01_02": 6,
+        "statuses": {
+          "200": 6
+        },
+        "outcomes": {
+          "finished": 6
+        },
+        "client_elapsed_ms": {
+          "n": 6,
+          "min": 0.14,
+          "p50": 0.16,
+          "p95": 195.07,
+          "max": 195.07,
+          "mean": 63.09,
+          "total": 378.51
+        },
+        "captured_response_bytes": {
+          "n": 1,
+          "min": 31853,
+          "p50": 31853,
+          "p95": 31853,
+          "max": 31853,
+          "mean": 31853,
+          "total": 31853
+        },
+        "key_gateway_cdn_headers_observed": {
+          "cf-ray": 6
+        }
+      }
+    ]
+  },
+  "cloudflare_rum_web_vitals": {
+    "beacon_endpoint": "https://astraanalisis.com/cdn-cgi/rum?",
+    "site_token": "a2e12c4123a6420ca4eb3f4855145537",
+    "script_version": "2024.11.0 (loader) / 2026.10.1 (JS runtime), spa=2",
+    "total_rum_requests_01_02": 12,
+    "completed_204_count": 8,
+    "aborted_unload_count": 4,
+    "key_findings": {
+      "protocol": "h3 (HTTP/3 QUIC) across 100% of navigate beacons",
+      "html_shell_compression": "1,453 B transferSize vs 2,454 B decodedBodySize (40.79% wire reduction via Brotli)",
+      "fcp_zero_anomaly": "firstContentfulPaint is 0 ms across ALL 6 navigate beacons at loadEventEnd (933 ms cold / 188–280 ms warm) while firstPaint is 372 ms (/) and 440 ms (/cuenta). Root cause: empty <div id='root'></div> + 1.29 MB deferred JS + RootLayout blocking render behind 8 font loads (<LaunchSplash>).",
+      "js_heap_growth": "usedJSHeapSize grows 3.9x from 7.56 MB (initial landing) to 29.51 MB (/nfl step 10); totalJSHeapSize grows 4.4x from 9.68 MB to 42.53 MB across 5 route navigations."
+    },
+    "beacons": [
+      {
+        "capture": "01-landing-capture.json",
+        "transaction_id": "request-7",
+        "step_index": 1,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 66.751,
+        "request_bytes": 836,
+        "pageloadId": "a5938c9a-e086-445a-8280-872d5f926d3d",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 372,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 102,
+        "tcp_quic_handshake_ms": 64,
+        "ttfb_responseStart_ms": 263,
+        "responseEnd_ms": 300,
+        "domInteractive_ms": 325,
+        "domComplete_ms": 933,
+        "loadEventEnd_ms": 933,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 7564578,
+        "totalJSHeapSize_bytes": 9675126,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-7",
+        "step_index": 0,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 77.37,
+        "request_bytes": 843,
+        "pageloadId": "3ddb6e27-52ce-4954-b785-9a365e1ecfe7",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/cuenta",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 440,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 126,
+        "tcp_quic_handshake_ms": 67,
+        "ttfb_responseStart_ms": 281,
+        "responseEnd_ms": 362,
+        "domInteractive_ms": 380,
+        "domComplete_ms": 957,
+        "loadEventEnd_ms": 957,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 7757987,
+        "totalJSHeapSize_bytes": 10199427,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-31",
+        "step_index": 5,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 62.463,
+        "request_bytes": null
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-32",
+        "step_index": 5,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 59.984,
+        "request_bytes": 374,
+        "pageloadId": "89a837a0-46a5-4bc7-94e6-5cc771d86048",
+        "navigation_type": "soft-navigation",
+        "location": "https://astraanalisis.com/",
+        "referrer": "https://astraanalisis.com/cuenta",
+        "eventType": 1,
+        "firstPaint_ms": null,
+        "firstContentfulPaint_ms": null,
+        "nextHopProtocol": null,
+        "dns_ms": null,
+        "tcp_quic_handshake_ms": null,
+        "ttfb_responseStart_ms": null,
+        "responseEnd_ms": null,
+        "domInteractive_ms": null,
+        "domComplete_ms": null,
+        "loadEventEnd_ms": null,
+        "html_transferSize_bytes": null,
+        "html_decodedBodySize_bytes": null,
+        "usedJSHeapSize_bytes": null,
+        "totalJSHeapSize_bytes": null,
+        "jsHeapSizeLimit_bytes": null,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 1
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-96",
+        "step_index": 6,
+        "status": null,
+        "outcome": "failed",
+        "failure": "net::ERR_ABORTED",
+        "elapsed_ms": null,
+        "request_bytes": null
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-103",
+        "step_index": 6,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 52.614,
+        "request_bytes": 830,
+        "pageloadId": "c7665bd3-56e4-4ab1-b96e-2e34823b93ef",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/cuenta",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 0,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 0,
+        "tcp_quic_handshake_ms": 0,
+        "ttfb_responseStart_ms": 63,
+        "responseEnd_ms": 123,
+        "domInteractive_ms": 148,
+        "domComplete_ms": 280,
+        "loadEventEnd_ms": 280,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 25488798,
+        "totalJSHeapSize_bytes": 34155374,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-118",
+        "step_index": 8,
+        "status": null,
+        "outcome": "failed",
+        "failure": "net::ERR_ABORTED",
+        "elapsed_ms": null,
+        "request_bytes": null
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-125",
+        "step_index": 8,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 56.23,
+        "request_bytes": 827,
+        "pageloadId": "f10bc587-547c-46f2-9b89-7d88c8f3bb5b",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/nba",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 0,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 0,
+        "tcp_quic_handshake_ms": 0,
+        "ttfb_responseStart_ms": 74,
+        "responseEnd_ms": 148,
+        "domInteractive_ms": 166,
+        "domComplete_ms": 209,
+        "loadEventEnd_ms": 209,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 15635225,
+        "totalJSHeapSize_bytes": 35556929,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-179",
+        "step_index": 10,
+        "status": null,
+        "outcome": "failed",
+        "failure": "net::ERR_ABORTED",
+        "elapsed_ms": null,
+        "request_bytes": null
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-187",
+        "step_index": 10,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 51.342,
+        "request_bytes": 827,
+        "pageloadId": "762ee8ce-01e0-4a16-b986-a0427927e2c6",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/nfl",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 0,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 0,
+        "tcp_quic_handshake_ms": 0,
+        "ttfb_responseStart_ms": 134,
+        "responseEnd_ms": 136,
+        "domInteractive_ms": 155,
+        "domComplete_ms": 207,
+        "loadEventEnd_ms": 207,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 29510958,
+        "totalJSHeapSize_bytes": 42071818,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-226",
+        "step_index": 12,
+        "status": null,
+        "outcome": "failed",
+        "failure": "net::ERR_ABORTED",
+        "elapsed_ms": null,
+        "request_bytes": null
+      },
+      {
+        "capture": "02-authenticated-tour.json",
+        "transaction_id": "request-234",
+        "step_index": 12,
+        "status": 204,
+        "outcome": "finished",
+        "failure": null,
+        "elapsed_ms": 53.535,
+        "request_bytes": 827,
+        "pageloadId": "15be2513-12e8-4cf7-a04c-0206d2136304",
+        "navigation_type": "navigate",
+        "location": "https://astraanalisis.com/nhl",
+        "referrer": null,
+        "eventType": 1,
+        "firstPaint_ms": 0,
+        "firstContentfulPaint_ms": 0,
+        "nextHopProtocol": "h3",
+        "dns_ms": 0,
+        "tcp_quic_handshake_ms": 0,
+        "ttfb_responseStart_ms": 121,
+        "responseEnd_ms": 122,
+        "domInteractive_ms": 143,
+        "domComplete_ms": 188,
+        "loadEventEnd_ms": 188,
+        "html_transferSize_bytes": 1453,
+        "html_decodedBodySize_bytes": 2454,
+        "usedJSHeapSize_bytes": 20042256,
+        "totalJSHeapSize_bytes": 42530664,
+        "jsHeapSizeLimit_bytes": 4395630592,
+        "rum_versions": {
+          "fl": "2024.11.0",
+          "js": "2026.10.1",
+          "timings": 2
+        },
+        "browser_info": {
+          "be": "Blink",
+          "bev": "157",
+          "bv": "157",
+          "ov": "11"
+        }
+      }
+    ]
+  },
+  "payload_vs_ui_overfetching_matrix": [
+    {
+      "contract_id": "postgrest_fixtures_detail",
+      "endpoint": "GET /rest/v1/fixtures?select=...,prediction:predictions(*),analysis:analyses(sections,created_at)&id=eq.<id>",
+      "producer_module": "mod_0776_FootballRepository.js (fetchFixture + mod_1010 fetchAstraPick)",
+      "ui_consumer_modules": [
+        "mod_0784_FootballMatchDetail.js",
+        "mod_0868_MatchDetailCards.js",
+        "mod_1025_FootballAnalysisSectionsBuilder.js"
+      ],
+      "sample_file": "evidence/live-payloads/fixture-detail-sample.json",
+      "total_compact_bytes": 5090,
+      "consumed_compact_bytes": 2438,
+      "discarded_compact_bytes": 2652,
+      "overfetching_pct": 52.1,
+      "prediction_only_overfetching_pct": 89.89,
+      "sent_fields": [
+        "id",
+        "season",
+        "kickoff",
+        "status",
+        "elapsed",
+        "round",
+        "venue",
+        "referee",
+        "home_goals",
+        "away_goals",
+        "ft_home",
+        "ft_away",
+        "forecast_ready",
+        "analysis_ready",
+        "league.{id,name,country,logo,flag,sort_order}",
+        "home.{id,name,logo}",
+        "away.{id,name,logo}",
+        "prediction.{fixture_id,model_mode,lambda_home,lambda_away,p_home,p_draw,p_away,over_05,over_15,over_25,btts,corners_home,corners_away,corners_total,fouls_home,fouls_away,fouls_total,warnings,generated_at,context.{home_ratings,away_ratings,home_league,away_league,cross_league,cup_goal_level,shots,shots_on_target,possession,referee,correct_score_top3}}",
+        "analysis.{sections.{resumen,goles,tiros_de_esquina,faltas,corners_faltas,contexto,a_tener_en_cuenta},created_at}"
+      ],
+      "ui_consumed_fields": [
+        "id",
+        "season",
+        "kickoff",
+        "status",
+        "elapsed",
+        "round",
+        "venue",
+        "referee",
+        "home_goals",
+        "away_goals",
+        "ft_home",
+        "ft_away",
+        "forecast_ready",
+        "league.{id,name,country,logo}",
+        "home.{id,name,logo}",
+        "away.{id,name,logo}",
+        "prediction.{lambda_home,lambda_away,p_home,p_draw,p_away,btts,corners_home,corners_away,corners_total,fouls_total}",
+        "analysis.sections.{resumen,goles,tiros_de_esquina,faltas,contexto,a_tener_en_cuenta}"
+      ],
+      "discarded_fields": [
+        "analysis_ready",
+        "league.flag",
+        "league.sort_order",
+        "prediction.context (ENTIRE 1,865 B–2,513 B JSONB: home_ratings, away_ratings, home_league, away_league, cross_league, cup_goal_level, shots, shots_on_target, possession, referee, correct_score_top3)",
+        "prediction.over_05",
+        "prediction.over_15",
+        "prediction.over_25",
+        "prediction.fixture_id",
+        "prediction.model_mode",
+        "prediction.warnings",
+        "prediction.generated_at",
+        "prediction.fouls_home & prediction.fouls_away (shadowed whenever analysis.sections.faltas is non-empty)",
+        "analysis.sections.corners_faltas (449 B legacy combined section shadowed whenever tiros_de_esquina, faltas, or prediction exists)",
+        "analysis.created_at"
+      ]
+    },
+    {
+      "contract_id": "postgrest_games_detail",
+      "endpoint": "GET /rest/v1/games?select=...,prediction:game_predictions(rows,win,generated_at,is_retrospective),analysis:game_analyses(sections,created_at,is_retrospective)&sport=eq.<sport>&id=eq.<id>",
+      "producer_module": "mod_1011_SportsRepository.js (fetchSportGame + mod_1010 fetchAstraPick)",
+      "ui_consumer_modules": [
+        "mod_0867_SportDetail.js",
+        "mod_0868_MatchDetailCards.js"
+      ],
+      "sample_file": "evidence/live-payloads/nba-game-detail-sample.json (+ nfl/nhl samples)",
+      "total_compact_bytes": 2221,
+      "consumed_compact_bytes": 2087,
+      "discarded_compact_bytes": 134,
+      "overfetching_pct": 6.03,
+      "sent_fields": [
+        "sport",
+        "id",
+        "league",
+        "start_time",
+        "status",
+        "detail",
+        "home_score",
+        "away_score",
+        "venue",
+        "forecast_ready",
+        "analysis_ready",
+        "home.{id,name,abbrev,logo}",
+        "away.{id,name,abbrev,logo}",
+        "prediction.{rows,win,generated_at,is_retrospective}",
+        "analysis.{sections,created_at,is_retrospective}"
+      ],
+      "ui_consumed_fields": [
+        "id",
+        "league",
+        "start_time",
+        "status",
+        "detail",
+        "home_score",
+        "away_score",
+        "venue",
+        "forecast_ready",
+        "home.{id,name,abbrev,logo}",
+        "away.{id,name,abbrev,logo}",
+        "prediction.{rows,win,is_retrospective}",
+        "analysis.{sections,is_retrospective}"
+      ],
+      "discarded_fields": [
+        "sport (already passed via route prop)",
+        "analysis_ready",
+        "prediction.generated_at",
+        "analysis.created_at"
+      ]
+    },
+    {
+      "contract_id": "postgrest_hub_schedule_and_trending_fanout",
+      "endpoint": "GET /rest/v1/fixtures (48,596 B) + 4x GET /rest/v1/games (nhl, nba, mlb, nfl)",
+      "producer_module": "mod_0776_FootballRepository.js (fetchDay) + mod_1011_SportsRepository.js (fetchSportDay) + mod_0788_TrendingMatches.js",
+      "ui_consumer_modules": [
+        "mod_0773_FootballScreen.js",
+        "mod_0774_FootballLeagueList.js",
+        "mod_0786_MatchWorkspaceAndSidebar.js",
+        "mod_0788_TrendingMatches.js",
+        "mod_0790_SportScreen.js"
+      ],
+      "sample_file": "raw/02-authenticated-tour.json & raw/03-06 summaries (48,596 B fixtures + 5,902 B–8,679 B US games)",
+      "total_compact_bytes": 54283,
+      "consumed_compact_bytes": 45702,
+      "discarded_compact_bytes": 8581,
+      "overfetching_pct": 15.81,
+      "us_sport_tab_background_fixtures_overfetching_pct": 97.36,
+      "per_fixture_row_schema_overfetching_pct": 11.17,
+      "per_us_game_row_schema_overfetching_pct": 18.42,
+      "sent_fields": [
+        "fixtures: id,kickoff,status,elapsed,round,home_goals,away_goals,league(id,name,country,logo,flag,sort_order),home(id,name,logo),away(id,name,logo),forecast_ready,analysis_ready,mark(label)",
+        "games: sport,id,league,start_time,status,detail,home_score,away_score,home(id,name,abbrev,logo),away(id,name,abbrev,logo),forecast_ready,analysis_ready"
+      ],
+      "ui_consumed_fields": [
+        "fixtures (Hub): id,kickoff,status,elapsed,home_goals,away_goals,league(id,name,country,logo,flag,sort_order),home(name,logo),away(name,logo),forecast_ready,mark(label)",
+        "games (SportScreen): id,start_time,status,detail,home_score,away_score,home(id,name,logo),away(id,name,logo),forecast_ready"
+      ],
+      "discarded_fields": [
+        "fixtures: round, analysis_ready, home.id (in MatchRow), away.id (in MatchRow), all rows where forecast_ready=false (filtered in JS instead of SQL &forecast_ready=eq.true!), plus duplicated 182 B league object per fixture row",
+        "games: sport, league, analysis_ready, home.abbrev, away.abbrev, all rows where forecast_ready=false",
+        "cross-sport TrendingMatches fan-out: on /nba, /nhl, /nfl, /mlb, TrendingMatches still downloads all 48,596 B of football fixtures just to render 4 mini-cards (~917 B = 98.11% discarded); on /, 55.46% of background US sport game bytes are discarded"
+      ]
+    },
+    {
+      "contract_id": "postgrest_team_model_context_us_sports",
+      "endpoint": "GET /rest/v1/game_predictions?select=game_id,context,generated_at&game_id=in.(...)&order=generated_at.desc&limit=1&sport=eq.<sport>",
+      "producer_module": "mod_0866_TeamProfileService.js (fetchTeamModel)",
+      "ui_consumer_modules": [
+        "mod_1029_ModelTeamSummaryExtractor.js",
+        "mod_0865_TeamProfileScreen.js"
+      ],
+      "sample_file": "evidence/live-payloads/{nba,nhl,nfl}-model-context-sample.json",
+      "total_compact_bytes": 7561,
+      "consumed_compact_bytes": 576,
+      "discarded_compact_bytes": 6985,
+      "overfetching_pct": 92.38,
+      "per_sport_overfetching_pct": {
+        "nba": 93.68,
+        "nfl": 92.75,
+        "nhl": 90.61,
+        "futbol": 79.59
+      },
+      "sent_fields": [
+        "game_id",
+        "generated_at",
+        "context.digest (full match prompt digest: bajas_reportadas, forma_reciente, quarterbacks/porteros, pronostico, descanso, ratings for BOTH teams)",
+        "context.model_components (internal weights, Elo/EPA margins, xG validation metrics)"
+      ],
+      "ui_consumed_fields": [
+        "generated_at",
+        "ONLY 4–6 scalar numbers for ONE team inside context.digest.ratings[side] (NBA/NFL) or context.digest.fuerza_por_60_min[side] (NHL) or context.digest[local|visita] (MLB)"
+      ],
+      "discarded_fields": [
+        "game_id",
+        "100% of context.model_components",
+        "opponent team ratings",
+        "context.digest.bajas_reportadas",
+        "context.digest.forma_reciente",
+        "context.digest.pronostico",
+        "context.digest.quarterbacks / porteros",
+        "context.digest.descanso / componentes_del_margen"
+      ]
+    },
+    {
+      "contract_id": "edge_fn_match_odds",
+      "endpoint": "POST /functions/v1/match-odds",
+      "producer_module": "mod_1023_MatchOddsService.js (fetchMatchOdds)",
+      "ui_consumer_modules": [
+        "mod_1022_MatchOddsCard.js"
+      ],
+      "sample_file": "evidence/live-payloads/match-odds-sample.json & match-odds-us-sports-sample.json",
+      "total_compact_bytes": 129,
+      "consumed_compact_bytes": 46,
+      "discarded_compact_bytes": 83,
+      "overfetching_pct": 64.34,
+      "sent_fields": [
+        "odds.home",
+        "odds.draw",
+        "odds.away",
+        "odds.bookmaker.{id,name}",
+        "odds.updated_at"
+      ],
+      "ui_consumed_fields": [
+        "odds.home",
+        "odds.draw",
+        "odds.away"
+      ],
+      "discarded_fields": [
+        "odds.bookmaker.id (dropped in mod_1023)",
+        "odds.bookmaker.name ('Marathonbet'/'DraftKings' mapped to bookmakerName in mod_1023, NEVER rendered in mod_1022!)",
+        "odds.updated_at (mapped to updatedAt in mod_1023, NEVER rendered in mod_1022!)"
+      ]
+    },
+    {
+      "contract_id": "edge_fn_league_standings",
+      "endpoint": "POST /functions/v1/league-standings (and GET /rest/v1/standings)",
+      "producer_module": "mod_1021_StandingsService.js",
+      "ui_consumer_modules": [
+        "mod_1020_StandingsCard.js"
+      ],
+      "sample_file": "evidence/live-payloads/league-standings-sample.json & football-standings-sample.json",
+      "total_compact_bytes": 6585,
+      "consumed_compact_bytes": 5545,
+      "discarded_compact_bytes": 1040,
+      "overfetching_pct": 15.79,
+      "sent_fields": [
+        "source",
+        "updated_at",
+        "season_type",
+        "groups[].{name,rows[].{id,code,name,logo,rank,played,difference,points,record,percentage}}"
+      ],
+      "ui_consumed_fields": [
+        "groups[].name",
+        "groups[].rows[].{id,code,name,logo,rank,played} + (record,percentage for NBA/NFL/MLB OR difference,points for NHL/Futbol)"
+      ],
+      "discarded_fields": [
+        "source",
+        "updated_at",
+        "season_type",
+        "groups[].rows[].difference & points (always null in NBA/NFL/MLB)",
+        "groups[].rows[].record & percentage (unused in NHL/Futbol)",
+        "team.id duplicate of team_id in football standings"
+      ]
+    },
+    {
+      "contract_id": "edge_fn_team_profile_and_historical",
+      "endpoint": "POST /functions/v1/team-profile",
+      "producer_module": "mod_0866_TeamProfileService.js",
+      "ui_consumer_modules": [
+        "mod_0865_TeamProfileScreen.js",
+        "mod_0760_HistoricalMatchRoute.js"
+      ],
+      "sample_file": "evidence/live-payloads/team-profile-sample.json, mlb-team-profile-sample.json, historical-match-sample.json",
+      "total_compact_bytes": 7686,
+      "consumed_compact_bytes": 6624,
+      "discarded_compact_bytes": 1062,
+      "overfetching_pct": 13.82,
+      "futbol_profile_overfetching_pct": 10.6,
+      "historical_match_overfetching_pct": 1.99,
+      "sent_fields": [
+        "team.{id,name,logo,abbrev}",
+        "info.{venue,coach,country,city,founded}",
+        "summary.{games,metrics}",
+        "history[].{id,kickoff,status,league,home,away,home_score,away_score,venue,stored}",
+        "page",
+        "has_more",
+        "source",
+        "partial",
+        "updated_at"
+      ],
+      "ui_consumed_fields": [
+        "team.{name,logo}",
+        "info.{venue,coach,country,city,founded}",
+        "summary.{games,metrics}",
+        "history[].{id,kickoff,league,home,away,home_score,away_score,stored}",
+        "has_more",
+        "source",
+        "partial",
+        "updated_at"
+      ],
+      "discarded_fields": [
+        "team.id",
+        "team.abbrev",
+        "page",
+        "history[].status (20x per page — UI hardcodes ' · Final')",
+        "history[].venue (20x per page — stadium string repeated 20 times and never rendered in history list!)"
+      ]
+    },
+    {
+      "contract_id": "edge_fn_nba_players",
+      "endpoint": "POST /functions/v1/nba-players",
+      "producer_module": "mod_1027_NbaPlayersService.js",
+      "ui_consumer_modules": [
+        "mod_1026_NbaPlayersCard.js",
+        "mod_1028_NbaPlayersFormatting.js"
+      ],
+      "sample_file": "evidence/live-payloads/nba-players-sample.json",
+      "total_compact_bytes": 13923,
+      "consumed_compact_bytes": 13858,
+      "discarded_compact_bytes": 65,
+      "overfetching_pct": 0.47,
+      "sent_fields": [
+        "match_id",
+        "state",
+        "updated_at",
+        "teams[].{id,side,name,logo,players[].{id,name,photo,jersey,position,starter,did_not_play,ejected,reason,stats.{14 keys}}}"
+      ],
+      "ui_consumed_fields": [
+        "updated_at",
+        "teams[].{id,name,logo,players[].{id,name,photo,jersey,position,starter,did_not_play,ejected,reason,stats.{all 14 keys in expanded view}}}"
+      ],
+      "discarded_fields": [
+        "match_id",
+        "state",
+        "teams[].side (well-fitted contract: only 0.47% overfetching, though 11 of 14 player stats are hidden unless user expands a player row)"
+      ]
+    },
+    {
+      "contract_id": "postgrest_match_live",
+      "endpoint": "GET /rest/v1/match_live?select=sport,match_id,state,elapsed,updated_at,info,statistics,events,momentum&sport=eq.<sport>&match_id=eq.<id>",
+      "producer_module": "mod_1015_LiveMatchService.js",
+      "ui_consumer_modules": [
+        "mod_0869_MatchLiveVisualizations.js",
+        "mod_0784_FootballMatchDetail.js",
+        "mod_0867_SportDetail.js"
+      ],
+      "sample_file": "evidence/live-payloads/match-live-futbol-sample.json & match-live-nhl-sample.json",
+      "total_compact_bytes": 5344,
+      "consumed_compact_bytes": 5207,
+      "discarded_compact_bytes": 137,
+      "overfetching_pct": 2.56,
+      "nhl_live_overfetching_pct": 1.89,
+      "sent_fields": [
+        "sport",
+        "match_id",
+        "state",
+        "elapsed",
+        "updated_at",
+        "info.{city,round,venue,league,source,country,referee,halftime,momentum_method,referee_averages,period}",
+        "statistics[]",
+        "events[]",
+        "momentum[]"
+      ],
+      "ui_consumed_fields": [
+        "sport",
+        "state",
+        "elapsed",
+        "updated_at",
+        "info.{city,venue,source,country,referee,referee_averages,weather,officials}",
+        "statistics[]",
+        "events[]",
+        "momentum[]"
+      ],
+      "discarded_fields": [
+        "match_id",
+        "info.round",
+        "info.league",
+        "info.halftime",
+        "info.momentum_method",
+        "info.period"
+      ]
+    },
+    {
+      "contract_id": "postgrest_rpc_my_access_and_astra_picks",
+      "endpoint": "POST /rest/v1/rpc/my_access & GET /rest/v1/astra_picks?select=pick",
+      "producer_module": "mod_0834_AuthProvider.js & mod_1010_AstraPickService.js",
+      "ui_consumer_modules": [
+        "mod_0863_PaywallAndSubscription.js",
+        "mod_0757_AccountRoute.js",
+        "mod_0868_MatchDetailCards.js"
+      ],
+      "sample_file": "evidence/live-payloads/my-access-sample.json & astra-pick-sample.json",
+      "total_compact_bytes": 319,
+      "consumed_compact_bytes": 244,
+      "discarded_compact_bytes": 75,
+      "overfetching_pct": 23.51,
+      "astra_pick_overfetching_pct": 0.0,
+      "sent_fields": [
+        "leagues",
+        "is_admin",
+        "livemode",
+        "logged_in",
+        "price_mxn",
+        "has_access",
+        "paid_until",
+        "trial_days",
+        "iap_ios_key",
+        "period_days",
+        "contact_email",
+        "trial_ends_at",
+        "iap_product_id",
+        "iap_android_key"
+      ],
+      "ui_consumed_fields": [
+        "leagues",
+        "is_admin",
+        "livemode",
+        "logged_in",
+        "price_mxn",
+        "has_access",
+        "paid_until",
+        "trial_days",
+        "period_days",
+        "contact_email",
+        "trial_ends_at"
+      ],
+      "discarded_fields": [
+        "iap_ios_key",
+        "iap_product_id",
+        "iap_android_key",
+        "Note: iap_ios_key, iap_android_key, iap_product_id are also dead on Web because mod_0929_WebInAppPurchasesStub.js is a no-op stub."
+      ]
+    }
+  ],
+  "repository_error_and_timeout_audit": {
+    "total_modules_audited": 12,
+    "modules_with_abort_controller": 1,
+    "modules_missing_abort_controller": 11,
+    "global_supabase_timeout_configured": false,
+    "useLoad_hook_abort_on_unmount": false,
+    "repositories": [
+      {
+        "module": "mod_0776_FootballRepository.js",
+        "functions": [
+          "fetchDay",
+          "fetchFixture",
+          "searchTeams"
+        ],
+        "surfaces_used": [
+          "GET /rest/v1/fixtures",
+          "POST /rest/v1/rpc/search_teams",
+          "fetchAstraPick"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "fetchDay uses schedulePromiseCache (45s TTL + in-flight dedup); fetchFixture & searchTeams have NONE.",
+        "errors_propagated": [
+          "fetchDay throws PostgREST error",
+          "fetchFixture throws PostgREST error",
+          "searchTeams throws rpc('search_teams') error"
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "searchTeams runs 2 follow-up fixtures queries via Promise.all and completely ignores k.error and h.error, silently returning fixture: null on network/RLS failure.",
+          "fetchFixture runs fetchAstraPick in parallel, which swallows all errors into pick: null.",
+          "predictions(*) wildcard leaks entire internal model context JSONB."
+        ]
+      },
+      {
+        "module": "mod_0834_AuthProvider.js",
+        "functions": [
+          "AuthProvider",
+          "refreshProfile",
+          "refreshAccess",
+          "signOut"
+        ],
+        "surfaces_used": [
+          "auth.getSession",
+          "auth.onAuthStateChange",
+          "auth.signOut",
+          "GET /rest/v1/profiles",
+          "storage.from('profile-avatars').createSignedUrl",
+          "POST /rest/v1/rpc/my_access"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "Signed avatar URL cached in ref M with 2,700,000 ms (45m) refresh interval; my_access polled every 300,000 ms (5m).",
+        "errors_propagated": [
+          "refreshProfile throws profiles select error to caller IF awaited (used in ProfileEditor), but initial mount and 45m timer attach .catch(noop)!"
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "auth.getSession().catch(() => setReady(true)) silently marks auth ready as guest on storage corruption.",
+          "refreshAccess (rpc('my_access')) ignores error (!n && t && setAccess(t)), leaving access === null indefinitely if initial RPC fails (UI stuck on AccessLoading spinner on gated matches!).",
+          "createSignedUrl error is ignored (c?.signedUrl ?? null), silently hiding broken avatars.",
+          "signOut swallows errors via .catch(noop)."
+        ]
+      },
+      {
+        "module": "mod_0839_AdminService.js",
+        "functions": [
+          "isDashboardOwner",
+          "fetchAdminDashboard"
+        ],
+        "surfaces_used": [
+          "POST /rest/v1/rpc/admin_dashboard_metrics"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "None.",
+        "errors_propagated": [
+          "Maps PostgreSQL 42501 / PostgREST PGRST301 / 'forbidden' to 'Acceso restringido a la cuenta administradora.'; all other errors to generic 'No se pudieron cargar las métricas del panel.'"
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "Hardcodes owner email 'eliasgutierrezhr@gmail.com' in public client bundle (isDashboardOwner).",
+          "Discards original error cause/code for non-42501/PGRST301 failures."
+        ]
+      },
+      {
+        "module": "mod_0859_ProfileStorageService.js",
+        "functions": [
+          "updateDisplayName",
+          "uploadProfileAvatar",
+          "removeProfileAvatar"
+        ],
+        "surfaces_used": [
+          "PATCH /rest/v1/profiles",
+          "POST/DELETE /storage/v1/object/profile-avatars/{uid}/avatar.{ext}"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "None.",
+        "errors_propagated": [
+          "Throws Spanish user-facing Error on validation, storage upload/remove, or profiles update failure."
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "Non-atomic 2-phase write in uploadProfileAvatar: uploads blob with upsert:true, then updates profiles.avatar_path, then removes old extension paths ignoring remove errors! If profiles.update fails, uploaded blob is orphaned.",
+          "Non-atomic 2-phase delete in removeProfileAvatar: deletes all 4 avatar.{jpg,png,webp,gif} blobs BEFORE clearing profiles.avatar_path; if DB update fails, profile points to deleted object."
+        ]
+      },
+      {
+        "module": "mod_0866_TeamProfileService.js",
+        "functions": [
+          "teamSport",
+          "fetchTeamProfile",
+          "fetchHistoricalMatch",
+          "fetchTeamModel"
+        ],
+        "surfaces_used": [
+          "POST /functions/v1/team-profile",
+          "GET /rest/v1/fixtures",
+          "GET /rest/v1/games",
+          "GET /rest/v1/predictions",
+          "GET /rest/v1/game_predictions"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "fetchTeamProfile has Map cache (120s TTL, max 100 entries) WITHOUT in-flight promise deduplication; fetchHistoricalMatch and fetchTeamModel have NO cache/dedup (duplicate parallel queries observed in raw/06 request-158 & request-159!).",
+        "errors_propagated": [
+          "Throws generic Spanish Error on Edge Function or PostgREST error (Observed: HTTP 404 on MLB team_id=19 in raw/05 request-474 throws 'No se pudo cargar la información del equipo.')."
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "Swallows HTTP status distinction (404 'team not found' vs 500/timeout all become generic error).",
+          "fetchTeamModel performs 2 sequential PostgREST round-trips (limit 30 IDs, then .in() limit 1 fetching massive context JSONB) instead of 1 narrow RPC/view."
+        ]
+      },
+      {
+        "module": "mod_1010_AstraPickService.js",
+        "functions": [
+          "fetchAstraPick"
+        ],
+        "surfaces_used": [
+          "GET /rest/v1/astra_picks?select=pick"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "None.",
+        "errors_propagated": [],
+        "silent_swallows_and_edge_bugs": [
+          "100% silent error swallow: `if (error || !data) return null` — RLS denial, HTTP 500, or network failure is indistinguishable from 'no editorial pick'."
+        ]
+      },
+      {
+        "module": "mod_1011_SportsRepository.js",
+        "functions": [
+          "fetchSportDay",
+          "fetchSportGame",
+          "searchSportTeams"
+        ],
+        "surfaces_used": [
+          "GET /rest/v1/games",
+          "GET /rest/v1/sport_teams",
+          "fetchAstraPick"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "fetchSportDay uses schedulePromiseCache (45s TTL + in-flight dedup); fetchSportGame & searchSportTeams have NONE.",
+        "errors_propagated": [
+          "fetchSportDay throws PostgREST error",
+          "fetchSportGame throws PostgREST error",
+          "searchSportTeams throws sport_teams select error"
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "searchSportTeams destructures ONLY `{data: u}` on the follow-up `games` query (`error` not even destructured!), silently returning `game: null` on query failure.",
+          "Wildcard `%` and `_` in user search term `t` are NOT escaped before `.ilike('name', `%${o}%`)` (only commas stripped)."
+        ]
+      },
+      {
+        "module": "mod_1015_LiveMatchService.js",
+        "functions": [
+          "fetchLiveMatch",
+          "statNumber"
+        ],
+        "surfaces_used": [
+          "GET /rest/v1/match_live"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "None (polled every 30,000 ms via useLoad while MatchDetail/SportDetail is mounted, even after match is FT/final!).",
+        "errors_propagated": [
+          "Throws PostgREST error (`if (c) throw c`). Note: MatchDetail & SportDetail pass `error: !!z` to LiveStatistics tab only, silently hiding live fetch errors on the default 'Detalles' tab!"
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "Polling bug: `useLoad('live-futbol-'+F, H, 3e4)` in mod_0784 and mod_0867 passes unconditional `30000` ms interval regardless of whether match is upcoming, live, or finished (`FT`/`final`), unlike NbaPlayersCard!"
+        ]
+      },
+      {
+        "module": "mod_1017_AiActivityTracker.js",
+        "functions": [
+          "recordAiActivity",
+          "useAiActivity"
+        ],
+        "surfaces_used": [
+          "POST /rest/v1/rpc/record_ai_view"
+        ],
+        "abort_controller_timeout": "4000 ms (ONLY AbortController in the entire Astra codebase!)",
+        "client_cache_or_dedup": "Module-level Set `recorded` deduplicates per `${userId}:${sport}:${matchId}` for SPA lifetime.",
+        "errors_propagated": [],
+        "silent_swallows_and_edge_bugs": [
+          "Intentional fire-and-forget telemetry swallow: `.abortSignal(controller.signal).then(clear, clear)` + `catch {}`.",
+          "Adds key to `recorded` Set BEFORE RPC succeeds, so an aborted/failed view is never retried in that session."
+        ]
+      },
+      {
+        "module": "mod_1021_StandingsService.js",
+        "functions": [
+          "fetchFootballStandings",
+          "fetchSportStandings"
+        ],
+        "surfaces_used": [
+          "GET /rest/v1/standings",
+          "POST /functions/v1/league-standings"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "NO service-level cache or in-flight deduplication (polled every 300,000 ms via useLoad; re-invokes Edge Function on every mount/game switch!).",
+        "errors_propagated": [
+          "Throws PostgREST error on standings table or generic Error('No se pudo cargar la clasificación.') on Edge Function error."
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "fetchFootballStandings falls back to Edge Function `league-standings` whenever DB `standings` returns 0 rows (`!u?.length`), e.g., UEFA Nations League `league_id=5` observed in raw/03."
+        ]
+      },
+      {
+        "module": "mod_1023_MatchOddsService.js",
+        "functions": [
+          "fetchMatchOdds"
+        ],
+        "surfaces_used": [
+          "POST /functions/v1/match-odds"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "Map cache (900,000 ms / 15m TTL, max 200 entries) + Map `inflight` promise deduplication; caches `null` responses too.",
+        "errors_propagated": [
+          "Throws Error('No se pudieron cargar las cuotas.') on FunctionsError."
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "Silently returns `null` (indistinguishable from 'odds not published yet') if `data.odds.home` or `away` is <= 1 or non-finite."
+        ]
+      },
+      {
+        "module": "mod_1027_NbaPlayersService.js",
+        "functions": [
+          "fetchNbaPlayers"
+        ],
+        "surfaces_used": [
+          "POST /functions/v1/nba-players"
+        ],
+        "abort_controller_timeout": null,
+        "client_cache_or_dedup": "Map cache (45,000 ms TTL, max 60 entries) + Map `inflight` promise deduplication; empty player lists bypass cache write.",
+        "errors_propagated": [
+          "Throws Error('No se pudieron cargar las estadísticas de jugadores.') on FunctionsError or `!Array.isArray(data?.teams)`."
+        ],
+        "silent_swallows_and_edge_bugs": [
+          "No request timeout on live ESPN scraping Edge Function (`13.9 KB` payload)."
+        ]
+      }
+    ]
+  }
+}

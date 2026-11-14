@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){m.exports="/assets/assets/fonts/Sora_800ExtraBold.03b61ed53fecad7ae48be6d459045e67.woff2"},826,[]);
