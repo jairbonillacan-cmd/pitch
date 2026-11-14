@@ -13,7 +13,7 @@ Si ya implementaste el perfil con `prompts/antigravity/PROFILE.md`, reutiliza `p
 1. `AGENTS.md`, `apps/web/PRODUCT.md`, `docs/design/DESIGN_SYSTEM.md`, `docs/design/UI_LIBRARIES.md`, `docs/design/RESPONSIVE_RULES.md` y `docs/design/INTERACTION_PATTERNS.md`. Carga el skill `dataviz` antes de tocar las barras de consenso.
 2. **El diseño:** `design/canvas/social/README.md`, luego `Main.dc.html` y `Mobile.dc.html` (Para ti) y una mesa de trabajo por pestaña: `Siguiendo.dc.html`, `Consenso.dc.html` y `Ranking.dc.html`, cada una con su versión `…Mobile.dc.html`. Lee también las notas `decisiones`, `brief`, `nSiguiendo`, `nConsenso` y `nRanking` de `canvas.json`. **Las mesas de cada pestaña mandan sobre la versión simple de esa pestaña que hay en `Main.dc.html`.** Si una nota del lienzo choca con este prompt, manda este prompt.
 3. El código actual:
-   - `packages/ui/src/platform/club/SocialAndTipstarViews.tsx`, `SocialVipClubView`:
+   - `packages/ui/src/platform/club/SocialAndTipsterViews.tsx`, `SocialVipClubView`:
      - pestañas Feed, Consenso y Ranking, más un filtro aparte Todos/Siguiendo;
      - `copiedCounts` con números inventados;
      - `handleCopyPostToJournal`, que arma un pick sintético con el primer pick del partido;
@@ -31,7 +31,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
 - **Sin texto de relleno.** El encabezado es solo «Comunidad», sin subtítulo. Nada de frases de ánimo, moralejas ni explicaciones obvias; los estados vacíos dicen qué pasa y qué hacer, en una línea. Los textos de ejemplo hablan con datos: momio, momio justo y probabilidad.
 - **Copy prohibido:** «Socios VIP», «Radar Contrarian», «sobrepaga», «ROI», «IC 95 %», «Kelly», «sellar/sellado», «gana/ganó». El saldo es «Saldo», en unidades, y es público (decisión del fundador del 11 nov).
 - **Cuatro pestañas subrayadas:** Para ti · Siguiendo · Consenso · Ranking. El filtro Todos/Siguiendo desaparece: ahora es pestaña.
-- **Sello de verificado** junto al nombre de los tipstars verificados, igual que en el perfil.
+- **Sello de verificado** junto al nombre de los tipsters verificados, igual que en el perfil.
 - **Vidrio falso refinado** y prohibidos `backdrop-filter` y `filter: blur`.
 - **Perfiles de ejemplo marcados «Ejemplo»** hasta que existan cuentas.
 
@@ -60,8 +60,8 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
   - Acciones: Me gusta (`toggleSocialLike`, corazón SVG que se rellena, `aria-pressed`), Comentarios (abre el hilo), Copiar a mi bitácora (solo con `pick`) y Compartir.
   - Debajo, el primer comentario y «Ver los N comentarios». El hilo completo y el campo para responder se abren en su lugar.
 - **Siguiendo** (mesa `Siguiendo.dc.html`):
-  - arriba, una tira con los avatares de quienes sigues, «Sigues a N · X tipstars, Y socios» y «Administrar»;
-  - filtros Todos · Tipstars · Socios · Con pick abierto;
+  - arriba, una tira con los avatares de quienes sigues, «Sigues a N · X tipsters, Y socios» y «Administrar»;
+  - filtros Todos · Tipsters · Socios · Con pick abierto;
   - el feed solo con publicaciones de quienes sigues;
   - en la columna derecha, «Picks abiertos · próximos» (picks abiertos de quienes sigues, ordenados por la hora del partido y agrupados por pick, con los nombres de quién lo tiene) y «Para seguir» (3 del ranking a quienes no sigues, con Seguir).
   - En móvil, los avatares van en una fila, los filtros en chips con scroll y los picks abiertos en una tira horizontal antes del feed.
@@ -96,7 +96,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
 - Usa `rankAnalysts()` con ventanas reales: filtra por fecha, sin `windowFactor` ni `clvBoost`. Si los perfiles de ejemplo no tienen picks con fecha, deja sus cifras de temporada y en 30 días muéstralos solo si tienen datos.
 - **Como en la mesa `Ranking.dc.html`:**
   - orden por Saldo, Contra el cierre o Cumplidos;
-  - **podio** de los 3 primeros en tarjetas de vidrio (el 1.º al centro, más alto y con borde destacado): puesto, avatar, nombre + sello (solo si es tipstar), saldo grande, cumplidos, contra el cierre, picks y Seguir;
+  - **podio** de los 3 primeros en tarjetas de vidrio (el 1.º al centro, más alto y con borde destacado): puesto, avatar, nombre + sello (solo si es tipster), saldo grande, cumplidos, contra el cierre, picks y Seguir;
   - tabla del 4.º en adelante;
   - tu fila al final con «Te faltan N u para el top 10».
 - **Móvil:** el podio en fila de 3, la lista del 4.º en adelante (puesto, avatar, nombre, «N % cumplidos · N picks» y saldo) y tu fila fija abajo, sobre la lista.
@@ -158,4 +158,4 @@ Un solo aviso de vidrio: «La comunidad es para socios.» con «Probar 7 días g
 - **No hagas commit ni push.** Entrega un resumen con capturas y archivos tocados, y deja señalados estos pendientes para el fundador:
   - Guardar en el servidor publicaciones, me gusta, comentarios y seguidos (hoy viven en el navegador).
   - Moderación: reportar publicaciones y bloquear usuarios.
-  - Si «Siguiendo» debe incluir también a los tipstars que el usuario no sigue pero que publican picks gratis.
+  - Si «Siguiendo» debe incluir también a los tipsters que el usuario no sigue pero que publican picks gratis.

@@ -235,6 +235,8 @@ export async function fetchApiFootballLigaMx(options: {
     }
     const res = await fetch(url, {
       headers: { "x-apisports-key": apiKey },
+      redirect: "error",
+      signal: AbortSignal.timeout(15_000),
     });
     usedToday += 1;
     if (budgetFilePath) {

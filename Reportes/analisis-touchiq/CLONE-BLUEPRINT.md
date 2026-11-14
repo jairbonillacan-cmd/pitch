@@ -68,7 +68,7 @@ congelados (el autor los transcribe a mano) · cálculo 100% cliente · persiste
 | home/nav [119675] | `drawHome`, `lv2`, `lv1`, `clk`, `openSport`, `closeSport` | niveles LV1/LV2, iframe |
 | boleto/bankroll [122207] | `AV`, `money`, `pct`, `decO`, `esc`, `profit`, `curBank`, `unitOf`, `lsSave/Load`, `save/flush`, `saveBet`, `delBet`, `avInit`, `pushCfg`, `toast`, `renderSlip`, `BRK`, `openSlip`, `closeSlip` | estado AV + persistencia + UI del boleto |
 
-Constantes del shell: `CODE="7779"` (hardcodeada), `SP=[NFL (#1f6bff), NCAA (#e63946)]`,
+Constantes del shell: `CODE="[REDACTED_PIN]"` (hardcodeada), `SP=[NFL (#1f6bff), NCAA (#e63946)]`,
 `ROB=[robots con img webp]`, `AV={cfg:{start:1000, th:.6}, odds:{}, slip:[], bets:[], ovr, u, tab, db, base, ready, arm}`.
 
 ### script_2 — Asistente IA

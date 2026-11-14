@@ -1,0 +1,273 @@
+{
+ "event_id": 654339,
+ "incidents": [
+  {
+   "text": "Second half",
+   "type": "period",
+   "minute": 90,
+   "is_live": true,
+   "away_score": 2,
+   "home_score": 2
+  },
+  {
+   "type": "substitution",
+   "minute": 85,
+   "is_home": true,
+   "player_in": "K. Suárez",
+   "added_time": null,
+   "player_out": "A. Manyoma",
+   "player_in_id": 74885,
+   "player_out_id": 9409
+  },
+  {
+   "type": "card",
+   "minute": 85,
+   "player": "L. Sandoval",
+   "reason": "Argument",
+   "is_home": false,
+   "card_type": "yellow",
+   "player_id": 18516,
+   "added_time": null
+  },
+  {
+   "type": "card",
+   "minute": 85,
+   "player": "G. Cuéllar",
+   "reason": "Argument",
+   "is_home": true,
+   "card_type": "yellow",
+   "player_id": 619,
+   "added_time": null
+  },
+  {
+   "type": "goal",
+   "assist": "A. Manyoma",
+   "minute": 84,
+   "player": "S. Rodríguez",
+   "is_home": true,
+   "goal_type": "regular",
+   "player_id": 74711,
+   "added_time": null,
+   "away_score": 2,
+   "home_score": 2
+  },
+  {
+   "type": "card",
+   "minute": 82,
+   "player": "J. Caldera",
+   "reason": "Foul",
+   "is_home": true,
+   "card_type": "yellow",
+   "player_id": 74876,
+   "added_time": null
+  },
+  {
+   "type": "substitution",
+   "minute": 75,
+   "is_home": true,
+   "player_in": "C. Bacca",
+   "added_time": null,
+   "player_out": "J. Martínez",
+   "player_in_id": 23039,
+   "player_out_id": 74709
+  },
+  {
+   "type": "substitution",
+   "minute": 72,
+   "is_home": false,
+   "player_in": "C. Trujillo",
+   "added_time": null,
+   "player_out": "E. Valencia",
+   "player_in_id": 20057,
+   "player_out_id": 20056
+  },
+  {
+   "type": "substitution",
+   "minute": 72,
+   "is_home": false,
+   "player_in": "D. Pedrozo",
+   "added_time": null,
+   "player_out": "H. Martinez",
+   "player_in_id": 18524,
+   "player_out_id": 10330
+  },
+  {
+   "type": "substitution",
+   "minute": 67,
+   "is_home": true,
+   "player_in": "F. Viáfara",
+   "added_time": null,
+   "player_out": "E. Reynoso",
+   "player_in_id": 74702,
+   "player_out_id": 74824
+  },
+  {
+   "type": "substitution",
+   "minute": 67,
+   "is_home": true,
+   "player_in": "A. Hurtado",
+   "added_time": null,
+   "player_out": "D. Giraldo",
+   "player_in_id": 74714,
+   "player_out_id": 203
+  },
+  {
+   "type": "goal",
+   "assist": "E. Valencia",
+   "minute": 62,
+   "player": "L. Sandoval",
+   "is_home": false,
+   "goal_type": "regular",
+   "player_id": 18516,
+   "added_time": null,
+   "away_score": 2,
+   "home_score": 1
+  },
+  {
+   "type": "card",
+   "minute": 57,
+   "player": "J. Mera",
+   "reason": "Foul",
+   "is_home": false,
+   "card_type": "yellowRed",
+   "player_id": 18519,
+   "added_time": null
+  },
+  {
+   "type": "varDecision",
+   "minute": 57,
+   "player": "S. Rodríguez",
+   "is_home": true,
+   "decision": "penaltyAwarded",
+   "confirmed": false,
+   "player_id": 74711,
+   "added_time": null
+  },
+  {
+   "type": "card",
+   "minute": 54,
+   "player": "D. Giraldo",
+   "reason": "Argument",
+   "is_home": true,
+   "card_type": "yellow",
+   "player_id": 203,
+   "added_time": null
+  },
+  {
+   "type": "card",
+   "minute": 50,
+   "player": "E. Velasco",
+   "reason": "Foul",
+   "is_home": true,
+   "card_type": "yellow",
+   "player_id": 74611,
+   "added_time": null
+  },
+  {
+   "type": "goal",
+   "assist": "L. Sánchez",
+   "minute": 47,
+   "player": "L. Sandoval",
+   "is_home": false,
+   "goal_type": "regular",
+   "player_id": 18516,
+   "added_time": null,
+   "away_score": 1,
+   "home_score": 1
+  },
+  {
+   "type": "substitution",
+   "minute": 46,
+   "is_home": false,
+   "player_in": "L. Sánchez",
+   "added_time": null,
+   "player_out": "J. Hurtado",
+   "player_in_id": 66141,
+   "player_out_id": 22699
+  },
+  {
+   "type": "substitution",
+   "minute": 46,
+   "is_home": false,
+   "player_in": "L. Sandoval",
+   "added_time": null,
+   "player_out": "K. Florez",
+   "player_in_id": 18516,
+   "player_out_id": 19462
+  },
+  {
+   "type": "substitution",
+   "minute": 46,
+   "is_home": true,
+   "player_in": "S. Rodríguez",
+   "added_time": null,
+   "player_out": "J. Dinenno",
+   "player_in_id": 74711,
+   "player_out_id": 4503
+  },
+  {
+   "text": "HT",
+   "type": "period",
+   "minute": 45,
+   "is_live": false,
+   "away_score": 0,
+   "home_score": 1
+  },
+  {
+   "type": "card",
+   "minute": 45,
+   "player": "J. Mera",
+   "reason": "Foul",
+   "is_home": false,
+   "card_type": "yellow",
+   "player_id": 18519,
+   "added_time": 7
+  },
+  {
+   "type": "injuryTime",
+   "length": 7,
+   "minute": 45
+  },
+  {
+   "type": "card",
+   "minute": 35,
+   "player": "J. Dinenno",
+   "reason": "Foul",
+   "is_home": true,
+   "card_type": "yellow",
+   "player_id": 4503,
+   "added_time": null
+  },
+  {
+   "type": "varDecision",
+   "minute": 21,
+   "player": "A. Parra",
+   "is_home": false,
+   "decision": "penaltyAwarded",
+   "confirmed": false,
+   "player_id": 18515,
+   "added_time": null
+  },
+  {
+   "type": "goal",
+   "minute": 8,
+   "player": "J. Dinenno",
+   "is_home": true,
+   "goal_type": "penalty",
+   "player_id": 4503,
+   "added_time": null,
+   "away_score": 0,
+   "home_score": 1
+  },
+  {
+   "type": "card",
+   "minute": 19,
+   "player": "E. López",
+   "reason": "Argument",
+   "is_home": false,
+   "card_type": "yellow",
+   "player_id": 19461,
+   "added_time": null
+  }
+ ]
+}

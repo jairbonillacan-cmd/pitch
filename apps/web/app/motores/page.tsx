@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { MotoresPageSurface } from "@pitchlab/ui";
 
 export const metadata: Metadata = {
@@ -8,6 +9,6 @@ export const metadata: Metadata = {
     "Cinco motores propios probados fuera de muestra: Tachyon, Singularity, Minkowski, Geodesic y Cortex IA.",
 };
 
-export default function MotoresPage(): React.JSX.Element {
-  return <MotoresPageSurface />;
+export default async function MotoresPage(): Promise<React.JSX.Element> {
+  return <MotoresPageSurface hasSession={await hasPublicSessionCookie()} />;
 }

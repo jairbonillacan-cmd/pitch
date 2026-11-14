@@ -3,12 +3,230 @@
  * referido y la prueba de 7 días sin tarjeta (Mes 1), con el escudo de un solo correo por prueba.
  */
 import { createHash } from "node:crypto";
-import { and, eq } from "drizzle-orm";
+import { and, countDistinct, eq, gte, inArray, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
-import { referralGrants, trialFingerprints, users } from "./schema";
+import { referralGrants, tipsterAttributions, tipsterProfiles, trialFingerprints, users } from "./schema";
+import { ensureUserSpeiReference } from "./transfers";
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
+export const SIGNUP_CONSENT_VERSION = "2026-11-11";
+export const MAX_TRIALS_PER_DEVICE = 2;
+export const MAX_TRIALS_PER_SUBNET_24H = 3;
+
+/** Usuario: 3 a 20 caracteres, minúsculas, números y guion bajo; empieza con letra. */
+export const HANDLE_PATTERN = /^[a-z][a-z0-9_]{2,19}$/;
+
+/**
+ * Usuarios que no se pueden tomar: rutas y palabras del sistema, y los perfiles de ejemplo
+ * que ya existen en la app (Comunidad, ranking y tipsters).
+ */
+export const RESERVED_HANDLES: ReadonlySet<string> = new Set([
+  "admin", "administrador", "api", "app", "ayuda", "cuenta", "entrar", "help", "login",
+  "me", "mod", "moderador", "null", "pitchlab", "pitch_lab", "precio", "registro", "root",
+  "signup", "soporte", "staff", "support", "system", "tipstar", "tipster", "undefined", "yo",
+  "andres_l", "carlos_quant", "diego_tactico", "jair_founder", "luis_f", "mariana_t",
+  "paola_c", "rodrigo_p", "socio_pl", "sofia_nfl", "valeria_g",
+]);
+
+/** Quita la @, espacios y mayúsculas. */
+export function normalizeHandle(raw: string): string {
+  return raw.trim().replace(/^@+/, "").toLowerCase();
+}
+
+export type HandleCheck = { ok: true; handle: string } | { ok: false; reason: "formato" | "reservado" };
+
+export function checkHandleFormat(raw: string): HandleCheck {
+  const handle = normalizeHandle(raw);
+  if (!HANDLE_PATTERN.test(handle)) return { ok: false, reason: "formato" };
+  if (RESERVED_HANDLES.has(handle)) return { ok: false, reason: "reservado" };
+  return { ok: true, handle };
+}
+
+/** ¿Está libre? `exceptUserId` permite conservar el propio. */
+export async function isHandleAvailable(db: Db, handle: string, exceptUserId?: string): Promise<boolean> {
+  const where = exceptUserId
+    ? and(sql`lower(${users.handle}) = ${handle}`, ne(users.id, exceptUserId))
+    : sql`lower(${users.handle}) = ${handle}`;
+  const [row] = await db.select({ id: users.id }).from(users).where(where);
+  return !row;
+}
+
+/** Reconoce la colisión del usuario en Postgres.js y PGlite. */
+export function isHandleConflict(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const databaseError = "cause" in error ? error.cause : error;
+  if (!databaseError || typeof databaseError !== "object" || !("code" in databaseError)) return false;
+  if (databaseError.code !== "23505") return false;
+  const constraint = "constraint_name" in databaseError ? databaseError.constraint_name :
+    "constraint" in databaseError ? databaseError.constraint : null;
+  return constraint === "users_handle_unique";
+}
+
+/** Sugerencia libre a partir del nombre o del correo (para prellenar el campo). */
+export async function suggestHandle(db: Db, base: string): Promise<string> {
+  const ascii = base
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .split("@")[0]!
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^[^a-z]+/, "")
+    .replace(/_+$/, "")
+    .slice(0, 16);
+  const stem = ascii.length >= 3 ? ascii : `socio${ascii}`;
+  for (let i = 0; i < 20; i += 1) {
+    const candidate = i === 0 ? stem : `${stem.slice(0, 16)}${i + 1}`;
+    if (checkHandleFormat(candidate).ok && (await isHandleAvailable(db, candidate))) return candidate;
+  }
+  return `${stem.slice(0, 12)}${Math.floor(1000 + Math.random() * 9000)}`;
+}
+
+function cleanHandleToken(raw: string): string {
+  return raw.replace(/[^a-z0-9]/g, "");
+}
+
+function addCandidate(list: string[], seen: Set<string>, raw: string): void {
+  const clean = raw
+    .replace(/[^a-z0-9_]+/g, "_")
+    .replace(/^[^a-z]+/, "")
+    .replace(/_+/g, "_")
+    .replace(/_+$/, "")
+    .slice(0, 20);
+  if (!clean || seen.has(clean)) return;
+  if (!checkHandleFormat(clean).ok) return;
+  seen.add(clean);
+  list.push(clean);
+}
+
+/**
+ * Genera una lista ordenada de candidatos válidos para `@usuario` (sin consultar BD):
+ * combina nombre, nombre+apellido, inicial+apellido, variantes compactas y sufijos numéricos.
+ */
+export function buildHandleCandidates(bases: readonly string[], limit = 24): string[] {
+  const max = Math.max(1, Math.min(60, Math.floor(limit)));
+  const primary: string[] = [];
+  const seen = new Set<string>();
+  const fallbackStems: string[] = [];
+
+  for (const rawBase of bases) {
+    const trimmed = rawBase.trim();
+    if (!trimmed) continue;
+    // En correos tomamos solo la parte local sin +etiqueta para nunca filtrar dominios en sugerencias.
+    const local = trimmed.includes("@") ? (trimmed.split("@")[0] ?? "").split("+")[0] ?? "" : trimmed;
+    const ascii = local.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+    const tokens = ascii.split(/[^a-z0-9]+/).map(cleanHandleToken).filter(Boolean);
+    if (tokens.length === 0) continue;
+
+    const first = tokens[0] ?? "";
+    const last = tokens[tokens.length - 1] ?? "";
+    const letterFirst = first.replace(/^[^a-z]+/, "");
+    const letterLast = last.replace(/^[^a-z]+/, "");
+
+    if (tokens.length >= 2 && letterFirst.length > 0 && letterLast.length > 0) {
+      addCandidate(primary, seen, `${letterFirst}_${letterLast}`);
+      if (letterFirst.length >= 3) addCandidate(primary, seen, letterFirst);
+      addCandidate(primary, seen, `${letterFirst[0]}_${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst}${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst[0]}${letterLast}`);
+      addCandidate(primary, seen, `${letterFirst}_${letterLast[0]}`);
+    } else if (tokens.length === 1) {
+      if (letterFirst.length >= 3) {
+        addCandidate(primary, seen, letterFirst);
+      } else {
+        fallbackStems.push(`socio${tokens[0] ?? ""}`);
+      }
+    } else {
+      const joined = tokens.join("_").replace(/^[^a-z]+/, "");
+      fallbackStems.push(joined.length >= 3 ? joined : `socio${tokens.join("")}`);
+    }
+    if (primary.length >= max) break;
+  }
+
+  if (primary.length === 0) {
+    for (const stem of fallbackStems) {
+      if (primary.length >= max) break;
+      addCandidate(primary, seen, stem);
+    }
+  }
+  if (primary.length === 0) {
+    addCandidate(primary, seen, "socio");
+  }
+
+  const result = [...primary];
+  const suffixBases = primary.slice(0, 4);
+  for (let num = 2; num <= 25 && result.length < max; num += 1) {
+    const suffix = String(num);
+    for (const stem of suffixBases) {
+      if (result.length >= max) break;
+      const head = stem.slice(0, 20 - suffix.length).replace(/_+$/, "");
+      addCandidate(result, seen, `${head}${suffix}`);
+    }
+  }
+
+  return result.slice(0, max);
+}
+
+/**
+ * Devuelve hasta `count` `@usuario` distintos, válidos y libres para proponer en el registro.
+ */
+export async function suggestHandles(
+  db: Db,
+  bases: readonly string[],
+  count = 3,
+  options?: { exceptUserId?: string },
+): Promise<string[]> {
+  const target = Math.floor(count);
+  if (target <= 0) return [];
+  const capped = Math.min(10, target);
+  const candidates = buildHandleCandidates(bases, Math.max(24, capped * 8));
+
+  const takenRows =
+    candidates.length > 0
+      ? await db
+          .select({ handle: users.handle })
+          .from(users)
+          .where(
+            options?.exceptUserId
+              ? and(inArray(sql`lower(${users.handle})`, candidates), ne(users.id, options.exceptUserId))
+              : inArray(sql`lower(${users.handle})`, candidates),
+          )
+      : [];
+  const taken = new Set(
+    takenRows.map((row) => row.handle?.toLowerCase()).filter((h): h is string => Boolean(h)),
+  );
+
+  const chosen: string[] = [];
+  const pickedSet = new Set<string>();
+  for (const candidate of candidates) {
+    if (!taken.has(candidate) && !pickedSet.has(candidate)) {
+      chosen.push(candidate);
+      pickedSet.add(candidate);
+      if (chosen.length >= capped) return chosen;
+    }
+  }
+
+  // Respaldo aleatorio si todos los sufijos cortos ya estaban tomados.
+  const baseStem = (candidates[0] ?? "socio").slice(0, 12).replace(/_+$/, "") || "socio";
+  for (let attempt = 0; attempt < 24 && chosen.length < capped; attempt += 1) {
+    const candidate = `${baseStem}${Math.floor(1000 + Math.random() * 9000)}`;
+    if (
+      !pickedSet.has(candidate) &&
+      checkHandleFormat(candidate).ok &&
+      (await isHandleAvailable(db, candidate, options?.exceptUserId))
+    ) {
+      chosen.push(candidate);
+      pickedSet.add(candidate);
+    }
+  }
+  return chosen;
+}
+
+/** Nombre visible: 2 a 40 caracteres, sin saltos de línea. */
+export function cleanDisplayName(raw: string): string | null {
+  const name = raw.replace(/\s+/g, " ").trim();
+  return name.length >= 2 && name.length <= 40 ? name : null;
+}
 
 export const sha256Hex = (value: string): string => createHash("sha256").update(value).digest("hex");
 
@@ -28,6 +246,9 @@ export function ageFromIsoDate(iso: string, today: Date): number | null {
 
 export interface CompleteSignupInput {
   userId: string;
+  /** Nombre visible y usuario (@handle) elegidos en el paso 2. */
+  displayName: string;
+  handle: string;
   birthDate: string;
   termsVersion: string;
   analyticsConsent: boolean;
@@ -37,54 +258,185 @@ export interface CompleteSignupInput {
   /** Prueba sin tarjeta: solo si la bandera «Mes 1 sin tarjeta» está encendida. */
   trial: null | {
     canonicalEmail: string;
-    provider: "google" | "apple" | "email" | null;
+    provider: "google" | "email" | null;
     deviceFpHash: string;
     ipSubnetHash: string;
+    unknownDevice?: boolean;
+    unknownSubnet?: boolean;
+    turnstileRayId?: string | null;
   };
   now: Date;
 }
 
 export type CompleteSignupResult =
   | { ok: true; trial: "concedida" | "ya_usada" | "apagada"; referral: "registrado" | "ninguno" }
-  | { ok: false; reason: "fecha_invalida" | "menor_de_edad" | "sin_terminos" };
+  | {
+      ok: false;
+      reason:
+        | "fecha_invalida"
+        | "menor_de_edad"
+        | "sin_terminos"
+        | "nombre_invalido"
+        | "usuario_invalido"
+        | "usuario_reservado"
+        | "usuario_ocupado";
+    };
 
 export async function completeSignup(db: Db, input: CompleteSignupInput): Promise<CompleteSignupResult> {
   const age = ageFromIsoDate(input.birthDate, input.now);
   if (age === null || age > 120) return { ok: false, reason: "fecha_invalida" };
   if (age < MIN_SIGNUP_AGE) return { ok: false, reason: "menor_de_edad" };
   if (!input.termsVersion.trim()) return { ok: false, reason: "sin_terminos" };
+  const displayName = cleanDisplayName(input.displayName);
+  if (!displayName) return { ok: false, reason: "nombre_invalido" };
+  const handleCheck = checkHandleFormat(input.handle);
+  if (!handleCheck.ok) {
+    return { ok: false, reason: handleCheck.reason === "reservado" ? "usuario_reservado" : "usuario_invalido" };
+  }
+  try {
+    return await db.transaction(async (tx): Promise<CompleteSignupResult> => {
+      const [current] = await tx
+        .select({
+          birthDate: users.birthDate,
+          referralCode: users.referralCode,
+          isAdult: users.isAdult,
+          handle: users.handle,
+          termsAcceptedAt: users.termsAcceptedAt,
+        })
+        .from(users)
+        .where(eq(users.id, input.userId))
+        .for("update");
+      if (!current) return { ok: false, reason: "fecha_invalida" };
 
-  const [current] = await db
-    .select({ birthDate: users.birthDate, referralCode: users.referralCode })
-    .from(users)
-    .where(eq(users.id, input.userId));
-  if (!current) return { ok: false, reason: "fecha_invalida" };
+      if (current.isAdult && current.handle && current.termsAcceptedAt) {
+        const [fingerprint] = input.trial
+          ? await tx
+              .select({ userId: trialFingerprints.userId, decision: trialFingerprints.decision })
+              .from(trialFingerprints)
+              .where(eq(trialFingerprints.canonicalEmailSha256, sha256Hex(input.trial.canonicalEmail)))
+          : [];
+        const trial = fingerprint
+          ? fingerprint.userId === input.userId && fingerprint.decision === "granted"
+            ? "concedida"
+            : "ya_usada"
+          : "apagada";
+        return { ok: true, trial, referral: "ninguno" };
+      }
 
-  await db
-    .update(users)
-    .set({
-      // La primera fecha registrada no se reescribe: evita «cambiar de edad» después.
-      birthDate: current.birthDate ?? input.birthDate,
-      isAdult: true,
-      termsVersion: input.termsVersion,
-      termsAcceptedAt: input.now,
-      analyticsConsent: input.analyticsConsent,
-      marketingConsent: input.marketingConsent,
-    })
-    .where(eq(users.id, input.userId));
+      if (!(await isHandleAvailable(tx, handleCheck.handle, input.userId))) {
+        return { ok: false, reason: "usuario_ocupado" };
+      }
 
-  const referral = await attributeReferral(db, input.userId, input.referralCode, current.referralCode);
+      await tx.update(users)
+        .set({
+          displayName,
+          handle: handleCheck.handle,
+          birthDate: current.birthDate ?? input.birthDate,
+          isAdult: true,
+          termsVersion: input.termsVersion,
+          termsAcceptedAt: input.now,
+          analyticsConsent: input.analyticsConsent,
+          marketingConsent: input.marketingConsent,
+        })
+        .where(eq(users.id, input.userId));
 
+      await ensureUserSpeiReference(tx as unknown as Db, input.userId);
+
+      const referral = await attributeReferral(tx, input.userId, input.referralCode, current.referralCode);
+      return grantSignupTrial(tx, input, referral);
+    });
+  } catch (error) {
+    if (isHandleConflict(error)) return { ok: false, reason: "usuario_ocupado" };
+    throw error;
+  }
+}
+
+async function grantSignupTrial(
+  db: Db,
+  input: CompleteSignupInput,
+  referral: "registrado" | "ninguno",
+): Promise<CompleteSignupResult> {
   if (!input.trial) return { ok: true, trial: "apagada", referral };
 
   const emailSha = sha256Hex(input.trial.canonicalEmail);
+  await db.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${`trial:${emailSha}`})::bigint)`);
+  if (!input.trial.unknownDevice && input.trial.deviceFpHash) {
+    await db.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${`trial_dev:${input.trial.deviceFpHash}`})::bigint)`);
+  }
+
   const [seen] = await db
-    .select({ userId: trialFingerprints.userId })
+    .select({ userId: trialFingerprints.userId, decision: trialFingerprints.decision })
     .from(trialFingerprints)
     .where(eq(trialFingerprints.canonicalEmailSha256, emailSha));
-  if (seen && seen.userId !== input.userId) return { ok: true, trial: "ya_usada", referral };
+  if (seen) {
+    if (seen.userId !== input.userId || seen.decision !== "granted") {
+      return { ok: true, trial: "ya_usada", referral };
+    }
+  } else {
+    if (!input.trial.unknownDevice && input.trial.deviceFpHash) {
+      const [devRow] = await db
+        .select({ n: countDistinct(trialFingerprints.userId) })
+        .from(trialFingerprints)
+        .where(
+          and(
+            eq(trialFingerprints.deviceFpHash, input.trial.deviceFpHash),
+            eq(trialFingerprints.decision, "granted"),
+            ne(trialFingerprints.userId, input.userId),
+          ),
+        );
+      if (Number(devRow?.n ?? 0) >= MAX_TRIALS_PER_DEVICE) {
+        await db
+          .insert(trialFingerprints)
+          .values({
+            userId: input.userId,
+            canonicalEmail: input.trial.canonicalEmail,
+            canonicalEmailSha256: emailSha,
+            oauthProvider: input.trial.provider,
+            deviceFpHash: input.trial.deviceFpHash,
+            ipSubnetHash: input.trial.ipSubnetHash,
+            turnstileRayId: input.trial.turnstileRayId ?? null,
+            trialPhase: "month1_no_card",
+            decision: "denied_duplicate_device",
+            createdAt: input.now,
+          })
+          .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 });
+        return { ok: true, trial: "ya_usada", referral };
+      }
+    }
 
-  if (!seen) {
+    if (!input.trial.unknownSubnet && input.trial.ipSubnetHash) {
+      const since24h = new Date(input.now.getTime() - 24 * 3_600_000);
+      const [subRow] = await db
+        .select({ n: countDistinct(trialFingerprints.userId) })
+        .from(trialFingerprints)
+        .where(
+          and(
+            eq(trialFingerprints.ipSubnetHash, input.trial.ipSubnetHash),
+            eq(trialFingerprints.decision, "granted"),
+            gte(trialFingerprints.createdAt, since24h),
+            ne(trialFingerprints.userId, input.userId),
+          ),
+        );
+      if (Number(subRow?.n ?? 0) >= MAX_TRIALS_PER_SUBNET_24H) {
+        await db
+          .insert(trialFingerprints)
+          .values({
+            userId: input.userId,
+            canonicalEmail: input.trial.canonicalEmail,
+            canonicalEmailSha256: emailSha,
+            oauthProvider: input.trial.provider,
+            deviceFpHash: input.trial.deviceFpHash,
+            ipSubnetHash: input.trial.ipSubnetHash,
+            turnstileRayId: input.trial.turnstileRayId ?? null,
+            trialPhase: "month1_no_card",
+            decision: "denied_subnet_rate",
+            createdAt: input.now,
+          })
+          .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 });
+        return { ok: true, trial: "ya_usada", referral };
+      }
+    }
+
     const inserted = await db
       .insert(trialFingerprints)
       .values({
@@ -94,8 +446,10 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
         oauthProvider: input.trial.provider,
         deviceFpHash: input.trial.deviceFpHash,
         ipSubnetHash: input.trial.ipSubnetHash,
+        turnstileRayId: input.trial.turnstileRayId ?? null,
         trialPhase: "month1_no_card",
         decision: "granted",
+        createdAt: input.now,
       })
       .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 })
       .returning({ id: trialFingerprints.id });
@@ -121,7 +475,8 @@ async function attributeReferral(
   const code = (rawCode ?? "").trim().toUpperCase();
   if (!/^[A-Z0-9-]{4,24}$/.test(code) || code === ownCode) return "ninguno";
   const [host] = await db.select({ id: users.id }).from(users).where(eq(users.referralCode, code));
-  if (!host || host.id === userId) return "ninguno";
+  if (!host) return attributeTipster(db, userId, code);
+  if (host.id === userId) return "ninguno";
   const inserted = await db
     .insert(referralGrants)
     .values({ referrerUserId: host.id, referredUserId: userId, referralCodeUsed: code, status: "trial_started" })
@@ -130,11 +485,60 @@ async function attributeReferral(
   return inserted.length ? "registrado" : "ninguno";
 }
 
-/** ¿Ya completó el paso 2 (mayor de edad y términos aceptados)? */
+/**
+ * Código promocional de un tipster activo: deja la atribución para que sus pagos generen
+ * comisión (`applyInvoicePaidEffects`). El invitado conserva la prueba normal de 7 días, que
+ * ya cubre los 5 del código. Antes estos códigos se ignoraban (P0-05, auditoría 2026-11-13).
+ */
+async function attributeTipster(db: Db, userId: string, code: string): Promise<"registrado" | "ninguno"> {
+  const [tipster] = await db
+    .select({ userId: tipsterProfiles.userId, isActive: tipsterProfiles.isActive })
+    .from(tipsterProfiles)
+    .where(eq(sql`upper(${tipsterProfiles.promoCode})`, code));
+  if (!tipster || !tipster.isActive || tipster.userId === userId) return "ninguno";
+  const inserted = await db
+    .insert(tipsterAttributions)
+    .values({ tipsterUserId: tipster.userId, referredUserId: userId, promoCodeUsed: code, status: "trial_5d" })
+    .onConflictDoNothing({ target: tipsterAttributions.referredUserId })
+    .returning({ id: tipsterAttributions.id });
+  return inserted.length ? "registrado" : "ninguno";
+}
+
+/** ¿Ya completó el paso 2 (mayor de edad, términos y usuario elegido)? */
 export async function signupCompleted(db: Db, userId: string): Promise<boolean> {
   const [row] = await db
     .select({ id: users.id })
     .from(users)
-    .where(and(eq(users.id, userId), eq(users.isAdult, true)));
+    .where(
+      and(
+        eq(users.id, userId),
+        eq(users.isAdult, true),
+        isNotNull(users.handle),
+        isNotNull(users.termsAcceptedAt),
+      ),
+    );
   return Boolean(row);
+}
+
+export interface ViewerProfile {
+  handle: string | null;
+  displayName: string | null;
+  email: string;
+  referralCode: string | null;
+  avatarUrl: string | null;
+}
+
+/** Datos públicos del socio para la interfaz (nunca la fecha de nacimiento). */
+export async function viewerProfile(db: Db, userId: string): Promise<ViewerProfile | null> {
+  const [row] = await db
+    .select({
+      handle: users.handle,
+      displayName: users.displayName,
+      email: users.email,
+      referralCode: users.referralCode,
+      avatarUrl: users.avatarUrl,
+    })
+    .from(users)
+    .where(eq(users.id, userId));
+  return row ?? null;
 }

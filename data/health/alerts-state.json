@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "updatedAtUtc": "2026-11-14T16:47:23.915Z",
+  "openIncidents": {
+    "stale::momios::nfl": {
+      "incidentKey": "stale::momios::nfl",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "NFL · Momios",
+      "league": "nfl",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para NFL (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::premier-league": {
+      "incidentKey": "stale::momios::premier-league",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Premier League · Momios",
+      "league": "premier-league",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Premier League (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::laliga": {
+      "incidentKey": "stale::momios::laliga",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "LaLiga · Momios",
+      "league": "laliga",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para LaLiga (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::bundesliga": {
+      "incidentKey": "stale::momios::bundesliga",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Bundesliga · Momios",
+      "league": "bundesliga",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Bundesliga (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::serie-a": {
+      "incidentKey": "stale::momios::serie-a",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Serie A · Momios",
+      "league": "serie-a",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Serie A (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::ligue-1": {
+      "incidentKey": "stale::momios::ligue-1",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Ligue 1 · Momios",
+      "league": "ligue-1",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Ligue 1 (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    "stale::momios::liga-mx": {
+      "incidentKey": "stale::momios::liga-mx",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Liga MX · Momios",
+      "league": "liga-mx",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Liga MX (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    }
+  }
+}

@@ -260,7 +260,11 @@ export async function fetchApiFootballSeason(
   }
 
   const url = `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=${season}`;
-  const res = await fetch(url, { headers: { "x-apisports-key": apiKey.trim() } });
+  const res = await fetch(url, {
+    headers: { "x-apisports-key": apiKey.trim() },
+    redirect: "error",
+    signal: AbortSignal.timeout(15_000),
+  });
 
   usedToday += 1;
   if (budgetFilePath) {

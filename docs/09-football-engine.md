@@ -1,6 +1,6 @@
 # 09 — Motor de FÚTBOL de AztecaVet: informe técnico de reconstrucción
 
-**Fecha:** 2026-11-08 · **Fuente investigada:** https://aztecavet.com/ (acceso autorizado por el propietario, clave 7779) · **Método:** REA + análisis del bundle público decodificado (`aztecavet-analysis/`) + oráculo verbatim + paridad sobre 242 partidos.
+**Fecha:** 2026-11-08 · **Fuente investigada:** https://aztecavet.com/ (acceso autorizado por el propietario, clave [REDACTED_PIN]) · **Método:** REA + análisis del bundle público decodificado (`aztecavet-analysis/`) + oráculo verbatim + paridad sobre 242 partidos.
 **Implementación:** `src/domain/aztecavet/football.ts` · **Oráculo:** `reference/aztecavet/football-ref.mjs` · **Pruebas:** `tests/domain/aztecavet-parity.test.ts`, `aztecavet-experiments.test.ts` · **Evidencia:** `evidence/statistical-tests/aztecavet-experiments.json`, capturas REA en `evidence/screenshots/`.
 
 ---
@@ -75,4 +75,4 @@ Evidencia completa en `evidence/statistical-tests/aztecavet-experiments.json` (9
 
 ## 7. Diferencias respecto al motor original
 
-**En el cálculo: ninguna.** Las fórmulas fueron observadas directamente en el código cliente (no son privadas ni de servidor) y la implementación limpia pasa 324 tests de paridad con Δ=0 sobre los 242 partidos y 5 torneos. Las únicas diferencias del rebuild completo son deliberadas y ajenas al motor: (1) el gate de acceso se valida server-side en nuestra reconstrucción (el original compara "7779" client-side), y (2) la capa de UI es un port organizado en módulos. En cuanto al motor estadístico, la reconstrucción es **exacta** en el dominio observado; cualquier comportamiento ante datos que el bundle no contiene (equipos/ligas nuevos) está fuera del dominio observable y queda como DESCONOCIDO.
+**En el cálculo: ninguna.** Las fórmulas fueron observadas directamente en el código cliente (no son privadas ni de servidor) y la implementación limpia pasa 324 tests de paridad con Δ=0 sobre los 242 partidos y 5 torneos. Las únicas diferencias del rebuild completo son deliberadas y ajenas al motor: (1) el gate de acceso se valida server-side en nuestra reconstrucción (el original compara "[REDACTED_PIN]" client-side), y (2) la capa de UI es un port organizado en módulos. En cuanto al motor estadístico, la reconstrucción es **exacta** en el dominio observado; cualquier comportamiento ante datos que el bundle no contiene (equipos/ligas nuevos) está fuera del dominio observable y queda como DESCONOCIDO.

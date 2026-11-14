@@ -1,7 +1,7 @@
 # Prompt PREMVP-01 · Construir el pre-MVP de PitchLab (landing + acceso beta + panel de análisis)
 
 > Para: Claude Opus 5.5 (Antigravity). Prompt **autocontenido**: no conoces la conversación donde se planeó; todo lo necesario está aquí y en los documentos del repo que se citan.
-> Repo: `C:\Users\jairb\Desktop\Proyectos\Pitch Lab` · Rama base: `plan/architecture-v2` · Rama de trabajo: `feat/pre-mvp`
+> Repo: `<REPO_ROOT>` · Rama base: `plan/architecture-v2` · Rama de trabajo: `feat/pre-mvp`
 > Plantilla: `prompts/_TEMPLATE.md` (secciones A–R).
 
 ---

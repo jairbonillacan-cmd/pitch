@@ -2,27 +2,52 @@ name: Pre-MVP Snapshot Pipeline
 
 on:
   schedule:
-    # Diario a las 05:00 CDMX (11:00 UTC)
+    # Corte completo diario a las 05:00 CDMX (11:00 UTC): calendario, resultados, bajas, pulso y sync Spacetime
     - cron: "0 11 * * *"
-    # Cada 3 horas en días de jornada (jueves a lunes)
-    - cron: "0 */3 * * 0,1,4,5,6"
+    # Días de partido entre semana/viernes/lunes (previas europeas y previas NFL/Liga MX)
+    - cron: "30 17,23 * * 1,4,5"
+    # Sábado y domingo: previo a arranque europeo, media jornada + NFL 18:00 UTC y previo a noche América
+    - cron: "0 12 * * 0,6"
+    - cron: "30 16,21 * * 0,6"
+    # Cierre nocturno de marcadores finales (TNF, viernes Liga MX, fin de semana y MNF)
+    - cron: "30 4 * * 0,1,2,5,6"
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "Qué recolectar (all | schedule,injuries | schedule | injuries)"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - schedule,injuries
+          - schedule
+          - injuries
+      matchday_only:
+        description: "Limitar a ligas con partidos en la ventana activa"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: snapshot-${{ github.ref }}
+  group: data-pipeline-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   snapshot:
-    name: Generar snapshots y publicar
+    name: Generar snapshots, bajas y publicar en un solo corte
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
+    permissions:
+      contents: write
     steps:
       - name: Checkout repositorio
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Configurar pnpm
         uses: pnpm/action-setup@v4
@@ -38,50 +63,138 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
-      - name: Generar snapshots reales
+      # xG medido de Bzzoiro para el Elo de la Premier League (docs/architecture/PLAN_MOTORES_Y_FUENTES_2026_11.md §6).
+      # Sin BZZOIRO_API_KEY o si falla, el pipeline sigue con Elo de goles. La caché evita repetir
+      # partidos terminados; los datos crudos nunca se commitean (licencia).
+      - name: Restaurar caché de Bzzoiro
+        uses: actions/cache/restore@v4
+        with:
+          path: data/history/raw/bzzoiro
+          key: bzzoiro-raw-${{ github.run_id }}
+          restore-keys: bzzoiro-raw-
+
+      - name: xG de Bzzoiro para la Premier League
+        continue-on-error: true
+        env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+        run: |
+          if [ -z "$BZZOIRO_API_KEY" ]; then
+            echo "::notice title=Sin xG::Falta BZZOIRO_API_KEY; el Elo de la Premier sigue con goles."
+            exit 0
+          fi
+          # Si se corta a medias, lo juntado ya quedó guardado: se empareja igual.
+          pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=premier-league --seasons=4 --max-requests=1500             || echo "::warning title=xG incompleto::Bzzoiro no respondió completo; se usa lo juntado."
+          pnpm --filter @pitchlab/ingest history:link
+
+      - name: Guardar caché de Bzzoiro
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: data/history/raw/bzzoiro
+          key: bzzoiro-raw-${{ github.run_id }}
+
+      - name: Recolectar calendario, resultados y bajas (validados por Parte 3)
+        id: ingest
         env:
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
-        run: pnpm snapshot
-
-      # Motores y matriz de momios de Spacetime v3.0: se mejoran y regeneran en la rama
-      # prediction-lab; aquí solo se copian. Si las pruebas de los motores fallan, se
-      # descarta la copia y se conserva la versión anterior.
-      - name: Sincronizar Spacetime v3.0 desde prediction-lab
-        continue-on-error: true
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
+          BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          PITCHLAB_ADMIN_EMAILS: ${{ secrets.PITCHLAB_ADMIN_EMAILS }}
         run: |
-          git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab
-          pnpm --filter @pitchlab/spacetime sync
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MODE_ARG="--mode=${{ inputs.mode || 'all' }}"
+            MATCHDAY_ARG=""
+            if [ "${{ inputs.matchday_only }}" = "true" ]; then
+              MATCHDAY_ARG="--matchday-only"
+            fi
+          elif [ "${{ github.event.schedule }}" = "0 11 * * *" ]; then
+            MODE_ARG="--mode=all"
+            MATCHDAY_ARG=""
+          else
+            MODE_ARG="--mode=schedule,injuries"
+            MATCHDAY_ARG="--matchday-only"
+          fi
+          pnpm --filter @pitchlab/ingest exec tsx src/cli.ts "$MODE_ARG" $MATCHDAY_ARG
+
+      # SEC-10: Sincronización diaria de artefactos JSON validados (`--data-only`) en el corte de las 11:00 UTC
+      # o en ejecución manual completa, ahorrando minutos de Actions en los cortes rápidos de jornada.
+      - name: Sincronizar matriz JSON de Spacetime v3.2 desde prediction-lab (diario)
+        if: github.event.schedule == '0 11 * * *' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == ''))
+        run: |
+          discard() {
+            echo "::warning title=Spacetime sin sincronizar::$1 Se conservan los datos anteriores del motor."
+            git checkout -- packages/spacetime/data
+            git clean -fd packages/spacetime/data
+          }
+          if ! git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab; then
+            discard "No se pudo traer prediction-lab."; exit 0
+          fi
+          if ! node packages/spacetime/scripts/sync-from-prediction-lab.mjs --data-only; then
+            discard "El script de sincronización falló."; exit 0
+          fi
           if ! pnpm --filter @pitchlab/spacetime test; then
-            echo "Las pruebas de Spacetime fallaron con la copia nueva; se descarta."
-            git checkout -- packages/spacetime
-            git clean -fd packages/spacetime
+            discard "Las pruebas de Spacetime fallaron con los datos nuevos."; exit 0
           fi
 
       # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
-      # Si falla, los snapshots se publican igual.
       - name: Volumen por resultado (mercados de predicción)
+        if: inputs.mode != 'injuries'
         continue-on-error: true
         run: pnpm --filter @pitchlab/ingest exec tsx src/market-pulse-cli.ts
 
-      - name: Guardar cambios en data/snapshots
+      - name: Respaldo de Salud de datos ante caída abrupta
+        if: failure()
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
+          BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          PITCHLAB_ADMIN_EMAILS: ${{ secrets.PITCHLAB_ADMIN_EMAILS }}
+        run: pnpm --filter @pitchlab/ingest health:check --workflow=pre-mvp-snapshot --workflow-outcome=${{ steps.ingest.outcome }}
+
+      - name: Un solo commit por corrida si hubo cambios reales
+        if: always() && github.ref == 'refs/heads/main'
+        id: commit
         run: |
           git config user.name "pitchlab-bot"
           git config user.email "bot@pitchlab.app"
-          git add data/snapshots packages/spacetime
-          if git diff --staged --quiet; then
-            echo "Sin cambios en snapshots."
-          else
-            git commit -m "datos(snapshots): actualizar corte automático pre-MVP y Spacetime v3.0"
-            git push
+
+          DATA_CHANGED="false"
+          if ! git diff --quiet -- data/snapshots packages/spacetime/data || [ -n "$(git ls-files --others --exclude-standard data/snapshots packages/spacetime/data)" ]; then
+            DATA_CHANGED="true"
           fi
 
-      # `secrets` no está disponible en `if`: se evalúa dentro del shell.
-      - name: Disparar deploy hook de Vercel (opcional)
+          ALERT_CHANGED="false"
+          if ! git diff --quiet -- data/health/alerts-state.json || [ -n "$(git ls-files --others --exclude-standard data/health/alerts-state.json)" ]; then
+            ALERT_CHANGED="true"
+          fi
+
+          if [ "$DATA_CHANGED" = "true" ] || [ "$ALERT_CHANGED" = "true" ]; then
+            git add data/snapshots packages/spacetime/data data/health
+            if ! git diff --staged --quiet; then
+              git commit -m "datos(snapshots): actualizar calendario, bajas y salud en un solo corte"
+              git pull --rebase origin main
+              git push
+            fi
+          else
+            echo "Sin cambios en snapshots ni alertas nuevas; se omite commit."
+          fi
+
+          echo "data_changed=$DATA_CHANGED" >> "$GITHUB_OUTPUT"
+
+      # SEC-10: Se pasa la URL por stdin (`--config -`) y sin `-S` para jamás imprimir el secreto en logs.
+      - name: Disparar un único deploy hook de Vercel si hubo cambios
+        if: steps.commit.outputs.data_changed == 'true'
         env:
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
         run: |
           if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
-            curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+            printf 'url = "%s"\n' "$VERCEL_DEPLOY_HOOK_URL" | curl -fsL -X POST --config - >/dev/null
             echo "Deploy hook disparado."
           else
             echo "Sin deploy hook configurado; se omite."

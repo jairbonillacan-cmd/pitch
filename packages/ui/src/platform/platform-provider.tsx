@@ -18,11 +18,13 @@ import {
   journalRecord,
   redactDatasetForVisitor,
 } from "./access-guard";
+import { sanitizeCsvCell } from "./club/account/account-helpers";
 
 /** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
   journal: "pl-journal-v1",
   watchlist: "pl-watchlist-v1",
+  followAlerts: "pl-follow-alerts-v1",
   ownPosts: "pl-own-posts-v1",
 } as const;
 
@@ -78,13 +80,14 @@ interface ServerJournalRow {
   status: string;
   note: string | null;
   sealedAt: string;
+  settledAt?: string | null;
 }
 
 const SEAL_ERRORS: Record<string, string> = {
   partido_iniciado: "El partido ya empezó: no se puede sellar.",
   unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
   momio_invalido: "Momio inválido.",
-  ya_sellado: "Ese pick ya estaba sellado en tu Bitácora.",
+  ya_sellado: "Ese pick ya estaba sellado en Mi récord.",
 };
 
 function fromServerRow(row: ServerJournalRow): JournalEntry {
@@ -104,8 +107,31 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     status: row.status === "won" || row.status === "lost" ? row.status : "pending",
     sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
     sealedAtIso: new Date(row.sealedAt).toISOString(),
+    settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
     note: row.note ?? undefined,
   };
+}
+
+export interface FollowAlerts {
+  kickoff: boolean;
+  goals: boolean;
+  final: boolean;
+}
+
+export const DEFAULT_FOLLOW_ALERTS: FollowAlerts = { kickoff: true, goals: true, final: true };
+
+function sanitizeFollowAlerts(raw: Record<string, unknown>): Record<string, FollowAlerts> {
+  const out: Record<string, FollowAlerts> = {};
+  for (const [gameId, value] of Object.entries(raw)) {
+    if (!/^[a-zA-Z0-9._-]{1,128}$/.test(gameId) || !value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    out[gameId] = {
+      kickoff: v.kickoff !== false,
+      goals: v.goals !== false,
+      final: v.final !== false,
+    };
+  }
+  return out;
 }
 
 async function getJson<T>(url: string): Promise<T | null> {
@@ -156,27 +182,45 @@ function formatClvBadge(avgClvPct: number | null): string {
   return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
 }
 import {
+  fromServerComment,
+  fromServerPost,
+  isPendingPost,
+  mergeSocialPosts,
+  type ServerSocialComment,
+  type ServerSocialPost,
+} from "./social-sync";
+import {
   buildSmartAutoParlay,
   checkParlayCompatibility,
   computeParlaySummary,
 } from "./parlay-engine";
 import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
 import { attachExamplePostPicks } from "./community-examples";
+import {
+  DEFAULT_STORED_PREFS_V1,
+  formatKickoffByTimezone,
+  readStoredPrefs,
+  writeStoredPrefs,
+  type ServerProfileSummary,
+} from "./club/account/account-helpers";
 import type {
   JournalEntry,
   MatchPick,
   OddsFormat,
   ParlayLeg,
   ParlaySummary,
+  PaymentMode,
   PlatformDataset,
   PlatformGame,
   RiskBand,
   SocialPost,
+  SocialReportReason,
   ViewerRole,
+  ViewerVia,
 } from "./types";
 
 export interface ShareTicketPayload {
-  kind: "pick" | "parlay" | "tipstar";
+  kind: "pick" | "parlay" | "tipster";
   title: string;
   subtitle: string;
   leagueLabel: string;
@@ -187,8 +231,9 @@ export interface ShareTicketPayload {
   units: number;
   gameStatus: "NS" | "FT" | "LIVE";
   promoCode?: string;
-  tipstarHandle?: string;
+  tipsterHandle?: string;
   originBadge?: string;
+  pickSlug?: string;
 }
 
 export interface ToastMessage {
@@ -203,6 +248,38 @@ export interface PinUnlockResult {
   redirectTo?: string;
 }
 
+/** Quién es el socio con cuenta. Con el PIN de la beta no hay identidad (null). */
+export interface ViewerIdentity {
+  handle: string;
+  displayName: string;
+  initials: string;
+  referralCode: string | null;
+  avatarUrl?: string | null;
+}
+
+/** Usuario propio: el de la cuenta o, en la beta con PIN, el de ejemplo según el rol. */
+export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole): string {
+  if (identity) return identity.handle;
+  return role === "tipster" ? "sofia_nfl" : "socio_pl";
+}
+
+export interface SocialFeedScope {
+  following?: boolean;
+  author?: string;
+}
+
+export interface SocialFeedPageState {
+  cursor: string | null;
+  hasMore: boolean;
+  loading: boolean;
+}
+
+export function socialScopeKey(scope?: SocialFeedScope): string {
+  if (scope?.author) return `author:${scope.author.trim().toLowerCase()}`;
+  if (scope?.following) return "following";
+  return "feed";
+}
+
 export interface PlatformContextValue {
   rawDataset: PlatformDataset;
   dataset: PlatformDataset;
@@ -211,6 +288,21 @@ export interface PlatformContextValue {
   allowRoleSimulation: boolean;
   /** Cuentas reales (Better Auth) activas en el servidor. */
   accountsEnabled: boolean;
+  /** Vía de acceso autenticada (`account`, `beta` o `none`). */
+  viewerVia: ViewerVia;
+  /** Modo de cobro activo (`transfer` en Beta 1.0 o `stripe`). */
+  paymentMode: PaymentMode;
+  /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
+  viewerIdentity: ViewerIdentity | null;
+  /** Tiene sesión de cuenta iniciada (aunque su prueba o pase haya vencido). */
+  hasAccountSession: boolean;
+  /** Sesión real autenticada con cookie de Better Auth (excluye PIN beta y visitante). */
+  hasAccountSessionAuth: boolean;
+  /** Ruta de activación o alta según si ya tiene cuenta iniciada. */
+  upgradeHref: string;
+  updateViewerIdentity: (
+    profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null },
+  ) => void;
   oddsFormat: OddsFormat;
   setOddsFormat: (fmt: OddsFormat) => void;
   auraColors: readonly [string, string];
@@ -230,7 +322,14 @@ export interface PlatformContextValue {
     risk: RiskBand;
     legCount: number;
     allowSgp: boolean;
+    /** Partidos de donde elegir (p. ej. los días que ve el Inicio); sin él, toda la jornada. */
+    games?: readonly PlatformGame[];
   }) => number;
+  /** Reemplaza el boleto por estas selecciones (las incompatibles se omiten); devuelve cuántas entraron. */
+  loadParlayPicks: (
+    picks: readonly MatchPick[],
+    options?: { allowSgp?: boolean; label?: string },
+  ) => number;
 
   journal: JournalEntry[];
   sealPickToJournal: (
@@ -254,23 +353,60 @@ export interface PlatformContextValue {
   }) => { ok: boolean; error?: string };
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
   toggleSocialLike: (postId: string) => void;
+  /** Borra una publicación propia (solo las guardadas en el servidor). */
+  deleteSocialPost: (postId: string) => void;
+  /** Vuelve a pedir el feed compartido (al abrir Comunidad o volver a la pestaña). */
+  refreshSocialFeed: () => void;
+  /** Trae las publicaciones recientes de quienes sigue el socio. */
+  loadFollowingSocialPosts: () => void;
+  /** Trae las publicaciones de un socio para su perfil. */
+  loadSocialPostsByAuthor: (handle: string) => void;
+  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo o perfil. */
+  loadOlderSocialPosts: (scope?: SocialFeedScope) => Promise<boolean>;
+  /** Estado de paginación por ámbito (`feed`, `following`, `author:<handle>`). */
+  socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
+  /** Garantiza que una publicación concreta esté cargada (p. ej. al abrir un aviso). */
+  ensureSocialPostLoaded: (postId: string) => void;
+  /** Reporta una publicación o comentario ajeno en Comunidad. */
+  reportSocialContent: (input: {
+    postId?: string;
+    commentId?: string;
+    reason: SocialReportReason;
+  }) => Promise<{ ok: boolean; autoHidden?: boolean; error?: string }>;
+  /** true cuando Comunidad viene del servidor (la ven todos los socios). */
+  socialOnServer: boolean;
   blockedSpamAttempts: number;
 
   watchlistGameIds: string[];
   toggleWatchlistGame: (gameId: string) => void;
+  /** Avisos por partido de «Siguiendo» (inicio, goles, final). Sin entrada = todos encendidos. */
+  followAlerts: Record<string, FollowAlerts>;
+  setFollowAlerts: (gameId: string, alerts: FollowAlerts) => void;
   favoriteLeagues: LeagueId[];
   setFavoriteLeagues: (leagues: LeagueId[]) => void;
   riskPreference: RiskBand;
   setRiskPreference: (risk: RiskBand) => void;
+  userTimezone: string;
+  setUserTimezone: (tz: string) => void;
+  showMxnBalance: boolean;
+  setShowMxnBalance: (show: boolean) => void;
+  unitMxn: number;
+  setUnitMxn: (unit: number) => void;
 
   referralPaidFriends: number;
+  memberReferralsSnapshot: (ServerProfileSummary & {
+    referralCode: string | null;
+    paidFriends: number;
+    pendingFriends: number;
+  }) | null;
+  memberReferralsLoaded: boolean;
   simulateFriendFirstPayment: () => void;
   month1NoCardMode: boolean;
   setMonth1NoCardMode: (v: boolean) => void;
-  tipstarWeeklyPickOrigin: "spacetime" | "bitacora";
-  setTipstarWeeklyPickOrigin: (v: "spacetime" | "bitacora") => void;
-  selectedTipstarPickId: string;
-  setSelectedTipstarPickId: (id: string) => void;
+  tipsterWeeklyPickOrigin: "spacetime" | "bitacora";
+  setTipsterWeeklyPickOrigin: (v: "spacetime" | "bitacora") => void;
+  selectedTipsterPickId: string;
+  setSelectedTipsterPickId: (id: string) => void;
 
   composerPick: MatchPick | null;
   openComposer: (pick: MatchPick) => void;
@@ -280,8 +416,6 @@ export interface PlatformContextValue {
   openShareTicket: (payload: ShareTicketPayload) => void;
   closeShareTicket: () => void;
 
-  alertsOpen: boolean;
-  setAlertsOpen: (v: boolean) => void;
   cmdkOpen: boolean;
   setCmdkOpen: (v: boolean) => void;
 
@@ -313,9 +447,18 @@ export interface PlatformCoreValue {
   viewerRole: ViewerRole;
   allowRoleSimulation: boolean;
   accountsEnabled: boolean;
+  viewerVia: ViewerVia;
+  paymentMode: PaymentMode;
+  viewerIdentity: ViewerIdentity | null;
+  hasAccountSession: boolean;
+  hasAccountSessionAuth: boolean;
+  upgradeHref: string;
   oddsFormat: OddsFormat;
   favoriteLeagues: LeagueId[];
   riskPreference: RiskBand;
+  userTimezone: string;
+  showMxnBalance: boolean;
+  unitMxn: number;
   month1NoCardMode: boolean;
 }
 
@@ -327,6 +470,7 @@ export type PlatformActions = Pick<PlatformContextValue, ActionKey>;
 
 const ACTION_KEYS = [
   "setViewerRole",
+  "updateViewerIdentity",
   "setOddsFormat",
   "setAuraFromGame",
   "setAllowSgp",
@@ -335,24 +479,35 @@ const ACTION_KEYS = [
   "removePickFromParlay",
   "clearParlay",
   "generateAutoParlay",
+  "loadParlayPicks",
   "sealPickToJournal",
   "sealParlayToJournal",
   "exportJournalCsv",
   "publishSocialPost",
   "addSocialComment",
   "toggleSocialLike",
+  "deleteSocialPost",
+  "refreshSocialFeed",
+  "loadFollowingSocialPosts",
+  "loadSocialPostsByAuthor",
+  "loadOlderSocialPosts",
+  "ensureSocialPostLoaded",
+  "reportSocialContent",
   "toggleWatchlistGame",
+  "setFollowAlerts",
   "setFavoriteLeagues",
   "setRiskPreference",
+  "setUserTimezone",
+  "setShowMxnBalance",
+  "setUnitMxn",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
-  "setTipstarWeeklyPickOrigin",
-  "setSelectedTipstarPickId",
+  "setTipsterWeeklyPickOrigin",
+  "setSelectedTipsterPickId",
   "openComposer",
   "closeComposer",
   "openShareTicket",
   "closeShareTicket",
-  "setAlertsOpen",
   "setCmdkOpen",
   "openBetaPin",
   "closeBetaPin",
@@ -425,7 +580,11 @@ export function PlatformProvider({
   initialRole = "visitor",
   allowRoleSimulation = false,
   accountsEnabled = false,
+  viewerVia,
+  paymentMode = "transfer",
+  viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
+  initialWatchlistGameIds,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -435,14 +594,29 @@ export function PlatformProvider({
   initialRole?: ViewerRole;
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
+  viewerVia?: ViewerVia;
+  paymentMode?: PaymentMode;
+  viewerIdentity?: ViewerIdentity | null;
   /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
   serverMonth1NoCardMode?: boolean;
+  /** Partidos pre-cargados en vigilancia (pruebas y Storybook). */
+  initialWatchlistGameIds?: readonly string[];
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
   children: React.ReactNode;
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
+  const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
+  // Marca de hidratación: las pruebas de navegador esperan a que React tenga los controles
+  // conectados antes de hacer clic (un clic sobre el HTML del servidor se pierde).
+  useEffect(() => {
+    document.documentElement.dataset.plHydrated = "1";
+  }, []);
+  const effectiveViewerVia: ViewerVia = viewerVia ?? (viewerIdentity ? "account" : "none");
+  const hasAccountSession = Boolean(viewerIdentity);
+  const hasAccountSessionAuth = Boolean(accountsEnabled && effectiveViewerVia === "account");
+  const upgradeHref = hasAccountSession ? "/app/account?tab=plan" : "/signup";
   const [oddsFormat, setOddsFormatState] = useState<OddsFormat>("american");
   const [parlayLegs, setParlayLegs] = useState<ParlayLeg[]>([]);
   const [allowSgp, setAllowSgp] = useState<boolean>(false);
@@ -451,24 +625,91 @@ export function PlatformProvider({
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
     attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
   );
+  // Con cuentas, Comunidad vive en el servidor; sin ellas (PIN de beta), en este navegador.
+  const [socialOnServer, setSocialOnServer] = useState<boolean>(false);
+  const [socialFeedPages, setSocialFeedPages] = useState<Record<string, SocialFeedPageState>>({});
+  const socialFeedPagesRef = useRef<Record<string, SocialFeedPageState>>({});
+  const updateFeedPage = useCallback((key: string, next: SocialFeedPageState) => {
+    socialFeedPagesRef.current = { ...socialFeedPagesRef.current, [key]: next };
+    setSocialFeedPages(socialFeedPagesRef.current);
+  }, []);
+  const updateViewerIdentity = useCallback(
+    (profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null }) => {
+      if (!viewerIdentity) return;
+      const words = profile.displayName.trim().split(/\s+/);
+      const first = words[0] ?? "";
+      const last = words.length > 1 ? (words.at(-1)?.[0] ?? "") : (first[1] ?? "");
+      const initials = ((first[0] ?? "") + last).toUpperCase() || "PL";
+      const nextAvatarUrl = profile.avatarUrl !== undefined ? profile.avatarUrl : viewerIdentity.avatarUrl;
+      setViewerIdentity({ ...viewerIdentity, ...profile, avatarUrl: nextAvatarUrl, initials });
+
+      const renameAuthor = <
+        T extends { authorHandle: string; authorName: string; authorAvatarUrl?: string | null },
+      >(
+        item: T,
+      ): T =>
+        item.authorHandle === viewerIdentity.handle
+          ? {
+              ...item,
+              authorHandle: profile.handle,
+              authorName: profile.displayName,
+              ...(profile.avatarUrl !== undefined ? { authorAvatarUrl: profile.avatarUrl } : {}),
+            }
+          : item;
+      setSocialPosts((posts) =>
+        posts.map((post) =>
+          post.isExample
+            ? post
+            : {
+                ...renameAuthor(post),
+                comments: post.comments.map(renameAuthor),
+              },
+        ),
+      );
+    },
+    [viewerIdentity],
+  );
+
   const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
-  const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
+  const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>(() =>
+    initialWatchlistGameIds ? [...initialWatchlistGameIds] : [],
+  );
+  const [followAlerts, setFollowAlertsState] = useState<Record<string, FollowAlerts>>({});
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
     rawDataset.leagues.slice(0, 3).map((l) => l.league),
   );
   const [riskPreference, setRiskPreferenceState] = useState<RiskBand>("medio");
+  const [userTimezone, setUserTimezoneState] = useState<string>(
+    DEFAULT_STORED_PREFS_V1.timezone,
+  );
+  const [showMxnBalance, setShowMxnBalanceState] = useState<boolean>(
+    DEFAULT_STORED_PREFS_V1.showMxnBalance,
+  );
+  const [unitMxn, setUnitMxnState] = useState<number>(
+    DEFAULT_STORED_PREFS_V1.unitMxn,
+  );
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
+  const [memberReferralsSnapshot, setMemberReferralsSnapshot] = useState<
+    | (ServerProfileSummary & {
+        referralCode: string | null;
+        paidFriends: number;
+        pendingFriends: number;
+      })
+    | null
+  >(null);
+  const [memberReferralsLoaded, setMemberReferralsLoaded] = useState<boolean>(
+    !hasAccountSessionAuth,
+  );
   const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(serverMonth1NoCardMode ?? true);
-  const [tipstarWeeklyPickOrigin, setTipstarWeeklyPickOrigin] = useState<
+  const [tipsterWeeklyPickOrigin, setTipsterWeeklyPickOrigin] = useState<
     "spacetime" | "bitacora"
   >("spacetime");
-  const [selectedTipstarPickId, setSelectedTipstarPickId] = useState<string>(
-    rawDataset.tipstarWeeklyPickId || rawDataset.dailyPromoPickId,
+  const [selectedTipsterPickId, setSelectedTipsterPickId] = useState<string>(
+    rawDataset.tipsterWeeklyPickId || rawDataset.dailyPromoPickId,
   );
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
   const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(null);
-  const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
   const [cmdkOpen, setCmdkOpen] = useState<boolean>(false);
   const [betaPinOpen, setBetaPinOpen] = useState<boolean>(false);
   const [betaPinNextPath, setBetaPinNextPath] = useState<string>("/app");
@@ -520,6 +761,32 @@ export function PlatformProvider({
       ) {
         setRiskPreferenceState(savedRisk);
       }
+      const rawFavLeagues = window.localStorage.getItem("pl-fav-leagues");
+      if (rawFavLeagues) {
+        const knownLeagueIds = new Set<string>([
+          "liga-mx",
+          "nfl",
+          "premier-league",
+          "laliga",
+          "bundesliga",
+          "serie-a",
+          "ligue-1",
+          ...rawDataset.leagues.map((l) => l.league),
+        ]);
+        const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
+        if (Array.isArray(parsedLeagues)) {
+          const validLeagues = parsedLeagues.filter(
+            (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
+          );
+          if (validLeagues.length > 0) {
+            setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+          }
+        }
+      }
+      const storedPrefs = readStoredPrefs();
+      setUserTimezoneState(storedPrefs.timezone);
+      setShowMxnBalanceState(storedPrefs.showMxnBalance);
+      setUnitMxnState(storedPrefs.unitMxn);
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
       if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
@@ -529,11 +796,13 @@ export function PlatformProvider({
         if (
           savedRole === "visitor" ||
           savedRole === "member" ||
-          savedRole === "tipstar" ||
+          savedRole === "tipster" ||
           savedRole === "admin"
         ) {
           setViewerRoleState(savedRole);
         }
+      } else {
+        window.localStorage.removeItem("pl-sim-role");
       }
     } catch (err) {
       void err;
@@ -547,6 +816,15 @@ export function PlatformProvider({
     if (savedJournal.length > 0) setJournal(savedJournal);
     const savedWatch = readStoredArray<string>(STORAGE_KEYS.watchlist, (v): v is string => typeof v === "string");
     if (savedWatch.length > 0) setWatchlistGameIds(savedWatch);
+    try {
+      const rawAlerts = window.localStorage.getItem(STORAGE_KEYS.followAlerts);
+      const parsedAlerts = rawAlerts ? (JSON.parse(rawAlerts) as unknown) : null;
+      if (parsedAlerts && typeof parsedAlerts === "object") {
+        setFollowAlertsState(sanitizeFollowAlerts(parsedAlerts as Record<string, unknown>));
+      }
+    } catch (err) {
+      void err;
+    }
     const ownPosts = readStoredArray<SocialPost>(STORAGE_KEYS.ownPosts, isOwnSocialPost);
     if (ownPosts.length > 0) {
       setSocialPosts((prev) => [...ownPosts, ...prev.filter((p) => !ownPosts.some((o) => o.id === p.id))]);
@@ -556,16 +834,51 @@ export function PlatformProvider({
 
   // Con cuenta y sesión, la base es la fuente de verdad de vigilancia y bitácora.
   useEffect(() => {
-    if (!accountsEnabled) return;
+    if (!hasAccountSessionAuth) {
+      setMemberReferralsLoaded(true);
+      return;
+    }
+    let active = true;
+    setMemberReferralsLoaded(false);
     void (async () => {
-      const watch = await getJson<{ gameIds?: string[] }>("/api/me/watchlist");
-      if (watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      const watch = await getJson<{ gameIds?: string[]; follows?: { gameId: string; alerts: FollowAlerts }[] }>(
+        "/api/me/watchlist",
+      );
+      if (active && watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      if (active && Array.isArray(watch?.follows)) {
+        setFollowAlertsState(
+          sanitizeFollowAlerts(Object.fromEntries(watch.follows.map((f) => [f.gameId, f.alerts]))),
+        );
+      }
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
-      if (journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
-      const refs = await getJson<{ paidFriends?: number }>("/api/me/referrals");
-      if (typeof refs?.paidFriends === "number") setReferralPaidFriends(refs.paidFriends);
+      if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      const refs = await getJson<
+        ServerProfileSummary & {
+          referralCode?: string | null;
+          paidFriends?: number;
+          pendingFriends?: number;
+        }
+      >("/api/me/referrals");
+      if (active && refs) {
+        const paid = typeof refs.paidFriends === "number" ? refs.paidFriends : 0;
+        const pending = typeof refs.pendingFriends === "number" ? refs.pendingFriends : 0;
+        setReferralPaidFriends(paid);
+        setMemberReferralsSnapshot({
+          referralCode: refs.referralCode ?? null,
+          paidFriends: paid,
+          pendingFriends: pending,
+          handle: refs.handle ?? null,
+          displayName: refs.displayName ?? null,
+          email: refs.email ?? null,
+          isTipster: Boolean(refs.isTipster),
+        });
+      }
+      if (active) setMemberReferralsLoaded(true);
     })();
-  }, [accountsEnabled]);
+    return () => {
+      active = false;
+    };
+  }, [hasAccountSessionAuth]);
   useEffect(() => {
     if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
   }, [journal, userDataLoaded]);
@@ -573,13 +886,21 @@ export function PlatformProvider({
     if (userDataLoaded) writeStored(STORAGE_KEYS.watchlist, watchlistGameIds);
   }, [watchlistGameIds, userDataLoaded]);
   useEffect(() => {
-    if (userDataLoaded) {
+    if (!userDataLoaded) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.followAlerts, JSON.stringify(followAlerts));
+    } catch (err) {
+      void err;
+    }
+  }, [followAlerts, userDataLoaded]);
+  useEffect(() => {
+    if (userDataLoaded && !socialOnServer) {
       writeStored(
         STORAGE_KEYS.ownPosts,
         socialPosts.filter((p) => !p.isExample).slice(0, 100),
       );
     }
-  }, [socialPosts, userDataLoaded]);
+  }, [socialPosts, userDataLoaded, socialOnServer]);
 
   // Atajo global Cmd+K / Ctrl+K y Escape
   useEffect(() => {
@@ -589,7 +910,6 @@ export function PlatformProvider({
         setCmdkOpen((prev) => !prev);
       } else if (event.key === "Escape") {
         setCmdkOpen(false);
-        setAlertsOpen(false);
         setComposerPick(null);
         setShareTicket(null);
         setBetaPinOpen(false);
@@ -612,6 +932,7 @@ export function PlatformProvider({
 
   const setViewerRole = useCallback(
     (role: ViewerRole) => {
+      if (!allowRoleSimulation) return;
       setViewerRoleState(role);
       try {
         window.localStorage.setItem("pl-sim-role", role);
@@ -619,7 +940,7 @@ export function PlatformProvider({
         void err;
       }
     },
-    [],
+    [allowRoleSimulation],
   );
 
   const setOddsFormat = useCallback((fmt: OddsFormat) => {
@@ -649,10 +970,28 @@ export function PlatformProvider({
     }
   }, []);
 
+  const setUserTimezone = useCallback((tz: string) => {
+    const trimmed = tz.trim() || DEFAULT_STORED_PREFS_V1.timezone;
+    setUserTimezoneState(trimmed);
+    writeStoredPrefs({ ...readStoredPrefs(), timezone: trimmed });
+  }, []);
+
+  const setShowMxnBalance = useCallback((show: boolean) => {
+    setShowMxnBalanceState(show);
+    writeStoredPrefs({ ...readStoredPrefs(), showMxnBalance: show });
+  }, []);
+
+  const setUnitMxn = useCallback((unit: number) => {
+    if (!Number.isFinite(unit) || unit < 10) return;
+    const clamped = Math.min(100_000, Math.round(unit));
+    setUnitMxnState(clamped);
+    writeStoredPrefs({ ...readStoredPrefs(), unitMxn: clamped });
+  }, []);
+
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
       setMonth1NoCardMode(v);
-      if (accountsEnabled) {
+      if (hasAccountSessionAuth) {
         // Con cuentas, la bandera vive en la base y aplica a toda la plataforma (solo fundador).
         void postJson("/api/admin/flags", { key: "month1_no_card_mode", value: v }).then((res) => {
           if (!res || !res.ok) {
@@ -674,17 +1013,32 @@ export function PlatformProvider({
         "success",
       );
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
   );
 
   const dataset = useMemo(() => {
-    if (viewerRole === "visitor") {
-      return rawDataset.isServerRedactedForVisitor
-        ? rawDataset
-        : redactDatasetForVisitor(rawDataset);
+    const base =
+      viewerRole === "visitor"
+        ? rawDataset.isServerRedactedForVisitor
+          ? rawDataset
+          : redactDatasetForVisitor(rawDataset)
+        : rawDataset;
+    if (!userTimezone || userTimezone === DEFAULT_STORED_PREFS_V1.timezone) {
+      return base;
     }
-    return rawDataset;
-  }, [rawDataset, viewerRole]);
+    return {
+      ...base,
+      games: base.games.map((g) => {
+        const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, userTimezone);
+        if (ko === g.kickoffLocal) return g;
+        return {
+          ...g,
+          kickoffLocal: ko,
+          picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+        };
+      }),
+    };
+  }, [rawDataset, userTimezone, viewerRole]);
 
   const parlaySummary = useMemo(
     () => computeParlaySummary(parlayLegs, parlayStakeUnits),
@@ -719,10 +1073,12 @@ export function PlatformProvider({
       risk: RiskBand;
       legCount: number;
       allowSgp: boolean;
+      games?: readonly PlatformGame[];
     }): number => {
       setAllowSgp(opts.allowSgp);
-      const built = buildSmartAutoParlay(dataset.games, {
-        ...opts,
+      const { games, ...rest } = opts;
+      const built = buildSmartAutoParlay(games ?? dataset.games, {
+        ...rest,
         viewerRole,
       });
       setParlayLegs(built);
@@ -740,6 +1096,40 @@ export function PlatformProvider({
       return built.length;
     },
     [dataset.games, viewerRole, pushToast],
+  );
+
+  const loadParlayPicks = useCallback(
+    (
+      picks: readonly MatchPick[],
+      options?: { allowSgp?: boolean; label?: string },
+    ): number => {
+      const nextAllowSgp = options?.allowSgp ?? false;
+      const accepted: ParlayLeg[] = [];
+      for (const pick of picks) {
+        if (checkParlayCompatibility(accepted, pick, nextAllowSgp).allowed) {
+          accepted.push({ pick });
+        }
+      }
+      if (accepted.length > 0) {
+        const replaced = parlayLegs.length > 0;
+        setAllowSgp(nextAllowSgp);
+        setParlayLegs(accepted);
+        const skipped = picks.length - accepted.length;
+        pushToast(
+          `${options?.label ?? "Parlay"} cargado con ${accepted.length} ${accepted.length === 1 ? "selección" : "selecciones"}` +
+            (skipped > 0 ? ` (${skipped} ya no se podían agregar)` : "") +
+            (replaced ? ". Reemplazó tu boleto anterior." : "."),
+          "success",
+        );
+      } else {
+        pushToast(
+          "No hay selecciones compatibles disponibles para cargar al boleto.",
+          "warning",
+        );
+      }
+      return accepted.length;
+    },
+    [parlayLegs.length, pushToast],
   );
 
   const sealPickToJournal = useCallback(
@@ -773,7 +1163,7 @@ export function PlatformProvider({
       setComposerPick(null);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
-      if (accountsEnabled && entry.status === "pending") {
+      if (hasAccountSessionAuth && entry.status === "pending") {
         void sealOnServer(entry).then((res) => {
           if (res.ok && res.id) {
             setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
@@ -784,7 +1174,7 @@ export function PlatformProvider({
         });
       }
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
   );
 
   const sealParlayToJournal = useCallback(
@@ -793,10 +1183,21 @@ export function PlatformProvider({
         pushToast("Agrega al menos 2 selecciones para sellar un Parlay.", "warning");
         return;
       }
+      const gamesById = new Map(dataset.games.map((g) => [g.id, g]));
+      let earliestGameId = parlaySummary.legs[0]!.pick.gameId;
+      let earliestTs = Number.POSITIVE_INFINITY;
+      for (const leg of parlaySummary.legs) {
+        const game = gamesById.get(leg.pick.gameId);
+        const ts = game ? Date.parse(game.kickoffUtc) : Number.NaN;
+        if (Number.isFinite(ts) && ts < earliestTs) {
+          earliestTs = ts;
+          earliestGameId = leg.pick.gameId;
+        }
+      }
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
         pickId: parlaySummary.legs.map((l) => l.pick.id).join("+"),
-        gameId: parlaySummary.legs[0]!.pick.gameId,
+        gameId: earliestGameId,
         leagueLabel: "Combinada Multi-Liga",
         matchLabel: `${parlaySummary.legs.length} selecciones${parlaySummary.hasSgpCorrelation ? " · SGP" : ""}`,
         pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
@@ -815,8 +1216,18 @@ export function PlatformProvider({
         `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
         "success",
       );
+      if (hasAccountSessionAuth) {
+        void sealOnServer(entry).then((res) => {
+          if (res.ok && res.id) {
+            setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
+          } else if (res.reason && res.reason !== "sin_sesion") {
+            setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+            pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el parlay.", "warning");
+          }
+        });
+      }
     },
-    [parlaySummary, pushToast],
+    [parlaySummary, dataset.games, hasAccountSessionAuth, pushToast],
   );
 
   const exportJournalCsv = useCallback((): string => {
@@ -824,16 +1235,16 @@ export function PlatformProvider({
       "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,CLV_Pts,Estado";
     const lines = journal.map((j) =>
       [
-        `"${j.sealedAt}"`,
-        `"${j.leagueLabel}"`,
-        `"${j.matchLabel}"`,
-        `"${j.pickLabel.replace(/"/g, '""')}"`,
-        `"${j.origin}"`,
+        `"${sanitizeCsvCell(j.sealedAt)}"`,
+        `"${sanitizeCsvCell(j.leagueLabel)}"`,
+        `"${sanitizeCsvCell(j.matchLabel)}"`,
+        `"${sanitizeCsvCell(j.pickLabel)}"`,
+        `"${sanitizeCsvCell(j.origin)}"`,
         j.units.toFixed(2),
         j.userDecimal.toFixed(2),
         j.fairDecimal.toFixed(2),
         j.clvPct.toFixed(1),
-        j.status,
+        `"${sanitizeCsvCell(j.status)}"`,
       ].join(","),
     );
     const csv = [header, ...lines].join("\n");
@@ -871,7 +1282,7 @@ export function PlatformProvider({
       if (trimmed.length < 8) {
         return { ok: false, error: "Escribe al menos una frase sobre tu pick." };
       }
-      const myHandle = viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl";
+      const myHandle = ownHandleFor(viewerIdentity, viewerRole);
       const repeated = socialPosts
         .filter((p) => p.authorHandle === myHandle)
         .slice(0, 5)
@@ -893,20 +1304,22 @@ export function PlatformProvider({
       }
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
-        authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
-        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab",
+        authorHandle: ownHandleFor(viewerIdentity, viewerRole),
+        authorName:
+          viewerIdentity?.displayName ?? (viewerRole === "tipster" ? "Sofía Méndez" : "Socio PitchLab"),
+        authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
         roleBadge:
-          viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
+          viewerRole === "tipster" ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
-          viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
+          viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
         verifiedRecord:
-          viewerRole === "tipstar" ? "+18.4u · 142 picks" : journalRecord(journal).label,
+          viewerRole === "tipster" ? "+18.4u · 142 picks" : journalRecord(journal).label,
         clvBadge:
-          viewerRole === "tipstar"
+          viewerRole === "tipster"
             ? "CLV +4.2 %"
             : formatClvBadge(journalRecord(journal).avgClvPct),
-        // Publicar como tipstar usa el perfil de ejemplo @sofia_nfl.
-        isExample: viewerRole === "tipstar",
+        // Publicar como tipster usa el perfil de ejemplo @sofia_nfl.
+        isExample: viewerRole === "tipster",
         leagueLabel: payload.leagueLabel,
         matchLabel: payload.matchLabel,
         pickBadge: payload.pickBadge,
@@ -934,14 +1347,51 @@ export function PlatformProvider({
             }
           : undefined,
       };
-      setSocialPosts((prev) => [newPost, ...prev]);
+      if (socialOnServer && !newPost.isExample) {
+        // Se ve al instante; el servidor la confirma (o la quita con su motivo).
+        const tempId = `tmp-${Date.now()}`;
+        setSocialPosts((prev) => [{ ...newPost, id: tempId, isMine: true }, ...prev]);
+        void (async () => {
+          const res = await postJson("/api/social/posts", {
+            body: trimmed,
+            leagueLabel: payload.leagueLabel,
+            matchLabel: payload.matchLabel,
+            pickBadge: payload.pickBadge,
+            originType: payload.originType,
+            gameId: payload.pick?.matchPick.gameId,
+            pick: newPost.pick
+              ? {
+                  pickId: newPost.pick.pickId,
+                  gameId: newPost.pick.gameId,
+                  label: newPost.pick.label,
+                  units: newPost.pick.units,
+                  userDecimal: newPost.pick.userDecimal,
+                  fairDecimal: newPost.pick.fairDecimal,
+                  modelProbability: newPost.pick.modelProbability,
+                }
+              : undefined,
+          });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { post?: ServerSocialPost; error?: string } | null)
+            : null;
+          if (res?.ok && data?.post?.authorHandle) {
+            const saved = fromServerPost(data.post, rawDataset.games, new Date());
+            setSocialPosts((prev) => prev.map((p) => (p.id === tempId ? saved : p)));
+          } else {
+            setSocialPosts((prev) => prev.filter((p) => p.id !== tempId));
+            pushToast(data?.error ?? "No pudimos publicar. Revisa tu conexión.", "danger");
+          }
+        })();
+      } else {
+        setSocialPosts((prev) => [newPost, ...prev]);
+      }
       if (payload.pick) {
         sealPickToJournal(payload.pick.matchPick, payload.pick.units, payload.pick.userDecimal);
       }
       pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast, journal, socialPosts, sealPickToJournal],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal, socialOnServer, rawDataset.games],
   );
 
   const addSocialComment = useCallback(
@@ -958,6 +1408,32 @@ export function PlatformProvider({
         pushToast("Enlace externo bloqueado por el filtro anti-spam.", "danger");
         return { ok: false, error: "No se permiten enlaces externos." };
       }
+      const target = socialPosts.find((p) => p.id === postId);
+      if (target && isPendingPost(target)) {
+        return { ok: false, error: "Espera a que termine de publicarse." };
+      }
+      const tempId = `sc-${Date.now()}`;
+      if (socialOnServer && target?.fromServer) {
+        void (async () => {
+          const res = await postJson(`/api/social/posts/${postId}/comments`, { body: trimmed });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
+            : null;
+          if (res?.ok && data?.comment) {
+            const saved = fromServerComment(data.comment, new Date());
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
+              ),
+            );
+          } else {
+            setSocialPosts((prev) =>
+              prev.map((p) => (p.id === postId ? { ...p, comments: p.comments.filter((c) => c.id !== tempId) } : p)),
+            );
+            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
+          }
+        })();
+      }
       setSocialPosts((prev) =>
         prev.map((post) =>
           post.id === postId
@@ -966,12 +1442,14 @@ export function PlatformProvider({
                 comments: [
                   ...post.comments,
                   {
-                    id: `sc-${Date.now()}`,
-                    authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
+                    id: tempId,
+                    authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
-                      viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra",
+                      viewerIdentity?.displayName ??
+                      (viewerRole === "tipster" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra"),
+                    authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
                     verifiedBadge:
-                      viewerRole === "tipstar"
+                      viewerRole === "tipster"
                         ? "Perfil de ejemplo"
                         : journalRecord(journal).label,
                     createdAt: "Ahora",
@@ -985,22 +1463,248 @@ export function PlatformProvider({
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast, journal],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer],
   );
 
-  const toggleSocialLike = useCallback((postId: string) => {
-    setSocialPosts((prev) =>
-      prev.map((p) =>
-        p.id === postId
-          ? {
+  const toggleSocialLike = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target || isPendingPost(target)) return;
+      const liked = !target.likedByMe;
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId ? { ...p, likedByMe: liked, likes: liked ? p.likes + 1 : Math.max(0, p.likes - 1) } : p,
+        ),
+      );
+      if (!socialOnServer || !target.fromServer) return;
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${postId}/like`, {
+            method: "PUT",
+            credentials: "same-origin",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ liked }),
+          });
+          const data = (await res.json().catch(() => null)) as { likes?: number } | null;
+          const likes = data?.likes;
+          if (!res.ok || typeof likes !== "number") throw new Error(String(res.status));
+          setSocialPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, likes, likedByMe: liked } : p)));
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, likedByMe: target.likedByMe, likes: target.likes } : p)),
+          );
+        }
+      })();
+    },
+    [socialPosts, socialOnServer],
+  );
+
+  const deleteSocialPost = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target?.fromServer || !target.isMine) return;
+      setSocialPosts((prev) => prev.filter((p) => p.id !== postId));
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${postId}`, { method: "DELETE", credentials: "same-origin" });
+          if (!res.ok) throw new Error(String(res.status));
+          pushToast("Publicación borrada.", "default");
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) => mergeSocialPosts(prev, [target], "extra"));
+          pushToast("No pudimos borrarla. Inténtalo de nuevo.", "danger");
+        }
+      })();
+    },
+    [socialPosts, pushToast],
+  );
+
+  const refreshSocialFeed = useCallback(() => {
+    if (!hasAccountSessionAuth) return;
+    void (async () => {
+      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?limit=50");
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const prevPage = socialFeedPagesRef.current.feed;
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        "feed",
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+      );
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
+    })();
+  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
+
+  const loadFollowingSocialPosts = useCallback(() => {
+    if (!hasAccountSessionAuth) return;
+    void (async () => {
+      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?following=1&limit=50");
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const prevPage = socialFeedPagesRef.current.following;
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        "following",
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+      );
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+    })();
+  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
+
+  const loadSocialPostsByAuthor = useCallback(
+    (handle: string) => {
+      const clean = handle.trim().toLowerCase();
+      if (!hasAccountSessionAuth || !clean) return;
+      void (async () => {
+        const data = await getJson<{ posts?: ServerSocialPost[] }>(
+          `/api/social/posts?limit=50&author=${encodeURIComponent(clean)}`,
+        );
+        if (!data?.posts) return;
+        const now = new Date();
+        const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+        const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+        const key = `author:${clean}`;
+        const prevPage = socialFeedPagesRef.current[key];
+        const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+        updateFeedPage(
+          key,
+          keepOlderCursor
+            ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+            : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+        );
+        setSocialOnServer(true);
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+      })();
+    },
+    [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
+  );
+
+  const loadOlderSocialPosts = useCallback(
+    async (scope?: SocialFeedScope): Promise<boolean> => {
+      if (!hasAccountSessionAuth) return false;
+      const key = socialScopeKey(scope);
+      const current = socialFeedPagesRef.current[key];
+      if (current?.loading || current?.hasMore === false) return false;
+
+      let cursor = current?.cursor ?? null;
+      if (!cursor) {
+        const cleanAuthor = scope?.author?.trim().toLowerCase() ?? null;
+        cursor = socialPosts.reduce<string | null>((oldest, p) => {
+          if (!p.fromServer || p.isExample || !p.createdAtIso) return oldest;
+          if (cleanAuthor && p.authorHandle.toLowerCase() !== cleanAuthor) return oldest;
+          return !oldest || p.createdAtIso < oldest ? p.createdAtIso : oldest;
+        }, null);
+      }
+      if (!cursor) {
+        updateFeedPage(key, { cursor: null, hasMore: false, loading: false });
+        return false;
+      }
+
+      updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: true });
+      const params = new URLSearchParams({ before: cursor, limit: "30" });
+      if (scope?.following) params.set("following", "1");
+      if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+
+      const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
+      if (!data?.posts) {
+        updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: false });
+        return false;
+      }
+
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, new Date()));
+      const nextCursor = data.posts.at(-1)?.createdAt ?? cursor;
+      const nextHasMore = data.posts.length >= 30;
+      setSocialOnServer(true);
+      if (incoming.length > 0) {
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+      }
+      updateFeedPage(key, { cursor: nextCursor, hasMore: nextHasMore, loading: false });
+      return incoming.length > 0;
+    },
+    [hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
+  );
+
+  const ensureSocialPostLoaded = useCallback(
+    (postId: string) => {
+      if (!hasAccountSessionAuth || !postId) return;
+      if (socialPosts.some((p) => p.id === postId)) return;
+      void (async () => {
+        const data = await getJson<{ post?: ServerSocialPost }>(
+          `/api/social/posts/${encodeURIComponent(postId)}`,
+        );
+        if (!data?.post) return;
+        const saved = fromServerPost(data.post, rawDataset.games, new Date());
+        setSocialOnServer(true);
+        setSocialPosts((prev) => mergeSocialPosts(prev, [saved], "extra"));
+      })();
+    },
+    [hasAccountSessionAuth, rawDataset.games, socialPosts],
+  );
+
+  const reportSocialContent = useCallback(
+    async (input: {
+      postId?: string;
+      commentId?: string;
+      reason: SocialReportReason;
+    }): Promise<{ ok: boolean; autoHidden?: boolean; error?: string }> => {
+      if (viewerRole === "visitor") {
+        return { ok: false, error: "Inicia sesión para reportar contenido." };
+      }
+      if (!socialOnServer) {
+        pushToast("Reporte enviado al equipo de moderación.", "success");
+        return { ok: true, autoHidden: false };
+      }
+      const res = await postJson("/api/social/reports", input);
+      const data = res
+        ? ((await res.json().catch(() => null)) as { ok?: boolean; autoHidden?: boolean; error?: string } | null)
+        : null;
+      if (!res?.ok || !data?.ok) {
+        return { ok: false, error: data?.error ?? "No se pudo enviar el reporte." };
+      }
+      if (data.autoHidden) {
+        if (input.postId) {
+          setSocialPosts((prev) => prev.filter((p) => p.id !== input.postId));
+        } else if (input.commentId) {
+          setSocialPosts((prev) =>
+            prev.map((p) => ({
               ...p,
-              likedByMe: !p.likedByMe,
-              likes: p.likedByMe ? Math.max(0, p.likes - 1) : p.likes + 1,
-            }
-          : p,
-      ),
-    );
-  }, []);
+              comments: p.comments.filter((c) => c.id !== input.commentId),
+            })),
+          );
+        }
+      }
+      pushToast(
+        data.autoHidden
+          ? "Reporte recibido. El contenido se ocultó mientras se revisa."
+          : "Reporte enviado al equipo de moderación.",
+        "success",
+      );
+      return { ok: true, autoHidden: Boolean(data.autoHidden) };
+    },
+    [viewerRole, socialOnServer, pushToast],
+  );
+
+  // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    refreshSocialFeed();
+    const onVisible = (): void => {
+      if (document.visibilityState === "visible") refreshSocialFeed();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [hasAccountSessionAuth, refreshSocialFeed]);
 
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
@@ -1008,15 +1712,24 @@ export function PlatformProvider({
         const exists = prev.includes(gameId);
         pushToast(
           exists
-            ? "Partido retirado de tu vigilancia."
-            : "Partido en vigilancia: te avisaremos si aparece valor nuevo.",
+            ? "Dejaste de seguir este partido."
+            : "Siguiendo: te avisamos del inicio, los goles y el final.",
           "default",
         );
-        if (accountsEnabled) void postJson("/api/me/watchlist", { gameId, watched: !exists });
+        if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
         return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];
       });
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
+  );
+
+  const setFollowAlerts = useCallback(
+    (gameId: string, alerts: FollowAlerts) => {
+      setFollowAlertsState((prev) => ({ ...prev, [gameId]: alerts }));
+      setWatchlistGameIds((prev) => (prev.includes(gameId) ? prev : [...prev, gameId]));
+      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: true, alerts });
+    },
+    [hasAccountSessionAuth],
   );
 
   const simulateFriendFirstPayment = useCallback(() => {
@@ -1024,8 +1737,8 @@ export function PlatformProvider({
       const next = prev + 1;
       pushToast(
         next === 5
-          ? "¡Insignia Embajador desbloqueada! +15 días por tu amigo y +30 días extra acumulados."
-          : "¡Referido verificado! Ambos recibieron +15 días gratis en su Pase PitchLab Ultra.",
+          ? "¡Insignia Embajador desbloqueada! +7 días por tu amigo y +30 días extra acumulados."
+          : "¡Referido verificado! Ambos recibieron +7 días gratis en su Pase PitchLab Ultra.",
         "success",
       );
       return next;
@@ -1103,7 +1816,7 @@ export function PlatformProvider({
     } catch (err) {
       void err;
     }
-    if (accountsEnabled) {
+    if (hasAccountSessionAuth) {
       try {
         await fetch("/api/auth/sign-out", {
           method: "POST",
@@ -1115,7 +1828,7 @@ export function PlatformProvider({
       }
     }
     navigateTo("/");
-  }, [accountsEnabled, navigateTo, onLogoutOverride]);
+  }, [hasAccountSessionAuth, navigateTo, onLogoutOverride]);
 
   const value = useMemo<PlatformContextValue>(
     () => ({
@@ -1125,6 +1838,13 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerVia: effectiveViewerVia,
+      paymentMode,
+      viewerIdentity,
+      hasAccountSession,
+      hasAccountSessionAuth,
+      upgradeHref,
+      updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
       auraColors,
@@ -1139,6 +1859,7 @@ export function PlatformProvider({
       removePickFromParlay,
       clearParlay,
       generateAutoParlay,
+      loadParlayPicks,
       journal,
       sealPickToJournal,
       sealParlayToJournal,
@@ -1147,29 +1868,46 @@ export function PlatformProvider({
       publishSocialPost,
       addSocialComment,
       toggleSocialLike,
+      deleteSocialPost,
+      refreshSocialFeed,
+      loadFollowingSocialPosts,
+      loadSocialPostsByAuthor,
+      loadOlderSocialPosts,
+      socialFeedPages,
+      ensureSocialPostLoaded,
+      reportSocialContent,
+      socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,
+      followAlerts,
+      setFollowAlerts,
       favoriteLeagues,
       setFavoriteLeagues,
       riskPreference,
       setRiskPreference,
+      userTimezone,
+      setUserTimezone,
+      showMxnBalance,
+      setShowMxnBalance,
+      unitMxn,
+      setUnitMxn,
       referralPaidFriends,
+      memberReferralsSnapshot,
+      memberReferralsLoaded,
       simulateFriendFirstPayment,
       month1NoCardMode,
       setMonth1NoCardMode: handleSetMonth1NoCard,
-      tipstarWeeklyPickOrigin,
-      setTipstarWeeklyPickOrigin,
-      selectedTipstarPickId,
-      setSelectedTipstarPickId,
+      tipsterWeeklyPickOrigin,
+      setTipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
+      setSelectedTipsterPickId,
       composerPick,
       openComposer: setComposerPick,
       closeComposer: () => setComposerPick(null),
       shareTicket,
       openShareTicket: setShareTicket,
       closeShareTicket: () => setShareTicket(null),
-      alertsOpen,
-      setAlertsOpen,
       cmdkOpen,
       setCmdkOpen,
       betaPinOpen,
@@ -1189,6 +1927,13 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      effectiveViewerVia,
+      paymentMode,
+      viewerIdentity,
+      hasAccountSession,
+      hasAccountSessionAuth,
+      upgradeHref,
+      updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
       auraColors,
@@ -1201,6 +1946,7 @@ export function PlatformProvider({
       removePickFromParlay,
       clearParlay,
       generateAutoParlay,
+      loadParlayPicks,
       journal,
       sealPickToJournal,
       sealParlayToJournal,
@@ -1209,22 +1955,40 @@ export function PlatformProvider({
       publishSocialPost,
       addSocialComment,
       toggleSocialLike,
+      deleteSocialPost,
+      refreshSocialFeed,
+      loadFollowingSocialPosts,
+      loadSocialPostsByAuthor,
+      loadOlderSocialPosts,
+      socialFeedPages,
+      ensureSocialPostLoaded,
+      reportSocialContent,
+      socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,
+      followAlerts,
+      setFollowAlerts,
       favoriteLeagues,
       setFavoriteLeagues,
       riskPreference,
       setRiskPreference,
+      userTimezone,
+      setUserTimezone,
+      showMxnBalance,
+      setShowMxnBalance,
+      unitMxn,
+      setUnitMxn,
       referralPaidFriends,
+      memberReferralsSnapshot,
+      memberReferralsLoaded,
       simulateFriendFirstPayment,
       month1NoCardMode,
       handleSetMonth1NoCard,
-      tipstarWeeklyPickOrigin,
-      selectedTipstarPickId,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
       composerPick,
       shareTicket,
-      alertsOpen,
       cmdkOpen,
       betaPinOpen,
       betaPinNextPath,
@@ -1257,9 +2021,18 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerVia: effectiveViewerVia,
+      paymentMode,
+      viewerIdentity,
+      hasAccountSession,
+      hasAccountSessionAuth,
+      upgradeHref,
       oddsFormat,
       favoriteLeagues,
       riskPreference,
+      userTimezone,
+      showMxnBalance,
+      unitMxn,
       month1NoCardMode,
     }),
     [
@@ -1268,9 +2041,18 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      effectiveViewerVia,
+      paymentMode,
+      viewerIdentity,
+      hasAccountSession,
+      hasAccountSessionAuth,
+      upgradeHref,
       oddsFormat,
       favoriteLeagues,
       riskPreference,
+      userTimezone,
+      showMxnBalance,
+      unitMxn,
       month1NoCardMode,
     ],
   );
@@ -1318,17 +2100,27 @@ export function PlatformGamesSupplement({
   const core = usePlatformCore();
 
   const merge = useCallback(
-    (base: PlatformDataset): PlatformDataset => {
+    (base: PlatformDataset, applyTz: boolean): PlatformDataset => {
       if (games.length === 0) return base;
       const known = new Set(base.games.map((g) => g.id));
-      const extra = games.filter((g) => !known.has(g.id));
-      return extra.length === 0 ? base : { ...base, games: [...base.games, ...extra] };
+      const extraRaw = games.filter((g) => !known.has(g.id));
+      if (extraRaw.length === 0) return base;
+      const extra =
+        applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
+          ? extraRaw.map((g) => {
+              const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
+              return ko === g.kickoffLocal
+                ? g
+                : { ...g, kickoffLocal: ko, picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })) };
+            })
+          : extraRaw;
+      return { ...base, games: [...base.games, ...extra] };
     },
-    [games],
+    [core.userTimezone, games],
   );
 
   const patchedCore = useMemo<PlatformCoreValue>(
-    () => ({ ...core, dataset: merge(core.dataset), rawDataset: merge(core.rawDataset) }),
+    () => ({ ...core, dataset: merge(core.dataset, true), rawDataset: merge(core.rawDataset, false) }),
     [core, merge],
   );
   const patchedFull = useMemo<PlatformContextValue>(

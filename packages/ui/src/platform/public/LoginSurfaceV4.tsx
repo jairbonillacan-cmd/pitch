@@ -12,14 +12,22 @@ import {
   turnstileSiteKey,
 } from "../turnstile-client";
 
-export type LoginStep = "email" | "password" | "sent";
+import {
+  EmailConfirmationStatus,
+  emailConfirmationCallbacks,
+  useContinueAfterConfirmation,
+  useEmailConfirmation,
+  type EmailConfirmationStep,
+} from "./email-confirmation";
+
+export type LoginStep = "email" | "password" | EmailConfirmationStep;
 
 export interface LoginSurfaceV4Props {
   nextPath?: string;
   initialPromoCode?: string;
   previewSlot?: React.ReactNode;
   /**
-   * Better Auth solo tiene enlace mágico, Google y Apple activos hoy.
+   * Better Auth solo tiene enlace mágico y Google activos hoy.
    * Mientras correo + contraseña no se habilite en el backend, queda en `false`.
    */
   passwordSignInEnabled?: boolean;
@@ -51,7 +59,7 @@ function isPlainLeftClick(event: React.MouseEvent<HTMLAnchorElement>): boolean {
 /** Pide a Better Auth el enlace mágico de acceso. */
 export async function requestLoginMagicLink(
   email: string,
-  callbackURL: string,
+  callbacks: ReturnType<typeof emailConfirmationCallbacks>,
 ): Promise<boolean> {
   try {
     const headers: Record<string, string> = { "content-type": "application/json" };
@@ -63,7 +71,7 @@ export async function requestLoginMagicLink(
     const res = await fetch("/api/auth/sign-in/magic-link", {
       method: "POST",
       headers,
-      body: JSON.stringify({ email, callbackURL }),
+      body: JSON.stringify({ email, ...callbacks }),
     });
     return res.ok;
   } catch (err) {
@@ -72,9 +80,9 @@ export async function requestLoginMagicLink(
   }
 }
 
-/** Inicia el acceso con Google o Apple y redirige al proveedor. */
+/** Inicia el acceso con Google y redirige al proveedor. */
 export async function startLoginSocialSignIn(
-  provider: "google" | "apple",
+  provider: "google",
   callbackURL: string,
 ): Promise<boolean> {
   try {
@@ -123,20 +131,6 @@ function GoogleMark(): React.JSX.Element {
   );
 }
 
-function AppleMark(): React.JSX.Element {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8s2.3-1.3 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z" />
-    </svg>
-  );
-}
 
 function MailEnvelopeIcon(): React.JSX.Element {
   return (
@@ -152,9 +146,61 @@ function MailEnvelopeIcon(): React.JSX.Element {
       aria-hidden="true"
       focusable="false"
     >
-      <rect x="3" y="5" width="18" height="14" rx="3" />
-      <path d="M3.5 7l8.5 6 8.5-6" />
+      <rect x="3" y="5" width="18" height="14" rx="3" pathLength={1} />
+      <path d="M3.5 7l8.5 6 8.5-6" pathLength={1} />
     </svg>
+  );
+}
+
+/** Duración de la coreografía de entrada (`.pl-auth--intro` en `login-motion.css`). */
+const INTRO_MS = 1600;
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Onda que nace en el punto del clic dentro de un `.pl-auth-btn`. */
+function spawnRipple(event: React.PointerEvent<HTMLElement>): void {
+  if (event.button !== 0 || prefersReducedMotion()) return;
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".pl-auth-btn");
+  if (!button || button.disabled || typeof button.animate !== "function") return;
+
+  const rect = button.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2.2;
+  const ink = document.createElement("span");
+  ink.className = "pl-auth-ripple";
+  ink.setAttribute("aria-hidden", "true");
+  ink.style.width = `${size}px`;
+  ink.style.height = `${size}px`;
+  ink.style.left = `${event.clientX - rect.left - size / 2}px`;
+  ink.style.top = `${event.clientY - rect.top - size / 2}px`;
+  button.appendChild(ink);
+
+  const animation = ink.animate(
+    [
+      { transform: "scale(0)", opacity: 0.22 },
+      { transform: "scale(1)", opacity: 0 },
+    ],
+    { duration: 620, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+  );
+  const cleanup = (): void => ink.remove();
+  animation.onfinish = cleanup;
+  animation.oncancel = cleanup;
+}
+
+/** Sacudida corta (420 ms) del campo cuando el correo no es válido o el envío falla. */
+function shakeElement(element: HTMLElement | null): void {
+  if (!element || typeof element.animate !== "function" || prefersReducedMotion()) return;
+  element.animate(
+    [
+      { transform: "translateX(0)" },
+      { transform: "translateX(-8px)" },
+      { transform: "translateX(7px)" },
+      { transform: "translateX(-5px)" },
+      { transform: "translateX(3px)" },
+      { transform: "translateX(0)" },
+    ],
+    { duration: 420, easing: "cubic-bezier(0.36, 0.07, 0.19, 0.97)" },
   );
 }
 
@@ -188,11 +234,7 @@ export function LoginSurfaceV4({
   const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
 
   const resolvedInitialStep: LoginStep =
-    initialStep === "sent"
-      ? "sent"
-      : passwordSignInEnabled && initialStep === "password"
-        ? "password"
-        : "email";
+    initialStep === "password" && !passwordSignInEnabled ? "email" : initialStep;
 
   const [step, setStep] = useState<LoginStep>(resolvedInitialStep);
   const [email, setEmail] = useState<string>(initialEmail);
@@ -207,11 +249,44 @@ export function LoginSurfaceV4({
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [resendSecondsLeft, setResendSecondsLeft] = useState<number>(0);
 
+  const [destination, setDestination] = useState<string | null>(null);
+  const [confirmationAttempt, setConfirmationAttempt] = useState(0);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const sentTitleRef = useRef<HTMLHeadingElement>(null);
+  const [intro, setIntro] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIntro(false), INTRO_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEmailConfirmation(
+    step === "sent" || (step === "confirmed" && !destination) ? step : null,
+    step === "sent" ? sentEmail : "",
+    accountsEnabled,
+    confirmationAttempt,
+    (session) => {
+      setStep("confirmed");
+      setDestination(
+        session.completed
+          ? nextPath
+          : nextPath && nextPath !== "/app"
+            ? `/signup?paso=2&via=cuenta&next=${encodeURIComponent(nextPath)}`
+            : "/signup?paso=2&via=cuenta",
+      );
+    },
+    () => setStep("expired"),
+  );
+  useContinueAfterConfirmation(destination);
+  useEffect(() => {
+    if (step === "sent") sentTitleRef.current?.focus();
+  }, [step]);
   const promoCode = sanitizePromoCode(initialPromoCode);
-  const signupHref = promoCode
-    ? `/signup?code=${encodeURIComponent(promoCode)}`
-    : "/signup";
+  const signupParams = new URLSearchParams();
+  if (promoCode) signupParams.set("code", promoCode);
+  if (nextPath && nextPath !== "/app") signupParams.set("next", nextPath);
+  const signupQuery = signupParams.toString();
+  const signupHref = signupQuery ? `/signup?${signupQuery}` : "/signup";
 
   useEffect(() => {
     if (resendSecondsLeft <= 0) return;
@@ -230,7 +305,7 @@ export function LoginSurfaceV4({
       return "Escribe un correo electrónico válido, como tu@correo.com.";
     }
     if (isDisposableEmailDomain(clean)) {
-      return "No aceptamos correos temporales. Usa Google, Apple o tu correo personal.";
+      return "No aceptamos correos temporales. Usa Google o tu correo personal.";
     }
     return null;
   };
@@ -247,6 +322,7 @@ export function LoginSurfaceV4({
     if (validationError) {
       setFormError(validationError);
       emailInputRef.current?.focus();
+      shakeElement(emailInputRef.current);
       return;
     }
 
@@ -267,7 +343,7 @@ export function LoginSurfaceV4({
     }
 
     setSubmitting(true);
-    const ok = await requestLoginMagicLink(cleanEmail, nextPath);
+    const ok = await requestLoginMagicLink(cleanEmail, emailConfirmationCallbacks("login", nextPath));
     setSubmitting(false);
 
     if (ok) {
@@ -278,11 +354,12 @@ export function LoginSurfaceV4({
       setFormError(
         "No pudimos enviar el enlace. Intenta de nuevo en un momento.",
       );
+      shakeElement(emailInputRef.current);
     }
   };
 
   const handleSocialClick = async (
-    providerLabel: "Google" | "Apple",
+    providerLabel: "Google",
   ): Promise<void> => {
     if (submitting) return;
     setFormError("");
@@ -291,7 +368,7 @@ export function LoginSurfaceV4({
     if (accountsEnabled) {
       setSubmitting(true);
       const ok = await startLoginSocialSignIn(
-        providerLabel === "Google" ? "google" : "apple",
+        "google",
         nextPath,
       );
       setSubmitting(false);
@@ -319,11 +396,12 @@ export function LoginSurfaceV4({
     }
 
     setSubmitting(true);
-    const ok = await requestLoginMagicLink(sentEmail, nextPath);
+    const ok = await requestLoginMagicLink(sentEmail, emailConfirmationCallbacks("login", nextPath));
     setSubmitting(false);
 
     if (ok) {
       setResendSecondsLeft(RESEND_COOLDOWN_SECONDS);
+      setConfirmationAttempt((current) => current + 1);
       setResendNotice("Enviamos un nuevo enlace a tu correo.");
     } else {
       setResendNotice(
@@ -353,7 +431,10 @@ export function LoginSurfaceV4({
     .join(" ");
 
   return (
-    <div className="pl-stage pl-auth">
+    <div
+      className={`pl-stage pl-auth pl-auth--login${intro ? " pl-auth--intro" : ""}`}
+      onPointerDown={spawnRipple}
+    >
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
@@ -419,7 +500,11 @@ export function LoginSurfaceV4({
                 </div>
               ) : null}
 
-              {step !== "sent" ? (
+              {step === "confirmed" || step === "expired" ? (
+                <div className="pl-auth-card">
+                  <EmailConfirmationStatus step={step} onRetry={handleUseAnotherEmail} />
+                </div>
+              ) : step !== "sent" ? (
                 <>
                   <div
                     key={`head-${activeFormMode}`}
@@ -445,16 +530,7 @@ export function LoginSurfaceV4({
                         onClick={() => void handleSocialClick("Google")}
                       >
                         <GoogleMark />
-                        <span>Google</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-auth-btn pl-auth-btn-social"
-                        disabled={submitting}
-                        onClick={() => void handleSocialClick("Apple")}
-                      >
-                        <AppleMark />
-                        <span>Apple</span>
+                        <span>Continuar con Google</span>
                       </button>
                     </div>
 
@@ -567,7 +643,7 @@ export function LoginSurfaceV4({
                         aria-atomic="true"
                       >
                         {formError ? (
-                          <p className="pl-auth-error">{formError}</p>
+                          <p key={formError} className="pl-auth-error">{formError}</p>
                         ) : null}
                       </div>
 
@@ -577,11 +653,14 @@ export function LoginSurfaceV4({
                         disabled={submitting}
                         aria-busy={submitting || undefined}
                       >
-                        {submitting
-                          ? "Enviando…"
-                          : activeFormMode === "email"
-                            ? "Enviarme el enlace"
-                            : "Entrar"}
+                        {submitting ? (
+                          <>
+                            <span className="pl-auth-spinner" aria-hidden="true" />
+                            Enviando…
+                          </>
+                        ) : activeFormMode === "email"
+                          ? "Enviarme el enlace"
+                          : "Entrar"}
                       </button>
                     </form>
 
@@ -621,6 +700,8 @@ export function LoginSurfaceV4({
                   </div>
                   <h1
                     id="pl-login-title"
+                    ref={sentTitleRef}
+                    tabIndex={-1}
                     className="pl-auth-title pl-auth-title--sent"
                   >
                     Revisa tu correo

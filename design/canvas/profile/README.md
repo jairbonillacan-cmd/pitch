@@ -8,7 +8,7 @@ Fuente del lienzo de diseño «PitchLab · Perfil». El lienzo es privado; estos
 | `Mobile.dc.html` | El mismo perfil a 390 px, interactivo (pestañas Posts · Picks · Parlays · Datos), versión más calmada. |
 | `canvas.json` | Índice. Sus `notes` traen «Qué cambia y por qué» (`decisiones`) y el brief de implementación (`brief`). |
 
-Son HTML de referencia, no código para copiar. Los datos son los del perfil de ejemplo de Sofía (`TIPSTAR_CREATORS`, `isExample: true`): en la app todo sale del journal, de las publicaciones y del cálculo del leaderboard.
+Son HTML de referencia, no código para copiar. Los datos son los del perfil de ejemplo de Sofía (`TIPSTER_CREATORS`, `isExample: true`): en la app todo sale del journal, de las publicaciones y del cálculo del leaderboard.
 
 ## Imágenes (`/_blob/…`) → archivos del repo
 
@@ -37,4 +37,4 @@ Nunca escribas rutas de emblemas a mano: usa `TeamBadge` y `LeagueBadge`.
 | `--l1` / `--l2` / `--l3` (luces) | `--pl-orb-violet` / `--pl-orb-emerald` / `--pl-orb-sky` con `color-mix`, solo degradados |
 | `.glass` | `.glass-lens` + `.glass-ring` de `apps/web/app/pitchlab-v4.css` |
 | `.chip` | `.glass-card` + `.glass-ring` |
-| `.vbadge` | Componente nuevo `TipstarVerifiedBadge` (ver el prompt) |
+| `.vbadge` | Componente nuevo `TipsterVerifiedBadge` (ver el prompt) |

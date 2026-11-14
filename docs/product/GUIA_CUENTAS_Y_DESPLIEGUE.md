@@ -6,7 +6,7 @@
 
 ## Qué hace ya el código
 
-- **Entrar con cuenta:** correo con enlace mágico y Google; Apple queda listo para después.
+- **Entrar con cuenta:** correo con enlace mágico y Google. Apple no se usa: su programa de desarrollador cobra US$99 al año (decisión del fundador, 2026-11-12).
 - **Registro en dos pasos:** el paso 2 guarda en la base la fecha de nacimiento, la mayoría de edad y los consentimientos con su versión.
 - **Prueba de 7 días sin tarjeta:** se da una sola vez por correo. `ana.lopez+1@gmail.com` cuenta igual que `analopez@gmail.com`.
 - **Referidos:** si llegó con `?code=`, la persona queda ligada a quien la invitó.
@@ -27,9 +27,16 @@
 | `BETTER_AUTH_SECRET` | Secreto generado | 4 |
 | `BETTER_AUTH_URL` | `https://pitchlab.mx` | 4 |
 | `PITCHLAB_ADMIN_EMAILS` | Tu correo | 4 |
-| `RESEND_API_KEY`, `AUTH_EMAIL_FROM` | Resend | 5 |
+| `RESEND_API_KEY`, `AUTH_EMAIL_FROM`, `EMAIL_FROM`, `PITCHLAB_SUPPORT_EMAIL` | Resend | 5 |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud | 6 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare | 7 |
+| `BLOB_READ_WRITE_TOKEN` | Vercel (**Storage → Blob**, opcional) | Foto de perfil |
+| `PITCHLAB_PAYMENTS_MODE` | `"transfer"` (SPEI/cupones Beta 1.0) o `"stripe"` | Cobro |
+| `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY`, `PITCHLAB_TRANSFER_CLABE`, `PITCHLAB_TRANSFER_INSTRUCTIONS` | Tu cuenta bancaria SPEI (opcional la nota) | Beta 1.0 |
+| `CRON_SECRET` | Secreto generado (cron `/api/cron/tipster-payouts`) | Diario |
+| `THE_ODDS_API_KEY` | The Odds API v4 (plan gratis 500 req/mes, en GitHub Actions Secrets) | Datos automáticos |
+| `BETFAIR_APP_KEY`, `BETFAIR_SESSION_TOKEN` | Betfair Exchange API-NG Delayed App Key (opcional, en GitHub Actions Secrets) | Datos automáticos |
+| `VERCEL_DEPLOY_HOOK_URL` | Vercel (**Settings → Git → Deploy Hooks**, en GitHub Actions Secrets) | Datos automáticos |
 
 **Cómo generar un secreto:** en una terminal dentro de la carpeta del proyecto, corre:
 
@@ -80,7 +87,21 @@ Copia lo que imprime y pégalo directo en Vercel. Usa uno distinto para cada var
    $env:DATABASE_URL="postgresql://…"; pnpm --filter @pitchlab/db migrate
    ```
 
-   Debe terminar sin errores. Si después hay migraciones nuevas, se corre el mismo comando.
+   Debe terminar sin errores. Para los siguientes deploys usa el paso **Antes de cada deploy** de abajo.
+
+### Antes de cada deploy (migrar primero, desplegar después)
+
+Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar producción y después desplegar en Vercel**, porque el código nuevo espera encontrar las columnas y tablas nuevas apenas arranca.
+
+1. En PowerShell, dentro de la carpeta del proyecto (con `neon login` activo), corre:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
+   ```
+
+2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (hoy pueden incluir hasta `0015_transferencias_cupones_preferencias`, según cuándo se corrió por última vez). Si ya está al día, avisa y termina sin tocar nada.
+3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
+4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
 ## Paso 4 · Encender las cuentas (Better Auth)
 
@@ -95,13 +116,15 @@ Con `DATABASE_URL` y `BETTER_AUTH_SECRET` ya puestas, la app cambia sola a cuent
 ## Paso 5 · Resend (el correo con el enlace para entrar)
 
 1. Entra a <https://resend.com> y crea tu cuenta (plan gratis: 3,000 correos al mes).
-2. Abre **Domains → Add Domain**, escribe `pitchlab.mx` y elige la región **North Virginia (us-east-1)**.
+2. Abre **Domains → Add Domain**, escribe `pitchlab.mx` y elige la región **North Virginia (us-east-1)**. Si el DNS está en Cloudflare, usa **Auto configure** para que Resend cree los registros solo.
 3. Resend muestra 3 o 4 registros (`MX` y `TXT` para `send`, `TXT` para `resend._domainkey` y, opcional, `_dmarc`). Créalos en el mismo DNS del paso 2, copiando nombre y valor tal cual.
 4. Regresa a Resend y da clic en **Verify DNS Records**. Espera a que diga **Verified**.
 5. Abre **API Keys → Create API Key**, con nombre `pitchlab-produccion`, permiso **Sending access** y dominio `pitchlab.mx`. **Cópiala en ese momento**: no se vuelve a mostrar.
 6. En Vercel, agrega:
    - `RESEND_API_KEY`: la clave que copiaste.
    - `AUTH_EMAIL_FROM`: `PitchLab <acceso@pitchlab.mx>`
+   - `EMAIL_FROM`: `PitchLab <hola@pitchlab.mx>` (bienvenida y avisos de la prueba)
+   - `PITCHLAB_SUPPORT_EMAIL`: el correo al que responde la gente y que sale en el pie de cada correo.
 7. Ahora sí, haz **Redeploy**.
 
 ## Paso 6 · Entrar con Google
@@ -124,7 +147,7 @@ Con `DATABASE_URL` y `BETTER_AUTH_SECRET` ya puestas, la app cambia sola a cuent
 5. En **Audience**, da clic en **Publish app**. Sin esto, solo entran los correos de prueba.
 6. En Vercel, agrega `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET`, y haz **Redeploy**.
 
-Apple queda para después: pide el Apple Developer Program (US$99 al año) y su secreto caduca cada 6 meses. Mientras tanto, el botón de Apple avisa que todavía no está disponible.
+Apple no se usa: su programa de desarrollador cobra US$99 al año (decisión del fundador, 2026-11-12). Por eso no hay botón de Apple ni variables `APPLE_*`.
 
 ## Paso 7 · Cloudflare Turnstile (anti-robots)
 
@@ -151,13 +174,108 @@ Apple queda para después: pide el Apple Developer Program (US$99 al año) y su 
 
 **Si algo falla:** en Vercel abre **Deployments**, elige el más reciente y luego **Logs**. Ahí aparece el error; cópialo al chat, pero **tapa cualquier clave** antes.
 
+## Foto de perfil (Vercel Blob)
+
+La foto de perfil de cada socio (`POST /api/me/avatar`) se recorta a un cuadrado de 256 px y se guarda en **Vercel Blob**. Mientras no exista `BLOB_READ_WRITE_TOKEN`, el botón en «Editar perfil» muestra **«Pronto»** y el resto del perfil sigue usando las iniciales.
+
+1. En Vercel, entra al proyecto `pitchlab` y abre la pestaña **Storage** (en algunas vistas está en el menú lateral de tu equipo como **Storage → Create Database / Store**).
+2. Elige **Blob** (*Serverless Object Storage*), ponle nombre `pitchlab-avatars` y selecciona acceso **Public** (las fotos de perfil se muestran en Comunidad y perfiles públicos).
+3. Conecta el store al proyecto `pitchlab` marcando **Production** y **Preview**. Vercel crea y guarda sola la variable `BLOB_READ_WRITE_TOKEN` en **Settings → Environment Variables**.
+4. Asegúrate de haber corrido antes `scripts/migrate-prod.ps1` (incluye `0010_avatar_perfil`, que agrega `users.avatar_url`) y haz **Redeploy** en **Deployments** para que la app tome la variable.
+5. Si quieres probar la subida en tu PC (`9990`), copia el token de desarrollo desde el panel del Blob Store a `.env.9990.local` como `BLOB_READ_WRITE_TOKEN=…` (nunca al repo).
+
+## Conectar X
+
+1. Crea una app en el portal de desarrolladores de X. En su configuración de autenticación, habilita OAuth 2.0, elige **Web App** y selecciona permisos de solo lectura. [Documentación de OAuth 2.0 de X](https://docs.x.com/fundamentals/authentication/oauth-2-0/authorization-code)
+2. Registra estas dos URLs de callback.
+   - `https://pitchlab.mx/api/auth/callback/twitter`
+   - `http://localhost:9990/api/auth/callback/twitter`
+3. Guarda el Client ID y el Client Secret como `TWITTER_CLIENT_ID` y `TWITTER_CLIENT_SECRET` en Vercel y en `.env.9990.local`. El botón muestra «Pronto» hasta que existan ambas variables.
+4. Antes del próximo deploy, aplica la migración `0005_perfil_y_conexion_x` a producción y prueba «Conectar X» en el 9990 con las claves reales. Confirma que el usuario que devuelve X aparece en el perfil público y desaparece al desconectar. El proveedor solo se habilita para vincularlo desde una sesión de PitchLab.
+
+## Operación Beta 1.0 (SPEI, cupones y `/app/admin`)
+
+En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportamiento por defecto si omites la variable): Stripe Checkout (`/api/billing/checkout`) responde `503` y Stripe Connect (`/api/tipster/connect`) responde `409`. Todo el acceso pagado se opera por transferencia SPEI, cupones de acceso (`/canjear?codigo=XXXX` o `/app/canjear`) o concesión manual en `/app/admin`.
+
+1. **Variables en Vercel (Production y Preview):**
+   - `PITCHLAB_PAYMENTS_MODE=transfer`
+   - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para mostrar la cuenta destino y la referencia única ligada a la cuenta en `/precio` y `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
+   - `EMAIL_NOREPLY_FROM` (por defecto `PitchLab <noreply@pitchlab.mx>`, remitente de los cupones SPEI y comprobantes).
+   - `CRON_SECRET` para que Vercel Cron ejecute `/api/cron/tipster-payouts` diariamente (promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails` dentro de la ventana de 28 días).
+2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite revisar transferencias SPEI pendientes con la referencia única del socio y confirmarlas (lo que genera un cupón personal de un solo uso con vigencia de 30 días y lo envía desde `noreply@pitchlab.mx` para canjear en `/canjear`; al canjearlo se activan los días pagados, el recibo, la recompensa bilateral `+7 días` de referidos, los avisos de renovación/vencimiento y la comisión de tipster), rechazar transferencias con motivo, crear o desactivar cupones promocionales, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
+
+### Recetas SQL útiles en Neon (emergencia o auditoría)
+
+Siempre que sea posible aprueba transferencias o concede acceso desde `/app/admin` para disparar correos, auditoría y comisiones. Para consulta o respaldo directo en **Neon SQL Editor**:
+
+```sql
+-- 1. Buscar socio por correo o @usuario y su pase activo más lejano
+SELECT u.id, u.email, u.handle, u.display_name, u.referral_code,
+       MAX(eg.ends_at) FILTER (WHERE eg.revoked_at IS NULL AND eg.ends_at > now()) AS pase_vigente_hasta
+FROM users u
+LEFT JOIN entitlement_grants eg ON eg.user_id = u.id
+WHERE lower(u.email) = lower('socio@ejemplo.com')
+   OR lower(u.handle) = lower('usuario_handle')
+GROUP BY u.id;
+
+-- 2. Aprobar una transferencia SPEI pendiente / conceder 30 días sin duplicar (cambia los parámetros)
+BEGIN;
+WITH upd AS (
+  UPDATE transfer_payment_requests
+  SET status = 'approved', reviewed_at = now(), updated_at = now(), admin_notes = 'Aprobado manual SQL'
+  WHERE reference_code = 'PL-REF-0001' AND status = 'pending_review'
+  RETURNING id, user_id, plan_interval, reference_code
+)
+INSERT INTO entitlement_grants (user_id, source_kind, days_granted, starts_at, ends_at, idempotency_key, note)
+SELECT user_id,
+       'transfer_payment',
+       CASE WHEN plan_interval = 'annual' THEN 365 ELSE 30 END,
+       now(),
+       now() + CASE WHEN plan_interval = 'annual' THEN interval '365 days' ELSE interval '30 days' END,
+       'sql:transfer:' || reference_code,
+       'Aprobación SPEI manual (' || reference_code || ')'
+FROM upd
+ON CONFLICT (idempotency_key) DO NOTHING;
+COMMIT;
+
+-- 3. Crear un cupón de acceso (código siempre en MAYÚSCULAS; days entre 1 y 365)
+INSERT INTO access_coupons (code, days, max_redemptions, expires_at, active, note)
+VALUES ('BETA30', 30, 50, now() + interval '60 days', true, 'Lote inicial Beta 1.0');
+
+-- 4. Listar transferencias SPEI pendientes con antigüedad y alerta de monto
+SELECT r.reference_code, r.plan_interval,
+       r.amount_centavos_mxn / 100.0 AS monto_esperado_mxn,
+       r.reported_amount_centavos_mxn / 100.0 AS monto_reportado_mxn,
+       r.amount_mismatch, r.origin_bank, r.receipt_reference,
+       u.email, u.handle,
+       EXTRACT(EPOCH FROM (now() - r.created_at)) / 3600.0 AS horas_en_cola
+FROM transfer_payment_requests r
+JOIN users u ON u.id = r.user_id
+WHERE r.status = 'pending_review'
+ORDER BY r.created_at ASC;
+```
+
 ## Después (cuando decidas cobrar)
+
+- Cambiar `PITCHLAB_PAYMENTS_MODE=stripe` en Vercel cuando Stripe MX quede verificado (en Beta 1.0 mantén `"transfer"`).
 
 - Pasar a **Vercel Pro**: Hobby es solo para uso no comercial.
 - **Stripe MX:**
   - precios de $299 al mes y $2,390 al año → `STRIPE_PRICE_MONTHLY` y `STRIPE_PRICE_ANNUAL`;
   - webhook a `https://pitchlab.mx/api/webhooks/stripe` → `STRIPE_WEBHOOK_SECRET`;
   - `STRIPE_SECRET_KEY`.
-- **Connect** para tipstars → `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`.
+- **Connect** para tipsters → `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`.
 - **Facturapi** → `FACTURAPI_KEY`, cuando definas con el contador quién factura.
 - **Upstash Redis** (opcional y gratis) → `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, para que el límite de intentos del PIN funcione en todas las instancias.
+
+## Datos automáticos y alertas en GitHub Actions (`main`)
+
+Los workflows `.github/workflows/odds-refresh.yml` (momios) y `.github/workflows/pre-mvp-snapshot.yml` (calendario, resultados y bajas) corren solos en la rama `main` (y bajo demanda con **Run workflow** en la pestaña **Actions**). Validan cada archivo antes de publicarlo, hacen un solo commit por corrida únicamente si hubo cambios, disparan un único redeploy en Vercel y avisan por correo si algo falla o envejece sin repetir el mismo correo en cada corrida.
+
+En GitHub, abre **Settings → Secrets and variables → Actions → New repository secret** y registra:
+
+1. **`THE_ODDS_API_KEY`** (recomendada, plan gratuito de 500 solicitudes/mes en <https://the-odds-api.com>): alimenta momios verificados `< 72 h` de las 7 ligas.
+2. **`BETFAIR_APP_KEY`** y **`BETFAIR_SESSION_TOKEN`** (opcionales, Delayed App Key gratuita del programa oficial Betfair API-NG): respaldo de intercambio para fútbol europeo.
+3. **`FOOTBALL_DATA_API_KEY`** (opcional, gratis en football-data.org): respaldo de calendario para Premier League.
+4. **`VERCEL_DEPLOY_HOOK_URL`**: en Vercel abre **Settings → Git → Deploy Hooks**, crea un hook llamado `github-data-pipeline` apuntando a `main` y pega la URL HTTPS.
+5. **`RESEND_API_KEY`**, **`EMAIL_FROM`** (`PitchLab <hola@pitchlab.mx>`) y **`PITCHLAB_ADMIN_EMAILS`** (tu correo): permiten que GitHub Actions te mande alerta inmediata cuando falle un workflow, se descarte un snapshot inválido o una liga supere su umbral de frescura (`30 h` calendario / `12 h` en jornada, `36 h` bajas, `36 h` momios).

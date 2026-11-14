@@ -23,24 +23,48 @@ describe("ReferralInviteSurface & resolveReferralInvite", () => {
 
     const annual = resolveReferralInvite({
       interval: "ANNUAL",
-      code: "SOCIO-8842",
+      code: "JAIR-2611",
       accountsEnabled: false,
     });
     expect(annual.interval).toBe("annual");
     expect(annual.headlineMuted).toContain("$2,390 MXN");
-    expect(annual.senderDisplay).toBe("@socio_pl");
+    expect(annual.senderDisplay).toBe("@jair");
+    expect(annual.senderSuffix).toBe(" te invitó");
     expect(annual.isExampleSender).toBe(true);
   });
 
-  it("resolves Tipstar and expired invite variants cleanly", () => {
-    const tipstar = resolveReferralInvite({
+  it("shows @usuario te invitó when code and from (senderHandle) are provided", () => {
+    const resolved = resolveReferralInvite({
+      code: "CARLOS-9012",
+      senderHandle: "carlos_mx",
+      accountsEnabled: true,
+    });
+    expect(resolved.code).toBe("CARLOS-9012");
+    expect(resolved.senderPrefix).toBe("");
+    expect(resolved.senderDisplay).toBe("@carlos_mx");
+    expect(resolved.senderSuffix).toBe(" te invitó");
+    expect(resolved.isExampleSender).toBe(false);
+
+    const html = renderToStaticMarkup(
+      <ReferralInviteSurface
+        code="CARLOS-9012"
+        senderHandle="carlos_mx"
+        accountsEnabled
+      />,
+    );
+    expect(html).toContain("@carlos_mx");
+    expect(html).toContain(" te invitó");
+  });
+
+  it("resolves Tipster and expired invite variants cleanly", () => {
+    const tipster = resolveReferralInvite({
       code: "SOFIA5",
       accountsEnabled: false,
     });
-    expect(tipstar.headlineLead).toBe("5 días de PitchLab ");
-    expect(tipstar.cardTier).toBe("ULTRA · TIPSTAR");
-    expect(tipstar.senderDisplay).toBe("@sofia_nfl");
-    expect(tipstar.isExampleSender).toBe(true);
+    expect(tipster.headlineLead).toBe("5 días de PitchLab ");
+    expect(tipster.cardTier).toBe("ULTRA · TIPSTER");
+    expect(tipster.senderDisplay).toBe("@sofia_nfl");
+    expect(tipster.isExampleSender).toBe(true);
 
     const expired = resolveReferralInvite({
       code: "VENCIDO-2024",

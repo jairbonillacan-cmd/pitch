@@ -9,7 +9,7 @@
 1. Llega a `/` desde una red con `utm_source` (por ejemplo, Instagram).
 2. Ve el valor con capturas reales del producto y los deportes y ligas disponibles.
 3. Va a `/pricing`, elige Pro y pulsa «Probar 7 días».
-4. En `/signup` (email, Google o Apple) declara su fecha de nacimiento (bloqueo si < 18) y acepta los términos y el aviso de privacidad con consentimientos granulares.
+4. En `/signup` (email o Google) declara su fecha de nacimiento (bloqueo si < 18) y acepta los términos y el aviso de privacidad con consentimientos granulares.
 5. Verifica su email. Llega a `/app/onboarding` (ligas, equipos con emblemas, intereses).
 6. Llega a `/app` con un Dashboard personalizado y el banner de trial («quedan 7 días»).
 

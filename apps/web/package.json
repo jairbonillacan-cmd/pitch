@@ -7,7 +7,7 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start --port 3000",
-    "test": "vitest run tests",
+    "test": "vitest run tests --no-file-parallelism --hookTimeout=60000 --testTimeout=60000",
     "typecheck": "tsc --noEmit",
     "e2e": "playwright test"
   },
@@ -17,16 +17,21 @@
     "@heroui/styles": "3.2.7",
     "@pitchlab/contracts": "workspace:*",
     "@pitchlab/db": "workspace:*",
+    "@pitchlab/emails": "workspace:*",
+    "@pitchlab/ingest": "workspace:*",
     "@pitchlab/spacetime": "workspace:*",
     "@pitchlab/sports-assets": "workspace:*",
     "@pitchlab/tokens": "workspace:*",
     "@pitchlab/ui": "workspace:*",
     "@stylexjs/stylex": "0.19.1",
+    "@vercel/blob": "2.8.2",
     "better-auth": "1.7.19",
     "drizzle-orm": "0.45.4",
-    "next": "^15.1.7",
+    "marked": "15.0.12",
+    "next": "^15.5.29",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",

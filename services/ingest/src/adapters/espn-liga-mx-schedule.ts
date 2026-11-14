@@ -10,7 +10,7 @@
  *   equipo es su jornada n. Después de la jornada 17 es fase final (Liguilla).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve, sep } from "node:path";
 import { z } from "zod";
 import { asGameId, asLeagueId, asSeasonId, type GameDTO } from "@pitchlab/contracts";
 import type { FootballTeamRateInput } from "@pitchlab/engines-reference";
@@ -21,8 +21,23 @@ export const ESPN_LIGA_MX_SCOREBOARD =
   "https://site.api.espn.com/apis/site/v2/sports/soccer/mex.1/scoreboard";
 export const LIGA_MX_REGULAR_ROUNDS = 17;
 
+const SAFE_DAY_KEY_RE = /^\d{8}$/;
+const SAFE_ESPN_ID_RE = /^\d{1,20}$/;
+
+export function resolveSafeEspnCachePath(rootDir: string, relativePath: string): string {
+  if (!relativePath || relativePath.includes("..") || relativePath.includes("\0")) {
+    throw new Error(`Ruta de caché ESPN insegura rechazada: ${relativePath}`);
+  }
+  const resolvedRoot = resolve(rootDir);
+  const resolvedTarget = resolve(resolvedRoot, relativePath);
+  if (!resolvedTarget.startsWith(resolvedRoot + sep)) {
+    throw new Error(`Escape de directorio en caché ESPN bloqueado: ${relativePath}`);
+  }
+  return resolvedTarget;
+}
+
 const EspnEventSchema = z.object({
-  id: z.string(),
+  id: z.string().regex(SAFE_ESPN_ID_RE),
   date: z.string().min(10),
   status: z.object({ type: z.object({ name: z.string(), completed: z.boolean().optional() }) }),
   competitions: z
@@ -95,13 +110,21 @@ export async function fetchEspnLigaMxSeason(options: {
   const root = ScoreboardSchema.parse(await fetchJson(ESPN_LIGA_MX_SCOREBOARD));
   const league = root.leagues?.[0];
   const seasonYear = league?.season?.year ?? Number(options.referenceDate.slice(0, 4));
-  const calendar = (league?.calendar ?? []).map(dayKey).filter((d) => d <= limitDay);
-  const cacheRoot = join(options.cacheDir, "espn-liga-mx", String(seasonYear));
+  if (!Number.isInteger(seasonYear) || seasonYear < 1990 || seasonYear > 2100) {
+    throw new Error(`Año de temporada ESPN fuera de rango: ${String(seasonYear)}`);
+  }
+  if (!SAFE_DAY_KEY_RE.test(todayKey) || !SAFE_DAY_KEY_RE.test(limitDay)) {
+    throw new Error(`Fecha de referencia inválida para calendario ESPN: ${options.referenceDate}`);
+  }
+  const calendar = (league?.calendar ?? [])
+    .map(dayKey)
+    .filter((d) => SAFE_DAY_KEY_RE.test(d) && d <= limitDay);
+  const cacheRoot = resolveSafeEspnCachePath(options.cacheDir, join("espn-liga-mx", String(seasonYear)));
   mkdirSync(cacheRoot, { recursive: true });
 
   const byId = new Map<string, EspnLigaMxEvent>();
   for (const day of [...new Set(calendar)].sort()) {
-    const file = join(cacheRoot, `${day}.json`);
+    const file = resolveSafeEspnCachePath(cacheRoot, `${day}.json`);
     // Días cerrados (anteriores a ayer) se leen de caché; el resto se refresca.
     const closed = day < todayKey && Number(todayKey) - Number(day) > 1;
     let payload: unknown;

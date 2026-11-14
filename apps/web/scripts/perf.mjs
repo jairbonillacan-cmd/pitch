@@ -22,7 +22,7 @@ const PROFILES = [
 
 const NAV_SEQUENCE = [
   { href: "/app/parlays", h1: /Armar parlay/i },
-  { href: "/app/lab", h1: /bitácora/i },
+  { href: "/app/lab", h1: /mi récord|bitácora/i },
   { href: "/app/social", h1: /^Comunidad$/i },
   { href: "/app", h1: /Partidos de hoy/i },
 ];

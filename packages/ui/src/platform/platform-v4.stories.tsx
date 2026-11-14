@@ -20,10 +20,15 @@ import {
 } from "./club/ParlayAndQuantViews";
 import {
   SocialVipClubView,
-  TipstarPortalClubView,
-} from "./club/SocialAndTipstarViews";
+  TipsterPortalClubView,
+} from "./club/SocialAndTipsterViews";
+import { HomeClubView } from "./club/home/HomeClubView";
+import { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
+import { DailyParlaysResultsSection } from "./club/DailyParlaysResultsSection";
+import { HomeMatchCard } from "./components/HomeMatchCard";
+import { ClubLayoutShell } from "./components/ShellChrome";
 import { buildPlatformDataset } from "./match-picks-engine";
-import { PlatformProvider } from "./platform-provider";
+import { PlatformProvider, usePlatformCore } from "./platform-provider";
 import {
   AuthSurfaceV4,
   OnboardingSurfaceV4,
@@ -31,7 +36,7 @@ import {
 import { LandingSurface } from "./public/LandingSurface";
 import {
   PricingSurface,
-  PublicTipstarPickSurface,
+  PublicTipsterPickSurface,
   TechPrecisionSurface,
 } from "./public/TechAndPricingSurfaces";
 import type { ViewerRole } from "./types";
@@ -334,10 +339,10 @@ export const PublicPaseTotalPricing = {
   ),
 };
 
-export const PublicTipstarTicket = {
+export const PublicTipsterTicket = {
   render: () => (
     <StoryShell role="visitor" redacted>
-      <PublicTipstarPickSurface pickSlug="sofia-sem" />
+      <PublicTipsterPickSurface pickSlug="sofia-sem" />
     </StoryShell>
   ),
 };
@@ -364,6 +369,77 @@ export const ClubJornadaHome = {
       <JornadaClubView />
     </StoryShell>
   ),
+};
+
+/** Jornada dentro del shell completo: encabezado con la campana de notificaciones. */
+export const ClubJornadaConEncabezado = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <JornadaClubView />
+      </ClubLayoutShell>
+    </StoryShell>
+  ),
+};
+
+/** Inicio: días → deporte → liga, tarjetas de partido y columna con parlay, valor y bitácora. */
+export const ClubInicioOscuro = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <HomeClubView />
+      </ClubLayoutShell>
+    </StoryShell>
+  ),
+  globals: { theme: "dark" },
+};
+
+export const ClubInicioClaro = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <HomeClubView />
+      </ClubLayoutShell>
+    </StoryShell>
+  ),
+  globals: { theme: "light" },
+};
+
+/** Sin Pase: la tarjeta oculta el pick principal y el marcador proyectado. */
+export const ClubInicioVisitante = {
+  render: () => (
+    <StoryShell role="visitor" redacted>
+      <HomeClubView />
+    </StoryShell>
+  ),
+};
+
+function FirstGameCard(): React.JSX.Element {
+  const { dataset } = usePlatformCore();
+  const game = dataset.games.find((g) => g.status !== "FT") ?? dataset.games[0];
+  return (
+    <div className="pl-stage" style={{ minHeight: "auto" }}>
+      <div style={{ maxWidth: 380, padding: 24 }}>{game ? <HomeMatchCard game={game} /> : null}</div>
+    </div>
+  );
+}
+
+export const TarjetaPartidoOscuro = {
+  render: () => (
+    <StoryShell role="member">
+      <FirstGameCard />
+    </StoryShell>
+  ),
+  globals: { theme: "dark" },
+};
+
+export const TarjetaPartidoClaro = {
+  render: () => (
+    <StoryShell role="member">
+      <FirstGameCard />
+    </StoryShell>
+  ),
+  globals: { theme: "light" },
 };
 
 export const ClubMultiPicks = {
@@ -422,10 +498,15 @@ export const ClubSocialVip = {
   ),
 };
 
-export const ClubTipstarCreatorPortal = {
+export const ClubSocialVipClaro = {
+  ...ClubSocialVip,
+  globals: { theme: "light" },
+};
+
+export const ClubTipsterCreatorPortal = {
   render: () => (
-    <StoryShell role="tipstar">
-      <TipstarPortalClubView />
+    <StoryShell role="tipster">
+      <TipsterPortalClubView />
     </StoryShell>
   ),
 };
@@ -460,4 +541,295 @@ export const ClubFounderAdmin = {
       <FounderAdminClubView />
     </StoryShell>
   ),
+};
+
+export const ClubFounderAdminModeracionOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <StoryShell role="admin">
+      <FounderAdminClubView
+        storyModeration={{
+          pendingQueue: [
+            {
+              targetType: "post",
+              targetId: "post-mod-1",
+              postId: "post-mod-1",
+              body: "Entren a mi grupo privado para picks garantizados sin perder jamás.",
+              isHiddenByModeration: true,
+              authorUserId: "u-spam-1",
+              authorHandle: "raul_picks",
+              authorName: "Raúl Vega",
+              authorPaused: false,
+              reportCount: 3,
+              reasons: ["spam_enlaces", "apuesta_riesgosa"],
+              latestReportAt: "2026-11-14T19:20:00Z",
+            },
+            {
+              targetType: "comment",
+              targetId: "comment-mod-2",
+              postId: "post-mod-9",
+              body: "Comentario fuera de tono en el hilo del partido.",
+              isHiddenByModeration: false,
+              authorUserId: "u-mod-2",
+              authorHandle: "carlos_mx",
+              authorName: "Carlos Soto",
+              authorPaused: false,
+              reportCount: 1,
+              reasons: ["ofensivo"],
+              latestReportAt: "2026-11-14T19:10:00Z",
+            },
+          ],
+          hiddenItems: [
+            {
+              targetType: "post",
+              targetId: "post-mod-1",
+              postId: "post-mod-1",
+              body: "Entren a mi grupo privado para picks garantizados sin perder jamás.",
+              authorUserId: "u-spam-1",
+              authorHandle: "raul_picks",
+              authorName: "Raúl Vega",
+              authorPaused: false,
+              createdAt: "2026-11-14T18:55:00Z",
+            },
+          ],
+          pausedMembers: [
+            {
+              userId: "u-paused-1",
+              handle: "diego_spam",
+              displayName: "Diego Morales",
+              email: "diego@example.com",
+            },
+          ],
+        }}
+      />
+    </StoryShell>
+  ),
+};
+
+export const ClubFounderAdminModeracionClaro = {
+  ...ClubFounderAdminModeracionOscuro,
+  globals: { theme: "light" },
+};
+
+const PARLAY_DAY_STORY_DATASET = buildPlatformDataset([
+  {
+    league: asLeagueId("liga-mx"),
+    leagueLabel: "Liga MX",
+    sport: "football",
+    season: "Apertura 2026",
+    roundLabel: "Jornada 16",
+    generatedAt: "2026-11-14T10:00:00Z",
+    games: [
+      makeStoryMatch({
+        id: "p4-lmx-1",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        status: "NS",
+        homeSlug: "club-america",
+        homeName: "América",
+        homeCode: "AME",
+        awaySlug: "tigres-uanl",
+        awayName: "Tigres",
+        awayCode: "TIG",
+        x12: [0.76, 0.14, 0.1],
+        proj: { home: 2.3, away: 0.7, total: 3.0 },
+      }),
+      makeStoryMatch({
+        id: "p4-lmx-2",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        status: "NS",
+        homeSlug: "cruz-azul",
+        homeName: "Cruz Azul",
+        homeCode: "CAZ",
+        awaySlug: "pumas-unam",
+        awayName: "Pumas",
+        awayCode: "PUM",
+        x12: [0.74, 0.16, 0.1],
+        proj: { home: 2.1, away: 0.8, total: 2.9 },
+      }),
+      makeStoryMatch({
+        id: "p4-lmx-3",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        status: "NS",
+        homeSlug: "monterrey",
+        homeName: "Monterrey",
+        homeCode: "MTY",
+        awaySlug: "chivas",
+        awayName: "Chivas",
+        awayCode: "GDL",
+        x12: [0.72, 0.17, 0.11],
+        proj: { home: 2.0, away: 0.9, total: 2.9 },
+      }),
+      makeStoryMatch({
+        id: "p4-lmx-ft-1",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        status: "FT",
+        homeSlug: "club-america",
+        homeName: "América",
+        homeCode: "AME",
+        awaySlug: "atlas",
+        awayName: "Atlas",
+        awayCode: "ATL",
+        x12: [0.75, 0.15, 0.1],
+        proj: { home: 2.2, away: 0.7, total: 2.9 },
+        score: { home: 2, away: 0 },
+      }),
+      makeStoryMatch({
+        id: "p4-lmx-ft-2",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        status: "FT",
+        homeSlug: "cruz-azul",
+        homeName: "Cruz Azul",
+        homeCode: "CAZ",
+        awaySlug: "monterrey",
+        awayName: "Monterrey",
+        awayCode: "MTY",
+        x12: [0.73, 0.16, 0.11],
+        proj: { home: 2.0, away: 0.8, total: 2.8 },
+        score: { home: 3, away: 1 },
+      }),
+    ],
+  },
+  {
+    league: asLeagueId("nfl"),
+    leagueLabel: "NFL",
+    sport: "american-football",
+    season: "Temporada 2026",
+    roundLabel: "Semana 11",
+    generatedAt: "2026-11-14T10:00:00Z",
+    games: [
+      makeStoryMatch({
+        id: "p4-nfl-1",
+        league: "nfl",
+        leagueLabel: "NFL",
+        sport: "american-football",
+        status: "NS",
+        homeSlug: "kansas-city-chiefs",
+        homeName: "Chiefs",
+        homeCode: "KC",
+        awaySlug: "buffalo-bills",
+        awayName: "Bills",
+        awayCode: "BUF",
+        x12: [0.64, 0, 0.36],
+        proj: { home: 27.5, away: 23.0, total: 50.5 },
+      }),
+      makeStoryMatch({
+        id: "p4-nfl-ft-1",
+        league: "nfl",
+        leagueLabel: "NFL",
+        sport: "american-football",
+        status: "FT",
+        homeSlug: "detroit-lions",
+        homeName: "Lions",
+        homeCode: "DET",
+        awaySlug: "green-bay-packers",
+        awayName: "Packers",
+        awayCode: "GB",
+        x12: [0.62, 0, 0.38],
+        proj: { home: 27.4, away: 21.6, total: 49.0 },
+        score: { home: 28, away: 20 },
+      }),
+      makeStoryMatch({
+        id: "p4-nfl-ft-2",
+        league: "nfl",
+        leagueLabel: "NFL",
+        sport: "american-football",
+        status: "FT",
+        homeSlug: "baltimore-ravens",
+        homeName: "Ravens",
+        homeCode: "BAL",
+        awaySlug: "cincinnati-bengals",
+        awayName: "Bengals",
+        awayCode: "CIN",
+        x12: [0.61, 0, 0.39],
+        proj: { home: 28.0, away: 23.0, total: 51.0 },
+        score: { home: 24, away: 27 },
+      }),
+    ],
+  },
+]);
+
+export const ParlayDelDiaOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={PARLAY_DAY_STORY_DATASET} initialRole="member">
+      <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+        <OfficialDailyParlayCard
+          games={PARLAY_DAY_STORY_DATASET.games}
+          selectedDay="2026-11-14"
+          today="2026-11-14"
+        />
+      </div>
+    </PlatformProvider>
+  ),
+};
+
+export const ParlayDelDiaClaro = {
+  ...ParlayDelDiaOscuro,
+  globals: { theme: "light" },
+};
+
+export const ParlayDelDiaVacioOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={PARLAY_DAY_STORY_DATASET} initialRole="member">
+      <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+        <OfficialDailyParlayCard
+          games={PARLAY_DAY_STORY_DATASET.games.slice(0, 1)}
+          selectedDay="2026-11-14"
+          today="2026-11-14"
+        />
+      </div>
+    </PlatformProvider>
+  ),
+};
+
+export const ParlayDelDiaVacioClaro = {
+  ...ParlayDelDiaVacioOscuro,
+  globals: { theme: "light" },
+};
+
+export const GeneradorPersonalParlayOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={PARLAY_DAY_STORY_DATASET} initialRole="member">
+      <ParlayBuilderClubView />
+    </PlatformProvider>
+  ),
+};
+
+export const GeneradorPersonalParlayClaro = {
+  ...GeneradorPersonalParlayOscuro,
+  globals: { theme: "light" },
+};
+
+export const HistorialParlaysDelDiaOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={PARLAY_DAY_STORY_DATASET} initialRole="member">
+      <div className="p-4 sm:p-6 max-w-5xl mx-auto">
+        <DailyParlaysResultsSection
+          games={PARLAY_DAY_STORY_DATASET.games.map((g) => ({
+            ...g,
+            dayId: g.status === "FT" ? "2026-11-08" : g.dayId,
+          }))}
+          oddsFormat="american"
+        />
+      </div>
+    </PlatformProvider>
+  ),
+};
+
+export const HistorialParlaysDelDiaClaro = {
+  ...HistorialParlaysDelDiaOscuro,
+  globals: { theme: "light" },
 };

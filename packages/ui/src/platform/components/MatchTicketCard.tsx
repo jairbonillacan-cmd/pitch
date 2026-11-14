@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
+import { formatOddsCaptureEs } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   formatEdgePts,
   formatOddsValue,
-  getSessionWatermark,
   isPickUnlocked,
   pickReferenceDecimal,
 } from "../access-guard";
@@ -17,6 +17,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
+import { ConfidenceChip } from "./ConfidenceChip";
 import {
   CrestPedestal,
   LensGlowOrbs,
@@ -35,7 +36,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   compact?: boolean;
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
-  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { addPickToParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
   const inParlay = useIsPickInParlay(pick.id);
@@ -68,15 +69,15 @@ export const MultiPickRow = React.memo(function MultiPickRow({
         </div>
 
         <a
-          href="/signup"
+          href={upgradeHref}
           onClick={(e) => {
             e.preventDefault();
-            navigateTo("/signup");
+            navigateTo(upgradeHref);
           }}
           className="pl-btn-accent text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
         >
           <MaestroIcon name="unlock" size={13} />
-          <span>Desbloquear 7d gratis</span>
+          <span>{hasAccountSession ? "Activar Pase Ultra" : "Desbloquear 7d gratis"}</span>
         </a>
       </div>
     );
@@ -119,7 +120,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
               <span>Pick gratis del día</span>
             </span>
           ) : null}
-          {pick.isTipstarWeeklyOpen ? (
+          {pick.isTipsterWeeklyOpen ? (
             <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
               <MaestroIcon name="crown" size={11} />
               <span>Pick semanal (ejemplo)</span>
@@ -172,6 +173,18 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                 <> / {formatOddsValue(effectiveMarketDecimal, oddsFormat)}</>
               )}
             </strong>
+            {!hasLiveUserOdds &&
+            effectiveMarketDecimal !== null &&
+            pick.marketCapturedAtUtc ? (
+              <time
+                dateTime={pick.marketCapturedAtUtc}
+                className="block text-[10px] leading-tight"
+                style={{ color: "var(--pl-text-muted)" }}
+                data-pick-odds-captured=""
+              >
+                {formatOddsCaptureEs(pick.marketCapturedAtUtc)}
+              </time>
+            ) : null}
           </div>
           {/* Sin momio de casa no hay ventaja que mostrar: la columna no aparece. */}
           {effectiveEdgePts !== null ? (
@@ -193,10 +206,8 @@ export const MultiPickRow = React.memo(function MultiPickRow({
       </div>
 
       {gameStatus !== "FT" ? (
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 hairline-t">
-          <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-            Sugerencia calibrada: <strong>{pick.suggestedUnits.toFixed(2)}u</strong>
-          </span>
+        // v3.2: el modelo no sugiere monto (sin stake ni Kelly); la decisión y el monto son del socio.
+        <div className="flex flex-wrap items-center justify-end gap-2 pt-1.5 hairline-t">
           <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
@@ -221,7 +232,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
               aria-label={`Compartir boleto de ${pick.label}`}
               onClick={() =>
                 openShareTicket({
-                  kind: pick.isTipstarWeeklyOpen ? "tipstar" : "pick",
+                  kind: pick.isTipsterWeeklyOpen ? "tipster" : "pick",
                   title: pick.matchLabel,
                   subtitle: `${pick.leagueLabel} · ${pick.kickoffLocal}`,
                   leagueLabel: pick.leagueLabel,
@@ -231,7 +242,8 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                   marketDecimal: effectiveMarketDecimal ?? pick.fairDecimal,
                   units: pick.suggestedUnits,
                   gameStatus,
-                  promoCode: pick.isTipstarWeeklyOpen ? "SOFIA5" : undefined,
+                  promoCode: pick.isTipsterWeeklyOpen ? "SOFIA5" : undefined,
+                  pickSlug: pick.tipsterSlug ?? pick.id,
                 })
               }
             >
@@ -254,7 +266,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   featured?: boolean;
   onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element {
-  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, addPickToParlay, openComposer, navigateTo } = usePlatformActions();
 
   const isNfl = game.sport === "american-football" || game.league === "nfl";
@@ -263,7 +275,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const unlockedMain = mainPick
     ? isPickUnlocked(mainPick, game.status, viewerRole)
     : false;
-  const watermark = getSessionWatermark(viewerRole);
   const studioHref = `/app/${game.league}/games/${game.id}`;
 
   const homeColors = getTeamColors(game.league, game.home.slug);
@@ -311,10 +322,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
         />
       ) : null}
 
-      <span className="pl-watermark num" aria-hidden="true">
-        {watermark}
-      </span>
-
       <div className="space-y-3 relative z-10">
         {/* Meta de liga, motor y nivel de confianza */}
         <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
@@ -345,9 +352,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 <span>{mainPick.result === "hit" ? "Ganado" : "Perdido"}</span>
               </span>
             ) : (
-              <span className="pl-pill pl-pill--brand num text-[10px]">
-                Conf. {game.confidenceScore}
-              </span>
+              <ConfidenceChip game={game} />
             )}
           </div>
         </div>
@@ -437,7 +442,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               >
                 {mainPick.isDailyOpenPromo
                   ? "Pick abierto del día"
-                  : mainPick.isTipstarWeeklyOpen
+                  : mainPick.isTipsterWeeklyOpen
                     ? "Pick Semanal @sofia_nfl"
                     : "Pick principal"}
               </span>
@@ -462,6 +467,15 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <span style={{ color: "var(--pl-text-muted)" }}>
                 {formatOddsValue(pickReferenceDecimal(mainPick), oddsFormat)}
               </span>
+              {mainPick.marketDecimal !== null && mainPick.marketCapturedAtUtc ? (
+                <time
+                  dateTime={mainPick.marketCapturedAtUtc}
+                  className="block text-[10px] leading-tight"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  {formatOddsCaptureEs(mainPick.marketCapturedAtUtc)}
+                </time>
+              ) : null}
             </div>
           </div>
         ) : (
@@ -514,15 +528,15 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           </div>
         ) : !isFinished && !unlockedMain ? (
           <a
-            href="/signup"
+            href={upgradeHref}
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/signup");
+              navigateTo(upgradeHref);
             }}
             className="pl-btn-accent text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
           >
             <MaestroIcon name="unlock" size={12} />
-            <span>7d gratis</span>
+            <span>{hasAccountSession ? "Activar Pase Ultra" : "7d gratis"}</span>
           </a>
         ) : null}
       </div>

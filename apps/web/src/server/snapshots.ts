@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   LeagueSnapshotSchema,
+  LeagueInjuriesFileSchema,
   MarketPulseFileSchema,
   toMarketPulseView,
   assertNotDemoInProduction,
@@ -11,6 +12,7 @@ import {
   type StandingRow,
   type MatchAnalysis,
   type MarketPulseView,
+  type TeamInjuryEntry,
 } from "@pitchlab/contracts";
 
 export interface ClientLeagueSnapshot {
@@ -84,10 +86,32 @@ function loadMarketPulse(file: string): Map<string, MarketPulseView> {
   try {
     const parsed = MarketPulseFileSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
     for (const entry of parsed.entries) byGame.set(entry.gameId, toMarketPulseView(entry));
-  } catch {
+  } catch (err) {
+    void err;
     byGame.clear();
   }
   return byGame;
+}
+
+/**
+ * Bajas y lesiones verificadas por liga (`data/snapshots/<league>/injuries.json`).
+ * Si el archivo no existe o no pasa el esquema, devuelve mapa vacío sin romper la página.
+ */
+function loadLeagueInjuries(file: string): Map<string, TeamInjuryEntry[]> {
+  const byTeam = new Map<string, TeamInjuryEntry[]>();
+  if (!fs.existsSync(file)) return byTeam;
+  try {
+    const parsed = LeagueInjuriesFileSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
+    for (const entry of parsed.entries) {
+      const bucket = byTeam.get(entry.teamId) ?? [];
+      bucket.push(entry);
+      byTeam.set(entry.teamId, bucket);
+    }
+  } catch (err) {
+    void err;
+    byTeam.clear();
+  }
+  return byTeam;
 }
 
 const matchContext = new Set([
@@ -155,9 +179,13 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
   // Caché por fecha de modificación: evita parsear y normalizar el mismo snapshot en cada
   // request (siete ligas por página) y se invalida solo cuando el job lo reescribe.
   const pulsePath = path.join(root, leagueKey, "market-pulse.json");
+  const injuriesPath = path.join(root, leagueKey, "injuries.json");
   const snapshotMtime = fileMtime(latestPath);
-  // La clave combina ambos archivos: el pulso se actualiza más seguido que el snapshot.
-  const cacheKey = snapshotMtime > 0 ? `${snapshotMtime}:${fileMtime(pulsePath)}` : "";
+  // La clave combina snapshot, pulso y bajas: pulso y bajas pueden cambiar entre jornadas.
+  const cacheKey =
+    snapshotMtime > 0
+      ? `${snapshotMtime}:${fileMtime(pulsePath)}:${fileMtime(injuriesPath)}`
+      : "";
   const cached = snapshotCache.get(leagueKey);
   if (cached && cacheKey && cached.key === cacheKey) {
     return cached.envelope;
@@ -170,6 +198,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
 
     const { days, matches } = snapshotToMatchAnalyses(parsed);
     const pulses = loadMarketPulse(pulsePath);
+    const injuriesByTeam = loadLeagueInjuries(injuriesPath);
     const clientSafe: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league: parsed.league,
@@ -181,7 +210,17 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       days,
       games: matches.map((m) => {
         const marketPulse = pulses.get(m.id);
-        return marketPulse ? { ...matchForClient(m), marketPulse } : matchForClient(m);
+        const homeTeamId = `${parsed.league}.${m.home.slug}`;
+        const awayTeamId = `${parsed.league}.${m.away.slug}`;
+        const homeInjuries = injuriesByTeam.get(homeTeamId) ?? injuriesByTeam.get(m.home.slug) ?? [];
+        const awayInjuries = injuriesByTeam.get(awayTeamId) ?? injuriesByTeam.get(m.away.slug) ?? [];
+        const hasInjuries = homeInjuries.length > 0 || awayInjuries.length > 0;
+        const base = matchForClient(m);
+        return {
+          ...base,
+          ...(marketPulse ? { marketPulse } : {}),
+          ...(hasInjuries ? { injuries: { home: homeInjuries, away: awayInjuries } } : {}),
+        };
       }),
       standings: parsed.standings,
     };

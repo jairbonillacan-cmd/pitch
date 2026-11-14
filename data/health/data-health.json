@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-11-14T16:47:23.915Z",
+  "overallStatus": "degraded",
+  "thresholdsHours": {
+    "calendario": 30,
+    "calendarioMatchday": 12,
+    "bajas": 36,
+    "momios": 36,
+    "momiosHardExpire": 72,
+    "alineaciones": null
+  },
+  "workflows": [
+    {
+      "workflowId": "odds-refresh",
+      "label": "Momios automáticos",
+      "workflowFile": ".github/workflows/odds-refresh.yml",
+      "status": "pending_credentials",
+      "lastRunAtUtc": "2026-11-14T16:47:10Z",
+      "lastSuccessAtUtc": "2026-11-14T16:47:10Z",
+      "durationMs": 472,
+      "cadenceLabel": "Multi-régimen: cada 90–120 min en jornada y pre-partido · 3×/día entre semana",
+      "lastError": null
+    },
+    {
+      "workflowId": "pre-mvp-snapshot",
+      "label": "Calendario, resultados y bajas",
+      "workflowFile": ".github/workflows/pre-mvp-snapshot.yml",
+      "status": "ok",
+      "lastRunAtUtc": "2026-11-14T16:46:59.230Z",
+      "lastSuccessAtUtc": "2026-11-14T16:46:59.230Z",
+      "durationMs": 1769,
+      "cadenceLabel": "Diario 11:00 UTC + cortes previos en días de partido",
+      "lastError": null
+    }
+  ],
+  "leagues": [
+    {
+      "league": "nfl",
+      "leagueLabel": "NFL",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "nflverse",
+          "recordsCount": 14,
+          "note": "Semana 10",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "nflverse-cc-by-4.0",
+          "recordsCount": 160,
+          "note": "160 jugadores reportados",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "premier-league",
+      "leagueLabel": "Premier League",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "openfootball",
+          "recordsCount": 20,
+          "note": "Jornada 11",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-eng.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "laliga",
+      "leagueLabel": "LaLiga",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "openfootball+espn",
+          "recordsCount": 19,
+          "note": "Jornada 13",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-esp.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "bundesliga",
+      "leagueLabel": "Bundesliga",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "openfootball+espn",
+          "recordsCount": 17,
+          "note": "Jornada 10",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-ger.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "serie-a",
+      "leagueLabel": "Serie A",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "openfootball+espn",
+          "recordsCount": 20,
+          "note": "Jornada 12",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-ita.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "ligue-1",
+      "leagueLabel": "Ligue 1",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "openfootball+espn",
+          "recordsCount": 18,
+          "note": "Jornada 11",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-fra.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    },
+    {
+      "league": "liga-mx",
+      "leagueLabel": "Liga MX",
+      "cells": {
+        "calendario": {
+          "dataType": "calendario",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T14:07:39.275Z",
+          "ageHours": 2.7,
+          "maxHours": 30,
+          "sourceLabel": "espn",
+          "recordsCount": 10,
+          "note": "Jornada 16",
+          "lastError": null
+        },
+        "bajas": {
+          "dataType": "bajas",
+          "status": "ok",
+          "updatedAtUtc": "2026-11-14T16:46:59.230Z",
+          "ageHours": 0,
+          "maxHours": 36,
+          "sourceLabel": "espn-public-mex.1",
+          "recordsCount": 0,
+          "note": "Sin bajas públicas reportadas",
+          "lastError": null
+        },
+        "momios": {
+          "dataType": "momios",
+          "status": "stale",
+          "updatedAtUtc": "2026-11-12T16:10:42Z",
+          "ageHours": 48.6,
+          "maxHours": 36,
+          "sourceLabel": "Sin clave activa",
+          "recordsCount": 0,
+          "note": "Configura THE_ODDS_API_KEY o BETFAIR_*",
+          "lastError": null
+        },
+        "alineaciones": {
+          "dataType": "alineaciones",
+          "status": "disabled",
+          "updatedAtUtc": null,
+          "ageHours": null,
+          "maxHours": null,
+          "sourceLabel": "Apagado (sin fuente verificada)",
+          "recordsCount": 0,
+          "note": "Ranura preparada · apagada hasta verificar fuente oficial",
+          "lastError": null
+        }
+      }
+    }
+  ],
+  "activeIncidents": [
+    {
+      "incidentKey": "stale::momios::nfl",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "NFL · Momios",
+      "league": "nfl",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para NFL (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::premier-league",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Premier League · Momios",
+      "league": "premier-league",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Premier League (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::laliga",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "LaLiga · Momios",
+      "league": "laliga",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para LaLiga (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::bundesliga",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Bundesliga · Momios",
+      "league": "bundesliga",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Bundesliga (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::serie-a",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Serie A · Momios",
+      "league": "serie-a",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Serie A (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::ligue-1",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Ligue 1 · Momios",
+      "league": "ligue-1",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Ligue 1 (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    },
+    {
+      "incidentKey": "stale::momios::liga-mx",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "Liga MX · Momios",
+      "league": "liga-mx",
+      "dataType": "momios",
+      "message": "Sin cuotas capturadas recientes para Liga MX (corte base hace 48.6 h; límite 36 h).",
+      "failingSinceUtc": "2026-11-14T16:46:59.230Z",
+      "lastSeenAtUtc": "2026-11-14T16:47:23.915Z",
+      "emailedAtUtc": null,
+      "occurrences": 3
+    }
+  ]
+}

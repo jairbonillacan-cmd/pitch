@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 import fs from "node:fs";
@@ -257,7 +257,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(errors).toEqual([]);
   });
 
-  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipstar route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
+  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
@@ -317,15 +317,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       await expect(page).toHaveURL(new RegExp(`${toPath}$`));
     }
 
-    // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
+    // Boleto público de Tipster (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
     await page.goto("/p/sofia-sem");
     await expect(page.locator("h1")).toContainText("@sofia_nfl");
     await expect(page.locator("body")).toContainText("SOFIA5");
     expect(await page.locator("[data-locked-pick]").count()).toBeGreaterThanOrEqual(1);
-    const tipstarPublicA11y = await new AxeBuilder({ page })
+    const tipsterPublicA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
-    expect(tipstarPublicA11y.violations).toEqual([]);
+    expect(tipsterPublicA11y.violations).toEqual([]);
 
     // Visitar /app sin cookie redirige a /login?next=%2Fapp
     await page.goto("/app", { waitUntil: "domcontentloaded" });
@@ -353,7 +353,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     let lastStatus = 0;
     for (let i = 1; i <= 6; i++) {
       const res = await request.post("/api/beta/unlock", {
-        headers: { "x-forwarded-for": rateLimitIp },
+        headers: { "x-forwarded-for": rateLimitIp, origin: "http://127.0.0.1:3100" },
         data: { code: "0000", next: "/app" },
       });
       lastStatus = res.status();
@@ -378,6 +378,18 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("body")).toContainText("juanperez@gmail.com");
     await expect(page.getByRole("button", { name: "Crear cuenta" })).toBeDisabled();
 
+    // Chips de usuario sugerido en paso 2 (7/7): llena el campo, conserva foco y sigue editable.
+    await page.locator("#auth-name").fill("Juan Pérez");
+    const chipGroup = page.getByRole("group", { name: /Sugerencias/i });
+    await expect(chipGroup).toBeVisible();
+    const chipButtons = chipGroup.getByRole("button", { name: /^Usar @/ });
+    await expect(chipButtons).toHaveCount(3);
+    await page.getByRole("button", { name: "Usar @j_perez" }).click();
+    await expect(page.locator("#auth-handle")).toHaveValue("j_perez");
+    await expect(page.locator("#auth-handle")).toBeFocused();
+    await page.locator("#auth-handle").fill("j_perez_mx");
+    await expect(page.locator("#auth-handle")).toHaveValue("j_perez_mx");
+
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `signup-${testInfo.project.name}-dark.png`),
     });
@@ -390,6 +402,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   test("3. Valid PIN unlock, League Hub, Match Studio (5 picks + Cortex IA + Dinero), Bundesliga & Logout", async ({
     page,
   }, testInfo) => {
+    // Recorre 9 pantallas del Club; con la máquina cargada el arranque del navegador llega a 2 min.
+    test.setTimeout(300_000);
     const uniqueIp = `192.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 
@@ -483,10 +497,10 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator(".standings-block")).toBeVisible();
     await expect(page.locator(".standings")).toContainText("Pts");
 
-    // PROFILE-2: perfil de tipstar con récord calculado y pestañas por teclado
+    // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
     await expect(page.getByRole("heading", { level: 1, name: /Sofía Méndez/ })).toBeVisible();
-    await expect(page.locator(".pl-vbadge")).toContainText("Tipstar verificado");
+    await expect(page.locator(".pl-vbadge")).toContainText("Tipster verificado");
     await expect(page.locator(".pl-prof-record")).toContainText("Saldo");
     await page.locator("#pl-prof-tab-picks").focus();
     await page.keyboard.press("End");
@@ -515,10 +529,79 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.locator("#pl-com-tab-para-ti").focus();
     await page.keyboard.press("End");
     await expect(page.locator("#pl-com-tab-ranking")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("#pl-com-panel-ranking")).toContainText("Mínimo 20 picks cerrados.");
+    await expect(page.locator("#pl-com-panel-ranking")).toContainText("Mínimo 15 picks cerrados.");
     await page.waitForTimeout(400); // fin de la entrada suave del panel
     const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(socialA11y.violations).toEqual([]);
+
+    // CUENTA-2: Mi cuenta (/app/account), copiar enlace corto, voltear tarjeta por teclado,
+    // pestañas con flechas, Axe AA en las 4 pestañas en oscuro y claro, y redirección /i/JAIR-2611
+    await page.goto("/app/account");
+    await expect(page.getByRole("heading", { level: 1, name: "Mi cuenta" })).toBeVisible();
+
+    const copyBtn = page.locator("[data-copy-short-link]");
+    await copyBtn.click();
+    await expect(copyBtn).toHaveText("Copiado");
+
+    const flipBackBtn = page.getByRole("button", { name: "Reverso" });
+    await expect(flipBackBtn).toHaveAttribute("aria-pressed", "false");
+    const cardBtn = page.locator("[data-referrals-card]");
+    await cardBtn.focus();
+    await page.keyboard.press("Enter");
+    await expect(flipBackBtn).toHaveAttribute("aria-pressed", "true");
+
+    await page.waitForTimeout(400);
+    const accountReferralsDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountReferralsDarkA11y.violations).toEqual([]);
+
+    // Cambiar a Mi plan y a Preferencias con flechas
+    await page.locator("#pl-acct-tab-referrals").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=plan/);
+    await page.waitForTimeout(400);
+    const accountPlanDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPlanDarkA11y.violations).toEqual([]);
+
+    await page.locator("#pl-acct-tab-plan").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-prefs")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=prefs/);
+    await page.waitForTimeout(400);
+    const accountPrefsDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPrefsDarkA11y.violations).toEqual([]);
+
+    // Facturación está apagada en la beta: ?tab=cfdi abre «Mi plan» y no hay pestaña de CFDI.
+    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveCount(0);
+    await page.goto("/app/account?tab=cfdi");
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
+
+    // Verificar Axe AA en modo claro en las tres pestañas
+    await toggleClubTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    for (const tabKey of ["prefs", "plan", "referrals"] as const) {
+      await page.locator(`#pl-acct-tab-${tabKey}`).click();
+      await page.waitForTimeout(400);
+      const lightTabA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(lightTabA11y.violations, `Light Axe violations on account tab ${tabKey}`).toEqual([]);
+    }
+    await toggleClubTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    // Enlace corto /i/JAIR-2611 -> /pricing/referral?code=JAIR-2611
+    await page.goto("/i/JAIR-2611");
+    await expect(page).toHaveURL(/\/pricing\/referral\?code=JAIR-2611/);
+
+    // Volver al club para cerrar sesión
+    await page.goto("/app/account");
 
     // Cerrar sesión -> limpia cookie y redirige a /
     await page.locator("[data-profile-menu-trigger]:visible").first().click();

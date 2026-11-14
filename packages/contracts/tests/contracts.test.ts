@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  asGameId,
+  asLeagueId,
+  asSeasonId,
+  asTeamId,
   TeamIdSchema,
   LeagueIdSchema,
   parseOdds,
@@ -10,6 +14,9 @@ import {
   noVigMultiplicative,
   formatPct,
   formatFairOdds,
+  easternWallTimeToUtcIso,
+  normalizeGameStartTimeUtc,
+  snapshotToMatchAnalyses,
   ok,
   isStale,
 } from "../src/index";
@@ -67,5 +74,44 @@ describe("@pitchlab/contracts", () => {
     expect(state.isDemo).toBe(false);
     expect(isStale(state, new Date("2026-11-08T11:00:00Z"))).toBe(false);
     expect(isStale(state, new Date("2026-11-08T13:00:00Z"))).toBe(true);
+  });
+
+  it("convierte horarios NFL de America/New_York (EDT y EST) a UTC ISO y CDMX correctamente", () => {
+    expect(easternWallTimeToUtcIso("2026-09-10", "20:20")).toBe("2026-09-11T00:20:00.000Z");
+    expect(easternWallTimeToUtcIso("2026-11-12", "20:15")).toBe("2026-11-13T01:15:00.000Z");
+    expect(normalizeGameStartTimeUtc("2026-11-12T20:15:00", "nfl")).toBe(
+      "2026-11-13T01:15:00.000Z",
+    );
+
+    const { matches } = snapshotToMatchAnalyses({
+      schemaVersion: 1,
+      league: asLeagueId("nfl"),
+      season: asSeasonId("nfl-2026"),
+      seasonLabel: "NFL 2026",
+      periodLabel: "Semana 11",
+      updatedAt: "2026-11-12T12:00:00Z",
+      source: "test",
+      provenance: "provider",
+      isDemo: false,
+      teamRates: {},
+      games: [
+        {
+          id: asGameId("nfl-2026-w11-cle-bal"),
+          league: asLeagueId("nfl"),
+          season: asSeasonId("nfl-2026"),
+          round: "Semana 11",
+          startTime: "2026-11-12T20:15:00",
+          status: "scheduled",
+          neutralSite: false,
+          home: { id: asTeamId("nfl.baltimore-ravens"), league: asLeagueId("nfl"), name: "Baltimore Ravens", shortName: "Ravens", code: "BAL" },
+          away: { id: asTeamId("nfl.cleveland-browns"), league: asLeagueId("nfl"), name: "Cleveland Browns", shortName: "Browns", code: "CLE" },
+        },
+      ],
+      analyses: {},
+    });
+
+    expect(matches[0]?.kickoffUtc).toBe("2026-11-13T01:15:00.000Z");
+    expect(matches[0]?.day).toBe("2026-11-12");
+    expect(matches[0]?.kickoffLocal).toBe("19:15");
   });
 });

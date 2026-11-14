@@ -140,7 +140,7 @@
       "w": 520,
       "fill": "blue",
       "size": "s",
-      "text": "PARA IMPLEMENTAR\n\n• Vista: AccountReferralsClubView, pestaña referrals (/app/account?tab=referrals).\n• Tarjeta: ReferralCard3D con code, bottomLeftLabel = @usuario y tierLabel ULTRA (o ULTRA · TIPSTAR).\n• Enlace: ruta nueva /i/[code] → redirige a /pricing/referral?code=…&from=… (la ReferralInviteSurface que ya existe).\n• Vista previa: opengraph-image en /i/[code] (ImageResponse 1200 × 630) con la captura de la tarjeta, @usuario y la oferta.\n• Reglas: MEMBERSHIP_SPEC.referralFriendBenefit, referralBothRewardDays (15), referralAmbassadorThreshold (5), referralAmbassadorBonusDays (30).\n• Conteos: referralPaidFriends hoy; «En prueba» y «aperturas» necesitan eventos nuevos en la base (F4). Hasta entonces la lista va marcada Ejemplo.\n• Descargar tarjeta: PNG 1080 × 1350 para historias desde la misma textura."
+      "text": "PARA IMPLEMENTAR\n\n• Vista: AccountReferralsClubView, pestaña referrals (/app/account?tab=referrals).\n• Tarjeta: ReferralCard3D con code, bottomLeftLabel = @usuario y tierLabel ULTRA (o ULTRA · TIPSTER).\n• Enlace: ruta nueva /i/[code] → redirige a /pricing/referral?code=…&from=… (la ReferralInviteSurface que ya existe).\n• Vista previa: opengraph-image en /i/[code] (ImageResponse 1200 × 630) con la captura de la tarjeta, @usuario y la oferta.\n• Reglas: MEMBERSHIP_SPEC.referralFriendBenefit, referralBothRewardDays (15), referralAmbassadorThreshold (5), referralAmbassadorBonusDays (30).\n• Conteos: referralPaidFriends hoy; «En prueba» y «aperturas» necesitan eventos nuevos en la base (F4). Hasta entonces la lista va marcada Ejemplo.\n• Descargar tarjeta: PNG 1080 × 1350 para historias desde la misma textura."
     }
   },
   "designSystems": []

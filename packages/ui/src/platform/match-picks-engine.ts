@@ -189,7 +189,8 @@ function rowsWithSpacetime(
   signal: SpacetimeSignal | null,
 ): Array<{ group: string; row: AnalysisMarketRow }> {
   const rows = flattenMarketRows(match);
-  if (!signal) return rows;
+  // Con panorama v3.2 los mercados ya traen la probabilidad publicada: no se recalculan.
+  if (!signal || signal.outlookDriven) return rows;
   const { home, draw, away } = signal.probs;
   const doubleChance: Record<string, number> = { "1x": home + draw, x2: draw + away, "12": home + away };
   const isNfl = match.sport === "american-football" || match.league === "nfl";
@@ -418,6 +419,11 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       fairAmerican: decimalToAmericanInt(fairDecimal),
       marketDecimal,
       marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
+      marketBookLabel:
+        marketDecimal === null
+          ? null
+          : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
+      marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
       edgePts: edgeAgainst(p, marketDecimal),
       confidenceScore: Math.min(96, Math.max(48, Math.round(confScore - idx * 3))),
       suggestedUnits: item.units,
@@ -473,24 +479,47 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   }
 
   const absences: LineupAbsenceItem[] = [];
-  const avail = signal?.availability;
-  const pushAbsence = (side: "home" | "away", injured: number | null, missingPct: number | null) => {
-    if (injured === null || injured <= 0) return;
-    const team = side === "home" ? match.home.shortName : match.away.shortName;
-    absences.push({
-      teamSide: side,
-      player: `${injured} ${injured === 1 ? "lesionado" : "lesionados"} · ${team}`,
-      role: "Reporte de disponibilidad",
-      status: "Baja",
-      impactNote:
-        missingPct !== null && missingPct > 0
-          ? `Ausencias equivalentes al ${missingPct.toFixed(1)} % del valor de la plantilla.`
-          : "Impacto incluido en la probabilidad del motor.",
-    });
-  };
-  if (avail) {
-    pushAbsence("home", avail.homeInjured, avail.homeMissingValuePct);
-    pushAbsence("away", avail.awayInjured, avail.awayMissingValuePct);
+  const realHomeInjuries = match.injuries?.home ?? [];
+  const realAwayInjuries = match.injuries?.away ?? [];
+  if (realHomeInjuries.length > 0 || realAwayInjuries.length > 0) {
+    for (const item of realHomeInjuries) {
+      absences.push({
+        teamSide: "home",
+        player: item.player,
+        role: item.position ? `${item.position} · ${match.home.shortName}` : match.home.shortName,
+        status: item.status,
+        impactNote: item.detail,
+      });
+    }
+    for (const item of realAwayInjuries) {
+      absences.push({
+        teamSide: "away",
+        player: item.player,
+        role: item.position ? `${item.position} · ${match.away.shortName}` : match.away.shortName,
+        status: item.status,
+        impactNote: item.detail,
+      });
+    }
+  } else {
+    const avail = signal?.availability;
+    const pushAbsence = (side: "home" | "away", injured: number | null, missingPct: number | null) => {
+      if (injured === null || injured <= 0) return;
+      const team = side === "home" ? match.home.shortName : match.away.shortName;
+      absences.push({
+        teamSide: side,
+        player: `${injured} ${injured === 1 ? "lesionado" : "lesionados"} · ${team}`,
+        role: "Reporte de disponibilidad",
+        status: "Baja",
+        impactNote:
+          missingPct !== null && missingPct > 0
+            ? `Ausencias equivalentes al ${missingPct.toFixed(1)} % del valor de la plantilla.`
+            : "Impacto incluido en la probabilidad del motor.",
+      });
+    };
+    if (avail) {
+      pushAbsence("home", avail.homeInjured, avail.homeMissingValuePct);
+      pushAbsence("away", avail.awayInjured, avail.awayMissingValuePct);
+    }
   }
 
   let moneyFlow: PreGameIntel["moneyFlow"] = null;
@@ -523,6 +552,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     lineupStatusLabel:
       match.status === "FT" ? "Partido finalizado" : "Alineaciones oficiales pendientes",
     lineupsConfirmed60m: false,
+    confirmedLineups: null,
     absences,
     moneyFlow,
   };
@@ -560,6 +590,8 @@ function buildPlatformMarkets(
       fairAmerican: decimalToAmericanInt(fairDecimal),
       openDecimal: null,
       currentDecimal,
+      quoteBookLabel: currentDecimal === null ? null : (signal?.market?.bookLabel ?? null),
+      quoteCapturedAtUtc: currentDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
       edgePts: edgeAgainst(row.p, currentDecimal),
     };
   });
@@ -609,6 +641,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         kickoffUtc: m.kickoffUtc,
         kickoffLocal: m.kickoffLocal,
         venue: m.venue,
+        neutralSite: m.neutralSite,
         status: m.status,
         score: m.score,
         home: {
@@ -633,6 +666,10 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         },
         confidenceScore: confScore,
         confidenceLevel: confLevel,
+        confidenceDetail: {
+          reasons: m.confidence?.reasons ?? [],
+          factors: m.confidence?.factors ?? [],
+        },
         picks: buildFiveMatchPicks(m, signal),
         preGame: buildPreGameIntel(m, signal),
         markets: buildPlatformMarkets(m, signal),
@@ -680,27 +717,27 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
 
   // Seleccionar determinísticamente:
   // 1) El único Pick Abierto del Día (primer juego próximo de alta confianza)
-  // 2) El único Pick Abierto Semanal de Tipstar (@sofia_nfl -> preferentemente NFL próximo, o segundo juego próximo)
+  // 2) El único Pick Abierto Semanal de Tipster (@sofia_nfl -> preferentemente NFL próximo, o segundo juego próximo)
   const upcomingGames = games.filter((g) => g.status !== "FT" && g.picks.length > 0);
   const promoGame = upcomingGames[0] ?? games[0];
-  const tipstarGame =
+  const tipsterGame =
     upcomingGames.find((g) => g.league === "nfl" && g.id !== promoGame?.id) ??
     upcomingGames[1] ??
     promoGame;
 
   let dailyPromoPickId = "";
-  let tipstarWeeklyPickId = "";
+  let tipsterWeeklyPickId = "";
 
   if (promoGame && promoGame.picks[0]) {
     promoGame.picks[0].isDailyOpenPromo = true;
     dailyPromoPickId = promoGame.picks[0].id;
   }
-  if (tipstarGame) {
-    const targetSlot = tipstarGame.id === promoGame?.id ? tipstarGame.picks[1] : tipstarGame.picks[0];
+  if (tipsterGame) {
+    const targetSlot = tipsterGame.id === promoGame?.id ? tipsterGame.picks[1] : tipsterGame.picks[0];
     if (targetSlot) {
-      targetSlot.isTipstarWeeklyOpen = true;
-      targetSlot.tipstarSlug = "sofia-sem";
-      tipstarWeeklyPickId = targetSlot.id;
+      targetSlot.isTipsterWeeklyOpen = true;
+      targetSlot.tipsterSlug = "sofia-sem";
+      tipsterWeeklyPickId = targetSlot.id;
     }
   }
 
@@ -715,8 +752,8 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
     leagues,
     games,
     dailyPromoPickId,
-    tipstarWeeklyPickId,
-    tipstarWeeklySlug: "sofia-sem",
+    tipsterWeeklyPickId,
+    tipsterWeeklySlug: "sofia-sem",
     isServerRedactedForVisitor: false,
   };
 }

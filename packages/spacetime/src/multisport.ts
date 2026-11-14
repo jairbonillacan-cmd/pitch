@@ -11,6 +11,10 @@
  *  - `NCAAF`: `PitchLab Horizon NCAAF v3.0` (138 programas FBS; ESPN FPI, SRS, SOS Power-4 vs G5, Net YPP, Pythag 2.37 + HFA +2.8 + shock altitud WYO/AFA/BYU/COL/UTA/UNM/UTEP + clima Open-Meteo, $\sigma = 13.8$).
  */
 
+import { clamp, logit, normalCdf, sigmoid } from "./math";
+
+export { clamp, logit, normalCdf, sigmoid };
+
 export type MultiSportLeague = "nhl" | "mlb" | "nba" | "ncaaf";
 
 export const MULTISPORT_CODENAMES = {
@@ -245,23 +249,15 @@ export interface MultiSportModelArtifact {
 }
 
 // ============================================================================
-// Primitivas matemáticas exactas IEEE-754 (idénticas a `train_multisport.py`)
+// Primitivas matemáticas exactas IEEE-754 (centralizadas en `./math.js`)
 // ============================================================================
 
-export function clamp(val: number, lo: number, hi: number): number {
-  if (val < lo) return lo;
-  if (val > hi) return hi;
-  return val;
-}
-
 export function logistic(z: number): number {
-  const zc = clamp(z, -35.0, 35.0);
-  return 1.0 / (1.0 + Math.exp(-zc));
+  return sigmoid(clamp(z, -35.0, 35.0));
 }
 
 export function logitFn(p: number): number {
-  const pc = clamp(p, 1e-6, 1.0 - 1e-6);
-  return Math.log(pc / (1.0 - pc));
+  return logit(p, 1e-6);
 }
 
 export function safePow(base: number, expVal: number): number {
@@ -275,17 +271,6 @@ export function log5(pa: number, pb: number): number {
   const denom = x + y - 2.0 * x * y;
   if (denom <= 1e-12) return 0.5;
   return (x - x * y) / denom;
-}
-
-export function normalCdf(x: number): number {
-  const sign = x < 0.0 ? -1.0 : 1.0;
-  const z = Math.abs(x) * 0.7071067811865475;
-  const t = 1.0 / (1.0 + 0.3275911 * z);
-  const poly =
-    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) *
-    t;
-  const erfVal = sign * (1.0 - poly * Math.exp(-(z * z)));
-  return 0.5 * (1.0 + erfVal);
 }
 
 function slug(text: string): string {

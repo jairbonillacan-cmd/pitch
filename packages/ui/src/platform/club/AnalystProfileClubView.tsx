@@ -1,7 +1,25 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import React, { useEffect, useMemo, useState } from "react";
+import type { LeagueId, PublicMemberProfile } from "@pitchlab/contracts";
+import type { EditableProfile } from "./EditProfileDialog";
+
+/** Logotipo de X (inline para no cargar el editor de perfil solo por el ícono). */
+function XBrandMark(): React.JSX.Element {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <path d="M18.9 1.2h3.7l-8.2 9.3L24 22.8h-7.5l-5.9-7.7-6.7 7.7H.2l8.8-10L0 1.2h7.7l5.3 7 5.9-7Zm-1.3 19.4h2L6.6 3.3H4.4l13.2 17.3Z" />
+    </svg>
+  );
+}
+
+/**
+ * El editor (Modal/Drawer de HeroUI) se carga solo en tu propio perfil: así las visitas a
+ * perfiles ajenos no descargan ese código (P0-08).
+ */
+const EditProfileDialog = React.lazy(() =>
+  import("./EditProfileDialog").then((m) => ({ default: m.EditProfileDialog })),
+);
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import {
@@ -12,11 +30,11 @@ import {
 import {
   ExampleNotice,
   MaestroIcon,
-  TipstarVerifiedBadge,
+  TipsterVerifiedBadge,
   VerifiedSeal,
 } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { socialScopeKey, usePlatform } from "../platform-provider";
 import {
   analystRank,
   calibrationBuckets,
@@ -28,17 +46,34 @@ import {
   pickSettlementUnits,
   profileRecord,
 } from "../profile-stats";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
-import type { JournalEntry, SocialPost } from "../types";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
+import { DEFAULT_RECORD_PRIVACY, type PublicRecordPayload, type PublicRecordView } from "../record-stats";
+import {
+  badgeFactsFromEntries,
+  computeBadges,
+  publicBadges as publicBadgeList,
+  type BadgeView,
+} from "../badges";
+import { FeaturedBadgeRow, ProfileBadgesSection, useOwnBadges } from "./badges/ProfileBadges";
+import type { JournalEntry, OddsFormat, SocialPost } from "../types";
+import {
+  BalanceCurveFigure,
+  PublicRecordPreviewCard,
+  RateBreakdownList,
+  formatShortIsoDay,
+  formatSignedUnits,
+} from "./record/PublicRecordSections";
 import {
   Avatar,
   ChevronRightIcon,
   CommentIcon,
   GiftIcon,
   HeartIcon,
-  OWN_PROFILE_ALIASES,
+  isOwnProfileHandle,
   PickStatus,
   ShareIcon,
+  SocialReportDialog,
+  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
   outcomeOf,
@@ -50,6 +85,7 @@ import {
   useLeaderboardRows,
   useUrlTab,
   type EntryGameMeta,
+  type SocialReportTarget,
   type TabDef,
 } from "./community-ui";
 
@@ -79,9 +115,11 @@ const LEAGUE_IDS_BY_LABEL: Record<string, LeagueId> = {
 interface ResolvedProfile {
   handle: string;
   name: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   specialty: string;
-  bio: string;
+  bio: string | null;
+  xUsername?: string | null;
+  avatarUrl?: string | null;
   avatarInitials: string;
   avatarGradVar: string;
   joinedAt: string | null;
@@ -136,7 +174,24 @@ function TeamPair({ meta, size = 30 }: { meta: EntryGameMeta; size?: number }): 
   );
 }
 
-export function AnalystProfileClubView({ handle }: { handle: string }): React.JSX.Element {
+export function AnalystProfileClubView({
+  handle,
+  memberProfile,
+  publicRecord,
+  badges,
+  avatarEnabled = false,
+  xEnabled = false,
+  xLinkError = false,
+}: {
+  handle: string;
+  memberProfile?: PublicMemberProfile | null;
+  publicRecord?: PublicRecordPayload | null;
+  /** Insignias públicas del socio (las arma el servidor). */
+  badges?: { public: BadgeView[]; featured: BadgeView[] } | null;
+  avatarEnabled?: boolean;
+  xEnabled?: boolean;
+  xLinkError?: boolean;
+}): React.JSX.Element {
   const {
     dataset,
     journal,
@@ -147,20 +202,59 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
     toggleSocialLike,
     pushToast,
     navigateTo,
+    viewerIdentity,
+    updateViewerIdentity,
+    loadSocialPostsByAuthor,
   } = usePlatform();
+  const [edited, setEdited] = useState<EditableProfile | null>(null);
+  // Publicaciones del socio guardadas en el servidor (no solo las del feed reciente).
+  const memberHandle = memberProfile?.handle ?? null;
+  useEffect(() => {
+    if (memberHandle) loadSocialPostsByAuthor(memberHandle);
+  }, [memberHandle, loadSocialPostsByAuthor]);
   const { rows, own, today } = useLeaderboardRows();
   const cleanHandle = handle.replace(/^@/, "").trim().toLowerCase();
 
   const profile = useMemo<ResolvedProfile | null>(() => {
+    if (memberProfile) {
+      const details = edited ?? memberProfile;
+      const ownIdentity = viewerIdentity?.handle === details.handle ? viewerIdentity : null;
+      const initials = details.displayName.split(/\s+/).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
+      return {
+        handle: details.handle,
+        name: details.displayName,
+        isTipster: memberProfile.isTipster,
+        specialty: "",
+        bio: details.bio,
+        xUsername: details.xUsername,
+        avatarUrl:
+          details.avatarUrl !== undefined
+            ? details.avatarUrl
+            : (ownIdentity?.avatarUrl ?? memberProfile.avatarUrl ?? null),
+        avatarInitials: ownIdentity?.initials ?? initials,
+        avatarGradVar: "var(--avatar-grad-3)",
+        joinedAt: memberProfile.joinedAt,
+        // Sin quien mira: la vista suma 1 si lo sigue (así seguir/dejar de seguir se ve al instante).
+        followers:
+          typeof memberProfile.followers === "number"
+            ? Math.max(0, memberProfile.followers - (memberProfile.viewerFollows ? 1 : 0))
+            : null,
+        following: typeof memberProfile.following === "number" ? memberProfile.following : null,
+        favoriteLeagues: ownIdentity ? favoriteLeagues : [],
+        isExample: false,
+        journal: ownIdentity ? journal : [],
+        postHandles: [details.handle],
+      };
+    }
     const spec = getExampleAnalystSpec(cleanHandle);
     if (spec) {
-      const creator = TIPSTAR_CREATORS.find((c) => c.handle === spec.handle);
+      const creator = TIPSTER_CREATORS.find((c) => c.handle === spec.handle);
       const closed = generateExampleJournal(spec, today);
       const open = exampleOpenEntries(spec, dataset.games, today);
       return {
         handle: spec.handle,
         name: spec.name,
-        isTipstar: spec.isTipstar,
+        isTipster: spec.isTipster,
         specialty: spec.specialty,
         bio: spec.bio,
         avatarInitials: spec.avatarInitials,
@@ -177,16 +271,15 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
         postHandles: [spec.handle],
       };
     }
-    const isOwnAlias =
-      own !== null &&
-      (cleanHandle === own.handle || (OWN_PROFILE_ALIASES as readonly string[]).includes(cleanHandle));
+    const isOwnAlias = isOwnProfileHandle(cleanHandle, own, viewerIdentity !== null);
     if (own && isOwnAlias) {
       return {
         handle: own.handle,
         name: own.name,
-        isTipstar: false,
+        isTipster: false,
         specialty: "Varias ligas",
         bio: "Socio de PitchLab. Registro mis picks antes de que empiece el partido.",
+        avatarUrl: own.avatarUrl ?? null,
         avatarInitials: own.avatarInitials,
         avatarGradVar: own.avatarGradVar,
         joinedAt: null,
@@ -195,18 +288,107 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
         favoriteLeagues,
         isExample: false,
         journal: [...journal],
-        postHandles: [own.handle, "jair_founder"],
+        postHandles: viewerIdentity ? [own.handle] : [own.handle, "jair_founder"],
       };
     }
-    // TODO(F4): perfiles ajenos reales desde /api/u/[handle].
     return null;
-  }, [cleanHandle, dataset.games, favoriteLeagues, journal, own, today]);
+  }, [cleanHandle, dataset.games, edited, favoriteLeagues, journal, memberProfile, own, today, viewerIdentity]);
+
+  const saveProfile = (updated: EditableProfile) => {
+    const previousHandle = viewerIdentity?.handle;
+    setEdited(updated);
+    const avatarChanged =
+      updated.avatarUrl !== undefined && (viewerIdentity?.avatarUrl ?? null) !== (updated.avatarUrl ?? null);
+    if (
+      viewerIdentity?.displayName !== updated.displayName ||
+      previousHandle !== updated.handle ||
+      avatarChanged
+    ) {
+      updateViewerIdentity(updated);
+    }
+    if (previousHandle && previousHandle !== updated.handle) {
+      // Next.js toma `history.replaceState` como cambio de ruta y vuelve a montar la vista con
+      // los datos viejos del servidor; se carga la dirección nueva para traer el perfil guardado.
+      // `replace` evita que «atrás» lleve al usuario anterior, que ya no existe.
+      const url = new URL(window.location.href);
+      url.pathname = `/app/u/${updated.handle}`;
+      window.location.replace(url);
+    }
+  };
 
   const isOwn =
-    own !== null &&
     profile !== null &&
-    (profile.handle === own.handle ||
-      (OWN_PROFILE_ALIASES as readonly string[]).includes(cleanHandle));
+    (viewerIdentity
+      ? profile.handle === viewerIdentity.handle
+      : profile.handle === own?.handle || isOwnProfileHandle(cleanHandle, own, false));
+
+  const [fetchedRecord, setFetchedRecord] = useState<PublicRecordPayload | null | undefined>(
+    undefined,
+  );
+  const needsClientRecord = Boolean(
+    profile && !isOwn && !profile.isExample && publicRecord === undefined,
+  );
+
+  useEffect(() => {
+    if (!needsClientRecord || !profile) {
+      setFetchedRecord(undefined);
+      return;
+    }
+    let cancelled = false;
+    void fetch(`/api/u/${encodeURIComponent(profile.handle)}/record`, {
+      credentials: "same-origin",
+      cache: "no-store",
+    })
+      .then(async (res) =>
+        res.ok ? ((await res.json().catch(() => null)) as PublicRecordPayload | null) : null,
+      )
+      .then((data) => {
+        if (!cancelled) setFetchedRecord(data);
+      })
+      .catch((err) => {
+        void err;
+        if (!cancelled) setFetchedRecord(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [needsClientRecord, profile]);
+
+  const effectivePublicRecord =
+    publicRecord !== undefined ? publicRecord : fetchedRecord;
+
+  // Insignias calculadas en el navegador: perfiles de ejemplo y tu récord sin cuenta real.
+  const localBadges = useMemo(
+    () =>
+      profile && (profile.isExample || (isOwn && !memberProfile))
+        ? computeBadges(
+            badgeFactsFromEntries(profile.journal, {
+              joinedAtIso: profile.joinedAt ? `${profile.joinedAt.slice(0, 10)}T12:00:00Z` : null,
+              isTipster: profile.isTipster,
+            }),
+            today,
+          )
+        : [],
+    [isOwn, memberProfile, profile, today],
+  );
+  const ownBadges = useOwnBadges({
+    enabled: isOwn,
+    serverBacked: Boolean(memberProfile),
+    localBadges,
+    onError: (message) => pushToast(message, "warning"),
+  });
+  const visibleBadges = useMemo<{ public: BadgeView[]; featured: BadgeView[] }>(() => {
+    if (profile?.isExample) {
+      const pub = publicBadgeList(localBadges, {
+        privacy: DEFAULT_RECORD_PRIVACY,
+        recordVisible: true,
+        showInRanking: true,
+      });
+      return { public: pub, featured: pub.slice(0, 3) };
+    }
+    if (isOwn) return { public: [], featured: ownBadges.featured };
+    return badges ?? { public: [], featured: [] };
+  }, [badges, isOwn, localBadges, ownBadges.featured, profile?.isExample]);
 
   return (
     <AtmosphereStage>
@@ -215,6 +397,26 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
           <ProfileContent
             profile={profile}
             isOwn={isOwn}
+            ownHandle={own?.handle ?? null}
+            publicRecord={effectivePublicRecord}
+            featuredBadges={visibleBadges.featured}
+            badgesSection={
+              <ProfileBadgesSection
+                isOwn={isOwn && !profile.isExample}
+                publicBadges={visibleBadges.public}
+                own={ownBadges.own}
+                onToggleFeatured={ownBadges.toggle}
+                onNavigate={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                  e.preventDefault();
+                  navigateTo("/app/lab?tab=privacidad");
+                }}
+              />
+            }
+            onEdit={isOwn && memberProfile ? saveProfile : undefined}
+            avatarEnabled={avatarEnabled}
+            xEnabled={xEnabled}
+            xLinkError={isOwn && xLinkError}
             rows={rows}
             today={today}
             dataset={dataset}
@@ -253,6 +455,14 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
 function ProfileContent({
   profile,
   isOwn,
+  ownHandle,
+  publicRecord,
+  featuredBadges,
+  badgesSection,
+  onEdit,
+  avatarEnabled,
+  xEnabled,
+  xLinkError,
   rows,
   today,
   dataset,
@@ -265,6 +475,14 @@ function ProfileContent({
 }: {
   profile: ResolvedProfile;
   isOwn: boolean;
+  ownHandle: string | null;
+  publicRecord?: PublicRecordPayload | null;
+  featuredBadges: readonly BadgeView[];
+  badgesSection: React.ReactNode;
+  onEdit?: (profile: EditableProfile) => void;
+  avatarEnabled: boolean;
+  xEnabled: boolean;
+  xLinkError: boolean;
   rows: ReturnType<typeof useLeaderboardRows>["rows"];
   today: Date;
   dataset: ReturnType<typeof usePlatform>["dataset"];
@@ -298,13 +516,13 @@ function ProfileContent({
   );
 
   const weeklyPickMatch = useMemo(() => {
-    if (!profile.isTipstar) return null;
-    const pickId = dataset.tipstarWeeklyPickId;
+    if (!profile.isTipster) return null;
+    const pickId = dataset.tipsterWeeklyPickId;
     for (const game of dataset.games) {
       if (game.picks.some((p) => p.id === pickId)) return `${game.home.shortName || game.home.name} vs ${game.away.shortName || game.away.name}`;
     }
     return null;
-  }, [dataset.games, dataset.tipstarWeeklyPickId, profile.isTipstar]);
+  }, [dataset.games, dataset.tipsterWeeklyPickId, profile.isTipster]);
 
   const followerCount =
     profile.followers === null ? null : profile.followers + (following ? 1 : 0);
@@ -334,7 +552,7 @@ function ProfileContent({
         <>
           <ExampleNotice className="pl-prof-example">
             @{profile.handle} es un perfil de ejemplo: su récord y publicaciones muestran cómo se verá un
-            perfil {profile.isTipstar ? "verificado" : "de socio"}.
+            perfil {profile.isTipster ? "verificado" : "de socio"}.
           </ExampleNotice>
           <p className="pl-prof-example-line">
             <span className="pl-pill pl-pill--warning">Ejemplo</span> Perfil de ejemplo
@@ -349,6 +567,7 @@ function ProfileContent({
           <div className="pl-prof-head-top">
             <Avatar
               initials={profile.avatarInitials}
+              avatarUrl={profile.avatarUrl}
               gradVar={profile.avatarGradVar}
               size={96}
               className="pl-prof-avatar"
@@ -364,13 +583,40 @@ function ProfileContent({
               </button>
               {isOwn ? (
                 <>
-                  <a href="/app/account" className="pl-prof-btn pl-prof-btn--ghost" onClick={go("/app/account")}>
+                  <a
+                    href="/app/lab?tab=privacidad"
+                    className="pl-prof-btn pl-prof-btn--ghost"
+                    onClick={go("/app/lab?tab=privacidad")}
+                  >
                     <LockIcon />
-                    Perfil público
+                    Privacidad
                   </a>
-                  <a href="/app/account" className="pl-prof-btn pl-prof-btn--primary" onClick={go("/app/account")}>
-                    Editar perfil
-                  </a>
+                  {onEdit ? (
+                    <React.Suspense
+                      fallback={
+                        <button type="button" className="pl-prof-btn pl-prof-btn--primary" disabled>
+                          Editar perfil
+                        </button>
+                      }
+                    >
+                    <EditProfileDialog
+                      profile={{
+                        displayName: profile.name,
+                        handle: profile.handle,
+                        bio: profile.bio,
+                        xUsername: profile.xUsername ?? null,
+                        avatarUrl: profile.avatarUrl ?? null,
+                      }}
+                      onChange={onEdit}
+                      avatarEnabled={avatarEnabled}
+                      xEnabled={xEnabled}
+                    />
+                    </React.Suspense>
+                  ) : (
+                    <a href="/app/account" className="pl-prof-btn pl-prof-btn--primary" onClick={go("/app/account")}>
+                      Editar perfil
+                    </a>
+                  )}
                 </>
               ) : (
                 <button
@@ -394,18 +640,32 @@ function ProfileContent({
           <div className="pl-prof-name-row">
             <h1 id="pl-prof-name" className="pl-prof-name">
               {profile.name}
-              {profile.isTipstar ? <VerifiedSeal size={22} className="pl-prof-seal" /> : null}
+              {profile.isTipster ? <VerifiedSeal size={22} className="pl-prof-seal" /> : null}
             </h1>
-            {profile.isTipstar ? <TipstarVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
+            {profile.isTipster ? <TipsterVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
+            <FeaturedBadgeRow badges={featuredBadges} />
           </div>
           <p className="pl-prof-handle">
-            @{profile.handle} · {profile.specialty}
+            @{profile.handle}{profile.specialty ? ` · ${profile.specialty}` : ""}
           </p>
-          <p className="pl-prof-bio">{profile.bio}</p>
+          {profile.bio ? <p className="pl-prof-bio">{profile.bio}</p> : null}
+          {profile.xUsername ? (
+            <a
+              className="pl-profile-x-link"
+              href={`https://x.com/${encodeURIComponent(profile.xUsername)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`@${profile.xUsername} en X, abre en otra pestaña`}
+            >
+              <XBrandMark />
+              @{profile.xUsername}
+            </a>
+          ) : null}
+          {xLinkError ? <p className="pl-profile-editor-error" role="status">No se pudo conectar X. Intenta de nuevo.</p> : null}
           <div className="pl-prof-meta num">
             {followerCount !== null ? (
               <span>
-                <strong>{followerCount}</strong> seguidores
+                <strong>{followerCount}</strong> {followerCount === 1 ? "seguidor" : "seguidores"}
               </span>
             ) : null}
             {profile.following !== null ? (
@@ -433,7 +693,26 @@ function ProfileContent({
 
       {/* Récord */}
       <section aria-label="Récord">
-        {hasSettled ? (
+        {!isOwn && !profile.isExample ? (
+          publicRecord === undefined ? (
+            <div className="pl-prof-empty glass-lens glass-ring">
+              <p className="pl-prof-empty-title">Cargando récord…</p>
+            </div>
+          ) : publicRecord === null ? (
+            <div className="pl-prof-empty glass-lens glass-ring">
+              <p className="pl-prof-empty-title">Sin picks cerrados todavía</p>
+            </div>
+          ) : (
+            <PublicRecordPreviewCard
+              handle={profile.handle}
+              hidden={publicRecord.hidden}
+              settled={publicRecord.hidden ? 0 : publicRecord.settled}
+              view={publicRecord.hidden ? null : publicRecord.view}
+              oddsFormat={oddsFormat}
+              summaryOnly
+            />
+          )
+        ) : hasSettled ? (
           <>
             <dl className="pl-prof-record glass-lens glass-ring num">
               <div className="pl-prof-stat">
@@ -503,8 +782,10 @@ function ProfileContent({
         )}
       </section>
 
-      {/* Tipstar: pick gratis de la semana */}
-      {profile.isTipstar && profile.weeklyPickSlug ? (
+      {badgesSection}
+
+      {/* Tipster: pick gratis de la semana */}
+      {profile.isTipster && profile.weeklyPickSlug ? (
         <a
           href={`/p/${profile.weeklyPickSlug}`}
           className="pl-prof-weekly glass-lens glass-ring"
@@ -536,19 +817,51 @@ function ProfileContent({
 
       <TabPanel tabKey={tab} idPrefix="pl-prof">
         {tab === "publicaciones" ? (
-          <PostsPanel posts={posts} dataset={dataset} oddsFormat={oddsFormat} toggleSocialLike={toggleSocialLike} />
-        ) : null}
-        {tab === "picks" ? (
-          <PicksPanel
-            entries={singlePicks}
+          <PostsPanel
+            posts={posts}
+            authorHandle={profile.isExample ? undefined : profile.handle}
             dataset={dataset}
             oddsFormat={oddsFormat}
-            isVisitor={isVisitor}
-            navigateTo={navigateTo}
+            toggleSocialLike={toggleSocialLike}
+            canReport={!isVisitor}
+            ownHandle={ownHandle}
           />
         ) : null}
-        {tab === "parlays" ? <ParlaysPanel entries={parlays} /> : null}
-        {tab === "estadisticas" ? <StatsPanel entries={profile.journal} today={today} /> : null}
+        {tab === "picks" ? (
+          !isOwn && !profile.isExample ? (
+            <SharedPicksPanel
+              handle={profile.handle}
+              publicRecord={publicRecord}
+              oddsFormat={oddsFormat}
+            />
+          ) : (
+            <PicksPanel
+              entries={singlePicks}
+              dataset={dataset}
+              oddsFormat={oddsFormat}
+              isVisitor={isVisitor}
+              navigateTo={navigateTo}
+            />
+          )
+        ) : null}
+        {tab === "parlays" ? (
+          !isOwn && !profile.isExample ? (
+            <SharedParlaysPanel
+              handle={profile.handle}
+              publicRecord={publicRecord}
+              oddsFormat={oddsFormat}
+            />
+          ) : (
+            <ParlaysPanel entries={parlays} />
+          )
+        ) : null}
+        {tab === "estadisticas" ? (
+          !isOwn && !profile.isExample ? (
+            <SharedStatsPanel handle={profile.handle} publicRecord={publicRecord} />
+          ) : (
+            <StatsPanel entries={profile.journal} today={today} />
+          )
+        ) : null}
       </TabPanel>
     </div>
   );
@@ -558,26 +871,67 @@ function ProfileContent({
    Publicaciones
    ------------------------------------------------------------------------- */
 
+const PROFILE_POSTS_PAGE = 20;
+
 function PostsPanel({
   posts,
+  authorHandle,
   dataset,
   oddsFormat,
   toggleSocialLike,
+  canReport,
+  ownHandle,
 }: {
   posts: readonly SocialPost[];
+  authorHandle?: string;
   dataset: ReturnType<typeof usePlatform>["dataset"];
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   toggleSocialLike: (postId: string) => void;
+  canReport: boolean;
+  ownHandle: string | null;
 }): React.JSX.Element {
+  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
+  const [limit, setLimit] = useState(PROFILE_POSTS_PAGE);
   const [openComments, setOpenComments] = useState<string[]>([]);
-  if (posts.length === 0) {
+  const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
+
+  useEffect(() => {
+    setLimit(PROFILE_POSTS_PAGE);
+  }, [authorHandle]);
+
+  const scope = useMemo(() => (authorHandle ? { author: authorHandle } : undefined), [authorHandle]);
+  const pageState = scope ? socialFeedPages[socialScopeKey(scope)] : undefined;
+  const hasMoreServer = Boolean(pageState?.hasMore);
+  const loadingOlder = Boolean(pageState?.loading);
+
+  const realPosts = useMemo(() => posts.filter((p) => !p.isExample), [posts]);
+  const examplePosts = useMemo(() => posts.filter((p) => p.isExample), [posts]);
+  const displayPool = useMemo(
+    () => (hasMoreServer ? realPosts : [...realPosts, ...examplePosts]),
+    [hasMoreServer, realPosts, examplePosts],
+  );
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
     return <p className="pl-prof-empty-line">Todavía no hay publicaciones.</p>;
   }
+
+  const canShowMore = displayPool.length > limit || hasMoreServer || loadingOlder;
+  const onShowMore = (): void => {
+    if (loadingOlder) return;
+    const nextLimit = limit + PROFILE_POSTS_PAGE;
+    setLimit(nextLimit);
+    if (scope && hasMoreServer && nextLimit >= realPosts.length) {
+      void loadOlderSocialPosts(scope);
+    }
+  };
+
   return (
     <div className="pl-prof-posts">
-      {posts.map((post) => {
+      {displayPool.slice(0, limit).map((post) => {
         const meta = post.pick ? resolveEntryGame(post.pick.gameId, dataset) : null;
         const commentsOpen = openComments.includes(post.id);
+        const isPostMine = Boolean(post.isMine || (ownHandle && post.authorHandle === ownHandle));
+        const showPostReport = canReport && !isPostMine && !post.isExample;
         return (
           <article key={post.id} className="pl-prof-post glass-lens glass-ring">
             <div className="pl-prof-post-meta">
@@ -585,7 +939,22 @@ function PostsPanel({
                 {meta ? <LeagueBadge league={meta.league} size={16} /> : null}
                 {post.leagueLabel}
               </span>
-              <span>{post.createdAt}</span>
+              <span className="pl-com-meta-end">
+                <span>{post.createdAt}</span>
+                {showPostReport ? (
+                  <SocialReportMenu
+                    compact
+                    triggerLabel={`Más opciones de la publicación de @${post.authorHandle}`}
+                    onReport={() =>
+                      setReportTarget({
+                        kind: "post",
+                        postId: post.id,
+                        authorHandle: post.authorHandle,
+                      })
+                    }
+                  />
+                ) : null}
+              </span>
             </div>
             <p className="pl-prof-post-body">{post.body}</p>
             {post.pick ? (
@@ -630,17 +999,60 @@ function PostsPanel({
             </div>
             {commentsOpen && post.comments.length > 0 ? (
               <ul className="pl-prof-comments">
-                {post.comments.map((c) => (
-                  <li key={c.id}>
-                    <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
-                    <p>{c.body}</p>
-                  </li>
-                ))}
+                {post.comments.map((c) => {
+                  const isCommentMine = Boolean(c.isMine || (ownHandle && c.authorHandle === ownHandle));
+                  const showCommentReport = canReport && !isCommentMine && !post.isExample;
+                  return (
+                    <li key={c.id} className="pl-com-comment-row">
+                      <Avatar
+                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+                        avatarUrl={c.authorAvatarUrl}
+                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                        size={26}
+                        loading="lazy"
+                      />
+                      <div className="pl-com-comment-body">
+                        <div className="pl-com-comment-head">
+                          <span>
+                            <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
+                          </span>
+                          {showCommentReport ? (
+                            <SocialReportMenu
+                              compact
+                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                              onReport={() =>
+                                setReportTarget({
+                                  kind: "comment",
+                                  commentId: c.id,
+                                  authorHandle: c.authorHandle,
+                                })
+                              }
+                            />
+                          ) : null}
+                        </div>
+                        <p>{c.body}</p>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             ) : null}
           </article>
         );
       })}
+      {canShowMore ? (
+        <div className="pl-prof-more">
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost"
+            disabled={loadingOlder}
+            onClick={onShowMore}
+          >
+            {loadingOlder ? "Cargando…" : "Ver más"}
+          </button>
+        </div>
+      ) : null}
+      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
     </div>
   );
 }
@@ -664,6 +1076,7 @@ function PicksPanel({
   isVisitor: boolean;
   navigateTo: (path: string) => void;
 }): React.JSX.Element {
+  const { hasAccountSession, upgradeHref } = usePlatform();
   const [status, setStatus] = useState<StatusFilter>("all");
   const [league, setLeague] = useState<string>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -758,14 +1171,14 @@ function PicksPanel({
         </div>
         {locked ? (
           <a
-            href="/signup"
+            href={upgradeHref}
             className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/signup");
+              navigateTo(upgradeHref);
             }}
           >
-            Desbloquear
+            {hasAccountSession ? "Activar Pase" : "Desbloquear"}
           </a>
         ) : (
           <>
@@ -1043,6 +1456,240 @@ function StatsPanel({ entries, today }: { entries: readonly JournalEntry[]; toda
           <p className="pl-prof-card-note">La raya marca lo esperado (punto medio del rango).</p>
         </section>
       </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Récord público compartido de otro socio real (/api/u/[handle]/record)
+   Respeta cada interruptor de Mi récord; nunca expone picks abiertos ni pesos.
+   ------------------------------------------------------------------------- */
+
+function SharedPicksPanel({
+  handle,
+  publicRecord,
+  oddsFormat,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+  oddsFormat: OddsFormat;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando picks…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden || publicRecord.view.settledPicks === null) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene su historial de picks en privado.
+      </p>
+    );
+  }
+  const singles = publicRecord.view.settledPicks.filter(
+    (p) => !p.pickLabel.includes(" + "),
+  );
+  if (singles.length === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay picks cerrados para mostrar.</p>;
+  }
+  return (
+    <ul className="pl-prof-rows glass-lens glass-ring num">
+      {singles.map((p, idx) => {
+        const net = p.status === "won" ? p.units * (p.userDecimal - 1) : -p.units;
+        return (
+          <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-prof-row">
+            <div className="pl-prof-row-main">
+              <div className="pl-prof-row-copy">
+                <p className="pl-prof-row-title">{p.pickLabel}</p>
+                <p className="pl-prof-row-sub">
+                  {[p.leagueLabel, p.day ? formatShortIsoDay(p.day) : null]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </div>
+            </div>
+            <div className="pl-prof-row-odds num">
+              <p>{formatOddsValue(p.userDecimal, oddsFormat)}</p>
+              <p className={net > 0 ? "pl-prof-pos" : "pl-prof-neg"}>
+                {formatSignedUnits(Math.round(net * 100) / 100)}
+              </p>
+            </div>
+            <PickStatus status={outcomeOf(p.status)} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function SharedParlaysPanel({
+  handle,
+  publicRecord,
+  oddsFormat,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+  oddsFormat: OddsFormat;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando parlays…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden || publicRecord.view.settledPicks === null) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene sus parlays en privado.
+      </p>
+    );
+  }
+  const parlays = publicRecord.view.settledPicks.filter((p) =>
+    p.pickLabel.includes(" + "),
+  );
+  if (parlays.length === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay parlays cerrados para mostrar.</p>;
+  }
+  return (
+    <div className="pl-prof-parlays">
+      {parlays.map((entry, idx) => {
+        const legs = splitLegs(entry.pickLabel);
+        const outcome = outcomeOf(entry.status);
+        const net =
+          entry.status === "won"
+            ? entry.units * (entry.userDecimal - 1)
+            : -entry.units;
+        return (
+          <article
+            key={`${entry.pickLabel}-${entry.day ?? idx}-${idx}`}
+            className="pl-prof-parlay glass-lens glass-ring"
+          >
+            <div className="pl-prof-parlay-head">
+              <p className="pl-prof-row-title num">
+                Parlay de {legs.length} · {entry.units.toFixed(1)}u
+              </p>
+              <PickStatus status={outcome} />
+            </div>
+            <ol className="pl-prof-legs">
+              {legs.map((leg, i) => (
+                <li key={`${leg.label}-${i}`}>
+                  <span>
+                    {leg.label}
+                    {leg.league ? (
+                      <span className="pl-prof-muted"> · {leg.league}</span>
+                    ) : null}
+                  </span>
+                  {outcome === "won" ? (
+                    <span className="pl-prof-pos" aria-label="Cumplida">
+                      ✓
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            <div className="pl-prof-parlay-foot num">
+              <span>
+                Momio {formatOddsValue(entry.userDecimal, oddsFormat)}
+              </span>
+              <strong className={net > 0 ? "pl-prof-pos" : "pl-prof-neg"}>
+                {formatSignedUnits(Math.round(net * 100) / 100)}
+              </strong>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+function SharedStatsPanel({
+  handle,
+  publicRecord,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando estadísticas…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene sus estadísticas en privado.
+      </p>
+    );
+  }
+  if (publicRecord.settled === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay picks cerrados para calcular estadísticas.</p>;
+  }
+  const view: PublicRecordView = publicRecord.view;
+  const hasCurve = Boolean(view.curve && view.curve.length > 0);
+  const hasMonths = Boolean(view.months && (view.months.best || view.months.worst));
+  const hasLeagues = Boolean(view.byLeague && view.byLeague.length > 0);
+  const hasMarkets = Boolean(view.byMarket && view.byMarket.length > 0);
+
+  if (!hasCurve && !hasMonths && !hasLeagues && !hasMarkets) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene oculto el desglose detallado de estadísticas.
+      </p>
+    );
+  }
+
+  return (
+    <div className="pl-rec-stack">
+      {hasCurve && view.curve ? (
+        <section className="pl-rec-card glass-lens glass-ring">
+          <h2 className="pl-rec-card-title">Curva de saldo (unidades)</h2>
+          <BalanceCurveFigure curve={view.curve} />
+        </section>
+      ) : null}
+
+      {hasMonths && view.months ? (
+        <section className="pl-rec-card glass-lens glass-ring num">
+          <h2 className="pl-rec-card-title">Mejor y peor mes</h2>
+          <div className="pl-rec-metric-pair">
+            {view.months.best ? (
+              <div className="pl-rec-pub-stat">
+                <span className="pl-rec-pub-dt">Mejor mes</span>
+                <strong className="pl-rec-pub-dd pl-rec-pos">
+                  {formatSignedUnits(view.months.best.netUnits)}
+                </strong>
+                <span className="pl-rec-pub-sub">{view.months.best.label}</span>
+              </div>
+            ) : null}
+            {view.months.worst ? (
+              <div className="pl-rec-pub-stat">
+                <span className="pl-rec-pub-dt">Peor mes</span>
+                <strong
+                  className={`pl-rec-pub-dd ${view.months.worst.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}
+                >
+                  {formatSignedUnits(view.months.worst.netUnits)}
+                </strong>
+                <span className="pl-rec-pub-sub">{view.months.worst.label}</span>
+              </div>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {hasLeagues || hasMarkets ? (
+        <div className="pl-prof-two">
+          {hasLeagues && view.byLeague ? (
+            <section className="pl-rec-card glass-lens glass-ring">
+              <h2 className="pl-rec-card-title">Acierto por liga</h2>
+              <RateBreakdownList
+                rows={view.byLeague}
+                showNetUnits={view.netUnits !== null}
+              />
+            </section>
+          ) : null}
+          {hasMarkets && view.byMarket ? (
+            <section className="pl-rec-card glass-lens glass-ring">
+              <h2 className="pl-rec-card-title">Acierto por mercado</h2>
+              <RateBreakdownList
+                rows={view.byMarket}
+                showNetUnits={view.netUnits !== null}
+              />
+            </section>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,11 +1,7 @@
-"use client";
-
 import React from "react";
-import { usePathname } from "next/navigation";
-import { ClubLoadingView } from "@pitchlab/ui";
+import { LaunchScreen } from "@pitchlab/ui";
 
-/** Carga entre páginas del club: la barra lateral y el encabezado no se mueven. */
+/** Carga entre páginas del club: el encabezado y la barra lateral no se mueven; el arranque ocupa el contenido. */
 export default function Loading(): React.JSX.Element {
-  const pathname = usePathname() ?? "/app";
-  return <ClubLoadingView activePath={pathname} />;
+  return <LaunchScreen variant="inline" />;
 }

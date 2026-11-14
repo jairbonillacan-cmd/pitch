@@ -12,7 +12,7 @@ import {
 } from "../access-guard";
 import { usePlatform } from "../platform-provider";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
@@ -569,7 +569,7 @@ export function PickComposerModal(): React.JSX.Element | null {
               }
             >
               <MaestroIcon name="check" size={15} />
-              Sellar en Bitácora ({units.toFixed(2)}u)
+              Sellar en Mi récord ({units.toFixed(2)}u)
             </button>
           </div>
         </div>
@@ -579,32 +579,66 @@ export function PickComposerModal(): React.JSX.Element | null {
 }
 
 export function ShareTicketModal(): React.JSX.Element | null {
-  const { shareTicket, closeShareTicket, viewerRole, oddsFormat, pushToast } =
-    usePlatform();
+  const {
+    shareTicket,
+    closeShareTicket,
+    viewerRole,
+    oddsFormat,
+    pushToast,
+    viewerIdentity,
+    memberReferralsSnapshot,
+  } = usePlatform();
   const [aspect, setAspect] = useState<"4:5" | "9:16">("4:5");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const ticketRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setCopyState("idle");
+  }, [shareTicket]);
 
   if (!shareTicket) return null;
 
-  const isTipstarPromo = shareTicket.kind === "tipstar";
+  const isTipsterPromo = shareTicket.kind === "tipster";
   const revealSelection = canRevealPickOnShare(
     shareTicket.gameStatus,
     viewerRole,
-    isTipstarPromo,
+    isTipsterPromo,
   );
-  const watermark = getSessionWatermark(viewerRole);
+  const watermark = getSessionWatermark(viewerRole, viewerIdentity);
+  const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
+  const codeParam =
+    shareTicket.promoCode ||
+    memberReferralsSnapshot?.referralCode ||
+    viewerIdentity?.referralCode ||
+    "";
+  const sharePath = slug
+    ? `/p/${encodeURIComponent(slug)}${codeParam ? `?code=${encodeURIComponent(codeParam)}` : ""}`
+    : codeParam
+      ? `/i/${encodeURIComponent(codeParam)}`
+      : "/precio";
 
-  const handleCopyShareLink = () => {
+  const handleCopyShareLink = async () => {
     const shareUrl =
       typeof window !== "undefined"
-        ? `${window.location.origin}/p/${isTipstarPromo ? "sofia-sem" : "boleto"}`
-        : "https://pitchlab.mx/p/sofia-sem";
+        ? `${window.location.origin}${sharePath}`
+        : `https://pitchlab.mx${sharePath}`;
     try {
-      void navigator.clipboard?.writeText(shareUrl);
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("no_clipboard");
+      }
+      await navigator.clipboard.writeText(shareUrl);
+      setCopyState("copied");
+      pushToast(
+        codeParam
+          ? "Enlace del boleto copiado con tu código."
+          : "Enlace del boleto copiado.",
+        "success",
+      );
     } catch (err) {
       void err;
+      setCopyState("error");
+      pushToast("No se pudo copiar automáticamente. Selecciona y copia el enlace.", "warning");
     }
-    pushToast("Enlace del boleto copiado con tu código de referido.", "success");
   };
 
   const handleDownloadTicket = () => {
@@ -627,7 +661,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
     const content: TicketRasterContent = revealSelection
       ? {
           ...base,
-          badge: isTipstarPromo
+          badge: isTipsterPromo
             ? (shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA")
             : "RESULTADO AUDITADO FT",
           badgeTone: "success",
@@ -747,7 +781,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                 </span>
               </div>
 
-              {shareTicket.tipstarHandle ? (
+              {shareTicket.tipsterHandle ? (
                 <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
                   style={{
                     background: "var(--share-card-surface)",
@@ -755,7 +789,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   }}
                 >
                   <MaestroIcon name="crown" size={12} />
-                  <span>@{shareTicket.tipstarHandle} · Perfil de ejemplo</span>
+                  <span>@{shareTicket.tipsterHandle} · Perfil de ejemplo</span>
                 </div>
               ) : null}
 
@@ -784,7 +818,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                       className="font-bold inline-flex items-center gap-1.5"
                     >
                       <MaestroIcon name="shield" size={13} />
-                      {isTipstarPromo
+                      {isTipsterPromo
                         ? shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA"
                         : "RESULTADO AUDITADO FT"}
                     </span>
@@ -865,11 +899,14 @@ export function ShareTicketModal(): React.JSX.Element | null {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span
               className="text-xs"
-              style={{ color: "var(--pl-text-muted)" }}
+              style={{ color: copyState === "error" ? "var(--pl-warning)" : "var(--pl-text-muted)" }}
+              role={copyState === "error" ? "status" : undefined}
             >
-              {revealSelection
-                ? "Selección visible (Partido cerrado FT o Pick abierto semanal de Tipstar)."
-                : "Selección sellada automáticamente porque el encuentro aún no inicia."}
+              {copyState === "error"
+                ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
+                : revealSelection
+                  ? "Selección visible (Partido cerrado o Pick abierto semanal de Tipster)."
+                  : "Selección sellada automáticamente porque el encuentro aún no inicia."}
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -884,10 +921,14 @@ export function ShareTicketModal(): React.JSX.Element | null {
                 type="button"
                 autoFocus
                 className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-                onClick={handleCopyShareLink}
+                onClick={() => void handleCopyShareLink()}
               >
-                <MaestroIcon name="copy" size={14} />
-                Copiar enlace con código
+                <MaestroIcon name={copyState === "copied" ? "check" : "copy"} size={14} />
+                {copyState === "copied"
+                  ? "Enlace copiado"
+                  : codeParam
+                    ? "Copiar enlace con código"
+                    : "Copiar enlace"}
               </button>
             </div>
           </div>
@@ -896,164 +937,6 @@ export function ShareTicketModal(): React.JSX.Element | null {
     </TopLayerModalDialog>
   );
 }
-
-/** Picks de valor (Geodesic v2.0 contra momio real) de partidos próximos. */
-export function valueAlertsFrom(
-  games: readonly PlatformGame[],
-): Array<{ game: PlatformGame; pick: MatchPick }> {
-  const out: Array<{ game: PlatformGame; pick: MatchPick }> = [];
-  for (const game of games) {
-    if (game.status === "FT") continue;
-    const pick = game.picks.find(
-      (p) => p.category === "valor" && p.marketDecimal !== null && (p.edgePts ?? 0) > 0,
-    );
-    if (pick) out.push({ game, pick });
-  }
-  return out.slice(0, 8);
-}
-
-export function AlertsDrawer(): React.JSX.Element | null {
-  const {
-    alertsOpen,
-    setAlertsOpen,
-    dataset,
-    watchlistGameIds,
-    navigateTo,
-    pushToast,
-  } = usePlatform();
-  const [allRead, setAllRead] = useState<boolean>(false);
-
-  if (!alertsOpen) return null;
-
-  // Solo avisos con datos detrás: picks de valor de Geodesic contra un momio real.
-  const valueAlerts = valueAlertsFrom(dataset.games);
-
-  return (
-    <TopLayerModalDialog
-      open={alertsOpen}
-      onClose={() => setAlertsOpen(false)}
-      ariaLabelledBy="alerts-drawer-title"
-      variant="drawer"
-    >
-      <div className="glass-lens glass-ring relative h-full w-full p-5 overflow-y-auto">
-        <LensGlowOrbs subtle />
-        <div className="relative z-10 space-y-4">
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <span className="pl-pill pl-pill--cortex inline-flex items-center gap-1.5">
-                <MaestroIcon name="bell" size={12} />
-                Spacetime Suite v3.0
-              </span>
-              <h2
-                id="alerts-drawer-title"
-                className="m-0 mt-2 text-lg font-extrabold"
-              >
-                Alertas de valor
-              </h2>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                className="pl-btn-glass !min-h-[32px] !px-2.5 text-xs inline-flex items-center gap-1"
-                onClick={() => {
-                  setAllRead(true);
-                  pushToast(
-                    "Alertas de jornada marcadas como revisadas.",
-                    "default",
-                  );
-                }}
-              >
-                <MaestroIcon name="check" size={13} />
-                {allRead ? "Leídas" : "Marcar leídas"}
-              </button>
-              <button
-                type="button"
-                autoFocus
-                className="pl-btn-glass px-2.5"
-                aria-label="Cerrar panel de alertas"
-                onClick={() => setAlertsOpen(false)}
-              >
-                <MaestroIcon name="x" size={15} />
-              </button>
-            </div>
-          </div>
-
-          <div className="ticket-perf" />
-
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Las alertas de alineaciones llegarán cuando conectemos la fuente oficial de convocatorias.
-            {watchlistGameIds.length > 0
-              ? ` Vigilando ${watchlistGameIds.length} ${watchlistGameIds.length === 1 ? "partido" : "partidos"}.`
-              : ""}
-          </p>
-
-          <div className="space-y-3">
-            {valueAlerts.length === 0 ? (
-              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }} data-no-alerts="">
-                Sin alertas de valor por ahora: ningún partido próximo tiene ventaja ejecutable contra un
-                momio vigente.
-              </p>
-            ) : null}
-            {valueAlerts.map(({ game: g, pick }) => {
-              const isWatching = watchlistGameIds.includes(g.id);
-              return (
-                <div
-                  key={pick.id}
-                  className="glass-card glass-ring rounded-xl p-3.5 space-y-2.5"
-                  style={{ opacity: allRead ? 0.84 : 1 }}
-                >
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
-                      <MaestroIcon name="activity" size={12} />
-                      Valor Geodesic
-                    </span>
-                    <span className="num font-medium" style={{ color: "var(--pl-text-muted)" }}>
-                      {g.leagueLabel} · {g.kickoffLocal}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 font-bold text-sm min-w-0">
-                      <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={20} />
-                      <span className="truncate">
-                        {g.home.shortName} vs {g.away.shortName}
-                      </span>
-                    </div>
-                    {isWatching ? (
-                      <span className="pl-pill pl-pill--success inline-flex items-center gap-1 shrink-0">
-                        <MaestroIcon name="eye" size={11} />
-                        En vigilancia
-                      </span>
-                    ) : null}
-                  </div>
-
-                  <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-                    {pick.isRedacted ? "Selección protegida para socios" : pick.label} ·{" "}
-                    {formatEdgePts(pick.edgePts)} contra {g.spacetime?.market?.bookLabel ?? "la casa"}.
-                  </p>
-
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs py-1 min-h-8 inline-flex items-center gap-1.5"
-                    onClick={() => {
-                      setAlertsOpen(false);
-                      navigateTo(`/app/${g.league}/games/${g.id}`);
-                    }}
-                  >
-                    <span>Abrir Match Studio</span>
-                    <MaestroIcon name="arrowRight" size={13} />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </TopLayerModalDialog>
-  );
-}
-
-export const AlertsModal = AlertsDrawer;
 
 const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   label: string;
@@ -1068,20 +951,20 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "calendar",
   },
   {
-    label: "Picks del día (hasta 5 por partido)",
+    label: "Buscar picks",
     subtitle: "Escudo, Principal, Totales, Táctico y Valor",
     href: "/app/picks",
     icon: "sparkles",
   },
   {
     label: "Armar parlay",
-    subtitle: "Correlación Geodesic v2.0 sin selecciones opuestas",
+    subtitle: "Combinadas de 2 a 6 selecciones sin selecciones opuestas",
     href: "/app/parlays",
     icon: "layers",
   },
   {
-    label: "Explorador de Momios & Geodesic v2.0",
-    subtitle: "Comparativa de probabilidad real vs momio justo",
+    label: "Compara tu momio",
+    subtitle: "Comparativa de probabilidad estimada vs momio justo",
     href: "/app/momios",
     icon: "sliders",
   },
@@ -1092,37 +975,37 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "activity",
   },
   {
-    label: "Comunidad VIP Verificada",
-    subtitle: "Boletos, consenso vs Suite y ranking CLV (IC 95 %)",
+    label: "Comunidad",
+    subtitle: "Boletos compartidos, conversación y tablero de socios",
     href: "/app/social",
     icon: "users",
   },
   {
-    label: "Portal Tipstar Oficial (SOFIA5)",
-    subtitle: "1 pick abierto semanal y comisiones del 25 %",
-    href: "/app/tipstar",
+    label: "Portal Tipster Oficial",
+    subtitle: "1 pick abierto semanal y seguimiento de comisiones",
+    href: "/app/tipster",
     icon: "crown",
   },
   {
-    label: "Historial & Auditoría Pública FT",
-    subtitle: "Registro inmutable sin picks editados ni borrados",
+    label: "Resultados",
+    subtitle: "Marcadores cerrados y registro público sin ediciones",
     href: "/app/historial",
     icon: "shield",
   },
   {
-    label: "Mi Bitácora & Vigilancia",
-    subtitle: "Unidades simuladas, CLV promedio y alertas de alineación",
+    label: "Mi récord y vigilancia",
+    subtitle: "Unidades, estadísticas, privacidad y alertas de partido",
     href: "/app/lab",
     icon: "chart",
   },
   {
-    label: "Tecnología & Precisión · Spacetime Suite v3.0",
-    subtitle: "Arquitectura de los 5 motores propietarios y calibración ECE",
+    label: "Tecnología y precisión",
+    subtitle: "Cómo estimamos probabilidades y calibramos el momio justo",
     href: "/app/tech",
     icon: "cpu",
   },
   {
-    label: "Cuenta, Referidos (+15 días) y CFDI 4.0",
+    label: "Cuenta y referidos (+7 días)",
     subtitle: "Embajador 5 amigos, unidad base y facturación SAT",
     href: "/app/account",
     icon: "gift",
@@ -1136,7 +1019,8 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
 ];
 
 export function CommandPaletteModal(): React.JSX.Element | null {
-  const { cmdkOpen, setCmdkOpen, dataset, navigateTo } = usePlatform();
+  const { cmdkOpen, setCmdkOpen, dataset, navigateTo, viewerRole, allowRoleSimulation } =
+    usePlatform();
   const [query, setQuery] = useState<string>("");
 
   if (!cmdkOpen) return null;
@@ -1166,7 +1050,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
     );
   });
 
-  const matchingTipstars = TIPSTAR_CREATORS.filter((c) => {
+  const matchingTipsters = TIPSTER_CREATORS.filter((c) => {
     if (!q) return true;
     return (
       c.handle.toLowerCase().includes(q) ||
@@ -1176,17 +1060,19 @@ export function CommandPaletteModal(): React.JSX.Element | null {
     );
   });
 
+  const canSeeAdmin = viewerRole === "admin" || allowRoleSimulation;
   const quickRoutes = CLUB_COMMAND_VIEWS.filter(
     (r) =>
-      !q ||
-      r.label.toLowerCase().includes(q) ||
-      r.subtitle.toLowerCase().includes(q),
+      (r.href !== "/app/admin" || canSeeAdmin) &&
+      (!q ||
+        r.label.toLowerCase().includes(q) ||
+        r.subtitle.toLowerCase().includes(q)),
   );
 
   const hasResults =
     matchingGames.length > 0 ||
     matchingLeagues.length > 0 ||
-    matchingTipstars.length > 0 ||
+    matchingTipsters.length > 0 ||
     quickRoutes.length > 0;
 
   return (
@@ -1211,7 +1097,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
               aria-label="Buscar equipo, liga, partido o módulo"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar partido, liga, @tipstar o módulo (⌘K)..."
+              placeholder="Buscar partido, liga, @tipster o módulo (⌘K)..."
               className="glass-input w-full px-3 py-2.5 text-sm"
             />
             <button
@@ -1320,16 +1206,16 @@ export function CommandPaletteModal(): React.JSX.Element | null {
               </div>
             ) : null}
 
-            {matchingTipstars.length > 0 ? (
+            {matchingTipsters.length > 0 ? (
               <div>
                 <p
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Tipstars Verificados (CLV Auditado)
+                  Tipsters Verificados (CLV Auditado)
                 </p>
                 <div className="space-y-1">
-                  {matchingTipstars.map((creator) => (
+                  {matchingTipsters.map((creator) => (
                     <a
                       key={creator.handle}
                       href={`/app/u/${creator.handle}`}
@@ -1614,7 +1500,7 @@ export function RoleSimulatorBar({
   const roles: Array<{ id: ViewerRole; label: string; short: string }> = [
     { id: "visitor", label: "Visitante (Cero-Fuga)", short: "Visitante" },
     { id: "member", label: "Socio Pase PitchLab Ultra", short: "Socio" },
-    { id: "tipstar", label: "Tipstar (@sofia_nfl)", short: "Tipstar" },
+    { id: "tipster", label: "Tipster (@sofia_nfl)", short: "Tipster" },
     { id: "admin", label: "Admin Founder", short: "Admin" },
   ];
 

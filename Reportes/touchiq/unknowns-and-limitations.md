@@ -56,7 +56,7 @@ Aunque el motor de TouchIQ es sumamente competente para una aplicación client-s
 | Fórmulas de Pitágoras, Log5 y curvas normales | `[OBSERVADO]` | 100% (Verificado en código y batch test) |
 | Parámetros y constantes ($E=2.37, HFA=0.55, K=6$) | `[OBSERVADO]` | 100% (Constantes leídas en JS) |
 | Cero llamadas de red en tiempo de ejecución | `[OBSERVADO]` | 100% (Demostrado vía CDP y REA) |
-| El código de acceso 7779 es client-side | `[OBSERVADO]` | 100% (Leído en texto plano) |
+| El código de acceso [REDACTED_PIN] es client-side | `[OBSERVADO]` | 100% (Leído en texto plano) |
 | Frecuencia de actualización semanal | `[INFERIDO]` | 95% (Deducido de timestamps de DK y fechas) |
 | Recolección manual humana de datos | `[INFERIDO]` | 90% (Consistente con notas, fuentes y formato) |
 | Scripts privados de compilación del autor | `[DESCONOCIDO]` | Inaccesibles (No forman parte del bundle) |

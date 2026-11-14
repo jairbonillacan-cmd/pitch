@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { ParlaysPageSurface } from "@pitchlab/ui";
 import { loadParlaysViewProps } from "../../src/server/public-site-data";
 
@@ -12,6 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ParlaysPage(): Promise<React.JSX.Element> {
-  const props = await loadParlaysViewProps();
-  return <ParlaysPageSurface {...props} />;
+  const [props, hasSession] = await Promise.all([loadParlaysViewProps(), hasPublicSessionCookie()]);
+  return <ParlaysPageSurface {...props} hasSession={hasSession} />;
 }

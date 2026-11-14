@@ -2,7 +2,7 @@
  * Datos del socio en la base (F4): vigilancia y bitácora sellada.
  * Las rutas `/api/me/*` usan estas funciones con el usuario de la sesión de Better Auth.
  */
-import { createHash } from "node:crypto";
+import { createHash, createHmac } from "node:crypto";
 import { and, eq, sealedPicks, users, watchlist, type Db } from "@pitchlab/db";
 
 export async function profileIdForAuthUser(db: Db, authUserId: string): Promise<string | null> {
@@ -37,33 +37,52 @@ export interface SealInput {
   note?: string;
 }
 
-/** Huella del pick sellado: cambia si se altera cualquier dato después del sellado. */
+/** Huella del pick sellado: cubre todos los campos inmutables (con HMAC si hay secreto de servidor). */
 export function sealHashOf(userId: string, input: SealInput, sealedAt: Date): string {
-  return createHash("sha256")
-    .update(
-      JSON.stringify([
-        userId,
-        input.pickId,
-        input.pickLabel,
-        input.units,
-        input.userDecimal,
-        input.fairDecimal,
-        input.kickoffAt.toISOString(),
-        sealedAt.toISOString(),
-      ]),
-    )
-    .digest("hex");
+  const canonicalPayload = JSON.stringify([
+    userId,
+    input.gameId,
+    input.pickId,
+    input.leagueLabel,
+    input.matchLabel,
+    input.pickLabel,
+    input.origin,
+    input.units.toFixed(2),
+    input.userDecimal.toFixed(3),
+    input.fairDecimal.toFixed(3),
+    (input.note ?? "").slice(0, 280),
+    input.kickoffAt.toISOString(),
+    sealedAt.toISOString(),
+  ]);
+  const serverSecret = process.env.BETTER_AUTH_SECRET?.trim();
+  if (serverSecret && serverSecret.length >= 16) {
+    return createHmac("sha256", serverSecret).update(canonicalPayload).digest("hex");
+  }
+  return createHash("sha256").update(canonicalPayload).digest("hex");
 }
 
 export type SealResult =
   | { ok: true; id: string; sealHash: string }
   | { ok: false; reason: "partido_iniciado" | "unidades_invalidas" | "momio_invalido" | "ya_sellado" };
 
-/** Sella un pick antes del inicio del partido (la base también lo exige con un CHECK). */
+/** Sella un pick antes del inicio del partido (la base también lo exige con CHECK y trigger pick_immutable). */
 export async function sealPick(db: Db, userId: string, input: SealInput, now: Date): Promise<SealResult> {
   if (now >= input.kickoffAt) return { ok: false, reason: "partido_iniciado" };
-  if (!(input.units > 0 && input.units <= 5)) return { ok: false, reason: "unidades_invalidas" };
-  if (!(input.userDecimal > 1 && input.fairDecimal > 1)) return { ok: false, reason: "momio_invalido" };
+  if (!(Number.isFinite(input.units) && input.units > 0 && input.units <= 5)) {
+    return { ok: false, reason: "unidades_invalidas" };
+  }
+  if (
+    !(
+      Number.isFinite(input.userDecimal) &&
+      Number.isFinite(input.fairDecimal) &&
+      input.userDecimal >= 1.01 &&
+      input.userDecimal <= 1000 &&
+      input.fairDecimal >= 1.01 &&
+      input.fairDecimal <= 1000
+    )
+  ) {
+    return { ok: false, reason: "momio_invalido" };
+  }
   const sealHash = sealHashOf(userId, input, now);
   const rows = await db
     .insert(sealedPicks)

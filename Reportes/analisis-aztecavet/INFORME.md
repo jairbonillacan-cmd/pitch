@@ -1,13 +1,13 @@
 # Cómo opera aztecavet.com — Informe de ingeniería inversa con REA
 
-**Fecha:** 2026-11-08 · **Objetivo:** entender cómo funciona el sitio (código de acceso 7779 provisto por el propietario).
+**Fecha:** 2026-11-08 · **Objetivo:** entender cómo funciona el sitio (código de acceso [REDACTED_PIN] provisto por el propietario).
 **Método:** REA (`capture_browser_scenario` con Brave headless, `analyze_javascript_application`) + extracción estática del HTML servido. Todo el material crudo y capturas está en esta carpeta (`raw/`, `scripts/`).
 
 ---
 
 ## 1. Resumen en una frase
 
-**AZTECA VET es una SPA de un solo archivo (1.22 MB de HTML) hospedada en Netlify, sin backend propio ni llamadas de red: toda la app (código, datos de partidos, imágenes y sonido) vive embebida en el propio documento; el "código de acceso" 7779 es una comparación client-side en JavaScript, no un login real.**
+**AZTECA VET es una SPA de un solo archivo (1.22 MB de HTML) hospedada en Netlify, sin backend propio ni llamadas de red: toda la app (código, datos de partidos, imágenes y sonido) vive embebida en el propio documento; el "código de acceso" [REDACTED_PIN] es una comparación client-side en JavaScript, no un login real.**
 
 ## 2. Infraestructura y entrega
 
@@ -20,12 +20,12 @@
 
 Análisis estático REA (`analyze_javascript_application`, evidencia `ev_44e130e7…` / padre `ev_a90701d1…`): 2 archivos, 12,488 nodos AST parseados sin fallos, **familia `request`: 0 relaciones** → el código no contiene fetch/XHR/WebSocket. Confirmado en runtime: en cada captura la única transacción de red es el `GET /` del documento.
 
-## 3. La puerta de acceso (código 7779) — 100% client-side
+## 3. La puerta de acceso (código [REDACTED_PIN]) — 100% client-side
 
 Ubicación: `inline_1.js` línea ~72. Lógica exacta:
 
 ```js
-const CODE="7779", dots=[...document.querySelectorAll("#dots i")], msg=$("msg"), pad=$("pad");
+const CODE="[REDACTED_PIN]", dots=[...document.querySelectorAll("#dots i")], msg=$("msg"), pad=$("pad");
 let buf="", stage=1, busy=false, snd=true;
 // teclado numérico construido por JS: "1".."9","","0","⌫" → botones en #pad
 function key(k){ if(stage!==2||busy)return; if(k==="⌫"){buf=buf.slice(0,-1)} else if(/\d/.test(k)&&buf.length<4){buf+=k}
@@ -39,7 +39,7 @@ Flujo real observado en runtime con REA (evidencias `ev_d800fc83…` y `ev_ac3d7
 
 1. **Stage 1** — pantalla de bienvenida; no acepta dígitos. Un clic en `#lock` (después de 900 ms) avanza a stage 2.
 2. **Stage 2** — aparece el pad; cada dígito se acumula en `buf` (máx. 4).
-3. Al llegar a 4 dígitos se compara **en texto plano contra la constante `CODE="7779"`** (hardcodeada en el JS que cualquiera puede leer viendo el código fuente).
+3. Al llegar a 4 dígitos se compara **en texto plano contra la constante `CODE="[REDACTED_PIN]"`** (hardcodeada en el JS que cualquiera puede leer viendo el código fuente).
 4. Éxito → animación (~1.8 s) y se revela `#app`. Fallo → mensaje y reset.
 
 **Consecuencias de seguridad (observación, no juicio):**

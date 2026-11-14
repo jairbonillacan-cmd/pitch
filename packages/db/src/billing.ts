@@ -4,29 +4,44 @@
  * Todo es idempotente: reenviar el mismo evento de la pasarela no duplica días ni comisiones.
  * Funciona con cualquier base Drizzle de Postgres (Neon en producción, PGlite en pruebas).
  */
-import { and, count, eq, gt, isNull, sql } from "drizzle-orm";
+import { and, count, eq, gt, gte, inArray, isNull, lte, ne, sql } from "drizzle-orm";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import {
   entitlementGrants,
   referralGrants,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
 } from "./schema";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Db = PgDatabase<PgQueryResultHKT, any, any>;
 
+export type GrantSourceKind =
+  | "trial_m1_nocard"
+  | "trial_tipster_5d"
+  | "referral_host_15d"
+  | "referral_friend_15d"
+  | "ambassador_bonus_30d"
+  | "tipster_comp_pass"
+  | "admin_grant"
+  | "transfer_payment"
+  | "coupon";
+
 const DAY_MS = 86_400_000;
-export const REFERRAL_REWARD_DAYS = 15;
+export const REFERRAL_REWARD_DAYS = 7;
 export const AMBASSADOR_BONUS_DAYS = 30;
 export const AMBASSADOR_THRESHOLD = 5;
 export const MIN_QUALIFYING_PAID_CENTAVOS = 15_000;
 export const COMMISSION_CLEARANCE_DAYS = 14;
+/** Un reembolso dentro de este plazo desde el premio revierte los días del referido. */
+export const REFERRAL_CLAWBACK_DAYS = 14;
+/** Concesiones que son premio (no prueba): al recorrer el cobro en Stripe, el socio sigue en su plan. */
+export const REWARD_GRANT_KINDS = ["referral_host_15d", "referral_friend_15d", "ambassador_bonus_30d", "admin_grant"] as const;
 
-/** Comisión de tipstar sobre el neto (bruto − IVA − comisión de pasarela). */
+/** Comisión de tipster sobre el neto (bruto − IVA − comisión de pasarela). */
 export function computeCommission(input: {
   grossCentavos: number;
   vatCentavos: number;
@@ -45,10 +60,11 @@ export async function grantDays(
   db: Db,
   input: {
     userId: string;
-    sourceKind: typeof entitlementGrants.$inferInsert.sourceKind;
+    sourceKind: GrantSourceKind;
     days: number;
     idempotencyKey: string;
     now: Date;
+    note?: string | null;
   },
 ): Promise<string> {
   const existing = await db
@@ -67,6 +83,7 @@ export async function grantDays(
       startsAt,
       endsAt: new Date(startsAt.getTime() + input.days * DAY_MS),
       idempotencyKey: input.idempotencyKey,
+      note: input.note ?? null,
     })
     .onConflictDoNothing({ target: entitlementGrants.idempotencyKey })
     .returning({ id: entitlementGrants.id });
@@ -118,38 +135,40 @@ export interface InvoicePaidResult {
 }
 
 /**
- * Efectos de un cobro liquidado (`invoice.paid`):
- * 1. Referido doble vía: el primer cobro ≥ $150 MXN del invitado da +15 días a ambos; el 5.º
+ * Efectos de un cobro liquidado (`invoice.paid` o transferencia aprobada) usando una
+ * transacción existente (`t`), para componer con aprobaciones SPEI o webhooks de Stripe:
+ * 1. Referido doble vía: el primer cobro ≥ $150 MXN del invitado da +7 días a ambos; el 5.º
  *    amigo pagado del anfitrión le da +30 días extra una sola vez.
- * 2. Tipstar: asiento de comisión sobre el neto, liquidable a los 14 días.
+ * 2. Tipster: asiento de comisión sobre el neto, liquidable a los 14 días.
  */
-export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
+export async function applyInvoicePaidEffects(t: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
   const result: InvoicePaidResult = { referralRewarded: false, ambassadorBonus: false, commissionCentavos: null };
 
-  const [referral] = await db
+  const [referral] = await t
     .select()
     .from(referralGrants)
-    .where(eq(referralGrants.referredUserId, input.userId));
+    .where(eq(referralGrants.referredUserId, input.userId))
+    .for("update");
   if (
     referral &&
     referral.status === "trial_started" &&
     input.grossCentavos >= MIN_QUALIFYING_PAID_CENTAVOS
   ) {
-    const hostGrant = await grantDays(db, {
+    const hostGrant = await grantDays(t, {
       userId: referral.referrerUserId,
       sourceKind: "referral_host_15d",
       days: REFERRAL_REWARD_DAYS,
       idempotencyKey: `ref_host_15d:${referral.id}`,
       now: input.paidAt,
     });
-    const friendGrant = await grantDays(db, {
+    const friendGrant = await grantDays(t, {
       userId: referral.referredUserId,
       sourceKind: "referral_friend_15d",
       days: REFERRAL_REWARD_DAYS,
       idempotencyKey: `ref_friend_15d:${referral.id}`,
       now: input.paidAt,
     });
-    await db
+    const transitioned = await t
       .update(referralGrants)
       .set({
         status: "rewarded_bilateral",
@@ -160,39 +179,59 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
         qualifiedAt: input.paidAt,
         rewardedAt: input.paidAt,
       })
-      .where(eq(referralGrants.id, referral.id));
-    result.referralRewarded = true;
+      .where(and(eq(referralGrants.id, referral.id), eq(referralGrants.status, "trial_started")))
+      .returning({ id: referralGrants.id });
 
-    const [{ n } = { n: 0 }] = await db
-      .select({ n: count() })
-      .from(referralGrants)
-      .where(and(eq(referralGrants.referrerUserId, referral.referrerUserId), eq(referralGrants.status, "rewarded_bilateral")));
-    const [host] = await db.select().from(users).where(eq(users.id, referral.referrerUserId));
-    if (Number(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
-      const bonus = await grantDays(db, {
-        userId: referral.referrerUserId,
-        sourceKind: "ambassador_bonus_30d",
-        days: AMBASSADOR_BONUS_DAYS,
-        idempotencyKey: `ambassador_30d:${referral.referrerUserId}`,
-        now: input.paidAt,
-      });
-      await db.update(users).set({ isAmbassador: true }).where(eq(users.id, referral.referrerUserId));
-      await db
-        .update(referralGrants)
-        .set({ triggeredAmbassadorBonusGrantId: bonus })
-        .where(eq(referralGrants.id, referral.id));
-      result.ambassadorBonus = true;
+    if (transitioned.length > 0) {
+      result.referralRewarded = true;
+
+      const [host] = await t
+        .select()
+        .from(users)
+        .where(eq(users.id, referral.referrerUserId))
+        .for("update");
+      const [{ n } = { n: 0 }] = await t
+        .select({ n: count() })
+        .from(referralGrants)
+        .where(
+          and(
+            eq(referralGrants.referrerUserId, referral.referrerUserId),
+            eq(referralGrants.status, "rewarded_bilateral"),
+          ),
+        );
+      if (Number(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
+        const promoted = await t
+          .update(users)
+          .set({ isAmbassador: true })
+          .where(and(eq(users.id, referral.referrerUserId), eq(users.isAmbassador, false)))
+          .returning({ id: users.id });
+        if (promoted.length > 0) {
+          const bonus = await grantDays(t, {
+            userId: referral.referrerUserId,
+            sourceKind: "ambassador_bonus_30d",
+            days: AMBASSADOR_BONUS_DAYS,
+            idempotencyKey: `ambassador_30d:${referral.referrerUserId}`,
+            now: input.paidAt,
+          });
+          await t
+            .update(referralGrants)
+            .set({ triggeredAmbassadorBonusGrantId: bonus })
+            .where(eq(referralGrants.id, referral.id));
+          result.ambassadorBonus = true;
+        }
+      }
     }
   }
 
-  const [attribution] = await db
-    .select({ attr: tipstarAttributions, bps: tipstarProfiles.commissionBps })
-    .from(tipstarAttributions)
-    .innerJoin(tipstarProfiles, eq(tipstarProfiles.userId, tipstarAttributions.tipstarUserId))
+  const [attribution] = await t
+    .select({ attr: tipsterAttributions, bps: tipsterProfiles.commissionBps })
+    .from(tipsterAttributions)
+    .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterAttributions.tipsterUserId))
     .where(
       and(
-        eq(tipstarAttributions.referredUserId, input.userId),
-        gt(tipstarProfiles.commissionBps, 0),
+        eq(tipsterAttributions.referredUserId, input.userId),
+        eq(tipsterProfiles.isActive, true),
+        gt(tipsterProfiles.commissionBps, 0),
       ),
     );
   if (attribution && attribution.attr.status !== "fraud_blocked") {
@@ -202,11 +241,11 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
       gatewayFeeCentavos: input.gatewayFeeCentavos,
       commissionBps: attribution.bps,
     });
-    await db
-      .insert(tipstarCommissionLedger)
+    const insertedLedger = await t
+      .insert(tipsterCommissionLedger)
       .values({
         attributionId: attribution.attr.id,
-        tipstarUserId: attribution.attr.tipstarUserId,
+        tipsterUserId: attribution.attr.tipsterUserId,
         stripeInvoiceId: input.stripeInvoiceId,
         grossPaidCentavosMxn: input.grossCentavos,
         vatCentavosMxn: input.vatCentavos,
@@ -217,32 +256,232 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
         status: "pending_clearance",
         clearsAt: new Date(input.paidAt.getTime() + COMMISSION_CLEARANCE_DAYS * DAY_MS),
       })
-      .onConflictDoNothing({ target: tipstarCommissionLedger.stripeInvoiceId });
-    await db
-      .update(tipstarAttributions)
-      .set({
-        status: "active_paying",
-        firstPaidAt: attribution.attr.firstPaidAt ?? input.paidAt,
-        lastPaidAt: input.paidAt,
-      })
-      .where(eq(tipstarAttributions.id, attribution.attr.id));
-    result.commissionCentavos = commissionCentavos;
+      .onConflictDoNothing({ target: tipsterCommissionLedger.stripeInvoiceId })
+      .returning({ id: tipsterCommissionLedger.id });
+    if (insertedLedger.length > 0) {
+      await t
+        .update(tipsterAttributions)
+        .set({
+          status: "active_paying",
+          firstPaidAt: attribution.attr.firstPaidAt ?? input.paidAt,
+          lastPaidAt: input.paidAt,
+        })
+        .where(eq(tipsterAttributions.id, attribution.attr.id));
+      result.commissionCentavos = commissionCentavos;
+    }
   }
 
   return result;
 }
 
-/** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipstar). */
+export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
+  return db.transaction(async (tx) => applyInvoicePaidEffects(tx as unknown as Db, input));
+}
+
+/** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipster). */
 export async function handleInvoiceRefunded(db: Db, stripeInvoiceId: string): Promise<boolean> {
   const rows = await db
-    .update(tipstarCommissionLedger)
+    .update(tipsterCommissionLedger)
     .set({ status: "reversed_refund" })
     .where(
       and(
-        eq(tipstarCommissionLedger.stripeInvoiceId, stripeInvoiceId),
-        sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`,
+        eq(tipsterCommissionLedger.stripeInvoiceId, stripeInvoiceId),
+        sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable')`,
       ),
     )
-    .returning({ id: tipstarCommissionLedger.id });
+    .returning({ id: tipsterCommissionLedger.id });
   return rows.length > 0;
+}
+
+// ---------------------------------------------------------------------------
+// Días concedidos frente a la fecha de cobro de Stripe
+// ---------------------------------------------------------------------------
+
+/** Fin de los días concedidos vigentes, sin contar la suscripción. */
+export async function grantsUntil(db: Db, userId: string): Promise<Date | null> {
+  const [row] = await db
+    .select({ endsAt: sql<Date | null>`max(${entitlementGrants.endsAt})` })
+    .from(entitlementGrants)
+    .where(and(eq(entitlementGrants.userId, userId), isNull(entitlementGrants.revokedAt)));
+  return row?.endsAt ? new Date(row.endsAt) : null;
+}
+
+/** Tiempo de una concesión que aún no se usa (0 si ya se consumió). */
+export function remainingGrantMs(grant: { startsAt: Date; endsAt: Date }, now: Date): number {
+  const start = Math.max(now.getTime(), new Date(grant.startsAt).getTime());
+  return Math.max(0, new Date(grant.endsAt).getTime() - start);
+}
+
+/**
+ * Marca como «ya reflejadas en Stripe» las concesiones que caen dentro del periodo gratis
+ * de la suscripción (`trial_end`). Si luego se revocan, se sabe cuánto recorrer el cobro hacia atrás.
+ */
+export async function markGrantsAppliedToStripe(db: Db, userId: string, stripePeriodEnd: Date, now: Date): Promise<void> {
+  await db
+    .update(entitlementGrants)
+    .set({ appliedToStripeSubAt: now })
+    .where(
+      and(
+        eq(entitlementGrants.userId, userId),
+        isNull(entitlementGrants.revokedAt),
+        isNull(entitlementGrants.appliedToStripeSubAt),
+        gt(entitlementGrants.endsAt, now),
+        lte(entitlementGrants.endsAt, new Date(stripePeriodEnd.getTime() + 60_000)),
+      ),
+    );
+}
+
+/** ¿Tiene premios (no pruebas) ya reflejados en la fecha de cobro de Stripe? */
+export async function hasAppliedRewardGrant(db: Db, userId: string): Promise<boolean> {
+  const [row] = await db
+    .select({ n: count() })
+    .from(entitlementGrants)
+    .where(
+      and(
+        eq(entitlementGrants.userId, userId),
+        isNull(entitlementGrants.revokedAt),
+        sql`${entitlementGrants.appliedToStripeSubAt} IS NOT NULL`,
+        inArray(entitlementGrants.sourceKind, [...REWARD_GRANT_KINDS]),
+      ),
+    );
+  return Number(row?.n ?? 0) > 0;
+}
+
+/**
+ * Revoca una concesión. Las concesiones encadenadas después se recorren hacia atrás lo que
+ * le faltaba por usar, para que el acceso realmente se acorte. La clave de idempotencia se
+ * libera (p. ej. para que el bono de embajador pueda ganarse de nuevo).
+ */
+export async function revokeGrant(
+  db: Db,
+  grantId: string,
+  reason: string,
+  now: Date,
+): Promise<{ userId: string; removedMs: number; appliedToStripe: boolean } | null> {
+  const [g] = await db.select().from(entitlementGrants).where(eq(entitlementGrants.id, grantId));
+  if (!g || g.revokedAt) return null;
+  const removedMs = remainingGrantMs(g, now);
+  await db
+    .update(entitlementGrants)
+    .set({ revokedAt: now, revokeReason: reason, idempotencyKey: `${g.idempotencyKey}:revocada:${g.id}` })
+    .where(eq(entitlementGrants.id, g.id));
+  if (removedMs > 0) {
+    const shift = sql`(${removedMs})::double precision * interval '1 millisecond'`;
+    await db
+      .update(entitlementGrants)
+      .set({
+        startsAt: sql`${entitlementGrants.startsAt} - ${shift}`,
+        endsAt: sql`${entitlementGrants.endsAt} - ${shift}`,
+      })
+      .where(
+        and(
+          eq(entitlementGrants.userId, g.userId),
+          isNull(entitlementGrants.revokedAt),
+          ne(entitlementGrants.id, g.id),
+          gte(entitlementGrants.startsAt, g.endsAt),
+        ),
+      );
+  }
+  return { userId: g.userId, removedMs, appliedToStripe: g.appliedToStripeSubAt !== null };
+}
+
+// ---------------------------------------------------------------------------
+// Reembolso de un referido
+// ---------------------------------------------------------------------------
+
+export interface ReferralClawbackPlan {
+  referralId: string;
+  hostUserId: string;
+  friendUserId: string;
+  /** Concesiones a revocar (anfitrión, amigo y, si aplica, bono de embajador). */
+  grantIds: string[];
+  revokeAmbassador: boolean;
+  /** Por usuario: cuánto hay que recorrer hacia atrás la fecha de cobro ya movida en Stripe. */
+  stripeShiftMs: Record<string, number>;
+}
+
+/**
+ * Decide si un reembolso revierte el premio del referido (solo lectura). Aplica si lo que quedó
+ * pagado baja de $150 MXN y el premio tiene menos de 14 días. Se revierten los días de ambos;
+ * si el anfitrión baja de 5 amigos pagados, también el bono de embajador.
+ */
+export async function planReferralClawback(
+  db: Db,
+  input: { stripeInvoiceId: string; remainingPaidCentavos: number; now: Date },
+): Promise<ReferralClawbackPlan | null> {
+  if (input.remainingPaidCentavos >= MIN_QUALIFYING_PAID_CENTAVOS) return null;
+  const [ref] = await db
+    .select()
+    .from(referralGrants)
+    .where(eq(referralGrants.qualifyingStripeInvoiceId, input.stripeInvoiceId));
+  if (!ref || ref.status !== "rewarded_bilateral") return null;
+  const rewardedAt = ref.rewardedAt ? new Date(ref.rewardedAt).getTime() : input.now.getTime();
+  if (input.now.getTime() - rewardedAt > REFERRAL_CLAWBACK_DAYS * DAY_MS) return null;
+
+  const grantIds = [ref.referrerGrantId, ref.referredGrantId].filter((id): id is string => Boolean(id));
+
+  let revokeAmbassador = false;
+  const [host] = await db.select().from(users).where(eq(users.id, ref.referrerUserId));
+  if (host?.isAmbassador) {
+    const [{ n } = { n: 0 }] = await db
+      .select({ n: count() })
+      .from(referralGrants)
+      .where(
+        and(
+          eq(referralGrants.referrerUserId, ref.referrerUserId),
+          eq(referralGrants.status, "rewarded_bilateral"),
+          ne(referralGrants.id, ref.id),
+        ),
+      );
+    if (Number(n) < AMBASSADOR_THRESHOLD) {
+      revokeAmbassador = true;
+      const bonus = await db
+        .select({ id: entitlementGrants.id })
+        .from(entitlementGrants)
+        .where(
+          and(
+            eq(entitlementGrants.userId, ref.referrerUserId),
+            eq(entitlementGrants.sourceKind, "ambassador_bonus_30d"),
+            isNull(entitlementGrants.revokedAt),
+          ),
+        );
+      grantIds.push(...bonus.map((b) => b.id));
+    }
+  }
+
+  const stripeShiftMs: Record<string, number> = {};
+  if (grantIds.length) {
+    const grants = await db
+      .select()
+      .from(entitlementGrants)
+      .where(and(inArray(entitlementGrants.id, grantIds), isNull(entitlementGrants.revokedAt)));
+    for (const g of grants) {
+      if (!g.appliedToStripeSubAt) continue;
+      stripeShiftMs[g.userId] = (stripeShiftMs[g.userId] ?? 0) + remainingGrantMs(g, input.now);
+    }
+  }
+
+  return {
+    referralId: ref.id,
+    hostUserId: ref.referrerUserId,
+    friendUserId: ref.referredUserId,
+    grantIds,
+    revokeAmbassador,
+    stripeShiftMs,
+  };
+}
+
+/** Aplica la reversión en la base (en una transacción). */
+export async function applyReferralClawback(db: Db, plan: ReferralClawbackPlan, now: Date): Promise<void> {
+  await db.transaction(async (tx) => {
+    const t = tx as unknown as Db;
+    for (const id of plan.grantIds) await revokeGrant(t, id, "reembolso del referido", now);
+    await t
+      .update(referralGrants)
+      .set({ status: "clawed_back", clawedBackAt: now })
+      .where(eq(referralGrants.id, plan.referralId));
+    if (plan.revokeAmbassador) {
+      await t.update(users).set({ isAmbassador: false }).where(eq(users.id, plan.hostUserId));
+    }
+  });
 }

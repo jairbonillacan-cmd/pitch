@@ -13,7 +13,7 @@
 
 Esta conclusión cambia radicalmente la percepción del producto:
 1. **La fortaleza de TouchIQ es matemática y de diseño:** El autor posee un conocimiento profundo de sabermetría y modelado de fútbol americano (Pitágoras, Log5, ajuste bayesiano de lesiones, curvas normales de margen y selección de picks 80/20) combinado con una estética retro-cyberpunk/synthwave muy pulida y responsiva.
-2. **La debilidad de TouchIQ es arquitectónica y de escalabilidad:** El modelo depende por completo del trabajo manual de un analista que transcriba estadísticas, lesiones y cuotas cada semana a arrays JavaScript. No hay base de datos dinámica en la nube, no hay APIs, el "código de acceso" (7779) es una comparación cosmética en texto plano, y la aplicación no puede escalar a más de unas cuantas ligas sin que el tamaño del HTML se vuelva inmanejable.
+2. **La debilidad de TouchIQ es arquitectónica y de escalabilidad:** El modelo depende por completo del trabajo manual de un analista que transcriba estadísticas, lesiones y cuotas cada semana a arrays JavaScript. No hay base de datos dinámica en la nube, no hay APIs, el "código de acceso" ([REDACTED_PIN]) es una comparación cosmética en texto plano, y la aplicación no puede escalar a más de unas cuantas ligas sin que el tamaño del HTML se vuelva inmanejable.
 
 Para **PitchLab**, esto representa la **mayor oportunidad estratégica posible**: podemos tomar las fórmulas matemáticas probadas de TouchIQ, eliminar sus cuellos de botella manuales e implementar una superapp profesional con microservicios en la nube, ingesta de datos automatizada vía APIs comerciales, y sincronización en tiempo real.
 
@@ -27,9 +27,9 @@ Para **PitchLab**, esto representa la **mayor oportunidad estratégica posible**
 - **Cero Tráfico de Red en Runtime:** Verificado fehacientemente mediante Playwright CDP y REA (`ev_7d2fef6c`). Tras el `GET /` inicial, no se dispara ni una sola petición fetch, XHR, WebSocket ni llamadas de telemetría o analíticas.
 - **Micro-frontends por iframes Base64:** Dentro de `script_0.js`, la variable `const PAGES = { nfl: '...', ncaa: '...' }` almacena documentos HTML completos codificados en base64 (NFL: 1.34 MB decodificado; NCAA: 97 KB decodificado). Al hacer clic en un deporte, el shell decodifica la cadena con `atob()` y la inyecta dinámicamente en `<iframe id="fr" srcdoc="...">`, comunicándose mediante `window.postMessage`.
 
-### B. El "Acceso" (Código 7779) (`[OBSERVADO]`)
+### B. El "Acceso" (Código [REDACTED_PIN]) (`[OBSERVADO]`)
 - La pantalla de bloqueo con pad numérico no es un login. Es un componente UI puramente cosmético.
-- La variable `const CODE = "7779"` está en texto plano en el JavaScript público.
+- La variable `const CODE = "[REDACTED_PIN]"` está en texto plano en el JavaScript público.
 - No hay hash criptográfico (bcrypt/SHA), no hay token JWT, no hay sesión ni cookies. Cualquier usuario que inspeccione el código fuente conoce la clave al instante.
 
 ### C. Procedencia de los Datos (`[OBSERVADO]` y `[INFERIDO]`)
@@ -69,7 +69,7 @@ $$\Delta_{\max} = 0.000 \times 10^{0} \quad (\text{Identidad absoluta})$$
 | **Motores Estadísticos** | Pitágoras + Log5 + Normal / Poisson en cliente | Motores híbridos (Pitágoras-Log5 + XGBoost / Monte Carlo) en backend |
 | **Persistencia** | `localStorage["azteca_av"]` (volátil por navegador) | Base de datos PostgreSQL multi-tenant con auth segura (Supabase/Auth0) |
 | **Asistente IA** | Scraping DOM client-side + fallback por regex | Agente RAG avanzado con LangChain/LlamaIndex sobre vectores de datos deportivos |
-| **Seguridad** | PIN "7779" en texto plano, sin sesiones | Autenticación RBAC, JWT tokens, rate limiting y cifrado en tránsito y reposo |
+| **Seguridad** | PIN "[REDACTED_PIN]" en texto plano, sin sesiones | Autenticación RBAC, JWT tokens, rate limiting y cifrado en tránsito y reposo |
 | **Deportes** | NFL y NCAA activos; Fútbol en código hermano | NFL, NCAA, Fútbol (Liga MX, La Liga, Premier, Champions), MLB, NBA y NHL |
 
 ---

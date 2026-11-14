@@ -34,7 +34,7 @@ import {
   ParlaysPageSurface,
   PlatformProvider,
   PrecioPageSurface,
-  PublicTipstarPickSurface,
+  PublicTipsterPickSurface,
   redactDatasetForVisitor,
   ResultadosPageSurface,
   SocialVipClubView,
@@ -88,7 +88,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
   it("derives up to 5 structured picks + Cortex IA pre-game intel per match from real snapshots without forbidden leaks", () => {
     expect(dataset.games.length).toBeGreaterThan(4);
     expect(dataset.dailyPromoPickId).toBeTruthy();
-    expect(dataset.tipstarWeeklyPickId).toBeTruthy();
+    expect(dataset.tipsterWeeklyPickId).toBeTruthy();
 
     for (const game of dataset.games.slice(0, 8)) {
       expect(game.picks.length).toBeGreaterThanOrEqual(3);
@@ -160,7 +160,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(game.preGame.cortexSynthesis).toContain("Caliente");
   });
 
-  it("enforces Zero-Leakage server redaction for visitors while keeping FT games, 1 daily promo, and 1 Tipstar weekly pick open", () => {
+  it("enforces Zero-Leakage server redaction for visitors while keeping FT games, 1 daily promo, and 1 Tipster weekly pick open", () => {
     const redacted = redactDatasetForVisitor(dataset);
     expect(redacted.isServerRedactedForVisitor).toBe(true);
 
@@ -171,6 +171,11 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     let lockedUpcomingPicks = 0;
 
     for (const g of upcomingGames) {
+      expect(g.spacetime).toBeNull();
+      expect(g.markets).toEqual([]);
+      expect(g.factors).toEqual([]);
+      expect(g.preGame.moneyFlow).toBeNull();
+      expect(g.preGame.absences).toEqual([]);
       for (const pk of g.picks) {
         if (isPickUnlocked(pk, g.status, "visitor")) {
           unlockedUpcomingPicks += 1;
@@ -179,11 +184,25 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
           lockedUpcomingPicks += 1;
           expect(pk.isRedacted).toBe(true);
           expect(pk.label).toBe("Selección reservada Pase PitchLab Ultra");
+          expect(pk.p).toBe(0);
+          expect(pk.fairDecimal).toBe(0);
+          expect(pk.fairAmerican).toBe(0);
+          expect(pk.marketDecimal).toBeNull();
+          expect(pk.marketAmerican).toBeNull();
+          expect(pk.edgePts).toBeNull();
+          expect(pk.confidenceScore).toBe(0);
+          expect(pk.suggestedUnits).toBe(0);
+          expect(pk.conflictGroup).toBe("independent");
+          expect(pk.marketGroup).toBe("locked");
+          expect(pk.selectionKey).toBe("locked");
         }
       }
     }
 
-    // Exactamente 2 picks abiertos próximos en toda la plataforma: 1 Promo del Día + 1 Semanal de Tipstar
+    // El parlay de demostración sobre el dataset redactado nunca expone selecciones pagadas en vivo
+    expect(buildParlayDemoData(redacted.games).isExample).toBe(true);
+
+    // Exactamente 2 picks abiertos próximos en toda la plataforma: 1 Promo del Día + 1 Semanal de Tipster
     expect(unlockedUpcomingPicks).toBe(2);
     expect(lockedUpcomingPicks).toBeGreaterThan(5);
 
@@ -195,11 +214,11 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     }
   });
 
-  it("enforces Q12 pre-kickoff Share Card sealing for regular subscribers while allowing FT and Tipstar weekly promo shares", () => {
+  it("enforces Q12 pre-kickoff Share Card sealing for regular subscribers while allowing FT and Tipster weekly promo shares", () => {
     expect(canRevealPickOnShare("NS", "member", false)).toBe(false);
     expect(canRevealPickOnShare("LIVE", "member", false)).toBe(false);
     expect(canRevealPickOnShare("FT", "member", false)).toBe(true);
-    expect(canRevealPickOnShare("NS", "tipstar", true)).toBe(true);
+    expect(canRevealPickOnShare("NS", "tipster", true)).toBe(true);
     expect(canRevealPickOnShare("NS", "member", true)).toBe(false);
   });
 
@@ -361,9 +380,9 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       </>,
     );
 
-    const tipstarPickHtml = renderToStaticMarkup(
+    const tipsterPickHtml = renderToStaticMarkup(
       <PlatformProvider dataset={redacted} initialRole="visitor">
-        <PublicTipstarPickSurface pickSlug="sofia-sem" />
+        <PublicTipsterPickSurface pickSlug="sofia-sem" />
       </PlatformProvider>,
     );
 
@@ -385,7 +404,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(landingAndMenuHtml).toContain("+100,000");
     expect(landingAndMenuHtml).toContain("Partidos históricos en los motores");
     expect(landingAndMenuHtml).toContain("16,126");
-    expect(landingAndMenuHtml).toContain("los dos suman 15 días");
+    expect(landingAndMenuHtml).toContain("los dos suman 7 días");
 
     const forbiddenPublicPhrases = [
       "Primer mes gratis",
@@ -399,15 +418,15 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       expect(landingAndMenuHtml).not.toContain(phrase);
     }
 
-    expect(tipstarPickHtml).toContain("data-locked-pick");
+    expect(tipsterPickHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("Cortex IA");
-    expect(clubHtml).toContain("gana 15 días");
-    // Tipstars y comunidad de demostración siempre van marcados como ejemplo
+    expect(clubHtml).toContain("los dos reciben +7 días");
+    // Tipsters y comunidad de demostración siempre van marcados como ejemplo
     // (SOCIAL-2: cada publicación de ejemplo lleva su ficha «Ejemplo»).
     expect(clubHtml).toContain("data-example-badge");
     expect(clubHtml).not.toContain("Récord Verificado");
 
-    const combinedLower = (landingAndMenuHtml + tipstarPickHtml + clubHtml).toLowerCase();
+    const combinedLower = (landingAndMenuHtml + tipsterPickHtml + clubHtml).toLowerCase();
     for (const term of FORBIDDEN_UI_TERMS) {
       expect(combinedLower).not.toContain(term);
     }

@@ -335,28 +335,36 @@ export interface SnapshotCandidate {
   url: string;
 }
 
+const WAYBACK_TIMESTAMP_RE = /^\d{14}$/;
+const UNDERSTAT_CODE_RE = /^[A-Za-z0-9_]{2,32}$/;
+
 /** Lista de snapshots de Wayback para una página de liga, del más reciente al más viejo. */
 export async function listUnderstatSnapshots(
   leagueCode: string,
   year: number,
-  options: { retries?: number } = {},
+  options: { retries?: number; fetchImpl?: typeof fetch } = {},
 ): Promise<SnapshotCandidate[]> {
-  const cdx = `http://web.archive.org/cdx/search/cdx?url=understat.com/league/${leagueCode}/${year}&output=json&filter=statuscode:200&limit=200`;
+  if (!UNDERSTAT_CODE_RE.test(leagueCode) || !Number.isInteger(year) || year < 2010 || year > 2100) {
+    throw new Error(`Parámetros inválidos para Understat: leagueCode=${leagueCode}, year=${year}`);
+  }
+  const cdx = `https://web.archive.org/cdx/search/cdx?url=understat.com/league/${leagueCode}/${year}&output=json&filter=statuscode:200&limit=200`;
   const retries = options.retries ?? 2;
+  const doFetch = options.fetchImpl ?? fetch;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      const response = await fetch(cdx, {
+      const response = await doFetch(cdx, {
         headers: { "User-Agent": "Mozilla/5.0 (compatible; PitchLab-Research/0.1)" },
+        signal: AbortSignal.timeout(20_000),
       });
       if (!response.ok) throw new Error(`CDX ${response.status}`);
       const rows = (await response.json()) as string[][];
       if (!Array.isArray(rows) || rows.length < 2) return [];
       const snapshots = rows
         .slice(1)
-        .filter((row) => row[4] === "200" && row[1])
+        .filter((row) => row[4] === "200" && typeof row[1] === "string" && WAYBACK_TIMESTAMP_RE.test(row[1]))
         .map((row) => ({
           timestamp: row[1]!,
-          url: `http://web.archive.org/web/${row[1]}id_/https://understat.com/league/${leagueCode}/${year}`,
+          url: `https://web.archive.org/web/${row[1]}id_/https://understat.com/league/${leagueCode}/${year}`,
         }));
       return snapshots.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
     } catch (error) {
@@ -416,6 +424,7 @@ export async function fetchUnderstatSeason(
       try {
         const response = await fetch(candidate.url, {
           headers: { "User-Agent": "Mozilla/5.0 (compatible; PitchLab-Research/0.1)" },
+          signal: AbortSignal.timeout(20_000),
         });
         if (!response.ok) throw new Error(`Wayback ${response.status}`);
         const html = await response.text();

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { OddsCompareClubView } from "./OddsCompareView";
+import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import { getTeamColors } from "@pitchlab/sports-assets";
@@ -58,6 +60,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    hasAccountSession,
+    upgradeHref,
     oddsFormat,
     parlayLegs,
     allowSgp,
@@ -137,6 +141,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             elige selecciones manualmente con bloqueo en vivo de mercados contradictorios.
           </p>
         </section>
+
+        <PersonalParlayQuickBar />
 
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
           {/* Columna izquierda: 4 Pasos Numerados + Catálogo Manual */}
@@ -371,10 +377,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         return (
                           <a
                             key={pk.id}
-                            href="/signup"
+                            href={upgradeHref}
                             onClick={(e) => {
                               e.preventDefault();
-                              navigateTo("/signup");
+                              navigateTo(upgradeHref);
                             }}
                             className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
                             style={{
@@ -387,7 +393,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                               <span className="truncate">{pk.categoryLabel}</span>
                             </span>
                             <span className="pl-pill text-[10px] shrink-0">
-                              Pase PitchLab Ultra
+                              {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
                             </span>
                           </a>
                         );
@@ -727,6 +733,8 @@ export function PropsLabClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    hasAccountSession,
+    upgradeHref,
     oddsFormat,
     journal,
     sealPickToJournal,
@@ -798,9 +806,9 @@ export function PropsLabClubView(): React.JSX.Element {
             Props de jugadores
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Mueve la línea alternativa con <code>− / +</code>, regresa a la línea{" "}
-            <strong>Base</strong> en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella
-            el prop directo en tu Bitácora.
+            {catalog.length > 0
+              ? "Mueve la línea alternativa con − / +, regresa a la línea Base en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella el prop directo en tu Bitácora."
+              : "Proyecciones individuales de jugadores para NFL y fútbol europeo."}
           </p>
         </section>
 
@@ -813,17 +821,19 @@ export function PropsLabClubView(): React.JSX.Element {
                 <span>Props de jugadores para Pase PitchLab Ultra</span>
               </h2>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol.
+                {hasAccountSession
+                  ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales de NFL y fútbol."
+                  : "Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol."}
               </p>
               <a
-                href="/signup"
+                href={upgradeHref}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo("/signup");
+                  navigateTo(upgradeHref);
                 }}
                 className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
               >
-                <span>Activar prueba gratis</span>
+                <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
                 <MaestroIcon name="arrowRight" size={13} />
               </a>
             </div>
@@ -1162,239 +1172,7 @@ export function PropsLabClubView(): React.JSX.Element {
   );
 }
 
+/** /app/momios: compara tu momio contra el justo (ver OddsCompareView). */
 export function MomiosExplorerClubView(): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    parlayLegs,
-    openComposer,
-    addPickToParlay,
-    navigateTo,
-  } = usePlatform();
-  const [onlyPositiveEdge, setOnlyPositiveEdge] = useState<boolean>(true);
-  const [leagueFilter, setLeagueFilter] = useState<string>("all");
-
-  const rows = useMemo(() => {
-    const out: Array<{
-      game: (typeof dataset.games)[number];
-      pick: MatchPick;
-      bookDecimal: number;
-      edgePts: number;
-    }> = [];
-
-    // Solo picks con momio real de casa: sin mercado verificado no hay ventaja que mostrar.
-    for (const g of dataset.games) {
-      if (g.status === "FT") continue;
-      if (leagueFilter !== "all" && g.league !== leagueFilter) continue;
-      for (const pk of g.picks) {
-        if (!isPickUnlocked(pk, g.status, viewerRole)) continue;
-        if (pk.marketDecimal === null || pk.edgePts === null) continue;
-        if (onlyPositiveEdge && pk.edgePts <= 0) continue;
-        out.push({ game: g, pick: pk, bookDecimal: pk.marketDecimal, edgePts: pk.edgePts });
-      }
-    }
-    return out.sort((a, b) => b.edgePts - a.edgePts).slice(0, 28);
-  }, [dataset.games, leagueFilter, onlyPositiveEdge, viewerRole]);
-
-  return (
-    <AtmosphereStage activePath="/app/momios">
-      <ClubWorkspaceShell activePath="/app/momios">
-        <section className="flex flex-wrap items-end justify-between gap-4">
-          <div className="space-y-1">
-            <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
-              <MaestroIcon name="activity" size={12} />
-              <span>PitchLab Geodesic v2.0 · Momios sin margen y ventaja</span>
-            </span>
-            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-              Momios y ventaja
-            </h1>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label="Liga en explorador de momios"
-              value={leagueFilter}
-              onChange={(e) => setLeagueFilter(e.target.value)}
-              className="glass-input px-3 py-1.5 text-xs font-semibold"
-            >
-              <option value="all">7 Ligas</option>
-              {dataset.leagues.map((l) => (
-                <option key={l.league} value={l.league}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
-
-            <button
-              type="button"
-              aria-pressed={onlyPositiveEdge}
-              onClick={() => setOnlyPositiveEdge((v) => !v)}
-              className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
-            >
-              {onlyPositiveEdge ? <MaestroIcon name="check" size={12} /> : null}
-              <span>
-                {onlyPositiveEdge ? "Solo Ventaja Positiva" : "Mostrar Todos"}
-              </span>
-            </button>
-          </div>
-        </section>
-
-        <section className="glass-lens glass-ring rounded-3xl p-5">
-          {rows.length === 0 ? (
-            <div className="py-6 space-y-3">
-              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                No hay momios verificados con este filtro. Solo aparecen partidos con líneas reales de
-                casa; si estás en vista Visitante, activa Pase PitchLab Ultra.
-              </p>
-              {viewerRole === "visitor" ? (
-                <a
-                  href="/signup"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo("/signup");
-                  }}
-                  className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-                >
-                  <MaestroIcon name="unlock" size={13} />
-                  <span>Desbloquear 7 días gratis</span>
-                </a>
-              ) : null}
-            </div>
-          ) : (
-            <div
-              className="pl-table-region"
-              tabIndex={0}
-              role="region"
-              aria-label="Tabla de momios y ventaja Geodesic"
-            >
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr
-                    className="hairline-b text-xs"
-                    style={{ color: "var(--pl-text-muted)" }}
-                  >
-                    <th scope="col" className="py-2 pr-3">
-                      Encuentro
-                    </th>
-                    <th scope="col" className="py-2 pr-3">
-                      Selección & Motor
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      Actual Casa
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      Justa Geodesic
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      Ventaja
-                    </th>
-                    <th scope="col" className="py-2 pl-2 text-right">
-                      Acción
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map(({ game, pick, bookDecimal, edgePts }) => {
-                    const inSlip = parlayLegs.some(
-                      (l) => l.pick.id === pick.id,
-                    );
-                    return (
-                      <tr key={pick.id} className="hairline-b">
-                        <td className="py-2.5 pr-3">
-                          <a
-                            href={`/app/${game.league}/games/${game.id}`}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(`/app/${game.league}/games/${game.id}`);
-                            }}
-                            className="inline-flex items-center gap-1.5 font-bold text-xs no-underline hover:underline"
-                          >
-                            <LeagueBadge
-                              league={game.league}
-                              label={game.leagueLabel}
-                              size={15}
-                            />
-                            <span>{pick.matchLabel}</span>
-                          </a>
-                          <span
-                            className="block text-[11px]"
-                            style={{ color: "var(--pl-text-muted)" }}
-                          >
-                            {game.leagueLabel} · {game.kickoffLocal}
-                          </span>
-                        </td>
-                        <td className="py-2.5 pr-3">
-                          <strong className="block text-sm">{pick.label}</strong>
-                          <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                            {pick.categoryLabel}
-                          </span>
-                        </td>
-                        <td className="py-2.5 px-2 text-right num">
-                          <strong className="font-bold">
-                            {formatOddsValue(bookDecimal, oddsFormat)}
-                          </strong>
-                          <span
-                            className="block text-[11px]"
-                            style={{ color: "var(--pl-text-muted)" }}
-                          >
-                            {game.spacetime?.market?.bookLabel ?? "Casa"}
-                          </span>
-                        </td>
-                        <td className="py-2.5 px-2 text-right num">
-                          <strong className="block font-semibold">
-                            {formatOddsValue(pick.fairDecimal, oddsFormat)}
-                          </strong>
-                          <span
-                            className="text-[11px]"
-                            style={{ color: "var(--pl-brand)" }}
-                          >
-                            {(pick.p * 100).toFixed(1)} %
-                          </span>
-                        </td>
-                        <td
-                          className="py-2.5 px-2 text-right num font-extrabold"
-                          style={{
-                            color:
-                              edgePts >= 0
-                                ? "var(--pl-success)"
-                                : "var(--pl-warning)",
-                          }}
-                        >
-                          {formatEdgePts(edgePts)}
-                        </td>
-                        <td className="py-2.5 pl-2 text-right">
-                          <div className="inline-flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              className="pl-btn-glass text-xs min-h-7 px-2 inline-flex items-center gap-1"
-                              onClick={() => addPickToParlay(pick)}
-                            >
-                              <MaestroIcon
-                                name={inSlip ? "check" : "plus"}
-                                size={11}
-                              />
-                              <span>{inSlip ? "En Parlay" : "Parlay"}</span>
-                            </button>
-                            <button
-                              type="button"
-                              className="pl-btn-primary text-xs min-h-7 px-2.5 inline-flex items-center gap-1"
-                              onClick={() => openComposer(pick)}
-                            >
-                              <MaestroIcon name="ticket" size={11} />
-                              <span>Sellar</span>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-      </ClubWorkspaceShell>
-    </AtmosphereStage>
-  );
+  return <OddsCompareClubView />;
 }

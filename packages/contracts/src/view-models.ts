@@ -1,4 +1,5 @@
 import type { MarketPulseView } from "./market-pulse";
+import type { TeamInjuryEntry } from "./injuries-lineups";
 import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
@@ -54,6 +55,8 @@ export interface MatchAnalysis {
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  /** Sede neutral: ningún equipo juega en casa. */
+  neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   scheduleStatus?: GameDTO["status"];
   score?: {
@@ -97,6 +100,11 @@ export interface MatchAnalysis {
   restDays?: { home?: number; away?: number };
   /** Volumen por resultado en mercados de predicción (FD-20). Se adjunta en el servidor. */
   marketPulse?: MarketPulseView;
+  /** Bajas y dudas reportadas por fuentes gratuitas y verificadas para ambos clubes. */
+  injuries?: {
+    home: TeamInjuryEntry[];
+    away: TeamInjuryEntry[];
+  };
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {
@@ -146,6 +154,38 @@ export function formatFreshnessEs(
   };
 }
 
+const oddsCaptureFormat = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+  timeZone: "America/Mexico_City",
+});
+
+/**
+ * Formatea la hora de captura de un momio en horario del centro de México (`"14 nov · 12:30"`).
+ * Devuelve `null` si la cadena no es una fecha válida.
+ */
+export function formatOddsCaptureEs(capturedAtIso: string | null | undefined): string | null {
+  if (!capturedAtIso) return null;
+  const ms = Date.parse(capturedAtIso);
+  if (!Number.isFinite(ms)) return null;
+  const parts = oddsCaptureFormat.formatToParts(new Date(ms));
+  let day = "";
+  let month = "";
+  let hour = "";
+  let minute = "";
+  for (const p of parts) {
+    if (p.type === "day") day = p.value;
+    else if (p.type === "month") month = p.value.replace(".", "").toLowerCase();
+    else if (p.type === "hour") hour = p.value === "24" ? "00" : p.value;
+    else if (p.type === "minute") minute = p.value;
+  }
+  if (!day || !month || !hour || !minute) return null;
+  return `${day} ${month} · ${hour}:${minute}`;
+}
+
 const WEEKDAY_MAP: Record<number, { id: string; short: string; long: string }> = {
   0: { id: "dom", short: "Dom", long: "domingo" },
   1: { id: "lun", short: "Lun", long: "lunes" },
@@ -181,39 +221,113 @@ const analysisDateFormat = new Intl.DateTimeFormat("es-MX", {
   timeZone: "America/Mexico_City",
 });
 
-function formatDayAndHour(startTime: string): {
+const NY_PARTS_FMT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
+
+const CDMX_PARTS_FMT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Mexico_City",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
+
+function readFormatterParts(
+  ms: number,
+  fmt: Intl.DateTimeFormat,
+): Record<"year" | "month" | "day" | "hour" | "minute" | "second", number> {
+  const parts = fmt.formatToParts(new Date(ms));
+  const out = { year: 0, month: 1, day: 1, hour: 0, minute: 0, second: 0 };
+  for (const part of parts) {
+    if (part.type === "year" || part.type === "month" || part.type === "day" || part.type === "hour" || part.type === "minute" || part.type === "second") {
+      const n = Number(part.value);
+      out[part.type] = part.type === "hour" && n === 24 ? 0 : n;
+    }
+  }
+  return out;
+}
+
+/**
+ * Convierte fecha y hora local de `America/New_York` (como publica nflverse) a ISO UTC exacto,
+ * respetando EDT (-04:00) y EST (-05:00) sin depender de la zona horaria del servidor.
+ */
+export function easternWallTimeToUtcIso(gameday: string, gametime?: string | null): string {
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})/.exec(gameday.trim());
+  if (!dateMatch) {
+    const parsed = Date.parse(gameday);
+    return Number.isFinite(parsed) ? new Date(parsed).toISOString() : gameday;
+  }
+  const year = Number(dateMatch[1]);
+  const month = Number(dateMatch[2]);
+  const day = Number(dateMatch[3]);
+  const timeMatch = /^(\d{1,2}):(\d{2})(?::(\d{2}))?/.exec((gametime ?? "").trim());
+  const hour = timeMatch ? Number(timeMatch[1]) : 13;
+  const minute = timeMatch ? Number(timeMatch[2]) : 0;
+  const second = timeMatch && timeMatch[3] ? Number(timeMatch[3]) : 0;
+
+  const targetWallMs = Date.UTC(year, month - 1, day, hour, minute, second);
+  let guess = targetWallMs + 5 * 3600_000;
+  for (let i = 0; i < 2; i += 1) {
+    const p = readFormatterParts(guess, NY_PARTS_FMT);
+    const observedWallMs = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
+    guess += targetWallMs - observedWallMs;
+  }
+  return new Date(guess).toISOString();
+}
+
+/**
+ * Normaliza el timestamp de un partido a ISO UTC. Si viene sin sufijo de zona horaria
+ * (`YYYY-MM-DDTHH:mm:ss`) y pertenece a `nfl`, lo interpreta en `America/New_York`.
+ */
+export function normalizeGameStartTimeUtc(startTime: string, league?: string): string {
+  const trimmed = startTime.trim();
+  if (/([Zz]|[+-]\d{2}:?\d{2})$/.test(trimmed)) {
+    const ms = Date.parse(trimmed);
+    return Number.isFinite(ms) ? new Date(ms).toISOString() : trimmed;
+  }
+  if (trimmed.length === 10) {
+    return league === "nfl" ? easternWallTimeToUtcIso(trimmed, "13:00") : `${trimmed}T15:00:00.000Z`;
+  }
+  if (league === "nfl") {
+    const [datePart, timePart] = trimmed.split("T");
+    return easternWallTimeToUtcIso(datePart ?? trimmed, timePart);
+  }
+  const utcMs = Date.parse(`${trimmed}Z`);
+  return Number.isFinite(utcMs) ? new Date(utcMs).toISOString() : trimmed;
+}
+
+function formatDayAndHour(isoUtc: string): {
   dayId: string;
   dayChipLabel: string;
   dayFullLabel: string;
   kickoffLocal: string;
 } {
-  const hasExplicitTz = /([Zz]|[+-]\d{2}:\d{2})$/.test(startTime);
-  const normalized =
-    startTime.length === 10
-      ? `${startTime}T15:00:00Z`
-      : hasExplicitTz
-        ? startTime
-        : `${startTime}Z`;
-  const rawDate = new Date(normalized);
-  // Si el timestamp viene en UTC (+00:00 / Z), convertir a hora del centro de México (UTC-6)
-  const isUtcOffset = /([Zz]|\+00:00)$/.test(startTime);
-  const dateObj = isUtcOffset
-    ? new Date(rawDate.getTime() - 6 * 3600_000)
-    : rawDate;
-
-  const w = WEEKDAY_MAP[dateObj.getUTCDay()] ?? {
+  const ms = Date.parse(isoUtc);
+  const safeMs = Number.isFinite(ms) ? ms : Date.now();
+  const p = readFormatterParts(safeMs, CDMX_PARTS_FMT);
+  const weekdayIndex = new Date(Date.UTC(p.year, p.month - 1, p.day)).getUTCDay();
+  const w = WEEKDAY_MAP[weekdayIndex] ?? {
     id: "sab",
     short: "Sáb",
     long: "sábado",
   };
-  const dayNum = dateObj.getUTCDate();
-  const monthLong = MONTHS_LONG[dateObj.getUTCMonth()] ?? "noviembre";
-  const yyyy = dateObj.getUTCFullYear();
-  const mmDate = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
-  const ddDate = String(dayNum).padStart(2, "0");
-  const hh = String(dateObj.getUTCHours()).padStart(2, "0");
-  const mm = String(dateObj.getUTCMinutes()).padStart(2, "0");
-  const fullDay = `${w.long}, ${dayNum} de ${monthLong}`;
+  const monthLong = MONTHS_LONG[p.month - 1] ?? "noviembre";
+  const yyyy = String(p.year).padStart(4, "0");
+  const mmDate = String(p.month).padStart(2, "0");
+  const ddDate = String(p.day).padStart(2, "0");
+  const hh = String(p.hour).padStart(2, "0");
+  const mm = String(p.minute).padStart(2, "0");
+  const fullDay = `${w.long}, ${p.day} de ${monthLong}`;
 
   return {
     dayId: `${yyyy}-${mmDate}-${ddDate}`,
@@ -275,8 +389,9 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
     const homeSlug = g.home.id.includes(".") ? g.home.id.split(".")[1]! : g.home.id;
     const awaySlug = g.away.id.includes(".") ? g.away.id.split(".")[1]! : g.away.id;
 
+    const normalizedUtc = normalizeGameStartTimeUtc(g.startTime, snapshot.league);
     const { dayId, dayChipLabel, dayFullLabel, kickoffLocal } = formatDayAndHour(
-      g.startTime,
+      normalizedUtc,
     );
     if (!dayMap.has(dayId)) {
       dayMap.set(dayId, dayChipLabel);
@@ -368,9 +483,10 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       round: g.round ?? snapshot.periodLabel,
       day: dayId,
       dayLabel: dayFullLabel,
-      kickoffUtc: g.startTime,
+      kickoffUtc: normalizedUtc,
       kickoffLocal,
       venue: g.venue ?? (isNfl ? "Estadio NFL" : "Estadio"),
+      neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
       scheduleStatus: g.status,
       score: g.result ? { home: g.result.home, away: g.result.away } : undefined,

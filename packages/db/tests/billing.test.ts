@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/pglite";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   accessUntil,
+  REFERRAL_REWARD_DAYS,
   applyMigrations,
   computeCommission,
   entitlementGrants,
@@ -12,9 +13,9 @@ import {
   handleInvoiceRefunded,
   hasActivePaseTotal,
   referralGrants,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
 } from "../src/index";
 
@@ -51,7 +52,7 @@ describe("cobro y concesiones", () => {
     expect(await hasActivePaseTotal(db, u.id, new Date(now.getTime() + 11 * DAY))).toBe(false);
   });
 
-  it("referido doble vía: +15 días a ambos con el primer cobro, una sola vez", async () => {
+  it("referido doble vía: +7 días a ambos con el primer cobro, una sola vez", async () => {
     const host = await user("host@example.com");
     const friend = await user("friend@example.com");
     await db.insert(referralGrants).values({
@@ -65,8 +66,8 @@ describe("cobro y concesiones", () => {
     const again = await handleInvoicePaid(db, paid);
     expect(first.referralRewarded).toBe(true);
     expect(again.referralRewarded).toBe(false);
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
-    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
+    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
     const [row] = await db.select().from(referralGrants);
     expect(row!.status).toBe("rewarded_bilateral");
   });
@@ -89,25 +90,25 @@ describe("cobro y concesiones", () => {
     }
     const [h] = await db.select().from(users).where(eq(users.id, host.id));
     expect(h!.isAmbassador).toBe(true);
-    // 5 × 15 días + 30 de embajador, acumulados.
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 105 * DAY);
+    // 5 × días del referido + 30 de embajador, acumulados.
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + (5 * REFERRAL_REWARD_DAYS + 30) * DAY);
   });
 
-  it("tipstar: un asiento por factura y se revierte con reembolso", async () => {
+  it("tipster: un asiento por factura y se revierte con reembolso", async () => {
     const t = await user("tip@example.com");
     const fan = await user("fan@example.com");
-    await db.insert(tipstarProfiles).values({ userId: t.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
-    await db.insert(tipstarAttributions).values({ tipstarUserId: t.id, referredUserId: fan.id, promoCodeUsed: "TIP5", status: "trial_5d" });
+    await db.insert(tipsterProfiles).values({ userId: t.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
+    await db.insert(tipsterAttributions).values({ tipsterUserId: t.id, referredUserId: fan.id, promoCodeUsed: "TIP5", status: "trial_5d" });
     const paid = { userId: fan.id, stripeInvoiceId: "in_t1", grossCentavos: 29900, vatCentavos: 4124, gatewayFeeCentavos: 1500, paidAt: now };
     expect((await handleInvoicePaid(db, paid)).commissionCentavos).toBe(6069);
     await handleInvoicePaid(db, paid);
-    const ledger = await db.select().from(tipstarCommissionLedger);
+    const ledger = await db.select().from(tipsterCommissionLedger);
     expect(ledger).toHaveLength(1);
     expect(ledger[0]!.clearsAt.getTime()).toBe(now.getTime() + 14 * DAY);
-    const [attr] = await db.select().from(tipstarAttributions);
+    const [attr] = await db.select().from(tipsterAttributions);
     expect(attr!.status).toBe("active_paying");
     expect(await handleInvoiceRefunded(db, "in_t1")).toBe(true);
-    const [after] = await db.select().from(tipstarCommissionLedger);
+    const [after] = await db.select().from(tipsterCommissionLedger);
     expect(after!.status).toBe("reversed_refund");
   });
 });

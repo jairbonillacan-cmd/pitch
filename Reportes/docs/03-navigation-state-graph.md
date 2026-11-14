@@ -1,6 +1,6 @@
 # 03 — Grafo de navegación/estados
 ```text
-LOCK(stage=1) ──click/tecla──► LOCK(stage=2) ──7779──► success() ──► APP
+LOCK(stage=1) ──click/tecla──► LOCK(stage=2) ──[REDACTED_PIN]──► success() ──► APP
 APP: home-1 ◄─lv1()─ home-2 ──openSport(i)──► iframe srcdoc NFL/NCAA
 iframe ──{av:"ready"}──► shell {av:"cfg"} (bank,th,odds,inSlip)
 iframe ──{av:"odd",k,v} / {av:"add",pk} / "home"──► shell (slip/odds/close)

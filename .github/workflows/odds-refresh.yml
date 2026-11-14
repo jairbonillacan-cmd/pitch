@@ -1,0 +1,136 @@
+name: Odds Auto-Refresh Pipeline
+
+on:
+  schedule:
+    # Martes y miércoles (apertura y ajuste entre semana): 3×/día (06:00, 12:00, 18:00 CDMX)
+    - cron: "0 12,18,0 * * 2,3"
+    # Jueves, viernes y lunes (previas europeas, TNF/MNF NFL y viernes Liga MX): 6×/día
+    - cron: "0 12,17,19 * * 1,4,5"
+    - cron: "30 22 * * 1,4,5"
+    - cron: "0 0 * * 2,5,6"
+    - cron: "30 1 * * 2,5,6"
+    # Sábado y domingo (jornada intensa en las 7 ligas, cada ~2 h en horas previas): 10×/día
+    - cron: "0 8 * * 0,6"
+    - cron: "30 11,13,15,17,19,21,23 * * 0,6"
+    - cron: "30 0,2 * * 0,1"
+  workflow_dispatch:
+    inputs:
+      window:
+        description: "Régimen horario a evaluar (auto | all | matchday | prekickoff)"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - all
+          - matchday
+          - prekickoff
+      force:
+        description: "Ignorar intervalo mínimo desde la última captura"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-pipeline-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  odds-refresh:
+    name: Capturar momios permitidos, validar y publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Capturar y validar momios (Parte 1 + Parte 3 + Parte 4)
+        id: refresh
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
+          BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          PITCHLAB_ADMIN_EMAILS: ${{ secrets.PITCHLAB_ADMIN_EMAILS }}
+        run: |
+          WINDOW_ARG="--window=${{ inputs.window || 'auto' }}"
+          FORCE_ARG=""
+          if [ "${{ inputs.force }}" = "true" ]; then
+            FORCE_ARG="--force"
+          fi
+          pnpm --filter @pitchlab/ingest odds:refresh "$WINDOW_ARG" $FORCE_ARG
+
+      - name: Respaldo de Salud de datos ante caída abrupta
+        if: failure()
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
+          BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          PITCHLAB_ADMIN_EMAILS: ${{ secrets.PITCHLAB_ADMIN_EMAILS }}
+        run: pnpm --filter @pitchlab/ingest health:check --workflow=odds-refresh --workflow-outcome=${{ steps.refresh.outcome }}
+
+      - name: Un solo commit si hubo cambios reales
+        if: always() && github.ref == 'refs/heads/main'
+        id: commit
+        run: |
+          git config user.name "pitchlab-bot"
+          git config user.email "bot@pitchlab.app"
+
+          DATA_CHANGED="false"
+          if ! git diff --quiet -- packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries || [ -n "$(git ls-files --others --exclude-standard data/odds_timeseries)" ]; then
+            DATA_CHANGED="true"
+          fi
+
+          ALERT_CHANGED="false"
+          if ! git diff --quiet -- data/health/alerts-state.json || [ -n "$(git ls-files --others --exclude-standard data/health/alerts-state.json)" ]; then
+            ALERT_CHANGED="true"
+          fi
+
+          if [ "$DATA_CHANGED" = "true" ] || [ "$ALERT_CHANGED" = "true" ]; then
+            git add packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries data/health
+            if ! git diff --staged --quiet; then
+              git commit -m "datos(momios): actualizar cuotas verificadas y estado de salud"
+              git pull --rebase origin main
+              git push
+            fi
+          else
+            echo "Sin cambios en cuotas ni alertas nuevas; se omite commit."
+          fi
+
+          echo "data_changed=$DATA_CHANGED" >> "$GITHUB_OUTPUT"
+
+      - name: Disparar deploy hook de Vercel si cambiaron las cuotas
+        if: steps.commit.outputs.data_changed == 'true'
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            printf 'url = "%s"\n' "$VERCEL_DEPLOY_HOOK_URL" | curl -fsL -X POST --config - >/dev/null
+            echo "Deploy hook disparado."
+          else
+            echo "Sin deploy hook configurado; se omite."
+          fi

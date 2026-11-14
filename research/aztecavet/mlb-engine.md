@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Sabermetric Pitcher Regression, Gaussian Normal Distribution, Run Line Modeling, Postseason Timeline  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Source Artifact:** [`mlb_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/mlb_engine.js)  
+> **Source Artifact:** [`mlb_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/mlb_engine.js)  
 
 ---
 

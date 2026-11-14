@@ -1,5 +1,6 @@
 import React from "react";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
+import { CountUpNumber } from "./CountUpNumber";
 import type { LandingHeroLeagueCard } from "./PublicSiteSections";
 
 function formatFairAmericanFromProb(probability: number): string {
@@ -21,7 +22,6 @@ export function LoginPreviewPanel({
   primaryCard,
   secondaryCard = null,
 }: LoginPreviewPanelProps): React.JSX.Element {
-  const primaryPct = (primaryCard.mostProbable.p * 100).toFixed(1);
   const primaryAmerican =
     primaryCard.mostProbable.fairAmerican ||
     formatFairAmericanFromProb(primaryCard.mostProbable.p);
@@ -98,7 +98,7 @@ export function LoginPreviewPanel({
               </p>
             </div>
             <p className="pl-auth-most-pct num">
-              {primaryPct}
+              <CountUpNumber value={primaryCard.mostProbable.p * 100} delayMs={560} />
               <span className="pl-auth-most-pct-unit">%</span>
             </p>
           </div>
@@ -141,7 +141,9 @@ export function LoginPreviewPanel({
                 <span className="num">{secondaryAmerican}</span>
               </p>
             </div>
-            <p className="pl-auth-secondary-pct num">{secondaryPct} %</p>
+            <p className="pl-auth-secondary-pct num">
+              <CountUpNumber value={secondaryCard.mostProbable.p * 100} delayMs={760} /> %
+            </p>
           </div>
         ) : null}
 

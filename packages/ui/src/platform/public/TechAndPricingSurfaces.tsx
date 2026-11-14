@@ -19,7 +19,7 @@ import {
   SPACETIME_METRICS_HEADLINE,
 } from "../spacetime-catalog";
 
-export { PublicSharedPickSurface as PublicTipstarPickSurface } from "./AuthAndOnboardingSurfaces";
+export { PublicSharedPickSurface as PublicTipsterPickSurface } from "./AuthAndOnboardingSurfaces";
 
 export function TechPrecisionSection({
   inClub = false,
@@ -28,7 +28,7 @@ export function TechPrecisionSection({
   inClub?: boolean;
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { viewerRole, navigateTo } = usePlatform();
+  const { viewerRole, upgradeHref, navigateTo } = usePlatform();
   const hasFullAccess = viewerRole !== "visitor";
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
@@ -279,15 +279,19 @@ export function TechPrecisionSection({
               </div>
 
               <a
-                href={hasFullAccess ? "/app/parlays" : "/signup"}
+                href={hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(hasFullAccess ? "/app/parlays" : "/signup");
+                  navigateTo(hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref);
                 }}
                 className="pl-btn-primary w-full !min-h-[36px] !text-xs"
               >
                 <span>
-                  {hasFullAccess ? "Armar un parlay" : "Activar Pase PitchLab Ultra"}
+                  {hasFullAccess
+                    ? inClub
+                      ? "Volver a partidos de hoy"
+                      : "Armar un parlay"
+                    : "Activar Pase PitchLab Ultra"}
                 </span>
                 <MaestroIcon name="arrowRight" size={13} />
               </a>
@@ -378,14 +382,33 @@ export function PlansAndReferralsSection({
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { month1NoCardMode, navigateTo, accountsEnabled, pushToast } = usePlatform();
+  const {
+    month1NoCardMode,
+    navigateTo,
+    accountsEnabled,
+    hasAccountSession,
+    paymentMode,
+    upgradeHref,
+    pushToast,
+  } = usePlatform();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 
-  // Con cuentas activas y sin la prueba sin tarjeta, el botón abre Stripe Checkout.
+  // En modo `transfer` (Beta 1.0) no se abre Stripe Checkout; se dirige a Mi plan o al registro.
   const handleSubscribe = async () => {
+    const planTarget = `/app/account?tab=plan&plan=${billing}#transfer`;
+    if (paymentMode === "transfer") {
+      if (hasAccountSession) {
+        navigateTo(planTarget);
+      } else if (month1NoCardMode) {
+        navigateTo("/signup");
+      } else {
+        navigateTo(`/signup?next=${encodeURIComponent(planTarget)}`);
+      }
+      return;
+    }
     if (!accountsEnabled || month1NoCardMode) {
-      navigateTo("/signup");
+      navigateTo(hasAccountSession ? upgradeHref : "/signup");
       return;
     }
     setCheckoutBusy(true);
@@ -394,7 +417,7 @@ export function PlansAndReferralsSection({
     if (result.url) {
       window.location.assign(result.url);
     } else if (result.status === 401) {
-      navigateTo("/signup");
+      navigateTo("/login?next=%2Fapp%2Faccount%3Ftab%3Dplan");
     } else {
       pushToast(result.error ?? "No se pudo abrir el pago.", "warning");
     }
@@ -423,7 +446,9 @@ export function PlansAndReferralsSection({
           </HeadingTag>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
             Menos de $10 pesos al día por todos los picks, parlays sin límite y la comunidad.
-            Incluye IVA y factura CFDI.
+            {paymentMode === "transfer"
+              ? " Precios con IVA incluido · activación por transferencia SPEI o cupón en Beta 1.0."
+              : " Incluye IVA y factura CFDI."}
           </p>
         </div>
 
@@ -537,7 +562,7 @@ export function PlansAndReferralsSection({
           </div>
         </div>
 
-        {/* Columna derecha: Referidos Doble Vía + Portal Tipstar Oficial */}
+        {/* Columna derecha: Referidos Doble Vía + Portal Tipster Oficial */}
         <div className="lg:col-span-5 glass-ring glass-card rounded-2xl p-6 flex flex-col justify-between gap-4">
           <div className="space-y-3">
             <span className="pl-pill pl-pill--brand">
@@ -565,7 +590,7 @@ export function PlansAndReferralsSection({
                 <strong style={{ color: "var(--pl-brand)" }}>2.</strong>
                 <span>
                   En cuanto paga su primer mes,{" "}
-                  <strong>ambos suman +15 días gratis</strong> acumulados automáticamente.
+                  <strong>ambos suman +7 días gratis</strong> acumulados automáticamente.
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -581,22 +606,22 @@ export function PlansAndReferralsSection({
 
             <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
               <strong style={{ color: "var(--pl-text)" }}>¿Eres creador o tipster?</strong>{" "}
-              Aplica como <strong>Tipstar Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
+              Aplica como <strong>Tipster Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
               Gratis semanal con tu boleto brandeado y{" "}
               <strong>25 % de comisión recurrente</strong>.
             </p>
           </div>
 
           <a
-            href="/comunidad#tipstars"
+            href="/comunidad#tipsters"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/comunidad#tipstars");
+              navigateTo("/comunidad#tipsters");
             }}
             className="pl-btn-glass glass-ring w-full !min-h-[40px] !text-xs"
           >
             <MaestroIcon name="trophy" size={14} />
-            <span>Ver Portal de Tipstars Oficiales</span>
+            <span>Ver Portal de Tipsters Oficiales</span>
           </a>
         </div>
       </div>
@@ -627,15 +652,15 @@ export function PricingSurface(): React.JSX.Element {
     },
     {
       q: "¿Cómo funciona la prueba gratis?",
-      a: "Te registras con Google, Apple o tu correo y tienes 7 días gratis. Durante el lanzamiento no pedimos tarjeta. Hay una prueba por persona.",
+      a: "Te registras con Google o tu correo y tienes 7 días gratis. Durante el lanzamiento no pedimos tarjeta. Hay una prueba por persona.",
     },
     {
       q: "¿Cómo sumamos días gratis mi amigo y yo con los referidos?",
-      a: "Tu invitado recibe 7 días gratis + 30 % de descuento en su primer mes ($209 MXN). En cuanto completa el pago de su primer mes, el sistema abona automáticamente +15 días gratis tanto a tu cuenta como a la suya.",
+      a: "Tu invitado recibe 7 días gratis + 30 % de descuento en su primer mes ($209 MXN). En cuanto completa el pago de su primer mes, el sistema abona automáticamente +7 días gratis tanto a tu cuenta como a la suya.",
     },
     {
       q: "¿Emiten factura fiscal mexicana CFDI 4.0?",
-      a: "Sí. Todos los precios incluyen IVA y puedes descargar tu factura CFDI 4.0 en PDF y XML desde tu cuenta.",
+      a: "Sí, todos los precios incluyen IVA. Durante Beta 1.0 puedes solicitar tu CFDI 4.0 enviando tus datos fiscales a soporte@pitchlab.mx.",
     },
   ];
 

@@ -12,7 +12,7 @@
 | 1.3 | Hosting al cobrar | **Vercel Pro** desde que haya cobros. | Cambiar de plan antes de pasar Stripe a modo real (primer costo fijo). |
 | 1.4 | Persona que factura | **Pendiente: con el contador.** | Configurar Facturapi cuando se defina. |
 | 2.1 | Base de la comisión | **25 % sobre el neto** (sin IVA ni comisión de Stripe). | Ya implementado en `computeCommission`. |
-| 2.2 | Pago a tipstars | **Stripe Connect desde el inicio** (no SPEI manual). | ✅ Hecho: alta en Connect Express desde el Portal Tipstar, `account.updated` en el webhook y pago diario (`/api/cron/tipstar-payouts`, Vercel Cron) al liberarse cada comisión. Falta: activar Connect en la cuenta de Stripe y cargar `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`. |
+| 2.2 | Pago a tipsters | **Stripe Connect desde el inicio** (no SPEI manual). | ✅ Hecho: alta en Connect Express desde el Portal Tipster, `account.updated` en el webhook y pago diario (`/api/cron/tipster-payouts`, Vercel Cron) al liberarse cada comisión. Falta: activar Connect en la cuenta de Stripe y cargar `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`. |
 | 2.4 | Descuento del referido | **Solo plan mensual, $90 fijos** (primer mes de $209). | Crear el cupón `amount_off: 9000` MXN, `duration: once`, limitado al precio mensual. |
 | 3.1 | Fuente de momios | **Solo fuentes gratuitas** (cambio del fundador, 2026-11-11: nada de pago ni con licencia). | Elegir entre fuentes gratis: capas gratuitas de APIs de momios (con su límite mensual) y mercados de predicción públicos (ya usados en «¿Dónde está el dinero?»). El scraping de casas sigue con riesgo de bloqueo y de términos. |
 | 3.2 | Props de jugadores | **Esperar datos con permiso.** Siguen en «próximamente». | Conseguir registros partido a partido y validar en `prediction-lab`. |
@@ -33,11 +33,11 @@
 
 | # | Decisión | Recomendación | Si eliges otra cosa |
 |---|---|---|---|
-| 2.1 | Comisión de tipstars: 25 % sobre el neto (sin IVA ni comisión de Stripe), liquidable a 14 días. | Mantener el neto: es lo que calcula `computeCommission` y protege contra reembolsos. | Cambiar `computeCommission` en `packages/db/src/billing.ts`. |
-| 2.2 | Pago a tipstars: SPEI manual el día 5 (fase 4A) antes de Stripe Connect. | Sí, con los primeros 3–10 creadores. | Connect requiere cuenta de plataforma en Stripe. |
+| 2.1 | Comisión de tipsters: 25 % sobre el neto (sin IVA ni comisión de Stripe), liquidable a 14 días. | Mantener el neto: es lo que calcula `computeCommission` y protege contra reembolsos. | Cambiar `computeCommission` en `packages/db/src/billing.ts`. |
+| 2.2 | Pago a tipsters: SPEI manual el día 5 (fase 4A) antes de Stripe Connect. | Sí, con los primeros 3–10 creadores. | Connect requiere cuenta de plataforma en Stripe. |
 | 2.3 | Referido doble vía: +15 días a ambos con el primer cobro ≥ $150; +30 al 5.º amigo. | Mantener (ya implementado e idempotente). | Constantes en `billing.ts`. |
 | 2.4 | Descuento al amigo referido: 30 % el primer mes. | Solo en el plan mensual, como cupón de $90 fijo (primer mes de $209). El anual ya ahorra 33 %. | Crear el cupón en Stripe; el código acepta cualquier Promotion Code. |
-| 2.5 | Tipstars de ejemplo (Sofía, Carlos, Diego). | Mantenerlos marcados «Ejemplo» hasta tener el primer tipstar real; darlo de alta desde `/app/admin` y quitar `isExample`. | — |
+| 2.5 | Tipsters de ejemplo (Sofía, Carlos, Diego). | Mantenerlos marcados «Ejemplo» hasta tener el primer tipster real; darlo de alta desde `/app/admin` y quitar `isExample`. | — |
 
 ## 3. Datos y motores
 

@@ -4,6 +4,7 @@ export * from "./sports";
 export * from "./shells";
 export * from "./market-pulse";
 export * from "./dashboard-loading";
+export * from "./launch-screen";
 export * from "./components/ui/index";
 export * from "./astryx";
 export * from "./platform/index";

@@ -1,4 +1,7 @@
 import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
+// Importación por archivo: el barril `@pitchlab/ui/platform` mete toda la librería (Club,
+// cuenta, tarjeta 3D) en el JavaScript de las páginas públicas.
+import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
   buildFeaturedCommunityPick,
   buildFinishedResultItems,
@@ -8,7 +11,7 @@ import {
   type LandingFinishedResultItem,
   type LandingHeroLeagueCard,
   type LandingParlayDemoData,
-} from "@pitchlab/ui/platform";
+} from "@pitchlab/ui/public-sections";
 import { buildServerRawPlatformDataset, loadFinishedGames } from "./platform-data";
 
 export type { LandingFeaturedCommunityPick };
@@ -53,15 +56,18 @@ export async function loadLandingViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = buildServerRawPlatformDataset();
-  const allHeroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
+  const raw = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(raw);
+  // Las tarjetas del hero publican solo el 1X2 y 3 mercados: se arman con los mercados reales
+  // (panorama v3.2) en vez de aproximarlos desde x12. Lo demás sigue redactado.
+  const allHeroCards = buildHeroLeagueCards(raw.games, raw.leagues);
   const heroCards = selectHeroMainCards(allHeroCards);
   const finished = await loadFinishedGames();
   const recentResults = buildFinishedResultItems(finished, 4).slice(0, 4);
   const parlayDemo = buildParlayDemoData(dataset.games);
   const featuredPick = buildFeaturedCommunityPick(
     dataset.games,
-    dataset.tipstarWeeklyPickId,
+    dataset.tipsterWeeklyPickId,
   );
 
   return {
@@ -75,9 +81,9 @@ export async function loadLandingViewProps(): Promise<{
 export async function loadComoFuncionaViewProps(): Promise<{
   heroCards: LandingHeroLeagueCard[];
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const raw = buildServerRawPlatformDataset();
   return {
-    heroCards: buildHeroLeagueCards(dataset.games, dataset.leagues),
+    heroCards: buildHeroLeagueCards(raw.games, raw.leagues),
   };
 }
 
@@ -93,7 +99,7 @@ export async function loadResultadosViewProps(): Promise<{
 export async function loadParlaysViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   return {
     parlayDemo: buildParlayDemoData(dataset.games),
   };
@@ -102,11 +108,11 @@ export async function loadParlaysViewProps(): Promise<{
 export async function loadComunidadViewProps(): Promise<{
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   return {
     featuredPick: buildFeaturedCommunityPick(
       dataset.games,
-      dataset.tipstarWeeklyPickId,
+      dataset.tipsterWeeklyPickId,
     ),
   };
 }
@@ -117,7 +123,7 @@ export interface LoginPreviewData {
 }
 
 export async function loadLoginPreviewData(): Promise<LoginPreviewData> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   if (dataset.games.length === 0) {
     return { primaryCard: null, secondaryCard: null };
   }

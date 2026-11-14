@@ -5,6 +5,9 @@ on:
     branches: ["**"]
   pull_request:
 
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -16,6 +19,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
         with:
@@ -28,6 +33,12 @@ jobs:
 
       - name: Instalar dependencias (lockfile congelado)
         run: pnpm install --frozen-lockfile
+
+      - name: Escaneo de secretos en arbol Git
+        run: node scripts/check-no-secrets.mjs
+
+      - name: Auditoria de dependencias de produccion (criticas)
+        run: pnpm audit --prod --audit-level=critical
 
       - name: Build (gate anti-demo + typecheck + linter)
         run: pnpm build

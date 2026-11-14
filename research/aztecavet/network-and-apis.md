@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Network Transactions, HTTP Headers, Edge Behavior, API Discovery, Telemetry Audit  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Evidence Log:** [`comprehensive_network_log.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/network-schemas/comprehensive_network_log.json)  
+> **Evidence Log:** [`comprehensive_network_log.json`](<REPO_ROOT>/research/aztecavet/evidence/network-schemas/comprehensive_network_log.json)  
 
 ---
 

@@ -13,7 +13,7 @@
 | `ev_cf2360a4…` | `analyze_javascript_application` | `Reportes/analisis-touchiq/js-tree/` | `fc07f55785725ca11d4e7a13ee126b7b3b37ba8236f1b670fba144548e0fd280` | 3 archivos JS, 12,796 nodos AST, 0 relaciones en familia `request` (cero llamadas de red). |
 | `ev_b9a88162…` | `inspect_analysis_view` | `Reportes/analisis-touchiq/js-tree/` | `fc07f55785725ca11d4e7a13ee126b7b3b37ba8236f1b670fba144548e0fd280` | Resumen de grafo de dependencias, variables globales y funciones estadísticas. |
 | `ev_7d2fef6c…` | CDP Live Session (Chrome) | `https://touchiq.com.mx/` | `a303e685d0b2941c465089eb03f3265f` | 0 requests en runtime tras carga inicial, `localStorage` vacío en perfil fresco. |
-| `ev_44e130e7…` | `analyze_javascript_application` | `aztecavet.html` / `inline_1.js` | `5afba93d7e82b784a9f9397645063ff4eecab5ffb6c236ad646c1f1ec4f7684c` | Confirmación de código base común (785 KB), PIN 7779 y motor de fútbol. |
+| `ev_44e130e7…` | `analyze_javascript_application` | `aztecavet.html` / `inline_1.js` | `5afba93d7e82b784a9f9397645063ff4eecab5ffb6c236ad646c1f1ec4f7684c` | Confirmación de código base común (785 KB), PIN [REDACTED_PIN] y motor de fútbol. |
 | `ev_1b6ea0f4…` | `trace_application_feature` | Semilla: `"azteca_av"` | — | Traza completa de persistencia: `setItem` y `getItem` con degradación a localStorage. |
 
 ---

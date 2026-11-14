@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-11-14T22:26:04.306Z",
+  "results": [
+    {
+      "sport": "nba",
+      "games": 2825,
+      "tuneGames": 1320,
+      "evalGames": 1505,
+      "evalFrom": "2025-10-21",
+      "evalTo": "2026-11-14",
+      "chosenParams": {
+        "k": 0.05,
+        "homeAdvantage": 1.6,
+        "sigmaMargin": 13,
+        "backToBack": 3,
+        "wellRested": 0.5,
+        "altitudeBonus": 1.5
+      },
+      "rows": [
+        {
+          "model": "tasa de local",
+          "n": 1505,
+          "logLoss": 0.6879,
+          "maeMargin": null,
+          "maeTotal": null
+        },
+        {
+          "model": "ratings sin descanso",
+          "n": 1505,
+          "logLoss": 0.5981,
+          "maeMargin": 11.47,
+          "maeTotal": 14.93
+        },
+        {
+          "model": "ratings + descanso/back-to-back",
+          "n": 1505,
+          "logLoss": 0.6004,
+          "maeMargin": 11.47,
+          "maeTotal": 14.93
+        }
+      ],
+      "comparisons": {
+        "contraTasaDeLocal": {
+          "meanDiff": -0.0876,
+          "lower": -0.1086,
+          "upper": -0.0669,
+          "wins": 512
+        },
+        "contraSinDescanso": {
+          "meanDiff": 0.0022,
+          "lower": -0.0024,
+          "upper": 0.0069,
+          "wins": 739
+        }
+      }
+    },
+    {
+      "sport": "nhl",
+      "games": 1705,
+      "tuneGames": 700,
+      "evalGames": 1005,
+      "evalFrom": "2026-01-11",
+      "evalTo": "2026-11-14",
+      "chosenParams": {
+        "k": 0.01,
+        "homeAdvantage": 0.04,
+        "backToBack": 0.1,
+        "overtimeTilt": 0,
+        "seasonRegression": 0.3
+      },
+      "rows": [
+        {
+          "model": "tasa de local",
+          "n": 1005,
+          "logLoss": 0.692,
+          "maeMargin": null,
+          "maeTotal": null
+        },
+        {
+          "model": "ratings sin descanso",
+          "n": 1005,
+          "logLoss": 0.6727,
+          "maeMargin": 2.1,
+          "maeTotal": 1.83
+        },
+        {
+          "model": "ratings + descanso/back-to-back",
+          "n": 1005,
+          "logLoss": 0.6703,
+          "maeMargin": 2.09,
+          "maeTotal": 1.83
+        },
+        {
+          "model": "Elo de Bzzoiro (local +15)",
+          "n": 1005,
+          "logLoss": 0.696,
+          "maeMargin": null,
+          "maeTotal": null
+        }
+      ],
+      "comparisons": {
+        "contraTasaDeLocal": {
+          "meanDiff": -0.0216,
+          "lower": -0.034,
+          "upper": -0.0096,
+          "wins": 428
+        },
+        "contraSinDescanso": {
+          "meanDiff": -0.0024,
+          "lower": -0.0066,
+          "upper": 0.0018,
+          "wins": 483
+        },
+        "contraEloBzzoiro": {
+          "meanDiff": -0.0257,
+          "lower": -0.041,
+          "upper": -0.0106,
+          "wins": 489
+        }
+      }
+    }
+  ]
+}

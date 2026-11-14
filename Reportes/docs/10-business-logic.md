@@ -1,5 +1,5 @@
 # 10 — Lógica de negocio
-- Acceso: PIN 7779 hardcodeado (CODE); 2 etapas; sin bloqueo por intentos; sin sesión.
+- Acceso: PIN [REDACTED_PIN] hardcodeado (CODE); 2 etapas; sin bloqueo por intentos; sin sesión.
 - Boleto: selección toggle por clave k="NFL:dom:H-A|mercado"; warn si 2 legs del mismo juego
   (probabilidad combinada tratada como independiente puede estar inflada);
   parlay p=∏pᵢ, cuota=∏dᵢ o override (spov); EV por boleto; REGISTRAR crea bet st="p".

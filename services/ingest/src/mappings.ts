@@ -168,21 +168,9 @@ export const PREMIER_LEAGUE_TEAM_MAP: Record<string, string> = {
   "Nottingham Forest": "nottingham-forest",
   "Sunderland AFC": "sunderland",
   Sunderland: "sunderland",
-  "Southampton FC": "sunderland",
-  Southampton: "sunderland",
   "Tottenham Hotspur FC": "tottenham-hotspur",
   "Tottenham Hotspur": "tottenham-hotspur",
   Tottenham: "tottenham-hotspur",
-  "West Ham United FC": "coventry-city",
-  "West Ham United": "coventry-city",
-  "West Ham": "coventry-city",
-  "Wolverhampton Wanderers FC": "hull-city",
-  "Wolverhampton Wanderers": "hull-city",
-  Wolves: "hull-city",
-  "Leicester City FC": "leeds-united",
-  "Leicester City": "leeds-united",
-  "Burnley FC": "leeds-united",
-  Burnley: "leeds-united",
 };
 
 /** Mapeo API-Football Liga MX → slug de `pitchlab-brand/football/liga-mx-apertura-2026/manifest.json` */
@@ -194,9 +182,6 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   Atlante: "atlante",
   "CF Atlante": "atlante",
   "Atlante FC": "atlante",
-  Mazatlán: "atlante",
-  Mazatlan: "atlante",
-  "Mazatlán FC": "atlante",
   Atlas: "atlas",
   "Atlas FC": "atlas",
   "Atletico San Luis": "atletico-san-luis",
@@ -252,6 +237,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   Osasuna: "osasuna",
   "Club Atlético de Madrid": "atletico-madrid",
   "Atlético de Madrid": "atletico-madrid",
+  "Atlético Madrid": "atletico-madrid",
   "Atletico Madrid": "atletico-madrid",
   "Deportivo Alavés": "alaves",
   Alavés: "alaves",
@@ -274,6 +260,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "Deportivo de La Coruña": "deportivo-la-coruna",
   "Deportivo La Coruña": "deportivo-la-coruna",
   "RCD Espanyol de Barcelona": "espanyol",
+  "RCD Espanyol": "espanyol",
   Espanyol: "espanyol",
   "Rayo Vallecano de Madrid": "rayo-vallecano",
   "Rayo Vallecano": "rayo-vallecano",
@@ -283,6 +270,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "Real Madrid": "real-madrid",
   "Real Racing Club de Santander": "racing-santander",
   "Racing de Santander": "racing-santander",
+  "Racing Santander": "racing-santander",
   Racing: "racing-santander",
   "Real Sociedad de Fútbol": "real-sociedad",
   "Real Sociedad": "real-sociedad",
@@ -292,6 +280,37 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   Valencia: "valencia",
   "Villarreal CF": "villarreal",
   Villarreal: "villarreal",
+};
+
+/**
+ * Clubes que jugaron en la liga en temporadas pasadas pero no están en la actual (sin
+ * escudo en el paquete de marca). Aparecen en el historial directo y en el corpus: se
+ * resuelven con su **nombre real** y un id propio (`<liga>.<slug>`), y la app los dibuja
+ * con sus iniciales. Nunca se asignan al escudo de otro club (P0-03 de la auditoría
+ * 2026-11-13: antes West Ham salía como Coventry City y Mazatlán como Atlante).
+ * Valor: nombre canónico con el que se muestra.
+ */
+export const HISTORIC_TEAMS: Record<string, Record<string, string>> = {
+  "premier-league": {
+    "West Ham United FC": "West Ham United",
+    "West Ham United": "West Ham United",
+    "West Ham": "West Ham United",
+    "Southampton FC": "Southampton",
+    Southampton: "Southampton",
+    "Wolverhampton Wanderers FC": "Wolverhampton Wanderers",
+    "Wolverhampton Wanderers": "Wolverhampton Wanderers",
+    Wolves: "Wolverhampton Wanderers",
+    "Leicester City FC": "Leicester City",
+    "Leicester City": "Leicester City",
+    "Burnley FC": "Burnley",
+    Burnley: "Burnley",
+  },
+  "liga-mx": {
+    Mazatlán: "Mazatlán FC",
+    Mazatlan: "Mazatlán FC",
+    "Mazatlán FC": "Mazatlán FC",
+    "Mazatlan FC": "Mazatlán FC",
+  },
 };
 
 const LEAGUE_MAPS: Record<string, Record<string, string>> = {
@@ -342,8 +361,27 @@ export function resolveCanonicalTeam(
     };
   }
 
-  const slug = table[trimmed];
+  let slug = table[trimmed];
   if (!slug) {
+    const manifestMatch = Object.values(TEAM_ASSETS).find(
+      (a) => a.league === league && a.name === trimmed,
+    );
+    if (manifestMatch) {
+      slug = manifestMatch.slug;
+    }
+  }
+  if (!slug) {
+    const historic = HISTORIC_TEAMS[league]?.[trimmed];
+    if (historic) {
+      const historicSlug = slugifyTeamName(historic);
+      return {
+        id: asTeamId(`${league}.${historicSlug}`),
+        league: asLeagueId(league as LeagueId),
+        name: historic,
+        shortName: historic,
+        code: teamCodeFromSlug(historicSlug),
+      };
+    }
     throw new UnmappedTeamError(league, rawName);
   }
 

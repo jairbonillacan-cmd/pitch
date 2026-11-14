@@ -219,9 +219,17 @@ export function normalizeOpenFootballLeague(
     };
   });
 
-  // Jornada activa: la más cercana a referenceDate (o targetMatchday si se especifica).
+  // Jornada activa (o targetMatchday si se especifica): la primera con partidos sin terminar
+  // que no empezaron hace más de 36 h. Antes se tomaba la más cercana por fecha y, en la
+  // pausa de selecciones, se quedaba en la jornada ya jugada sin marcadores (P0-02).
   const matchdays = [...new Set(allGames.map((g) => g.week!))].sort((a, b) => a - b);
   let activeMatchday = options.targetMatchday;
+  if (!activeMatchday) {
+    const cutoff = new Date(`${referenceDate}T12:00:00Z`).getTime() - 36 * 3_600_000;
+    activeMatchday = matchdays.find((md) =>
+      allGames.some((g) => g.week === md && g.status !== "final" && Date.parse(`${g.startTime}Z`) >= cutoff),
+    );
+  }
   if (!activeMatchday) {
     const refMs = new Date(`${referenceDate}T12:00:00Z`).getTime();
     let bestMd = matchdays[0]!;

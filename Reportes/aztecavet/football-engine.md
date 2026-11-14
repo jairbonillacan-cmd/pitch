@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Mathematical Formulation, Multi-Tournament Normalization, Dixon-Coles Bivariate Poisson, Bet Builder Combos  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Source Artifact:** [`football_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/football_engine.js)  
+> **Source Artifact:** [`football_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/football_engine.js)  
 
 ---
 

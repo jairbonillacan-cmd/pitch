@@ -3,7 +3,7 @@
 Esquema PostgreSQL de PitchLab (Neon + Drizzle, ADR-007).
 
 - `src/schema.ts`: tablas del socio (bitácora sellada, vigilancia, preferencias) y de crecimiento y cobro
-  (suscripciones, días gratis, anti-abuso, referidos, tipstars, pick semanal, comunidad, CFDI 4.0), según
+  (suscripciones, días gratis, anti-abuso, referidos, tipsters, pick semanal, comunidad, CFDI 4.0), según
   `docs/product/VISION_REESTRUCTURA_CLAUDE_GROWTH.md` §4.2.
 - `migrations/`: SQL generado por drizzle-kit. No se edita a mano.
 - `tests/`: aplican las migraciones en Postgres en memoria (PGlite) y prueban las reglas de integridad.

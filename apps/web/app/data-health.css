@@ -1,0 +1,538 @@
+/* ==========================================================================
+   Panel «Salud de datos» (Consola del fundador · /app/admin)
+   100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
+   ========================================================================== */
+
+.pl-dh-panel {
+  container-type: inline-size;
+  container-name: data-health;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-inline-size: 0;
+}
+
+.pl-dh-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-block-end: 14px;
+  border-block-end: 1px solid var(--pl-border);
+  min-inline-size: 0;
+}
+
+.pl-dh-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-inline-size: 0;
+  flex: 1 1 240px;
+}
+
+.pl-dh-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pl-text-muted);
+}
+
+.pl-dh-heading {
+  margin: 0;
+  font-size: clamp(1.08rem, 0.98rem + 0.4vw, 1.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--pl-text);
+  text-wrap: balance;
+}
+
+.pl-dh-subtitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
+  text-wrap: pretty;
+}
+
+.pl-dh-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pl-dh-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-block-size: 44px;
+  padding-inline: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.pl-dh-refresh-btn:hover:not(:disabled) {
+  background: var(--pl-surface-raised);
+  border-color: color-mix(in oklab, var(--pl-brand) 45%, var(--pl-border));
+}
+
+.pl-dh-refresh-btn:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-dh-refresh-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-dh-refresh-btn {
+    transition: none;
+  }
+}
+
+/* Franja de umbrales por tipo de dato */
+.pl-dh-thresholds {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pl-dh-threshold-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  font-size: 0.72rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-dh-threshold-chip strong {
+  color: var(--pl-text);
+  font-weight: 700;
+}
+
+/* Tarjetas de Workflows (GitHub Actions) */
+.pl-dh-workflows-wrap {
+  container-type: inline-size;
+  min-inline-size: 0;
+}
+
+.pl-dh-workflows-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .pl-dh-workflows-grid {
+    flex-direction: row;
+  }
+}
+
+@supports (container-type: inline-size) {
+  @media (min-width: 720px) {
+    .pl-dh-workflows-grid {
+      flex-direction: column;
+    }
+  }
+
+  @container (min-width: 620px) {
+    .pl-dh-workflows-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+  }
+}
+
+.pl-dh-wf-card {
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-inline-size: 0;
+}
+
+.pl-dh-wf-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pl-dh-wf-title-block {
+  min-inline-size: 0;
+}
+
+.pl-dh-wf-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-dh-wf-file {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.pl-dh-wf-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.75rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-dh-wf-cadence {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--pl-text-muted);
+}
+
+.pl-dh-wf-error {
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: color-mix(in oklab, var(--pl-danger) 11%, var(--pl-surface));
+  border: 1px solid color-mix(in oklab, var(--pl-danger) 32%, var(--pl-border));
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--pl-text);
+}
+
+/* Incidencias abiertas y deduplicación de correo */
+.pl-dh-incidents {
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: color-mix(in oklab, var(--pl-warning) 9%, var(--pl-surface));
+  border: 1px solid color-mix(in oklab, var(--pl-warning) 28%, var(--pl-border));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-dh-incidents[data-severity="critical"] {
+  background: color-mix(in oklab, var(--pl-danger) 9%, var(--pl-surface));
+  border-color: color-mix(in oklab, var(--pl-danger) 30%, var(--pl-border));
+}
+
+.pl-dh-incidents-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.pl-dh-incidents-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pl-dh-incident-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  padding-block-start: 6px;
+  border-block-start: 1px solid var(--pl-border);
+  font-size: 0.76rem;
+}
+
+/* Matriz 7 ligas x 4 tipos de dato (responsive-table + container queries) */
+.pl-dh-matrix-wrap {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+  border-radius: 16px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+}
+
+.pl-dh-matrix-wrap:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-dh-table {
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: start;
+  font-size: 0.78rem;
+  --dh-col-2: "Calendario y resultados";
+  --dh-col-3: "Bajas y lesiones";
+  --dh-col-4: "Momios (< 72 h)";
+  --dh-col-5: "Alineación confirmada";
+}
+
+.pl-dh-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background: var(--pl-surface-raised);
+}
+
+.pl-dh-table thead th {
+  padding: 10px 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--pl-text-muted);
+  border-block-end: 1px solid var(--pl-border);
+  white-space: nowrap;
+}
+
+.pl-dh-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--pl-surface);
+  padding: 12px;
+  font-weight: 800;
+  color: var(--pl-text);
+  border-block-end: 1px solid var(--pl-border);
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.pl-dh-table tbody td {
+  padding: 12px;
+  border-block-end: 1px solid var(--pl-border);
+  vertical-align: top;
+  min-inline-size: 155px;
+}
+
+.pl-dh-table tbody tr:last-child th,
+.pl-dh-table tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.pl-dh-league-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pl-dh-cell-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-inline-size: 0;
+}
+
+.pl-dh-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.69rem;
+  font-weight: 800;
+  line-height: 1.35;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-raised);
+  color: var(--pl-text-secondary);
+}
+
+.pl-dh-status-badge[data-tone="ok"] {
+  color: var(--pl-success);
+  border-color: color-mix(in oklab, var(--pl-success) 35%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-success) 10%, var(--pl-surface));
+}
+
+.pl-dh-status-badge[data-tone="warning"] {
+  color: var(--pl-warning);
+  border-color: color-mix(in oklab, var(--pl-warning) 35%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-warning) 10%, var(--pl-surface));
+}
+
+.pl-dh-status-badge[data-tone="danger"] {
+  color: var(--pl-danger);
+  border-color: color-mix(in oklab, var(--pl-danger) 38%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-danger) 11%, var(--pl-surface));
+}
+
+.pl-dh-status-badge[data-tone="info"] {
+  color: var(--pl-info);
+  border-color: color-mix(in oklab, var(--pl-info) 35%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-info) 10%, var(--pl-surface));
+}
+
+.pl-dh-cell-primary {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--pl-text);
+}
+
+.pl-dh-cell-meta {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--pl-text-muted);
+}
+
+.pl-dh-cell-err {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--pl-danger);
+}
+
+/* Apilado en tarjetas cuando el contenedor mide menos de 680 px (375 px móvil incluido) */
+@media (max-width: 720px) {
+  .pl-dh-matrix-wrap {
+    overflow-x: visible;
+    background: transparent;
+    border: 0;
+  }
+
+  .pl-dh-table,
+  .pl-dh-table thead,
+  .pl-dh-table tbody,
+  .pl-dh-table tr,
+  .pl-dh-table th,
+  .pl-dh-table td {
+    display: block;
+  }
+
+  .pl-dh-table thead {
+    display: none;
+  }
+}
+
+@supports (container-type: inline-size) {
+  @media (max-width: 720px) {
+    .pl-dh-matrix-wrap {
+      overflow-x: auto;
+      background: var(--pl-surface);
+      border: 1px solid var(--pl-border);
+    }
+
+    .pl-dh-table {
+      display: table;
+    }
+
+    .pl-dh-table thead {
+      display: table-header-group;
+    }
+
+    .pl-dh-table tbody {
+      display: table-row-group;
+    }
+
+    .pl-dh-table tr {
+      display: table-row;
+    }
+
+    .pl-dh-table th,
+    .pl-dh-table td {
+      display: table-cell;
+    }
+  }
+
+  @container (width < 680px) {
+    .pl-dh-table,
+    .pl-dh-table thead,
+    .pl-dh-table tbody,
+    .pl-dh-table tr,
+    .pl-dh-table th,
+    .pl-dh-table td {
+      display: block;
+    }
+
+    .pl-dh-table thead {
+      display: none;
+    }
+
+    .pl-dh-table tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .pl-dh-table tbody tr {
+      border: 1px solid var(--pl-border);
+      border-radius: 14px;
+      background: var(--pl-surface-raised);
+      overflow: hidden;
+    }
+
+    .pl-dh-table tbody th {
+      position: static;
+      background: var(--pl-surface);
+      padding: 10px 12px;
+      border-block-end: 1px solid var(--pl-border);
+      white-space: normal;
+    }
+
+    .pl-dh-table tbody td {
+      min-inline-size: 0;
+      padding: 10px 12px;
+      border-block-end: 1px solid var(--pl-border);
+    }
+
+    .pl-dh-table tbody td:last-child {
+      border-block-end: 0;
+    }
+
+    .pl-dh-table tbody td:nth-child(2)::before {
+      content: var(--dh-col-2);
+    }
+
+    .pl-dh-table tbody td:nth-child(3)::before {
+      content: var(--dh-col-3);
+    }
+
+    .pl-dh-table tbody td:nth-child(4)::before {
+      content: var(--dh-col-4);
+    }
+
+    .pl-dh-table tbody td:nth-child(5)::before {
+      content: var(--dh-col-5);
+    }
+
+    .pl-dh-table tbody td::before {
+      display: block;
+      margin-block-end: 4px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--pl-text-muted);
+    }
+  }
+}

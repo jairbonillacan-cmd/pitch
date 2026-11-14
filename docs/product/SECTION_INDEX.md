@@ -90,7 +90,7 @@ Los prompts 18, 19 y 27 no se generan: sus IDs se conservan para la trazabilidad
 
 - **Problema:** entrar y salir de forma segura y sin fricción.
 - **Usuario:** todos.
-- **Datos:** Better Auth (email, Google, Apple, magic link) y la fecha de nacimiento.
+- **Datos:** Better Auth (email, Google, magic link) y la fecha de nacimiento.
 - **Acción:** registro con 18+ y consentimientos, login, recuperación y verificación.
 - **Valor:** base del SaaS.
 - **Métrica:** tasa de registro completado y tasa de error.

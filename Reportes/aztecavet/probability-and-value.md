@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Odds Conversions, No-Vig Normalization, Expected Value, Stake Sizing, Kelly Comparison  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Test Verification:** [`test_results.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/mathematical-tests/test_results.json)  
+> **Test Verification:** [`test_results.json`](<REPO_ROOT>/research/aztecavet/evidence/mathematical-tests/test_results.json)  
 
 ---
 
@@ -125,7 +125,7 @@ AztecaVet flags an explicit warning banner:
 
 ## 6. Numerical Validation Results
 
-From automated test harness `scripts/verify_mathematical_models.mjs` ([`test_results.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/mathematical-tests/test_results.json)):
+From automated test harness `scripts/verify_mathematical_models.mjs` ([`test_results.json`](<REPO_ROOT>/research/aztecavet/evidence/mathematical-tests/test_results.json)):
 
 ```json
 {

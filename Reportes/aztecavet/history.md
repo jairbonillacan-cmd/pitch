@@ -3,8 +3,8 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Bet Record Schemas, Lifecycle State Machine, Model Calibration Diagnostics, Performance Breakdowns  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Supporting Screenshot:** [`14_slip_tab_historial.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/14_slip_tab_historial.png)  
-> **Code Artifact:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js#L1065-L1112)  
+> **Supporting Screenshot:** [`14_slip_tab_historial.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/14_slip_tab_historial.png)  
+> **Code Artifact:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js#L1065-L1112)  
 
 ---
 

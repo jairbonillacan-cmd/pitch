@@ -3,8 +3,8 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Unit Test Harness, Numerical Precision, Boundary Conditions, Model Verification  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Runner Output:** [`test_results.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/mathematical-tests/test_results.json)  
-> **Harness Source:** [`verify_mathematical_models.mjs`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/scripts/verify_mathematical_models.mjs)  
+> **Runner Output:** [`test_results.json`](<REPO_ROOT>/research/aztecavet/evidence/mathematical-tests/test_results.json)  
+> **Harness Source:** [`verify_mathematical_models.mjs`](<REPO_ROOT>/scripts/verify_mathematical_models.mjs)  
 
 ---
 

@@ -4,18 +4,10 @@ import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PitchLab — Spacetime Suite v3.0 · Picks y Radiografía Deportiva",
+  metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "https://pitchlab.mx"),
+  title: "PitchLab · Probabilidades deportivas, momio justo y parlays",
   description:
-    "Radiografía pre-partido con IA, 4 a 5 picks estructurados por encuentro, Armador de Parlays & SGP y Comunidad VIP auditada.",
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  },
+    "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y bitácora verificada.",
   icons: {
     icon: { url: "/brand/app-icons/favicon.svg", type: "image/svg+xml" },
   },

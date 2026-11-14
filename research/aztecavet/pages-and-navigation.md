@@ -57,7 +57,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** None.
 - **Responsive:** Fullscreen, Canvas resizes dynamically to viewport aspect ratio.
-- **Evidencia:** Screenshot [`01_initial_gate.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/01_initial_gate.png).
+- **Evidencia:** Screenshot [`01_initial_gate.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/01_initial_gate.png).
 
 ---
 
@@ -74,7 +74,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** None.
 - **Responsive:** Centered keypad dialog (max-width 320px).
-- **Evidencia:** Screenshots [`02_pad_open.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/02_pad_open.png), [`03_code_fail.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/03_code_fail.png), [`04_code_success.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/04_code_success.png).
+- **Evidencia:** Screenshots [`02_pad_open.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/02_pad_open.png), [`03_code_fail.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/03_code_fail.png), [`04_code_success.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/04_code_success.png).
 
 ---
 
@@ -91,7 +91,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** Audio toggle state in runtime memory.
 - **Responsive:** CSS Grid switches from 3 columns (Desktop) to single-column stacked cards (Mobile).
-- **Evidencia:** Screenshots [`05_home_unlocked.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/05_home_unlocked.png), [`06_home_bento_grid.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/06_home_bento_grid.png).
+- **Evidencia:** Screenshots [`05_home_unlocked.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/05_home_unlocked.png), [`06_home_bento_grid.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/06_home_bento_grid.png).
 
 ---
 
@@ -113,7 +113,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** None.
 - **Responsive:** Vertical stack list, optimized for touch.
-- **Evidencia:** Screenshot [`07_football_tournaments_menu.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/07_football_tournaments_menu.png).
+- **Evidencia:** Screenshot [`07_football_tournaments_menu.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/07_football_tournaments_menu.png).
 
 ---
 
@@ -130,7 +130,7 @@ flowchart TD
 - **Solicitudes:** None (all fixtures and teams embedded).
 - **Persistencia:** Odd inputs and slip items communicated to host shell via `postMessage`.
 - **Responsive:** Fluid CSS layout with light theme (`--c1: #0e7a46`, white background).
-- **Evidencia:** Screenshots [`08_ligamx_dashboard.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/08_ligamx_dashboard.png), [`09_ligamx_frame_content.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/09_ligamx_frame_content.png).
+- **Evidencia:** Screenshots [`08_ligamx_dashboard.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/08_ligamx_dashboard.png), [`09_ligamx_frame_content.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/09_ligamx_frame_content.png).
 
 ---
 
@@ -147,7 +147,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** Communicates odds and slip additions via `postMessage`.
 - **Responsive:** Single/multi-column cards responsive to container width.
-- **Evidencia:** Screenshot [`11_nhl_dashboard.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/11_nhl_dashboard.png).
+- **Evidencia:** Screenshot [`11_nhl_dashboard.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/11_nhl_dashboard.png).
 
 ---
 
@@ -164,7 +164,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** Communicates selections via `postMessage`.
 - **Responsive:** Centered card feed.
-- **Evidencia:** Screenshot [`12_mlb_dashboard.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/12_mlb_dashboard.png).
+- **Evidencia:** Screenshot [`12_mlb_dashboard.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/12_mlb_dashboard.png).
 
 ---
 
@@ -181,7 +181,7 @@ flowchart TD
 - **Solicitudes:** None (optional WebMCP `window.claude.use("db")` if running in container).
 - **Persistencia:** Saved to `localStorage["azteca_av"]`.
 - **Responsive:** Slide-over drawer on desktop; full-width modal on mobile.
-- **Evidencia:** Screenshot [`13_slip_tab_boleto.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/13_slip_tab_boleto.png).
+- **Evidencia:** Screenshot [`13_slip_tab_boleto.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/13_slip_tab_boleto.png).
 
 ---
 
@@ -198,7 +198,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** Saved to `localStorage["azteca_av"]`.
 - **Responsive:** Fluid scrollable list.
-- **Evidencia:** Screenshot [`14_slip_tab_historial.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/14_slip_tab_historial.png).
+- **Evidencia:** Screenshot [`14_slip_tab_historial.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/14_slip_tab_historial.png).
 
 ---
 
@@ -217,7 +217,7 @@ flowchart TD
 - **Solicitudes:** None.
 - **Persistencia:** Saved to `localStorage["azteca_av"]`.
 - **Responsive:** Form layout.
-- **Evidencia:** Screenshot [`15_slip_tab_bankroll.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png).
+- **Evidencia:** Screenshot [`15_slip_tab_bankroll.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png).
 
 ---
 
@@ -234,7 +234,7 @@ flowchart TD
 - **Solicitudes:** None (fallback mode); `claude.use("sample")` if available in container.
 - **Persistencia:** Thread retained in memory until page reload.
 - **Responsive:** Slide-over right drawer (max-width 420px).
-- **Evidencia:** Screenshots [`16_ai_home_open.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/16_ai_home_open.png), [`17_ai_home_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/17_ai_home_answer.png), [`09_ai_inside_ligamx.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/09_ai_inside_ligamx.png), [`10_ai_inside_ligamx_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png).
+- **Evidencia:** Screenshots [`16_ai_home_open.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/16_ai_home_open.png), [`17_ai_home_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/17_ai_home_answer.png), [`09_ai_inside_ligamx.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/09_ai_inside_ligamx.png), [`10_ai_inside_ligamx_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png).
 
 ---
 

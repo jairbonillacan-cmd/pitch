@@ -2,6 +2,10 @@ node_modules/
 dist/
 .next/
 .next-prod/
+.next-9990/
+.next-9990-dev/
+.next-9999/
+.local/
 perf-results/
 .turbo/
 out/
@@ -13,8 +17,9 @@ test-results/
 *.tsbuildinfo
 .DS_Store
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!apps/web/.env.example
 linemate-analysis/
 services/ingest/.cache/
 data/history/raw/
@@ -28,10 +33,13 @@ services/models/.piptmp/
 services/models/.venv/
 Reportes/modelos/features-asof.jsonl
 Reportes/modelos/nfl-ratings-predictions.jsonl
+pitchlab-brand.zip
 pitchlab-champions-europa-league-2026-27.zip
 pitchlab-laliga-nfl-ncaa-2026.zip
 pitchlab-liga-mx-apertura-2026.zip
 pitchlab-premier-league-2026-27.zip
+**/extracted_src/
+*.js.map
 
 # NFL data collection tooling
 tools/nfl-data/.venv/
@@ -50,3 +58,7 @@ data/history/quality_reports/
 
 # Salida del test de experimentos AztecaVet (se regenera al correr pnpm test)
 packages/engines-reference/evidence/
+
+# Vista previa de correos
+packages/emails/.preview/
+.neon

@@ -1,4 +1,8 @@
+import { randomBytes } from "node:crypto";
 import { defineConfig } from "@playwright/test";
+
+// `next start` corre en modo producción, que rechaza secretos con forma de ejemplo.
+const betaCookieSecret = process.env.BETA_COOKIE_SECRET ?? randomBytes(32).toString("hex");
 
 export default defineConfig({
   testDir: "./e2e",
@@ -12,6 +16,9 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:3100",
     trace: "retain-on-failure",
+    // Sin este permiso, Chromium rechaza a veces navigator.clipboard.writeText cuando la
+    // página no tiene el foco (pasa bajo carga) y las pruebas de «Copiado» fallan al azar.
+    permissions: ["clipboard-read", "clipboard-write"],
   },
   projects: [
     {
@@ -36,7 +43,11 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       PREVIEW_ACCESS_CODE: "2026",
-      BETA_COOKIE_SECRET: "e2e-test-pitchlab-beta-cookie-secret-32chars!",
+      BETA_COOKIE_SECRET: betaCookieSecret,
+      PITCHLAB_PREVIEW_TOOLS: "1",
+      PITCHLAB_TRANSFER_BANK: "Banco Ejemplo Test",
+      PITCHLAB_TRANSFER_BENEFICIARY: "PitchLab Demo Test",
+      PITCHLAB_TRANSFER_CLABE: "000000000000000000",
     },
   },
 });

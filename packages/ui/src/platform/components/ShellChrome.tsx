@@ -9,12 +9,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
-import { AstryxScope } from "../../astryx";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge } from "../../sports";
+import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
-import { useAuraColors, usePlatform } from "../platform-provider";
+import { ownHandleFor, useAuraColors, usePlatform } from "../platform-provider";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
@@ -24,7 +23,6 @@ import {
   type MaestroIconName,
 } from "./MaestroPrimitives";
 import {
-  AlertsDrawer,
   BetaPinModal,
   CommandPaletteModal,
   ParlayFloatingDock,
@@ -33,8 +31,8 @@ import {
   ShareTicketModal,
   ToastViewport,
   TopLayerModalDialog,
-  valueAlertsFrom,
 } from "./PlatformOverlays";
+import { NotificationBell } from "./NotificationInbox";
 
 const RAIL_STORAGE_KEY = "pl-rail-collapsed";
 /** Sobrevive al cambio de página (cada vista monta su propio shell) sin parpadeo. */
@@ -102,19 +100,51 @@ function usePersistentRailCollapsed(): [boolean, () => void] {
   return [collapsed, toggle];
 }
 
+const ODDS_FORMAT_OPTIONS: ReadonlyArray<{ value: OddsFormat; label: string }> = [
+  { value: "american", label: "Momio" },
+  { value: "decimal", label: "Decimal" },
+];
+
+/**
+ * Selector «Momio / Decimal» con el `seg-well` de la casa: grupo de radio con flechas.
+ * Antes usaba el SegmentedControl de Astryx, que agregaba ~110 kB a cada página del Club
+ * solo por este control (P0-08 de la auditoría 2026-11-13).
+ */
 export function OddsFormatSegment(): React.JSX.Element {
   const { oddsFormat, setOddsFormat } = usePlatform();
+  const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    e.preventDefault();
+    const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1;
+    const next = (idx + step + ODDS_FORMAT_OPTIONS.length) % ODDS_FORMAT_OPTIONS.length;
+    setOddsFormat(ODDS_FORMAT_OPTIONS[next]!.value);
+    refs.current[next]?.focus();
+  };
   return (
-    <AstryxScope>
-      <SegmentedControl
-        label="Formato de momio"
-        value={oddsFormat}
-        onChange={(val) => setOddsFormat(val as OddsFormat)}
-      >
-        <SegmentedControlItem value="american" label="Momio" />
-        <SegmentedControlItem value="decimal" label="Decimal" />
-      </SegmentedControl>
-    </AstryxScope>
+    <div className="seg-well" role="radiogroup" aria-label="Formato de momio">
+      {ODDS_FORMAT_OPTIONS.map((o, idx) => {
+        const on = oddsFormat === o.value;
+        return (
+          <button
+            key={o.value}
+            ref={(el) => {
+              refs.current[idx] = el;
+            }}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            data-active={on}
+            tabIndex={on ? 0 : -1}
+            className="seg-btn text-xs"
+            onClick={() => setOddsFormat(o.value)}
+            onKeyDown={(e) => onKeyDown(e, idx)}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -232,12 +262,12 @@ function FloatingQuickJumpBar({
       { id: "landing", label: "1. Landing", href: "/" },
       { id: "signup", label: "2. Acceso $0", href: "/signup" },
       { id: "jornada", label: "3. Jornada", href: "/app" },
-      { id: "picks", label: "4. Picks del día", href: "/app/picks" },
+      { id: "picks", label: "4. Buscar picks", href: "/app/picks" },
       { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
       { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
       { id: "props", label: "7. Props", href: "/app/props" },
       { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
-      { id: "tipstar", label: "9. Portal Tipstar", href: "/app/tipstar" },
+      { id: "tipster", label: "9. Portal Tipster", href: "/app/tipster" },
       { id: "referrals", label: "10. Referidos", href: "/app/account" },
       { id: "admin", label: "11. Admin", href: "/app/admin" },
     ],
@@ -424,7 +454,6 @@ function AtmosphereStageImpl({
           <ParlayFloatingDock />
           <PickComposerModal />
           <ShareTicketModal />
-          <AlertsDrawer />
           <CommandPaletteModal />
           <RoleSimulatorBar activePath={activePath} />
         </>
@@ -501,7 +530,7 @@ export function PublicHeaderV4({
               }}
               className="pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5"
             >
-              <span>Entrar</span>
+              <span>Ir a la app</span>
               <MaestroIcon name="arrowRight" size={14} />
             </a>
           ) : (
@@ -616,14 +645,14 @@ export function PublicFooterV4(): React.JSX.Element {
             Juego responsable
           </a>
           <a
-            href="/comunidad#tipstars"
+            href="/comunidad#tipsters"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/comunidad#tipstars");
+              navigateTo("/comunidad#tipsters");
             }}
             className="no-underline hover:underline"
           >
-            ¿Eres tipstar?
+            ¿Eres tipster?
           </a>
           <a href="/legal/creditos" className="no-underline hover:underline">
             Créditos de datos
@@ -700,6 +729,47 @@ function ClubFooter(): React.JSX.Element {
   );
 }
 
+/**
+ * Protección contra filtraciones del Club, en dos capas:
+ * 1. Trama diagonal muy tenue con `@usuario · CÓDIGO` sobre toda la pantalla: no tapa la
+ *    lectura y no se quita recortando una esquina de la captura.
+ * 2. Al copiar texto, se agrega la atribución y una huella invisible con el mismo código.
+ */
+function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): React.JSX.Element {
+  useEffect(() => {
+    const onCopy = (e: ClipboardEvent) => {
+      const selection = window.getSelection()?.toString() ?? "";
+      if (selection.trim().length < 12 || !e.clipboardData) return;
+      const anchor = window.getSelection()?.anchorNode;
+      const el = anchor instanceof Element ? anchor : anchor?.parentElement;
+      if (!el?.closest("#main") || el.closest("input, textarea, [contenteditable='true']")) return;
+      const credit = handle ? `\n\n— Visto en PitchLab por ${handle}` : "\n\n— Visto en PitchLab";
+      e.clipboardData.setData("text/plain", `${selection}${credit}${encodeForensicTag(label)}`);
+      e.preventDefault();
+    };
+    document.addEventListener("copy", onCopy);
+    return () => document.removeEventListener("copy", onCopy);
+  }, [label, handle]);
+
+  const tile = useMemo(() => {
+    const safe = label.replace(/[<&>"']/g, "");
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200">` +
+      `<text x="0" y="110" transform="rotate(-22 180 100)" font-family="Inter, system-ui, sans-serif" ` +
+      `font-size="13" font-weight="700" letter-spacing="1" fill="black">${safe}</text></svg>`;
+    return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
+  }, [label]);
+
+  return (
+    <div
+      className="pl-club-watermark"
+      aria-hidden="true"
+      data-watermark={label}
+      style={{ "--pl-wm-tile": tile } as React.CSSProperties}
+    />
+  );
+}
+
 function ClubWorkspaceShellImpl({
   activePath,
   children,
@@ -712,13 +782,17 @@ function ClubWorkspaceShellImpl({
     viewerRole,
     parlayLegs,
     journal,
-    setAlertsOpen,
     setCmdkOpen,
     logoutSession,
     navigateTo,
     oddsFormat,
     setOddsFormat,
+    viewerIdentity,
+    hasAccountSession,
+    upgradeHref,
   } = usePlatform();
+  // Con cuenta, el usuario real; con el PIN de la beta, el de ejemplo según el rol.
+  const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
 
   const [collapsed, toggleCollapsed] = usePersistentRailCollapsed();
   const [leaguesOpen, toggleLeagues] = usePersistentLeaguesOpen();
@@ -747,9 +821,9 @@ function ClubWorkspaceShellImpl({
         },
       ] satisfies ProfileMenuGroup[];
     }
-    const handle = viewerRole === "tipstar" ? "sofia_nfl" : "jair";
-    // El récord va junto a la fila que lleva a él. El tipstar simulado es un perfil de ejemplo.
-    const showRecord = viewerRole !== "tipstar" && ownRecord.settled > 0;
+    const handle = ownHandle;
+    // El récord va junto a la fila que lleva a él. El tipster simulado es un perfil de ejemplo.
+    const showRecord = viewerRole !== "tipster" && ownRecord.settled > 0;
     const profileTrail = showRecord ? (
       <span className="pl-profile-menu-rec num" title="Saldo y cumplidos">
         <span className={ownRecord.netUnits >= 0 ? "pl-tone-pos" : "pl-tone-neg"}>
@@ -774,7 +848,7 @@ function ClubWorkspaceShellImpl({
         label: "Tus picks",
         items: [
           { href: `/app/u/${handle}`, label: "Ver mi perfil", icon: "user", trail: profileTrail },
-          { href: "/app/lab", label: "Mi bitácora", icon: "ticket", trail: journalTrail },
+          { href: "/app/lab", label: "Mi récord", icon: "ticket", trail: journalTrail },
         ],
       },
       {
@@ -788,8 +862,8 @@ function ClubWorkspaceShellImpl({
       },
     ];
     const roleItems: ProfileMenuItem[] = [];
-    if (viewerRole === "tipstar" || viewerRole === "admin") {
-      roleItems.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "star" });
+    if (viewerRole === "tipster" || viewerRole === "admin") {
+      roleItems.push({ href: "/app/tipster", label: "Portal tipster", icon: "star" });
     }
     if (viewerRole === "admin") {
       roleItems.push({ href: "/app/admin", label: "Consola", icon: "chart" });
@@ -803,7 +877,7 @@ function ClubWorkspaceShellImpl({
       ],
     });
     return groups;
-  }, [viewerRole, ownRecord, journal.length]);
+  }, [viewerRole, ownRecord, journal.length, ownHandle]);
 
   const docTheme = useDocumentTheme();
   // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
@@ -836,15 +910,14 @@ function ClubWorkspaceShellImpl({
     }
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
-  const valueAlertCount = useMemo(() => valueAlertsFrom(dataset.games).length, [dataset.games]);
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
-  // El portal de tipstars y la consola solo aparecen para quien los usa.
+  // El portal de tipsters y la consola solo aparecen para quien los usa.
   const railGroups: RailNavGroup[] = useMemo(() => {
-    // Cuenta, «Cómo calculamos», Portal tipstar y Consola viven en el menú del perfil.
+    // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
-      { href: "/app/picks", label: "Picks del día", icon: "sparkles" },
-      { href: "/app/momios", label: "Momios y ventaja", icon: "activity" },
+      { href: "/app/picks", label: "Buscar picks", icon: "search" },
+      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
       { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
@@ -859,19 +932,28 @@ function ClubWorkspaceShellImpl({
     [railGroups],
   );
 
-  const profileHandle = viewerRole === "tipstar" ? "@sofia_nfl" : "@jair";
-  const profileSubline =
-    viewerRole === "tipstar"
-      ? "Sofía Méndez · Tipstar verificado"
-      : viewerRole === "admin"
-        ? "Admin"
-        : "Socio";
-  const profileInitials = viewerRole === "tipstar" ? "SM" : "JR";
+  const profileHandle = `@${ownHandle}`;
+  const profileAvatarUrl = viewerIdentity?.avatarUrl ?? null;
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const showProfileAvatarImg = Boolean(profileAvatarUrl && brokenAvatarUrl !== profileAvatarUrl);
+  const roleLabel = viewerRole === "tipster" ? "Tipster verificado" : viewerRole === "admin" ? "Admin" : "Socio";
+  const profileSubline = viewerIdentity
+    ? `${viewerIdentity.displayName} · ${roleLabel}`
+    : viewerRole === "tipster"
+      ? "Sofía Méndez · Tipster verificado"
+      : roleLabel;
+  const profileInitials = viewerIdentity?.initials ?? (viewerRole === "tipster" ? "SM" : "SP");
   const profileGrad =
-    viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
+    viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 
   return (
     <>
+      {viewerRole === "visitor" ? null : (
+        <ClubWatermarkLayer
+          label={getSessionWatermark(viewerRole, viewerIdentity)}
+          handle={viewerIdentity ? `@${viewerIdentity.handle}` : null}
+        />
+      )}
       <header className="panel-header sticky top-0 z-30 glass-nav-surface">
         <div className="max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2.5">
           {/* Izquierda: Logo a / + Buscador inline + Selector de Rol */}
@@ -919,19 +1001,7 @@ function ClubWorkspaceShellImpl({
 
           {/* Derecha: Campana (2), Momio/Decimal, Tema, Chip Perfil @jair/@sofia_nfl, Salir */}
           <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              className="pl-btn-glass pl-bell-btn"
-              aria-label={`Abrir alertas de valor (${valueAlertCount})`}
-              onClick={() => setAlertsOpen(true)}
-            >
-              <MaestroIcon name="bell" size={16} />
-              {valueAlertCount > 0 ? (
-                <span className="pl-bell-count num" aria-hidden="true">
-                  {valueAlertCount}
-                </span>
-              ) : null}
-            </button>
+            <NotificationBell />
 
             {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
             <button
@@ -965,7 +1035,19 @@ function ClubWorkspaceShellImpl({
                     style={{ background: profileGrad }}
                     aria-hidden="true"
                   >
-                    {profileInitials}
+                    {showProfileAvatarImg ? (
+                      <img
+                        src={profileAvatarUrl!}
+                        alt=""
+                        width={28}
+                        height={28}
+                        decoding="async"
+                        className="pl-avatar-img"
+                        onError={() => setBrokenAvatarUrl(profileAvatarUrl)}
+                      />
+                    ) : (
+                      profileInitials
+                    )}
                   </span>
                   <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
                   <UltraTag className="hidden lg:inline-flex" />
@@ -984,7 +1066,52 @@ function ClubWorkspaceShellImpl({
               onKeyDown={onProfileMenuKeyDown}
             >
               <span className="pl-profile-menu-grab" aria-hidden="true" />
-              {viewerRole === "visitor" ? (
+              {viewerRole === "visitor" && hasAccountSession && viewerIdentity ? (
+                <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="pl-acct-avatar size-10 text-xs"
+                      style={{ background: profileGrad }}
+                      aria-hidden="true"
+                    >
+                      {viewerIdentity.initials}
+                    </span>
+                    <div className="min-w-0">
+                      <strong className="pl-profile-menu-name">
+                        {viewerIdentity.displayName}
+                      </strong>
+                      <span className="pl-profile-menu-sub">
+                        {viewerIdentity.handle ? `@${viewerIdentity.handle} · ` : ""}
+                        Prueba finalizada · SIN PASE
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pl-profile-menu-ctas">
+                    <a
+                      href={upgradeHref}
+                      className="pl-profile-menu-cta pl-profile-menu-cta--primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo(upgradeHref);
+                      }}
+                    >
+                      Activar Pase Ultra
+                    </a>
+                    <a
+                      href="/app/account"
+                      className="pl-profile-menu-cta"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo("/app/account");
+                      }}
+                    >
+                      Mi cuenta
+                    </a>
+                  </div>
+                </div>
+              ) : viewerRole === "visitor" ? (
                 <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
                   <div className="flex items-center gap-3">
                     <span className="pl-acct-avatar pl-acct-avatar--empty size-10" aria-hidden="true">
@@ -1027,12 +1154,25 @@ function ClubWorkspaceShellImpl({
                     style={{ background: profileGrad }}
                     aria-hidden="true"
                   >
-                    {profileInitials}
+                    {showProfileAvatarImg ? (
+                      <img
+                        src={profileAvatarUrl!}
+                        alt=""
+                        width={40}
+                        height={40}
+                        fetchPriority="low"
+                        decoding="async"
+                        className="pl-avatar-img"
+                        onError={() => setBrokenAvatarUrl(profileAvatarUrl)}
+                      />
+                    ) : (
+                      profileInitials
+                    )}
                   </span>
                   <div className="min-w-0">
                     <div className="pl-profile-menu-name">
                       <span className="truncate">{profileHandle}</span>
-                      {viewerRole === "tipstar" ? <VerifiedBadge size={15} /> : null}
+                      {viewerRole === "tipster" ? <VerifiedBadge size={15} /> : null}
                       <UltraTag />
                     </div>
                     <span className="pl-profile-menu-sub">{profileSubline}</span>
@@ -1477,8 +1617,8 @@ function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavI
     { href: "/app/social", label: "Comunidad", icon: "users" },
     {
       href: "/app/lab",
-      label: "Mi bitácora",
-      shortLabel: "Bitácora",
+      label: "Mi récord",
+      shortLabel: "Récord",
       icon: "ticket",
       badge: journalCount > 0 ? `${journalCount}` : undefined,
     },

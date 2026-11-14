@@ -220,7 +220,7 @@ requestAnimationFrame(loop)}
 )();
 startBall($("ballc1"),240,()=>stage===1&&!$("lock").classList.contains("hide"),1);
 /* ---------- intro: sonido, codigo, canvas ---------- */
-const CODE="7779",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
+const CODE="[REDACTED_PIN]",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
 let buf="",stage=1,busy=false,snd=true;
 const T0=Date.now(),intro={
   warp:0,stop(){

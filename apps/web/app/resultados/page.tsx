@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { ResultadosPageSurface } from "@pitchlab/ui";
 import { loadResultadosViewProps } from "../../src/server/public-site-data";
 
@@ -12,6 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ResultadosPage(): Promise<React.JSX.Element> {
-  const props = await loadResultadosViewProps();
-  return <ResultadosPageSurface {...props} />;
+  const [props, hasSession] = await Promise.all([loadResultadosViewProps(), hasPublicSessionCookie()]);
+  return <ResultadosPageSurface {...props} hasSession={hasSession} />;
 }

@@ -6,10 +6,36 @@ import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
 import { usePlatform } from "../platform-provider";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
 
-export type SignupStep = "method" | "details" | "sent";
+import {
+  EmailConfirmationStatus,
+  emailConfirmationCallbacks,
+  useContinueAfterConfirmation,
+  useEmailConfirmation,
+  type ConfirmedSession,
+  type EmailConfirmationStep,
+} from "./email-confirmation";
+
+import {
+  buildLocalHandleSuggestions,
+  handleSuggestionQueryFromBases,
+  normalizeSignupHandle,
+  SIGNUP_HANDLE_PATTERN,
+  useHandleAvailability,
+  useHandleSuggestions,
+} from "./use-handle-availability";
+
+export {
+  buildLocalHandleSuggestions,
+  handleSuggestionQueryFromBases,
+  normalizeSignupHandle,
+  SIGNUP_HANDLE_PATTERN,
+  type HandleStatus,
+} from "./use-handle-availability";
+
+export type SignupStep = "method" | "details" | EmailConfirmationStep;
 
 /** Versión de los textos legales que la persona acepta en el paso 2. */
 export const SIGNUP_CONSENT_VERSION = "2026-11-11";
@@ -49,6 +75,12 @@ const MONTHS_SHORT = [
 ] as const;
 
 export interface SignupDetails {
+  /** Cuenta para la que se prepararon los datos antes de confirmar el enlace. */
+  email?: string;
+  /** Nombre visible (2 a 40 caracteres). */
+  displayName: string;
+  /** Usuario sin @ (3 a 20: minúsculas, números y _; empieza con letra). */
+  handle: string;
   /** Fecha ISO `AAAA-MM-DD`. */
   birthDate: string;
   consents: {
@@ -66,7 +98,22 @@ export type SignupFlushResult =
   | { status: "saved"; trial: "concedida" | "ya_usada" | "apagada" }
   | { status: "none" }
   | { status: "underage" }
+  | { status: "handle_taken" }
   | { status: "error" };
+
+/** Sugerencia de usuario a partir del nombre o el correo (el servidor confirma si está libre). */
+export function suggestSignupHandle(base: string): string {
+  const ascii = base
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .split("@")[0]!
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^[^a-z]+/, "")
+    .replace(/_+$/, "")
+    .slice(0, 20);
+  return ascii.length >= 3 ? ascii : "";
+}
 
 /** Los datos del paso 2 esperan al enlace mágico como máximo un día. */
 const SIGNUP_DETAILS_MAX_AGE_MS = 24 * 60 * 60 * 1000;
@@ -74,6 +121,7 @@ const SIGNUP_DETAILS_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 export interface SignupInvite {
   code: string;
   inviterName: string | null;
+  freeDays: number;
 }
 
 /**
@@ -87,11 +135,11 @@ export function resolveSignupInvite(rawCode: string): SignupInvite | null {
     .replace(/[^A-Z0-9_-]/g, "")
     .slice(0, 24);
   if (code.length < 3) return null;
-  const creator = TIPSTAR_CREATORS.find(
+  const creator = TIPSTER_CREATORS.find(
     (c) => c.promoCode.toUpperCase() === code,
   );
   const firstName = creator?.name.split(" ")[0] ?? null;
-  return { code, inviterName: firstName };
+  return { code, inviterName: firstName, freeDays: creator?.freeDays ?? 7 };
 }
 
 /** Edad en años cumplidos a la fecha `today`. */
@@ -168,9 +216,9 @@ export function readPendingSignupDetails(now: number = Date.now()): SignupDetail
 }
 
 /** Guarda en el servidor los datos pendientes del paso 2 (con sesión de cuenta). */
-export async function flushSignupDetails(): Promise<SignupFlushResult> {
+export async function flushSignupDetails(email?: string): Promise<SignupFlushResult> {
   const details = readPendingSignupDetails();
-  if (!details) return { status: "none" };
+  if (!details || (email && details.email && details.email !== email.toLowerCase())) return { status: "none" };
   try {
     const res = await fetch("/api/me/signup", {
       method: "POST",
@@ -179,7 +227,12 @@ export async function flushSignupDetails(): Promise<SignupFlushResult> {
     });
     if (res.status === 403) {
       window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
-      return { status: "underage" };
+      const { error } = await res.json() as { error?: string };
+      return { status: error === "menor_de_edad" ? "underage" : "error" };
+    }
+    if (res.status === 409) {
+      window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
+      return { status: "handle_taken" };
     }
     if (!res.ok) return { status: "error" };
     const json = (await res.json()) as { trial?: "concedida" | "ya_usada" | "apagada" };
@@ -236,13 +289,6 @@ function GoogleMark(): React.JSX.Element {
   );
 }
 
-function AppleMark(): React.JSX.Element {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8s2.3-1.3 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z" />
-    </svg>
-  );
-}
 
 function GiftIcon(): React.JSX.Element {
   return (
@@ -275,10 +321,15 @@ export interface SignupSurfaceV4Props {
   previewSlot?: React.ReactNode;
   initialStep?: SignupStep;
   initialEmail?: string;
-  /** Al volver de Google/Apple sin fecha ni consentimientos. */
-  returningProvider?: "Google" | "Apple" | null;
+  /** Al volver de Google sin fecha ni consentimientos. */
+  returningProvider?: "Google" | null;
   /** Fecha de referencia para la edad (pruebas). */
   today?: Date;
+  /** Con cuenta (Google o al volver a /app): nombre y usuario sugerido para prellenar. */
+  initialDisplayName?: string;
+  initialHandle?: string;
+  /** Destino al terminar el registro cuando el enlace vino de una ruta protegida. */
+  nextPath?: string;
 }
 
 export function SignupSurfaceV4({
@@ -288,6 +339,9 @@ export function SignupSurfaceV4({
   initialEmail = "",
   returningProvider = null,
   today,
+  initialDisplayName = "",
+  initialHandle = "",
+  nextPath = "/app",
 }: SignupSurfaceV4Props): React.JSX.Element {
   const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
   const narrow = useNarrowViewport();
@@ -297,6 +351,9 @@ export function SignupSurfaceV4({
     emailError: `${uid}-email-error`,
     emailHint: `${uid}-email-hint`,
     dobHint: `${uid}-dob-hint`,
+    nameError: `${uid}-name-error`,
+    handleHint: `${uid}-handle-hint`,
+    handleSuggestionsLabel: `${uid}-handle-suggestions`,
     dobError: `${uid}-dob-error`,
   };
 
@@ -306,13 +363,27 @@ export function SignupSurfaceV4({
   );
 
   const [step, setStep] = useState<SignupStep>(initialStep);
+  const [confirmedSession, setConfirmedSession] = useState<ConfirmedSession | null>(null);
+  const [destination, setDestination] = useState<string | null>(null);
+  const [confirmationAttempt, setConfirmationAttempt] = useState(0);
   const [email, setEmail] = useState(initialEmail);
-  const [provider, setProvider] = useState<"Google" | "Apple" | null>(
+  const [provider, setProvider] = useState<"Google" | null>(
     returningProvider,
   );
   const [emailError, setEmailError] = useState("");
   const [emailErrorIsDisposable, setEmailErrorIsDisposable] = useState(false);
   const [betaNotice, setBetaNotice] = useState("");
+  const [displayName, setDisplayName] = useState(initialDisplayName);
+  const [handle, setHandle] = useState(initialHandle);
+  const [handleTouched, setHandleTouched] = useState(Boolean(initialHandle));
+  const handleStatus = useHandleAvailability(handle, accountsEnabled);
+  const handleSuggestions = useHandleSuggestions({
+    name: displayName,
+    email,
+    accountsEnabled,
+    enabled: step === "details",
+  });
+  const [nameError, setNameError] = useState("");
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -326,10 +397,78 @@ export function SignupSurfaceV4({
   const [resendNotice, setResendNotice] = useState("");
 
   const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const handleInputRef = useRef<HTMLInputElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const didMountRef = useRef(false);
 
   const normalizedEmail = email.trim() ? normalizeTrialEmail(email.trim()) : "";
+
+  useEmailConfirmation(
+    step === "sent" || (step === "confirmed" && !confirmedSession) ? step : null,
+    step === "sent" ? email : "",
+    accountsEnabled,
+    confirmationAttempt,
+    (session) => {
+      setStep("confirmed");
+      setConfirmedSession(session);
+    },
+    () => setStep("expired"),
+  );
+
+  useEffect(() => {
+    if (!confirmedSession) return;
+    let active = true;
+    void flushSignupDetails(confirmedSession.email).then(async (result) => {
+      if (!active) return;
+      if (result.status === "saved") {
+        try {
+          window.sessionStorage.setItem("pitchlab.signup.trial", result.trial);
+        } catch (err) {
+          // The confirmation can continue if browser storage is unavailable.
+          void err;
+        }
+      }
+      if (result.status === "underage") {
+        setDestination("/");
+        return;
+      }
+      const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
+      if (result.status === "saved" || confirmedSession.completed) {
+        setDestination(postSignupDest);
+        return;
+      }
+      // The other tab may have saved and removed the draft after our initial session check.
+      const latest = await fetch("/api/me/signup", { cache: "no-store" })
+        .then((response) => response.ok ? response.json() as Promise<ConfirmedSession> : null)
+        .catch(() => null);
+      if (!active) return;
+      const completedHere = latest?.completed && latest.email === confirmedSession.email;
+      const step2Params = new URLSearchParams({ paso: "2", via: "cuenta" });
+      if (nextPath && nextPath !== "/app") step2Params.set("next", nextPath);
+      setDestination(completedHere ? postSignupDest : `/signup?${step2Params.toString()}`);
+    });
+    return () => {
+      active = false;
+    };
+  }, [confirmedSession]);
+
+  useContinueAfterConfirmation(destination);
+
+  const shownHandle = normalizeSignupHandle(handle);
+  const handleProblem =
+    handleStatus === "taken" || handleStatus === "reserved" || (handleStatus === "invalid" && handleTouched);
+  const handleMessage =
+    handleStatus === "taken"
+      ? `@${shownHandle} ya está ocupado. Prueba otro.`
+      : handleStatus === "reserved"
+        ? "Ese usuario no se puede usar. Prueba otro."
+        : handleStatus === "invalid" && handleTouched
+          ? "De 3 a 20 caracteres: minúsculas, números y _, empezando con letra."
+          : handleStatus === "checking"
+            ? "Revisando…"
+            : handleStatus === "free" && accountsEnabled
+              ? `@${shownHandle} está libre. Así te verán en Comunidad.`
+              : "Así te verán en Comunidad.";
 
   useEffect(() => {
     if (!didMountRef.current) {
@@ -346,6 +485,13 @@ export function SignupSurfaceV4({
     }, 1000);
     return () => window.clearTimeout(timer);
   }, [resendSecondsLeft]);
+
+  // Mientras no lo edite a mano, el usuario se sugiere del nombre (o del correo).
+  useEffect(() => {
+    if (handleTouched) return;
+    const suggestion = suggestSignupHandle(displayName) || suggestSignupHandle(email);
+    setHandle(suggestion);
+  }, [displayName, email, handleTouched]);
 
   const referenceToday = useMemo(() => today ?? new Date(), [today]);
   const years = useMemo(() => {
@@ -376,7 +522,7 @@ export function SignupSurfaceV4({
     } else if (!EMAIL_PATTERN.test(clean)) {
       error = "Escribe un correo electrónico válido, como tu@correo.com.";
     } else if (isDisposableEmailDomain(clean)) {
-      error = "No aceptamos correos temporales. Usa Google, Apple o tu correo personal.";
+      error = "No aceptamos correos temporales. Usa Google o tu correo personal.";
       disposable = true;
     }
     if (error) {
@@ -391,15 +537,21 @@ export function SignupSurfaceV4({
     goToDetails();
   };
 
-  const handleSocial = async (label: "Google" | "Apple"): Promise<void> => {
+  const handleSocial = async (label: "Google"): Promise<void> => {
     if (submitting) return;
     setEmailError("");
     setBetaNotice("");
     if (accountsEnabled) {
       setSubmitting(true);
+      const socialParams = new URLSearchParams({
+        paso: "2",
+        via: label.toLowerCase(),
+      });
+      if (invite) socialParams.set("code", invite.code);
+      if (nextPath && nextPath !== "/app") socialParams.set("next", nextPath);
       const ok = await startLoginSocialSignIn(
-        label === "Google" ? "google" : "apple",
-        `/signup?paso=2&via=${label.toLowerCase()}${invite ? `&code=${encodeURIComponent(invite.code)}` : ""}`,
+        "google",
+        `/signup?${socialParams.toString()}`,
       );
       setSubmitting(false);
       if (!ok) setEmailError(`El acceso con ${label} todavía no está disponible.`);
@@ -419,6 +571,19 @@ export function SignupSurfaceV4({
     event.preventDefault();
     if (submitting) return;
     setSubmitError("");
+    const cleanName = displayName.replace(/\s+/g, " ").trim();
+    const cleanHandle = normalizeSignupHandle(handle);
+    let identityOk = true;
+    if (cleanName.length < 2 || cleanName.length > 40) {
+      setNameError("Escribe tu nombre (2 a 40 caracteres).");
+      identityOk = false;
+    }
+    if (!SIGNUP_HANDLE_PATTERN.test(cleanHandle)) {
+      setHandleTouched(true);
+      identityOk = false;
+    } else if (handleStatus === "taken" || handleStatus === "reserved") {
+      identityOk = false;
+    }
     const check = checkBirthDate(day, month, year, referenceToday);
     if (!check.ok) {
       setDobError(
@@ -430,10 +595,13 @@ export function SignupSurfaceV4({
       );
       return;
     }
-    if (!terms) return;
+    if (!terms || !identityOk) return;
     setDobError("");
 
     const details: SignupDetails = {
+      ...(email.trim() && !provider ? { email: email.trim().toLowerCase() } : {}),
+      displayName: cleanName,
+      handle: cleanHandle,
       birthDate: check.iso,
       consents: {
         terms,
@@ -449,17 +617,17 @@ export function SignupSurfaceV4({
 
     if (!accountsEnabled) {
       setSubmitting(false);
-      openBetaPin("/onboarding");
+      openBetaPin(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
       return;
     }
 
     if (provider || !normalizedEmail) {
       setSubmitting(false);
-      navigateTo("/onboarding");
+      navigateTo(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
       return;
     }
 
-    const ok = await requestLoginMagicLink(email.trim(), "/onboarding");
+    const ok = await requestLoginMagicLink(email.trim(), emailConfirmationCallbacks("signup"));
     setSubmitting(false);
     if (ok) {
       setResendNotice("");
@@ -477,10 +645,11 @@ export function SignupSurfaceV4({
       return;
     }
     setSubmitting(true);
-    const ok = await requestLoginMagicLink(email.trim(), "/onboarding");
+    const ok = await requestLoginMagicLink(email.trim(), emailConfirmationCallbacks("signup"));
     setSubmitting(false);
     if (ok) {
       setResendSecondsLeft(RESEND_COOLDOWN_SECONDS);
+      setConfirmationAttempt((current) => current + 1);
       setResendNotice("Enviamos un nuevo enlace a tu correo.");
     } else {
       setResendNotice("No pudimos reenviar el enlace. Intenta de nuevo en un momento.");
@@ -496,7 +665,11 @@ export function SignupSurfaceV4({
     setStep("method");
   };
 
-  const loginHref = "/login";
+  const loginParams = new URLSearchParams();
+  if (invite?.code) loginParams.set("code", invite.code);
+  if (nextPath && nextPath !== "/app") loginParams.set("next", nextPath);
+  const loginQuery = loginParams.toString();
+  const loginHref = loginQuery ? `/login?${loginQuery}` : "/login";
   const onLoginClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     if (isPlainLeftClick(e)) {
       e.preventDefault();
@@ -523,13 +696,13 @@ export function SignupSurfaceV4({
             ? `${invite.inviterName} te invitó.`
             : `${invite.code} aplicado.`}
         </strong>{" "}
-        Tus 7 días gratis ya están apartados.
+        Tus {invite.freeDays} días gratis ya están apartados.
       </p>
     </div>
   ) : null;
 
   const stepper =
-    step !== "sent" ? (
+    step === "method" || step === "details" ? (
       <div className="pl-auth-steps" aria-hidden="true">
         <span className="pl-auth-step pl-auth-step--on" />
         <span
@@ -623,16 +796,7 @@ export function SignupSurfaceV4({
                         onClick={() => void handleSocial("Google")}
                       >
                         <GoogleMark />
-                        <span>Google</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-auth-btn pl-auth-btn-social"
-                        disabled={submitting}
-                        onClick={() => void handleSocial("Apple")}
-                      >
-                        <AppleMark />
-                        <span>Apple</span>
+                        <span>Continuar con Google</span>
                       </button>
                     </div>
 
@@ -721,6 +885,101 @@ export function SignupSurfaceV4({
                     noValidate
                     onSubmit={(e) => void handleDetailsSubmit(e)}
                   >
+                    <div className="pl-auth-field">
+                      <label className="pl-auth-label" htmlFor="auth-name">
+                        Tu nombre
+                      </label>
+                      <input
+                        id="auth-name"
+                        name="name"
+                        type="text"
+                        autoComplete="name"
+                        maxLength={40}
+                        placeholder="Ana López"
+                        className="pl-auth-input"
+                        value={displayName}
+                        aria-invalid={nameError ? true : undefined}
+                        aria-describedby={nameError ? ids.nameError : undefined}
+                        onChange={(e) => {
+                          setDisplayName(e.target.value);
+                          if (nameError) setNameError("");
+                        }}
+                      />
+                      <div id={ids.nameError} className="pl-auth-error-slot" aria-live="polite" aria-atomic="true">
+                        {nameError ? <p className="pl-auth-error">{nameError}</p> : null}
+                      </div>
+                    </div>
+
+                    <div className="pl-auth-field">
+                      <label className="pl-auth-label" htmlFor="auth-handle">
+                        Usuario
+                      </label>
+                      <input
+                        ref={handleInputRef}
+                        id="auth-handle"
+                        name="username"
+                        type="text"
+                        autoComplete="username"
+                        spellCheck={false}
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        maxLength={21}
+                        placeholder="ana_lopez"
+                        className="pl-auth-input"
+                        value={handle}
+                        aria-invalid={handleProblem ? true : undefined}
+                        aria-describedby={ids.handleHint}
+                        onChange={(e) => {
+                          setHandleTouched(true);
+                          setHandle(normalizeSignupHandle(e.target.value));
+                        }}
+                      />
+                      <div id={ids.handleHint} aria-live="polite" aria-atomic="true">
+                        {handleProblem ? (
+                          <p className="pl-auth-error">{handleMessage}</p>
+                        ) : (
+                          <p className="pl-auth-fineprint pl-auth-fineprint--left">{handleMessage}</p>
+                        )}
+                      </div>
+                      <div
+                        className="pl-handle-suggestions"
+                        role="group"
+                        aria-labelledby={ids.handleSuggestionsLabel}
+                      >
+                        <p id={ids.handleSuggestionsLabel} className="pl-handle-suggestions-label">
+                          {handleSuggestions.loading && handleSuggestions.suggestions.length === 0
+                            ? "Buscando usuarios libres…"
+                            : handleSuggestions.error
+                              ? "Sugerencias calculadas en tu navegador (sin verificar ahorita):"
+                              : !accountsEnabled
+                                ? "Sugerencias calculadas aquí (sin verificar disponibilidad):"
+                                : handleSuggestions.suggestions.length > 0
+                                  ? "Sugerencias libres para usar:"
+                                  : "Sin sugerencias disponibles ahorita; escribe el usuario que prefieras arriba."}
+                        </p>
+                        {handleSuggestions.suggestions.length > 0 ? (
+                          <div className="pl-handle-chips">
+                            {handleSuggestions.suggestions.map((candidate) => (
+                              <button
+                                key={candidate}
+                                type="button"
+                                className="pl-handle-chip"
+                                aria-pressed={shownHandle === candidate}
+                                onClick={() => {
+                                  setHandleTouched(true);
+                                  setHandle(candidate);
+                                  handleInputRef.current?.focus();
+                                }}
+                              >
+                                <span className="pl-handle-chip-verb">Usar </span>
+                                <span className="pl-handle-chip-handle">@{candidate}</span>
+                              </button>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+
                     <fieldset className="pl-auth-fieldset">
                       <legend className="pl-auth-label">Fecha de nacimiento</legend>
                       <div className="pl-auth-dob">
@@ -884,6 +1143,9 @@ export function SignupSurfaceV4({
                 </div>
               ) : null}
 
+              {step === "confirmed" || step === "expired" ? (
+                <EmailConfirmationStatus step={step} onRetry={handleUseAnotherEmail} />
+              ) : null}
               {step === "sent" ? (
                 <div key="step-sent" className="pl-auth-sent pl-auth-sent--signup pl-auth-fade" role="status">
                   <div className="pl-auth-sent-icon glass-card glass-ring" aria-hidden="true">

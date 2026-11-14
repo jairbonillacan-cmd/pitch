@@ -12,7 +12,7 @@ import {
   SPACETIME_ENGINES,
   SPACETIME_METRICS_HEADLINE,
   SPACETIME_VS_TIPSTER_ROWS,
-  TIPSTAR_CREATORS,
+  TIPSTER_CREATORS,
 } from "../spacetime-catalog";
 import {
   buildGoalModel,
@@ -30,8 +30,11 @@ import {
   PricingCardIsland,
   PublicNavBarClient,
   ResultsFilterListIsland,
+  SpeiTransferPricingIsland,
+  UltraPassCardStageIsland,
 } from "./LandingClientIslands";
 
+export { MEMBERSHIP_SPEC };
 export type PublicNavPath =
   | "/"
   | "/como-funciona"
@@ -206,6 +209,18 @@ function buildTeamNote(
   return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} goles`;
 }
 
+/** Etiqueta que se entiende sin la tabla: «Ambos anotan: Sí», «Más de 2.5 goles». */
+function readableMarketLabel(row: { group: string; market: string; label: string; selection: string }): string {
+  const label = row.label.trim();
+  if (/^(sí|si|no)$/i.test(label)) return `${row.group}: ${label}`;
+  if (row.market === "totals" && /^(más|menos)( de [\d.]+)?$/i.test(label)) {
+    const line = /[\d.]+/.exec(row.selection)?.[0] ?? /[\d.]+/.exec(row.group)?.[0];
+    const base = /de [\d.]+/.test(label) ? label : `${label} de ${line ?? ""}`.trim();
+    return `${base} ${/punto|total \d/i.test(row.group) ? "puntos" : "goles"}`;
+  }
+  return label;
+}
+
 function deriveOtherMarketsForGame(
   game: PlatformGame,
   mostProbableLabel: string,
@@ -221,21 +236,21 @@ function deriveOtherMarketsForGame(
         row.p >= 0.18 &&
         row.p <= 0.94,
     );
-    const chosen: Array<{ label: string; p: number; fairAmerican: string }> = [];
-    const seenMarkets = new Set<string>();
-
+    // Una fila por mercado (la más probable dentro del rango), en el orden de la ficha, para
+    // que la tarjeta muestre variedad y no tres opciones del mismo mercado.
+    const bestByMarket = new Map<string, (typeof filtered)[number]>();
     for (const row of filtered) {
-      const key = `${row.market}:${row.label}`;
-      if (seenMarkets.has(key)) continue;
-      if (chosen.some((item) => item.label === formatTypographicMinus(row.label))) continue;
-      seenMarkets.add(key);
-      chosen.push({
-        label: formatTypographicMinus(row.label),
+      const current = bestByMarket.get(row.market);
+      if (!current || row.p > current.p) bestByMarket.set(row.market, row);
+    }
+    const chosen = Array.from(bestByMarket.values())
+      .slice(0, 3)
+      .map((row) => ({
+        label: formatTypographicMinus(readableMarketLabel(row)),
         p: row.p,
         fairAmerican: formatFairAmericanFromProb(row.p),
-      });
-      if (chosen.length >= 3) return chosen;
-    }
+      }));
+    if (chosen.length >= 3) return chosen;
   }
 
   const [pHome, pDraw, pAway] = game.x12;
@@ -772,12 +787,12 @@ const DEFAULT_FEATURED_COMMUNITY_PICK: LandingFeaturedCommunityPick = {
  */
 export function buildFeaturedCommunityPick(
   games: readonly PlatformGame[],
-  tipstarWeeklyPickId?: string,
+  tipsterWeeklyPickId?: string,
 ): LandingFeaturedCommunityPick {
-  if (tipstarWeeklyPickId) {
+  if (tipsterWeeklyPickId) {
     for (const game of games) {
       const weekly = game.picks.find(
-        (pk) => pk.id === tipstarWeeklyPickId && !pk.isRedacted,
+        (pk) => pk.id === tipsterWeeklyPickId && !pk.isRedacted,
       );
       if (weekly) {
         const team =
@@ -836,16 +851,21 @@ export function buildFeaturedCommunityPick(
 export function PublicSiteShell({
   activePath,
   children,
+  hasSession = false,
+  className,
 }: {
-  activePath: PublicNavPath;
+  activePath?: PublicNavPath;
+  hasSession?: boolean;
+  /** Clase extra en la raíz, para estilos propios de una página (p. ej. `pl-lp--precio`). */
+  className?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <div className="pl-stage pl-lp">
+    <div className={className ? `pl-stage pl-lp ${className}` : "pl-stage pl-lp"}>
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
-      <PublicNavBarClient activePath={activePath} />
+      <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
       <main id="main">{children}</main>
       <footer className="pl-lp-footer">
         <div className="pl-lp-wrap pl-lp-footer-inner">
@@ -856,10 +876,11 @@ export function PublicSiteShell({
             </p>
           </div>
           <nav aria-label="Pie" className="pl-lp-footer-nav">
+            <a href="/blog">Blog</a>
             <a href="/legal/terminos">Términos</a>
             <a href="/legal/privacidad">Aviso de privacidad</a>
             <a href="/legal/juego-responsable">Juego responsable</a>
-            <a href="/comunidad#tipstars">¿Eres tipstar?</a>
+            <a href="/comunidad#tipsters">¿Eres tipster?</a>
             <a href="/legal/creditos">Créditos</a>
           </nav>
         </div>
@@ -1562,7 +1583,7 @@ function CommunitySampleCard({
   showLink?: boolean;
   id?: string;
 }): React.JSX.Element {
-  const sofia = TIPSTAR_CREATORS[0]!;
+  const sofia = TIPSTER_CREATORS[0]!;
   const isWashingtonSample = featuredPick.matchLabel
     .toLowerCase()
     .includes("washington");
@@ -1600,7 +1621,7 @@ function CommunitySampleCard({
           <p style={{ margin: 0, fontSize: 14 }}>
             <strong>{sofia.name}</strong>{" "}
             <span style={{ color: "var(--pl-text-muted)" }}>
-              @{sofia.handle} · Tipstar verificada
+              @{sofia.handle} · Tipster verificada
             </span>
           </p>
           <p
@@ -1694,7 +1715,7 @@ function CommunitySampleCard({
           >
             <path d="M5 12l5 5 9-10" />
           </svg>
-          <span>Récord de cada tipstar calculado por PitchLab, no por ellos.</span>
+          <span>Récord de cada tipster calculado por PitchLab, no por ellos.</span>
         </p>
         <p className="pl-lp-row" style={{ margin: 0 }}>
           <svg
@@ -1759,17 +1780,32 @@ export function ParlaysAndCommunitySection({
 
 export function PricingSection({
   variant = "teaser",
+  hasSession = false,
 }: {
   variant?: "teaser" | "page";
+  hasSession?: boolean;
 }): React.JSX.Element {
+  const isPage = variant === "page";
   return (
     <section
       id="precio"
-      className={
-        variant === "page" ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"
-      }
+      className={isPage ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"}
+      style={isPage ? { position: "relative", overflow: "hidden" } : undefined}
     >
-      <div className="pl-lp-wrap pl-lp-pricing-grid">
+      {isPage ? (
+        <>
+          <div className="pl-lp-atmo" aria-hidden="true">
+            <div className="pl-lp-orb pl-lp-orb--1" />
+            <div className="pl-lp-orb pl-lp-orb--2" />
+            <div className="pl-lp-orb pl-lp-orb--3" />
+          </div>
+          <div className="pl-lp-fieldgrid" aria-hidden="true" />
+        </>
+      ) : null}
+      <div
+        className="pl-lp-wrap pl-lp-pricing-grid"
+        style={isPage ? { position: "relative", zIndex: 1 } : undefined}
+      >
         <div className="pl-lp-pricing-copy">
           <p className="pl-lp-eyebrow">Precio</p>
           {variant === "page" ? (
@@ -1782,31 +1818,35 @@ export function PricingSection({
           <p className="pl-lp-lede">
             Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
           </p>
-          <p
-            style={{
-              margin: "8px 0 0",
-              fontSize: 14,
-              color: "var(--pl-text-secondary)",
-            }}
-          >
-            Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
-            {MEMBERSHIP_SPEC.referralBothRewardDays} días.
-          </p>
-          {variant === "teaser" ? (
-            <a
-              className="pl-lp-more"
-              href="/precio"
-              style={{ alignSelf: "flex-start" }}
-            >
-              Ver todo lo que incluye{" "}
-              <span className="pl-lp-arr" aria-hidden="true">
-                →
-              </span>
-            </a>
-          ) : null}
+          {isPage ? (
+            <UltraPassCardStageIsland />
+          ) : (
+            <>
+              <p
+                style={{
+                  margin: "8px 0 0",
+                  fontSize: 14,
+                  color: "var(--pl-text-secondary)",
+                }}
+              >
+                Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
+                {MEMBERSHIP_SPEC.referralBothRewardDays} días.
+              </p>
+              <a
+                className="pl-lp-more"
+                href="/precio"
+                style={{ alignSelf: "flex-start" }}
+              >
+                Ver todo lo que incluye{" "}
+                <span className="pl-lp-arr" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </>
+          )}
         </div>
 
-        <PricingCardIsland />
+        <PricingCardIsland hasSession={hasSession} animated={isPage} />
       </div>
     </section>
   );
@@ -1843,7 +1883,7 @@ export function FaqSection(): React.JSX.Element {
   );
 }
 
-export function ClosingCtaSection(): React.JSX.Element {
+export function ClosingCtaSection({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
     <section className="pl-lp-closing">
       <div className="pl-lp-wrap">
@@ -1855,7 +1895,7 @@ export function ClosingCtaSection(): React.JSX.Element {
             </p>
             <a
               className="pl-lp-btn pl-lp-btn-primary"
-              href="/signup"
+              href={hasSession ? "/app" : "/signup"}
               style={{ alignSelf: "flex-start" }}
             >
               Probar 7 días gratis{" "}
@@ -1886,11 +1926,13 @@ export function ClosingCtaSection(): React.JSX.Element {
 
 export function ComoFuncionaPageSurface({
   heroCards,
+  hasSession = false,
 }: {
   heroCards: readonly LandingHeroLeagueCard[];
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/como-funciona">
+    <PublicSiteShell activePath="/como-funciona" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -1910,7 +1952,7 @@ export function ComoFuncionaPageSurface({
               En cada encuentro ves qué resultado es más probable según los datos, cuál es su momio justo sin margen y cómo se compara con el momio de tu casa.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2022,14 +2064,14 @@ export function ComoFuncionaPageSurface({
         </section>
       ) : null}
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
-export function MotoresPageSurface(): React.JSX.Element {
+export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/motores">
+    <PublicSiteShell activePath="/motores" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2049,7 +2091,7 @@ export function MotoresPageSurface(): React.JSX.Element {
               Cada motor cumple una tarea distinta: medir fuerza deportiva pura, cruzarla con el mercado sin margen, filtrar ventaja real y explicarla en claro.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2082,18 +2124,20 @@ export function MotoresPageSurface(): React.JSX.Element {
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
 export function ResultadosPageSurface({
   results,
+  hasSession = false,
 }: {
   results: readonly LandingFinishedResultItem[];
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/resultados">
+    <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2112,7 +2156,7 @@ export function ResultadosPageSurface({
               Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2130,7 +2174,7 @@ export function ResultadosPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
@@ -2164,11 +2208,13 @@ const PARLAY_CONFLICT_EXAMPLES: ReadonlyArray<{
 
 export function ParlaysPageSurface({
   parlayDemo,
+  hasSession = false,
 }: {
   parlayDemo: LandingParlayDemoData;
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/parlays">
+    <PublicSiteShell activePath="/parlays" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2252,21 +2298,23 @@ export function ParlaysPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
 export function ComunidadPageSurface({
   featuredPick,
+  hasSession = false,
 }: {
   featuredPick?: LandingFeaturedCommunityPick;
+  hasSession?: boolean;
 }): React.JSX.Element {
-  const commissionPct = TIPSTAR_CREATORS[0]?.commissionPct ?? 25;
-  const promoFreeDays = TIPSTAR_CREATORS[0]?.freeDays ?? 5;
+  const commissionPct = TIPSTER_CREATORS[0]?.commissionPct ?? 25;
+  const promoFreeDays = TIPSTER_CREATORS[0]?.freeDays ?? 5;
 
   return (
-    <PublicSiteShell activePath="/comunidad">
+    <PublicSiteShell activePath="/comunidad" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2285,14 +2333,14 @@ export function ComunidadPageSurface({
               Solo escriben socios con su pase activo. Cada publicación queda registrada antes del partido y no acepta enlaces externos ni grupos de spam.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
                 </span>
               </a>
-              <a className="pl-lp-btn pl-lp-btn-ghost" href="#tipstars">
-                ¿Eres tipstar?
+              <a className="pl-lp-btn pl-lp-btn-ghost" href="#tipsters">
+                ¿Eres tipster?
               </a>
             </div>
           </div>
@@ -2372,21 +2420,21 @@ export function ComunidadPageSurface({
         </div>
       </section>
 
-      <section id="tipstars" className="pl-lp-section">
+      <section id="tipsters" className="pl-lp-section">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
-            <p className="pl-lp-eyebrow">Programa Tipstar Oficial</p>
+            <p className="pl-lp-eyebrow">Programa Tipster Oficial</p>
             <h2 className="pl-lp-h2">
               ¿Tienes comunidad deportiva? Audita tu récord con nosotros.
             </h2>
             <p className="pl-lp-lede">
-              Los Tipstars Oficiales comparten 1 pick abierto por semana, regalan{" "}
+              Los Tipsters Oficiales comparten 1 pick abierto por semana, regalan{" "}
               {promoFreeDays} días de prueba con su código y reciben {commissionPct} % de comisión recurrente por cada referido con pase activo.
             </p>
           </div>
 
           <div className="pl-lp-grid-3">
-            {TIPSTAR_CREATORS.map((creator) => (
+            {TIPSTER_CREATORS.map((creator) => (
               <article
                 key={creator.handle}
                 className="pl-lp-card pl-lp-panel glass-card glass-ring"
@@ -2442,7 +2490,7 @@ export function ComunidadPageSurface({
 
           <div>
             <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
-              Crear cuenta y solicitar perfil Tipstar{" "}
+              Crear cuenta y solicitar perfil Tipster{" "}
               <span className="pl-lp-arr" aria-hidden="true">
                 →
               </span>
@@ -2451,15 +2499,90 @@ export function ComunidadPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
-export function PrecioPageSurface(): React.JSX.Element {
+export interface PrecioTransferRequestSummary {
+  id: string;
+  planInterval: "monthly" | "annual";
+  amountCentavosMxn: number;
+  reportedAmountCentavosMxn: number | null;
+  amountMismatch: boolean;
+  referralDiscountApplied: boolean;
+  referenceCode: string;
+  originBank: string | null;
+  receiptReference: string | null;
+  payerName: string | null;
+  transferDate: string | null;
+  userNote: string | null;
+  status: "pending_review" | "approved" | "rejected" | "canceled";
+  rejectionReason: string | null;
+  reviewedAtIso: string | null;
+  couponExpiresAtIso: string | null;
+  couponRedeemedAtIso: string | null;
+  awaitingCouponRedemption: boolean;
+  createdAtIso: string;
+  updatedAtIso: string;
+}
+
+export interface PrecioTransferContext {
+  paymentMode: "transfer" | "stripe";
+  accountsEnabled: boolean;
+  viewerState: "guest" | "incomplete_signup" | "member" | "beta_preview";
+  memberHandle: string | null;
+  speiReferenceCode: string | null;
+  bank: {
+    configured: boolean;
+    bank: string | null;
+    beneficiary: string | null;
+    clabe: string | null;
+    clabeMasked: string | null;
+    instructions: string | null;
+    supportEmail: string;
+  } | null;
+  quotes: {
+    monthlyCentavos: number;
+    annualCentavos: number;
+    referralDiscountApplied: boolean;
+  };
+  activePending: PrecioTransferRequestSummary | null;
+  latestApproved: PrecioTransferRequestSummary | null;
+  latestRejected: PrecioTransferRequestSummary | null;
+  activePass: boolean;
+}
+
+export function PrecioPageSurface({
+  hasSession = false,
+  transferContext,
+}: {
+  hasSession?: boolean;
+  transferContext?: PrecioTransferContext;
+} = {}): React.JSX.Element {
+  const effectiveContext: PrecioTransferContext = transferContext ?? {
+    paymentMode: "transfer",
+    accountsEnabled: true,
+    viewerState: "guest",
+    memberHandle: null,
+    speiReferenceCode: null,
+    bank: null,
+    quotes: {
+      monthlyCentavos: MEMBERSHIP_SPEC.monthlyMxn * 100,
+      annualCentavos: MEMBERSHIP_SPEC.annualMxn * 100,
+      referralDiscountApplied: false,
+    },
+    activePending: null,
+    latestApproved: null,
+    latestRejected: null,
+    activePass: false,
+  };
+
   return (
-    <PublicSiteShell activePath="/precio">
-      <PricingSection variant="page" />
+    <PublicSiteShell activePath="/precio" hasSession={hasSession} className="pl-lp--precio">
+      <PricingSection variant="page" hasSession={hasSession} />
+
+      <SpeiTransferPricingIsland context={effectiveContext} />
 
       <section id="referidos" className="pl-lp-section">
         <div className="pl-lp-wrap pl-lp-stack">
@@ -2534,28 +2657,8 @@ export function PrecioPageSurface(): React.JSX.Element {
         </div>
       </section>
 
-      <section id="facturacion" className="pl-lp-section">
-        <div className="pl-lp-wrap">
-          <div className="pl-lp-card pl-lp-panel glass-card glass-ring">
-            <p className="pl-lp-eyebrow">Facturación en México</p>
-            <h2 className="pl-lp-h2">Precio transparente con factura CFDI.</h2>
-            <p className="pl-lp-lede">{MEMBERSHIP_SPEC.cfdiNote}.</p>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 15,
-                color: "var(--pl-text-secondary)",
-                lineHeight: 1.55,
-              }}
-            >
-              Prueba actual: {MEMBERSHIP_SPEC.trialMonth1Label}. Puedes cancelar en cualquier momento desde tu perfil antes de que termine el periodo de prueba.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <FaqSection />
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }

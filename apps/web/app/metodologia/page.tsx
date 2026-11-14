@@ -1,5 +1,11 @@
 import { permanentRedirect } from "next/navigation";
+import { toQueryString } from "../../src/server/query-string";
 
-export default function MetodologiaRedirectPage(): never {
-  permanentRedirect("/motores");
+export default async function MetodologiaRedirectPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<never> {
+  const qs = toQueryString(searchParams ? await searchParams : undefined);
+  permanentRedirect(`/motores${qs}`);
 }

@@ -17,7 +17,7 @@ Si ya implementaste el login con `prompts/antigravity/LOGIN.md`, reutiliza todo 
    - `apps/web/app/signup/page.tsx`: pasa `mode="signup"` e `initialPromoCode` (de `?code=`).
    - `packages/ui/src/platform/public/AuthAndOnboardingSurfaces.tsx`: `AuthSurfaceV4` (login y signup), `describePromoBenefit`, `normalizeTrialEmail`, `isDisposableEmailDomain`, `requestMagicLink`, `startSocialSignIn`.
    - `apps/web/src/server/auth.ts`: hay enlace mágico, Google y Apple. **No hay contraseña.**
-   - `packages/ui/src/platform/spacetime-catalog.ts` y `TIPSTAR_CREATORS`: el nombre de quien invita sale de ahí.
+   - `packages/ui/src/platform/spacetime-catalog.ts` y `TIPSTER_CREATORS`: el nombre de quien invita sale de ahí.
    - `apps/web/src/server/public-site-data.ts` (`buildHeroLeagueCards`, `selectHeroMainCards`): datos del panel derecho.
    - `apps/web/app/onboarding/page.tsx`: a donde lleva el enlace después de confirmar.
 5. Las pruebas: `apps/web/e2e/pre-mvp.spec.ts`, prueba 2, el bloque «/signup: escudo anti-abuso». Hoy usa `#auth-promo`, `#auth-email`, `form.auth-form button[type='submit']`, `p[role='alert']` con «temporales» y que la página muestre el correo normalizado (`juanperez@gmail.com`). Además corre axe (WCAG 2 A y AA) sobre `/signup`.
@@ -28,7 +28,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
 
 - **Dos pasos cortos**, no un formulario largo: 1) cómo entras; 2) edad y consentimientos. Después, «Confirma tu correo».
 - **Sin contraseña.** El correo se confirma con un enlace y ahí empiezan los 7 días.
-- **Sin campo para escribir códigos.** Fuera de `/signup`: el campo «Código de Tipstar o Referido», las fichas SOFIA5/JAIR, la casilla de edad suelta y la tarjeta «Pase PitchLab Ultra». El código llega por `?code=` y se muestra como aviso.
+- **Sin campo para escribir códigos.** Fuera de `/signup`: el campo «Código de Tipster o Referido», las fichas SOFIA5/JAIR, la casilla de edad suelta y la tarjeta «Pase PitchLab Ultra». El código llega por `?code=` y se muestra como aviso.
 - **Sin mascota.** Un solo botón primario (blanco) por estado.
 - **Vidrio falso del club, refinado.** Prohibidos `backdrop-filter` y `filter: blur`: las luces de color son solo degradados.
 - **Copy exacto del lienzo:** «Crea tu cuenta», «7 días gratis, sin tarjeta. Al terminar decides si sigues.», «Sin contraseña: te mandamos un enlace para confirmar tu correo.», «Unos datos más», «Solo mayores de 18. Si no cumples la edad, no creamos la cuenta ni guardamos tus datos.», «Confirma tu correo», «Un periodo de prueba por persona.», «Solo mayores de 18. PitchLab no acepta apuestas.» Nada de «gana», «cobra», ROI, Kelly ni «Primer mes gratis».
@@ -62,7 +62,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
 | **Paso 2 · datos** | «Para {correo normalizado}» (de `normalizeTrialEmail`), fecha de nacimiento en 3 selectores (`autocomplete` `bday-day`/`bday-month`/`bday-year`), regla de edad, y 3 consentimientos: Términos y Aviso de privacidad (**Obligatorio**), Analítica anónima (**Opcional**), Novedades por correo (**Opcional**), estos dos desmarcados. «Crear cuenta» deshabilitado hasta tener fecha completa y términos aceptados. «Atrás». | Si la fecha da menos de 18 años: mensaje de error con `role="alert"`, no se envía nada y no se guarda nada. Con cuentas: `requestMagicLink(correo, "/onboarding")` → «Confirma tu correo». En beta: `openBetaPin("/onboarding")`, como hoy. |
 | **Confirma tu correo** | Ícono de correo en vidrio, «Confirma tu correo», el correo en negritas, «Reenviar» y «Usar otro correo». | Reenviar, con un tope de 1 cada 30 s (cuenta regresiva en el botón). «Usar otro correo» vuelve al paso 1 con el campo vacío. |
 
-- **Invitación:** si `initialPromoCode` coincide con el `promoCode` de un creador de `TIPSTAR_CREATORS`, el aviso dice «{Nombre} te invitó. Tus 7 días gratis ya están apartados.». Si el código es válido pero no tiene nombre, «{CÓDIGO} aplicado. Tus 7 días gratis ya están apartados.». Si no es válido, no se muestra nada (no inventes un error). Usa `describePromoBenefit` para decidir si es válido. Ponle `data-testid="invite-notice"`.
+- **Invitación:** si `initialPromoCode` coincide con el `promoCode` de un creador de `TIPSTER_CREATORS`, el aviso dice «{Nombre} te invitó. Tus 7 días gratis ya están apartados.». Si el código es válido pero no tiene nombre, «{CÓDIGO} aplicado. Tus 7 días gratis ya están apartados.». Si no es válido, no se muestra nada (no inventes un error). Usa `describePromoBenefit` para decidir si es válido. Ponle `data-testid="invite-notice"`.
 - **Edad y consentimientos sin backend nuevo:** hoy no hay tablas `consent`, `birth_date` ni `trial_claim` en `packages/db`. No crees migraciones. Valida la edad en el cliente, guarda el estado del paso 2 en un objeto tipado (`SignupDetails`: `birthDate`, `consents: { terms, analytics, marketing, version }`) y pásalo a una función `submitSignupDetails` que hoy solo lo deja en `sessionStorage` para `/onboarding`, con un comentario `// TODO(F4)` que apunte a `AUTH_BILLING_GROWTH.md` §1. Repórtalo al final como pendiente.
 - **Errores** debajo del campo, con `aria-live="polite"` y `aria-describedby`. El de correo temporal conserva `role="alert"` y la palabra «temporales».
 - **Mientras se envía:** botón ocupado (`aria-busy`, «Creando…»), sin doble envío.

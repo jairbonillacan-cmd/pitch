@@ -1,1 +1,1 @@
-export { dynamic, default } from "../../pricing/referral/page";
+export { dynamic, generateMetadata, default } from "../../pricing/referral/page";

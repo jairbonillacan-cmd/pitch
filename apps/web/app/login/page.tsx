@@ -1,6 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
-import { AuthSurfaceV4, LoginPreviewPanel } from "@pitchlab/ui";
+import { redirect } from "next/navigation";
+import { authPageRedirect } from "../../src/server/auth-page";
+import { getViewerAccess } from "../../src/server/viewer-access";
+import { AuthSurfaceV4 } from "@pitchlab/ui/auth";
+import { LoginPreviewPanel } from "@pitchlab/ui/login-preview";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { loadPublicPlatformState } from "../../src/server/platform-data";
@@ -18,12 +22,15 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{
     next?: string;
+    paso?: string;
     ref?: string;
     invite?: string;
     code?: string;
   }>;
 }): Promise<React.JSX.Element> {
-  const { next, ref, invite, code } = await searchParams;
+  const { next, ref, invite, code, paso } = await searchParams;
+  const destination = authPageRedirect("login", paso, next, await getViewerAccess());
+  if (destination) redirect(destination);
   const nextPath = sanitizeNextPath(next);
   const initialPromoCode = (ref ?? invite ?? code ?? "").trim();
 
@@ -49,10 +56,14 @@ export default async function LoginPage({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      viewerVia={state.viewerVia}
+      paymentMode={state.paymentMode}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
+      viewerIdentity={state.viewerIdentity}
     >
       <AuthSurfaceV4
         mode="login"
+        loginStep={paso === "confirmado" ? "confirmed" : paso === "vencido" ? "expired" : undefined}
         nextPath={nextPath}
         initialPromoCode={initialPromoCode}
         previewSlot={previewSlot}

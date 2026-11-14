@@ -39,7 +39,7 @@ const artifacts = {
 } as unknown as LiveInferenceArtifacts;
 
 /** Liga de la app → liga en la matriz de v3.0. */
-const LEAGUE_TO_V3: Readonly<Record<string, string>> = {
+export const LEAGUE_TO_V3: Readonly<Record<string, string>> = {
   "premier-league": "epl",
 };
 
@@ -94,7 +94,28 @@ const DRIVER_LABELS: Record<string, string> = {
 const BOOK_LABELS: Record<string, string> = {
   caliente_mx: "Caliente",
   pinnacle: "Pinnacle",
+  betfair_exchange: "Betfair Exchange",
+  smarkets: "Smarkets",
+  matchbook: "Matchbook",
+  bet365: "Bet365",
+  draftkings: "DraftKings",
+  fanduel: "FanDuel",
+  betmgm: "BetMGM",
+  codere: "Codere",
+  williamhill: "William Hill",
+  unibet: "Unibet",
 };
+
+export function formatBookLabel(book: string): string {
+  const clean = book.trim().toLowerCase();
+  if (BOOK_LABELS[clean]) return BOOK_LABELS[clean]!;
+  if (!clean) return "Casa";
+  return clean
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
 
 function tokens(raw: string): string[] {
   return raw
@@ -118,7 +139,7 @@ function aliasTokens(raw: string): string[] {
  * Parecido entre dos nombres: 0 si las palabras distintivas del más corto no están todas en
  * el otro; si lo están, la fracción del más largo que cubren (1 = mismos nombres).
  */
-function teamScore(a: string, b: string): number {
+export function teamScore(a: string, b: string): number {
   const ta = aliasTokens(a);
   const tb = aliasTokens(b);
   if (ta.length === 0 || tb.length === 0) return 0;

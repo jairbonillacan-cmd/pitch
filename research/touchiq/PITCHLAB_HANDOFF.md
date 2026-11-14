@@ -10,7 +10,7 @@
 ## 1. Qué Funcionalidades Ofrece TouchIQ
 
 `[OBSERVADO]` TouchIQ se presenta como una suite de analítica deportiva y generación de picks:
-- **Pantalla de Acceso con Código:** Pad numérico interactivo que solicita una clave de 4 dígitos (7779).
+- **Pantalla de Acceso con Código:** Pad numérico interactivo que solicita una clave de 4 dígitos ([REDACTED_PIN]).
 - **Tablero Home:** Navegación por tarjetas visuales (robots deportivos con efecto 3D tilt).
 - **Tableros Deportivos Dedicados (NFL y NCAA):**
   - Vista de partidos con probabilidades calculadas en vivo para 15 mercados de apuesta.
@@ -43,7 +43,7 @@
 | **Modo Local del Asistente IA** | Verificado en vivo respondiendo con datos del DOM | **100% Verificado** |
 | **Selector de Fútbol en TouchIQ** | El DOM `#s2` existe pero su entrada en `drawHome()` está desconectada | **Verificado (Código en reposo / Staged)** |
 | **Conexión a Servidores / Backend** | Verificado con CDP: **CERO requests de red en runtime** | **100% Verificado (Ausencia total)** |
-| **Seguridad del PIN 7779** | Verificado que es una simple comparación client-side en texto plano | **100% Verificado (Inseguro)** |
+| **Seguridad del PIN [REDACTED_PIN]** | Verificado que es una simple comparación client-side en texto plano | **100% Verificado (Inseguro)** |
 
 ---
 
@@ -115,7 +115,7 @@
 
 1. **Cuello de botella humano:** La necesidad de transcribir todo manualmente imposibilita la cobertura de docenas de ligas y la actualización rápida de cuotas.
 2. **Monolito de 2.4 MB:** Servir toda la información en un solo documento sobrecarga la memoria del navegador y no escala.
-3. **Cero Seguridad:** Acceso en texto plano (7779), datos y modelos expuestos al público y almacenamiento local sin cifrar.
+3. **Cero Seguridad:** Acceso en texto plano ([REDACTED_PIN]), datos y modelos expuestos al público y almacenamiento local sin cifrar.
 4. **Rigidez Paramétrica:** Desviaciones estándar estáticas que no contemplan números clave de la NFL ni condiciones climáticas adversas.
 
 ---
@@ -182,7 +182,7 @@
 | **Cálculo de EV y Sizing** | `script_0.js`, `aztecavet-math.test.ts` | Muy Buena (noVig multiplicativo, Kelly discreto 5/10%) | Kelly Fraccional continuo + Optimización de Portafolio Markowitz | **Alta (Fase 1)** |
 | **Boleto y Bankroll** | `script_0.js`, capturas `11`-`13` | Aceptable (Virtual en localStorage, liquidación manual) | Multi-tenant seguro en PostgreSQL + BetSync automático con casas | **Alta (Fase 1)** |
 | **Ingesta de Cuotas** | `MONEY` en código (DraftKings 7 nov) | Deficiente (Snapshot estático semanal manual) | Ingesta streaming sub-segundo con The Odds API (15+ casas) | **Crítica (Fase 2)** |
-| **Control de Acceso / Auth** | `CODE="7779"` en texto plano | Inexistente / Insegura (Cosmética client-side) | Auth segura OAuth2/JWT con Argon2id, roles y tiers de suscripción | **Crítica (Fase 2)** |
+| **Control de Acceso / Auth** | `CODE="[REDACTED_PIN]"` en texto plano | Inexistente / Insegura (Cosmética client-side) | Auth segura OAuth2/JWT con Argon2id, roles y tiers de suscripción | **Crítica (Fase 2)** |
 | **Asistente de IA** | `script_2.js`, capturas `14`-`15` | Media (DOM scraping frágil + regex fallback) | Agente RAG sobre base vectorial (pgvector) con Tool Calling | **Media (Fase 3)** |
 | **Props de Jugadores** | `PJ` en código (congelado al 19 oct) | Aceptable (Fórmulas Poisson/Normal sobre baselines) | Proyecciones dinámicas actualizadas tras cada práctica médica | **Media (Fase 3)** |
 | **Audio Sintético** | `AudioContext` en `script_0.js` | Muy Alta técnica / Nicho en producto | Sistema de diseño profesional con audio sutil desactivado por defecto | **Baja (Fase 4)** |

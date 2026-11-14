@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
-import { exampleLeaderboardRows, getExampleGameMeta } from "../community-examples";
-import { usePlatform } from "../platform-provider";
+import {
+  exampleLeaderboardRows,
+  getExampleAnalystSpec,
+  getExampleGameMeta,
+  OWN_PROFILE_ALIASES,
+} from "../community-examples";
+import { MaestroIcon } from "../components/MaestroPrimitives";
+import { TopLayerModalDialog } from "../components/PlatformOverlays";
+import { usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
-import type { JournalEntry, PlatformDataset, ViewerRole } from "../types";
+import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
 /* ---------------------------------------------------------------------------
    Identidad propia
@@ -16,12 +23,28 @@ export interface OwnIdentity {
   name: string;
   avatarInitials: string;
   avatarGradVar: string;
+  avatarUrl?: string | null;
 }
 
-/** Quién eres en Comunidad. Los socios publican como `socio_pl` en la beta. */
-export function ownIdentityFor(role: ViewerRole): OwnIdentity | null {
+/**
+ * Quién eres en Comunidad. Con cuenta, tu nombre y @usuario; con el PIN de la beta,
+ * los socios publican como `socio_pl` y el tipster simulado como `sofia_nfl`.
+ */
+export function ownIdentityFor(
+  role: ViewerRole,
+  identity: ViewerIdentity | null = null,
+): OwnIdentity | null {
   if (role === "visitor") return null;
-  if (role === "tipstar") {
+  if (identity) {
+    return {
+      handle: identity.handle,
+      name: identity.displayName,
+      avatarInitials: identity.initials,
+      avatarGradVar: "var(--avatar-grad-4)",
+      avatarUrl: identity.avatarUrl ?? null,
+    };
+  }
+  if (role === "tipster") {
     return {
       handle: "sofia_nfl",
       name: "Sofía Méndez",
@@ -37,21 +60,95 @@ export function ownIdentityFor(role: ViewerRole): OwnIdentity | null {
   };
 }
 
-/** Alias del menú de cuenta que también apuntan a tu perfil. */
-export const OWN_PROFILE_ALIASES = ["jair", "jair_founder", "socio_pl"] as const;
+/** Alias de la beta con PIN que también apuntan a tu perfil (con cuenta no hay alias). */
+export { OWN_PROFILE_ALIASES };
 
-/** Filas del leaderboard: perfiles de ejemplo + tu bitácora real. */
+/** ¿Este @usuario de la URL es tu perfil? */
+export function isOwnProfileHandle(handle: string, own: OwnIdentity | null, hasAccount: boolean): boolean {
+  if (!own) return false;
+  if (handle === own.handle) return true;
+  return !hasAccount && (OWN_PROFILE_ALIASES as readonly string[]).includes(handle);
+}
+
+/** Filas que manda `/api/social/ranking` (cifras agregadas, sin picks). */
+export interface ServerRankingRow {
+  handle: string;
+  name: string;
+  avatarUrl: string | null;
+  isTipster: boolean;
+  windows: NonNullable<LeaderboardAnalyst["windows"]>;
+}
+
+function initialsOf(name: string): string {
+  return (
+    name
+      .split(/\s+/)
+      .map((w) => w[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "PL"
+  );
+}
+
+export function rowsFromServer(rows: readonly ServerRankingRow[]): LeaderboardAnalyst[] {
+  return rows.map((r) => ({
+    handle: r.handle,
+    name: r.name,
+    roleLabel: r.isTipster ? "Tipster" : "Socio",
+    specialty: "Socio verificado",
+    avatarInitials: initialsOf(r.name),
+    avatarGradVar: r.isTipster ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
+    avatarUrl: r.avatarUrl,
+    isTipster: r.isTipster,
+    isVerified: r.isTipster,
+    isExample: false,
+    journal: [],
+    windows: r.windows,
+  }));
+}
+
+/**
+ * Filas del leaderboard.
+ * - Con cuenta: el ranking real del servidor (solo socios que aceptaron aparecer). Si
+ *   todavía nadie aparece, se muestran perfiles de ejemplo marcados como tales.
+ * - Con el PIN de la beta: perfiles de ejemplo + tu récord local.
+ */
 export function useLeaderboardRows(): {
   rows: LeaderboardAnalyst[];
   own: OwnIdentity | null;
   today: Date;
+  /** `server`: ranking real; `examples`: perfiles de ejemplo (la vista lo dice). */
+  source: "server" | "examples";
+  /** Tu récord local (para decirte cuántos picks te faltan aunque no aparezcas). */
+  ownJournal: readonly JournalEntry[];
 } {
-  const { journal, viewerRole } = usePlatform();
+  const { journal, viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatform();
   const today = useMemo(() => new Date(), []);
-  const own = useMemo(() => ownIdentityFor(viewerRole), [viewerRole]);
+  const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
+  const [serverRows, setServerRows] = useState<ServerRankingRow[] | null>(null);
+
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let alive = true;
+    fetch("/api/social/ranking", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { rows?: ServerRankingRow[] } | null) => {
+        if (alive && Array.isArray(data?.rows)) setServerRows(data.rows);
+      })
+      .catch((err: unknown) => {
+        void err;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [hasAccountSessionAuth]);
+
+  const fromServer = useMemo(() => (serverRows ? rowsFromServer(serverRows) : null), [serverRows]);
   const rows = useMemo(() => {
+    if (fromServer && fromServer.length > 0) return fromServer;
     const examples = exampleLeaderboardRows(today);
-    if (!own || examples.some((r) => r.handle === own.handle)) return examples;
+    // Con cuenta, tu récord solo entra al ranking real (si aceptaste aparecer).
+    if (!own || fromServer || examples.some((r) => r.handle === own.handle)) return examples;
     return [
       ...examples,
       {
@@ -61,14 +158,15 @@ export function useLeaderboardRows(): {
         specialty: "Varias ligas",
         avatarInitials: own.avatarInitials,
         avatarGradVar: own.avatarGradVar,
-        isTipstar: false,
+        isTipster: false,
         isVerified: false,
         isExample: false,
         journal,
       },
     ];
-  }, [journal, own, today]);
-  return { rows, own, today };
+  }, [fromServer, journal, own, today]);
+  const source = fromServer && fromServer.length > 0 ? "server" : "examples";
+  return { rows, own, today, source, ownJournal: journal };
 }
 
 /* ---------------------------------------------------------------------------
@@ -143,21 +241,43 @@ export function relativeTime(iso: string | undefined, now: Date = new Date()): s
 export function Avatar({
   initials,
   gradVar,
+  avatarUrl,
   size = 40,
+  loading,
+  fetchPriority,
   className,
 }: {
   initials: string;
   gradVar: string;
+  avatarUrl?: string | null;
   size?: number;
+  loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
   className?: string;
 }): React.JSX.Element {
+  const [brokenUrl, setBrokenUrl] = useState<string | null>(null);
+  const showImage = Boolean(avatarUrl && brokenUrl !== avatarUrl);
   return (
     <span
       className={["pl-avatar", className].filter(Boolean).join(" ")}
       style={{ width: size, height: size, background: gradVar, fontSize: Math.round(size * 0.34) }}
       aria-hidden="true"
     >
-      {initials}
+      {showImage ? (
+        <img
+          src={avatarUrl!}
+          alt=""
+          width={size}
+          height={size}
+          loading={loading}
+          fetchPriority={fetchPriority}
+          decoding="async"
+          className="pl-avatar-img"
+          onError={() => setBrokenUrl(avatarUrl ?? null)}
+        />
+      ) : (
+        initials
+      )}
     </span>
   );
 }
@@ -351,14 +471,17 @@ export function UnderlineTabs<K extends string>({
 export function TabPanel<K extends string>({
   tabKey,
   idPrefix,
+  active,
   children,
   className,
 }: {
   tabKey: K;
   idPrefix: string;
+  active?: K;
   children: React.ReactNode;
   className?: string;
-}): React.JSX.Element {
+}): React.JSX.Element | null {
+  if (active !== undefined && active !== tabKey) return null;
   return (
     <div
       key={tabKey}
@@ -374,7 +497,9 @@ export function TabPanel<K extends string>({
 }
 
 /* ---------------------------------------------------------------------------
-   Seguidos (en este navegador hasta que exista el servidor)
+   Seguidos
+   - Socios reales: en el servidor (`/api/social/follows`), los ve en cualquier dispositivo.
+   - Perfiles de ejemplo, o sin cuenta (PIN de beta): en este navegador.
    ------------------------------------------------------------------------- */
 
 const FOLLOWING_KEY = "pitchlab.community.following";
@@ -391,38 +516,452 @@ function readFollowing(): string[] {
   }
 }
 
-/**
- * A quién sigues. TODO(F4): guardar en el servidor; hoy vive en este navegador
- * y se comparte entre Comunidad y Perfil.
- */
+function writeFollowing(next: readonly string[]): void {
+  try {
+    window.localStorage.setItem(FOLLOWING_KEY, JSON.stringify(next));
+  } catch (err) {
+    void err;
+  }
+}
+
+/** Seguidos en el servidor, compartidos entre Comunidad y Perfil. null = sin servidor. */
+let serverFollowing: string[] | null = null;
+let serverFollowingRequest: Promise<void> | null = null;
+/** De quién es el caché: si cambia la cuenta en la misma pestaña, se vuelve a pedir. */
+let serverFollowingOwner: string | null = null;
+
+function loadServerFollowing(owner: string): Promise<void> {
+  if (serverFollowingOwner !== owner) {
+    serverFollowingOwner = owner;
+    serverFollowing = null;
+    serverFollowingRequest = null;
+  }
+  serverFollowingRequest ??= (async () => {
+    try {
+      const res = await fetch("/api/social/follows", { credentials: "same-origin" });
+      const data = res.ok ? ((await res.json()) as { handles?: unknown }) : null;
+      if (Array.isArray(data?.handles)) {
+        serverFollowing = data.handles.filter((h): h is string => typeof h === "string");
+        window.dispatchEvent(new Event(FOLLOWING_EVENT));
+      }
+    } catch (err) {
+      void err;
+    }
+  })();
+  return serverFollowingRequest;
+}
+
+function currentFollowing(): string[] {
+  const local = readFollowing();
+  if (!serverFollowing) return local;
+  // Con servidor, del navegador solo cuentan los perfiles de ejemplo.
+  const examples = local.filter((h) => getExampleAnalystSpec(h));
+  return [...new Set([...serverFollowing, ...examples])];
+}
+
 export function useFollowing(): {
   following: readonly string[];
   isFollowing: (handle: string) => boolean;
   toggle: (handle: string) => boolean;
 } {
+  const { hasAccountSessionAuth, viewerIdentity, pushToast } = usePlatform();
+  const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
   useEffect(() => {
-    setFollowing(readFollowing());
-    const sync = (): void => setFollowing(readFollowing());
+    const sync = (): void => setFollowing(currentFollowing());
+    sync();
+    if (hasAccountSessionAuth && owner) void loadServerFollowing(owner);
     window.addEventListener(FOLLOWING_EVENT, sync);
     window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener(FOLLOWING_EVENT, sync);
       window.removeEventListener("storage", sync);
     };
+  }, [hasAccountSessionAuth, owner]);
+  const toggle = useCallback(
+    (handle: string): boolean => {
+      const willFollow = !currentFollowing().includes(handle);
+      if (hasAccountSessionAuth && serverFollowing && !getExampleAnalystSpec(handle)) {
+        const before = serverFollowing;
+        serverFollowing = willFollow ? [...before, handle] : before.filter((h) => h !== handle);
+        window.dispatchEvent(new Event(FOLLOWING_EVENT));
+        void (async () => {
+          try {
+            const res = await fetch("/api/social/follows", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ handle, follow: willFollow }),
+            });
+            if (!res.ok) throw new Error(String(res.status));
+          } catch (err) {
+            void err;
+            serverFollowing = before;
+            window.dispatchEvent(new Event(FOLLOWING_EVENT));
+            pushToast("No pudimos guardar a quién sigues. Inténtalo de nuevo.", "danger");
+          }
+        })();
+        return willFollow;
+      }
+      const local = readFollowing();
+      writeFollowing(willFollow ? [...local, handle] : local.filter((h) => h !== handle));
+      window.dispatchEvent(new Event(FOLLOWING_EVENT));
+      return willFollow;
+    },
+    [hasAccountSessionAuth, pushToast],
+  );
+  const isFollowing = useCallback((handle: string) => following.includes(handle), [following]);
+  return { following, isFollowing, toggle };
+}
+
+/* ---------------------------------------------------------------------------
+   Menú y diálogo de reporte (publicaciones y comentarios ajenos)
+   ------------------------------------------------------------------------- */
+
+export const SOCIAL_REPORT_REASON_OPTIONS: ReadonlyArray<{
+  value: SocialReportReason;
+  label: string;
+}> = [
+  { value: "spam_enlaces", label: "Spam o enlaces" },
+  { value: "ofensivo", label: "Ofensivo" },
+  { value: "apuesta_riesgosa", label: "Apuesta riesgosa o promesa de ganancias" },
+  { value: "otro", label: "Otro" },
+];
+
+export interface SocialReportTarget {
+  kind: "post" | "comment";
+  postId?: string;
+  commentId?: string;
+  authorHandle: string;
+}
+
+export function SocialReportMenu({
+  triggerLabel,
+  onReport,
+  compact = false,
+}: {
+  triggerLabel: string;
+  onReport: () => void;
+  compact?: boolean;
+}): React.JSX.Element {
+  const rawId = useId();
+  const menuId = `pl-com-menu-${rawId.replace(/[^a-zA-Z0-9_-]/g, "")}`;
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const openingDialogRef = useRef(false);
+
+  useEffect(() => {
+    const menuEl = menuRef.current;
+    const triggerEl = triggerRef.current;
+    if (!menuEl || !triggerEl || typeof menuEl.showPopover !== "function") return;
+
+    const hasFocusGroup = typeof HTMLElement !== "undefined" && "focusGroup" in HTMLElement.prototype;
+    const hasAnchor = typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("position-area", "block-end");
+
+    const getItems = (): HTMLButtonElement[] =>
+      [...menuEl.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")];
+
+    if (!hasFocusGroup) {
+      menuEl.setAttribute("role", "menu");
+      getItems().forEach((item, idx) => {
+        item.setAttribute("role", "menuitem");
+        item.tabIndex = idx === 0 ? 0 : -1;
+      });
+    }
+
+    const onToggle = (): void => {
+      const isOpen = menuEl.matches(":popover-open");
+      setOpen(isOpen);
+      if (isOpen) {
+        if (!hasAnchor) {
+          const rect = triggerEl.getBoundingClientRect();
+          const menuRect = menuEl.getBoundingClientRect();
+          const pad = 8;
+          const left = Math.min(
+            Math.max(pad, rect.right - menuRect.width),
+            Math.max(pad, window.innerWidth - menuRect.width - pad),
+          );
+          const below = rect.bottom + 6 + menuRect.height <= window.innerHeight - pad;
+          const top = below ? rect.bottom + 6 : Math.max(pad, rect.top - menuRect.height - 6);
+          menuEl.style.position = "fixed";
+          menuEl.style.margin = "0";
+          menuEl.style.inset = "auto";
+          menuEl.style.left = `${left}px`;
+          menuEl.style.top = `${top}px`;
+        }
+        const items = getItems();
+        if (!hasFocusGroup) {
+          items.forEach((item, idx) => {
+            item.tabIndex = idx === 0 ? 0 : -1;
+          });
+        }
+        items[0]?.focus();
+      } else {
+        if (!openingDialogRef.current && menuEl.contains(document.activeElement)) {
+          triggerEl.focus();
+        }
+        openingDialogRef.current = false;
+      }
+    };
+
+    const onKeyDown = (e: KeyboardEvent): void => {
+      if (hasFocusGroup) return;
+      const items = getItems();
+      if (items.length === 0) return;
+      const idx = items.indexOf(document.activeElement as HTMLButtonElement);
+      let next = -1;
+      if (e.key === "ArrowDown") next = (idx + 1) % items.length;
+      else if (e.key === "ArrowUp") next = (idx - 1 + items.length) % items.length;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End") next = items.length - 1;
+      if (next < 0) return;
+      e.preventDefault();
+      items.forEach((el, j) => {
+        el.tabIndex = j === next ? 0 : -1;
+      });
+      items[next]?.focus();
+    };
+
+    menuEl.addEventListener("toggle", onToggle);
+    menuEl.addEventListener("keydown", onKeyDown);
+    return () => {
+      menuEl.removeEventListener("toggle", onToggle);
+      menuEl.removeEventListener("keydown", onKeyDown);
+    };
   }, []);
-  const toggle = useCallback((handle: string): boolean => {
-    const current = readFollowing();
-    const next = current.includes(handle) ? current.filter((h) => h !== handle) : [...current, handle];
+
+  return (
+    <span className="pl-com-more-wrap">
+      <button
+        ref={triggerRef}
+        type="button"
+        popoverTarget={menuId}
+        className={`pl-com-more-btn ${compact ? "pl-com-more-btn--sm" : ""}`}
+        aria-expanded={open}
+        aria-label={triggerLabel}
+        onClick={() => {
+          if (typeof menuRef.current?.showPopover !== "function") {
+            setOpen((v) => !v);
+          }
+        }}
+      >
+        <MaestroIcon name="dots" size={compact ? 14 : 16} />
+      </button>
+      <div
+        ref={menuRef}
+        id={menuId}
+        popover="auto"
+        data-fallback-open={open ? "true" : undefined}
+        className="pl-com-menu glass-lens glass-ring"
+        {...({ focusgroup: "menu nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+      >
+        <button
+          type="button"
+          className="pl-com-menu-item"
+          onClick={() => {
+            openingDialogRef.current = true;
+            if (typeof menuRef.current?.hidePopover === "function" && menuRef.current.matches(":popover-open")) {
+              menuRef.current.hidePopover();
+            } else {
+              setOpen(false);
+            }
+            onReport();
+          }}
+        >
+          <MaestroIcon name="flag" size={14} />
+          <span>Reportar</span>
+        </button>
+      </div>
+    </span>
+  );
+}
+
+export function SocialReportDialog({
+  target,
+  onClose,
+}: {
+  target: SocialReportTarget | null;
+  onClose: () => void;
+}): React.JSX.Element | null {
+  const uid = useId();
+  const { reportSocialContent } = usePlatform();
+  const [reason, setReason] = useState<SocialReportReason>("spam_enlaces");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (target) {
+      setReason("spam_enlaces");
+      setSubmitting(false);
+      setError("");
+    }
+  }, [target]);
+
+  if (!target) return null;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    setError("");
+    const res = await reportSocialContent({
+      postId: target.postId,
+      commentId: target.commentId,
+      reason,
+    });
+    setSubmitting(false);
+    if (!res.ok) {
+      setError(res.error ?? "No se pudo enviar el reporte.");
+      return;
+    }
+    onClose();
+  };
+
+  return (
+    <TopLayerModalDialog open onClose={onClose} ariaLabelledBy={`${uid}-title`} maxWidth="26rem">
+      <form className="pl-com-report-dialog glass-lens glass-ring" onSubmit={handleSubmit} noValidate>
+        <div className="pl-com-sheet-head">
+          <h2 id={`${uid}-title`} className="pl-com-sheet-title">
+            {target.kind === "post" ? "Reportar publicación" : "Reportar comentario"}
+          </h2>
+          <button type="button" className="pl-com-icon-btn" aria-label="Cerrar" onClick={onClose}>
+            <MaestroIcon name="x" size={16} />
+          </button>
+        </div>
+        <p className="pl-com-report-sub">
+          De <strong>@{target.authorHandle}</strong>. Tu reporte es confidencial y ayuda a mantener Comunidad limpia.
+        </p>
+        <fieldset className="pl-com-report-fieldset">
+          <legend className="pl-com-report-legend">Motivo del reporte</legend>
+          <div className="pl-com-report-options">
+            {SOCIAL_REPORT_REASON_OPTIONS.map((opt) => (
+              <label key={opt.value} className="pl-com-report-option">
+                <input
+                  type="radio"
+                  name={`${uid}-reason`}
+                  value={opt.value}
+                  checked={reason === opt.value}
+                  onChange={() => {
+                    setReason(opt.value);
+                    if (error) setError("");
+                  }}
+                />
+                <span>{opt.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div aria-live="polite" className="pl-com-error-slot">
+          {error ? (
+            <p className="pl-com-error" role="alert">
+              {error}
+            </p>
+          ) : null}
+        </div>
+        <div className="pl-com-report-actions">
+          <button type="button" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm" onClick={onClose}>
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm"
+            disabled={submitting}
+          >
+            {submitting ? "Enviando…" : "Enviar reporte"}
+          </button>
+        </div>
+      </form>
+    </TopLayerModalDialog>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Ligas y equipos que sigues (filtran «Siguiendo»)
+   ------------------------------------------------------------------------- */
+
+export interface FollowedTopics {
+  leagues: string[];
+  /** `liga:slug` del equipo. */
+  teams: string[];
+}
+
+const TOPICS_KEY = "pl-follow-topics-v1";
+const TOPICS_EVENT = "pl:follow-topics";
+const TOPICS_MAX = 40;
+
+function readTopics(): FollowedTopics {
+  try {
+    const raw = JSON.parse(window.localStorage.getItem(TOPICS_KEY) ?? "null") as Partial<FollowedTopics> | null;
+    const clean = (v: unknown) =>
+      Array.isArray(v) ? v.filter((x): x is string => typeof x === "string" && x.length <= 80).slice(0, TOPICS_MAX) : [];
+    return { leagues: clean(raw?.leagues), teams: clean(raw?.teams) };
+  } catch (err) {
+    void err;
+    return { leagues: [], teams: [] };
+  }
+}
+
+export const teamTopicKey = (league: string, slug: string): string => `${league}:${slug}`;
+
+/**
+ * Ligas y equipos que sigues en Comunidad. Viven en este navegador (no son tus ligas
+ * favoritas del Inicio): si se borran los datos del sitio, se pierden sin afectar nada más.
+ */
+export function useFollowedTopics(): {
+  topics: FollowedTopics;
+  toggleLeague: (league: string) => void;
+  toggleTeam: (key: string) => void;
+} {
+  const [topics, setTopics] = useState<FollowedTopics>({ leagues: [], teams: [] });
+  useEffect(() => {
+    const sync = (): void => setTopics(readTopics());
+    sync();
+    window.addEventListener(TOPICS_EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(TOPICS_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+  const write = useCallback((next: FollowedTopics) => {
+    setTopics(next);
     try {
-      window.localStorage.setItem(FOLLOWING_KEY, JSON.stringify(next));
+      window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
     } catch (err) {
       void err;
     }
-    setFollowing(next);
-    window.dispatchEvent(new Event(FOLLOWING_EVENT));
-    return next.includes(handle);
+    window.dispatchEvent(new Event(TOPICS_EVENT));
   }, []);
-  const isFollowing = useCallback((handle: string) => following.includes(handle), [following]);
-  return { following, isFollowing, toggle };
+  const toggle = (list: string[], value: string): string[] =>
+    list.includes(value) ? list.filter((v) => v !== value) : [...list, value].slice(0, TOPICS_MAX);
+  return {
+    topics,
+    toggleLeague: (league) => {
+      const cur = readTopics();
+      write({ ...cur, leagues: toggle(cur.leagues, league) });
+    },
+    toggleTeam: (key) => {
+      const cur = readTopics();
+      write({ ...cur, teams: toggle(cur.teams, key) });
+    },
+  };
+}
+
+/** ¿La publicación habla de una liga o un equipo que sigues? */
+export function postMatchesTopics(
+  post: Pick<SocialPost, "gameId" | "pick">,
+  topics: FollowedTopics,
+  dataset: PlatformDataset,
+): boolean {
+  if (topics.leagues.length === 0 && topics.teams.length === 0) return false;
+  const gameId = post.pick?.gameId ?? post.gameId;
+  if (!gameId) return false;
+  const meta = resolveEntryGame(gameId, dataset);
+  if (!meta) return false;
+  return (
+    topics.leagues.includes(meta.league) ||
+    topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
+    topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
+  );
 }

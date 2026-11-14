@@ -1,0 +1,80 @@
+import { z } from "zod";
+import { GameIdSchema, LeagueIdSchema, TeamIdSchema, type GameId, type LeagueId, type TeamId } from "./ids";
+
+/**
+ * La recolección automática de alineaciones permanece estrictamente APAGADA
+ * hasta contar con una fuente oficial verificada y auditada legalmente.
+ */
+export const LINEUPS_COLLECTION_ENABLED = false as const;
+
+export const InjuryStatusSchema = z.enum(["Baja", "Duda"]);
+export type InjuryStatus = z.infer<typeof InjuryStatusSchema>;
+
+export const TeamInjuryEntrySchema = z.object({
+  teamId: TeamIdSchema,
+  player: z.string().min(1).max(120),
+  position: z.string().max(40).optional(),
+  status: InjuryStatusSchema,
+  detail: z.string().min(1).max(240),
+  reportedAt: z.string().min(10),
+  gameId: GameIdSchema.optional(),
+});
+
+export type TeamInjuryEntry = z.infer<typeof TeamInjuryEntrySchema>;
+
+export const InjuriesCoverageStatusSchema = z.enum([
+  "ok",
+  "partial",
+  "no_public_feed",
+]);
+export type InjuriesCoverageStatus = z.infer<typeof InjuriesCoverageStatusSchema>;
+
+export const LeagueInjuriesFileSchema = z.object({
+  schemaVersion: z.literal(1),
+  league: LeagueIdSchema,
+  observedAt: z.string().min(10),
+  source: z.string().min(1),
+  coverageStatus: InjuriesCoverageStatusSchema,
+  entries: z.array(TeamInjuryEntrySchema),
+});
+
+export type LeagueInjuriesFile = z.infer<typeof LeagueInjuriesFileSchema>;
+
+export const ConfirmedLineupStarterSchema = z.object({
+  name: z.string().min(1).max(120),
+  number: z.number().int().positive().max(99).optional(),
+  position: z.string().max(24).optional(),
+});
+
+export type ConfirmedLineupStarter = z.infer<typeof ConfirmedLineupStarterSchema>;
+
+export const VerifiedGameLineupEntrySchema = z.object({
+  gameId: GameIdSchema,
+  sourceLabel: z.string().min(1).max(80),
+  verifiedAtUtc: z.string().min(10),
+  homeFormation: z.string().max(24).optional(),
+  awayFormation: z.string().max(24).optional(),
+  homeStarters: z.array(ConfirmedLineupStarterSchema).min(11).max(11),
+  awayStarters: z.array(ConfirmedLineupStarterSchema).min(11).max(11),
+});
+
+export type VerifiedGameLineupEntry = z.infer<typeof VerifiedGameLineupEntrySchema>;
+
+export const LeagueLineupsFileSchema = z.object({
+  schemaVersion: z.literal(1),
+  league: LeagueIdSchema,
+  enabled: z.boolean(),
+  observedAt: z.string().min(10),
+  source: z.string().min(1),
+  disabledReason: z.string().optional(),
+  entries: z.array(VerifiedGameLineupEntrySchema),
+});
+
+export type LeagueLineupsFile = z.infer<typeof LeagueLineupsFileSchema>;
+
+export interface MatchTeamInjuries {
+  readonly gameId?: GameId;
+  readonly league: LeagueId;
+  readonly teamId: TeamId;
+  readonly entries: readonly TeamInjuryEntry[];
+}

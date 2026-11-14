@@ -6,6 +6,7 @@ import {
   ESPN_LIGA_MX_SCOREBOARD,
   fetchEspnLigaMxSeason,
   normalizeEspnLigaMx,
+  resolveSafeEspnCachePath,
   type EspnLigaMxEvent,
 } from "../src/adapters/espn-liga-mx-schedule.js";
 
@@ -92,5 +93,39 @@ describe("Liga MX desde ESPN", () => {
     expect(season.events.map((e) => e.id)).toEqual(["1", "2", "4"]);
     // La fecha del 30 de diciembre queda fuera del horizonte de 21 días.
     expect(urls.some((u) => u.endsWith("dates=20261230"))).toBe(false);
+  });
+
+  it("SEC-13: rechaza escape de directorio en rutas de caché y descarta entradas de calendario o IDs no numéricos", async () => {
+    const cacheDir = mkdtempSync(join(tmpdir(), "espn-mx-sec-"));
+    expect(() => resolveSafeEspnCachePath(cacheDir, "../../fuera.json")).toThrow();
+    expect(() => resolveSafeEspnCachePath(cacheDir, "../escape/20261101.json")).toThrow();
+
+    const urls: string[] = [];
+    const season = await fetchEspnLigaMxSeason({
+      cacheDir,
+      referenceDate: "2026-11-10",
+      fetchJson: async (url) => {
+        urls.push(url);
+        if (url === ESPN_LIGA_MX_SCOREBOARD) {
+          return {
+            leagues: [
+              {
+                season: { year: 2026, displayName: "2026-27" },
+                calendar: ["../../etc/passwd", "2026-11-01T07:00Z"],
+              },
+            ],
+            events: [],
+          };
+        }
+        return {
+          events: [
+            ev("../malicioso", "2026-11-01T01:00Z", "Santos", "Toluca", [1, 2]),
+            ev("401", "2026-11-01T03:00Z", "América", "Guadalajara", [2, 0]),
+          ],
+        };
+      },
+    });
+    expect(urls).toEqual([ESPN_LIGA_MX_SCOREBOARD, `${ESPN_LIGA_MX_SCOREBOARD}?dates=20261101`]);
+    expect(season.events.map((e) => e.id)).toEqual(["401"]);
   });
 });

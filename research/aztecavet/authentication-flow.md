@@ -4,13 +4,13 @@
 > **Investigation Focus:** Security Architecture, Gate Mechanics, Session Persistence, Vulnerability Assessment  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
 > **Evidence Files:**  
-> - Initial Gate: [`01_initial_gate.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/01_initial_gate.png)  
-> - Virtual Pad: [`02_pad_open.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/02_pad_open.png)  
-> - Incorrect Code Shake: [`03_code_fail.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/03_code_fail.png)  
-> - Access Granted Animation: [`04_code_success.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/04_code_success.png)  
-> - Unlocked Home: [`05_home_unlocked.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/05_home_unlocked.png)  
-> - Gate Reappearance on Reload: [`18_after_reload_gate.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/18_after_reload_gate.png)  
-> - Extracted Script: [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js#L222-L260)  
+> - Initial Gate: [`01_initial_gate.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/01_initial_gate.png)  
+> - Virtual Pad: [`02_pad_open.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/02_pad_open.png)  
+> - Incorrect Code Shake: [`03_code_fail.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/03_code_fail.png)  
+> - Access Granted Animation: [`04_code_success.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/04_code_success.png)  
+> - Unlocked Home: [`05_home_unlocked.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/05_home_unlocked.png)  
+> - Gate Reappearance on Reload: [`18_after_reload_gate.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/18_after_reload_gate.png)  
+> - Extracted Script: [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js#L222-L260)  
 
 ---
 

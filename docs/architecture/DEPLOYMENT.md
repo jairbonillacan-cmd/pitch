@@ -32,7 +32,7 @@
 |---|---|
 | `DATABASE_URL`, `DATABASE_URL_UNPOOLED` | Vercel y Actions |
 | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://pitchlab.mx` | Vercel |
-| `GOOGLE_CLIENT_ID/SECRET`, `APPLE_*` | Vercel |
+| `GOOGLE_CLIENT_ID/SECRET` (Apple no se usa: cobra) | Vercel |
 | `ODDS_API_KEY`, `API_FOOTBALL_KEY` | Actions (los jobs). **Nunca en Vercel cliente.** |
 | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | Actions y Vercel (servidor) |
 | `UPSTASH_REDIS_REST_URL/TOKEN` | Vercel |

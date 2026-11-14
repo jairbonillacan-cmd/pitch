@@ -1,6 +1,8 @@
 # @pitchlab/spacetime
 
-Motores de **PitchLab Spacetime Suite v3.0** (Tachyon, Singularity, Minkowski, Geodesic y multideporte) que usa la app.
+Motores de **PitchLab Spacetime Suite v3.2** (Tachyon, Singularity, Minkowski, Geodesic, multideporte y el panorama público por mercado `MatchOutlook`) que usa la app.
+
+> **v3.2 (2026-11-13, `prediction-lab` `2960d77`):** el sync reescribe las rutas de investigación (`../../data/prediction/` → `../data/`, raíz del repo → raíz del paquete) y omite con `it.skip` las pruebas que solo se pueden verificar en `prediction-lab` (Python en `research/.venv`, artefactos de `services/models`, `data/ledger` y el SHA de la copia CRLF). Cada omisión queda con su motivo en `SOURCE.json → patches`. La ficha del partido lee `outlooks` del snapshot con `apps/web/src/server/outlook.ts`.
 
 ## De dónde salen
 

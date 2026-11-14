@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { BrandLogo } from "../../primitives";
 import { UltraTag } from "../components/MaestroPrimitives";
+import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 
 const PL_ISOTYPE_PATH =
-  "M8 8H42L56 22V32L44 44H28L40 32H42L44 30V26L38 20H8ZM8 30H32L20 42V56H8Z";
+  "M8 8H42L56 22V32L44 44H28L44 28V26L38 20H8ZM8 30H32L20 42V56H8Z";
 
 const PL_WORDMARK_GLYPHS: ReadonlyArray<{ x: number; d: string }> = [
   {
@@ -101,33 +101,24 @@ const FS_SRC = `
     return mix(c5, c0, f);
   }
 
-  float sdBox2D(vec2 p, vec2 b) {
-    vec2 d = abs(p) - b;
-    return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
-  }
-
-  // SDF vectorial CSG cerrada y sin ramificaciones del isotipo oficial PitchLab (resolución infinita, compilación instantánea en ANGLE D3D11)
+  // SDF vectorial CSG exacta y sin ramificaciones del isotipo PitchLab (cero costuras internas, compilación instantánea en ANGLE D3D11)
   float sdPitchLabIsotype(vec2 q) {
-    float b1 = sdBox2D(q - vec2(25.0, 14.0), vec2(17.0, 6.0));
-    float b2 = max(
-      max(8.0 - q.y, q.y - 26.0),
-      max(q.x - 56.0, max((q.x - q.y - 34.0) * 0.70710678, (18.0 - q.x + q.y) * 0.70710678))
+    const float k = 0.70710678;
+    float outerTop = max(
+      max(max(8.0 - q.x, q.x - 56.0), max(8.0 - q.y, q.y - 44.0)),
+      max((q.x - q.y - 34.0) * k, (q.x + q.y - 88.0) * k)
     );
-    float b3a = sdBox2D(q - vec2(50.0, 28.5), vec2(6.0, 3.5));
-    float b3b = max(
-      max(30.0 - q.y, q.y - 32.5),
-      max(q.x - 56.0, max((74.0 - q.x - q.y) * 0.70710678, (q.x + q.y - 88.0) * 0.70710678))
+    float innerCut = min(
+      min(q.y - 20.0, 44.0 - q.x),
+      min((18.0 - q.x + q.y) * k, (72.0 - q.x - q.y) * k)
     );
-    float b4 = max(
-      max(32.0 - q.y, q.y - 44.0),
-      max((72.0 - q.x - q.y) * 0.70710678, (q.x + q.y - 88.0) * 0.70710678)
-    );
-    float b5 = sdBox2D(q - vec2(14.0, 43.0), vec2(6.0, 13.0));
-    float b6 = max(max(8.0 - q.x, 30.0 - q.y), (q.x + q.y - 62.0) * 0.70710678);
+    float dTop = max(outerTop, innerCut);
 
-    float dTop = min(min(b1, b2), min(min(b3a, b3b), b4));
-    float dBot = min(b5, b6);
-    return min(dTop, dBot) - 0.14;
+    float outerBot = max(max(8.0 - q.x, q.x - 32.0), max(30.0 - q.y, q.y - 56.0));
+    float cutBot = min(q.x - 20.0, (q.x + q.y - 62.0) * k);
+    float dBot = max(outerBot, cutBot);
+
+    return min(dTop, dBot);
   }
 
   float sdRoundRect2D(vec2 p, vec2 b, float r) {
@@ -334,6 +325,19 @@ const FS_SRC = `
       roughness = mix(roughness, 0.13, laserEtch);
       specScale = mix(specScale, 0.90, laserEtch);
       anisoWeight = mix(anisoWeight, 0.15, laserEtch);
+
+      // «ULTRA» holográfico (canal R del frente): el tono recorre el arcoíris con la
+      // inclinación de la tarjeta, el puntero y el barrido de entrada.
+      float ultraMask = isFront ? clamp(tex.r, 0.0, 1.0) * faceWeight : 0.0;
+      if (ultraMask > 0.001) {
+        float hue = fract(uvFront.x * 1.4 + uvFront.y * 0.7 + dot(uPointer, vec2(0.45, 0.3)) + uPrismMotion * 0.2 + uIntroSweep * 0.6);
+        vec3 holo = clamp(abs(fract(hue + vec3(0.0, 2.0 / 3.0, 1.0 / 3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);
+        holo = mix(vec3(0.92), holo, 0.82);
+        baseMetal = mix(baseMetal, holo, ultraMask);
+        roughness = mix(roughness, 0.10, ultraMask);
+        specScale = mix(specScale, 1.05, ultraMask);
+        anisoWeight = mix(anisoWeight, 0.10, ultraMask);
+      }
     }
 
     float edgeBevel = 1.0 - smoothstep(0.22, 0.84, abs(nLocal.z));
@@ -522,7 +526,7 @@ const FS_SRC = `
       float d2C = tC > 0.0 ? sdRoundRect2D(hitC.xy, vec2(0.86, 0.542), 0.068) : 1.0;
 
       // Interior plano (93% de la tarjeta): intersección exacta + diferenciales analíticos para 4x RGSS en letras e isotipo
-      if (tC > 0.0 && d2C < -0.022) {
+      if (tC > 0.0 && d2C < -0.022 && abs(rdCenterL.z) > 0.08) {
         vec3 flatN = vec3(0.0, 0.0, hitC.z >= 0.0 ? 1.0 : -1.0);
         float safeRzX = abs(rdRightL.z) < 1e-4 ? -1e-4 : rdRightL.z;
         float safeRzY = abs(rdUpL.z)    < 1e-4 ? -1e-4 : rdUpL.z;
@@ -534,12 +538,10 @@ const FS_SRC = `
         return;
       }
 
-      // Franja de silueta exterior y biseles 3D: 8-Rooks Supersampling geométrico (cero dientes de sierra)
-      float safeMidZ = abs(rdCenterL.z) < 1e-4 ? -1e-4 : rdCenterL.z;
-      float tMid = clamp(-roL.z / safeMidZ, 0.0, 6.0);
-      float dMid = sdRoundRect2D((roL + rdCenterL * tMid).xy, vec2(0.86, 0.542), 0.068);
+      // Franja de silueta exterior y biseles 3D (incluidos cantos a 90°): 8-Rooks Supersampling geométrico
+      vec2 nearSlab = intersectOBB(roL, rdCenterL, vec3(0.888, 0.570, 0.032));
 
-      if (tC > 0.0 || dMid < 0.045) {
+      if (tC > 0.0 || nearSlab.x <= nearSlab.y) {
         vec3 hitSum = vec3(0.0);
         vec3 nSum = vec3(0.0);
         float hits = 0.0;
@@ -627,7 +629,12 @@ function drawPitchLabHorizontal(
 function createCardPOTCanvas(
   side: "front" | "back",
   texWidth: number,
-  opts: { tierLabel: string; bottomLeftLabel: string; code: string },
+  opts: {
+    tierLabel: string;
+    bottomLeftLabel: string;
+    code: string;
+    backSubtitle?: string;
+  },
 ): HTMLCanvasElement {
   const width = texWidth;
   const height = Math.max(1024, Math.floor(texWidth / 2));
@@ -653,11 +660,23 @@ function createCardPOTCanvas(
   if (side === "front") {
     drawPitchLabHorizontal(ctx, 158, 134, 2.48, "rgb(0, 0, 255)");
 
-    ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `700 94px ${sysFont}`;
-    ctx.textAlign = "right";
     ctx.textBaseline = "middle";
-    ctx.fillText(opts.tierLabel, VW - 158, 214);
+    if (/^ULTRA/.test(opts.tierLabel)) {
+      // «ULTRA» va en el canal rojo: el shader lo pinta con arcoíris holográfico.
+      const rest = opts.tierLabel.slice(5);
+      const total = ctx.measureText(opts.tierLabel).width;
+      const x0 = VW - 158 - total;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "rgb(255, 0, 0)";
+      ctx.fillText("ULTRA", x0, 214);
+      ctx.fillStyle = "rgb(0, 0, 255)";
+      ctx.fillText(rest, x0 + ctx.measureText("ULTRA").width, 214);
+    } else {
+      ctx.fillStyle = "rgb(0, 0, 255)";
+      ctx.textAlign = "right";
+      ctx.fillText(opts.tierLabel, VW - 158, 214);
+    }
 
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
@@ -678,7 +697,11 @@ function createCardPOTCanvas(
     ctx.textBaseline = "alphabetic";
     ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `500 76px ${sysFont}`;
-    ctx.fillText("Pase PitchLab Ultra · Invitación personal", 158, 980);
+    ctx.fillText(
+      opts.backSubtitle ?? "Pase PitchLab Ultra · Invitación personal",
+      158,
+      980,
+    );
 
     ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `650 116px ${monoFont}`;
@@ -729,8 +752,14 @@ export interface ReferralCard3DProps {
   code: string;
   tierLabel?: string;
   bottomLeftLabel?: string;
+  backSubtitle?: string;
   expired?: boolean;
   initialFlipped?: boolean;
+  flipped?: boolean;
+  onFlipChange?: (flipped: boolean) => void;
+  asDecorativeChild?: boolean;
+  /** Giro continuo y lento en 360° cuando el usuario no está arrastrando la tarjeta. */
+  autoRotate?: boolean;
   themeOverride?: "dark" | "light";
   className?: string;
   ariaLabel?: string;
@@ -740,15 +769,29 @@ export function ReferralCard3D({
   code,
   tierLabel = "ULTRA",
   bottomLeftLabel = "Pase Ultra",
+  backSubtitle = "Pase PitchLab Ultra · Invitación personal",
   expired = false,
   initialFlipped = false,
+  flipped,
+  onFlipChange,
+  asDecorativeChild = false,
+  autoRotate = true,
   themeOverride,
   className,
   ariaLabel,
 }: ReferralCard3DProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const flipHandlerRef = useRef<(() => void) | null>(null);
+  const setFlippedFaceRef = useRef<((wantBack: boolean) => void) | null>(null);
+  const onFlipChangeRef = useRef(onFlipChange);
+  onFlipChangeRef.current = onFlipChange;
+  const initialFlippedRef = useRef(flipped ?? initialFlipped);
+  const suppressNextClickRef = useRef(false);
   const [webglUnsupported, setWebglUnsupported] = useState(false);
+  const [internalFlipped, setInternalFlipped] = useState<boolean>(
+    flipped ?? initialFlipped,
+  );
+  const effectiveFlipped = flipped ?? internalFlipped;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -869,7 +912,7 @@ export function ReferralCard3D({
     };
 
     const uploadAllTextures = () => {
-      const cardData = { tierLabel, bottomLeftLabel, code };
+      const cardData = { tierLabel, bottomLeftLabel, code, backSubtitle };
       uploadPOTTexture(
         frontTex,
         0,
@@ -888,9 +931,12 @@ export function ReferralCard3D({
 
     let disposed = false;
     let inViewport = true;
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const motionMql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reducedMotion = motionMql.matches;
+    const onMotionChange = (ev: MediaQueryListEvent) => {
+      reducedMotion = ev.matches;
+    };
+    motionMql.addEventListener?.("change", onMotionChange);
 
     const readStageTheme = (): number => {
       const docTheme = document.documentElement.getAttribute("data-theme");
@@ -902,7 +948,8 @@ export function ReferralCard3D({
 
     let lightMode = readStageTheme();
 
-    const startBaseFlip = initialFlipped ? Math.PI : 0;
+    const startBaseFlip = initialFlippedRef.current ? Math.PI : 0;
+    const AUTO_SPIN_RAD_PER_SEC = 0.36;
     const pose = {
       yaw: reducedMotion
         ? startBaseFlip + REST_YAW
@@ -915,6 +962,10 @@ export function ReferralCard3D({
       targetRoll: REST_ROLL,
       targetLift: 0,
       baseFlip: startBaseFlip,
+      autoYaw: 0,
+      spinRate: autoRotate && !reducedMotion ? AUTO_SPIN_RAD_PER_SEC : 0,
+      spinHoldUntil: 0,
+      hovering: false,
       velYaw: 0,
       velPitch: 0,
       velRoll: 0,
@@ -973,16 +1024,11 @@ export function ReferralCard3D({
         return;
       }
 
-      const goalYaw = pose.baseFlip + pose.targetYaw;
-      const goalPitch = pose.targetPitch;
-      const goalRoll = pose.targetRoll;
-      const goalLift = pose.targetLift;
-
       if (reducedMotion && !pose.dragging) {
-        pose.yaw = goalYaw;
-        pose.pitch = goalPitch;
-        pose.roll = goalRoll;
-        pose.lift = goalLift;
+        pose.yaw = pose.baseFlip + pose.targetYaw;
+        pose.pitch = pose.targetPitch;
+        pose.roll = pose.targetRoll;
+        pose.lift = pose.targetLift;
         pose.pointerX = pose.targetPointerX;
         pose.pointerY = pose.targetPointerY;
         pose.prismMotion = 0;
@@ -1009,6 +1055,38 @@ export function ReferralCard3D({
           ? Math.min(0.22, Math.max(0.001, (now - pose.lastStepAt) * 0.001))
           : 1 / 60;
       pose.lastStepAt = now;
+
+      if (autoRotate) {
+        const held = now < pose.spinHoldUntil;
+        const desiredRate =
+          pose.dragging || held
+            ? 0
+            : pose.hovering
+              ? AUTO_SPIN_RAD_PER_SEC * 0.22
+              : AUTO_SPIN_RAD_PER_SEC;
+        pose.spinRate +=
+          (desiredRate - pose.spinRate) * (1 - Math.exp(-dt / 0.26));
+        pose.autoYaw += pose.spinRate * dt;
+        const wrapSpan = Math.PI * 128;
+        if (pose.autoYaw > wrapSpan) {
+          pose.autoYaw -= wrapSpan;
+          pose.yaw -= wrapSpan;
+        }
+      }
+
+      const floatPitch =
+        autoRotate && !pose.dragging && !pose.hovering
+          ? Math.sin(now * 0.00085) * 0.028
+          : 0;
+      const floatLift =
+        autoRotate && !pose.dragging && !pose.hovering
+          ? Math.sin(now * 0.0011) * 0.007
+          : 0;
+
+      const goalYaw = pose.baseFlip + pose.autoYaw + pose.targetYaw;
+      const goalPitch = pose.targetPitch + floatPitch;
+      const goalRoll = pose.targetRoll;
+      const goalLift = pose.targetLift + floatLift;
 
       const ptrAlpha = 1 - Math.exp(-dt / 0.09);
       pose.pointerX += (pose.targetPointerX - pose.pointerX) * ptrAlpha;
@@ -1041,7 +1119,13 @@ export function ReferralCard3D({
       const angularSpeed =
         (Math.abs(pose.velYaw) + Math.abs(pose.velPitch)) * 0.46;
       const pointerTilt = Math.hypot(pose.pointerX, pose.pointerY) * 1.28;
-      const rawPrism = Math.max(tiltFromRest * 4.2, angularSpeed, pointerTilt);
+      const autoShimmer = autoRotate ? 0.64 : 0;
+      const rawPrism = Math.max(
+        tiltFromRest * 4.2,
+        angularSpeed,
+        pointerTilt,
+        autoShimmer,
+      );
       const clampedPrism = Math.min(1.0, rawPrism);
       const targetPrism =
         rawPrism < 0.015 ? 0 : 1 - Math.pow(1 - clampedPrism, 1.55);
@@ -1053,6 +1137,7 @@ export function ReferralCard3D({
       }
 
       const moving =
+        autoRotate ||
         pose.introStart > 0 ||
         Math.abs(goalYaw - pose.yaw) > 0.0008 ||
         Math.abs(goalPitch - pose.pitch) > 0.0008 ||
@@ -1094,15 +1179,45 @@ export function ReferralCard3D({
     };
 
     flipHandlerRef.current = () => {
-      const turns = Math.round(pose.baseFlip / Math.PI);
-      pose.baseFlip = (turns + 1) * Math.PI;
+      const combined = pose.baseFlip + pose.autoYaw;
+      const curHalfTurns = Math.round(combined / Math.PI);
+      const nextHalfTurns = curHalfTurns + 1;
+      pose.baseFlip = nextHalfTurns * Math.PI - pose.autoYaw;
+      pose.spinHoldUntil = performance.now() + 2600;
+      const isBack = ((nextHalfTurns % 2) + 2) % 2 === 1;
+      setInternalFlipped(isBack);
+      onFlipChangeRef.current?.(isBack);
       wakeSpring();
     };
+
+    setFlippedFaceRef.current = (wantBack: boolean) => {
+      const combined = pose.baseFlip + pose.autoYaw;
+      const curHalfTurns = Math.round(combined / Math.PI);
+      const curBack = ((curHalfTurns % 2) + 2) % 2 === 1;
+      const targetHalfTurns =
+        curBack === wantBack ? curHalfTurns : curHalfTurns + 1;
+      if (
+        curBack === wantBack &&
+        Math.abs(combined - targetHalfTurns * Math.PI) < 0.08
+      ) {
+        return;
+      }
+      pose.baseFlip = targetHalfTurns * Math.PI - pose.autoYaw;
+      pose.spinHoldUntil = performance.now() + 2600;
+      wakeSpring();
+    };
+
+    let downX = 0;
+    let downY = 0;
+    let maxTravel = 0;
 
     const onPointerDown = (e: PointerEvent) => {
       pose.dragging = true;
       pose.lastX = e.clientX;
       pose.lastY = e.clientY;
+      downX = e.clientX;
+      downY = e.clientY;
+      maxTravel = 0;
       try {
         canvas.setPointerCapture(e.pointerId);
       } catch (err) {
@@ -1113,6 +1228,9 @@ export function ReferralCard3D({
     const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
+      if (e.pointerType === "mouse") {
+        pose.hovering = true;
+      }
       const nx = Math.max(
         -1,
         Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1),
@@ -1125,11 +1243,17 @@ export function ReferralCard3D({
       pose.targetPointerY = ny;
 
       if (pose.dragging) {
+        const travel = Math.hypot(e.clientX - downX, e.clientY - downY);
+        if (travel > maxTravel) maxTravel = travel;
         const dx = e.clientX - pose.lastX;
         const dy = e.clientY - pose.lastY;
         pose.lastX = e.clientX;
         pose.lastY = e.clientY;
-        pose.baseFlip += dx * 0.0088;
+        if (autoRotate) {
+          pose.autoYaw += dx * 0.0088;
+        } else {
+          pose.baseFlip += dx * 0.0088;
+        }
         pose.targetPitch = Math.max(
           -0.44,
           Math.min(0.44, pose.targetPitch + dy * 0.0055),
@@ -1144,9 +1268,22 @@ export function ReferralCard3D({
     };
 
     const releasePointer = () => {
+      const wasDragging = pose.dragging;
       pose.dragging = false;
-      const turns = Math.round(pose.baseFlip / Math.PI);
-      pose.baseFlip = turns * Math.PI;
+      if (autoRotate) {
+        if (wasDragging && maxTravel > 6) {
+          suppressNextClickRef.current = true;
+        }
+      } else {
+        const turns = Math.round(pose.baseFlip / Math.PI);
+        pose.baseFlip = turns * Math.PI;
+        if (wasDragging && maxTravel > 6) {
+          suppressNextClickRef.current = true;
+          const isBack = Math.abs(turns) % 2 === 1;
+          setInternalFlipped(isBack);
+          onFlipChangeRef.current?.(isBack);
+        }
+      }
       pose.targetYaw = REST_YAW;
       pose.targetPitch = REST_PITCH;
       pose.targetRoll = REST_ROLL;
@@ -1157,11 +1294,20 @@ export function ReferralCard3D({
     };
 
     const onPointerLeave = () => {
+      pose.hovering = false;
       if (!pose.dragging) releasePointer();
     };
 
-    const onDoubleClick = () => {
-      flipHandlerRef.current?.();
+    const onClick = (e: MouseEvent) => {
+      if (suppressNextClickRef.current) {
+        suppressNextClickRef.current = false;
+        e.stopPropagation();
+        e.preventDefault();
+        return;
+      }
+      if (!asDecorativeChild) {
+        flipHandlerRef.current?.();
+      }
     };
 
     const onResize = () => {
@@ -1181,7 +1327,7 @@ export function ReferralCard3D({
     canvas.addEventListener("pointerup", releasePointer);
     canvas.addEventListener("pointercancel", releasePointer);
     canvas.addEventListener("pointerleave", onPointerLeave);
-    canvas.addEventListener("dblclick", onDoubleClick);
+    canvas.addEventListener("click", onClick);
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -1219,6 +1365,8 @@ export function ReferralCard3D({
     return () => {
       disposed = true;
       flipHandlerRef.current = null;
+      setFlippedFaceRef.current = null;
+      motionMql.removeEventListener?.("change", onMotionChange);
       if (pose.rafId) window.cancelAnimationFrame(pose.rafId);
       io?.disconnect();
       mo.disconnect();
@@ -1227,7 +1375,7 @@ export function ReferralCard3D({
       canvas.removeEventListener("pointerup", releasePointer);
       canvas.removeEventListener("pointercancel", releasePointer);
       canvas.removeEventListener("pointerleave", onPointerLeave);
-      canvas.removeEventListener("dblclick", onDoubleClick);
+      canvas.removeEventListener("click", onClick);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
       if (frontTex) gl.deleteTexture(frontTex);
@@ -1237,29 +1385,140 @@ export function ReferralCard3D({
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [code, tierLabel, bottomLeftLabel, expired, initialFlipped, themeOverride]);
+  }, [
+    code,
+    tierLabel,
+    bottomLeftLabel,
+    backSubtitle,
+    expired,
+    initialFlipped,
+    autoRotate,
+    themeOverride,
+    asDecorativeChild,
+  ]);
+
+  useEffect(() => {
+    if (typeof flipped !== "boolean") return;
+    setInternalFlipped(flipped);
+    setFlippedFaceRef.current?.(flipped);
+  }, [flipped]);
 
   const computedAriaLabel =
     ariaLabel ?? `Pase PitchLab Ultra · Código de invitación ${code}`;
 
   if (webglUnsupported) {
+    const fallbackBody = effectiveFlipped ? (
+      <div className="pl-referral-card-fallback-inner pl-referral-card-fallback-inner--back">
+        <div
+          className="h-5 -mx-5 rounded-sm"
+          style={{ background: "rgba(255, 255, 255, 0.16)" }}
+          aria-hidden="true"
+        />
+        <div className="space-y-1">
+          <p className="m-0 text-[11px] opacity-80">
+            {backSubtitle}
+          </p>
+          <p className="m-0 font-mono text-sm font-bold tracking-wider num">
+            {code}
+          </p>
+        </div>
+        <div className="flex items-end justify-between gap-3 text-xs opacity-80">
+          <span>pitchlab.mx</span>
+          <span>{tierLabel}</span>
+        </div>
+      </div>
+    ) : (
+      <div className="pl-referral-card-fallback-inner">
+        <div className="flex items-center justify-between gap-3">
+          <svg
+            width="112"
+            height="22"
+            viewBox="0 0 331 64"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d={PL_ISOTYPE_PATH} fill="currentColor" />
+            <g transform="translate(74 8)" fill="currentColor" fillRule="evenodd">
+              {PL_WORDMARK_GLYPHS.map((glyph) => (
+                <path
+                  key={glyph.x}
+                  transform={`translate(${glyph.x} 0)`}
+                  d={glyph.d}
+                />
+              ))}
+            </g>
+          </svg>
+          {tierLabel && tierLabel !== "ULTRA" ? (
+            <span
+              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider"
+              style={{
+                background: "rgba(255, 255, 255, 0.12)",
+                border: "1px solid rgba(255, 255, 255, 0.22)",
+              }}
+            >
+              {tierLabel}
+            </span>
+          ) : (
+            <UltraTag />
+          )}
+        </div>
+        <div className="flex items-center justify-center py-1" aria-hidden="true">
+          <svg
+            width="46"
+            height="46"
+            viewBox="0 0 64 64"
+            fill="none"
+            style={{ opacity: 0.28 }}
+          >
+            <path d={PL_ISOTYPE_PATH} fill="currentColor" />
+          </svg>
+        </div>
+        <div className="flex items-end justify-between gap-3 num text-xs">
+          <span className="font-medium opacity-90">{bottomLeftLabel}</span>
+          <span className="font-mono font-semibold tracking-wider">{code}</span>
+        </div>
+      </div>
+    );
+
+    if (asDecorativeChild) {
+      return (
+        <div
+          className={`pl-referral-card-fallback ${className ?? ""}`.trim()}
+          aria-hidden="true"
+          data-card-fallback="true"
+          data-card-face={effectiveFlipped ? "back" : "front"}
+        >
+          {fallbackBody}
+        </div>
+      );
+    }
+
     return (
       <div
         className={`pl-referral-card-fallback ${className ?? ""}`.trim()}
         role="img"
         aria-label={computedAriaLabel}
+        data-card-fallback="true"
+        data-card-face={effectiveFlipped ? "back" : "front"}
+        onClick={() => {
+          const next = !effectiveFlipped;
+          setInternalFlipped(next);
+          onFlipChangeRef.current?.(next);
+        }}
       >
-        <div className="pl-referral-card-fallback-inner">
-          <div className="flex items-center justify-between gap-3">
-            <BrandLogo variant="horizontal" width={112} height={22} alt="" />
-            <UltraTag />
-          </div>
-          <div className="flex items-end justify-between gap-3 num text-xs">
-            <span>{bottomLeftLabel}</span>
-            <span className="font-mono font-semibold">{code}</span>
-          </div>
-        </div>
+        {fallbackBody}
       </div>
+    );
+  }
+
+  if (asDecorativeChild) {
+    return (
+      <canvas
+        ref={canvasRef}
+        className={`pl-referral-card-canvas ${className ?? ""}`.trim()}
+        aria-hidden="true"
+        data-card-face={effectiveFlipped ? "back" : "front"}
+      />
     );
   }
 
@@ -1270,6 +1529,7 @@ export function ReferralCard3D({
       role="img"
       tabIndex={0}
       aria-label={computedAriaLabel}
+      data-card-face={effectiveFlipped ? "back" : "front"}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -1278,4 +1538,294 @@ export function ReferralCard3D({
       }}
     />
   );
+}
+
+function drawRoundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+): void {
+  const rad = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rad, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rad);
+  ctx.arcTo(x + w, y + h, x, y + h, rad);
+  ctx.arcTo(x, y + h, x, y, rad);
+  ctx.arcTo(x, y, x + w, y, rad);
+  ctx.closePath();
+}
+
+function tryRenderFrontCardWebGL(opts: {
+  code: string;
+  tierLabel: string;
+  bottomLeftLabel: string;
+}): HTMLCanvasElement | null {
+  if (typeof document === "undefined") return null;
+  const glCanvas = document.createElement("canvas");
+  glCanvas.width = 1000;
+  glCanvas.height = 660;
+  const gl = glCanvas.getContext("webgl", {
+    antialias: true,
+    alpha: true,
+    premultipliedAlpha: true,
+    preserveDrawingBuffer: true,
+  });
+  if (!gl) return null;
+
+  const compile = (type: number, src: string): WebGLShader | null => {
+    const sh = gl.createShader(type);
+    if (!sh) return null;
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      gl.deleteShader(sh);
+      return null;
+    }
+    return sh;
+  };
+
+  const vs = compile(gl.VERTEX_SHADER, VS_SRC);
+  const fs = compile(gl.FRAGMENT_SHADER, FS_SRC);
+  const prog = gl.createProgram();
+  if (!vs || !fs || !prog) return null;
+
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+  gl.clearColor(0, 0, 0, 0);
+
+  const quadBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+    gl.STATIC_DRAW,
+  );
+  const aPos = gl.getAttribLocation(prog, "aPos");
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  const upload = (unit: number, side: "front" | "back") => {
+    const tex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0 + unit);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      createCardPOTCanvas(side, 2048, opts),
+    );
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return tex;
+  };
+
+  const fTex = upload(0, "front");
+  const bTex = upload(1, "back");
+  gl.uniform1i(gl.getUniformLocation(prog, "uFrontTex"), 0);
+  gl.uniform1i(gl.getUniformLocation(prog, "uBackTex"), 1);
+  gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.uniform2f(gl.getUniformLocation(prog, "uRes"), glCanvas.width, glCanvas.height);
+  gl.uniformMatrix3fv(
+    gl.getUniformLocation(prog, "uCardRot"),
+    false,
+    buildWorldToLocalMatrix(REST_YAW * 0.55, REST_PITCH * 0.65, REST_ROLL * 0.5),
+  );
+  gl.uniform2f(gl.getUniformLocation(prog, "uPointer"), 0.18, -0.14);
+  gl.uniform1f(gl.getUniformLocation(prog, "uCardLift"), 0.02);
+  gl.uniform1f(gl.getUniformLocation(prog, "uPrismMotion"), 0.62);
+  gl.uniform1f(gl.getUniformLocation(prog, "uIntroSweep"), 2.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uIntroGlow"), 0.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uLightMode"), 0.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uExpired"), 0.0);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  gl.finish();
+
+  const out = document.createElement("canvas");
+  out.width = glCanvas.width;
+  out.height = glCanvas.height;
+  const outCtx = out.getContext("2d");
+  outCtx?.drawImage(glCanvas, 0, 0);
+
+  if (fTex) gl.deleteTexture(fTex);
+  if (bTex) gl.deleteTexture(bTex);
+  if (quadBuf) gl.deleteBuffer(quadBuf);
+  gl.deleteProgram(prog);
+  gl.deleteShader(vs);
+  gl.deleteShader(fs);
+  gl.getExtension("WEBGL_lose_context")?.loseContext();
+  return out;
+}
+
+/** Genera un lienzo PNG de 1080 × 1350 para historias desde la textura frontal (o su respaldo 2D sin WebGL). */
+export function renderReferralStoryCanvas(opts: {
+  code: string;
+  bottomLeftLabel: string;
+  tierLabel?: string;
+}): HTMLCanvasElement {
+  const W = 1080;
+  const H = 1350;
+  const tierLabel = opts.tierLabel ?? "ULTRA";
+  const normalizedCode = opts.code.trim().toUpperCase();
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return canvas;
+
+  const sysFont =
+    'InterVariable, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  const monoFont = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+
+  ctx.fillStyle = "rgb(7, 6, 11)";
+  ctx.fillRect(0, 0, W, H);
+
+  const g1 = ctx.createRadialGradient(260, 220, 20, 260, 220, 620);
+  g1.addColorStop(0, "rgba(124, 92, 246, 0.34)");
+  g1.addColorStop(1, "rgba(124, 92, 246, 0)");
+  ctx.fillStyle = g1;
+  ctx.fillRect(0, 0, W, H);
+
+  const g2 = ctx.createRadialGradient(880, 560, 20, 880, 560, 560);
+  g2.addColorStop(0, "rgba(190, 50, 90, 0.22)");
+  g2.addColorStop(1, "rgba(190, 50, 90, 0)");
+  ctx.fillStyle = g2;
+  ctx.fillRect(0, 0, W, H);
+
+  drawPitchLabHorizontal(ctx, 84, 88, 0.92, "rgb(255, 255, 255)");
+
+  ctx.fillStyle = "rgb(196, 181, 253)";
+  ctx.font = `700 26px ${sysFont}`;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillText(`${opts.bottomLeftLabel} te invita a PitchLab`, 84, 214);
+
+  const glCard = tryRenderFrontCardWebGL({
+    code: normalizedCode,
+    tierLabel,
+    bottomLeftLabel: opts.bottomLeftLabel,
+  });
+
+  if (glCard) {
+    ctx.drawImage(glCard, 40, 265, 1000, 660);
+  } else {
+    const cx = 100;
+    const cy = 320;
+    const cw = 880;
+    const ch = 555;
+    drawRoundedRectPath(ctx, cx, cy, cw, ch, 38);
+    const plateGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch);
+    plateGrad.addColorStop(0, "rgb(38, 41, 56)");
+    plateGrad.addColorStop(0.5, "rgb(20, 22, 33)");
+    plateGrad.addColorStop(1, "rgb(12, 14, 22)");
+    ctx.fillStyle = plateGrad;
+    ctx.fill();
+
+    const rimGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch);
+    rimGrad.addColorStop(0, "rgba(180, 154, 255, 0.85)");
+    rimGrad.addColorStop(0.5, "rgba(113, 201, 241, 0.55)");
+    rimGrad.addColorStop(1, "rgba(255, 155, 170, 0.7)");
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = rimGrad;
+    ctx.stroke();
+
+    drawPitchLabHorizontal(ctx, cx + 48, cy + 44, 0.86, "rgb(243, 245, 253)");
+
+    ctx.fillStyle = "rgb(196, 181, 253)";
+    ctx.font = `800 26px ${sysFont}`;
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(tierLabel, cx + cw - 48, cy + 68);
+
+    ctx.save();
+    ctx.translate(cx + cw / 2 - 84, cy + ch / 2 - 84);
+    ctx.scale(2.6, 2.6);
+    ctx.fillStyle = "rgba(180, 154, 255, 0.16)";
+    ctx.fill(new Path2D(PL_ISOTYPE_PATH));
+    ctx.restore();
+
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "rgb(243, 245, 253)";
+    ctx.font = `600 30px ${sysFont}`;
+    ctx.fillText(opts.bottomLeftLabel, cx + 48, cy + ch - 48);
+
+    ctx.textAlign = "right";
+    ctx.font = `700 28px ${monoFont}`;
+    ctx.fillText(normalizedCode, cx + cw - 48, cy + ch - 48);
+  }
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = `800 46px ${sysFont}`;
+  ctx.fillText(
+    `${MEMBERSHIP_SPEC.referralTrialDays} días sin costo · $${MEMBERSHIP_SPEC.referralFriendFirstMonthMxn} MXN tu 1.er mes`,
+    84,
+    1020,
+  );
+
+  ctx.fillStyle = "rgb(212, 212, 220)";
+  ctx.font = `500 28px ${sysFont}`;
+  ctx.fillText(
+    `Cuando pagas tu primer mes, los dos reciben +${MEMBERSHIP_SPEC.referralBothRewardDays} días.`,
+    84,
+    1080,
+  );
+
+  drawRoundedRectPath(ctx, 84, 1146, W - 168, 96, 24);
+  ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+  ctx.fill();
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.18)";
+  ctx.stroke();
+
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = `700 32px ${monoFont}`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(`pitchlab.mx/i/${normalizedCode}`, W / 2, 1194);
+
+  return canvas;
+}
+
+export async function downloadReferralStoryPng(opts: {
+  code: string;
+  bottomLeftLabel: string;
+  tierLabel?: string;
+}): Promise<{ width: number; height: number; filename: string }> {
+  const normalizedCode = opts.code.trim().toUpperCase();
+  const filename = `pitchlab-invitacion-${normalizedCode.toLowerCase()}.png`;
+  const canvas = renderReferralStoryCanvas({ ...opts, code: normalizedCode });
+  const blob = await new Promise<Blob | null>((resolve) => {
+    if (typeof canvas.toBlob === "function") {
+      canvas.toBlob((b) => resolve(b), "image/png");
+    } else {
+      resolve(null);
+    }
+  });
+
+  const href = blob ? URL.createObjectURL(blob) : canvas.toDataURL("image/png");
+  const anchor = document.createElement("a");
+  anchor.href = href;
+  anchor.download = filename;
+  anchor.rel = "noopener";
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  if (blob) {
+    window.setTimeout(() => URL.revokeObjectURL(href), 2000);
+  }
+  return { width: canvas.width, height: canvas.height, filename };
 }

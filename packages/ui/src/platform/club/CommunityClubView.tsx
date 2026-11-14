@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useId, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
 import {
   CONSENSUS_AGREE_PTS,
+  CONSENSUS_MIN_PICKS,
+  CONSENSUS_MIN_VOTES,
   CONSENSUS_STRONG_PTS,
   computeConsensus,
   consensusReading,
   formatDiffPts,
   type ConsensusGame,
+  type WinnerVoteTally,
 } from "../community-stats";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
+import { BadgeChip } from "./badges/ProfileBadges";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-provider";
 import {
   LEADERBOARD_MIN_SETTLED,
   entriesInWindow,
+  leaderboardMinSettled,
   formatSignedPct,
   formatUnits,
   monthLongLabel,
@@ -37,14 +42,21 @@ import {
   HeartIcon,
   PickStatus,
   ShareIcon,
+  SocialReportDialog,
+  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
+  postMatchesTopics,
   resolveEntryGame,
+  teamTopicKey,
+  useFollowedTopics,
+  type FollowedTopics,
   shareUrl,
   useFollowing,
   useLeaderboardRows,
   useUrlTab,
   type OwnIdentity,
+  type SocialReportTarget,
   type TabDef,
 } from "./community-ui";
 
@@ -67,11 +79,25 @@ const KICKOFF_FMT = new Intl.DateTimeFormat("es-MX", {
   hour12: false,
 });
 
-function kickoffLabel(iso?: string): string {
+function kickoffLabel(iso?: string, timeZone?: string): string {
   if (!iso) return "";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
-  return KICKOFF_FMT.format(d).replace(".", "").replace(",", "");
+  try {
+    const fmt = timeZone
+      ? new Intl.DateTimeFormat("es-MX", {
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+          timeZone,
+        })
+      : KICKOFF_FMT;
+    return fmt.format(d).replace(".", "").replace(",", "");
+  } catch (err) {
+    void err;
+    return KICKOFF_FMT.format(d).replace(".", "").replace(",", "");
+  }
 }
 
 function capitalize(text: string): string {
@@ -87,7 +113,8 @@ interface AuthorInfo {
   name: string;
   initials: string;
   gradVar: string;
-  isTipstar: boolean;
+  avatarUrl: string | null;
+  isTipster: boolean;
   saldo: string | null;
 }
 
@@ -97,7 +124,7 @@ interface AuthorInfo {
 
 export function SocialVipClubView(): React.JSX.Element {
   const platform = usePlatform();
-  const { viewerRole, navigateTo } = platform;
+  const { viewerRole, hasAccountSession, upgradeHref, navigateTo } = platform;
 
   if (viewerRole === "visitor") {
     return (
@@ -106,17 +133,21 @@ export function SocialVipClubView(): React.JSX.Element {
           <div className="pl-com">
             <h1 className="pl-com-title">Comunidad</h1>
             <section className="pl-com-gate glass-lens glass-ring" aria-label="Acceso">
-              <p className="pl-com-gate-title">La comunidad es para socios.</p>
+              <p className="pl-com-gate-title">
+                {hasAccountSession
+                  ? "Activa tu Pase PitchLab Ultra para participar en la comunidad."
+                  : "La comunidad es para socios."}
+              </p>
               <a
-                href="/signup"
+                href={upgradeHref}
                 className="pl-prof-btn pl-prof-btn--primary"
                 onClick={(e) => {
                   if (!isPlainClick(e)) return;
                   e.preventDefault();
-                  navigateTo("/signup");
+                  navigateTo(upgradeHref);
                 }}
               >
-                Probar 7 días gratis
+                {hasAccountSession ? "Activar Pase Ultra" : "Probar 7 días gratis"}
               </a>
             </section>
           </div>
@@ -142,12 +173,59 @@ function CommunityContent(): React.JSX.Element {
     publishSocialPost,
     addSocialComment,
     toggleSocialLike,
+    deleteSocialPost,
+    refreshSocialFeed,
+    ensureSocialPostLoaded,
     sealPickToJournal,
+    addPickToParlay,
+    hasAccountSessionAuth,
     pushToast,
     navigateTo,
   } = usePlatform();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
-  const { rows, own, today } = useLeaderboardRows();
+  const [voteTallies, setVoteTallies] = useState<WinnerVoteTally[]>([]);
+  // Votos de «¿Quién gana?» para el consenso (solo con cuenta: con PIN no se guardan votos).
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let alive = true;
+    fetch("/api/social/consensus", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { tallies?: WinnerVoteTally[] } | null) => {
+        if (alive && Array.isArray(data?.tallies)) setVoteTallies(data.tallies);
+      })
+      .catch((err: unknown) => {
+        void err;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [hasAccountSessionAuth]);
+  const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
+  const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
+  // Al abrir Comunidad se trae lo último que publicaron los demás.
+  useEffect(() => {
+    refreshSocialFeed();
+  }, [refreshSocialFeed]);
+
+  // Enlace directo a una publicación (`/app/social?post=<id>`, p. ej. desde la campana).
+  useEffect(() => {
+    const syncPostParam = () => {
+      try {
+        const postId = new URLSearchParams(window.location.search).get("post")?.trim() || null;
+        setHighlightedPostId(postId);
+        if (postId) {
+          setTab("para-ti");
+          ensureSocialPostLoaded(postId);
+        }
+      } catch (err) {
+        void err;
+      }
+    };
+    syncPostParam();
+    window.addEventListener("popstate", syncPostParam);
+    return () => window.removeEventListener("popstate", syncPostParam);
+  }, [ensureSocialPostLoaded, setTab]);
+  const { rows, own, today, source, ownJournal } = useLeaderboardRows();
   const follows = useFollowing();
   const monthName = monthLongLabel(today.getMonth());
 
@@ -160,18 +238,21 @@ function CommunityContent(): React.JSX.Element {
     [rows, today],
   );
   const consensus = useMemo(
-    () => computeConsensus(socialPosts, dataset.games),
-    [dataset.games, socialPosts],
+    () => computeConsensus(socialPosts, dataset.games, { voteTallies }),
+    [dataset.games, socialPosts, voteTallies],
   );
 
   const authorOf = useMemo(() => {
     const cache = new Map<string, AuthorInfo>();
     return (post: SocialPost): AuthorInfo => {
-      const hit = cache.get(post.authorHandle);
-      if (hit) return hit;
       const spec = getExampleAnalystSpec(post.authorHandle);
-      const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
       const isOwnPost = own?.handle === post.authorHandle;
+      const nextAvatarUrl = spec
+        ? null
+        : ((isOwnPost ? (own?.avatarUrl ?? post.authorAvatarUrl) : post.authorAvatarUrl) ?? null);
+      const hit = cache.get(post.authorHandle);
+      if (hit && hit.avatarUrl === nextAvatarUrl) return hit;
+      const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
       const info: AuthorInfo = {
         handle: post.authorHandle,
         name: isOwnPost && !spec ? own!.name : post.authorName,
@@ -179,7 +260,8 @@ function CommunityContent(): React.JSX.Element {
           spec?.avatarInitials ??
           (isOwnPost ? own!.avatarInitials : post.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)),
         gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
-        isTipstar: spec?.isTipstar ?? false,
+        avatarUrl: nextAvatarUrl,
+        isTipster: spec?.isTipster ?? false,
         saldo: ranked && ranked.record.settled > 0 ? formatUnits(ranked.record.netUnits) : null,
       };
       cache.set(post.authorHandle, info);
@@ -209,6 +291,18 @@ function CommunityContent(): React.JSX.Element {
     sealPickToJournal(pick, post.pick.units, post.pick.userDecimal);
   };
 
+  const onCopyToParlay = (post: SocialPost): void => {
+    if (!post.pick) return;
+    const game = dataset.games.find((g) => g.id === post.pick!.gameId);
+    const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
+    if (!pick || game?.status !== "NS") {
+      pushToast("Ese partido ya no está disponible para tu parlay.", "warning");
+      return;
+    }
+    // `addPickToParlay` ya avisa si el pick choca con otro del mismo partido.
+    if (addPickToParlay(pick)) pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
+  };
+
   const onShare = (post: SocialPost): void => {
     void shareUrl(
       `/app/u/${post.authorHandle}`,
@@ -226,10 +320,14 @@ function CommunityContent(): React.JSX.Element {
     follows,
     onToggleFollow,
     onCopy,
+    onCopyToParlay,
     onShare,
     toggleSocialLike,
     addSocialComment,
+    onDelete: deleteSocialPost,
+    onOpenReport: setReportTarget,
     goProfile,
+    highlightedPostId,
   };
 
   return (
@@ -269,7 +367,7 @@ function CommunityContent(): React.JSX.Element {
                 </span>
                 <span className="pl-com-invite-copy">
                   <strong>Invita a un amigo</strong>
-                  <span>7 días para él, +15 días para ti</span>
+                  <span>7 días para él, +7 días para ti</span>
                 </span>
                 <ChevronRightIcon size={16} />
               </a>
@@ -288,9 +386,20 @@ function CommunityContent(): React.JSX.Element {
         {tab === "consenso" ? <ConsensusTab items={consensus} /> : null}
 
         {tab === "ranking" ? (
-          <RankingTab rows={rows} own={own} today={today} follows={follows} onToggleFollow={onToggleFollow} goProfile={goProfile} />
+          <RankingTab
+            rows={rows}
+            own={own}
+            ownJournal={ownJournal}
+            source={source}
+            today={today}
+            follows={follows}
+            onToggleFollow={onToggleFollow}
+            goProfile={goProfile}
+            onPrivacy={() => navigateTo("/app/lab?tab=privacidad")}
+          />
         ) : null}
       </TabPanel>
+      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
     </div>
   );
 }
@@ -353,7 +462,7 @@ function Composer({
   const form = (inSheet: boolean): React.JSX.Element => (
     <form className={`pl-com-composer ${inSheet ? "" : "glass-lens glass-ring"}`} aria-label="Publicar" onSubmit={submit} noValidate>
       <div className="pl-com-composer-top">
-        {own ? <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={40} /> : null}
+        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={40} /> : null}
         <div className="pl-com-composer-field">
           <label htmlFor={`${uid}-${inSheet ? "s" : "d"}-body`} className="sr-only">
             Escribe tu publicación
@@ -424,7 +533,7 @@ function Composer({
         className="pl-com-composer-row glass-lens glass-ring"
         onClick={() => setSheetOpen(true)}
       >
-        {own ? <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={36} /> : null}
+        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={36} /> : null}
         <span className="pl-com-composer-row-text">Comparte un pick…</span>
         <span className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm" aria-hidden="true">
           Publicar
@@ -479,6 +588,7 @@ function PickPicker({
   onPick: (pick: MatchPick) => void;
 }): React.JSX.Element {
   const uid = useId();
+  const { userTimezone } = usePlatform();
   const [query, setQuery] = useState("");
   const upcoming = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -526,7 +636,7 @@ function PickPicker({
                 <span>
                   {game.home.shortName || game.home.name} vs {game.away.shortName || game.away.name}
                 </span>
-                <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc)}</span>
+                <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc, userTimezone)}</span>
               </p>
               <ul>
                 {[...game.picks]
@@ -564,28 +674,77 @@ interface FeedSharedProps {
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
   onCopy: (post: SocialPost) => void;
+  onCopyToParlay: (post: SocialPost) => void;
   onShare: (post: SocialPost) => void;
   toggleSocialLike: (postId: string) => void;
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
+  onDelete: (postId: string) => void;
+  onOpenReport: (target: SocialReportTarget) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  highlightedPostId?: string | null;
 }
 
 function Feed({
   posts,
+  scope,
   emptyText = "Todavía no hay publicaciones.",
   ...shared
-}: FeedSharedProps & { posts: readonly SocialPost[]; emptyText?: string }): React.JSX.Element {
+}: FeedSharedProps & {
+  posts: readonly SocialPost[];
+  scope?: SocialFeedScope;
+  emptyText?: string;
+}): React.JSX.Element {
+  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
   const [limit, setLimit] = useState(FEED_PAGE);
-  if (posts.length === 0) return <p className="pl-prof-empty-line">{emptyText}</p>;
+  const pageState = socialFeedPages[socialScopeKey(scope)];
+  const hasMoreServer = Boolean(pageState?.hasMore);
+  const loadingOlder = Boolean(pageState?.loading);
+
+  const realPosts = useMemo(() => posts.filter((p) => !p.isExample), [posts]);
+  const examplePosts = useMemo(() => posts.filter((p) => p.isExample), [posts]);
+  // Mientras sigan quedando publicaciones reales en el servidor, las de ejemplo esperan al final.
+  const displayPool = useMemo(
+    () => (hasMoreServer ? realPosts : [...realPosts, ...examplePosts]),
+    [hasMoreServer, realPosts, examplePosts],
+  );
+
+  const targetIdx = shared.highlightedPostId
+    ? displayPool.findIndex((p) => p.id === shared.highlightedPostId)
+    : -1;
+  useEffect(() => {
+    if (targetIdx >= limit) {
+      setLimit(targetIdx + FEED_PAGE);
+    }
+  }, [targetIdx, limit]);
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
+    return <p className="pl-prof-empty-line">{emptyText}</p>;
+  }
+
+  const canShowMore = displayPool.length > limit || hasMoreServer || loadingOlder;
+  const onShowMore = (): void => {
+    if (loadingOlder) return;
+    const nextLimit = limit + FEED_PAGE;
+    setLimit(nextLimit);
+    if (hasMoreServer && nextLimit >= realPosts.length) {
+      void loadOlderSocialPosts(scope);
+    }
+  };
+
   return (
     <div className="pl-com-feed">
-      {posts.slice(0, limit).map((post) => (
+      {displayPool.slice(0, limit).map((post) => (
         <PostCard key={post.id} post={post} {...shared} />
       ))}
-      {posts.length > limit ? (
+      {canShowMore ? (
         <div className="pl-prof-more">
-          <button type="button" className="pl-prof-btn pl-prof-btn--ghost" onClick={() => setLimit((n) => n + FEED_PAGE)}>
-            Ver más
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost"
+            disabled={loadingOlder}
+            onClick={onShowMore}
+          >
+            {loadingOlder ? "Cargando…" : "Ver más"}
           </button>
         </div>
       ) : null}
@@ -602,22 +761,38 @@ function PostCard({
   follows,
   onToggleFollow,
   onCopy,
+  onCopyToParlay,
   onShare,
   toggleSocialLike,
   addSocialComment,
+  onDelete,
+  onOpenReport,
   goProfile,
+  highlightedPostId,
 }: FeedSharedProps & { post: SocialPost }): React.JSX.Element {
   const uid = useId();
+  const cardRef = useRef<HTMLElement>(null);
+  const isHighlighted = Boolean(highlightedPostId && highlightedPostId === post.id);
   const author = authorOf(post);
-  const [threadOpen, setThreadOpen] = useState(false);
+  const [threadOpen, setThreadOpen] = useState(isHighlighted);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  useEffect(() => {
+    if (!isHighlighted) return;
+    setThreadOpen(true);
+    cardRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" });
+  }, [isHighlighted]);
+  const canDelete = Boolean(post.fromServer && post.isMine);
   const [reply, setReply] = useState("");
   const [replyError, setReplyError] = useState("");
-  const isMine = own?.handle === post.authorHandle;
+  const isMine = Boolean(post.isMine || own?.handle === post.authorHandle);
+  const canReportPost = !isMine && !post.isExample;
   const following = follows.isFollowing(post.authorHandle);
   const pick = post.pick;
   const meta = pick ? resolveEntryGame(pick.gameId, dataset) : null;
   const units = pick ? (pick.status === "won" ? pick.units * (pick.userDecimal - 1) : pick.status === "lost" ? -pick.units : null) : null;
   const firstComment = post.comments[0];
+  const isFirstCommentMine = firstComment ? Boolean(firstComment.isMine || own?.handle === firstComment.authorHandle) : true;
 
   const pickMeta = pick
     ? pick.status === "open"
@@ -636,17 +811,24 @@ function PostCard({
     : [];
 
   return (
-    <article className="pl-com-post glass-lens glass-ring" aria-labelledby={`${uid}-author`}>
+    <article
+      ref={cardRef}
+      id={`post-${post.id}`}
+      data-highlighted={isHighlighted ? "true" : undefined}
+      className="pl-com-post glass-lens glass-ring"
+      aria-labelledby={`${uid}-author`}
+    >
       <header className="pl-com-post-head">
         <a href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)} className="pl-com-post-avatar" tabIndex={-1} aria-hidden="true">
-          <Avatar initials={author.initials} gradVar={author.gradVar} size={42} />
+          <Avatar initials={author.initials} avatarUrl={author.avatarUrl} gradVar={author.gradVar} size={42} loading="lazy" />
         </a>
         <div className="pl-com-post-who">
           <p className="pl-com-post-name">
             <a id={`${uid}-author`} href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)}>
               {author.name}
             </a>
-            {author.isTipstar ? <VerifiedSeal size={16} /> : null}
+            {author.isTipster ? <VerifiedSeal size={16} /> : null}
+            {post.authorBadge ? <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" /> : null}
             {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
           </p>
           <p className="pl-com-post-sub num">
@@ -664,6 +846,18 @@ function PostCard({
           >
             {following ? "Siguiendo" : "Seguir"}
           </button>
+        ) : null}
+        {canReportPost ? (
+          <SocialReportMenu
+            triggerLabel={`Más opciones de la publicación de ${author.name}`}
+            onReport={() =>
+              onOpenReport({
+                kind: "post",
+                postId: post.id,
+                authorHandle: post.authorHandle,
+              })
+            }
+          />
         ) : null}
       </header>
 
@@ -712,12 +906,44 @@ function PostCard({
           <span>{post.comments.length}</span>
         </button>
         {pick && !isMine ? (
-          <button type="button" className="pl-com-act" onClick={() => onCopy(post)}>
+          <button type="button" className="pl-com-act" aria-label="Copiar a mi récord" onClick={() => onCopy(post)}>
             <MaestroIcon name="copy" size={15} />
-            Copiar a mi bitácora
+            A mi récord
           </button>
         ) : null}
-        <button type="button" className="pl-com-act pl-com-act--end" aria-label="Compartir" onClick={() => onShare(post)}>
+        {pick && pick.status === "open" ? (
+          <button type="button" className="pl-com-act" aria-label="Copiar a mi parlay" onClick={() => onCopyToParlay(post)}>
+            <MaestroIcon name="layers" size={15} />
+            A mi parlay
+          </button>
+        ) : null}
+        {canDelete ? (
+          confirmDelete ? (
+            <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado">
+              <button type="button" className="pl-com-act pl-com-act--danger" onClick={() => onDelete(post.id)}>
+                Borrar
+              </button>
+              <button type="button" className="pl-com-act" onClick={() => setConfirmDelete(false)}>
+                Cancelar
+              </button>
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="pl-com-act pl-com-act--end"
+              aria-label="Borrar publicación"
+              onClick={() => setConfirmDelete(true)}
+            >
+              <MaestroIcon name="trash" size={15} />
+            </button>
+          )
+        ) : null}
+        <button
+          type="button"
+          className={`pl-com-act ${canDelete ? "" : "pl-com-act--end"}`}
+          aria-label="Compartir"
+          onClick={() => onShare(post)}
+        >
           <ShareIcon size={16} />
         </button>
       </div>
@@ -727,13 +953,34 @@ function PostCard({
           <div className="pl-com-comment-preview">
             <Avatar
               initials={firstComment.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+              avatarUrl={
+                own?.handle === firstComment.authorHandle
+                  ? (own.avatarUrl ?? firstComment.authorAvatarUrl)
+                  : firstComment.authorAvatarUrl
+              }
               gradVar={getExampleAnalystSpec(firstComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
               size={28}
+              loading="lazy"
             />
-            <div>
-              <p>
-                <strong>{firstComment.authorName}</strong> {firstComment.body}
-              </p>
+            <div className="pl-com-comment-preview-body">
+              <div className="pl-com-comment-head">
+                <p>
+                  <strong>{firstComment.authorName}</strong> {firstComment.body}
+                </p>
+                {!isFirstCommentMine && !post.isExample ? (
+                  <SocialReportMenu
+                    compact
+                    triggerLabel={`Más opciones del comentario de ${firstComment.authorName}`}
+                    onReport={() =>
+                      onOpenReport({
+                        kind: "comment",
+                        commentId: firstComment.id,
+                        authorHandle: firstComment.authorHandle,
+                      })
+                    }
+                  />
+                ) : null}
+              </div>
               {post.comments.length > 1 ? (
                 <button type="button" className="pl-com-more-comments" onClick={() => setThreadOpen(true)}>
                   Ver los {post.comments.length} comentarios
@@ -746,14 +993,44 @@ function PostCard({
           <div className="pl-com-thread">
             {post.comments.length > 0 ? (
               <ul>
-                {post.comments.map((c) => (
-                  <li key={c.id}>
-                    <p>
-                      <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
-                    </p>
-                    <p>{c.body}</p>
-                  </li>
-                ))}
+                {post.comments.map((c) => {
+                  const isCommentMine = Boolean(c.isMine || own?.handle === c.authorHandle);
+                  const commentAvatarUrl =
+                    own?.handle === c.authorHandle ? (own.avatarUrl ?? c.authorAvatarUrl) : c.authorAvatarUrl;
+                  return (
+                    <li key={c.id} className="pl-com-comment-row">
+                      <Avatar
+                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+                        avatarUrl={commentAvatarUrl}
+                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                        size={26}
+                        loading="lazy"
+                      />
+                      <div className="pl-com-comment-body">
+                        <div className="pl-com-comment-head">
+                          <p>
+                            <strong>{c.authorName}</strong>{" "}
+                            <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
+                          </p>
+                          {!isCommentMine && !post.isExample ? (
+                            <SocialReportMenu
+                              compact
+                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                              onReport={() =>
+                                onOpenReport({
+                                  kind: "comment",
+                                  commentId: c.id,
+                                  authorHandle: c.authorHandle,
+                                })
+                              }
+                            />
+                          ) : null}
+                        </div>
+                        <p>{c.body}</p>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             ) : null}
             <form
@@ -875,7 +1152,7 @@ function TopCard({
           {ranked.slice(0, 5).map((r) => (
             <li key={r.handle}>
               <span className="pl-com-top-rank num">{r.rank}</span>
-              <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={28} />
+              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={28} />
               <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-top-name">
                 {r.name}
               </a>
@@ -947,7 +1224,7 @@ function MobileTop({
           <li key={r.handle}>
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-mtop-card glass-card glass-ring">
               <span className="pl-com-mtop-rank num">#{r.rank}</span>
-              <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={40} />
+              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={40} />
               <span className="pl-com-mtop-name">{r.name.split(" ")[0]}</span>
               <span className={`num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
                 {formatUnits(r.record.netUnits)}
@@ -964,48 +1241,63 @@ function MobileTop({
    Siguiendo
    ========================================================================= */
 
-type FollowFilter = "all" | "tipstars" | "socios" | "open";
+type FollowFilter = "all" | "tipsters" | "socios" | "open";
 
 function FollowingTab({
   posts,
   seasonRanked,
   ...shared
 }: FeedSharedProps & { posts: readonly SocialPost[]; seasonRanked: readonly RankedAnalyst[] }): React.JSX.Element {
+  const { loadFollowingSocialPosts } = usePlatform();
   const [filter, setFilter] = useState<FollowFilter>("all");
   const { follows, dataset, oddsFormat, onToggleFollow, goProfile } = shared;
   const followed = follows.following;
+  const { topics, toggleLeague, toggleTeam } = useFollowedTopics();
+  const topicCount = topics.leagues.length + topics.teams.length;
+  const isFollowedPost = useCallback(
+    (p: SocialPost) => followed.includes(p.authorHandle) || postMatchesTopics(p, topics, dataset),
+    [dataset, followed, topics],
+  );
+
+  useEffect(() => {
+    if (followed.length > 0) {
+      loadFollowingSocialPosts();
+    }
+  }, [followed.length, loadFollowingSocialPosts]);
 
   const followedInfo = useMemo(
     () =>
       followed.map((handle) => {
         const spec = getExampleAnalystSpec(handle);
+        const matchingPost = spec ? undefined : posts.find((p) => p.authorHandle === handle && p.authorAvatarUrl);
         return {
           handle,
           initials: spec?.avatarInitials ?? handle.slice(0, 2).toUpperCase(),
           gradVar: spec?.avatarGradVar ?? "var(--avatar-grad-4)",
-          isTipstar: spec?.isTipstar ?? false,
+          avatarUrl: matchingPost?.authorAvatarUrl ?? null,
+          isTipster: spec?.isTipster ?? false,
           name: spec?.name ?? `@${handle}`,
         };
       }),
-    [followed],
+    [followed, posts],
   );
-  const tipstars = followedInfo.filter((f) => f.isTipstar).length;
+  const tipsters = followedInfo.filter((f) => f.isTipster).length;
 
   const followedPosts = useMemo(() => {
-    const base = posts.filter((p) => followed.includes(p.authorHandle));
+    const base = posts.filter(isFollowedPost);
     return base.filter((p) => {
-      const tip = getExampleAnalystSpec(p.authorHandle)?.isTipstar ?? false;
-      if (filter === "tipstars") return tip;
+      const tip = getExampleAnalystSpec(p.authorHandle)?.isTipster ?? false;
+      if (filter === "tipsters") return tip;
       if (filter === "socios") return !tip;
       if (filter === "open") return p.pick?.status === "open";
       return true;
     });
-  }, [filter, followed, posts]);
+  }, [filter, isFollowedPost, posts]);
 
   const openPicks = useMemo(() => {
     const groups = new Map<string, { label: string; gameId: string; names: string[]; kickoff?: string; league?: string }>();
     for (const p of posts) {
-      if (!followed.includes(p.authorHandle) || p.pick?.status !== "open") continue;
+      if (!isFollowedPost(p) || p.pick?.status !== "open") continue;
       const meta = resolveEntryGame(p.pick.gameId, dataset);
       const g = groups.get(p.pick.pickId) ?? {
         label: p.pick.label,
@@ -1018,7 +1310,7 @@ function FollowingTab({
       groups.set(p.pick.pickId, g);
     }
     return [...groups.values()].sort((a, b) => (a.kickoff ?? "").localeCompare(b.kickoff ?? "")).slice(0, 5);
-  }, [dataset, followed, posts]);
+  }, [dataset, isFollowedPost, posts]);
 
   const suggestions = useMemo(
     () => seasonRanked.filter((r) => !followed.includes(r.handle) && r.handle !== shared.own?.handle).slice(0, 3),
@@ -1034,7 +1326,7 @@ function FollowingTab({
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
               {r.name}
             </a>
-            {r.isTipstar ? <VerifiedSeal size={14} /> : null}
+            {r.isTipster ? <VerifiedSeal size={14} /> : null}
             <span className="pl-prof-muted num">
               {formatUnits(r.record.netUnits)} · {r.record.settled} picks
             </span>
@@ -1053,11 +1345,25 @@ function FollowingTab({
     </ul>
   );
 
-  if (followed.length === 0) {
+  const topicsPicker = (
+    <TopicsPicker
+      games={dataset.games}
+      topics={topics}
+      onToggleLeague={toggleLeague}
+      onToggleTeam={toggleTeam}
+      defaultOpen={followed.length === 0 && topicCount === 0}
+    />
+  );
+
+  if (followed.length === 0 && topicCount === 0) {
     return (
-      <div className="pl-com-empty glass-lens glass-ring">
-        <p className="pl-com-empty-title">Aún no sigues a nadie.</p>
-        {suggestionList}
+      <div className="pl-com-main">
+        <div className="pl-com-empty glass-lens glass-ring">
+          <p className="pl-com-empty-title">Aún no sigues a nadie.</p>
+          <p className="pl-com-card-note">Sigue a socios o elige ligas y equipos: sus publicaciones aparecen aquí.</p>
+          {suggestionList}
+        </div>
+        {topicsPicker}
       </div>
     );
   }
@@ -1068,20 +1374,19 @@ function FollowingTab({
         <section className="pl-com-strip glass-lens glass-ring" aria-label="A quién sigues">
           <span className="pl-com-stack" aria-hidden="true">
             {followedInfo.slice(0, 5).map((f) => (
-              <Avatar key={f.handle} initials={f.initials} gradVar={f.gradVar} size={32} />
+              <Avatar key={f.handle} initials={f.initials} avatarUrl={f.avatarUrl} gradVar={f.gradVar} size={32} loading="lazy" />
             ))}
           </span>
-          <p className="pl-com-strip-copy num">
-            Sigues a <strong>{followed.length}</strong> · {tipstars} {tipstars === 1 ? "tipstar" : "tipstars"},{" "}
-            {followed.length - tipstars} {followed.length - tipstars === 1 ? "socio" : "socios"}
-          </p>
+          <p className="pl-com-strip-copy num">{followSummary(followed.length, tipsters, topics)}</p>
         </section>
+
+        {topicsPicker}
 
         <div className="pl-com-filters" role="group" aria-label="Filtrar">
           {(
             [
               ["all", "Todos"],
-              ["tipstars", "Tipstars"],
+              ["tipsters", "Tipsters"],
               ["socios", "Socios"],
               ["open", "Con pick abierto"],
             ] as const
@@ -1106,7 +1411,12 @@ function FollowingTab({
           </ol>
         ) : null}
 
-        <Feed posts={followedPosts} emptyText="Nadie a quien sigues publicó con este filtro." {...shared} />
+        <Feed
+          posts={followedPosts}
+          scope={{ following: true }}
+          emptyText="Nada de quienes sigues ni de tus ligas y equipos con este filtro."
+          {...shared}
+        />
       </div>
       <aside className="pl-com-aside" aria-label="De quienes sigues">
         <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-open">
@@ -1143,6 +1453,112 @@ function FollowingTab({
   );
 }
 
+const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
+
+/** «Sigues a 3 (1 tipster, 2 socios) · 2 ligas y 1 equipo», sin partes en cero. */
+function followSummary(people: number, tipsters: number, topics: FollowedTopics): string {
+  const parts: string[] = [];
+  if (people > 0) {
+    const kinds = [
+      tipsters > 0 ? plural(tipsters, "tipster", "tipsters") : "",
+      people - tipsters > 0 ? plural(people - tipsters, "socio", "socios") : "",
+    ].filter(Boolean);
+    parts.push(`Sigues a ${people} (${kinds.join(", ")})`);
+  }
+  const topicParts = [
+    topics.leagues.length > 0 ? plural(topics.leagues.length, "liga", "ligas") : "",
+    topics.teams.length > 0 ? plural(topics.teams.length, "equipo", "equipos") : "",
+  ].filter(Boolean);
+  if (topicParts.length > 0) parts.push(`${people > 0 ? "" : "Sigues "}${topicParts.join(" y ")}`);
+  return parts.join(" · ");
+}
+
+function TopicsPicker({
+  games,
+  topics,
+  onToggleLeague,
+  onToggleTeam,
+  defaultOpen,
+}: {
+  games: readonly PlatformGame[];
+  topics: FollowedTopics;
+  onToggleLeague: (league: string) => void;
+  onToggleTeam: (key: string) => void;
+  defaultOpen: boolean;
+}): React.JSX.Element | null {
+  const uid = useId();
+  const leagues = useMemo(() => {
+    const map = new Map<
+      string,
+      { league: PlatformGame["league"]; label: string; teams: Map<string, { slug: string; name: string }> }
+    >();
+    for (const g of games) {
+      const entry = map.get(g.league) ?? { league: g.league, label: g.leagueLabel, teams: new Map() };
+      entry.teams.set(g.home.slug, { slug: g.home.slug, name: g.home.shortName || g.home.name });
+      entry.teams.set(g.away.slug, { slug: g.away.slug, name: g.away.shortName || g.away.name });
+      map.set(g.league, entry);
+    }
+    return [...map.values()].map((l) => ({
+      ...l,
+      teams: [...l.teams.values()].sort((a, b) => a.name.localeCompare(b.name, "es")),
+    }));
+  }, [games]);
+  const count = topics.leagues.length + topics.teams.length;
+  if (leagues.length === 0) return null;
+  return (
+    <details className="pl-com-topics glass-lens glass-ring" open={defaultOpen}>
+      <summary className="pl-com-topics-summary">
+        <span>Ligas y equipos que sigues</span>
+        <span className="pl-prof-muted num">{count === 0 ? "Ninguno" : count}</span>
+      </summary>
+      <div className="pl-com-topics-body">
+        <p className="pl-com-card-note">
+          Lo que se publique sobre sus partidos aparece en «Siguiendo», aunque no sigas a quien lo escribe. Se
+          guarda en este navegador.
+        </p>
+        <div className="pl-com-filters" role="group" aria-label="Ligas que sigues">
+          {leagues.map((l) => (
+            <button
+              key={l.league}
+              type="button"
+              className="pl-prof-chip"
+              aria-pressed={topics.leagues.includes(l.league)}
+              onClick={() => onToggleLeague(l.league)}
+            >
+              <LeagueBadge league={l.league} size={16} />
+              {l.label}
+            </button>
+          ))}
+        </div>
+        {leagues.map((l) => (
+          <div key={l.league} className="pl-com-topics-league">
+            <p className="pl-com-topics-label" id={`${uid}-${l.league}`}>
+              Equipos de {l.label}
+            </p>
+            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-${l.league}`}>
+              {l.teams.map((t) => {
+                const key = teamTopicKey(l.league, t.slug);
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className="pl-prof-chip"
+                    aria-pressed={topics.teams.includes(key)}
+                    onClick={() => onToggleTeam(key)}
+                  >
+                    <TeamBadge league={l.league} slug={t.slug} name={t.name} size={16} decorative />
+                    {t.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  );
+}
+
 /* ===========================================================================
    Consenso
    ========================================================================= */
@@ -1156,13 +1572,24 @@ function diffClass(diff: number): string {
   return "pl-com-diff";
 }
 
+/** «12 picks · 8 votos», lo que exista. */
+function sampleLabel(item: ConsensusGame): string {
+  const parts: string[] = [];
+  if (item.totalPicks > 0) parts.push(`${item.totalPicks} ${item.totalPicks === 1 ? "pick" : "picks"}`);
+  if (item.votes) parts.push(`${item.votes.total} ${item.votes.total === 1 ? "voto" : "votos"}`);
+  return parts.join(" · ");
+}
+
+const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.votes?.total ?? 0);
+
 function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
+  const { userTimezone } = usePlatform();
   const [league, setLeague] = useState("all");
   const [sort, setSort] = useState<ConsensusSort>("diff");
   const leagues = useMemo(() => [...new Set(items.map((i) => i.game.leagueLabel))], [items]);
   const list = useMemo(() => {
     const filtered = league === "all" ? [...items] : items.filter((i) => i.game.leagueLabel === league);
-    if (sort === "picks") filtered.sort((a, b) => b.totalPicks - a.totalPicks);
+    if (sort === "picks") filtered.sort((a, b) => sampleSize(b) - sampleSize(a));
     if (sort === "soon") filtered.sort((a, b) => a.game.kickoffUtc.localeCompare(b.game.kickoffUtc));
     return filtered;
   }, [items, league, sort]);
@@ -1171,8 +1598,10 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
     return (
       <div className="pl-com-consensus">
         <div className="pl-com-empty glass-lens glass-ring">
-          <p className="pl-com-empty-title">Todavía no hay partidos con 10 picks de socios.</p>
-          <p className="pl-com-card-note">Publica tu pick con «Adjuntar pick» y cuenta para el consenso.</p>
+          <p className="pl-com-empty-title">Todavía no hay partidos con suficientes picks o votos de socios.</p>
+          <p className="pl-com-card-note">
+            Publica tu pick con «Adjuntar pick» o vota «¿Quién gana?» en la ficha del partido: los dos cuentan.
+          </p>
         </div>
         <ConsensusNote />
       </div>
@@ -1198,7 +1627,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
           <span className="pl-prof-select">
             <select value={sort} onChange={(e) => setSort(e.target.value as ConsensusSort)}>
               <option value="diff">Mayor diferencia</option>
-              <option value="picks">Más picks</option>
+              <option value="picks">Más participación</option>
               <option value="soon">Próximos</option>
             </select>
           </span>
@@ -1214,19 +1643,40 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <TeamBadge league={featured.game.league} slug={featured.game.away.slug} name={featured.game.away.name} size={26} decorative />
           </h2>
           <p className="pl-com-card-note num">
-            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc)} · {featured.totalPicks} picks de socios
+            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} · {sampleLabel(featured)}
           </p>
-          <div className="pl-com-outcomes">
-            {featured.outcomes.slice(0, 3).map((o) => (
-              <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
-                <div className="pl-com-outcome-head">
-                  <p>{o.label}</p>
-                  <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
-                </div>
-                <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+          {featured.outcomes.length > 0 ? (
+            <>
+              <h3 className="pl-com-consensus-sub">Picks publicados</h3>
+              <div className="pl-com-outcomes">
+                {featured.outcomes.slice(0, 3).map((o) => (
+                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                    <div className="pl-com-outcome-head">
+                      <p>{o.label}</p>
+                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                    </div>
+                    <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : null}
+          {featured.votes ? (
+            <>
+              <h3 className="pl-com-consensus-sub num">¿Quién gana? · {featured.votes.total} votos</h3>
+              <div className="pl-com-outcomes">
+                {featured.votes.outcomes.map((o) => (
+                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                    <div className="pl-com-outcome-head">
+                      <p>{o.label}</p>
+                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                    </div>
+                    <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : null}
           <p className="pl-com-reading">{consensusReading(featured.top)}</p>
         </article>
       ) : null}
@@ -1242,7 +1692,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <span className="pl-com-hide-md pl-com-right">Socios</span>
             <span className="pl-com-hide-md pl-com-right">Modelo</span>
             <span className="pl-com-right">Diferencia</span>
-            <span className="pl-com-hide-md pl-com-right">Picks</span>
+            <span className="pl-com-hide-md pl-com-right">Muestra</span>
           </div>
           {rest.map((i) => (
             <div key={i.game.id} className="pl-com-crow num">
@@ -1252,7 +1702,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
                   <p className="pl-prof-row-title">
                     {i.game.home.shortName || i.game.home.name} vs {i.game.away.shortName || i.game.away.name}
                   </p>
-                  <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc)}</p>
+                  <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc, userTimezone)}</p>
                 </div>
               </div>
               <span className="pl-com-hide-md">{i.top.label}</span>
@@ -1263,7 +1713,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
               <span className="pl-com-right">
                 <span className={diffClass(i.top.diffPts)}>{formatDiffPts(i.top.diffPts)}</span>
               </span>
-              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{i.totalPicks}</span>
+              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{sampleLabel(i)}</span>
             </div>
           ))}
         </section>
@@ -1276,7 +1726,8 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
 function ConsensusNote(): React.JSX.Element {
   return (
     <p className="pl-com-footnote">
-      Socios: % de picks publicados por resultado. Modelo: probabilidad del partido. Solo partidos con 10 picks o más.
+      Socios: % de picks publicados por resultado, o % de votos de «¿Quién gana?». Modelo: probabilidad del
+      partido. Entran partidos con {CONSENSUS_MIN_PICKS} picks o {CONSENSUS_MIN_VOTES} votos.
     </p>
   );
 }
@@ -1288,30 +1739,37 @@ function ConsensusNote(): React.JSX.Element {
 function RankingTab({
   rows,
   own,
+  ownJournal,
+  source,
   today,
   follows,
   onToggleFollow,
   goProfile,
+  onPrivacy,
 }: {
   rows: ReturnType<typeof useLeaderboardRows>["rows"];
   own: OwnIdentity | null;
+  ownJournal: ReturnType<typeof useLeaderboardRows>["ownJournal"];
+  source: ReturnType<typeof useLeaderboardRows>["source"];
   today: Date;
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onPrivacy: () => void;
 }): React.JSX.Element {
+  const { hasAccountSessionAuth } = usePlatform();
   const [window, setWindow] = useState<LeaderboardWindow>("30d");
   const [sort, setSort] = useState<LeaderboardSort>("units");
+  const minSettled = leaderboardMinSettled(window);
   const ranked = useMemo(() => rankAnalysts(rows, { window, sort, today }), [rows, window, sort, today]);
   const top = ranked.slice(0, TOP_N);
   const podium = top.slice(0, 3);
   const tableRows = top.slice(3);
   const me = own ? ranked.find((r) => r.handle === own.handle) ?? null : null;
   const meInTop = me !== null && me.rank <= TOP_N;
-  const ownRow = own ? rows.find((r) => r.handle === own.handle) : undefined;
-  const ownSettled = ownRow ? profileRecord(entriesInWindow(ownRow.journal, window, today)).settled : 0;
+  const ownSettled = own ? profileRecord(entriesInWindow(ownJournal, window, today)).settled : 0;
   const tenth = top[TOP_N - 1];
-  const windowLabel = window === "30d" ? "últimos 30 días" : "temporada";
+  const windowLabel = window === "7d" ? "últimos 7 días" : "últimos 30 días";
   const sortLabel = sort === "units" ? "saldo" : sort === "clv" ? "ventaja contra el cierre" : "cumplidos";
 
   const hit = (r: RankedAnalyst): string => `${Math.round(r.record.hitRatePct ?? 0)} %`;
@@ -1322,17 +1780,27 @@ function RankingTab({
     ? me.rank > TOP_N && tenth
       ? `Te faltan ${Math.max(0.1, tenth.record.netUnits - me.record.netUnits).toFixed(1)}u para el top 10`
       : "Estás en el top 10"
-    : `Registra ${Math.max(0, LEADERBOARD_MIN_SETTLED - ownSettled)} picks más para entrar`;
+    : hasAccountSessionAuth && ownSettled >= minSettled
+      ? "Activa «Aparecer en el ranking» en Privacidad para entrar"
+      : `Registra ${Math.max(0, minSettled - ownSettled)} picks más para entrar`;
+  const nameOf = (r: RankedAnalyst): React.ReactNode => (
+    <>
+      <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
+        {r.name}
+      </a>
+      {r.isExample ? <ExampleBadge className="pl-com-example" /> : null}
+    </>
+  );
 
   return (
     <div className="pl-com-ranking">
       <div className="pl-com-toolbar">
         <div className="pl-com-seg" role="group" aria-label="Periodo">
-          <button type="button" aria-pressed={window === "30d"} onClick={() => setWindow("30d")}>
-            Últimos 30 días
+          <button type="button" aria-pressed={window === "7d"} onClick={() => setWindow("7d")}>
+            Semana
           </button>
-          <button type="button" aria-pressed={window === "season"} onClick={() => setWindow("season")}>
-            Temporada
+          <button type="button" aria-pressed={window === "30d"} onClick={() => setWindow("30d")}>
+            Mes
           </button>
         </div>
         <div className="pl-com-seg" role="group" aria-label="Ordenar por">
@@ -1348,8 +1816,17 @@ function RankingTab({
         </div>
       </div>
 
+      {source === "examples" ? (
+        <p className="pl-com-card-note">
+          <ExampleBadge className="pl-com-example" />{" "}
+          {hasAccountSessionAuth
+            ? "Todavía ningún socio cumple la muestra mínima, así que ves perfiles de ejemplo."
+            : "Con el acceso de la beta ves perfiles de ejemplo y tu propio récord."}
+        </p>
+      ) : null}
+
       {ranked.length === 0 ? (
-        <p className="pl-prof-empty-line">Aún nadie llega a {LEADERBOARD_MIN_SETTLED} picks cerrados en este periodo.</p>
+        <p className="pl-prof-empty-line">Aún nadie llega a {minSettled} picks cerrados en este periodo.</p>
       ) : (
         <>
           <ol className="pl-com-podium" aria-label="Primeros tres lugares">
@@ -1359,12 +1836,10 @@ function RankingTab({
               return (
                 <li key={r.handle} className={`pl-com-podium-card glass-lens glass-ring ${r.rank === 1 ? "is-first glass-ring--featured" : ""}`} data-rank={r.rank}>
                   <span className="pl-com-podium-rank num">#{r.rank}</span>
-                  <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
+                  <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
                   <p className="pl-com-podium-name">
-                    <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                      {r.name}
-                    </a>
-                    {r.isTipstar ? <VerifiedSeal size={16} /> : null}
+                    {nameOf(r)}
+                    {r.isTipster ? <VerifiedSeal size={16} /> : null}
                   </p>
                   <p className="pl-com-podium-sub">{sub(r)}</p>
                   <p className={`pl-com-podium-units num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
@@ -1418,13 +1893,11 @@ function RankingTab({
                     <td className="pl-prof-muted">{r.rank}</td>
                     <td>
                       <span className="pl-com-table-who">
-                        <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={32} />
+                        <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={32} />
                         <span>
                           <span className="pl-com-table-name">
-                            <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                              {r.name}
-                            </a>
-                            {r.isTipstar ? <VerifiedSeal size={14} /> : null}
+                            {nameOf(r)}
+                            {r.isTipster ? <VerifiedSeal size={14} /> : null}
                           </span>
                           <span className="pl-com-table-sub">{sub(r)}</span>
                         </span>
@@ -1464,11 +1937,9 @@ function RankingTab({
             {tableRows.map((r) => (
               <li key={r.handle}>
                 <span className="pl-com-top-rank num">{r.rank}</span>
-                <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={36} />
+                <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} />
                 <span className="pl-com-mlist-who">
-                  <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                    {r.name}
-                  </a>
+                  <span>{nameOf(r)}</span>
                   <span className="pl-prof-muted num">
                     {hit(r)} cumplidos · {r.record.settled} picks
                   </span>
@@ -1492,7 +1963,16 @@ function RankingTab({
           ) : null}
         </>
       )}
-      <p className="pl-com-footnote">Mínimo {LEADERBOARD_MIN_SETTLED} picks cerrados.</p>
+      <p className="pl-com-footnote">
+        Mínimo {minSettled} picks cerrados. Solo aparecen socios que lo eligieron en{" "}
+        <button type="button" className="pl-com-text-btn" onClick={onPrivacy}>
+          Privacidad
+        </button>
+        .
+      </p>
     </div>
   );
 }
+
+/** Para Storybook: piezas de Comunidad con datos de ejemplo. */
+export { ConsensusTab as CommunityConsensusTab, TopicsPicker as CommunityTopicsPicker };

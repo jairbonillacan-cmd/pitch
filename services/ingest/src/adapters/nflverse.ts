@@ -13,6 +13,7 @@ import {
   asGameId,
   asLeagueId,
   asSeasonId,
+  easternWallTimeToUtcIso,
   type GameDTO,
 } from "@pitchlab/contracts";
 import type { NflTeamRateInput } from "@pitchlab/engines-reference";
@@ -121,7 +122,7 @@ export function normalizeNflverseSchedule(
     const homeScore = hasScore ? Number(row.home_score) : null;
     const awayScore = hasScore ? Number(row.away_score) : null;
     const timePart = row.gametime && /^\d{2}:\d{2}$/.test(row.gametime) ? row.gametime : "13:00";
-    const startTime = `${row.gameday}T${timePart}:00`;
+    const startTime = easternWallTimeToUtcIso(row.gameday, timePart);
     const homeSlug = home.id.split(".")[1]!;
     const awaySlug = away.id.split(".")[1]!;
 

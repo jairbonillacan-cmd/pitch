@@ -48,6 +48,36 @@ describe("Cortex IA", () => {
     });
   });
 
+  describe("coherencia equipo ↔ dato (fallas medidas en Astra)", () => {
+    const ok = (text: string) => expect(validateCortexText(text, facts)).toMatchObject({ ok: true });
+    const bad = (text: string, reason: string) =>
+      expect(validateCortexText(text, facts)).toMatchObject({ ok: false, reason });
+
+    it("rechaza al favorito equivocado", () => {
+      bad("Leeds llega como favorito para este partido ante un rival que viene irregular.", "favorito_invertido");
+      ok("Chelsea es el favorito del partido y el empate queda como segunda opción del motor.");
+      ok("Leeds no es el favorito, pero llega con una defensa ordenada a este partido.");
+    });
+
+    it("rechaza porcentajes atribuidos al rival", () => {
+      bad("Leeds tiene 54 % de ganar mientras que el local apenas suma lo justo en este duelo.", "porcentaje_mal_atribuido");
+      bad("El motor da 54 % para Leeds y deja poco margen al local en este encuentro.", "porcentaje_mal_atribuido");
+      ok("El motor da 22 % para Leeds y 54 % para Chelsea en este encuentro de liga.");
+      ok("Chelsea tiene 54 % y el empate 24 %, con Leeds como la opción menos probable.");
+    });
+
+    it("rechaza local y visitante invertidos", () => {
+      bad("Leeds en casa buscará sorprender a un Chelsea que llega con 54 % según el motor.", "rol_invertido");
+      bad("Chelsea de visita enfrenta un partido complicado ante Leeds, con 54 % a su favor.", "rol_invertido");
+    });
+
+    it("rechaza muletillas de chat y lenguaje de apuesta", () => {
+      bad("Perdón, corrijo: Chelsea llega con 54 % y Leeds con 22 % en este partido de liga.", "muletilla_de_chat");
+      bad("Según el JSON, Chelsea llega con 54 % y Leeds con 22 % en este partido de liga.", "muletilla_de_chat");
+      bad("Chelsea con 54 % es una apuesta segura para este fin de semana en la liga inglesa.", "lenguaje_de_apuesta");
+    });
+  });
+
   it("usa OpenRouter con el modelo del fundador y sin retención de datos", async () => {
     let sent: { model?: string; provider?: { data_collection?: string } } = {};
     const fetchImpl = (async (_url: string, init?: RequestInit) => {

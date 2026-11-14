@@ -1,5 +1,5 @@
 import re, os
-base = "/Users/jairbonilla/Desktop/Pitch Lab/touchiq-analysis"
+base = "<REPO_ROOT>/touchiq-analysis"
 html = open(os.path.join(base, "index.html"), encoding="utf-8", errors="replace").read()
 blocks = re.findall(r"<script[^>]*>(.*?)</script>", html, re.S)
 os.makedirs(os.path.join(base, "js-tree"), exist_ok=True)

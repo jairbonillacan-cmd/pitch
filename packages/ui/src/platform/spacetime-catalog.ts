@@ -4,7 +4,7 @@ import type {
   SocialPost,
   SpacetimeEngineSpec,
   SpacetimeVsTipsterRow,
-  TipstarCreator,
+  TipsterCreator,
 } from "./types";
 
 /**
@@ -193,12 +193,30 @@ export const MEMBERSHIP_SPEC = {
   annualSavingsPct: 33,
   trialMonth1Label: "7 días gratis sin tarjeta (Mes 1 de lanzamiento)",
   trialMonth2Label: "7 días gratis con verificación $0 MXN",
+  referralTrialDays: 7,
+  referralFriendFirstMonthMxn: 209,
   referralFriendBenefit: "7 días gratis + 30 % de descuento en su primer mes ($209 MXN)",
-  referralBothRewardDays: 15,
+  referralBothRewardDays: 7,
   referralAmbassadorThreshold: 5,
   referralAmbassadorBonusDays: 30,
-  cfdiNote: "IVA incluido · Factura CFDI 4.0 automática en segundos",
+  cfdiNote: "IVA incluido · Factura CFDI 4.0 bajo solicitud por correo",
 } as const;
+
+/** Días acumulados por invitar amigos que pagaron su primer mes. */
+export function referralEarnedDays(paidFriends: number): number {
+  const count = Math.max(0, Math.floor(Number.isFinite(paidFriends) ? paidFriends : 0));
+  const base = count * MEMBERSHIP_SPEC.referralBothRewardDays;
+  const bonus =
+    count >= MEMBERSHIP_SPEC.referralAmbassadorThreshold
+      ? MEMBERSHIP_SPEC.referralAmbassadorBonusDays
+      : 0;
+  return base + bonus;
+}
+
+/** Ahorro anual en pesos al elegir el ciclo anual frente a 12 meses sueltos. */
+export function annualSavingsMxn(): number {
+  return MEMBERSHIP_SPEC.monthlyMxn * 12 - MEMBERSHIP_SPEC.annualMxn;
+}
 
 export const SPACETIME_VS_TIPSTER_ROWS: readonly SpacetimeVsTipsterRow[] = [
   {
@@ -233,9 +251,9 @@ export const CORTEX_SAMPLE_QUOTE =
 
 export const ULTRA_LANDING_FEATURES = [
   "Lo más probable y el momio justo de cada partido, en todas las ligas",
-  "Todos los mercados: goles, ambos anotan, hándicap y props",
+  "Todos los mercados del partido: resultado, totales, ambos anotan y hándicap",
   "Armador de parlays de 2 a 6 selecciones, sin choques lógicos",
-  "Comunidad de socios y récord verificado de tipstars",
+  "Comunidad de socios y récord verificado de tipsters",
 ] as const;
 
 export const LANDING_FAQS: readonly LandingFaqItem[] = [
@@ -252,15 +270,16 @@ export const LANDING_FAQS: readonly LandingFaqItem[] = [
   {
     question: "¿Qué pasa al terminar los 7 días?",
     answer:
-      "Si no eliges pagar, tu cuenta sigue con el plan gratis y no pierdes tu bitácora.",
+      "No se te hace ningún cargo automático sin tarjeta. Conservas el acceso a tu cuenta y tu bitácora, y puedes activar el Pase PitchLab Ultra cuando quieras.",
   },
   {
     question: "¿Puedo facturar?",
-    answer: "Sí. El precio incluye IVA y puedes pedir tu CFDI desde tu cuenta.",
+    answer:
+      "Sí. El precio incluye IVA y puedes solicitar tu CFDI por correo a soporte@pitchlab.mx con tus datos fiscales.",
   },
 ] as const;
 
-export const TIPSTAR_CREATORS: readonly TipstarCreator[] = [
+export const TIPSTER_CREATORS: readonly TipsterCreator[] = [
   {
     isExample: true,
     handle: "sofia_nfl",
@@ -344,7 +363,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     id: "sp-1",
     authorHandle: "sofia_nfl",
     authorName: "Sofía Méndez",
-    roleBadge: "Tipstar Oficial",
+    roleBadge: "Tipster Oficial",
     avatarGradVar: "var(--avatar-grad-1)",
     verifiedRecord: "+18.4u · 142 picks",
     clvBadge: "CLV +4.2 %",
@@ -406,7 +425,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     id: "sp-3",
     authorHandle: "diego_tactico",
     authorName: "Diego Aranda",
-    roleBadge: "Tipstar Oficial",
+    roleBadge: "Tipster Oficial",
     avatarGradVar: "var(--avatar-grad-3)",
     verifiedRecord: "+11.6u · 118 picks",
     clvBadge: "CLV +3.1 %",

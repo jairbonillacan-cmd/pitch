@@ -1,0 +1,479 @@
+/* ==========================================================================
+   Módulo «Antes del partido» (ficha del partido)
+   100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
+   ========================================================================== */
+
+.pl-prematch {
+  container-type: inline-size;
+  container-name: prematch;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-block-end: 14px;
+  border-block-end: 1px solid var(--pl-border);
+  min-inline-size: 0;
+}
+
+.pl-prematch-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-inline-size: 0;
+  flex: 1 1 220px;
+}
+
+.pl-prematch-eyebrow-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pl-prematch-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 999px;
+  background: var(--pl-text-muted);
+  flex-shrink: 0;
+}
+
+.pl-prematch-dot.is-live {
+  background: var(--pl-brand);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--pl-brand) 18%, transparent);
+}
+
+.pl-prematch-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pl-text-muted);
+}
+
+.pl-prematch-heading {
+  margin: 0;
+  font-size: clamp(1.08rem, 0.98rem + 0.4vw, 1.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--pl-text);
+  text-wrap: balance;
+}
+
+.pl-prematch-subtitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
+  text-wrap: pretty;
+}
+
+.pl-prematch-bell-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.pl-prematch-bell-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-block-size: 44px;
+  max-inline-size: 100%;
+  padding-inline: 14px;
+  padding-block: 8px;
+  border-radius: 14px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color var(--time-fast) var(--ease-out),
+    border-color var(--time-fast) var(--ease-out),
+    transform var(--time-fast) var(--ease-out);
+}
+
+.pl-prematch-bell-btn:hover:not(:disabled) {
+  background: var(--pl-surface-hover);
+}
+
+.pl-prematch-bell-btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.pl-prematch-bell-btn:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-prematch-bell-btn.is-active {
+  border-color: color-mix(in oklab, var(--pl-brand) 55%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-brand) 12%, var(--pl-surface));
+}
+
+.pl-prematch-bell-btn:disabled {
+  opacity: 0.56;
+  cursor: default;
+}
+
+.pl-prematch-bell-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pl-prematch-bell-status {
+  font-size: 0.7rem;
+  line-height: 1.3;
+  color: var(--pl-text-muted);
+}
+
+.pl-prematch-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-poll-col {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.pl-prematch-card,
+.pl-poll.pl-poll--embedded {
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-inline-size: 0;
+}
+
+.pl-poll.pl-poll--embedded {
+  block-size: 100%;
+  justify-content: flex-start;
+}
+
+.pl-prematch-pick.is-frozen {
+  border-color: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-border));
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface)) 0%,
+    var(--pl-surface) 100%
+  );
+}
+
+.pl-prematch-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-card-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--pl-text);
+  text-wrap: balance;
+}
+
+.pl-prematch-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 26px;
+  padding-inline: 10px;
+  padding-block: 3px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  max-inline-size: 100%;
+}
+
+.pl-prematch-seal.is-pending {
+  color: var(--pl-text-secondary);
+  background: var(--pl-surface-hover);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-prematch-seal.is-frozen {
+  color: var(--pl-brand);
+  background: color-mix(in oklab, var(--pl-brand) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--pl-brand) 38%, transparent);
+}
+
+.pl-prematch-pick-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-pick-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-kicker {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+  margin-block-end: 2px;
+}
+
+.pl-prematch-pick-name {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--pl-text);
+  overflow-wrap: anywhere;
+}
+
+.pl-prematch-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.pl-prematch-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pl-prematch-metric-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+
+.pl-prematch-metric-value {
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--pl-text);
+}
+
+.pl-prematch-metric-value.is-accent {
+  color: var(--pl-brand);
+}
+
+.pl-prematch-note {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--pl-text-muted);
+  text-wrap: pretty;
+}
+
+.pl-prematch-locked {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pl-prematch-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+
+.pl-prematch-empty {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px dashed var(--pl-border);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
+  text-wrap: pretty;
+}
+
+.pl-prematch-absence-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-prematch-absence-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: color-mix(in oklab, var(--pl-surface-hover) 45%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-absence-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-absence-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-absence-player {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--pl-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pl-prematch-absence-impact {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--pl-text-muted);
+  text-wrap: pretty;
+}
+
+.pl-prematch-lineup.is-off {
+  border-style: dashed;
+  background: color-mix(in oklab, var(--pl-surface) 75%, transparent);
+}
+
+.pl-prematch-slot-chip {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 22px;
+  padding-inline: 9px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.pl-prematch-slot-chip.is-off {
+  color: var(--pl-text-muted);
+  background: var(--pl-surface-hover);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-prematch-slot-chip.is-on {
+  color: var(--pl-success);
+  background: color-mix(in oklab, var(--pl-success) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--pl-success) 36%, transparent);
+}
+
+.pl-prematch-lineup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 12px;
+}
+
+.pl-prematch-lineup-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-inline-size: 0;
+}
+
+.pl-prematch-lineup-team {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-prematch-starters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.76rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-prematch-starters li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@container prematch (min-width: 780px) {
+  .pl-prematch {
+    padding: 22px;
+  }
+
+  .pl-prematch-bell-wrap {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .pl-prematch-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 420px) {
+  .pl-prematch {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .pl-prematch-card,
+  .pl-poll.pl-poll--embedded {
+    padding: 13px;
+  }
+
+  .pl-prematch-bell-wrap,
+  .pl-prematch-bell-btn {
+    inline-size: 100%;
+  }
+}

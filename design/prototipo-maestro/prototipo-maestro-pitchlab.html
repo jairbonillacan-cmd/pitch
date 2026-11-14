@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PitchLab · Prototipo Maestro v4 · Spacetime Suite v2.1 · Parlays · Tipstars · Cero Fuga</title>
+  <title>PitchLab · Prototipo Maestro v4 · Spacetime Suite v2.1 · Parlays · Tipsters · Cero Fuga</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -960,18 +960,18 @@
   }
 
   // ============================================================================
-  // COMUNIDAD DE ANALISTAS Y TIPSTARS OFICIALES
+  // COMUNIDAD DE ANALISTAS Y TIPSTERS OFICIALES
   // ============================================================================
   const PEER_ANALYSTS = [
     {
       handle: "sofia_nfl",
       name: "Sofía Morales",
-      plan: "Tipstar Oficial",
-      isTipstar: true,
+      plan: "Tipster Oficial",
+      isTipster: true,
       promoCode: "SOFIA5",
       trialDays: 5,
       grad: "linear-gradient(135deg, #EC4899, #8B5CF6)",
-      bio: "Tipstar Oficial de PitchLab. Especialista en spreads NFL y dobles oportunidades respaldadas por Minkowski v2.1.",
+      bio: "Tipster Oficial de PitchLab. Especialista en spreads NFL y dobles oportunidades respaldadas por Minkowski v2.1.",
       favLeagues: ["nfl", "liga-mx"],
       followers: 1480, following: 41,
       wins: 28, losses: 16, unitsNet: 11.4, roi: 16.8, roiLower95: 7.4, clv: 3.9, n: 44,
@@ -981,12 +981,12 @@
     {
       handle: "carlos_mx",
       name: "Carlos Vega",
-      plan: "Tipstar Oficial",
-      isTipstar: true,
+      plan: "Tipster Oficial",
+      isTipster: true,
       promoCode: "CARLOS5",
       trialDays: 5,
       grad: "linear-gradient(135deg, #F59E0B, #EF4444)",
-      bio: "Tipstar Oficial · Liga MX y LaLiga. Cazo líneas mal puestas con Singularity v2.1 cuando el público sobrepaga favoritos.",
+      bio: "Tipster Oficial · Liga MX y LaLiga. Cazo líneas mal puestas con Singularity v2.1 cuando el público sobrepaga favoritos.",
       favLeagues: ["liga-mx", "laliga"],
       followers: 920, following: 53,
       wins: 31, losses: 21, unitsNet: 8.7, roi: 12.1, roiLower95: 4.9, clv: 3.1, n: 52,
@@ -997,7 +997,7 @@
       handle: "tactico_mty",
       name: "Rodrigo Garza",
       plan: "Pase Total",
-      isTipstar: false,
+      isTipster: false,
       grad: "linear-gradient(135deg, #10B981, #0EA5E9)",
       bio: "Suscriptor Pase Total · Goles esperados en Premier League, Bundesliga y Liguilla MX.",
       favLeagues: ["premier-league", "bundesliga", "liga-mx"],
@@ -1008,7 +1008,7 @@
       handle: "linea_justa",
       name: "Diego Herrera",
       plan: "Pase Total",
-      isTipstar: false,
+      isTipster: false,
       grad: "linear-gradient(135deg, #6366F1, #14B8A6)",
       bio: "Suscriptor Pase Total · Comparando aperturas con Geodesic v1.0 frente al cierre dominical.",
       favLeagues: ["serie-a", "nfl"],
@@ -1090,8 +1090,8 @@
   // Un único Pick Abierto promocional de PitchLab + el Pick Abierto semanal de @sofia_nfl
   const openPromoGame = gOpen1 || defaultHeroGame;
   const openPromoPickKey = `${openPromoGame?.id || ""}::0`;
-  const tipstarPromoGame = gOpen2 || gOpen3 || defaultHeroGame;
-  const initialTipstarPickKey = `${tipstarPromoGame?.id || ""}::0`;
+  const tipsterPromoGame = gOpen2 || gOpen3 || defaultHeroGame;
+  const initialTipsterPickKey = `${tipsterPromoGame?.id || ""}::0`;
 
   const pOpen1 = gOpen2 ? getMatchPicks(gOpen2)[0] : null;
   const pOpen2 = gOpen1 ? getMatchPicks(gOpen1)[0] : null;
@@ -1102,7 +1102,7 @@
     gOpen2 && pOpen1 ? {
       id: "sp-1",
       handle: "sofia_nfl",
-      isTipstarFreePick: true,
+      isTipsterFreePick: true,
       originKind: "engine", // "engine" | "personal"
       engineName: "PitchLab Minkowski v2.1",
       promoCode: "SOFIA5",
@@ -1133,7 +1133,7 @@
     gOpen1 && pOpen2 ? {
       id: "sp-2",
       handle: "carlos_mx",
-      isTipstarFreePick: false,
+      isTipsterFreePick: false,
       originKind: "engine",
       engineName: "PitchLab Singularity v2.1",
       promoCode: "CARLOS5",
@@ -1163,7 +1163,7 @@
     gOpen3 && pOpen3 ? {
       id: "sp-3",
       handle: "tactico_mty",
-      isTipstarFreePick: false,
+      isTipsterFreePick: false,
       originKind: "personal",
       engineName: "PitchLab Tachyon v2.1",
       timeAgo: "hace 1 h",
@@ -1189,7 +1189,7 @@
     gFin1 && pFin1 ? {
       id: "sp-4",
       handle: "linea_justa",
-      isTipstarFreePick: false,
+      isTipsterFreePick: false,
       originKind: "engine",
       engineName: "PitchLab Singularity v2.1",
       timeAgo: "ayer · liquidado",
@@ -1226,7 +1226,7 @@
     theme: "dark",
     oddsFmt: "american",
     // Rol activo para auditar el candado Cero-Fuga en tiempo real:
-    // "visitor" (Sin pago) | "member" (Suscriptor Pase Total) | "tipstar" (Tipstar Oficial @sofia_nfl) | "admin" (Founder)
+    // "visitor" (Sin pago) | "member" (Suscriptor Pase Total) | "tipster" (Tipster Oficial @sofia_nfl) | "admin" (Founder)
     viewerRole: "member",
     launchMonthNoCard: true, // Mes 1: Prueba sin tarjeta (OAuth Google/Apple + Turnstile + Huella Dispositivo $0)
 
@@ -1251,7 +1251,7 @@
     // App Shell
     railCollapsed: false,
     // Vistas de /app:
-    // "jornada" | "picks" | "parlays" | "tech" | "momios" | "props" | "social" | "tipstar" | "league" | "studio" | "historial" | "lab" | "profile" | "account" | "admin"
+    // "jornada" | "picks" | "parlays" | "tech" | "momios" | "props" | "social" | "tipster" | "league" | "studio" | "historial" | "lab" | "profile" | "account" | "admin"
     appView: "jornada",
     activeLeague: "liga-mx",
     leagueTab: "jornada",
@@ -1281,14 +1281,14 @@
     parlayBookInput: "",
     parlayDrawerOpen: false,
 
-    // Portal Tipstar Oficial (@sofia_nfl)
-    tipstarOriginMode: "engine", // "engine" (Pick de Spacetime Suite) | "personal" (Pick propio Bitácora)
-    tipstarSelectedGameId: tipstarPromoGame?.id || "",
-    tipstarSelectedPickIdx: 0,
-    tipstarCustomNote: "Ventaja detectada por Minkowski v2.1 antes del ajuste dominical. Desbloquea los otros 4 picks del partido con mi código SOFIA5.",
-    tipstarWeeklyPickKey: initialTipstarPickKey,
-    tipstarQuotaUsed: true,
-    tipstarShareRatio: "4:5",
+    // Portal Tipster Oficial (@sofia_nfl)
+    tipsterOriginMode: "engine", // "engine" (Pick de Spacetime Suite) | "personal" (Pick propio Bitácora)
+    tipsterSelectedGameId: tipsterPromoGame?.id || "",
+    tipsterSelectedPickIdx: 0,
+    tipsterCustomNote: "Ventaja detectada por Minkowski v2.1 antes del ajuste dominical. Desbloquea los otros 4 picks del partido con mi código SOFIA5.",
+    tipsterWeeklyPickKey: initialTipsterPickKey,
+    tipsterQuotaUsed: true,
+    tipsterShareRatio: "4:5",
     publicPickPreviewOpen: false, // Simula cómo ve un seguidor externo el link /p/:id sin fuga
 
     // Player Props Lab & Comparador de Momios
@@ -1319,11 +1319,11 @@
     alerts: [
       { id: "al-1", time: "hace 6 min", kind: "lineup", title: "XI Titular confirmado (60 min antes)", desc: "Cortex IA validó planteles titulares sin bajas de última hora en el duelo estelar.", unread: true },
       { id: "al-2", time: "hace 19 min", kind: "edge", title: "Singularity v2.1 detectó +4.6% de ventaja", desc: "La cuota de apertura quedó rezagada frente a la proyección de Tachyon v2.1.", unread: true },
-      { id: "al-3", time: "hace 34 min", kind: "tipstar", title: "@sofia_nfl liberó su Pick Abierto semanal", desc: "Ya puedes revisar el análisis completo y el debate de suscriptores.", unread: false },
+      { id: "al-3", time: "hace 34 min", kind: "tipster", title: "@sofia_nfl liberó su Pick Abierto semanal", desc: "Ya puedes revisar el análisis completo y el debate de suscriptores.", unread: false },
     ],
 
     // Admin / Founder
-    adminTipstarCodes: [
+    adminTipsterCodes: [
       { code: "SOFIA5", owner: "@sofia_nfl", trialDays: 5, commissionPct: 25, signups: 64, paidActive: 38 },
       { code: "CARLOS5", owner: "@carlos_mx", trialDays: 5, commissionPct: 25, signups: 41, paidActive: 24 },
       { code: "PITCHLAB7", owner: "Oficial PitchLab", trialDays: 7, commissionPct: 0, signups: 112, paidActive: 51 },
@@ -1358,7 +1358,7 @@
     // Modales
     cmdkOpen: false,
     cmdkQuery: "",
-    shareModal: null, // { mode: "profile" | "pick", ratio: "4:5" | "9:16", pickItem?: object, forceOpenTipstar?: boolean }
+    shareModal: null, // { mode: "profile" | "pick", ratio: "4:5" | "9:16", pickItem?: object, forceOpenTipster?: boolean }
     pickComposer: null,
 
     // Bitácora
@@ -1434,11 +1434,11 @@
   function isPickUnlocked(pickKey, gameStatus) {
     if (gameStatus === "FT") return true;
     if (hasFullAccess()) return true;
-    return pickKey === openPromoPickKey || pickKey === state.tipstarWeeklyPickKey;
+    return pickKey === openPromoPickKey || pickKey === state.tipsterWeeklyPickKey;
   }
 
   function getActiveWatermarkText() {
-    if (state.viewerRole === "tipstar") return "@sofia_nfl · TIPSTAR-OFICIAL";
+    if (state.viewerRole === "tipster") return "@sofia_nfl · TIPSTER-OFICIAL";
     if (state.viewerRole === "admin") return "@founder · ADMIN";
     return `@${state.userProfile.handle} · ${state.userProfile.watermarkId}`;
   }
@@ -1558,7 +1558,7 @@
         handle: state.userProfile.handle,
         name: state.userProfile.name,
         plan: "Pase Total",
-        isTipstar: false,
+        isTipster: false,
         grad: state.userProfile.grad,
         unitsNet: 6.1,
         clv: 3.1,
@@ -1807,7 +1807,7 @@
     const roles = [
       ["visitor", "Visitante (Cero fuga)"],
       ["member", "Suscriptor"],
-      ["tipstar", "Tipstar"],
+      ["tipster", "Tipster"],
       ["admin", "Admin"],
     ];
     return `
@@ -1999,7 +1999,7 @@
   }
 
   // ============================================================================
-  // 1. LANDING V4 (Súper-Tipster Cuantitativo + Cero Fuga + Spacetime Suite + Tipstars)
+  // 1. LANDING V4 (Súper-Tipster Cuantitativo + Cero Fuga + Spacetime Suite + Tipsters)
   // ============================================================================
   function renderLanding() {
     const lgGames = (DATA[state.heroLeague]?.games || []).filter((g) => g.status === "NS");
@@ -2018,7 +2018,7 @@
     const isNfl = g.sport === "american-football";
     const leadIdx = isNfl ? (g.x12[0] >= g.x12[2] ? 0 : 2) : (g.x12[0] >= g.x12[1] && g.x12[0] >= g.x12[2] ? 0 : g.x12[1] >= g.x12[2] ? 1 : 2);
     const settledShowcase = getAllFinalGames().slice(0, 3);
-    const tipstarPost = state.socialPosts.find((p) => p.isTipstarFreePick) || state.socialPosts[0];
+    const tipsterPost = state.socialPosts.find((p) => p.isTipsterFreePick) || state.socialPosts[0];
 
     return `
       ${renderPublicNav("landing")}
@@ -2262,13 +2262,13 @@
         <!-- BLOQUE ESTELAR: SPACETIME SUITE v2.1 -->
         ${renderTechPrecisionSection(false)}
 
-        <!-- BOLETO GRATIS SEMANAL DE TIPSTAR OFICIAL + RESULTADOS CERRADOS -->
+        <!-- BOLETO GRATIS SEMANAL DE TIPSTER OFICIAL + RESULTADOS CERRADOS -->
         <section class="grid lg:grid-cols-12 gap-6 items-start">
-          ${tipstarPost ? `
+          ${tipsterPost ? `
             <div class="lg:col-span-5 glass-ring glass-lens glass-ring--featured rounded-2xl p-5 space-y-4">
               <div class="flex items-center justify-between gap-2">
                 <span class="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-md" style="background:color-mix(in srgb, var(--success) 16%, transparent);color:var(--success)">
-                  ${icon("unlock", 13)} Pick Gratis de la Semana · Tipstar Oficial
+                  ${icon("unlock", 13)} Pick Gratis de la Semana · Tipster Oficial
                 </span>
                 <span class="text-xs num" style="color:var(--text-muted)">1 / semana</span>
               </div>
@@ -2276,21 +2276,21 @@
               <div class="flex items-center gap-3">
                 ${avatarHtml("Sofía Morales", "sofia_nfl", 40, true)}
                 <div>
-                  <div class="font-bold text-sm flex items-center gap-1.5">Sofía Morales <span class="text-xs px-1.5 py-0.5 rounded" style="background:var(--surface-hover);color:var(--brand-primary)">Tipstar</span></div>
+                  <div class="font-bold text-sm flex items-center gap-1.5">Sofía Morales <span class="text-xs px-1.5 py-0.5 rounded" style="background:var(--surface-hover);color:var(--brand-primary)">Tipster</span></div>
                   <div class="num text-xs" style="color:var(--success)">+11.4u verificadas · CLV +3.9%</div>
                 </div>
               </div>
 
               <div class="glass-ring rounded-xl p-4 space-y-2.5" style="background:var(--surface-default)">
                 <div class="text-xs flex items-center justify-between" style="color:var(--text-muted)">
-                  <span>${tipstarPost.matchLabel} · ${tipstarPost.dateLabel}</span>
-                  <span>${tipstarPost.engineName}</span>
+                  <span>${tipsterPost.matchLabel} · ${tipsterPost.dateLabel}</span>
+                  <span>${tipsterPost.engineName}</span>
                 </div>
-                <div class="font-extrabold text-base uppercase tracking-wide">${tipstarPost.pickLabel}</div>
+                <div class="font-extrabold text-base uppercase tracking-wide">${tipsterPost.pickLabel}</div>
                 <div class="ticket-perf"></div>
                 <div class="flex items-center justify-between num text-xs">
-                  <span>Probabilidad <strong style="color:var(--brand-primary)">${fmtPct(tipstarPost.p)}</strong> · Justa <strong>${fmtOdds(tipstarPost.fairDecimal)}</strong></span>
-                  <span class="font-extrabold" style="color:var(--success)">Momio ${fmtOdds(tipstarPost.takenDecimal)}</span>
+                  <span>Probabilidad <strong style="color:var(--brand-primary)">${fmtPct(tipsterPost.p)}</strong> · Justa <strong>${fmtOdds(tipsterPost.fairDecimal)}</strong></span>
+                  <span class="font-extrabold" style="color:var(--success)">Momio ${fmtOdds(tipsterPost.takenDecimal)}</span>
                 </div>
               </div>
 
@@ -2299,7 +2299,7 @@
                   <div class="font-extrabold" style="color:var(--brand-primary)">CÓDIGO: SOFIA5</div>
                   <div style="color:var(--text-secondary)">5 días de Pase Total gratis ${state.launchMonthNoCard ? "sin tarjeta" : ""}</div>
                 </div>
-                <button type="button" class="btn-primary !min-h-[34px] !px-3.5 !text-xs" data-action="claim-tipstar-code" data-code="SOFIA5">
+                <button type="button" class="btn-primary !min-h-[34px] !px-3.5 !text-xs" data-action="claim-tipster-code" data-code="SOFIA5">
                   Canjear código
                 </button>
               </div>
@@ -2381,7 +2381,7 @@
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="font-extrabold text-lg uppercase tracking-wide">Pase Total PitchLab</span>
                 <span class="text-xs font-bold px-2.5 py-1 rounded-md" style="background:color-mix(in srgb, var(--success) 16%, transparent);color:var(--success)">
-                  ${state.launchMonthNoCard ? "Promo Mes 1 · Prueba sin tarjeta" : "Prueba con código de socio o Tipstar"}
+                  ${state.launchMonthNoCard ? "Promo Mes 1 · Prueba sin tarjeta" : "Prueba con código de socio o Tipster"}
                 </span>
               </div>
 
@@ -2411,7 +2411,7 @@
             </div>
           </div>
 
-          <!-- Tarjeta del Sistema de Referidos Doble Vía + Programa Tipstar -->
+          <!-- Tarjeta del Sistema de Referidos Doble Vía + Programa Tipster -->
           <div class="lg:col-span-5 glass-ring glass-card rounded-2xl p-6 flex flex-col justify-between gap-4">
             <div class="space-y-3">
               <div class="inline-flex items-center gap-2 text-xs font-bold px-2.5 py-1 rounded-md" style="background:var(--surface-hover);color:var(--brand-primary)">
@@ -2425,12 +2425,12 @@
               </ul>
               <div class="ticket-perf"></div>
               <div class="text-xs" style="color:var(--text-muted)">
-                <strong>¿Eres creador o tipster?</strong> Aplica como <strong>Tipstar Oficial</strong>: obtén Pase Total incluido, 1 Pick Gratis semanal con tu boleto brandeado y <strong>25 % de comisión recurrente</strong>.
+                <strong>¿Eres creador o tipster?</strong> Aplica como <strong>Tipster Oficial</strong>: obtén Pase Total incluido, 1 Pick Gratis semanal con tu boleto brandeado y <strong>25 % de comisión recurrente</strong>.
               </div>
             </div>
 
-            <button type="button" class="btn-glass glass-ring w-full !min-h-[40px] !text-xs" data-action="open-tipstar-direct">
-              ${icon("award", 14)} Ver Portal de Tipstars Oficiales
+            <button type="button" class="btn-glass glass-ring w-full !min-h-[40px] !text-xs" data-action="open-tipster-direct">
+              ${icon("award", 14)} Ver Portal de Tipsters Oficiales
             </button>
           </div>
         </div>
@@ -2466,12 +2466,12 @@
                   <p class="text-sm" style="color:var(--text-muted)">
                     ${state.launchMonthNoCard
                       ? "Inicia en 1 clic con Google o Apple. Protegido a costo \$0 con bloqueo de correos desechables, Cloudflare Turnstile y huella única de dispositivo (1 prueba por persona)."
-                      : "Verificación con cargo \$0 hoy (5 días con código de Tipstar o 7 días por invitación de socio). Cancela en 1 clic."}
+                      : "Verificación con cargo \$0 hoy (5 días con código de Tipster o 7 días por invitación de socio). Cancela en 1 clic."}
                   </p>
                 </div>
 
                 <div class="space-y-2">
-                  <label class="block text-xs font-bold" style="color:var(--text-muted)">Código de Tipstar o Referido (opcional)</label>
+                  <label class="block text-xs font-bold" style="color:var(--text-muted)">Código de Tipster o Referido (opcional)</label>
                   <div class="flex gap-2">
                     <input type="text" value="${state.trialPromoInput}" data-input="trial-promo" placeholder="Ej. SOFIA5 o JAIR"
                       class="flex-1 glass-input rounded-xl px-3.5 py-2.5 text-sm font-extrabold uppercase num outline-none" style="color:var(--text-primary)" />
@@ -2542,7 +2542,7 @@
               <div class="text-xs font-bold uppercase tracking-wide" style="color:var(--text-muted)">Probar otros roles en esta maqueta</div>
               <div class="grid grid-cols-2 gap-2">
                 <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="quick-enter-role" data-role="member">Entrar Suscriptor</button>
-                <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="quick-enter-role" data-role="tipstar">Entrar Tipstar</button>
+                <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="quick-enter-role" data-role="tipster">Entrar Tipster</button>
                 <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="quick-enter-role" data-role="visitor">Probar Candado Visitante</button>
                 <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="quick-enter-role" data-role="admin">Abrir Admin Founder</button>
               </div>
@@ -2806,8 +2806,8 @@
     const my = computeMyMetrics();
     const unreadAlerts = state.alerts.filter((a) => a.unread).length;
     const parlayCount = state.parlayLegs.length;
-    const activeHandle = state.viewerRole === "tipstar" ? "sofia_nfl" : "jair";
-    const activeName = state.viewerRole === "tipstar" ? "Sofía Morales" : state.userProfile.name;
+    const activeHandle = state.viewerRole === "tipster" ? "sofia_nfl" : "jair";
+    const activeName = state.viewerRole === "tipster" ? "Sofía Morales" : state.userProfile.name;
 
     return `
       <header class="sticky top-0 z-30 flex min-h-16 w-full items-center glass-nav-surface px-4">
@@ -2841,7 +2841,7 @@
                 ${avatarHtml(activeName, activeHandle, 24, true)}
                 <span class="hidden sm:inline text-xs font-bold">@${activeHandle}</span>
                 <span class="hidden md:inline num text-xs font-bold" style="color:var(--success)">
-                  ${state.viewerRole === "tipstar" ? "Tipstar" : `+${my.unitsNet}u`}
+                  ${state.viewerRole === "tipster" ? "Tipster" : `+${my.unitsNet}u`}
                 </span>
               </button>
             `}
@@ -2900,8 +2900,8 @@
 
           <div class="space-y-1 pt-2 hairline-t">
             <div class="rail-hide-collapsed px-2.5 text-xs font-semibold mb-1" style="color:var(--text-muted)">Crecimiento</div>
-            <button type="button" class="rail-item justify-between" aria-current="${state.appView === "tipstar" ? "page" : "false"}" data-action="app-nav" data-view="tipstar">
-              <span class="flex items-center gap-2.5">${icon("award", 16)} <span class="rail-hide-collapsed">Portal Tipstar</span></span>
+            <button type="button" class="rail-item justify-between" aria-current="${state.appView === "tipster" ? "page" : "false"}" data-action="app-nav" data-view="tipster">
+              <span class="flex items-center gap-2.5">${icon("award", 16)} <span class="rail-hide-collapsed">Portal Tipster</span></span>
               <span class="rail-hide-collapsed text-xs px-1.5 py-0.5 rounded font-bold" style="background:color-mix(in srgb, var(--success) 15%, transparent);color:var(--success)">1/sem</span>
             </button>
             <button type="button" class="rail-item" aria-current="${state.appView === "account" && state.accountTab === "referrals" ? "page" : "false"}" data-action="open-referrals-direct">
@@ -3488,9 +3488,9 @@
                       </div>
                       ${g.status === "NS" ? `
                         <div class="flex items-center gap-1.5">
-                          ${state.viewerRole === "tipstar" ? `
+                          ${state.viewerRole === "tipster" ? `
                             <button type="button" class="btn-glass glass-ring !min-h-[32px] !px-2.5 !text-xs" style="color:var(--success)"
-                              data-action="set-tipstar-free-pick" data-game="${g.id}" data-idx="${pk.idx}">
+                              data-action="set-tipster-free-pick" data-game="${g.id}" data-idx="${pk.idx}">
                               ${icon("unlock", 12)} Pick Gratis Semanal
                             </button>
                           ` : ""}
@@ -4009,21 +4009,21 @@
   }
 
   // ============================================================================
-  // 2. PORTAL TIPSTAR OFICIAL (/app/tipstar · Q4, Q5, Q11)
+  // 2. PORTAL TIPSTER OFICIAL (/app/tipster · Q4, Q5, Q11)
   // ============================================================================
-  function renderTipstarPortal() {
+  function renderTipsterPortal() {
     const upcomingGames = [];
     for (const lg of LEAGUES) {
       for (const g of DATA[lg.id]?.games || []) {
         if (g.status === "NS") upcomingGames.push(g);
       }
     }
-    const selGame = findGame(state.tipstarSelectedGameId) || upcomingGames[0] || firstUpcoming("nfl");
+    const selGame = findGame(state.tipsterSelectedGameId) || upcomingGames[0] || firstUpcoming("nfl");
     const gamePicks = getMatchPicks(selGame);
-    const selEnginePick = gamePicks[Math.min(state.tipstarSelectedPickIdx, gamePicks.length - 1)] || gamePicks[0];
+    const selEnginePick = gamePicks[Math.min(state.tipsterSelectedPickIdx, gamePicks.length - 1)] || gamePicks[0];
     const personalPick = state.journal.find((j) => j.status === "NS") || state.journal[0];
 
-    const isEngineOrigin = state.tipstarOriginMode === "engine";
+    const isEngineOrigin = state.tipsterOriginMode === "engine";
     const previewMatch = isEngineOrigin
       ? `${selGame.home.shortName} vs ${selGame.away.shortName} · ${selGame.dateLabel}`
       : `${personalPick?.matchLabel || "Partido"} · ${personalPick?.dateLabel || "Hoy"}`;
@@ -4037,26 +4037,26 @@
 
     return `
       <div class="space-y-5">
-        ${state.viewerRole !== "tipstar" && state.viewerRole !== "admin" ? `
+        ${state.viewerRole !== "tipster" && state.viewerRole !== "admin" ? `
           <div class="glass-ring rounded-xl p-4 flex flex-wrap items-center justify-between gap-3" style="background:rgba(16,185,129,0.09)">
             <div class="space-y-0.5">
-              <div class="text-xs font-bold" style="color:var(--success)">Vista previa del Programa de Creadores · Tipstar Oficial</div>
-              <div class="text-xs" style="color:var(--text-secondary)">Cambia tu rol a <strong>Tipstar</strong> para probar la liberación en vivo de 1 Pick Abierto a la semana con tu código promocional.</div>
+              <div class="text-xs font-bold" style="color:var(--success)">Vista previa del Programa de Creadores · Tipster Oficial</div>
+              <div class="text-xs" style="color:var(--text-secondary)">Cambia tu rol a <strong>Tipster</strong> para probar la liberación en vivo de 1 Pick Abierto a la semana con tu código promocional.</div>
             </div>
-            <button type="button" class="btn-primary !min-h-[32px] !px-3 !text-xs" data-action="set-viewer-role" data-val="tipstar">
-              Activar modo @sofia_nfl (Tipstar)
+            <button type="button" class="btn-primary !min-h-[32px] !px-3 !text-xs" data-action="set-viewer-role" data-val="tipster">
+              Activar modo @sofia_nfl (Tipster)
             </button>
           </div>
         ` : ""}
 
-        <!-- KPIs de socio creador Tipstar -->
+        <!-- KPIs de socio creador Tipster -->
         <section class="glass-ring glass-lens glass-ring--featured rounded-2xl p-5 sm:p-6 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3.5">
               ${avatarHtml("Sofía Morales", "sofia_nfl", 48, true)}
               <div>
                 <div class="flex items-center gap-2">
-                  <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Portal Tipstar Oficial · @sofia_nfl</h1>
+                  <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Portal Tipster Oficial · @sofia_nfl</h1>
                   <span class="text-xs font-bold px-2 py-0.5 rounded-md" style="background:color-mix(in srgb, var(--success) 16%, transparent);color:var(--success)">Verificada</span>
                 </div>
                 <p class="text-xs sm:text-sm" style="color:var(--text-muted)">Comparte 1 Pick Abierto por semana con branding de PitchLab. Los otros 4 picks del partido permanecen blindados bajo suscripción.</p>
@@ -4097,10 +4097,10 @@
             <div class="space-y-1.5">
               <div class="text-xs font-bold uppercase tracking-wide" style="color:var(--text-muted)">1. Elige el origen de tu Pick Abierto semanal</div>
               <div class="seg-well glass-ring w-full">
-                <button type="button" class="seg-btn flex-1 justify-center" aria-selected="${isEngineOrigin}" data-action="set-tipstar-origin" data-val="engine">
+                <button type="button" class="seg-btn flex-1 justify-center" aria-selected="${isEngineOrigin}" data-action="set-tipster-origin" data-val="engine">
                   ${icon("cpu", 14)} Pick Oficial Spacetime Suite
                 </button>
-                <button type="button" class="seg-btn flex-1 justify-center" aria-selected="${!isEngineOrigin}" data-action="set-tipstar-origin" data-val="personal">
+                <button type="button" class="seg-btn flex-1 justify-center" aria-selected="${!isEngineOrigin}" data-action="set-tipster-origin" data-val="personal">
                   ${icon("bookmark", 14)} Pick Propio de mi Bitácora
                 </button>
               </div>
@@ -4113,7 +4113,7 @@
                   ${upcomingGames.slice(0, 8).map((g) => `
                     <button type="button" class="glass-ring rounded-xl p-2.5 text-left flex items-center justify-between gap-2 cursor-pointer border-0"
                       style="background:${g.id === selGame.id ? "var(--surface-active)" : "var(--surface-default)"};color:var(--text-primary)"
-                      data-action="select-tipstar-game" data-game="${g.id}">
+                      data-action="select-tipster-game" data-game="${g.id}">
                       <span class="flex items-center gap-2 text-xs font-bold truncate">
                         ${leagueBadgeHtml(g.league, 15)}
                         <span class="truncate">${g.home.shortName} vs ${g.away.shortName}</span>
@@ -4129,8 +4129,8 @@
                 <div class="space-y-2">
                   ${gamePicks.map((pk, idx) => `
                     <button type="button" class="w-full glass-ring rounded-xl p-3 text-left flex items-center justify-between gap-3 cursor-pointer border-0"
-                      style="background:${idx === state.tipstarSelectedPickIdx ? "var(--surface-active)" : "var(--surface-default)"};color:var(--text-primary)"
-                      data-action="select-tipstar-pick" data-idx="${idx}">
+                      style="background:${idx === state.tipsterSelectedPickIdx ? "var(--surface-active)" : "var(--surface-default)"};color:var(--text-primary)"
+                      data-action="select-tipster-pick" data-idx="${idx}">
                       <div>
                         <div class="text-xs" style="color:var(--brand-primary)">${pk.slotTitle} · ${pk.engine}</div>
                         <div class="font-bold text-sm uppercase">${esc(pk.label)}</div>
@@ -4153,12 +4153,12 @@
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold" style="color:var(--text-secondary)">4. Tu tesis para redes (Instagram / X / TikTok)</label>
-              <input type="text" maxlength="180" value="${esc(state.tipstarCustomNote)}" data-input="tipstar-note"
+              <input type="text" maxlength="180" value="${esc(state.tipsterCustomNote)}" data-input="tipster-note"
                 class="w-full glass-input rounded-xl px-3.5 py-2.5 text-xs outline-none" style="color:var(--text-primary)" />
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5 pt-1">
-              <button type="button" class="btn-primary flex-1 !min-h-[42px]" data-action="publish-tipstar-weekly">
+              <button type="button" class="btn-primary flex-1 !min-h-[42px]" data-action="publish-tipster-weekly">
                 ${icon("unlock", 15)} Liberar como Pick Abierto de la Semana
               </button>
               <button type="button" class="btn-glass glass-ring !min-h-[42px] !text-xs" data-action="open-public-pick-preview">
@@ -4172,12 +4172,12 @@
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wide" style="color:var(--text-muted)">Boleto Oficial para Redes</span>
               <div class="seg-well glass-ring">
-                <button type="button" class="seg-btn !min-h-[26px] !text-xs" aria-selected="${state.tipstarShareRatio === "4:5"}" data-action="set-tipstar-ratio" data-val="4:5">Post 4:5</button>
-                <button type="button" class="seg-btn !min-h-[26px] !text-xs" aria-selected="${state.tipstarShareRatio === "9:16"}" data-action="set-tipstar-ratio" data-val="9:16">Story 9:16</button>
+                <button type="button" class="seg-btn !min-h-[26px] !text-xs" aria-selected="${state.tipsterShareRatio === "4:5"}" data-action="set-tipster-ratio" data-val="4:5">Post 4:5</button>
+                <button type="button" class="seg-btn !min-h-[26px] !text-xs" aria-selected="${state.tipsterShareRatio === "9:16"}" data-action="set-tipster-ratio" data-val="9:16">Story 9:16</button>
               </div>
             </div>
 
-            <div class="glass-ring relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between ${state.tipstarShareRatio === "9:16" ? "min-h-[460px]" : "min-h-[370px]"}"
+            <div class="glass-ring relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between ${state.tipsterShareRatio === "9:16" ? "min-h-[460px]" : "min-h-[370px]"}"
               style="background:#050507;color:#FFFFFF">
               <div class="pointer-events-none absolute -left-10 -top-10 w-52 h-52 rounded-full opacity-40 blur-3xl" style="background:#EC4899"></div>
               <div class="pointer-events-none absolute -right-10 -bottom-10 w-52 h-52 rounded-full opacity-35 blur-3xl" style="background:#8B5CF6"></div>
@@ -4200,7 +4200,7 @@
 
                 <div class="text-xs" style="color:#A1A1AA">${esc(previewMatch)}</div>
                 <div class="text-xl sm:text-2xl font-extrabold uppercase tracking-tight">${esc(previewLabel)}</div>
-                <p class="text-xs leading-relaxed" style="color:#D4D4D8">“${esc(state.tipstarCustomNote)}”</p>
+                <p class="text-xs leading-relaxed" style="color:#D4D4D8">“${esc(state.tipsterCustomNote)}”</p>
 
                 <div style="border-top:1px dashed rgba(255,255,255,0.22)"></div>
 
@@ -4519,7 +4519,7 @@
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
               <span class="text-xs font-bold uppercase tracking-wide" style="color:var(--brand-primary)">Consola de Control · Founder</span>
-              <h1 class="text-2xl font-extrabold tracking-tight">Operación, Anti-Multicuentas \$0 y Tipstars</h1>
+              <h1 class="text-2xl font-extrabold tracking-tight">Operación, Anti-Multicuentas \$0 y Tipsters</h1>
             </div>
             <span class="num text-xs font-bold px-2.5 py-1 rounded-md" style="background:color-mix(in srgb, var(--success) 15%, transparent);color:var(--success)">
               5 motores Spacetime en línea
@@ -4563,17 +4563,17 @@
           </div>
         </section>
 
-        <!-- Códigos de Tipstars Oficiales -->
+        <!-- Códigos de Tipsters Oficiales -->
         <section class="glass-ring glass-card rounded-2xl p-5 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 class="text-lg font-bold tracking-tight">Códigos de Tipstars Oficiales y Campañas</h2>
-              <p class="text-xs" style="color:var(--text-muted)">Cada Tipstar recibe Pase Total incluido, 1 Pick Abierto semanal y 25 % de comisión recurrente.</p>
+              <h2 class="text-lg font-bold tracking-tight">Códigos de Tipsters Oficiales y Campañas</h2>
+              <p class="text-xs" style="color:var(--text-muted)">Cada Tipster recibe Pase Total incluido, 1 Pick Abierto semanal y 25 % de comisión recurrente.</p>
             </div>
             <div class="flex items-center gap-2">
               <input type="text" maxlength="16" placeholder="NUEVO5" value="${esc(state.adminNewCodeInput)}" data-input="admin-new-code"
                 class="glass-input rounded-lg px-3 py-1.5 text-xs font-extrabold uppercase num w-32 outline-none" style="color:var(--text-primary)" />
-              <button type="button" class="btn-primary !min-h-[34px] !px-3 !text-xs" data-action="create-tipstar-code">
+              <button type="button" class="btn-primary !min-h-[34px] !px-3 !text-xs" data-action="create-tipster-code">
                 ${icon("plus", 13)} Crear código
               </button>
             </div>
@@ -4592,7 +4592,7 @@
                 </tr>
               </thead>
               <tbody class="divide-y" style="border-color:var(--row-rule)">
-                ${state.adminTipstarCodes.map((c) => `
+                ${state.adminTipsterCodes.map((c) => `
                   <tr class="row-hover">
                     <td class="p-3 font-extrabold" style="color:var(--brand-primary)">${esc(c.code)}</td>
                     <td class="p-3 font-semibold">${esc(c.owner)}</td>
@@ -4634,7 +4634,7 @@
   window.__PL_PART2C__ = {
     renderParlaysView,
     renderParlayDock,
-    renderTipstarPortal,
+    renderTipsterPortal,
     renderPropsLab,
     renderMomiosExplorer,
     renderAdminPanel,
@@ -4659,7 +4659,7 @@
   } = P1;
   const { renderMatchCard, renderAppShell } = P2A;
   const {
-    renderParlaysView, renderParlayDock, renderTipstarPortal,
+    renderParlaysView, renderParlayDock, renderTipsterPortal,
     renderPropsLab, renderMomiosExplorer, renderAdminPanel,
   } = P2C;
 
@@ -4717,7 +4717,7 @@
               <span class="text-xs font-bold px-2 py-0.5 rounded-md" style="background:var(--surface-hover);color:var(--brand-primary)">Solo Suscriptores</span>
             </div>
             <p class="text-sm" style="color:var(--text-muted)">
-              Debate verificado entre miembros con Pase Total y Tipstars Oficiales. Links externos y grupos de reventa bloqueados.
+              Debate verificado entre miembros con Pase Total y Tipsters Oficiales. Links externos y grupos de reventa bloqueados.
             </p>
           </div>
           <div class="seg-well glass-ring">
@@ -4765,7 +4765,7 @@
             const liked = state.likedPosts.has(post.id);
             const clv = +((post.takenDecimal * post.p - 1) * 100).toFixed(1);
             const g = findGame(post.gameId);
-            const postUnlocked = hasFullAccess() || post.status === "FT" || post.isTipstarFreePick;
+            const postUnlocked = hasFullAccess() || post.status === "FT" || post.isTipsterFreePick;
             const comments = post.comments || [];
             const draft = state.socialCommentDrafts[post.id] || "";
 
@@ -4782,10 +4782,10 @@
                       <div class="flex flex-wrap items-center gap-2">
                         <span class="font-bold text-sm truncate">${author.name}</span>
                         <span class="text-xs px-2 py-0.5 rounded font-bold"
-                          style="background:${author.isTipstar ? "color-mix(in srgb, var(--success) 16%, transparent)" : "var(--surface-hover)"};color:${author.isTipstar ? "var(--success)" : "var(--brand-primary)"}">
+                          style="background:${author.isTipster ? "color-mix(in srgb, var(--success) 16%, transparent)" : "var(--surface-hover)"};color:${author.isTipster ? "var(--success)" : "var(--brand-primary)"}">
                           ${author.plan}
                         </span>
-                        ${post.isTipstarFreePick ? `<span class="text-xs px-2 py-0.5 rounded font-bold" style="background:rgba(139,92,246,0.16);color:var(--brand-primary)">Pick Abierto Semanal</span>` : ""}
+                        ${post.isTipsterFreePick ? `<span class="text-xs px-2 py-0.5 rounded font-bold" style="background:rgba(139,92,246,0.16);color:var(--brand-primary)">Pick Abierto Semanal</span>` : ""}
                       </div>
                       <div class="text-xs truncate num" style="color:var(--text-muted)">
                         @${author.handle} · +${author.unitsNet ?? 6.1}u · CLV +${author.clv ?? 3.1}% · ${post.timeAgo}
@@ -4917,12 +4917,12 @@
             `<span style="color:var(--success)">${icon("shield", 16)}</span>`,
             "Comunidad Blindada",
             "Cero Fuga · Cero Bots",
-            "Solo miembros con Pase Total pueden opinar. Al compartir un pick antes del inicio, la selección viaja sellada salvo el cupo semanal de Tipstar Oficial."
+            "Solo miembros con Pase Total pueden opinar. Al compartir un pick antes del inicio, la selección viaja sellada salvo el cupo semanal de Tipster Oficial."
           )}
 
           <div class="glass-ring glass-card rounded-xl p-4 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-sm font-bold">Tipstars y Socios Top CLV</span>
+              <span class="text-sm font-bold">Tipsters y Socios Top CLV</span>
               <button type="button" class="text-xs font-semibold bg-transparent border-0 p-0 cursor-pointer" style="color:var(--brand-primary)" data-action="social-tab" data-val="leaderboards">Ranking</button>
             </div>
             <div class="divide-y" style="border-color:var(--row-rule)">
@@ -4935,7 +4935,7 @@
                       ${avatarHtml(a.name, a.handle, 32, true)}
                       <div class="min-w-0">
                         <div class="text-sm font-bold truncate">${a.name}</div>
-                        <div class="num text-xs" style="color:var(--success)">${a.isTipstar ? `Tipstar · ` : ""}CLV +${a.clv}% · +${a.unitsNet}u</div>
+                        <div class="num text-xs" style="color:var(--success)">${a.isTipster ? `Tipster · ` : ""}CLV +${a.clv}% · +${a.unitsNet}u</div>
                       </div>
                     </button>
                     <button type="button" class="btn-glass glass-ring !min-h-[28px] !px-2.5 !text-xs shrink-0"
@@ -5295,7 +5295,7 @@
   }
 
   // ============================================================================
-  // 8. PERFIL DE SOCIO O TIPSTAR (/u/@handle)
+  // 8. PERFIL DE SOCIO O TIPSTER (/u/@handle)
   // ============================================================================
   function renderProfile() {
     const isMe = state.viewingHandle === state.userProfile.handle;
@@ -5307,7 +5307,7 @@
           name: state.userProfile.name,
           handle: state.userProfile.handle,
           plan: state.userProfile.plan,
-          isTipstar: false,
+          isTipster: false,
           promoCode: null,
           bio: state.userProfile.bio,
           favLeagues: state.userProfile.favLeagues,
@@ -5321,7 +5321,7 @@
           name: peer.name,
           handle: peer.handle,
           plan: peer.plan,
-          isTipstar: peer.isTipstar,
+          isTipster: peer.isTipster,
           promoCode: peer.promoCode,
           bio: peer.bio,
           favLeagues: peer.favLeagues,
@@ -5344,7 +5344,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                   <h1 class="text-2xl font-extrabold tracking-tight">${p.name}</h1>
                   <span class="text-xs font-bold px-2 py-0.5 rounded-md"
-                    style="background:${p.isTipstar ? "color-mix(in srgb, var(--success) 16%, transparent)" : "var(--surface-hover)"};color:${p.isTipstar ? "var(--success)" : "var(--brand-primary)"}">
+                    style="background:${p.isTipster ? "color-mix(in srgb, var(--success) 16%, transparent)" : "var(--surface-hover)"};color:${p.isTipster ? "var(--success)" : "var(--brand-primary)"}">
                     ${p.plan}
                   </span>
                   ${p.promoCode ? `<span class="num text-xs font-extrabold px-2 py-0.5 rounded-md" style="background:rgba(139,92,246,0.16);color:var(--brand-primary)">CÓDIGO: ${p.promoCode}</span>` : ""}
@@ -5372,9 +5372,9 @@
                   data-action="toggle-follow" data-handle="${p.handle}">
                   ${isFollowingPeer ? "Siguiendo" : "+ Seguir analista"}
                 </button>
-                ${p.isTipstar ? `
-                  <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="app-nav" data-view="tipstar">
-                    ${icon("award", 13)} Portal Tipstar
+                ${p.isTipster ? `
+                  <button type="button" class="btn-glass glass-ring !min-h-[36px] !text-xs" data-action="app-nav" data-view="tipster">
+                    ${icon("award", 13)} Portal Tipster
                   </button>
                 ` : ""}
               `}
@@ -5394,7 +5394,7 @@
         <section class="space-y-3">
           <h2 class="text-lg font-bold tracking-tight">Boletos de @${p.handle}</h2>
           ${p.feed.length ? p.feed.map((item) => {
-            const visible = hasFullAccess() || item.status === "FT" || item.isTipstarFreePick;
+            const visible = hasFullAccess() || item.status === "FT" || item.isTipsterFreePick;
             return `
               <div class="glass-ring glass-card rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
                 <div>
@@ -5688,9 +5688,9 @@
       const sm = state.shareModal;
       const my = computeMyMetrics();
       const pk = sm.pickItem || state.journal[0];
-      const canShowOpenPreGame = pk && (pk.status === "FT" || pk.isTipstarFreePick || sm.forceOpenTipstar || state.viewerRole === "tipstar");
+      const canShowOpenPreGame = pk && (pk.status === "FT" || pk.isTipsterFreePick || sm.forceOpenTipster || state.viewerRole === "tipster");
       const shareUrl = sm.mode === "pick" && pk
-        ? `https://pitchlab.mx/p/${pk.id || "pk-101"}?ref=${state.viewerRole === "tipstar" ? "SOFIA5" : state.userProfile.handle}`
+        ? `https://pitchlab.mx/p/${pk.id || "pk-101"}?ref=${state.viewerRole === "tipster" ? "SOFIA5" : state.userProfile.handle}`
         : `https://pitchlab.mx/u/@${state.userProfile.handle}?ref=${state.userProfile.handle}`;
 
       return `
@@ -5768,7 +5768,7 @@
 
               <div class="relative rounded-xl p-2.5 flex items-center justify-between text-xs" style="background:rgba(255,255,255,0.07)">
                 <span class="font-bold" style="color:#C4B5FD">
-                  ${state.viewerRole === "tipstar" ? "CÓDIGO: SOFIA5 (5 días gratis)" : `7 días gratis: pitchlab.mx/r/${state.userProfile.handle}`}
+                  ${state.viewerRole === "tipster" ? "CÓDIGO: SOFIA5 (5 días gratis)" : `7 días gratis: pitchlab.mx/r/${state.userProfile.handle}`}
                 </span>
                 <span style="color:#A1A1AA">18+</span>
               </div>
@@ -5792,7 +5792,7 @@
 
     // Q4: Simulación de cómo ve un seguidor externo sin cuenta el link /p/sofia-sem (1 pick abierto, 4 cerrados)
     if (state.publicPickPreviewOpen) {
-      const [gid, idxStr] = String(state.tipstarWeeklyPickKey || "").split("::");
+      const [gid, idxStr] = String(state.tipsterWeeklyPickKey || "").split("::");
       const g = findGame(gid) || firstUpcoming("nfl") || firstUpcoming("liga-mx");
       const allPicks = getMatchPicks(g);
       const openIdx = Number(idxStr) || 0;
@@ -5825,7 +5825,7 @@
               <div class="num text-xs" style="color:var(--text-secondary)">
                 Probabilidad Spacetime Suite: <strong style="color:var(--brand-primary)">${fmtPct(openPk.p)}</strong> · Cuota justa <strong>${fmtOdds(openPk.fairOdds)}</strong>
               </div>
-              <p class="text-xs" style="color:var(--text-muted)">“${escapeAttr(state.tipstarCustomNote)}”</p>
+              <p class="text-xs" style="color:var(--text-muted)">“${escapeAttr(state.tipsterCustomNote)}”</p>
             </div>
 
             <div class="space-y-2">
@@ -5840,7 +5840,7 @@
               `).join("")}
             </div>
 
-            <button type="button" class="btn-primary w-full !min-h-[44px]" data-action="claim-tipstar-code" data-code="SOFIA5">
+            <button type="button" class="btn-primary w-full !min-h-[44px]" data-action="claim-tipster-code" data-code="SOFIA5">
               Canjear código SOFIA5 · 5 días de Pase Total gratis ${icon("arrowRight", 15)}
             </button>
           </div>
@@ -5896,7 +5896,7 @@
         <div class="glass-ring glass-lens glass-ring--featured rounded-2xl w-full max-w-xl overflow-hidden" onclick="event.stopPropagation()">
           <div class="p-3.5 hairline-b flex items-center gap-3">
             <span style="color:var(--text-muted)">${icon("search", 17)}</span>
-            <input type="text" placeholder="Buscar club, partido, liga o @tipstar..." value="${escapeAttr(state.cmdkQuery)}"
+            <input type="text" placeholder="Buscar club, partido, liga o @tipster..." value="${escapeAttr(state.cmdkQuery)}"
               data-input="cmdk-q"
               class="w-full bg-transparent border-0 outline-none text-sm font-semibold" style="color:var(--text-primary)" />
             <button type="button" class="text-xs px-2 py-1 rounded font-bold cursor-pointer bg-transparent border-0" style="color:var(--text-muted)" data-action="close-cmdk">ESC</button>
@@ -5938,7 +5938,7 @@
       { id: "jornada", label: "4. Jornada", view: "jornada" },
       { id: "studio", label: "5. Partido (5 Picks)", view: "studio" },
       { id: "parlays", label: "6. Armar Parlays", view: "parlays" },
-      { id: "tipstar", label: "7. Portal Tipstar", view: "tipstar" },
+      { id: "tipster", label: "7. Portal Tipster", view: "tipster" },
       { id: "social", label: "8. Comunidad VIP", view: "social" },
       { id: "props", label: "9. Props Lab", view: "props" },
       { id: "account", label: "10. Referidos +15d", view: "account" },
@@ -5960,7 +5960,7 @@
 
   const extraRenderers = {
     parlays: renderParlaysView,
-    tipstar: renderTipstarPortal,
+    tipster: renderTipsterPortal,
     props: renderPropsLab,
     momios: renderMomiosExplorer,
     admin: renderAdminPanel,
@@ -6054,7 +6054,7 @@
         state.viewerRole = val || "member";
         toast(
           state.viewerRole === "visitor" ? "Modo Visitante activo: candado Cero-Fuga encendido"
-          : state.viewerRole === "tipstar" ? "Modo Tipstar Oficial (@sofia_nfl) activo"
+          : state.viewerRole === "tipster" ? "Modo Tipster Oficial (@sofia_nfl) activo"
           : state.viewerRole === "admin" ? "Modo Founder Admin activo"
           : "Modo Suscriptor Pase Total (@jair) activo"
         );
@@ -6063,7 +6063,7 @@
         const role = btn.getAttribute("data-role") || "member";
         state.viewerRole = role;
         state.surface = "app";
-        state.appView = role === "tipstar" ? "tipstar" : role === "admin" ? "admin" : "jornada";
+        state.appView = role === "tipster" ? "tipster" : role === "admin" ? "admin" : "jornada";
         window.scrollTo({ top: 0, behavior: "smooth" });
         toast(`Entraste como ${role === "visitor" ? "Visitante (Cero fuga)" : role}`);
         break;
@@ -6080,7 +6080,7 @@
       case "set-billing-cycle":
         state.billingCycle = val || "monthly";
         break;
-      case "claim-tipstar-code":
+      case "claim-tipster-code":
         state.publicPickPreviewOpen = false;
         state.trialPromoInput = btn.getAttribute("data-code") || "SOFIA5";
         state.surface = "vip";
@@ -6128,9 +6128,9 @@
         state.appView = "historial";
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
-      case "open-tipstar-direct":
+      case "open-tipster-direct":
         state.surface = "app";
-        state.appView = "tipstar";
+        state.appView = "tipster";
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "open-referrals-direct":
@@ -6374,7 +6374,7 @@
           state.socialPosts.unshift({
             ...newEntry,
             id: "sp-parlay-" + Date.now(),
-            handle: state.viewerRole === "tipstar" ? "sofia_nfl" : state.userProfile.handle,
+            handle: state.viewerRole === "tipster" ? "sofia_nfl" : state.userProfile.handle,
             engineName: "Spacetime Suite Parlay",
             originKind: "engine",
             timeAgo: "ahora mismo",
@@ -6410,35 +6410,35 @@
         break;
       }
 
-      // --- PORTAL TIPSTAR OFICIAL ---
-      case "set-tipstar-origin":
-        state.tipstarOriginMode = val || "engine";
+      // --- PORTAL TIPSTER OFICIAL ---
+      case "set-tipster-origin":
+        state.tipsterOriginMode = val || "engine";
         break;
-      case "select-tipstar-game":
-        state.tipstarSelectedGameId = btn.getAttribute("data-game") || "";
-        state.tipstarSelectedPickIdx = 0;
+      case "select-tipster-game":
+        state.tipsterSelectedGameId = btn.getAttribute("data-game") || "";
+        state.tipsterSelectedPickIdx = 0;
         break;
-      case "select-tipstar-pick":
-        state.tipstarSelectedPickIdx = Number(btn.getAttribute("data-idx")) || 0;
+      case "select-tipster-pick":
+        state.tipsterSelectedPickIdx = Number(btn.getAttribute("data-idx")) || 0;
         break;
-      case "set-tipstar-ratio":
-        state.tipstarShareRatio = val || "4:5";
+      case "set-tipster-ratio":
+        state.tipsterShareRatio = val || "4:5";
         break;
-      case "set-tipstar-free-pick": {
+      case "set-tipster-free-pick": {
         const gid = btn.getAttribute("data-game");
         const idx = Number(btn.getAttribute("data-idx")) || 0;
-        state.tipstarSelectedGameId = gid;
-        state.tipstarSelectedPickIdx = idx;
-        state.tipstarWeeklyPickKey = `${gid}::${idx}`;
-        state.appView = "tipstar";
-        toast("Pick asignado como tu Pick Abierto semanal de Tipstar");
+        state.tipsterSelectedGameId = gid;
+        state.tipsterSelectedPickIdx = idx;
+        state.tipsterWeeklyPickKey = `${gid}::${idx}`;
+        state.appView = "tipster";
+        toast("Pick asignado como tu Pick Abierto semanal de Tipster");
         break;
       }
-      case "publish-tipstar-weekly": {
-        const g = findGame(state.tipstarSelectedGameId) || firstUpcoming("nfl");
-        const pk = getMatchPicks(g)[state.tipstarSelectedPickIdx] || getMatchPicks(g)[0];
-        state.tipstarWeeklyPickKey = pk.key;
-        const existing = state.socialPosts.find((p) => p.isTipstarFreePick);
+      case "publish-tipster-weekly": {
+        const g = findGame(state.tipsterSelectedGameId) || firstUpcoming("nfl");
+        const pk = getMatchPicks(g)[state.tipsterSelectedPickIdx] || getMatchPicks(g)[0];
+        state.tipsterWeeklyPickKey = pk.key;
+        const existing = state.socialPosts.find((p) => p.isTipsterFreePick);
         if (existing) {
           existing.gameId = g.id;
           existing.pickKey = pk.key;
@@ -6450,8 +6450,8 @@
           existing.fairDecimal = pk.fairOdds;
           existing.takenDecimal = pk.bookOdds;
           existing.engineName = `PitchLab ${pk.engine}`;
-          existing.originKind = state.tipstarOriginMode;
-          existing.note = state.tipstarCustomNote;
+          existing.originKind = state.tipsterOriginMode;
+          existing.note = state.tipsterCustomNote;
           existing.timeAgo = "actualizado ahora";
         }
         state.publicPickPreviewOpen = true;
@@ -6521,7 +6521,7 @@
           toast("Enlace externo bloqueado por seguridad anti-spam");
           return;
         }
-        const author = state.viewerRole === "tipstar" ? "sofia_nfl" : state.userProfile.handle;
+        const author = state.viewerRole === "tipster" ? "sofia_nfl" : state.userProfile.handle;
         if (!state.matchComments[gid]) state.matchComments[gid] = [];
         state.matchComments[gid].push({ id: "mc-" + Date.now(), handle: author, time: "ahora", text: txt });
         state.studioCommentDraft = "";
@@ -6541,7 +6541,7 @@
         if (post) {
           if (!post.comments) post.comments = [];
           post.comments.push({
-            author: state.viewerRole === "tipstar" ? "sofia_nfl" : state.userProfile.handle,
+            author: state.viewerRole === "tipster" ? "sofia_nfl" : state.userProfile.handle,
             time: "ahora",
             text: txt,
           });
@@ -6707,7 +6707,7 @@
           state.socialPosts.unshift({
             ...newEntry,
             id: "sp-" + Date.now(),
-            handle: state.viewerRole === "tipstar" ? "sofia_nfl" : state.userProfile.handle,
+            handle: state.viewerRole === "tipster" ? "sofia_nfl" : state.userProfile.handle,
             originKind: "personal",
             engineName: "Spacetime Suite v2.1",
             timeAgo: "ahora mismo",
@@ -6784,13 +6784,13 @@
             : "Activado: Mes 2+ Prueba con tarjeta $0 verificada"
         );
         break;
-      case "create-tipstar-code": {
+      case "create-tipster-code": {
         const code = (state.adminNewCodeInput || "").trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
         if (!code || code.length < 4) {
           toast("Escribe un código válido (ej. DANNY5)");
           return;
         }
-        state.adminTipstarCodes.unshift({
+        state.adminTipsterCodes.unshift({
           code,
           owner: `@${code.toLowerCase()}`,
           trialDays: 5,
@@ -6799,7 +6799,7 @@
           paidActive: 0,
         });
         state.adminNewCodeInput = "";
-        toast(`Código Tipstar ${code} creado (5 días + 25% comisión)`);
+        toast(`Código Tipster ${code} creado (5 días + 25% comisión)`);
         break;
       }
       case "trigger-retrain":
@@ -6885,8 +6885,8 @@
         state.parlayBookInput = v;
         renderAll(true);
         break;
-      case "tipstar-note":
-        state.tipstarCustomNote = v;
+      case "tipster-note":
+        state.tipsterCustomNote = v;
         renderAll(true);
         break;
       case "prop-odds":

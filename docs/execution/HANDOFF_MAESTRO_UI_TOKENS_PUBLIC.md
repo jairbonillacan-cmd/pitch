@@ -8,7 +8,7 @@
 - **Alcance de este documento:** Sistema de tokens (`@pitchlab/tokens`), hoja de física visual Liquid Glass (`apps/web/app/pitchlab-v4.css`), catálogo cuantitativo (`spacetime-catalog.ts`), primitivas compartidas (`MaestroPrimitives.tsx` + `ShellChrome.tsx`) y las **7 rutas públicas** (`/`, `/tecnologia`, `/pricing`, `/signup`, `/login`, `/onboarding`, `/p/[pickId]`) con frontera SSR **Cero-Fuga**.
 
 > **Documentos hermanos de esta entrega:**
-> - Bloque 2 y 3 (Club `/app/*`, Suite Cuantitativa, Parlays/SGP, Props Lab, Comunidad VIP, Portal Tipstar, Cuenta y Admin): `docs/execution/HANDOFF_MAESTRO_CLUB_QUANT_SOCIAL.md`
+> - Bloque 2 y 3 (Club `/app/*`, Suite Cuantitativa, Parlays/SGP, Props Lab, Comunidad VIP, Portal Tipster, Cuenta y Admin): `docs/execution/HANDOFF_MAESTRO_CLUB_QUANT_SOCIAL.md`
 > - ADRs de arquitectura (ADR-023, ADR-024, ADR-025) en `docs/architecture/adr/` y visiones F4 para Claude en `docs/product/VISION_REESTRUCTURA_CLAUDE_*.md`.
 
 ---
@@ -64,7 +64,7 @@ Se actualizó el generador de tokens (`pnpm --filter @pitchlab/tokens build` →
 | `StackedAvatars` | `items: ReadonlyArray<{ initials, gradVar?, label? }>`, `extraCount?: number` | Pila de avatares circulares (`26x26px`) usando `--avatar-grad-1..5` y contador `+N` para prueba social verificada. |
 | `NoticeCard` | `icon = "sparkles"`, `badgeText?`, `title: string`, `children`, `tone?: "brand" \| "cortex" \| "success" \| "warning" \| "info"`, `action?`, `className?` | Tarjeta `.glass-ring.glass-card` con píldora semántica AA-safe, encabezado truncable y slot de acción lateral. |
 | `GlassActionRow` | `href?`, `onClick?`, `leading?`, `title`, `subtitle?`, `trailingBadge?`, `className?` | Fila clicable estilo `shows.link` (renderiza `<a>` si recibe `href` o `<button type="button">`) con micro-compresión `:active` y `chevronRight`. |
-| `RoleSwitcherPill` | `compact = false`, `className?` | Selector `.seg-well.glass-ring` para alternar en vivo entre `visitor`, `member`, `tipstar` y `admin` (`[data-role-option]`). Si el usuario pasa de `visitor` a un rol autenticado mientras `rawDataset.isServerRedactedForVisitor` es `true`, ejecuta automáticamente `submitBetaPin("2026", currentUrl)` y recarga el payload SSR desbloqueado sin pasos manuales extra. |
+| `RoleSwitcherPill` | `compact = false`, `className?` | Selector `.seg-well.glass-ring` para alternar en vivo entre `visitor`, `member`, `tipster` y `admin` (`[data-role-option]`). Si el usuario pasa de `visitor` a un rol autenticado mientras `rawDataset.isServerRedactedForVisitor` es `true`, ejecuta automáticamente `submitBetaPin("2026", currentUrl)` y recarga el payload SSR desbloqueado sin pasos manuales extra. |
 
 > **Nota sobre `ShellChrome.tsx`:** `AtmosphereStage` envuelve todas las vistas públicas con las auras dinámicas, los overlays globales (`ParlayFloatingDock`, `PickComposerModal`, `ShareTicketModal`, `BetaPinModal`, `CommandPaletteModal`) y la barra colapsable `FloatingQuickJumpBar` (`[data-quick-jump-bar]`, salto directo por las **11 Vistas Maestro** con auto-unlock PIN `2026` hacia rutas `/app/*`).
 
@@ -77,19 +77,19 @@ Se actualizó el generador de tokens (`pnpm --filter @pitchlab/tokens build` →
   2. `Confianza Alta · Principal`: Prometido `72.0 %` vs Real auditado `71.6 %` (`6,840` picks · CLV `71.4 %`).
   3. `Confianza Media · Balanceado`: Prometido `60.0 %` vs Real auditado `60.9 %` (`9,410` picks · CLV `68.8 %`).
   4. `Alto Valor Arriesgado`: Prometido `41.0 %` vs Real auditado `42.3 %` (`3,290` picks · CLV `65.9 %`).
-- **`MEMBERSHIP_SPEC` & `TIPSTAR_CREATORS`:** `Pase Total PitchLab` (`$299 MXN/mes`, `$2,390 MXN/año` = `$199/mes`), Mes 1 sin tarjeta, Referidos Doble Vía (`7d + 30% off` para el amigo + `+15d` ambos al primer pago + `+30d` Embajador al llegar a 5 amigos) y creadores oficiales `@sofia_nfl` (`SOFIA5`), `@carlos_quant` (`CARLOS5`) y `@diego_tactico` (`DIEGO5`) con `25 %` de comisión recurrente.
+- **`MEMBERSHIP_SPEC` & `TIPSTER_CREATORS`:** `Pase Total PitchLab` (`$299 MXN/mes`, `$2,390 MXN/año` = `$199/mes`), Mes 1 sin tarjeta, Referidos Doble Vía (`7d + 30% off` para el amigo + `+15d` ambos al primer pago + `+30d` Embajador al llegar a 5 amigos) y creadores oficiales `@sofia_nfl` (`SOFIA5`), `@carlos_quant` (`CARLOS5`) y `@diego_tactico` (`DIEGO5`) con `25 %` de comisión recurrente.
 
 ---
 
 ### 1.4 Superficies Públicas y Frontera SSR `Cero-Fuga`
 
 #### Frontera de Redacción en Servidor (`apps/web/src/server/platform-data.ts` + `packages/ui/src/platform/access-guard.ts`)
-- **`loadPublicPlatformState(publicTipstarSlugOrPickId?)`:** Verifica la cookie firmada de sesión (`verifyBetaCookieToken`). Si no hay sesión activa, invoca `redactDatasetForVisitor(fullDataset, extraUnlocked)` **en el servidor antes de serializar props a React**.
+- **`loadPublicPlatformState(publicTipsterSlugOrPickId?)`:** Verifica la cookie firmada de sesión (`verifyBetaCookieToken`). Si no hay sesión activa, invoca `redactDatasetForVisitor(fullDataset, extraUnlocked)` **en el servidor antes de serializar props a React**.
 - **Garantía Cero-Fuga en el DOM/HTML público:** Para un `visitor`, ningún partido futuro (`NS` / `LIVE`) envía al cliente nombres ni justificaciones de selecciones cerradas (`selectionKey: "locked"`, `label: "Selección reservada Pase Total"`, `isRedacted: true`), salvo únicamente:
   1. **1 Pick Abierto del Día** (`isDailyOpenPromo`) en `/`.
-  2. **1 Pick Abierto Semanal de Tipstar** (`isTipstarWeeklyOpen` o el `pickId`/`slug` solicitado en `/p/[pickId]`), dejando **los otros 4 picks de ese mismo partido redactados**.
+  2. **1 Pick Abierto Semanal de Tipster** (`isTipsterWeeklyOpen` o el `pickId`/`slug` solicitado en `/p/[pickId]`), dejando **los otros 4 picks de ese mismo partido redactados**.
   3. Partidos ya finalizados (`status === "FT"`) para auditoría pública transparente.
-- **Marca de agua dinámica por sesión (`getSessionWatermark`):** Cuando la vista está desbloqueada, superpone `@socio_pl · PL-8842`, `@sofia_nfl · TIPSTAR-8842` o `@founder · ADMIN-0001` en cada pick abierto para disuadir reventa por capturas.
+- **Marca de agua dinámica por sesión (`getSessionWatermark`):** Cuando la vista está desbloqueada, superpone `@socio_pl · PL-8842`, `@sofia_nfl · TIPSTER-8842` o `@founder · ADMIN-0001` en cada pick abierto para disuadir reventa por capturas.
 
 #### Inventario exacto de las 7 rutas públicas
 
@@ -116,27 +116,27 @@ Se actualizó el generador de tokens (`pnpm --filter @pitchlab/tokens build` →
    - Renderiza `<PlansAndReferralsSection isStandalone />` (`h1`):
      - Toggle `.seg-well` **`Mensual · $299`** vs **`Anual · $2,390 (Ahorras 4 meses)`** (equivalente a `$199/mes`, IVA y CFDI 4.0 incluidos).
      - Checklist de 4 pilares del `Pase Total PitchLab`, CTA primario y botón `"Personalizar ligas (18+)"` (`/onboarding`).
-     - Tarjeta derecha de **Referidos Doble Vía en 3 pasos** (`1.` Amigo recibe `7d + 30 % off` = `$209 MXN`; `2.` Al pagar su 1.er mes **ambos reciben `+15 días gratis`**; `3.` A los 5 amigos activos ganas `+1 mes extra` + insignia Embajador) y bloque de aplicación a **Tipstar Oficial (`25 %` comisión recurrente)** hacia `/app/tipstar`.
+     - Tarjeta derecha de **Referidos Doble Vía en 3 pasos** (`1.` Amigo recibe `7d + 30 % off` = `$209 MXN`; `2.` Al pagar su 1.er mes **ambos reciben `+15 días gratis`**; `3.` A los 5 amigos activos ganas `+1 mes extra` + insignia Embajador) y bloque de aplicación a **Tipster Oficial (`25 %` comisión recurrente)** hacia `/app/tipster`.
    - Seguida de `<TechPrecisionSection />` y **Acordeón FAQ accesible** (`aria-expanded`) con 4 preguntas clave (Pase único, Mes 1 sin tarjeta, Referidos doble vía, CFDI 4.0).
 
 4. **`/signup` y `/login` — `AuthSurfaceV4` (`AuthAndOnboardingSurfaces.tsx`, rutas `apps/web/app/signup/page.tsx` y `apps/web/app/login/page.tsx`):**
    - Lente `.glass-lens.glass-ring--featured` con selector `.seg-well` de **2 pestañas**: `Prueba / Código` y `PIN Socio`.
    - **Pestaña `Prueba / Código`:**
-     - Reconocedor en vivo de códigos promocionales (`#auth-promo`) con botones de prueba en 1 clic (`SOFIA5` → `5 días gratis · Tipstar`, `JAIR` / `SOCIO-8842` → `7 días + 30 % off 1.er mes`, o vacío → `7 días gratis · Sin tarjeta` en Mes 1).
+     - Reconocedor en vivo de códigos promocionales (`#auth-promo`) con botones de prueba en 1 clic (`SOFIA5` → `5 días gratis · Tipster`, `JAIR` / `SOCIO-8842` → `7 días + 30 % off 1.er mes`, o vacío → `7 días gratis · Sin tarjeta` en Mes 1).
      - Botones OAuth (`Continuar con Google`, `Continuar con Apple`).
      - Formulario de correo con **canonicalización Gmail en vivo** (`normalizeTrialEmail`: elimina `.` y alias `+tag`, convierte `googlemail.com` → `gmail.com` y muestra aviso `Se registrará como cuenta canónica: ...`), **bloqueo de dominios desechables** (`isDisposableEmailDomain` con `role="alert"`), casilla `+18` de unidades simuladas y sello **Escudo Turnstile `Costo $0`** (`1 dispositivo = 1 prueba`).
    - **Pestaña `PIN Socio`:** Teclado numérico accesible de 4 puntos (`2026`) que desbloquea la cookie de sesión vía `submitBetaPin` y redirige a `nextPath` (`/app`).
-   - **Columna lateral (`<aside>`):** `<NoticeCard>` de beneficios, botón `.btn-beta` para abrir el modal de PIN y **Simulador Rápido de 4 Roles** (`Suscriptor`, `Tipstar`, `Visitante Candado`, `Admin Founder`).
+   - **Columna lateral (`<aside>`):** `<NoticeCard>` de beneficios, botón `.btn-beta` para abrir el modal de PIN y **Simulador Rápido de 4 Roles** (`Suscriptor`, `Tipster`, `Visitante Candado`, `Admin Founder`).
 
 5. **`/onboarding` — `OnboardingSurfaceV4` (`AuthAndOnboardingSurfaces.tsx`, ruta `apps/web/app/onboarding/page.tsx`):**
    - Paso 1: Chips de ligas prioritarias con `<LeagueBadge>` (mínimo 1 activa).
    - Paso 2: 3 tarjetas de perfil de riesgo (`Escudo Conservador`, `Balanceado Medio`, `Agresivo · Valor`).
    - Paso 3: Selector `.seg-well` de equivalencia simulada de `1.0u` en MXN (`$100`, `$250`, `$500`, `$1,000` persistido en `localStorage["pl-unit-mxn"]`) + formato de cuota (`Americano` vs `Decimal`), casilla obligatoria `+18` y CTA blanco `"Activar Pase Total y entrar al Club"`.
 
-6. **`/p/[pickId]` — `PublicSharedPickSurface` / `PublicTipstarPickSurface` (`AuthAndOnboardingSurfaces.tsx`, ruta `apps/web/app/p/[pickId]/page.tsx`):**
+6. **`/p/[pickId]` — `PublicSharedPickSurface` / `PublicTipsterPickSurface` (`AuthAndOnboardingSurfaces.tsx`, ruta `apps/web/app/p/[pickId]/page.tsx`):**
    - Boleto nocturno aislado `.share-ticket-card.glass-ring--featured` (`pitchlab.mx/p/sofia-sem`, soporta también `carlos-sem`, `diego-sem` o `pickId` directo) con `<LensGlowOrbs>` de los clubes y líneas `.ticket-perf`.
    - Cabecera verificada de `@sofia_nfl` (`+18.4u · CLV +4.2 % · 142 picks liquidados`) y botón para copiar `SOFIA5` al portapapeles.
-   - Duelo de escudos en `<CrestPedestal size="sm">`, **1 pick semanal abierto** (`[data-unlocked-pick]`) con probabilidad, cuota justa, momio disponible y tesis de la Tipstar.
+   - Duelo de escudos en `<CrestPedestal size="sm">`, **1 pick semanal abierto** (`[data-unlocked-pick]`) con probabilidad, cuota justa, momio disponible y tesis de la Tipster.
    - **Lista explícita Cero-Fuga de los otros 4 picks del mismo partido** (`[data-locked-pick]` + `.locked-redact` `"RESERVADO PASE TOTAL"` para visitantes; abiertos si el lector ya tiene sesión activa) y barra inferior de conversión en 1 clic hacia `/signup?code=SOFIA5`.
 
 ---
@@ -152,7 +152,7 @@ Se actualizó el generador de tokens (`pnpm --filter @pitchlab/tokens build` →
 3. **Referencia maestra integrada en el repositorio:**
    - El artefacto HTML canónico quedó ubicado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html` para comparación visual directa 1:1.
 4. **Auditoría visual Playwright pausada intencionalmente para cierre de sesión:**
-   - Se habían lanzado 3 auditores visuales paralelos en Playwright (`visual-auditor-pub` para el Bloque 1 Público + Cero-Fuga, `visual-auditor-quant` para el Bloque 2 Club/Quant y `visual-auditor` para el Bloque 3 Social/Tipstar/Admin + Axe WCAG). **El founder detuvo intencionalmente esas ejecuciones justo antes de terminar** para cerrar la sesión local y retomar cómodamente desde casa con Claude sobre la rama `gemini-reestructura`.
+   - Se habían lanzado 3 auditores visuales paralelos en Playwright (`visual-auditor-pub` para el Bloque 1 Público + Cero-Fuga, `visual-auditor-quant` para el Bloque 2 Club/Quant y `visual-auditor` para el Bloque 3 Social/Tipster/Admin + Axe WCAG). **El founder detuvo intencionalmente esas ejecuciones justo antes de terminar** para cerrar la sesión local y retomar cómodamente desde casa con Claude sobre la rama `gemini-reestructura`.
 
 ---
 
