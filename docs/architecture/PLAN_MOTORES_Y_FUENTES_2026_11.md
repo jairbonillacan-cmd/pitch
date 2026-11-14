@@ -157,11 +157,43 @@ Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2
 - **Requiere** el secreto `BZZOIRO_API_KEY` en GitHub Actions. Sin él, o si Bzzoiro falla, el pipeline sigue con Elo de goles sin romperse.
 - Verificado con datos reales: los 1,158 partidos del corpus desde 2023-24 encuentran su xG con los ids del pipeline.
 
-## 7. Siguientes pasos
+## 7. Texto de IA con validación de coherencia (hecho 2026-11-14)
+
+`apps/web/src/server/cortex.ts` ya rechazaba números inventados. Ahora también rechaza lo que Astra publicó: favorito invertido, porcentaje atribuido al rival, local/visitante invertidos, muletillas de chat («perdón», «el JSON») y lenguaje de apuesta segura. Los datos que recibe el LLM llevan roles explícitos (`local` / `visitante`). Si el texto falla, se publica la plantilla determinista.
+
+## 8. NBA y NHL (motor nuevo, 2026-11-14)
+
+**Hallazgo:** NBA y NHL no existen en la app. Las predicciones de Spacetime para esos deportes no sirven tal cual: partidos sin fecha (`kickoff_utc: null`) y mercado de relleno 50/50.
+
+**Datos:** Bzzoiro tiene NBA (liga `1`) y NHL (liga `65`) con calendario, resultados, hora real, posiciones y momios de 16 casas por nombre; licencia comercial; 100 peticiones al día por deporte gratis (Sports Pack US$7/mes sin tope). Historia: NBA 2024-25, 2025-26 y en curso; NHL 2025-26 y en curso. `pnpm --filter @pitchlab/ingest history:us` (~20 peticiones por deporte). Ojo: el filtro es `league`, no `league_id`.
+
+**Motor** (`packages/models/src/us-sports/ratings.ts`): ratings de ataque/defensa incrementales con regresión entre temporadas, localía, altitud (Denver, Utah), descanso y back-to-back. NBA → Normal sobre el margen; NHL → Poisson de goles de **tiempo regular** (se quita el gol de tiempo extra/penales, error de Astra) y el empate se resuelve aparte.
+
+**Backtest** (`pnpm --filter @pitchlab/ingest backtest:us`; parámetros elegidos solo en el tramo de ajuste; log loss del ganador):
+
+| | NBA (1,505 partidos, oct 2025 → nov 2026) | NHL (1,005 partidos, ene → nov 2026) |
+|---|---|---|
+| Tasa de local | 0.6879 | 0.6920 |
+| Ratings | **0.5981** | 0.6727 |
+| Ratings + descanso/back-to-back | 0.6004 | **0.6703** |
+| Elo que publica Bzzoiro | — | 0.6960 |
+| Δ ratings+descanso contra tasa de local | −0.0876 [−0.1086, −0.0669] | −0.0216 [−0.0340, −0.0096] |
+| Δ contra sin descanso | +0.0022 [−0.0024, +0.0069] | −0.0024 [−0.0066, +0.0018] |
+| Δ contra Elo de Bzzoiro | — | −0.0257 [−0.0410, −0.0106] |
+
+**Conclusión:** el motor nuevo es sólido en ambos deportes y en NHL le gana con claridad al Elo de Bzzoiro. El ajuste por descanso/back-to-back que tiene Astra **no** mejora de forma significativa fuera de muestra con esta historia: en NBA se publica sin él; en NHL queda dentro porque no empeora. Falta la vara importante: el **mercado** (momios de cierre). Bzzoiro los da por partido (1 petición cada uno), así que se medirá con el plan de pago o juntando la temporada en curso día a día.
+
+**Para meter NBA y NHL a la app** (siguiente fase):
+1. `LeagueId` en `@pitchlab/contracts`, escudos propios en `@pitchlab/sports-assets` (sin hotlinking), y ligas en la navegación.
+2. Corte diario en `cli.ts`: calendario y resultados de Bzzoiro → ratings → snapshot `data/snapshots/nba|nhl/latest.json` con moneyline, spread/puck line y totales (cuota justa `1/p`).
+3. Momios del día de Bzzoiro (16 casas) para la comparación con mercado y la medición de CLV.
+4. Bajas de NBA/NHL (ESPN, research-only, ya hay adaptador de bajas) y portero confirmado de NHL.
+5. Fichas de partido y tarjetas con el lenguaje de la app (stories en ambos temas).
+
+## 9. Siguientes pasos
 
 1. Cargar `BZZOIRO_API_KEY` como secreto de GitHub Actions para encender el xG en producción.
-2. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
-3. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
-4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
-5. Cablear NBA/MLB/NHL/NCAAF a `MatchOutlook`.
-6. Cargar las claves como secretos de GitHub Actions cuando los adaptadores entren a los workflows.
+2. NBA y NHL a la app (§8).
+3. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
+4. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
+5. MLB: distribución de carreras, entradas extra, F5 y run line antes de marzo.
