@@ -149,9 +149,17 @@ Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2
 
 **Conclusión:** en la Premier el xG sí le gana a la mezcla de producción de forma significativa, con cualquiera de las dos fuentes. Bzzoiro rinde igual que Understat donde coinciden (0.9698 contra 0.9700) y tiene dos ventajas: su licencia permite uso comercial de las salidas derivadas (Understat es research-only) y cubre Liga MX. Con solo 3 temporadas ya es significativo; el efecto crecerá con más temporadas.
 
+### En producción (hecho 2026-11-14)
+
+- `services/ingest/src/xg-feed.ts` arma una búsqueda de xG **medido** por fecha (±1 día) y equipos, con los mismos ids del pipeline (`remapTeam`). Solo las ligas de `XG_ELO_LEAGUES` (hoy `premier-league`) la usan.
+- `pipeline.ts` → `buildHistoryRatings(..., xgLookup)`: cada partido con xG actualiza el Elo de largo plazo con su xG en vez de goles; el resto sigue con goles. La mezcla 1X2 queda **DC + Elo de xG 0.5/0.5**, la variante validada en el backtest.
+- `pre-mvp-snapshot.yml` restaura la caché de `data/history/raw/bzzoiro`, corre `history:providers` (Premier, 4 temporadas, máx. 1,500 peticiones por corte) y `history:link` antes del corte, y guarda la caché. El primer corte baja la mitad; el segundo completa.
+- **Requiere** el secreto `BZZOIRO_API_KEY` en GitHub Actions. Sin él, o si Bzzoiro falla, el pipeline sigue con Elo de goles sin romperse.
+- Verificado con datos reales: los 1,158 partidos del corpus desde 2023-24 encuentran su xG con los ids del pipeline.
+
 ## 7. Siguientes pasos
 
-1. **Promover el xG a producción en la Premier** (`pipeline.ts`: Elo de xG en lugar de Elo de goles, o la variante con DC de xG) con xG de Bzzoiro, alimentado a diario desde `history:providers`. En Liga MX esperar a que la comparación sea significativa.
+1. Cargar `BZZOIRO_API_KEY` como secreto de GitHub Actions para encender el xG en producción.
 2. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
 3. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 4. Adaptadores `mlb-statsapi.ts` y `nhl-web.ts` con el mismo cliente (`providers/http.ts`).
