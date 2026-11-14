@@ -90,7 +90,7 @@
   3. **Consenso del partido:** cruzar votos de la comunidad (`match_votes` de migración `0016` + picks publicados) contra la probabilidad del modelo v3.2.
   4. **Seguir ligas y equipos** para filtrar el feed (`Para ti` / `Siguiendo`), persistido en preferencias/`localStorage`.
 
-### Punto 4 · Parlay del día y generador personal
+### Punto 4 · Parlay del día y generador personal — ✅ hecho el 2026-11-13 (ver PARLAY-DIA-1 en `PROJECT_STATE.md`)
 - **Reglas cerradas (Q14–Q16):**
   1. **Parlay oficial del día** determinista por estilo de riesgo:
      - `Conservador`: 2–3 selecciones con `p ≥ 70 %`.
@@ -100,7 +100,7 @@
      - Visible en **Inicio (`/app`)** y calificado automáticamente en **Resultados (`/app/historial`)**.
   2. **Generador personal arriba en `/app/parlays`** (`ParlayBuilderClubView` en `ParlayAndQuantViews.tsx`): elegir 2–6 picks, estilo de riesgo y filtro por liga / deporte / todo en una barra rápida.
 
-### Punto 5 · Mercados nuevos derivados del motor v3.2
+### Punto 5 · Mercados nuevos derivados del motor v3.2 — ✅ hecho el 2026-11-13 (ver MERCADOS-V3.2 en `PROJECT_STATE.md`)
 - **Reglas cerradas (Q17–Q19):**
   - Etiqueta visible **«derivado del motor»** (sin jerga interna como `Poisson` o `Dixon-Coles` en la UI).
   - **Fútbol** (usando `buildDixonColesScoreMatrix` de `@pitchlab/spacetime` con `dixonColesParams`):
@@ -121,7 +121,7 @@
     - Botón opcional de alerta en la campana **60 min antes** (`toggleWatchlistGame`).
     - Ranura preparada para «Alineación confirmada» que **solo** se enciende cuando exista fuente real verificada (nunca inventada).
 
-### Punto 7 · Usuario (`@handle`) sugerido al crear cuenta
+### Punto 7 · Usuario (`@handle`) sugerido al crear cuenta — ✅ hecho el 2026-11-13 (ver SIGNUP-2 en `PROJECT_STATE.md`)
 - **Reglas cerradas (Q22–Q23):**
   - En el paso 2 de `/signup` (`SignupSurfaceV4.tsx`), mostrar **3 sugerencias libres** de `@handle` derivadas del nombre o correo.
   - Verificadas en servidor mediante endpoint `GET /api/handles/suggest?name=...&email=...` apoyado en `suggestHandle` / consulta de disponibilidad en `@pitchlab/db` (`handles.ts`).
