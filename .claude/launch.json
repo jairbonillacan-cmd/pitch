@@ -137,6 +137,23 @@
         "-Prod"
       ],
       "port": 9990
+    },
+    {
+      "name": "web-9999",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "dev",
+        "--port",
+        "9999"
+      ],
+      "port": 9999,
+      "env": {
+        "PITCHLAB_DIST_DIR": ".next-9999"
+      }
     }
   ]
 }

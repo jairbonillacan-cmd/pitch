@@ -5,6 +5,7 @@ import { applyMigrations, eq, sealedPicks, users, type Db } from "@pitchlab/db";
 import { GET as getBadges } from "../app/api/me/badges/route";
 import { PUT as putPreferences } from "../app/api/me/preferences/route";
 import { loadProfileBadges, withAuthorBadges } from "../src/server/badges";
+import { resetRankingCacheForTests } from "../src/server/ranking";
 
 const mocks = vi.hoisted(() => ({ requireMember: vi.fn(), serverDb: vi.fn() }));
 
@@ -25,6 +26,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await client.exec("TRUNCATE TABLE users CASCADE;");
+  resetRankingCacheForTests();
   const [u] = await db
     .insert(users)
     .values({ email: "ana@example.com", authUserId: "auth_ana", handle: "ana_mx", displayName: "Ana", isAdult: true })

@@ -1940,3 +1940,96 @@
     justify-content: flex-start;
   }
 }
+
+/* ---------- Ligas y equipos que sigues (Siguiendo) ---------- */
+.pl-com-topics {
+  border-radius: 20px;
+  min-width: 0;
+  color: var(--pl-text);
+}
+
+.pl-com-topics-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 20px;
+}
+
+.pl-com-topics-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pl-com-topics-summary::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-inline-start: 4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 150ms ease;
+  color: var(--pl-text-muted);
+}
+
+.pl-com-topics[open] > .pl-com-topics-summary::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+.pl-com-topics-summary > span:first-child {
+  flex: 1;
+}
+
+.pl-com-topics-summary:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-com-topics-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 18px 18px;
+  min-width: 0;
+}
+
+.pl-com-topics-label {
+  margin: 4px 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pl-text-secondary);
+}
+
+.pl-com-topics .pl-com-filters {
+  flex-wrap: wrap;
+}
+
+/* ---------- Consenso: picks y votos ---------- */
+.pl-com-consensus-sub {
+  margin: 14px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pl-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-com-topics-summary::after {
+    transition: none;
+  }
+}
+
+/* Acciones de la publicación: con «A mi récord» y «A mi parlay» la fila puede pasar a dos renglones. */
+.pl-com-actions {
+  flex-wrap: wrap;
+}
+
+.pl-com-act {
+  white-space: nowrap;
+}

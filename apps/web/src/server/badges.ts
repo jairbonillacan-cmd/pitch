@@ -9,6 +9,7 @@ import {
   type BadgeVisibility,
 } from "@pitchlab/ui/badges";
 import { normalizeRecordPrivacy } from "@pitchlab/ui/record-stats";
+import { loadCommunityBadgeExtras, type CommunityBadgeExtras } from "./ranking";
 import { serverDb } from "./session-user";
 
 export interface MemberBadges {
@@ -28,7 +29,12 @@ export function visibilityOf(facts: BadgeUserFacts): BadgeVisibility {
   };
 }
 
-export function badgesFromFacts(facts: BadgeUserFacts, now: Date = new Date()): MemberBadges {
+export function badgesFromFacts(
+  facts: BadgeUserFacts,
+  now: Date = new Date(),
+  extras?: CommunityBadgeExtras | null,
+): MemberBadges {
+  const topTen = extras?.topTen.get(facts.userId);
   const all = computeBadges(
     {
       entries: facts.picks,
@@ -36,10 +42,10 @@ export function badgesFromFacts(facts: BadgeUserFacts, now: Date = new Date()): 
       isTipster: facts.isTipster,
       likesOnPickPosts: facts.likesOnPickPosts,
       paidReferrals: facts.paidReferrals,
-      // Se miden en los puntos 3 (ranking) y de consenso del partido; hasta entonces no se otorgan.
-      pollHits: null,
-      topTenWeeks: null,
-      topTenMonthly: null,
+      // Sin datos de Comunidad (p. ej. si falló su carga) quedan como «aún no se mide».
+      pollHits: extras ? (extras.pollHits.get(facts.userId) ?? 0) : null,
+      topTenWeeks: extras ? (topTen?.weeks ?? 0) : null,
+      topTenMonthly: extras ? Boolean(topTen?.monthly) : null,
     },
     now,
   );
@@ -50,8 +56,12 @@ export function badgesFromFacts(facts: BadgeUserFacts, now: Date = new Date()): 
 
 /** Insignias de un socio por id (Mi cuenta / `/api/me/badges`). */
 export async function loadMemberBadges(db: Db, userId: string, now = new Date()): Promise<MemberBadges | null> {
-  const facts = (await loadBadgeFacts(db, { userIds: [userId] })).get(userId);
-  return facts ? badgesFromFacts(facts, now) : null;
+  const [factsById, extras] = await Promise.all([
+    loadBadgeFacts(db, { userIds: [userId] }),
+    safeExtras(db, now),
+  ]);
+  const facts = factsById.get(userId);
+  return facts ? badgesFromFacts(facts, now, extras) : null;
 }
 
 /** Lo que ve cualquiera en el perfil: solo insignias públicas. Perfil privado → nada. */
@@ -61,10 +71,12 @@ export async function loadProfileBadges(
 ): Promise<{ public: BadgeView[]; featured: BadgeView[] } | null> {
   const db = customDb ?? serverDb();
   if (!db) return null;
-  const facts = [...(await loadBadgeFacts(db, { handles: [handle] })).values()][0];
+  const now = new Date();
+  const [factsByHandle, extras] = await Promise.all([loadBadgeFacts(db, { handles: [handle] }), safeExtras(db, now)]);
+  const facts = [...factsByHandle.values()][0];
   if (!facts) return null;
   if (!facts.publicProfile) return { public: [], featured: [] };
-  const { public: pub, featured } = badgesFromFacts(facts);
+  const { public: pub, featured } = badgesFromFacts(facts, now, extras);
   return { public: pub, featured };
 }
 
@@ -73,9 +85,10 @@ export async function featuredBadgeByHandle(db: Db, handles: readonly string[]):
   const out = new Map<string, BadgeView>();
   if (handles.length === 0) return out;
   const now = new Date();
-  for (const facts of (await loadBadgeFacts(db, { handles })).values()) {
+  const [factsByHandle, extras] = await Promise.all([loadBadgeFacts(db, { handles }), safeExtras(db, now)]);
+  for (const facts of factsByHandle.values()) {
     if (!facts.publicProfile) continue;
-    const first = badgesFromFacts(facts, now).featured[0];
+    const first = badgesFromFacts(facts, now, extras).featured[0];
     if (first) out.set(facts.handle, first);
   }
   return out;
@@ -88,4 +101,14 @@ export async function withAuthorBadges<T extends { authorHandle: string }>(
 ): Promise<Array<T & { authorBadge: BadgeView | null }>> {
   const badges = await featuredBadgeByHandle(db, [...new Set(posts.map((p) => p.authorHandle))]);
   return posts.map((p) => ({ ...p, authorBadge: badges.get(p.authorHandle.toLowerCase()) ?? null }));
+}
+
+/** Las insignias de Comunidad nunca deben tumbar el perfil ni el feed. */
+async function safeExtras(db: Db, now: Date): Promise<CommunityBadgeExtras | null> {
+  try {
+    return await loadCommunityBadgeExtras(db, now);
+  } catch (err) {
+    console.error("[insignias] no se pudieron calcular Top 10 y votos", err);
+    return null;
+  }
 }

@@ -927,3 +927,24 @@ export const matchVotes = pgTable(
     check("match_votes_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
   ],
 );
+
+/**
+ * Resultado final de cada partido, guardado la primera vez que el servidor lo ve terminado.
+ * Los snapshots de partidos rotan; esto conserva el marcador para insignias como
+ * «Lectura del partido».
+ */
+export const matchResults = pgTable(
+  "match_results",
+  {
+    gameId: text("game_id").primaryKey(),
+    homeScore: integer("home_score").notNull(),
+    awayScore: integer("away_score").notNull(),
+    outcome: text("outcome").notNull(),
+    recordedAt: ts("recorded_at").notNull().defaultNow(),
+  },
+  (t) => [
+    check("match_results_outcome_ck", sql`${t.outcome} IN ('home', 'draw', 'away')`),
+    check("match_results_scores_ck", sql`${t.homeScore} >= 0 AND ${t.awayScore} >= 0`),
+    check("match_results_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
+  ],
+);

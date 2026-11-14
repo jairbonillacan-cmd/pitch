@@ -83,7 +83,8 @@
   - **Privacidad y despliegue:** cada insignia hereda la privacidad del bloque de donde sale (`Precisión` / `Racha 5` requieren el bloque correspondiente visible en `RecordPrivacy`). El socio elige hasta **3 destacadas** en su perfil (`AnalystProfileClubView`) y la **1.ª** aparece junto a su nombre en publicaciones de Comunidad (`CommunityClubView`).
 - **Archivos a crear/tocar:** `packages/ui/src/platform/badges.ts` (+ subruta `@pitchlab/ui/badges`), migración `0018_insignias_destacadas.sql` (`featured_badges jsonb` en `user_preferences`), `/api/me/preferences`, `AnalystProfileClubView.tsx`, `CommunityClubView.tsx`, stories en oscuro/claro y pruebas unitarias.
 
-### Punto 3 · Comunidad
+### Punto 3 · Comunidad — ✅ hecho el 2026-11-13 (ver COMUNIDAD-3 en `PROJECT_STATE.md`)
+- **Diferencias con lo planeado:** muestra mínima de **5 picks en la semana** y **15 en el mes**; el ranking deja «Temporada» y queda **Semana / Mes**. El consenso suma los votos de «¿Quién gana?» (mínimo 5) a los picks publicados (mínimo 10). Ligas y equipos seguidos se guardan en el navegador (no en la base). «Copiar a mi bitácora» pasa a «A mi récord».
 - **Reglas cerradas (Q10–Q13):**
   1. **Pestaña Ranking semanal (`7d`) y mensual (`30d`)** en `CommunityClubView.tsx` ordenable por **% de acierto** o **CLV** (además de saldo), con muestra mínima de picks cerrados (p. ej. `15` picks) y estricto opt-in (`showInRanking` + `publicRecordVisible`), respaldada por endpoint `/api/social/ranking` y respaldo honesto marcado `Ejemplo`.
   2. **«Copiar a mi parlay»** en tarjetas de publicación (`PostCard` en `CommunityClubView.tsx`) cuando el post tiene un pick abierto adjunto (`addPickToParlay`), conviviendo con «Copiar a mi récord».
@@ -128,4 +129,4 @@
   - Al tocar un chip se rellena el campo en un toque, manteniendo el input editable.
 
 ### Antes de desplegar a producción (recordatorio operativo)
-- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`**, **`0017_mi_record_privacidad`** y **`0018_insignias_destacadas`**) antes de desplegar en Vercel.
+- Ejecutar `scripts/migrate-prod.ps1` en la rama `main` de Neon para aplicar las migraciones pendientes (**`0016_votos_partido`**, **`0017_mi_record_privacidad`**, **`0018_insignias_destacadas`** y **`0019_resultados_partido`**) antes de desplegar en Vercel.

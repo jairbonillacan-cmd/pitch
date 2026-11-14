@@ -247,8 +247,8 @@ export function ProfileBadgesSection({
 
       {soon.length > 0 ? (
         <p className="pl-badges-note">
-          Pronto: {soon.map((b) => b.label).join(", ")}. Se activan cuando el ranking y los votos por partido
-          empiecen a contar.
+          Con tu cuenta también cuentan: {soon.map((b) => b.label).join(", ")}. Salen del ranking semanal y
+          mensual y de tus votos de «¿Quién gana?».
         </p>
       ) : null}
       <p className="pl-badges-foot">Nunca damos insignias por apostar más, por entrar cada día ni con premios.</p>

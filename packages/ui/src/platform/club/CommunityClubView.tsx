@@ -1,16 +1,19 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
 import {
   CONSENSUS_AGREE_PTS,
+  CONSENSUS_MIN_PICKS,
+  CONSENSUS_MIN_VOTES,
   CONSENSUS_STRONG_PTS,
   computeConsensus,
   consensusReading,
   formatDiffPts,
   type ConsensusGame,
+  type WinnerVoteTally,
 } from "../community-stats";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
 import { BadgeChip } from "./badges/ProfileBadges";
@@ -20,6 +23,7 @@ import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-p
 import {
   LEADERBOARD_MIN_SETTLED,
   entriesInWindow,
+  leaderboardMinSettled,
   formatSignedPct,
   formatUnits,
   monthLongLabel,
@@ -42,7 +46,11 @@ import {
   SocialReportMenu,
   TabPanel,
   UnderlineTabs,
+  postMatchesTopics,
   resolveEntryGame,
+  teamTopicKey,
+  useFollowedTopics,
+  type FollowedTopics,
   shareUrl,
   useFollowing,
   useLeaderboardRows,
@@ -169,10 +177,29 @@ function CommunityContent(): React.JSX.Element {
     refreshSocialFeed,
     ensureSocialPostLoaded,
     sealPickToJournal,
+    addPickToParlay,
+    hasAccountSessionAuth,
     pushToast,
     navigateTo,
   } = usePlatform();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
+  const [voteTallies, setVoteTallies] = useState<WinnerVoteTally[]>([]);
+  // Votos de «¿Quién gana?» para el consenso (solo con cuenta: con PIN no se guardan votos).
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let alive = true;
+    fetch("/api/social/consensus", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { tallies?: WinnerVoteTally[] } | null) => {
+        if (alive && Array.isArray(data?.tallies)) setVoteTallies(data.tallies);
+      })
+      .catch((err: unknown) => {
+        void err;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [hasAccountSessionAuth]);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
   // Al abrir Comunidad se trae lo último que publicaron los demás.
@@ -198,7 +225,7 @@ function CommunityContent(): React.JSX.Element {
     window.addEventListener("popstate", syncPostParam);
     return () => window.removeEventListener("popstate", syncPostParam);
   }, [ensureSocialPostLoaded, setTab]);
-  const { rows, own, today } = useLeaderboardRows();
+  const { rows, own, today, source, ownJournal } = useLeaderboardRows();
   const follows = useFollowing();
   const monthName = monthLongLabel(today.getMonth());
 
@@ -211,8 +238,8 @@ function CommunityContent(): React.JSX.Element {
     [rows, today],
   );
   const consensus = useMemo(
-    () => computeConsensus(socialPosts, dataset.games),
-    [dataset.games, socialPosts],
+    () => computeConsensus(socialPosts, dataset.games, { voteTallies }),
+    [dataset.games, socialPosts, voteTallies],
   );
 
   const authorOf = useMemo(() => {
@@ -264,6 +291,18 @@ function CommunityContent(): React.JSX.Element {
     sealPickToJournal(pick, post.pick.units, post.pick.userDecimal);
   };
 
+  const onCopyToParlay = (post: SocialPost): void => {
+    if (!post.pick) return;
+    const game = dataset.games.find((g) => g.id === post.pick!.gameId);
+    const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
+    if (!pick || game?.status !== "NS") {
+      pushToast("Ese partido ya no está disponible para tu parlay.", "warning");
+      return;
+    }
+    // `addPickToParlay` ya avisa si el pick choca con otro del mismo partido.
+    if (addPickToParlay(pick)) pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
+  };
+
   const onShare = (post: SocialPost): void => {
     void shareUrl(
       `/app/u/${post.authorHandle}`,
@@ -281,6 +320,7 @@ function CommunityContent(): React.JSX.Element {
     follows,
     onToggleFollow,
     onCopy,
+    onCopyToParlay,
     onShare,
     toggleSocialLike,
     addSocialComment,
@@ -346,7 +386,17 @@ function CommunityContent(): React.JSX.Element {
         {tab === "consenso" ? <ConsensusTab items={consensus} /> : null}
 
         {tab === "ranking" ? (
-          <RankingTab rows={rows} own={own} today={today} follows={follows} onToggleFollow={onToggleFollow} goProfile={goProfile} />
+          <RankingTab
+            rows={rows}
+            own={own}
+            ownJournal={ownJournal}
+            source={source}
+            today={today}
+            follows={follows}
+            onToggleFollow={onToggleFollow}
+            goProfile={goProfile}
+            onPrivacy={() => navigateTo("/app/lab?tab=privacidad")}
+          />
         ) : null}
       </TabPanel>
       <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
@@ -624,6 +674,7 @@ interface FeedSharedProps {
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
   onCopy: (post: SocialPost) => void;
+  onCopyToParlay: (post: SocialPost) => void;
   onShare: (post: SocialPost) => void;
   toggleSocialLike: (postId: string) => void;
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
@@ -710,6 +761,7 @@ function PostCard({
   follows,
   onToggleFollow,
   onCopy,
+  onCopyToParlay,
   onShare,
   toggleSocialLike,
   addSocialComment,
@@ -854,9 +906,15 @@ function PostCard({
           <span>{post.comments.length}</span>
         </button>
         {pick && !isMine ? (
-          <button type="button" className="pl-com-act" onClick={() => onCopy(post)}>
+          <button type="button" className="pl-com-act" aria-label="Copiar a mi récord" onClick={() => onCopy(post)}>
             <MaestroIcon name="copy" size={15} />
-            Copiar a mi bitácora
+            A mi récord
+          </button>
+        ) : null}
+        {pick && pick.status === "open" ? (
+          <button type="button" className="pl-com-act" aria-label="Copiar a mi parlay" onClick={() => onCopyToParlay(post)}>
+            <MaestroIcon name="layers" size={15} />
+            A mi parlay
           </button>
         ) : null}
         {canDelete ? (
@@ -1094,7 +1152,7 @@ function TopCard({
           {ranked.slice(0, 5).map((r) => (
             <li key={r.handle}>
               <span className="pl-com-top-rank num">{r.rank}</span>
-              <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={28} />
+              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={28} />
               <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-top-name">
                 {r.name}
               </a>
@@ -1166,7 +1224,7 @@ function MobileTop({
           <li key={r.handle}>
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-mtop-card glass-card glass-ring">
               <span className="pl-com-mtop-rank num">#{r.rank}</span>
-              <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={40} />
+              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={40} />
               <span className="pl-com-mtop-name">{r.name.split(" ")[0]}</span>
               <span className={`num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
                 {formatUnits(r.record.netUnits)}
@@ -1194,6 +1252,12 @@ function FollowingTab({
   const [filter, setFilter] = useState<FollowFilter>("all");
   const { follows, dataset, oddsFormat, onToggleFollow, goProfile } = shared;
   const followed = follows.following;
+  const { topics, toggleLeague, toggleTeam } = useFollowedTopics();
+  const topicCount = topics.leagues.length + topics.teams.length;
+  const isFollowedPost = useCallback(
+    (p: SocialPost) => followed.includes(p.authorHandle) || postMatchesTopics(p, topics, dataset),
+    [dataset, followed, topics],
+  );
 
   useEffect(() => {
     if (followed.length > 0) {
@@ -1220,7 +1284,7 @@ function FollowingTab({
   const tipsters = followedInfo.filter((f) => f.isTipster).length;
 
   const followedPosts = useMemo(() => {
-    const base = posts.filter((p) => followed.includes(p.authorHandle));
+    const base = posts.filter(isFollowedPost);
     return base.filter((p) => {
       const tip = getExampleAnalystSpec(p.authorHandle)?.isTipster ?? false;
       if (filter === "tipsters") return tip;
@@ -1228,12 +1292,12 @@ function FollowingTab({
       if (filter === "open") return p.pick?.status === "open";
       return true;
     });
-  }, [filter, followed, posts]);
+  }, [filter, isFollowedPost, posts]);
 
   const openPicks = useMemo(() => {
     const groups = new Map<string, { label: string; gameId: string; names: string[]; kickoff?: string; league?: string }>();
     for (const p of posts) {
-      if (!followed.includes(p.authorHandle) || p.pick?.status !== "open") continue;
+      if (!isFollowedPost(p) || p.pick?.status !== "open") continue;
       const meta = resolveEntryGame(p.pick.gameId, dataset);
       const g = groups.get(p.pick.pickId) ?? {
         label: p.pick.label,
@@ -1246,7 +1310,7 @@ function FollowingTab({
       groups.set(p.pick.pickId, g);
     }
     return [...groups.values()].sort((a, b) => (a.kickoff ?? "").localeCompare(b.kickoff ?? "")).slice(0, 5);
-  }, [dataset, followed, posts]);
+  }, [dataset, isFollowedPost, posts]);
 
   const suggestions = useMemo(
     () => seasonRanked.filter((r) => !followed.includes(r.handle) && r.handle !== shared.own?.handle).slice(0, 3),
@@ -1281,11 +1345,25 @@ function FollowingTab({
     </ul>
   );
 
-  if (followed.length === 0) {
+  const topicsPicker = (
+    <TopicsPicker
+      games={dataset.games}
+      topics={topics}
+      onToggleLeague={toggleLeague}
+      onToggleTeam={toggleTeam}
+      defaultOpen={followed.length === 0 && topicCount === 0}
+    />
+  );
+
+  if (followed.length === 0 && topicCount === 0) {
     return (
-      <div className="pl-com-empty glass-lens glass-ring">
-        <p className="pl-com-empty-title">Aún no sigues a nadie.</p>
-        {suggestionList}
+      <div className="pl-com-main">
+        <div className="pl-com-empty glass-lens glass-ring">
+          <p className="pl-com-empty-title">Aún no sigues a nadie.</p>
+          <p className="pl-com-card-note">Sigue a socios o elige ligas y equipos: sus publicaciones aparecen aquí.</p>
+          {suggestionList}
+        </div>
+        {topicsPicker}
       </div>
     );
   }
@@ -1299,11 +1377,10 @@ function FollowingTab({
               <Avatar key={f.handle} initials={f.initials} avatarUrl={f.avatarUrl} gradVar={f.gradVar} size={32} loading="lazy" />
             ))}
           </span>
-          <p className="pl-com-strip-copy num">
-            Sigues a <strong>{followed.length}</strong> · {tipsters} {tipsters === 1 ? "tipster" : "tipsters"},{" "}
-            {followed.length - tipsters} {followed.length - tipsters === 1 ? "socio" : "socios"}
-          </p>
+          <p className="pl-com-strip-copy num">{followSummary(followed.length, tipsters, topics)}</p>
         </section>
+
+        {topicsPicker}
 
         <div className="pl-com-filters" role="group" aria-label="Filtrar">
           {(
@@ -1337,7 +1414,7 @@ function FollowingTab({
         <Feed
           posts={followedPosts}
           scope={{ following: true }}
-          emptyText="Nadie a quien sigues publicó con este filtro."
+          emptyText="Nada de quienes sigues ni de tus ligas y equipos con este filtro."
           {...shared}
         />
       </div>
@@ -1376,6 +1453,112 @@ function FollowingTab({
   );
 }
 
+const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
+
+/** «Sigues a 3 (1 tipster, 2 socios) · 2 ligas y 1 equipo», sin partes en cero. */
+function followSummary(people: number, tipsters: number, topics: FollowedTopics): string {
+  const parts: string[] = [];
+  if (people > 0) {
+    const kinds = [
+      tipsters > 0 ? plural(tipsters, "tipster", "tipsters") : "",
+      people - tipsters > 0 ? plural(people - tipsters, "socio", "socios") : "",
+    ].filter(Boolean);
+    parts.push(`Sigues a ${people} (${kinds.join(", ")})`);
+  }
+  const topicParts = [
+    topics.leagues.length > 0 ? plural(topics.leagues.length, "liga", "ligas") : "",
+    topics.teams.length > 0 ? plural(topics.teams.length, "equipo", "equipos") : "",
+  ].filter(Boolean);
+  if (topicParts.length > 0) parts.push(`${people > 0 ? "" : "Sigues "}${topicParts.join(" y ")}`);
+  return parts.join(" · ");
+}
+
+function TopicsPicker({
+  games,
+  topics,
+  onToggleLeague,
+  onToggleTeam,
+  defaultOpen,
+}: {
+  games: readonly PlatformGame[];
+  topics: FollowedTopics;
+  onToggleLeague: (league: string) => void;
+  onToggleTeam: (key: string) => void;
+  defaultOpen: boolean;
+}): React.JSX.Element | null {
+  const uid = useId();
+  const leagues = useMemo(() => {
+    const map = new Map<
+      string,
+      { league: PlatformGame["league"]; label: string; teams: Map<string, { slug: string; name: string }> }
+    >();
+    for (const g of games) {
+      const entry = map.get(g.league) ?? { league: g.league, label: g.leagueLabel, teams: new Map() };
+      entry.teams.set(g.home.slug, { slug: g.home.slug, name: g.home.shortName || g.home.name });
+      entry.teams.set(g.away.slug, { slug: g.away.slug, name: g.away.shortName || g.away.name });
+      map.set(g.league, entry);
+    }
+    return [...map.values()].map((l) => ({
+      ...l,
+      teams: [...l.teams.values()].sort((a, b) => a.name.localeCompare(b.name, "es")),
+    }));
+  }, [games]);
+  const count = topics.leagues.length + topics.teams.length;
+  if (leagues.length === 0) return null;
+  return (
+    <details className="pl-com-topics glass-lens glass-ring" open={defaultOpen}>
+      <summary className="pl-com-topics-summary">
+        <span>Ligas y equipos que sigues</span>
+        <span className="pl-prof-muted num">{count === 0 ? "Ninguno" : count}</span>
+      </summary>
+      <div className="pl-com-topics-body">
+        <p className="pl-com-card-note">
+          Lo que se publique sobre sus partidos aparece en «Siguiendo», aunque no sigas a quien lo escribe. Se
+          guarda en este navegador.
+        </p>
+        <div className="pl-com-filters" role="group" aria-label="Ligas que sigues">
+          {leagues.map((l) => (
+            <button
+              key={l.league}
+              type="button"
+              className="pl-prof-chip"
+              aria-pressed={topics.leagues.includes(l.league)}
+              onClick={() => onToggleLeague(l.league)}
+            >
+              <LeagueBadge league={l.league} size={16} />
+              {l.label}
+            </button>
+          ))}
+        </div>
+        {leagues.map((l) => (
+          <div key={l.league} className="pl-com-topics-league">
+            <p className="pl-com-topics-label" id={`${uid}-${l.league}`}>
+              Equipos de {l.label}
+            </p>
+            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-${l.league}`}>
+              {l.teams.map((t) => {
+                const key = teamTopicKey(l.league, t.slug);
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className="pl-prof-chip"
+                    aria-pressed={topics.teams.includes(key)}
+                    onClick={() => onToggleTeam(key)}
+                  >
+                    <TeamBadge league={l.league} slug={t.slug} name={t.name} size={16} decorative />
+                    {t.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  );
+}
+
 /* ===========================================================================
    Consenso
    ========================================================================= */
@@ -1389,6 +1572,16 @@ function diffClass(diff: number): string {
   return "pl-com-diff";
 }
 
+/** «12 picks · 8 votos», lo que exista. */
+function sampleLabel(item: ConsensusGame): string {
+  const parts: string[] = [];
+  if (item.totalPicks > 0) parts.push(`${item.totalPicks} ${item.totalPicks === 1 ? "pick" : "picks"}`);
+  if (item.votes) parts.push(`${item.votes.total} ${item.votes.total === 1 ? "voto" : "votos"}`);
+  return parts.join(" · ");
+}
+
+const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.votes?.total ?? 0);
+
 function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
   const { userTimezone } = usePlatform();
   const [league, setLeague] = useState("all");
@@ -1396,7 +1589,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
   const leagues = useMemo(() => [...new Set(items.map((i) => i.game.leagueLabel))], [items]);
   const list = useMemo(() => {
     const filtered = league === "all" ? [...items] : items.filter((i) => i.game.leagueLabel === league);
-    if (sort === "picks") filtered.sort((a, b) => b.totalPicks - a.totalPicks);
+    if (sort === "picks") filtered.sort((a, b) => sampleSize(b) - sampleSize(a));
     if (sort === "soon") filtered.sort((a, b) => a.game.kickoffUtc.localeCompare(b.game.kickoffUtc));
     return filtered;
   }, [items, league, sort]);
@@ -1405,8 +1598,10 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
     return (
       <div className="pl-com-consensus">
         <div className="pl-com-empty glass-lens glass-ring">
-          <p className="pl-com-empty-title">Todavía no hay partidos con 10 picks de socios.</p>
-          <p className="pl-com-card-note">Publica tu pick con «Adjuntar pick» y cuenta para el consenso.</p>
+          <p className="pl-com-empty-title">Todavía no hay partidos con suficientes picks o votos de socios.</p>
+          <p className="pl-com-card-note">
+            Publica tu pick con «Adjuntar pick» o vota «¿Quién gana?» en la ficha del partido: los dos cuentan.
+          </p>
         </div>
         <ConsensusNote />
       </div>
@@ -1432,7 +1627,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
           <span className="pl-prof-select">
             <select value={sort} onChange={(e) => setSort(e.target.value as ConsensusSort)}>
               <option value="diff">Mayor diferencia</option>
-              <option value="picks">Más picks</option>
+              <option value="picks">Más participación</option>
               <option value="soon">Próximos</option>
             </select>
           </span>
@@ -1448,19 +1643,40 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <TeamBadge league={featured.game.league} slug={featured.game.away.slug} name={featured.game.away.name} size={26} decorative />
           </h2>
           <p className="pl-com-card-note num">
-            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} · {featured.totalPicks} picks de socios
+            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} · {sampleLabel(featured)}
           </p>
-          <div className="pl-com-outcomes">
-            {featured.outcomes.slice(0, 3).map((o) => (
-              <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
-                <div className="pl-com-outcome-head">
-                  <p>{o.label}</p>
-                  <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
-                </div>
-                <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+          {featured.outcomes.length > 0 ? (
+            <>
+              <h3 className="pl-com-consensus-sub">Picks publicados</h3>
+              <div className="pl-com-outcomes">
+                {featured.outcomes.slice(0, 3).map((o) => (
+                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                    <div className="pl-com-outcome-head">
+                      <p>{o.label}</p>
+                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                    </div>
+                    <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : null}
+          {featured.votes ? (
+            <>
+              <h3 className="pl-com-consensus-sub num">¿Quién gana? · {featured.votes.total} votos</h3>
+              <div className="pl-com-outcomes">
+                {featured.votes.outcomes.map((o) => (
+                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                    <div className="pl-com-outcome-head">
+                      <p>{o.label}</p>
+                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                    </div>
+                    <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : null}
           <p className="pl-com-reading">{consensusReading(featured.top)}</p>
         </article>
       ) : null}
@@ -1476,7 +1692,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <span className="pl-com-hide-md pl-com-right">Socios</span>
             <span className="pl-com-hide-md pl-com-right">Modelo</span>
             <span className="pl-com-right">Diferencia</span>
-            <span className="pl-com-hide-md pl-com-right">Picks</span>
+            <span className="pl-com-hide-md pl-com-right">Muestra</span>
           </div>
           {rest.map((i) => (
             <div key={i.game.id} className="pl-com-crow num">
@@ -1497,7 +1713,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
               <span className="pl-com-right">
                 <span className={diffClass(i.top.diffPts)}>{formatDiffPts(i.top.diffPts)}</span>
               </span>
-              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{i.totalPicks}</span>
+              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{sampleLabel(i)}</span>
             </div>
           ))}
         </section>
@@ -1510,7 +1726,8 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
 function ConsensusNote(): React.JSX.Element {
   return (
     <p className="pl-com-footnote">
-      Socios: % de picks publicados por resultado. Modelo: probabilidad del partido. Solo partidos con 10 picks o más.
+      Socios: % de picks publicados por resultado, o % de votos de «¿Quién gana?». Modelo: probabilidad del
+      partido. Entran partidos con {CONSENSUS_MIN_PICKS} picks o {CONSENSUS_MIN_VOTES} votos.
     </p>
   );
 }
@@ -1522,30 +1739,37 @@ function ConsensusNote(): React.JSX.Element {
 function RankingTab({
   rows,
   own,
+  ownJournal,
+  source,
   today,
   follows,
   onToggleFollow,
   goProfile,
+  onPrivacy,
 }: {
   rows: ReturnType<typeof useLeaderboardRows>["rows"];
   own: OwnIdentity | null;
+  ownJournal: ReturnType<typeof useLeaderboardRows>["ownJournal"];
+  source: ReturnType<typeof useLeaderboardRows>["source"];
   today: Date;
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onPrivacy: () => void;
 }): React.JSX.Element {
+  const { hasAccountSessionAuth } = usePlatform();
   const [window, setWindow] = useState<LeaderboardWindow>("30d");
   const [sort, setSort] = useState<LeaderboardSort>("units");
+  const minSettled = leaderboardMinSettled(window);
   const ranked = useMemo(() => rankAnalysts(rows, { window, sort, today }), [rows, window, sort, today]);
   const top = ranked.slice(0, TOP_N);
   const podium = top.slice(0, 3);
   const tableRows = top.slice(3);
   const me = own ? ranked.find((r) => r.handle === own.handle) ?? null : null;
   const meInTop = me !== null && me.rank <= TOP_N;
-  const ownRow = own ? rows.find((r) => r.handle === own.handle) : undefined;
-  const ownSettled = ownRow ? profileRecord(entriesInWindow(ownRow.journal, window, today)).settled : 0;
+  const ownSettled = own ? profileRecord(entriesInWindow(ownJournal, window, today)).settled : 0;
   const tenth = top[TOP_N - 1];
-  const windowLabel = window === "30d" ? "últimos 30 días" : "temporada";
+  const windowLabel = window === "7d" ? "últimos 7 días" : "últimos 30 días";
   const sortLabel = sort === "units" ? "saldo" : sort === "clv" ? "ventaja contra el cierre" : "cumplidos";
 
   const hit = (r: RankedAnalyst): string => `${Math.round(r.record.hitRatePct ?? 0)} %`;
@@ -1556,17 +1780,27 @@ function RankingTab({
     ? me.rank > TOP_N && tenth
       ? `Te faltan ${Math.max(0.1, tenth.record.netUnits - me.record.netUnits).toFixed(1)}u para el top 10`
       : "Estás en el top 10"
-    : `Registra ${Math.max(0, LEADERBOARD_MIN_SETTLED - ownSettled)} picks más para entrar`;
+    : hasAccountSessionAuth && ownSettled >= minSettled
+      ? "Activa «Aparecer en el ranking» en Privacidad para entrar"
+      : `Registra ${Math.max(0, minSettled - ownSettled)} picks más para entrar`;
+  const nameOf = (r: RankedAnalyst): React.ReactNode => (
+    <>
+      <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
+        {r.name}
+      </a>
+      {r.isExample ? <ExampleBadge className="pl-com-example" /> : null}
+    </>
+  );
 
   return (
     <div className="pl-com-ranking">
       <div className="pl-com-toolbar">
         <div className="pl-com-seg" role="group" aria-label="Periodo">
-          <button type="button" aria-pressed={window === "30d"} onClick={() => setWindow("30d")}>
-            Últimos 30 días
+          <button type="button" aria-pressed={window === "7d"} onClick={() => setWindow("7d")}>
+            Semana
           </button>
-          <button type="button" aria-pressed={window === "season"} onClick={() => setWindow("season")}>
-            Temporada
+          <button type="button" aria-pressed={window === "30d"} onClick={() => setWindow("30d")}>
+            Mes
           </button>
         </div>
         <div className="pl-com-seg" role="group" aria-label="Ordenar por">
@@ -1582,8 +1816,17 @@ function RankingTab({
         </div>
       </div>
 
+      {source === "examples" ? (
+        <p className="pl-com-card-note">
+          <ExampleBadge className="pl-com-example" />{" "}
+          {hasAccountSessionAuth
+            ? "Todavía ningún socio cumple la muestra mínima, así que ves perfiles de ejemplo."
+            : "Con el acceso de la beta ves perfiles de ejemplo y tu propio récord."}
+        </p>
+      ) : null}
+
       {ranked.length === 0 ? (
-        <p className="pl-prof-empty-line">Aún nadie llega a {LEADERBOARD_MIN_SETTLED} picks cerrados en este periodo.</p>
+        <p className="pl-prof-empty-line">Aún nadie llega a {minSettled} picks cerrados en este periodo.</p>
       ) : (
         <>
           <ol className="pl-com-podium" aria-label="Primeros tres lugares">
@@ -1593,11 +1836,9 @@ function RankingTab({
               return (
                 <li key={r.handle} className={`pl-com-podium-card glass-lens glass-ring ${r.rank === 1 ? "is-first glass-ring--featured" : ""}`} data-rank={r.rank}>
                   <span className="pl-com-podium-rank num">#{r.rank}</span>
-                  <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
+                  <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
                   <p className="pl-com-podium-name">
-                    <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                      {r.name}
-                    </a>
+                    {nameOf(r)}
                     {r.isTipster ? <VerifiedSeal size={16} /> : null}
                   </p>
                   <p className="pl-com-podium-sub">{sub(r)}</p>
@@ -1652,12 +1893,10 @@ function RankingTab({
                     <td className="pl-prof-muted">{r.rank}</td>
                     <td>
                       <span className="pl-com-table-who">
-                        <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={32} />
+                        <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={32} />
                         <span>
                           <span className="pl-com-table-name">
-                            <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                              {r.name}
-                            </a>
+                            {nameOf(r)}
                             {r.isTipster ? <VerifiedSeal size={14} /> : null}
                           </span>
                           <span className="pl-com-table-sub">{sub(r)}</span>
@@ -1698,11 +1937,9 @@ function RankingTab({
             {tableRows.map((r) => (
               <li key={r.handle}>
                 <span className="pl-com-top-rank num">{r.rank}</span>
-                <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={36} />
+                <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} />
                 <span className="pl-com-mlist-who">
-                  <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
-                    {r.name}
-                  </a>
+                  <span>{nameOf(r)}</span>
                   <span className="pl-prof-muted num">
                     {hit(r)} cumplidos · {r.record.settled} picks
                   </span>
@@ -1726,7 +1963,16 @@ function RankingTab({
           ) : null}
         </>
       )}
-      <p className="pl-com-footnote">Mínimo {LEADERBOARD_MIN_SETTLED} picks cerrados.</p>
+      <p className="pl-com-footnote">
+        Mínimo {minSettled} picks cerrados. Solo aparecen socios que lo eligieron en{" "}
+        <button type="button" className="pl-com-text-btn" onClick={onPrivacy}>
+          Privacidad
+        </button>
+        .
+      </p>
     </div>
   );
 }
+
+/** Para Storybook: piezas de Comunidad con datos de ejemplo. */
+export { ConsensusTab as CommunityConsensusTab, TopicsPicker as CommunityTopicsPicker };

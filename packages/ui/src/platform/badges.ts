@@ -238,7 +238,7 @@ export function computeBadges(facts: BadgeFacts, now: Date = new Date()): BadgeS
     id: "lectura-del-partido",
     family: "community",
     label: "Lectura del partido",
-    criterion: "Acertar el pick más votado por la comunidad en un partido.",
+    criterion: "Votar lo mismo que la mayoría en «¿Quién gana?» de un partido (5 votos o más) y acertar.",
     earned: (facts.pollHits ?? 0) >= 1,
     progress: null,
     measured: facts.pollHits !== null,

@@ -517,7 +517,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.locator("#pl-com-tab-para-ti").focus();
     await page.keyboard.press("End");
     await expect(page.locator("#pl-com-tab-ranking")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("#pl-com-panel-ranking")).toContainText("Mínimo 20 picks cerrados.");
+    await expect(page.locator("#pl-com-panel-ranking")).toContainText("Mínimo 15 picks cerrados.");
     await page.waitForTimeout(400); // fin de la entrada suave del panel
     const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(socialA11y.violations).toEqual([]);

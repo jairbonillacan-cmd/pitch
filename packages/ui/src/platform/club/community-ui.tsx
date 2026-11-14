@@ -12,7 +12,7 @@ import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
-import type { JournalEntry, PlatformDataset, SocialReportReason, ViewerRole } from "../types";
+import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
 /* ---------------------------------------------------------------------------
    Identidad propia
@@ -70,18 +70,85 @@ export function isOwnProfileHandle(handle: string, own: OwnIdentity | null, hasA
   return !hasAccount && (OWN_PROFILE_ALIASES as readonly string[]).includes(handle);
 }
 
-/** Filas del leaderboard: perfiles de ejemplo + tu bitácora real. */
+/** Filas que manda `/api/social/ranking` (cifras agregadas, sin picks). */
+export interface ServerRankingRow {
+  handle: string;
+  name: string;
+  avatarUrl: string | null;
+  isTipster: boolean;
+  windows: NonNullable<LeaderboardAnalyst["windows"]>;
+}
+
+function initialsOf(name: string): string {
+  return (
+    name
+      .split(/\s+/)
+      .map((w) => w[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "PL"
+  );
+}
+
+export function rowsFromServer(rows: readonly ServerRankingRow[]): LeaderboardAnalyst[] {
+  return rows.map((r) => ({
+    handle: r.handle,
+    name: r.name,
+    roleLabel: r.isTipster ? "Tipster" : "Socio",
+    specialty: "Socio verificado",
+    avatarInitials: initialsOf(r.name),
+    avatarGradVar: r.isTipster ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
+    avatarUrl: r.avatarUrl,
+    isTipster: r.isTipster,
+    isVerified: r.isTipster,
+    isExample: false,
+    journal: [],
+    windows: r.windows,
+  }));
+}
+
+/**
+ * Filas del leaderboard.
+ * - Con cuenta: el ranking real del servidor (solo socios que aceptaron aparecer). Si
+ *   todavía nadie aparece, se muestran perfiles de ejemplo marcados como tales.
+ * - Con el PIN de la beta: perfiles de ejemplo + tu récord local.
+ */
 export function useLeaderboardRows(): {
   rows: LeaderboardAnalyst[];
   own: OwnIdentity | null;
   today: Date;
+  /** `server`: ranking real; `examples`: perfiles de ejemplo (la vista lo dice). */
+  source: "server" | "examples";
+  /** Tu récord local (para decirte cuántos picks te faltan aunque no aparezcas). */
+  ownJournal: readonly JournalEntry[];
 } {
-  const { journal, viewerRole, viewerIdentity } = usePlatform();
+  const { journal, viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatform();
   const today = useMemo(() => new Date(), []);
   const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
+  const [serverRows, setServerRows] = useState<ServerRankingRow[] | null>(null);
+
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let alive = true;
+    fetch("/api/social/ranking", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { rows?: ServerRankingRow[] } | null) => {
+        if (alive && Array.isArray(data?.rows)) setServerRows(data.rows);
+      })
+      .catch((err: unknown) => {
+        void err;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [hasAccountSessionAuth]);
+
+  const fromServer = useMemo(() => (serverRows ? rowsFromServer(serverRows) : null), [serverRows]);
   const rows = useMemo(() => {
+    if (fromServer && fromServer.length > 0) return fromServer;
     const examples = exampleLeaderboardRows(today);
-    if (!own || examples.some((r) => r.handle === own.handle)) return examples;
+    // Con cuenta, tu récord solo entra al ranking real (si aceptaste aparecer).
+    if (!own || fromServer || examples.some((r) => r.handle === own.handle)) return examples;
     return [
       ...examples,
       {
@@ -97,8 +164,9 @@ export function useLeaderboardRows(): {
         journal,
       },
     ];
-  }, [journal, own, today]);
-  return { rows, own, today };
+  }, [fromServer, journal, own, today]);
+  const source = fromServer && fromServer.length > 0 ? "server" : "examples";
+  return { rows, own, today, source, ownJournal: journal };
 }
 
 /* ---------------------------------------------------------------------------
@@ -805,5 +873,95 @@ export function SocialReportDialog({
         </div>
       </form>
     </TopLayerModalDialog>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Ligas y equipos que sigues (filtran «Siguiendo»)
+   ------------------------------------------------------------------------- */
+
+export interface FollowedTopics {
+  leagues: string[];
+  /** `liga:slug` del equipo. */
+  teams: string[];
+}
+
+const TOPICS_KEY = "pl-follow-topics-v1";
+const TOPICS_EVENT = "pl:follow-topics";
+const TOPICS_MAX = 40;
+
+function readTopics(): FollowedTopics {
+  try {
+    const raw = JSON.parse(window.localStorage.getItem(TOPICS_KEY) ?? "null") as Partial<FollowedTopics> | null;
+    const clean = (v: unknown) =>
+      Array.isArray(v) ? v.filter((x): x is string => typeof x === "string" && x.length <= 80).slice(0, TOPICS_MAX) : [];
+    return { leagues: clean(raw?.leagues), teams: clean(raw?.teams) };
+  } catch (err) {
+    void err;
+    return { leagues: [], teams: [] };
+  }
+}
+
+export const teamTopicKey = (league: string, slug: string): string => `${league}:${slug}`;
+
+/**
+ * Ligas y equipos que sigues en Comunidad. Viven en este navegador (no son tus ligas
+ * favoritas del Inicio): si se borran los datos del sitio, se pierden sin afectar nada más.
+ */
+export function useFollowedTopics(): {
+  topics: FollowedTopics;
+  toggleLeague: (league: string) => void;
+  toggleTeam: (key: string) => void;
+} {
+  const [topics, setTopics] = useState<FollowedTopics>({ leagues: [], teams: [] });
+  useEffect(() => {
+    const sync = (): void => setTopics(readTopics());
+    sync();
+    window.addEventListener(TOPICS_EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(TOPICS_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+  const write = useCallback((next: FollowedTopics) => {
+    setTopics(next);
+    try {
+      window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
+    } catch (err) {
+      void err;
+    }
+    window.dispatchEvent(new Event(TOPICS_EVENT));
+  }, []);
+  const toggle = (list: string[], value: string): string[] =>
+    list.includes(value) ? list.filter((v) => v !== value) : [...list, value].slice(0, TOPICS_MAX);
+  return {
+    topics,
+    toggleLeague: (league) => {
+      const cur = readTopics();
+      write({ ...cur, leagues: toggle(cur.leagues, league) });
+    },
+    toggleTeam: (key) => {
+      const cur = readTopics();
+      write({ ...cur, teams: toggle(cur.teams, key) });
+    },
+  };
+}
+
+/** ¿La publicación habla de una liga o un equipo que sigues? */
+export function postMatchesTopics(
+  post: Pick<SocialPost, "gameId" | "pick">,
+  topics: FollowedTopics,
+  dataset: PlatformDataset,
+): boolean {
+  if (topics.leagues.length === 0 && topics.teams.length === 0) return false;
+  const gameId = post.pick?.gameId ?? post.gameId;
+  if (!gameId) return false;
+  const meta = resolveEntryGame(gameId, dataset);
+  if (!meta) return false;
+  return (
+    topics.leagues.includes(meta.league) ||
+    topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
+    topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
   );
 }

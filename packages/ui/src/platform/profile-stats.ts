@@ -199,10 +199,18 @@ export interface LeaderboardAnalyst {
   isTipster: boolean;
   isVerified: boolean;
   isExample: boolean;
+  /** Foto del socio (ranking real); los ejemplos usan iniciales. */
+  avatarUrl?: string | null;
   journal: ReadonlyArray<JournalEntry>;
+  /**
+   * Récord ya calculado por ventana (lo manda el servidor para no exponer picks).
+   * Si existe para la ventana pedida, manda sobre `journal`.
+   */
+  windows?: Partial<Record<"7d" | "30d", ProfileRecord>>;
 }
 
-export type LeaderboardWindow = "30d" | "season";
+/** Semana (7 días), mes (30 días) o todo el historial. */
+export type LeaderboardWindow = "7d" | "30d" | "season";
 export type LeaderboardSort = "units" | "clv" | "hits";
 
 export interface RankedAnalyst extends LeaderboardAnalyst {
@@ -210,8 +218,16 @@ export interface RankedAnalyst extends LeaderboardAnalyst {
   record: ProfileRecord;
 }
 
-export const LEADERBOARD_MIN_SETTLED = 20;
-const WINDOW_DAYS = 30;
+/** Muestra mínima del ranking mensual (y de todo el historial). */
+export const LEADERBOARD_MIN_SETTLED = 15;
+/** Muestra mínima del ranking semanal. */
+export const LEADERBOARD_MIN_SETTLED_WEEK = 5;
+
+export function leaderboardMinSettled(window: LeaderboardWindow): number {
+  return window === "7d" ? LEADERBOARD_MIN_SETTLED_WEEK : LEADERBOARD_MIN_SETTLED;
+}
+
+const WINDOW_DAYS: Record<Exclude<LeaderboardWindow, "season">, number> = { "7d": 7, "30d": 30 };
 
 /** Picks dentro de la ventana; «Temporada» los toma todos. */
 export function entriesInWindow(
@@ -220,7 +236,7 @@ export function entriesInWindow(
   today: Date = new Date(),
 ): JournalEntry[] {
   if (window === "season") return [...entries];
-  const from = today.getTime() - WINDOW_DAYS * 24 * 60 * 60 * 1000;
+  const from = today.getTime() - WINDOW_DAYS[window] * 24 * 60 * 60 * 1000;
   return entries.filter((e) => {
     const d = entryDate(e);
     return d !== null && d.getTime() >= from && d.getTime() <= today.getTime();
@@ -244,11 +260,11 @@ export function rankAnalysts(
     window,
     sort,
     today = new Date(),
-    minSettled = LEADERBOARD_MIN_SETTLED,
+    minSettled = leaderboardMinSettled(window),
   }: { window: LeaderboardWindow; sort: LeaderboardSort; today?: Date; minSettled?: number },
 ): RankedAnalyst[] {
   return rows
-    .map((row) => ({ row, record: profileRecord(entriesInWindow(row.journal, window, today)) }))
+    .map((row) => ({ row, record: windowRecord(row, window, today) }))
     .filter(({ record }) => record.settled >= minSettled)
     .sort(
       (a, b) =>
@@ -257,6 +273,12 @@ export function rankAnalysts(
         a.row.handle.localeCompare(b.row.handle),
     )
     .map(({ row, record }, i) => ({ ...row, rank: i + 1, record }));
+}
+
+/** Récord de un analista en la ventana: el del servidor si viene, si no se calcula. */
+export function windowRecord(row: LeaderboardAnalyst, window: LeaderboardWindow, today: Date = new Date()): ProfileRecord {
+  const precomputed = window === "season" ? undefined : row.windows?.[window];
+  return precomputed ?? profileRecord(entriesInWindow(row.journal, window, today));
 }
 
 /** Puesto en Comunidad del mes (30 días, por saldo) o `null` si no aparece. */
