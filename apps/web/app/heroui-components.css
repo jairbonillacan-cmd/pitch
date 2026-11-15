@@ -108,6 +108,7 @@
 .alert-dialog__dialog,
 .popover,
 .dropdown__popover,
+.select__popover,
 .toast {
   border-radius: var(--radius-overlay);
 }

@@ -33,6 +33,7 @@ import {
   TipsterVerifiedBadge,
   VerifiedSeal,
 } from "../components/MaestroPrimitives";
+import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { socialScopeKey, usePlatform } from "../platform-provider";
 import {
@@ -110,6 +111,9 @@ const LEAGUE_IDS_BY_LABEL: Record<string, LeagueId> = {
   "Premier League": "premier-league" as LeagueId,
   Premier: "premier-league" as LeagueId,
   LaLiga: "laliga" as LeagueId,
+  Bundesliga: "bundesliga" as LeagueId,
+  "Serie A": "serie-a" as LeagueId,
+  "Ligue 1": "ligue-1" as LeagueId,
 };
 
 interface ResolvedProfile {
@@ -1124,17 +1128,30 @@ function PicksPanel({
         </button>
       ))}
       <span className="pl-prof-filter-sep" aria-hidden="true" />
-      <label className="pl-prof-select">
-        <span className="sr-only">Liga</span>
-        <select value={league} onChange={(e) => setLeague(e.target.value)}>
-          <option value="all">Todas las ligas</option>
-          {leagues.map((l) => (
-            <option key={l} value={l}>
-              {l}
-            </option>
-          ))}
-        </select>
-      </label>
+      <PlSelect
+        variant="pill"
+        size="sm"
+        ariaLabel="Liga"
+        value={league}
+        onChange={setLeague}
+        options={[
+          {
+            value: "all",
+            label: "Todas las ligas",
+            icon: <MaestroIcon name="layers" size={14} />,
+          },
+          ...leagues.map((l) => {
+            const leagueId = LEAGUE_IDS_BY_LABEL[l];
+            return {
+              value: l,
+              label: l,
+              icon: leagueId ? (
+                <LeagueBadge league={leagueId} label={l} size={16} />
+              ) : undefined,
+            };
+          }),
+        ]}
+      />
     </div>
   );
 

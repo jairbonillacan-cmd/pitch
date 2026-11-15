@@ -18,6 +18,7 @@ import {
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
 import { BadgeChip } from "./badges/ProfileBadges";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
+import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-provider";
 import {
@@ -1584,6 +1585,7 @@ const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.vote
 
 function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
   const { userTimezone } = usePlatform();
+  const sortLabelId = useId();
   const [league, setLeague] = useState("all");
   const [sort, setSort] = useState<ConsensusSort>("diff");
   const leagues = useMemo(() => [...new Set(items.map((i) => i.game.leagueLabel))], [items]);
@@ -1622,16 +1624,33 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             </button>
           ))}
         </div>
-        <label className="pl-com-sort">
-          Ordenar
-          <span className="pl-prof-select">
-            <select value={sort} onChange={(e) => setSort(e.target.value as ConsensusSort)}>
-              <option value="diff">Mayor diferencia</option>
-              <option value="picks">Más participación</option>
-              <option value="soon">Próximos</option>
-            </select>
-          </span>
-        </label>
+        <div className="pl-com-sort">
+          <span id={sortLabelId}>Ordenar</span>
+          <PlSelect
+            variant="pill"
+            size="sm"
+            ariaLabelledBy={sortLabelId}
+            value={sort}
+            onChange={(next) => setSort(next as ConsensusSort)}
+            options={[
+              {
+                value: "diff",
+                label: "Mayor diferencia",
+                description: "Brecha modelo vs. consenso",
+              },
+              {
+                value: "picks",
+                label: "Más picks",
+                description: "Mayor participación de socios",
+              },
+              {
+                value: "soon",
+                label: "Próximos",
+                description: "Por hora de inicio",
+              },
+            ]}
+          />
+        </div>
       </div>
 
       {featured ? (

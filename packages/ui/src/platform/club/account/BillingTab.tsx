@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { PlSelect } from "../../components/PlSelect";
 import { usePlatform } from "../../platform-provider";
 import { MEMBERSHIP_SPEC } from "../../spacetime-catalog";
 import {
@@ -168,43 +169,76 @@ export function BillingTab({
             </div>
 
             <div className="pl-acct-field">
-              <label htmlFor="cfdi-regimen" className="pl-acct-field-label">
+              <label
+                id="cfdi-regimen-label"
+                htmlFor="cfdi-regimen"
+                className="pl-acct-field-label"
+              >
                 Régimen fiscal SAT
               </label>
-              <select
+              <PlSelect
                 id="cfdi-regimen"
+                ariaLabelledBy="cfdi-regimen-label"
+                variant="field"
+                size="md"
+                fullWidth
+                popoverWidth="trigger"
                 value={regimenFiscal}
-                onChange={(e) => {
-                  setRegimenFiscal(e.target.value);
+                onChange={(next) => {
+                  setRegimenFiscal(next);
                   if (errorNotice) setErrorNotice("");
                   if (savedNotice) setSavedNotice("");
                 }}
-                className="pl-acct-input"
-              >
-                <option value="612">612 — Personas Físicas con Actividades Empresariales</option>
-                <option value="626">626 — Régimen Simplificado de Confianza (RESICO)</option>
-                <option value="605">605 — Sueldos y Salarios</option>
-                <option value="601">601 — General de Ley Personas Morales</option>
-                <option value="616">616 — Sin obligaciones fiscales</option>
-              </select>
+                options={[
+                  {
+                    value: "612",
+                    label: "612 — Personas Físicas con Actividades Empresariales",
+                  },
+                  {
+                    value: "626",
+                    label: "626 — Régimen Simplificado de Confianza (RESICO)",
+                  },
+                  {
+                    value: "605",
+                    label: "605 — Sueldos y Salarios",
+                  },
+                  {
+                    value: "601",
+                    label: "601 — General de Ley Personas Morales",
+                  },
+                  {
+                    value: "616",
+                    label: "616 — Sin obligaciones fiscales",
+                  },
+                ]}
+              />
             </div>
 
             <div className="pl-acct-field">
-              <label htmlFor="cfdi-uso" className="pl-acct-field-label">
+              <label
+                id="cfdi-uso-label"
+                htmlFor="cfdi-uso"
+                className="pl-acct-field-label"
+              >
                 Uso de CFDI
               </label>
-              <select
+              <PlSelect
                 id="cfdi-uso"
+                ariaLabelledBy="cfdi-uso-label"
+                variant="field"
+                size="md"
+                fullWidth
+                popoverWidth="trigger"
                 value={usoCfdi}
-                onChange={(e) => {
-                  setUsoCfdi(e.target.value);
+                onChange={(next) => {
+                  setUsoCfdi(next);
                   if (savedNotice) setSavedNotice("");
                 }}
-                className="pl-acct-input"
-              >
-                <option value="G03">G03 — Gastos en general</option>
-                <option value="S01">S01 — Sin efectos fiscales</option>
-              </select>
+                options={[
+                  { value: "G03", label: "G03 — Gastos en general" },
+                  { value: "S01", label: "S01 — Sin efectos fiscales" },
+                ]}
+              />
             </div>
 
             <div className="pl-acct-field">
