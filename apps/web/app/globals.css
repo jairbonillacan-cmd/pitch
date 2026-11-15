@@ -43,6 +43,7 @@
 @import "./pre-match.css" layer(components);
 @import "./live.css" layer(components);
 @import "./data-health.css" layer(components);
+@import "./sport-outlook.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";

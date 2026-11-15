@@ -215,8 +215,8 @@ export const RECORD_PRIVACY_BLOCKS = {
     hint: "Qué tan bien rinden tus unidades.",
     fields: {
       yield: "Rendimiento sobre unidades jugadas",
-      roi: "ROI sobre tu banca",
-      clv: "CLV promedio",
+      roi: "Retorno sobre tu banca",
+      clv: "Ventaja promedio contra el momio justo",
       avgOdds: "Momio promedio",
       months: "Mejor y peor mes",
     },

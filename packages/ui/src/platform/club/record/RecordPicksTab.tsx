@@ -131,7 +131,7 @@ export function RecordPicksTab({
                     Tu momio
                   </th>
                   <th scope="col" className="py-2.5 px-2 text-right">
-                    CLV
+                    Ventaja
                   </th>
                   <th scope="col" className="py-2.5 px-2 text-right">
                     Estado

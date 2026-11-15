@@ -166,7 +166,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
               className="m-0 text-xs"
               style={{ color: "var(--pl-text-muted)" }}
             >
-              Justa Geodesic:{" "}
+              Momio justo:{" "}
               <span className="num">
                 {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
               </span>{" "}
@@ -430,7 +430,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                   htmlFor="composer-odds-input"
                   className="text-xs font-semibold"
                 >
-                  Cuota decimal para auditoría CLV
+                  Tu momio en decimal
                 </label>
                 <div
                   className="seg-well glass-ring"
@@ -511,8 +511,8 @@ export function PickComposerModal(): React.JSX.Element | null {
                     evLivePct >= 0 ? "pl-pill--success" : "pl-pill--warning"
                   }`}
                 >
-                  CLV {clvLivePct >= 0 ? "+" : ""}
-                  {clvLivePct.toFixed(1)} % · EV {evLivePct >= 0 ? "+" : ""}
+                  Ventaja {clvLivePct >= 0 ? "+" : ""}
+                  {clvLivePct.toFixed(1)} % · Valor esperado {evLivePct >= 0 ? "+" : ""}
                   {evLivePct.toFixed(1)} %
                 </span>
               </div>
@@ -526,7 +526,7 @@ export function PickComposerModal(): React.JSX.Element | null {
               >
                 {edgeLive >= 0
                   ? `Ventaja positiva +${edgeLive.toFixed(1)} pts sobre la cuota (${oddsMode === "observed" ? "Cuota observada" : "Captura manual"})`
-                  : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo Geodesic`}
+                  : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo`}
               </p>
             </div>
 
@@ -646,8 +646,8 @@ export function ShareTicketModal(): React.JSX.Element | null {
     if (!card) return;
     const units = `${shareTicket.units.toFixed(1)}u`;
     const footerLine = shareTicket.promoCode
-      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
-      : "7 días gratis + 15d ambos al suscribirse";
+      ? `Código ${shareTicket.promoCode} · 5 días gratis`
+      : "Prueba PitchLab 7 días gratis";
     const base = {
       aspect,
       leagueLabel: shareTicket.leagueLabel,
@@ -655,24 +655,24 @@ export function ShareTicketModal(): React.JSX.Element | null {
       subtitle: shareTicket.subtitle,
       units,
       footerLine,
-      footerSub: "pitchlab.mx · +18 · Unidades simuladas",
+      footerSub: "pitchlab.mx · Solo +18 · Unidades simuladas",
       watermark,
     };
     const content: TicketRasterContent = revealSelection
       ? {
           ...base,
           badge: isTipsterPromo
-            ? (shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA")
-            : "RESULTADO AUDITADO FT",
+            ? (shareTicket.originBadge ?? "Pick abierto de la semana")
+            : "Resultado final verificado",
           badgeTone: "success",
           mainLine: shareTicket.pickLabel,
-          detailLine: `Prob. ${(shareTicket.probability * 100).toFixed(1)} % · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (Justa ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`,
+          detailLine: `Probabilidad ${(shareTicket.probability * 100).toFixed(1)} % · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (justo ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`,
         }
       : {
           ...base,
-          badge: "SELECCIÓN SELLADA HASTA EL INICIO",
+          badge: "Selección oculta hasta el inicio",
           badgeTone: "warning",
-          mainLine: `Pick registrado en Bitácora PitchLab (${(shareTicket.probability * 100).toFixed(0)} % conf.)`,
+          mainLine: `Pick registrado en PitchLab · ${(shareTicket.probability * 100).toFixed(0)} % de probabilidad`,
           detailLine: "La selección exacta se revela al inicio del partido.",
         };
     const fileName = `pitchlab-boleto-${aspect === "9:16" ? "9x16" : "4x5"}.png`;
@@ -695,13 +695,13 @@ export function ShareTicketModal(): React.JSX.Element | null {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h2 id="share-modal-title" className="m-0 text-base font-bold">
-                Boleto Oficial para Redes Sociales
+                Comparte tu boleto
               </h2>
               <p
                 className="m-0 text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Protección anti-fuga activa antes del inicio (Q12)
+                La selección se oculta hasta que empieza el partido.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -716,7 +716,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   aria-pressed={aspect === "4:5"}
                   onClick={() => setAspect("4:5")}
                 >
-                  4:5 Feed
+                  4:5 · Publicación
                 </button>
                 <button
                   type="button"
@@ -724,7 +724,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   aria-pressed={aspect === "9:16"}
                   onClick={() => setAspect("9:16")}
                 >
-                  9:16 Stories
+                  9:16 · Historia
                 </button>
               </div>
               <button
@@ -763,12 +763,6 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     alt="PitchLab"
                     className="h-5 w-auto object-contain"
                   />
-                  <span
-                    className="text-[10px] font-extrabold"
-                    style={{ color: "var(--share-card-accent)" }}
-                  >
-                    SUITE v3.0
-                  </span>
                 </div>
                 <span
                   className="rounded-full px-2.5 py-0.5 text-[11px] font-bold num"
@@ -819,8 +813,8 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     >
                       <MaestroIcon name="shield" size={13} />
                       {isTipsterPromo
-                        ? shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA"
-                        : "RESULTADO AUDITADO FT"}
+                        ? shareTicket.originBadge ?? "Pick abierto de la semana"
+                        : "Resultado final verificado"}
                     </span>
                     <span className="num font-extrabold">
                       {shareTicket.units.toFixed(1)}u
@@ -833,9 +827,9 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     className="m-0 text-xs num"
                     style={{ color: "var(--share-card-secondary)" }}
                   >
-                    Prob. {(shareTicket.probability * 100).toFixed(1)} % · Momio{" "}
+                    Probabilidad {(shareTicket.probability * 100).toFixed(1)} % · Momio{" "}
                     {formatOddsValue(shareTicket.marketDecimal, oddsFormat)}{" "}
-                    (Justa {formatOddsValue(shareTicket.fairDecimal, oddsFormat)}
+                    (justo {formatOddsValue(shareTicket.fairDecimal, oddsFormat)}
                     )
                   </p>
                 </div>
@@ -851,22 +845,21 @@ export function ShareTicketModal(): React.JSX.Element | null {
                       className="font-bold inline-flex items-center gap-1.5"
                     >
                       <MaestroIcon name="lock" size={13} />
-                      SELECCIÓN SELLADA HASTA EL INICIO
+                      Selección oculta hasta el inicio
                     </span>
                     <span className="num font-extrabold">
                       {shareTicket.units.toFixed(1)}u
                     </span>
                   </div>
                   <p className="m-0 text-sm font-bold">
-                    Pick registrado en Bitácora PitchLab (
-                    {(shareTicket.probability * 100).toFixed(0)} % conf.)
+                    Pick registrado en PitchLab ·{" "}
+                    {(shareTicket.probability * 100).toFixed(0)} % de probabilidad
                   </p>
                   <p
                     className="m-0 text-xs leading-relaxed"
                     style={{ color: "var(--share-card-muted)" }}
                   >
-                    La selección exacta permanece encriptada antes del kickoff
-                    para proteger la ventaja de los socios.
+                    La selección se muestra cuando empiece el partido.
                   </p>
                 </div>
               )}
@@ -880,15 +873,15 @@ export function ShareTicketModal(): React.JSX.Element | null {
               >
                 <div>
                   <span
-                    className="block font-extrabold tracking-wide"
+                    className="block font-extrabold"
                     style={{ color: "var(--share-card-fg)" }}
                   >
                     {shareTicket.promoCode
-                      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
-                      : "7 días gratis + 15d ambos al suscribirse"}
+                      ? `Código ${shareTicket.promoCode} · 5 días gratis`
+                      : "Prueba PitchLab 7 días gratis"}
                   </span>
                   <span style={{ color: "var(--share-card-muted)" }}>
-                    pitchlab.mx · +18 Unidades simuladas
+                    pitchlab.mx · Solo +18 · Unidades simuladas
                   </span>
                 </div>
                 <span className="num font-bold opacity-70">{watermark}</span>
@@ -905,8 +898,8 @@ export function ShareTicketModal(): React.JSX.Element | null {
               {copyState === "error"
                 ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
                 : revealSelection
-                  ? "Selección visible (Partido cerrado o Pick abierto semanal de Tipster)."
-                  : "Selección sellada automáticamente porque el encuentro aún no inicia."}
+                  ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
+                  : "La selección queda oculta porque el partido aún no empieza."}
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -1212,7 +1205,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Tipsters Verificados (CLV Auditado)
+                  Tipsters verificados
                 </p>
                 <div className="space-y-1">
                   {matchingTipsters.map((creator) => (
@@ -1250,7 +1243,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         </span>
                       </span>
                       <span className="pl-pill pl-pill--success num shrink-0">
-                        {creator.verifiedUnits} · CLV {creator.clvAvg}
+                        {creator.verifiedUnits} · Ventaja {creator.clvAvg}
                       </span>
                     </a>
                   ))}

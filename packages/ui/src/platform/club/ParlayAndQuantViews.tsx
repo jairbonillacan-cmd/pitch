@@ -295,7 +295,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       4. Mismo partido
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones compatibles del mismo encuentro con factor de correlación Geodesic v2.0.
+                      Permite hasta 2 selecciones compatibles del mismo partido. Ajustamos la probabilidad porque dependen una de otra.
                     </span>
                   </div>
 
@@ -617,9 +617,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     tone="info"
                     icon="activity"
                     badgeText="Mismo partido"
-                    title="Ajuste Geodesic v2.0 Activo"
+                    title="Probabilidad ajustada"
                   >
-                    Probabilidad conjunta ajustada por dependencia estadística entre selecciones del mismo encuentro.
+                    Las selecciones del mismo partido no son independientes: calculamos la probabilidad de que salgan juntas.
                   </NoticeCard>
                 ) : null}
 
@@ -660,7 +660,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
                     >
-                      Justa Geodesic
+                      Momio justo
                     </span>
                     <strong className="text-base font-bold">
                       {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
@@ -800,14 +800,14 @@ export function PropsLabClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="sliders" size={12} />
-            <span>Distribuciones Continuas · Minkowski v3.0 & Tachyon v3.0</span>
+            <span>Líneas alternativas</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Props de jugadores
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
             {catalog.length > 0
-              ? "Mueve la línea alternativa con − / +, regresa a la línea Base en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella el prop directo en tu Bitácora."
+              ? "Mueve la línea alternativa con − / +, vuelve a la línea base en un clic, compara el momio de tu casa con el momio justo y guarda el prop en tu bitácora."
               : "Proyecciones individuales de jugadores para NFL y fútbol europeo."}
           </p>
         </section>
@@ -1114,7 +1114,7 @@ export function PropsLabClubView(): React.JSX.Element {
                             : "pl-pill--warning"
                         }`}
                       >
-                        Ventaja Geodesic:{" "}
+                        Ventaja:{" "}
                         {liveEdgePts >= 0
                           ? `+${liveEdgePts.toFixed(1)}`
                           : liveEdgePts.toFixed(1)}{" "}

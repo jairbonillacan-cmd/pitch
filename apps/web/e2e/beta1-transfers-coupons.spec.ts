@@ -201,7 +201,7 @@ test.describe("Beta 1.0 · SPEI + cupón de 1 uso, páginas legales México y Ax
     expect(consoleErrors).toEqual([]);
   });
 
-  test("3. recorrido completo SPEI + cupón: /precio referencia única -> /app/admin confirma y emite cupón -> /canjear activa y bloquea 2do uso", async ({
+  test("3. SPEI con PIN beta: /precio referencia única y aviso pendiente; la Consola del fundador no se muestra (solo admin)", async ({
     page,
   }, testInfo) => {
     test.setTimeout(120_000);
@@ -249,67 +249,27 @@ test.describe("Beta 1.0 · SPEI + cupón de 1 uso, páginas legales México y Ax
     const precioSpeiA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(precioSpeiA11y.violations).toEqual([]);
 
-    // Paso 2 y 3: en /app/admin el fundador ve la transferencia pendiente con esa referencia y confirma el pago -> genera cupón de 1 uso con vigencia
-    await page.goto("/app/admin");
-    const pendingRow = page.locator(`[data-admin-transfer-row="${speiRef}"]`);
-    await expect(pendingRow).toBeVisible();
-    await expect(pendingRow).toContainText("BBVA México");
-    await expect(pendingRow).toContainText("SPEI-E2E-7788");
+    // Paso 2: la aprobación la hace el fundador en /app/admin, que es solo para administradores
+    // verificados. Con el PIN beta la Consola no se muestra (notFound) aunque PITCHLAB_PREVIEW_TOOLS=1
+    // (decisión 2026-11-14). Aprobar, emitir el cupón y canjearlo se cubre en
+    // packages/ui/tests/preview-spei-store.test.ts.
+    // Next ya empezó a transmitir la página (pantalla de carga), así que el código HTTP
+    // puede ser 200: lo que se verifica es que la Consola y sus transferencias no salen.
+    const adminPage = await page.request.get("/app/admin");
+    const adminHtml = await adminPage.text();
+    expect(adminHtml).not.toContain("Consola del fundador");
+    expect(adminHtml).not.toContain("data-admin-transfer-row");
 
-    await page.locator(`[data-admin-approve="${speiRef}"]`).click();
-    await expect(page.locator("[data-admin-confirm-approve]")).toBeVisible();
-    await page.locator("[data-admin-confirm-approve]").click();
-
-    // Al filtrar por Aprobadas aparece el cupón emitido (PL-SPEI-...) con 1 uso y vigencia
-    await page
-      .getByRole("group", { name: "Filtrar transferencias" })
-      .getByRole("button", { name: "Aprobadas" })
-      .click();
-    const couponSummary = page.locator(`[data-admin-coupon-summary="${speiRef}"]`);
-    await expect(couponSummary).toBeVisible();
-    await expect(couponSummary).toContainText("Pendiente de canje");
-    const issuedCode = (
-      (await couponSummary.locator("[data-admin-issued-coupon]").textContent()) ?? ""
-    ).trim();
-    expect(issuedCode).toMatch(/^PL-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
-
-    const adminA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
-    expect(adminA11y.violations).toEqual([]);
-
-    // En /precio el socio ve el estado intermedio «Pago confirmado · Te enviamos tu cupón por correo»
+    // Paso 3: al volver a /precio el aviso sigue pendiente de revisión, sin cupón todavía
     await page.goto("/precio");
-    await expect(page.locator('[data-spei-state="awaiting_redemption"]')).toBeVisible();
-    await expect(page.locator('[data-spei-state="awaiting_redemption"]')).toContainText(
-      "noreply@pitchlab.mx",
-    );
+    await expect(page.locator('[data-spei-state="pending_review"]')).toBeVisible();
+    await expect(page.locator("[data-precio-spei-ref]")).toHaveText(speiRef);
 
-    // Paso 4: el socio canjea el cupón en /canjear y activa su suscripción por el periodo pagado (30 días)
-    await page.goto(`/canjear?codigo=${encodeURIComponent(issuedCode)}`);
-    const validPreview = page.locator('[data-coupon-preview="valid"]');
-    await expect(validPreview).toBeVisible();
-    await expect(validPreview).toContainText("Un solo uso");
-    await expect(validPreview).toContainText("Transferencia SPEI");
-    await expect(validPreview).toContainText("+30 días disponibles");
-    await expect(validPreview).toContainText("Vigencia para canjear");
-
-    await page.locator("[data-redeem-submit]").click();
-    await expect(page.locator('[data-coupon-feedback="success"]')).toContainText(issuedCode);
-    await expect(page.locator('[data-coupon-feedback="success"]')).toContainText("+30 días");
-
-    // Al recargar /canjear con el mismo código, el cupón de un solo uso ya no puede volver a canjearse
-    await page.goto(`/canjear?codigo=${encodeURIComponent(issuedCode)}`);
+    // Paso 4: /canjear rechaza un código SPEI que no existe sin activar nada
+    await page.goto("/canjear?codigo=PL-SPEI-NOEX-0000");
     await expect(page.locator('[data-coupon-preview="invalid"]')).toBeVisible();
-    await expect(page.locator('[data-coupon-preview="invalid"]')).toContainText("Ya canjeaste");
-    await page.locator("[data-redeem-submit]").click();
-    await expect(page.locator('[data-coupon-feedback="error"]')).toContainText("Ya canjeaste");
-
-    // En /precio y en Mi cuenta -> Plan figura la suscripción activada con el cupón
-    await page.goto("/precio");
-    await expect(page.locator('[data-spei-state="redeemed_active"]')).toBeVisible();
-
-    await page.goto("/app/account?tab=plan");
-    await expect(page.locator("body")).toContainText(speiRef);
-    await assertNoHorizontalOverflow(page, "/app/account?tab=plan tras canje");
+    await expect(page.locator('[data-coupon-preview="invalid"]')).toContainText("No encontramos");
+    await assertNoHorizontalOverflow(page, "/canjear con código inexistente");
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

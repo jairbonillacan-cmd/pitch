@@ -114,7 +114,7 @@ export async function renderTicketPng(
   ctx.fillText("PitchLab", pad, y);
   ctx.fillStyle = c.accent;
   ctx.font = font(800, 26);
-  ctx.fillText("SPACETIME SUITE v3.0", pad, y + 66);
+  ctx.fillText("Probabilidades claras", pad, y + 66);
   ctx.font = font(700, 30);
   const leagueW = ctx.measureText(content.leagueLabel).width + 48;
   ctx.fillStyle = c.surface;

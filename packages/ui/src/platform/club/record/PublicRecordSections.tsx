@@ -324,7 +324,7 @@ export function PublicRecordPreviewCard({
   if (view.roiPct !== null) {
     statItems.push({
       key: "roi",
-      label: "ROI sobre banca",
+      label: "Retorno sobre banca",
       value: formatSignedPctValue(view.roiPct),
       sub: "En unidades (sin pesos)",
       tone: view.roiPct > 0 ? "pos" : view.roiPct < 0 ? "neg" : undefined,
@@ -333,7 +333,7 @@ export function PublicRecordPreviewCard({
   if (view.avgClvPct !== null) {
     statItems.push({
       key: "clv",
-      label: "CLV promedio",
+      label: "Ventaja promedio",
       value: formatSignedPctValue(view.avgClvPct),
       sub: "Contra momio justo",
       tone: view.avgClvPct > 0 ? "pos" : view.avgClvPct < 0 ? "neg" : undefined,

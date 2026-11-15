@@ -680,7 +680,7 @@ export function FounderAdminClubView({
 
           {moderation.hiddenItems.length > 0 ? (
             <div className="pl-admin-mod-sub space-y-2">
-              <h3 className="m-0 text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
+              <h3 className="m-0 text-sm font-bold" style={{ color: "var(--pl-text-secondary)" }}>
                 Contenido oculto recientemente
               </h3>
               <ul className="pl-admin-mod-compact">
@@ -719,7 +719,7 @@ export function FounderAdminClubView({
 
           {moderation.pausedMembers.length > 0 ? (
             <div className="pl-admin-mod-sub space-y-2">
-              <h3 className="m-0 text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
+              <h3 className="m-0 text-sm font-bold" style={{ color: "var(--pl-text-secondary)" }}>
                 Socios en pausa en Comunidad
               </h3>
               <ul className="pl-admin-mod-compact">

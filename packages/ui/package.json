@@ -31,7 +31,8 @@
     "./picks-engine": "./src/platform/match-picks-engine.ts",
     "./admin": "./src/platform/club/FounderAdminClubView.tsx",
     "./data-health": "./src/platform/club/AdminDataHealthSection.tsx",
-    "./legal": "./src/platform/public/LegalSurfaces.tsx"
+    "./legal": "./src/platform/public/LegalSurfaces.tsx",
+    "./sport-outlook": "./src/platform/club/match/sport-outlook/index.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",

@@ -118,7 +118,7 @@ export function RecordBankStatsTab({
               Banca inicial en pesos (MXN)
             </label>
             <p id={helpId} className="pl-rec-hint">
-              Si la indicas, calculamos tu ROI y arrancamos tu curva de saldo desde esas unidades. Los
+              Si la indicas, calculamos tu retorno sobre la banca y arrancamos tu curva de saldo desde esas unidades. Los
               montos en pesos jamás salen en tu perfil público.
             </p>
 
@@ -241,15 +241,15 @@ export function RecordBankStatsTab({
         <BalanceCurveFigure curve={stats.curve} startingUnits={startingUnits} />
       </section>
 
-      {/* 3, 4, 5 y 6: Rendimiento & ROI · CLV & Momio promedio · Rachas & Meses */}
+      {/* 3, 4, 5 y 6: Rendimiento y retorno · Ventaja y momio promedio · Rachas y meses */}
       <div className="pl-rec-metrics-grid num">
         <section className="pl-rec-metric-box glass-card glass-ring" aria-labelledby={`${uid}-roi-heading`}>
           <h2 id={`${uid}-roi-heading`} className="pl-rec-card-title">
-            Rendimiento y ROI
+            Rendimiento y retorno
           </h2>
           <div className="pl-rec-metric-pair">
             <div>
-              <span className="pl-rec-metric-label">Rendimiento (yield)</span>
+              <span className="pl-rec-metric-label">Rendimiento</span>
               <div
                 className={`pl-rec-metric-big ${
                   stats.yieldPct === null ? "" : stats.yieldPct >= 0 ? "pl-rec-pos" : "pl-rec-neg"
@@ -262,7 +262,7 @@ export function RecordBankStatsTab({
               </span>
             </div>
             <div>
-              <span className="pl-rec-metric-label">ROI sobre banca</span>
+              <span className="pl-rec-metric-label">Retorno sobre tu banca</span>
               <div
                 className={`pl-rec-metric-big ${
                   stats.roiPct === null ? "" : stats.roiPct >= 0 ? "pl-rec-pos" : "pl-rec-neg"
@@ -281,11 +281,11 @@ export function RecordBankStatsTab({
 
         <section className="pl-rec-metric-box glass-card glass-ring" aria-labelledby={`${uid}-clv-heading`}>
           <h2 id={`${uid}-clv-heading`} className="pl-rec-card-title">
-            CLV y momio promedio
+            Ventaja y momio promedio
           </h2>
           <div className="pl-rec-metric-pair">
             <div>
-              <span className="pl-rec-metric-label">CLV promedio</span>
+              <span className="pl-rec-metric-label">Ventaja promedio</span>
               <div
                 className={`pl-rec-metric-big ${
                   stats.avgClvPct === null ? "" : stats.avgClvPct >= 0 ? "pl-rec-pos" : "pl-rec-neg"
