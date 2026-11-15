@@ -1,4 +1,5 @@
 import type {
+  CountProjection,
   HeadToHeadView,
   LeagueId,
   StandingRow,
@@ -177,9 +178,12 @@ export interface PreGameIntel {
 export type MarketCardCategory =
   | "resultado"
   | "goles"
+  | "conteos"
   | "handicap"
   | "marcador"
   | "primer_tiempo";
+
+export type MatchTabKey = "resumen" | "numeros" | "contexto";
 
 export interface PlatformMarketRow {
   group: string;
@@ -287,6 +291,11 @@ export interface PlatformGame {
     away: number;
     total: number;
   };
+  /** Línea principal de goles/puntos (la más cercana al 50 %) y probabilidad de Más. */
+  goalLine?: {
+    line: number;
+    pOver: number;
+  } | null;
   confidenceScore: number;
   confidenceLevel: "alta" | "media" | "baja";
   /** Por qué la confianza es la que es: frases cortas y el desglose por factor. */
@@ -300,6 +309,11 @@ export interface PlatformGame {
   factors: Array<{ label: string; value: string; sub?: string }>;
   headToHead: HeadToHeadView[];
   restDays?: { home?: number; away?: number };
+  counts?: {
+    corners?: CountProjection;
+    fouls?: CountProjection;
+    yellow?: CountProjection;
+  };
   updatedAtLabel: string;
   spacetime: SpacetimeSignal | null;
 }

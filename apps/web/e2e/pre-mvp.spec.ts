@@ -468,16 +468,26 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("[data-picks]")).toBeVisible();
     // Socio con Pase PitchLab Ultra ve los 5 picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
+    await expect(page.locator("[data-market-pulse]")).toBeVisible();
+    await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
+    await expect(page.locator("[data-summary-factors]")).toBeVisible();
 
-    await page.locator("[data-section-tab='mercados']").click();
+    // Pestañas accesibles (role=tablist, flechas + Enter, sincronizadas con ?tab=)
+    const resumenTab = page.locator("[data-section-tab='resumen']");
+    await expect(resumenTab).toHaveAttribute("aria-selected", "true");
+    await resumenTab.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expect(page.locator("[data-section-tab='numeros']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=numeros$/);
+    await expect(page.locator("[data-numbers-expected]")).toBeVisible();
     await expect(page.locator("body")).toContainText("Mercados del partido");
 
     await page.locator("[data-section-tab='contexto']").click();
+    await expect(page.locator("[data-section-tab='contexto']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=contexto$/);
     await expect(page.locator("body")).toContainText("Contexto del partido");
-
-    await page.locator("[data-section-tab='dinero']").click();
-    await expect(page.locator("[data-market-pulse]")).toBeVisible();
-    await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
+    await expect(page.locator("[data-ctx-standings]")).toBeVisible();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `studio-pl-${testInfo.project.name}-dark.png`),

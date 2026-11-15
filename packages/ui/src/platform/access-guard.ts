@@ -142,6 +142,7 @@ export function redactDatasetForVisitor(
       projection: keepHeroProjection
         ? game.projection
         : { home: 0, away: 0, total: 0 },
+      goalLine: hasPromoOpenPick ? (game.goalLine ?? null) : null,
       confidenceScore: hasPromoOpenPick ? game.confidenceScore : 0,
       confidenceLevel: hasPromoOpenPick ? game.confidenceLevel : "media",
       picks: game.picks.map((pick) => {
@@ -218,6 +219,7 @@ export function redactDatasetForVisitor(
       factors: [],
       headToHead: game.headToHead,
       ...(game.restDays ? { restDays: game.restDays } : {}),
+      ...(hasPromoOpenPick && game.counts ? { counts: game.counts } : {}),
       updatedAtLabel: game.updatedAtLabel,
       spacetime: null,
     };

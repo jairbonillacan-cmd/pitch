@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-15 · **Rama:** `feat/bzzoiro-snapshot-logos` (desde `main` `45d1171`)
+> **Última actualización:** 2026-11-15 · **Rama:** `gemini-reestructura` (integra `feat/bzzoiro-snapshot-logos`, `feat/redesign-match-and-list` y `feat/nba-nhl-fase2` sobre `main` `5ba54c3`)
 
 ## Estado actual
 
@@ -1364,3 +1364,16 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - `node scripts/lint-codebase.mjs`, `check-no-secrets.mjs`, `check-no-demo-prod.mjs`, `pnpm typecheck`, `pnpm lint`, `build-storybook`, `next build`, `@pitchlab/sports-assets`, `@pitchlab/contracts`, `@pitchlab/ui`, `@pitchlab/web`, `e2e/pre-mvp.spec.ts` (desktop 1440 px + mobile 390 px), y revisión visual en Chromium a `375 px` y `1440 px` en oscuro y claro (`0` desbordes horizontales, `0` solicitudes a Bzzoiro en `/`).
   - `services/ingest`: las pruebas del mapeo Bzzoiro/ingesta pasan; persisten 2 fallos previos a esta rama ligados a fecha fija (`2026-11-14`) en `snapshot-validator.test.ts:328` y `odds-refresh.test.ts:262` (`FUTURE_SNAPSHOT_TIMESTAMP` contra `live_matchday_v3_snapshot.json`).
 - **Pendiente:** aprobar push de `feat/bzzoiro-snapshot-logos` y merge hacia `main` si corresponde.
+
+### FICHA-LISTA-1 · Rediseño de ficha del partido en 3 pestañas y lista por día/liga — 2026-11-15 — Rama `feat/redesign-match-and-list` (desde `main` `45d1171`)
+- **Hecho:**
+  - **Contrato y tubería de conteos (`packages/contracts`, `packages/ui`, `apps/web`):** `packages/contracts/src/view-models.ts` expone `counts` en `MatchAnalysis` y `snapshotToMatchAnalyses` reenvía `analysis?.counts`; `apps/web/src/server/outlook.ts` y `apps/web/src/server/platform-data.ts` conservan los grupos `corners_total`, `fouls_total` y `yellow_total`; `packages/ui/src/platform/types.ts`, `access-guard.ts` y `match-picks-engine.ts` incorporan `"conteos"`, `MatchTabKey`, `counts`, `goalLine`, preservan mercados de conteos más allá del recorte de 22 filas y ocultan `counts`/`goalLine` a visitantes sin `fullAccess`.
+  - **Ficha del partido en 3 pestañas (`packages/ui/src/platform/club/match/` y `apps/web/app/app/[league]/games/[gameId]/page.tsx`):** nueva arquitectura con `Resumen`, `Números` y `Contexto` en `MatchTabs.tsx`, `CoreMatchViews.tsx`, `MatchNumbersPanel.tsx`, `MatchMarketsGrid.tsx` y `MatchContextPanel.tsx`, con `role="tablist"`, navegación por teclado con flechas, activación inmediata y sincronización con `?tab=resumen|numeros|contexto` (con compatibilidad para pestañas previas). Se extrajo `packages/ui/src/platform/club/match/match-tab.ts` (expuesto vía `"./match-tab"` en `packages/ui/package.json`) para evitar llamadas de módulos `"use client"` desde Next.js 15 RSC. Se conservaron intactos Cortex y las reglas de `fullAccess`.
+  - **Lista de partidos y diseño adaptable (`packages/ui/src/platform/components/MatchList.tsx`, `HomeMatchCard.tsx`, `HomeClubView.tsx`, `home-model.ts`, `apps/web/app/pitchlab-v4.css`):** agrupación por día y liga (`groupMatchesByDayAndLeague`), mostrando hora, equipos, barra de probabilidad 1X2, línea de goles y pista de córners/faltas cuando hay `counts`. Contenedor `.pl-mlist` con `@container mlist` (`@supports (container-type: inline-size)`) para evitar solapamientos entre barras laterales en escritorio (`860 px` efectivos a `1440 px`), zonas táctiles `>= 44 px` en `.pl-mlist-row .pl-conf-chip` y diseño legible a `375 px` sin desbordamiento horizontal.
+  - **Stories y pruebas (`match-list.stories.tsx`, `match-studio-v2.stories.tsx`, `packages/ui/tests/match-redesign.test.tsx`, `apps/web/tests/outlook.test.ts`):** cobertura en tema oscuro y claro para lista de partidos y las 3 pestañas de la ficha, más pruebas unitarias de pestañas, agrupación y redacción de visitantes.
+- **Verificado:**
+  - Storybook (`pnpm --filter @pitchlab/ui build-storybook`) y `@pitchlab/web` revisados en Chromium a `375 px` y `1440 px` en tema oscuro y claro (`overflowPx: 0` y `below44Count: 0` en todas las mediciones).
+  - Guardias estáticas (`lint-codebase.mjs`, `check-no-secrets.mjs`, `check-no-demo-prod.mjs`), `pnpm typecheck`, `pnpm lint`, pruebas unitarias de `@pitchlab/contracts`, `@pitchlab/ui` y `@pitchlab/web`, `next build` y suite Playwright E2E tras los cambios finales.
+- **Pendiente:**
+  - Poblar `counts` en los snapshots reales de `data/snapshots/*/latest.json` desde el pipeline de ingesta/modelos para ver pistas de córners y faltas en partidos reales del entorno local (actualmente `match-list.stories.tsx` y `match-studio-v2.stories.tsx` ejercitan el estado poblado y las vistas en vivo muestran el estado elegante cuando aún no existen conteos).
+  - Confirmar con el usuario si desea hacer push de `feat/redesign-match-and-list` y merge a `main`.

@@ -9,6 +9,7 @@ import {
   buildSections,
   filterGames,
   gamesForSelection,
+  groupMatchesByDayAndLeague,
   longDayLabel,
   mostLikelyOutcome,
   todayId,
@@ -107,6 +108,14 @@ describe("secciones por deporte y liga", () => {
     expect(filterGames(games, "nfl", ALL).map((g) => g.id)).toEqual(["nfl-1"]);
     expect(filterGames(games, "futbol", "premier-league" as never)).toHaveLength(2);
     expect(buildSections(filterGames(games, "nfl", ALL)).map((s) => s.sport)).toEqual(["nfl"]);
+  });
+
+  it("groupMatchesByDayAndLeague agrupa por día cronológico y liga fija, ordenados por hora", () => {
+    const grouped = groupMatchesByDayAndLeague(games);
+    expect(grouped.map((d) => d.dayId)).toEqual(["2026-11-15", "2026-11-21"]);
+    expect(grouped[0]!.leagues.map((l) => l.league)).toEqual(["nfl"]);
+    expect(grouped[1]!.leagues.map((l) => l.league)).toEqual(["liga-mx", "premier-league"]);
+    expect(grouped[1]!.leagues[1]!.games.map((g) => g.id)).toEqual(["pl-temprano", "pl-tarde"]);
   });
 });
 

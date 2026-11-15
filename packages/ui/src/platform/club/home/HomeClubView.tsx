@@ -6,7 +6,7 @@ import { LeagueBadge, PBar } from "../../../sports";
 import { formatOddsValue, isPickUnlocked } from "../../access-guard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { LiveScoreboardStrip } from "../../live/LiveMatchCenter";
-import { HomeMatchCard } from "../../components/HomeMatchCard";
+import { MatchList } from "../../components/MatchList";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   useIsPickInParlay,
@@ -23,10 +23,10 @@ import {
   SPORTS,
   UPCOMING,
   buildDayOptions,
-  buildSections,
   dayNumber,
   filterGames,
   gamesForSelection,
+  groupMatchesByDayAndLeague,
   leaguesIn,
   longDayLabel,
   shortWeekday,
@@ -462,7 +462,7 @@ export function HomeClubView(): React.JSX.Element {
   }, [chosenDay, games, today]);
   const dayGames = useMemo(() => gamesForSelection(games, day, today), [games, day, today]);
   const visible = useMemo(() => filterGames(dayGames, sport, league), [dayGames, sport, league]);
-  const sections = useMemo(() => buildSections(visible), [visible]);
+  const dayGroups = useMemo(() => groupMatchesByDayAndLeague(visible), [visible]);
   const isUnlocked = useCallback(
     (pick: MatchPick, game: PlatformGame) => isPickUnlocked(pick, game.status, viewerRole),
     [viewerRole],
@@ -536,60 +536,7 @@ export function HomeClubView(): React.JSX.Element {
               isPastDay={isPast}
             />
 
-            {sections.map((section) => (
-              <section key={section.sport} aria-label={section.label} className="flex flex-col gap-5">
-                <div className="pl-home-sport-head">
-                  <span className="pl-home-sport-icon is-on">
-                    <SportIcon sport={section.sport as SportId} />
-                  </span>
-                  <div className="flex flex-col gap-0.5">
-                    <h2 className="m-0 text-2xl font-extrabold tracking-tight">{section.label}</h2>
-                    <span className="text-[13px] num" style={{ color: "var(--pl-text-muted)" }}>
-                      {countLabel(section.count, "partido", "partidos")} · {countLabel(section.leagues.length, "liga", "ligas")}
-                    </span>
-                  </div>
-                </div>
-                {section.leagues.map((group) => (
-                  <div key={group.league} className="flex flex-col gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <LeagueBadge
-                        league={group.league}
-                        label={group.label}
-                        logoUrl={dataset.leagues.find((l) => l.league === group.league)?.logoUrl ?? leagueLogoOf(visible, group.league)}
-                        size={28}
-                      />
-                      <h3 className="m-0 text-lg font-extrabold">{group.label}</h3>
-                      <span className="text-[13px] num" style={{ color: "var(--pl-text-muted)" }}>
-                        {group.round} · {countLabel(group.count, "partido", "partidos")}
-                      </span>
-                    </div>
-                    {group.days.map((d) => (
-                      <div key={d.dayId} className="flex flex-col gap-2.5">
-                        {isUpcoming ? (
-                          <span className="pl-home-day-head">
-                            {longDayLabel(d.dayId)}
-                            {d.dayId === today ? " · hoy" : ""}
-                          </span>
-                        ) : null}
-                        <div className="pl-home-grid">
-                          {d.games.map((g) => (
-                            <div key={g.id} className="pl-cv-card">
-                              <HomeMatchCard game={g} />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </section>
-            ))}
-
-            {sections.length === 0 ? (
-              <div className="glass-card glass-ring rounded-2xl p-7 text-center text-sm" style={{ color: "var(--pl-text-muted)" }}>
-                No hay partidos con este filtro. Prueba otro día o «Todas».
-              </div>
-            ) : null}
+            <MatchList groups={dayGroups} today={today} />
           </div>
 
           <aside aria-label="Tu parlay, valor y récord" className="pl-home-rail">

@@ -5,9 +5,11 @@ import { MatchCommunityPoll } from "./club/match/MatchCommunityPoll";
 import { MatchContextPanel } from "./club/match/MatchContextPanel";
 import { MatchMarketsGrid } from "./club/match/MatchMarketsGrid";
 import { MatchSimulator } from "./club/match/MatchSimulator";
+import { MatchStudioClubView } from "./club/CoreMatchViews";
 import { ConfidenceChip } from "./components/ConfidenceChip";
 import { HomeMatchCard } from "./components/HomeMatchCard";
 import { WinningTicketDialog } from "./components/WinningTicketDialog";
+import { redactDatasetForVisitor } from "./access-guard";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import { EmblemSurfaceProvider } from "../sports";
@@ -44,7 +46,24 @@ const MATCH: MatchAnalysis = {
     { group: "Doble oportunidad", rows: [row("double_chance", "1x", "Querétaro o empate", 0.654), row("double_chance", "12", "Sin empate", 0.743)] },
     { group: "Goles totales", rows: [row("totals", "over_1.5", "Más de 1.5", 0.798, 1.5), row("totals", "over_2.5", "Más de 2.5", 0.563, 2.5)] },
     { group: "Ambos anotan", rows: [row("btts", "yes", "Sí", 0.598), row("btts", "no", "No", 0.402)] },
+    {
+      group: "Tiros de esquina 10.5",
+      rows: [row("corners_total", "over", "Más de 10.5", 0.52, 10.5), row("corners_total", "under", "Menos de 10.5", 0.48, 10.5)],
+    },
+    {
+      group: "Faltas 21.5",
+      rows: [row("fouls_total", "over", "Más de 21.5", 0.54, 21.5), row("fouls_total", "under", "Menos de 21.5", 0.46, 21.5)],
+    },
+    {
+      group: "Tarjetas amarillas 3.5",
+      rows: [row("yellow_total", "over", "Más de 3.5", 0.58, 3.5), row("yellow_total", "under", "Menos de 3.5", 0.42, 3.5)],
+    },
   ],
+  counts: {
+    corners: { home: 5.4, away: 5.3, total: 10.7, line: 10.5, pOver: 0.52, sample: { home: 12, away: 12 } },
+    fouls: { home: 11.8, away: 10.1, total: 21.9, line: 21.5, pOver: 0.54, sample: { home: 12, away: 12 } },
+    yellow: { home: 2.1, away: 1.9, total: 4.0, line: 3.5, pOver: 0.58, sample: { home: 12, away: 12 } },
+  },
   outcomes: [
     { key: "home", label: "Querétaro gana", probability: 0.397 },
     { key: "draw", label: "Empate", probability: 0.257 },
@@ -82,10 +101,15 @@ const DATASET = buildPlatformDataset([
     roundLabel: "Jornada 16",
     generatedAt: "2030-11-12T00:00:00Z",
     games: [MATCH],
-    standings: [],
+    standings: [
+      { teamId: "liga-mx.america", name: "América", shortName: "América", code: "AME", played: 15, won: 10, drawn: 3, lost: 2, goalsFor: 29, goalsAgainst: 14, points: 33 },
+      { teamId: "liga-mx.monterrey", name: "Rayados de Monterrey", shortName: "Monterrey", code: "MTY", played: 15, won: 6, drawn: 3, lost: 6, goalsFor: 24, goalsAgainst: 21, points: 21 },
+      { teamId: "liga-mx.queretaro", name: "Querétaro", shortName: "Querétaro", code: "QRO", played: 15, won: 5, drawn: 5, lost: 5, goalsFor: 18, goalsAgainst: 19, points: 20 },
+    ],
   },
 ]);
 const GAME = DATASET.games[0]!;
+const REDACTED_DATASET = redactDatasetForVisitor(DATASET);
 
 const SYNTHESIS =
   "Querétaro llega con mejor forma en casa y una semana completa de descanso; Monterrey viaja con tres días menos y produce más goles por partido. El modelo ve un partido abierto: 40 % para el local, 35 % para la visita y 56 % de que haya más de 2.5 goles.";
@@ -394,3 +418,60 @@ export const MercadosDerivadosNFL = {
   ),
 };
 export const MercadosDerivadosNFLClaro = { ...MercadosDerivadosNFL, ...light };
+
+export const FichaResumenOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaResumenClaro = { ...FichaResumenOscuro, ...light };
+
+export const FichaNumerosOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="numeros"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaNumerosClaro = { ...FichaNumerosOscuro, ...light };
+
+export const FichaContextoOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="contexto"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaContextoClaro = { ...FichaContextoOscuro, ...light };
+
+export const FichaVisitanteBloqueado = {
+  render: () => (
+    <PlatformProvider dataset={REDACTED_DATASET} initialRole="visitor">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="numeros"
+      />
+    </PlatformProvider>
+  ),
+};

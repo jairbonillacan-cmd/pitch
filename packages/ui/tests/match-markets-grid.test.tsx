@@ -154,6 +154,60 @@ describe("MatchMarketsGrid (Punto 5)", () => {
     expect(decimalHtml).toContain("Justo 1.23");
   });
 
+  it("agrupa corners_total, fouls_total y yellow_total en «Córners y conteos»", () => {
+    const withCounts: readonly PlatformMarketRow[] = [
+      ...FOOTBALL_MARKETS,
+      {
+        group: "Tiros de esquina 9.5",
+        market: "corners_total",
+        selection: "over",
+        label: "Más de 9.5",
+        p: 0.53,
+        fairDecimal: 1.89,
+        fairAmerican: -112,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+      {
+        group: "Faltas 22.5",
+        market: "fouls_total",
+        selection: "over",
+        label: "Más de 22.5",
+        p: 0.56,
+        fairDecimal: 1.79,
+        fairAmerican: -127,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+      {
+        group: "Tarjetas amarillas 4.5",
+        market: "yellow_total",
+        selection: "under",
+        label: "Menos de 4.5",
+        p: 0.58,
+        fairDecimal: 1.72,
+        fairAmerican: -139,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+    ];
+    const html = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={withCounts}
+        oddsFormat="decimal"
+        watermark="@socio"
+      />,
+    );
+    expect(html).toContain("Córners y conteos");
+    expect(html).toContain("Tiros de esquina 9.5");
+    expect(html).toContain("Faltas 22.5");
+    expect(html).toContain("Tarjetas amarillas 4.5");
+  });
+
   it("cuando está bloqueado oculta las filas y conserva la marca de agua", () => {
     const lockedHtml = renderToStaticMarkup(
       <MatchMarketsGrid

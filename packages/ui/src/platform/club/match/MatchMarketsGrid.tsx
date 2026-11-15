@@ -27,6 +27,7 @@ export interface MatchMarketsGridProps {
 const CATEGORY_ORDER: readonly MarketCardCategory[] = [
   "resultado",
   "goles",
+  "conteos",
   "handicap",
   "marcador",
   "primer_tiempo",
@@ -41,6 +42,8 @@ function categoryHeading(
       return "Resultado";
     case "goles":
       return sport === "american-football" ? "Totales" : "Goles";
+    case "conteos":
+      return "Córners y conteos";
     case "handicap":
       return "Hándicap";
     case "marcador":
@@ -54,6 +57,18 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   if (row.cardCategory) return row.cardCategory;
   const m = row.market.toLowerCase();
   const g = row.group.toLowerCase();
+  if (
+    m === "corners_total" ||
+    m === "fouls_total" ||
+    m === "yellow_total" ||
+    g.includes("esquina") ||
+    g.includes("córner") ||
+    g.includes("corner") ||
+    g.includes("faltas") ||
+    g.includes("amarillas")
+  ) {
+    return "conteos";
+  }
   if (m === "correct_score" || g.includes("marcador")) return "marcador";
   if (m.startsWith("ht_") || g.includes("1er tiempo")) return "primer_tiempo";
   if (

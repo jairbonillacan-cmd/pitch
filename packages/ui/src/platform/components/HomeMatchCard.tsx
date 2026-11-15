@@ -5,28 +5,11 @@ import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
 import { alternativePick, mostLikelyOutcome } from "../club/home/home-model";
-import { useIsPickInParlay, usePlatformActions, usePlatformCore } from "../platform-provider";
-import type { MatchPick, PlatformGame } from "../types";
+import { usePlatformActions, usePlatformCore } from "../platform-provider";
+import type { PlatformGame } from "../types";
 import { ConfidenceChip } from "./ConfidenceChip";
 import { CrestPedestal, MaestroIcon } from "./MaestroPrimitives";
-
-/** «+ Parlay» que agrega o quita el pick; solo este botón se redibuja al cambiar. */
-function ParlayButton({ pick, matchLabel }: { pick: MatchPick; matchLabel: string }): React.JSX.Element {
-  const { addPickToParlay, removePickFromParlay } = usePlatformActions();
-  const inParlay = useIsPickInParlay(pick.id);
-  return (
-    <button
-      type="button"
-      className={`pl-home-parlay-btn ${inParlay ? "is-on" : ""}`.trim()}
-      aria-pressed={inParlay}
-      aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}, ${matchLabel}`}
-      onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
-    >
-      <MaestroIcon name={inParlay ? "check" : "plus"} size={14} />
-      <span>{inParlay ? "En parlay" : "Parlay"}</span>
-    </button>
-  );
-}
+import { ParlayPickButton } from "./MatchList";
 
 /**
  * Tarjeta de partido del Inicio. Se lee de arriba abajo sin repetir datos:
@@ -194,7 +177,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
       </div>
 
       <footer className="pl-home-card-actions">
-        {!isFinished && mainPick && unlocked ? <ParlayButton pick={mainPick} matchLabel={matchLabel} /> : null}
+        {!isFinished && mainPick && unlocked ? <ParlayPickButton pick={mainPick} matchLabel={matchLabel} /> : null}
         {!isFinished && !unlocked ? (
           <a
             href={upgradeHref}

@@ -200,6 +200,58 @@ export interface HomeSportSection {
   leagues: HomeLeagueGroup[];
 }
 
+export interface DayLeagueMatchGroup {
+  league: LeagueId;
+  label: string;
+  /** Escudo de la liga (Bzzoiro) cuando el snapshot lo trae. */
+  logoUrl?: string;
+  sport: SportId;
+  round: string;
+  count: number;
+  games: PlatformGame[];
+}
+
+export interface DayMatchGroup {
+  dayId: string;
+  count: number;
+  leagues: DayLeagueMatchGroup[];
+}
+
+/**
+ * Agrupa los partidos primero por día (orden cronológico) y luego por liga (`LEAGUE_ORDER`),
+ * ordenando los encuentros por hora de inicio dentro de cada liga.
+ */
+export function groupMatchesByDayAndLeague(
+  games: readonly PlatformGame[],
+): DayMatchGroup[] {
+  const days = Array.from(new Set(games.map((g) => g.dayId))).sort();
+  return days
+    .map((dayId) => {
+      const dayGames = games.filter((g) => g.dayId === dayId);
+      const leagues = leaguesIn(dayGames).map((league) => {
+        const leagueGames = dayGames
+          .filter((g) => g.league === league)
+          .sort(byKickoff);
+        const first = leagueGames[0]!;
+        return {
+          league,
+          label: first.leagueLabel,
+          logoUrl: leagueGames.find((g) => g.leagueLogoUrl)?.leagueLogoUrl,
+          sport: sportOf(first),
+          round: mostCommon(leagueGames.map((g) => g.round)),
+          count: leagueGames.length,
+          games: leagueGames,
+        };
+      });
+      return {
+        dayId,
+        count: dayGames.length,
+        leagues,
+      };
+    })
+    .filter((d) => d.count > 0);
+}
+
 /** Deporte → liga → día, cada nivel en orden fijo y los partidos por hora de inicio. */
 export function buildSections(games: readonly PlatformGame[]): HomeSportSection[] {
   return SPORTS.map((sport) => {
