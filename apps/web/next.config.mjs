@@ -12,7 +12,7 @@ function buildSecurityHeaders(isDev) {
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https:",
+    "img-src 'self' data: blob: https://sports.bzzoiro.com https://*.blob.vercel-storage.com",
     "font-src 'self' data:",
     connectSrc,
     "frame-src https://challenges.cloudflare.com",

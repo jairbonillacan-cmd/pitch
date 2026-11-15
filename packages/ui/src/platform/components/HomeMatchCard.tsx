@@ -71,7 +71,12 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
     >
       <header className="pl-home-card-head">
         <span className="pl-pill inline-flex items-center gap-1.5 num">
-          <LeagueBadge league={game.league} label={game.leagueLabel} size={14} />
+          <LeagueBadge
+            league={game.league}
+            label={game.leagueLabel}
+            logoUrl={game.leagueLogoUrl}
+            size={14}
+          />
           <span>{isFinished ? "Final" : game.kickoffLocal}</span>
         </span>
         <span className="pl-home-card-round">{game.round}</span>
@@ -85,7 +90,13 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
           return (
             <div key={side} className="pl-home-team">
               <CrestPedestal size="sm" glowColor={colors?.[0] ?? "var(--pl-aura-default-home)"}>
-                <TeamBadge league={game.league} slug={team.slug} name={team.name} size={26} />
+                <TeamBadge
+                  league={game.league}
+                  slug={team.slug}
+                  name={team.name}
+                  logoUrl={team.logoUrl}
+                  size={26}
+                />
               </CrestPedestal>
               <div className="min-w-0 flex-1">
                 <p className={`m-0 truncate text-[15px] ${favored ? "font-extrabold" : "font-bold"}`}>

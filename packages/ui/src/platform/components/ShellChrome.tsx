@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react";
 import { BrandLogo, ThemeToggle } from "../../primitives";
-import { LeagueBadge } from "../../sports";
+import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
 import { ownHandleFor, useAuraColors, usePlatform } from "../platform-provider";
@@ -425,42 +425,44 @@ function AtmosphereStageImpl({
   const inClubApp = isClubAppRoute(activePath ?? clientPath);
 
   return (
-    <div
-      className="pl-stage"
-      style={
-        {
-          "--home-color": auraColors[0],
-          "--away-color": auraColors[1],
-        } as React.CSSProperties
-      }
-    >
-      <a className="skip-link" href="#main">
-        Saltar al contenido principal
-      </a>
+    <EmblemSurfaceProvider surface={inClubApp ? "app" : "public"}>
+      <div
+        className="pl-stage"
+        style={
+          {
+            "--home-color": auraColors[0],
+            "--away-color": auraColors[1],
+          } as React.CSSProperties
+        }
+      >
+        <a className="skip-link" href="#main">
+          Saltar al contenido principal
+        </a>
 
-      <div className="pl-atmo" aria-hidden="true">
-        <div className="pl-atmo-canvas">
-          <div className="pl-aura pl-aura--home" />
-          <div className="pl-aura pl-aura--away" />
+        <div className="pl-atmo" aria-hidden="true">
+          <div className="pl-atmo-canvas">
+            <div className="pl-aura pl-aura--home" />
+            <div className="pl-aura pl-aura--away" />
+          </div>
+          <div className="pl-atmo-scrim" />
         </div>
-        <div className="pl-atmo-scrim" />
+
+        <div className="relative z-10 pb-20 lg:pb-4">{children}</div>
+
+        {inClubApp ? (
+          <>
+            <FloatingQuickJumpBar activePath={activePath} />
+            <ParlayFloatingDock />
+            <PickComposerModal />
+            <ShareTicketModal />
+            <CommandPaletteModal />
+            <RoleSimulatorBar activePath={activePath} />
+          </>
+        ) : null}
+        <BetaPinModal />
+        <ToastViewport />
       </div>
-
-      <div className="relative z-10 pb-20 lg:pb-4">{children}</div>
-
-      {inClubApp ? (
-        <>
-          <FloatingQuickJumpBar activePath={activePath} />
-          <ParlayFloatingDock />
-          <PickComposerModal />
-          <ShareTicketModal />
-          <CommandPaletteModal />
-          <RoleSimulatorBar activePath={activePath} />
-        </>
-      ) : null}
-      <BetaPinModal />
-      <ToastViewport />
-    </div>
+    </EmblemSurfaceProvider>
   );
 }
 
@@ -1275,7 +1277,7 @@ function ClubWorkspaceShellImpl({
                 className="league-tab seg-btn text-xs shrink-0"
                 data-active={isCurrent ? "true" : undefined}
               >
-                <LeagueBadge league={lg.league} label={lg.label} size={15} />
+                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
                 <span>{lg.label}</span>
               </a>
             );
@@ -1396,7 +1398,7 @@ function ClubWorkspaceShellImpl({
                     className="league-tab rail-item justify-between"
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      <LeagueBadge league={lg.league} label={lg.label} size={18} />
+                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
                       <span className="rail-hide-collapsed truncate">{lg.label}</span>
                     </span>
                     <span
@@ -1580,7 +1582,7 @@ function ClubWorkspaceShellImpl({
                 }}
                 className="pl-btn-glass text-xs justify-start gap-2"
               >
-                <LeagueBadge league={lg.league} label={lg.label} size={16} />
+                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
                 <span className="truncate">{lg.label}</span>
               </a>
             ))}

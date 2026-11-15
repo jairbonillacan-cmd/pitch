@@ -58,6 +58,8 @@ describe("@pitchlab/ingest", () => {
     const validated = LeagueSnapshotSchema.parse(snap);
     expect(validated.games).toHaveLength(15);
     expect(Object.keys(validated.analyses)).toHaveLength(15);
+    expect(validated.logoUrl).toBeUndefined();
+    expect(validated.games[0]?.home.logoUrl).toBeUndefined();
   });
 
   it("normaliza y analiza el fixture grabado de openfootball (Premier League 2026/27)", () => {
@@ -117,6 +119,11 @@ describe("@pitchlab/ingest", () => {
     });
 
     expect(LeagueSnapshotSchema.parse(snap).games).toHaveLength(2);
+    expect(snap.logoUrl).toBe("https://sports.bzzoiro.com/img/league/19/?bg=transparent");
+    expect(snap.games[0]?.home.logoUrl).toMatch(
+      /^https:\/\/sports\.bzzoiro\.com\/img\/team\/\d+\/\?bg=transparent$/,
+    );
+    expect(Object.values(snap.teamRates).every((r) => Boolean(r.logoUrl))).toBe(true);
   });
 
   it("garantiza la inmutabilidad del historial: conserva intacto el análisis publicado antes del inicio cuando el partido finaliza", () => {

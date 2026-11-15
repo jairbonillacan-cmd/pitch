@@ -25,6 +25,7 @@ import { buildGoalModel, buildPointsModel, derivedMarketProbability } from "./sp
 export interface RawLeagueInput {
   league: LeagueId;
   leagueLabel: string;
+  leagueLogoUrl?: string;
   sport: "football" | "american-football";
   season: string;
   roundLabel: string;
@@ -632,10 +633,12 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       const confLevel =
         m.confidence?.level ?? (confScore >= 72 ? "alta" : confScore >= 58 ? "media" : "baja");
 
+      const resolvedLeagueLogo = m.leagueLogoUrl ?? leagueInput.leagueLogoUrl;
       games.push({
         id: m.id,
         league: m.league,
         leagueLabel: m.leagueLabel,
+        ...(resolvedLeagueLogo ? { leagueLogoUrl: resolvedLeagueLogo } : {}),
         sport: m.sport,
         round: m.round,
         dayId: m.day,
@@ -651,6 +654,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           name: m.home.name,
           shortName: m.home.shortName || m.home.name,
           code: m.home.code ?? m.home.shortName.slice(0, 3).toUpperCase(),
+          ...(m.home.logoUrl ? { logoUrl: m.home.logoUrl } : {}),
           record: m.home.record,
         },
         away: {
@@ -658,6 +662,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           name: m.away.name,
           shortName: m.away.shortName || m.away.name,
           code: m.away.code ?? m.away.shortName.slice(0, 3).toUpperCase(),
+          ...(m.away.logoUrl ? { logoUrl: m.away.logoUrl } : {}),
           record: m.away.record,
         },
         x12,
@@ -704,6 +709,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
     leagues.push({
       league: leagueInput.league,
       label: leagueInput.leagueLabel,
+      ...(leagueInput.leagueLogoUrl ? { logoUrl: leagueInput.leagueLogoUrl } : {}),
       sport: leagueInput.sport,
       season: leagueInput.season,
       roundLabel: leagueInput.roundLabel,

@@ -48,6 +48,7 @@ export interface MatchAnalysis {
   id: string;
   league: LeagueId;
   leagueLabel: string;
+  leagueLogoUrl?: string;
   sport: "football" | "american-football";
   round: string;
   day: string;
@@ -68,6 +69,7 @@ export interface MatchAnalysis {
     name: string;
     shortName: string;
     code?: string;
+    logoUrl?: string;
     record: string;
   };
   away: {
@@ -75,6 +77,7 @@ export interface MatchAnalysis {
     name: string;
     shortName: string;
     code?: string;
+    logoUrl?: string;
     record: string;
   };
   projection?: {
@@ -479,6 +482,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       id: g.id,
       league: snapshot.league,
       leagueLabel,
+      leagueLogoUrl: snapshot.logoUrl,
       sport: isNfl ? "american-football" : "football",
       round: g.round ?? snapshot.periodLabel,
       day: dayId,
@@ -495,6 +499,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         name: g.home.name,
         shortName: g.home.shortName,
         code: g.home.code,
+        logoUrl: g.home.logoUrl,
         record: homeRec,
       },
       away: {
@@ -502,6 +507,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         name: g.away.name,
         shortName: g.away.shortName,
         code: g.away.code,
+        logoUrl: g.away.logoUrl,
         record: awayRec,
       },
       projection: analysis?.projection ?? {

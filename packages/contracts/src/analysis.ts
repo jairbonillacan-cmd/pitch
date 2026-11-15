@@ -135,6 +135,7 @@ export interface TeamSeasonRate {
   name: string;
   shortName: string;
   code: string;
+  logoUrl?: string;
   forPerGame: number;
   againstPerGame: number;
   gamesPlayed: number;
@@ -148,6 +149,7 @@ export interface StandingRow {
   name: string;
   shortName: string;
   code: string;
+  logoUrl?: string;
   played: number;
   won: number;
   drawn: number;
@@ -160,6 +162,8 @@ export interface StandingRow {
 export interface LeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
+  /** URL externa del escudo de la competición (p. ej. Bzzoiro), si aplica. */
+  logoUrl?: string;
   season: SeasonId;
   seasonLabel: string;
   periodLabel: string;
@@ -353,6 +357,7 @@ export const TeamSeasonRateSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
+  logoUrl: z.string().url().optional(),
   forPerGame: z.number().nonnegative(),
   againstPerGame: z.number().nonnegative(),
   gamesPlayed: z.number().int().nonnegative(),
@@ -365,6 +370,7 @@ export const StandingRowSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
+  logoUrl: z.string().url().optional(),
   played: z.number().int().nonnegative(),
   won: z.number().int().nonnegative(),
   drawn: z.number().int().nonnegative(),
@@ -377,6 +383,7 @@ export const StandingRowSchema = z.object({
 export const LeagueSnapshotSchema = z.object({
   schemaVersion: z.literal(1),
   league: LeagueIdSchema,
+  logoUrl: z.string().url().optional(),
   season: SeasonIdSchema,
   seasonLabel: z.string().min(1),
   periodLabel: z.string().min(1),

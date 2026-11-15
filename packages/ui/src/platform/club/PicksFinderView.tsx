@@ -196,7 +196,7 @@ export function PicksFinderClubView(): React.JSX.Element {
                 <li key={pick.id} className="pl-finder-row glass-card glass-ring">
                   <div className="pl-finder-main">
                     <span className="pl-finder-meta text-xs">
-                      <LeagueBadge league={game.league} label={game.leagueLabel} size={14} />
+                      <LeagueBadge league={game.league} label={game.leagueLabel} logoUrl={game.leagueLogoUrl} size={14} />
                       <span className="truncate">
                         {game.home.shortName} vs {game.away.shortName} · {game.dayLabel} {game.kickoffLocal}
                       </span>

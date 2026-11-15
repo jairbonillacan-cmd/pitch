@@ -26,6 +26,7 @@ export interface League {
   mascot: string;
   defaultSeason: string;
   defaultPeriod: string;
+  logoUrl?: string;
 }
 
 export interface Season {
@@ -43,6 +44,7 @@ export interface Team {
   name: string;
   shortName: string;
   code: string;
+  logoUrl?: string;
 }
 
 export interface GameResult {
@@ -84,6 +86,7 @@ export const TeamSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
+  logoUrl: z.string().url().optional(),
 });
 
 export const GameResultSchema = z.object({

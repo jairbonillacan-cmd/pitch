@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-15 · **Rama:** `main` (`feat/bzzoiro-team-logos` desde `origin/main` `3e4c412`)
+> **Última actualización:** 2026-11-15 · **Rama:** `feat/bzzoiro-snapshot-logos` (desde `main` `45d1171`)
 
 ## Estado actual
 
@@ -1347,3 +1347,20 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - `pnpm lint`, `check-no-demo-prod`, `check-no-secrets`, `pnpm typecheck`, `@pitchlab/sports-assets` (`5`), `@pitchlab/ui` (`167`), `@pitchlab/web` (`203`), `next build` y Playwright E2E completo (**24/24**, escritorio y móvil).
 - **Pendiente:**
   - Confirmar ligas/logos de baloncesto en UI cuando NBA se cablee en la vista del club (por ahora NBA ya resuelve los 30 escudos de equipo vía `TeamBadge`; `LeagueBadge` mantiene el fallback neutro al no existir escudo de liga `nba` en `LEAGUE_ASSETS`).
+
+### ESCUDOS-BZZOIRO-2 · Escudos externos enlazados desde contratos/pipeline y aislados a `/app` — 2026-11-15 — Rama `feat/bzzoiro-snapshot-logos` (desde `main` `45d1171`)
+- **Hecho:**
+  - **Inspección de Bzzoiro y helpers (`@pitchlab/sports-assets`, `src/bzzoiro.ts`):** las respuestas JSON v2 de Bzzoiro exponen IDs numéricos (`id`, `league_id`, `home_team_id`, `away_team_id`) sin URL de imagen directa; se agregaron `BZZOIRO_LEAGUE_IDS`, `BZZOIRO_LEAGUE_IMAGE_SEGMENT`, `buildBzzoiroTeamEmblemUrlById`, `getBzzoiroLeagueId`, `getBzzoiroLeagueEmblemUrl` e `isValidBzzoiroImageUrl` (solo acepta `https://sports.bzzoiro.com/img/...`).
+  - **Contrato del snapshot y view-models (`@pitchlab/contracts`):** `logoUrl` opcional validado con `z.string().url().optional()` en `League`, `Team`, `TeamSeasonRate`, `StandingRow` y `LeagueSnapshot`, más `leagueLogoUrl`, `home.logoUrl` y `away.logoUrl` en `MatchAnalysis` y `snapshotToMatchAnalyses`.
+  - **Pipeline de ingesta (`services/ingest`):** `src/providers/bzzoiro.ts`, `bzzoiro-us.ts`, `mappings.ts`, `pipeline.ts` (`buildFootballSnapshot`) y `us-snapshot.ts` rellenan `logoUrl` de equipos y ligas cubiertos (`futbol` y `nba`), aceptan campos de URL explícitos validados si Bzzoiro los incluye en un endpoint y omiten `logoUrl` en ligas sin cobertura (`nfl`, `nhl`). Cero imágenes descargadas al repositorio.
+  - **Superficie `/app` vs público, CSP y UI (`apps/web`, `@pitchlab/ui`):**
+    - `EmblemSurfaceProvider` (`packages/ui/src/sports.tsx`, por defecto `"public"`, y `"app"` solo dentro de `AtmosphereStage` cuando la ruta es `/app/**`) aísla las llamadas externas a `https://sports.bzzoiro.com` exclusivamente dentro de `/app`; la landing (`/`), login, registro y marketing mantienen `0` solicitudes a Bzzoiro.
+    - `TeamBadge` y `LeagueBadge` usan `<img>` simple (sin `next/image`) con `loading="lazy"`, `decoding="async"`, `referrerPolicy="no-referrer"`, `width`/`height` fijos y respaldo automático a iniciales (`.badge-fallback`) ante `logoUrl` ausente/`null`, `onError` o PNG `1×1` vacío de Bzzoiro; `nfl` conserva su SVG local dentro de `/app`.
+    - Flujo de `logoUrl` cableado en `apps/web/src/server/snapshots.ts`, `platform-data.ts`, `match-picks-engine.ts`, `access-guard.ts`, `ShellChrome.tsx`, `HomeClubView.tsx`, `HomeMatchCard.tsx`, `MatchTicketCard.tsx`, `CoreMatchViews.tsx`, `LiveMatchCenter.tsx`, `MatchContextPanel.tsx`, `PreMatchModule.tsx`, `RecordPicksTab.tsx`, `PlSelect.tsx`, `OddsCompareView.tsx`, `PicksFinderView.tsx`, `HistorialClubView.tsx` y `ParlayAndQuantViews.tsx`.
+    - CSP en `apps/web/next.config.mjs`: `img-src 'self' data: blob: https://sports.bzzoiro.com https://*.blob.vercel-storage.com`.
+    - Aviso breve en `/legal/privacidad` (§7 `encargados-y-transferencias`) y `packages/ui/src/platform/legal.stories.tsx` sobre carga externa desde `sports.bzzoiro.com` e IP del visitante; atribución de proveedores existente preservada en `/legal/creditos`.
+  - **Pruebas y Storybook:** mapeo de `logoUrl` en `sports-assets.test.ts`, `contracts.test.ts` y `services/ingest` (`providers-adapters.test.ts`, `ingest.test.ts`, `us-snapshot.test.ts`); pruebas de UI (`ui.test.tsx`); stories dark/light en `packages/ui/src/ui.stories.tsx` (`ClubEscudosEstadosDark` / `ClubEscudosEstadosLight`, `BadgesShowcaseDark` / `BadgesShowcaseLight`) con escudo, sin escudo y con imagen rota; verificación E2E en `apps/web/e2e/pre-mvp.spec.ts`.
+- **Verificado:**
+  - `node scripts/lint-codebase.mjs`, `check-no-secrets.mjs`, `check-no-demo-prod.mjs`, `pnpm typecheck`, `pnpm lint`, `build-storybook`, `next build`, `@pitchlab/sports-assets`, `@pitchlab/contracts`, `@pitchlab/ui`, `@pitchlab/web`, `e2e/pre-mvp.spec.ts` (desktop 1440 px + mobile 390 px), y revisión visual en Chromium a `375 px` y `1440 px` en oscuro y claro (`0` desbordes horizontales, `0` solicitudes a Bzzoiro en `/`).
+  - `services/ingest`: las pruebas del mapeo Bzzoiro/ingesta pasan; persisten 2 fallos previos a esta rama ligados a fecha fija (`2026-11-14`) en `snapshot-validator.test.ts:328` y `odds-refresh.test.ts:262` (`FUTURE_SNAPSHOT_TIMESTAMP` contra `live_matchday_v3_snapshot.json`).
+- **Pendiente:** aprobar push de `feat/bzzoiro-snapshot-logos` y merge hacia `main` si corresponde.

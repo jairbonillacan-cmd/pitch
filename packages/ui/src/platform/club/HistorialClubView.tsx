@@ -169,7 +169,14 @@ export function HistorialClubView(): React.JSX.Element {
               <RateBars
                 title="Acierto por liga"
                 rates={byLeague}
-                renderIcon={(r) => <LeagueBadge league={r.key as PlatformGame["league"]} label={r.label} size={16} />}
+                renderIcon={(r) => (
+                  <LeagueBadge
+                    league={r.key as PlatformGame["league"]}
+                    label={r.label}
+                    logoUrl={dataset.leagues.find((l) => l.league === r.key)?.logoUrl}
+                    size={16}
+                  />
+                )}
               />
             ) : null}
             {byCategory.length > 0 ? <RateBars title="Acierto por tipo de pick" rates={byCategory} /> : null}
@@ -226,7 +233,7 @@ export function HistorialClubView(): React.JSX.Element {
                             navigateTo(href);
                           }}
                         >
-                          <LeagueBadge league={g.league} label={g.leagueLabel} size={18} />
+                          <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={18} />
                           <span className="pl-hist-match">
                             <strong className="truncate">
                               {g.home.shortName} <span className="num">{g.score!.home}–{g.score!.away}</span> {g.away.shortName}

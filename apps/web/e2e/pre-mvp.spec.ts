@@ -86,7 +86,13 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   }, testInfo) => {
     test.setTimeout(90_000);
     const errors: string[] = [];
+    const bzzoiroRequests: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
+    page.on("request", (req) => {
+      if (req.url().includes("sports.bzzoiro.com")) {
+        bzzoiroRequests.push(req.url());
+      }
+    });
 
     const start = Date.now();
     const homeRes = await page.goto("/");
@@ -213,6 +219,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     // Cambio a tema claro + persistencia tras recarga + WCAG AA
     await warmLazySectionsAndWaitImages(page);
+    expect(bzzoiroRequests).toEqual([]);
+    await expect(page.locator('img[src*="sports.bzzoiro.com"]')).toHaveCount(0);
     await page.locator("[data-theme-toggle]:visible").first().click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     await page.waitForTimeout(200);
@@ -483,11 +491,26 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.waitForURL("**/app/bundesliga");
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
 
-    const badge = page.locator('img[src$="/bundesliga.svg"]:visible').first();
-    await expect(badge).toBeVisible();
-    await expect
-      .poll(() => badge.evaluate((image: HTMLImageElement) => image.naturalWidth))
-      .toBeGreaterThan(0);
+    const badgeImg = page.locator('.badge[data-emblem-league="bundesliga"] img:visible').first();
+    const badgeFallback = page
+      .locator('.badge-fallback[data-emblem-league="bundesliga"]:visible')
+      .first();
+    if (await badgeImg.count()) {
+      await expect(badgeImg).toBeVisible();
+      await expect(badgeImg).toHaveAttribute("referrerpolicy", "no-referrer");
+      await expect(badgeImg).toHaveAttribute("loading", "lazy");
+      await expect(badgeImg).toHaveAttribute("decoding", "async");
+      await expect(badgeImg).toHaveAttribute("src", /^https:\/\/sports\.bzzoiro\.com\/img\/league\//);
+      await expect
+        .poll(async () => {
+          const fallbackVisible = await badgeFallback.isVisible().catch(() => false);
+          if (fallbackVisible) return 2;
+          return badgeImg.evaluate((image: HTMLImageElement) => image.naturalWidth);
+        })
+        .toBeGreaterThan(1);
+    } else {
+      await expect(badgeFallback).toBeVisible();
+    }
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
@@ -496,6 +519,16 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     await expect(page.locator(".standings-block")).toBeVisible();
     await expect(page.locator(".standings")).toContainText("Pts");
+
+    // Respaldo automático si un escudo de Bzzoiro falla (404 -> iniciales, sin ícono roto)
+    await page.route("https://sports.bzzoiro.com/img/league/**", (route) =>
+      route.fulfill({ status: 404, body: "" }),
+    );
+    await page.goto("/app/premier-league");
+    await expect(
+      page.locator('.badge-fallback[data-emblem-league="premier-league"]:visible').first(),
+    ).toBeVisible();
+    await page.unroute("https://sports.bzzoiro.com/img/league/**");
 
     // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
@@ -630,12 +663,21 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       }
     }
 
-    await page.goto("/legal/creditos");
+    const creditRes = await page.goto("/legal/creditos");
+    const cspHeader = creditRes?.headers()["content-security-policy"] ?? "";
+    expect(cspHeader).toContain("img-src 'self' data: blob: https://sports.bzzoiro.com");
+    expect(cspHeader).not.toMatch(/img-src [^;]*\bhttps:(?!\/\/)/);
     const creditHtml = await page.content();
     expect(creditHtml).toContain("nflverse");
     expect(creditHtml).toContain("CC-BY 4.0");
     expect(creditHtml).toContain("openfootball");
     expect(creditHtml).toContain("CC0");
+    expect(creditHtml).toContain("football-data.org");
+
+    await page.goto("/legal/privacidad");
+    const privHtml = await page.content();
+    expect(privHtml).toContain("sports.bzzoiro.com");
+    expect(privHtml).toContain("IP");
 
     const robotsRes = await page.request.get("/robots.txt");
     expect(robotsRes.ok()).toBe(true);

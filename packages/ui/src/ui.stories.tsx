@@ -13,6 +13,7 @@ import {
   ErrorState,
 } from "./primitives";
 import {
+  EmblemSurfaceProvider,
   TeamBadge,
   LeagueBadge,
   PBar,
@@ -235,24 +236,90 @@ export const NavigationAndFooter = () => (
 );
 
 const BadgesRow = () => (
-  <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center", padding: "24px" }}>
-    <LeagueBadge league="liga-mx" size={44} />
-    <LeagueBadge league="premier-league" size={44} />
-    <LeagueBadge league="nfl" size={44} />
-    <LeagueBadge league="nhl" size={44} />
-    <LeagueBadge league="mlb" size={44} />
-    <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={40} />
-    <TeamBadge league="premier-league" slug="tottenham-hotspur" name="Tottenham" size={40} />
-    <TeamBadge league="serie-a" slug="juventus" name="Juventus" size={40} />
-    <TeamBadge league="liga-mx" slug="monterrey" name="Monterrey" size={40} />
-    <TeamBadge league="liga-mx" slug="pumas-unam" name="Pumas UNAM" size={40} />
-    <TeamBadge league="liga-mx" slug="queretaro" name="Querétaro" size={40} />
-    <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={40} />
-    <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={40} />
-    <TeamBadge league="nba" slug="brooklyn-nets" name="Nets" size={40} />
-    <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={40} />
-    <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={40} />
-    <TeamBadge league="premier-league" slug="club-inexistente" name="Sin Escudo" size={40} />
+  <div style={{ display: "grid", gap: "20px", padding: "24px" }}>
+    <EmblemSurfaceProvider surface="app">
+      <div style={{ display: "grid", gap: "10px" }}>
+        <strong style={{ fontSize: "13px", opacity: 0.78 }}>
+          En /app · Con escudo externo (Bzzoiro) + NFL local
+        </strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
+          <LeagueBadge
+            league="liga-mx"
+            label="Liga MX"
+            logoUrl="https://sports.bzzoiro.com/img/league/154/?bg=transparent"
+            size={44}
+          />
+          <LeagueBadge
+            league="premier-league"
+            label="Premier League"
+            logoUrl="https://sports.bzzoiro.com/img/league/1/?bg=transparent"
+            size={44}
+          />
+          <LeagueBadge league="nfl" label="NFL" size={44} />
+          <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={40} decorative={false} />
+          <TeamBadge league="serie-a" slug="juventus" name="Juventus" size={40} decorative={false} />
+          <TeamBadge league="liga-mx" slug="monterrey" name="Monterrey" size={40} decorative={false} />
+          <TeamBadge league="liga-mx" slug="queretaro" name="Querétaro" size={40} decorative={false} />
+          <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={40} decorative={false} />
+          <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={40} decorative={false} />
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: "10px" }}>
+        <strong style={{ fontSize: "13px", opacity: 0.78 }}>
+          En /app · Sin escudo (logoUrl null o club sin mapa → iniciales)
+        </strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
+          <LeagueBadge league="premier-league" label="Premier League" logoUrl={null} size={44} />
+          <LeagueBadge league="liga-mx" label="Liga MX" logoUrl="" size={44} />
+          <TeamBadge league="liga-mx" slug="sin-logo" name="Club Deportivo" logoUrl={null} size={40} />
+          <TeamBadge league="premier-league" slug="club-inexistente" name="Sin Escudo" size={40} />
+          <TeamBadge league="nba" slug="equipo-nuevo" name="Nuevo Club" logoUrl={null} size={40} />
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: "10px" }}>
+        <strong style={{ fontSize: "13px", opacity: 0.78 }}>
+          En /app · Imagen rota (onError / respuesta 1×1 → iniciales)
+        </strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
+          <LeagueBadge
+            league="bundesliga"
+            label="Bundesliga Rota"
+            logoUrl="/_escudo-roto-demo.png"
+            size={44}
+          />
+          <TeamBadge
+            league="liga-mx"
+            slug="imagen-rota"
+            name="Imagen Rota"
+            logoUrl="/_escudo-roto-demo.png"
+            size={40}
+          />
+          <TeamBadge
+            league="premier-league"
+            slug="bzzoiro-vacio"
+            name="Respuesta Vacía"
+            logoUrl="https://sports.bzzoiro.com/img/team/0/?bg=transparent"
+            size={40}
+          />
+        </div>
+      </div>
+    </EmblemSurfaceProvider>
+
+    <EmblemSurfaceProvider surface="public">
+      <div style={{ display: "grid", gap: "10px" }}>
+        <strong style={{ fontSize: "13px", opacity: 0.78 }}>
+          Landing y público · Cero Bzzoiro (solo SVG / iniciales locales)
+        </strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
+          <LeagueBadge league="liga-mx" label="Liga MX" size={44} />
+          <LeagueBadge league="premier-league" label="Premier League" size={44} />
+          <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={40} />
+          <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={40} />
+        </div>
+      </div>
+    </EmblemSurfaceProvider>
   </div>
 );
 
@@ -275,6 +342,9 @@ export const BadgesShowcaseLight = () => (
     <BadgesRow />
   </div>
 );
+
+export const ClubEscudosEstadosDark = BadgesShowcaseDark;
+export const ClubEscudosEstadosLight = BadgesShowcaseLight;
 
 export const PinPadDialog = () => {
   const [entered, setEntered] = React.useState(false);

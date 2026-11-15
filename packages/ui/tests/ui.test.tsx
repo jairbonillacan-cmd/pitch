@@ -11,6 +11,8 @@ import {
   Field,
   Mascot,
   BrandLogo,
+  EmblemSurfaceProvider,
+  LeagueBadge,
   TeamBadge,
   ProbSplit,
   MatchCard,
@@ -190,57 +192,106 @@ describe("@pitchlab/ui components", () => {
     expect(html).toContain("1 perdido");
   });
 
-  it("renders Bzzoiro team crests for football, respects editorialOnly, keeps NFL local and falls back to initials", () => {
-    const footballHtml = renderToStaticMarkup(
-      <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} decorative={false} />,
+  it("renders Bzzoiro crests only inside /app surface, with lazy/no-referrer attributes and initials fallback", () => {
+    // Superficie pública por omisión (landing/auth): cero llamadas a Bzzoiro aun con logoUrl.
+    const publicHtml = renderToStaticMarkup(
+      <div>
+        <TeamBadge
+          league="premier-league"
+          slug="arsenal"
+          name="Arsenal"
+          logoUrl="https://sports.bzzoiro.com/img/team/18/?bg=transparent"
+          size={36}
+          decorative={false}
+        />
+        <LeagueBadge
+          league="premier-league"
+          label="Premier League"
+          logoUrl="https://sports.bzzoiro.com/img/league/1/?bg=transparent"
+          size={24}
+        />
+        <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} />
+      </div>,
     );
-    expect(footballHtml).toContain('data-emblem-source="bzzoiro"');
-    expect(footballHtml).toContain('src="https://sports.bzzoiro.com/img/team/18/?bg=transparent"');
-    expect(footballHtml).toContain('referrerPolicy="no-referrer"');
-    expect(footballHtml).toContain('alt="Arsenal"');
+    expect(publicHtml).toContain('data-emblem-source="editorial"');
+    expect(publicHtml).toContain('src="/brand/sports/premier-league/r2/svg/arsenal.svg"');
+    expect(publicHtml).toContain('src="/brand/sports/premier-league/r2/svg/premier-league.svg"');
+    expect(publicHtml).toContain("badge-fallback");
+    expect(publicHtml).not.toContain("sports.bzzoiro.com");
 
-    const editorialHtml = renderToStaticMarkup(
-      <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} editorialOnly />,
+    // Superficie /app: usa escudos externos de Bzzoiro con lazy, async, no-referrer y tamaño fijo.
+    const appHtml = renderToStaticMarkup(
+      <EmblemSurfaceProvider surface="app">
+        <div>
+          <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} decorative={false} />
+          <TeamBadge
+            league="liga-mx"
+            slug="club-promocion"
+            name="Club Promoción"
+            logoUrl="https://sports.bzzoiro.com/img/team/7777/?bg=transparent"
+            size={40}
+            decorative={false}
+          />
+          <LeagueBadge
+            league="liga-mx"
+            label="Liga MX"
+            logoUrl="https://sports.bzzoiro.com/img/league/154/?bg=transparent"
+            size={28}
+          />
+          <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} />
+        </div>
+      </EmblemSurfaceProvider>,
     );
-    expect(editorialHtml).toContain('data-emblem-source="editorial"');
-    expect(editorialHtml).toContain('src="/brand/sports/premier-league/r2/svg/arsenal.svg"');
-    expect(editorialHtml).not.toContain("sports.bzzoiro.com");
+    expect(appHtml).toContain('data-emblem-source="bzzoiro"');
+    expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/18/?bg=transparent"');
+    expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/7777/?bg=transparent"');
+    expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/league/154/?bg=transparent"');
+    expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent"');
+    expect(appHtml).toContain('loading="lazy"');
+    expect(appHtml).toContain('decoding="async"');
+    expect(appHtml).toContain('referrerPolicy="no-referrer"');
+    expect(appHtml).toContain('width="36"');
+    expect(appHtml).toContain('height="36"');
+    expect(appHtml).toContain('alt="Arsenal"');
 
-    const nflHtml = renderToStaticMarkup(
-      <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={36} />,
+    // editorialOnly y ligas sin cobertura: en /app solo NFL conserva SVG local; NHL/MLB caen a iniciales salvo editorialOnly.
+    const localHtml = renderToStaticMarkup(
+      <EmblemSurfaceProvider surface="app">
+        <div>
+          <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} editorialOnly />
+          <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={36} />
+          <LeagueBadge league="nfl" label="NFL" size={24} />
+          <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} />
+          <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} />
+          <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} editorialOnly />
+          <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} editorialOnly />
+        </div>
+      </EmblemSurfaceProvider>,
     );
-    expect(nflHtml).toContain('data-emblem-source="editorial"');
-    expect(nflHtml).toContain('src="/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg"');
+    expect(localHtml).toContain('src="/brand/sports/premier-league/r2/svg/arsenal.svg"');
+    expect(localHtml).toContain('src="/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg"');
+    expect(localHtml).toContain('src="/brand/sports/nfl/r1/svg/nfl.svg"');
+    expect(localHtml).toContain("badge-fallback");
+    expect(localHtml).toContain(">BRU<");
+    expect(localHtml).toContain(">YAN<");
+    expect(localHtml).toContain('src="/brand/sports/nhl/r1/svg/boston-bruins.svg"');
+    expect(localHtml).toContain('src="/brand/sports/mlb/r1/svg/new-york-yankees.svg"');
+    expect(localHtml).not.toContain("sports.bzzoiro.com");
 
-    const nhlHtml = renderToStaticMarkup(
-      <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} />,
-    );
-    expect(nhlHtml).toContain('data-emblem-source="editorial"');
-    expect(nhlHtml).toContain('src="/brand/sports/nhl/r1/svg/boston-bruins.svg"');
-
-    const mlbHtml = renderToStaticMarkup(
-      <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} />,
-    );
-    expect(mlbHtml).toContain('data-emblem-source="editorial"');
-    expect(mlbHtml).toContain('src="/brand/sports/mlb/r1/svg/new-york-yankees.svg"');
-
-    const nbaHtml = renderToStaticMarkup(
-      <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} />,
-    );
-    expect(nbaHtml).toContain('data-emblem-source="bzzoiro"');
-    expect(nbaHtml).toContain('src="https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent"');
-
-    const nbaEditorialHtml = renderToStaticMarkup(
-      <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} editorialOnly />,
-    );
-    expect(nbaEditorialHtml).toContain("badge-fallback");
-    expect(nbaEditorialHtml).not.toContain("sports.bzzoiro.com");
-
+    // Sin escudo (logoUrl null / vacío o sin coincidencia) cae automáticamente a iniciales.
     const fallbackHtml = renderToStaticMarkup(
-      <TeamBadge league="premier-league" slug="club-inexistente" name="Club Prueba" size={36} />,
+      <EmblemSurfaceProvider surface="app">
+        <div>
+          <TeamBadge league="premier-league" slug="club-inexistente" name="Club Prueba" size={36} />
+          <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" logoUrl={null} size={36} />
+          <LeagueBadge league="premier-league" label="Premier League" logoUrl={null} size={28} />
+        </div>
+      </EmblemSurfaceProvider>,
     );
     expect(fallbackHtml).toContain("badge-fallback");
     expect(fallbackHtml).toContain(">CP<");
+    expect(fallbackHtml).toContain(">ARS<");
+    expect(fallbackHtml).toContain(">PL<");
     expect(fallbackHtml).not.toContain("<img");
   });
 });

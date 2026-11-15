@@ -82,6 +82,10 @@ function leagueLabelOf(games: readonly PlatformGame[], league: LeagueId): string
   return games.find((g) => g.league === league)?.leagueLabel ?? league;
 }
 
+function leagueLogoOf(games: readonly PlatformGame[], league: LeagueId): string | undefined {
+  return games.find((g) => g.league === league)?.leagueLogoUrl;
+}
+
 /** Barra de días: «Próximos 7 días», cada día con partidos y los resultados pasados. */
 function DayStrip({
   games,
@@ -115,7 +119,7 @@ function DayStrip({
             <span className="pl-home-day-main num">{main}</span>
             <span className="pl-home-day-sub">
               {o.leagues.slice(0, 4).map((l) => (
-                <LeagueBadge key={l} league={l} label={leagueLabelOf(games, l)} size={14} />
+                <LeagueBadge key={l} league={l} label={leagueLabelOf(games, l)} logoUrl={leagueLogoOf(games, l)} size={14} />
               ))}
               <span>{sub}</span>
             </span>
@@ -171,7 +175,7 @@ function SportLeaguePicker({
               </span>
               <span className="pl-home-logostack" aria-hidden="true">
                 {lgs.slice(0, 4).map((l) => (
-                  <LeagueBadge key={l} league={l} label={leagueLabelOf(dayGames, l)} size={22} />
+                  <LeagueBadge key={l} league={l} label={leagueLabelOf(dayGames, l)} logoUrl={leagueLogoOf(dayGames, l)} size={22} />
                 ))}
               </span>
             </button>
@@ -192,7 +196,11 @@ function SportLeaguePicker({
                 onClick={() => onLeague(l)}
               >
                 <span className="pl-home-league-logo">
-                  {l === ALL ? <SportIcon sport={ALL} /> : <LeagueBadge league={l} label={leagueLabelOf(dayGames, l)} size={34} />}
+                  {l === ALL ? (
+                    <SportIcon sport={ALL} />
+                  ) : (
+                    <LeagueBadge league={l} label={leagueLabelOf(dayGames, l)} logoUrl={leagueLogoOf(dayGames, l)} size={34} />
+                  )}
                 </span>
                 <span className="text-[13px] font-bold whitespace-nowrap">{l === ALL ? "Todas" : leagueLabelOf(dayGames, l)}</span>
                 <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
@@ -214,7 +222,7 @@ function TopPickCard({ game, pick }: { game: PlatformGame; pick: MatchPick }): R
   return (
     <article className="pl-home-top glass-card glass-ring">
       <span className="flex items-center gap-2 text-xs min-w-0" style={{ color: "var(--pl-text-muted)" }}>
-        <LeagueBadge league={game.league} label={game.leagueLabel} size={18} />
+        <LeagueBadge league={game.league} label={game.leagueLabel} logoUrl={game.leagueLogoUrl} size={18} />
         <span className="truncate">
           {game.leagueLabel} · {shortWeekday(game.dayId)} {dayNumber(game.dayId)} · {game.kickoffLocal}
         </span>
@@ -269,7 +277,7 @@ function ParlayRail({ games }: { games: readonly PlatformGame[] }): React.JSX.El
           <ul className="m-0 p-0 list-none flex flex-col gap-2">
             {legs.map(({ pick }) => (
               <li key={pick.id} className="pl-home-leg">
-                <LeagueBadge league={pick.league} label={pick.leagueLabel} size={20} />
+                <LeagueBadge league={pick.league} label={pick.leagueLabel} logoUrl={leagueLogoOf(games, pick.league)} size={20} />
                 <span className="min-w-0 flex-1 flex flex-col">
                   <strong className="text-sm truncate">{pick.label}</strong>
                   <span className="text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>{pick.matchLabel}</span>
@@ -361,7 +369,7 @@ function ValueRail({ items }: { items: ReadonlyArray<{ game: PlatformGame; pick:
       {items.slice(0, 4).map(({ game, pick }) => (
         <div key={pick.id} className="pl-home-value">
           <div className="flex items-center gap-3">
-            <LeagueBadge league={game.league} label={game.leagueLabel} size={20} />
+            <LeagueBadge league={game.league} label={game.leagueLabel} logoUrl={game.leagueLogoUrl} size={20} />
             <span className="min-w-0 flex-1 flex flex-col">
               <strong className="text-sm">{pick.label}</strong>
               <span className="text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
@@ -544,7 +552,12 @@ export function HomeClubView(): React.JSX.Element {
                 {section.leagues.map((group) => (
                   <div key={group.league} className="flex flex-col gap-3">
                     <div className="flex items-center gap-2.5">
-                      <LeagueBadge league={group.league} label={group.label} size={28} />
+                      <LeagueBadge
+                        league={group.league}
+                        label={group.label}
+                        logoUrl={dataset.leagues.find((l) => l.league === group.league)?.logoUrl ?? leagueLogoOf(visible, group.league)}
+                        size={28}
+                      />
                       <h3 className="m-0 text-lg font-extrabold">{group.label}</h3>
                       <span className="text-[13px] num" style={{ color: "var(--pl-text-muted)" }}>
                         {group.round} · {countLabel(group.count, "partido", "partidos")}

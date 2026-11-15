@@ -5,8 +5,24 @@ export { BZZOIRO_TEAM_IDS };
 
 export const BZZOIRO_IMAGE_BASE_URL = "https://sports.bzzoiro.com/img";
 
+export const BZZOIRO_LEAGUE_IDS: Readonly<Record<string, number>> = {
+  "liga-mx": 19,
+  "premier-league": 1,
+  laliga: 3,
+  "la-liga": 3,
+  bundesliga: 5,
+  "serie-a": 4,
+  "ligue-1": 6,
+  "champions-league": 7,
+  nba: 1,
+};
+
 const BZZOIRO_TEAM_IMAGE_SEGMENT: Readonly<Record<string, string>> = {
   nba: "basketball/team",
+};
+
+const BZZOIRO_LEAGUE_IMAGE_SEGMENT: Readonly<Record<string, string>> = {
+  nba: "basketball/league",
 };
 
 const LEAGUE_ALIASES: Readonly<Record<string, readonly string[]>> = {
@@ -72,8 +88,54 @@ export function getBzzoiroTeamEmblemUrl(league: string, slug?: string): string |
   const id = getBzzoiroTeamId(league, slug);
   if (id === null) return null;
   const { resolvedLeague } = resolveEmblemTarget(league, slug);
-  const segment = BZZOIRO_TEAM_IMAGE_SEGMENT[resolvedLeague] ?? "team";
+  return buildBzzoiroTeamEmblemUrlById(resolvedLeague, id);
+}
+
+/** Construye la URL de escudo de Bzzoiro dado el slug de liga y el id numérico del proveedor. */
+export function buildBzzoiroTeamEmblemUrlById(
+  league: string,
+  bzzoiroTeamId: number,
+): string | null {
+  if (!Number.isInteger(bzzoiroTeamId) || bzzoiroTeamId <= 0) return null;
+  const canonicalLeague = league === "la-liga" ? "laliga" : league;
+  const segment = BZZOIRO_TEAM_IMAGE_SEGMENT[canonicalLeague] ?? "team";
+  return `${BZZOIRO_IMAGE_BASE_URL}/${segment}/${bzzoiroTeamId}/?bg=transparent`;
+}
+
+/**
+ * Devuelve el id numérico de liga en Bzzoiro Sports Data, o `null` si la competición no
+ * tiene cobertura en Bzzoiro (p. ej. NFL, MLB o NHL).
+ */
+export function getBzzoiroLeagueId(league: string): number | null {
+  const id = BZZOIRO_LEAGUE_IDS[league];
+  return typeof id === "number" && Number.isInteger(id) && id > 0 ? id : null;
+}
+
+/**
+ * URL pública de la Image API de Bzzoiro para el emblema de liga con fondo transparente.
+ * Devuelve `null` para ligas sin cobertura en Bzzoiro.
+ */
+export function getBzzoiroLeagueEmblemUrl(league: string): string | null {
+  const id = getBzzoiroLeagueId(league);
+  if (id === null) return null;
+  const canonicalLeague = league === "la-liga" ? "laliga" : league;
+  const segment = BZZOIRO_LEAGUE_IMAGE_SEGMENT[canonicalLeague] ?? "league";
   return `${BZZOIRO_IMAGE_BASE_URL}/${segment}/${id}/?bg=transparent`;
+}
+
+/** Verifica que una URL pertenezca estrictamente a la Image API HTTPS de Bzzoiro. */
+export function isValidBzzoiroImageUrl(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  try {
+    const parsed = new URL(value);
+    return (
+      parsed.protocol === "https:" &&
+      parsed.hostname === "sports.bzzoiro.com" &&
+      parsed.pathname.startsWith("/img/")
+    );
+  } catch {
+    return false;
+  }
 }
 
 export interface ResolvedTeamEmblem {

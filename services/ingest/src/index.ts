@@ -32,3 +32,8 @@ export * from "./odds/regenerate-live-snapshot.js";
 export * from "./adapters/injuries.js";
 export * from "./adapters/lineups.js";
 export * from "./health/health-monitor.js";
+export {
+  mapBzzoiroLeagueLogoUrl,
+  mapBzzoiroTeamLogoUrl,
+  pickExplicitBzzoiroImageUrl,
+} from "./providers/bzzoiro.js";
