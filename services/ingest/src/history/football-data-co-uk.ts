@@ -437,6 +437,8 @@ function readStats(row: Readonly<Record<string, string>>): ResearchMatchStats | 
     yellowAway: asCount(row.AY),
     redHome: asCount(row.HR),
     redAway: asCount(row.AR),
+    foulsHome: asCount(row.HF),
+    foulsAway: asCount(row.AF),
   };
   const hasAny = Object.values(stats).some((value) => value !== null);
   return hasAny ? stats : undefined;

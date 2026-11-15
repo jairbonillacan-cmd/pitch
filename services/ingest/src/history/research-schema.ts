@@ -36,6 +36,9 @@ export const ResearchMatchStatsSchema = z.object({
   yellowAway: z.number().int().min(0).nullable(),
   redHome: z.number().int().min(0).nullable(),
   redAway: z.number().int().min(0).nullable(),
+  /** Faltas cometidas (football-data.co.uk `HF`/`AF`); opcional porque las filas viejas no lo traen. */
+  foulsHome: z.number().int().min(0).nullable().optional(),
+  foulsAway: z.number().int().min(0).nullable().optional(),
 });
 
 export type ResearchMatchStats = z.infer<typeof ResearchMatchStatsSchema>;

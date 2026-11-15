@@ -1,0 +1,372 @@
+{
+  "generatedAt": "2026-11-15T05:25:24.324Z",
+  "method": "Ratings log-lineales incrementales (genera/concede) por equipo con media de liga EWMA y regresión entre temporadas; binomial negativa por momentos. Ajuste en temporadas europeas < 2018-19, evaluación desde 2018-19; Liga MX con parámetros europeos.",
+  "stats": {
+    "corners": {
+      "params": {
+        "k": 0.02,
+        "seasonRegression": 0.35,
+        "meanAlpha": 0.005
+      },
+      "initial": {
+        "home": 5.83,
+        "away": 4.55
+      },
+      "dispersion": {
+        "model": 13.02,
+        "base": 10.06
+      },
+      "results": {
+        "premier-league": {
+          "n": 3140,
+          "meanTotal": 10.32,
+          "nllModel": 2.643,
+          "nllBase": 2.655,
+          "deltaModelVsBase": {
+            "mean": -0.012,
+            "lower": -0.0165,
+            "upper": -0.0074
+          },
+          "maeTotalModel": 2.713,
+          "maeTotalBase": 2.725,
+          "brierOverModel": 0.2486,
+          "brierOverBase": 0.2475
+        },
+        "la-liga": {
+          "n": 3159,
+          "meanTotal": 9.4,
+          "nllModel": 2.5922,
+          "nllBase": 2.609,
+          "deltaModelVsBase": {
+            "mean": -0.0169,
+            "lower": -0.0216,
+            "upper": -0.0123
+          },
+          "maeTotalModel": 2.582,
+          "maeTotalBase": 2.621,
+          "brierOverModel": 0.2488,
+          "brierOverBase": 0.2491
+        },
+        "bundesliga": {
+          "n": 2528,
+          "meanTotal": 9.77,
+          "nllModel": 2.6187,
+          "nllBase": 2.632,
+          "deltaModelVsBase": {
+            "mean": -0.0133,
+            "lower": -0.0183,
+            "upper": -0.0084
+          },
+          "maeTotalModel": 2.675,
+          "maeTotalBase": 2.691,
+          "brierOverModel": 0.248,
+          "brierOverBase": 0.2499
+        },
+        "serie-a": {
+          "n": 3150,
+          "meanTotal": 9.72,
+          "nllModel": 2.6387,
+          "nllBase": 2.65,
+          "deltaModelVsBase": {
+            "mean": -0.0114,
+            "lower": -0.0164,
+            "upper": -0.0061
+          },
+          "maeTotalModel": 2.725,
+          "maeTotalBase": 2.752,
+          "brierOverModel": 0.2488,
+          "brierOverBase": 0.2493
+        },
+        "ligue-1": {
+          "n": 2807,
+          "meanTotal": 9.5,
+          "nllModel": 2.6044,
+          "nllBase": 2.6108,
+          "deltaModelVsBase": {
+            "mean": -0.0064,
+            "lower": -0.0104,
+            "upper": -0.002
+          },
+          "maeTotalModel": 2.616,
+          "maeTotalBase": 2.624,
+          "brierOverModel": 0.2492,
+          "brierOverBase": 0.2478
+        },
+        "europa-5": {
+          "n": 14784,
+          "meanTotal": 9.75,
+          "nllModel": 2.6197,
+          "nllBase": 2.6318,
+          "deltaModelVsBase": {
+            "mean": -0.012,
+            "lower": -0.014,
+            "upper": -0.01
+          },
+          "maeTotalModel": 2.663,
+          "maeTotalBase": 2.684,
+          "brierOverModel": 0.2487,
+          "brierOverBase": 0.2487
+        },
+        "liga-mx": {
+          "n": 380,
+          "meanTotal": 10.02,
+          "nllModel": 2.6618,
+          "nllBase": 2.6701,
+          "deltaModelVsBase": {
+            "mean": -0.0083,
+            "lower": -0.0202,
+            "upper": 0.0028
+          },
+          "maeTotalModel": 2.763,
+          "maeTotalBase": 2.776,
+          "brierOverModel": 0.2481,
+          "brierOverBase": 0.25
+        }
+      }
+    },
+    "fouls": {
+      "params": {
+        "k": 0.05,
+        "seasonRegression": 0.35,
+        "meanAlpha": 0.005
+      },
+      "initial": {
+        "home": 14.42,
+        "away": 14.99
+      },
+      "dispersion": {
+        "model": 151.45,
+        "base": 57.79
+      },
+      "results": {
+        "premier-league": {
+          "n": 3140,
+          "meanTotal": 21.46,
+          "nllModel": 2.9922,
+          "nllBase": 3.07,
+          "deltaModelVsBase": {
+            "mean": -0.0778,
+            "lower": -0.0922,
+            "upper": -0.0623
+          },
+          "maeTotalModel": 3.871,
+          "maeTotalBase": 4.173,
+          "brierOverModel": 0.2492,
+          "brierOverBase": 0.2494
+        },
+        "la-liga": {
+          "n": 3159,
+          "meanTotal": 26.08,
+          "nllModel": 3.1034,
+          "nllBase": 3.1648,
+          "deltaModelVsBase": {
+            "mean": -0.0614,
+            "lower": -0.0745,
+            "upper": -0.0483
+          },
+          "maeTotalModel": 4.306,
+          "maeTotalBase": 4.614,
+          "brierOverModel": 0.2497,
+          "brierOverBase": 0.2496
+        },
+        "bundesliga": {
+          "n": 2528,
+          "meanTotal": 22.8,
+          "nllModel": 3.0477,
+          "nllBase": 3.1196,
+          "deltaModelVsBase": {
+            "mean": -0.0719,
+            "lower": -0.0876,
+            "upper": -0.0561
+          },
+          "maeTotalModel": 4.078,
+          "maeTotalBase": 4.396,
+          "brierOverModel": 0.2486,
+          "brierOverBase": 0.2501
+        },
+        "serie-a": {
+          "n": 3150,
+          "meanTotal": 25.7,
+          "nllModel": 3.0977,
+          "nllBase": 3.169,
+          "deltaModelVsBase": {
+            "mean": -0.0713,
+            "lower": -0.0861,
+            "upper": -0.057
+          },
+          "maeTotalModel": 4.271,
+          "maeTotalBase": 4.597,
+          "brierOverModel": 0.2497,
+          "brierOverBase": 0.2493
+        },
+        "ligue-1": {
+          "n": 2807,
+          "meanTotal": 24.89,
+          "nllModel": 3.1019,
+          "nllBase": 3.142,
+          "deltaModelVsBase": {
+            "mean": -0.0401,
+            "lower": -0.0537,
+            "upper": -0.0259
+          },
+          "maeTotalModel": 4.28,
+          "maeTotalBase": 4.457,
+          "brierOverModel": 0.2502,
+          "brierOverBase": 0.2492
+        },
+        "europa-5": {
+          "n": 14784,
+          "meanTotal": 24.23,
+          "nllModel": 3.0688,
+          "nllBase": 3.1335,
+          "deltaModelVsBase": {
+            "mean": -0.0647,
+            "lower": -0.0714,
+            "upper": -0.0584
+          },
+          "maeTotalModel": 4.162,
+          "maeTotalBase": 4.45,
+          "brierOverModel": 0.2495,
+          "brierOverBase": 0.2495
+        },
+        "liga-mx": {
+          "n": 379,
+          "meanTotal": 24.56,
+          "nllModel": 3.0866,
+          "nllBase": 3.1433,
+          "deltaModelVsBase": {
+            "mean": -0.0567,
+            "lower": -0.0883,
+            "upper": -0.0249
+          },
+          "maeTotalModel": 4.25,
+          "maeTotalBase": 4.517,
+          "brierOverModel": 0.2499,
+          "brierOverBase": 0.2495
+        }
+      }
+    },
+    "yellow": {
+      "params": {
+        "k": 0.02,
+        "seasonRegression": 0.5,
+        "meanAlpha": 0.01
+      },
+      "initial": {
+        "home": 1.7,
+        "away": 2.09
+      },
+      "dispersion": {
+        "model": null,
+        "base": null
+      },
+      "results": {
+        "premier-league": {
+          "n": 3140,
+          "meanTotal": 3.57,
+          "nllModel": 2.0494,
+          "nllBase": 2.0677,
+          "deltaModelVsBase": {
+            "mean": -0.0183,
+            "lower": -0.0247,
+            "upper": -0.012
+          },
+          "maeTotalModel": 1.542,
+          "maeTotalBase": 1.563,
+          "brierOverModel": 0.2461,
+          "brierOverBase": 0.2443
+        },
+        "la-liga": {
+          "n": 3159,
+          "meanTotal": 4.81,
+          "nllModel": 2.2425,
+          "nllBase": 2.262,
+          "deltaModelVsBase": {
+            "mean": -0.0196,
+            "lower": -0.0262,
+            "upper": -0.0132
+          },
+          "maeTotalModel": 1.847,
+          "maeTotalBase": 1.88,
+          "brierOverModel": 0.2481,
+          "brierOverBase": 0.2474
+        },
+        "bundesliga": {
+          "n": 2528,
+          "meanTotal": 3.81,
+          "nllModel": 2.1168,
+          "nllBase": 2.126,
+          "deltaModelVsBase": {
+            "mean": -0.0092,
+            "lower": -0.0156,
+            "upper": -0.0032
+          },
+          "maeTotalModel": 1.642,
+          "maeTotalBase": 1.658,
+          "brierOverModel": 0.2463,
+          "brierOverBase": 0.2463
+        },
+        "serie-a": {
+          "n": 3150,
+          "meanTotal": 4.36,
+          "nllModel": 2.0944,
+          "nllBase": 2.1085,
+          "deltaModelVsBase": {
+            "mean": -0.014,
+            "lower": -0.0194,
+            "upper": -0.0089
+          },
+          "maeTotalModel": 1.576,
+          "maeTotalBase": 1.608,
+          "brierOverModel": 0.2454,
+          "brierOverBase": 0.2488
+        },
+        "ligue-1": {
+          "n": 2807,
+          "meanTotal": 3.75,
+          "nllModel": 2.0396,
+          "nllBase": 2.048,
+          "deltaModelVsBase": {
+            "mean": -0.0084,
+            "lower": -0.013,
+            "upper": -0.0035
+          },
+          "maeTotalModel": 1.501,
+          "maeTotalBase": 1.512,
+          "brierOverModel": 0.2472,
+          "brierOverBase": 0.2484
+        },
+        "europa-5": {
+          "n": 14784,
+          "meanTotal": 4.08,
+          "nllModel": 2.1099,
+          "nllBase": 2.1241,
+          "deltaModelVsBase": {
+            "mean": -0.0142,
+            "lower": -0.0168,
+            "upper": -0.0116
+          },
+          "maeTotalModel": 1.624,
+          "maeTotalBase": 1.647,
+          "brierOverModel": 0.2466,
+          "brierOverBase": 0.2471
+        },
+        "liga-mx": {
+          "n": 1911,
+          "meanTotal": 4.52,
+          "nllModel": 2.2163,
+          "nllBase": 2.2233,
+          "deltaModelVsBase": {
+            "mean": -0.007,
+            "lower": -0.0127,
+            "upper": -0.0017
+          },
+          "maeTotalModel": 1.796,
+          "maeTotalBase": 1.809,
+          "brierOverModel": 0.2462,
+          "brierOverBase": 0.2483
+        }
+      }
+    }
+  }
+}

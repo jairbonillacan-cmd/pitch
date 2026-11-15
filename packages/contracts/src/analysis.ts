@@ -90,6 +90,8 @@ export interface AnalysisInsights {
 
 export interface GameAnalysis {
   game: GameId;
+  /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
+  counts?: { corners?: CountProjection; fouls?: CountProjection; yellow?: CountProjection };
   model: {
     id: string;
     version: string;
@@ -198,8 +200,31 @@ export const MostLikelyScoreSchema = z.object({
   p: z.number().min(0).max(1),
 });
 
+/** Conteo esperado por equipo (córners, faltas, amarillas) con su línea equilibrada. */
+export const CountProjectionSchema = z.object({
+  home: z.number().nonnegative(),
+  away: z.number().nonnegative(),
+  total: z.number().nonnegative(),
+  /** Línea con .5 más cercana a 50/50. */
+  line: z.number(),
+  /** Probabilidad de que el total pase la línea. */
+  pOver: z.number().min(0).max(1),
+  /** Partidos con el dato de cada equipo que vio el motor. */
+  sample: z.object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() }),
+});
+
+export type CountProjection = z.infer<typeof CountProjectionSchema>;
+
 export const GameAnalysisSchema = z.object({
   game: GameIdSchema,
+  /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
+  counts: z
+    .object({
+      corners: CountProjectionSchema.optional(),
+      fouls: CountProjectionSchema.optional(),
+      yellow: CountProjectionSchema.optional(),
+    })
+    .optional(),
   model: z.object({
     id: z.string().min(1),
     version: z.string().min(1),

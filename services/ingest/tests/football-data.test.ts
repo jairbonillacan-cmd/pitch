@@ -117,6 +117,9 @@ describe("football-data.co.uk — normalización de una temporada", () => {
       yellowAway: 3,
       redHome: 0,
       redAway: 0,
+      // El CSV de prueba no trae columnas HF/AF.
+      foulsHome: null,
+      foulsAway: null,
     });
     expect(first.odds?.bookmaker).toBe("Pinnacle");
     expect(first.odds?.timing).toBe("closing");

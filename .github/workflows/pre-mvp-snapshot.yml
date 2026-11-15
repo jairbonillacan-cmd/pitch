@@ -84,7 +84,17 @@ jobs:
           fi
           # Si se corta a medias, lo juntado ya quedó guardado: se empareja igual.
           pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=premier-league --seasons=4 --max-requests=1500             || echo "::warning title=xG incompleto::Bzzoiro no respondió completo; se usa lo juntado."
+          # Liga MX: córners, faltas y amarillas para el motor de conteos (2 torneos; la caché evita repetir).
+          pnpm --filter @pitchlab/ingest history:providers --provider=bzzoiro --leagues=liga-mx --seasons=2 --max-requests=600             || echo "::warning title=Liga MX incompleta::Bzzoiro no respondió completo; se usa lo juntado."
           pnpm --filter @pitchlab/ingest history:link
+
+      # Córners, faltas y amarillas de las 5 ligas europeas (football-data.co.uk, CSV gratis,
+      # research-only: no se publica el dato crudo, solo la proyección). ~25 descargas por corte.
+      # Si falla, los análisis salen sin conteos; nunca bloquea el corte.
+      - name: Córners y faltas de las ligas europeas
+        continue-on-error: true
+        run: |
+          pnpm --filter @pitchlab/ingest history:odds --leagues=premier-league,la-liga,bundesliga,serie-a,ligue-1             --seasons=2022-23,2023-24,2024-25,2025-26,2026-27 --quiet --report-dir="$RUNNER_TEMP/fd-report"             || echo "::warning title=Sin conteos europeos::football-data.co.uk no respondió; los análisis salen sin córners ni faltas."
 
       # NBA y NHL: motor de ratings (docs/architecture/PLAN_MOTORES_Y_FUENTES_2026_11.md §8).
       # ~7 peticiones por deporte y corte (cuota gratis: 100 al día por deporte). Si falla o no

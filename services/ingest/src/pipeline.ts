@@ -46,6 +46,7 @@ import {
   type NflRatingsModel,
 } from "@pitchlab/models";
 import type { XgLookup } from "./xg-feed.js";
+import { withCountProjections, type CountFeed } from "./counts-feed.js";
 import {
   addMatchContext,
   enrichPreservedAnalysis,
@@ -286,6 +287,8 @@ export function buildFootballSnapshot(params: {
    * con xG en lugar de goles donde lo haya (Elo de xG, validado en la Premier).
    */
   xgLookup?: XgLookup | null;
+  /** Córners, faltas y amarillas esperados (`counts-feed.ts`); sin feed no se publican. */
+  countFeed?: CountFeed | null;
 }): LeagueSnapshot {
   const {
     league,
@@ -304,6 +307,7 @@ export function buildFootballSnapshot(params: {
     history,
     historyBlendWeight = HISTORY_BLEND_WEIGHT,
     xgLookup = null,
+    countFeed = null,
   } = params;
 
   const seasonRows = seasonGames ? toFootballMatchRows(seasonGames) : [];
@@ -391,7 +395,7 @@ export function buildFootballSnapshot(params: {
       continue;
     }
 
-    const analysis = analyze(game, publishedAtFor(game, updatedAt));
+    const analysis = withCountProjections(analyze(game, publishedAtFor(game, updatedAt)), game, countFeed);
     analyses[game.id] = GameAnalysisSchema.parse(
       footballModel
         ? withPreKickoffPicksOnly(addMatchContext(analysis, game, contextRows, seasonRows), game, updatedAt)

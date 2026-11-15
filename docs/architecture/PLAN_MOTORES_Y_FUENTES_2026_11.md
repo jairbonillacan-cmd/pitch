@@ -190,6 +190,25 @@ Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2
 4. Bajas de NBA/NHL (ESPN, research-only, ya hay adaptador de bajas) y portero confirmado de NHL.
 5. Fichas de partido y tarjetas con el lenguaje de la app (stories en ambos temas).
 
+## 10. Córners, faltas y amarillas (motor nuevo, 2026-11-14)
+
+Astra publica córners y faltas esperados; nosotros no teníamos ese modelo. Ahora sí, y validado.
+
+- **Modelo** (`packages/models/src/football/counts.ts`): ratings log-lineales por equipo, una de lo que *genera* (córners a favor, faltas cometidas, amarillas recibidas) y otra de lo que *concede* al rival, sobre la media de la liga por lado (EWMA), con regresión entre temporadas. Se actualizan partido a partido con el error relativo acotado. Distribución binomial negativa por momentos (córners `r≈13`, faltas `r≈151`; amarillas sin sobredispersión → Poisson).
+- **Datos** (research-only, fuera de Git): football-data.co.uk para las 5 ligas europeas desde 2010-11 (~29 mil partidos con córners, faltas y amarillas; `history:odds` ahora lee `HF`/`AF`) y Bzzoiro para Liga MX (~480 partidos con córners y faltas, ~2 mil con amarillas).
+- **Backtest** (`pnpm --filter @pitchlab/ingest backtest:counts` → `Reportes/modelos/BACKTEST-CORNERS-FOULS.json`). Parámetros elegidos solo con las temporadas europeas 2010-11…2017-18, compartidos entre ligas; evaluación 2018-19 en adelante contra la media de la liga sin ratings de equipo (pérdida = −log-verosimilitud del total; Δ negativo = mejora):
+
+| Conteo | Europa (n=14,784) Δ [IC 95 %] | MAE total modelo vs base | Liga MX Δ [IC 95 %] |
+|---|---|---|---|
+| Córners | −0.012 [−0.014, −0.010] | 2.66 vs 2.68 | −0.008 [−0.020, +0.003] (n=380, no significativo) |
+| Faltas | −0.065 [−0.071, −0.058] | 4.16 vs 4.45 | −0.057 [−0.088, −0.025] |
+| Amarillas | −0.014 [−0.017, −0.012] | 1.62 vs 1.65 | −0.007 [−0.013, −0.002] |
+
+  Los córners mejoran poco: son ruidosos para cualquier modelo (también para Astra). Las faltas son donde más pesa el estilo del equipo.
+- **Producción** (`services/ingest/src/counts-feed.ts`): cada análisis de fútbol nuevo trae `counts` (esperado por equipo, total, línea equilibrada con .5 y probabilidad del más), un grupo de mercado por conteo y un factor legible. Solo se publica si ambos equipos tienen al menos 5 partidos con ese dato: nunca se rellena con promedios. No entra a picks, 1X2 ni confianza. El workflow descarga football-data.co.uk (5 temporadas, ~25 CSV por corte) y 2 torneos de Liga MX de Bzzoiro (tope 600 peticiones; la caché evita repetir). Si falla, el análisis sale sin conteos.
+- **Ejemplo** Querétaro–Monterrey (14 nov): córners 5.4–5.3 (10.8), faltas 11.8–10.1 (22.0). Astra publicó 5.1–5.5 (10.6) y 11.8–10.3 (22.1).
+- **Pendiente:** árbitro como variable de faltas y tarjetas (football-data.co.uk lo trae solo en la Premier; Bzzoiro trae `refereeId`), y comparar contra la línea de córners de cierre de Bet365 (5Dollar, plan Pro).
+
 ## 9. Siguientes pasos
 
 1. Cargar `BZZOIRO_API_KEY` como secreto de GitHub Actions para encender el xG en producción.
@@ -197,3 +216,5 @@ Backtest walk-forward Premier League (**5,898 partidos** evaluados, log loss 1X2
 3. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
 4. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 5. MLB: distribución de carreras, entradas extra, F5 y run line antes de marzo.
+6. Árbitro en faltas y tarjetas (§10).
+7. Análisis de IA por secciones, generado una vez por partido en el corte (córners y faltas ya salen del motor, §10).

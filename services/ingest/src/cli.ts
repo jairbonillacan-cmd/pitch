@@ -9,6 +9,7 @@ import {
 import { loadRootEnvFiles } from "./env.js";
 import { loadLeagueHistory, loadPriorMatches } from "./prior-season.js";
 import { loadXgLookup } from "./xg-feed.js";
+import { loadCountFeed } from "./counts-feed.js";
 import {
   fetchOpenFootballBundesliga,
   fetchOpenFootballLaliga,
@@ -361,6 +362,7 @@ async function main() {
           const priorPl = loadPriorMatches("premier-league", dateStr);
           return buildFootballSnapshot({
             league: "premier-league",
+            countFeed: loadCountFeed("premier-league"),
             leagueName: "Premier League",
             seasonId: normPl.seasonId,
             seasonLabel: normPl.seasonLabel,
@@ -404,6 +406,7 @@ async function main() {
           const priorLl = loadPriorMatches("laliga", dateStr);
           return buildFootballSnapshot({
             league: "laliga",
+            countFeed: loadCountFeed("laliga"),
             leagueName: "LaLiga",
             seasonId: normLl.seasonId,
             seasonLabel: normLl.seasonLabel,
@@ -465,6 +468,7 @@ async function main() {
           );
           return buildFootballSnapshot({
             league: entry.league,
+            countFeed: loadCountFeed(entry.league),
             leagueName: entry.name,
             seasonId: normalized.seasonId,
             seasonLabel: normalized.seasonLabel,
@@ -504,6 +508,7 @@ async function main() {
           const priorMx = loadPriorMatches("liga-mx", dateStr);
           return buildFootballSnapshot({
             league: "liga-mx",
+            countFeed: loadCountFeed("liga-mx"),
             leagueName: "Liga MX",
             seasonId: normMx.seasonId,
             seasonLabel: normMx.seasonLabel,
