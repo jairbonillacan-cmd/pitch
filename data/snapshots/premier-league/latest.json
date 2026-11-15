@@ -4,8 +4,8 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-14T14:07:39.275Z",
-  "source": "openfootball",
+  "updatedAt": "2026-11-15T14:29:43.655Z",
+  "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -17,30 +17,30 @@
       "forPerGame": 1.625,
       "againstPerGame": 1.125,
       "gamesPlayed": 8,
-      "adjustedFor": 1.5821301797264637,
-      "adjustedAgainst": 1.23975232879625
+      "adjustedFor": 1.5857646074814846,
+      "adjustedAgainst": 1.2458989520786143
     },
     "premier-league.arsenal": {
       "teamId": "premier-league.arsenal",
       "name": "Arsenal",
       "shortName": "Arsenal",
       "code": "ARS",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.6186156315692282,
-      "adjustedAgainst": 0.7465697707672537
+      "forPerGame": 1.4285714285714286,
+      "againstPerGame": 0.5714285714285714,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.6001931713381403,
+      "adjustedAgainst": 0.7787522952016962
     },
     "premier-league.aston-villa": {
       "teamId": "premier-league.aston-villa",
       "name": "Aston Villa",
       "shortName": "Aston Villa",
       "code": "AVL",
-      "forPerGame": 1.5714285714285714,
-      "againstPerGame": 2.142857142857143,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.598416826434648,
-      "adjustedAgainst": 1.4546761987205723
+      "forPerGame": 1.5,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.5663718412604064,
+      "adjustedAgainst": 1.5075927362956354
     },
     "premier-league.brentford": {
       "teamId": "premier-league.brentford",
@@ -50,8 +50,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.875,
       "gamesPlayed": 8,
-      "adjustedFor": 1.550735506039905,
-      "adjustedAgainst": 1.1854205271334064
+      "adjustedFor": 1.5529510918042315,
+      "adjustedAgainst": 1.1907791879815446
     },
     "premier-league.brighton-hove-albion": {
       "teamId": "premier-league.brighton-hove-albion",
@@ -61,30 +61,30 @@
       "forPerGame": 2.375,
       "againstPerGame": 0.875,
       "gamesPlayed": 8,
-      "adjustedFor": 1.7677208525958101,
-      "adjustedAgainst": 1.0921470448165167
+      "adjustedFor": 1.7647103875777213,
+      "adjustedAgainst": 1.0935337900547664
     },
     "premier-league.chelsea": {
       "teamId": "premier-league.chelsea",
       "name": "Chelsea",
       "shortName": "Chelsea",
       "code": "CHE",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.4534147878496815,
-      "adjustedAgainst": 1.4276633324597987
+      "forPerGame": 1.7142857142857142,
+      "againstPerGame": 1.8571428571428572,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.5366761760490595,
+      "adjustedAgainst": 1.4049010099601937
     },
     "premier-league.coventry-city": {
       "teamId": "premier-league.coventry-city",
       "name": "Coventry City",
       "shortName": "Coventry City",
       "code": "COV",
-      "forPerGame": 0.625,
-      "againstPerGame": 1.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 0.9489584917554423,
-      "adjustedAgainst": 1.5774871601484544
+      "forPerGame": 0.7142857142857143,
+      "againstPerGame": 2,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.0723698808060604,
+      "adjustedAgainst": 1.6185218410129312
     },
     "premier-league.crystal-palace": {
       "teamId": "premier-league.crystal-palace",
@@ -94,30 +94,30 @@
       "forPerGame": 1,
       "againstPerGame": 2.5714285714285716,
       "gamesPlayed": 7,
-      "adjustedFor": 1.190142534306744,
-      "adjustedAgainst": 1.7657281713034052
+      "adjustedFor": 1.1898000895179393,
+      "adjustedAgainst": 1.7743832496415424
     },
     "premier-league.everton": {
       "teamId": "premier-league.everton",
       "name": "Everton",
       "shortName": "Everton",
       "code": "EVE",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 0.8571428571428571,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.271863068447389,
-      "adjustedAgainst": 1.1254169800189813
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.6666666666666666,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.3013259676880642,
+      "adjustedAgainst": 1.0979057492736761
     },
     "premier-league.fulham": {
       "teamId": "premier-league.fulham",
       "name": "Fulham",
       "shortName": "Fulham",
       "code": "FUL",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 1.4285714285714286,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.1745388035963722,
-      "adjustedAgainst": 1.3287984231015106
+      "forPerGame": 1.1666666666666667,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.1895455805039121,
+      "adjustedAgainst": 1.3784424504671378
     },
     "premier-league.hull-city": {
       "teamId": "premier-league.hull-city",
@@ -127,8 +127,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2552883511493698,
-      "adjustedAgainst": 1.134229442271351
+      "adjustedFor": 1.2585955831084599,
+      "adjustedAgainst": 1.1294285333959972
     },
     "premier-league.ipswich-town": {
       "teamId": "premier-league.ipswich-town",
@@ -138,8 +138,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 2.142857142857143,
       "gamesPlayed": 7,
-      "adjustedFor": 1.315822954058789,
-      "adjustedAgainst": 1.8027364018790726
+      "adjustedFor": 1.325367949552162,
+      "adjustedAgainst": 1.809027372611795
     },
     "premier-league.leeds-united": {
       "teamId": "premier-league.leeds-united",
@@ -149,8 +149,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 7,
-      "adjustedFor": 1.300774302958457,
-      "adjustedAgainst": 1.1641829307723683
+      "adjustedFor": 1.2991097694894622,
+      "adjustedAgainst": 1.1732622584413175
     },
     "premier-league.liverpool": {
       "teamId": "premier-league.liverpool",
@@ -160,19 +160,19 @@
       "forPerGame": 1.7142857142857142,
       "againstPerGame": 0.8571428571428571,
       "gamesPlayed": 7,
-      "adjustedFor": 1.6493619374058854,
-      "adjustedAgainst": 1.1786611955371118
+      "adjustedFor": 1.6494885513659092,
+      "adjustedAgainst": 1.1858688435045088
     },
     "premier-league.manchester-city": {
       "teamId": "premier-league.manchester-city",
       "name": "Manchester City",
       "shortName": "Manchester City",
       "code": "MCI",
-      "forPerGame": 1.875,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7590657480767993,
-      "adjustedAgainst": 1.082899458306905
+      "forPerGame": 2,
+      "againstPerGame": 1.2857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.79223184290203,
+      "adjustedAgainst": 1.055705652098488
     },
     "premier-league.manchester-united": {
       "teamId": "premier-league.manchester-united",
@@ -182,8 +182,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.125,
       "gamesPlayed": 8,
-      "adjustedFor": 1.5742309441819582,
-      "adjustedAgainst": 1.5017055296360138
+      "adjustedFor": 1.576097793465243,
+      "adjustedAgainst": 1.504008327384483
     },
     "premier-league.newcastle-united": {
       "teamId": "premier-league.newcastle-united",
@@ -193,8 +193,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4942435516312191,
-      "adjustedAgainst": 1.3577094216724828
+      "adjustedFor": 1.4937895635053056,
+      "adjustedAgainst": 1.3644870892862984
     },
     "premier-league.nottingham-forest": {
       "teamId": "premier-league.nottingham-forest",
@@ -204,8 +204,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.3169966564418716,
-      "adjustedAgainst": 1.258424501025132
+      "adjustedFor": 1.317729528348242,
+      "adjustedAgainst": 1.260380196689811
     },
     "premier-league.sunderland": {
       "teamId": "premier-league.sunderland",
@@ -215,19 +215,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 8,
-      "adjustedFor": 1.1648409543909473,
-      "adjustedAgainst": 1.412115458191245
+      "adjustedFor": 1.1640044930194142,
+      "adjustedAgainst": 1.4087033745037094
     },
     "premier-league.tottenham-hotspur": {
       "teamId": "premier-league.tottenham-hotspur",
       "name": "Tottenham Hotspur",
       "shortName": "Tottenham",
       "code": "TOT",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1405885598709073,
-      "adjustedAgainst": 1.4570874623052368
+      "forPerGame": 0.8,
+      "againstPerGame": 1.8,
+      "gamesPlayed": 5,
+      "adjustedFor": 1.0996541924207333,
+      "adjustedAgainst": 1.5408284658733542
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -537,7 +537,7 @@
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-14T14:07:42.414Z",
+        "observedAt": "2026-11-15T14:29:45.203Z",
         "source": "football-data"
       }
     },
@@ -10393,13 +10393,13 @@
       "name": "Arsenal",
       "shortName": "Arsenal",
       "code": "ARS",
-      "played": 8,
-      "won": 7,
+      "played": 7,
+      "won": 6,
       "drawn": 0,
       "lost": 1,
-      "goalsFor": 12,
+      "goalsFor": 10,
       "goalsAgainst": 4,
-      "points": 21
+      "points": 18
     },
     {
       "teamId": "premier-league.brighton-hove-albion",
@@ -10419,12 +10419,12 @@
       "name": "Manchester City",
       "shortName": "Manchester City",
       "code": "MCI",
-      "played": 8,
+      "played": 7,
       "won": 5,
       "drawn": 0,
-      "lost": 3,
-      "goalsFor": 15,
-      "goalsAgainst": 11,
+      "lost": 2,
+      "goalsFor": 14,
+      "goalsAgainst": 9,
       "points": 15
     },
     {
@@ -10445,12 +10445,12 @@
       "name": "Everton",
       "shortName": "Everton",
       "code": "EVE",
-      "played": 7,
+      "played": 6,
       "won": 4,
       "drawn": 2,
-      "lost": 1,
+      "lost": 0,
       "goalsFor": 10,
-      "goalsAgainst": 6,
+      "goalsAgainst": 4,
       "points": 14
     },
     {
@@ -10510,12 +10510,12 @@
       "name": "Chelsea",
       "shortName": "Chelsea",
       "code": "CHE",
-      "played": 8,
+      "played": 7,
       "won": 3,
       "drawn": 1,
-      "lost": 4,
+      "lost": 3,
       "goalsFor": 12,
-      "goalsAgainst": 15,
+      "goalsAgainst": 13,
       "points": 10
     },
     {
@@ -10530,19 +10530,6 @@
       "goalsFor": 9,
       "goalsAgainst": 8,
       "points": 9
-    },
-    {
-      "teamId": "premier-league.aston-villa",
-      "name": "Aston Villa",
-      "shortName": "Aston Villa",
-      "code": "AVL",
-      "played": 7,
-      "won": 2,
-      "drawn": 2,
-      "lost": 3,
-      "goalsFor": 11,
-      "goalsAgainst": 15,
-      "points": 8
     },
     {
       "teamId": "premier-league.sunderland",
@@ -10584,32 +10571,6 @@
       "points": 7
     },
     {
-      "teamId": "premier-league.fulham",
-      "name": "Fulham",
-      "shortName": "Fulham",
-      "code": "FUL",
-      "played": 7,
-      "won": 1,
-      "drawn": 3,
-      "lost": 3,
-      "goalsFor": 8,
-      "goalsAgainst": 10,
-      "points": 6
-    },
-    {
-      "teamId": "premier-league.tottenham-hotspur",
-      "name": "Tottenham Hotspur",
-      "shortName": "Tottenham",
-      "code": "TOT",
-      "played": 6,
-      "won": 2,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 6,
-      "goalsAgainst": 9,
-      "points": 6
-    },
-    {
       "teamId": "premier-league.manchester-united",
       "name": "Manchester United",
       "shortName": "Man. United",
@@ -10627,13 +10588,52 @@
       "name": "Coventry City",
       "shortName": "Coventry City",
       "code": "COV",
-      "played": 8,
+      "played": 7,
       "won": 2,
       "drawn": 0,
-      "lost": 6,
+      "lost": 5,
       "goalsFor": 5,
-      "goalsAgainst": 15,
+      "goalsAgainst": 14,
       "points": 6
+    },
+    {
+      "teamId": "premier-league.aston-villa",
+      "name": "Aston Villa",
+      "shortName": "Aston Villa",
+      "code": "AVL",
+      "played": 6,
+      "won": 1,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 9,
+      "goalsAgainst": 14,
+      "points": 5
+    },
+    {
+      "teamId": "premier-league.fulham",
+      "name": "Fulham",
+      "shortName": "Fulham",
+      "code": "FUL",
+      "played": 6,
+      "won": 0,
+      "drawn": 3,
+      "lost": 3,
+      "goalsFor": 7,
+      "goalsAgainst": 10,
+      "points": 3
+    },
+    {
+      "teamId": "premier-league.tottenham-hotspur",
+      "name": "Tottenham Hotspur",
+      "shortName": "Tottenham",
+      "code": "TOT",
+      "played": 5,
+      "won": 1,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 4,
+      "goalsAgainst": 9,
+      "points": 3
     },
     {
       "teamId": "premier-league.crystal-palace",

@@ -4,7 +4,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-14T14:07:39.275Z",
+  "updatedAt": "2026-11-15T14:29:43.655Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 0.8571428571428571,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 0.8899829380681785,
-      "adjustedAgainst": 1.3376821668290815
+      "adjustedFor": 0.8905223564682362,
+      "adjustedAgainst": 1.3383782480395414
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
@@ -28,8 +28,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 2.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.1951686019778962,
-      "adjustedAgainst": 1.6548408956786524
+      "adjustedFor": 1.1959942331454694,
+      "adjustedAgainst": 1.6551797245007933
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -39,8 +39,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.4022039979220988,
-      "adjustedAgainst": 1.3857392497236733
+      "adjustedFor": 1.4020907062965497,
+      "adjustedAgainst": 1.3862838353134725
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
@@ -50,8 +50,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 2.5714285714285716,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2266862347926701,
-      "adjustedAgainst": 1.731064818243852
+      "adjustedFor": 1.2269210746174701,
+      "adjustedAgainst": 1.7315458134770805
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
@@ -61,19 +61,19 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.625,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3055507100919344,
-      "adjustedAgainst": 1.4523591720712161
+      "adjustedFor": 1.3038461223138724,
+      "adjustedAgainst": 1.4542680087742506
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
       "name": "Racing Club de Lens",
       "shortName": "Lens",
       "code": "RCL",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.6200194942676251,
-      "adjustedAgainst": 1.22257515995006
+      "forPerGame": 1.4285714285714286,
+      "againstPerGame": 1.7142857142857142,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.6060979367839332,
+      "adjustedAgainst": 1.2450792088092455
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
@@ -83,8 +83,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2296570437571392,
-      "adjustedAgainst": 1.3078718979407014
+      "adjustedFor": 1.2292070099882932,
+      "adjustedAgainst": 1.3090012573310212
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
@@ -94,8 +94,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4738602102609977,
-      "adjustedAgainst": 0.9521002384186238
+      "adjustedFor": 1.4725211087933774,
+      "adjustedAgainst": 0.9530522688129405
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
@@ -105,8 +105,8 @@
       "forPerGame": 1.7142857142857142,
       "againstPerGame": 0.8571428571428571,
       "gamesPlayed": 7,
-      "adjustedFor": 1.585612281188197,
-      "adjustedAgainst": 1.147070581304155
+      "adjustedFor": 1.5861344260660628,
+      "adjustedAgainst": 1.1476420461836179
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
@@ -116,8 +116,8 @@
       "forPerGame": 1.875,
       "againstPerGame": 1.5,
       "gamesPlayed": 8,
-      "adjustedFor": 1.7085519565116671,
-      "adjustedAgainst": 1.3034214093685752
+      "adjustedFor": 1.7094841886321375,
+      "adjustedAgainst": 1.3038305588056398
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
@@ -127,8 +127,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 1,
       "gamesPlayed": 8,
-      "adjustedFor": 1.5780927605792079,
-      "adjustedAgainst": 1.2186959126451533
+      "adjustedFor": 1.5780974368737508,
+      "adjustedAgainst": 1.2190957162259466
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -138,19 +138,19 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.3912036458425008,
-      "adjustedAgainst": 1.501896850612086
+      "adjustedFor": 1.3926430543574138,
+      "adjustedAgainst": 1.5014551342627733
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
       "name": "Paris FC",
       "shortName": "Paris FC",
       "code": "PFC",
-      "forPerGame": 2.1666666666666665,
-      "againstPerGame": 1,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.6586506164125794,
-      "adjustedAgainst": 1.2292091646084837
+      "forPerGame": 2.4,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 5,
+      "adjustedFor": 1.678351278595899,
+      "adjustedAgainst": 1.2001984497937068
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -160,8 +160,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 8,
-      "adjustedFor": 1.9474053003601945,
-      "adjustedAgainst": 0.9505700201536189
+      "adjustedFor": 1.947415975074859,
+      "adjustedAgainst": 0.9510658683710991
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
@@ -171,8 +171,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 8,
-      "adjustedFor": 1.7208342656947266,
-      "adjustedAgainst": 1.5813470092507143
+      "adjustedFor": 1.7214613867992656,
+      "adjustedAgainst": 1.5816199251780767
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
@@ -182,8 +182,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.125,
       "gamesPlayed": 8,
-      "adjustedFor": 1.800006013083915,
-      "adjustedAgainst": 1.594670489151701
+      "adjustedFor": 1.7995137528651322,
+      "adjustedAgainst": 1.5948881913190804
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
@@ -193,8 +193,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3325291380502295,
-      "adjustedAgainst": 1.3729392082112055
+      "adjustedFor": 1.332857804583061,
+      "adjustedAgainst": 1.373576492481822
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
@@ -204,8 +204,8 @@
       "forPerGame": 0.8571428571428571,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 7,
-      "adjustedFor": 1.0812640282614547,
-      "adjustedAgainst": 1.451206413536439
+      "adjustedFor": 1.0813437860509347,
+      "adjustedAgainst": 1.4524925285025274
     }
   },
   "games": [
@@ -236,7 +236,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -267,7 +267,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -329,7 +329,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -360,7 +360,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -391,7 +391,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -453,7 +453,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -484,7 +484,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:49.647Z",
+        "observedAt": "2026-11-15T14:29:49.230Z",
         "source": "football-data"
       }
     },
@@ -9320,12 +9320,12 @@
       "name": "Paris FC",
       "shortName": "Paris FC",
       "code": "PFC",
-      "played": 6,
+      "played": 5,
       "won": 5,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 6,
+      "lost": 0,
+      "goalsFor": 12,
+      "goalsAgainst": 4,
       "points": 15
     },
     {
@@ -9459,19 +9459,6 @@
       "points": 8
     },
     {
-      "teamId": "ligue-1.racing-lens",
-      "name": "Racing Club de Lens",
-      "shortName": "Lens",
-      "code": "RCL",
-      "played": 8,
-      "won": 2,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 12,
-      "goalsAgainst": 13,
-      "points": 7
-    },
-    {
       "teamId": "ligue-1.angers-sco",
       "name": "Angers SCO",
       "shortName": "Angers",
@@ -9509,6 +9496,19 @@
       "goalsFor": 9,
       "goalsAgainst": 19,
       "points": 7
+    },
+    {
+      "teamId": "ligue-1.racing-lens",
+      "name": "Racing Club de Lens",
+      "shortName": "Lens",
+      "code": "RCL",
+      "played": 7,
+      "won": 1,
+      "drawn": 1,
+      "lost": 5,
+      "goalsFor": 10,
+      "goalsAgainst": 12,
+      "points": 4
     },
     {
       "teamId": "ligue-1.le-havre",

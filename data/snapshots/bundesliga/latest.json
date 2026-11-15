@@ -4,7 +4,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-14T14:07:39.275Z",
+  "updatedAt": "2026-11-15T14:29:43.655Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -14,11 +14,11 @@
       "name": "FC Augsburg",
       "shortName": "Augsburg",
       "code": "FCA",
-      "forPerGame": 2.142857142857143,
-      "againstPerGame": 2,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.5294316301301187,
-      "adjustedAgainst": 1.7078733530019437
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 2.1666666666666665,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.5873090524028644,
+      "adjustedAgainst": 1.7456728830734862
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
@@ -28,8 +28,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 6,
-      "adjustedFor": 1.7925901886535287,
-      "adjustedAgainst": 1.4868738631111538
+      "adjustedFor": 1.7940068760800132,
+      "adjustedAgainst": 1.4912865395411359
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
@@ -39,19 +39,19 @@
       "forPerGame": 3.5,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 2.9703051987334974,
-      "adjustedAgainst": 1.099748723777992
+      "adjustedFor": 2.9834205621867023,
+      "adjustedAgainst": 1.1014534958633433
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
       "name": "Borussia Dortmund",
       "shortName": "Dortmund",
       "code": "BVB",
-      "forPerGame": 2,
-      "againstPerGame": 0.7142857142857143,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.8865139448079518,
-      "adjustedAgainst": 0.9274260235596339
+      "forPerGame": 2.1666666666666665,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.9690798298522907,
+      "adjustedAgainst": 0.9777061082529548
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -61,30 +61,30 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 3.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.379596446466522,
-      "adjustedAgainst": 2.010832375912405
+      "adjustedFor": 1.3881624423347936,
+      "adjustedAgainst": 2.0128580310718243
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
       "name": "Eintracht Frankfurt",
       "shortName": "Frankfurt",
       "code": "SGE",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.765551109028657,
-      "adjustedAgainst": 1.7415288799176931
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 2.1666666666666665,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.8092195283296315,
+      "adjustedAgainst": 1.8040621177685914
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
       "name": "SV 07 Elversberg",
       "shortName": "Elversberg",
       "code": "ELV",
-      "forPerGame": 2.1666666666666665,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.978840382501565,
-      "adjustedAgainst": 1.6765441972634845
+      "forPerGame": 2.6,
+      "againstPerGame": 2,
+      "gamesPlayed": 5,
+      "adjustedFor": 2.1751168916931434,
+      "adjustedAgainst": 1.5054151168843646
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
@@ -94,19 +94,19 @@
       "forPerGame": 2.4285714285714284,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 1.7297527261161423,
-      "adjustedAgainst": 1.3695794397391339
+      "adjustedFor": 1.7240746409707355,
+      "adjustedAgainst": 1.3765947060357844
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
       "name": "Hamburger SV",
       "shortName": "Hamburger SV",
       "code": "HSV",
-      "forPerGame": 0.8571428571428571,
-      "againstPerGame": 2.5714285714285716,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.19652247836622,
-      "adjustedAgainst": 1.8525658844720867
+      "forPerGame": 1,
+      "againstPerGame": 2.8333333333333335,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.2450320806239374,
+      "adjustedAgainst": 1.8849131397000818
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
@@ -116,8 +116,8 @@
       "forPerGame": 1.7142857142857142,
       "againstPerGame": 1.8571428571428572,
       "gamesPlayed": 7,
-      "adjustedFor": 1.7338996484556233,
-      "adjustedAgainst": 1.6286749029831897
+      "adjustedFor": 1.7310658839008133,
+      "adjustedAgainst": 1.6394789637465106
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
@@ -127,19 +127,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.409054849101357,
-      "adjustedAgainst": 1.771896114341137
+      "adjustedFor": 1.4123944222810885,
+      "adjustedAgainst": 1.7883454468929096
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
       "name": "1. FSV Mainz 05",
       "shortName": "Mainz 05",
       "code": "M05",
-      "forPerGame": 2.3333333333333335,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.6175468927262435,
-      "adjustedAgainst": 1.6770224798079114
+      "forPerGame": 2.4,
+      "againstPerGame": 2.4,
+      "gamesPlayed": 5,
+      "adjustedFor": 1.6130016056213607,
+      "adjustedAgainst": 1.6062645964377644
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
@@ -147,21 +147,21 @@
       "shortName": "Paderborn",
       "code": "SCP",
       "forPerGame": 1,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1337218125637325,
-      "adjustedAgainst": 1.2128539249901038
+      "againstPerGame": 1.4,
+      "gamesPlayed": 5,
+      "adjustedFor": 1.2040624570469585,
+      "adjustedAgainst": 1.317856793752862
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
       "name": "RB Leipzig",
       "shortName": "RB Leipzig",
       "code": "RBL",
-      "forPerGame": 2.857142857142857,
-      "againstPerGame": 1,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.9962396986610196,
-      "adjustedAgainst": 1.263370703586845
+      "forPerGame": 2.6666666666666665,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.9305676933802958,
+      "adjustedAgainst": 1.3525967965288284
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
@@ -171,8 +171,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2610187810812428,
-      "adjustedAgainst": 1.6247342363922264
+      "adjustedFor": 1.2550864204163583,
+      "adjustedAgainst": 1.6432492124088485
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
@@ -182,30 +182,30 @@
       "forPerGame": 1.8333333333333333,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.9564024924769612,
-      "adjustedAgainst": 1.4485770041392536
+      "adjustedFor": 1.9560113870691656,
+      "adjustedAgainst": 1.4612929836876172
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
       "name": "1. FC Union Berlin",
       "shortName": "Union Berlin",
       "code": "FCU",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 3.3333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.2431629939900086,
-      "adjustedAgainst": 1.9188821698307517
+      "forPerGame": 0.8,
+      "againstPerGame": 3.8,
+      "gamesPlayed": 5,
+      "adjustedFor": 1.2580964604724816,
+      "adjustedAgainst": 1.977064683166381
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
       "name": "SV Werder Bremen",
       "shortName": "Werder Bremen",
       "code": "SVW",
-      "forPerGame": 1.8571428571428572,
-      "againstPerGame": 1.5714285714285714,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.4168311303707837,
-      "adjustedAgainst": 1.4620799066092343
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.3351148626086733,
+      "adjustedAgainst": 1.4526268930326702
     }
   },
   "games": [
@@ -236,7 +236,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -267,7 +267,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -329,7 +329,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -360,7 +360,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -391,7 +391,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -453,7 +453,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-14T14:07:46.189Z",
+        "observedAt": "2026-11-15T14:29:47.055Z",
         "source": "football-data"
       }
     },
@@ -8866,19 +8866,6 @@
   },
   "standings": [
     {
-      "teamId": "bundesliga.borussia-dortmund",
-      "name": "Borussia Dortmund",
-      "shortName": "Dortmund",
-      "code": "BVB",
-      "played": 7,
-      "won": 6,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 14,
-      "goalsAgainst": 5,
-      "points": 19
-    },
-    {
       "teamId": "bundesliga.bayern-munchen",
       "name": "FC Bayern München",
       "shortName": "Bayern München",
@@ -8905,42 +8892,68 @@
       "points": 16
     },
     {
+      "teamId": "bundesliga.borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "shortName": "Dortmund",
+      "code": "BVB",
+      "played": 6,
+      "won": 5,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 13,
+      "goalsAgainst": 5,
+      "points": 16
+    },
+    {
       "teamId": "bundesliga.rb-leipzig",
       "name": "RB Leipzig",
       "shortName": "RB Leipzig",
       "code": "RBL",
-      "played": 7,
-      "won": 5,
+      "played": 6,
+      "won": 4,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 20,
+      "goalsFor": 16,
       "goalsAgainst": 7,
-      "points": 15
+      "points": 12
     },
     {
       "teamId": "bundesliga.werder-bremen",
       "name": "SV Werder Bremen",
       "shortName": "Werder Bremen",
       "code": "SVW",
-      "played": 7,
-      "won": 4,
+      "played": 6,
+      "won": 3,
       "drawn": 1,
       "lost": 2,
+      "goalsFor": 10,
+      "goalsAgainst": 9,
+      "points": 10
+    },
+    {
+      "teamId": "bundesliga.elversberg",
+      "name": "SV 07 Elversberg",
+      "shortName": "Elversberg",
+      "code": "ELV",
+      "played": 5,
+      "won": 3,
+      "drawn": 0,
+      "lost": 2,
       "goalsFor": 13,
-      "goalsAgainst": 11,
-      "points": 13
+      "goalsAgainst": 10,
+      "points": 9
     },
     {
       "teamId": "bundesliga.eintracht-frankfurt",
       "name": "Eintracht Frankfurt",
       "shortName": "Frankfurt",
       "code": "SGE",
-      "played": 7,
+      "played": 6,
       "won": 2,
       "drawn": 3,
-      "lost": 2,
+      "lost": 1,
       "goalsFor": 14,
-      "goalsAgainst": 14,
+      "goalsAgainst": 13,
       "points": 9
     },
     {
@@ -8954,19 +8967,6 @@
       "lost": 3,
       "goalsFor": 11,
       "goalsAgainst": 11,
-      "points": 9
-    },
-    {
-      "teamId": "bundesliga.elversberg",
-      "name": "SV 07 Elversberg",
-      "shortName": "Elversberg",
-      "code": "ELV",
-      "played": 6,
-      "won": 3,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 13,
-      "goalsAgainst": 14,
       "points": 9
     },
     {
@@ -8987,26 +8987,13 @@
       "name": "FC Augsburg",
       "shortName": "Augsburg",
       "code": "FCA",
-      "played": 7,
-      "won": 2,
-      "drawn": 2,
-      "lost": 3,
-      "goalsFor": 15,
-      "goalsAgainst": 14,
-      "points": 8
-    },
-    {
-      "teamId": "bundesliga.paderborn",
-      "name": "SC Paderborn 07",
-      "shortName": "Paderborn",
-      "code": "SCP",
       "played": 6,
       "won": 2,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 6,
-      "goalsAgainst": 7,
-      "points": 8
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 14,
+      "goalsAgainst": 13,
+      "points": 7
     },
     {
       "teamId": "bundesliga.bayer-leverkusen",
@@ -9026,12 +9013,12 @@
       "name": "1. FSV Mainz 05",
       "shortName": "Mainz 05",
       "code": "M05",
-      "played": 6,
+      "played": 5,
       "won": 2,
       "drawn": 0,
-      "lost": 4,
-      "goalsFor": 14,
-      "goalsAgainst": 15,
+      "lost": 3,
+      "goalsFor": 12,
+      "goalsAgainst": 12,
       "points": 6
     },
     {
@@ -9039,13 +9026,26 @@
       "name": "Hamburger SV",
       "shortName": "Hamburger SV",
       "code": "HSV",
-      "played": 7,
+      "played": 6,
       "won": 2,
       "drawn": 0,
-      "lost": 5,
+      "lost": 4,
       "goalsFor": 6,
-      "goalsAgainst": 18,
+      "goalsAgainst": 17,
       "points": 6
+    },
+    {
+      "teamId": "bundesliga.paderborn",
+      "name": "SC Paderborn 07",
+      "shortName": "Paderborn",
+      "code": "SCP",
+      "played": 5,
+      "won": 1,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 7,
+      "points": 5
     },
     {
       "teamId": "bundesliga.koln",
@@ -9074,19 +9074,6 @@
       "points": 3
     },
     {
-      "teamId": "bundesliga.union-berlin",
-      "name": "1. FC Union Berlin",
-      "shortName": "Union Berlin",
-      "code": "FCU",
-      "played": 6,
-      "won": 0,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 5,
-      "goalsAgainst": 20,
-      "points": 2
-    },
-    {
       "teamId": "bundesliga.borussia-monchengladbach",
       "name": "Borussia Mönchengladbach",
       "shortName": "M’gladbach",
@@ -9096,6 +9083,19 @@
       "drawn": 1,
       "lost": 5,
       "goalsFor": 7,
+      "goalsAgainst": 19,
+      "points": 1
+    },
+    {
+      "teamId": "bundesliga.union-berlin",
+      "name": "1. FC Union Berlin",
+      "shortName": "Union Berlin",
+      "code": "FCU",
+      "played": 5,
+      "won": 0,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 4,
       "goalsAgainst": 19,
       "points": 1
     }
