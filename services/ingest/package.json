@@ -22,6 +22,7 @@
     "history:link": "tsx src/providers/link-cli.ts",
     "history:us": "tsx src/providers/us-collect-cli.ts",
     "backtest:us": "tsx src/us-backtest-cli.ts",
+    "snapshot:us": "tsx src/us-snapshot-cli.ts",
     "history": "tsx src/history/cli.ts",
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",

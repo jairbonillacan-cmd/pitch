@@ -322,6 +322,8 @@ const LEAGUE_MAPS: Record<string, Record<string, string>> = {
   "premier-league": PREMIER_LEAGUE_TEAM_MAP,
   "liga-mx": LIGA_MX_TEAM_MAP,
   laliga: LALIGA_TEAM_MAP,
+  // NHL: los nombres de la fuente coinciden con el manifiesto de emblemas (32/32).
+  nhl: {},
 };
 
 export type CanonicalLeague =
@@ -333,6 +335,9 @@ export type CanonicalLeague =
   | "serie-a"
   | "ligue-1";
 
+/** Ligas cuyos equipos se resuelven y validan (las de momios + NHL y NBA). */
+export type TeamLeague = CanonicalLeague | "nhl" | "nba";
+
 /**
  * Ligas sin manifiesto de emblemas propio: el nombre de la fuente se confía y se
  * convierte a slug con el mismo algoritmo del histórico (`team-slug.ts`), para que los
@@ -342,10 +347,12 @@ export const GENERIC_LEAGUES: ReadonlySet<string> = new Set([
   "bundesliga",
   "serie-a",
   "ligue-1",
+  // NBA aún no tiene emblemas propios: id por nombre y la app muestra iniciales.
+  "nba",
 ]);
 
 export function resolveCanonicalTeam(
-  league: CanonicalLeague,
+  league: TeamLeague,
   rawName: string,
 ): Team {
   const trimmed = rawName.trim();

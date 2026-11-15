@@ -204,6 +204,17 @@ export const LEAGUE_CATALOG: League[] = [
     defaultPeriod: "",
   },
   {
+    id: asLeagueId("nba"),
+    sport: asSportId("basketball"),
+    name: "NBA",
+    shortName: "NBA",
+    country: "EE. UU. y Canadá",
+    enabled: false,
+    mascot: "nba",
+    defaultSeason: "2026-27",
+    defaultPeriod: "",
+  },
+  {
     id: asLeagueId("mlb"),
     sport: asSportId("baseball"),
     name: "MLB",
