@@ -33,11 +33,13 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
   });
   expect(unlock.ok()).toBe(true);
 
-  // 1) En producción sin cuenta de administrador verificada, /api/admin/data-health responde 403 y /app/admin omite la consola (notFound() tras SEC-04)
+  // 1) En producción sin cuenta de administrador verificada, /api/admin/data-health responde 403.
+  //    Sin cuentas, el PIN beta con PITCHLAB_PREVIEW_TOOLS=1 abre /app/admin como demo del cobro
+  //    SPEI (lo recorre beta1-transfers-coupons), pero el panel «Salud de datos» no se renderiza.
   const apiDenied = await page.request.get("/api/admin/data-health");
   expect(apiDenied.status()).toBe(403);
   await page.goto("/app/admin");
-  await expect(page.getByRole("heading", { name: "Consola del fundador" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Consola del fundador" })).toBeVisible();
   await expect(page.locator("[data-data-health-panel]")).toHaveCount(0);
 
   // 2) En /app/nfl, una ficha por jugar muestra las bajas nominales reales leídas de data/snapshots/nfl/injuries.json

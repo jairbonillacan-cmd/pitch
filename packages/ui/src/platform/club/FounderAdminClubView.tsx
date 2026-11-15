@@ -108,10 +108,13 @@ export function FounderAdminClubView({
   storyModeration,
   initialDataHealth = null,
   storyDataHealth = null,
+  showDataHealth = true,
 }: {
   storyModeration?: ModerationPanelResponse;
   initialDataHealth?: DataHealthReport | null;
   storyDataHealth?: DataHealthReport | null;
+  /** Falso en la vista previa beta sin cuentas: /api/admin/data-health responde 403 a ese visitante. */
+  showDataHealth?: boolean;
 } = {}): React.JSX.Element {
   const {
     dataset,
@@ -493,12 +496,14 @@ export function FounderAdminClubView({
           </div>
         </section>
 
-        <AdminDataHealthSection
-          dataset={dataset}
-          initialReport={initialDataHealth}
-          storyReport={storyDataHealth}
-          enableLiveFetch={!storyDataHealth}
-        />
+        {showDataHealth ? (
+          <AdminDataHealthSection
+            dataset={dataset}
+            initialReport={initialDataHealth}
+            storyReport={storyDataHealth}
+            enableLiveFetch={!storyDataHealth}
+          />
+        ) : null}
 
         <AdminPaymentsCouponsSection />
 

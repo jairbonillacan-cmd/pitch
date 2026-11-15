@@ -9,10 +9,17 @@ export const dynamic = "force-dynamic";
 
 export default async function ClubAdminPage(): Promise<React.JSX.Element> {
   const access = await getViewerAccess();
+  // Mismo criterio que /api/admin/data-health: administrador verificado o herramientas de preview.
+  const adminToolsAllowed = access.isAdmin || previewToolsEnabled(access.isAdmin);
+  // Sin cuentas, el PIN beta con PITCHLAB_PREVIEW_TOOLS=1 abre la consola como demo local del
+  // cobro SPEI, pero sin «Salud de datos»: ese panel sigue reservado al resguardo de arriba.
   const betaPreviewAdminAllowed =
     !accountsEnabled() && access.via === "beta" && process.env.PITCHLAB_PREVIEW_TOOLS === "1";
-  if (!access.isAdmin && !previewToolsEnabled(access.isAdmin) && !betaPreviewAdminAllowed) {
+  if (!adminToolsAllowed && !betaPreviewAdminAllowed) {
     notFound();
+  }
+  if (!adminToolsAllowed) {
+    return <FounderAdminClubView showDataHealth={false} />;
   }
   const initialDataHealth = loadServerDataHealthReport();
   return <FounderAdminClubView initialDataHealth={initialDataHealth} />;

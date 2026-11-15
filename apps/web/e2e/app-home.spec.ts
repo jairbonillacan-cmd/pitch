@@ -118,9 +118,13 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(
     page.getByRole("heading", { name: /Armar parlay/i }),
   ).toBeVisible();
-  await expect(page.locator("[data-personal-parlay-quickbar]")).toBeVisible();
-  await page.locator('[data-quick-count="4"]').click();
-  await page.locator('[data-quick-risk="conservador"]').click();
+  // Bajo carga, React puede dejar un instante la copia transmitida en un segmento oculto
+  // antes de revelarla: se acota a la barra visible para no chocar con el modo estricto.
+  const quickbar = page.locator("[data-personal-parlay-quickbar]:visible");
+  await expect(quickbar).toHaveCount(1);
+  await expect(quickbar).toBeVisible();
+  await quickbar.locator('[data-quick-count="4"]').click();
+  await quickbar.locator('[data-quick-risk="conservador"]').click();
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflowParlays375 = await page.evaluate(
