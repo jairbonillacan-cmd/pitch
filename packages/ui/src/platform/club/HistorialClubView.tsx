@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
+import { PlLeagueSelect } from "../components/PlSelect";
 import { MatchTicketCard } from "../components/MatchTicketCard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
@@ -77,19 +78,13 @@ export function HistorialClubView(): React.JSX.Element {
                 ))}
               </div>
 
-              <select
-                aria-label="Liga en historial"
+              <PlLeagueSelect
+                leagues={dataset.leagues}
                 value={leagueFilter}
-                onChange={(e) => setLeagueFilter(e.target.value)}
-                className="glass-input px-3 py-1.5 text-xs font-semibold min-h-9"
-              >
-                <option value="all">Todas las ligas ({allFt.length})</option>
-                {dataset.leagues.map((l) => (
-                  <option key={l.league} value={l.league}>
-                    {l.label}
-                  </option>
-                ))}
-              </select>
+                onChange={setLeagueFilter}
+                allLabel={`Todas las ligas (${allFt.length})`}
+                ariaLabel="Liga en historial"
+              />
             </div>
           </div>
 

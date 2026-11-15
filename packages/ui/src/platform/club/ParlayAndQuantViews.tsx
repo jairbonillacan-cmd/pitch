@@ -18,6 +18,7 @@ import {
   MaestroIcon,
   NoticeCard,
 } from "../components/MaestroPrimitives";
+import { PlLeagueSelect } from "../components/PlSelect";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -1220,19 +1221,13 @@ export function MomiosExplorerClubView(): React.JSX.Element {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label="Liga en explorador de momios"
+            <PlLeagueSelect
+              leagues={dataset.leagues}
               value={leagueFilter}
-              onChange={(e) => setLeagueFilter(e.target.value)}
-              className="glass-input px-3 py-1.5 text-xs font-semibold"
-            >
-              <option value="all">7 Ligas</option>
-              {dataset.leagues.map((l) => (
-                <option key={l.league} value={l.league}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
+              onChange={setLeagueFilter}
+              allLabel="7 Ligas"
+              ariaLabel="Liga en explorador de momios"
+            />
 
             <button
               type="button"

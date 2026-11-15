@@ -26,6 +26,7 @@ import {
   StackedAvatars,
   UserBadges,
 } from "../components/MaestroPrimitives";
+import { PlLeagueSelect } from "../components/PlSelect";
 import {
   MatchTicketCard,
   MultiPickRow,
@@ -303,19 +304,13 @@ export function MultiPicksClubView(): React.JSX.Element {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label="Filtrar por liga"
+            <PlLeagueSelect
+              leagues={dataset.leagues}
               value={leagueFilter}
-              onChange={(e) => setLeagueFilter(e.target.value)}
-              className="glass-input px-3 py-1.5 text-xs font-semibold"
-            >
-              <option value="all">Todas las ligas</option>
-              {dataset.leagues.map((l) => (
-                <option key={l.league} value={l.league}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
+              onChange={setLeagueFilter}
+              allLabel="Todas las ligas"
+              ariaLabel="Filtrar por liga"
+            />
 
             <button
               type="button"

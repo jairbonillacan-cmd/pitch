@@ -1477,7 +1477,7 @@ html[data-theme="light"] .pl-acct-seg button[aria-pressed="true"] {
 }
 
 .pl-acct-select option {
-  background: var(--pl-bg-elevated);
+  background: var(--pl-stage-bg);
   color: var(--pl-text);
 }
 
@@ -1831,8 +1831,10 @@ html[data-theme="light"] .pl-acct-seg button[aria-pressed="true"] {
   }
 
   .pl-acct-prefs-row:not(.pl-acct-prefs-row--switch) .pl-acct-seg,
-  .pl-acct-prefs-row:not(.pl-acct-prefs-row--switch) .pl-acct-select {
+  .pl-acct-prefs-row:not(.pl-acct-prefs-row--switch) .pl-acct-select,
+  .pl-acct-prefs-row:not(.pl-acct-prefs-row--switch) .pl-select {
     justify-self: start;
+    max-width: 100%;
   }
 
   .pl-acct-h2--lg {

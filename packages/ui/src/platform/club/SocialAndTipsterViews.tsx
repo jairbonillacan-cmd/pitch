@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
 import { formatOddsValue } from "../access-guard";
+import { LeagueBadge } from "../../sports";
 import { downloadTicketPng } from "../components/share-ticket-raster";
 import {
   LensGlowOrbs,
@@ -10,6 +11,7 @@ import {
   ExampleNotice,
   NoticeCard,
 } from "../components/MaestroPrimitives";
+import { PlSelect } from "../components/PlSelect";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
   AtmosphereStage,
@@ -660,17 +662,22 @@ export function TipsterPortalClubView({
                 <>
                   <div className="space-y-2">
                     <label
+                      id="tipster-match-select-label"
                       htmlFor="tipster-match-select"
                       className="block text-xs font-bold"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
                       2. Selecciona el partido de la jornada
                     </label>
-                    <select
+                    <PlSelect
                       id="tipster-match-select"
+                      ariaLabelledBy="tipster-match-select-label"
+                      variant="glass"
+                      size="lg"
+                      fullWidth
+                      popoverWidth="trigger"
                       value={selectedMatch?.id ?? ""}
-                      onChange={(e) => {
-                        const nextGameId = e.target.value;
+                      onChange={(nextGameId) => {
                         setSelectedMatchId(nextGameId);
                         const nextGame = upcomingGames.find((g) => g.id === nextGameId);
                         const firstPk = nextGame?.picks.find((p) => !p.isRedacted);
@@ -678,16 +685,17 @@ export function TipsterPortalClubView({
                           setSelectedTipsterPickId(firstPk.id);
                         }
                       }}
-                      className="glass-input w-full px-3.5 py-2.5 text-sm font-semibold"
-                    >
-                      {(upcomingGames.length > 0 ? upcomingGames : dataset.games)
+                      options={(upcomingGames.length > 0 ? upcomingGames : dataset.games)
                         .slice(0, 12)
-                        .map((g) => (
-                          <option key={g.id} value={g.id}>
-                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName} ({g.kickoffLocal})
-                          </option>
-                        ))}
-                    </select>
+                        .map((g) => ({
+                          value: g.id,
+                          label: `${g.home.shortName} vs ${g.away.shortName}`,
+                          description: `${g.leagueLabel} · ${g.kickoffLocal}`,
+                          triggerLabel: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${g.kickoffLocal})`,
+                          textValue: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${g.kickoffLocal})`,
+                          icon: <LeagueBadge league={g.league} label={g.leagueLabel} size={18} />,
+                        }))}
+                    />
                   </div>
 
                   <div className="space-y-2">

@@ -5,6 +5,7 @@ import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
+import { PlSelect } from "../components/PlSelect";
 import { usePlatform } from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
@@ -282,14 +283,6 @@ function GiftIcon(): React.JSX.Element {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
       <rect x="3" y="8" width="18" height="13" rx="2" />
       <path d="M12 8v13M3 12h18M12 8c-2-3-6-3-6 0 0 1.5 2 2 6 0zM12 8c2-3 6-3 6 0 0 1.5-2 2-6 0z" />
-    </svg>
-  );
-}
-
-function ChevronDown(): React.JSX.Element {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M6 9l6 6 6-6" />
     </svg>
   );
 }
@@ -924,72 +917,71 @@ export function SignupSurfaceV4({
                     <fieldset className="pl-auth-fieldset">
                       <legend className="pl-auth-label">Fecha de nacimiento</legend>
                       <div className="pl-auth-dob">
-                        <div className="pl-auth-select">
-                          <select
-                            className="pl-auth-input num"
-                            aria-label="Día"
-                            autoComplete="bday-day"
-                            value={day}
-                            aria-invalid={dobError ? true : undefined}
-                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""].filter(Boolean).join(" ")}
-                            onChange={(e) => {
-                              setDay(e.target.value);
-                              setDobError("");
-                            }}
-                          >
-                            <option value="">Día</option>
-                            {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
-                              <option key={d} value={String(d)}>
-                                {d}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown />
-                        </div>
-                        <div className="pl-auth-select">
-                          <select
-                            className="pl-auth-input"
-                            aria-label="Mes"
-                            autoComplete="bday-month"
-                            value={month}
-                            aria-invalid={dobError ? true : undefined}
-                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""].filter(Boolean).join(" ")}
-                            onChange={(e) => {
-                              setMonth(e.target.value);
-                              setDobError("");
-                            }}
-                          >
-                            <option value="">Mes</option>
-                            {months.map((label, i) => (
-                              <option key={label} value={String(i + 1)}>
-                                {label}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown />
-                        </div>
-                        <div className="pl-auth-select">
-                          <select
-                            className="pl-auth-input num"
-                            aria-label="Año"
-                            autoComplete="bday-year"
-                            value={year}
-                            aria-invalid={dobError ? true : undefined}
-                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""].filter(Boolean).join(" ")}
-                            onChange={(e) => {
-                              setYear(e.target.value);
-                              setDobError("");
-                            }}
-                          >
-                            <option value="">Año</option>
-                            {years.map((y) => (
-                              <option key={y} value={String(y)}>
-                                {y}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown />
-                        </div>
+                        <PlSelect
+                          variant="auth"
+                          size="lg"
+                          ariaLabel="Día"
+                          placeholder="Día"
+                          autoComplete="bday-day"
+                          popoverWidth="min-trigger"
+                          triggerClassName="num"
+                          value={day}
+                          isInvalid={Boolean(dobError)}
+                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
+                            .filter(Boolean)
+                            .join(" ")}
+                          onChange={(nextDay) => {
+                            setDay(nextDay);
+                            setDobError("");
+                          }}
+                          options={Array.from({ length: 31 }, (_, i) => {
+                            const d = String(i + 1);
+                            return { value: d, label: d };
+                          })}
+                        />
+                        <PlSelect
+                          variant="auth"
+                          size="lg"
+                          ariaLabel="Mes"
+                          placeholder="Mes"
+                          autoComplete="bday-month"
+                          popoverWidth="min-trigger"
+                          value={month}
+                          isInvalid={Boolean(dobError)}
+                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
+                            .filter(Boolean)
+                            .join(" ")}
+                          onChange={(nextMonth) => {
+                            setMonth(nextMonth);
+                            setDobError("");
+                          }}
+                          options={months.map((label, i) => ({
+                            value: String(i + 1),
+                            label,
+                          }))}
+                        />
+                        <PlSelect
+                          variant="auth"
+                          size="lg"
+                          ariaLabel="Año"
+                          placeholder="Año"
+                          autoComplete="bday-year"
+                          popoverWidth="min-trigger"
+                          triggerClassName="num"
+                          value={year}
+                          isInvalid={Boolean(dobError)}
+                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
+                            .filter(Boolean)
+                            .join(" ")}
+                          onChange={(nextYear) => {
+                            setYear(nextYear);
+                            setDobError("");
+                          }}
+                          options={years.map((y) => {
+                            const str = String(y);
+                            return { value: str, label: str };
+                          })}
+                        />
                       </div>
                       <p id={ids.dobHint} className="pl-auth-fineprint pl-auth-fineprint--left">
                         {narrow

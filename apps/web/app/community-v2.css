@@ -569,7 +569,7 @@ html[data-theme="light"] .pl-prof-cover {
 }
 
 .pl-prof-select select option {
-  background: var(--pl-surface);
+  background: var(--pl-stage-bg);
   color: var(--pl-text);
 }
 

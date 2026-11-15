@@ -4,8 +4,9 @@ import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 
 import { Switch } from "@heroui/react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
-import { ExampleBadge } from "../../components/MaestroPrimitives";
+import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { PlSelect } from "../../components/PlSelect";
 import { usePlatform } from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
 import type { OddsFormat, RiskBand } from "../../types";
@@ -766,20 +767,27 @@ export function PrefsTab({
 
             <div className="pl-acct-prefs-row">
               <div className="pl-acct-prefs-row-copy">
-                <label htmlFor={tzSelectId} className="pl-acct-prefs-row-title">
+                <label
+                  id={`${tzSelectId}-label`}
+                  htmlFor={tzSelectId}
+                  className="pl-acct-prefs-row-title"
+                >
                   Horario de los partidos
                 </label>
                 <span className="pl-acct-prefs-row-detail">
                   Todas las horas de la app usan esta zona.
                 </span>
               </div>
-              <select
+              <PlSelect
                 id={tzSelectId}
-                className="pl-acct-select"
+                ariaLabelledBy={`${tzSelectId}-label`}
+                variant="field"
+                size="md"
+                fullWidth={false}
+                popoverWidth="min-trigger"
                 value={prefs.timezone}
-                onChange={(e) => {
+                onChange={(nextTz) => {
                   const prevTz = prefs.timezone;
-                  const nextTz = e.target.value;
                   updatePrefs((prev) => ({ ...prev, timezone: nextTz }));
                   setUserTimezone(nextTz);
                   void persistServerPrefs({ timezone: nextTz }, () => {
@@ -791,13 +799,18 @@ export function PrefsTab({
                     });
                   });
                 }}
-              >
-                {TIMEZONE_OPTIONS.map((tz) => (
-                  <option key={tz.value} value={tz.value}>
-                    {tz.label}
-                  </option>
-                ))}
-              </select>
+                options={TIMEZONE_OPTIONS.map((tz) => {
+                  const match = /^(.*)\s+\((UTC[^)]+)\)$/.exec(tz.label);
+                  return {
+                    value: tz.value,
+                    label: match ? match[1] : tz.label,
+                    description: match ? match[2] : undefined,
+                    triggerLabel: tz.label,
+                    textValue: tz.label,
+                    icon: <MaestroIcon name="calendar" size={14} />,
+                  };
+                })}
+              />
             </div>
           </section>
 
