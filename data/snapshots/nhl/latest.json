@@ -3,8 +3,8 @@
   "league": "nhl",
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "13 nov – 17 nov",
-  "updatedAt": "2026-11-15T12:17:19.392Z",
+  "periodLabel": "14 nov – 17 nov",
+  "updatedAt": "2026-11-15T17:33:48.856Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -364,62 +364,6 @@
   },
   "games": [
     {
-      "id": "nhl-2026-11-14-nyr-van",
-      "league": "nhl",
-      "season": "nhl-2026-27",
-      "startTime": "2026-11-14T02:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nhl.vancouver-canucks",
-        "league": "nhl",
-        "name": "Vancouver Canucks",
-        "shortName": "Canucks",
-        "code": "VAN"
-      },
-      "away": {
-        "id": "nhl.new-york-rangers",
-        "league": "nhl",
-        "name": "New York Rangers",
-        "shortName": "Rangers",
-        "code": "NYR"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 5,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nhl-2026-11-14-nsh-vgk",
-      "league": "nhl",
-      "season": "nhl-2026-27",
-      "startTime": "2026-11-14T03:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nhl.vegas-golden-knights",
-        "league": "nhl",
-        "name": "Vegas Golden Knights",
-        "shortName": "Golden Knights",
-        "code": "VGK"
-      },
-      "away": {
-        "id": "nhl.nashville-predators",
-        "league": "nhl",
-        "name": "Nashville Predators",
-        "shortName": "Predators",
-        "code": "NSH"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 3,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nhl-2026-11-14-sea-car",
       "league": "nhl",
       "season": "nhl-2026-27",
@@ -443,7 +387,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -471,7 +415,7 @@
       "result": {
         "home": 4,
         "away": 5,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -499,7 +443,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -527,7 +471,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -555,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -583,7 +527,7 @@
       "result": {
         "home": 4,
         "away": 7,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -611,7 +555,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -639,7 +583,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -667,7 +611,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -695,7 +639,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -723,7 +667,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -751,7 +695,7 @@
       "result": {
         "home": 5,
         "away": 6,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -779,7 +723,7 @@
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -807,7 +751,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },

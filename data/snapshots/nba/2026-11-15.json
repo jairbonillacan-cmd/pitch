@@ -3,8 +3,8 @@
   "league": "nba",
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "13 nov – 17 nov",
-  "updatedAt": "2026-11-15T12:17:19.392Z",
+  "periodLabel": "14 nov – 17 nov",
+  "updatedAt": "2026-11-15T17:33:48.856Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -342,202 +342,6 @@
   },
   "games": [
     {
-      "id": "nba-2026-11-14-cle-mia",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.miami-heat",
-        "league": "nba",
-        "name": "Miami Heat",
-        "shortName": "Heat",
-        "code": "MIA"
-      },
-      "away": {
-        "id": "nba.cleveland-cavaliers",
-        "league": "nba",
-        "name": "Cleveland Cavaliers",
-        "shortName": "Cavaliers",
-        "code": "CLE"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 133,
-        "away": 121,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-atl-chi",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.chicago-bulls",
-        "league": "nba",
-        "name": "Chicago Bulls",
-        "shortName": "Bulls",
-        "code": "CHI"
-      },
-      "away": {
-        "id": "nba.atlanta-hawks",
-        "league": "nba",
-        "name": "Atlanta Hawks",
-        "shortName": "Hawks",
-        "code": "ATL"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 125,
-        "away": 117,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-mem-nop",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.new-orleans-pelicans",
-        "league": "nba",
-        "name": "New Orleans Pelicans",
-        "shortName": "Pelicans",
-        "code": "NOP"
-      },
-      "away": {
-        "id": "nba.memphis-grizzlies",
-        "league": "nba",
-        "name": "Memphis Grizzlies",
-        "shortName": "Grizzlies",
-        "code": "MEM"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 111,
-        "away": 142,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-uta-hou",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T01:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.houston-rockets",
-        "league": "nba",
-        "name": "Houston Rockets",
-        "shortName": "Rockets",
-        "code": "HOU"
-      },
-      "away": {
-        "id": "nba.utah-jazz",
-        "league": "nba",
-        "name": "Utah Jazz",
-        "shortName": "Jazz",
-        "code": "UTA"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 125,
-        "away": 118,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-gsw-sas",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T02:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.san-antonio-spurs",
-        "league": "nba",
-        "name": "San Antonio Spurs",
-        "shortName": "Spurs",
-        "code": "SAS"
-      },
-      "away": {
-        "id": "nba.golden-state-warriors",
-        "league": "nba",
-        "name": "Golden State Warriors",
-        "shortName": "Warriors",
-        "code": "GSW"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 123,
-        "away": 85,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-por-sac",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T03:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.sacramento-kings",
-        "league": "nba",
-        "name": "Sacramento Kings",
-        "shortName": "Kings",
-        "code": "SAC"
-      },
-      "away": {
-        "id": "nba.portland-trail-blazers",
-        "league": "nba",
-        "name": "Portland Trail Blazers",
-        "shortName": "Trail Blazers",
-        "code": "POR"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 107,
-        "away": 120,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-14-okc-lac",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-14T03:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.los-angeles-clippers",
-        "league": "nba",
-        "name": "Los Angeles Clippers",
-        "shortName": "Clippers",
-        "code": "LAC"
-      },
-      "away": {
-        "id": "nba.oklahoma-city-thunder",
-        "league": "nba",
-        "name": "Oklahoma City Thunder",
-        "shortName": "Thunder",
-        "code": "OKC"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 113,
-        "away": 112,
-        "observedAt": "2026-11-15T12:17:19.392Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nba-2026-11-15-den-nop",
       "league": "nba",
       "season": "nba-2026-27",
@@ -561,7 +365,7 @@
       "result": {
         "home": 108,
         "away": 116,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -589,7 +393,7 @@
       "result": {
         "home": 127,
         "away": 117,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -617,7 +421,7 @@
       "result": {
         "home": 106,
         "away": 117,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -645,7 +449,7 @@
       "result": {
         "home": 137,
         "away": 117,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
@@ -673,7 +477,7 @@
       "result": {
         "home": 129,
         "away": 110,
-        "observedAt": "2026-11-15T12:17:19.392Z",
+        "observedAt": "2026-11-15T17:33:48.856Z",
         "source": "bzzoiro"
       }
     },
