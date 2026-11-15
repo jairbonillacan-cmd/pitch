@@ -528,7 +528,7 @@
     .pl-dh-table tbody td::before {
       display: block;
       margin-block-end: 4px;
-      font-size: 0.68rem;
+      font-size: 0.6875rem;
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;

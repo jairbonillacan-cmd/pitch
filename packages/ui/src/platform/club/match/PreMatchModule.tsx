@@ -351,7 +351,7 @@ export function PreMatchModule({
                             {item.player}
                           </strong>
                         </div>
-                        <span className={`${statusTone} text-[10px] shrink-0`}>
+                        <span className={`${statusTone} text-[11px] shrink-0`}>
                           {item.status}
                         </span>
                       </div>

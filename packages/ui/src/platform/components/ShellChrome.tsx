@@ -1343,7 +1343,7 @@ function ClubWorkspaceShellImpl({
 
                       {!collapsed && item.badge ? (
                         <span
-                          className={`pl-pill num text-[10px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
+                          className={`pl-pill num text-[11px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
                         >
                           {item.badge}
                         </span>
@@ -1457,7 +1457,7 @@ function ClubWorkspaceShellImpl({
 
                       {!collapsed && item.badge ? (
                         <span
-                          className={`pl-pill num text-[10px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
+                          className={`pl-pill num text-[11px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
                         >
                           {item.badge}
                         </span>

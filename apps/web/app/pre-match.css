@@ -282,7 +282,7 @@
 }
 
 .pl-prematch-metric-label {
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: var(--pl-text-muted);
 }
@@ -394,7 +394,7 @@
   min-block-size: 22px;
   padding-inline: 9px;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   font-weight: 700;
 }
 

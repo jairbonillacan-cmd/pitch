@@ -1450,7 +1450,7 @@ export function ReferralCard3D({
           </svg>
           {tierLabel && tierLabel !== "ULTRA" ? (
             <span
-              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider"
+              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-extrabold tracking-wider"
               style={{
                 background: "rgba(255, 255, 255, 0.12)",
                 border: "1px solid rgba(255, 255, 255, 0.22)",

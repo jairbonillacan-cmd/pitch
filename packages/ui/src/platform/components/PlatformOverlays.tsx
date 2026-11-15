@@ -764,7 +764,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     className="h-5 w-auto object-contain"
                   />
                   <span
-                    className="text-[10px] font-extrabold"
+                    className="text-[11px] font-extrabold"
                     style={{ color: "var(--share-card-accent)" }}
                   >
                     SUITE v3.0

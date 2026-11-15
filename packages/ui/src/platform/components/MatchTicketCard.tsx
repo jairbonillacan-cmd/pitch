@@ -178,7 +178,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
             pick.marketCapturedAtUtc ? (
               <time
                 dateTime={pick.marketCapturedAtUtc}
-                className="block text-[10px] leading-tight"
+                className="block text-[11px] leading-tight"
                 style={{ color: "var(--pl-text-muted)" }}
                 data-pick-odds-captured=""
               >
@@ -336,7 +336,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           </span>
 
           <div className="flex items-center gap-1 shrink-0">
-            <span className="pl-pill text-[10px] inline-flex items-center gap-1">
+            <span className="pl-pill text-[11px] inline-flex items-center gap-1">
               <MaestroIcon name="cpu" size={11} />
               <span>{shortEngineLabel}</span>
             </span>
@@ -437,7 +437,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="min-w-0">
               <span
-                className="block font-bold text-[10px]"
+                className="block font-bold text-[11px]"
                 style={{ color: "var(--pl-brand)" }}
               >
                 {mainPick.isDailyOpenPromo
@@ -470,7 +470,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               {mainPick.marketDecimal !== null && mainPick.marketCapturedAtUtc ? (
                 <time
                   dateTime={mainPick.marketCapturedAtUtc}
-                  className="block text-[10px] leading-tight"
+                  className="block text-[11px] leading-tight"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   {formatOddsCaptureEs(mainPick.marketCapturedAtUtc)}

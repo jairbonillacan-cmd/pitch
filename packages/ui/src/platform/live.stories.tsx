@@ -27,7 +27,7 @@ function game(id: string, league: "liga-mx" | "premier-league", home: ReturnType
 
 const QRO_MTY = game("story-qro-mty", "liga-mx", team("queretaro", "Querétaro", "Querétaro", "QRO"), team("monterrey", "Rayados de Monterrey", "Monterrey", "MTY"), "17:00");
 const AME_CAZ = game("story-ame-caz", "liga-mx", team("america", "América", "América", "AME"), team("cruz-azul", "Cruz Azul", "Cruz Azul", "CAZ"), "19:05");
-const TIG_PUM = game("story-tig-pum", "liga-mx", team("tigres", "Tigres UANL", "Tigres", "TIG"), team("pumas", "Pumas UNAM", "Pumas", "PUM"), "21:10");
+const TIG_PUM = game("story-tig-pum", "liga-mx", team("tigres-uanl", "Tigres UANL", "Tigres", "TIG"), team("pumas-unam", "Pumas UNAM", "Pumas", "PUM"), "21:10");
 const EVE_COV = game("story-eve-cov", "premier-league", team("everton", "Everton", "Everton", "EVE"), team("coventry-city", "Coventry City", "Coventry City", "COV"), "14:00");
 const GAMES = [QRO_MTY, AME_CAZ, TIG_PUM, EVE_COV];
 
@@ -57,6 +57,13 @@ const LIVE_DETAIL: LiveMatchDetail = {
   entry: entry(QRO_MTY, { phase: "live", clock: "67", minute: 67, score: { home: 1, away: 2 }, htScore: { home: 1, away: 0 } }),
   ...STORY_STATS,
   ...upTo(67),
+  /* Alinea el xG acumulado del resumen a 67' con la curva xG hasta ese minuto (1.38 vs 0.35). */
+  stats: STORY_STATS.stats
+    ? {
+        home: { ...STORY_STATS.stats.home, xg: 1.38 },
+        away: { ...STORY_STATS.stats.away, xg: 0.35 },
+      }
+    : STORY_STATS.stats,
   nextPollSeconds: 20,
   notice: null,
   attribution: "Datos en vivo: Bzzoiro Sports Data",

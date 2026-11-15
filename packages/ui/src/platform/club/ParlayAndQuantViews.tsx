@@ -169,7 +169,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     <button
                       type="button"
                       onClick={selectAllLeagues}
-                      className="pl-btn-glass text-[11px] min-h-7 px-2.5"
+                      className="pl-btn-glass text-[11px] min-h-9 px-3"
                     >
                       Seleccionar las 7 ligas
                     </button>
@@ -313,7 +313,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
                 <button
                   type="button"
-                  className="pl-btn-primary w-full min-h-11 text-sm inline-flex items-center justify-center gap-2"
+                  className="pl-btn-primary pl-btn-wrap w-full min-h-11 text-sm inline-flex items-center justify-center gap-2"
                   data-generate-parlay=""
                   onClick={() =>
                     generateAutoParlay({
@@ -392,7 +392,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                               <MaestroIcon name="lock" size={12} />
                               <span className="truncate">{pk.categoryLabel}</span>
                             </span>
-                            <span className="pl-pill text-[10px] shrink-0">
+                            <span className="pl-pill text-[11px] shrink-0">
                               {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
                             </span>
                           </a>
@@ -543,7 +543,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         type="button"
                         aria-label={`Quitar ${pick.label}`}
                         onClick={() => removePickFromParlay(pick.id)}
-                        className="pl-btn-glass px-2 min-h-7 text-xs inline-flex items-center justify-center shrink-0"
+                        className="pl-btn-glass px-2.5 min-h-9 text-xs inline-flex items-center justify-center shrink-0"
                       >
                         <MaestroIcon name="x" size={12} />
                       </button>
@@ -798,7 +798,7 @@ export function PropsLabClubView(): React.JSX.Element {
     <AtmosphereStage activePath="/app/props">
       <ClubWorkspaceShell activePath="/app/props">
         <section className="space-y-2">
-          <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
+          <span className="pl-pill pl-pill--brand pl-pill--wrap inline-flex items-center gap-1.5">
             <MaestroIcon name="sliders" size={12} />
             <span>Distribuciones Continuas · Minkowski v3.0 & Tachyon v3.0</span>
           </span>

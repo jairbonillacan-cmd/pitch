@@ -631,7 +631,7 @@ export function TipsterPortalClubView({
                   1. Origen de tu Pick abierto de la semana
                 </h2>
                 <div
-                  className="seg-well w-full"
+                  className="seg-well seg-well--stack w-full"
                   role="group"
                   aria-label="Origen del pick semanal"
                 >
@@ -855,7 +855,7 @@ export function TipsterPortalClubView({
               >
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-7 px-2.5"
+                  className="seg-btn text-xs min-h-9 px-3"
                   aria-pressed={previewRatio === "4:5"}
                   onClick={() => setPreviewRatio("4:5")}
                 >
@@ -863,7 +863,7 @@ export function TipsterPortalClubView({
                 </button>
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-7 px-2.5"
+                  className="seg-btn text-xs min-h-9 px-3"
                   aria-pressed={previewRatio === "9:16"}
                   onClick={() => setPreviewRatio("9:16")}
                 >

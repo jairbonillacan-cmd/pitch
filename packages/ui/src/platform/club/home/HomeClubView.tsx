@@ -374,7 +374,7 @@ function ValueRail({ items }: { items: ReadonlyArray<{ game: PlatformGame; pick:
               {pick.marketCapturedAtUtc ? (
                 <time
                   dateTime={pick.marketCapturedAtUtc}
-                  className="text-[10px] leading-tight"
+                  className="text-[11px] leading-tight"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   {formatOddsCaptureEs(pick.marketCapturedAtUtc)}

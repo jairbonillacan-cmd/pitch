@@ -336,8 +336,8 @@ export function FounderAdminClubView({
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
           <LensGlowOrbs />
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
-            <div className="space-y-1">
-              <span className="pl-pill pl-pill--warning">
+            <div className="space-y-1 min-w-0 max-w-full">
+              <span className="pl-pill pl-pill--warning pl-pill--wrap">
                 <MaestroIcon name="crown" size={13} />
                 <span>Consola Operativa Founder · Configuración de Lanzamiento</span>
               </span>
@@ -810,8 +810,11 @@ export function FounderAdminClubView({
             className="pl-table-region"
             tabIndex={0}
             role="region"
-            aria-label="Tabla de códigos promocionales de Tipsters"
+            aria-label="Códigos de tipsters y tabla de comisiones"
           >
+            <span className="pl-table-scroll-hint" aria-hidden="true">
+              Desliza para ver comisiones y pagos →
+            </span>
             <table className="w-full text-left border-collapse text-sm num">
               <caption className="sr-only">Códigos promocionales de Tipsters oficiales y comisiones</caption>
               <thead>
