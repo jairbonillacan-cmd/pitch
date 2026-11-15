@@ -94,7 +94,7 @@ export function OfficialDailyParlayCard({
               <MaestroIcon name="sparkles" size={12} />
               <span>Oficial del día</span>
             </span>
-            <span className="text-xs font-semibold capitalize" style={{ color: "var(--pl-text-muted)" }}>
+            <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
               {dayCaption}
             </span>
             {settledStatus === "hit" ? (

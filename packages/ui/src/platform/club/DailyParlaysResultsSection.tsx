@@ -56,11 +56,12 @@ export function DailyParlaysResultsSection({
       ) : (
         <div className="space-y-4">
           {visibleDays.map((day) => {
-            const label = HIST_DAY_FMT.format(new Date(`${day.dayId}T18:00:00Z`));
+            const rawLabel = HIST_DAY_FMT.format(new Date(`${day.dayId}T18:00:00Z`));
+            const label = rawLabel.charAt(0).toUpperCase() + rawLabel.slice(1);
             return (
               <div key={day.dayId} className="space-y-2.5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="pl-home-day-head m-0 capitalize flex-1">{label}</h3>
+                  <h3 className="pl-home-day-head m-0 flex-1">{label}</h3>
                   <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
                     {day.finishedGamesCount}{" "}
                     {day.finishedGamesCount === 1 ? "partido" : "partidos"}

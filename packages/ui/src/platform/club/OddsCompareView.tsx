@@ -123,7 +123,7 @@ export function OddsCompareClubView(): React.JSX.Element {
                 <section key={g.id} className="pl-odds-game glass-card glass-ring" aria-label={`${g.home.name} vs ${g.away.name}`}>
                   <header className="pl-finder-meta text-xs">
                     <LeagueBadge league={g.league} label={g.leagueLabel} size={14} />
-                    <strong className="text-sm truncate" style={{ color: "var(--pl-text)" }}>
+                    <strong className="text-sm" style={{ color: "var(--pl-text)" }}>
                       {g.home.shortName} vs {g.away.shortName}
                     </strong>
                     <span>

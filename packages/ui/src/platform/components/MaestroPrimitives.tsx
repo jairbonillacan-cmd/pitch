@@ -722,7 +722,7 @@ export function RoleSwitcherPill({
 export function ExampleBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span
-      className={["pl-pill pl-pill--warning text-[10px] shrink-0", className].filter(Boolean).join(" ")}
+      className={["pl-pill pl-pill--warning text-[11px] shrink-0", className].filter(Boolean).join(" ")}
       title="Perfil de ejemplo: PitchLab todavía no tiene tipsters ni comunidad reales."
       data-example-badge=""
     >

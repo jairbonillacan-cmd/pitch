@@ -263,17 +263,19 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
     if (found) usedLabels.add(found.row.label);
     return found;
   };
-  const fromSnapshotPick = (profile: string) => {
+  const fromSnapshotPick = (profile: string, minP = 0) => {
     const snap = match.picks?.find((p) => p.profile === profile);
     if (!snap || usedLabels.has(snap.label)) return undefined;
-    return take(({ row }) => row.market === snap.market && row.selection === snap.selection);
+    return take(
+      ({ row }) => row.market === snap.market && row.selection === snap.selection && row.p >= minP,
+    );
   };
   const groupHas = (group: string, ...needles: string[]) =>
     needles.some((n) => group.toLowerCase().includes(n));
 
   // 1) Pick Principal: la señal estructural más clara entre 54 % y 71 %.
   const main =
-    fromSnapshotPick("intermedia") ?? take(({ row }) => row.p >= 0.54 && row.p <= 0.71);
+    fromSnapshotPick("intermedia", 0.5) ?? take(({ row }) => row.p >= 0.54 && row.p <= 0.71);
   if (main) {
     pickRows.push({
       category: "principal",

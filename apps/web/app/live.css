@@ -27,13 +27,13 @@
 
 .pl-live-phase--live,
 .pl-live-phase--penalties {
-  color: var(--pl-text);
-  border-color: var(--pl-pill-danger-border);
-  background: var(--pl-pill-danger-bg);
+  color: var(--pl-pill-danger-fg);
+  border-color: color-mix(in oklab, var(--pl-danger) 42%, var(--pl-pill-danger-border));
+  background: color-mix(in oklab, var(--pl-danger) 14%, var(--pl-pill-danger-bg));
 }
 
 .pl-live-phase--halftime {
-  color: var(--pl-text);
+  color: var(--pl-pill-warning-fg);
   border-color: var(--pl-pill-warning-border);
   background: var(--pl-pill-warning-bg);
 }
@@ -48,9 +48,26 @@
   animation: pl-live-pulse 1.6s ease-in-out infinite;
 }
 
+.pl-live-phase--halftime .pl-live-pulse {
+  background: var(--pl-warning);
+}
+
 @keyframes pl-live-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.78;
+    transform: scale(0.88);
+  }
+}
+
+/* Mantiene alineados fase y liga entre filas activas y finales sin botón Seguir */
+.pl-live-board:has(.pl-live-follow) .pl-live-row:not(:has(.pl-live-follow))::after {
+  content: "";
+  inline-size: 40px;
+  flex: 0 0 40px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -617,19 +634,32 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  max-block-size: 520px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+}
+
+/* En una sola columna (< 820 px) la lista fluye completa para no atrapar el scroll táctil;
+   el scroll acotado vive solo en el panel de dos columnas de escritorio. */
+@container (min-width: 820px) {
+  .pl-live-timeline {
+    max-block-size: 520px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    overscroll-behavior: contain;
+  }
 }
 
 .pl-live-event {
   display: grid;
   grid-template-columns: 5ch 22px minmax(0, 1fr) auto;
-  align-items: center;
+  align-items: start;
   gap: 8px;
   padding: 8px 2px;
   border-block-end: 1px solid var(--pl-border);
   font-size: 13px;
+}
+
+.pl-live-event > :nth-child(1),
+.pl-live-event > :nth-child(2) {
+  margin-block-start: 1px;
 }
 
 .pl-live-event-min {
@@ -694,6 +724,10 @@
 .pl-live-event-icon--red::before { box-shadow: inset 0 0 0 1px var(--pl-border-strong); }
 
 .pl-live-event.is-goal { font-weight: 700; }
+.pl-live-event.is-goal .pl-live-event-body > span {
+  font-weight: 400;
+  color: var(--pl-text-secondary);
+}
 
 .pl-live-event--period {
   grid-template-columns: 1fr;

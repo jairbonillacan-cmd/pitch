@@ -637,18 +637,18 @@ export function MatchStudioClubView({
           <div className="pl-studio-side">
           {/* ¿Dónde está el dinero? Quick Summary */}
           {!flow ? (
-            <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5" data-no-market="">
+            <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0" data-no-market="">
               <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Este partido todavía no tiene momios verificados. Mostramos solo la probabilidad del modelo.
               </p>
             </div>
           ) : (
-          <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between gap-2">
+          <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 flex flex-col justify-between min-w-0">
+            <div className="space-y-2.5 min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
                 <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
-                <span className="pl-pill pl-pill--brand text-[10px] num">
+                <span className="pl-pill pl-pill--brand text-[11px] num">
                   {game.spacetime?.market?.asOfUtc ? (
                     <>
                       {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
@@ -662,12 +662,12 @@ export function MatchStudioClubView({
                 </span>
               </div>
 
-              <div className="space-y-1.5 text-xs num">
-                <div className="flex items-center justify-between">
-                  <span style={{ color: "var(--pl-text-muted)" }}>
+              <div className="space-y-1.5 text-xs num min-w-0">
+                <div className="flex items-center justify-between gap-2 min-w-0">
+                  <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
                     {game.home.shortName}: dinero / modelo
                   </span>
-                  <strong>
+                  <strong className="shrink-0">
                     {flow.homeShare} % / {(game.x12[0] * 100).toFixed(0)} %
                   </strong>
                 </div>
@@ -676,11 +676,11 @@ export function MatchStudioClubView({
                   lead={flow.homeShare >= 50}
                 />
 
-                <div className="flex items-center justify-between pt-1">
-                  <span style={{ color: "var(--pl-text-muted)" }}>
+                <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
+                  <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
                     {game.away.shortName}: dinero / modelo
                   </span>
-                  <strong>
+                  <strong className="shrink-0">
                     {flow.awayShare} % / {(game.x12[2] * 100).toFixed(0)} %
                   </strong>
                 </div>
@@ -691,16 +691,16 @@ export function MatchStudioClubView({
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-2 pt-2 hairline-t text-xs">
+            <div className="flex items-center justify-between gap-2 pt-2 hairline-t text-xs min-w-0">
               <span
-                className="truncate"
+                className="truncate min-w-0"
                 style={{ color: "var(--pl-text-secondary)" }}
               >
                 {flow.sharpNote}
               </span>
               <button
                 type="button"
-                className="pl-btn-glass text-[11px] min-h-7 px-2.5 shrink-0"
+                className="pl-btn-glass text-xs min-h-9 px-3 shrink-0"
                 onClick={() => setActiveTab("dinero")}
               >
                 Detalle
@@ -773,7 +773,7 @@ export function MatchStudioClubView({
                       <div className="flex justify-end">
                         <button
                           type="button"
-                          className="pl-btn-glass text-xs min-h-7 px-2.5 inline-flex items-center gap-1"
+                          className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
                           onClick={() => {
                             setSelectedTipsterPickId(pk.id);
                             pushToast(
@@ -927,7 +927,7 @@ export function MatchStudioClubView({
                         {item.body}
                       </p>
                       <span
-                        className="block text-[10px]"
+                        className="block text-[11px]"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
                         {item.createdAt}

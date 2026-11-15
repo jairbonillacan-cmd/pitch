@@ -323,7 +323,7 @@ export function NotificationInboxPanel({
             <p>
               {hasWatchlist
                 ? "Te avisamos 1 hora antes de que empiecen tus partidos, cuando la casa pague más que la cuota justa y al final."
-                : "Toca el ojo en cualquier partido. Te avisamos antes de que empiece, si la casa paga más que la cuota justa y con el resultado."}
+                : "Toca la campana en cualquier partido. Te avisamos antes de que empiece, si la casa paga más que la cuota justa y con el resultado."}
             </p>
             <button type="button" className="pl-notif-link" onClick={onBrowse}>
               Ver la jornada

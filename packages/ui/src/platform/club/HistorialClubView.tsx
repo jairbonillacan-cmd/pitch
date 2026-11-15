@@ -205,9 +205,12 @@ export function HistorialClubView(): React.JSX.Element {
               Todavía no hay partidos calificados con ese filtro.
             </p>
           ) : (
-            days.map(([day, games]) => (
-              <div key={day} className="space-y-2">
-                <h3 className="pl-home-day-head m-0 capitalize">{DAY_FMT.format(new Date(`${day}T18:00:00Z`))}</h3>
+            days.map(([day, games]) => {
+              const rawDayLabel = DAY_FMT.format(new Date(`${day}T18:00:00Z`));
+              const dayLabel = rawDayLabel.charAt(0).toUpperCase() + rawDayLabel.slice(1);
+              return (
+                <div key={day} className="space-y-2">
+                  <h3 className="pl-home-day-head m-0">{dayLabel}</h3>
                 <ul className="pl-hist-list">
                   {games.map((g) => {
                     const pick = g.picks[0]!;
@@ -242,7 +245,8 @@ export function HistorialClubView(): React.JSX.Element {
                   })}
                 </ul>
               </div>
-            ))
+            );
+            })
           )}
           {listed.length > shown ? (
             <div className="flex justify-center">

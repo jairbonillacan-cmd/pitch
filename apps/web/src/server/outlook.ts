@@ -465,6 +465,8 @@ export function applyOutlookWithMatchOutlook(
         ...match,
         x12: [round4(pHome), 0, round4(pAway)],
         marketGroups,
+        /* Descarta picks h2h previos del snapshot cuando Cortex v3.2 recalcula moneyline NFL. */
+        picks: [],
         confidence: outlookConfidence(o, match, Math.max(pHome, pAway)),
         outcomes: match.outcomes.map((oc) =>
           oc.key === "home" ? { ...oc, probability: pHome } : oc.key === "away" ? { ...oc, probability: pAway } : oc,
