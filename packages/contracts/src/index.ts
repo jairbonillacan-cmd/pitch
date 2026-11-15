@@ -15,3 +15,4 @@ export * from "./trial-email";
 export * from "./injuries-lineups";
 export * from "./data-health";
 export * from "./live";
+export * from "./cortex";

@@ -90,6 +90,8 @@ export interface AnalysisInsights {
 
 export interface GameAnalysis {
   game: GameId;
+  /** Análisis de Cortex IA por secciones (se genera en el corte). */
+  cortex?: CortexWriteup;
   /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
   counts?: { corners?: CountProjection; fouls?: CountProjection; yellow?: CountProjection };
   model: {
@@ -215,8 +217,33 @@ export const CountProjectionSchema = z.object({
 
 export type CountProjection = z.infer<typeof CountProjectionSchema>;
 
+export const CORTEX_SECTION_KEYS = ["resumen", "goles", "esquinas", "faltas", "contexto", "atencion"] as const;
+export type CortexSectionKey = (typeof CORTEX_SECTION_KEYS)[number];
+
+/** Análisis de Cortex IA por secciones, redactado una vez en el corte (no en cada visita). */
+export const CortexWriteupSchema = z.object({
+  sections: z
+    .array(
+      z.object({
+        key: z.enum(CORTEX_SECTION_KEYS),
+        title: z.string().min(1),
+        text: z.string().min(1),
+        /** `plantilla` si el texto del LLM no pasó la validación y se armó con los números. */
+        origin: z.enum(["ia", "plantilla"]),
+      }),
+    )
+    .min(1),
+  /** Huella de los datos de entrada: si no cambian, no se vuelve a llamar al modelo. */
+  fingerprint: z.string().min(8),
+  generatedAt: z.string().min(10),
+  version: z.string().min(1),
+});
+
+export type CortexWriteup = z.infer<typeof CortexWriteupSchema>;
+
 export const GameAnalysisSchema = z.object({
   game: GameIdSchema,
+  cortex: CortexWriteupSchema.optional(),
   /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
   counts: z
     .object({

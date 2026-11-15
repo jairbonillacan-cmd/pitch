@@ -8,6 +8,8 @@ import {
   assertNotDemoInProduction,
   snapshotToMatchAnalyses,
   asLeagueId,
+  CortexWriteupSchema,
+  type CortexWriteup,
   type LeagueId,
   type StandingRow,
   type MatchAnalysis,
@@ -253,4 +255,21 @@ export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEn
     loadLeagueSnapshotEnvelope(league),
   ]) as Array<[ProductLeague, SnapshotEnvelope]>;
   return Object.fromEntries(entries) as Record<ProductLeague, SnapshotEnvelope>;
+}
+
+/**
+ * Análisis por secciones de Cortex IA de un partido (lo redacta el corte; aquí no se llama al
+ * modelo). `null` si el partido no lo tiene o el archivo no se puede leer.
+ */
+export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): CortexWriteup | null {
+  try {
+    const latestPath = path.join(resolveSnapshotsRoot(), leagueKey, "latest.json");
+    if (!fs.existsSync(latestPath)) return null;
+    const raw = JSON.parse(fs.readFileSync(latestPath, "utf8")) as { analyses?: Record<string, { cortex?: unknown }> };
+    const parsed = CortexWriteupSchema.safeParse(raw.analyses?.[gameId]?.cortex);
+    return parsed.success ? parsed.data : null;
+  } catch (err) {
+    void err;
+    return null;
+  }
 }

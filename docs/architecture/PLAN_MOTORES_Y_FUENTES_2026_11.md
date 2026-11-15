@@ -209,6 +209,16 @@ Astra publica córners y faltas esperados; nosotros no teníamos ese modelo. Aho
 - **Ejemplo** Querétaro–Monterrey (14 nov): córners 5.4–5.3 (10.8), faltas 11.8–10.1 (22.0). Astra publicó 5.1–5.5 (10.6) y 11.8–10.3 (22.1).
 - **Pendiente:** árbitro como variable de faltas y tarjetas (football-data.co.uk lo trae solo en la Premier; Bzzoiro trae `refereeId`), y comparar contra la línea de córners de cierre de Bet365 (5Dollar, plan Pro).
 
+## 11. Cortex IA por secciones en el corte (2026-11-14)
+
+Antes la ficha llamaba al LLM en cada visita (caché en memoria que se perdía en cada arranque). Ahora:
+
+- **Una llamada por partido, en el corte** (`pnpm --filter @pitchlab/ingest cortex:write`, paso «Cortex IA» del workflow): partidos de fútbol por jugar de los próximos 4 días que aún no tienen texto. Tope de 60 llamadas por corrida. La ficha lee `analyses[id].cortex` del snapshot: cero llamadas por visita.
+- **Huella de datos** (`fingerprint`): si los datos de entrada no cambian, no se vuelve a llamar. Como el análisis publicado se congela antes del inicio, en la práctica es una sola llamada por partido.
+- **Secciones** como Astra: Resumen, Goles, Tiros de esquina, Faltas, Contexto y A tener en cuenta. Córners y faltas solo si el motor de conteos (§10) los publicó.
+- **El LLM solo redacta:** recibe probabilidades, goles esperados, más de 1.5/2.5, ambos anotan, conteos, tabla y descanso. Cada sección pasa el validador compartido (`packages/contracts/src/cortex.ts`: números respaldados, sin proveedores ni algoritmos, sin muletillas, sin lenguaje de apuesta, favorito y local/visitante sin invertir). Sección rechazada → plantilla con los mismos números (`origin: "plantilla"`). Si OpenRouter falla, no se guarda nada y el siguiente corte reintenta.
+- **Configuración:** secreto `OPENROUTER_API_KEY` en GitHub Actions; variables opcionales `OPENROUTER_MODEL` (por defecto `deepseek/deepseek-v4.1-flash-1017`), `OPENROUTER_PROVIDER` y `PITCHLAB_AI_ENABLED=0` para apagarlo. Revisar los datos sin gastar: `cortex:write --dry-run`.
+
 ## 9. Siguientes pasos
 
 1. Cargar `BZZOIRO_API_KEY` como secreto de GitHub Actions para encender el xG en producción.
@@ -217,4 +227,4 @@ Astra publica córners y faltas esperados; nosotros no teníamos ese modelo. Aho
 4. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 5. MLB: distribución de carreras, entradas extra, F5 y run line antes de marzo.
 6. Árbitro en faltas y tarjetas (§10).
-7. Análisis de IA por secciones, generado una vez por partido en el corte (córners y faltas ya salen del motor, §10).
+7. ✅ Análisis de IA por secciones en el corte (§11). Falta cargar `OPENROUTER_API_KEY` en GitHub Actions.

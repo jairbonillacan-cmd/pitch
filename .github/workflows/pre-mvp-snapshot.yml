@@ -164,6 +164,19 @@ jobs:
             discard "Las pruebas de Spacetime fallaron con los datos nuevos."; exit 0
           fi
 
+      # Cortex IA por secciones: una llamada por partido por jugar (próximos 4 días) que aún no lo
+      # tiene; si los datos no cambian, no se vuelve a llamar. La ficha solo lee el snapshot.
+      # Sin OPENROUTER_API_KEY no hace nada; si OpenRouter falla, el siguiente corte reintenta.
+      - name: Cortex IA (texto por partido)
+        if: inputs.mode != 'injuries'
+        continue-on-error: true
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+          OPENROUTER_PROVIDER: ${{ vars.OPENROUTER_PROVIDER }}
+          PITCHLAB_AI_ENABLED: ${{ vars.PITCHLAB_AI_ENABLED }}
+        run: pnpm --filter @pitchlab/ingest cortex:write --max-calls=60
+
       # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
       - name: Volumen por resultado (mercados de predicción)
         if: inputs.mode != 'injuries'

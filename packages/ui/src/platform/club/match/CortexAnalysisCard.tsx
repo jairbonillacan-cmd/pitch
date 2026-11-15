@@ -26,14 +26,26 @@ type Phase = "thinking" | "writing" | "done";
  * escribe el texto palabra por palabra y al final muestra las claves del partido. Con
  * movimiento reducido aparece completo. «Ver completo» salta la animación.
  */
+export interface CortexSectionView {
+  key: string;
+  title: string;
+  text: string;
+}
+
 export function CortexAnalysisCard({
   game,
   synthesis,
   unlocked,
+  sections,
 }: {
   game: PlatformGame;
   synthesis: string;
   unlocked: boolean;
+  /**
+   * Análisis por secciones redactado en el corte (Resumen, Goles, Tiros de esquina, Faltas,
+   * Contexto, A tener en cuenta). El resumen se escribe con la animación; el resto aparece al final.
+   */
+  sections?: readonly CortexSectionView[] | null;
 }): React.JSX.Element {
   const words = useMemo(() => synthesis.split(/(\s+)/), [synthesis]);
   const [phase, setPhase] = useState<Phase>("thinking");
@@ -118,6 +130,21 @@ export function CortexAnalysisCard({
           {phase === "writing" ? <span className="pl-cortex-caret" aria-hidden="true" /> : null}
         </p>
       )}
+
+      {phase === "done" && unlocked && sections && sections.length > 0 ? (
+        <div className="pl-cortex-sections">
+          {sections
+            .filter((sec) => sec.key !== "resumen")
+            .map((sec) => (
+              <section key={sec.key} className="pl-cortex-section" aria-labelledby={`cortex-${sec.key}`}>
+                <h3 id={`cortex-${sec.key}`} className="pl-cortex-section-title">
+                  {sec.title}
+                </h3>
+                <p className="pl-cortex-section-text">{sec.text}</p>
+              </section>
+            ))}
+        </div>
+      ) : null}
 
       {phase === "done" && unlocked ? (
         <div className="pl-cortex-grid">

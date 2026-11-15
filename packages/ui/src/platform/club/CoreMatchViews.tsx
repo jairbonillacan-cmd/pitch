@@ -347,12 +347,15 @@ export function MatchStudioClubView({
   leagueId,
   gameId,
   cortexSynthesisOverride,
+  cortexSections,
   detail,
 }: {
   leagueId: LeagueId;
   gameId: string;
   /** Resumen de Cortex IA redactado en servidor (LLM validado); si falta, se usa la plantilla. */
   cortexSynthesisOverride?: string | null;
+  /** Análisis por secciones de Cortex IA (lo redacta el corte y llega en el snapshot). */
+  cortexSections?: ReadonlyArray<{ key: string; title: string; text: string }> | null;
   /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
 }): React.JSX.Element {
@@ -632,8 +635,13 @@ export function MatchStudioClubView({
         <section aria-label="Análisis y pulso de mercado" className="pl-studio-main">
           <CortexAnalysisCard
             game={game}
-            synthesis={cortexSynthesisOverride ?? game.preGame.cortexSynthesis}
+            synthesis={
+              cortexSections?.find((sec) => sec.key === "resumen")?.text ??
+              cortexSynthesisOverride ??
+              game.preGame.cortexSynthesis
+            }
             unlocked={intelUnlocked}
+            sections={cortexSections}
           />
           <div className="pl-studio-side">
           {/* ¿Dónde está el dinero? Quick Summary */}

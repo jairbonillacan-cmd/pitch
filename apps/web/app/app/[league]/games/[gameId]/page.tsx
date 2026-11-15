@@ -1,17 +1,11 @@
 import React from "react";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { asLeagueId } from "@pitchlab/contracts";
 import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
 import { MatchStudioClubView } from "@pitchlab/ui/match-studio";
-import { cortexSummary } from "../../../../../src/server/cortex";
+import { loadGameDetail, loadGameSummary } from "../../../../../src/server/platform-data";
 import {
-  buildServerRawPlatformDataset,
-  loadGameDetail,
-  loadGameSummary,
-} from "../../../../../src/server/platform-data";
-import { trustedClientIp } from "../../../../../src/server/request-security";
-import {
+  loadCortexWriteup,
   loadLeagueSnapshotEnvelope,
   PRODUCT_LEAGUES,
   type ProductLeague,
@@ -38,18 +32,10 @@ export default async function ClubMatchStudioPage({
     notFound();
   }
 
-  // Cortex IA con LLM solo para socios con sesión (la inteligencia previa es de Pase PitchLab Ultra).
-  let cortex: string | null = null;
-  if (process.env.OPENROUTER_API_KEY) {
-    const access = await getViewerAccess();
-    if (access.fullAccess) {
-      const game = buildServerRawPlatformDataset().games.find((g) => g.id === gameId);
-      if (game && game.status !== "FT") {
-        const viewerKey = access.profile?.handle ?? (trustedClientIp(await headers()) || "socio");
-        cortex = await cortexSummary(game, { viewerKey });
-      }
-    }
-  }
+  // Cortex IA: el corte lo redacta una vez por partido y viaja en el snapshot; aquí no se llama
+  // al modelo. Solo socios con acceso completo (la inteligencia previa es de Pase PitchLab Ultra).
+  const writeup = loadCortexWriteup(league, gameId);
+  const cortexSections = writeup && (await getViewerAccess()).fullAccess ? writeup.sections : null;
 
   // El layout solo trae partidos por jugar: si este ya terminó, se agrega aquí.
   const [detail, summary] = await Promise.all([loadGameDetail(gameId), loadGameSummary(gameId)]);
@@ -59,7 +45,7 @@ export default async function ClubMatchStudioPage({
       <MatchStudioClubView
         leagueId={asLeagueId(league)}
         gameId={gameId}
-        cortexSynthesisOverride={cortex}
+        cortexSections={cortexSections}
         detail={detail}
       />
     </PlatformGamesSupplement>

@@ -156,6 +156,25 @@ export const AnalisisCortex = {
 };
 export const AnalisisCortexClaro = { ...AnalisisCortex, ...light };
 
+/** Análisis por secciones como lo redacta el corte (texto de ejemplo, números de ejemplo). */
+const SECTIONS = [
+  { key: "resumen", title: "Resumen", text: "Partido parejo con ligera ventaja visitante: 40 % de victoria para la visita, 34 % para el local y 26 % de empate." },
+  { key: "goles", title: "Goles", text: "Se esperan 2.96 goles: 1.41 del local y 1.55 de la visita. Que ambos anoten tiene 60 % de probabilidad." },
+  { key: "esquinas", title: "Tiros de esquina", text: "Se esperan 10.8 tiros de esquina en total, repartidos casi por igual: 5.4 del local y 5.3 de la visita." },
+  { key: "faltas", title: "Faltas", text: "Se esperan 22.0 faltas: 11.8 del local y 10.1 de la visita, cerca de lo que cada uno suele cometer." },
+  { key: "contexto", title: "Contexto", text: "La visita es 10.º con 21 puntos y el local 12.º con 20; los dos llegan con descanso similar." },
+  { key: "atencion", title: "A tener en cuenta", text: "El análisis no incluye árbitro, bajas ni alineaciones confirmadas. Un gol temprano o una expulsión pueden cambiar la lectura." },
+];
+
+export const AnalisisCortexSecciones = {
+  render: () => (
+    <Provider>
+      <CortexAnalysisCard game={GAME} synthesis={SECTIONS[0]!.text} unlocked sections={SECTIONS} />
+    </Provider>
+  ),
+};
+export const AnalisisCortexSeccionesClaro = { ...AnalisisCortexSecciones, ...light };
+
 export const VotacionYSimulador = {
   render: () => (
     <Provider>
