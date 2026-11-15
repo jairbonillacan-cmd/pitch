@@ -212,12 +212,15 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // 7) Ficha de partido: Mercados agrupados y derivados del motor v3.2
+  // 7) Ficha de partido: pestañas accesibles, números esperados y mercados derivados v3.2
   if (firstMatchHref) {
     await page.goto(firstMatchHref);
-    const marketsTab = page.getByRole("tab", { name: /^Mercados/i });
-    await expect(marketsTab).toBeVisible();
-    await marketsTab.click();
+    const numbersTab = page.getByRole("tab", { name: /^Números/i });
+    await expect(numbersTab).toBeVisible();
+    await numbersTab.click();
+    await expect(numbersTab).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=numeros$/);
+    await expect(page.locator("[data-numbers-expected]")).toBeVisible();
     await expect(page.locator(".pl-mkt-wrap")).toBeVisible();
     await expect(page.getByText(/Derivado del motor/i).first()).toBeVisible();
     const bodyText = await page.locator("body").innerText();

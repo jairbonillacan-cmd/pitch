@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { asLeagueId } from "@pitchlab/contracts";
 import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
 import { MatchStudioClubView } from "@pitchlab/ui/match-studio";
+import { normalizeMatchTab } from "@pitchlab/ui/match-tab";
 import { loadGameDetail, loadGameSummary } from "../../../../../src/server/platform-data";
 import {
   loadCortexWriteup,
@@ -18,10 +19,16 @@ function isProductLeague(val: string): val is ProductLeague {
 
 export default async function ClubMatchStudioPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ league: string; gameId: string }>;
+  searchParams?: Promise<{ tab?: string | string[] }>;
 }): Promise<React.JSX.Element> {
-  const { league, gameId } = await params;
+  const [{ league, gameId }, resolvedSearch] = await Promise.all([
+    params,
+    searchParams ?? Promise.resolve<{ tab?: string | string[] }>({}),
+  ]);
+  const initialTab = normalizeMatchTab(resolvedSearch.tab);
   if (!isProductLeague(league)) {
     notFound();
   }
@@ -50,6 +57,7 @@ export default async function ClubMatchStudioPage({
         cortexSections={cortexSections}
         cortexHeadline={cortexHeadline}
         detail={detail}
+        initialTab={initialTab}
       />
     </PlatformGamesSupplement>
   );

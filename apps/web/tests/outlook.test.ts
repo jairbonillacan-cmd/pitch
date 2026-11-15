@@ -240,4 +240,58 @@ describe("vigencia < 72 h y hora de captura en panorama v3.2", () => {
       expect(appliedExpired.signal?.market).toBeNull();
     }
   });
+
+  it("conserva los mercados de conteos (corners_total, fouls_total, yellow_total) al aplicar panorama v3.2", () => {
+    const detailOutlook = outlookDetailFor(unionLeipzig);
+    expect(detailOutlook).not.toBeNull();
+    const o = findOutlook(unionLeipzig)!;
+    const matchWithCounts = {
+      id: "bl-test-counts",
+      league: "bundesliga" as never,
+      leagueLabel: "Bundesliga",
+      sport: "football" as const,
+      round: "Jornada 11",
+      day: "2030-11-14",
+      dayLabel: "sábado",
+      kickoffUtc: "2030-11-14T14:30:00Z",
+      kickoffLocal: "08:30",
+      venue: "Alte Försterei",
+      status: "NS" as const,
+      home: { slug: "union-berlin", name: "1. FC Union Berlin", shortName: "Union Berlin", code: "FCU", record: "10 PJ" },
+      away: { slug: "rb-leipzig", name: "RB Leipzig", shortName: "Leipzig", code: "RBL", record: "10 PJ" },
+      x12: [0.3, 0.25, 0.45] as [number, number, number],
+      outcomes: [
+        { key: "home", label: "Union Berlin gana", probability: 0.3 },
+        { key: "draw", label: "Empate", probability: 0.25 },
+        { key: "away", label: "Leipzig gana", probability: 0.45 },
+      ],
+      marketGroups: [
+        {
+          group: "Tiros de esquina 9.5",
+          rows: [{ market: "corners_total" as never, selection: "over", label: "Más de 9.5", line: 9.5, p: 0.54, fairOdds: 1.85 }],
+        },
+        {
+          group: "Faltas 22.5",
+          rows: [{ market: "fouls_total" as never, selection: "under", label: "Menos de 22.5", line: 22.5, p: 0.55, fairOdds: 1.82 }],
+        },
+        {
+          group: "Tarjetas amarillas 4.5",
+          rows: [{ market: "yellow_total" as never, selection: "over", label: "Más de 4.5", line: 4.5, p: 0.52, fairOdds: 1.92 }],
+        },
+      ],
+      counts: {
+        corners: { home: 4.9, away: 4.8, total: 9.7, line: 9.5, pOver: 0.54, sample: { home: 10, away: 10 } },
+        fouls: { home: 11.2, away: 10.9, total: 22.1, line: 22.5, pOver: 0.45, sample: { home: 10, away: 10 } },
+        yellow: { home: 2.3, away: 2.3, total: 4.6, line: 4.5, pOver: 0.52, sample: { home: 10, away: 10 } },
+      },
+      factors: [],
+      trace: [],
+    };
+    const enriched = applyOutlookWithMatchOutlook(matchWithCounts, null, o);
+    const markets = (enriched.match.marketGroups ?? []).flatMap((g) => g.rows.map((r) => r.market));
+    expect(markets).toContain("corners_total");
+    expect(markets).toContain("fouls_total");
+    expect(markets).toContain("yellow_total");
+    expect(enriched.match.counts?.corners?.total).toBeCloseTo(9.7, 2);
+  });
 });

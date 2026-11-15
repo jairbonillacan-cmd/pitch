@@ -26,6 +26,7 @@
     "./ranking": "./src/platform/ranking.ts",
     "./record": "./src/platform/club/BitacoraClubView.tsx",
     "./match-studio": "./src/platform/club/CoreMatchViews.tsx",
+    "./match-tab": "./src/platform/club/match/match-tab.ts",
     "./games-supplement": "./src/platform/platform-provider.tsx",
     "./pre-match": "./src/platform/club/match/pre-match-logic.ts",
     "./picks-engine": "./src/platform/match-picks-engine.ts",

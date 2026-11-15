@@ -5,6 +5,7 @@ import type {
   AnalysisConfidence,
   AnalysisMarketGroup,
   AnalysisPick,
+  CountProjection,
   LeagueSnapshot,
   MostLikelyScore,
 } from "./analysis";
@@ -104,6 +105,12 @@ export interface MatchAnalysis {
   injuries?: {
     home: TeamInjuryEntry[];
     away: TeamInjuryEntry[];
+  };
+  /** Proyecciones de conteos (córners, faltas, tarjetas amarillas) cuando hay historial suficiente. */
+  counts?: {
+    corners?: CountProjection;
+    fouls?: CountProjection;
+    yellow?: CountProjection;
   };
 }
 
@@ -532,6 +539,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         awayGoals: h.awayGoals,
       })),
       restDays: analysis?.insights?.restDays,
+      ...(analysis?.counts ? { counts: analysis.counts } : {}),
     };
   });
 

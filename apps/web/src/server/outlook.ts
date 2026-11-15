@@ -232,6 +232,13 @@ function sel(o: MatchOutlook, key: string, selection: string) {
   );
 }
 
+const COUNT_MARKETS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+
+function preserveCountGroups(groups: readonly AnalysisMarketGroup[] | undefined): AnalysisMarketGroup[] {
+  if (!groups || groups.length === 0) return [];
+  return groups.filter((group) => group.rows.some((r) => COUNT_MARKETS.has(r.market)));
+}
+
 /**
  * Grupos de mercado del partido desde el panorama v3.2, con las mismas claves que el
  * snapshot (`h2h`, `double_chance`, `totals`, `btts`, `correct_score`) para que el armado de
@@ -495,7 +502,7 @@ export function applyOutlookWithMatchOutlook(
     match: {
       ...match,
       x12: [round4(home.p), round4(draw.p), round4(away.p)],
-      marketGroups: footballGroups(o, match),
+      marketGroups: [...footballGroups(o, match), ...preserveCountGroups(match.marketGroups)],
       mostLikelyScore: top ? { home: top.homeGoals, away: top.awayGoals, p: top.p } : match.mostLikelyScore,
       projection,
       picks: [],

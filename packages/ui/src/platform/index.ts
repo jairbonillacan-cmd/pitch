@@ -36,9 +36,23 @@ export * from "./club/match/MatchMarketsGrid";
 export * from "./club/match/PreMatchModule";
 export * from "./club/match/pre-match-logic";
 export { HomeClubView } from "./club/home/HomeClubView";
+export {
+  groupMatchesByDayAndLeague,
+  type DayLeagueMatchGroup,
+  type DayMatchGroup,
+} from "./club/home/home-model";
 export { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
 export { PersonalParlayQuickBar } from "./club/PersonalParlayQuickBar";
 export { HomeMatchCard } from "./components/HomeMatchCard";
+export * from "./components/MatchList";
+export * from "./club/match/MatchNumbersPanel";
+export * from "./club/match/match-tab";
+export {
+  MatchTabs,
+  MatchTabPanel,
+  useMatchUrlTab,
+  type MatchTabDef,
+} from "./club/match/MatchTabs";
 export * from "./club/ParlayAndQuantViews";
 export * from "./club/SocialAndTipsterViews";
 export * from "./club/LedgerAccountAdminViews";

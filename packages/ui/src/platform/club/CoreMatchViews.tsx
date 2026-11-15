@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
@@ -12,8 +12,6 @@ import {
 } from "../../sports";
 import {
   decimalToAmericanInt,
-  formatEdgePts,
-  formatOddsValue,
   getSessionWatermark,
   isPreGameIntelUnlocked,
 } from "../access-guard";
@@ -22,24 +20,25 @@ import {
   LensGlowOrbs,
   MaestroIcon,
   ExampleBadge,
-  NoticeCard,
   StackedAvatars,
   UserBadges,
 } from "../components/MaestroPrimitives";
+import { MatchList } from "../components/MatchList";
 import { PlLeagueSelect } from "../components/PlSelect";
-import {
-  MatchTicketCard,
-  MultiPickRow,
-} from "../components/MatchTicketCard";
+import { MultiPickRow } from "../components/MatchTicketCard";
 import { ConfidenceChip } from "../components/ConfidenceChip";
+import { groupMatchesByDayAndLeague } from "./home/home-model";
 import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
 import { MatchContextPanel } from "./match/MatchContextPanel";
-import { MatchMarketsGrid } from "./match/MatchMarketsGrid";
-import { MatchSimulator } from "./match/MatchSimulator";
+import { MatchNumbersPanel } from "./match/MatchNumbersPanel";
+import {
+  MatchTabPanel,
+  MatchTabs,
+  useMatchUrlTab,
+} from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
 import { FollowControl, LiveMatchPanel } from "../live/LiveMatchCenter";
 import { PicksFinderClubView } from "./PicksFinderView";
-import { MatchOutlookStrip } from "../components/MatchOutlookStrip";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -49,73 +48,12 @@ import {
 } from "../platform-provider";
 import type {
   MatchPick,
+  MatchTabKey,
   PlatformGame,
   PlatformGameDetail,
   PlatformMarketRow,
   RiskBand,
 } from "../types";
-
-const GRID_PAGE = 12;
-
-/**
- * Rejilla de partidos que dibuja 12 y agrega 12 más al acercarse al final.
- * Cada tarjeta usa content-visibility para no pintarse fuera de pantalla.
- */
-function ProgressiveGameGrid({
-  games,
-  featureFirst = false,
-  resetKey,
-}: {
-  games: readonly PlatformGame[];
-  featureFirst?: boolean;
-  resetKey?: string;
-}): React.JSX.Element {
-  const [count, setCount] = useState<number>(GRID_PAGE);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setCount(GRID_PAGE);
-  }, [resetKey]);
-
-  const hasMore = count < games.length;
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el || !hasMore) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setCount((c) => Math.min(c + GRID_PAGE, games.length));
-        }
-      },
-      { rootMargin: "600px 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [hasMore, games.length]);
-
-  return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {games.slice(0, count).map((g, idx) => (
-          <div key={g.id} className="pl-cv-card">
-            <MatchTicketCard game={g} featured={featureFirst && idx === 0} />
-          </div>
-        ))}
-      </div>
-      {hasMore ? (
-        <div ref={sentinelRef} className="flex justify-center py-2">
-          <button
-            type="button"
-            className="pl-btn-glass text-xs"
-            onClick={() => setCount((c) => Math.min(c + GRID_PAGE, games.length))}
-          >
-            Ver más partidos ({games.length - count})
-          </button>
-        </div>
-      ) : null}
-    </>
-  );
-}
 
 /** El Inicio del Club vive en `home/HomeClubView`; se conserva el nombre anterior.
  */
@@ -162,6 +100,8 @@ export function LeagueHubClubView({
 
   const upcoming = filteredGames.filter((g) => g.status !== "FT");
   const finished = filteredGames.filter((g) => g.status === "FT");
+  const upcomingGroups = useMemo(() => groupMatchesByDayAndLeague(upcoming), [upcoming]);
+  const finishedGroups = useMemo(() => groupMatchesByDayAndLeague(finished), [finished]);
 
   const hubPath = `/app/${leagueSummary.league}`;
 
@@ -229,7 +169,7 @@ export function LeagueHubClubView({
             <h2 className="m-0 text-lg font-extrabold">
               Próximos encuentros ({upcoming.length})
             </h2>
-            <ProgressiveGameGrid games={upcoming} featureFirst />
+            <MatchList groups={upcomingGroups} hideLeagueHeader />
           </section>
         ) : null}
 
@@ -238,7 +178,7 @@ export function LeagueHubClubView({
             <h2 className="m-0 text-lg font-extrabold">
               Resultados cerrados FT ({finished.length})
             </h2>
-            <ProgressiveGameGrid games={finished} />
+            <MatchList groups={finishedGroups} hideLeagueHeader />
           </section>
         ) : (
           <section className="glass-card glass-ring rounded-2xl p-4 text-xs" style={{ color: "var(--pl-text-muted)" }}>
@@ -350,6 +290,7 @@ export function MatchStudioClubView({
   cortexSections,
   cortexHeadline,
   detail,
+  initialTab = "resumen",
 }: {
   leagueId: LeagueId;
   gameId: string;
@@ -361,6 +302,8 @@ export function MatchStudioClubView({
   cortexHeadline?: string | null;
   /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
+  /** Pestaña inicial resuelta en servidor desde `?tab=` para compartir enlaces. */
+  initialTab?: MatchTabKey;
 }): React.JSX.Element {
   const {
     dataset,
@@ -375,9 +318,7 @@ export function MatchStudioClubView({
     pushToast,
   } = usePlatform();
 
-  const [activeTab, setActiveTab] = useState<
-    "picks" | "mercados" | "contexto" | "comunidad" | "dinero"
-  >("picks");
+  const [activeTab, setActiveTab] = useMatchUrlTab(initialTab);
   const [marketUserOddsRaw, setMarketUserOddsRaw] = useState<string>("");
   const [houseOddsByKey, setHouseOddsByKey] = useState<Record<string, string>>({});
   const [sealedMarketKeys, setSealedMarketKeys] = useState<Set<string>>(() => new Set());
@@ -631,263 +572,270 @@ export function MatchStudioClubView({
         {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
         <LiveMatchPanel game={game} />
 
-        {/* Módulo «Antes del partido»: bajas reales, pick congelado 60 min antes, votos y aviso */}
-        {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
+        {/* Navegación accesible en 3 pestañas sincronizada con ?tab= */}
+        <MatchTabs
+          idPrefix="pl-match"
+          active={activeTab}
+          onSelect={setActiveTab}
+          tabs={[
+            { key: "resumen", label: "Resumen", count: game.picks.length },
+            {
+              key: "numeros",
+              label: "Números",
+              count: activeMarkets.length > 0 ? activeMarkets.length : undefined,
+            },
+            { key: "contexto", label: "Contexto" },
+          ]}
+        />
 
-        {/* Análisis de Cortex IA a lo ancho, con pulso de dinero al costado */}
-        <section aria-label="Análisis y pulso de mercado" className="pl-studio-main">
-          <CortexAnalysisCard
-            game={game}
-            synthesis={
-              cortexSections?.find((sec) => sec.key === "lectura")?.text ??
-              cortexSynthesisOverride ??
-              game.preGame.cortexSynthesis
-            }
-            unlocked={intelUnlocked}
-            sections={cortexSections}
-            headline={cortexHeadline}
-          />
-          <div className="pl-studio-side">
-          {/* ¿Dónde está el dinero? Quick Summary */}
-          {!flow ? (
-            <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0" data-no-market="">
-              <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Este partido todavía no tiene momios verificados. Mostramos solo la probabilidad del modelo.
-              </p>
-            </div>
-          ) : (
-          <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 flex flex-col justify-between min-w-0">
-            <div className="space-y-2.5 min-w-0">
-              <div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
-                <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
-                <span className="pl-pill pl-pill--brand text-[11px] num">
-                  {game.spacetime?.market?.asOfUtc ? (
-                    <>
-                      {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
-                      <time dateTime={game.spacetime.market.asOfUtc}>
-                        {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
-                      </time>
-                    </>
-                  ) : (
-                    game.spacetime?.market?.bookLabel ?? "Mercado"
-                  )}
-                </span>
-              </div>
+        {/* Pestaña 1: Resumen (Antes del partido, pronóstico, Cortex IA, pulso de dinero y factores) */}
+        <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
+          {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
 
-              <div className="space-y-1.5 text-xs num min-w-0">
-                <div className="flex items-center justify-between gap-2 min-w-0">
-                  <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
-                    {game.home.shortName}: dinero / modelo
-                  </span>
-                  <strong className="shrink-0">
-                    {flow.homeShare} % / {(game.x12[0] * 100).toFixed(0)} %
-                  </strong>
-                </div>
-                <PBar
-                  p={flow.homeShare / 100}
-                  lead={flow.homeShare >= 50}
-                />
-
-                <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
-                  <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
-                    {game.away.shortName}: dinero / modelo
-                  </span>
-                  <strong className="shrink-0">
-                    {flow.awayShare} % / {(game.x12[2] * 100).toFixed(0)} %
-                  </strong>
-                </div>
-                <PBar
-                  p={flow.awayShare / 100}
-                  lead={flow.awayShare > 50}
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-2 pt-2 hairline-t text-xs min-w-0">
-              <span
-                className="truncate min-w-0"
-                style={{ color: "var(--pl-text-secondary)" }}
-              >
-                {flow.sharpNote}
-              </span>
-              <button
-                type="button"
-                className="pl-btn-glass text-xs min-h-9 px-3 shrink-0"
-                onClick={() => setActiveTab("dinero")}
-              >
-                Detalle
-              </button>
-            </div>
-          </div>
-          )}
-          </div>
-        </section>
-
-        {isFinished || !intelUnlocked ? null : (
-          <section aria-label="Simulador de escenarios">
-            <MatchSimulator game={game} />
-          </section>
-        )}
-
-        {/* Navegación interna del estudio */}
-        <div className="seg-well" role="tablist" aria-label="Secciones del partido">
-          {(
-            [
-              { id: "picks", label: `Picks (${game.picks.length})` },
-              { id: "mercados", label: `Mercados (${activeMarkets.length})` },
-              { id: "contexto", label: "Contexto" },
-              { id: "comunidad", label: `Comunidad (${matchDebateItems.length})` },
-              { id: "dinero", label: "¿Dónde está el dinero?" },
-            ] as const
-          ).map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              data-section-tab={t.id}
-              aria-selected={activeTab === t.id}
-              onClick={() => setActiveTab(t.id)}
-              className="seg-btn"
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Pestaña 1: 2 Columnas Asimétricas (7: 5 Picks · 5: Debate de Suscriptores) */}
-        {activeTab === "picks" ? (
-          <section
-            className="space-y-3.5"
-            data-picks=""
-          >
-            <div className="space-y-3.5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="m-0 text-lg font-extrabold">
-                  Picks de este partido
-                </h2>
-                {viewerRole === "tipster" || viewerRole === "admin" ? (
-                  <span
-                    className="text-xs font-semibold inline-flex items-center gap-1"
-                    style={{ color: "var(--pl-brand)" }}
-                  >
-                    <MaestroIcon name="crown" size={13} />
-                    <span>Elige cualquiera como tu Pick abierto semanal</span>
-                  </span>
-                ) : null}
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                {game.picks.map((pk) => (
-                  <div key={pk.id} className="space-y-1.5">
-                    <MultiPickRow pick={pk} gameStatus={game.status} />
-                    {(viewerRole === "tipster" || viewerRole === "admin") &&
-                    game.status !== "FT" ? (
-                      <div className="flex justify-end">
-                        <button
-                          type="button"
-                          className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
-                          onClick={() => {
-                            setSelectedTipsterPickId(pk.id);
-                            pushToast(
-                              `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
-                              "success",
-                            );
-                          }}
-                        >
-                          <MaestroIcon name="crown" size={12} />
-                          <span>Usar como mi Pick abierto semanal</span>
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-
-          </section>
-        ) : null}
-
-        {/* Pestaña 2: Mercados del partido + Agrupados + Derivados del motor + Sellar */}
-        {activeTab === "mercados" ? (
-          <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 className="m-0 text-lg font-extrabold">
-                  Mercados del partido
-                </h2>
-                <p
-                  className="m-0 text-xs mt-0.5"
-                  style={{ color: "var(--pl-text-muted)" }}
+          {/* Pronóstico / Picks del partido */}
+          <section className="space-y-3.5" data-picks="">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
+              {viewerRole === "tipster" || viewerRole === "admin" ? (
+                <span
+                  className="text-xs font-semibold inline-flex items-center gap-1"
+                  style={{ color: "var(--pl-brand)" }}
                 >
-                  Probabilidad y momio justo de cada mercado. Escribe el momio de tu casa para ver si tiene ventaja.
+                  <MaestroIcon name="crown" size={13} />
+                  <span>Elige cualquiera como tu Pick abierto semanal</span>
+                </span>
+              ) : null}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              {game.picks.map((pk) => (
+                <div key={pk.id} className="space-y-1.5">
+                  <MultiPickRow pick={pk} gameStatus={game.status} />
+                  {(viewerRole === "tipster" || viewerRole === "admin") &&
+                  game.status !== "FT" ? (
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
+                        onClick={() => {
+                          setSelectedTipsterPickId(pk.id);
+                          pushToast(
+                            `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
+                            "success",
+                          );
+                        }}
+                      >
+                        <MaestroIcon name="crown" size={12} />
+                        <span>Usar como mi Pick abierto semanal</span>
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Lectura de Cortex IA + pulso de mercado */}
+          <section aria-label="Análisis de Cortex IA y pulso de mercado" className="pl-studio-main">
+            <CortexAnalysisCard
+              game={game}
+              synthesis={
+                cortexSections?.find((sec) => sec.key === "lectura")?.text ??
+                cortexSynthesisOverride ??
+                game.preGame.cortexSynthesis
+              }
+              unlocked={intelUnlocked}
+              sections={cortexSections}
+              headline={cortexHeadline}
+            />
+            <div className="pl-studio-side">
+              {!flow ? (
+                <div
+                  className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0"
+                  data-market-pulse=""
+                >
+                  <div data-no-market="" className="space-y-2">
+                    <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Este partido todavía no tiene momios verificados. Mostramos solo la probabilidad del modelo.
+                    </p>
+                  </div>
+                  <div className="pt-1">
+                    <button
+                      type="button"
+                      className="pl-btn-glass text-xs min-h-11 px-3 w-full justify-center"
+                      onClick={() => setActiveTab("numeros")}
+                    >
+                      Ver números y líneas
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className="glass-card glass-ring rounded-2xl p-4 space-y-3 flex flex-col justify-between min-w-0"
+                  data-market-pulse=""
+                >
+                  <div className="space-y-2.5 min-w-0">
+                    <div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
+                      <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
+                      <span className="pl-pill pl-pill--brand text-[11px] num">
+                        {game.spacetime?.market?.asOfUtc ? (
+                          <>
+                            {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
+                            <time dateTime={game.spacetime.market.asOfUtc}>
+                              {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
+                            </time>
+                          </>
+                        ) : (
+                          game.spacetime?.market?.bookLabel ?? "Mercado"
+                        )}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5 text-xs num min-w-0">
+                      <div className="flex items-center justify-between gap-2 min-w-0">
+                        <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
+                          {game.home.shortName}: dinero / modelo
+                        </span>
+                        <strong className="shrink-0">
+                          {flow.homeShare} % / {(game.x12[0] * 100).toFixed(0)} %
+                        </strong>
+                      </div>
+                      <PBar p={flow.homeShare / 100} lead={flow.homeShare >= 50} />
+
+                      {flow.drawShare !== undefined ? (
+                        <>
+                          <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
+                            <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
+                              Empate: dinero / modelo
+                            </span>
+                            <strong className="shrink-0">
+                              {flow.drawShare} % / {(game.x12[1] * 100).toFixed(0)} %
+                            </strong>
+                          </div>
+                          <PBar p={flow.drawShare / 100} />
+                        </>
+                      ) : null}
+
+                      <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
+                        <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
+                          {game.away.shortName}: dinero / modelo
+                        </span>
+                        <strong className="shrink-0">
+                          {flow.awayShare} % / {(game.x12[2] * 100).toFixed(0)} %
+                        </strong>
+                      </div>
+                      <PBar p={flow.awayShare / 100} lead={flow.awayShare > 50} />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-2 hairline-t text-xs min-w-0">
+                    <span className="min-w-0 flex-1" style={{ color: "var(--pl-text-secondary)" }}>
+                      {flow.sharpNote}
+                    </span>
+                    <button
+                      type="button"
+                      className="pl-btn-glass text-xs min-h-11 px-3 shrink-0"
+                      onClick={() => setActiveTab("numeros")}
+                    >
+                      Ver números
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Factores clave del análisis */}
+          <section
+            className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
+            aria-labelledby="resumen-factors-heading"
+            data-summary-factors=""
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <div>
+                <h2 id="resumen-factors-heading" className="m-0 text-base font-extrabold">
+                  Factores del partido
+                </h2>
+                <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                  Señales cuantitativas que explican la probabilidad y confianza del modelo.
                 </p>
               </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                <label
-                  htmlFor="studio-market-odds-input"
-                  className="text-xs font-bold"
-                >
-                  Probar momio:
-                </label>
-                <input
-                  id="studio-market-odds-input"
-                  type="text"
-                  value={marketUserOddsRaw}
-                  onChange={(e) => setMarketUserOddsRaw(e.target.value)}
-                  placeholder="Ej. -110 o 2.05"
-                  className="glass-input px-3 py-1.5 text-xs font-bold num w-36"
-                />
-                {marketUserOddsRaw ? (
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-8 px-2.5"
-                    onClick={() => setMarketUserOddsRaw("")}
-                  >
-                    Limpiar
-                  </button>
-                ) : null}
-              </div>
+              {intelUnlocked && game.confidenceDetail?.reasons.length ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {game.confidenceDetail.reasons.map((reason) => (
+                    <span key={reason} className="pl-pill text-[11px]">
+                      {reason}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
-            {detail?.outlook && activeMarkets.length > 0 ? (
-              <MatchOutlookStrip outlook={detail.outlook} oddsFormat={oddsFormat} />
-            ) : null}
-
-            <MatchMarketsGrid
-              sport={game.sport}
-              markets={activeMarkets}
-              oddsFormat={oddsFormat}
-              watermark={getSessionWatermark(viewerRole, viewerIdentity)}
-              locked={!intelUnlocked && !isFinished && activeMarkets.length === 0}
-              isFinished={isFinished}
-              canSeal={viewerRole !== "visitor"}
-              sealedKeys={sealedMarketKeys}
-              globalHouseOddRaw={marketUserOddsRaw}
-              houseOddsByKey={houseOddsByKey}
-              onHouseOddChange={(key, value) =>
-                setHouseOddsByKey((prev) => ({ ...prev, [key]: value }))
-              }
-              onSealRow={(row, rowKey) => {
-                setSealedMarketKeys((prev) => {
-                  const next = new Set(prev);
-                  next.add(rowKey);
-                  return next;
-                });
-                handleSealMarketRow(row, sealedMarketKeys.size, houseOddsByKey[rowKey]);
-              }}
-            />
+            {!intelUnlocked && !isFinished ? (
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Los factores cuantitativos del encuentro están reservados para socios con Pase PitchLab Ultra.
+              </p>
+            ) : game.factors.length > 0 ? (
+              <div className="pl-factors-grid">
+                {game.factors.map((factor) => (
+                  <article key={`${factor.label}-${factor.value}`} className="pl-factor-item">
+                    <span className="pl-factor-label">{factor.label}</span>
+                    <strong className="pl-factor-value num">{factor.value}</strong>
+                    {factor.sub ? (
+                      <span className="pl-factor-sub">{factor.sub}</span>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Los factores detallados aparecerán cuando el partido acumule señales adicionales.
+              </p>
+            )}
           </section>
-        ) : null}
+        </MatchTabPanel>
 
-        {/* Pestaña 3: contexto del partido */}
-        {activeTab === "contexto" ? <MatchContextPanel game={game} /> : null}
+        {/* Pestaña 2: Números esperados, mercados y simulador */}
+        <MatchTabPanel idPrefix="pl-match" tabKey="numeros" active={activeTab}>
+          <MatchNumbersPanel
+            game={game}
+            markets={activeMarkets}
+            oddsFormat={oddsFormat}
+            watermark={getSessionWatermark(viewerRole, viewerIdentity)}
+            unlocked={intelUnlocked}
+            isFinished={isFinished}
+            canSeal={viewerRole !== "visitor"}
+            outlook={detail?.outlook ?? null}
+            sealedKeys={sealedMarketKeys}
+            globalHouseOddRaw={marketUserOddsRaw}
+            houseOddsByKey={houseOddsByKey}
+            onGlobalHouseOddChange={setMarketUserOddsRaw}
+            onHouseOddChange={(key, value) =>
+              setHouseOddsByKey((prev) => ({ ...prev, [key]: value }))
+            }
+            onSealRow={(row, rowKey) => {
+              setSealedMarketKeys((prev) => {
+                const next = new Set(prev);
+                next.add(rowKey);
+                return next;
+              });
+              handleSealMarketRow(row, sealedMarketKeys.size, houseOddsByKey[rowKey]);
+            }}
+          />
+        </MatchTabPanel>
 
-        {activeTab === "comunidad" ? (
+        {/* Pestaña 3: Contexto (tabla, forma, bajas, descanso, H2H y opiniones) */}
+        <MatchTabPanel idPrefix="pl-match" tabKey="contexto" active={activeTab}>
+          <MatchContextPanel
+            game={game}
+            standings={
+              dataset.leagues.find((l) => l.league === game.league)?.standings ?? []
+            }
+            unlocked={intelUnlocked}
+          />
+
           <section className="max-w-3xl">
-            {/* Hilo en vivo: Debate de Suscriptores del Partido */}
             <aside
               aria-label="Opiniones de socios sobre el partido"
               className="glass-lens glass-ring rounded-3xl p-5 space-y-4"
@@ -986,7 +934,7 @@ export function MatchStudioClubView({
                   <span />
                   <button
                     type="submit"
-                    className="pl-btn-primary text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
+                    className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
                   >
                     <MaestroIcon name="users" size={12} />
                     <span>Publicar opinión</span>
@@ -995,133 +943,7 @@ export function MatchStudioClubView({
               </form>
             </aside>
           </section>
-        ) : null}
-
-        {/* Pestaña 4: ¿Dónde está el dinero? */}
-        {activeTab === "dinero" && !flow ? (
-          <section className="glass-card glass-ring rounded-2xl p-5 space-y-2" data-market-pulse="">
-            <h2 className="m-0 text-lg font-extrabold">¿Dónde está el dinero?</h2>
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Sin momios verificados para este partido. Cuando la casa publique líneas, aquí verás el reparto del mercado frente al modelo.
-            </p>
-          </section>
-        ) : null}
-        {activeTab === "dinero" && flow ? (
-          <section
-            className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-            data-market-pulse=""
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h2 className="m-0 text-lg font-extrabold">
-                  ¿Dónde está el dinero?
-                </h2>
-                <p
-                  className="m-0 text-xs"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Hacia dónde se mueve el dinero de las apuestas, comparado con la probabilidad del modelo.
-                </p>
-              </div>
-              <span className="pl-pill pl-pill--info num">
-                {game.spacetime?.market?.bookLabel.split(" · ")[0] ?? "Mercado"}
-                {Number.isFinite(Date.parse(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt)) ? (
-                  <>
-                    {" · Capturado "}
-                    <time dateTime={game.spacetime?.market?.asOfUtc ?? dataset.generatedAt}>
-                      {formatOddsCaptureEs(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt)}
-                    </time>
-                  </>
-                ) : null}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 num">
-              <div
-                className="rounded-xl p-3.5 space-y-2"
-                style={{ background: "var(--pl-surface)" }}
-              >
-                <span
-                  className="block text-xs"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Flujo hacia {game.home.shortName}
-                </span>
-                <strong className="text-xl font-extrabold block">
-                  {flow.homeShare} %
-                </strong>
-                <PBar
-                  p={flow.homeShare / 100}
-                  lead={flow.homeShare >= 50}
-                />
-                <span
-                  className="block text-xs font-semibold"
-                  style={{ color: "var(--pl-brand)" }}
-                >
-                  Modelo: {(game.x12[0] * 100).toFixed(1)} %
-                </span>
-              </div>
-
-              {flow.drawShare !== undefined ? (
-                <div
-                  className="rounded-xl p-3.5 space-y-2"
-                  style={{ background: "var(--pl-surface)" }}
-                >
-                  <span
-                    className="block text-xs"
-                    style={{ color: "var(--pl-text-muted)" }}
-                  >
-                    Flujo hacia Empate
-                  </span>
-                  <strong className="text-xl font-extrabold block">
-                    {flow.drawShare} %
-                  </strong>
-                  <PBar p={flow.drawShare / 100} />
-                  <span
-                    className="block text-xs font-semibold"
-                    style={{ color: "var(--pl-brand)" }}
-                  >
-                    Modelo: {(game.x12[1] * 100).toFixed(1)} %
-                  </span>
-                </div>
-              ) : null}
-
-              <div
-                className="rounded-xl p-3.5 space-y-2"
-                style={{ background: "var(--pl-surface)" }}
-              >
-                <span
-                  className="block text-xs"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Flujo hacia {game.away.shortName}
-                </span>
-                <strong className="text-xl font-extrabold block">
-                  {flow.awayShare} %
-                </strong>
-                <PBar
-                  p={flow.awayShare / 100}
-                  lead={flow.awayShare > 50}
-                />
-                <span
-                  className="block text-xs font-semibold"
-                  style={{ color: "var(--pl-brand)" }}
-                >
-                  Modelo: {(game.x12[2] * 100).toFixed(1)} %
-                </span>
-              </div>
-            </div>
-
-            <NoticeCard
-              tone="info"
-              icon="activity"
-              badgeText="Lectura"
-              title="Qué significa"
-            >
-              {flow.sharpNote}
-            </NoticeCard>
-          </section>
-        ) : null}
+        </MatchTabPanel>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

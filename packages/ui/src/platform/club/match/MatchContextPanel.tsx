@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
+import type { StandingRow } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
+import { HONEST_NO_ABSENCES_COPY } from "./pre-match-logic";
 
 type Result = "G" | "E" | "P";
 
@@ -35,18 +37,78 @@ function perGame(sub: string | undefined, games: number): { for: number; against
   return { for: Number(nums[0]) / games, against: Number(nums[1]) / games };
 }
 
+function standingSlug(teamId: string): string {
+  return (teamId.includes(".") ? teamId.split(".")[1]! : teamId).toLowerCase();
+}
+
+function matchSideForStanding(
+  row: StandingRow,
+  game: PlatformGame,
+): "home" | "away" | null {
+  const rowSlug = standingSlug(row.teamId);
+  const rowName = row.name.trim().toLowerCase();
+  const homeSlug = game.home.slug.toLowerCase();
+  const awaySlug = game.away.slug.toLowerCase();
+  if (
+    rowSlug === homeSlug ||
+    rowName === game.home.name.trim().toLowerCase() ||
+    rowName === game.home.shortName.trim().toLowerCase()
+  ) {
+    return "home";
+  }
+  if (
+    rowSlug === awaySlug ||
+    rowName === game.away.name.trim().toLowerCase() ||
+    rowName === game.away.shortName.trim().toLowerCase()
+  ) {
+    return "away";
+  }
+  return null;
+}
+
+function restComparisonLabel(game: PlatformGame): string | null {
+  const home = game.restDays?.home;
+  const away = game.restDays?.away;
+  if (home === undefined || away === undefined) return null;
+  if (home === away) {
+    return `Igualdad de descanso (${home} ${home === 1 ? "día" : "días"} por lado)`;
+  }
+  const diff = Math.abs(home - away);
+  const restedTeam = home > away ? game.home.shortName : game.away.shortName;
+  return `${restedTeam} llega con +${diff} ${diff === 1 ? "día" : "días"} extra de descanso`;
+}
+
 /**
- * Contexto del partido: cómo llega cada equipo (forma, producción, descanso y bajas), la sede
- * y el historial directo con su resumen. Todo sale de datos reales del snapshot y del motor.
+ * Contexto del partido: tabla de posiciones, cómo llega cada equipo (forma, producción,
+ * descanso y bajas), la sede y el historial directo. Todo sale de datos reales del snapshot.
  */
-export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.Element {
+export function MatchContextPanel({
+  game,
+  standings = [],
+  unlocked = true,
+}: {
+  readonly game: PlatformGame;
+  readonly standings?: readonly StandingRow[];
+  readonly unlocked?: boolean;
+}): React.JSX.Element {
   const isNfl = game.sport === "american-football";
   const unit = isNfl ? "pts" : "goles";
+  const isFinished = game.status === "FT";
+  const canReadContext = unlocked || isFinished;
   const homeFactor = game.factors.find((f) => /local/i.test(f.label));
   const awayFactor = game.factors.find((f) => /visit/i.test(f.label));
   const others = game.factors.filter((f) => f !== homeFactor && f !== awayFactor);
   const availability = game.spacetime?.availability;
   const stadium = game.spacetime?.stadium;
+  const restBadge = restComparisonLabel(game);
+  const absences = canReadContext ? game.preGame.absences : [];
+
+  const homeStandingIdx = standings.findIndex(
+    (r) => matchSideForStanding(r, game) === "home",
+  );
+  const awayStandingIdx = standings.findIndex(
+    (r) => matchSideForStanding(r, game) === "away",
+  );
 
   const sides = [
     {
@@ -83,11 +145,18 @@ export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.E
 
   return (
     <div className="pl-ctx">
-      <div>
-        <h2 className="m-0 text-lg font-extrabold">Contexto del partido</h2>
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          Cómo llega cada equipo, dónde se juega y qué pasó las últimas veces que se vieron.
-        </p>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div>
+          <h2 className="m-0 text-lg font-extrabold">Contexto del partido</h2>
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            Tabla de posiciones, forma reciente, bajas reportadas, descanso e historial directo.
+          </p>
+        </div>
+        {restBadge ? (
+          <span className="pl-pill pl-pill--brand num text-xs" data-ctx-rest="">
+            {restBadge}
+          </span>
+        ) : null}
       </div>
       <section className="pl-ctx-teams" aria-label="Cómo llegan los equipos">
         {sides.map((s) => {
@@ -223,7 +292,7 @@ export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.E
                   <span>{unit} por partido</span>
                 </div>
               </div>
-              <ul className="pl-ctx-h2h">
+              <ul className="pl-ctx-h2h" role="list">
                 {h2h.map((m) => {
                   const draw = m.homeGoals === m.awayGoals;
                   const homeWon = m.homeGoals > m.awayGoals;
@@ -243,6 +312,138 @@ export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.E
           )}
         </section>
       </div>
+
+      {/* Bajas y ausencias detalladas */}
+      <section
+        className="pl-ctx-card glass-card glass-ring"
+        aria-labelledby="ctx-absences"
+        data-ctx-absences=""
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 id="ctx-absences" className="pl-cortex-label m-0">
+            Bajas y disponibilidad
+          </h3>
+          {canReadContext ? (
+            <span className="text-xs num font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+              {absences.length > 0
+                ? `${absences.length} ${absences.length === 1 ? "reporte" : "reportes"}`
+                : "Sin bajas registradas"}
+            </span>
+          ) : null}
+        </div>
+        {!canReadContext ? (
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            El reporte detallado de bajas y plantilla fuera está disponible con Pase PitchLab Ultra.
+          </p>
+        ) : absences.length > 0 ? (
+          <ul className="pl-ctx-absences" role="list">
+            {absences.map((item, idx) => (
+              <li key={`${item.player}-${idx}`} className="pl-ctx-absence-row">
+                <div className="min-w-0">
+                  <strong className="block text-sm truncate">{item.player}</strong>
+                  <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    {item.role}
+                    {item.impactNote ? ` · ${item.impactNote}` : ""}
+                  </span>
+                </div>
+                <span className="pl-pill text-[11px] shrink-0">{item.status}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            {HONEST_NO_ABSENCES_COPY}.
+          </p>
+        )}
+      </section>
+
+      {/* Tabla de posiciones */}
+      <section
+        className="pl-ctx-card glass-card glass-ring"
+        aria-labelledby="ctx-standings"
+        data-ctx-standings=""
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 id="ctx-standings" className="pl-cortex-label m-0">
+            Tabla de posiciones · {game.leagueLabel}
+          </h3>
+          {standings.length > 0 && (homeStandingIdx >= 0 || awayStandingIdx >= 0) ? (
+            <div className="flex flex-wrap items-center gap-2 text-xs num">
+              {homeStandingIdx >= 0 ? (
+                <span className="pl-pill pl-pill--brand">
+                  {game.home.shortName}: {homeStandingIdx + 1}.º ({standings[homeStandingIdx]!.points} pts)
+                </span>
+              ) : null}
+              {awayStandingIdx >= 0 ? (
+                <span className="pl-pill">
+                  {game.away.shortName}: {awayStandingIdx + 1}.º ({standings[awayStandingIdx]!.points} pts)
+                </span>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+        {standings.length === 0 ? (
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            {isNfl
+              ? "La NFL se consulta por conferencia; arriba puedes comparar la marca de cada club."
+              : "La tabla oficial de esta jornada se actualizará con el siguiente corte."}
+          </p>
+        ) : (
+          <div
+            className="pl-table-region"
+            tabIndex={0}
+            role="region"
+            aria-label={`Tabla de posiciones de ${game.leagueLabel}`}
+          >
+            <table className="standings w-full text-left border-collapse text-sm">
+              <thead>
+                <tr className="hairline-b text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  <th scope="col" className="py-2 pr-3">Pos.</th>
+                  <th scope="col" className="py-2 pr-3">Club</th>
+                  <th scope="col" className="py-2 px-2 text-right">PJ</th>
+                  <th scope="col" className="py-2 px-2 text-right">G</th>
+                  <th scope="col" className="py-2 px-2 text-right">E</th>
+                  <th scope="col" className="py-2 px-2 text-right">P</th>
+                  <th scope="col" className="py-2 px-2 text-right">DG</th>
+                  <th scope="col" className="py-2 pl-2 text-right">Pts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {standings.map((row, idx) => {
+                  const side = matchSideForStanding(row, game);
+                  const slug = standingSlug(row.teamId);
+                  const dg = row.goalsFor - row.goalsAgainst;
+                  return (
+                    <tr
+                      key={row.teamId}
+                      className={`hairline-b ${side ? "pl-ctx-standing-highlight" : ""}`.trim()}
+                    >
+                      <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
+                      <td className="py-2.5 pr-3">
+                        <div className="flex items-center gap-2 font-semibold">
+                          <TeamBadge league={game.league} slug={slug} name={row.name} size={20} />
+                          <span>{row.name}</span>
+                          {side ? (
+                            <span className="pl-pill text-[10px]">
+                              {side === "home" ? "Local" : "Visita"}
+                            </span>
+                          ) : null}
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-2 text-right num">{row.played}</td>
+                      <td className="py-2.5 px-2 text-right num">{row.won}</td>
+                      <td className="py-2.5 px-2 text-right num">{row.drawn}</td>
+                      <td className="py-2.5 px-2 text-right num">{row.lost}</td>
+                      <td className="py-2.5 px-2 text-right num">{dg >= 0 ? `+${dg}` : dg}</td>
+                      <td className="py-2.5 pl-2 text-right num font-extrabold">{row.points}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

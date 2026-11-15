@@ -206,12 +206,20 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
   if (!hasSession && game.status !== "FT") {
     return { markets: [], headToHead: game.headToHead, factors: [] };
   }
-  // Partido por jugar en el panorama v3.2: sus mercados y su resumen reemplazan a los del snapshot.
+  // Partido por jugar en el panorama v3.2: sus mercados y su resumen reemplazan a los del snapshot,
+  // conservando los grupos de conteos (corners_total, fouls_total, yellow_total) cuando existen.
   const v32 = game.status !== "FT" ? outlookDetailFor(game) : null;
+  const countMarkets = game.markets.filter(
+    (row) =>
+      row.market === "corners_total" ||
+      row.market === "fouls_total" ||
+      row.market === "yellow_total",
+  );
+  const markets = v32 ? [...v32.markets, ...countMarkets] : game.markets;
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
   return {
-    markets: v32?.markets ?? game.markets,
+    markets,
     headToHead: game.headToHead,
     factors: game.factors,
     outlook: v32?.outlook ?? null,

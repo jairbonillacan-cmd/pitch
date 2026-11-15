@@ -560,14 +560,46 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   };
 }
 
+const COUNT_MARKET_KEYS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+
+function parseGoalLineFromRow(row: Pick<PlatformMarketRow, "selection" | "label">): number | null {
+  const fromSelection = /over_(\d+(?:\.\d+)?)/i.exec(row.selection)?.[1];
+  if (fromSelection) return Number(fromSelection);
+  const fromLabel = /más\s+de\s+(\d+(?:\.\d+)?)/i.exec(row.label)?.[1];
+  if (fromLabel) return Number(fromLabel);
+  return null;
+}
+
+function extractGoalLine(
+  markets: readonly PlatformMarketRow[],
+): PlatformGame["goalLine"] {
+  let best: { line: number; pOver: number; dist: number } | null = null;
+  for (const row of markets) {
+    if (row.market !== "totals") continue;
+    const line = parseGoalLineFromRow(row);
+    if (line === null || !Number.isFinite(line)) continue;
+    const dist = Math.abs(row.p - 0.5);
+    if (
+      !best ||
+      dist < best.dist - 0.001 ||
+      (Math.abs(dist - best.dist) <= 0.001 && Math.abs(line - 2.5) < Math.abs(best.line - 2.5))
+    ) {
+      best = { line, pOver: row.p, dist };
+    }
+  }
+  return best ? { line: best.line, pOver: best.pOver } : null;
+}
+
 function buildPlatformMarkets(
   match: MatchAnalysis,
   signal: SpacetimeSignal | null,
 ): PlatformMarketRow[] {
   const rows = rowsWithSpacetime(match, signal);
+  const coreRows = rows.filter((entry) => !COUNT_MARKET_KEYS.has(entry.row.market));
+  const countRows = rows.filter((entry) => COUNT_MARKET_KEYS.has(entry.row.market));
   const source =
     rows.length > 0
-      ? rows.slice(0, 22)
+      ? [...coreRows.slice(0, 22), ...countRows]
       : match.outcomes.map((o) => ({
           group: match.sport === "american-football" ? "Ganador" : "Resultado 1X2",
           row: {
@@ -631,6 +663,8 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       const confScore = m.confidence?.score ?? 60;
       const confLevel =
         m.confidence?.level ?? (confScore >= 72 ? "alta" : confScore >= 58 ? "media" : "baja");
+      const markets = buildPlatformMarkets(m, signal);
+      const goalLine = extractGoalLine(markets);
 
       games.push({
         id: m.id,
@@ -666,6 +700,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           away: proj.away,
           total: proj.total,
         },
+        goalLine,
         confidenceScore: confScore,
         confidenceLevel: confLevel,
         confidenceDetail: {
@@ -674,7 +709,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         },
         picks: buildFiveMatchPicks(m, signal),
         preGame: buildPreGameIntel(m, signal),
-        markets: buildPlatformMarkets(m, signal),
+        markets,
         factors:
           m.factors.length > 0
             ? m.factors.map((f) => ({
@@ -696,6 +731,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
               ],
         headToHead: m.headToHead ?? [],
         restDays: m.restDays,
+        ...(m.counts ? { counts: m.counts } : {}),
         updatedAtLabel: m.updatedAt ?? "Corte reciente Spacetime Suite",
         spacetime: signal,
       });
