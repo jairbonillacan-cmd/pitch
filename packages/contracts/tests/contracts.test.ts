@@ -4,6 +4,7 @@ import {
   asLeagueId,
   asSeasonId,
   asTeamId,
+  LeagueSnapshotSchema,
   TeamIdSchema,
   LeagueIdSchema,
   parseOdds,
@@ -113,5 +114,64 @@ describe("@pitchlab/contracts", () => {
     expect(matches[0]?.kickoffUtc).toBe("2026-11-13T01:15:00.000Z");
     expect(matches[0]?.day).toBe("2026-11-12");
     expect(matches[0]?.kickoffLocal).toBe("19:15");
+  });
+
+  it("acepta y propaga logoUrl opcional en snapshotToMatchAnalyses y LeagueSnapshotSchema", () => {
+    const rawSnapshot = {
+      schemaVersion: 1 as const,
+      league: asLeagueId("liga-mx"),
+      logoUrl: "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
+      season: asSeasonId("liga-mx-2026"),
+      seasonLabel: "Liga MX 2026",
+      periodLabel: "Jornada 1",
+      updatedAt: "2026-11-12T12:00:00Z",
+      source: "test",
+      provenance: "provider" as const,
+      isDemo: false as const,
+      teamRates: {},
+      games: [
+        {
+          id: asGameId("mx-2026-j1-ame-gua"),
+          league: asLeagueId("liga-mx"),
+          season: asSeasonId("liga-mx-2026"),
+          round: "Jornada 1",
+          startTime: "2026-11-15T01:00:00Z",
+          status: "scheduled" as const,
+          neutralSite: false,
+          home: {
+            id: asTeamId("liga-mx.america"),
+            league: asLeagueId("liga-mx"),
+            name: "América",
+            shortName: "América",
+            code: "AME",
+            logoUrl: "https://sports.bzzoiro.com/img/team/301/?bg=transparent",
+          },
+          away: {
+            id: asTeamId("liga-mx.chivas"),
+            league: asLeagueId("liga-mx"),
+            name: "Guadalajara",
+            shortName: "Chivas",
+            code: "GDL",
+          },
+        },
+      ],
+      analyses: {},
+    };
+
+    const parsed = LeagueSnapshotSchema.parse(rawSnapshot);
+    expect(parsed.logoUrl).toBe("https://sports.bzzoiro.com/img/league/19/?bg=transparent");
+    expect(parsed.games[0]?.home.logoUrl).toBe(
+      "https://sports.bzzoiro.com/img/team/301/?bg=transparent",
+    );
+    expect(parsed.games[0]?.away.logoUrl).toBeUndefined();
+
+    const { matches } = snapshotToMatchAnalyses(parsed);
+    expect(matches[0]?.leagueLogoUrl).toBe(
+      "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
+    );
+    expect(matches[0]?.home.logoUrl).toBe(
+      "https://sports.bzzoiro.com/img/team/301/?bg=transparent",
+    );
+    expect(matches[0]?.away.logoUrl).toBeUndefined();
   });
 });

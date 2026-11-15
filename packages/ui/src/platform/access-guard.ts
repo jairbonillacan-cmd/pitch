@@ -126,6 +126,7 @@ export function redactDatasetForVisitor(
       id: game.id,
       league: game.league,
       leagueLabel: game.leagueLabel,
+      ...(game.leagueLogoUrl ? { leagueLogoUrl: game.leagueLogoUrl } : {}),
       sport: game.sport,
       round: game.round,
       dayId: game.dayId,

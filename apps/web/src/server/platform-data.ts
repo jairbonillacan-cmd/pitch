@@ -127,6 +127,7 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
       inputs.push({
         league: env.data.league,
         leagueLabel: env.data.leagueLabel,
+        leagueLogoUrl: env.data.logoUrl,
         sport: env.data.sport,
         season: env.data.season,
         roundLabel: env.data.roundLabel,

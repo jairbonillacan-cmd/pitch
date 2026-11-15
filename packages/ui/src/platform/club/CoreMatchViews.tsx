@@ -176,6 +176,7 @@ export function LeagueHubClubView({
               <LeagueBadge
                 league={leagueSummary.league}
                 label={leagueSummary.label}
+                logoUrl={leagueSummary.logoUrl}
                 size={40}
               />
             </CrestPedestal>
@@ -305,6 +306,7 @@ export function LeagueHubClubView({
                               league={leagueSummary.league}
                               slug={slug}
                               name={row.name}
+                              logoUrl={row.logoUrl}
                               size={20}
                             />
                             <span>{row.name}</span>
@@ -527,7 +529,12 @@ export function MatchStudioClubView({
 
           <div className="flex flex-wrap items-center justify-between gap-2 relative z-10">
             <div className="flex items-center gap-2">
-              <LeagueBadge league={game.league} label={game.leagueLabel} size={22} />
+              <LeagueBadge
+                league={game.league}
+                label={game.leagueLabel}
+                logoUrl={game.leagueLogoUrl}
+                size={22}
+              />
               <span
                 id="modal-league"
                 className="text-xs font-semibold"
@@ -553,6 +560,7 @@ export function MatchStudioClubView({
                   league={game.league}
                   slug={game.home.slug}
                   name={game.home.name}
+                  logoUrl={game.home.logoUrl}
                   size={44}
                 />
               </CrestPedestal>
@@ -609,6 +617,7 @@ export function MatchStudioClubView({
                   league={game.league}
                   slug={game.away.slug}
                   name={game.away.name}
+                  logoUrl={game.away.logoUrl}
                   size={44}
                 />
               </CrestPedestal>

@@ -191,7 +191,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           onClick={() => toggleAutoLeague(lg.league)}
                           className="seg-btn text-xs glass-ring"
                         >
-                          <LeagueBadge league={lg.league} label={lg.label} size={15} />
+                          <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
                           <span>{lg.label}</span>
                         </button>
                       );
@@ -351,7 +351,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 >
                   <div className="flex items-center justify-between gap-2 text-xs">
                     <span className="inline-flex items-center gap-2 font-bold">
-                      <LeagueBadge league={g.league} label={g.leagueLabel} size={16} />
+                      <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
                       <span>
                         {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
                       </span>

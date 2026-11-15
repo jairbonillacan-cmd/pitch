@@ -72,6 +72,10 @@ describe("snapshot NBA", () => {
     expect(() => LeagueSnapshotSchema.parse(snap)).not.toThrow();
     const v = validateLeagueSnapshotCandidate(snap, null, { nowMs: NOW.getTime() });
     expect(v.issues).toEqual([]);
+    expect(snap.logoUrl).toBe("https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent");
+    expect(snap.games[0]?.home.logoUrl).toMatch(
+      /^https:\/\/sports\.bzzoiro\.com\/img\/basketball\/team\/\d+\/\?bg=transparent$/,
+    );
   });
 
   it("conserva el análisis publicado antes del inicio", () => {
@@ -95,5 +99,7 @@ describe("snapshot NHL", () => {
     const sum = a.marketGroups[0]!.rows.reduce((s, r) => s + r.p, 0);
     expect(sum).toBeCloseTo(1, 6);
     expect(validateLeagueSnapshotCandidate(snap, null, { nowMs: NOW.getTime() }).issues).toEqual([]);
+    expect(snap.logoUrl).toBeUndefined();
+    expect(snap.games[0]?.home.logoUrl).toBeUndefined();
   });
 });

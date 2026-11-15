@@ -29,6 +29,7 @@ import {
 } from "@pitchlab/models";
 import { getTeamAsset } from "@pitchlab/sports-assets";
 import { shouldPreservePublishedAnalysis } from "./pipeline.js";
+import { mapBzzoiroLeagueLogoUrl, mapBzzoiroTeamLogoUrl } from "./providers/bzzoiro.js";
 import type { UsGameRow, UsSport } from "./providers/bzzoiro-us.js";
 import { slugifyTeamName } from "./team-slug.js";
 
@@ -60,12 +61,15 @@ export function usTeam(sport: UsSport, side: UsGameRow["home"]): Team {
     }
   }
   const code = NBA_CODES[side.name] ?? slug.replace(/-/g, "").slice(0, 3).toUpperCase();
+  const logoUrl =
+    side.logoUrl ?? mapBzzoiroTeamLogoUrl(sport, slug, { providerTeamId: side.providerTeamId });
   return {
     id: asTeamId(id),
     league: asLeagueId(sport),
     name: side.name,
     shortName: side.shortName ?? side.name,
     code,
+    ...(logoUrl ? { logoUrl } : {}),
   };
 }
 
@@ -196,6 +200,7 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
         name: t.name,
         shortName: t.shortName,
         code: t.code,
+        ...(t.logoUrl ? { logoUrl: t.logoUrl } : {}),
         forPerGame: pf,
         againstPerGame: pa,
         gamesPlayed: n,
@@ -207,10 +212,12 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
 
   const days = [...new Set(games.map((g) => MX_DAY.format(new Date(g.startTime))))];
   const periodLabel = days.length === 0 ? "Sin partidos" : days.length === 1 ? days[0]! : `${days[0]} – ${days.at(-1)}`;
+  const leagueLogoUrl = mapBzzoiroLeagueLogoUrl(sport);
 
   return LeagueSnapshotSchema.parse({
     schemaVersion: 1,
     league: asLeagueId(sport),
+    ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(`${sport}-${currentSeason || "sin-temporada"}`),
     seasonLabel: `Temporada ${currentSeason}`,
     periodLabel,

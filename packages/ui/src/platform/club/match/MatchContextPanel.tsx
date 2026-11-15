@@ -96,7 +96,13 @@ export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.E
           return (
             <article key={s.side} className="pl-ctx-team glass-card glass-ring">
               <header className="flex items-center gap-3">
-                <TeamBadge league={game.league} slug={s.team.slug} name={s.team.name} size={32} />
+                <TeamBadge
+                  league={game.league}
+                  slug={s.team.slug}
+                  name={s.team.name}
+                  logoUrl={s.team.logoUrl}
+                  size={32}
+                />
                 <div className="min-w-0 flex-1">
                   <h3 className="m-0 text-base font-extrabold truncate">{s.team.name}</h3>
                   <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>

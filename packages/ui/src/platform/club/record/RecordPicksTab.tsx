@@ -299,6 +299,7 @@ export function RecordPicksTab({
                       league={g.league}
                       slug={g.home.slug}
                       name={g.home.name}
+                      logoUrl={g.home.logoUrl}
                       size={20}
                     />
                     <div className="min-w-0">

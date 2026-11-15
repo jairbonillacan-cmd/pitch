@@ -222,7 +222,13 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
 
       <div className="pl-live-score" aria-live={live ? "polite" : "off"} aria-atomic="true">
         <span className="pl-live-score-team">
-          <TeamBadge league={game.league} slug={game.home.slug} name={game.home.name} size={28} />
+          <TeamBadge
+            league={game.league}
+            slug={game.home.slug}
+            name={game.home.name}
+            logoUrl={game.home.logoUrl}
+            size={28}
+          />
           <span>{home}</span>
         </span>
         <strong className="pl-live-score-value num">
@@ -233,7 +239,13 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
         </strong>
         <span className="pl-live-score-team pl-live-score-team--away">
           <span>{away}</span>
-          <TeamBadge league={game.league} slug={game.away.slug} name={game.away.name} size={28} />
+          <TeamBadge
+            league={game.league}
+            slug={game.away.slug}
+            name={game.away.name}
+            logoUrl={game.away.logoUrl}
+            size={28}
+          />
         </span>
         {entry.htScore && entry.phase !== "live" ? (
           <span className="pl-live-ht num">
@@ -336,7 +348,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
                   const lead = goals !== undefined && other !== undefined && goals > other;
                   return (
                     <span key={side} className={`pl-live-row-line${lead ? " is-lead" : ""}`}>
-                      <TeamBadge league={g.league} slug={t.slug} name={t.name} size={20} />
+                      <TeamBadge league={g.league} slug={t.slug} name={t.name} logoUrl={t.logoUrl} size={20} />
                       <span className="pl-live-row-name">{t.shortName}</span>
                       <span className="pl-live-row-goals num">{goals ?? ""}</span>
                     </span>
@@ -345,7 +357,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
               </span>
               <span className="pl-live-row-meta">
                 <LivePhaseBadge entry={e} kickoffLocal={g.kickoffLocal} short />
-                <LeagueBadge league={g.league} size={14} />
+                <LeagueBadge league={g.league} logoUrl={g.leagueLogoUrl} size={14} />
               </span>
             </a>
             {showFollow && e.phase !== "final" ? <FollowControl gameId={g.id} compact /> : null}

@@ -345,6 +345,7 @@ export function PreMatchModule({
                             league={game.league}
                             slug={team.slug}
                             name={team.name}
+                            logoUrl={team.logoUrl}
                             size={20}
                           />
                           <strong className="pl-prematch-absence-player">

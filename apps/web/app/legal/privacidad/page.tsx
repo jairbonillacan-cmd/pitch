@@ -304,21 +304,30 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
           id: "encargados-y-transferencias",
           title: "7. Encargados de infraestructura y transferencias de datos",
           body: (
-            <p>
-              <strong>No vendemos ni cedemos tus datos personales a terceros anunciantes ni a casas
-              de apuestas.</strong> Para operar la plataforma utilizamos proveedores tecnológicos
-              que actúan como encargados bajo medidas de seguridad y confidencialidad: alojamiento
-              aplicativo y de imágenes de avatar (Vercel / Vercel Blob), base de datos PostgreSQL
-              cifrada (Neon), despacho de correos transaccionales (Resend), verificación anti-bots
-              en formularios (Cloudflare Turnstile), proveedores de identidad cuando tú eliges
-              iniciar sesión con ellos (Google o X) y generación de resúmenes deportivos de{" "}
-              <strong>Cortex IA</strong> mediante OpenRouter (servicio al que solo se envían datos
-              estadísticos del partido y <strong>ningún dato personal de los socios</strong>). Si en
-              el futuro se habilita el pago con tarjeta, este se procesará directamente con Stripe
-              bajo certificación PCI-DSS. Dichos encargados pueden procesar información en
-              infraestructura en la nube ubicada en Estados Unidos bajo controles contractuales y
-              técnicos alineados con la LFPDPPP.
-            </p>
+            <>
+              <p>
+                <strong>No vendemos ni cedemos tus datos personales a terceros anunciantes ni a casas
+                de apuestas.</strong> Para operar la plataforma utilizamos proveedores tecnológicos
+                que actúan como encargados bajo medidas de seguridad y confidencialidad: alojamiento
+                aplicativo y de imágenes de avatar (Vercel / Vercel Blob), base de datos PostgreSQL
+                cifrada (Neon), despacho de correos transaccionales (Resend), verificación anti-bots
+                en formularios (Cloudflare Turnstile), proveedores de identidad cuando tú eliges
+                iniciar sesión con ellos (Google o X) y generación de resúmenes deportivos de{" "}
+                <strong>Cortex IA</strong> mediante OpenRouter (servicio al que solo se envían datos
+                estadísticos del partido y <strong>ningún dato personal de los socios</strong>). Si en
+                el futuro se habilita el pago con tarjeta, este se procesará directamente con Stripe
+                bajo certificación PCI-DSS. Dichos encargados pueden procesar información en
+                infraestructura en la nube ubicada en Estados Unidos bajo controles contractuales y
+                técnicos alineados con la LFPDPPP.
+              </p>
+              <p>
+                <strong>Escudos deportivos en <code>/app</code>:</strong> los escudos de ligas y
+                clubes se cargan directamente desde el servidor externo de Bzzoiro (
+                <code>sports.bzzoiro.com</code>), por lo que ese servidor puede ver la dirección IP
+                del visitante al descargar la imagen (enviada sin referrer con{" "}
+                <code>no-referrer</code>); en las páginas públicas no se cargan escudos externos.
+              </p>
+            </>
           ),
         },
         {

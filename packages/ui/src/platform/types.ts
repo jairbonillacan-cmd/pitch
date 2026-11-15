@@ -254,6 +254,7 @@ export interface PlatformGame {
   id: string;
   league: LeagueId;
   leagueLabel: string;
+  leagueLogoUrl?: string;
   sport: "football" | "american-football";
   round: string;
   dayId: string;
@@ -269,6 +270,7 @@ export interface PlatformGame {
     name: string;
     shortName: string;
     code: string;
+    logoUrl?: string;
     record: string;
   };
   away: {
@@ -276,6 +278,7 @@ export interface PlatformGame {
     name: string;
     shortName: string;
     code: string;
+    logoUrl?: string;
     record: string;
   };
   x12: [number, number, number];
@@ -340,6 +343,7 @@ export interface MatchOutlookSummary {
 export interface PlatformLeagueSummary {
   league: LeagueId;
   label: string;
+  logoUrl?: string;
   sport: "football" | "american-football";
   season: string;
   roundLabel: string;

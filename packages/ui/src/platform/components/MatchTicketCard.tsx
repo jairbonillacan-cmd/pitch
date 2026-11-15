@@ -329,7 +329,12 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
             className="inline-flex items-center gap-1.5 font-bold min-w-0 truncate"
             style={{ color: "var(--pl-text-secondary)" }}
           >
-            <LeagueBadge league={game.league} label={game.leagueLabel} size={15} />
+            <LeagueBadge
+              league={game.league}
+              label={game.leagueLabel}
+              logoUrl={game.leagueLogoUrl}
+              size={15}
+            />
             <span className="truncate">
               {game.leagueLabel} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
             </span>
@@ -366,6 +371,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                   league={game.league}
                   slug={game.home.slug}
                   name={game.home.name}
+                  logoUrl={game.home.logoUrl}
                   size={24}
                 />
               </CrestPedestal>
@@ -388,6 +394,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                   league={game.league}
                   slug={game.away.slug}
                   name={game.away.name}
+                  logoUrl={game.away.logoUrl}
                   size={24}
                 />
               </CrestPedestal>

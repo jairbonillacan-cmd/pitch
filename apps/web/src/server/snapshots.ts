@@ -16,11 +16,16 @@ import {
   type MarketPulseView,
   type TeamInjuryEntry,
 } from "@pitchlab/contracts";
+import {
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroTeamEmblemUrl,
+} from "@pitchlab/sports-assets";
 
 export interface ClientLeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
   leagueLabel: string;
+  logoUrl?: string;
   sport: "football" | "american-football";
   season: string;
   roundLabel: string;
@@ -201,10 +206,20 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
     const { days, matches } = snapshotToMatchAnalyses(parsed);
     const pulses = loadMarketPulse(pulsePath);
     const injuriesByTeam = loadLeagueInjuries(injuriesPath);
+    const leagueLogoUrl =
+      parsed.logoUrl ?? getBzzoiroLeagueEmblemUrl(parsed.league) ?? undefined;
+    const teamLogo = (slug: string, existing?: string): string | undefined =>
+      existing ?? getBzzoiroTeamEmblemUrl(parsed.league, slug) ?? undefined;
+    const standingsWithLogos = parsed.standings?.map((row) => {
+      const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
+      const logoUrl = teamLogo(slug, row.logoUrl);
+      return logoUrl ? { ...row, logoUrl } : row;
+    });
     const clientSafe: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league: parsed.league,
       leagueLabel: LEAGUE_LABELS[parsed.league as ProductLeague] ?? parsed.league,
+      ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
       sport: parsed.league === "nfl" ? "american-football" : "football",
       season: parsed.seasonLabel,
       roundLabel: parsed.periodLabel,
@@ -218,13 +233,19 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
         const awayInjuries = injuriesByTeam.get(awayTeamId) ?? injuriesByTeam.get(m.away.slug) ?? [];
         const hasInjuries = homeInjuries.length > 0 || awayInjuries.length > 0;
         const base = matchForClient(m);
+        const homeLogo = teamLogo(base.home.slug, base.home.logoUrl);
+        const awayLogo = teamLogo(base.away.slug, base.away.logoUrl);
+        const resolvedLeagueLogo = base.leagueLogoUrl ?? leagueLogoUrl;
         return {
           ...base,
+          ...(resolvedLeagueLogo ? { leagueLogoUrl: resolvedLeagueLogo } : {}),
+          home: { ...base.home, ...(homeLogo ? { logoUrl: homeLogo } : {}) },
+          away: { ...base.away, ...(awayLogo ? { logoUrl: awayLogo } : {}) },
           ...(marketPulse ? { marketPulse } : {}),
           ...(hasInjuries ? { injuries: { home: homeInjuries, away: awayInjuries } } : {}),
         };
       }),
-      standings: parsed.standings,
+      standings: standingsWithLogos,
     };
 
     const envelope: SnapshotEnvelope = {

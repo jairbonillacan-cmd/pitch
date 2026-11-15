@@ -190,7 +190,7 @@ export function PlSelect<T extends string = string>({
 }
 
 export interface PlLeagueSelectProps {
-  leagues: ReadonlyArray<{ league: LeagueId; label: string }>;
+  leagues: ReadonlyArray<{ league: LeagueId; label: string; logoUrl?: string }>;
   value: string;
   onChange: (value: string) => void;
   allLabel: string;
@@ -223,7 +223,7 @@ export function PlLeagueSelect({
       ...leagues.map((l) => ({
         value: l.league,
         label: l.label,
-        icon: <LeagueBadge league={l.league} label={l.label} size={16} />,
+        icon: <LeagueBadge league={l.league} label={l.label} logoUrl={l.logoUrl} size={16} />,
       })),
     ],
     [allLabel, leagues],

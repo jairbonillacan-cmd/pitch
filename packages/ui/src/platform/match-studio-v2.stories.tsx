@@ -10,6 +10,7 @@ import { HomeMatchCard } from "./components/HomeMatchCard";
 import { WinningTicketDialog } from "./components/WinningTicketDialog";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
+import { EmblemSurfaceProvider } from "../sports";
 import type { JournalEntry } from "./types";
 
 /* Partido de ejemplo para las stories (cifras ilustrativas, no son datos de la jornada). */
@@ -91,9 +92,11 @@ const SYNTHESIS =
 
 function Provider({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (
-    <PlatformProvider dataset={DATASET} initialRole="member">
-      <div className="pl-stage" style={{ padding: 24, maxWidth: 1100, display: "grid", gap: 16 }}>{children}</div>
-    </PlatformProvider>
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={DATASET} initialRole="member">
+        <div className="pl-stage" style={{ padding: 24, maxWidth: 1100, display: "grid", gap: 16 }}>{children}</div>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
   );
 }
 

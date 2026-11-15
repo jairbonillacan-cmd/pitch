@@ -5,7 +5,7 @@
 // - Si un nombre de la fuente no está registrado en la tabla de la liga, el pipeline
 //   falla de inmediato con UnmappedTeamError (nunca adivina).
 import { asLeagueId, asTeamId, type LeagueId, type Team } from "@pitchlab/contracts";
-import { getTeamAsset, TEAM_ASSETS } from "@pitchlab/sports-assets";
+import { getBzzoiroTeamEmblemUrl, getTeamAsset, TEAM_ASSETS } from "@pitchlab/sports-assets";
 import { slugifyTeamName, teamCodeFromSlug } from "./team-slug.js";
 
 export class UnmappedTeamError extends Error {
@@ -363,12 +363,14 @@ export function resolveCanonicalTeam(
       throw new UnmappedTeamError(league, rawName);
     }
     const slug = slugifyTeamName(trimmed);
+    const logoUrl = getBzzoiroTeamEmblemUrl(league, slug);
     return {
       id: asTeamId(`${league}.${slug}`),
       league: asLeagueId(league as LeagueId),
       name: trimmed,
       shortName: trimmed,
       code: teamCodeFromSlug(slug),
+      ...(logoUrl ? { logoUrl } : {}),
     };
   }
 
@@ -385,12 +387,14 @@ export function resolveCanonicalTeam(
     const historic = HISTORIC_TEAMS[league]?.[trimmed];
     if (historic) {
       const historicSlug = slugifyTeamName(historic);
+      const historicLogoUrl = getBzzoiroTeamEmblemUrl(league, historicSlug);
       return {
         id: asTeamId(`${league}.${historicSlug}`),
         league: asLeagueId(league as LeagueId),
         name: historic,
         shortName: historic,
         code: teamCodeFromSlug(historicSlug),
+        ...(historicLogoUrl ? { logoUrl: historicLogoUrl } : {}),
       };
     }
     throw new UnmappedTeamError(league, rawName);
@@ -406,6 +410,7 @@ export function resolveCanonicalTeam(
     league === "nfl"
       ? (NFL_SHORT_NAMES[slug] ?? asset.shortName)
       : asset.shortName;
+  const logoUrl = getBzzoiroTeamEmblemUrl(league, slug);
 
   return {
     id: asTeamId(canonicalId),
@@ -413,6 +418,7 @@ export function resolveCanonicalTeam(
     name: asset.name,
     shortName,
     code: asset.code,
+    ...(logoUrl ? { logoUrl } : {}),
   };
 }
 

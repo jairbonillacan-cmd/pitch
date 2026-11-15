@@ -22,6 +22,7 @@ import {
   type GameDTO,
   type StandingRow,
   type LeagueSnapshot,
+  type Team,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
 import {
@@ -47,6 +48,7 @@ import {
 } from "@pitchlab/models";
 import type { XgLookup } from "./xg-feed.js";
 import { withCountProjections, type CountFeed } from "./counts-feed.js";
+import { mapBzzoiroLeagueLogoUrl, mapBzzoiroTeamLogoUrl } from "./providers/bzzoiro.js";
 import {
   addMatchContext,
   enrichPreservedAnalysis,
@@ -336,8 +338,27 @@ export function buildFootballSnapshot(params: {
     ? footballTeamRatesFromModel(teamRateInputs, footballModel)
     : computeFootballTeamRates(league, teamRateInputs).rates;
 
+  for (const rate of Object.values(rates)) {
+    const logoUrl = rate.logoUrl ?? mapBzzoiroTeamLogoUrl(league, rate.teamId);
+    if (logoUrl) rate.logoUrl = logoUrl;
+  }
+
+  const withTeamLogo = (team: Team): Team => {
+    if (team.logoUrl) return team;
+    const logoUrl = mapBzzoiroTeamLogoUrl(league, team.id);
+    return logoUrl ? { ...team, logoUrl } : team;
+  };
+  const resolvedGames: GameDTO[] = games.map((g) => ({
+    ...g,
+    home: withTeamLogo(g.home),
+    away: withTeamLogo(g.away),
+  }));
+
   const standings = seasonGames
-    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs)
+    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs).map((row) => {
+        const logoUrl = row.logoUrl ?? mapBzzoiroTeamLogoUrl(league, row.teamId);
+        return logoUrl ? { ...row, logoUrl } : row;
+      })
     : [];
 
   const analyses: Record<string, GameAnalysis> = {};
@@ -375,7 +396,7 @@ export function buildFootballSnapshot(params: {
           source,
         });
 
-  for (const game of games) {
+  for (const game of resolvedGames) {
     const prev = previousSnapshot?.analyses[game.id];
     if (shouldPreservePublishedAnalysis(prev, game)) {
       let kept = keepVerifiedPicks(GameAnalysisSchema.parse(prev), game);
@@ -403,9 +424,12 @@ export function buildFootballSnapshot(params: {
     );
   }
 
+  const leagueLogoUrl = mapBzzoiroLeagueLogoUrl(league);
+
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
     league: asLeagueId(league),
+    ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(seasonId),
     seasonLabel,
     periodLabel,
@@ -414,7 +438,7 @@ export function buildFootballSnapshot(params: {
     provenance: "derived",
     isDemo: false,
     teamRates: rates,
-    games,
+    games: resolvedGames,
     analyses,
     standings: standings.length > 0 ? standings : undefined,
   };

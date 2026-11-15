@@ -2,14 +2,19 @@ import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  BZZOIRO_LEAGUE_IDS,
   BZZOIRO_TEAM_IDS,
+  buildBzzoiroTeamEmblemUrlById,
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroLeagueId,
   getBzzoiroTeamEmblemUrl,
   getBzzoiroTeamId,
   getEmblemPath,
-  getLeagueAsset,
   getMascotPath,
   getResolvedTeamEmblem,
+  getLeagueAsset,
   getTeamAsset,
+  isValidBzzoiroImageUrl,
   TEAM_ASSETS,
 } from "../src/index";
 
@@ -207,5 +212,34 @@ describe("@pitchlab/sports-assets", () => {
         isExternal: false,
       });
     }
+  });
+
+  it("resuelve los emblemas de ligas cubiertas en Bzzoiro y valida host", () => {
+    expect(BZZOIRO_LEAGUE_IDS["liga-mx"]).toBe(19);
+    expect(getBzzoiroLeagueId("premier-league")).toBe(1);
+    expect(getBzzoiroLeagueId("la-liga")).toBe(3);
+    expect(getBzzoiroLeagueEmblemUrl("liga-mx")).toBe(
+      "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("nba")).toBe(
+      "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("nfl")).toBeNull();
+    expect(getBzzoiroLeagueEmblemUrl("mlb")).toBeNull();
+    expect(getBzzoiroLeagueEmblemUrl("nhl")).toBeNull();
+
+    expect(buildBzzoiroTeamEmblemUrlById("liga-mx", 309)).toBe(
+      "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
+    );
+    expect(buildBzzoiroTeamEmblemUrlById("nba", 10)).toBe(
+      "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent",
+    );
+    expect(buildBzzoiroTeamEmblemUrlById("liga-mx", 0)).toBeNull();
+
+    expect(isValidBzzoiroImageUrl("https://sports.bzzoiro.com/img/team/309/?bg=transparent")).toBe(
+      true,
+    );
+    expect(isValidBzzoiroImageUrl("http://sports.bzzoiro.com/img/team/309/")).toBe(false);
+    expect(isValidBzzoiroImageUrl("https://evil.example.com/img/team/309/")).toBe(false);
   });
 });
