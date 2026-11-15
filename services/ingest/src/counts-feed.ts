@@ -209,7 +209,7 @@ const LABELS: Record<CountStat, { group: string; noun: string; key: string }> = 
  * la línea equilibrada) y un factor legible. No toca picks, 1X2 ni la confianza.
  */
 export function withCountProjections(analysis: GameAnalysis, game: GameDTO, feed: CountFeed | null): GameAnalysis {
-  if (!feed) return analysis;
+  if (!feed || analysis.counts) return analysis;
   const counts = feed.predict(game.home.id, game.away.id);
   const stats = STATS.filter((s) => counts[s]);
   if (stats.length === 0) return analysis;

@@ -206,7 +206,7 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 ## Bloqueos
 
 - FD-14: confirmación de API-Football para Liga MX comercial y revisión de cuenta de Stripe MX (solo bloquean el cobro, no el desarrollo).
-- Falta el archivo Inter WOFF2 en el paquete de marca (se resuelve en F4).
+- Fuente Inter: ✅ resuelto (`apps/web/public/fonts/InterVariable.woff2` integrado en `@pitchlab/web`).
 
 ## Cambios del fundador sin commit (no incluidos en los commits del plan)
 
@@ -1390,3 +1390,15 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Verificación integral tras la integración en `gemini-reestructura` (`pnpm typecheck`, `pnpm lint`, `pnpm build`, `pnpm build-storybook`, suites Vitest de `@pitchlab/contracts`, `@pitchlab/models`, `@pitchlab/sports-assets`, `@pitchlab/ui` y `@pitchlab/web`, y Playwright E2E `antes-del-partido`, `app-home`, `nba-nhl`, `pre-mvp` y `team-profile` en `1440 px` y `375 px` con Axe WCAG 2.1 AA en tema oscuro y claro).
 - **Pendiente:**
   - Integrado en `gemini-reestructura`; `main` permanece sin cambios hasta promoción explícita.
+
+### CIERRE-TECNICO-GEMINI · Cierre técnico de pendientes integrables en `gemini-reestructura` — 2026-11-15 — Rama `gemini-reestructura`
+- **Hecho:**
+  - **Pruebas de fecha fija en `@pitchlab/ingest`:** `services/ingest/tests/snapshot-validator.test.ts` y `odds-refresh.test.ts` calculan su reloj de prueba relativo al `generated_at` / `outlooks_meta.generated_at_utc` del snapshot vigente (`live_matchday_v3_snapshot.json`), eliminando los 2 fallos por cambio de día (`FUTURE_SNAPSHOT_TIMESTAMP`).
+  - **Conteos (`counts`) en snapshots reales de fútbol:** `withCountProjections` (`services/ingest/src/counts-feed.ts`) es idempotente si `analysis.counts` ya existe; `buildFootballSnapshot` (`services/ingest/src/pipeline.ts`) enriquece análisis preservados aún previos al inicio que no tenían `counts` (verificado en `ingest.test.ts` sin alterar partidos finalizados, `picks` ni `publishedAt`). Se poblaron conteos pre-partido en `data/snapshots/<liga>/latest.json` y `2026-11-15.json` desde el corpus `research` local (`premier-league` `10`, `laliga` `10`, `bundesliga` `9`, `serie-a` `10`, `ligue-1` `9`, `liga-mx` `8` excluyendo Atlante por `< MIN_SAMPLE` = 5), todos validados con `LeagueSnapshotSchema` y `validateLeagueSnapshotCandidate`.
+  - **Presupuesto gratuito de The Odds API (`cae26c4` → TypeScript):** portado a `services/ingest/src/odds/the-odds-api.ts`, `betfair-exchange.ts` y `odds-refresh-cli.ts` (`regions=eu`, `markets=h2h` por defecto = 1 crédito/liga; `OddsApiBudget` persistido en `data/odds_timeseries/the_odds_api_budget.json` con reserva de `25` créditos, cooldown de `180` min por liga, reparto diario del saldo mensual y prechequeo gratuito `/events` con ventana de `48` h; `THE_ODDS_API_MONTHLY_CREDITS=0` quita el tope). Cubierto con 5 pruebas unitarias en `services/ingest/tests/the-odds-api-budget.test.ts`.
+  - **Estado auditado de assets y deportes futuros:** `apps/web/public/fonts/InterVariable.woff2` (`352,240` bytes) ya estaba integrado; `LeagueBadge` para `nba` conserva el respaldo neutro `NBA` (`ui.test.tsx:257`, sin marcas registradas externas); `mlb` y `ncaaf` no tienen aún snapshots propios (`SportOutlookCard` permanece listo en `@pitchlab/ui` esperando sus adaptadores cuando inicie temporada/fuente).
+- **Verificado:** verificación completa del monorepo tras los cambios finales (`typecheck`, `lint`, `test` completo en los 12 paquetes, `build`, `build-storybook`, `check-no-secrets` y `pnpm e2e`).
+- **Pendiente (requiere acción humana / cuentas / aprobación):**
+  - Cargar secretos externos (`DATABASE_URL`, Google OAuth, `RESEND_API_KEY`, `THE_ODDS_API_KEY`, `BZZOIRO_API_KEY`, `OPENROUTER_API_KEY`, `CRON_SECRET`, `VERCEL_DEPLOY_HOOK_URL`, `PITCHLAB_TRANSFER_*`, `PITCHLAB_ADMIN_EMAILS`, Turnstile, DNS, Stripe MX/Facturapi).
+  - Revisión legal/fiscal en México (`LEGAL-1`) y decisiones de negocio del fundador (entidad que factura, umbral de prueba sin tarjeta, nombre «Ventaja» vs «CLV»).
+  - Prueba viva en staging (aprobación SPEI real en `/app/admin` y `Siguiendo` contra Neon `0022`), props de jugadores cuando exista histórico partido a partido, y confirmación explícita del usuario para fusionar y empujar `gemini-reestructura` → `main`.

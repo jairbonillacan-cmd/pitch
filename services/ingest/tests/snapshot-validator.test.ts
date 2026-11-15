@@ -322,8 +322,13 @@ describe("Parte 3 · Validador común previo a publicar snapshots", () => {
         "utf8",
       ),
     ) as LiveMatchdaySnapshotPayload;
+    const realLiveGenMs = Math.max(
+      Date.parse(realLive.generated_at),
+      Date.parse(realLive.outlooks_meta?.generated_at_utc ?? realLive.generated_at),
+    );
+    const liveNowMs = Math.max(Date.parse("2026-11-14T18:00:00Z"), realLiveGenMs + 60_000);
     const liveOk = validateLiveOddsSnapshotCandidate(realLive, null, {
-      nowMs: Date.parse("2026-11-14T18:00:00Z"),
+      nowMs: liveNowMs,
     });
     expect(liveOk.ok, JSON.stringify(liveOk.issues)).toBe(true);
 
@@ -335,7 +340,7 @@ describe("Parte 3 · Validador común previo a publicar snapshots", () => {
       },
     };
     const liveOlderRes = validateLiveOddsSnapshotCandidate(olderLive, realLive, {
-      nowMs: Date.parse("2026-11-14T18:00:00Z"),
+      nowMs: liveNowMs,
     });
     expect(liveOlderRes.ok).toBe(false);
     expect(

@@ -69,4 +69,11 @@ describe("córners y faltas en el análisis", () => {
     expect(withStrict.fouls!.total).toBeGreaterThan(neutral.fouls!.total);
     expect(withStrict.yellow!.total).toBeGreaterThan(neutral.yellow!.total);
   });
+
+  it("no duplica grupos de mercado ni factores si el análisis ya tiene counts", () => {
+    const feed = buildCountFeed(rows(20));
+    const once = withCountProjections(base, game, feed);
+    const twice = withCountProjections(once, game, feed);
+    expect(twice).toBe(once);
+  });
 });

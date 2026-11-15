@@ -5461,6 +5461,41 @@
     },
     "serie-a-2026-27-md12-como-cagliari": {
       "game": "serie-a-2026-27-md12-como-cagliari",
+      "counts": {
+        "corners": {
+          "home": 6.14,
+          "away": 3.47,
+          "total": 9.61,
+          "line": 9.5,
+          "pOver": 0.4789,
+          "sample": {
+            "home": 87,
+            "away": 542
+          }
+        },
+        "fouls": {
+          "home": 9.43,
+          "away": 12.12,
+          "total": 21.55,
+          "line": 21.5,
+          "pOver": 0.4881,
+          "sample": {
+            "home": 87,
+            "away": 542
+          }
+        },
+        "yellow": {
+          "home": 1.32,
+          "away": 1.88,
+          "total": 3.21,
+          "line": 3.5,
+          "pOver": 0.3993,
+          "sample": {
+            "home": 87,
+            "away": 542
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -5607,6 +5642,48 @@
           "selection": "2–1",
           "p": 0.10676591322834385,
           "fairOdds": 9.366285266171671
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4789,
+          "fairOdds": 2.088118605136772
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5211,
+          "fairOdds": 1.9190174630589139
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 21.5",
+          "line": 21.5,
+          "p": 0.4881,
+          "fairOdds": 2.048760499897562
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 21.5",
+          "line": 21.5,
+          "p": 0.5119,
+          "fairOdds": 1.953506544246923
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3993,
+          "fairOdds": 2.504382669671926
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6007,
+          "fairOdds": 1.6647244880972198
         }
       ],
       "marketGroups": [
@@ -5788,6 +5865,69 @@
               "fairOdds": 9.366285266171671
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4789,
+              "fairOdds": 2.088118605136772
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5211,
+              "fairOdds": 1.9190174630589139
+            }
+          ]
+        },
+        {
+          "group": "Faltas 21.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 21.5",
+              "line": 21.5,
+              "p": 0.4881,
+              "fairOdds": 2.048760499897562
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 21.5",
+              "line": 21.5,
+              "p": 0.5119,
+              "fairOdds": 1.953506544246923
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3993,
+              "fairOdds": 2.504382669671926
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6007,
+              "fairOdds": 1.6647244880972198
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5861,6 +6001,24 @@
           "label": "Memoria larga",
           "value": "+6 pts al local",
           "detail": "historia 68% / 19% / 13% · temporada 56% / 23% / 21%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.6 tiros de esquina esperados",
+          "detail": "Como 1907 6.1 · Cagliari Calcio 3.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.6 faltas esperados",
+          "detail": "Como 1907 9.4 · Cagliari Calcio 12.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.2 amarillas esperados",
+          "detail": "Como 1907 1.3 · Cagliari Calcio 1.9"
         }
       ],
       "steps": [
@@ -5949,6 +6107,41 @@
     },
     "serie-a-2026-27-md12-lazio-lecce": {
       "game": "serie-a-2026-27-md12-lazio-lecce",
+      "counts": {
+        "corners": {
+          "home": 5.28,
+          "away": 4.05,
+          "total": 9.33,
+          "line": 9.5,
+          "pOver": 0.4483,
+          "sample": {
+            "home": 619,
+            "away": 277
+          }
+        },
+        "fouls": {
+          "home": 9.99,
+          "away": 13.54,
+          "total": 23.53,
+          "line": 23.5,
+          "pOver": 0.4873,
+          "sample": {
+            "home": 619,
+            "away": 277
+          }
+        },
+        "yellow": {
+          "home": 1.47,
+          "away": 2.15,
+          "total": 3.62,
+          "line": 3.5,
+          "pOver": 0.4887,
+          "sample": {
+            "home": 619,
+            "away": 277
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -6095,6 +6288,48 @@
           "selection": "2–1",
           "p": 0.10469714431002407,
           "fairOdds": 9.551358889396724
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4483,
+          "fairOdds": 2.230649118893598
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5517000000000001,
+          "fairOdds": 1.8125793003443897
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.4873,
+          "fairOdds": 2.0521239482864764
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.5126999999999999,
+          "fairOdds": 1.950458357714063
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4887,
+          "fairOdds": 2.046245140167792
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5113,
+          "fairOdds": 1.9557989438685703
         }
       ],
       "marketGroups": [
@@ -6276,6 +6511,69 @@
               "fairOdds": 9.551358889396724
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4483,
+              "fairOdds": 2.230649118893598
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5517000000000001,
+              "fairOdds": 1.8125793003443897
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.4873,
+              "fairOdds": 2.0521239482864764
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.5126999999999999,
+              "fairOdds": 1.950458357714063
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4887,
+              "fairOdds": 2.046245140167792
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5113,
+              "fairOdds": 1.9557989438685703
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6349,6 +6647,24 @@
           "label": "Memoria larga",
           "value": "+7 pts al local",
           "detail": "historia 71% / 18% / 11% · temporada 58% / 23% / 19%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.3 tiros de esquina esperados",
+          "detail": "SS Lazio 5.3 · US Lecce 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.5 faltas esperados",
+          "detail": "SS Lazio 10.0 · US Lecce 13.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "SS Lazio 1.5 · US Lecce 2.1"
         }
       ],
       "steps": [
@@ -6452,6 +6768,41 @@
     },
     "serie-a-2026-27-md12-parma-roma": {
       "game": "serie-a-2026-27-md12-parma-roma",
+      "counts": {
+        "corners": {
+          "home": 3.89,
+          "away": 5.31,
+          "total": 9.2,
+          "line": 8.5,
+          "pOver": 0.5473,
+          "sample": {
+            "home": 391,
+            "away": 618
+          }
+        },
+        "fouls": {
+          "home": 9.93,
+          "away": 12.38,
+          "total": 22.31,
+          "line": 22.5,
+          "pOver": 0.4686,
+          "sample": {
+            "home": 391,
+            "away": 618
+          }
+        },
+        "yellow": {
+          "home": 1.51,
+          "away": 1.74,
+          "total": 3.25,
+          "line": 3.5,
+          "pOver": 0.4091,
+          "sample": {
+            "home": 391,
+            "away": 617
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -6598,6 +6949,48 @@
           "selection": "1–1",
           "p": 0.09721827997805349,
           "fairOdds": 10.286131375969052
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5473,
+          "fairOdds": 1.827151470856934
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4527,
+          "fairOdds": 2.208968411751712
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.4686,
+          "fairOdds": 2.1340162185232607
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.5314,
+          "fairOdds": 1.881821603312006
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4091,
+          "fairOdds": 2.4443901246638964
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5909,
+          "fairOdds": 1.6923337282112032
         }
       ],
       "marketGroups": [
@@ -6779,6 +7172,69 @@
               "fairOdds": 10.286131375969052
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5473,
+              "fairOdds": 1.827151470856934
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4527,
+              "fairOdds": 2.208968411751712
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.4686,
+              "fairOdds": 2.1340162185232607
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.5314,
+              "fairOdds": 1.881821603312006
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4091,
+              "fairOdds": 2.4443901246638964
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5909,
+              "fairOdds": 1.6923337282112032
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6852,6 +7308,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 16% / 21% / 63% · temporada 14% / 22% / 64%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.2 tiros de esquina esperados",
+          "detail": "Parma Calcio 1913 3.9 · AS Roma 5.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.3 faltas esperados",
+          "detail": "Parma Calcio 1913 9.9 · AS Roma 12.4"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.3 amarillas esperados",
+          "detail": "Parma Calcio 1913 1.5 · AS Roma 1.7"
         }
       ],
       "steps": [
@@ -6955,6 +7429,41 @@
     },
     "serie-a-2026-27-md12-napoli-torino": {
       "game": "serie-a-2026-27-md12-napoli-torino",
+      "counts": {
+        "corners": {
+          "home": 5.82,
+          "away": 3.51,
+          "total": 9.34,
+          "line": 9.5,
+          "pOver": 0.4492,
+          "sample": {
+            "home": 619,
+            "away": 543
+          }
+        },
+        "fouls": {
+          "home": 8.73,
+          "away": 10.29,
+          "total": 19.01,
+          "line": 18.5,
+          "pOver": 0.5288,
+          "sample": {
+            "home": 619,
+            "away": 543
+          }
+        },
+        "yellow": {
+          "home": 1.2,
+          "away": 1.74,
+          "total": 2.93,
+          "line": 2.5,
+          "pOver": 0.5612,
+          "sample": {
+            "home": 619,
+            "away": 543
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -7101,6 +7610,48 @@
           "selection": "2–1",
           "p": 0.1091475235063764,
           "fairOdds": 9.161911950678203
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4492,
+          "fairOdds": 2.2261798753339272
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5508,
+          "fairOdds": 1.815541031227306
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 18.5",
+          "line": 18.5,
+          "p": 0.5288,
+          "fairOdds": 1.8910741301059
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 18.5",
+          "line": 18.5,
+          "p": 0.47119999999999995,
+          "fairOdds": 2.1222410865874366
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5612,
+          "fairOdds": 1.781895937277263
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.43879999999999997,
+          "fairOdds": 2.27894257064722
         }
       ],
       "marketGroups": [
@@ -7282,6 +7833,69 @@
               "fairOdds": 9.161911950678203
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4492,
+              "fairOdds": 2.2261798753339272
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5508,
+              "fairOdds": 1.815541031227306
+            }
+          ]
+        },
+        {
+          "group": "Faltas 18.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 18.5",
+              "line": 18.5,
+              "p": 0.5288,
+              "fairOdds": 1.8910741301059
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 18.5",
+              "line": 18.5,
+              "p": 0.47119999999999995,
+              "fairOdds": 2.1222410865874366
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 2.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5612,
+              "fairOdds": 1.781895937277263
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.43879999999999997,
+              "fairOdds": 2.27894257064722
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7355,6 +7969,24 @@
           "label": "Memoria larga",
           "value": "+6 pts al local",
           "detail": "historia 71% / 18% / 11% · temporada 59% / 21% / 20%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.3 tiros de esquina esperados",
+          "detail": "SSC Napoli 5.8 · Torino FC 3.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "19.0 faltas esperados",
+          "detail": "SSC Napoli 8.7 · Torino FC 10.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "2.9 amarillas esperados",
+          "detail": "SSC Napoli 1.2 · Torino FC 1.7"
         }
       ],
       "steps": [
@@ -7457,6 +8089,41 @@
     },
     "serie-a-2026-27-md12-juventus-venezia": {
       "game": "serie-a-2026-27-md12-juventus-venezia",
+      "counts": {
+        "corners": {
+          "home": 7.07,
+          "away": 3.52,
+          "total": 10.59,
+          "line": 10.5,
+          "pOver": 0.477,
+          "sample": {
+            "home": 619,
+            "away": 87
+          }
+        },
+        "fouls": {
+          "home": 10.74,
+          "away": 10.32,
+          "total": 21.06,
+          "line": 20.5,
+          "pOver": 0.5311,
+          "sample": {
+            "home": 619,
+            "away": 87
+          }
+        },
+        "yellow": {
+          "home": 1.33,
+          "away": 1.92,
+          "total": 3.25,
+          "line": 3.5,
+          "pOver": 0.408,
+          "sample": {
+            "home": 618,
+            "away": 87
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -7603,6 +8270,48 @@
           "selection": "3–0",
           "p": 0.10109034423398144,
           "fairOdds": 9.892141604399153
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.477,
+          "fairOdds": 2.0964360587002098
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.523,
+          "fairOdds": 1.9120458891013383
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.5311,
+          "fairOdds": 1.8828845791752964
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.4689,
+          "fairOdds": 2.1326508850501176
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.408,
+          "fairOdds": 2.450980392156863
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5920000000000001,
+          "fairOdds": 1.689189189189189
         }
       ],
       "marketGroups": [
@@ -7784,6 +8493,69 @@
               "fairOdds": 9.892141604399153
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.477,
+              "fairOdds": 2.0964360587002098
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.523,
+              "fairOdds": 1.9120458891013383
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.5311,
+              "fairOdds": 1.8828845791752964
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.4689,
+              "fairOdds": 2.1326508850501176
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.408,
+              "fairOdds": 2.450980392156863
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5920000000000001,
+              "fairOdds": 1.689189189189189
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7857,6 +8629,24 @@
           "label": "Memoria larga",
           "value": "+3 pts al local",
           "detail": "historia 80% / 13% / 6% · temporada 74% / 16% / 11%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.6 tiros de esquina esperados",
+          "detail": "Juventus FC 7.1 · Venezia FC 3.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.1 faltas esperados",
+          "detail": "Juventus FC 10.7 · Venezia FC 10.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.3 amarillas esperados",
+          "detail": "Juventus FC 1.3 · Venezia FC 1.9"
         }
       ],
       "steps": [
@@ -7943,6 +8733,41 @@
     },
     "serie-a-2026-27-md12-sassuolo-genoa-cfc": {
       "game": "serie-a-2026-27-md12-sassuolo-genoa-cfc",
+      "counts": {
+        "corners": {
+          "home": 5.16,
+          "away": 4.31,
+          "total": 9.48,
+          "line": 9.5,
+          "pOver": 0.4652,
+          "sample": {
+            "home": 467,
+            "away": 581
+          }
+        },
+        "fouls": {
+          "home": 11.45,
+          "away": 10.76,
+          "total": 22.21,
+          "line": 22.5,
+          "pOver": 0.4604,
+          "sample": {
+            "home": 467,
+            "away": 581
+          }
+        },
+        "yellow": {
+          "home": 1.76,
+          "away": 1.88,
+          "total": 3.64,
+          "line": 3.5,
+          "pOver": 0.4927,
+          "sample": {
+            "home": 467,
+            "away": 581
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -8089,6 +8914,48 @@
           "selection": "1–0",
           "p": 0.09296128600371562,
           "fairOdds": 10.757166160115625
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4652,
+          "fairOdds": 2.1496130696474633
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5347999999999999,
+          "fairOdds": 1.8698578908002994
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.4604,
+          "fairOdds": 2.172024326672459
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.5396000000000001,
+          "fairOdds": 1.8532246108228314
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4927,
+          "fairOdds": 2.029632636492795
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5073,
+          "fairOdds": 1.9712201852946976
         }
       ],
       "marketGroups": [
@@ -8270,6 +9137,69 @@
               "fairOdds": 10.757166160115625
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4652,
+              "fairOdds": 2.1496130696474633
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5347999999999999,
+              "fairOdds": 1.8698578908002994
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.4604,
+              "fairOdds": 2.172024326672459
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.5396000000000001,
+              "fairOdds": 1.8532246108228314
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4927,
+              "fairOdds": 2.029632636492795
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5073,
+              "fairOdds": 1.9712201852946976
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8343,6 +9273,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 53% / 24% / 22% · temporada 50% / 22% / 28%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.5 tiros de esquina esperados",
+          "detail": "US Sassuolo Calcio 5.2 · Genoa CFC 4.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.2 faltas esperados",
+          "detail": "US Sassuolo Calcio 11.4 · Genoa CFC 10.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "US Sassuolo Calcio 1.8 · Genoa CFC 1.9"
         }
       ],
       "steps": [
@@ -8444,6 +9392,41 @@
     },
     "serie-a-2026-27-md12-bologna-udinese": {
       "game": "serie-a-2026-27-md12-bologna-udinese",
+      "counts": {
+        "corners": {
+          "home": 5.31,
+          "away": 4.11,
+          "total": 9.42,
+          "line": 9.5,
+          "pOver": 0.4586,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        },
+        "fouls": {
+          "home": 11.01,
+          "away": 13.71,
+          "total": 24.72,
+          "line": 24.5,
+          "pOver": 0.5017,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        },
+        "yellow": {
+          "home": 1.43,
+          "away": 1.83,
+          "total": 3.25,
+          "line": 3.5,
+          "pOver": 0.4089,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -8590,6 +9573,48 @@
           "selection": "2–1",
           "p": 0.0988191577385554,
           "fairOdds": 10.11949527687422
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4586,
+          "fairOdds": 2.1805494984736153
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5414,
+          "fairOdds": 1.847063169560399
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5017,
+          "fairOdds": 1.9932230416583614
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.49829999999999997,
+          "fairOdds": 2.0068231988761793
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4089,
+          "fairOdds": 2.4455857177794083
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5911,
+          "fairOdds": 1.691761123329386
         }
       ],
       "marketGroups": [
@@ -8771,6 +9796,69 @@
               "fairOdds": 10.11949527687422
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4586,
+              "fairOdds": 2.1805494984736153
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5414,
+              "fairOdds": 1.847063169560399
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5017,
+              "fairOdds": 1.9932230416583614
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.49829999999999997,
+              "fairOdds": 2.0068231988761793
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4089,
+              "fairOdds": 2.4455857177794083
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5911,
+              "fairOdds": 1.691761123329386
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8844,6 +9932,24 @@
           "label": "Memoria larga",
           "value": "+6 pts al local",
           "detail": "historia 53% / 24% / 22% · temporada 42% / 25% / 33%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.4 tiros de esquina esperados",
+          "detail": "Bologna FC 1909 5.3 · Udinese Calcio 4.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.7 faltas esperados",
+          "detail": "Bologna FC 1909 11.0 · Udinese Calcio 13.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.3 amarillas esperados",
+          "detail": "Bologna FC 1909 1.4 · Udinese Calcio 1.8"
         }
       ],
       "steps": [
@@ -8946,6 +10052,41 @@
     },
     "serie-a-2026-27-md12-milan-frosinone": {
       "game": "serie-a-2026-27-md12-milan-frosinone",
+      "counts": {
+        "corners": {
+          "home": 4.96,
+          "away": 4.67,
+          "total": 9.63,
+          "line": 9.5,
+          "pOver": 0.4822,
+          "sample": {
+            "home": 619,
+            "away": 125
+          }
+        },
+        "fouls": {
+          "home": 10.68,
+          "away": 13.03,
+          "total": 23.7,
+          "line": 23.5,
+          "pOver": 0.5008,
+          "sample": {
+            "home": 619,
+            "away": 125
+          }
+        },
+        "yellow": {
+          "home": 1.73,
+          "away": 1.65,
+          "total": 3.38,
+          "line": 3.5,
+          "pOver": 0.4375,
+          "sample": {
+            "home": 619,
+            "away": 125
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -9092,6 +10233,48 @@
           "selection": "1–1",
           "p": 0.10509475608564671,
           "fairOdds": 9.51522261667416
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4822,
+          "fairOdds": 2.073828287017835
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5178,
+          "fairOdds": 1.9312475859405174
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.5008,
+          "fairOdds": 1.996805111821086
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.4992,
+          "fairOdds": 2.003205128205128
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4375,
+          "fairOdds": 2.2857142857142856
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5625,
+          "fairOdds": 1.7777777777777777
         }
       ],
       "marketGroups": [
@@ -9273,6 +10456,69 @@
               "fairOdds": 9.51522261667416
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4822,
+              "fairOdds": 2.073828287017835
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5178,
+              "fairOdds": 1.9312475859405174
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.5008,
+              "fairOdds": 1.996805111821086
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.4992,
+              "fairOdds": 2.003205128205128
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4375,
+              "fairOdds": 2.2857142857142856
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5625,
+              "fairOdds": 1.7777777777777777
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9346,6 +10592,24 @@
           "label": "Memoria larga",
           "value": "+15 pts al local",
           "detail": "historia 70% / 19% / 12% · temporada 39% / 26% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.6 tiros de esquina esperados",
+          "detail": "AC Milan 5.0 · Frosinone Calcio 4.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.7 faltas esperados",
+          "detail": "AC Milan 10.7 · Frosinone Calcio 13.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.4 amarillas esperados",
+          "detail": "AC Milan 1.7 · Frosinone Calcio 1.6"
         }
       ],
       "steps": [
@@ -9448,6 +10712,41 @@
     },
     "serie-a-2026-27-md12-atalanta-bc-internazionale-milano": {
       "game": "serie-a-2026-27-md12-atalanta-bc-internazionale-milano",
+      "counts": {
+        "corners": {
+          "home": 4.26,
+          "away": 5.09,
+          "total": 9.35,
+          "line": 9.5,
+          "pOver": 0.4506,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        },
+        "fouls": {
+          "home": 8.73,
+          "away": 9.02,
+          "total": 17.75,
+          "line": 17.5,
+          "pOver": 0.5059,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        },
+        "yellow": {
+          "home": 1.34,
+          "away": 1.43,
+          "total": 2.78,
+          "line": 2.5,
+          "pOver": 0.5253,
+          "sample": {
+            "home": 581,
+            "away": 619
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -9594,6 +10893,48 @@
           "selection": "0–1",
           "p": 0.07954220489627248,
           "fairOdds": 12.57194216961997
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4506,
+          "fairOdds": 2.2192632046160674
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5494,
+          "fairOdds": 1.8201674554058973
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 17.5",
+          "line": 17.5,
+          "p": 0.5059,
+          "fairOdds": 1.9766752322593397
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 17.5",
+          "line": 17.5,
+          "p": 0.4941,
+          "fairOdds": 2.0238818053025702
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5253,
+          "fairOdds": 1.9036740909956216
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4747,
+          "fairOdds": 2.106593638087213
         }
       ],
       "marketGroups": [
@@ -9775,6 +11116,69 @@
               "fairOdds": 12.57194216961997
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4506,
+              "fairOdds": 2.2192632046160674
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5494,
+              "fairOdds": 1.8201674554058973
+            }
+          ]
+        },
+        {
+          "group": "Faltas 17.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 17.5",
+              "line": 17.5,
+              "p": 0.5059,
+              "fairOdds": 1.9766752322593397
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 17.5",
+              "line": 17.5,
+              "p": 0.4941,
+              "fairOdds": 2.0238818053025702
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 2.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5253,
+              "fairOdds": 1.9036740909956216
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4747,
+              "fairOdds": 2.106593638087213
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9848,6 +11252,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 25% / 26% / 49% · temporada 27% / 21% / 52%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.3 tiros de esquina esperados",
+          "detail": "Atalanta BC 4.3 · FC Internazionale Milano 5.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "17.8 faltas esperados",
+          "detail": "Atalanta BC 8.7 · FC Internazionale Milano 9.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "2.8 amarillas esperados",
+          "detail": "Atalanta BC 1.3 · FC Internazionale Milano 1.4"
         }
       ],
       "steps": [
@@ -9949,6 +11371,41 @@
     },
     "serie-a-2026-27-md12-monza-fiorentina": {
       "game": "serie-a-2026-27-md12-monza-fiorentina",
+      "counts": {
+        "corners": {
+          "home": 4.46,
+          "away": 4.33,
+          "total": 8.79,
+          "line": 8.5,
+          "pOver": 0.5014,
+          "sample": {
+            "home": 125,
+            "away": 619
+          }
+        },
+        "fouls": {
+          "home": 13.46,
+          "away": 12.24,
+          "total": 25.7,
+          "line": 25.5,
+          "pOver": 0.4999,
+          "sample": {
+            "home": 125,
+            "away": 619
+          }
+        },
+        "yellow": {
+          "home": 1.88,
+          "away": 1.89,
+          "total": 3.77,
+          "line": 3.5,
+          "pOver": 0.5202,
+          "sample": {
+            "home": 125,
+            "away": 619
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-serie-a",
         "version": "2.0.0",
@@ -10095,6 +11552,48 @@
           "selection": "2–2",
           "p": 0.08018175728093112,
           "fairOdds": 12.471664801462524
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5014,
+          "fairOdds": 1.994415636218588
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.49860000000000004,
+          "fairOdds": 2.005615724027276
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4999,
+          "fairOdds": 2.000400080016003
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5001,
+          "fairOdds": 1.9996000799840032
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5202,
+          "fairOdds": 1.9223375624759709
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4798,
+          "fairOdds": 2.084201750729471
         }
       ],
       "marketGroups": [
@@ -10276,6 +11775,69 @@
               "fairOdds": 12.471664801462524
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5014,
+              "fairOdds": 1.994415636218588
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.49860000000000004,
+              "fairOdds": 2.005615724027276
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4999,
+              "fairOdds": 2.000400080016003
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5001,
+              "fairOdds": 1.9996000799840032
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5202,
+              "fairOdds": 1.9223375624759709
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4798,
+              "fairOdds": 2.084201750729471
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -10349,6 +11911,24 @@
           "label": "Memoria larga",
           "value": "−5 pts al local",
           "detail": "historia 27% / 26% / 47% · temporada 37% / 21% / 42%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "8.8 tiros de esquina esperados",
+          "detail": "AC Monza 4.5 · ACF Fiorentina 4.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.7 faltas esperados",
+          "detail": "AC Monza 13.5 · ACF Fiorentina 12.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.8 amarillas esperados",
+          "detail": "AC Monza 1.9 · ACF Fiorentina 1.9"
         }
       ],
       "steps": [

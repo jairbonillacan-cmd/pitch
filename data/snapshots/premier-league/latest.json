@@ -5428,6 +5428,41 @@
     },
     "pl-2026-27-md11-manchester-city-fulham": {
       "game": "pl-2026-27-md11-manchester-city-fulham",
+      "counts": {
+        "corners": {
+          "home": 6.2,
+          "away": 4,
+          "total": 10.2,
+          "line": 9.5,
+          "pOver": 0.5421,
+          "sample": {
+            "home": 618,
+            "away": 390
+          }
+        },
+        "fouls": {
+          "home": 9.09,
+          "away": 12.74,
+          "total": 21.83,
+          "line": 21.5,
+          "pOver": 0.5112,
+          "sample": {
+            "home": 618,
+            "away": 390
+          }
+        },
+        "yellow": {
+          "home": 1.5,
+          "away": 2.36,
+          "total": 3.86,
+          "line": 3.5,
+          "pOver": 0.5378,
+          "sample": {
+            "home": 618,
+            "away": 390
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -5574,6 +5609,48 @@
           "selection": "2–1",
           "p": 0.10436123773329155,
           "fairOdds": 9.582101762300171
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5421,
+          "fairOdds": 1.8446781036709092
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4579,
+          "fairOdds": 2.1838829438742087
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 21.5",
+          "line": 21.5,
+          "p": 0.5112,
+          "fairOdds": 1.9561815336463224
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 21.5",
+          "line": 21.5,
+          "p": 0.4888,
+          "fairOdds": 2.0458265139116203
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5378,
+          "fairOdds": 1.8594272963927112
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.46220000000000006,
+          "fairOdds": 2.163565556036348
         }
       ],
       "marketGroups": [
@@ -5755,6 +5832,69 @@
               "fairOdds": 9.582101762300171
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5421,
+              "fairOdds": 1.8446781036709092
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4579,
+              "fairOdds": 2.1838829438742087
+            }
+          ]
+        },
+        {
+          "group": "Faltas 21.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 21.5",
+              "line": 21.5,
+              "p": 0.5112,
+              "fairOdds": 1.9561815336463224
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 21.5",
+              "line": 21.5,
+              "p": 0.4888,
+              "fairOdds": 2.0458265139116203
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5378,
+              "fairOdds": 1.8594272963927112
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.46220000000000006,
+              "fairOdds": 2.163565556036348
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5828,6 +5968,24 @@
           "label": "Memoria larga",
           "value": "+4 pts al local",
           "detail": "historia 73% / 17% / 10% · temporada 65% / 19% / 16%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.2 tiros de esquina esperados",
+          "detail": "Manchester City 6.2 · Fulham 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.8 faltas esperados",
+          "detail": "Manchester City 9.1 · Fulham 12.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.9 amarillas esperados",
+          "detail": "Manchester City 1.5 · Fulham 2.4"
         }
       ],
       "steps": [
@@ -5932,6 +6090,41 @@
     },
     "pl-2026-27-md11-chelsea-leeds-united": {
       "game": "pl-2026-27-md11-chelsea-leeds-united",
+      "counts": {
+        "corners": {
+          "home": 5.74,
+          "away": 4.12,
+          "total": 9.86,
+          "line": 9.5,
+          "pOver": 0.5069,
+          "sample": {
+            "home": 618,
+            "away": 162
+          }
+        },
+        "fouls": {
+          "home": 10.75,
+          "away": 13.75,
+          "total": 24.49,
+          "line": 24.5,
+          "pOver": 0.4845,
+          "sample": {
+            "home": 618,
+            "away": 162
+          }
+        },
+        "yellow": {
+          "home": 2.01,
+          "away": 2.6,
+          "total": 4.61,
+          "line": 4.5,
+          "pOver": 0.4882,
+          "sample": {
+            "home": 618,
+            "away": 162
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -6078,6 +6271,48 @@
           "selection": "1–0",
           "p": 0.09563289893763344,
           "fairOdds": 10.456652586179004
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5069,
+          "fairOdds": 1.9727756954034326
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4931,
+          "fairOdds": 2.027986209693774
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4845,
+          "fairOdds": 2.063983488132095
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5155000000000001,
+          "fairOdds": 1.9398642095053344
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4882,
+          "fairOdds": 2.0483408439164275
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5118,
+          "fairOdds": 1.9538882375928095
         }
       ],
       "marketGroups": [
@@ -6259,6 +6494,69 @@
               "fairOdds": 10.456652586179004
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5069,
+              "fairOdds": 1.9727756954034326
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4931,
+              "fairOdds": 2.027986209693774
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4845,
+              "fairOdds": 2.063983488132095
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5155000000000001,
+              "fairOdds": 1.9398642095053344
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4882,
+              "fairOdds": 2.0483408439164275
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5118,
+              "fairOdds": 1.9538882375928095
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6332,6 +6630,24 @@
           "label": "Memoria larga",
           "value": "+4 pts al local",
           "detail": "historia 51% / 25% / 24% · temporada 42% / 23% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.9 tiros de esquina esperados",
+          "detail": "Chelsea 5.7 · Leeds United 4.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.5 faltas esperados",
+          "detail": "Chelsea 10.8 · Leeds United 13.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.6 amarillas esperados",
+          "detail": "Chelsea 2.0 · Leeds United 2.6"
         }
       ],
       "steps": [
@@ -6439,6 +6755,41 @@
     },
     "pl-2026-27-md11-aston-villa-sunderland": {
       "game": "pl-2026-27-md11-aston-villa-sunderland",
+      "counts": {
+        "corners": {
+          "home": 5.18,
+          "away": 3.96,
+          "total": 9.14,
+          "line": 8.5,
+          "pOver": 0.5401,
+          "sample": {
+            "home": 504,
+            "away": 314
+          }
+        },
+        "fouls": {
+          "home": 12.06,
+          "away": 13.78,
+          "total": 25.84,
+          "line": 25.5,
+          "pOver": 0.5109,
+          "sample": {
+            "home": 504,
+            "away": 314
+          }
+        },
+        "yellow": {
+          "home": 1.75,
+          "away": 2.74,
+          "total": 4.49,
+          "line": 4.5,
+          "pOver": 0.4667,
+          "sample": {
+            "home": 504,
+            "away": 314
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -6585,6 +6936,48 @@
           "selection": "1–0",
           "p": 0.08013362721049531,
           "fairOdds": 12.479155565655304
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5401,
+          "fairOdds": 1.851508979818552
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4599,
+          "fairOdds": 2.174385736029572
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.5109,
+          "fairOdds": 1.9573302016050107
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.4891,
+          "fairOdds": 2.0445716622367613
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4667,
+          "fairOdds": 2.142704092564817
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5333,
+          "fairOdds": 1.8751171948246765
         }
       ],
       "marketGroups": [
@@ -6766,6 +7159,69 @@
               "fairOdds": 12.479155565655304
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5401,
+              "fairOdds": 1.851508979818552
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4599,
+              "fairOdds": 2.174385736029572
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.5109,
+              "fairOdds": 1.9573302016050107
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.4891,
+              "fairOdds": 2.0445716622367613
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4667,
+              "fairOdds": 2.142704092564817
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5333,
+              "fairOdds": 1.8751171948246765
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6839,6 +7295,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 61% / 22% / 17% · temporada 57% / 20% / 23%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Aston Villa 5.2 · Sunderland 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.8 faltas esperados",
+          "detail": "Aston Villa 12.1 · Sunderland 13.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.5 amarillas esperados",
+          "detail": "Aston Villa 1.8 · Sunderland 2.7"
         }
       ],
       "steps": [
@@ -6946,6 +7420,41 @@
     },
     "pl-2026-27-md11-afc-bournemouth-nottingham-forest": {
       "game": "pl-2026-27-md11-afc-bournemouth-nottingham-forest",
+      "counts": {
+        "corners": {
+          "home": 5.48,
+          "away": 4.4,
+          "total": 9.88,
+          "line": 9.5,
+          "pOver": 0.5093,
+          "sample": {
+            "home": 352,
+            "away": 162
+          }
+        },
+        "fouls": {
+          "home": 12.36,
+          "away": 12.75,
+          "total": 25.11,
+          "line": 24.5,
+          "pOver": 0.5318,
+          "sample": {
+            "home": 352,
+            "away": 162
+          }
+        },
+        "yellow": {
+          "home": 2.03,
+          "away": 2.16,
+          "total": 4.2,
+          "line": 4.5,
+          "pOver": 0.4094,
+          "sample": {
+            "home": 352,
+            "away": 162
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -7092,6 +7601,48 @@
           "selection": "1–0",
           "p": 0.09368738863466859,
           "fairOdds": 10.673795209507574
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5093,
+          "fairOdds": 1.9634792852935403
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4907,
+          "fairOdds": 2.037905033625433
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5318,
+          "fairOdds": 1.88040616773223
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.46819999999999995,
+          "fairOdds": 2.1358393848782575
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4094,
+          "fairOdds": 2.442598925256473
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5906,
+          "fairOdds": 1.6931933626820181
         }
       ],
       "marketGroups": [
@@ -7273,6 +7824,69 @@
               "fairOdds": 10.673795209507574
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5093,
+              "fairOdds": 1.9634792852935403
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4907,
+              "fairOdds": 2.037905033625433
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5318,
+              "fairOdds": 1.88040616773223
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.46819999999999995,
+              "fairOdds": 2.1358393848782575
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4094,
+              "fairOdds": 2.442598925256473
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5906,
+              "fairOdds": 1.6931933626820181
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7346,6 +7960,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 55% / 24% / 21% · temporada 52% / 22% / 26%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.9 tiros de esquina esperados",
+          "detail": "Bournemouth 5.5 · Nottingham Forest 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.1 faltas esperados",
+          "detail": "Bournemouth 12.4 · Nottingham Forest 12.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Bournemouth 2.0 · Nottingham Forest 2.2"
         }
       ],
       "steps": [
@@ -7448,6 +8080,41 @@
     },
     "pl-2026-27-md11-tottenham-hotspur-ipswich-town": {
       "game": "pl-2026-27-md11-tottenham-hotspur-ipswich-town",
+      "counts": {
+        "corners": {
+          "home": 6.42,
+          "away": 3.61,
+          "total": 10.04,
+          "line": 9.5,
+          "pOver": 0.5249,
+          "sample": {
+            "home": 618,
+            "away": 48
+          }
+        },
+        "fouls": {
+          "home": 12.42,
+          "away": 12.18,
+          "total": 24.59,
+          "line": 24.5,
+          "pOver": 0.4921,
+          "sample": {
+            "home": 618,
+            "away": 48
+          }
+        },
+        "yellow": {
+          "home": 1.86,
+          "away": 2.34,
+          "total": 4.2,
+          "line": 4.5,
+          "pOver": 0.4105,
+          "sample": {
+            "home": 618,
+            "away": 48
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -7594,6 +8261,48 @@
           "selection": "1–0",
           "p": 0.0783434373977213,
           "fairOdds": 12.764311003145822
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5249,
+          "fairOdds": 1.9051247856734614
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.47509999999999997,
+          "fairOdds": 2.104820037886761
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4921,
+          "fairOdds": 2.03210729526519
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5079,
+          "fairOdds": 1.9688915140775742
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4105,
+          "fairOdds": 2.43605359317905
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5895,
+          "fairOdds": 1.6963528413910092
         }
       ],
       "marketGroups": [
@@ -7775,6 +8484,69 @@
               "fairOdds": 12.764311003145822
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5249,
+              "fairOdds": 1.9051247856734614
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.47509999999999997,
+              "fairOdds": 2.104820037886761
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4921,
+              "fairOdds": 2.03210729526519
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5079,
+              "fairOdds": 1.9688915140775742
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4105,
+              "fairOdds": 2.43605359317905
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5895,
+              "fairOdds": 1.6963528413910092
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7848,6 +8620,24 @@
           "label": "Memoria larga",
           "value": "+4 pts al local",
           "detail": "historia 57% / 23% / 20% · temporada 49% / 21% / 30%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.0 tiros de esquina esperados",
+          "detail": "Tottenham 6.4 · Ipswich Town 3.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.6 faltas esperados",
+          "detail": "Tottenham 12.4 · Ipswich Town 12.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Tottenham 1.9 · Ipswich Town 2.3"
         }
       ],
       "steps": [
@@ -7933,6 +8723,41 @@
     },
     "pl-2026-27-md11-coventry-city-crystal-palace": {
       "game": "pl-2026-27-md11-coventry-city-crystal-palace",
+      "counts": {
+        "corners": {
+          "home": 5.39,
+          "away": 3.98,
+          "total": 9.37,
+          "line": 9.5,
+          "pOver": 0.4535,
+          "sample": {
+            "home": 10,
+            "away": 504
+          }
+        },
+        "fouls": {
+          "home": 10.22,
+          "away": 10.7,
+          "total": 20.93,
+          "line": 20.5,
+          "pOver": 0.5198,
+          "sample": {
+            "home": 10,
+            "away": 504
+          }
+        },
+        "yellow": {
+          "home": 1.61,
+          "away": 2.06,
+          "total": 3.67,
+          "line": 3.5,
+          "pOver": 0.4999,
+          "sample": {
+            "home": 10,
+            "away": 504
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -8079,6 +8904,48 @@
           "selection": "1–0",
           "p": 0.08908634256423129,
           "fairOdds": 11.22506515832098
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4535,
+          "fairOdds": 2.2050716648291067
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5465,
+          "fairOdds": 1.8298261665141813
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.5198,
+          "fairOdds": 1.923816852635629
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.48019999999999996,
+          "fairOdds": 2.0824656393169514
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4999,
+          "fairOdds": 2.000400080016003
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5001,
+          "fairOdds": 1.9996000799840032
         }
       ],
       "marketGroups": [
@@ -8260,6 +9127,69 @@
               "fairOdds": 11.22506515832098
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4535,
+              "fairOdds": 2.2050716648291067
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5465,
+              "fairOdds": 1.8298261665141813
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.5198,
+              "fairOdds": 1.923816852635629
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.48019999999999996,
+              "fairOdds": 2.0824656393169514
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4999,
+              "fairOdds": 2.000400080016003
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5001,
+              "fairOdds": 1.9996000799840032
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8333,6 +9263,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 44% / 27% / 28% · temporada 41% / 23% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.4 tiros de esquina esperados",
+          "detail": "Coventry City 5.4 · Crystal Palace 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "20.9 faltas esperados",
+          "detail": "Coventry City 10.2 · Crystal Palace 10.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "Coventry City 1.6 · Crystal Palace 2.1"
         }
       ],
       "steps": [
@@ -8401,6 +9349,41 @@
     },
     "pl-2026-27-md11-newcastle-united-arsenal": {
       "game": "pl-2026-27-md11-newcastle-united-arsenal",
+      "counts": {
+        "corners": {
+          "home": 4.55,
+          "away": 4.99,
+          "total": 9.54,
+          "line": 9.5,
+          "pOver": 0.4721,
+          "sample": {
+            "home": 580,
+            "away": 618
+          }
+        },
+        "fouls": {
+          "home": 13.18,
+          "away": 11.14,
+          "total": 24.31,
+          "line": 24.5,
+          "pOver": 0.4704,
+          "sample": {
+            "home": 580,
+            "away": 618
+          }
+        },
+        "yellow": {
+          "home": 2.22,
+          "away": 2.1,
+          "total": 4.32,
+          "line": 4.5,
+          "pOver": 0.4334,
+          "sample": {
+            "home": 580,
+            "away": 618
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -8547,6 +9530,48 @@
           "selection": "1–2",
           "p": 0.09867324245596074,
           "fairOdds": 10.134459708733237
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4721,
+          "fairOdds": 2.118195297606439
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5279,
+          "fairOdds": 1.8942981625307822
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4704,
+          "fairOdds": 2.1258503401360547
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5296000000000001,
+          "fairOdds": 1.88821752265861
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4334,
+          "fairOdds": 2.3073373327180433
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5666,
+          "fairOdds": 1.7649135192375573
         }
       ],
       "marketGroups": [
@@ -8728,6 +9753,69 @@
               "fairOdds": 10.134459708733237
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4721,
+              "fairOdds": 2.118195297606439
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5279,
+              "fairOdds": 1.8942981625307822
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4704,
+              "fairOdds": 2.1258503401360547
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5296000000000001,
+              "fairOdds": 1.88821752265861
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4334,
+              "fairOdds": 2.3073373327180433
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5666,
+              "fairOdds": 1.7649135192375573
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8801,6 +9889,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 21% / 24% / 55% · temporada 24% / 23% / 52%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.5 tiros de esquina esperados",
+          "detail": "Newcastle 4.5 · Arsenal 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.3 faltas esperados",
+          "detail": "Newcastle 13.2 · Arsenal 11.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Newcastle 2.2 · Arsenal 2.1"
         }
       ],
       "steps": [
@@ -8904,6 +10010,41 @@
     },
     "pl-2026-27-md11-hull-city-brighton-hove-albion": {
       "game": "pl-2026-27-md11-hull-city-brighton-hove-albion",
+      "counts": {
+        "corners": {
+          "home": 4.87,
+          "away": 5.05,
+          "total": 9.92,
+          "line": 9.5,
+          "pOver": 0.5137,
+          "sample": {
+            "home": 124,
+            "away": 352
+          }
+        },
+        "fouls": {
+          "home": 10.24,
+          "away": 10.37,
+          "total": 20.61,
+          "line": 20.5,
+          "pOver": 0.4932,
+          "sample": {
+            "home": 124,
+            "away": 352
+          }
+        },
+        "yellow": {
+          "home": 1.85,
+          "away": 2.12,
+          "total": 3.97,
+          "line": 3.5,
+          "pOver": 0.5603,
+          "sample": {
+            "home": 124,
+            "away": 352
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -9050,6 +10191,48 @@
           "selection": "1–2",
           "p": 0.09260104937790126,
           "fairOdds": 10.799013690644466
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5137,
+          "fairOdds": 1.9466614755693983
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.48629999999999995,
+          "fairOdds": 2.056343820686819
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.4932,
+          "fairOdds": 2.02757502027575
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.5067999999999999,
+          "fairOdds": 1.9731649565903713
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5603,
+          "fairOdds": 1.784758165268606
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4397,
+          "fairOdds": 2.274277916761428
         }
       ],
       "marketGroups": [
@@ -9231,6 +10414,69 @@
               "fairOdds": 10.799013690644466
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5137,
+              "fairOdds": 1.9466614755693983
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.48629999999999995,
+              "fairOdds": 2.056343820686819
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.4932,
+              "fairOdds": 2.02757502027575
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.5067999999999999,
+              "fairOdds": 1.9731649565903713
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5603,
+              "fairOdds": 1.784758165268606
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4397,
+              "fairOdds": 2.274277916761428
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9304,6 +10550,24 @@
           "label": "Memoria larga",
           "value": "−3 pts al local",
           "detail": "historia 27% / 27% / 46% · temporada 33% / 24% / 43%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.9 tiros de esquina esperados",
+          "detail": "Hull City 4.9 · Brighton 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "20.6 faltas esperados",
+          "detail": "Hull City 10.2 · Brighton 10.4"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.0 amarillas esperados",
+          "detail": "Hull City 1.9 · Brighton 2.1"
         }
       ],
       "steps": [
@@ -9373,6 +10637,41 @@
     },
     "pl-2026-27-md11-liverpool-manchester-united": {
       "game": "pl-2026-27-md11-liverpool-manchester-united",
+      "counts": {
+        "corners": {
+          "home": 5.68,
+          "away": 4.28,
+          "total": 9.96,
+          "line": 9.5,
+          "pOver": 0.517,
+          "sample": {
+            "home": 618,
+            "away": 618
+          }
+        },
+        "fouls": {
+          "home": 12.25,
+          "away": 11.01,
+          "total": 23.25,
+          "line": 23.5,
+          "pOver": 0.465,
+          "sample": {
+            "home": 618,
+            "away": 618
+          }
+        },
+        "yellow": {
+          "home": 1.85,
+          "away": 2.45,
+          "total": 4.3,
+          "line": 4.5,
+          "pOver": 0.4287,
+          "sample": {
+            "home": 618,
+            "away": 618
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -9519,6 +10818,48 @@
           "selection": "3–1",
           "p": 0.07097230938886917,
           "fairOdds": 14.090002264416006
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.517,
+          "fairOdds": 1.9342359767891681
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.483,
+          "fairOdds": 2.070393374741201
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.465,
+          "fairOdds": 2.150537634408602
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.5349999999999999,
+          "fairOdds": 1.869158878504673
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4287,
+          "fairOdds": 2.332633543270352
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5712999999999999,
+          "fairOdds": 1.7503938386136884
         }
       ],
       "marketGroups": [
@@ -9700,6 +11041,69 @@
               "fairOdds": 14.090002264416006
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.517,
+              "fairOdds": 1.9342359767891681
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.483,
+              "fairOdds": 2.070393374741201
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.465,
+              "fairOdds": 2.150537634408602
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.5349999999999999,
+              "fairOdds": 1.869158878504673
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4287,
+              "fairOdds": 2.332633543270352
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5712999999999999,
+              "fairOdds": 1.7503938386136884
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9773,6 +11177,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 60% / 22% / 18% · temporada 58% / 19% / 23%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.0 tiros de esquina esperados",
+          "detail": "Liverpool 5.7 · Man. United 4.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.3 faltas esperados",
+          "detail": "Liverpool 12.3 · Man. United 11.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Liverpool 1.9 · Man. United 2.5"
         }
       ],
       "steps": [
@@ -9881,6 +11303,41 @@
     },
     "pl-2026-27-md11-brentford-everton": {
       "game": "pl-2026-27-md11-brentford-everton",
+      "counts": {
+        "corners": {
+          "home": 5.12,
+          "away": 4.49,
+          "total": 9.6,
+          "line": 9.5,
+          "pOver": 0.479,
+          "sample": {
+            "home": 200,
+            "away": 618
+          }
+        },
+        "fouls": {
+          "home": 11.21,
+          "away": 9.41,
+          "total": 20.62,
+          "line": 20.5,
+          "pOver": 0.494,
+          "sample": {
+            "home": 200,
+            "away": 618
+          }
+        },
+        "yellow": {
+          "home": 1.76,
+          "away": 2.28,
+          "total": 4.04,
+          "line": 3.5,
+          "pOver": 0.5738,
+          "sample": {
+            "home": 200,
+            "away": 618
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-premier-league",
         "version": "2.0.0",
@@ -10027,6 +11484,48 @@
           "selection": "2–1",
           "p": 0.09479678558179085,
           "fairOdds": 10.548880891506581
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.479,
+          "fairOdds": 2.0876826722338206
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.521,
+          "fairOdds": 1.9193857965451055
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.494,
+          "fairOdds": 2.0242914979757085
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.506,
+          "fairOdds": 1.976284584980237
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5738,
+          "fairOdds": 1.742767514813524
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4262,
+          "fairOdds": 2.346316283435007
         }
       ],
       "marketGroups": [
@@ -10208,6 +11707,69 @@
               "fairOdds": 10.548880891506581
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.479,
+              "fairOdds": 2.0876826722338206
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.521,
+              "fairOdds": 1.9193857965451055
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.494,
+              "fairOdds": 2.0242914979757085
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.506,
+              "fairOdds": 1.976284584980237
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5738,
+              "fairOdds": 1.742767514813524
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4262,
+              "fairOdds": 2.346316283435007
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -10281,6 +11843,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 49% / 26% / 25% · temporada 49% / 24% / 27%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.6 tiros de esquina esperados",
+          "detail": "Brentford 5.1 · Everton 4.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "20.6 faltas esperados",
+          "detail": "Brentford 11.2 · Everton 9.4"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.0 amarillas esperados",
+          "detail": "Brentford 1.8 · Everton 2.3"
         }
       ],
       "steps": [

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { LeagueSnapshotSchema } from "@pitchlab/contracts";
+import { buildCountFeed, MIN_SAMPLE } from "../src/counts-feed.js";
 import {
   UnmappedTeamError,
   buildFootballSnapshot,
@@ -207,5 +208,72 @@ describe("@pitchlab/ingest", () => {
 
     const normEst = normalizeNflverseSchedule(csv, { season: 2026, targetWeek: 10 });
     expect(normEst.activeWeekGames[0]?.startTime).toBe("2026-11-13T01:15:00.000Z");
+  });
+
+  it("enriquece counts faltantes en partidos programados preservados sin alterar finalizados ni publishedAt", () => {
+    const raw = JSON.parse(
+      readFileSync(resolve(FIXTURES_DIR, "openfootball-en-2026-27.json"), "utf8").replace(/^\uFEFF/, ""),
+    );
+    const norm = normalizeOpenFootballPremierLeague(raw, {
+      referenceDate: "2026-11-06",
+      targetMatchday: 10,
+    });
+
+    const snapBefore = buildFootballSnapshot({
+      league: "premier-league",
+      leagueName: "Premier League",
+      seasonId: norm.seasonId,
+      seasonLabel: norm.seasonLabel,
+      periodLabel: norm.periodLabel,
+      games: norm.activeRoundGames,
+      teamRateInputs: norm.teamRateInputs,
+      updatedAt: "2026-11-06T18:00:00Z",
+      source: "openfootball",
+    });
+
+    const finishedGame = norm.activeRoundGames[0]!;
+    const scheduledGame = norm.activeRoundGames.find((g) => Date.parse(g.startTime) > Date.parse("2026-11-07T18:00:00Z"))!;
+    expect(scheduledGame).toBeDefined();
+
+    const feedRows = [finishedGame, scheduledGame].flatMap((g) =>
+      Array.from({ length: MIN_SAMPLE }, (_, i) => ({
+        date: `2026-10-${String(i + 1).padStart(2, "0")}`,
+        season: "2026-27",
+        home: g.home.id,
+        away: g.away.id,
+        counts: { corners: [6, 4] as [number, number], fouls: [11, 12] as [number, number] },
+      })),
+    );
+    const feed = buildCountFeed(feedRows);
+
+    const gamesNext = norm.activeRoundGames.map((g) =>
+      g.id === finishedGame.id
+        ? {
+            ...g,
+            status: "final" as const,
+            result: { home: 1, away: 0, observedAt: "2026-11-07T17:00:00Z", source: "openfootball" },
+          }
+        : g,
+    );
+
+    const snapAfter = buildFootballSnapshot({
+      league: "premier-league",
+      leagueName: "Premier League",
+      seasonId: norm.seasonId,
+      seasonLabel: norm.seasonLabel,
+      periodLabel: norm.periodLabel,
+      games: gamesNext,
+      teamRateInputs: norm.teamRateInputs,
+      updatedAt: "2026-11-07T18:00:00Z",
+      source: "openfootball",
+      previousSnapshot: snapBefore,
+      countFeed: feed,
+    });
+
+    expect(snapAfter.analyses[finishedGame.id]).toEqual(snapBefore.analyses[finishedGame.id]);
+    expect(snapAfter.analyses[finishedGame.id]?.counts).toBeUndefined();
+    expect(snapAfter.analyses[scheduledGame.id]?.counts?.corners).toBeDefined();
+    expect(snapAfter.analyses[scheduledGame.id]?.publishedAt).toBe(snapBefore.analyses[scheduledGame.id]?.publishedAt);
+    expect(snapAfter.analyses[scheduledGame.id]?.x12).toEqual(snapBefore.analyses[scheduledGame.id]?.x12);
   });
 });

@@ -412,6 +412,11 @@ export function buildFootballSnapshot(params: {
         });
         if (kept.picksAt) kept = addMatchContext(kept, game, contextRows, seasonRows);
       }
+      const preKickoff =
+        game.status === "scheduled" && Date.parse(game.startTime) > Date.parse(updatedAt);
+      if (!kept.counts && countFeed && preKickoff) {
+        kept = withCountProjections(kept, game, countFeed);
+      }
       analyses[game.id] = GameAnalysisSchema.parse(kept);
       continue;
     }

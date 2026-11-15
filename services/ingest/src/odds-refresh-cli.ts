@@ -20,6 +20,10 @@ import {
 } from "./health/health-monitor.js";
 import { buildPermittedActiveOddsAdapters } from "./odds/betfair-exchange.js";
 import {
+  THE_ODDS_API_BUDGET_FILENAME,
+  TheOddsApiAdapter,
+} from "./odds/the-odds-api.js";
+import {
   buildOddsCadencePlan,
   type OddsRefreshWindowMode,
 } from "./odds/cadence-scheduler.js";
@@ -31,6 +35,12 @@ import {
 const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
 const SNAPSHOTS_ROOT = resolve(ROOT_DIR, "data", "snapshots");
 const QUOTES_LATEST_PATH = resolve(ROOT_DIR, "data", "odds_timeseries", "quotes_latest.json");
+const THE_ODDS_API_BUDGET_PATH = resolve(
+  ROOT_DIR,
+  "data",
+  "odds_timeseries",
+  THE_ODDS_API_BUDGET_FILENAME,
+);
 
 function parseCliFlags(argv: readonly string[]): {
   windowMode: OddsRefreshWindowMode;
@@ -82,7 +92,9 @@ async function main(): Promise<void> {
     );
   }
 
-  const { adapters, skipped } = buildPermittedActiveOddsAdapters(process.env);
+  const { adapters, skipped } = buildPermittedActiveOddsAdapters(process.env, {
+    theOddsApiBudgetPath: dryRun ? null : THE_ODDS_API_BUDGET_PATH,
+  });
   for (const sk of skipped) {
     if (sk.status !== "blocked_pending_owner_decision") {
       console.log(`[odds:refresh] Fuente omitida (${sk.sourceId}): ${sk.reason}`);
@@ -102,6 +114,12 @@ async function main(): Promise<void> {
         console.log(
           `[odds:refresh] ${adapter.metadata.sourceId}: ${rows.length} filas válidas capturadas.`,
         );
+        if (adapter instanceof TheOddsApiAdapter && adapter.lastBudgetReport) {
+          const r = adapter.lastBudgetReport;
+          console.log(
+            `[odds:refresh] Presupuesto The Odds API: consultadas=${r.leaguesFetched.length}, omitidas=${JSON.stringify(r.leaguesSkipped)}, usadasMes=${r.monthCreditsUsed}, restanteHeader=${r.remainingHeader ?? "n/d"}`,
+          );
+        }
         incomingTicks.push(...rows);
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);
