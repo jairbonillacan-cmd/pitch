@@ -28,6 +28,7 @@ import {
   PRODUCT_LEAGUES,
   type ProductLeague,
 } from "./snapshots";
+import { loadLeagueTeamsDirectory } from "./team-profile";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -139,7 +140,10 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
     }
   }
 
-  return buildPlatformDataset(inputs);
+  return {
+    ...buildPlatformDataset(inputs),
+    teams: loadLeagueTeamsDirectory(),
+  };
 }
 
 /**

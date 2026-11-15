@@ -529,10 +529,24 @@ export interface ParlaySummary {
   projectedProfitUnits: number;
 }
 
+export interface TeamLeagueDirectoryItem {
+  id: string;
+  league: LeagueId;
+  leagueLabel: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  code: string;
+  rank: number | null;
+  href: string;
+}
+
 export interface PlatformDataset {
   generatedAt: string;
   leagues: PlatformLeagueSummary[];
   games: PlatformGame[];
+  /** Directorio ligero de todos los equipos/franquicias activas (búsqueda y navegación). */
+  teams?: TeamLeagueDirectoryItem[];
   dailyPromoPickId: string;
   tipsterWeeklyPickId: string;
   tipsterWeeklySlug: string;

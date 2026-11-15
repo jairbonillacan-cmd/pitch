@@ -48,6 +48,7 @@ export function resolveClubRoute(
   options: {
     isLeague: (segment: string) => boolean;
     gameExists: (league: string, gameId: string) => boolean;
+    teamExists?: (league: string, teamId: string) => boolean;
   },
 ): ClubRouteResolution {
   if (!rawPath || typeof rawPath !== "string") {
@@ -109,16 +110,20 @@ export function resolveClubRoute(
     return { kind: "ok", pathname };
   }
 
-  if (segments.length === 3 && segments[1] === "games") {
+  if (segments.length === 3 && (segments[1] === "games" || segments[1] === "teams")) {
     const league = segments[0]!;
-    let gameId = segments[2]!;
+    let entityId = segments[2]!;
     try {
-      gameId = decodeURIComponent(gameId);
+      entityId = decodeURIComponent(entityId);
     } catch (err) {
       void err;
       return { kind: "not_found", pathname };
     }
-    if (options.isLeague(league) && options.gameExists(league, gameId)) {
+    const exists =
+      segments[1] === "games"
+        ? options.gameExists(league, entityId)
+        : (options.teamExists?.(league, entityId) ?? false);
+    if (options.isLeague(league) && exists) {
       return { kind: "ok", pathname };
     }
     return { kind: "not_found", pathname };

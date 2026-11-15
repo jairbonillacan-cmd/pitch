@@ -74,7 +74,7 @@ export function LeagueHubClubView({
 }: {
   leagueId: LeagueId;
 }): React.JSX.Element {
-  const { dataset } = usePlatform();
+  const { dataset, navigateTo } = usePlatform();
   const [dayFilter, setDayFilter] = useState<string>("all");
 
   const leagueSummary =
@@ -246,7 +246,15 @@ export function LeagueHubClubView({
                       <tr key={row.teamId} className="hairline-b">
                         <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
                         <td className="py-2.5 pr-3">
-                          <div className="flex items-center gap-2 font-semibold">
+                          <a
+                            href={`/app/${leagueSummary.league}/teams/${slug}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigateTo(`/app/${leagueSummary.league}/teams/${slug}`);
+                            }}
+                            className="pl-team-link flex items-center gap-2 font-semibold min-h-11 py-1"
+                            title={`Ver perfil de ${row.name}`}
+                          >
                             <TeamBadge
                               league={leagueSummary.league}
                               slug={slug}
@@ -255,7 +263,7 @@ export function LeagueHubClubView({
                               size={20}
                             />
                             <span>{row.name}</span>
-                          </div>
+                          </a>
                         </td>
                         <td className="py-2.5 px-2 text-right num">{row.played}</td>
                         <td className="py-2.5 px-2 text-right num">{row.won}</td>
@@ -285,6 +293,72 @@ export function LeagueHubClubView({
             </p>
           </section>
         )}
+
+        {(() => {
+          const directoryFromDataset = (dataset.teams ?? []).filter(
+            (t) => t.league === leagueSummary.league,
+          );
+          const fallbackMap = new Map<
+            string,
+            { slug: string; name: string; shortName: string; href: string }
+          >();
+          if (directoryFromDataset.length === 0) {
+            for (const g of leagueGames) {
+              for (const side of [g.home, g.away]) {
+                if (!fallbackMap.has(side.slug)) {
+                  fallbackMap.set(side.slug, {
+                    slug: side.slug,
+                    name: side.name,
+                    shortName: side.shortName,
+                    href: `/app/${leagueSummary.league}/teams/${side.slug}`,
+                  });
+                }
+              }
+            }
+          }
+          const directoryTeams =
+            directoryFromDataset.length > 0
+              ? directoryFromDataset
+              : [...fallbackMap.values()].sort((a, b) => a.name.localeCompare(b.name, "es-MX"));
+
+          if (directoryTeams.length === 0) return null;
+
+          return (
+            <section
+              className="glass-card glass-ring rounded-2xl p-5 space-y-3"
+              aria-labelledby="league-clubs-directory-heading"
+              data-league-teams-directory=""
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h2 id="league-clubs-directory-heading" className="m-0 text-base sm:text-lg font-extrabold">
+                  Perfiles de equipos · {leagueSummary.label}
+                </h2>
+                <span className="pl-pill num text-xs">{directoryTeams.length} equipos</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {directoryTeams.map((teamItem) => (
+                  <a
+                    key={teamItem.slug}
+                    href={teamItem.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(teamItem.href);
+                    }}
+                    className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-2"
+                  >
+                    <TeamBadge
+                      league={leagueSummary.league}
+                      slug={teamItem.slug}
+                      name={teamItem.name}
+                      size={20}
+                    />
+                    <span>{teamItem.shortName}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );
@@ -522,7 +596,17 @@ export function MatchStudioClubView({
               </CrestPedestal>
               <div className="min-w-0">
                 <h1 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
-                  {game.home.name}
+                  <a
+                    href={`/app/${game.league}/teams/${game.home.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${game.league}/teams/${game.home.slug}`);
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.home.name}`}
+                  >
+                    {game.home.name}
+                  </a>
                 </h1>
                 <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.home.record}
@@ -583,7 +667,17 @@ export function MatchStudioClubView({
             <div className="flex items-center gap-3.5 md:justify-end min-w-0">
               <div className="md:text-right min-w-0">
                 <h2 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
-                  {game.away.name}
+                  <a
+                    href={`/app/${game.league}/teams/${game.away.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${game.league}/teams/${game.away.slug}`);
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.away.name}`}
+                  >
+                    {game.away.name}
+                  </a>
                 </h2>
                 <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.away.record}

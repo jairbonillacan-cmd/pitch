@@ -12,6 +12,7 @@ import {
   CortexWriteupSchema,
   type CortexWriteup,
   type LeagueId,
+  type LeagueSnapshot,
   type PlatformSport,
   type StandingRow,
   type MatchAnalysis,
@@ -145,7 +146,7 @@ function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): 
   };
 }
 
-const LEAGUE_LABELS: Record<ProductLeague, string> = {
+export const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "liga-mx": "Liga MX",
   "premier-league": "Premier League",
   laliga: "LaLiga",
@@ -303,6 +304,30 @@ export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): Cor
     return parsed.success ? parsed.data : null;
   } catch (err) {
     void err;
+    return null;
+  }
+}
+
+const rawSnapshotCache = new Map<string, { mtime: number; snapshot: LeagueSnapshot }>();
+
+/** Lee y cachea el snapshot crudo completo (`teamRates`, `standings`, `games`, `analyses`) de una liga. */
+export function loadRawLeagueSnapshot(leagueKey: ProductLeague): LeagueSnapshot | null {
+  try {
+    const latestPath = path.join(resolveSnapshotsRoot(), leagueKey, "latest.json");
+    const mtime = fileMtime(latestPath);
+    if (!mtime) {
+      rawSnapshotCache.delete(leagueKey);
+      return null;
+    }
+    const cached = rawSnapshotCache.get(leagueKey);
+    if (cached && cached.mtime === mtime) return cached.snapshot;
+
+    const raw = JSON.parse(fs.readFileSync(latestPath, "utf8"));
+    const parsed = LeagueSnapshotSchema.parse(raw);
+    rawSnapshotCache.set(leagueKey, { mtime, snapshot: parsed });
+    return parsed;
+  } catch (err) {
+    console.warn(`[snapshots] error leyendo snapshot crudo de ${leagueKey}:`, err);
     return null;
   }
 }

@@ -7,6 +7,10 @@ const opts = {
   gameExists: (league: string, id: string) =>
     (league === "nfl" && id === "nfl-buf-kc") ||
     (league === "nba" && id === "nba-2026-11-15-ind-phi"),
+  teamExists: (league: string, id: string) =>
+    (league === "nfl" && id === "kansas-city-chiefs") ||
+    (league === "liga-mx" && id === "monterrey") ||
+    (league === "nba" && id === "denver-nuggets"),
 };
 
 describe("resolveClubRoute", () => {
@@ -54,13 +58,23 @@ describe("resolveClubRoute", () => {
       kind: "ok",
       pathname: "/app/u/sofia_nfl",
     });
+    expect(resolveClubRoute("/app/nfl/teams/kansas-city-chiefs", opts)).toEqual({
+      kind: "ok",
+      pathname: "/app/nfl/teams/kansas-city-chiefs",
+    });
+    expect(resolveClubRoute("/app/liga-mx/teams/monterrey?tab=partidos", opts)).toEqual({
+      kind: "ok",
+      pathname: "/app/liga-mx/teams/monterrey",
+    });
   });
 
-  it("marca 404 para rutas fantasma, ligas inexistentes o partidos faltantes", () => {
+  it("marca 404 para rutas fantasma, ligas inexistentes, partidos o equipos faltantes", () => {
     expect(resolveClubRoute("/app/ruta-fantasma", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/explore", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/mlb", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/games/inexistente", opts).kind).toBe("not_found");
+    expect(resolveClubRoute("/app/nfl/teams/inexistente", opts).kind).toBe("not_found");
+    expect(resolveClubRoute("/app/mlb/teams/dodgers", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/otra/cosa", opts).kind).toBe("not_found");
   });
 });

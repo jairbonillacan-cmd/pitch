@@ -382,7 +382,19 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 />
               </CrestPedestal>
               <div className="min-w-0">
-                <p className="m-0 text-sm font-bold truncate">{game.home.name}</p>
+                <p className="m-0 text-sm font-bold truncate">
+                  <a
+                    href={`/app/${game.league}/teams/${game.home.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${game.league}/teams/${game.home.slug}`);
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.home.name}`}
+                  >
+                    {game.home.name}
+                  </a>
+                </p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.home.record}
                 </span>
@@ -405,7 +417,19 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 />
               </CrestPedestal>
               <div className="min-w-0">
-                <p className="m-0 text-sm font-bold truncate">{game.away.name}</p>
+                <p className="m-0 text-sm font-bold truncate">
+                  <a
+                    href={`/app/${game.league}/teams/${game.away.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${game.league}/teams/${game.away.slug}`);
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.away.name}`}
+                  >
+                    {game.away.name}
+                  </a>
+                </p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.away.record}
                 </span>

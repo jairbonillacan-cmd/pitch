@@ -152,7 +152,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await saveShot(page, `nba-ficha-dark-${vp}.png`);
 
     // Mercados reales del snapshot (Ganador / Spread / Total / Puntos por equipo).
-    await main.getByRole("tab", { name: /Mercados/i }).click();
+    await main.getByRole("tab", { name: /^Números/i }).click();
     const expectedGroup = nbaAnalysis.marketGroups?.[0]?.group;
     if (expectedGroup) {
       await expect(main).toContainText(expectedGroup);
@@ -207,7 +207,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await assertAxeClean(page);
     await saveShot(page, `nhl-ficha-dark-${vp}.png`);
 
-    await main.getByRole("tab", { name: /Mercados/i }).click();
+    await main.getByRole("tab", { name: /^Números/i }).click();
     const expectedGroup = nhlAnalysis.marketGroups?.[0]?.group;
     if (expectedGroup) {
       await expect(main).toContainText(expectedGroup);

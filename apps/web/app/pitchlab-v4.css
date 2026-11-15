@@ -10937,3 +10937,72 @@ html[data-theme="light"] .pl-stage.pl-auth,
     transition: none;
   }
 }
+
+/* ---------- Perfiles de equipo ---------- */
+.pl-team-crest-hero {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+}
+
+[data-team-hero] .pl-ctx-stats > div {
+  background: color-mix(in srgb, var(--pl-surface) 78%, var(--pl-text) 3.5%);
+  border: 1px solid color-mix(in srgb, var(--pl-border) 90%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.pl-tablist-underline .seg-btn {
+  position: relative;
+}
+.pl-tablist-underline .seg-btn[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--pl-brand);
+}
+
+.pl-team-match-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--pl-surface);
+}
+
+@media (max-width: 559px) {
+  .pl-team-match-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+  .pl-team-match-score {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--pl-row-rule);
+  }
+}
+
+.pl-team-link {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color var(--time-fast) ease;
+}
+.pl-team-link:hover {
+  color: var(--pl-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pl-team-link:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}

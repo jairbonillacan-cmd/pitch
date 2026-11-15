@@ -40,10 +40,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.locator('[data-daily-risk="arriesgado"]').click();
   await page.locator('[data-daily-risk="medio"]').click();
 
-  const firstMatchHref = await page
-    .locator('a[href^="/app/"][href*="/games/"]')
-    .first()
-    .getAttribute("href");
+  let firstMatchHref: string | null = null;
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflow375 = await page.evaluate(
@@ -53,12 +50,25 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // Deporte → liga: elegir un deporte deja solo sus ligas y marca el botón
+  // Deporte → liga: elegir un deporte deja solo sus ligas y marca el botón.
+  // Elegimos aquí un partido de fútbol por jugar para verificar los mercados derivados v3.2 en el paso 7.
   const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
   if ((await soccerTile.count()) > 0) {
     await soccerTile.click();
     await expect(soccerTile).toHaveAttribute("aria-pressed", "true");
+    const scheduledFootballLink = page
+      .locator('[data-game-card]:has(button[aria-label^="Agregar al parlay"]) a[href^="/app/"][href*="/games/"]')
+      .first();
+    if ((await scheduledFootballLink.count()) > 0) {
+      firstMatchHref = await scheduledFootballLink.getAttribute("href");
+    }
     await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
+  }
+  if (!firstMatchHref) {
+    firstMatchHref = await page
+      .locator('a[href^="/app/"][href*="/games/"]')
+      .first()
+      .getAttribute("href");
   }
 
   // Agregar el pick principal de una tarjeta al parlay

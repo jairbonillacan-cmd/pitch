@@ -559,6 +559,9 @@ export function usePlatformCore(): PlatformCoreValue {
 export function usePlatformActions(): PlatformActions {
   return required(useContext(PlatformActionsContext), "usePlatformActions");
 }
+export function useOptionalPlatformActions(): PlatformActions | null {
+  return useContext(PlatformActionsContext);
+}
 export function useAuraColors(): readonly [string, string] {
   return useContext(AuraContext);
 }

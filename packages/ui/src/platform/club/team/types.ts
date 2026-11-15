@@ -1,0 +1,145 @@
+import type { LeagueId, PlatformSport } from "@pitchlab/contracts";
+import type { TeamLeagueDirectoryItem } from "../../types";
+
+export type { PlatformSport, TeamLeagueDirectoryItem };
+
+export interface TeamStandingSummary {
+  rank: number;
+  totalTeams: number;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDiff: number;
+  points: number;
+}
+
+export type TeamMetricTone = "neutral" | "positive" | "warning" | "brand";
+
+export interface TeamModelMetric {
+  id: string;
+  label: string;
+  value: string;
+  detail?: string;
+  tone?: TeamMetricTone;
+}
+
+export interface TeamSplitRecord {
+  games: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  scoredAvg: number | null;
+  concededAvg: number | null;
+}
+
+export interface TeamRecentAverages {
+  sampleGames: number;
+  scoredAvg: number | null;
+  concededAvg: number | null;
+  marginAvg: number | null;
+  cleanSheets: number | null;
+  wins: number;
+  draws: number;
+  losses: number;
+  homeRecord: TeamSplitRecord;
+  awayRecord: TeamSplitRecord;
+  /** Racha reciente del más antiguo al más reciente (`["P","G","E",...]`). */
+  streak: Array<"G" | "E" | "P">;
+}
+
+export interface TeamInjuryItem {
+  player: string;
+  position: string | null;
+  status: string;
+  detail: string | null;
+  reportedAt: string | null;
+}
+
+export interface TeamVenueInfo {
+  name: string | null;
+  elevationM: number | null;
+  roofType: "open" | "retractable" | "dome" | "indoor_arena" | null;
+}
+
+export interface TeamMatchHistoryRow {
+  id: string;
+  /** Enlace a la ficha del partido solo si existe en el snapshot vigente. */
+  gameHref: string | null;
+  date: string;
+  dateLabel: string;
+  round: string | null;
+  isHome: boolean;
+  neutralSite: boolean;
+  opponent: {
+    slug: string;
+    name: string;
+    shortName: string;
+    href: string | null;
+  };
+  teamScore: number;
+  opponentScore: number;
+  outcome: "G" | "E" | "P";
+  resultNote: string | null;
+}
+
+export interface TeamUpcomingFixtureRow {
+  id: string;
+  gameHref: string;
+  dateLabel: string;
+  kickoffLocal: string;
+  round: string | null;
+  venue: string | null;
+  isHome: boolean;
+  neutralSite: boolean;
+  opponent: {
+    slug: string;
+    name: string;
+    shortName: string;
+    href: string | null;
+  };
+  hasForecast: boolean;
+  isRedacted: boolean;
+  projectedTeamScore: number | null;
+  projectedOpponentScore: number | null;
+  winProbability: number | null;
+  confidenceLabel: string | null;
+}
+
+export interface TeamProfileData {
+  league: LeagueId;
+  leagueLabel: string;
+  sport: PlatformSport;
+  seasonLabel: string;
+  updatedAt: string;
+  team: {
+    id: string;
+    slug: string;
+    name: string;
+    shortName: string;
+    code: string;
+  };
+  standing: TeamStandingSummary | null;
+  venue: TeamVenueInfo | null;
+  injuries: TeamInjuryItem[];
+  recentAverages: TeamRecentAverages;
+  modelSection: {
+    locked: boolean;
+    engineLabel: string;
+    sampleNote: string | null;
+    updatedLabel: string | null;
+    metrics: TeamModelMetric[];
+    unavailableReason: string | null;
+  };
+  upcomingFixtures: TeamUpcomingFixtureRow[];
+  recentMatches: TeamMatchHistoryRow[];
+  relatedTeams: Array<{
+    slug: string;
+    name: string;
+    shortName: string;
+    rank: number | null;
+    href: string;
+  }>;
+}

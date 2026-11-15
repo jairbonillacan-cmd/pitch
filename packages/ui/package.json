@@ -33,7 +33,8 @@
     "./admin": "./src/platform/club/FounderAdminClubView.tsx",
     "./data-health": "./src/platform/club/AdminDataHealthSection.tsx",
     "./legal": "./src/platform/public/LegalSurfaces.tsx",
-    "./sport-outlook": "./src/platform/club/match/sport-outlook/index.ts"
+    "./sport-outlook": "./src/platform/club/match/sport-outlook/index.ts",
+    "./team-profile": "./src/platform/club/team/TeamProfileClubView.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

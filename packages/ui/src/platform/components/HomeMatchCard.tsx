@@ -73,6 +73,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
         {teams.map(({ side, team, proj, score }) => {
           const favored = !isFinished && outcome !== null && outcome.side === side;
           const colors = getTeamColors(game.league, team.slug);
+          const teamHref = `/app/${game.league}/teams/${team.slug}`;
           return (
             <div key={side} className="pl-home-team">
               <CrestPedestal size="sm" glowColor={colors?.[0] ?? "var(--pl-aura-default-home)"}>
@@ -86,7 +87,17 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
               </CrestPedestal>
               <div className="min-w-0 flex-1">
                 <p className={`m-0 truncate text-[15px] ${favored ? "font-extrabold" : "font-bold"}`}>
-                  {team.name}
+                  <a
+                    href={teamHref}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(teamHref);
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${team.name}`}
+                  >
+                    {team.name}
+                  </a>
                 </p>
                 <span className="pl-home-team-meta text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.neutralSite ? null : (

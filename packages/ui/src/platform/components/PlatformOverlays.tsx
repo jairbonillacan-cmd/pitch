@@ -1062,7 +1062,77 @@ export function CommandPaletteModal(): React.JSX.Element | null {
         r.subtitle.toLowerCase().includes(q)),
   );
 
+  const indexedTeams = (() => {
+    if (dataset.teams && dataset.teams.length > 0) return dataset.teams;
+    const seen = new Map<
+      string,
+      {
+        id: string;
+        league: typeof dataset.leagues[number]["league"];
+        leagueLabel: string;
+        slug: string;
+        name: string;
+        shortName: string;
+        code: string;
+        rank: number | null;
+        href: string;
+      }
+    >();
+    const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
+    for (const lg of dataset.leagues) {
+      lg.standings.forEach((row, idx) => {
+        const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
+        const key = `${lg.league}:${slug}`;
+        if (!seen.has(key)) {
+          seen.set(key, {
+            id: row.teamId,
+            league: lg.league,
+            leagueLabel: lg.label,
+            slug,
+            name: row.name,
+            shortName: row.shortName,
+            code: row.code,
+            rank: idx + 1,
+            href: `/app/${lg.league}/teams/${slug}`,
+          });
+        }
+      });
+    }
+    for (const g of dataset.games) {
+      for (const side of [g.home, g.away]) {
+        const key = `${g.league}:${side.slug}`;
+        if (!seen.has(key)) {
+          seen.set(key, {
+            id: key,
+            league: g.league,
+            leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
+            slug: side.slug,
+            name: side.name,
+            shortName: side.shortName,
+            code: side.code,
+            rank: null,
+            href: `/app/${g.league}/teams/${side.slug}`,
+          });
+        }
+      }
+    }
+    return [...seen.values()];
+  })();
+
+  const matchingTeams = indexedTeams
+    .filter((t) => {
+      if (!q) return false;
+      return (
+        t.name.toLowerCase().includes(q) ||
+        t.shortName.toLowerCase().includes(q) ||
+        t.code.toLowerCase().includes(q) ||
+        t.leagueLabel.toLowerCase().includes(q)
+      );
+    })
+    .slice(0, 6);
+
   const hasResults =
+    matchingTeams.length > 0 ||
     matchingGames.length > 0 ||
     matchingLeagues.length > 0 ||
     matchingTipsters.length > 0 ||
@@ -1110,6 +1180,51 @@ export function CommandPaletteModal(): React.JSX.Element | null {
               >
                 Sin coincidencias para «{query}». Prueba con NFL, Liga MX,
                 @sofia_nfl o Parlays.
+              </div>
+            ) : null}
+
+            {matchingTeams.length > 0 ? (
+              <div>
+                <p
+                  className="m-0 mb-1.5 text-[11px] font-bold"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Equipos y franquicias
+                </p>
+                <div className="space-y-1">
+                  {matchingTeams.map((teamItem) => (
+                    <a
+                      key={teamItem.id}
+                      href={teamItem.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCmdkOpen(false);
+                        navigateTo(teamItem.href);
+                      }}
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover min-h-11"
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <TeamBadge
+                          league={teamItem.league}
+                          slug={teamItem.slug}
+                          name={teamItem.name}
+                          size={22}
+                        />
+                        <span className="truncate font-semibold">{teamItem.name}</span>
+                      </span>
+                      <span
+                        className="flex items-center gap-2 text-xs shrink-0"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        <span>
+                          {teamItem.leagueLabel}
+                          {teamItem.rank !== null ? ` · #${teamItem.rank}` : ""}
+                        </span>
+                        <MaestroIcon name="chevronRight" size={14} />
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
             ) : null}
 
@@ -1165,7 +1280,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  7 Ligas Oficiales
+                  Ligas oficiales ({matchingLeagues.length})
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                   {matchingLeagues.map((lg) => (

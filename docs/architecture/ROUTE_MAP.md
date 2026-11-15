@@ -79,6 +79,7 @@
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
 | `/app/[league]` | Hub por liga (`liga-mx`, …, `nfl`, `nba`, `nhl`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
 | `/app/[league]/games/[gameId]` | Match Studio (incluye `/app/nba/games/[gameId]` y `/app/nhl/games/[gameId]`) | Analizador 360°, `?tab=picks\|mercados\|contexto\|dinero` |
+| `/app/[league]/teams/[teamId]` | Perfil del equipo o franquicia | `?league` y `teamId` validados contra snapshots activos (`404` si faltan), `?tab=resumen\|partidos` |
 | `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)

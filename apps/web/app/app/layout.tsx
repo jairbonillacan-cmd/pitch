@@ -12,6 +12,7 @@ import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { resolveClubRoute } from "../../src/server/club-route-guard";
 import { loadClubPlatformState } from "../../src/server/platform-data";
+import { teamExistsInSnapshots } from "../../src/server/team-profile";
 import {
   loadLeagueSnapshotEnvelope,
   PRODUCT_LEAGUES,
@@ -70,6 +71,7 @@ export default async function ClubAppLayout({
       const env = loadLeagueSnapshotEnvelope(league);
       return env.data?.games.some((g) => g.id === gameId) ?? false;
     },
+    teamExists: teamExistsInSnapshots,
   });
   if (routeCheck.kind === "redirect") {
     redirect(routeCheck.to);

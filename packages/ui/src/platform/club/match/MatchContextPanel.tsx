@@ -4,6 +4,7 @@ import React from "react";
 import { sportHasDraw, sportScoringUnit, type StandingRow } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useOptionalPlatformActions } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import { HONEST_NO_ABSENCES_COPY } from "./pre-match-logic";
 
@@ -19,7 +20,11 @@ const RESULT_COPY: Record<Result, string> = { G: "Ganó", E: "Empató", P: "Perd
 
 function FormDots({ form }: { form: Result[] }): React.JSX.Element {
   return (
-    <span className="pl-form" aria-label={`Últimos ${form.length}: ${form.map((r) => RESULT_COPY[r]).join(", ")}`}>
+    <span
+      className="pl-form"
+      role="img"
+      aria-label={`Últimos ${form.length}: ${form.map((r) => RESULT_COPY[r]).join(", ")}`}
+    >
       {form.map((r, i) => (
         <span key={i} className={`pl-form-dot is-${r}`} aria-hidden="true">
           {r}
@@ -91,6 +96,7 @@ export function MatchContextPanel({
   readonly standings?: readonly StandingRow[];
   readonly unlocked?: boolean;
 }): React.JSX.Element {
+  const platformActions = useOptionalPlatformActions();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport).short;
   const isFinished = game.status === "FT";
@@ -173,7 +179,20 @@ export function MatchContextPanel({
                   size={32}
                 />
                 <div className="min-w-0 flex-1">
-                  <h3 className="m-0 text-base font-extrabold truncate">{s.team.name}</h3>
+                  <h3 className="m-0 text-base font-extrabold truncate">
+                    <a
+                      href={`/app/${game.league}/teams/${s.team.slug}`}
+                      onClick={(e) => {
+                        if (!platformActions) return;
+                        e.preventDefault();
+                        platformActions.navigateTo(`/app/${game.league}/teams/${s.team.slug}`);
+                      }}
+                      className="pl-team-link"
+                      title={`Ver perfil de ${s.team.name}`}
+                    >
+                      {s.team.name}
+                    </a>
+                  </h3>
                   <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                     {game.neutralSite ? "Sede neutral" : s.side === "home" ? "Juega en casa" : "Juega de visita"} ·{" "}
                     {s.team.record}
@@ -427,8 +446,19 @@ export function MatchContextPanel({
                       <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
                       <td className="py-2.5 pr-3">
                         <div className="flex items-center gap-2 font-semibold">
-                          <TeamBadge league={game.league} slug={slug} name={row.name} size={20} />
-                          <span>{row.name}</span>
+                          <TeamBadge league={game.league} slug={slug} name={row.name} logoUrl={row.logoUrl} size={20} />
+                          <a
+                            href={`/app/${game.league}/teams/${slug}`}
+                            onClick={(e) => {
+                              if (!platformActions) return;
+                              e.preventDefault();
+                              platformActions.navigateTo(`/app/${game.league}/teams/${slug}`);
+                            }}
+                            className="pl-team-link"
+                            title={`Ver perfil de ${row.name}`}
+                          >
+                            {row.name}
+                          </a>
                           {side ? (
                             <span className="pl-pill text-[10px]">
                               {side === "home" ? "Local" : "Visita"}

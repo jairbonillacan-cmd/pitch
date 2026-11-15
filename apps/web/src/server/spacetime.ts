@@ -386,3 +386,21 @@ export function buildSpacetimeSignals(
 }
 
 export const SPACETIME_SNAPSHOT_GENERATED_AT = snapshot.generated_at;
+
+/** Busca la ficha maestra v3.0 de un equipo reutilizando los alias oficiales de Spacetime. */
+export function findSpacetimeTeamRecord(
+  league: string,
+  teamName: string,
+  teamSlug?: string,
+): TeamMasterFeatureRecord | null {
+  const v3League = LEAGUE_TO_V3[league] ?? league;
+  const index = getCache().byLeague.get(v3League);
+  if (!index) return null;
+  const byName = findTeam(index, teamName);
+  if (byName) return byName;
+  if (teamSlug) {
+    const cleanedSlug = teamSlug.replace(/^[a-z0-9-]+\./, "").replace(/-/g, " ");
+    return findTeam(index, cleanedSlug) ?? null;
+  }
+  return null;
+}
