@@ -3,8 +3,8 @@
   "league": "liga-mx",
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
-  "periodLabel": "Jornada 16",
-  "updatedAt": "2026-11-14T14:07:39.275Z",
+  "periodLabel": "Jornada 17",
+  "updatedAt": "2026-11-15T12:17:55.977Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 2.375,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 2.128493702529953,
-      "adjustedAgainst": 1.3623819691906083
+      "adjustedFor": 2.128750483891517,
+      "adjustedAgainst": 1.3610483265152602
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -28,8 +28,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.072925891893112,
-      "adjustedAgainst": 1.5287061926845456
+      "adjustedFor": 1.072872376591997,
+      "adjustedAgainst": 1.527754028648527
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -39,8 +39,8 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6594448333964649,
-      "adjustedAgainst": 1.7313751922520888
+      "adjustedFor": 1.6597744723329584,
+      "adjustedAgainst": 1.7300875718652358
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -50,8 +50,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2027372360978967,
-      "adjustedAgainst": 1.3856631775084913
+      "adjustedFor": 1.2025220080684695,
+      "adjustedAgainst": 1.38437958901064
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -61,8 +61,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4965164255030503,
-      "adjustedAgainst": 1.0205952382636998
+      "adjustedFor": 1.4968582833417827,
+      "adjustedAgainst": 1.0199192201616394
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -72,8 +72,8 @@
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0761149983425677,
-      "adjustedAgainst": 1.5003205023560173
+      "adjustedFor": 2.076386917433843,
+      "adjustedAgainst": 1.4995492028792707
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -83,8 +83,8 @@
       "forPerGame": 0.8125,
       "againstPerGame": 2.125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9588512385230693,
-      "adjustedAgainst": 1.8221292831704925
+      "adjustedFor": 0.9587701319180972,
+      "adjustedAgainst": 1.8214244346578568
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -94,19 +94,19 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.378529562262045,
-      "adjustedAgainst": 1.2987167217455773
+      "adjustedFor": 1.3788428706824531,
+      "adjustedAgainst": 1.2980780372517462
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
       "name": "Rayados de Monterrey",
       "shortName": "Monterrey",
       "code": "MTY",
-      "forPerGame": 1.7333333333333334,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 15,
-      "adjustedFor": 1.653061593506807,
-      "adjustedAgainst": 1.5167973746958907
+      "forPerGame": 1.6875,
+      "againstPerGame": 1.5625,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.6168032559617065,
+      "adjustedAgainst": 1.4492198787381598
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -116,8 +116,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1575524244520763,
-      "adjustedAgainst": 1.6036984301398192
+      "adjustedFor": 1.1559372988474519,
+      "adjustedAgainst": 1.5988041286182741
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -127,8 +127,8 @@
       "forPerGame": 1.8125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7318807472084172,
-      "adjustedAgainst": 1.2775146493903722
+      "adjustedFor": 1.7311624191207475,
+      "adjustedAgainst": 1.2761316854300078
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -138,8 +138,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1655328527485327,
-      "adjustedAgainst": 1.381531939258807
+      "adjustedFor": 1.1653666171807187,
+      "adjustedAgainst": 1.380548159061458
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -149,19 +149,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4785323086863598,
-      "adjustedAgainst": 1.5354802304960045
+      "adjustedFor": 1.4753511013546954,
+      "adjustedAgainst": 1.5321829140817464
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
       "name": "Querétaro",
       "shortName": "Querétaro",
       "code": "QRO",
-      "forPerGame": 1.2,
-      "againstPerGame": 1.5333333333333334,
-      "gamesPlayed": 15,
-      "adjustedFor": 1.2175404390460427,
-      "adjustedAgainst": 1.4557976266834576
+      "forPerGame": 1.125,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1457573267099541,
+      "adjustedAgainst": 1.4167736084573914
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -171,8 +171,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3980644400312578,
-      "adjustedAgainst": 1.2776987552175125
+      "adjustedFor": 1.3978275278046592,
+      "adjustedAgainst": 1.27694138705322
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -182,8 +182,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1223947835465657,
-      "adjustedAgainst": 1.4410297560092982
+      "adjustedFor": 1.122260656050353,
+      "adjustedAgainst": 1.4401753455866528
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -193,8 +193,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.543461911993934,
-      "adjustedAgainst": 1.3450399803461475
+      "adjustedFor": 1.5438255280364914,
+      "adjustedAgainst": 1.3440356152782118
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -204,8 +204,8 @@
       "forPerGame": 2.1875,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0178896668785944,
-      "adjustedAgainst": 1.3261578560660423
+      "adjustedFor": 2.0180482345497333,
+      "adjustedAgainst": 1.3249137178965187
     }
   },
   "games": [
@@ -216,7 +216,7 @@
       "week": 16,
       "round": "Jornada 16",
       "startTime": "2026-11-14T23:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.queretaro",
         "league": "liga-mx",
@@ -232,7 +232,13 @@
         "code": "MTY"
       },
       "venue": "Estadio Corregidora",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-15T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-puebla-atletico-san-luis-401877054",
@@ -5574,6 +5580,19 @@
       "points": 25
     },
     {
+      "teamId": "liga-mx.monterrey",
+      "name": "Rayados de Monterrey",
+      "shortName": "Monterrey",
+      "code": "MTY",
+      "played": 16,
+      "won": 7,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 27,
+      "goalsAgainst": 25,
+      "points": 24
+    },
+    {
       "teamId": "liga-mx.leon",
       "name": "Club León",
       "shortName": "León",
@@ -5613,19 +5632,6 @@
       "points": 22
     },
     {
-      "teamId": "liga-mx.monterrey",
-      "name": "Rayados de Monterrey",
-      "shortName": "Monterrey",
-      "code": "MTY",
-      "played": 15,
-      "won": 6,
-      "drawn": 3,
-      "lost": 6,
-      "goalsFor": 26,
-      "goalsAgainst": 25,
-      "points": 21
-    },
-    {
       "teamId": "liga-mx.pumas-unam",
       "name": "Pumas UNAM",
       "shortName": "Pumas",
@@ -5643,12 +5649,12 @@
       "name": "Querétaro",
       "shortName": "Querétaro",
       "code": "QRO",
-      "played": 15,
+      "played": 16,
       "won": 6,
       "drawn": 2,
-      "lost": 7,
+      "lost": 8,
       "goalsFor": 18,
-      "goalsAgainst": 23,
+      "goalsAgainst": 24,
       "points": 20
     },
     {

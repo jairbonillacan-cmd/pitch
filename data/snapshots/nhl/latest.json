@@ -4,7 +4,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "13 nov – 17 nov",
-  "updatedAt": "2026-11-15T03:11:00.566Z",
+  "updatedAt": "2026-11-15T12:17:19.392Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -25,44 +25,44 @@
       "name": "Florida Panthers",
       "shortName": "Panthers",
       "code": "FLA",
-      "forPerGame": 3.25,
-      "againstPerGame": 3,
-      "gamesPlayed": 20,
-      "adjustedFor": 3.25,
-      "adjustedAgainst": 3
+      "forPerGame": 3.2857142857142856,
+      "againstPerGame": 2.9047619047619047,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.2857142857142856,
+      "adjustedAgainst": 2.9047619047619047
     },
     "nhl.toronto-maple-leafs": {
       "teamId": "nhl.toronto-maple-leafs",
       "name": "Toronto Maple Leafs",
       "shortName": "Maple Leafs",
       "code": "TOR",
-      "forPerGame": 3.2857142857142856,
-      "againstPerGame": 3.5714285714285716,
-      "gamesPlayed": 21,
-      "adjustedFor": 3.2857142857142856,
-      "adjustedAgainst": 3.5714285714285716
+      "forPerGame": 3.1363636363636362,
+      "againstPerGame": 3.4545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 3.1363636363636362,
+      "adjustedAgainst": 3.4545454545454546
     },
     "nhl.montreal-canadiens": {
       "teamId": "nhl.montreal-canadiens",
       "name": "Montréal Canadiens",
       "shortName": "Canadiens",
       "code": "MTL",
-      "forPerGame": 3.526315789473684,
-      "againstPerGame": 3,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.526315789473684,
-      "adjustedAgainst": 3
+      "forPerGame": 3.4,
+      "againstPerGame": 3.05,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.4,
+      "adjustedAgainst": 3.05
     },
     "nhl.boston-bruins": {
       "teamId": "nhl.boston-bruins",
       "name": "Boston Bruins",
       "shortName": "Bruins",
       "code": "BOS",
-      "forPerGame": 3.6842105263157894,
-      "againstPerGame": 2.4210526315789473,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.6842105263157894,
-      "adjustedAgainst": 2.4210526315789473
+      "forPerGame": 3.6,
+      "againstPerGame": 2.6,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.6,
+      "adjustedAgainst": 2.6
     },
     "nhl.new-york-rangers": {
       "teamId": "nhl.new-york-rangers",
@@ -80,11 +80,11 @@
       "name": "Edmonton Oilers",
       "shortName": "Oilers",
       "code": "EDM",
-      "forPerGame": 4.05,
-      "againstPerGame": 2.9,
-      "gamesPlayed": 20,
-      "adjustedFor": 4.05,
-      "adjustedAgainst": 2.9
+      "forPerGame": 3.9047619047619047,
+      "againstPerGame": 2.761904761904762,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.9047619047619047,
+      "adjustedAgainst": 2.761904761904762
     },
     "nhl.vancouver-canucks": {
       "teamId": "nhl.vancouver-canucks",
@@ -124,99 +124,99 @@
       "name": "New York Islanders",
       "shortName": "Islanders",
       "code": "NYI",
-      "forPerGame": 3,
-      "againstPerGame": 3,
-      "gamesPlayed": 18,
-      "adjustedFor": 3,
-      "adjustedAgainst": 3
+      "forPerGame": 3.1578947368421053,
+      "againstPerGame": 2.9473684210526314,
+      "gamesPlayed": 19,
+      "adjustedFor": 3.1578947368421053,
+      "adjustedAgainst": 2.9473684210526314
     },
     "nhl.philadelphia-flyers": {
       "teamId": "nhl.philadelphia-flyers",
       "name": "Philadelphia Flyers",
       "shortName": "Flyers",
       "code": "PHI",
-      "forPerGame": 2.238095238095238,
-      "againstPerGame": 3.2857142857142856,
-      "gamesPlayed": 21,
-      "adjustedFor": 2.238095238095238,
-      "adjustedAgainst": 3.2857142857142856
+      "forPerGame": 2.3181818181818183,
+      "againstPerGame": 3.272727272727273,
+      "gamesPlayed": 22,
+      "adjustedFor": 2.3181818181818183,
+      "adjustedAgainst": 3.272727272727273
     },
     "nhl.pittsburgh-penguins": {
       "teamId": "nhl.pittsburgh-penguins",
       "name": "Pittsburgh Penguins",
       "shortName": "Penguins",
       "code": "PIT",
-      "forPerGame": 3.210526315789474,
-      "againstPerGame": 3.526315789473684,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.210526315789474,
-      "adjustedAgainst": 3.526315789473684
+      "forPerGame": 3.1,
+      "againstPerGame": 3.55,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.1,
+      "adjustedAgainst": 3.55
     },
     "nhl.colorado-avalanche": {
       "teamId": "nhl.colorado-avalanche",
       "name": "Colorado Avalanche",
       "shortName": "Avalanche",
       "code": "COL",
-      "forPerGame": 4.05,
-      "againstPerGame": 3.15,
-      "gamesPlayed": 20,
-      "adjustedFor": 4.05,
-      "adjustedAgainst": 3.15
+      "forPerGame": 4.0476190476190474,
+      "againstPerGame": 3.0476190476190474,
+      "gamesPlayed": 21,
+      "adjustedFor": 4.0476190476190474,
+      "adjustedAgainst": 3.0476190476190474
     },
     "nhl.los-angeles-kings": {
       "teamId": "nhl.los-angeles-kings",
       "name": "Los Angeles Kings",
       "shortName": "Kings",
       "code": "LAK",
-      "forPerGame": 2.764705882352941,
-      "againstPerGame": 3.5294117647058822,
-      "gamesPlayed": 17,
-      "adjustedFor": 2.764705882352941,
-      "adjustedAgainst": 3.5294117647058822
+      "forPerGame": 2.7222222222222223,
+      "againstPerGame": 3.5,
+      "gamesPlayed": 18,
+      "adjustedFor": 2.7222222222222223,
+      "adjustedAgainst": 3.5
     },
     "nhl.tampa-bay-lightning": {
       "teamId": "nhl.tampa-bay-lightning",
       "name": "Tampa Bay Lightning",
       "shortName": "Lightning",
       "code": "TBL",
-      "forPerGame": 3.8947368421052633,
-      "againstPerGame": 3,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.8947368421052633,
-      "adjustedAgainst": 3
+      "forPerGame": 3.7,
+      "againstPerGame": 2.95,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.7,
+      "adjustedAgainst": 2.95
     },
     "nhl.new-jersey-devils": {
       "teamId": "nhl.new-jersey-devils",
       "name": "New Jersey Devils",
       "shortName": "Devils",
       "code": "NJD",
-      "forPerGame": 3.65,
-      "againstPerGame": 2.85,
-      "gamesPlayed": 20,
-      "adjustedFor": 3.65,
-      "adjustedAgainst": 2.85
+      "forPerGame": 3.8095238095238093,
+      "againstPerGame": 2.9047619047619047,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.8095238095238093,
+      "adjustedAgainst": 2.9047619047619047
     },
     "nhl.columbus-blue-jackets": {
       "teamId": "nhl.columbus-blue-jackets",
       "name": "Columbus Blue Jackets",
       "shortName": "Blue Jackets",
       "code": "CBJ",
-      "forPerGame": 2.4705882352941178,
-      "againstPerGame": 3.176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 2.4705882352941178,
-      "adjustedAgainst": 3.176470588235294
+      "forPerGame": 2.5,
+      "againstPerGame": 3.2222222222222223,
+      "gamesPlayed": 18,
+      "adjustedFor": 2.5,
+      "adjustedAgainst": 3.2222222222222223
     },
     "nhl.buffalo-sabres": {
       "teamId": "nhl.buffalo-sabres",
       "name": "Buffalo Sabres",
       "shortName": "Sabres",
       "code": "BUF",
-      "forPerGame": 2.8947368421052633,
-      "againstPerGame": 3.5789473684210527,
-      "gamesPlayed": 19,
-      "adjustedFor": 2.8947368421052633,
-      "adjustedAgainst": 3.5789473684210527
+      "forPerGame": 2.75,
+      "againstPerGame": 3.5,
+      "gamesPlayed": 20,
+      "adjustedFor": 2.75,
+      "adjustedAgainst": 3.5
     },
     "nhl.nashville-predators": {
       "teamId": "nhl.nashville-predators",
@@ -234,22 +234,22 @@
       "name": "Minnesota Wild",
       "shortName": "Wild",
       "code": "MIN",
-      "forPerGame": 3.3333333333333335,
-      "againstPerGame": 2.1904761904761907,
-      "gamesPlayed": 21,
-      "adjustedFor": 3.3333333333333335,
-      "adjustedAgainst": 2.1904761904761907
+      "forPerGame": 3.4545454545454546,
+      "againstPerGame": 2.1818181818181817,
+      "gamesPlayed": 22,
+      "adjustedFor": 3.4545454545454546,
+      "adjustedAgainst": 2.1818181818181817
     },
     "nhl.calgary-flames": {
       "teamId": "nhl.calgary-flames",
       "name": "Calgary Flames",
       "shortName": "Flames",
       "code": "CGY",
-      "forPerGame": 2.473684210526316,
-      "againstPerGame": 3.473684210526316,
-      "gamesPlayed": 19,
-      "adjustedFor": 2.473684210526316,
-      "adjustedAgainst": 3.473684210526316
+      "forPerGame": 2.5,
+      "againstPerGame": 3.4,
+      "gamesPlayed": 20,
+      "adjustedFor": 2.5,
+      "adjustedAgainst": 3.4
     },
     "nhl.seattle-kraken": {
       "teamId": "nhl.seattle-kraken",
@@ -267,44 +267,44 @@
       "name": "Utah Mammoth",
       "shortName": "Mammoth",
       "code": "UTA",
-      "forPerGame": 3.3,
-      "againstPerGame": 3.45,
-      "gamesPlayed": 20,
-      "adjustedFor": 3.3,
-      "adjustedAgainst": 3.45
+      "forPerGame": 3.380952380952381,
+      "againstPerGame": 3.5714285714285716,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.380952380952381,
+      "adjustedAgainst": 3.5714285714285716
     },
     "nhl.san-jose-sharks": {
       "teamId": "nhl.san-jose-sharks",
       "name": "San Jose Sharks",
       "shortName": "Sharks",
       "code": "SJS",
-      "forPerGame": 2.5238095238095237,
-      "againstPerGame": 3.5238095238095237,
-      "gamesPlayed": 21,
-      "adjustedFor": 2.5238095238095237,
-      "adjustedAgainst": 3.5238095238095237
+      "forPerGame": 2.6818181818181817,
+      "againstPerGame": 3.590909090909091,
+      "gamesPlayed": 22,
+      "adjustedFor": 2.6818181818181817,
+      "adjustedAgainst": 3.590909090909091
     },
     "nhl.detroit-red-wings": {
       "teamId": "nhl.detroit-red-wings",
       "name": "Detroit Red Wings",
       "shortName": "Red Wings",
       "code": "DET",
-      "forPerGame": 2.75,
-      "againstPerGame": 3.2,
-      "gamesPlayed": 20,
-      "adjustedFor": 2.75,
-      "adjustedAgainst": 3.2
+      "forPerGame": 2.7142857142857144,
+      "againstPerGame": 3.0476190476190474,
+      "gamesPlayed": 21,
+      "adjustedFor": 2.7142857142857144,
+      "adjustedAgainst": 3.0476190476190474
     },
     "nhl.washington-capitals": {
       "teamId": "nhl.washington-capitals",
       "name": "Washington Capitals",
       "shortName": "Capitals",
       "code": "WSH",
-      "forPerGame": 3.411764705882353,
-      "againstPerGame": 3.411764705882353,
-      "gamesPlayed": 17,
-      "adjustedFor": 3.411764705882353,
-      "adjustedAgainst": 3.411764705882353
+      "forPerGame": 3.4444444444444446,
+      "againstPerGame": 3.611111111111111,
+      "gamesPlayed": 18,
+      "adjustedFor": 3.4444444444444446,
+      "adjustedAgainst": 3.611111111111111
     },
     "nhl.winnipeg-jets": {
       "teamId": "nhl.winnipeg-jets",
@@ -322,44 +322,44 @@
       "name": "Dallas Stars",
       "shortName": "Stars",
       "code": "DAL",
-      "forPerGame": 2.888888888888889,
-      "againstPerGame": 2.7222222222222223,
-      "gamesPlayed": 18,
-      "adjustedFor": 2.888888888888889,
-      "adjustedAgainst": 2.7222222222222223
+      "forPerGame": 2.8421052631578947,
+      "againstPerGame": 2.5789473684210527,
+      "gamesPlayed": 19,
+      "adjustedFor": 2.8421052631578947,
+      "adjustedAgainst": 2.5789473684210527
     },
     "nhl.st-louis-blues": {
       "teamId": "nhl.st-louis-blues",
       "name": "St. Louis Blues",
       "shortName": "Blues",
       "code": "STL",
-      "forPerGame": 2.8421052631578947,
-      "againstPerGame": 2.8947368421052633,
-      "gamesPlayed": 19,
-      "adjustedFor": 2.8421052631578947,
-      "adjustedAgainst": 2.8947368421052633
+      "forPerGame": 2.75,
+      "againstPerGame": 2.95,
+      "gamesPlayed": 20,
+      "adjustedFor": 2.75,
+      "adjustedAgainst": 2.95
     },
     "nhl.anaheim-ducks": {
       "teamId": "nhl.anaheim-ducks",
       "name": "Anaheim Ducks",
       "shortName": "Ducks",
       "code": "ANA",
-      "forPerGame": 3.736842105263158,
-      "againstPerGame": 3.6842105263157894,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.736842105263158,
-      "adjustedAgainst": 3.6842105263157894
+      "forPerGame": 3.65,
+      "againstPerGame": 3.8,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.65,
+      "adjustedAgainst": 3.8
     },
     "nhl.ottawa-senators": {
       "teamId": "nhl.ottawa-senators",
       "name": "Ottawa Senators",
       "shortName": "Senators",
       "code": "OTT",
-      "forPerGame": 3.2,
-      "againstPerGame": 3,
-      "gamesPlayed": 20,
-      "adjustedFor": 3.2,
-      "adjustedAgainst": 3
+      "forPerGame": 3.238095238095238,
+      "againstPerGame": 2.9047619047619047,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.238095238095238,
+      "adjustedAgainst": 2.9047619047619047
     }
   },
   "games": [
@@ -387,7 +387,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-15T03:11:00.566Z",
+        "observedAt": "2026-11-15T12:17:19.392Z",
         "source": "bzzoiro"
       }
     },
@@ -415,7 +415,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-15T03:11:00.566Z",
+        "observedAt": "2026-11-15T12:17:19.392Z",
         "source": "bzzoiro"
       }
     },
@@ -443,7 +443,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-15T03:11:00.566Z",
+        "observedAt": "2026-11-15T12:17:19.392Z",
         "source": "bzzoiro"
       }
     },
@@ -471,7 +471,7 @@
       "result": {
         "home": 4,
         "away": 5,
-        "observedAt": "2026-11-15T03:11:00.566Z",
+        "observedAt": "2026-11-15T12:17:19.392Z",
         "source": "bzzoiro"
       }
     },
@@ -480,7 +480,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.toronto-maple-leafs",
         "league": "nhl",
@@ -495,14 +495,20 @@
         "shortName": "Oilers",
         "code": "EDM"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-col-mtl",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.montreal-canadiens",
         "league": "nhl",
@@ -517,14 +523,20 @@
         "shortName": "Avalanche",
         "code": "COL"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 4,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-min-bos",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.boston-bruins",
         "league": "nhl",
@@ -539,14 +551,20 @@
         "shortName": "Wild",
         "code": "MIN"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 6,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-njd-wsh",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.washington-capitals",
         "league": "nhl",
@@ -561,14 +579,20 @@
         "shortName": "Devils",
         "code": "NJD"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 7,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-fla-stl",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.st-louis-blues",
         "league": "nhl",
@@ -583,14 +607,20 @@
         "shortName": "Panthers",
         "code": "FLA"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 4,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-det-tbl",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.tampa-bay-lightning",
         "league": "nhl",
@@ -605,14 +635,20 @@
         "shortName": "Red Wings",
         "code": "DET"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 2,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-ott-pit",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.pittsburgh-penguins",
         "league": "nhl",
@@ -627,14 +663,20 @@
         "shortName": "Senators",
         "code": "OTT"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 4,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-phi-cbj",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T00:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.columbus-blue-jackets",
         "league": "nhl",
@@ -649,14 +691,20 @@
         "shortName": "Flyers",
         "code": "PHI"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 4,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-buf-dal",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T01:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.dallas-stars",
         "league": "nhl",
@@ -671,14 +719,20 @@
         "shortName": "Sabres",
         "code": "BUF"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-sjs-uta",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T02:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.utah-mammoth",
         "league": "nhl",
@@ -693,14 +747,20 @@
         "shortName": "Sharks",
         "code": "SJS"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 5,
+        "away": 6,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-nyi-ana",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T03:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.anaheim-ducks",
         "league": "nhl",
@@ -715,14 +775,20 @@
         "shortName": "Islanders",
         "code": "NYI"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 6,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-15-cgy-lak",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-15T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.los-angeles-kings",
         "league": "nhl",
@@ -737,7 +803,13 @@
         "shortName": "Flames",
         "code": "CGY"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 3,
+        "observedAt": "2026-11-15T12:17:19.392Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-16-edm-phi",
@@ -1137,276 +1209,6 @@
     }
   ],
   "analyses": {
-    "nhl-2026-11-15-cgy-lak": {
-      "game": "nhl-2026-11-15-cgy-lak",
-      "model": {
-        "id": "pitchlab-ratings-nhl",
-        "version": "1.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.8643176001718933,
-        "away": 2.61059662228958,
-        "total": 5.474914222461473,
-        "margin": 0.2537209778823133
-      },
-      "x12": [
-        0.5421542568699784,
-        0,
-        0.4578457431300216
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Kings gana",
-          "p": 0.5421542568699784,
-          "fairOdds": 1.8444934948464748
-        },
-        {
-          "market": "h2h",
-          "selection": "Flames gana",
-          "p": 0.4578457431300216,
-          "fairOdds": 2.1841417442555855
-        },
-        {
-          "market": "spreads",
-          "selection": "LAK cubre",
-          "line": -1.5,
-          "p": 0.2905621707829722,
-          "fairOdds": 3.4416042436127166
-        },
-        {
-          "market": "spreads",
-          "selection": "CGY cubre",
-          "line": 1.5,
-          "p": 0.7094378292170278,
-          "fairOdds": 1.4095667848776143
-        },
-        {
-          "market": "totals",
-          "selection": "Más",
-          "line": 5.5,
-          "p": 0.4667629647666512,
-          "fairOdds": 2.1424150489315923
-        },
-        {
-          "market": "totals",
-          "selection": "Menos",
-          "line": 5.5,
-          "p": 0.5332370352333489,
-          "fairOdds": 1.8753386091466657
-        },
-        {
-          "market": "team_totals",
-          "selection": "LAK más de 2.5",
-          "line": 2.5,
-          "p": 0.5750124884953721,
-          "fairOdds": 1.7390926632162151
-        },
-        {
-          "market": "team_totals",
-          "selection": "LAK menos de 2.5",
-          "line": 2.5,
-          "p": 0.4249875115046279,
-          "fairOdds": 2.3530103189611267
-        },
-        {
-          "market": "team_totals",
-          "selection": "CGY más de 2.5",
-          "line": 2.5,
-          "p": 0.5135079096886934,
-          "fairOdds": 1.947389672354288
-        },
-        {
-          "market": "team_totals",
-          "selection": "CGY menos de 2.5",
-          "line": 2.5,
-          "p": 0.4864920903113066,
-          "fairOdds": 2.055531877938857
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Ganador (incluye tiempo extra)",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Kings gana",
-              "p": 0.5421542568699784,
-              "fairOdds": 1.8444934948464748
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Flames gana",
-              "p": 0.4578457431300216,
-              "fairOdds": 2.1841417442555855
-            }
-          ]
-        },
-        {
-          "group": "Puck line LAK -1.5",
-          "rows": [
-            {
-              "market": "spreads",
-              "selection": "home",
-              "label": "LAK cubre",
-              "line": -1.5,
-              "p": 0.2905621707829722,
-              "fairOdds": 3.4416042436127166
-            },
-            {
-              "market": "spreads",
-              "selection": "away",
-              "label": "CGY cubre",
-              "line": 1.5,
-              "p": 0.7094378292170278,
-              "fairOdds": 1.4095667848776143
-            }
-          ]
-        },
-        {
-          "group": "Total 5.5",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over",
-              "label": "Más",
-              "line": 5.5,
-              "p": 0.4667629647666512,
-              "fairOdds": 2.1424150489315923
-            },
-            {
-              "market": "totals",
-              "selection": "under",
-              "label": "Menos",
-              "line": 5.5,
-              "p": 0.5332370352333489,
-              "fairOdds": 1.8753386091466657
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "LAK más de 2.5",
-              "line": 2.5,
-              "p": 0.5750124884953721,
-              "fairOdds": 1.7390926632162151
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "LAK menos de 2.5",
-              "line": 2.5,
-              "p": 0.4249875115046279,
-              "fairOdds": 2.3530103189611267
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "CGY más de 2.5",
-              "line": 2.5,
-              "p": 0.5135079096886934,
-              "fairOdds": 1.947389672354288
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "CGY menos de 2.5",
-              "line": 2.5,
-              "p": 0.4864920903113066,
-              "fairOdds": 2.055531877938857
-            }
-          ]
-        }
-      ],
-      "factors": [
-        {
-          "key": "home_projection",
-          "label": "Local",
-          "value": "2.86 goles proyectados",
-          "detail": "17 partidos esta temporada"
-        },
-        {
-          "key": "away_projection",
-          "label": "Visitante",
-          "value": "2.61 goles proyectados",
-          "detail": "19 partidos esta temporada"
-        },
-        {
-          "key": "rest",
-          "label": "Descanso",
-          "value": "LAK: 1 días de descanso",
-          "detail": "CGY: 2 días de descanso"
-        },
-        {
-          "key": "overtime",
-          "label": "Tiempo extra",
-          "value": "17 % de llegar empatados al final",
-          "detail": "se define en tiempo extra o penales"
-        }
-      ],
-      "steps": [
-        "Sincronizando NHL · corte 14 nov 2026, 21:11",
-        "Ataque y defensa actualizados partido a partido (1707 partidos)",
-        "Goles de tiempo regular separados del tiempo extra",
-        "Proyección 2.86 – 2.61 · margen +0.25",
-        "Simulando marcadores y tiempo extra",
-        "10 mercados listos"
-      ],
-      "inputsAsOf": "2026-11-15T03:11:00.566Z",
-      "publishedAt": "2026-11-15T03:11:00.566Z",
-      "source": "bzzoiro",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "spreads",
-          "selection": "away",
-          "label": "CGY cubre",
-          "line": 1.5,
-          "p": 0.7094378292170278,
-          "fairOdds": 1.4095667848776143
-        },
-        {
-          "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "home_over",
-          "label": "LAK más de 2.5",
-          "line": 2.5,
-          "p": 0.5750124884953721,
-          "fairOdds": 1.7390926632162151
-        },
-        {
-          "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "away_over",
-          "label": "CGY más de 2.5",
-          "line": 2.5,
-          "p": 0.5135079096886934,
-          "fairOdds": 1.947389672354288
-        }
-      ],
-      "confidence": {
-        "score": 37,
-        "level": "baja",
-        "reasons": [
-          "Partido parejo",
-          "Muestra suficiente"
-        ]
-      },
-      "insights": {
-        "why": [
-          "Kings gana en 54 % de los escenarios.",
-          "Se esperan 5.47 goles: 2.86 de Kings y 2.61 de Flames."
-        ]
-      }
-    },
     "nhl-2026-11-16-edm-phi": {
       "game": "nhl-2026-11-16-edm-phi",
       "model": {

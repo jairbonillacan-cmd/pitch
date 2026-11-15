@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-14T16:46:59.230Z",
+  "observedAt": "2026-11-15T12:17:55.977Z",
   "source": "nflverse-cc-by-4.0",
   "coverageStatus": "ok",
   "entries": [
@@ -11,7 +11,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -19,7 +19,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -27,7 +27,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Toe",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -35,7 +35,7 @@
       "position": "TE",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -43,7 +43,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -51,7 +51,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -59,7 +59,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -67,7 +67,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Muñeca",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.arizona-cardinals",
@@ -75,7 +75,7 @@
       "position": "T",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.atlanta-falcons",
@@ -83,7 +83,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.atlanta-falcons",
@@ -91,7 +91,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Forearm",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.atlanta-falcons",
@@ -99,7 +99,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Enfermedad",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.atlanta-falcons",
@@ -107,7 +107,7 @@
       "position": "DE",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.atlanta-falcons",
@@ -115,7 +115,23 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.baltimore-ravens",
+      "player": "Jaylinn Hawkins",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.baltimore-ravens",
+      "player": "Adam Randall",
+      "position": "RB",
+      "status": "Duda",
+      "detail": "Cuello",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.buffalo-bills",
@@ -123,7 +139,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.buffalo-bills",
@@ -131,7 +147,7 @@
       "position": "T",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.buffalo-bills",
@@ -139,7 +155,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Muñeca",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.buffalo-bills",
@@ -147,7 +163,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.buffalo-bills",
@@ -155,7 +171,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -163,7 +179,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -171,7 +187,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Pie",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -179,7 +195,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -187,7 +203,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -195,7 +211,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -203,7 +219,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.carolina-panthers",
@@ -211,7 +227,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cincinnati-bengals",
@@ -219,7 +235,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cincinnati-bengals",
@@ -227,7 +243,7 @@
       "position": "S",
       "status": "Baja",
       "detail": "Cuádriceps",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cincinnati-bengals",
@@ -235,7 +251,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Thumb",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cincinnati-bengals",
@@ -243,7 +259,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cleveland-browns",
@@ -251,7 +267,7 @@
       "position": "FB",
       "status": "Baja",
       "detail": "Gemelo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cleveland-browns",
@@ -259,7 +275,7 @@
       "position": "S",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.cleveland-browns",
@@ -267,7 +283,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Toe",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -275,7 +291,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Gemelo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -283,7 +299,7 @@
       "position": "S",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -291,7 +307,7 @@
       "position": "RB",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -299,7 +315,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -307,7 +323,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -315,7 +331,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -323,7 +339,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -331,7 +347,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -339,7 +355,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Enfermedad",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -347,7 +363,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.dallas-cowboys",
@@ -355,7 +371,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Cadera",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.detroit-lions",
@@ -363,7 +379,7 @@
       "position": "CB",
       "status": "Baja",
       "detail": "Cadera",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.detroit-lions",
@@ -371,7 +387,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Costillas",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.detroit-lions",
@@ -379,7 +395,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.detroit-lions",
@@ -387,7 +403,7 @@
       "position": "S",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.detroit-lions",
@@ -395,7 +411,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -403,7 +419,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -411,7 +427,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Shin",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -419,7 +435,7 @@
       "position": "RB",
       "status": "Baja",
       "detail": "Finger",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -427,7 +443,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Pie",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -435,7 +451,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -443,7 +459,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -451,7 +467,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -459,7 +475,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -467,7 +483,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -475,7 +491,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -483,7 +499,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -491,7 +507,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -499,7 +515,7 @@
       "position": "DE",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -507,7 +523,7 @@
       "position": "T",
       "status": "Duda",
       "detail": "Muñeca",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -515,7 +531,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Enfermedad",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -523,7 +539,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -531,7 +547,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -539,7 +555,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Finger",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -547,7 +563,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -555,7 +571,7 @@
       "position": "DE",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -563,7 +579,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -571,7 +587,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.houston-texans",
@@ -579,7 +595,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Cuello",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -587,7 +603,7 @@
       "position": "LS",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -595,15 +611,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
-    },
-    {
-      "teamId": "nfl.indianapolis-colts",
-      "player": "Arden Key",
-      "position": "DE",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -611,7 +619,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Gemelo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -619,7 +627,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -627,7 +635,7 @@
       "position": "TE",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -635,7 +643,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Cuello",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -643,7 +651,7 @@
       "position": "T",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.jacksonville-jaguars",
@@ -651,7 +659,7 @@
       "position": "S",
       "status": "Baja",
       "detail": "Not injury related - resting player",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.jacksonville-jaguars",
@@ -659,7 +667,7 @@
       "position": "C",
       "status": "Duda",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.jacksonville-jaguars",
@@ -667,7 +675,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Not injury related - resting player",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.jacksonville-jaguars",
@@ -675,7 +683,7 @@
       "position": "DE",
       "status": "Baja",
       "detail": "Forearm",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -683,7 +691,7 @@
       "position": "T",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -691,7 +699,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -699,7 +707,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -707,7 +715,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -715,7 +723,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -723,7 +731,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Cuello",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -731,7 +739,7 @@
       "position": "LS",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -739,7 +747,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -747,7 +755,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Toe",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -755,7 +763,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -763,7 +771,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -771,7 +779,7 @@
       "position": "TE",
       "status": "Duda",
       "detail": "Oblique",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -779,7 +787,87 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Denzel Perryman",
+      "position": "LB",
+      "status": "Duda",
+      "detail": "Pectoral",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "David Njoku",
+      "position": "TE",
+      "status": "Duda",
+      "detail": "Fibula",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Trey Pipkins",
+      "position": "T",
+      "status": "Duda",
+      "detail": "Not injury related - personal matter",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Kayode Awosika",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Fibula",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Kendall Williamson",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Gemelo",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Justin Eboigbe",
+      "position": "DE",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Ladd McConkey",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Espalda",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Isas Waxter",
+      "position": "CB",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Branson Taylor",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
+    },
+    {
+      "teamId": "nfl.los-angeles-chargers",
+      "player": "Brenen Thompson",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.las-vegas-raiders",
@@ -787,7 +875,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.las-vegas-raiders",
@@ -795,7 +883,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.miami-dolphins",
@@ -803,7 +891,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.miami-dolphins",
@@ -811,7 +899,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.miami-dolphins",
@@ -819,7 +907,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Cuádriceps",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.miami-dolphins",
@@ -827,7 +915,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -835,7 +923,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Gemelo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -843,7 +931,7 @@
       "position": "QB",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -851,7 +939,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Muñeca",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -859,7 +947,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -867,7 +955,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Gemelo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -875,7 +963,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -883,7 +971,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Thumb",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.minnesota-vikings",
@@ -891,7 +979,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -899,7 +987,7 @@
       "position": "G",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -907,7 +995,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Chest",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -915,7 +1003,7 @@
       "position": "CB",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -923,7 +1011,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -931,7 +1019,7 @@
       "position": "FB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -939,7 +1027,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -947,7 +1035,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -955,7 +1043,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -963,7 +1051,7 @@
       "position": "TE",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -971,7 +1059,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -979,7 +1067,7 @@
       "position": "T",
       "status": "Duda",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -987,7 +1075,7 @@
       "position": "RB",
       "status": "Baja",
       "detail": "Enfermedad",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -995,7 +1083,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Biceps",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -1003,7 +1091,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -1011,7 +1099,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Shin",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -1019,7 +1107,7 @@
       "position": "T",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -1027,7 +1115,7 @@
       "position": "RB",
       "status": "Baja",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-orleans-saints",
@@ -1035,7 +1123,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-giants",
@@ -1043,7 +1131,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1051,7 +1139,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1059,7 +1147,7 @@
       "position": "DE",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1067,7 +1155,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1075,7 +1163,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1083,7 +1171,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1091,7 +1179,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Enfermedad",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1099,7 +1187,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1107,7 +1195,7 @@
       "position": "S",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.new-york-jets",
@@ -1115,7 +1203,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.pittsburgh-steelers",
@@ -1123,7 +1211,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Pie",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.seattle-seahawks",
@@ -1131,7 +1219,7 @@
       "position": "DT",
       "status": "Baja",
       "detail": "Stinger",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.seattle-seahawks",
@@ -1139,7 +1227,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.seattle-seahawks",
@@ -1147,7 +1235,7 @@
       "position": "QB",
       "status": "Baja",
       "detail": "Costillas",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.seattle-seahawks",
@@ -1155,7 +1243,7 @@
       "position": "T",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1163,7 +1251,7 @@
       "position": "T",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1171,7 +1259,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Tendón de Aquiles",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1179,7 +1267,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1187,7 +1275,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Pie",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1195,7 +1283,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Ingle",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1203,7 +1291,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Espalda",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1211,7 +1299,7 @@
       "position": "CB",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.san-francisco-49ers",
@@ -1219,7 +1307,7 @@
       "position": "DT",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1227,7 +1315,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1235,7 +1323,7 @@
       "position": "P",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1243,7 +1331,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1251,7 +1339,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1259,7 +1347,7 @@
       "position": "WR",
       "status": "Baja",
       "detail": "Hombro",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.tennessee-titans",
@@ -1267,7 +1355,7 @@
       "position": "LB",
       "status": "Baja",
       "detail": "Cuello",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.washington-commanders",
@@ -1275,7 +1363,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Protocolo de conmoción",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     },
     {
       "teamId": "nfl.washington-commanders",
@@ -1283,7 +1371,7 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-14T16:46:59.230Z"
+      "reportedAt": "2026-11-15T12:17:55.977Z"
     }
   ]
 }

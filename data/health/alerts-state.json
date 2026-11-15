@@ -1,19 +1,5 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-15T06:54:44Z",
-  "openIncidents": {
-    "stale::calendario::liga-mx": {
-      "incidentKey": "stale::calendario::liga-mx",
-      "kind": "stale_data",
-      "severity": "critical",
-      "targetLabel": "Liga MX · Calendario y resultados",
-      "league": "liga-mx",
-      "dataType": "calendario",
-      "message": "Partidos ya jugados siguen sin marcador final tras 16.8 h (umbral jornada: 12 h).",
-      "failingSinceUtc": "2026-11-15T06:54:44Z",
-      "lastSeenAtUtc": "2026-11-15T06:54:44Z",
-      "emailedAtUtc": null,
-      "occurrences": 1
-    }
-  }
+  "updatedAtUtc": "2026-11-15T12:17:55.977Z",
+  "openIncidents": {}
 }
