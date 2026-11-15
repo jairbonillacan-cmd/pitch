@@ -156,20 +156,32 @@ export const AnalisisCortex = {
 };
 export const AnalisisCortexClaro = { ...AnalisisCortex, ...light };
 
-/** Análisis por secciones como lo redacta el corte (texto de ejemplo, números de ejemplo). */
+/** Lectura por secciones como la redacta el corte (texto y cifras de ejemplo). */
+const HEADLINE = "Monterrey llega un paso adelante en un partido de margen corto";
 const SECTIONS = [
-  { key: "resumen", title: "Resumen", text: "Partido parejo con ligera ventaja visitante: 40 % de victoria para la visita, 34 % para el local y 26 % de empate." },
-  { key: "goles", title: "Goles", text: "Se esperan 2.96 goles: 1.41 del local y 1.55 de la visita. Que ambos anoten tiene 60 % de probabilidad." },
-  { key: "esquinas", title: "Tiros de esquina", text: "Se esperan 10.8 tiros de esquina en total, repartidos casi por igual: 5.4 del local y 5.3 de la visita." },
-  { key: "faltas", title: "Faltas", text: "Se esperan 22.0 faltas: 11.8 del local y 10.1 de la visita, cerca de lo que cada uno suele cometer." },
-  { key: "contexto", title: "Contexto", text: "La visita es 10.º con 21 puntos y el local 12.º con 20; los dos llegan con descanso similar." },
-  { key: "atencion", title: "A tener en cuenta", text: "El análisis no incluye árbitro, bajas ni alineaciones confirmadas. Un gol temprano o una expulsión pueden cambiar la lectura." },
+  { key: "lectura", title: "La lectura", origin: "ia" as const, text: "Monterrey gana en 40 % de los escenarios y Querétaro en 34 %. La diferencia es corta: el empate, con 26 %, sigue muy vivo." },
+  {
+    key: "goles", title: "Goles", origin: "ia" as const,
+    text: "Partido abierto para lo que suele dar la liga: los dos generan, y Monterrey aporta un poco más.",
+    stats: [{ label: "Goles esperados", home: 1.41, away: 1.55 }, { label: "Ambos anotan", value: "60 %" }, { label: "Más de 2.5 goles", value: "57 %" }],
+  },
+  {
+    key: "ritmo", title: "Ritmo del partido", origin: "ia" as const,
+    text: "Los tiros de esquina se reparten casi igual, sin un dominador por las bandas. Querétaro comete más faltas: se espera un partido cortado.",
+    stats: [{ label: "Tiros de esquina", home: 5.4, away: 5.3 }, { label: "Faltas", home: 11.8, away: 10.1 }, { label: "Amarillas", home: 2.1, away: 1.9 }],
+  },
+  {
+    key: "tabla", title: "Tabla y descanso", origin: "plantilla" as const,
+    text: "Querétaro llega 12.º con 20 puntos y Monterrey 10.º con 21. Descanso: 6 días para Querétaro y 7 para Monterrey.",
+    stats: [{ label: "Puntos", home: 20, away: 21 }],
+  },
+  { key: "cambia", title: "Qué podría cambiarlo", origin: "ia" as const, text: "Con un margen así de corto, el primer gol pesa mucho. La lectura no incluye árbitro ni alineaciones confirmadas." },
 ];
 
 export const AnalisisCortexSecciones = {
   render: () => (
     <Provider>
-      <CortexAnalysisCard game={GAME} synthesis={SECTIONS[0]!.text} unlocked sections={SECTIONS} />
+      <CortexAnalysisCard game={GAME} synthesis={SECTIONS[0]!.text} unlocked sections={SECTIONS} headline={HEADLINE} />
     </Provider>
   ),
 };

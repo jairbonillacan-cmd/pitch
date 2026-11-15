@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { CortexWriteupSchema, type GameAnalysis, type GameDTO } from "@pitchlab/contracts";
-import { cortexFactsFromAnalysis, cortexFingerprint, sectionKeys, writeCortex } from "../src/cortex-writer.js";
+import {
+  cortexFactsFromAnalysis,
+  cortexFingerprint,
+  sectionKeys,
+  sectionStats,
+  templateHeadline,
+  writeCortex,
+} from "../src/cortex-writer.js";
 
 const game = {
   id: "liga-mx-qro-mty",
@@ -28,45 +35,55 @@ function fakeFetch(body: unknown, status = 200): typeof fetch {
     new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(body) } }] }), { status })) as typeof fetch;
 }
 
+const GOOD = {
+  titular: "Monterrey llega un paso adelante en un partido corto",
+  lectura: "Monterrey gana en 40 % de los escenarios y Querétaro en 34 %; el empate queda en 26 %.",
+  goles: "Querétaro anotará 3 goles seguro y Monterrey 2.", // números inventados → plantilla
+  ritmo: "Se esperan 10.8 tiros de esquina repartidos casi por igual, sin un dominador claro por las bandas.",
+  tabla: null,
+  cambia: "La lectura no incluye árbitro ni alineaciones; una expulsión o el primer gol pueden moverla.",
+};
+
 describe("Cortex en el corte", () => {
-  it("arma secciones según los datos: con córners, sin faltas", () => {
-    expect(sectionKeys(facts)).toEqual(["resumen", "goles", "esquinas", "contexto", "atencion"]);
+  it("arma secciones según los datos y cifras que salen del motor", () => {
+    expect(sectionKeys(facts)).toEqual(["lectura", "goles", "ritmo", "tabla", "cambia"]);
+    expect(sectionStats("goles", facts)).toEqual([
+      { label: "Goles esperados", home: 1.41, away: 1.55 },
+      { label: "Ambos anotan", value: "60 %" },
+      { label: "Más de 2.5 goles", value: "57 %" },
+    ]);
+    expect(sectionStats("ritmo", facts)).toEqual([{ label: "Tiros de esquina", home: 5.5, away: 5.3 }]);
     expect(cortexFingerprint(facts)).toBe(cortexFingerprint(cortexFactsFromAnalysis({ leagueName: "Liga MX", game, analysis })));
+    expect(templateHeadline(facts)).toBe("Querétaro y Monterrey, un partido de margen corto");
   });
 
   it("guarda lo que pasa la validación y cambia por plantilla lo que inventa números", async () => {
-    const out = await writeCortex(facts, {
-      apiKey: "k",
-      fetchImpl: fakeFetch({
-        resumen: "Partido parejo con ligera ventaja de Monterrey: 40 % de victoria contra 34 % de Querétaro y 26 % de empate.",
-        goles: "Querétaro anotará 3 goles seguro y Monterrey 2.", // números inventados
-        esquinas: "Se esperan 10.8 tiros de esquina: 5.5 de Querétaro y 5.3 de Monterrey, un reparto muy parejo.",
-        faltas: null,
-        contexto: null,
-        atencion: "El análisis no incluye árbitro ni alineaciones; una expulsión puede cambiar la lectura del partido.",
-      }),
-      now: () => new Date("2026-11-14T00:00:00Z"),
-    });
+    const out = await writeCortex(facts, { apiKey: "k", fetchImpl: fakeFetch(GOOD), now: () => new Date("2026-11-14T00:00:00Z") });
     expect(out).not.toBeNull();
     expect(() => CortexWriteupSchema.parse(out)).not.toThrow();
+    expect(out!.headline).toBe(GOOD.titular);
+    expect(out!.headlineOrigin).toBe("ia");
     const byKey = Object.fromEntries(out!.sections.map((s) => [s.key, s]));
-    expect(byKey.resumen!.origin).toBe("ia");
+    expect(byKey.lectura!.origin).toBe("ia");
     expect(byKey.goles!.origin).toBe("plantilla");
     expect(byKey.goles!.text).toContain("2.96");
-    expect(byKey.esquinas!.origin).toBe("ia");
-    expect(byKey.faltas).toBeUndefined();
-    expect(byKey.contexto).toBeUndefined(); // sin tabla no hay contexto que armar
+    expect(byKey.goles!.stats?.[0]).toEqual({ label: "Goles esperados", home: 1.41, away: 1.55 });
+    expect(byKey.ritmo!.origin).toBe("ia");
+    expect(byKey.tabla!.origin).toBe("plantilla"); // solo descanso: lo arma la plantilla
+    expect(byKey.tabla!.text).toContain("6 días");
   });
 
-  it("rechaza el favorito invertido", async () => {
+  it("rechaza el favorito invertido y un titular con números inventados", async () => {
     const out = await writeCortex(facts, {
       apiKey: "k",
       fetchImpl: fakeFetch({
-        resumen: "Querétaro es el favorito con 40 % de victoria frente a Monterrey, que juega de visita.",
-        atencion: "El análisis no incluye árbitro ni alineaciones; una expulsión puede cambiar la lectura del partido.",
+        ...GOOD,
+        titular: "Querétaro gana 3 a 0",
+        lectura: "Querétaro es el favorito con 40 % de victoria frente a Monterrey, que juega de visita.",
       }),
     });
-    expect(out!.sections.find((s) => s.key === "resumen")!.origin).toBe("plantilla");
+    expect(out!.sections.find((s) => s.key === "lectura")!.origin).toBe("plantilla");
+    expect(out!.headlineOrigin).toBe("plantilla");
   });
 
   it("si OpenRouter falla no guarda nada (el siguiente corte reintenta)", async () => {

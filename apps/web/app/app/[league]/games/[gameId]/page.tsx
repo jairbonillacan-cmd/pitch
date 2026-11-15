@@ -35,7 +35,9 @@ export default async function ClubMatchStudioPage({
   // Cortex IA: el corte lo redacta una vez por partido y viaja en el snapshot; aquí no se llama
   // al modelo. Solo socios con acceso completo (la inteligencia previa es de Pase PitchLab Ultra).
   const writeup = loadCortexWriteup(league, gameId);
-  const cortexSections = writeup && (await getViewerAccess()).fullAccess ? writeup.sections : null;
+  const showCortex = writeup ? (await getViewerAccess()).fullAccess : false;
+  const cortexSections = showCortex ? writeup!.sections : null;
+  const cortexHeadline = showCortex ? writeup!.headline : null;
 
   // El layout solo trae partidos por jugar: si este ya terminó, se agrega aquí.
   const [detail, summary] = await Promise.all([loadGameDetail(gameId), loadGameSummary(gameId)]);
@@ -46,6 +48,7 @@ export default async function ClubMatchStudioPage({
         leagueId={asLeagueId(league)}
         gameId={gameId}
         cortexSections={cortexSections}
+        cortexHeadline={cortexHeadline}
         detail={detail}
       />
     </PlatformGamesSupplement>

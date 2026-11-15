@@ -8467,29 +8467,190 @@ html[data-theme="light"] .pl-stage.pl-auth,
     visibility: hidden;
   }
 }
-.pl-cortex-sections {
-  display: grid;
-  gap: 0;
+/* ---------- Lectura de Cortex por secciones (evidencia junto al texto) ---------- */
+.pl-cortex {
+  container: pl-cortex / inline-size;
+}
+.pl-cortex-headline {
   margin: 0;
+  font-size: clamp(1.15rem, 1rem + 0.8cqi, 1.45rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--pl-text);
+  text-wrap: balance;
+  max-width: 34ch;
+}
+.pl-cortex-reading {
+  display: grid;
+  gap: 14px;
   animation: pl-fade-up 240ms var(--ease-out);
 }
-.pl-cortex-section {
-  display: grid;
-  gap: 4px;
-  padding: 14px 0;
-  border-top: 1px solid var(--pl-border);
+.pl-cortex-legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
 }
-.pl-cortex-section-title {
+.pl-cortex-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pl-cortex-legend span::before {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 999px;
+  background: var(--pl-aura-default-home);
+}
+.pl-cortex-legend .is-away {
+  flex-direction: row-reverse;
+}
+.pl-cortex-legend .is-away::before {
+  background: var(--pl-aura-default-away);
+}
+.pl-cortex-sections {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+@container pl-cortex (min-width: 640px) {
+  .pl-cortex-sections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* «Qué podría cambiarlo» y una sección que quedaría sola en su fila van a todo el ancho. */
+  .pl-cortex-sec--watch,
+  .pl-cortex-sec:nth-child(odd):nth-last-child(2) {
+    grid-column: 1 / -1;
+  }
+}
+.pl-cortex-sec {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  min-inline-size: 0;
+}
+.pl-cortex-sec--watch {
+  background: transparent;
+  border-style: dashed;
+}
+.pl-cortex-sec-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+.pl-cortex-sec-title svg {
+  color: var(--engine-cortex);
+  flex: none;
+}
+.pl-cortex-sec-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--pl-text-secondary);
+  text-wrap: pretty;
+}
+.pl-cortex-splits {
+  display: grid;
+  gap: 8px;
+}
+.pl-cortex-split {
+  display: grid;
+  grid-template-columns: 3.2ch minmax(0, 1fr) 3.2ch;
+  align-items: end;
+  gap: 10px;
+}
+.pl-cortex-split-num {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--pl-text);
+  line-height: 1;
+}
+.pl-cortex-split-num:last-child {
+  text-align: end;
+}
+.pl-cortex-split-mid {
+  display: grid;
+  gap: 5px;
+  min-inline-size: 0;
+}
+.pl-cortex-split-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+  text-align: center;
+}
+.pl-cortex-split-bar {
+  display: flex;
+  gap: 2px;
+  block-size: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pl-cortex-split-bar .is-home {
+  background: var(--pl-aura-default-home);
+  border-radius: 999px 0 0 999px;
+}
+.pl-cortex-split-bar .is-away {
+  flex: 1;
+  background: var(--pl-aura-default-away);
+  border-radius: 0 999px 999px 0;
+}
+.pl-cortex-values {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pl-cortex-values > div {
+  display: grid;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: var(--pl-surface-hover);
+}
+.pl-cortex-values dt {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-cortex-values dd {
   margin: 0;
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--pl-text);
 }
-.pl-cortex-section-text {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--pl-text-secondary);
+.pl-cortex-trust {
+  font-size: 0.78rem;
+  color: var(--pl-text-muted);
+}
+.pl-cortex-trust summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-block-size: 32px;
+  display: flex;
+  align-items: center;
+  inline-size: fit-content;
+}
+.pl-cortex-trust summary:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.pl-cortex-trust p {
+  margin: 4px 0 0;
+  line-height: 1.55;
   max-width: 72ch;
 }
 .pl-cortex-grid {

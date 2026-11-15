@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { MaestroIcon, type MaestroIconName } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
 
 const THINKING_STEPS = [
@@ -26,10 +26,125 @@ type Phase = "thinking" | "writing" | "done";
  * escribe el texto palabra por palabra y al final muestra las claves del partido. Con
  * movimiento reducido aparece completo. «Ver completo» salta la animación.
  */
+export interface CortexStatView {
+  label: string;
+  value?: string;
+  home?: number;
+  away?: number;
+}
+
 export interface CortexSectionView {
   key: string;
   title: string;
   text: string;
+  origin?: "ia" | "plantilla";
+  stats?: readonly CortexStatView[];
+}
+
+const SECTION_ICON: Record<string, MaestroIconName> = {
+  goles: "flame",
+  ritmo: "activity",
+  tabla: "trophy",
+  cambia: "eye",
+};
+
+/** «26 %» nunca se parte entre líneas. */
+const NBSP = String.fromCharCode(160);
+const keepUnits = (text: string) => text.replace(/(\d) (%)/g, `$1${NBSP}$2`);
+
+const fmt = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(x < 10 ? 2 : 1).replace(/0$/, ""));
+
+/** Comparación local/visitante en una barra: el lado más grande se nota sin leer números. */
+function SplitStat({ stat, home, away }: { stat: CortexStatView; home: string; away: string }): React.JSX.Element {
+  const h = stat.home ?? 0;
+  const a = stat.away ?? 0;
+  const share = h + a > 0 ? (h / (h + a)) * 100 : 50;
+  return (
+    <div className="pl-cortex-split" role="group" aria-label={`${stat.label}: ${home} ${fmt(h)}, ${away} ${fmt(a)}`}>
+      <span className="pl-cortex-split-num num" aria-hidden="true">{fmt(h)}</span>
+      <span className="pl-cortex-split-mid" aria-hidden="true">
+        <span className="pl-cortex-split-label">{stat.label}</span>
+        <span className="pl-cortex-split-bar">
+          <span className="is-home" style={{ inlineSize: `${share}%` }} />
+          <span className="is-away" />
+        </span>
+      </span>
+      <span className="pl-cortex-split-num num" aria-hidden="true">{fmt(a)}</span>
+    </div>
+  );
+}
+
+/**
+ * Lectura de Cortex por secciones. A diferencia de un texto suelto, cada sección trae su
+ * evidencia al lado (barras local/visitante o cifras clave que salen del motor) y el bloque
+ * «Qué podría cambiarlo» se distingue como aviso. Al pie, cómo se verificó el texto.
+ */
+function CortexReading({
+  sections,
+  home,
+  away,
+}: {
+  sections: readonly CortexSectionView[];
+  home: string;
+  away: string;
+}): React.JSX.Element {
+  const body = sections.filter((s) => s.key !== "lectura");
+  const direct = sections.filter((s) => s.origin === "plantilla").length;
+  return (
+    <div className="pl-cortex-reading">
+      <div className="pl-cortex-legend" aria-hidden="true">
+        <span className="is-home">{home}</span>
+        <span className="is-away">{away}</span>
+      </div>
+      <div className="pl-cortex-sections">
+        {body.map((sec) => {
+          const splits = (sec.stats ?? []).filter((st) => st.home !== undefined && st.away !== undefined);
+          const values = (sec.stats ?? []).filter((st) => st.value !== undefined);
+          return (
+            <section
+              key={sec.key}
+              className={`pl-cortex-sec${sec.key === "cambia" ? " pl-cortex-sec--watch" : ""}`}
+              aria-labelledby={`cortex-${sec.key}`}
+            >
+              <h3 id={`cortex-${sec.key}`} className="pl-cortex-sec-title">
+                <MaestroIcon name={SECTION_ICON[sec.key] ?? "sparkles"} size={15} />
+                {sec.title}
+              </h3>
+              {splits.length > 0 ? (
+                <div className="pl-cortex-splits">
+                  {splits.map((st) => (
+                    <SplitStat key={st.label} stat={st} home={home} away={away} />
+                  ))}
+                </div>
+              ) : null}
+              {values.length > 0 ? (
+                <dl className="pl-cortex-values">
+                  {values.map((st) => (
+                    <div key={st.label}>
+                      <dt>{st.label}</dt>
+                      <dd className="num">{st.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+              <p className="pl-cortex-sec-text">{keepUnits(sec.text)}</p>
+            </section>
+          );
+        })}
+      </div>
+      <details className="pl-cortex-trust">
+        <summary>Cómo se escribió esta lectura</summary>
+        <p>
+          Las cifras salen del modelo de PitchLab y se calculan antes del partido. Cortex IA las redacta y
+          cada frase se revisa antes de publicarse: si menciona un número que el modelo no dio o confunde
+          local y visitante, se reemplaza por el texto directo con los números.
+          {direct > 0
+            ? ` En este partido, ${direct === 1 ? "una sección usa" : `${direct} secciones usan`} el texto directo.`
+            : ""}
+        </p>
+      </details>
+    </div>
+  );
 }
 
 export function CortexAnalysisCard({
@@ -37,17 +152,20 @@ export function CortexAnalysisCard({
   synthesis,
   unlocked,
   sections,
+  headline,
 }: {
   game: PlatformGame;
   synthesis: string;
   unlocked: boolean;
   /**
-   * Análisis por secciones redactado en el corte (Resumen, Goles, Tiros de esquina, Faltas,
-   * Contexto, A tener en cuenta). El resumen se escribe con la animación; el resto aparece al final.
+   * Lectura por secciones redactada en el corte (La lectura, Goles, Ritmo del partido, Tabla y
+   * descanso, Qué podría cambiarlo). «La lectura» se escribe con la animación; el resto, al final.
    */
   sections?: readonly CortexSectionView[] | null;
+  /** Idea central del partido en una línea. */
+  headline?: string | null;
 }): React.JSX.Element {
-  const words = useMemo(() => synthesis.split(/(\s+)/), [synthesis]);
+  const words = useMemo(() => keepUnits(synthesis).split(/( +)/), [synthesis]);
   const [phase, setPhase] = useState<Phase>("thinking");
   const [step, setStep] = useState(0);
   const [shown, setShown] = useState(0);
@@ -94,7 +212,7 @@ export function CortexAnalysisCard({
         </span>
         <div className="min-w-0 flex-1">
           <h2 id="cortex-title" className="m-0 text-base font-extrabold">
-            Análisis antes del partido
+            {sections?.length ? "La lectura de Cortex" : "Análisis antes del partido"}
           </h2>
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
             Cortex IA · {game.home.shortName} vs {game.away.shortName}
@@ -125,25 +243,17 @@ export function CortexAnalysisCard({
           </div>
         </div>
       ) : (
+        <>
+        {headline && unlocked ? <p className="pl-cortex-headline">{keepUnits(headline)}</p> : null}
         <p className="pl-cortex-text">
           {words.slice(0, shown).join("")}
           {phase === "writing" ? <span className="pl-cortex-caret" aria-hidden="true" /> : null}
         </p>
+        </>
       )}
 
       {phase === "done" && unlocked && sections && sections.length > 0 ? (
-        <div className="pl-cortex-sections">
-          {sections
-            .filter((sec) => sec.key !== "resumen")
-            .map((sec) => (
-              <section key={sec.key} className="pl-cortex-section" aria-labelledby={`cortex-${sec.key}`}>
-                <h3 id={`cortex-${sec.key}`} className="pl-cortex-section-title">
-                  {sec.title}
-                </h3>
-                <p className="pl-cortex-section-text">{sec.text}</p>
-              </section>
-            ))}
-        </div>
+        <CortexReading sections={sections} home={game.home.shortName} away={game.away.shortName} />
       ) : null}
 
       {phase === "done" && unlocked ? (

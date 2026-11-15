@@ -32,7 +32,7 @@ import {
   MultiPickRow,
 } from "../components/MatchTicketCard";
 import { ConfidenceChip } from "../components/ConfidenceChip";
-import { CortexAnalysisCard } from "./match/CortexAnalysisCard";
+import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
 import { MatchContextPanel } from "./match/MatchContextPanel";
 import { MatchMarketsGrid } from "./match/MatchMarketsGrid";
 import { MatchSimulator } from "./match/MatchSimulator";
@@ -348,6 +348,7 @@ export function MatchStudioClubView({
   gameId,
   cortexSynthesisOverride,
   cortexSections,
+  cortexHeadline,
   detail,
 }: {
   leagueId: LeagueId;
@@ -355,7 +356,9 @@ export function MatchStudioClubView({
   /** Resumen de Cortex IA redactado en servidor (LLM validado); si falta, se usa la plantilla. */
   cortexSynthesisOverride?: string | null;
   /** Análisis por secciones de Cortex IA (lo redacta el corte y llega en el snapshot). */
-  cortexSections?: ReadonlyArray<{ key: string; title: string; text: string }> | null;
+  cortexSections?: readonly CortexSectionView[] | null;
+  /** Idea central del partido redactada por Cortex IA. */
+  cortexHeadline?: string | null;
   /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
 }): React.JSX.Element {
@@ -636,12 +639,13 @@ export function MatchStudioClubView({
           <CortexAnalysisCard
             game={game}
             synthesis={
-              cortexSections?.find((sec) => sec.key === "resumen")?.text ??
+              cortexSections?.find((sec) => sec.key === "lectura")?.text ??
               cortexSynthesisOverride ??
               game.preGame.cortexSynthesis
             }
             unlocked={intelUnlocked}
             sections={cortexSections}
+            headline={cortexHeadline}
           />
           <div className="pl-studio-side">
           {/* ¿Dónde está el dinero? Quick Summary */}

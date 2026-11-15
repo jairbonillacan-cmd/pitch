@@ -217,11 +217,27 @@ export const CountProjectionSchema = z.object({
 
 export type CountProjection = z.infer<typeof CountProjectionSchema>;
 
-export const CORTEX_SECTION_KEYS = ["resumen", "goles", "esquinas", "faltas", "contexto", "atencion"] as const;
+export const CORTEX_SECTION_KEYS = ["lectura", "goles", "ritmo", "tabla", "cambia"] as const;
 export type CortexSectionKey = (typeof CORTEX_SECTION_KEYS)[number];
 
-/** Análisis de Cortex IA por secciones, redactado una vez en el corte (no en cada visita). */
+/**
+ * Cifra que acompaña una sección: un valor suelto («2.96», «60 %») o una comparación
+ * local/visitante (córners 5.4 vs 5.3). Sale del motor, nunca del LLM.
+ */
+export const CortexStatSchema = z.object({
+  label: z.string().min(1),
+  value: z.string().min(1).optional(),
+  home: z.number().nonnegative().optional(),
+  away: z.number().nonnegative().optional(),
+});
+
+export type CortexStat = z.infer<typeof CortexStatSchema>;
+
+/** Lectura de Cortex IA por secciones, redactada una vez en el corte (no en cada visita). */
 export const CortexWriteupSchema = z.object({
+  /** Una idea central del partido, en una línea. */
+  headline: z.string().min(1),
+  headlineOrigin: z.enum(["ia", "plantilla"]),
   sections: z
     .array(
       z.object({
@@ -230,6 +246,7 @@ export const CortexWriteupSchema = z.object({
         text: z.string().min(1),
         /** `plantilla` si el texto del LLM no pasó la validación y se armó con los números. */
         origin: z.enum(["ia", "plantilla"]),
+        stats: z.array(CortexStatSchema).max(4).optional(),
       }),
     )
     .min(1),
