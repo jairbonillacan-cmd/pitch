@@ -34,7 +34,8 @@
 | `PITCHLAB_PAYMENTS_MODE` | `"transfer"` (SPEI/cupones Beta 1.0) o `"stripe"` | Cobro |
 | `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY`, `PITCHLAB_TRANSFER_CLABE`, `PITCHLAB_TRANSFER_INSTRUCTIONS` | Tu cuenta bancaria SPEI (opcional la nota) | Beta 1.0 |
 | `CRON_SECRET` | Secreto generado (cron `/api/cron/tipster-payouts`) | Diario |
-| `THE_ODDS_API_KEY` | The Odds API v4 (plan gratis 500 req/mes, en GitHub Actions Secrets) | Datos automáticos |
+| `BZZOIRO_API_KEY` | Bzzoiro Sports Data (momios de fútbol por casa, en vivo y xG; en GitHub Actions Secrets y en Vercel) | Datos automáticos |
+| `THE_ODDS_API_KEY` | The Odds API v4 (plan gratis 500 req/mes, en GitHub Actions Secrets); con Bzzoiro solo cubre la NFL | Datos automáticos |
 | `BETFAIR_APP_KEY`, `BETFAIR_SESSION_TOKEN` | Betfair Exchange API-NG Delayed App Key (opcional, en GitHub Actions Secrets) | Datos automáticos |
 | `VERCEL_DEPLOY_HOOK_URL` | Vercel (**Settings → Git → Deploy Hooks**, en GitHub Actions Secrets) | Datos automáticos |
 

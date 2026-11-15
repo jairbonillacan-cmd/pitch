@@ -91,6 +91,22 @@ export const SOURCE_LEGAL_REGISTRY: Readonly<Record<string, SourceMetadata>> = O
       "API REST oficial documentada que autoriza ingesta programática de cuotas sharp y recreativas.",
     inspectedEndpoints: ["https://api.the-odds-api.com/v4/sports/"],
   },
+  bzzoiro_odds: {
+    sourceId: "bzzoiro_odds",
+    displayName: "Bzzoiro Sports Data (API v2)",
+    kind: "aggregator",
+    legalStatus: "api_only",
+    officialApi: true,
+    requiredEnvVars: ["BZZOIRO_API_KEY"],
+    requiresAntibotEvasion: false,
+    rateLimitRps: 5.0,
+    legalReason:
+      "API REST con token y licencia v4.0 (sports.bzzoiro.com/docs/api-license/): permite mostrar momios en la app; prohíbe revenderlos como feed.",
+    inspectedEndpoints: [
+      "https://sports.bzzoiro.com/api/v2/events/",
+      "https://sports.bzzoiro.com/api/v2/odds/",
+    ],
+  },
   betfair_exchange: {
     sourceId: "betfair_exchange",
     displayName: "Betfair Exchange API-NG",

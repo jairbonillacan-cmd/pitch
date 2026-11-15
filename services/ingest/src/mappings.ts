@@ -190,6 +190,7 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   "Guadalajara Chivas": "chivas",
   "Chivas Guadalajara": "chivas",
   Guadalajara: "chivas",
+  "CD Guadalajara": "chivas",
   Chivas: "chivas",
   "Cruz Azul": "cruz-azul",
   "CF Cruz Azul": "cruz-azul",
@@ -227,6 +228,7 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   Tijuana: "tijuana",
   Toluca: "toluca",
   "Deportivo Toluca": "toluca",
+  "CD Toluca": "toluca",
 };
 
 /** Mapeo openfootball (`2026-27/es.1.json`) → slug de `pitchlab-brand/football/laliga-2026-27/manifest.json` */
@@ -259,6 +261,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "RC Deportivo La Coruña": "deportivo-la-coruna",
   "Deportivo de La Coruña": "deportivo-la-coruna",
   "Deportivo La Coruña": "deportivo-la-coruna",
+  "Deportivo de A Coruña": "deportivo-la-coruna",
   "RCD Espanyol de Barcelona": "espanyol",
   "RCD Espanyol": "espanyol",
   Espanyol: "espanyol",
@@ -269,6 +272,7 @@ export const LALIGA_TEAM_MAP: Record<string, string> = {
   "Real Madrid CF": "real-madrid",
   "Real Madrid": "real-madrid",
   "Real Racing Club de Santander": "racing-santander",
+  "Real Racing Club": "racing-santander",
   "Racing de Santander": "racing-santander",
   "Racing Santander": "racing-santander",
   Racing: "racing-santander",

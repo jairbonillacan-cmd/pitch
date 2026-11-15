@@ -17,6 +17,7 @@ import {
   type LegalStatus,
   type OddsSourceAdapter,
 } from "./legal-registry.js";
+import { BzzoiroOddsAdapter, BZZOIRO_ODDS_LEAGUES } from "./bzzoiro-odds.js";
 import { TheOddsApiAdapter } from "./the-odds-api.js";
 
 export const BETFAIR_API_NG_BASE = "https://api.betfair.com/exchange/betting/rest/v1.0";
@@ -321,7 +322,16 @@ export function buildPermittedActiveOddsAdapters(
       continue;
     }
     if (meta.sourceId === "the_odds_api") {
-      adapters.push(new TheOddsApiAdapter({ env }));
+      // Con Bzzoiro activo, el fútbol sale de ahí (sin cuota); The Odds API queda para la NFL.
+      const bzzoiroActive = Boolean(env.BZZOIRO_API_KEY?.trim());
+      adapters.push(
+        new TheOddsApiAdapter({
+          env,
+          excludeLeagues: bzzoiroActive ? BZZOIRO_ODDS_LEAGUES : undefined,
+        }),
+      );
+    } else if (meta.sourceId === "bzzoiro_odds") {
+      adapters.push(new BzzoiroOddsAdapter({ env }));
     } else if (meta.sourceId === "betfair_exchange") {
       adapters.push(new BetfairExchangeAdapter({ env }));
     }

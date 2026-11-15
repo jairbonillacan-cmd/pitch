@@ -6,7 +6,7 @@
  *
  * Flujo:
  * 1. Evalúa el régimen horario por liga (`cadence-scheduler.ts`) sobre `data/snapshots/<liga>/latest.json`.
- * 2. Ejecuta únicamente los adaptadores permitidos por la compuerta legal (`the_odds_api`, `betfair_exchange`).
+ * 2. Ejecuta únicamente los adaptadores permitidos por la compuerta legal (`bzzoiro_odds` para fútbol, `the_odds_api` para la NFL, `betfair_exchange`).
  * 3. Valida los ticks y el snapshot consolidado con Parte 3 (`regenerate-live-snapshot.ts`),
  *    conservando el archivo anterior si cualquier invariante falla.
  * 4. Actualiza `data/health/data-health.json` y dispara avisos deduplicados por Resend (Parte 4).
@@ -118,7 +118,7 @@ async function main(): Promise<void> {
     }
   } else if (adapters.length === 0) {
     console.log(
-      "[odds:refresh] Sin credenciales activas (THE_ODDS_API_KEY / BETFAIR_*); se verifica caducidad de 72 h sobre el snapshot vigente.",
+      "[odds:refresh] Sin credenciales activas (BZZOIRO_API_KEY / THE_ODDS_API_KEY / BETFAIR_*); se verifica caducidad de 72 h sobre el snapshot vigente.",
     );
   }
 

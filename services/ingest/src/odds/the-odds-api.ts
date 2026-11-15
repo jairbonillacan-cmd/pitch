@@ -249,6 +249,8 @@ export class TheOddsApiAdapter implements OddsSourceAdapter {
       transport?: CleanHttpTransport;
       regions?: string;
       markets?: string;
+      /** Ligas que cubre otra fuente y no se piden aquí (ahorra cuota). */
+      excludeLeagues?: readonly CanonicalLeague[];
     } = {},
   ) {
     this.transport =
@@ -275,6 +277,7 @@ export class TheOddsApiAdapter implements OddsSourceAdapter {
 
     const allRows: OddsSnapshotRow[] = [];
     for (const league of targetLeagues) {
+      if (this.options.excludeLeagues?.includes(league)) continue;
       const sportKey = LEAGUE_TO_THE_ODDS_SPORT_KEY[league];
       if (!sportKey) continue;
       const resp = await this.transport.request({

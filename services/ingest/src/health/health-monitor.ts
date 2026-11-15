@@ -343,6 +343,7 @@ export async function evaluateAndReportDataHealth(
 
   const hasOddsApiCredentials = Boolean(
     env.THE_ODDS_API_KEY?.trim() ||
+      env.BZZOIRO_API_KEY?.trim() ||
       (env.BETFAIR_APP_KEY?.trim() && env.BETFAIR_SESSION_TOKEN?.trim()),
   );
 
@@ -610,14 +611,14 @@ export async function evaluateAndReportDataHealth(
       updatedAtUtc: oddsUpdated,
       ageHours: oddsAge,
       maxHours: oddsMaxHours,
-      sourceLabel: booksList || (hasOddsApiCredentials ? "The Odds API / Betfair" : "Sin clave activa"),
+      sourceLabel: booksList || (hasOddsApiCredentials ? "Bzzoiro / The Odds API / Betfair" : "Sin clave activa"),
       recordsCount: leagueOdds?.count ?? 0,
       note:
         leagueOdds !== null
           ? `${leagueOdds.count} cuotas vigentes (< 72 h)`
           : hasOddsApiCredentials
             ? "Sin cuotas en ventana actual"
-            : "Configura THE_ODDS_API_KEY o BETFAIR_*",
+            : "Configura BZZOIRO_API_KEY, THE_ODDS_API_KEY o BETFAIR_*",
       lastError: oddsRuntimeErr
         ? {
             message: oddsRuntimeErr.message,
