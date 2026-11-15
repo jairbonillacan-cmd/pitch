@@ -68,6 +68,15 @@ export function getEmblemPath(league: string, slug: string): string {
   return `/brand/sports/${league}/${rev}/svg/${cleanSlug}.svg`;
 }
 
+export {
+  BZZOIRO_IMAGE_BASE_URL,
+  BZZOIRO_TEAM_IDS,
+  getBzzoiroTeamEmblemUrl,
+  getBzzoiroTeamId,
+  getResolvedTeamEmblem,
+  type ResolvedTeamEmblem,
+} from "./bzzoiro";
+
 export function getLeagueEmblemPath(league: string): string {
   const asset = getLeagueAsset(league);
   if (asset) {

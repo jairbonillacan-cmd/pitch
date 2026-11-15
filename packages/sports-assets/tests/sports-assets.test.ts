@@ -1,9 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  BZZOIRO_TEAM_IDS,
+  getBzzoiroTeamEmblemUrl,
+  getBzzoiroTeamId,
+  getEmblemPath,
   getLeagueAsset,
   getMascotPath,
+  getResolvedTeamEmblem,
   getTeamAsset,
   TEAM_ASSETS,
 } from "../src/index";
@@ -71,5 +76,136 @@ describe("@pitchlab/sports-assets", () => {
     }
     expect(existsSync(resolve(webPublic, "brand/mascot/r1/radar.webp"))).toBe(true);
     expect(getMascotPath("radar")).toBe("/brand/mascot/r1/radar.webp");
+  });
+
+  it("resuelve escudos de Bzzoiro para los clubes de fútbol y mantiene fallback local", () => {
+    const snapshotsRoot = resolve(import.meta.dirname, "../../../data/snapshots");
+    const leagues = [
+      "bundesliga",
+      "laliga",
+      "liga-mx",
+      "ligue-1",
+      "premier-league",
+      "serie-a",
+    ];
+    for (const league of leagues) {
+      expect(existsSync(resolve(snapshotsRoot, league, "latest.json"))).toBe(true);
+    }
+
+    let verifiedClubs = 0;
+    for (const league of leagues) {
+      const snapshotPath = resolve(snapshotsRoot, league, "latest.json");
+      const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8")) as {
+        games: Array<{
+          home: { id: string; slug?: string };
+          away: { id: string; slug?: string };
+        }>;
+      };
+      const slugs = new Set<string>();
+      for (const game of snapshot.games) {
+        slugs.add(game.home.slug ?? game.home.id.split(".")[1]);
+        slugs.add(game.away.slug ?? game.away.id.split(".")[1]);
+      }
+      for (const slug of slugs) {
+        const id = getBzzoiroTeamId(league, slug);
+        const url = getBzzoiroTeamEmblemUrl(league, slug);
+        expect(id, `Falta id Bzzoiro para ${league}.${slug}`).not.toBeNull();
+        expect(BZZOIRO_TEAM_IDS[`${league}.${slug}`]).toBe(id);
+        expect(url).toBe(`https://sports.bzzoiro.com/img/team/${id}/?bg=transparent`);
+
+        const resolved = getResolvedTeamEmblem(league, slug);
+        expect(resolved.src).toBe(url);
+        expect(resolved.isExternal).toBe(true);
+        expect(resolved.fallbackSrc).toBe(getEmblemPath(league, slug));
+        verifiedClubs += 1;
+      }
+    }
+    expect(verifiedClubs).toBeGreaterThanOrEqual(100);
+
+    expect(getBzzoiroTeamId("liga-mx", "monarcas-morelia")).toBe(4215);
+    expect(getBzzoiroTeamId("serie-a", "chievo-verona")).toBe(1273);
+    expect(getBzzoiroTeamId("liga-mx", "queretaro")).toBe(309);
+
+    const editorial = getResolvedTeamEmblem("premier-league", "arsenal", { editorialOnly: true });
+    expect(editorial).toEqual({
+      src: "/brand/sports/premier-league/r2/svg/arsenal.svg",
+      fallbackSrc: null,
+      isExternal: false,
+    });
+
+    expect(getBzzoiroTeamId("nfl", "kansas-city-chiefs")).toBeNull();
+    expect(getBzzoiroTeamEmblemUrl("mlb", "new-york-yankees")).toBeNull();
+    expect(getBzzoiroTeamEmblemUrl("nhl", "boston-bruins")).toBeNull();
+    expect(getResolvedTeamEmblem("nfl", "kansas-city-chiefs")).toEqual({
+      src: "/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg",
+      fallbackSrc: null,
+      isExternal: false,
+    });
+    expect(getResolvedTeamEmblem("mlb", "new-york-yankees")).toEqual({
+      src: "/brand/sports/mlb/r1/svg/new-york-yankees.svg",
+      fallbackSrc: null,
+      isExternal: false,
+    });
+    expect(getResolvedTeamEmblem("nhl", "boston-bruins")).toEqual({
+      src: "/brand/sports/nhl/r1/svg/boston-bruins.svg",
+      fallbackSrc: null,
+      isExternal: false,
+    });
+    expect(getResolvedTeamEmblem("premier-league", "club-inexistente")).toEqual({
+      src: null,
+      fallbackSrc: null,
+      isExternal: false,
+    });
+  });
+
+  it("resuelve los 30 escudos NBA en Bzzoiro basketball y mantiene los 32 de NHL locales", () => {
+    const snapshotsRoot = resolve(import.meta.dirname, "../../../data/snapshots");
+    const nbaSnap = JSON.parse(
+      readFileSync(resolve(snapshotsRoot, "nba", "latest.json"), "utf8"),
+    ) as { games: Array<{ home: { id: string; slug?: string }; away: { id: string; slug?: string } }> };
+
+    const nbaSlugs = new Set<string>();
+    for (const game of nbaSnap.games) {
+      nbaSlugs.add(game.home.slug ?? game.home.id.split(".")[1]);
+      nbaSlugs.add(game.away.slug ?? game.away.id.split(".")[1]);
+    }
+    expect(nbaSlugs.size).toBe(30);
+
+    for (const slug of nbaSlugs) {
+      const id = getBzzoiroTeamId("nba", slug);
+      const url = getBzzoiroTeamEmblemUrl("nba", slug);
+      expect(id, `Falta id Bzzoiro NBA para nba.${slug}`).not.toBeNull();
+      expect(url).toBe(`https://sports.bzzoiro.com/img/basketball/team/${id}/?bg=transparent`);
+      expect(getResolvedTeamEmblem("nba", slug)).toEqual({
+        src: url,
+        fallbackSrc: null,
+        isExternal: true,
+      });
+      expect(getResolvedTeamEmblem("nba", slug, { editorialOnly: true })).toEqual({
+        src: null,
+        fallbackSrc: null,
+        isExternal: false,
+      });
+    }
+
+    const nhlSnap = JSON.parse(
+      readFileSync(resolve(snapshotsRoot, "nhl", "latest.json"), "utf8"),
+    ) as { games: Array<{ home: { id: string; slug?: string }; away: { id: string; slug?: string } }> };
+
+    const nhlSlugs = new Set<string>();
+    for (const game of nhlSnap.games) {
+      nhlSlugs.add(game.home.slug ?? game.home.id.split(".")[1]);
+      nhlSlugs.add(game.away.slug ?? game.away.id.split(".")[1]);
+    }
+    expect(nhlSlugs.size).toBe(32);
+
+    for (const slug of nhlSlugs) {
+      expect(getBzzoiroTeamId("nhl", slug)).toBeNull();
+      expect(getResolvedTeamEmblem("nhl", slug)).toEqual({
+        src: `/brand/sports/nhl/r1/svg/${slug}.svg`,
+        fallbackSrc: null,
+        isExternal: false,
+      });
+    }
   });
 });

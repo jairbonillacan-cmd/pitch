@@ -488,6 +488,15 @@ html[data-theme="light"] .only-light {
   height: 100%;
   object-fit: contain;
 }
+/* Escudos PNG con tinta oscura sobre fondo transparente mantienen contorno nítido en tema oscuro. */
+:where(html:not([data-theme="light"])) .badge[data-emblem-source="bzzoiro"] img,
+[data-theme="dark"] .badge[data-emblem-source="bzzoiro"] img {
+  filter: drop-shadow(0 0 0.85px color-mix(in srgb, var(--canvas-light) 88%, transparent))
+    drop-shadow(0 1px 4px color-mix(in srgb, var(--canvas-light) 18%, transparent));
+}
+[data-theme="light"] .badge[data-emblem-source="bzzoiro"] img {
+  filter: none;
+}
 .badge-fallback {
   border-radius: 6px;
   background: var(--surface-hover);

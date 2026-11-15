@@ -234,15 +234,45 @@ export const NavigationAndFooter = () => (
   </div>
 );
 
-export const BadgesShowcase = () => (
-  <div style={{ display: "flex", gap: "16px", alignItems: "center", padding: "24px" }}>
+const BadgesRow = () => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center", padding: "24px" }}>
     <LeagueBadge league="liga-mx" size={44} />
     <LeagueBadge league="premier-league" size={44} />
     <LeagueBadge league="nfl" size={44} />
     <LeagueBadge league="nhl" size={44} />
     <LeagueBadge league="mlb" size={44} />
     <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={40} />
+    <TeamBadge league="premier-league" slug="tottenham-hotspur" name="Tottenham" size={40} />
+    <TeamBadge league="serie-a" slug="juventus" name="Juventus" size={40} />
+    <TeamBadge league="liga-mx" slug="monterrey" name="Monterrey" size={40} />
+    <TeamBadge league="liga-mx" slug="pumas-unam" name="Pumas UNAM" size={40} />
+    <TeamBadge league="liga-mx" slug="queretaro" name="Querétaro" size={40} />
     <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={40} />
+    <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={40} />
+    <TeamBadge league="nba" slug="brooklyn-nets" name="Nets" size={40} />
+    <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={40} />
+    <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={40} />
+    <TeamBadge league="premier-league" slug="club-inexistente" name="Sin Escudo" size={40} />
+  </div>
+);
+
+export const BadgesShowcase = () => <BadgesRow />;
+
+export const BadgesShowcaseDark = () => (
+  <div
+    data-theme="dark"
+    style={{ background: "var(--background-primary)", color: "var(--text-primary)", borderRadius: "16px" }}
+  >
+    <BadgesRow />
+  </div>
+);
+
+export const BadgesShowcaseLight = () => (
+  <div
+    data-theme="light"
+    style={{ background: "var(--background-primary)", color: "var(--text-primary)", borderRadius: "16px" }}
+  >
+    <BadgesRow />
   </div>
 );
 

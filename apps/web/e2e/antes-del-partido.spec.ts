@@ -1,5 +1,45 @@
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "./fixtures";
+
+const PRE_MATCH_LEAGUES = [
+  "liga-mx",
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "nfl",
+] as const;
+
+function pickScheduledGameRoute(): string {
+  const snapshotsRoot = resolve(import.meta.dirname, "../../../data/snapshots");
+  const nowMs = Date.now();
+  let fallbackScheduledRoute: string | null = null;
+
+  for (const league of PRE_MATCH_LEAGUES) {
+    const file = resolve(snapshotsRoot, league, "latest.json");
+    if (!existsSync(file)) continue;
+    const snapshot = JSON.parse(readFileSync(file, "utf8")) as {
+      games?: Array<{ id: string; status: string; startTime?: string }>;
+    };
+    const scheduled = (snapshot.games ?? []).filter((g) => g.status === "scheduled");
+    const upcoming = scheduled.find((g) => {
+      const ts = g.startTime ? Date.parse(g.startTime) : Number.NaN;
+      return Number.isFinite(ts) && ts > nowMs;
+    });
+    if (upcoming) {
+      return `/app/${league}/games/${upcoming.id}`;
+    }
+    if (!fallbackScheduledRoute && scheduled[0]) {
+      fallbackScheduledRoute = `/app/${league}/games/${scheduled[0].id}`;
+    }
+  }
+
+  if (fallbackScheduledRoute) return fallbackScheduledRoute;
+  throw new Error("No hay partidos scheduled en data/snapshots/*/latest.json para probar Antes del partido.");
+}
 
 async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
   await page.locator("[data-profile-menu-trigger]:visible").first().click();
@@ -27,7 +67,7 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
   });
   expect(unlock.ok()).toBe(true);
 
-  await page.goto("/app/liga-mx/games/mx-2026-j16-queretaro-monterrey-401876988");
+  await page.goto(pickScheduledGameRoute());
   await expect(page.locator("[data-match-studio]")).toBeVisible();
 
   const moduleSection = page.locator("[data-pre-match-module]");
@@ -80,7 +120,7 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
     await bellButton.click();
     await expect(bellButton).toHaveAttribute("aria-pressed", "true");
     await expect(moduleSection).toContainText("Aviso activo en tu campana");
-    await expect(page.getByRole("button", { name: "En vigilancia" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Siguiendo" })).toBeVisible();
   }
 
   // Cero desborde horizontal en móvil estricto de 375 px

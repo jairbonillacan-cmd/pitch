@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import type {
   AnalysisConfidence,
   AnalysisMarketGroup,
@@ -22,10 +22,9 @@ import {
   selectionHolds,
 } from "@pitchlab/contracts";
 import {
-  getEmblemPath,
   getLeagueEmblemPath,
+  getResolvedTeamEmblem,
   hasLeagueAsset,
-  hasTeamAsset,
 } from "@pitchlab/sports-assets";
 import { Icon } from "./icons";
 import { Badge } from "./components/ui/badge";
@@ -71,14 +70,71 @@ export function TeamBadge({
   name,
   size = 24,
   decorative = true,
+  editorialOnly = false,
 }: {
   league: LeagueId | string;
   slug: string;
   name?: string;
   size?: number;
   decorative?: boolean;
+  /** Limita la insignia a los SVG editoriales locales (p. ej. piezas de marketing). */
+  editorialOnly?: boolean;
 }): React.JSX.Element {
-  if (!hasTeamAsset(league, slug)) {
+  const resolved = getResolvedTeamEmblem(league, slug, { editorialOnly });
+  const resolutionKey = `${resolved.src ?? ""}|${resolved.fallbackSrc ?? ""}`;
+  const [failure, setFailure] = useState<{
+    key: string;
+    stage: "fallback" | "initials";
+  } | null>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const stage: "primary" | "fallback" | "initials" = !resolved.src
+    ? "initials"
+    : failure && failure.key === resolutionKey
+      ? failure.stage
+      : "primary";
+
+  const currentSrc =
+    stage === "primary"
+      ? resolved.src
+      : stage === "fallback"
+        ? resolved.fallbackSrc
+        : null;
+
+  const isCurrentExternal = stage === "primary" && resolved.isExternal;
+
+  const advanceFallback = () => {
+    if (
+      stage === "primary" &&
+      resolved.fallbackSrc &&
+      resolved.fallbackSrc !== resolved.src
+    ) {
+      setFailure({ key: resolutionKey, stage: "fallback" });
+      return;
+    }
+    setFailure({ key: resolutionKey, stage: "initials" });
+  };
+
+  useEffect(() => {
+    // Al hidratar SSR, onLoad/onError pueden haberse disparado antes de montar el efecto.
+    const img = imgRef.current;
+    if (!img || !currentSrc || !img.complete) return;
+    if (
+      img.naturalWidth === 0 ||
+      (isCurrentExternal && (img.naturalWidth <= 1 || img.naturalHeight <= 1))
+    ) {
+      advanceFallback();
+    }
+  }, [
+    currentSrc,
+    isCurrentExternal,
+    resolutionKey,
+    resolved.fallbackSrc,
+    resolved.src,
+    stage,
+  ]);
+
+  if (!currentSrc) {
     return (
       <span
         className="badge badge-fallback"
@@ -93,16 +149,31 @@ export function TeamBadge({
   return (
     <span
       className="badge"
+      data-emblem-source={isCurrentExternal ? "bzzoiro" : "editorial"}
       style={{ width: size, height: size }}
       aria-hidden={decorative ? "true" : undefined}
       title={name}
     >
       <img
-        src={getEmblemPath(league, slug)}
+        key={currentSrc}
+        ref={imgRef}
+        src={currentSrc}
         alt={decorative ? "" : (name ?? "")}
         width={size}
         height={size}
         decoding="async"
+        referrerPolicy={isCurrentExternal ? "no-referrer" : undefined}
+        onError={advanceFallback}
+        onLoad={(event) => {
+          // Bzzoiro responde 200 con PNG 1x1 (~70 B) cuando el equipo no tiene escudo.
+          if (
+            isCurrentExternal &&
+            (event.currentTarget.naturalWidth <= 1 ||
+              event.currentTarget.naturalHeight <= 1)
+          ) {
+            advanceFallback();
+          }
+        }}
       />
     </span>
   );

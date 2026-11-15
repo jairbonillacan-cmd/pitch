@@ -11,6 +11,7 @@ import {
   Field,
   Mascot,
   BrandLogo,
+  TeamBadge,
   ProbSplit,
   MatchCard,
   ResultsSection,
@@ -187,5 +188,59 @@ describe("@pitchlab/ui components", () => {
     expect(html).toContain("final-miss");
     expect(html).toContain("1 ganado");
     expect(html).toContain("1 perdido");
+  });
+
+  it("renders Bzzoiro team crests for football, respects editorialOnly, keeps NFL local and falls back to initials", () => {
+    const footballHtml = renderToStaticMarkup(
+      <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} decorative={false} />,
+    );
+    expect(footballHtml).toContain('data-emblem-source="bzzoiro"');
+    expect(footballHtml).toContain('src="https://sports.bzzoiro.com/img/team/18/?bg=transparent"');
+    expect(footballHtml).toContain('referrerPolicy="no-referrer"');
+    expect(footballHtml).toContain('alt="Arsenal"');
+
+    const editorialHtml = renderToStaticMarkup(
+      <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={36} editorialOnly />,
+    );
+    expect(editorialHtml).toContain('data-emblem-source="editorial"');
+    expect(editorialHtml).toContain('src="/brand/sports/premier-league/r2/svg/arsenal.svg"');
+    expect(editorialHtml).not.toContain("sports.bzzoiro.com");
+
+    const nflHtml = renderToStaticMarkup(
+      <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={36} />,
+    );
+    expect(nflHtml).toContain('data-emblem-source="editorial"');
+    expect(nflHtml).toContain('src="/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg"');
+
+    const nhlHtml = renderToStaticMarkup(
+      <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} />,
+    );
+    expect(nhlHtml).toContain('data-emblem-source="editorial"');
+    expect(nhlHtml).toContain('src="/brand/sports/nhl/r1/svg/boston-bruins.svg"');
+
+    const mlbHtml = renderToStaticMarkup(
+      <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} />,
+    );
+    expect(mlbHtml).toContain('data-emblem-source="editorial"');
+    expect(mlbHtml).toContain('src="/brand/sports/mlb/r1/svg/new-york-yankees.svg"');
+
+    const nbaHtml = renderToStaticMarkup(
+      <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} />,
+    );
+    expect(nbaHtml).toContain('data-emblem-source="bzzoiro"');
+    expect(nbaHtml).toContain('src="https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent"');
+
+    const nbaEditorialHtml = renderToStaticMarkup(
+      <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} editorialOnly />,
+    );
+    expect(nbaEditorialHtml).toContain("badge-fallback");
+    expect(nbaEditorialHtml).not.toContain("sports.bzzoiro.com");
+
+    const fallbackHtml = renderToStaticMarkup(
+      <TeamBadge league="premier-league" slug="club-inexistente" name="Club Prueba" size={36} />,
+    );
+    expect(fallbackHtml).toContain("badge-fallback");
+    expect(fallbackHtml).toContain(">CP<");
+    expect(fallbackHtml).not.toContain("<img");
   });
 });

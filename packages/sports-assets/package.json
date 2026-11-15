@@ -10,7 +10,8 @@
     "build": "node scripts/sync-assets.mjs && tsc --noEmit",
     "test": "node scripts/sync-assets.mjs && vitest run",
     "typecheck": "node scripts/sync-assets.mjs && tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "sync:bzzoiro": "node scripts/sync-bzzoiro-teams.mjs"
   },
   "dependencies": {
     "@pitchlab/contracts": "workspace:*",
