@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import type { CountProjection } from "@pitchlab/contracts";
+import { sportScoringUnit, type CountProjection } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
@@ -109,8 +109,9 @@ export function MatchNumbersPanel({
   onHouseOddChange,
   onSealRow,
 }: MatchNumbersPanelProps): React.JSX.Element {
-  const isNfl = game.sport === "american-football" || game.league === "nfl";
-  const decimals = isNfl ? 1 : 2;
+  const isNfl = game.sport !== "football";
+  const unit = sportScoringUnit(game.sport);
+  const decimals = unit.decimals;
   const canReadNumbers = unlocked || isFinished;
 
   const cards = useMemo<MetricCardItem[]>(() => {
@@ -118,24 +119,26 @@ export function MatchNumbersPanel({
     const items: MetricCardItem[] = [];
 
     const goalRows = markets.filter((r) => r.market === "totals");
+    if (!game.projection && !(isFinished && game.score)) return items;
+    const proj = game.projection ?? { home: 0, away: 0, total: 0 };
     const goalTotal =
       isFinished && game.score
         ? `${game.score.home + game.score.away}`
-        : game.projection.total.toFixed(decimals);
+        : proj.total.toFixed(decimals);
     const goalHome =
       isFinished && game.score
         ? `${game.score.home}`
-        : game.projection.home.toFixed(decimals);
+        : proj.home.toFixed(decimals);
     const goalAway =
       isFinished && game.score
         ? `${game.score.away}`
-        : game.projection.away.toFixed(decimals);
-    const homeNum = isFinished && game.score ? game.score.home : game.projection.home;
-    const awayNum = isFinished && game.score ? game.score.away : game.projection.away;
+        : proj.away.toFixed(decimals);
+    const homeNum = isFinished && game.score ? game.score.home : proj.home;
+    const awayNum = isFinished && game.score ? game.score.away : proj.away;
 
     items.push({
       key: "goals",
-      title: isNfl ? "Puntos esperados" : "Goles esperados",
+      title: unit.plural === "puntos" ? "Puntos esperados" : "Goles esperados",
       subtitle: isFinished ? "Marcador final registrado" : "Producción proyectada por equipo",
       homeValue: goalHome,
       awayValue: goalAway,
@@ -168,7 +171,7 @@ export function MatchNumbersPanel({
     }
 
     return items;
-  }, [canReadNumbers, decimals, game.counts, game.goalLine, game.projection.away, game.projection.home, game.projection.total, game.score, isFinished, isNfl, markets, oddsFormat]);
+  }, [canReadNumbers, decimals, game.counts, game.goalLine, game.projection, game.score, isFinished, isNfl, markets, oddsFormat]);
 
   const hasCountMetrics = cards.some((card) => card.key !== "goals");
 

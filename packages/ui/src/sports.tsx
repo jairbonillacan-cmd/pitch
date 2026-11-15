@@ -20,6 +20,8 @@ import {
   formatPercent,
   probabilityToFairOdds,
   selectionHolds,
+  sportHasDraw,
+  sportScoringUnit,
 } from "@pitchlab/contracts";
 import {
   getBzzoiroLeagueEmblemUrl,
@@ -506,12 +508,14 @@ export function featuredPickOf(
 export function effectiveFeaturedPick(match: MatchAnalysis): AnalysisPick | undefined {
   const explicit = featuredPickOf(match.picks) ?? match.picks?.[0];
   if (explicit) return explicit;
-  const nf = match.league === "nfl";
-  const draw = !nf;
+  if (match.hasForecast === false || (!match.x12 && match.outcomes.length === 0)) {
+    return undefined;
+  }
+  const draw = sportHasDraw(match.sport);
   const x12 = match.x12 ?? [
-    match.outcomes[0]?.probability ?? 0.45,
-    draw ? (match.outcomes[1]?.probability ?? 0.25) : 0,
-    match.outcomes[draw ? 2 : 1]?.probability ?? 0.3,
+    match.outcomes[0]?.probability ?? 0.5,
+    draw ? (match.outcomes[1]?.probability ?? 0) : 0,
+    match.outcomes[draw ? 2 : 1]?.probability ?? 0.5,
   ];
   const [ph, pd, pa] = x12;
   const ps = draw ? [ph, pd, pa] : [ph, pa];
@@ -886,20 +890,17 @@ export function MatchCard({
   showLeague?: boolean;
 }): React.JSX.Element {
   const isFinished = match.status === "FT" && match.score !== undefined;
-  const nf = match.league === "nfl";
-  const draw = !nf;
-  const x12 = match.x12 ?? [
-    match.outcomes[0]?.probability ?? 0.45,
-    draw ? (match.outcomes[1]?.probability ?? 0.25) : 0,
-    match.outcomes[draw ? 2 : 1]?.probability ?? 0.3,
-  ];
+  const draw = sportHasDraw(match.sport);
+  const unit = sportScoringUnit(match.sport);
+  const hasForecast = match.hasForecast !== false && Boolean(match.x12 && match.projection);
+  const x12 = match.x12 ?? [0, 0, 0];
   const [ph, pd, pa] = x12;
   const ps = draw ? [ph, pd, pa] : [ph, pa];
-  const li = leadIndex(ps);
+  const li = hasForecast ? leadIndex(ps) : -1;
   const hL = li === 0;
   const aL = li === ps.length - 1;
   const dL = draw && li === 1;
-  const proj = match.projection ?? { home: nf ? 24 : 1.5, away: nf ? 21 : 1.2, total: nf ? 45 : 2.7 };
+  const proj = match.projection ?? null;
   const featured = isFinished ? effectiveFeaturedPick(match) : featuredPickOf(match.picks);
   const featuredResult = isFinished && featured ? pickResult(featured, match.score) : null;
   const finalStateClass =
@@ -954,7 +955,7 @@ export function MatchCard({
             .replace(/\s+/g, " ")
             .trim()}
         >
-          {isFinished ? match.score?.home : formatPercent(ph, 1)}
+          {isFinished ? match.score?.home : hasForecast ? formatPercent(ph, 1) : "—"}
         </span>
       </span>
 
@@ -969,14 +970,16 @@ export function MatchCard({
             .replace(/\s+/g, " ")
             .trim()}
         >
-          {isFinished ? match.score?.away : formatPercent(pa, 1)}
+          {isFinished ? match.score?.away : hasForecast ? formatPercent(pa, 1) : "—"}
         </span>
       </span>
 
-      <ProbSplit
-        probabilities={ps}
-        labels={draw ? [match.home.name, "Empate", match.away.name] : [match.home.name, match.away.name]}
-      />
+      {hasForecast ? (
+        <ProbSplit
+          probabilities={ps}
+          labels={draw ? [match.home.name, "Empate", match.away.name] : [match.home.name, match.away.name]}
+        />
+      ) : null}
 
       {featured ? (
         <span className="pickline" data-card-pick="">
@@ -995,15 +998,17 @@ export function MatchCard({
 
       <span className="foot">
         <span>
-          {draw ? (
+          {hasForecast && draw ? (
             <>
               <span className={dL && !isFinished ? "lead-txt" : ""}>Empate {formatPercent(pd, 1)}</span>
               {" · "}
             </>
           ) : null}
-          {projected && !nf
-            ? "Proyectado " + projected.home + "–" + projected.away
-            : "Proy. " + proj.home.toFixed(nf ? 0 : 1) + "–" + proj.away.toFixed(nf ? 0 : 1)}
+          {!proj
+            ? "Sin pronóstico publicado"
+            : projected && unit.short !== "pts"
+              ? "Proyectado " + projected.home + "–" + projected.away
+              : "Proy. " + proj.home.toFixed(unit.decimals) + "–" + proj.away.toFixed(unit.decimals)}
         </span>
         <span className="open">
           Analizar <Icon name="arrow" />

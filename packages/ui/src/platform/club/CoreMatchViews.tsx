@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  formatOddsCaptureEs,
+  sportHasDraw,
+  sportScoringUnit,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   LeagueBadge,
@@ -125,7 +130,7 @@ export function LeagueHubClubView({
                 className="text-xs font-bold"
                 style={{ color: "var(--pl-brand)" }}
               >
-                {leagueSummary.season} · {leagueSummary.roundLabel}
+                {[leagueSummary.season, leagueSummary.roundLabel].filter(Boolean).join(" · ")}
               </span>
               <h1 id="panel-league-name" className="m-0 text-2xl sm:text-3xl font-extrabold">
                 {leagueSummary.label}
@@ -335,7 +340,11 @@ export function MatchStudioClubView({
     return detail && base.id === gameId ? { ...base, ...detail } : base;
   }, [dataset.games, gameId, leagueId, detail]);
 
-  const isNfl = game.sport === "american-football" || game.league === "nfl";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport);
+  const hasForecast =
+    game.hasForecast !== false && Boolean(game.x12 && game.projection);
+  const overtimeFactor = game.factors.find((f) => /tiempo extra/i.test(f.label));
   const flow = game.preGame.moneyFlow;
   const isFinished = game.status === "FT" && game.score !== undefined;
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
@@ -350,7 +359,13 @@ export function MatchStudioClubView({
   const studioPath = `/app/${game.league}/games/${game.id}`;
   const mainEngineName =
     game.picks[0]?.engineName ??
-    (isNfl ? "PitchLab Minkowski v3.0" : "PitchLab Tachyon v3.0");
+    (game.sport === "american-football"
+      ? "PitchLab Minkowski v3.0"
+      : game.sport === "basketball"
+        ? "PitchLab Motor NBA"
+        : game.sport === "ice-hockey"
+          ? "PitchLab Motor NHL"
+          : "PitchLab Tachyon v3.0");
 
   const activeMarkets = useMemo(() => {
     if (!intelUnlocked && !isFinished && game.markets.length === 0) return [];
@@ -480,7 +495,7 @@ export function MatchStudioClubView({
                 id="modal-league"
                 className="text-xs font-semibold"
               >
-                {game.leagueLabel} · {game.round} · {game.venue}
+                {[game.leagueLabel, game.round, game.venue].filter(Boolean).join(" · ")}
               </span>
             </div>
 
@@ -520,13 +535,20 @@ export function MatchStudioClubView({
                 <strong className="num text-3xl font-extrabold block">
                   {game.score?.home} – {game.score?.away}
                 </strong>
+              ) : !hasForecast || !game.projection ? (
+                <strong
+                  className="text-lg font-extrabold block"
+                  style={{ color: "var(--pl-text-secondary)" }}
+                >
+                  Sin pronóstico
+                </strong>
               ) : intelUnlocked ? (
                 <strong
                   className="num text-2xl font-extrabold block"
                   style={{ color: "var(--pl-brand)" }}
                 >
-                  Proy. {game.projection.home.toFixed(isNfl ? 1 : 2)} –{" "}
-                  {game.projection.away.toFixed(isNfl ? 1 : 2)}
+                  Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
+                  {game.projection.away.toFixed(unit.decimals)}
                 </strong>
               ) : (
                 <span className="pl-pill inline-flex items-center gap-1.5">
@@ -538,10 +560,24 @@ export function MatchStudioClubView({
                 className="text-xs num block"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                {intelUnlocked || isFinished
-                  ? `${isNfl ? "Puntos" : "Goles"} esperados: ${game.projection.total.toFixed(isNfl ? 1 : 2)}`
-                  : "Disponible con Pase PitchLab Ultra"}
+                {!hasForecast || !game.projection
+                  ? "Sin pronóstico ni confianza publicados"
+                  : intelUnlocked || isFinished
+                    ? `${unit.plural === "puntos" ? "Puntos" : "Goles"} esperados: ${game.projection.total.toFixed(unit.decimals)}`
+                    : "Disponible con Pase PitchLab Ultra"}
               </span>
+              {overtimeFactor && hasForecast ? (
+                <span
+                  className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 mt-1 max-w-full"
+                  data-overtime-pill=""
+                  title={overtimeFactor.sub ?? undefined}
+                >
+                  <span>
+                    {overtimeFactor.label}: {overtimeFactor.value}
+                    {overtimeFactor.sub ? ` · ${overtimeFactor.sub}` : ""}
+                  </span>
+                </span>
+              ) : null}
             </div>
 
             <div className="flex items-center gap-3.5 md:justify-end min-w-0">
@@ -565,17 +601,30 @@ export function MatchStudioClubView({
             </div>
           </div>
 
-          <div className="relative z-10">
-            <ProbSplit
-              probabilities={isNfl ? [game.x12[0], game.x12[2]] : game.x12}
-              labels={
-                isNfl
-                  ? [game.home.shortName, game.away.shortName]
-                  : [game.home.shortName, "Empate", game.away.shortName]
-              }
-              showLabels
-            />
-          </div>
+          {hasForecast && game.x12 ? (
+            <div className="relative z-10">
+              <ProbSplit
+                probabilities={hasDraw ? game.x12 : [game.x12[0], game.x12[2]]}
+                labels={
+                  hasDraw
+                    ? [game.home.shortName, "Empate", game.away.shortName]
+                    : [game.home.shortName, game.away.shortName]
+                }
+                showLabels
+              />
+            </div>
+          ) : (
+            <div
+              className="relative z-10 rounded-2xl px-4 py-3 text-xs"
+              style={{
+                background: "var(--pl-surface-soft)",
+                color: "var(--pl-text-muted)",
+              }}
+              data-empty-forecast=""
+            >
+              Este snapshot aún no incluye pronóstico ni confianza publicados para este partido.
+            </div>
+          )}
         </section>
 
         {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
@@ -616,6 +665,15 @@ export function MatchStudioClubView({
               ) : null}
             </div>
 
+            {game.picks.length === 0 ? (
+              <div
+                className="glass-card glass-ring rounded-2xl p-4 text-sm"
+                style={{ color: "var(--pl-text-muted)" }}
+                data-empty-forecast=""
+              >
+                Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
+              </div>
+            ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {game.picks.map((pk) => (
                 <div key={pk.id} className="space-y-1.5">
@@ -642,6 +700,7 @@ export function MatchStudioClubView({
                 </div>
               ))}
             </div>
+            )}
           </section>
 
           {/* Lectura de Cortex IA + pulso de mercado */}
@@ -707,19 +766,19 @@ export function MatchStudioClubView({
                           {game.home.shortName}: dinero / modelo
                         </span>
                         <strong className="shrink-0">
-                          {flow.homeShare} % / {(game.x12[0] * 100).toFixed(0)} %
+                          {flow.homeShare} %{game.x12 ? ` / ${(game.x12[0] * 100).toFixed(0)} %` : ""}
                         </strong>
                       </div>
                       <PBar p={flow.homeShare / 100} lead={flow.homeShare >= 50} />
 
-                      {flow.drawShare !== undefined ? (
+                      {flow.drawShare !== undefined && hasDraw ? (
                         <>
                           <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
                             <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
                               Empate: dinero / modelo
                             </span>
                             <strong className="shrink-0">
-                              {flow.drawShare} % / {(game.x12[1] * 100).toFixed(0)} %
+                              {flow.drawShare} %{game.x12 ? ` / ${(game.x12[1] * 100).toFixed(0)} %` : ""}
                             </strong>
                           </div>
                           <PBar p={flow.drawShare / 100} />
@@ -731,7 +790,7 @@ export function MatchStudioClubView({
                           {game.away.shortName}: dinero / modelo
                         </span>
                         <strong className="shrink-0">
-                          {flow.awayShare} % / {(game.x12[2] * 100).toFixed(0)} %
+                          {flow.awayShare} %{game.x12 ? ` / ${(game.x12[2] * 100).toFixed(0)} %` : ""}
                         </strong>
                       </div>
                       <PBar p={flow.awayShare / 100} lead={flow.awayShare > 50} />

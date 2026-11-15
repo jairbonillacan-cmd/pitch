@@ -158,7 +158,7 @@ function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): nu
       pick.p * 100 +
       (pick.category === "conservador" || pick.category === "principal" ? 3 : 0) +
       (pick.edgePts ?? 0) * 0.4 +
-      pick.confidenceScore * 0.02
+      (pick.confidenceScore ?? 0) * 0.02
     );
   }
   if (risk === "medio") {
@@ -168,7 +168,7 @@ function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): nu
       bandBonus +
       pick.p * 32 +
       (pick.edgePts ?? 0) * 2.5 +
-      pick.confidenceScore * 0.1
+      (pick.confidenceScore ?? 0) * 0.1
     );
   }
   const bandBonus =
@@ -177,7 +177,7 @@ function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): nu
     bandBonus +
     (1 - Math.abs(0.46 - pick.p)) * 24 +
     (pick.edgePts ?? 0) * 3.8 +
-    pick.confidenceScore * 0.12
+    (pick.confidenceScore ?? 0) * 0.12
   );
 }
 

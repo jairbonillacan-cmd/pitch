@@ -1,5 +1,10 @@
 import React from "react";
-import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
+import {
+  asLeagueId,
+  sportHasDraw,
+  sportScoringUnit,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import { BrandLogo, Mascot } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import { checkParlayCompatibility, computeParlaySummary } from "../parlay-engine";
@@ -118,8 +123,9 @@ const LEAGUE_PRIORITY_ORDER: readonly LeagueId[] = [
   asLeagueId("bundesliga"),
   asLeagueId("serie-a"),
   asLeagueId("ligue-1"),
-  asLeagueId("ncaaf"),
+  asLeagueId("nba"),
   asLeagueId("nhl"),
+  asLeagueId("ncaaf"),
   asLeagueId("mlb"),
 ];
 
@@ -131,8 +137,9 @@ const LEAGUE_SHORT_NAMES: Readonly<Record<string, string>> = {
   bundesliga: "Bundesliga",
   "serie-a": "Serie A",
   "ligue-1": "Ligue 1",
-  ncaaf: "NCAAF",
+  nba: "NBA",
   nhl: "NHL",
+  ncaaf: "NCAAF",
   mlb: "MLB",
 };
 
@@ -202,11 +209,12 @@ function buildTeamNote(
   if (team.record && team.record.trim().length > 0) {
     return team.record.trim();
   }
-  const projVal = side === "home" ? game.projection.home : game.projection.away;
-  if (game.sport === "american-football") {
-    return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} pts`;
+  if (!game.projection) {
+    return side === "home" ? "Local" : "Visitante";
   }
-  return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} goles`;
+  const unit = sportScoringUnit(game.sport);
+  const projVal = side === "home" ? game.projection.home : game.projection.away;
+  return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} ${unit.short}`;
 }
 
 /** Etiqueta que se entiende sin la tabla: «Ambos anotan: Sí», «Más de 2.5 goles». */
@@ -253,12 +261,20 @@ function deriveOtherMarketsForGame(
     if (chosen.length >= 3) return chosen;
   }
 
+  if (!game.x12 || !game.projection) {
+    return [];
+  }
+
   const [pHome, pDraw, pAway] = game.x12;
   const fallbackRows: Array<{ label: string; p: number }> = [];
+  const hasDraw = sportHasDraw(game.sport);
 
-  if (game.sport === "american-football" || game.league === "nfl") {
+  if (!hasDraw) {
+    const isPointsSport = sportScoringUnit(game.sport).short === "pts";
     const margin = game.projection.home - game.projection.away;
-    const pointsModel = buildPointsModel(game.projection.total, margin, pHome);
+    const pointsModel = isPointsSport
+      ? buildPointsModel(game.projection.total, margin, pHome)
+      : buildGoalModel(game.projection.total, margin);
     if (pointsModel) {
       const spreadHalf = Math.round(Math.abs(margin)) + 0.5;
       const favIsHome = pHome >= pAway;
@@ -279,7 +295,7 @@ function deriveOtherMarketsForGame(
       if (overP !== null) {
         const useOver = overP >= 0.5;
         fallbackRows.push({
-          label: `${useOver ? "Más" : "Menos"} de ${totalHalf} puntos`,
+          label: `${useOver ? "Más" : "Menos"} de ${totalHalf} ${isPointsSport ? "puntos" : "goles"}`,
           p: useOver ? overP : 1 - overP,
         });
       }
@@ -293,7 +309,7 @@ function deriveOtherMarketsForGame(
       );
       if (teamOverP !== null) {
         fallbackRows.push({
-          label: `${favIsHome ? homeName : awayName} más de ${favTeamHalf} pts`,
+          label: `${favIsHome ? homeName : awayName} más de ${favTeamHalf} ${isPointsSport ? "pts" : "goles"}`,
           p: teamOverP,
         });
       }
@@ -353,9 +369,12 @@ function pickPreferredHeroGame(
   league: LeagueId,
   leagueGames: readonly PlatformGame[],
 ): PlatformGame | undefined {
-  if (leagueGames.length === 0) return undefined;
-  const upcoming = leagueGames.filter((game) => game.status !== "FT");
-  const pool = upcoming.length > 0 ? upcoming : leagueGames;
+  const withForecast = leagueGames.filter(
+    (game) => game.hasForecast !== false && game.x12 !== null && game.projection !== null,
+  );
+  if (withForecast.length === 0) return undefined;
+  const upcoming = withForecast.filter((game) => game.status !== "FT");
+  const pool = upcoming.length > 0 ? upcoming : withForecast;
 
   if (league === "liga-mx") {
     const qroMty = pool.find(
@@ -405,22 +424,22 @@ export function buildHeroLeagueCards(
   for (const league of orderedLeagues) {
     const leagueGames = games.filter((g) => g.league === league);
     const chosen = pickPreferredHeroGame(league, leagueGames);
-    if (!chosen) continue;
+    if (!chosen || !chosen.x12) continue;
 
     const summary = summaryByLeague.get(league);
     const homeName = teamDisplayName(chosen.home);
     const awayName = teamDisplayName(chosen.away);
-    const isNfl = chosen.sport === "american-football" || chosen.league === "nfl";
+    const hasDraw = sportHasDraw(chosen.sport);
 
     const [rawHome, rawDraw, rawAway] = chosen.x12;
-    const splitProbabilities = isNfl
+    const splitProbabilities = !hasDraw
       ? [rawHome, rawAway]
       : [rawHome, rawDraw, rawAway];
-    const splitLabels = isNfl
+    const splitLabels = !hasDraw
       ? [homeName, awayName]
       : [homeName, "Empate", awayName];
 
-    const h2hCandidates = isNfl
+    const h2hCandidates = !hasDraw
       ? [
           { label: `${homeName} gana`, p: rawHome },
           { label: `${awayName} gana`, p: rawAway },
@@ -522,26 +541,28 @@ function buildOpposingSyntheticPick(
 ): MatchPick {
   const homeName = teamDisplayName(game.home);
   const awayName = teamDisplayName(game.away);
+  const pHome = game.x12?.[0] ?? 0.5;
+  const pAway = game.x12?.[2] ?? 0.5;
   let conflictGroup: PickConflictGroup = "home_side";
   let label = `${homeName} gana`;
-  let p = game.x12[0];
+  let p = pHome;
 
   switch (referenceLeg.conflictGroup) {
     case "away_side":
       conflictGroup = "home_side";
       label = `${homeName} gana`;
-      p = game.x12[0];
+      p = pHome;
       break;
     case "home_side":
       conflictGroup = "away_side";
       label = `${awayName} gana`;
-      p = game.x12[2];
+      p = pAway;
       break;
     case "draw_side":
-      conflictGroup = game.x12[0] >= game.x12[2] ? "home_side" : "away_side";
+      conflictGroup = pHome >= pAway ? "home_side" : "away_side";
       label =
         conflictGroup === "home_side" ? `${homeName} gana` : `${awayName} gana`;
-      p = conflictGroup === "home_side" ? game.x12[0] : game.x12[2];
+      p = conflictGroup === "home_side" ? pHome : pAway;
       break;
     case "over_total":
       conflictGroup = "under_total";
@@ -566,7 +587,7 @@ function buildOpposingSyntheticPick(
     case "independent":
       conflictGroup = "away_side";
       label = `${awayName} gana`;
-      p = game.x12[2];
+      p = pAway;
       break;
   }
 
@@ -738,7 +759,9 @@ export function buildParlayDemoData(
       const homeName = teamDisplayName(game.home);
       const awayName = teamDisplayName(game.away);
       const matchLabel = `${homeName} vs ${awayName}`;
-      const favTeam = game.x12[2] > game.x12[0] ? game.away : game.home;
+      const pHome = game.x12?.[0] ?? 0.5;
+      const pAway = game.x12?.[2] ?? 0.5;
+      const favTeam = pAway > pHome ? game.away : game.home;
 
       return {
         isExample: false,
@@ -811,9 +834,9 @@ export function buildFeaturedCommunityPick(
   }
 
   const nflGame =
-    games.find((g) => g.league === "nfl" && g.status !== "FT") ??
-    games.find((g) => g.league === "nfl") ??
-    games.find((g) => g.status !== "FT");
+    games.find((g) => g.league === "nfl" && g.status !== "FT" && g.x12 !== null) ??
+    games.find((g) => g.league === "nfl" && g.x12 !== null) ??
+    games.find((g) => g.status !== "FT" && g.x12 !== null);
 
   if (nflGame) {
     const openPick = nflGame.picks.find((pk) => !pk.isRedacted);
@@ -831,18 +854,20 @@ export function buildFeaturedCommunityPick(
       };
     }
 
-    const favHome = nflGame.x12[0] >= nflGame.x12[2];
-    const team = favHome ? nflGame.home : nflGame.away;
-    const p = favHome ? nflGame.x12[0] : nflGame.x12[2];
-    return {
-      league: nflGame.league,
-      teamSlug: team.slug,
-      teamName: teamDisplayName(team),
-      pickLabel: `${teamDisplayName(team)} gana`,
-      matchLabel: `${teamDisplayName(nflGame.home)} vs ${teamDisplayName(nflGame.away)} · ${nflGame.leagueLabel}`,
-      p,
-      fairAmerican: formatFairAmericanFromProb(p),
-    };
+    if (nflGame.x12) {
+      const favHome = nflGame.x12[0] >= nflGame.x12[2];
+      const team = favHome ? nflGame.home : nflGame.away;
+      const p = favHome ? nflGame.x12[0] : nflGame.x12[2];
+      return {
+        league: nflGame.league,
+        teamSlug: team.slug,
+        teamName: teamDisplayName(team),
+        pickLabel: `${teamDisplayName(team)} gana`,
+        matchLabel: `${teamDisplayName(nflGame.home)} vs ${teamDisplayName(nflGame.away)} · ${nflGame.leagueLabel}`,
+        p,
+        fairAmerican: formatFairAmericanFromProb(p),
+      };
+    }
   }
 
   return DEFAULT_FEATURED_COMMUNITY_PICK;

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { formatOddsCaptureEs } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, type PlatformSport } from "@pitchlab/contracts";
 import { parseUserOdds } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { edgeAgainstBook } from "../OddsCompareView";
@@ -10,7 +10,7 @@ import type {
 } from "../../types";
 
 export interface MatchMarketsGridProps {
-  readonly sport: "football" | "american-football";
+  readonly sport: PlatformSport;
   readonly markets: readonly PlatformMarketRow[];
   readonly oddsFormat: OddsFormat;
   readonly watermark: string;
@@ -35,13 +35,13 @@ const CATEGORY_ORDER: readonly MarketCardCategory[] = [
 
 function categoryHeading(
   category: MarketCardCategory,
-  sport: "football" | "american-football",
+  sport: PlatformSport,
 ): string {
   switch (category) {
     case "resultado":
       return "Resultado";
     case "goles":
-      return sport === "american-football" ? "Totales" : "Goles";
+      return sport === "football" ? "Goles" : "Totales";
     case "conteos":
       return "Córners y conteos";
     case "handicap":
@@ -74,9 +74,12 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   if (
     m === "handicap" ||
     m === "spread" ||
+    m === "spreads" ||
     m.startsWith("ah_") ||
     g.includes("hándicap") ||
-    g.includes("handicap")
+    g.includes("handicap") ||
+    g.includes("spread") ||
+    g.includes("puck line")
   ) {
     return "handicap";
   }

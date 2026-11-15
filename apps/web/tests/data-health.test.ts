@@ -15,12 +15,17 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
       "odds-refresh",
       "pre-mvp-snapshot",
     ]);
-    expect(report.leagues).toHaveLength(7);
+    expect(report.leagues).toHaveLength(9);
 
     const nfl = report.leagues.find((l) => l.league === "nfl");
     expect(nfl).toBeDefined();
     expect(nfl?.cells.bajas.sourceLabel).toContain("nflverse");
     expect(nfl?.cells.bajas.recordsCount).toBeGreaterThan(0);
+
+    const nba = report.leagues.find((l) => l.league === "nba");
+    const nhl = report.leagues.find((l) => l.league === "nhl");
+    expect(nba?.cells.calendario.recordsCount).toBeGreaterThan(0);
+    expect(nhl?.cells.calendario.recordsCount).toBeGreaterThan(0);
 
     for (const lg of report.leagues) {
       expect(lg.cells.alineaciones.status).toBe("disabled");
@@ -42,7 +47,7 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
     expect(allowed.status).toBe(200);
     const body = (await allowed.json()) as { leagues: unknown[]; workflows: unknown[] };
     expect(body.workflows).toHaveLength(2);
-    expect(body.leagues).toHaveLength(7);
+    expect(body.leagues).toHaveLength(9);
   });
 
   it("adjunta bajas nominales de data/snapshots/nfl/injuries.json a los partidos de NFL", () => {

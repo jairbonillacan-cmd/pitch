@@ -2,6 +2,7 @@ import type {
   CountProjection,
   HeadToHeadView,
   LeagueId,
+  PlatformSport,
   StandingRow,
 } from "@pitchlab/contracts";
 
@@ -108,7 +109,7 @@ export interface MatchPick {
   marketCapturedAtUtc?: string | null;
   /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
   edgePts: number | null;
-  confidenceScore: number;
+  confidenceScore: number | null;
   suggestedUnits: number;
   result?: "hit" | "miss" | null;
   isDailyOpenPromo?: boolean;
@@ -259,7 +260,7 @@ export interface PlatformGame {
   league: LeagueId;
   leagueLabel: string;
   leagueLogoUrl?: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   round: string;
   dayId: string;
   dayLabel: string;
@@ -285,19 +286,21 @@ export interface PlatformGame {
     logoUrl?: string;
     record: string;
   };
-  x12: [number, number, number];
+  /** `false` cuando el snapshot no trae análisis/pronóstico para este partido. */
+  hasForecast?: boolean;
+  x12: [number, number, number] | null;
   projection: {
     home: number;
     away: number;
     total: number;
-  };
+  } | null;
   /** Línea principal de goles/puntos (la más cercana al 50 %) y probabilidad de Más. */
   goalLine?: {
     line: number;
     pOver: number;
   } | null;
-  confidenceScore: number;
-  confidenceLevel: "alta" | "media" | "baja";
+  confidenceScore: number | null;
+  confidenceLevel: "alta" | "media" | "baja" | null;
   /** Por qué la confianza es la que es: frases cortas y el desglose por factor. */
   confidenceDetail?: {
     reasons: string[];
@@ -358,7 +361,7 @@ export interface PlatformLeagueSummary {
   league: LeagueId;
   label: string;
   logoUrl?: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;

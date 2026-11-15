@@ -21,6 +21,23 @@ export interface CountGame {
   away: string;
   homeCount: number;
   awayCount: number;
+  /** Nombre o identificador del árbitro; opcional (si falta o está desactivado, multiplicador = 1). */
+  referee?: string | null;
+}
+
+export interface RefereeCountOptions {
+  /** Si es `true`, aplica el multiplicador log-lineal del árbitro sobre la predicción. */
+  enabled: boolean;
+  /** Paso de actualización sobre el error relativo total del partido. */
+  k: number;
+  /** Fracción de regresión fuerte hacia 0 (multiplicador 1) al cambiar de temporada. */
+  seasonRegression: number;
+  /** Contracción bayesiana hacia 1: `peso = games / (games + shrinkageGames)`. */
+  shrinkageGames: number;
+  /** Mínimo de partidos dirigidos antes de activar el multiplicador (antes vale 1). */
+  minGames: number;
+  /** Cota simétrica en escala log para el efecto del árbitro. */
+  maxLog: number;
 }
 
 export interface CountOptions {
@@ -33,9 +50,21 @@ export interface CountOptions {
   /** Media inicial por lado mientras no hay partidos. */
   initialHome: number;
   initialAway: number;
+  /** Multiplicador opcional del árbitro (desactivado por defecto si no mejora fuera de muestra). */
+  referee?: Partial<RefereeCountOptions>;
 }
 
 export type CountStat = "corners" | "fouls" | "yellow";
+
+/** Configuración base del multiplicador del árbitro (apagado hasta validar en backtest). */
+export const REFEREE_COUNT_DEFAULTS: Readonly<RefereeCountOptions> = {
+  enabled: false,
+  k: 0.03,
+  seasonRegression: 0.5,
+  shrinkageGames: 40,
+  minGames: 15,
+  maxLog: 0.35,
+};
 
 /**
  * Parámetros elegidos por `backtest:counts` con las temporadas europeas 2010-11…2017-18
@@ -43,8 +72,22 @@ export type CountStat = "corners" | "fouls" | "yellow";
  */
 export const COUNT_DEFAULTS: Readonly<Record<CountStat, CountOptions>> = {
   corners: { k: 0.02, seasonRegression: 0.35, meanAlpha: 0.005, initialHome: 5.83, initialAway: 4.55 },
-  fouls: { k: 0.05, seasonRegression: 0.35, meanAlpha: 0.005, initialHome: 14.42, initialAway: 14.99 },
-  yellow: { k: 0.02, seasonRegression: 0.5, meanAlpha: 0.01, initialHome: 1.7, initialAway: 2.09 },
+  fouls: {
+    k: 0.05,
+    seasonRegression: 0.35,
+    meanAlpha: 0.005,
+    initialHome: 14.42,
+    initialAway: 14.99,
+    referee: { enabled: true, k: 0.05, seasonRegression: 0.4, shrinkageGames: 30, minGames: 15, maxLog: 0.35 },
+  },
+  yellow: {
+    k: 0.02,
+    seasonRegression: 0.5,
+    meanAlpha: 0.01,
+    initialHome: 1.7,
+    initialAway: 2.09,
+    referee: { enabled: true, k: 0.03, seasonRegression: 0.4, shrinkageGames: 30, minGames: 15, maxLog: 0.35 },
+  },
 };
 
 /** Tamaño de la binomial negativa por lado (mismo backtest); `Infinity` = Poisson. */
@@ -61,6 +104,10 @@ export interface CountPrediction {
   /** Partidos con el dato que ya vio el motor de cada equipo (todas las temporadas). */
   homeGames: number;
   awayGames: number;
+  /** Multiplicador log-lineal del árbitro aplicado (`1` si está apagado, falta o no cumple el mínimo). */
+  refereeMultiplier: number;
+  /** Partidos con el dato del árbitro que ya vio el motor (todas las temporadas). */
+  refereeGames: number;
 }
 
 interface TeamCount {
@@ -70,11 +117,25 @@ interface TeamCount {
   games: number;
 }
 
+interface RefereeCount {
+  bias: number;
+  season: string;
+  games: number;
+}
+
 const clip = (x: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, x));
+
+function normalizeRefereeKey(name: string | null | undefined): string | null {
+  if (!name) return null;
+  const key = name.trim().toLowerCase().replace(/\s+/g, " ");
+  return key.length > 0 ? key : null;
+}
 
 export function createCountTracker(options: Partial<CountOptions> = {}) {
   const o: CountOptions = { ...COUNT_DEFAULTS.corners, ...options };
+  const refOpts: RefereeCountOptions = { ...REFEREE_COUNT_DEFAULTS, ...options.referee };
   const teams = new Map<string, TeamCount>();
+  const referees = new Map<string, RefereeCount>();
   let muHome = o.initialHome;
   let muAway = o.initialAway;
 
@@ -91,28 +152,74 @@ export function createCountTracker(options: Partial<CountOptions> = {}) {
     return t;
   };
 
-  function expected(home: TeamCount, away: TeamCount): { home: number; away: number } {
+  const referee = (rawName: string | null | undefined, season: string): RefereeCount | null => {
+    if (!refOpts.enabled) return null;
+    const id = normalizeRefereeKey(rawName);
+    if (!id) return null;
+    let ref = referees.get(id);
+    if (!ref) {
+      ref = { bias: 0, season, games: 0 };
+      referees.set(id, ref);
+    } else if (ref.season !== season) {
+      ref.bias *= Math.max(0, 1 - refOpts.seasonRegression);
+      ref.season = season;
+    }
+    return ref;
+  };
+
+  function teamExpected(home: TeamCount, away: TeamCount): { home: number; away: number } {
     return {
       home: muHome * Math.exp(clip(home.gen + away.con, -1.2, 1.2)),
       away: muAway * Math.exp(clip(away.gen + home.con, -1.2, 1.2)),
     };
   }
 
+  function refereeLogEffect(ref: RefereeCount | null): number {
+    if (!refOpts.enabled || !ref || ref.games < refOpts.minGames) return 0;
+    const shrink = refOpts.shrinkageGames > 0 ? ref.games / (ref.games + refOpts.shrinkageGames) : 1;
+    return clip(ref.bias * shrink, -refOpts.maxLog, refOpts.maxLog);
+  }
+
+  function expected(home: TeamCount, away: TeamCount, ref: RefereeCount | null): { home: number; away: number; mult: number } {
+    const base = teamExpected(home, away);
+    const mult = Math.exp(refereeLogEffect(ref));
+    return { home: base.home * mult, away: base.away * mult, mult };
+  }
+
   return {
-    predict(game: Pick<CountGame, "home" | "away" | "season">): CountPrediction {
+    predict(game: Pick<CountGame, "home" | "away" | "season" | "referee">): CountPrediction {
       const h = team(game.home, game.season);
       const a = team(game.away, game.season);
-      const e = expected(h, a);
-      return { home: e.home, away: e.away, total: e.home + e.away, homeGames: h.games, awayGames: a.games };
+      const ref = referee(game.referee, game.season);
+      const e = expected(h, a, ref);
+      return {
+        home: e.home,
+        away: e.away,
+        total: e.home + e.away,
+        homeGames: h.games,
+        awayGames: a.games,
+        refereeMultiplier: e.mult,
+        refereeGames: ref?.games ?? 0,
+      };
     },
     update(game: CountGame): void {
       const h = team(game.home, game.season);
       const a = team(game.away, game.season);
-      const e = expected(h, a);
+      const ref = referee(game.referee, game.season);
+      const base = teamExpected(h, a);
+      const mult = Math.exp(refereeLogEffect(ref));
+      const e = { home: base.home * mult, away: base.away * mult };
       // Error relativo (gradiente de la log-verosimilitud de Poisson en escala log), acotado para
       // que un partido raro (expulsión, prórroga de 10 minutos) no mueva de más.
       const errHome = clip((game.homeCount - e.home) / e.home, -1, 1.5);
       const errAway = clip((game.awayCount - e.away) / e.away, -1, 1.5);
+      if (ref) {
+        // Se estima sobre el sesgo sin contraer para no compensar la contracción bayesiana `g/(g+S)`.
+        const expectedUnshrunk = (base.home + base.away) * Math.exp(clip(ref.bias, -1.2, 1.2));
+        const errRef = clip((game.homeCount + game.awayCount - expectedUnshrunk) / expectedUnshrunk, -1, 1.5);
+        ref.bias = clip(ref.bias + refOpts.k * errRef, -1.2, 1.2);
+        ref.games++;
+      }
       h.gen += o.k * errHome;
       a.con += o.k * errHome;
       a.gen += o.k * errAway;

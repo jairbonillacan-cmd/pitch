@@ -172,7 +172,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       onClick={selectAllLeagues}
                       className="pl-btn-glass text-[11px] min-h-9 px-3"
                     >
-                      Seleccionar las 7 ligas
+                      Seleccionar las {dataset.leagues.length} ligas
                     </button>
                   </div>
                   <div

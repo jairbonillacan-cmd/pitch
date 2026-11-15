@@ -209,7 +209,7 @@ export function buildSmartAutoParlay(
         : options.risk === "medio"
           ? pick.p * 22 + (pick.edgePts ?? 0) * 3.2
           : (1 - Math.abs(0.46 - pick.p)) * 20 + (pick.edgePts ?? 0) * 4.2;
-    return riskMatchBonus + probWeight + pick.confidenceScore * 0.15;
+    return riskMatchBonus + probWeight + (pick.confidenceScore ?? 0) * 0.15;
   };
 
   const sorted = candidatePicks.slice().sort((a, b) => scoreCandidate(b) - scoreCandidate(a));

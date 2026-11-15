@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { StandingRow } from "@pitchlab/contracts";
+import { sportHasDraw, sportScoringUnit, type StandingRow } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
@@ -91,8 +91,8 @@ export function MatchContextPanel({
   readonly standings?: readonly StandingRow[];
   readonly unlocked?: boolean;
 }): React.JSX.Element {
-  const isNfl = game.sport === "american-football";
-  const unit = isNfl ? "pts" : "goles";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport).short;
   const isFinished = game.status === "FT";
   const canReadContext = unlocked || isFinished;
   const homeFactor = game.factors.find((f) => /local/i.test(f.label));
@@ -283,12 +283,12 @@ export function MatchContextPanel({
                   <strong>{wins.home}</strong>
                   <span>{game.home.shortName}</span>
                 </div>
-                {isNfl ? null : (
+                {hasDraw ? (
                   <div>
                     <strong>{wins.draw}</strong>
                     <span>Empates</span>
                   </div>
-                )}
+                ) : null}
                 <div>
                   <strong>{wins.away}</strong>
                   <span>{game.away.shortName}</span>
@@ -390,8 +390,8 @@ export function MatchContextPanel({
         </div>
         {standings.length === 0 ? (
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            {isNfl
-              ? "La NFL se consulta por conferencia; arriba puedes comparar la marca de cada club."
+            {game.sport !== "football"
+              ? `La ${game.leagueLabel} se consulta por conferencia; arriba puedes comparar la marca de cada club.`
               : "La tabla oficial de esta jornada se actualizará con el siguiente corte."}
           </p>
         ) : (

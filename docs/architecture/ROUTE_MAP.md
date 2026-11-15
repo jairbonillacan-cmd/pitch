@@ -1,7 +1,7 @@
 # Mapa de rutas (`pitchlab.mx`)
 
 > **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
-> **Actualizado:** 2026-11-13 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
+> **Actualizado:** 2026-11-15 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
 
@@ -18,6 +18,8 @@
   | `serie-a` | soccer |
   | `ligue-1` | soccer |
   | `nfl` | american-football |
+  | `nba` | basketball |
+  | `nhl` | hockey (`ice-hockey`) |
 
 - Las rutas inexistentes bajo `/` o bajo `/app/*` devuelven `HTTP 404` real (validado antes del streaming por `resolveClubRoute` en `apps/web/app/app/layout.tsx`).
 
@@ -75,8 +77,8 @@
 | `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
 | `/app/tipster` | Portal de Tipsters Oficiales | En Beta 1.0 lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
-| `/app/[league]` | Hub por liga | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
-| `/app/[league]/games/[gameId]` | Match Studio | Analizador 360°, `?tab=picks|mercados|contexto|dinero` |
+| `/app/[league]` | Hub por liga (`liga-mx`, …, `nfl`, `nba`, `nhl`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
+| `/app/[league]/games/[gameId]` | Match Studio (incluye `/app/nba/games/[gameId]` y `/app/nhl/games/[gameId]`) | Analizador 360°, `?tab=picks\|mercados\|contexto\|dinero` |
 | `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)

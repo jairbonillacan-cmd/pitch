@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
 import { mulberry32, playMatch, SimAccumulator, simulateScore, type PlayedMatch, type SimSummary } from "./simulation";
@@ -21,14 +22,34 @@ const pct = (v: number) => `${(v * 100).toFixed(1)} %`;
 /**
  * Simulador del partido: «Simular 10,000» reparte resultados con los goles (o puntos)
  * esperados del modelo y se ve crecer por lotes; «Jugar un partido» narra uno al azar.
+ * No se muestra si el snapshot aún no incluye pronóstico ni probabilidades.
  */
-export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Element {
-  const isNfl = game.sport === "american-football";
+export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Element | null {
+  if (!game.projection || !game.x12 || game.hasForecast === false) {
+    return null;
+  }
+  return <MatchSimulatorInner game={game} projection={game.projection} x12={game.x12} />;
+}
+
+function MatchSimulatorInner({
+  game,
+  projection,
+  x12,
+}: {
+  game: PlatformGame;
+  projection: NonNullable<PlatformGame["projection"]>;
+  x12: NonNullable<PlatformGame["x12"]>;
+}): React.JSX.Element {
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport);
+  const isPoints = unit.short === "pts";
+  const isFootball = game.sport === "football";
+  const isHockey = game.sport === "ice-hockey";
   const input = {
     sport: game.sport,
-    homeExpected: game.projection.home,
-    awayExpected: game.projection.away,
-    pHome: game.x12[0] / Math.max(0.0001, game.x12[0] + game.x12[2]),
+    homeExpected: projection.home,
+    awayExpected: projection.away,
+    pHome: x12[0] / Math.max(0.0001, x12[0] + x12[2]),
   } as const;
 
   const [summary, setSummary] = useState<SimSummary | null>(null);
@@ -77,7 +98,7 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
       return;
     }
     setClock(0);
-    const tick = isNfl ? 700 : 38;
+    const tick = isFootball ? 38 : 700;
     timer.current = window.setInterval(() => {
       setClock((c) => {
         if (c >= match.length) {
@@ -88,7 +109,7 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
       });
     }, tick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [game.id, isNfl]);
+  }, [game.id, isFootball]);
 
   const liveEvents = played ? played.events.filter((e) => e.at <= clock) : [];
   const liveHome = liveEvents.filter((e) => e.side === "home").reduce((s, e) => s + e.points, 0);
@@ -104,8 +125,8 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
             Simulador del partido
           </h2>
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Con lo que espera el modelo: {game.projection.home.toFixed(isNfl ? 1 : 2)} –{" "}
-            {game.projection.away.toFixed(isNfl ? 1 : 2)} {isNfl ? "puntos" : "goles"}. Cada corrida es al azar.
+            Con lo que espera el modelo: {projection.home.toFixed(unit.decimals)} –{" "}
+            {projection.away.toFixed(unit.decimals)} {isPoints ? "puntos" : "goles"}. Cada corrida es al azar.
           </p>
         </div>
         <MaestroIcon name="activity" size={18} style={{ color: "var(--pl-text-muted)" }} />
@@ -135,16 +156,34 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
             <span style={{ width: `${(clock / played.length) * 100}%` }} />
           </div>
           <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-            {finished ? "Final" : isNfl ? `Cuarto ${Math.max(1, clock)}` : `Minuto ${clock}'`}
+            {finished
+              ? "Final"
+              : isFootball
+                ? `Minuto ${clock}'`
+                : isHockey
+                  ? `Período ${Math.max(1, clock)}`
+                  : `Cuarto ${Math.max(1, clock)}`}
           </p>
           {liveEvents.length > 0 ? (
             <ul className="pl-sim-events">
               {liveEvents.map((e, i) => (
                 <li key={i} className="num">
-                  <span>{isNfl ? `C${e.at}` : `${e.at}'`}</span>
+                  <span>{isFootball ? `${e.at}'` : isHockey ? `P${e.at}` : `C${e.at}`}</span>
                   <span>
-                    {isNfl ? (e.points === 7 ? "Touchdown" : e.points === 3 ? "Gol de campo" : `${e.points} pts`) : "Gol"} de{" "}
-                    {e.side === "home" ? game.home.shortName : game.away.shortName}
+                    {game.sport === "american-football"
+                      ? e.points === 7
+                        ? "Touchdown"
+                        : e.points === 3
+                          ? "Gol de campo"
+                          : `${e.points} pts`
+                      : game.sport === "basketball"
+                        ? e.points === 3
+                          ? "Triple (3 pts)"
+                          : e.points === 2
+                            ? "Canasta (2 pts)"
+                            : "Tiro libre (1 pt)"
+                        : "Gol"}{" "}
+                    de {e.side === "home" ? game.home.shortName : game.away.shortName}
                   </span>
                 </li>
               ))}
@@ -156,9 +195,9 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
       {summary ? (
         <div className="pl-sim-results">
           <div className="pl-sim-split num">
-            <SplitCell label={game.home.shortName} value={summary.home} model={game.x12[0]} />
-            {isNfl ? null : <SplitCell label="Empate" value={summary.draw} model={game.x12[1]} />}
-            <SplitCell label={game.away.shortName} value={summary.away} model={game.x12[2]} />
+            <SplitCell label={game.home.shortName} value={summary.home} model={x12[0]} />
+            {hasDraw ? <SplitCell label="Empate" value={summary.draw} model={x12[1]} /> : null}
+            <SplitCell label={game.away.shortName} value={summary.away} model={x12[2]} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -176,8 +215,8 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
               </ul>
             </div>
             <div>
-              <h3 className="pl-cortex-label">{isNfl ? "Puntos totales" : "Goles totales"}</h3>
-              <div className="pl-sim-hist" role="img" aria-label={`Reparto de ${isNfl ? "puntos" : "goles"} totales en ${summary.runs} simulaciones`}>
+              <h3 className="pl-cortex-label">{isPoints ? "Puntos totales" : "Goles totales"}</h3>
+              <div className="pl-sim-hist" role="img" aria-label={`Reparto de ${isPoints ? "puntos" : "goles"} totales en ${summary.runs} simulaciones`}>
                 {summary.totals.map((t) => (
                   <div key={t.label} className="pl-sim-col" title={`${t.label}: ${pct(t.share)}`}>
                     <span style={{ height: `${(t.share / maxTotal) * 100}%` }} />

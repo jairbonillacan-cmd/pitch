@@ -207,7 +207,28 @@ Astra publica córners y faltas esperados; nosotros no teníamos ese modelo. Aho
   Los córners mejoran poco: son ruidosos para cualquier modelo (también para Astra). Las faltas son donde más pesa el estilo del equipo.
 - **Producción** (`services/ingest/src/counts-feed.ts`): cada análisis de fútbol nuevo trae `counts` (esperado por equipo, total, línea equilibrada con .5 y probabilidad del más), un grupo de mercado por conteo y un factor legible. Solo se publica si ambos equipos tienen al menos 5 partidos con ese dato: nunca se rellena con promedios. No entra a picks, 1X2 ni confianza. El workflow descarga football-data.co.uk (5 temporadas, ~25 CSV por corte) y 2 torneos de Liga MX de Bzzoiro (tope 600 peticiones; la caché evita repetir). Si falla, el análisis sale sin conteos.
 - **Ejemplo** Querétaro–Monterrey (14 nov): córners 5.4–5.3 (10.8), faltas 11.8–10.1 (22.0). Astra publicó 5.1–5.5 (10.6) y 11.8–10.3 (22.1).
-- **Pendiente:** árbitro como variable de faltas y tarjetas (football-data.co.uk lo trae solo en la Premier; Bzzoiro trae `refereeId`), y comparar contra la línea de córners de cierre de Bet365 (5Dollar, plan Pro).
+- **Árbitro en faltas y amarillas** (`packages/models/src/football/counts.ts`, `services/ingest/src/counts-backtest-cli.ts`):
+  - **Cobertura de fuentes (`referee`):** `football-data-co-uk.ts` y `research-schema.ts` añaden `referee` opcional (recortado y sin caracteres corruptos como `\uFFFD`). En CSV desde `1993-94`: `premier-league` (`E0`) trae `Referee` en 27 temporadas (`2000-01`..`2026-27`, `9,970/9,971` partidos); `bundesliga` (`D1`) solo en 2 temporadas antiguas (`2000-01`..`2001-02`, `611` partidos, `0` después); `serie-a` (`I1`) solo en 2 temporadas antiguas (`2005-06`..`2006-07`, `760` partidos, `0` después); `la-liga` (`SP1`) y `ligue-1` (`F1`) en `0` temporadas. En `bzzoiro/liga-mx.jsonl`, `653/2,015` partidos finalizados (`2024-12-08`..`2026-11-09`) traen `context.refereeId`.
+  - **Modelo:** multiplicador log-lineal en `createCountTracker` (`exp(shrink * ref.bias)` acotado a `±maxLog = 0.35`, multiplicando las expectativas locales de ambos lados). Con regresión fuerte entre temporadas hacia `0` (`seasonRegression = 0.4`), encogimiento bayesiano `games / (games + 30)` y mínimo `minGames = 15` (sin historial suficiente devuelve multiplicador `1`). `ref.bias` actualiza sin encogimiento y los ratings de equipo se ajustan con el residual frente a la expectativa multiplicada para no absorber el sesgo del árbitro. Parámetros elegidos solo en `< 2018-19` europeo (`fouls`: `k=0.05`, `r_ref=155.1`; `yellow`: `k=0.03`, `r=Infinity`). `COUNT_DEFAULTS.corners` no se modifica.
+  - **Backtest pareado vs motor actual sin árbitro** (`pnpm --filter @pitchlab/ingest backtest:counts`, evaluación out-of-sample `>= 2018-19` en Europa e `i >= 100` en Liga MX; Δ negativo = mejora):
+
+| Estadística | Liga | n (con árb / activos) | Δ [IC 95 %] | MAE árb vs actual | Sig. |
+|---|---|---|---|---|---|
+| Faltas | Premier League | 3,140 (3,140 / 2,870) | −0.0114 [−0.0170, −0.0054] | 3.819 vs 3.871 | Sí |
+| Faltas (solo activos) | Premier League | 2,870 | −0.0125 [−0.0185, −0.0065] | — | Sí |
+| Faltas | La Liga / Bundesliga / Serie A / Ligue 1 | 3,159 / 2,528 / 3,150 / 2,807 (0 / 0) | 0 [0, 0] | Sin cambios | No |
+| Faltas | Europa-5 | 14,784 (3,140 / 2,870) | −0.0024 [−0.0037, −0.0012] | 4.151 vs 4.162 | Sí |
+| Faltas | Liga MX | 379 (379 / 140) | −0.0031 [−0.0071, +0.0006] | 4.240 vs 4.250 | No |
+| Faltas (solo activos) | Liga MX | 140 | −0.0087 [−0.0195, +0.0008] | — | No |
+| Amarillas | Premier League | 3,140 (3,140 / 2,870) | −0.0056 [−0.0092, −0.0017] | 1.534 vs 1.542 | Sí |
+| Amarillas (solo activos) | Premier League | 2,870 | −0.0061 [−0.0100, −0.0022] | — | Sí |
+| Amarillas | La Liga / Bundesliga / Serie A / Ligue 1 | 3,159 / 2,528 / 3,150 / 2,807 (0 / 0) | 0 [0, 0] | Sin cambios | No |
+| Amarillas | Europa-5 | 14,784 (3,140 / 2,870) | −0.0012 [−0.0019, −0.0004] | 1.622 vs 1.624 | Sí |
+| Amarillas | Liga MX | 1,911 (653 / 293) | −0.0005 [−0.0013, +0.0002] | 1.795 vs 1.796 | No |
+| Amarillas (solo activos) | Liga MX | 293 | −0.0033 [−0.0078, +0.0010] | — | No |
+
+  - **Activación y estado en producción:** al ser significativa la mejora en Premier League y Europa-5 tanto en faltas como en amarillas, queda **activado por defecto** en `COUNT_DEFAULTS.fouls` (`k: 0.05`) y `COUNT_DEFAULTS.yellow` (`k: 0.03`), manteniendo `COUNT_DEFAULTS.corners` intacto. En `services/ingest/src/counts-feed.ts`, el entrenamiento histórico ya consume `referee`; si el partido programado no trae árbitro aún, `CountFeed.predict` aplica multiplicador `1`.
+- **Pendiente:** cablear el árbitro designado en los partidos programados del corte T-60 (`GameDTO` / extractor de designaciones) y comparar contra la línea de córners de cierre de Bet365 (5Dollar, plan Pro).
 
 ## 11. Cortex IA por secciones en el corte (2026-11-14)
 
@@ -226,5 +247,5 @@ Antes la ficha llamaba al LLM en cada visita (caché en memoria que se perdía e
 3. Bajar más temporadas de la Premier y las otras 4 ligas europeas (la cuota diaria de Bzzoiro alcanza para ~1 liga y 4 temporadas por día) y repetir la comparación por liga.
 4. Añadir bajas (`match-context`) como variable del modelo y medirla en el backtest.
 5. MLB: distribución de carreras, entradas extra, F5 y run line antes de marzo.
-6. Árbitro en faltas y tarjetas (§10).
+6. ✅ Árbitro en faltas y amarillas (§10): validado en backtest y activado por defecto en `COUNT_DEFAULTS.fouls` y `COUNT_DEFAULTS.yellow`. Pendiente cablear el árbitro designado de partidos programados en el corte T-60.
 7. ✅ Análisis de IA por secciones en el corte (§11). Falta cargar `OPENROUTER_API_KEY` en GitHub Actions.

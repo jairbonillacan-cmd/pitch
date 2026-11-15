@@ -1,5 +1,6 @@
 "use client";
 
+import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import React, { useState } from "react";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import { isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
@@ -28,8 +29,7 @@ export function formatGoalLineHint(
   game: Pick<PlatformGame, "sport" | "status" | "goalLine" | "projection" | "score">,
   unlocked: boolean,
 ): string | null {
-  const isNfl = game.sport === "american-football";
-  const unit = isNfl ? "pts" : "goles";
+  const unit = sportScoringUnit(game.sport).short;
   if (game.status === "FT" && game.score) {
     const total = game.score.home + game.score.away;
     return `Total ${total} ${unit}`;
@@ -38,7 +38,7 @@ export function formatGoalLineHint(
   if (game.goalLine) {
     return `Línea ${game.goalLine.line} ${unit} · ${Math.round(game.goalLine.pOver * 100)}% +`;
   }
-  if (unlocked && game.projection.total > 0) {
+  if (unlocked && game.projection && game.projection.total > 0) {
     return `Línea ${game.projection.total.toFixed(1)} ${unit}`;
   }
   return null;
@@ -100,7 +100,7 @@ export const MatchListRow = React.memo(function MatchListRow({
   const { viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, navigateTo } = usePlatformActions();
 
-  const isNfl = game.sport === "american-football";
+  const isNfl = !sportHasDraw(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
   const mainPick = game.picks[0];
   const mainUnlocked = mainPick
@@ -108,7 +108,8 @@ export const MatchListRow = React.memo(function MatchListRow({
     : false;
   const intelUnlocked = isFinished || isPreGameIntelUnlocked(game, viewerRole);
   const outcome = mostLikelyOutcome(game);
-  const [ph, pd, pa] = game.x12;
+  const hasForecast = game.hasForecast !== false && game.x12 !== null;
+  const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
 
   const goalHint = formatGoalLineHint(game, intelUnlocked);
   const countsHint = formatCountsHint(game, intelUnlocked);
@@ -148,10 +149,11 @@ export const MatchListRow = React.memo(function MatchListRow({
                 league={game.league}
                 slug={game.home.slug}
                 name={game.home.name}
+                logoUrl={game.home.logoUrl}
                 size={22}
               />
               <span
-                className={`pl-mlist-name ${!isFinished && outcome.side === "home" ? "is-fav" : ""}`.trim()}
+                className={`pl-mlist-name ${!isFinished && outcome?.side === "home" ? "is-fav" : ""}`.trim()}
               >
                 {game.home.name}
               </span>
@@ -165,10 +167,11 @@ export const MatchListRow = React.memo(function MatchListRow({
                 league={game.league}
                 slug={game.away.slug}
                 name={game.away.name}
+                logoUrl={game.away.logoUrl}
                 size={22}
               />
               <span
-                className={`pl-mlist-name ${!isFinished && outcome.side === "away" ? "is-fav" : ""}`.trim()}
+                className={`pl-mlist-name ${!isFinished && outcome?.side === "away" ? "is-fav" : ""}`.trim()}
               >
                 {game.away.name}
               </span>
@@ -179,6 +182,7 @@ export const MatchListRow = React.memo(function MatchListRow({
           </div>
         </a>
 
+        {hasForecast ? (
         <div className="pl-mlist-prob">
           <div
             className="pl-mlist-prob-nums num"
@@ -205,6 +209,11 @@ export const MatchListRow = React.memo(function MatchListRow({
             }
           />
         </div>
+        ) : (
+          <div className="pl-mlist-prob" data-empty-forecast="">
+            <span className="pl-mlist-chip">Sin pronóstico publicado</span>
+          </div>
+        )}
 
         <div className="pl-mlist-lines num">
           {goalHint ? (

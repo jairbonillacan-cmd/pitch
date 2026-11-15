@@ -76,11 +76,16 @@ function matchTitle(g: PlatformGame): string {
 }
 
 function gameDurationMs(g: PlatformGame): number {
-  return g.sport === "american-football" ? 3.5 * HOUR : 2 * HOUR;
+  if (g.sport === "american-football") return 3.5 * HOUR;
+  if (g.sport === "basketball" || g.sport === "ice-hockey") return 2.5 * HOUR;
+  return 2 * HOUR;
 }
 
-/** Lo más probable del 1X2: etiqueta y probabilidad. */
-export function mostLikelyOutcome(g: PlatformGame): { side: 0 | 1 | 2; label: string; p: number } {
+/** Lo más probable del 1X2: etiqueta y probabilidad. Null si el partido no tiene x12. */
+export function mostLikelyOutcome(
+  g: PlatformGame,
+): { side: 0 | 1 | 2; label: string; p: number } | null {
+  if (!g.x12) return null;
   const [h, d, a] = g.x12;
   if (h >= a && h >= d) return { side: 0, label: g.home.shortName, p: h };
   if (a >= d) return { side: 2, label: g.away.shortName, p: a };
@@ -117,7 +122,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
     const kickoff = Date.parse(g.kickoffUtc);
     if (Number.isNaN(kickoff)) continue;
     const fav = mostLikelyOutcome(g);
-    const favLine = { lead: `${fav.label} ${formatPctEs(fav.p)}`, text: ` · cuota justa ${fairOdds(fav.p, fmt)}` };
+    const favLine = fav
+      ? { lead: `${fav.label} ${formatPctEs(fav.p)}`, text: ` · cuota justa ${fairOdds(fav.p, fmt)}` }
+      : null;
 
     // Partidos: aviso previo e inicio.
     if (g.status !== "FT" && now >= kickoff - KICKOFF_NOTICE_MS) {
@@ -128,7 +135,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
         kind: "partidos",
         priority: "urgent",
         title: started ? `${matchTitle(g)} ya empezó` : `${matchTitle(g)} empieza en ${mins} min`,
-        context: { lead: `Lo más probable: ${favLine.lead}`, text: favLine.text },
+        context: favLine
+          ? { lead: `Lo más probable: ${favLine.lead}`, text: favLine.text }
+          : { lead: "Seguimiento activo", text: " · sin pronóstico publicado aún." },
         atIso: clampToNow(kickoff - KICKOFF_NOTICE_MS, now),
         actionLabel: "Abrir partido",
         href: gameHref(g),
@@ -137,16 +146,21 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
 
     // Partidos: resultado final.
     if (g.status === "FT" && g.score) {
-      const happened = outcomeFromScore(g.score) === fav.side;
+      const happened = fav !== null && outcomeFromScore(g.score) === fav.side;
       out.push({
         id: `final:${g.id}`,
         kind: "partidos",
         priority: "normal",
         title: `Final: ${g.home.shortName} ${g.score.home}–${g.score.away} ${g.away.shortName}`,
-        context: {
-          lead: `Lo más probable era ${fav.label} (${formatPctEs(fav.p)})`,
-          text: happened ? " y ocurrió." : " y no ocurrió.",
-        },
+        context: fav
+          ? {
+              lead: `Lo más probable era ${fav.label} (${formatPctEs(fav.p)})`,
+              text: happened ? " y ocurrió." : " y no ocurrió.",
+            }
+          : {
+              lead: "Resultado registrado",
+              text: " · sin pronóstico previo publicado.",
+            },
         atIso: clampToNow(kickoff + gameDurationMs(g), now),
         actionLabel: "Ver resumen",
         href: gameHref(g),
@@ -245,7 +259,10 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       if (!best || endMs > best.endMs) best = { round, games, endMs };
     }
     if (!best || now - best.endMs > DIGEST_MAX_AGE_MS || best.endMs > now) continue;
-    const hits = best.games.filter((g) => outcomeFromScore(g.score!) === mostLikelyOutcome(g).side).length;
+    const hits = best.games.filter((g) => {
+      const fav = mostLikelyOutcome(g);
+      return fav !== null && outcomeFromScore(g.score!) === fav.side;
+    }).length;
     const first = best.games[0]!;
     out.push({
       id: `digest:${league}:${best.round}`,

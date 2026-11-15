@@ -138,13 +138,16 @@ export function redactDatasetForVisitor(
       ...(game.score ? { score: game.score } : {}),
       home: game.home,
       away: game.away,
+      hasForecast: game.hasForecast,
       x12: game.x12,
-      projection: keepHeroProjection
-        ? game.projection
-        : { home: 0, away: 0, total: 0 },
+      projection: !game.projection
+        ? null
+        : keepHeroProjection
+          ? game.projection
+          : { home: 0, away: 0, total: 0 },
       goalLine: hasPromoOpenPick ? (game.goalLine ?? null) : null,
-      confidenceScore: hasPromoOpenPick ? game.confidenceScore : 0,
-      confidenceLevel: hasPromoOpenPick ? game.confidenceLevel : "media",
+      confidenceScore: game.confidenceScore === null ? null : hasPromoOpenPick ? game.confidenceScore : 0,
+      confidenceLevel: game.confidenceLevel === null ? null : hasPromoOpenPick ? game.confidenceLevel : "media",
       picks: game.picks.map((pick) => {
         const extraSlug = extraTipsterSlugsByPickId?.get(pick.id);
         const open =

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  COUNT_DEFAULTS,
   balancedLine,
   createCountTracker,
   estimateDispersion,
@@ -48,5 +49,93 @@ describe("conteos por equipo", () => {
     expect(Number.isFinite(estimateDispersion(over))).toBe(true);
     const flat = Array.from({ length: 200 }, () => ({ expected: 5, observed: 5 }));
     expect(estimateDispersion(flat)).toBe(Number.POSITIVE_INFINITY);
+  });
+
+  it("no modifica los defaults de córners y activa árbitro solo donde hubo mejora significativa", () => {
+    expect(COUNT_DEFAULTS.corners).toEqual({
+      k: 0.02,
+      seasonRegression: 0.35,
+      meanAlpha: 0.005,
+      initialHome: 5.83,
+      initialAway: 4.55,
+    });
+    expect(COUNT_DEFAULTS.corners.referee).toBeUndefined();
+    expect(COUNT_DEFAULTS.fouls.referee?.enabled).toBe(true);
+    expect(COUNT_DEFAULTS.yellow.referee?.enabled).toBe(true);
+  });
+
+  it("mantiene multiplicador 1 cuando la opción de árbitro está apagada o falta muestra", () => {
+    const offTracker = createCountTracker({
+      k: 0,
+      meanAlpha: 0,
+      initialHome: 10,
+      initialAway: 10,
+      referee: { enabled: false, k: 0.1, minGames: 2, shrinkageGames: 10, seasonRegression: 0.5 },
+    });
+    for (let i = 0; i < 15; i++) {
+      offTracker.update({ date: "2025-01-01", season: "2025", home: "A", away: "B", homeCount: 16, awayCount: 16, referee: "Strict Ref" });
+    }
+    const offPred = offTracker.predict({ home: "A", away: "B", season: "2025", referee: "Strict Ref" });
+    expect(offPred.refereeMultiplier).toBe(1);
+    expect(offPred.total).toBeCloseTo(20, 6);
+
+    const onTracker = createCountTracker({
+      k: 0,
+      meanAlpha: 0,
+      initialHome: 10,
+      initialAway: 10,
+      referee: { enabled: true, k: 0.1, minGames: 5, shrinkageGames: 20, seasonRegression: 0.5 },
+    });
+    for (let i = 0; i < 4; i++) {
+      onTracker.update({ date: "2025-01-01", season: "2025", home: "A", away: "B", homeCount: 18, awayCount: 18, referee: "Young Ref" });
+    }
+    const underMin = onTracker.predict({ home: "A", away: "B", season: "2025", referee: "Young Ref" });
+    expect(underMin.refereeGames).toBe(4);
+    expect(underMin.refereeMultiplier).toBe(1);
+
+    onTracker.update({ date: "2025-01-02", season: "2025", home: "A", away: "B", homeCount: 18, awayCount: 18, referee: "Young Ref" });
+    const atMin = onTracker.predict({ home: "A", away: "B", season: "2025", referee: "  young  ref " });
+    expect(atMin.refereeGames).toBe(5);
+    expect(atMin.refereeMultiplier).toBeGreaterThan(1);
+    expect(atMin.total).toBeGreaterThan(20);
+
+    const missingRef = onTracker.predict({ home: "A", away: "B", season: "2025" });
+    expect(missingRef.refereeMultiplier).toBe(1);
+    expect(missingRef.total).toBeCloseTo(20, 6);
+  });
+
+  it("contrae el multiplicador hacia 1 con muestra chica, al cambiar de temporada y respeta cotas", () => {
+    const lowShrink = createCountTracker({
+      k: 0,
+      meanAlpha: 0,
+      initialHome: 10,
+      initialAway: 10,
+      referee: { enabled: true, k: 0.08, minGames: 5, shrinkageGames: 5, seasonRegression: 0.6, maxLog: 0.35 },
+    });
+    const highShrink = createCountTracker({
+      k: 0,
+      meanAlpha: 0,
+      initialHome: 10,
+      initialAway: 10,
+      referee: { enabled: true, k: 0.08, minGames: 5, shrinkageGames: 80, seasonRegression: 0.6, maxLog: 0.35 },
+    });
+    for (let i = 0; i < 10; i++) {
+      const g = { date: "2025-01-01", season: "2025", home: "A", away: "B", homeCount: 15, awayCount: 15, referee: "M Oliver" };
+      lowShrink.update(g);
+      highShrink.update(g);
+    }
+    const pLow = lowShrink.predict({ home: "A", away: "B", season: "2025", referee: "M Oliver" });
+    const pHigh = highShrink.predict({ home: "A", away: "B", season: "2025", referee: "M Oliver" });
+    expect(pHigh.refereeMultiplier).toBeGreaterThan(1);
+    expect(pHigh.refereeMultiplier).toBeLessThan(pLow.refereeMultiplier);
+
+    const nextSeason = highShrink.predict({ home: "A", away: "B", season: "2026", referee: "M Oliver" });
+    expect(Math.log(nextSeason.refereeMultiplier)).toBeCloseTo(Math.log(pHigh.refereeMultiplier) * 0.4, 6);
+
+    for (let i = 0; i < 80; i++) {
+      lowShrink.update({ date: "2025-02-01", season: "2025", home: "A", away: "B", homeCount: 30, awayCount: 30, referee: "Extreme Ref" });
+    }
+    const capped = lowShrink.predict({ home: "A", away: "B", season: "2025", referee: "Extreme Ref" });
+    expect(capped.refereeMultiplier).toBeCloseTo(Math.exp(0.35), 6);
   });
 });
