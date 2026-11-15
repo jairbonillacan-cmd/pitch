@@ -688,6 +688,11 @@ html:has(.panel-header) {
     background-color var(--time-fast) ease,
     color var(--time-fast) ease;
 }
+@media (max-width: 767px) {
+  .seg-well[role="tablist"] .seg-btn {
+    min-height: 44px;
+  }
+}
 .seg-btn:hover {
   color: var(--pl-text);
 }

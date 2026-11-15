@@ -7,10 +7,12 @@ import {
   toMarketPulseView,
   assertNotDemoInProduction,
   snapshotToMatchAnalyses,
+  sportForLeague,
   asLeagueId,
   CortexWriteupSchema,
   type CortexWriteup,
   type LeagueId,
+  type PlatformSport,
   type StandingRow,
   type MatchAnalysis,
   type MarketPulseView,
@@ -21,7 +23,7 @@ export interface ClientLeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;
@@ -63,6 +65,8 @@ export const PRODUCT_LEAGUES = [
   "serie-a",
   "ligue-1",
   "nfl",
+  "nba",
+  "nhl",
 ] as const;
 
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
@@ -121,6 +125,10 @@ const matchContext = new Set([
   "Forma visitante",
   "Posición local",
   "Posición visitante",
+  "Local",
+  "Visitante",
+  "Descanso",
+  "Tiempo extra",
 ]);
 
 function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): MatchAnalysis {
@@ -140,6 +148,8 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "serie-a": "Serie A",
   "ligue-1": "Ligue 1",
   nfl: "NFL",
+  nba: "NBA",
+  nhl: "NHL",
 };
 
 const LEAGUE_SEASONS: Record<ProductLeague, string> = {
@@ -150,6 +160,8 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = {
   "serie-a": "2026/27",
   "ligue-1": "2026/27",
   nfl: "2026",
+  nba: "2026-27",
+  nhl: "2026-27",
 };
 
 export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
@@ -163,9 +175,9 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       schemaVersion: 1,
       league,
       leagueLabel: LEAGUE_LABELS[leagueKey],
-      sport: leagueKey === "nfl" ? "american-football" : "football",
+      sport: sportForLeague(leagueKey),
       season: LEAGUE_SEASONS[leagueKey],
-      roundLabel: leagueKey === "nfl" ? "Semana 9" : "Jornada 16",
+      roundLabel: leagueKey === "nfl" ? "Semana 9" : leagueKey === "nba" || leagueKey === "nhl" ? "" : "Jornada 16",
       generatedAt: new Date().toISOString(),
       days: [{ id: "all", label: `Toda la ${leagueKey === "nfl" ? "semana" : "jornada"}` }],
       games: [],
@@ -205,7 +217,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       schemaVersion: 1,
       league: parsed.league,
       leagueLabel: LEAGUE_LABELS[parsed.league as ProductLeague] ?? parsed.league,
-      sport: parsed.league === "nfl" ? "american-football" : "football",
+      sport: sportForLeague(parsed.league),
       season: parsed.seasonLabel,
       roundLabel: parsed.periodLabel,
       generatedAt: parsed.updatedAt,

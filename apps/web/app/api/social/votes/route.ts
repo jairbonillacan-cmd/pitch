@@ -38,7 +38,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (game.status !== "NS" || (Number.isFinite(kickoff) && Date.now() >= kickoff)) {
     return NextResponse.json({ error: "Las votaciones cierran al empezar el partido." }, { status: 409 });
   }
-  if (question === "ganador" && choice === "draw" && game.sport === "american-football") {
+  if (question === "ganador" && choice === "draw" && game.sport !== "football") {
     return NextResponse.json({ error: "Voto inválido." }, { status: 400 });
   }
   await castMatchVote(member.db, member.userId, { gameId, question, choice }, new Date());

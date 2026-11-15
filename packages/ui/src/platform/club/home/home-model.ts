@@ -5,7 +5,7 @@
 import type { LeagueId } from "@pitchlab/contracts";
 import type { MatchPick, PlatformGame } from "../../types";
 
-export type SportId = "futbol" | "nfl";
+export type SportId = "futbol" | "nfl" | "nba" | "nhl";
 export const ALL = "all" as const;
 export type SportFilter = SportId | typeof ALL;
 export type LeagueFilter = LeagueId | typeof ALL;
@@ -19,9 +19,11 @@ export const UPCOMING_WINDOW_DAYS = 7;
 export const SPORTS: ReadonlyArray<{ id: SportId; label: string; shortLabel: string }> = [
   { id: "futbol", label: "Fútbol", shortLabel: "Fútbol" },
   { id: "nfl", label: "Fútbol americano", shortLabel: "NFL" },
+  { id: "nba", label: "Basquetbol", shortLabel: "NBA" },
+  { id: "nhl", label: "Hockey", shortLabel: "NHL" },
 ];
 
-/** Orden fijo de ligas: México primero, luego Europa y al final la NFL. */
+/** Orden fijo de ligas: México primero, luego Europa y después EE. UU. / Canadá. */
 const LEAGUE_ORDER: readonly string[] = [
   "liga-mx",
   "premier-league",
@@ -30,10 +32,15 @@ const LEAGUE_ORDER: readonly string[] = [
   "serie-a",
   "ligue-1",
   "nfl",
+  "nba",
+  "nhl",
 ];
 
 export function sportOf(game: Pick<PlatformGame, "sport">): SportId {
-  return game.sport === "american-football" ? "nfl" : "futbol";
+  if (game.sport === "american-football") return "nfl";
+  if (game.sport === "basketball") return "nba";
+  if (game.sport === "ice-hockey") return "nhl";
+  return "futbol";
 }
 
 export function leagueRank(league: string): number {
@@ -225,8 +232,11 @@ export interface MostLikelyOutcome {
   p: number;
 }
 
-/** Resultado del 1·X·2 con más probabilidad. En la NFL no hay empate. */
-export function mostLikelyOutcome(game: Pick<PlatformGame, "x12" | "sport" | "home" | "away">): MostLikelyOutcome {
+/** Resultado ganador más probable. Solo el fútbol contempla empate en el partido. */
+export function mostLikelyOutcome(
+  game: Pick<PlatformGame, "x12" | "sport" | "home" | "away">,
+): MostLikelyOutcome | null {
+  if (!game.x12) return null;
   const [ph, pd, pa] = game.x12;
   const options: MostLikelyOutcome[] = [
     { side: "home", label: `${game.home.shortName} gana`, p: ph },

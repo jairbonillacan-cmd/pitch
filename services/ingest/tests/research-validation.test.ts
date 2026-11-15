@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validateResearchGames, type ResearchGame } from "../src/index.js";
+import { ResearchGameSchema, validateResearchGames, type ResearchGame } from "../src/index.js";
 
 function game(overrides: Partial<ResearchGame> = {}): ResearchGame {
   return {
@@ -43,6 +43,8 @@ function game(overrides: Partial<ResearchGame> = {}): ResearchGame {
 describe("research — invariantes del dataset", () => {
   it("acepta una fila válida", () => {
     expect(validateResearchGames([game()])).toEqual([]);
+    expect(ResearchGameSchema.parse(game({ referee: "M Oliver" })).referee).toBe("M Oliver");
+    expect(() => ResearchGameSchema.parse(game({ referee: "" }))).toThrow();
   });
 
   it("bloquea duplicados, fechas y marcadores irreales", () => {

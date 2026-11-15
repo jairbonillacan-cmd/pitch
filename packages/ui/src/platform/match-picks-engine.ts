@@ -1,9 +1,12 @@
 import {
   asMarketKey,
   selectionHolds,
+  sportHasDraw,
+  sportScoringUnit,
   type AnalysisMarketRow,
   type LeagueId,
   type MatchAnalysis,
+  type PlatformSport,
   type StandingRow,
 } from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "./access-guard";
@@ -25,7 +28,7 @@ import { buildGoalModel, buildPointsModel, derivedMarketProbability } from "./sp
 export interface RawLeagueInput {
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;
@@ -193,10 +196,10 @@ function rowsWithSpacetime(
   if (!signal || signal.outlookDriven) return rows;
   const { home, draw, away } = signal.probs;
   const doubleChance: Record<string, number> = { "1x": home + draw, x2: draw + away, "12": home + away };
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+  const pointsBased = match.sport === "american-football" || match.sport === "basketball";
   const model =
     signal.expectedTotal !== null && signal.expectedMargin !== null
-      ? isNfl
+      ? pointsBased
         ? buildPointsModel(signal.expectedTotal, signal.expectedMargin, home)
         : buildGoalModel(signal.expectedTotal, signal.expectedMargin)
       : null;
@@ -233,13 +236,25 @@ function pickLabelOf(group: string, row: AnalysisMarketRow): string {
 }
 
 function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | null): MatchPick[] {
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) return [];
+
+  const pointsBased = match.sport === "american-football" || match.sport === "basketball";
+  const unit = sportScoringUnit(match.sport);
   const allRows = rowsWithSpacetime(match, signal);
   const matchLabel = `${match.home.shortName} vs ${match.away.shortName}`;
-  const confScore = match.confidence?.score ?? 60;
+  const confScore = match.confidence?.score ?? null;
   const proj = projectionFor(match, signal);
-  const primaryEngine: EngineKey = isNfl ? "minkowski" : "tachyon";
-  const primaryEngineName = signal?.sportsEngineName ?? ENGINE_NAMES[primaryEngine];
+  const primaryEngine: EngineKey = pointsBased ? "minkowski" : "tachyon";
+  const snapshotEngineName =
+    match.sport === "basketball"
+      ? "Motor NBA"
+      : match.sport === "ice-hockey"
+        ? "Motor NHL"
+        : ENGINE_NAMES[primaryEngine];
+  const primaryEngineName = signal?.sportsEngineName ?? snapshotEngineName;
   const finalEngineName = signal?.engineName ?? primaryEngineName;
 
   const usedLabels = new Set<string>();
@@ -286,7 +301,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       marketGroup: main.group,
       row: main.row,
       rationale: proj
-        ? `El modelo proyecta ${proj.home.toFixed(isNfl ? 1 : 2)}–${proj.away.toFixed(isNfl ? 1 : 2)} y ${Math.round(main.row.p * 100)} % para esta selección.`
+        ? `El modelo proyecta ${proj.home.toFixed(unit.decimals)}–${proj.away.toFixed(unit.decimals)} y ${Math.round(main.row.p * 100)} % para esta selección.`
         : `El modelo da ${Math.round(main.row.p * 100)} % a esta selección.`,
       units: 1.5,
     });
@@ -300,7 +315,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       category: "conservador",
       categoryLabel: "Muy probable",
       risk: "conservador",
-      engineKey: isNfl ? "minkowski" : "singularity",
+      engineKey: pointsBased ? "minkowski" : "singularity",
       engineName: finalEngineName,
       marketGroup: shield.group,
       row: shield.row,
@@ -320,25 +335,25 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (totals) {
     pickRows.push({
       category: "totales",
-      categoryLabel: isNfl ? "Puntos totales" : "Goles totales",
+      categoryLabel: unit.plural === "puntos" ? "Puntos totales" : "Goles totales",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: primaryEngineName,
       marketGroup: totals.group,
       row: totals.row,
       rationale: proj
-        ? `Total proyectado de ${proj.total.toFixed(isNfl ? 1 : 2)} ${isNfl ? "puntos" : "goles"}.`
+        ? `Total proyectado de ${proj.total.toFixed(unit.decimals)} ${unit.plural}.`
         : `Probabilidad calibrada de ${Math.round(totals.row.p * 100)} %.`,
       units: 1.25,
     });
   }
 
-  // 4) Lectura Táctica: ambos anotan, totales por equipo o hándicap.
+  // 4) Lectura Táctica: ambos anotan, totales por equipo, hándicap, spread o puck line.
   const tactical =
     fromSnapshotPick("arriesgada") ??
     take(
       ({ group, row }) =>
-        (groupHas(group, "ambos", "equipo", "hándicap", "spread") ||
+        (groupHas(group, "ambos", "equipo", "hándicap", "spread", "puck line") ||
           row.market === "btts" ||
           row.market === "team_totals") &&
         row.p >= 0.5 &&
@@ -427,7 +442,8 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
           : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
       marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
       edgePts: edgeAgainst(p, marketDecimal),
-      confidenceScore: Math.min(96, Math.max(48, Math.round(confScore - idx * 3))),
+      confidenceScore:
+        confScore !== null ? Math.min(96, Math.max(48, Math.round(confScore - idx * 3))) : null,
       suggestedUnits: item.units,
       result,
     };
@@ -435,7 +451,23 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
 }
 
 function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null): PreGameIntel {
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) {
+    return {
+      cortexSynthesis: "",
+      tacticalKeys: [],
+      lineupStatusLabel:
+        match.status === "FT" ? "Partido finalizado" : "Sin pronóstico publicado todavía",
+      lineupsConfirmed60m: false,
+      confirmedLineups: null,
+      absences: [],
+      moneyFlow: null,
+    };
+  }
+  const hasDraw = sportHasDraw(match.sport);
+  const digits = sportScoringUnit(match.sport).decimals;
   const [ph, pd, pa] = signal
     ? [signal.probs.home, signal.probs.draw, signal.probs.away]
     : (match.x12 ?? [0, 0, 0]);
@@ -449,7 +481,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     .slice(0, 3);
 
   const synthesisParts = [
-    `El modelo da ${favP} % a ${favName}${!isNfl && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
+    `El modelo da ${favP} % a ${favName}${hasDraw && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
   ];
   if (topDrivers.length > 0) {
     synthesisParts.push(`Factores con más peso: ${topDrivers.map((d) => d.label.toLowerCase()).join(", ")}.`);
@@ -471,7 +503,6 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     );
   }
   if (proj) {
-    const digits = isNfl ? 1 : 2;
     tacticalKeys.push(
       `Proyección: ${proj.home.toFixed(digits)} – ${proj.away.toFixed(digits)} (total ${proj.total.toFixed(digits)})`,
     );
@@ -534,7 +565,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
       const sDraw = share("draw");
       moneyFlow = {
         homeShare: Math.round(sHome * 100),
-        drawShare: isNfl || sDraw === undefined ? undefined : Math.round(sDraw * 100),
+        drawShare: !hasDraw || sDraw === undefined ? undefined : Math.round(sDraw * 100),
         awayShare: Math.round(sAway * 100),
         sharpNote: "Reparto del dinero según el último corte de mercado.",
       };
@@ -542,7 +573,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   } else if (signal?.market) {
     moneyFlow = {
       homeShare: Math.round(signal.market.noVig.home * 100),
-      drawShare: isNfl ? undefined : Math.round(signal.market.noVig.draw * 100),
+      drawShare: !hasDraw ? undefined : Math.round(signal.market.noVig.draw * 100),
       awayShare: Math.round(signal.market.noVig.away * 100),
       sharpNote: `Probabilidad implícita del mercado (${signal.market.bookLabel}) sin margen de la casa.`,
     };
@@ -564,12 +595,16 @@ function buildPlatformMarkets(
   match: MatchAnalysis,
   signal: SpacetimeSignal | null,
 ): PlatformMarketRow[] {
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) return [];
   const rows = rowsWithSpacetime(match, signal);
   const source =
     rows.length > 0
       ? rows.slice(0, 22)
       : match.outcomes.map((o) => ({
-          group: match.sport === "american-football" ? "Ganador" : "Resultado 1X2",
+          group: sportHasDraw(match.sport) ? "Resultado 1X2" : "Ganador",
           row: {
             market: "h2h",
             selection: o.key,
@@ -615,28 +650,44 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       else upcomingCount += 1;
 
       const signal = leagueInput.spacetime?.[m.id] ?? null;
-      const isNfl = m.sport === "american-football" || m.league === "nfl";
-      const x12: [number, number, number] = signal
-        ? [signal.probs.home, signal.probs.draw, signal.probs.away]
-        : m.x12 ?? [
-        m.outcomes[0]?.probability ?? 0.48,
-        isNfl ? 0 : (m.outcomes[1]?.probability ?? 0.25),
-        m.outcomes[isNfl ? 1 : 2]?.probability ?? 0.27,
-      ];
-      const proj = projectionFor(m, signal) ?? {
-        home: isNfl ? 24 : 1.55,
-        away: isNfl ? 21 : 1.18,
-        total: isNfl ? 45 : 2.73,
-      };
-      const confScore = m.confidence?.score ?? 60;
+      const hasForecast =
+        m.hasForecast !== false &&
+        Boolean(signal || m.x12 || m.projection || m.outcomes.length > 0);
+      const hasDraw = sportHasDraw(m.sport);
+      const x12: [number, number, number] | null = !hasForecast
+        ? null
+        : signal
+          ? [signal.probs.home, signal.probs.draw, signal.probs.away]
+          : (m.x12 ?? [
+              m.outcomes[0]?.probability ?? 0.48,
+              hasDraw ? (m.outcomes[1]?.probability ?? 0.25) : 0,
+              m.outcomes[hasDraw ? 2 : 1]?.probability ?? 0.27,
+            ]);
+      const rawProj = hasForecast ? projectionFor(m, signal) : undefined;
+      const projection = rawProj
+        ? {
+            home: rawProj.home,
+            away: rawProj.away,
+            total: rawProj.total,
+          }
+        : null;
+      const confScore = m.confidence?.score ?? null;
       const confLevel =
-        m.confidence?.level ?? (confScore >= 72 ? "alta" : confScore >= 58 ? "media" : "baja");
+        m.confidence?.level ??
+        (confScore !== null
+          ? confScore >= 72
+            ? "alta"
+            : confScore >= 58
+              ? "media"
+              : "baja"
+          : null);
 
       games.push({
         id: m.id,
         league: m.league,
         leagueLabel: m.leagueLabel,
         sport: m.sport,
+        hasForecast,
         round: m.round,
         dayId: m.day,
         dayLabel: m.dayLabel,
@@ -661,17 +712,17 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           record: m.away.record,
         },
         x12,
-        projection: {
-          home: proj.home,
-          away: proj.away,
-          total: proj.total,
-        },
+        projection,
         confidenceScore: confScore,
         confidenceLevel: confLevel,
-        confidenceDetail: {
-          reasons: m.confidence?.reasons ?? [],
-          factors: m.confidence?.factors ?? [],
-        },
+        ...(m.confidence
+          ? {
+              confidenceDetail: {
+                reasons: m.confidence.reasons ?? [],
+                factors: m.confidence.factors ?? [],
+              },
+            }
+          : {}),
         picks: buildFiveMatchPicks(m, signal),
         preGame: buildPreGameIntel(m, signal),
         markets: buildPlatformMarkets(m, signal),
@@ -682,18 +733,20 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
                 value: f.value ?? f.impact,
                 sub: f.sub || f.detail,
               }))
-            : [
-                {
-                  label: "Forma local",
-                  value: m.home.record,
-                  sub: "Rendimiento reciente verificado",
-                },
-                {
-                  label: "Forma visitante",
-                  value: m.away.record,
-                  sub: "Rendimiento reciente verificado",
-                },
-              ],
+            : hasForecast
+              ? [
+                  {
+                    label: "Forma local",
+                    value: m.home.record,
+                    sub: "Rendimiento reciente verificado",
+                  },
+                  {
+                    label: "Forma visitante",
+                    value: m.away.record,
+                    sub: "Rendimiento reciente verificado",
+                  },
+                ]
+              : [],
         headToHead: m.headToHead ?? [],
         restDays: m.restDays,
         updatedAtLabel: m.updatedAt ?? "Corte reciente Spacetime Suite",

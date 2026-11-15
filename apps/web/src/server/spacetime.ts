@@ -346,6 +346,9 @@ function toSignal(
 
 /** Señal de Spacetime v3.0 para un partido, o `null` si v3.0 no cubre a ambos equipos. */
 export function spacetimeSignalFor(game: MatchAnalysis): SpacetimeSignal | null {
+  if (game.sport !== "football" && game.sport !== "american-football") {
+    return null;
+  }
   const { teamIndex, byLeague, signals } = getCache();
   const key = `${game.league}:${game.id}`;
   if (signals.has(key)) return signals.get(key) ?? null;

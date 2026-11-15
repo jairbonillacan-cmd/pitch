@@ -44,11 +44,42 @@ export interface CalcStep {
   value: string;
 }
 
+export type PlatformSport =
+  | "football"
+  | "american-football"
+  | "basketball"
+  | "ice-hockey";
+
+export function sportForLeague(league: string): PlatformSport {
+  if (league === "nfl") return "american-football";
+  if (league === "nba") return "basketball";
+  if (league === "nhl") return "ice-hockey";
+  return "football";
+}
+
+export function sportHasDraw(sport: PlatformSport): boolean {
+  return sport === "football";
+}
+
+export function sportScoringUnit(sport: PlatformSport): {
+  singular: string;
+  plural: string;
+  short: string;
+  decimals: number;
+} {
+  if (sport === "basketball" || sport === "american-football") {
+    return { singular: "punto", plural: "puntos", short: "pts", decimals: 1 };
+  }
+  return { singular: "gol", plural: "goles", short: "goles", decimals: 2 };
+}
+
 export interface MatchAnalysis {
   id: string;
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
+  /** `true` cuando el snapshot incluye análisis/pronóstico real para el partido. */
+  hasForecast?: boolean;
   round: string;
   day: string;
   dayLabel: string;
@@ -353,6 +384,8 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
     "serie-a": "Serie A",
     "ligue-1": "Ligue 1",
     nfl: "NFL",
+    nba: "NBA",
+    nhl: "NHL",
   };
   const leagueLabel = LEAGUE_NAMES[snapshot.league] ?? snapshot.league;
 
@@ -397,48 +430,48 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       dayMap.set(dayId, dayChipLabel);
     }
 
-    const x12: [number, number, number] = analysis?.x12 ?? [
-      0.45,
-      isNfl ? 0 : 0.25,
-      isNfl ? 0.55 : 0.3,
-    ];
-    const outcomes: OutcomeMarket[] = isNfl
-      ? [
-          {
-            key: "home",
-            label: `${g.home.shortName} gana`,
-            probability: x12[0],
-            fairOdds: probabilityToFairOdds(x12[0]),
-          },
-          {
-            key: "away",
-            label: `${g.away.shortName} gana`,
-            probability: x12[2],
-            fairOdds: probabilityToFairOdds(x12[2]),
-          },
-        ]
-      : [
-          {
-            key: "home",
-            label: `${g.home.shortName} gana`,
-            probability: x12[0],
-            fairOdds: probabilityToFairOdds(x12[0]),
-          },
-          {
-            key: "draw",
-            label: "Empate",
-            probability: x12[1],
-            fairOdds: probabilityToFairOdds(x12[1]),
-          },
-          {
-            key: "away",
-            label: `${g.away.shortName} gana`,
-            probability: x12[2],
-            fairOdds: probabilityToFairOdds(x12[2]),
-          },
-        ];
+    const sport = sportForLeague(g.league);
+    const hasDraw = sportHasDraw(sport);
+    const x12: [number, number, number] | undefined = analysis?.x12;
+    const outcomes: OutcomeMarket[] = !x12
+      ? []
+      : !hasDraw
+        ? [
+            {
+              key: "home",
+              label: `${g.home.shortName} gana`,
+              probability: x12[0],
+              fairOdds: probabilityToFairOdds(x12[0]),
+            },
+            {
+              key: "away",
+              label: `${g.away.shortName} gana`,
+              probability: x12[2],
+              fairOdds: probabilityToFairOdds(x12[2]),
+            },
+          ]
+        : [
+            {
+              key: "home",
+              label: `${g.home.shortName} gana`,
+              probability: x12[0],
+              fairOdds: probabilityToFairOdds(x12[0]),
+            },
+            {
+              key: "draw",
+              label: "Empate",
+              probability: x12[1],
+              fairOdds: probabilityToFairOdds(x12[1]),
+            },
+            {
+              key: "away",
+              label: `${g.away.shortName} gana`,
+              probability: x12[2],
+              fairOdds: probabilityToFairOdds(x12[2]),
+            },
+          ];
 
-    const unit = isNfl ? "pts" : "goles";
+    const unit = sportScoringUnit(sport).short;
     const homeRec = homeRate
       ? `${homeRate.gamesPlayed} PJ · ${homeRate.forPerGame.toFixed(1)} ${unit}/p`
       : g.home.code;
@@ -460,32 +493,26 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       value: stepText,
     }));
 
-    const defaultMarketGroups: AnalysisMarketGroup[] = [
-      {
-        group: isNfl ? "Ganador" : "Resultado",
-        rows: outcomes.map((o) => ({
-          market: asMarketKey("h2h"),
-          selection: o.key,
-          label: o.label,
-          p: o.probability,
-          fairOdds: o.fairOdds?.decimal ?? probabilityToFairOdds(o.probability).decimal,
-        })),
-      },
-    ];
-
     const publishedAt = Date.parse(analysis?.publishedAt ?? "");
 
     return {
       id: g.id,
       league: snapshot.league,
       leagueLabel,
-      sport: isNfl ? "american-football" : "football",
+      sport,
+      hasForecast: Boolean(analysis && (analysis.x12 || analysis.projection)),
       round: g.round ?? snapshot.periodLabel,
       day: dayId,
       dayLabel: dayFullLabel,
       kickoffUtc: normalizedUtc,
       kickoffLocal,
-      venue: g.venue ?? (isNfl ? "Estadio NFL" : "Estadio"),
+      venue:
+        g.venue ??
+        (sport === "american-football"
+          ? "Estadio NFL"
+          : sport === "basketball" || sport === "ice-hockey"
+            ? "Arena"
+            : "Estadio"),
       neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
       scheduleStatus: g.status,
@@ -504,13 +531,9 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         code: g.away.code,
         record: awayRec,
       },
-      projection: analysis?.projection ?? {
-        home: isNfl ? 24 : 1.5,
-        away: isNfl ? 21 : 1.2,
-        total: isNfl ? 45 : 2.7,
-      },
+      projection: analysis?.projection,
       x12,
-      marketGroups: analysis?.marketGroups ?? defaultMarketGroups,
+      marketGroups: analysis?.marketGroups ?? [],
       mostLikelyScore: analysis?.mostLikelyScore,
       steps,
       updatedAt: updatedCut,

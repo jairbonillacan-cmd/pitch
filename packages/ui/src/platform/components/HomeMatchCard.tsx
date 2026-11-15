@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
@@ -41,20 +42,22 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, navigateTo } = usePlatformActions();
 
-  const isNfl = game.sport === "american-football";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport);
+  const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const isFinished = game.status === "FT" && game.score !== undefined;
   const mainPick = game.picks[0];
   const unlocked = mainPick ? isPickUnlocked(mainPick, game.status, viewerRole) : false;
   const alt = unlocked ? alternativePick(game) : null;
-  const outcome = mostLikelyOutcome(game);
-  const decimals = isNfl ? 1 : 2;
+  const outcome = hasForecast ? mostLikelyOutcome(game) : null;
+  const decimals = unit.decimals;
   const studioHref = `/app/${game.league}/games/${game.id}`;
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
-  const [ph, pd, pa] = game.x12;
+  const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
 
   const teams = [
-    { side: "home" as const, team: game.home, proj: game.projection.home, score: game.score?.home },
-    { side: "away" as const, team: game.away, proj: game.projection.away, score: game.score?.away },
+    { side: "home" as const, team: game.home, proj: game.projection?.home ?? null, score: game.score?.home },
+    { side: "away" as const, team: game.away, proj: game.projection?.away ?? null, score: game.score?.away },
   ];
 
   const openStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -80,7 +83,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
 
       <div className="pl-home-teams">
         {teams.map(({ side, team, proj, score }) => {
-          const favored = !isFinished && outcome.side === side;
+          const favored = !isFinished && outcome !== null && outcome.side === side;
           const colors = getTeamColors(game.league, team.slug);
           return (
             <div key={side} className="pl-home-team">
@@ -101,8 +104,8 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
                 </span>
               </div>
               <span className="pl-home-team-value num">
-                <strong>{isFinished ? score : unlocked ? proj.toFixed(decimals) : "—"}</strong>
-                <span>{isFinished ? "final" : isNfl ? "pts proy." : "goles proy."}</span>
+                <strong>{isFinished ? score : unlocked && proj !== null ? proj.toFixed(decimals) : "—"}</strong>
+                <span>{isFinished ? "final" : `${unit.short} proy.`}</span>
               </span>
             </div>
           );
@@ -119,11 +122,11 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
         </p>
       ) : null}
 
-      {isFinished ? null : (
+      {isFinished ? null : hasForecast && outcome ? (
         <>
           <ProbSplit
-            probabilities={isNfl ? [ph, pa] : [ph, pd, pa]}
-            labels={isNfl ? [game.home.shortName, game.away.shortName] : [game.home.shortName, "Empate", game.away.shortName]}
+            probabilities={hasDraw ? [ph, pd, pa] : [ph, pa]}
+            labels={hasDraw ? [game.home.shortName, "Empate", game.away.shortName] : [game.home.shortName, game.away.shortName]}
             showLabels
           />
           <div className="pl-home-outcome">
@@ -139,6 +142,16 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
             </div>
           </div>
         </>
+      ) : (
+        <div className="pl-home-outcome" data-empty-forecast="">
+          <div className="min-w-0">
+            <span className="pl-home-eyebrow">Pronóstico</span>
+            <strong className="block text-sm">Sin pronóstico publicado</strong>
+            <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              El snapshot de este partido no trae probabilidades ni confianza.
+            </span>
+          </div>
+        </div>
       )}
 
       <div className="pl-home-pick">

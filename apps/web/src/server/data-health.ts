@@ -25,6 +25,8 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "serie-a": "Serie A",
   "ligue-1": "Ligue 1",
   nfl: "NFL",
+  nba: "NBA",
+  nhl: "NHL",
 };
 
 const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
@@ -35,6 +37,8 @@ const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   "serie-a": "serie-a",
   "ligue-1": "ligue-1",
   "liga-mx": "liga-mx",
+  nba: "nba",
+  nhl: "nhl",
 };
 
 function resolveRepoRoot(): string {

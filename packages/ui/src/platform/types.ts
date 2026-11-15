@@ -1,6 +1,7 @@
 import type {
   HeadToHeadView,
   LeagueId,
+  PlatformSport,
   StandingRow,
 } from "@pitchlab/contracts";
 
@@ -107,7 +108,7 @@ export interface MatchPick {
   marketCapturedAtUtc?: string | null;
   /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
   edgePts: number | null;
-  confidenceScore: number;
+  confidenceScore: number | null;
   suggestedUnits: number;
   result?: "hit" | "miss" | null;
   isDailyOpenPromo?: boolean;
@@ -254,7 +255,7 @@ export interface PlatformGame {
   id: string;
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   round: string;
   dayId: string;
   dayLabel: string;
@@ -278,14 +279,16 @@ export interface PlatformGame {
     code: string;
     record: string;
   };
-  x12: [number, number, number];
+  /** `false` cuando el snapshot no trae análisis/pronóstico para este partido. */
+  hasForecast?: boolean;
+  x12: [number, number, number] | null;
   projection: {
     home: number;
     away: number;
     total: number;
-  };
-  confidenceScore: number;
-  confidenceLevel: "alta" | "media" | "baja";
+  } | null;
+  confidenceScore: number | null;
+  confidenceLevel: "alta" | "media" | "baja" | null;
   /** Por qué la confianza es la que es: frases cortas y el desglose por factor. */
   confidenceDetail?: {
     reasons: string[];
@@ -340,7 +343,7 @@ export interface MatchOutlookSummary {
 export interface PlatformLeagueSummary {
   league: LeagueId;
   label: string;
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;

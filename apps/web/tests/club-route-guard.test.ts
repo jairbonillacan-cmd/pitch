@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import { resolveClubRoute } from "../src/server/club-route-guard";
 
 const opts = {
-  isLeague: (seg: string) => seg === "nfl" || seg === "liga-mx" || seg === "premier-league",
-  gameExists: (league: string, id: string) => league === "nfl" && id === "nfl-buf-kc",
+  isLeague: (seg: string) =>
+    seg === "nfl" || seg === "nba" || seg === "nhl" || seg === "liga-mx" || seg === "premier-league",
+  gameExists: (league: string, id: string) =>
+    (league === "nfl" && id === "nfl-buf-kc") ||
+    (league === "nba" && id === "nba-2026-11-15-ind-phi"),
 };
 
 describe("resolveClubRoute", () => {
@@ -37,9 +40,15 @@ describe("resolveClubRoute", () => {
       pathname: "/app/lab",
     });
     expect(resolveClubRoute("/app/nfl", opts)).toEqual({ kind: "ok", pathname: "/app/nfl" });
+    expect(resolveClubRoute("/app/nba", opts)).toEqual({ kind: "ok", pathname: "/app/nba" });
+    expect(resolveClubRoute("/app/nhl", opts)).toEqual({ kind: "ok", pathname: "/app/nhl" });
     expect(resolveClubRoute("/app/nfl/games/nfl-buf-kc", opts)).toEqual({
       kind: "ok",
       pathname: "/app/nfl/games/nfl-buf-kc",
+    });
+    expect(resolveClubRoute("/app/nba/games/nba-2026-11-15-ind-phi", opts)).toEqual({
+      kind: "ok",
+      pathname: "/app/nba/games/nba-2026-11-15-ind-phi",
     });
     expect(resolveClubRoute("/app/u/sofia_nfl", opts)).toEqual({
       kind: "ok",
@@ -50,7 +59,7 @@ describe("resolveClubRoute", () => {
   it("marca 404 para rutas fantasma, ligas inexistentes o partidos faltantes", () => {
     expect(resolveClubRoute("/app/ruta-fantasma", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/explore", opts).kind).toBe("not_found");
-    expect(resolveClubRoute("/app/nba", opts).kind).toBe("not_found");
+    expect(resolveClubRoute("/app/mlb", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/games/inexistente", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/otra/cosa", opts).kind).toBe("not_found");
   });

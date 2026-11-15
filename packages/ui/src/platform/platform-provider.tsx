@@ -766,6 +766,8 @@ export function PlatformProvider({
         const knownLeagueIds = new Set<string>([
           "liga-mx",
           "nfl",
+          "nba",
+          "nhl",
           "premier-league",
           "laliga",
           "bundesliga",

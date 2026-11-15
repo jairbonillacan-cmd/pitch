@@ -42,6 +42,8 @@ type PrefGroupId = (typeof PREF_GROUPS)[number]["id"];
 const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string }> = [
   { id: "liga-mx" as LeagueId, name: "Liga MX" },
   { id: "nfl" as LeagueId, name: "NFL" },
+  { id: "nba" as LeagueId, name: "NBA" },
+  { id: "nhl" as LeagueId, name: "NHL" },
   { id: "premier-league" as LeagueId, name: "Premier League" },
   { id: "laliga" as LeagueId, name: "LaLiga" },
   { id: "bundesliga" as LeagueId, name: "Bundesliga" },

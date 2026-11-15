@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { formatOddsCaptureEs } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
@@ -269,7 +269,9 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, addPickToParlay, openComposer, navigateTo } = usePlatformActions();
 
-  const isNfl = game.sport === "american-football" || game.league === "nfl";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport);
+  const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const isFinished = game.status === "FT" && game.score !== undefined;
   const mainPick = game.picks[0];
   const unlockedMain = mainPick
@@ -282,19 +284,23 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const homePrimary = homeColors?.[0] ?? "var(--pl-aura-default-home)";
   const awayPrimary = awayColors?.[0] ?? "var(--pl-aura-default-away)";
 
-  const [ph, pd, pa] = game.x12;
-  const splitProbs = isNfl ? [ph, pa] : [ph, pd, pa];
-  const splitLabels = isNfl
-    ? [game.home.shortName, game.away.shortName]
-    : [game.home.shortName, "Empate", game.away.shortName];
+  const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
+  const splitProbs = hasDraw ? [ph, pd, pa] : [ph, pa];
+  const splitLabels = hasDraw
+    ? [game.home.shortName, "Empate", game.away.shortName]
+    : [game.home.shortName, game.away.shortName];
 
   const inParlay = useIsPickInParlay(mainPick?.id);
 
   const shortEngineLabel = mainPick
     ? mainPick.engineName.replace("PitchLab ", "")
-    : isNfl
+    : game.sport === "american-football"
       ? "Minkowski v3.0"
-      : "Tachyon v3.0";
+      : game.sport === "basketball"
+        ? "Motor NBA"
+        : game.sport === "ice-hockey"
+          ? "Motor NHL"
+          : "Tachyon v3.0";
 
   const handleOpenStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -377,7 +383,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               </div>
             </div>
             <strong className="num text-base font-extrabold shrink-0">
-              {isFinished ? game.score?.home : `${(ph * 100).toFixed(1)} %`}
+              {isFinished ? game.score?.home : hasForecast ? `${(ph * 100).toFixed(1)} %` : "—"}
             </strong>
           </div>
 
@@ -399,37 +405,47 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               </div>
             </div>
             <strong className="num text-base font-extrabold shrink-0">
-              {isFinished ? game.score?.away : `${(pa * 100).toFixed(1)} %`}
+              {isFinished ? game.score?.away : hasForecast ? `${(pa * 100).toFixed(1)} %` : "—"}
             </strong>
           </div>
         </div>
 
         {/* Pill de marcador proyectado + barra de probabilidad */}
-        <div className="space-y-2">
-          {!isFinished ? (
-            <div className="flex items-center justify-between gap-2 text-xs num">
-              {unlockedMain ? (
-                <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
-                  <MaestroIcon name="sparkles" size={11} />
-                  <span>
-                    Proy. {game.projection.home.toFixed(isNfl ? 1 : 2)} –{" "}
-                    {game.projection.away.toFixed(isNfl ? 1 : 2)}
+        {hasForecast && game.projection ? (
+          <div className="space-y-2">
+            {!isFinished ? (
+              <div className="flex items-center justify-between gap-2 text-xs num">
+                {unlockedMain ? (
+                  <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
+                    <MaestroIcon name="sparkles" size={11} />
+                    <span>
+                      Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
+                      {game.projection.away.toFixed(unit.decimals)}
+                    </span>
                   </span>
+                ) : (
+                  <span className="pl-pill inline-flex items-center gap-1">
+                    <MaestroIcon name="lock" size={11} />
+                    <span>Solo socios</span>
+                  </span>
+                )}
+                <span style={{ color: "var(--pl-text-muted)" }}>
+                  {game.picks.length} picks
                 </span>
-              ) : (
-                <span className="pl-pill inline-flex items-center gap-1">
-                  <MaestroIcon name="lock" size={11} />
-                  <span>Solo socios</span>
-                </span>
-              )}
-              <span style={{ color: "var(--pl-text-muted)" }}>
-                {game.picks.length} picks
-              </span>
-            </div>
-          ) : null}
+              </div>
+            ) : null}
 
-          <ProbSplit probabilities={splitProbs} labels={splitLabels} showLabels />
-        </div>
+            <ProbSplit probabilities={splitProbs} labels={splitLabels} showLabels />
+          </div>
+        ) : !isFinished ? (
+          <div
+            className="rounded-xl px-3 py-2 text-xs"
+            style={{ background: "var(--pl-surface-soft)", color: "var(--pl-text-muted)" }}
+            data-empty-forecast=""
+          >
+            Sin pronóstico ni confianza publicados en este snapshot.
+          </div>
+        ) : null}
 
         <div className="ticket-perf" />
 

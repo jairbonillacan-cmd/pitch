@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
@@ -40,8 +41,8 @@ function perGame(sub: string | undefined, games: number): { for: number; against
  * y el historial directo con su resumen. Todo sale de datos reales del snapshot y del motor.
  */
 export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.Element {
-  const isNfl = game.sport === "american-football";
-  const unit = isNfl ? "pts" : "goles";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport).short;
   const homeFactor = game.factors.find((f) => /local/i.test(f.label));
   const awayFactor = game.factors.find((f) => /visit/i.test(f.label));
   const others = game.factors.filter((f) => f !== homeFactor && f !== awayFactor);
@@ -208,12 +209,12 @@ export function MatchContextPanel({ game }: { game: PlatformGame }): React.JSX.E
                   <strong>{wins.home}</strong>
                   <span>{game.home.shortName}</span>
                 </div>
-                {isNfl ? null : (
+                {hasDraw ? (
                   <div>
                     <strong>{wins.draw}</strong>
                     <span>Empates</span>
                   </div>
-                )}
+                ) : null}
                 <div>
                   <strong>{wins.away}</strong>
                   <span>{game.away.shortName}</span>

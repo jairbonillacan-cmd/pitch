@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import type { AnalysisPick, MarketPulseSide, MatchAnalysis } from "@pitchlab/contracts";
-import { formatPercent, marketPulseLean } from "@pitchlab/contracts";
+import { formatPercent, marketPulseLean, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import { Icon } from "./icons";
 import { BrandLogo, ThemeToggle } from "./primitives";
@@ -606,8 +606,10 @@ export function AnalysisDialog({
 
   const shown = match ?? lastMatchRef.current;
   const isFinished = shown?.status === "FT" && shown.score !== undefined;
-  const nf = shown?.league === "nfl";
-  const draw = !nf;
+  const draw = shown ? sportHasDraw(shown.sport) : true;
+  const scoring = sportScoringUnit(shown?.sport ?? "football");
+  const isPoints = scoring.short === "pts";
+  const projDecimals = shown?.sport === "american-football" ? 0 : 1;
   const x12 = shown?.x12 ?? [0.45, draw ? 0.25 : 0, 0.3];
   const [ph, pd, pa] = x12;
   const proj = shown?.projection ?? { home: 1.5, away: 1.2, total: 2.7 };
@@ -804,18 +806,18 @@ export function AnalysisDialog({
                       <div className="caption muted">
                         {isFinished
                           ? "Final"
-                          : !nf && shown.projectedScore
+                          : !isPoints && shown.projectedScore
                             ? "Marcador proyectado"
                             : "Proyección"}
                       </div>
                       <div className="numeric-hl">
                         {isFinished
                           ? `${shown.score?.home} – ${shown.score?.away}`
-                          : !nf && shown.projectedScore
+                          : !isPoints && shown.projectedScore
                             ? `${shown.projectedScore.home} – ${shown.projectedScore.away}`
-                            : `${proj.home.toFixed(nf ? 0 : 1)} – ${proj.away.toFixed(nf ? 0 : 1)}`}
+                            : `${proj.home.toFixed(projDecimals)} – ${proj.away.toFixed(projDecimals)}`}
                       </div>
-                      {!isFinished && !nf && shown.projectedScore ? (
+                      {!isFinished && !isPoints && shown.projectedScore ? (
                         <div className="caption muted xg-line" title="Promedio de goles; el marcador más probable suele ser más bajo">
                           Goles esperados {proj.home.toFixed(1)} – {proj.away.toFixed(1)}
                         </div>

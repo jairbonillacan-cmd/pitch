@@ -1,3 +1,4 @@
+import { sportHasDraw } from "@pitchlab/contracts";
 import type { PlatformGame, SocialPost } from "./types";
 
 export const CONSENSUS_MIN_PICKS = 10;
@@ -44,10 +45,11 @@ export function voteConsensus(
   tally: WinnerVoteTally,
   game: PlatformGame,
 ): { total: number; outcomes: ConsensusOutcome[]; top: ConsensusOutcome } | null {
-  const isNfl = game.sport === "american-football";
+  if (!game.x12) return null;
+  const hasDraw = sportHasDraw(game.sport);
   const rows = [
     { key: "home", label: game.home.shortName || game.home.name, n: tally.home, model: game.x12[0] },
-    ...(isNfl ? [] : [{ key: "draw", label: "Empate", n: tally.draw, model: game.x12[1] }]),
+    ...(hasDraw ? [{ key: "draw", label: "Empate", n: tally.draw, model: game.x12[1] }] : []),
     { key: "away", label: game.away.shortName || game.away.name, n: tally.away, model: game.x12[2] },
   ];
   const total = rows.reduce((s, r) => s + r.n, 0);

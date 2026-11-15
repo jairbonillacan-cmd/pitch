@@ -425,6 +425,16 @@ export function selectOdds(row: Readonly<Record<string, string>>): ResearchOdds 
   return null;
 }
 
+function readReferee(row: Readonly<Record<string, string>>): string | undefined {
+  const raw = row.Referee;
+  if (!raw) return undefined;
+  const cleaned = raw
+    .replace(/^[\s\u00A0\uFFFD]+|[\s\u00A0\uFFFD]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return cleaned.length > 0 ? cleaned : undefined;
+}
+
 function readStats(row: Readonly<Record<string, string>>): ResearchMatchStats | undefined {
   const stats: ResearchMatchStats = {
     shotsHome: asCount(row.HS),
@@ -496,6 +506,7 @@ export function normalizeFdSeason(csvText: string, options: FdNormalizeOptions):
       continue;
     }
 
+    const referee = readReferee(row);
     const stats = readStats(row);
     games.push({
       id: `${league.id}:${season}:${homeSlug}:${awaySlug}`,
@@ -506,6 +517,7 @@ export function normalizeFdSeason(csvText: string, options: FdNormalizeOptions):
       awayTeam: `${league.id}.${awaySlug}`,
       homeScore,
       awayScore,
+      ...(referee ? { referee } : {}),
       odds: selectOdds(row),
       ...(stats ? { stats } : {}),
       source: "football-data.co.uk",

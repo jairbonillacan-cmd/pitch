@@ -52,12 +52,13 @@ export interface CountRow {
   season: string;
   home: string;
   away: string;
+  referee?: string;
   counts: Partial<Record<CountStat, [number, number]>>;
 }
 
 export interface CountFeed {
   readonly games: number;
-  predict(home: string, away: string): Partial<Record<CountStat, CountProjection>>;
+  predict(home: string, away: string, referee?: string): Partial<Record<CountStat, CountProjection>>;
 }
 
 const pair = (h: number | null | undefined, a: number | null | undefined): [number, number] | undefined =>
@@ -81,10 +82,10 @@ export function buildCountFeed(rows: readonly CountRow[]): CountFeed {
   }
   return {
     games: ordered.length,
-    predict(home, away) {
+    predict(home, away, referee) {
       const out: Partial<Record<CountStat, CountProjection>> = {};
       for (const s of STATS) {
-        const p = trackers[s].predict({ home, away, season });
+        const p = trackers[s].predict({ home, away, season, referee });
         if (p.homeGames < MIN_SAMPLE || p.awayGames < MIN_SAMPLE) continue;
         const size = sumDispersion(p.home, p.away, COUNT_DISPERSION[s]);
         const line = balancedLine(p.total, size);
@@ -116,6 +117,7 @@ export function countRowsFromFootballData(league: string, file: string): CountRo
     season: string;
     homeTeam: string;
     awayTeam: string;
+    referee?: string;
     stats?: {
       cornersHome: number | null;
       cornersAway: number | null;
@@ -132,6 +134,7 @@ export function countRowsFromFootballData(league: string, file: string): CountRo
       season: r.season,
       home: remapTeam(r.homeTeam, league),
       away: remapTeam(r.awayTeam, league),
+      ...(r.referee ? { referee: r.referee } : {}),
       counts: {
         corners: pair(r.stats!.cornersHome, r.stats!.cornersAway),
         fouls: pair(r.stats!.foulsHome, r.stats!.foulsAway),
@@ -154,11 +157,13 @@ export function countRowsFromBzzoiro(
     if (!home || !away) continue;
     const hs = r.stats.home;
     const as = r.stats.away;
+    const refereeId = r.context?.refereeId;
     out.push({
       date: r.kickoffUtc.slice(0, 10),
       season: String(r.providerSeasonId),
       home: remapTeam(home, league),
       away: remapTeam(away, league),
+      ...(refereeId != null ? { referee: `bzz:${refereeId}` } : {}),
       counts: {
         corners: pair(hs.corners, as.corners),
         fouls: pair(hs.fouls, as.fouls),

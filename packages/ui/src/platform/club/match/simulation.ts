@@ -1,9 +1,12 @@
 /**
  * Simulación de un partido a partir de lo que espera el modelo.
  * - Fútbol: goles de cada equipo con Poisson (λ = goles esperados).
- * - NFL: total y margen con normales (σ total 10.5, σ margen 13.5: las constantes de v3.2);
- *   sin empate (el tiempo extra se resuelve según la probabilidad del modelo).
+ * - NFL: total y margen con normales (σ total 10.5, σ margen 13.5); sin empate.
+ * - NBA: total y margen con normales (σ total 14.0, σ margen 11.5); sin empate (prórroga si empata).
+ * - NHL: goles en regulación con Poisson; si hay empate tras 3 períodos, desempate en prórroga/penales.
  */
+
+import type { PlatformSport } from "@pitchlab/contracts";
 
 export type Rng = () => number;
 
@@ -37,10 +40,10 @@ function normal(mean: number, sd: number, rng: Rng): number {
 }
 
 export interface SimInput {
-  sport: "football" | "american-football";
+  sport: PlatformSport;
   homeExpected: number;
   awayExpected: number;
-  /** Probabilidad del local según el modelo (desempate en NFL). */
+  /** Probabilidad del local según el modelo (desempate en deportes sin empate). */
   pHome: number;
 }
 
@@ -48,13 +51,24 @@ export function simulateScore(input: SimInput, rng: Rng): { home: number; away: 
   if (input.sport === "football") {
     return { home: poisson(input.homeExpected, rng), away: poisson(input.awayExpected, rng) };
   }
-  const total = normal(input.homeExpected + input.awayExpected, 10.5, rng);
-  const margin = normal(input.homeExpected - input.awayExpected, 13.5, rng);
+  if (input.sport === "ice-hockey") {
+    let home = poisson(input.homeExpected, rng);
+    let away = poisson(input.awayExpected, rng);
+    if (home === away) {
+      if (rng() < input.pHome) home += 1;
+      else away += 1;
+    }
+    return { home, away };
+  }
+  const [sdTotal, sdMargin, otPts] =
+    input.sport === "basketball" ? [14.0, 11.5, 3] : [10.5, 13.5, 3];
+  const total = normal(input.homeExpected + input.awayExpected, sdTotal, rng);
+  const margin = normal(input.homeExpected - input.awayExpected, sdMargin, rng);
   let home = Math.max(0, Math.round((total + margin) / 2));
   let away = Math.max(0, Math.round((total - margin) / 2));
   if (home === away) {
-    if (rng() < input.pHome) home += 3;
-    else away += 3;
+    if (rng() < input.pHome) home += otPts;
+    else away += otPts;
   }
   return { home, away };
 }
@@ -66,8 +80,33 @@ export interface SimSummary {
   away: number;
   /** Marcadores más frecuentes, de mayor a menor. */
   topScores: Array<{ score: string; share: number }>;
-  /** Reparto del total (goles 0…6+, o puntos en rangos de 7 para NFL). */
+  /** Reparto del total en cubetas propias del deporte. */
   totals: Array<{ label: string; share: number }>;
+}
+
+function bucketForTotal(sport: PlatformSport, total: number): number {
+  if (sport === "football") return Math.min(total, 6);
+  if (sport === "ice-hockey") return Math.min(total, 8);
+  if (sport === "basketball") {
+    if (total < 180) return 0;
+    return Math.min(9, 1 + Math.floor((total - 180) / 10));
+  }
+  return Math.min(Math.floor(total / 7), 9);
+}
+
+function totalLabels(sport: PlatformSport): string[] {
+  if (sport === "football") {
+    return Array.from({ length: 7 }, (_, i) => (i === 6 ? "6+" : String(i)));
+  }
+  if (sport === "ice-hockey") {
+    return Array.from({ length: 9 }, (_, i) => (i === 8 ? "8+" : String(i)));
+  }
+  if (sport === "basketball") {
+    return Array.from({ length: 10 }, (_, i) =>
+      i === 0 ? "<180" : i === 9 ? "260+" : `${170 + i * 10}–${179 + i * 10}`,
+    );
+  }
+  return Array.from({ length: 10 }, (_, i) => (i === 9 ? "63+" : `${i * 7}–${i * 7 + 6}`));
 }
 
 export class SimAccumulator {
@@ -85,8 +124,7 @@ export class SimAccumulator {
     else this.wins.draw += 1;
     const key = `${s.home}–${s.away}`;
     this.scores.set(key, (this.scores.get(key) ?? 0) + 1);
-    const t = s.home + s.away;
-    const bucket = this.sport === "football" ? Math.min(t, 6) : Math.min(Math.floor(t / 7), 9);
+    const bucket = bucketForTotal(this.sport, s.home + s.away);
     this.totals.set(bucket, (this.totals.get(bucket) ?? 0) + 1);
   }
 
@@ -96,10 +134,9 @@ export class SimAccumulator {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
       .map(([score, c]) => ({ score, share: c / n }));
-    const buckets = this.sport === "football" ? 7 : 10;
-    const totals = Array.from({ length: buckets }, (_, i) => ({
-      label:
-        this.sport === "football" ? (i === 6 ? "6+" : String(i)) : i === 9 ? "63+" : `${i * 7}–${i * 7 + 6}`,
+    const labels = totalLabels(this.sport);
+    const totals = labels.map((label, i) => ({
+      label,
       share: (this.totals.get(i) ?? 0) / n,
     }));
     return {
@@ -113,11 +150,11 @@ export class SimAccumulator {
   }
 }
 
-/** Un partido jugado minuto a minuto (fútbol) o por cuarto (NFL), para la animación. */
+/** Un partido jugado minuto a minuto (fútbol), por período (NHL) o por cuarto (NFL/NBA). */
 export interface PlayedMatch {
   final: { home: number; away: number };
   events: Array<{ at: number; side: "home" | "away"; points: number }>;
-  /** Duración en la unidad del deporte (90 minutos o 4 cuartos). */
+  /** Duración en la unidad del deporte (90 min, 3 períodos o 4 cuartos). */
   length: number;
 }
 
@@ -130,11 +167,29 @@ export function playMatch(input: SimInput, rng: Rng): PlayedMatch {
     events.sort((a, b) => a.at - b.at);
     return { final, events, length: 90 };
   }
+  if (input.sport === "ice-hockey") {
+    const events: PlayedMatch["events"] = [];
+    for (let i = 0; i < final.home; i++) events.push({ at: 1 + Math.floor(rng() * 3), side: "home", points: 1 });
+    for (let i = 0; i < final.away; i++) events.push({ at: 1 + Math.floor(rng() * 3), side: "away", points: 1 });
+    events.sort((a, b) => a.at - b.at);
+    return { final, events, length: 3 };
+  }
   const events: PlayedMatch["events"] = [];
   const split = (pts: number, side: "home" | "away") => {
     let left = pts;
     while (left > 0) {
-      const chunk = left >= 7 && rng() < 0.7 ? 7 : left >= 3 ? 3 : left;
+      const chunk =
+        input.sport === "basketball"
+          ? left >= 3 && rng() < 0.3
+            ? 3
+            : left >= 2 && rng() < 0.75
+              ? 2
+              : 1
+          : left >= 7 && rng() < 0.7
+            ? 7
+            : left >= 3
+              ? 3
+              : left;
       events.push({ at: 1 + Math.floor(rng() * 4), side, points: chunk });
       left -= chunk;
     }

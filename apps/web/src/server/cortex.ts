@@ -19,6 +19,8 @@ const AI_FLAG_TTL_MS = 30_000;
 
 import {
   sanitizeCortexField,
+  sportHasDraw,
+  sportScoringUnit,
   validateCortexText,
   type CortexFacts,
 } from "@pitchlab/contracts";
@@ -35,17 +37,21 @@ export {
 const pct = (p: number) => `${Math.round(p * 100)} %`;
 
 export function cortexFactsFor(game: PlatformGame): CortexFacts {
-  const isNfl = game.sport === "american-football";
-  const [ph, pd, pa] = game.x12;
+  const hasDraw = sportHasDraw(game.sport);
+  const digits = sportScoringUnit(game.sport).decimals;
   const homeShort = sanitizeCortexField(game.home.shortName, 32) || "Local";
   const awayShort = sanitizeCortexField(game.away.shortName, 32) || "Visita";
   const homeName = sanitizeCortexField(game.home.name, 60) || homeShort;
   const awayName = sanitizeCortexField(game.away.name, 60) || awayShort;
 
-  const probabilidades: Record<string, string> = { [homeShort]: pct(ph), [awayShort]: pct(pa) };
-  if (!isNfl) probabilidades.Empate = pct(pd);
+  const probabilidades: Record<string, string> = {};
+  if (game.x12) {
+    const [ph, pd, pa] = game.x12;
+    probabilidades[homeShort] = pct(ph);
+    if (hasDraw) probabilidades.Empate = pct(pd);
+    probabilidades[awayShort] = pct(pa);
+  }
   const s = game.spacetime;
-  const digits = isNfl ? 1 : 2;
   const rawEstadio = s?.stadium.name ? sanitizeCortexField(s.stadium.name, 80) : "";
 
   return {
@@ -63,7 +69,7 @@ export function cortexFactsFor(game: PlatformGame): CortexFacts {
           probabilidades: Object.fromEntries(
             [
               [homeShort, pct(s.market.noVig.home)],
-              ...(isNfl ? [] : [["Empate", pct(s.market.noVig.draw)]]),
+              ...(hasDraw ? [["Empate", pct(s.market.noVig.draw)]] : []),
               [awayShort, pct(s.market.noVig.away)],
             ] as Array<[string, string]>,
           ),

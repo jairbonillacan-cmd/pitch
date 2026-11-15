@@ -107,6 +107,8 @@ const PARLAY_ORIGIN: JournalEntry["origin"] = "Parlay Combinado";
 
 const LEAGUE_IDS_BY_LABEL: Record<string, LeagueId> = {
   NFL: "nfl" as LeagueId,
+  NBA: "nba" as LeagueId,
+  NHL: "nhl" as LeagueId,
   "Liga MX": "liga-mx" as LeagueId,
   "Premier League": "premier-league" as LeagueId,
   Premier: "premier-league" as LeagueId,

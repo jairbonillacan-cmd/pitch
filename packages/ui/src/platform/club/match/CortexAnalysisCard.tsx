@@ -204,6 +204,29 @@ export function CortexAnalysisCard({
   const drivers = game.spacetime?.drivers ?? [];
   const maxImpact = Math.max(0.0001, ...drivers.map((d) => Math.abs(d.impactLogit)));
 
+  if (game.hasForecast === false && synthesis.trim().length === 0 && !(sections && sections.length > 0)) {
+    return (
+      <section className="pl-cortex glass-card glass-ring" aria-labelledby="cortex-title">
+        <header className="pl-cortex-head">
+          <span className="pl-cortex-badge" aria-hidden="true">
+            <MaestroIcon name="cpu" size={16} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <h2 id="cortex-title" className="m-0 text-base font-extrabold">
+              Sin lectura publicada
+            </h2>
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Cortex IA · {game.home.shortName} vs {game.away.shortName}
+            </p>
+          </div>
+        </header>
+        <p className="pl-cortex-text" style={{ color: "var(--pl-text-muted)" }}>
+          Este snapshot aún no incluye pronóstico ni lectura previa publicados para este partido.
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="pl-cortex glass-card glass-ring" aria-labelledby="cortex-title" aria-busy={phase !== "done"}>
       <header className="pl-cortex-head">

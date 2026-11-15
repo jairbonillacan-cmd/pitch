@@ -111,10 +111,12 @@ describe("secciones por deporte y liga", () => {
 });
 
 describe("resultado más probable y picks", () => {
-  it("toma el mayor del 1·X·2 y en la NFL ignora el empate", () => {
+  it("toma el mayor del 1·X·2, en la NFL/NBA/NHL ignora el empate y regresa null si falta x12", () => {
     expect(mostLikelyOutcome(game({ id: "a", x12: [0.24, 0.26, 0.5] }))).toMatchObject({ side: "away", label: "Toluca gana", p: 0.5 });
-    expect(mostLikelyOutcome(game({ id: "b", x12: [0.3, 0.4, 0.3] })).label).toBe("Empate");
-    expect(mostLikelyOutcome(game({ id: "c", sport: "american-football", x12: [0.555, 0, 0.445] })).side).toBe("home");
+    expect(mostLikelyOutcome(game({ id: "b", x12: [0.3, 0.4, 0.3] }))?.label).toBe("Empate");
+    expect(mostLikelyOutcome(game({ id: "c", sport: "american-football", x12: [0.555, 0, 0.445] }))?.side).toBe("home");
+    expect(mostLikelyOutcome(game({ id: "d", sport: "basketball", x12: [0.3, 0, 0.7] }))).toMatchObject({ side: "away", p: 0.7 });
+    expect(mostLikelyOutcome(game({ id: "e", sport: "ice-hockey", x12: null }))).toBeNull();
   });
 
   it("ordena los picks principales por probabilidad y salta cerrados y bloqueados", () => {

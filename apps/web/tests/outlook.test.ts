@@ -93,9 +93,10 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       const o = find(g)!;
       const x = o.marketsByKey["1x2"]!.selections;
       const p = (s: string) => x.find((v) => v.selection === s)!.p;
-      expect(g.x12[0]).toBeCloseTo(p("home"), 3);
-      expect(g.x12[1]).toBeCloseTo(p("draw"), 3);
-      expect(g.x12[2]).toBeCloseTo(p("away"), 3);
+      expect(g.x12).not.toBeNull();
+      expect(g.x12![0]).toBeCloseTo(p("home"), 3);
+      expect(g.x12![1]).toBeCloseTo(p("draw"), 3);
+      expect(g.x12![2]).toBeCloseTo(p("away"), 3);
       expect(g.spacetime?.outlookDriven ?? true).toBe(true);
       if (!o.marketsByKey["1x2"]?.market) {
         expect(g.spacetime?.market ?? null).toBeNull();
@@ -118,8 +119,9 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       const ml = find(g)!.marketsByKey.moneyline!.selections;
       const home = ml.find((s) => s.selection === "home")!.p;
       const away = ml.find((s) => s.selection === "away")!.p;
-      expect(g.x12[0]).toBeCloseTo(home / (home + away), 3);
-      expect(g.x12[1]).toBe(0);
+      expect(g.x12).not.toBeNull();
+      expect(g.x12![0]).toBeCloseTo(home / (home + away), 3);
+      expect(g.x12![1]).toBe(0);
     }
   }, 120_000);
 });

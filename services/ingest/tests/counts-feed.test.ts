@@ -48,4 +48,25 @@ describe("córners y faltas en el análisis", () => {
     expect(withCountProjections(base, game, buildCountFeed(few))).toBe(base);
     expect(withCountProjections(base, game, null)).toBe(base);
   });
+
+  it("aplica el multiplicador del árbitro en faltas y amarillas tras superar el mínimo sin tocar córners", () => {
+    const history: CountRow[] = [];
+    for (let i = 0; i < 18; i++) {
+      const day = `2026-0${1 + Math.floor(i / 28)}-${String((i % 28) + 1).padStart(2, "0")}`;
+      history.push({
+        date: day,
+        season: "2026-27",
+        home: "liga-mx.monterrey",
+        away: "liga-mx.queretaro",
+        referee: "Árbitro Estricto",
+        counts: { corners: [6, 5], fouls: [20, 20], yellow: [4, 4] },
+      });
+    }
+    const feed = buildCountFeed(history);
+    const neutral = feed.predict("liga-mx.monterrey", "liga-mx.queretaro");
+    const withStrict = feed.predict("liga-mx.monterrey", "liga-mx.queretaro", "Árbitro Estricto");
+    expect(withStrict.corners?.total).toBe(neutral.corners?.total);
+    expect(withStrict.fouls!.total).toBeGreaterThan(neutral.fouls!.total);
+    expect(withStrict.yellow!.total).toBeGreaterThan(neutral.yellow!.total);
+  });
 });
