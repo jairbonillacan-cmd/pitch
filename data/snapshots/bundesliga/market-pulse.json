@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
-  "observedAt": "2026-11-16T13:01:04.076Z",
+  "observedAt": "2026-11-16T20:49:30.002Z",
   "entries": [
     {
       "gameId": "bundesliga-2026-27-md10-augsburg-mainz",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 436.325556,
-          "price": 0.36
+          "price": 0.355
         },
         {
           "side": "draw",
@@ -30,7 +30,7 @@
       "gameId": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -40,11 +40,11 @@
         {
           "side": "draw",
           "volume": 6.666667,
-          "price": 0.14
+          "price": 0.135
         },
         {
           "side": "away",
-          "volume": 5.054944,
+          "volume": 9.442744000000001,
           "price": 0.095
         }
       ]
@@ -53,11 +53,11 @@
       "gameId": "bundesliga-2026-27-md10-bayern-munchen-koln",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2429.7432169999997,
+          "volume": 2638.3757389999996,
           "price": 0.905
         },
         {
@@ -67,8 +67,8 @@
         },
         {
           "side": "away",
-          "volume": 5815.109004,
-          "price": 0.038
+          "volume": 13187.856803,
+          "price": 0.0375
         }
       ]
     },
@@ -76,7 +76,7 @@
       "gameId": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -90,7 +90,7 @@
         },
         {
           "side": "away",
-          "volume": 1719.3050389999996,
+          "volume": 1769.3050389999996,
           "price": 0.595
         }
       ]
@@ -99,7 +99,7 @@
       "gameId": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -114,7 +114,7 @@
         {
           "side": "away",
           "volume": 7.5,
-          "price": 0.345
+          "price": 0.35
         }
       ]
     },
@@ -122,7 +122,7 @@
       "gameId": "bundesliga-2026-27-md10-elversberg-freiburg",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -136,8 +136,8 @@
         },
         {
           "side": "away",
-          "volume": 477.413224,
-          "price": 0.475
+          "volume": 481.57322400000004,
+          "price": 0.48
         }
       ]
     },
@@ -145,7 +145,7 @@
       "gameId": "bundesliga-2026-27-md10-schalke-stuttgart",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -159,8 +159,8 @@
         },
         {
           "side": "away",
-          "volume": 576.523938,
-          "price": 0.525
+          "volume": 631.523938,
+          "price": 0.535
         }
       ]
     },
@@ -168,7 +168,7 @@
       "gameId": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -191,7 +191,7 @@
       "gameId": "bundesliga-2026-27-md10-werder-bremen-hamburger",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-16T13:01:04.076Z",
+      "observedAt": "2026-11-16T20:49:30.002Z",
       "outcomes": [
         {
           "side": "home",
@@ -201,12 +201,12 @@
         {
           "side": "draw",
           "volume": 4.347827,
-          "price": 0.22
+          "price": 0.225
         },
         {
           "side": "away",
           "volume": 0,
-          "price": 0.21
+          "price": 0.215
         }
       ]
     }
