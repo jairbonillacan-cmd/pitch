@@ -5,7 +5,7 @@ import { LeagueBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import {
-  DAILY_PARLAY_STYLE_SPECS,
+  DAILY_PARLAY_MODE_SPECS,
   gradeOfficialDailyParlays,
 } from "../daily-parlay";
 import type { OddsFormat, PlatformGame } from "../types";
@@ -70,7 +70,7 @@ export function DailyParlaysResultsSection({
 
                 <div className="pl-hist-parlays-grid">
                   {day.entries.map((entry) => {
-                    const spec = DAILY_PARLAY_STYLE_SPECS[entry.risk];
+                    const spec = DAILY_PARLAY_MODE_SPECS[entry.risk];
                     const ready = entry.parlay.status === "ready";
                     return (
                       <article

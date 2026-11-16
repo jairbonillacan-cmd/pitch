@@ -110,18 +110,48 @@ describe("dataset del Club sobre el panorama v3.2", () => {
     }
   }, 120_000);
 
-  it("NFL: el ganador viene de v3.2 y el resto de mercados sigue del snapshot", async () => {
+  it("NFL: conserva el modelo v2 del snapshot cuando v3.2 tiene low_coverage sin mercado sharp y aplica v3.2 cuando hay mercado o cobertura ok", async () => {
     const { buildServerRawPlatformDataset } = await import("../src/server/platform-data");
     const { findOutlook: find } = await import("../src/server/outlook");
+    const { loadLeagueSnapshotEnvelope } = await import("../src/server/snapshots");
+    const snapGames = loadLeagueSnapshotEnvelope("nfl").data?.games ?? [];
     const nfl = buildServerRawPlatformDataset().games.filter((g) => g.league === "nfl" && g.status !== "FT" && find(g));
     expect(nfl.length).toBeGreaterThan(0);
+
     for (const g of nfl) {
-      const ml = find(g)!.marketsByKey.moneyline!.selections;
+      const o = find(g)!;
+      const snap = snapGames.find((s) => s.id === g.id);
+      const ml = o.marketsByKey.moneyline!.selections;
       const home = ml.find((s) => s.selection === "home")!.p;
       const away = ml.find((s) => s.selection === "away")!.p;
       expect(g.x12).not.toBeNull();
-      expect(g.x12![0]).toBeCloseTo(home / (home + away), 3);
       expect(g.x12![1]).toBe(0);
+
+      const hasSharp = ml.some((s) => s.dataQuality?.sharpMarketAvailable);
+      if (o.dataQuality.flag === "ok" || hasSharp) {
+        expect(g.x12![0]).toBeCloseTo(home / (home + away), 3);
+      } else if (snap?.x12) {
+        expect(g.x12![0]).toBeCloseTo(snap.x12[0], 3);
+        expect(g.x12![2]).toBeCloseTo(snap.x12[2], 3);
+      }
+    }
+
+    // Caso específico: Kansas City @ Atlanta mantiene el 65.2 % v2 con low_coverage y v3.2 sí pisa cuando flag === "ok".
+    const kcSnap = snapGames.find((s) => s.id.includes("chiefs"));
+    const kcOut = kcSnap ? find(kcSnap) : null;
+    if (kcSnap && kcOut) {
+      const preserved = applyOutlookWithMatchOutlook(kcSnap, null, kcOut);
+      expect(preserved.match.x12![2]).toBeCloseTo(kcSnap.x12![2], 3);
+
+      const sharpOutlook = {
+        ...kcOut,
+        dataQuality: { ...kcOut.dataQuality, flag: "ok" as const, coverageRatio: 0.9 },
+      };
+      const overridden = applyOutlookWithMatchOutlook(kcSnap, null, sharpOutlook);
+      const oml = sharpOutlook.marketsByKey.moneyline!.selections;
+      const oh = oml.find((s) => s.selection === "home")!.p;
+      const oa = oml.find((s) => s.selection === "away")!.p;
+      expect(overridden.match.x12![0]).toBeCloseTo(oh / (oh + oa), 3);
     }
   }, 120_000);
 });

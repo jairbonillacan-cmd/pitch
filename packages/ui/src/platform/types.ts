@@ -310,6 +310,8 @@ export interface PlatformGame {
     factors: Array<{ key: string; label: string; value: number; weight: number; detail: string }>;
   };
   picks: MatchPick[];
+  /** Líneas elegibles adicionales (`>= 52 %`) de mercados calculados (spreads alternativos, totales, doble oportunidad) para el optimizador por cuota objetivo. */
+  parlayCandidates?: MatchPick[];
   preGame: PreGameIntel;
   markets: PlatformMarketRow[];
   factors: Array<{ label: string; value: string; sub?: string }>;

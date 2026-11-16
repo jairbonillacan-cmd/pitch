@@ -604,6 +604,21 @@ export function ShareTicketModal(): React.JSX.Element | null {
     viewerRole,
     isTipsterPromo,
   );
+  const showExpandedLegs = Boolean(
+    shareTicket.legs &&
+      shareTicket.legs.length > 0 &&
+      (revealSelection || shareTicket.revealLegs),
+  );
+  const topLegIndices = (() => {
+    if (!showExpandedLegs || !shareTicket.legs || shareTicket.legs.length < 3) {
+      return new Set<number>();
+    }
+    const highlightCount = shareTicket.legs.length >= 4 ? 2 : 1;
+    const ranked = shareTicket.legs
+      .map((leg, idx) => ({ idx, p: leg.p }))
+      .sort((a, b) => b.p - a.p || a.idx - b.idx);
+    return new Set(ranked.slice(0, highlightCount).map((r) => r.idx));
+  })();
   const watermark = getSessionWatermark(viewerRole, viewerIdentity);
   const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
   const codeParam =
@@ -647,7 +662,9 @@ export function ShareTicketModal(): React.JSX.Element | null {
     const units = `${shareTicket.units.toFixed(1)}u`;
     const footerLine = shareTicket.promoCode
       ? `Código ${shareTicket.promoCode} · 5 días gratis`
-      : "Prueba PitchLab 7 días gratis";
+      : codeParam
+        ? `Prueba PitchLab 7 días gratis · /i/${codeParam}`
+        : "Prueba PitchLab 7 días gratis";
     const base = {
       aspect,
       leagueLabel: shareTicket.leagueLabel,
@@ -658,7 +675,30 @@ export function ShareTicketModal(): React.JSX.Element | null {
       footerSub: "pitchlab.mx · Solo +18 · Unidades simuladas",
       watermark,
     };
-    const content: TicketRasterContent = revealSelection
+    const content: TicketRasterContent = showExpandedLegs && shareTicket.legs
+      ? {
+          ...base,
+          badge: "Parlay verificado PitchLab",
+          badgeTone: "success",
+          mainLine: `${formatOddsValue(shareTicket.fairDecimal, oddsFormat)}`,
+          detailLine: `Probabilidad ${(shareTicket.probability * 100).toFixed(1)} %`,
+          summaryLeftLabel: "MOMIO JUSTO COMBINADO",
+          summaryLeftValue:
+            oddsFormat === "american"
+              ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
+              : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`,
+          summaryRightLabel: "PROBABILIDAD",
+          summaryRightValue: `${(shareTicket.probability * 100).toFixed(1)} %`,
+          legs: shareTicket.legs.map((leg, idx) => ({
+            rank: idx + 1,
+            label: leg.label,
+            subLabel: leg.matchLabel,
+            probLabel: `${(leg.p * 100).toFixed(1)} %`,
+            oddsLabel: `Justo ${formatOddsValue(leg.fairDecimal, oddsFormat)}`,
+            highlight: topLegIndices.has(idx),
+          })),
+        }
+      : revealSelection
       ? {
           ...base,
           badge: isTipsterPromo
@@ -801,7 +841,101 @@ export function ShareTicketModal(): React.JSX.Element | null {
 
               <div className="ticket-perf" />
 
-              {revealSelection ? (
+              {showExpandedLegs && shareTicket.legs ? (
+                <div className="space-y-2.5" data-share-multi-legs="">
+                  <ol className="pl-share-legs" role="list" aria-label="Selecciones del boleto">
+                    {shareTicket.legs.map((leg, idx) => {
+                      const isTop = topLegIndices.has(idx);
+                      return (
+                        <li
+                          key={`${idx}-${leg.label}`}
+                          className={isTop ? "pl-share-leg is-most-likely" : "pl-share-leg"}
+                        >
+                          <span
+                            className={isTop ? "pl-share-leg-rank is-top num" : "pl-share-leg-rank num"}
+                            aria-hidden="true"
+                          >
+                            {idx + 1}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <strong className="text-xs font-extrabold truncate">{leg.label}</strong>
+                              {isTop ? (
+                                <span
+                                  className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-extrabold"
+                                  style={{
+                                    background: "color-mix(in oklab, var(--share-card-success) 18%, transparent)",
+                                    color: "var(--share-card-success)",
+                                  }}
+                                >
+                                  <MaestroIcon name="check" size={10} />
+                                  <span>Más probable</span>
+                                </span>
+                              ) : null}
+                            </div>
+                            <span
+                              className="block text-[11px] truncate"
+                              style={{ color: "var(--share-card-muted)" }}
+                            >
+                              {leg.matchLabel}
+                            </span>
+                          </div>
+                          <div className="text-right shrink-0 num">
+                            <span
+                              className="block text-xs font-extrabold"
+                              style={{ color: isTop ? "var(--share-card-success)" : "var(--share-card-accent)" }}
+                            >
+                              {(leg.p * 100).toFixed(1)} %
+                            </span>
+                            <span
+                              className="block text-[10px]"
+                              style={{ color: "var(--share-card-muted)" }}
+                            >
+                              Justo {formatOddsValue(leg.fairDecimal, oddsFormat)}
+                            </span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+
+                  <div
+                    className="rounded-xl p-3 flex items-center justify-between gap-2 num"
+                    style={{
+                      background: "var(--share-card-surface)",
+                      border: "1px solid var(--share-card-accent)",
+                    }}
+                  >
+                    <div>
+                      <span
+                        className="block text-[10px] font-bold uppercase tracking-wide"
+                        style={{ color: "var(--share-card-muted)" }}
+                      >
+                        Momio justo
+                      </span>
+                      <strong className="text-base font-extrabold">
+                        {oddsFormat === "american"
+                          ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
+                          : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`}
+                      </strong>
+                    </div>
+                    <div className="text-right">
+                      <span
+                        className="block text-[10px] font-bold uppercase tracking-wide"
+                        style={{ color: "var(--share-card-muted)" }}
+                      >
+                        Probabilidad
+                      </span>
+                      <strong
+                        className="text-base font-extrabold"
+                        style={{ color: "var(--share-card-success)" }}
+                      >
+                        {(shareTicket.probability * 100).toFixed(1)} %
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              ) : revealSelection ? (
                 <div
                   className="rounded-xl p-3.5 space-y-1.5"
                   style={{ background: "var(--share-card-surface)" }}
@@ -897,9 +1031,11 @@ export function ShareTicketModal(): React.JSX.Element | null {
             >
               {copyState === "error"
                 ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
-                : revealSelection
-                  ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
-                  : "La selección queda oculta porque el partido aún no empieza."}
+                : showExpandedLegs
+                  ? "Tarjeta lista para compartir con probabilidades claras y enlace de socio."
+                  : revealSelection
+                    ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
+                    : "La selección queda oculta porque el partido aún no empieza."}
             </span>
             <div className="flex items-center gap-2">
               <button

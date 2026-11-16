@@ -601,3 +601,149 @@ export const HistorialParlaysDelDiaClaro = {
   ...HistorialParlaysDelDiaOscuro,
   globals: { theme: "light" },
 };
+
+const NFL_OBJETIVO_STORY_DATASET = buildPlatformDataset([
+  {
+    league: asLeagueId("nfl"),
+    leagueLabel: "NFL",
+    sport: "american-football",
+    season: "Temporada 2026",
+    roundLabel: "Semana 10",
+    generatedAt: "2026-11-14T10:00:00Z",
+    games: [
+      {
+        ...makeStoryMatch({
+          id: "obj-nfl-kc",
+          league: "nfl",
+          leagueLabel: "NFL",
+          sport: "american-football",
+          status: "NS",
+          homeSlug: "atlanta-falcons",
+          homeName: "Atlanta",
+          homeCode: "ATL",
+          awaySlug: "kansas-city-chiefs",
+          awayName: "Kansas City",
+          awayCode: "KC",
+          x12: [0.348, 0, 0.652],
+          proj: { home: 20.0, away: 24.3, total: 44.3 },
+        }),
+        marketGroups: [
+          {
+            group: "Ganador",
+            rows: [
+              { market: asMarketKey("h2h"), selection: "away", label: "Kansas City gana", p: 0.652, fairOdds: 1.53 },
+              { market: asMarketKey("h2h"), selection: "home", label: "Atlanta gana", p: 0.348, fairOdds: 2.87 },
+            ],
+          },
+        ],
+      },
+      {
+        ...makeStoryMatch({
+          id: "obj-nfl-hou",
+          league: "nfl",
+          leagueLabel: "NFL",
+          sport: "american-football",
+          status: "NS",
+          homeSlug: "cleveland-browns",
+          homeName: "Cleveland",
+          homeCode: "CLE",
+          awaySlug: "houston-texans",
+          awayName: "Houston",
+          awayCode: "HOU",
+          x12: [0.385, 0, 0.615],
+          proj: { home: 19.5, away: 23.0, total: 42.5 },
+        }),
+        marketGroups: [
+          {
+            group: "Ganador",
+            rows: [
+              { market: asMarketKey("h2h"), selection: "away", label: "Houston gana", p: 0.615, fairOdds: 1.63 },
+              { market: asMarketKey("h2h"), selection: "home", label: "Cleveland gana", p: 0.385, fairOdds: 2.6 },
+            ],
+          },
+        ],
+      },
+      {
+        ...makeStoryMatch({
+          id: "obj-nfl-sf",
+          league: "nfl",
+          leagueLabel: "NFL",
+          sport: "american-football",
+          status: "NS",
+          homeSlug: "dallas-cowboys",
+          homeName: "Dallas",
+          homeCode: "DAL",
+          awaySlug: "san-francisco-49ers",
+          awayName: "San Francisco",
+          awayCode: "SF",
+          x12: [0.339, 0, 0.661],
+          proj: { home: 20.5, away: 25.0, total: 45.5 },
+        }),
+        marketGroups: [
+          {
+            group: "Ganador",
+            rows: [
+              { market: asMarketKey("h2h"), selection: "away", label: "San Francisco gana", p: 0.661, fairOdds: 1.51 },
+              { market: asMarketKey("h2h"), selection: "home", label: "Dallas gana", p: 0.339, fairOdds: 2.95 },
+            ],
+          },
+        ],
+      },
+      {
+        ...makeStoryMatch({
+          id: "obj-nfl-jax",
+          league: "nfl",
+          leagueLabel: "NFL",
+          sport: "american-football",
+          status: "NS",
+          homeSlug: "tennessee-titans",
+          homeName: "Tennessee",
+          homeCode: "TEN",
+          awaySlug: "jacksonville-jaguars",
+          awayName: "Jacksonville",
+          awayCode: "JAX",
+          x12: [0.171, 0, 0.829],
+          proj: { home: 16.0, away: 26.5, total: 42.5 },
+        }),
+        marketGroups: [
+          {
+            group: "Ganador",
+            rows: [
+              { market: asMarketKey("h2h"), selection: "away", label: "Jacksonville gana", p: 0.829, fairOdds: 1.21 },
+              { market: asMarketKey("h2h"), selection: "home", label: "Tennessee gana", p: 0.171, fairOdds: 5.85 },
+            ],
+          },
+          {
+            group: "Hándicap alternativo -7.5",
+            rows: [
+              { market: asMarketKey("spreads"), selection: "away_-7.5", label: "JAX -7.5", line: -7.5, p: 0.608, fairOdds: 1.64 },
+              { market: asMarketKey("spreads"), selection: "home_7.5", label: "TEN +7.5", line: 7.5, p: 0.392, fairOdds: 2.55 },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+export const ParlayObjetivoNflOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={NFL_OBJETIVO_STORY_DATASET} initialRole="member">
+      <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+        <OfficialDailyParlayCard
+          games={NFL_OBJETIVO_STORY_DATASET.games}
+          selectedDay="2026-11-14"
+          today="2026-11-14"
+          initialMode="objetivo"
+          activeLeague={asLeagueId("nfl")}
+        />
+      </div>
+    </PlatformProvider>
+  ),
+};
+
+export const ParlayObjetivoNflClaro = {
+  ...ParlayObjetivoNflOscuro,
+  globals: { theme: "light" },
+};

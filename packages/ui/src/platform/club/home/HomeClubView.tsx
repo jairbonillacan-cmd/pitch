@@ -552,6 +552,7 @@ export function HomeClubView(): React.JSX.Element {
               selectedDay={day}
               today={today}
               isPastDay={isPast}
+              activeLeague={league === ALL ? null : league}
             />
 
             <MatchList groups={dayGroups} today={today} />

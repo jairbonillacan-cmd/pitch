@@ -193,6 +193,7 @@ export function redactDatasetForVisitor(
           isRedacted: true,
         };
       }),
+      parlayCandidates: [],
       preGame: hasPromoOpenPick
         ? {
             cortexSynthesis: game.preGame.cortexSynthesis,

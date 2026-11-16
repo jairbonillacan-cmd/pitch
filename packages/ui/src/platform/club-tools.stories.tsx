@@ -223,6 +223,26 @@ const openShare = (p: ReturnType<typeof usePlatform>) =>
     units: 1,
     gameStatus: "NS",
   });
+const openShareMultiParlay = (p: ReturnType<typeof usePlatform>) =>
+  p.openShareTicket({
+    kind: "parlay",
+    title: "Parlay objetivo ~5.0× · NFL",
+    subtitle: "4 selecciones, ≥ 52 % cada una; busca cuota justa 3.0–7.0",
+    leagueLabel: "NFL",
+    pickLabel: "SF gana + KC gana + HOU gana + JAX -7.5",
+    probability: 0.161,
+    fairDecimal: 6.21,
+    marketDecimal: 6.21,
+    units: 1,
+    gameStatus: "NS",
+    revealLegs: true,
+    legs: [
+      { label: "San Francisco gana", matchLabel: "SF @ DAL · 15:25", p: 0.661, fairDecimal: 1.51 },
+      { label: "Kansas City gana", matchLabel: "KC @ ATL · 12:00", p: 0.652, fairDecimal: 1.53 },
+      { label: "Houston gana", matchLabel: "HOU @ CLE · 12:00", p: 0.615, fairDecimal: 1.63 },
+      { label: "JAX -7.5", matchLabel: "JAX @ TEN · 12:00", p: 0.608, fairDecimal: 1.64 },
+    ],
+  });
 const fillParlay = (p: ReturnType<typeof usePlatform>) => {
   for (const game of STORY_DATASET.games.filter((g) => g.status !== "FT").slice(0, 3)) {
     const pick = game.picks[0];
@@ -263,6 +283,16 @@ export const CompartirBoleto = {
   ),
 };
 export const CompartirBoletoClaro = { ...CompartirBoleto, ...light };
+
+export const CompartirParlayObjetivoOscuro = {
+  render: () => (
+    <Member>
+      <OnMount run={openShareMultiParlay} />
+      <ShareTicketModal />
+    </Member>
+  ),
+};
+export const CompartirParlayObjetivoClaro = { ...CompartirParlayObjetivoOscuro, ...light };
 
 export const DockDelParlay = {
   render: () => (

@@ -234,6 +234,15 @@ import type {
   ViewerVia,
 } from "./types";
 
+export interface ShareTicketLegItem {
+  label: string;
+  matchLabel: string;
+  p: number;
+  fairDecimal: number;
+  marketDecimal?: number | null;
+  kickoffLocal?: string;
+}
+
 export interface ShareTicketPayload {
   kind: "pick" | "parlay" | "tipster";
   title: string;
@@ -245,6 +254,9 @@ export interface ShareTicketPayload {
   marketDecimal: number;
   units: number;
   gameStatus: "NS" | "FT" | "LIVE";
+  legs?: ShareTicketLegItem[];
+  /** Solo para tarjetas editoriales oficiales (Parlay del día), nunca para picks individuales privados pre-kickoff. */
+  revealLegs?: boolean;
   promoCode?: string;
   tipsterHandle?: string;
   originBadge?: string;
@@ -630,6 +642,7 @@ export function PlatformProvider({
   viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
   initialWatchlistGameIds,
+  initialShareTicket = null,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -646,6 +659,8 @@ export function PlatformProvider({
   serverMonth1NoCardMode?: boolean;
   /** Partidos pre-cargados en vigilancia (pruebas y Storybook). */
   initialWatchlistGameIds?: readonly string[];
+  /** Boleto inicial abierto en ShareTicketModal (pruebas y Storybook). */
+  initialShareTicket?: ShareTicketPayload | null;
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -754,7 +769,7 @@ export function PlatformProvider({
   );
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
-  const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(null);
+  const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(initialShareTicket);
   const [cmdkOpen, setCmdkOpen] = useState<boolean>(false);
   const [betaPinOpen, setBetaPinOpen] = useState<boolean>(false);
   const [betaPinNextPath, setBetaPinNextPath] = useState<string>("/app");
@@ -1082,6 +1097,9 @@ export function PlatformProvider({
           ...g,
           kickoffLocal: ko,
           picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+          ...(g.parlayCandidates
+            ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+            : {}),
         };
       }),
     };
@@ -2490,7 +2508,14 @@ export function PlatformGamesSupplement({
               const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
               return ko === g.kickoffLocal
                 ? g
-                : { ...g, kickoffLocal: ko, picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })) };
+                : {
+                    ...g,
+                    kickoffLocal: ko,
+                    picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+                    ...(g.parlayCandidates
+                      ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+                      : {}),
+                  };
             })
           : extraRaw;
       return { ...base, games: [...base.games, ...extra] };

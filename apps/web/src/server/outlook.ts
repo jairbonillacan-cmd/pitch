@@ -446,6 +446,38 @@ export function applyOutlookWithMatchOutlook(
   const market = freshSignalMarket(o, isNfl, nowMs);
 
   if (isNfl) {
+    const hasSharpMarket = Boolean(
+      o.marketsByKey.moneyline?.selections.some((s) => s.dataQuality?.sharpMarketAvailable),
+    );
+    const isFallbackLowCoverage =
+      o.dataQuality.flag === "low_coverage" || o.dataQuality.flag === "fallback_base_rate";
+    const snapshotHasSignal = Boolean(
+      match.x12 &&
+        Number.isFinite(match.x12[0]) &&
+        Number.isFinite(match.x12[2]) &&
+        match.x12[0] > 0 &&
+        match.x12[2] > 0,
+    );
+    if (isFallbackLowCoverage && !market && !hasSharpMarket && snapshotHasSignal && match.x12) {
+      return {
+        match,
+        signal: signal
+          ? {
+              ...signal,
+              outlookDriven: true,
+              probs: { home: match.x12[0], draw: 0, away: match.x12[2] },
+              value: signal.market ? signal.value : [],
+              expectedTotal: match.projection?.total ?? signal.expectedTotal,
+              expectedMargin:
+                match.projection?.margin ??
+                (match.projection
+                  ? match.projection.home - match.projection.away
+                  : signal.expectedMargin),
+            }
+          : null,
+      };
+    }
+
     const home = sel(o, "moneyline", "home");
     const away = sel(o, "moneyline", "away");
     if (!home || !away) return { match, signal };

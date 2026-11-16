@@ -701,6 +701,14 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       pickLabel: parlaySummary.legs
                         .map((l) => l.pick.label)
                         .join(" + "),
+                      legs: parlaySummary.legs.map(({ pick }) => ({
+                        label: pick.label,
+                        matchLabel: `${pick.matchLabel} · ${pick.kickoffLocal}`,
+                        p: pick.p,
+                        fairDecimal: pick.fairDecimal,
+                        marketDecimal: pick.marketDecimal,
+                        kickoffLocal: pick.kickoffLocal,
+                      })),
                       probability: parlaySummary.combinedProbability,
                       fairDecimal: parlaySummary.fairDecimal,
                       marketDecimal: effectiveSlipBookDec,

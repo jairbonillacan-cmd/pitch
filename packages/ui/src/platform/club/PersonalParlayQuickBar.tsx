@@ -8,6 +8,8 @@ import {
   buildPersonalQuickParlay,
   DAILY_PARLAY_STYLE_SPECS,
   DAILY_PARLAY_STYLES,
+  PARLAY_TARGET_PRESETS,
+  type ParlayTargetPresetId,
   type PersonalParlayScope,
 } from "../daily-parlay";
 import { ALL, SPORTS, sportOf, type SportFilter } from "./home/home-model";
@@ -20,8 +22,9 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
   const { dataset, viewerRole, oddsFormat, riskPreference, loadParlayPicks } =
     usePlatform();
   const leagueSelectId = useId();
-  const [legCount, setLegCount] = useState<number>(3);
+  const [legCount, setLegCount] = useState<number>(4);
   const [risk, setRisk] = useState<RiskBand>(riskPreference);
+  const [targetPreset, setTargetPreset] = useState<ParlayTargetPresetId>("libre");
   const [sport, setSport] = useState<SportFilter>(ALL);
   const [league, setLeague] = useState<LeagueId | typeof ALL>(ALL);
 
@@ -61,12 +64,16 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
         games: dataset.games,
         legCount,
         risk,
+        targetPreset,
         scope,
         viewerRole,
         allowSgp: false,
       }),
-    [dataset.games, legCount, risk, scope, viewerRole],
+    [dataset.games, legCount, risk, targetPreset, scope, viewerRole],
   );
+
+  const activePresetSpec =
+    PARLAY_TARGET_PRESETS.find((p) => p.id === targetPreset) ?? PARLAY_TARGET_PRESETS[0]!;
 
   const handleSelectSport = (next: SportFilter) => {
     setSport(next);
@@ -75,9 +82,14 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
 
   const handleApply = () => {
     if (preview.legs.length === 0) return;
+    const styleLabel = DAILY_PARLAY_STYLE_SPECS[risk].label;
+    const parlayTitle =
+      targetPreset === "libre"
+        ? `Parlay personal (${styleLabel})`
+        : `Parlay personal (${activePresetSpec.label} · ${styleLabel})`;
     loadParlayPicks(
       preview.legs.map((l) => l.pick),
-      { allowSgp: false, label: `Parlay personal (${DAILY_PARLAY_STYLE_SPECS[risk].label})` },
+      { allowSgp: false, label: parlayTitle },
     );
   };
 
@@ -103,13 +115,16 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
         <div className="pl-quickbar-preview">
           {preview.status === "insufficient" ? (
             <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-              Sin partidos suficientes con ese filtro
+              Sin combinación válida con esa regla
             </span>
           ) : (
             <span className="pl-pill pl-pill--info num">
               {preview.legs.length} {preview.legs.length === 1 ? "pick" : "picks"} ·{" "}
               {(preview.combinedProbability * 100).toFixed(1)} % ·{" "}
               {formatOddsValue(preview.fairDecimal, oddsFormat)}
+              {preview.hasCapturedBookOdds
+                ? ` (casa ~${formatOddsValue(preview.bookDecimal, oddsFormat)})`
+                : ""}
             </span>
           )}
         </div>
@@ -129,6 +144,24 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
                 onClick={() => setLegCount(cnt)}
               >
                 {cnt}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="pl-quickbar-field">
+          <span className="pl-quickbar-label">Cuota meta</span>
+          <div className="seg-well pl-quickbar-well" role="group" aria-label="Cuota meta">
+            {PARLAY_TARGET_PRESETS.map((preset) => (
+              <button
+                key={preset.id}
+                type="button"
+                className="seg-btn pl-quickbar-pill--compact num"
+                aria-pressed={targetPreset === preset.id}
+                data-quick-target={preset.id}
+                onClick={() => setTargetPreset(preset.id)}
+              >
+                {preset.label}
               </button>
             ))}
           </div>
@@ -217,10 +250,29 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
         </div>
       </div>
 
-      {preview.message ? (
+      {targetPreset !== "libre" && preview.status !== "insufficient" ? (
         <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          {preview.message}
+          Regla activa: ≥ {risk === "conservador" ? 60 : 52} % por selección (momio mín.{" "}
+          {activePresetSpec.minLegDecimal.toFixed(2)}), máximo 1 por partido dentro del rango{" "}
+          {activePresetSpec.range?.min.toFixed(1)}–{activePresetSpec.range?.max.toFixed(1)} sin inventar cuotas.
         </p>
+      ) : null}
+
+      {preview.message ? (
+        <div className="flex flex-wrap items-center justify-between gap-2" role="status">
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            {preview.message}
+          </p>
+          {preview.status === "insufficient" && targetPreset !== "libre" ? (
+            <button
+              type="button"
+              className="pl-btn-glass min-h-11 px-3 text-xs"
+              onClick={() => setTargetPreset("libre")}
+            >
+              Cambiar a Libre
+            </button>
+          ) : null}
+        </div>
       ) : null}
     </section>
   );

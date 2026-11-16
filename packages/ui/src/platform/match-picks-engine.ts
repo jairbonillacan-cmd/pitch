@@ -236,11 +236,85 @@ function pickLabelOf(group: string, row: AnalysisMarketRow): string {
   return row.label;
 }
 
-function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | null): MatchPick[] {
+function assembleMatchPick(input: {
+  id: string;
+  match: MatchAnalysis;
+  matchLabel: string;
+  signal: SpacetimeSignal | null;
+  confScore: number | null;
+  confidenceOrder: number;
+  slotIndex: number;
+  category: MatchPick["category"];
+  categoryLabel: string;
+  risk: MatchPick["risk"];
+  engineKey: EngineKey;
+  engineName: string;
+  marketGroup: string;
+  row: AnalysisMarketRow;
+  rationale: string;
+  units: number;
+  explicitMarketDecimal?: number | null;
+}): MatchPick {
+  const { match, signal, row, slotIndex, confidenceOrder, confScore } = input;
+  const p = row.p;
+  const fairDecimal = Math.max(1.01, Math.round((row.fairOdds ?? 1 / p) * 100) / 100);
+  const marketDecimal =
+    input.explicitMarketDecimal !== undefined
+      ? input.explicitMarketDecimal
+      : realOdds(signal, moneylineSide(row.market, row.selection));
+  const conflictGroup = classifyConflictGroup(row.market, row.selection, row.label);
+  const result =
+    match.status === "FT"
+      ? gradePick(row.market, row.selection, row.line, conflictGroup, match.score)
+      : null;
+
+  return {
+    id: input.id,
+    gameId: match.id,
+    league: match.league,
+    leagueLabel: match.leagueLabel,
+    matchLabel: input.matchLabel,
+    kickoffLocal: match.kickoffLocal,
+    gameStatus: match.status,
+    slotIndex,
+    category: input.category,
+    categoryLabel: input.categoryLabel,
+    risk: input.risk,
+    engineKey: input.engineKey,
+    engineName: input.engineName,
+    marketGroup: input.marketGroup,
+    selectionKey: row.selection,
+    market: asMarketKey(row.market),
+    ...(row.line !== undefined ? { line: row.line } : {}),
+    conflictGroup,
+    label: pickLabelOf(input.marketGroup, row),
+    rationale: input.rationale,
+    p,
+    fairDecimal,
+    fairAmerican: decimalToAmericanInt(fairDecimal),
+    marketDecimal,
+    marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
+    marketBookLabel:
+      marketDecimal === null
+        ? null
+        : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
+    marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
+    edgePts: edgeAgainst(p, marketDecimal),
+    confidenceScore:
+      confScore !== null ? Math.min(96, Math.max(48, Math.round(confScore - confidenceOrder * 3))) : null,
+    suggestedUnits: input.units,
+    result,
+  };
+}
+
+function buildMatchPicksAndParlayCandidates(
+  match: MatchAnalysis,
+  signal: SpacetimeSignal | null,
+): { picks: MatchPick[]; parlayCandidates: MatchPick[] } {
   const hasForecast =
     match.hasForecast !== false &&
     Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
-  if (!hasForecast) return [];
+  if (!hasForecast) return { picks: [], parlayCandidates: [] };
 
   const pointsBased = match.sport === "american-football" || match.sport === "basketball";
   const unit = sportScoringUnit(match.sport);
@@ -399,28 +473,14 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
     }
   }
 
-  return pickRows.map((item, idx) => {
-    const { row } = item;
-    const p = row.p;
-    const fairDecimal = Math.max(1.01, Math.round((row.fairOdds ?? 1 / p) * 100) / 100);
-    const marketDecimal =
-      item.marketDecimal !== undefined
-        ? item.marketDecimal
-        : realOdds(signal, moneylineSide(row.market, row.selection));
-    const conflictGroup = classifyConflictGroup(row.market, row.selection, row.label);
-    const result =
-      match.status === "FT"
-        ? gradePick(row.market, row.selection, row.line, conflictGroup, match.score)
-        : null;
-
-    return {
+  const picks = pickRows.map((item, idx) =>
+    assembleMatchPick({
       id: `${match.id}__p${idx + 1}`,
-      gameId: match.id,
-      league: match.league,
-      leagueLabel: match.leagueLabel,
+      match,
       matchLabel,
-      kickoffLocal: match.kickoffLocal,
-      gameStatus: match.status,
+      signal,
+      confScore,
+      confidenceOrder: idx,
       slotIndex: idx + 1,
       category: item.category,
       categoryLabel: item.categoryLabel,
@@ -428,29 +488,49 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       engineKey: item.engineKey,
       engineName: item.engineName,
       marketGroup: item.marketGroup,
-      selectionKey: row.selection,
-      market: asMarketKey(row.market),
-      ...(row.line !== undefined ? { line: row.line } : {}),
-      conflictGroup,
-      label: pickLabelOf(item.marketGroup, row),
+      row: item.row,
       rationale: item.rationale,
-      p,
-      fairDecimal,
-      fairAmerican: decimalToAmericanInt(fairDecimal),
-      marketDecimal,
-      marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
-      marketBookLabel:
-        marketDecimal === null
-          ? null
-          : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
-      marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
-      edgePts: edgeAgainst(p, marketDecimal),
-      confidenceScore:
-        confScore !== null ? Math.min(96, Math.max(48, Math.round(confScore - idx * 3))) : null,
-      suggestedUnits: item.units,
-      result,
-    };
-  });
+      units: item.units,
+      explicitMarketDecimal: item.marketDecimal,
+    }),
+  );
+
+  // Líneas adicionales del partido (`>= 52 %`) para optimizar parlays por cuota objetivo sin tocar las 5 cartas principales.
+  const existingKeys = new Set(
+    picks.map((pk) => `${pk.market ?? ""}:${pk.selectionKey}:${pk.line ?? ""}`),
+  );
+  const parlayCandidates: MatchPick[] = [];
+  let altIdx = 0;
+  for (const { group, row } of allRows) {
+    if (COUNT_MARKET_KEYS.has(row.market) || row.market === "correct_score") continue;
+    if (!Number.isFinite(row.p) || row.p < 0.52 || row.p >= 0.99) continue;
+    const dedupKey = `${asMarketKey(row.market)}:${row.selection}:${row.line ?? ""}`;
+    if (existingKeys.has(dedupKey) || usedLabels.has(row.label)) continue;
+    existingKeys.add(dedupKey);
+    parlayCandidates.push(
+      assembleMatchPick({
+        id: `${match.id}__mkt__${encodeURIComponent(group)}__${encodeURIComponent(row.selection)}`,
+        match,
+        matchLabel,
+        signal,
+        confScore,
+        confidenceOrder: 1,
+        slotIndex: 20 + altIdx,
+        category: "tactico",
+        categoryLabel: group,
+        risk: "medio",
+        engineKey: primaryEngine,
+        engineName: primaryEngineName,
+        marketGroup: group,
+        row,
+        rationale: `Línea del partido (${group}): ${Math.round(row.p * 100)} % de probabilidad.`,
+        units: 1.0,
+      }),
+    );
+    altIdx += 1;
+  }
+
+  return { picks, parlayCandidates };
 }
 
 function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null): PreGameIntel {
@@ -657,6 +737,7 @@ function buildPlatformMarkets(
       market: row.market,
       selection: row.selection,
       label: row.label,
+      ...(row.line !== undefined ? { line: row.line } : {}),
       p: row.p,
       fairDecimal,
       fairAmerican: decimalToAmericanInt(fairDecimal),
@@ -720,6 +801,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       const goalLine = extractGoalLine(markets);
 
       const resolvedLeagueLogo = m.leagueLogoUrl ?? leagueInput.leagueLogoUrl;
+      const { picks, parlayCandidates } = buildMatchPicksAndParlayCandidates(m, signal);
       games.push({
         id: m.id,
         league: m.league,
@@ -765,7 +847,8 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
               },
             }
           : {}),
-        picks: buildFiveMatchPicks(m, signal),
+        picks,
+        ...(parlayCandidates.length > 0 ? { parlayCandidates } : {}),
         preGame: buildPreGameIntel(m, signal),
         markets,
         factors:

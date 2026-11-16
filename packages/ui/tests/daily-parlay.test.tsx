@@ -6,12 +6,15 @@ import { buildPlatformDataset } from "../src/platform/match-picks-engine";
 import {
   buildOfficialDailyParlay,
   buildPersonalQuickParlay,
+  buildTargetOddsParlay,
+  DAILY_PARLAY_MODE_SPECS,
   DAILY_PARLAY_STYLE_SPECS,
   gradeOfficialDailyParlays,
   resolveOfficialParlayDay,
 } from "../src/platform/daily-parlay";
 import { PlatformProvider } from "../src/platform/platform-provider";
 import { redactDatasetForVisitor } from "../src/platform/access-guard";
+import { ShareTicketModal } from "../src/platform/components/PlatformOverlays";
 import { HomeClubView } from "../src/platform/club/home/HomeClubView";
 import { OfficialDailyParlayCard } from "../src/platform/club/home/OfficialDailyParlayCard";
 import { HistorialClubView } from "../src/platform/club/HistorialClubView";
@@ -499,6 +502,269 @@ describe("Parlay oficial del día y generador personal (Punto 4)", () => {
     );
     expect(parlaysHtml).toContain("Generador personal");
     expect(parlaysHtml).toContain("Arma tu parlay en un toque");
+    expect(parlaysHtml).toContain("Cuota meta");
+    expect(parlaysHtml).toContain("~5.0×");
     expect(parlaysHtml).toContain("Todas las ligas");
+  });
+
+  it("buildTargetOddsParlay busca líneas alternativas (JAX -7.5 vs ML 1.21) cumpliendo piso >= 52 % y rango 3.0–7.0 cerca de 5.0", () => {
+    const nflSundayMatch = (opts: {
+      id: string;
+      home: string;
+      away: string;
+      x12: [number, number, number];
+      proj: { home: number; away: number; total: number };
+      marketGroups: MatchAnalysis["marketGroups"];
+    }): MatchAnalysis => ({
+      id: opts.id,
+      league: asLeagueId("nfl"),
+      leagueLabel: "NFL",
+      sport: "american-football",
+      round: "Semana 10",
+      day: "2026-11-15",
+      dayLabel: "domingo",
+      kickoffUtc: "2026-11-15T18:00:00Z",
+      kickoffLocal: "12:00",
+      venue: "Estadio NFL",
+      status: "NS",
+      home: { slug: `${opts.id}-h`, name: opts.home, shortName: opts.home, code: opts.home.slice(0, 3).toUpperCase(), record: "6G-3P" },
+      away: { slug: `${opts.id}-a`, name: opts.away, shortName: opts.away, code: opts.away.slice(0, 3).toUpperCase(), record: "7G-2P" },
+      x12: opts.x12,
+      projection: opts.proj,
+      outcomes: [
+        { key: "home", label: `${opts.home} gana`, probability: opts.x12[0], fairOdds: { decimal: Math.round((1 / opts.x12[0]) * 100) / 100, american: 150 } },
+        { key: "away", label: `${opts.away} gana`, probability: opts.x12[2], fairOdds: { decimal: Math.round((1 / opts.x12[2]) * 100) / 100, american: -180 } },
+      ],
+      marketGroups: opts.marketGroups,
+      factors: [{ label: "Forma", detail: "OK", impact: "+1", value: "OK" }],
+      trace: [],
+      confidence: { score: 80, level: "alta", reasons: [] },
+    });
+
+    const sundayDataset = buildPlatformDataset([
+      {
+        league: asLeagueId("nfl"),
+        leagueLabel: "NFL",
+        sport: "american-football",
+        season: "2026",
+        roundLabel: "Semana 10",
+        generatedAt: "2026-11-15T10:00:00Z",
+        games: [
+          nflSundayMatch({
+            id: "nfl-kc-atl",
+            home: "Atlanta",
+            away: "Kansas City",
+            x12: [0.348, 0, 0.652],
+            proj: { home: 20, away: 24.3, total: 44.3 },
+            marketGroups: [
+              {
+                group: "Ganador",
+                rows: [
+                  { market: asMarketKey("h2h"), selection: "away", label: "Kansas City gana", p: 0.652, fairOdds: 1.53 },
+                  { market: asMarketKey("h2h"), selection: "home", label: "Atlanta gana", p: 0.348, fairOdds: 2.87 },
+                ],
+              },
+            ],
+          }),
+          nflSundayMatch({
+            id: "nfl-hou-cle",
+            home: "Cleveland",
+            away: "Houston",
+            x12: [0.385, 0, 0.615],
+            proj: { home: 19.5, away: 23, total: 42.5 },
+            marketGroups: [
+              {
+                group: "Ganador",
+                rows: [
+                  { market: asMarketKey("h2h"), selection: "away", label: "Houston gana", p: 0.615, fairOdds: 1.63 },
+                  { market: asMarketKey("h2h"), selection: "home", label: "Cleveland gana", p: 0.385, fairOdds: 2.6 },
+                ],
+              },
+            ],
+          }),
+          nflSundayMatch({
+            id: "nfl-sf-dal",
+            home: "Dallas",
+            away: "San Francisco",
+            x12: [0.339, 0, 0.661],
+            proj: { home: 20.5, away: 25, total: 45.5 },
+            marketGroups: [
+              {
+                group: "Ganador",
+                rows: [
+                  { market: asMarketKey("h2h"), selection: "away", label: "San Francisco gana", p: 0.661, fairOdds: 1.51 },
+                  { market: asMarketKey("h2h"), selection: "home", label: "Dallas gana", p: 0.339, fairOdds: 2.95 },
+                ],
+              },
+            ],
+          }),
+          nflSundayMatch({
+            id: "nfl-jax-ten",
+            home: "Tennessee",
+            away: "Jacksonville",
+            x12: [0.171, 0, 0.829],
+            proj: { home: 16, away: 26.5, total: 42.5 },
+            marketGroups: [
+              {
+                group: "Ganador",
+                rows: [
+                  { market: asMarketKey("h2h"), selection: "away", label: "Jacksonville gana", p: 0.829, fairOdds: 1.21 },
+                  { market: asMarketKey("h2h"), selection: "home", label: "Tennessee gana", p: 0.171, fairOdds: 5.85 },
+                ],
+              },
+              {
+                group: "Hándicap alternativo -7.5",
+                rows: [
+                  { market: asMarketKey("spreads"), selection: "away_-7.5", label: "JAX -7.5", line: -7.5, p: 0.608, fairOdds: 1.64 },
+                  { market: asMarketKey("spreads"), selection: "home_7.5", label: "TEN +7.5", line: 7.5, p: 0.392, fairOdds: 2.55 },
+                ],
+              },
+            ],
+          }),
+        ],
+      },
+    ]);
+
+    const res = buildTargetOddsParlay({
+      games: sundayDataset.games,
+      dayId: "2026-11-15",
+      legCount: 4,
+      minLegProbability: 0.52,
+      minLegDecimal: 1.35,
+      targetRange: { min: 3.0, target: 5.0, max: 7.0 },
+      scope: { kind: "league", league: asLeagueId("nfl") },
+    });
+
+    expect(res.status).toBe("ready");
+    expect(res.legs).toHaveLength(4);
+    expect(res.legs.every((l) => l.pick.p >= 0.52)).toBe(true);
+    expect(res.legs.every((l) => l.pick.fairDecimal >= 1.35)).toBe(true);
+    expect(res.legs.some((l) => l.pick.label === "JAX -7.5")).toBe(true);
+    expect(res.legs.some((l) => l.pick.label === "Jacksonville gana")).toBe(false);
+    expect(res.fairDecimal).toBeGreaterThanOrEqual(3.0);
+    expect(res.fairDecimal).toBeLessThanOrEqual(7.0);
+    expect(res.hasCapturedBookOdds).toBe(false);
+
+    // Determinismo si cambia el orden de partidos/picks
+    const reversed = shuffleGamesAndPicks(sundayDataset.games);
+    const resRev = buildTargetOddsParlay({
+      games: reversed,
+      dayId: "2026-11-15",
+      legCount: 4,
+      minLegProbability: 0.52,
+      minLegDecimal: 1.35,
+      targetRange: { min: 3.0, target: 5.0, max: 7.0 },
+      scope: { kind: "league", league: asLeagueId("nfl") },
+    });
+    expect(resRev.legs.map((l) => l.pick.id)).toEqual(res.legs.map((l) => l.pick.id));
+
+    // Preserva piso honesto si no se alcanza el rango objetivo sin romper >= 52 %
+    const impossibleHigh = buildTargetOddsParlay({
+      games: sundayDataset.games,
+      dayId: "2026-11-15",
+      legCount: 4,
+      minLegProbability: 0.52,
+      minLegDecimal: 1.35,
+      targetRange: { min: 15.0, target: 20.0, max: 25.0 },
+      scope: { kind: "league", league: asLeagueId("nfl") },
+    });
+    expect(impossibleHigh.status).toBe("insufficient");
+    expect(impossibleHigh.emptyReason).toMatch(/52 %/);
+
+    // Modo 4 en OfficialDailyParlayCard + PersonalParlayQuickBar con Cuota meta ~5.0×
+    const officialObjetivo = buildOfficialDailyParlay({
+      dayId: "2026-11-15",
+      games: sundayDataset.games,
+      risk: "objetivo",
+      scope: { kind: "league", league: asLeagueId("nfl") },
+    });
+    expect(officialObjetivo.status).toBe("ready");
+    expect(officialObjetivo.legs).toHaveLength(4);
+
+    const quickTarget = buildPersonalQuickParlay({
+      games: sundayDataset.games,
+      legCount: 4,
+      risk: "medio",
+      targetPreset: "5x",
+      scope: { kind: "league", league: asLeagueId("nfl") },
+    });
+    expect(quickTarget.status).toBe("ready");
+    expect(quickTarget.fairDecimal).toBeGreaterThanOrEqual(3.0);
+
+    // UI de OfficialDailyParlayCard renderiza jerarquía numerada, Más probable, sin En casa falso
+    const cardHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={sundayDataset} initialRole="member">
+        <OfficialDailyParlayCard
+          games={sundayDataset.games}
+          selectedDay="2026-11-15"
+          today="2026-11-15"
+          initialMode="objetivo"
+          activeLeague={asLeagueId("nfl")}
+        />
+      </PlatformProvider>,
+    );
+    expect(cardHtml).toContain(DAILY_PARLAY_MODE_SPECS.objetivo.label);
+    expect(cardHtml).toContain("Más probable");
+    expect(cardHtml).toContain("JAX -7.5");
+    expect(cardHtml).toContain("Momio justo combinado");
+    expect(cardHtml).toContain("Compartir tarjeta");
+    expect(cardHtml).not.toContain("En casa");
+
+    // ShareTicketModal renderiza lista multi-pata para tarjeta oficial y sella picks individuales pre-kickoff
+    const shareMultiHtml = renderToStaticMarkup(
+      <PlatformProvider
+        dataset={sundayDataset}
+        initialRole="member"
+        initialShareTicket={{
+          kind: "parlay",
+          title: "Parlay objetivo ~5.0× · NFL",
+          subtitle: "4 selecciones, ≥ 52 % cada una",
+          leagueLabel: "NFL",
+          pickLabel: officialObjetivo.legs.map((l) => l.pick.label).join(" + "),
+          probability: officialObjetivo.combinedProbability,
+          fairDecimal: officialObjetivo.fairDecimal,
+          marketDecimal: officialObjetivo.fairDecimal,
+          units: 1,
+          gameStatus: "NS",
+          revealLegs: true,
+          legs: officialObjetivo.legs.map((l) => ({
+            label: l.pick.label,
+            matchLabel: `${l.pick.matchLabel} · ${l.pick.kickoffLocal}`,
+            p: l.pick.p,
+            fairDecimal: l.pick.fairDecimal,
+          })),
+        }}
+      >
+        <ShareTicketModal />
+      </PlatformProvider>,
+    );
+    expect(shareMultiHtml).toContain("data-share-multi-legs");
+    expect(shareMultiHtml).toContain("JAX -7.5");
+    expect(shareMultiHtml).toContain("Más probable");
+
+    const sealedPickHtml = renderToStaticMarkup(
+      <PlatformProvider
+        dataset={sundayDataset}
+        initialRole="member"
+        initialShareTicket={{
+          kind: "pick",
+          title: "Chiefs @ Falcons",
+          subtitle: "NFL · 12:00",
+          leagueLabel: "NFL",
+          pickLabel: "Kansas City gana",
+          probability: 0.652,
+          fairDecimal: 1.53,
+          marketDecimal: 1.53,
+          units: 1,
+          gameStatus: "NS",
+        }}
+      >
+        <ShareTicketModal />
+      </PlatformProvider>,
+    );
+    expect(sealedPickHtml).toContain("data-sealed-prekickoff");
+    expect(sealedPickHtml).not.toContain("Kansas City gana");
+
+    expect(redactDatasetForVisitor(sundayDataset).games[3]?.parlayCandidates ?? []).toEqual([]);
   });
 });
