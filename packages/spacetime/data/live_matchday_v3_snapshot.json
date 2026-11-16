@@ -1,7 +1,7 @@
 {
   "schema_version": "3.2.0",
   "suite_codename": "PitchLab Spacetime Suite v3.2",
-  "generated_at": "2026-11-15T23:29:14Z",
+  "generated_at": "2026-11-16T06:59:31Z",
   "n_matchups": 242,
   "n_teams": 376,
   "python_total_latency_ms": 110.5195,
@@ -24,7 +24,7 @@
   "institutionally_confirmed_count": 0,
   "outlooks_meta": {
     "schema_version": "match_outlook_v3.2.0",
-    "generated_at_utc": "2026-11-15T23:29:14Z",
+    "generated_at_utc": "2026-11-16T06:59:31Z",
     "max_quote_age_hours": 72,
     "n_outlooks_total": 130,
     "n_football": 84,
@@ -39,13 +39,13 @@
       "serie-a": 17
     },
     "n_with_fresh_sharp_quotes_lt_72h": 0,
-    "n_with_any_fresh_quotes_lt_72h": 14,
+    "n_with_any_fresh_quotes_lt_72h": 15,
     "timeseries_files_scanned": 1,
-    "timeseries_rows_validated": 206,
-    "timeseries_rows_fresh_lt_72h": 206,
+    "timeseries_rows_validated": 219,
+    "timeseries_rows_fresh_lt_72h": 219,
     "capture_status": "active_permitted_capture",
-    "health_generated_at_utc": "2026-11-15T23:29:14Z",
-    "regeneration_latency_ms": 172.5155,
+    "health_generated_at_utc": "2026-11-16T06:59:31Z",
+    "regeneration_latency_ms": 158.1727,
     "active_sources": [
       "bzzoiro_odds"
     ]
@@ -60,7 +60,7 @@
       "homeTeam": "Buffalo Bills",
       "awayTeam": "Minnesota Vikings",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -240,7 +240,7 @@
       "homeTeam": "Buffalo Bills",
       "awayTeam": "New York Jets",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -420,7 +420,7 @@
       "homeTeam": "Carolina Panthers",
       "awayTeam": "New Orleans Saints",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -600,7 +600,7 @@
       "homeTeam": "Houston Texans",
       "awayTeam": "Cleveland Browns",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -780,7 +780,7 @@
       "homeTeam": "Jacksonville Jaguars",
       "awayTeam": "Tennessee Titans",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -960,7 +960,7 @@
       "homeTeam": "Kansas City Chiefs",
       "awayTeam": "Atlanta Falcons",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -1140,7 +1140,7 @@
       "homeTeam": "Los Angeles Chargers",
       "awayTeam": "Baltimore Ravens",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -1320,7 +1320,7 @@
       "homeTeam": "Los Angeles Rams",
       "awayTeam": "Arizona Cardinals",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -1500,7 +1500,7 @@
       "homeTeam": "Miami Dolphins",
       "awayTeam": "Indianapolis Colts",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -1680,7 +1680,7 @@
       "homeTeam": "Minnesota Vikings",
       "awayTeam": "Green Bay Packers",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -1860,7 +1860,7 @@
       "homeTeam": "New England Patriots",
       "awayTeam": "Detroit Lions",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2040,7 +2040,7 @@
       "homeTeam": "Pittsburgh Steelers",
       "awayTeam": "Cincinnati Bengals",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2220,7 +2220,7 @@
       "homeTeam": "San Francisco 49ers",
       "awayTeam": "Dallas Cowboys",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2400,7 +2400,7 @@
       "homeTeam": "Seattle Seahawks",
       "awayTeam": "Las Vegas Raiders",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2580,7 +2580,7 @@
       "homeTeam": "Washington Commanders",
       "awayTeam": "New York Giants",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2760,7 +2760,7 @@
       "homeTeam": "Baltimore Ravens",
       "awayTeam": "Jacksonville Jaguars",
       "kickoffUtc": "2026-11-06T01:15:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -2940,7 +2940,7 @@
       "homeTeam": "Atlanta Falcons",
       "awayTeam": "Cincinnati Bengals",
       "kickoffUtc": "2026-11-08T14:30:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -3120,7 +3120,7 @@
       "homeTeam": "Arizona Cardinals",
       "awayTeam": "Atlanta Falcons",
       "kickoffUtc": "2026-11-08T14:32:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -3300,7 +3300,7 @@
       "homeTeam": "Baltimore Ravens",
       "awayTeam": "Buffalo Bills",
       "kickoffUtc": "2026-11-08T14:32:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -3480,7 +3480,7 @@
       "homeTeam": "Carolina Panthers",
       "awayTeam": "Denver Broncos",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -3660,7 +3660,7 @@
       "homeTeam": "Indianapolis Colts",
       "awayTeam": "Dallas Cowboys",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -3840,7 +3840,7 @@
       "homeTeam": "Kansas City Chiefs",
       "awayTeam": "New York Jets",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4020,7 +4020,7 @@
       "homeTeam": "Miami Dolphins",
       "awayTeam": "Detroit Lions",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4200,7 +4200,7 @@
       "homeTeam": "New Orleans Saints",
       "awayTeam": "Cleveland Browns",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4380,7 +4380,7 @@
       "homeTeam": "Philadelphia Eagles",
       "awayTeam": "New York Giants",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4560,7 +4560,7 @@
       "homeTeam": "Washington Commanders",
       "awayTeam": "Los Angeles Rams",
       "kickoffUtc": "2026-11-08T18:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4740,7 +4740,7 @@
       "homeTeam": "Los Angeles Chargers",
       "awayTeam": "Houston Texans",
       "kickoffUtc": "2026-11-08T21:05:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -4920,7 +4920,7 @@
       "homeTeam": "New England Patriots",
       "awayTeam": "Green Bay Packers",
       "kickoffUtc": "2026-11-08T21:25:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -5100,7 +5100,7 @@
       "homeTeam": "San Francisco 49ers",
       "awayTeam": "Las Vegas Raiders",
       "kickoffUtc": "2026-11-08T21:25:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -5280,7 +5280,7 @@
       "homeTeam": "Seattle Seahawks",
       "awayTeam": "Arizona Cardinals",
       "kickoffUtc": "2026-11-08T21:25:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -5460,7 +5460,7 @@
       "homeTeam": "Chicago Bears",
       "awayTeam": "Tampa Bay Buccaneers",
       "kickoffUtc": "2026-11-09T01:20:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -5640,7 +5640,7 @@
       "homeTeam": "Minnesota Vikings",
       "awayTeam": "Buffalo Bills",
       "kickoffUtc": "2026-11-10T01:15:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -5820,7 +5820,7 @@
       "homeTeam": "New York Giants",
       "awayTeam": "Washington Commanders",
       "kickoffUtc": "2026-11-13T01:15:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6000,7 +6000,7 @@
       "homeTeam": "Detroit Lions",
       "awayTeam": "New England Patriots",
       "kickoffUtc": "2026-11-15T14:30:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6180,7 +6180,7 @@
       "homeTeam": "Green Bay Packers",
       "awayTeam": "Minnesota Vikings",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6360,7 +6360,7 @@
       "homeTeam": "New York Jets",
       "awayTeam": "Buffalo Bills",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6540,7 +6540,7 @@
       "homeTeam": "Atlanta Falcons",
       "awayTeam": "Kansas City Chiefs",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6720,7 +6720,7 @@
       "homeTeam": "Cleveland Browns",
       "awayTeam": "Houston Texans",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -6900,7 +6900,7 @@
       "homeTeam": "Indianapolis Colts",
       "awayTeam": "Miami Dolphins",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7080,7 +7080,7 @@
       "homeTeam": "New Orleans Saints",
       "awayTeam": "Carolina Panthers",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7260,7 +7260,7 @@
       "homeTeam": "Tennessee Titans",
       "awayTeam": "Jacksonville Jaguars",
       "kickoffUtc": "2026-11-15T18:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7440,7 +7440,7 @@
       "homeTeam": "Arizona Cardinals",
       "awayTeam": "Los Angeles Rams",
       "kickoffUtc": "2026-11-15T21:05:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7620,7 +7620,7 @@
       "homeTeam": "Las Vegas Raiders",
       "awayTeam": "Seattle Seahawks",
       "kickoffUtc": "2026-11-15T21:05:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7800,7 +7800,7 @@
       "homeTeam": "Dallas Cowboys",
       "awayTeam": "San Francisco 49ers",
       "kickoffUtc": "2026-11-15T21:25:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -7980,7 +7980,7 @@
       "homeTeam": "Cincinnati Bengals",
       "awayTeam": "Pittsburgh Steelers",
       "kickoffUtc": "2026-11-16T01:20:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -8160,7 +8160,7 @@
       "homeTeam": "Baltimore Ravens",
       "awayTeam": "Los Angeles Chargers",
       "kickoffUtc": "2026-11-17T01:15:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "moneyline",
@@ -8340,7 +8340,7 @@
       "homeTeam": "1.FC Unión Berlín",
       "awayTeam": "RB Leipzig",
       "kickoffUtc": "2026-11-21T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -10327,7 +10327,7 @@
       "homeTeam": "1.FSV Mainz 05",
       "awayTeam": "1.FC Unión Berlín",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -12232,7 +12232,7 @@
       "homeTeam": "Bayer 04 Leverkusen",
       "awayTeam": "SC Paderborn 07",
       "kickoffUtc": "2026-11-21T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -14219,7 +14219,7 @@
       "homeTeam": "Borussia Dortmund",
       "awayTeam": "Bayer 04 Leverkusen",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -16124,7 +16124,7 @@
       "homeTeam": "Borussia Mönchengladbach",
       "awayTeam": "Borussia Dortmund",
       "kickoffUtc": "2026-11-21T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -18029,7 +18029,7 @@
       "homeTeam": "Eintracht Fráncfort",
       "awayTeam": "TSG 1899 Hoffenheim",
       "kickoffUtc": "2026-11-21T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -20016,7 +20016,7 @@
       "homeTeam": "FC Augsburgo",
       "awayTeam": "1.FSV Mainz 05",
       "kickoffUtc": "2026-11-22T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -21921,7 +21921,7 @@
       "homeTeam": "FC Schalke 04",
       "awayTeam": "VfB Stuttgart",
       "kickoffUtc": "2026-11-21T17:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -23826,7 +23826,7 @@
       "homeTeam": "Hamburgo SV",
       "awayTeam": "Bayern Múnich",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -25731,7 +25731,7 @@
       "homeTeam": "RB Leipzig",
       "awayTeam": "RC Lens",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -27636,7 +27636,7 @@
       "homeTeam": "SC Friburgo",
       "awayTeam": "RB Leipzig",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -29541,7 +29541,7 @@
       "homeTeam": "SC Paderborn 07",
       "awayTeam": "FC Schalke 04",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -31446,7 +31446,7 @@
       "homeTeam": "SV 07 Elversberg",
       "awayTeam": "SC Friburgo",
       "kickoffUtc": "2026-11-21T14:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -33433,7 +33433,7 @@
       "homeTeam": "SV Werder Bremen",
       "awayTeam": "Hamburgo SV",
       "kickoffUtc": "2026-11-22T16:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -35338,7 +35338,7 @@
       "homeTeam": "SV Werder Bremen",
       "awayTeam": "Borussia Mönchengladbach",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -37243,7 +37243,7 @@
       "homeTeam": "TSG 1899 Hoffenheim",
       "awayTeam": "FC Augsburgo",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -39148,7 +39148,7 @@
       "homeTeam": "VfB Stuttgart",
       "awayTeam": "Eintracht Fráncfort",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -41053,7 +41053,7 @@
       "homeTeam": "AFC Bournemouth",
       "awayTeam": "Nottingham Forest",
       "kickoffUtc": "2026-11-21T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -42958,7 +42958,7 @@
       "homeTeam": "Arsenal FC",
       "awayTeam": "Borussia Dortmund",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -44863,7 +44863,7 @@
       "homeTeam": "Arsenal FC",
       "awayTeam": "Manchester City",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -46768,7 +46768,7 @@
       "homeTeam": "Aston Villa",
       "awayTeam": "Sunderland AFC",
       "kickoffUtc": "2026-11-21T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -48755,7 +48755,7 @@
       "homeTeam": "Brentford FC",
       "awayTeam": "Everton FC",
       "kickoffUtc": "2026-11-23T20:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -50660,7 +50660,7 @@
       "homeTeam": "Brighton & Hove Albion",
       "awayTeam": "Newcastle United",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -52565,7 +52565,7 @@
       "homeTeam": "Chelsea FC",
       "awayTeam": "Leeds United",
       "kickoffUtc": "2026-11-21T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -54470,7 +54470,7 @@
       "homeTeam": "Coventry City",
       "awayTeam": "Crystal Palace",
       "kickoffUtc": "2026-11-21T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -56375,7 +56375,7 @@
       "homeTeam": "Crystal Palace",
       "awayTeam": "Hull City",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -58280,7 +58280,7 @@
       "homeTeam": "Everton FC",
       "awayTeam": "Liverpool FC",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -60185,7 +60185,7 @@
       "homeTeam": "Fulham FC",
       "awayTeam": "AFC Bournemouth",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -62090,7 +62090,7 @@
       "homeTeam": "Hull City",
       "awayTeam": "Brighton & Hove Albion",
       "kickoffUtc": "2026-11-22T14:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -63995,7 +63995,7 @@
       "homeTeam": "Ipswich Town",
       "awayTeam": "Aston Villa",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -65900,7 +65900,7 @@
       "homeTeam": "Leeds United",
       "awayTeam": "Coventry City",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -67805,7 +67805,7 @@
       "homeTeam": "Manchester City",
       "awayTeam": "SSC Nápoles",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -69710,7 +69710,7 @@
       "homeTeam": "Manchester City",
       "awayTeam": "Fulham FC",
       "kickoffUtc": "2026-11-21T12:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -71697,7 +71697,7 @@
       "homeTeam": "Manchester United",
       "awayTeam": "Brentford FC",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -73602,7 +73602,7 @@
       "homeTeam": "Newcastle United",
       "awayTeam": "Arsenal FC",
       "kickoffUtc": "2026-11-21T17:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -75507,7 +75507,7 @@
       "homeTeam": "Nottingham Forest",
       "awayTeam": "Chelsea FC",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -77412,7 +77412,7 @@
       "homeTeam": "Sunderland AFC",
       "awayTeam": "Tottenham Hotspur",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -79317,7 +79317,7 @@
       "homeTeam": "Tottenham Hotspur",
       "awayTeam": "Ipswich Town",
       "kickoffUtc": "2026-11-21T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -81222,7 +81222,7 @@
       "homeTeam": "Liverpool FC",
       "awayTeam": "Manchester United",
       "kickoffUtc": "2026-11-22T16:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -83127,7 +83127,7 @@
       "homeTeam": "Crystal Palace",
       "awayTeam": "Sunderland AFC",
       "kickoffUtc": "2026-12-16T19:30:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -85032,7 +85032,7 @@
       "homeTeam": "Liverpool FC",
       "awayTeam": "AFC Bournemouth",
       "kickoffUtc": "2026-12-16T20:00:00Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -86937,7 +86937,7 @@
       "homeTeam": "Athletic Club",
       "awayTeam": "RCD Espanyol",
       "kickoffUtc": "2026-11-20T20:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -88924,7 +88924,7 @@
       "homeTeam": "Deportivo Alavés",
       "awayTeam": "RC Deportivo A Coruña",
       "kickoffUtc": "2026-11-22T15:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -90911,7 +90911,7 @@
       "homeTeam": "Rayo Vallecano",
       "awayTeam": "Valencia CF",
       "kickoffUtc": "2026-11-21T15:15:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -92816,7 +92816,7 @@
       "homeTeam": "Real Madrid CF",
       "awayTeam": "RC Celta de Vigo",
       "kickoffUtc": "2026-11-21T20:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -94721,7 +94721,7 @@
       "homeTeam": "Sevilla FC",
       "awayTeam": "Real Betis Balompié",
       "kickoffUtc": "2026-11-21T17:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -96626,7 +96626,7 @@
       "homeTeam": "CD Guadalajara",
       "awayTeam": "CD Cruz Azul",
       "kickoffUtc": "2026-11-22T23:07:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -98531,7 +98531,7 @@
       "homeTeam": "CF Pachuca",
       "awayTeam": "Deportivo Toluca FC",
       "kickoffUtc": "2026-11-21T22:50:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -100436,7 +100436,7 @@
       "homeTeam": "Club Puebla",
       "awayTeam": "Atlético de San Luis",
       "kickoffUtc": "2026-11-21T01:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -102423,7 +102423,7 @@
       "homeTeam": "Club Tijuana",
       "awayTeam": "CF Atlante",
       "kickoffUtc": "2026-11-21T03:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -104410,7 +104410,7 @@
       "homeTeam": "FC Juárez",
       "awayTeam": "Atlas Guadalajara",
       "kickoffUtc": "2026-11-21T03:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -106397,7 +106397,7 @@
       "homeTeam": "Pumas UNAM",
       "awayTeam": "CF Monterrey",
       "kickoffUtc": "2026-11-22T01:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -108302,7 +108302,7 @@
       "homeTeam": "Querétaro FC",
       "awayTeam": "CF Monterrey",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -110207,7 +110207,7 @@
       "homeTeam": "Querétaro FC",
       "awayTeam": "Club Necaxa",
       "kickoffUtc": "2026-11-23T01:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -112112,7 +112112,7 @@
       "homeTeam": "Santos Laguna",
       "awayTeam": "Club León FC",
       "kickoffUtc": "2026-11-21T23:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -114017,7 +114017,7 @@
       "homeTeam": "Tigres UANL",
       "awayTeam": "CF América",
       "kickoffUtc": "2026-11-22T03:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -115922,7 +115922,7 @@
       "homeTeam": "AS Mónaco",
       "awayTeam": "AJ Auxerre",
       "kickoffUtc": "2026-11-21T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -117827,7 +117827,7 @@
       "homeTeam": "ESTAC Troyes",
       "awayTeam": "Le Havre AC",
       "kickoffUtc": "2026-11-20T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -119814,7 +119814,7 @@
       "homeTeam": "FC Lorient",
       "awayTeam": "Stade Rennais FC",
       "kickoffUtc": "2026-11-22T16:15:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -121719,7 +121719,7 @@
       "homeTeam": "LOSC Lille",
       "awayTeam": "Bayern Múnich",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -123624,7 +123624,7 @@
       "homeTeam": "LOSC Lille",
       "awayTeam": "Olympique de Lyon",
       "kickoffUtc": "2026-11-21T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -125529,7 +125529,7 @@
       "homeTeam": "OGC Niza",
       "awayTeam": "París Saint-Germain",
       "kickoffUtc": "2026-11-21T16:15:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -127434,7 +127434,7 @@
       "homeTeam": "Olympique de Marsella",
       "awayTeam": "Le Mans FC",
       "kickoffUtc": "2026-11-22T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -129339,7 +129339,7 @@
       "homeTeam": "Paris FC",
       "awayTeam": "Angers SCO",
       "kickoffUtc": "2026-11-22T14:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -131244,7 +131244,7 @@
       "homeTeam": "París Saint-Germain",
       "awayTeam": "AS Roma",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -133149,7 +133149,7 @@
       "homeTeam": "RC Lens",
       "awayTeam": "Toulouse FC",
       "kickoffUtc": "2026-11-21T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -135054,7 +135054,7 @@
       "homeTeam": "Racing Club de Estrasburgo",
       "awayTeam": "Stade Brestois 29",
       "kickoffUtc": "2026-11-21T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -136959,7 +136959,7 @@
       "homeTeam": "AC Milan",
       "awayTeam": "Frosinone Calcio",
       "kickoffUtc": "2026-11-22T17:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -138864,7 +138864,7 @@
       "homeTeam": "AC Monza",
       "awayTeam": "Fiorentina",
       "kickoffUtc": "2026-11-23T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -140769,7 +140769,7 @@
       "homeTeam": "AS Roma",
       "awayTeam": "AC Monza",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -142674,7 +142674,7 @@
       "homeTeam": "Atalanta de Bérgamo",
       "awayTeam": "Inter de Milán",
       "kickoffUtc": "2026-11-22T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -144579,7 +144579,7 @@
       "homeTeam": "Bolonia",
       "awayTeam": "Udinese",
       "kickoffUtc": "2026-11-22T14:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -146484,7 +146484,7 @@
       "homeTeam": "Como 1907",
       "awayTeam": "Cagliari",
       "kickoffUtc": "2026-11-21T14:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -146593,7 +146593,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.07081807081807079,
             "oddsBySelection": {
               "away": 9,
@@ -146787,7 +146787,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05670882048834813,
             "oddsBySelection": {
               "over": 1.143,
@@ -146873,7 +146873,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.04761904761904745,
             "oddsBySelection": {
               "over": 1.5,
@@ -146959,7 +146959,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.053977655135280855,
             "oddsBySelection": {
               "over": 2.3,
@@ -147045,7 +147045,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.04766893661602922,
             "oddsBySelection": {
               "no": 1.909,
@@ -147555,7 +147555,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.07081807081807079,
             "oddsBySelection": {
               "away": 9,
@@ -147749,7 +147749,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05670882048834813,
             "oddsBySelection": {
               "over": 1.143,
@@ -147835,7 +147835,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.04761904761904745,
             "oddsBySelection": {
               "over": 1.5,
@@ -147921,7 +147921,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.053977655135280855,
             "oddsBySelection": {
               "over": 2.3,
@@ -148007,7 +148007,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.04766893661602922,
             "oddsBySelection": {
               "no": 1.909,
@@ -148471,7 +148471,7 @@
       "homeTeam": "Como 1907",
       "awayTeam": "Juventus de Turín",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -150376,7 +150376,7 @@
       "homeTeam": "Frosinone Calcio",
       "awayTeam": "Parma",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -152281,7 +152281,7 @@
       "homeTeam": "Inter de Milán",
       "awayTeam": "VfB Stuttgart",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -154186,7 +154186,7 @@
       "homeTeam": "Juventus de Turín",
       "awayTeam": "Venezia FC",
       "kickoffUtc": "2026-11-22T11:30:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -156091,7 +156091,7 @@
       "homeTeam": "Parma",
       "awayTeam": "AS Roma",
       "kickoffUtc": "2026-11-21T17:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -156198,7 +156198,16 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.08314092317407695,
+            "oddsBySelection": {
+              "away": 1.27,
+              "draw": 5.25,
+              "home": 9.5
+            }
+          }
         },
         {
           "marketKey": "double_chance",
@@ -156383,7 +156392,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.0568980291345329,
+            "oddsBySelection": {
+              "over": 1.167,
+              "under": 5
+            }
+          }
         },
         {
           "marketKey": "totals_2_5",
@@ -156461,7 +156478,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.05231572080887159,
+            "oddsBySelection": {
+              "over": 1.533,
+              "under": 2.5
+            }
+          }
         },
         {
           "marketKey": "totals_3_5",
@@ -156539,7 +156564,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.05758986900733687,
+            "oddsBySelection": {
+              "over": 2.375,
+              "under": 1.571
+            }
+          }
         },
         {
           "marketKey": "btts",
@@ -156617,7 +156650,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.06837606837606858,
+            "oddsBySelection": {
+              "no": 1.8,
+              "yes": 1.95
+            }
+          }
         },
         {
           "marketKey": "dnb",
@@ -157119,7 +157160,16 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.08314092317407695,
+            "oddsBySelection": {
+              "away": 1.27,
+              "draw": 5.25,
+              "home": 9.5
+            }
+          }
         },
         "double_chance": {
           "marketKey": "double_chance",
@@ -157304,7 +157354,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.0568980291345329,
+            "oddsBySelection": {
+              "over": 1.167,
+              "under": 5
+            }
+          }
         },
         "totals_2_5": {
           "marketKey": "totals_2_5",
@@ -157382,7 +157440,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.05231572080887159,
+            "oddsBySelection": {
+              "over": 1.533,
+              "under": 2.5
+            }
+          }
         },
         "totals_3_5": {
           "marketKey": "totals_3_5",
@@ -157460,7 +157526,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.05758986900733687,
+            "oddsBySelection": {
+              "over": 2.375,
+              "under": 1.571
+            }
+          }
         },
         "btts": {
           "marketKey": "btts",
@@ -157538,7 +157612,15 @@
               }
             }
           ],
-          "market": null
+          "market": {
+            "book": "bet365",
+            "tsCaptured": "2026-11-16T06:59:31Z",
+            "overround": 0.06837606837606858,
+            "oddsBySelection": {
+              "no": 1.8,
+              "yes": 1.95
+            }
+          }
         },
         "dnb": {
           "marketKey": "dnb",
@@ -157996,7 +158078,7 @@
       "homeTeam": "SS Lazio",
       "awayTeam": "US Lecce",
       "kickoffUtc": "2026-11-21T14:00:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -158105,7 +158187,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.06866414570149715,
             "oddsBySelection": {
               "away": 8,
@@ -158299,7 +158381,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.0568980291345329,
             "oddsBySelection": {
               "over": 1.167,
@@ -158385,7 +158467,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05758986900733687,
             "oddsBySelection": {
               "over": 1.571,
@@ -158471,7 +158553,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05758986900733687,
             "oddsBySelection": {
               "over": 2.375,
@@ -158557,7 +158639,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.06837606837606858,
             "oddsBySelection": {
               "no": 1.95,
@@ -159067,7 +159149,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.06866414570149715,
             "oddsBySelection": {
               "away": 8,
@@ -159261,7 +159343,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.0568980291345329,
             "oddsBySelection": {
               "over": 1.167,
@@ -159347,7 +159429,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05758986900733687,
             "oddsBySelection": {
               "over": 1.571,
@@ -159433,7 +159515,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.05758986900733687,
             "oddsBySelection": {
               "over": 2.375,
@@ -159519,7 +159601,7 @@
           ],
           "market": {
             "book": "bet365",
-            "tsCaptured": "2026-11-15T15:18:25Z",
+            "tsCaptured": "2026-11-16T06:59:31Z",
             "overround": 0.06837606837606858,
             "oddsBySelection": {
               "no": 1.95,
@@ -159983,7 +160065,7 @@
       "homeTeam": "SSC Nápoles",
       "awayTeam": "Torino FC",
       "kickoffUtc": "2026-11-21T19:45:00.000Z",
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -161888,7 +161970,7 @@
       "homeTeam": "Torino FC",
       "awayTeam": "SS Lazio",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -163793,7 +163875,7 @@
       "homeTeam": "US Sassuolo",
       "awayTeam": "SSC Nápoles",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -165698,7 +165780,7 @@
       "homeTeam": "Udinese",
       "awayTeam": "Fiorentina",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
@@ -167603,7 +167685,7 @@
       "homeTeam": "Venezia FC",
       "awayTeam": "Bolonia",
       "kickoffUtc": null,
-      "tsDecision": "2026-11-15T23:29:14Z",
+      "tsDecision": "2026-11-16T06:59:31Z",
       "markets": [
         {
           "marketKey": "1x2",
