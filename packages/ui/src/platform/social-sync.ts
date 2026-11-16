@@ -17,6 +17,8 @@ export interface ServerSocialPick {
 
 export interface ServerSocialComment {
   id: string;
+  parentCommentId?: string | null;
+  replyToHandle?: string | null;
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
@@ -24,6 +26,8 @@ export interface ServerSocialComment {
   body: string;
   createdAt: string;
   isMine?: boolean;
+  helpfulCount?: number;
+  helpfulByMe?: boolean;
 }
 
 export interface ServerSocialPost {
@@ -41,11 +45,14 @@ export interface ServerSocialPost {
   pickBadge: string;
   originType: string;
   pick: ServerSocialPick | null;
+  pickStatus?: SocialPostPick["status"];
   body: string;
   createdAt: string;
   likes: number;
   likedByMe: boolean;
   isMine: boolean;
+  commentsCount?: number;
+  copiesCount?: number;
   comments: ServerSocialComment[];
   authorBadge?: { id: string; family: string; label: string; criterion: string } | null;
 }
@@ -65,8 +72,13 @@ export function relativeTimeLabel(iso: string, now: Date): string {
   return new Date(t).toLocaleDateString("es-MX", { day: "numeric", month: "short" });
 }
 
-/** Estado del pick adjunto según el partido (si ya terminó). */
-export function pickStatusFor(pick: ServerSocialPick, games: readonly PlatformGame[]): SocialPostPick["status"] {
+/** Estado del pick adjunto según liquidación del servidor o partido activo. */
+export function pickStatusFor(
+  pick: ServerSocialPick,
+  games: readonly PlatformGame[],
+  serverPickStatus?: SocialPostPick["status"],
+): SocialPostPick["status"] {
+  if (serverPickStatus && serverPickStatus !== "open") return serverPickStatus;
   const game = games.find((g) => g.id === pick.gameId);
   const matchPick = game?.picks.find((p) => p.id === pick.pickId);
   if (!matchPick || matchPick.gameStatus !== "FT") return "open";
@@ -82,6 +94,8 @@ const ROLE_BADGES: readonly SocialPost["roleBadge"][] = [
 export function fromServerComment(c: ServerSocialComment, now: Date): SocialComment {
   return {
     id: c.id,
+    parentCommentId: c.parentCommentId ?? null,
+    replyToHandle: c.replyToHandle ?? null,
     authorHandle: c.authorHandle,
     authorName: c.authorName,
     authorAvatarUrl: c.authorAvatarUrl ?? null,
@@ -90,6 +104,8 @@ export function fromServerComment(c: ServerSocialComment, now: Date): SocialComm
     body: c.body,
     fromServer: true,
     isMine: Boolean(c.isMine),
+    helpfulCount: typeof c.helpfulCount === "number" ? c.helpfulCount : 0,
+    helpfulByMe: Boolean(c.helpfulByMe),
   };
 }
 
@@ -97,11 +113,13 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
   const roleBadge = ROLE_BADGES.includes(p.roleBadge as SocialPost["roleBadge"])
     ? (p.roleBadge as SocialPost["roleBadge"])
     : "Socio Pase PitchLab Ultra";
+  const mappedComments = p.comments.map((c) => fromServerComment(c, now));
   return {
     id: p.id,
     authorHandle: p.authorHandle,
     authorName: p.authorName,
     authorAvatarUrl: p.authorAvatarUrl ?? null,
+    authorIsTipster: Boolean(p.authorIsTipster),
     roleBadge,
     avatarGradVar: p.authorIsTipster ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
     verifiedRecord: p.record,
@@ -119,7 +137,9 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
     isMine: p.isMine,
     authorBadge: p.authorBadge ?? null,
     fromServer: true,
-    comments: p.comments.map((c) => fromServerComment(c, now)),
+    comments: mappedComments,
+    commentsCount: typeof p.commentsCount === "number" ? Math.max(p.commentsCount, mappedComments.length) : mappedComments.length,
+    copiesCount: typeof p.copiesCount === "number" ? p.copiesCount : 0,
     pick: p.pick
       ? {
           pickId: p.pick.pickId,
@@ -129,7 +149,7 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
           userDecimal: p.pick.userDecimal,
           fairDecimal: p.pick.fairDecimal,
           modelProbability: p.pick.modelProbability,
-          status: pickStatusFor(p.pick, games),
+          status: pickStatusFor(p.pick, games, p.pickStatus),
         }
       : undefined,
   };
@@ -152,8 +172,20 @@ export function mergeSocialPosts(
   incoming: readonly SocialPost[],
   mode: "feed" | "extra",
 ): SocialPost[] {
-  const incomingIds = new Set(incoming.map((p) => p.id));
-  const oldest = incoming.reduce<string | null>(
+  const currentById = new Map(current.map((p) => [p.id, p]));
+  const normalizedIncoming = incoming.map((inc) => {
+    const prev = currentById.get(inc.id);
+    if (
+      prev &&
+      prev.comments.length > inc.comments.length &&
+      (prev.commentsCount ?? prev.comments.length) === (inc.commentsCount ?? inc.comments.length)
+    ) {
+      return { ...inc, comments: prev.comments };
+    }
+    return inc;
+  });
+  const incomingIds = new Set(normalizedIncoming.map((p) => p.id));
+  const oldest = normalizedIncoming.reduce<string | null>(
     (min, p) => (p.createdAtIso && (!min || p.createdAtIso < min) ? p.createdAtIso : min),
     null,
   );
@@ -163,7 +195,7 @@ export function mergeSocialPosts(
     // En modo feed, lo que cae dentro del rango del feed y no vino ya no existe.
     return Boolean(oldest && p.createdAtIso && p.createdAtIso < oldest);
   });
-  const real = [...incoming, ...keptServer].sort((a, b) =>
+  const real = [...normalizedIncoming, ...keptServer].sort((a, b) =>
     (b.createdAtIso ?? "").localeCompare(a.createdAtIso ?? ""),
   );
   const pending = current.filter(isPendingPost);

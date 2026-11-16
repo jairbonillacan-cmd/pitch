@@ -2033,3 +2033,380 @@
 .pl-com-act {
   white-space: nowrap;
 }
+
+/* ---------- Filtros en «Para ti» y chips reutilizables ---------- */
+.pl-com-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.pl-com-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pl-prof-pill {
+  min-height: 34px;
+  padding: 0 13px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border);
+  background: color-mix(in srgb, var(--pl-text) 4%, transparent);
+  color: var(--pl-text-secondary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.pl-prof-pill:hover {
+  color: var(--pl-text);
+  background: color-mix(in srgb, var(--pl-text) 8%, transparent);
+}
+
+.pl-prof-pill.is-on {
+  border-color: color-mix(in srgb, var(--pl-brand) 55%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 14%, transparent);
+  color: var(--pl-brand);
+  font-weight: 600;
+}
+
+.pl-prof-pill:focus-visible,
+.pl-com-pick--link:focus-visible,
+.pl-com-match-chip:focus-visible,
+.pl-com-comment-avatar-link:focus-visible,
+.pl-com-comment-author:focus-visible,
+.pl-com-preview-btn:focus-visible,
+.pl-com-comment-act:focus-visible,
+.pl-com-attached-field select:focus-visible,
+.pl-com-attached-field input:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-com-seg--compact {
+  padding: 3px;
+}
+
+.pl-com-seg--compact button {
+  min-height: 30px;
+  padding: 0 11px;
+  font-size: 12.5px;
+}
+
+/* ---------- Composer: contador, pick propio y Bitácora ---------- */
+.pl-com-composer-submit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.pl-com-char-count {
+  font-size: 12px;
+  color: var(--pl-text-muted);
+  white-space: nowrap;
+}
+
+.pl-com-attached-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-com-attached-sealed {
+  align-self: flex-start;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--pl-brand);
+  background: color-mix(in srgb, var(--pl-brand) 12%, transparent);
+}
+
+.pl-com-attached-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.pl-com-attached-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pl-text-secondary);
+}
+
+.pl-com-attached-field select,
+.pl-com-attached-field input {
+  min-height: 36px;
+  min-width: 112px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: color-mix(in srgb, var(--pl-text) 5%, transparent);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 13px;
+}
+
+.pl-com-picker-mode {
+  margin-bottom: 12px;
+}
+
+.pl-com-picker-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-com-picker-heading {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+
+.pl-com-picker-journal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---------- Tarjeta compartida, pick enlazable y debate compacto ---------- */
+.pl-com-meta-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pl-com-pick--link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.pl-com-pick--link:hover {
+  border-color: color-mix(in srgb, var(--pl-brand) 42%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-text) 5%, transparent);
+}
+
+.pl-com-match-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pl-text);
+  text-decoration: none;
+  max-width: 100%;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.pl-com-match-chip:hover {
+  border-color: color-mix(in srgb, var(--pl-brand) 42%, var(--pl-border));
+}
+
+.pl-com-copies-note {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--pl-text-muted);
+}
+
+.pl-com-post--compact {
+  border-radius: 18px;
+  padding: 14px 16px;
+  gap: 10px;
+}
+
+.pl-com-act--danger,
+.pl-com-act.pl-com-act--danger {
+  color: var(--pl-danger);
+}
+
+/* ---------- Hilos ligeros, identidad verificada y voto útil ---------- */
+.pl-com-comment-avatar-link {
+  display: inline-flex;
+  flex: none;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.pl-com-comment-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.pl-com-comment-author {
+  font-weight: 600;
+  color: var(--pl-text);
+  text-decoration: none;
+}
+
+.pl-com-comment-author:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pl-com-comment-record {
+  font-size: 12px;
+  color: var(--pl-text-secondary);
+}
+
+.pl-com-preview-btn {
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: 2px 0;
+  margin-top: 2px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 8px;
+}
+
+.pl-com-preview-btn:hover .pl-com-more-comments {
+  color: var(--pl-text);
+}
+
+.pl-com-comment-row.is-reply {
+  padding-inline-start: 26px;
+  margin-inline-start: 10px;
+  border-inline-start: 2px solid var(--pl-border);
+}
+
+.pl-com-replying-tag {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pl-brand);
+}
+
+.pl-com-comment-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pl-com-comment-act {
+  border: 0;
+  background: none;
+  min-block-size: 24px;
+  min-inline-size: 24px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  color: var(--pl-text-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.pl-com-comment-act:hover {
+  color: var(--pl-text);
+  background: color-mix(in srgb, var(--pl-text) 6%, transparent);
+}
+
+.pl-com-comment-act.is-on {
+  color: var(--pl-brand);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--pl-brand) 10%, transparent);
+}
+
+.pl-com-comment-act.pl-com-act--danger {
+  color: var(--pl-danger);
+}
+
+.pl-com-reply-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--pl-brand) 9%, transparent);
+  font-size: 12px;
+  color: var(--pl-text-secondary);
+}
+
+.pl-com-thread-more {
+  margin-bottom: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-prof-pill,
+  .pl-com-pick--link,
+  .pl-com-match-chip,
+  .pl-com-comment-act {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .pl-com-attached {
+    align-items: flex-start;
+  }
+
+  .pl-com-attached-controls {
+    width: 100%;
+  }
+
+  .pl-com-attached-field {
+    flex: 1 1 130px;
+  }
+
+  .pl-com-comment-row.is-reply {
+    padding-inline-start: 16px;
+    margin-inline-start: 6px;
+  }
+}
+
+@media (pointer: coarse) {
+  .pl-prof-pill,
+  .pl-com-comment-act,
+  .pl-com-attached-field select,
+  .pl-com-attached-field input {
+    min-block-size: 44px;
+  }
+}

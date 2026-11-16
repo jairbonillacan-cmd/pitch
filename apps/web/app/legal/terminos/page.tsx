@@ -28,8 +28,12 @@ export default async function TerminosPage(): Promise<React.JSX.Element> {
       intro={
         <p>
           <strong>Alcance en México:</strong> Estos Términos regulan el acceso y uso de{" "}
-          <strong>PitchLab</strong> (<code>pitchlab.mx</code>), operado por{" "}
-          <code>[POR DEFINIR: denominación o razón social / nombre del titular y RFC en México]</code>
+          <strong>PitchLab</strong> (<code>pitchlab.mx</code>), operado de forma independiente por{" "}
+          <strong>
+            {process.env.PITCHLAB_LEGAL_RESPONSIBLE?.trim()
+              ? `${process.env.PITCHLAB_LEGAL_RESPONSIBLE.trim()}${process.env.PITCHLAB_LEGAL_RFC?.trim() ? ` (RFC ${process.env.PITCHLAB_LEGAL_RFC.trim()})` : ""}`
+              : "PitchLab México (Ciudad de México, México)"}
+          </strong>
           , con contacto oficial en <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>. Al
           crear una cuenta y marcar la casilla obligatoria de aceptación, confirmas que eres mayor
           de 18 años y aceptas estas condiciones junto con nuestro{" "}
@@ -182,7 +186,7 @@ export default async function TerminosPage(): Promise<React.JSX.Element> {
                   <strong>Configuración por bloques en «Mi récord» (<code>/app/lab</code>):</strong>{" "}
                   si activas tu perfil público, eliges qué bloques y métricas mostrar (ganados y
                   perdidos, tasa de acierto, desglose por liga o mercado, rachas, rendimiento en
-                  unidades, CLV promedio, momio promedio, mejor y peor mes, saldo neto, curva de
+                  unidades, ventaja promedio, momio promedio, mejor y peor mes, saldo neto, curva de
                   unidades e historial de hasta 50 picks ya cerrados) y puedes destacar hasta 3
                   insignias ganadas.
                 </li>

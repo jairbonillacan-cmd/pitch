@@ -37,10 +37,11 @@ export interface PlatformNotification {
 
 export interface ServerSocialNotification {
   id: string;
-  kind: "comment" | "follow" | "like";
+  kind: "comment" | "comment_reply" | "mention" | "follow" | "like";
   actorHandle: string;
   actorName: string;
   postId: string | null;
+  commentId?: string | null;
   postExcerpt: string | null;
   likeCount: number;
   createdAt: string;
@@ -359,17 +360,30 @@ export function fromServerSocialNotification(
     };
   }
 
+  const title =
+    row.kind === "comment_reply"
+      ? `@${row.actorHandle} respondió tu comentario`
+      : row.kind === "mention"
+        ? `@${row.actorHandle} te mencionó en un comentario`
+        : `@${row.actorHandle} comentó tu publicación`;
+  const contextText =
+    row.postExcerpt
+      ? `«${row.postExcerpt}»`
+      : row.kind === "mention"
+        ? `${row.actorName} te mencionó en un hilo.`
+        : `${row.actorName} dejó un comentario.`;
+
   return {
     id: `social:${row.id}`,
     serverId: row.id,
     kind: "comunidad",
     icon: "message",
     priority: "normal",
-    title: `@${row.actorHandle} comentó tu publicación`,
-    context: { text: row.postExcerpt ? `«${row.postExcerpt}»` : `${row.actorName} dejó un comentario.` },
+    title,
+    context: { text: contextText },
     source,
     atIso,
-    actionLabel: "Ver publicación",
+    actionLabel: row.kind === "comment_reply" || row.kind === "mention" ? "Ver hilo" : "Ver publicación",
     href: postHref,
   };
 }

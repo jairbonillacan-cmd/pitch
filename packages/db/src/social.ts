@@ -7,9 +7,11 @@
  */
 import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { sanitizeFollowedTopics } from "./preferences";
 import {
   notifications,
   sealedPicks,
+  socialCommentLikes,
   socialComments,
   socialFollows,
   socialLikes,
@@ -17,6 +19,7 @@ import {
   socialPosts,
   socialReports,
   tipsterProfiles,
+  userPreferences,
   users,
 } from "./schema";
 
@@ -65,10 +68,14 @@ export interface NewSocialPost {
   pick?: SocialPickSnapshot | null;
   /** Partido del que se habla (debate de un partido sin pick adjunto). */
   gameId?: string | null;
+  /** Pick ya sellado en bitácora (opcional; si falta, se busca por `(userId, pickId)`). */
+  sealedJournalEntryId?: string | null;
 }
 
 export interface FeedComment {
   id: string;
+  parentCommentId: string | null;
+  replyToHandle: string | null;
   authorHandle: string;
   authorName: string;
   authorAvatarUrl: string | null;
@@ -76,7 +83,11 @@ export interface FeedComment {
   body: string;
   createdAt: string;
   isMine: boolean;
+  helpfulCount: number;
+  helpfulByMe: boolean;
 }
+
+export type FeedPickStatus = "open" | "won" | "lost" | "void";
 
 export interface FeedPost {
   id: string;
@@ -93,15 +104,19 @@ export interface FeedPost {
   pickBadge: string;
   originType: string;
   pick: SocialPickSnapshot | null;
+  pickStatus: FeedPickStatus | null;
   body: string;
   createdAt: string;
   likes: number;
   likedByMe: boolean;
   isMine: boolean;
+  commentsCount: number;
+  copiesCount: number;
   comments: FeedComment[];
 }
 
 const HOUR = 3_600_000;
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function unitsLabel(n: number): string {
   return `${n >= 0 ? "+" : ""}${n.toFixed(1)}u`;
@@ -139,7 +154,7 @@ export async function authorRecord(db: Db, userId: string): Promise<{ record: st
   const avg = clvCount > 0 ? clvSum / clvCount : null;
   return {
     record: settled === 0 ? "Sin picks liquidados" : `${unitsLabel(net)} · ${settled} picks`,
-    clv: avg === null ? "CLV —" : `CLV ${avg >= 0 ? "+" : ""}${avg.toFixed(1)} %`,
+    clv: avg === null ? "Ventaja —" : `Ventaja ${avg >= 0 ? "+" : ""}${avg.toFixed(1)} %`,
   };
 }
 
@@ -184,7 +199,29 @@ export async function createSocialPost(
   const normalized = input.body.trim().toLowerCase();
   if (lastFive.some((p) => p.body.trim().toLowerCase() === normalized)) return { ok: false, reason: "repetido" };
 
-  const [{ record, clv }, tipster] = await Promise.all([authorRecord(db, userId), isTipster(db, userId)]);
+  const [{ record, clv }, tipster, linkedSealedId] = await Promise.all([
+    authorRecord(db, userId),
+    isTipster(db, userId),
+    (async (): Promise<string | null> => {
+      if (input.sealedJournalEntryId && UUID_PATTERN.test(input.sealedJournalEntryId)) {
+        const [owned] = await db
+          .select({ id: sealedPicks.id })
+          .from(sealedPicks)
+          .where(and(eq(sealedPicks.id, input.sealedJournalEntryId), eq(sealedPicks.userId, userId)))
+          .limit(1);
+        if (owned) return owned.id;
+      }
+      if (input.pick?.pickId) {
+        const [byPick] = await db
+          .select({ id: sealedPicks.id })
+          .from(sealedPicks)
+          .where(and(eq(sealedPicks.userId, userId), eq(sealedPicks.pickId, input.pick.pickId)))
+          .limit(1);
+        if (byPick) return byPick.id;
+      }
+      return null;
+    })(),
+  ]);
   const [row] = await db
     .insert(socialPosts)
     .values({
@@ -194,6 +231,7 @@ export async function createSocialPost(
       matchLabel: input.matchLabel,
       originType: input.originType,
       pickBadge: input.pickBadge,
+      sealedJournalEntryId: linkedSealedId,
       pick: input.pick ?? null,
       authorRoleBadgeSnapshot: tipster ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
       authorRecordSnapshot: record,
@@ -209,12 +247,26 @@ export type AddCommentResult =
   | { ok: true; comment: FeedComment }
   | { ok: false; reason: "no_existe" | "limite" | "sin_usuario" | "pausado" };
 
+const MENTION_PATTERN = /(?:^|[\s(])@([a-z0-9_]{3,24})/gi;
+
+function extractMentionHandles(body: string): string[] {
+  const handles = new Set<string>();
+  MENTION_PATTERN.lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = MENTION_PATTERN.exec(body)) !== null) {
+    if (m[1]) handles.add(m[1].toLowerCase());
+    if (handles.size >= 5) break;
+  }
+  return [...handles];
+}
+
 export async function addSocialComment(
   db: Db,
   userId: string,
   postId: string,
   body: string,
   now: Date,
+  parentCommentId?: string | null,
 ): Promise<AddCommentResult> {
   const [author] = await db
     .select({
@@ -232,6 +284,43 @@ export async function addSocialComment(
     .from(socialPosts)
     .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
   if (!post) return { ok: false, reason: "no_existe" };
+
+  let resolvedParentId: string | null = null;
+  let parentAuthorUserId: string | null = null;
+  let replyToHandle: string | null = null;
+  const trimmedParent = typeof parentCommentId === "string" ? parentCommentId.trim() : "";
+  if (trimmedParent) {
+    if (!UUID_PATTERN.test(trimmedParent)) return { ok: false, reason: "no_existe" };
+    const [parentRow] = await db
+      .select({
+        id: socialComments.id,
+        postId: socialComments.postId,
+        parentCommentId: socialComments.parentCommentId,
+        authorUserId: socialComments.authorUserId,
+        hidden: socialComments.isHiddenByModeration,
+        authorHandle: users.handle,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(eq(socialComments.id, trimmedParent));
+    if (!parentRow || parentRow.postId !== postId || parentRow.hidden) {
+      return { ok: false, reason: "no_existe" };
+    }
+    // Un solo nivel de anidación visual en el hilo; conservamos el autor del comentario raíz para coincidir con el feed.
+    resolvedParentId = parentRow.parentCommentId ?? parentRow.id;
+    parentAuthorUserId = parentRow.authorUserId;
+    if (parentRow.parentCommentId) {
+      const [rootAuthor] = await db
+        .select({ handle: users.handle })
+        .from(socialComments)
+        .innerJoin(users, eq(users.id, socialComments.authorUserId))
+        .where(eq(socialComments.id, resolvedParentId));
+      replyToHandle = rootAuthor?.handle ?? parentRow.authorHandle ?? null;
+    } else {
+      replyToHandle = parentRow.authorHandle ?? null;
+    }
+  }
+
   const [{ count }] = await db
     .select({ count: sql<number>`count(*)::int` })
     .from(socialComments)
@@ -240,35 +329,169 @@ export async function addSocialComment(
     );
   if (count >= SOCIAL_LIMITS.commentsPerHour) return { ok: false, reason: "limite" };
 
+  const cleanBody = body.trim();
   const { record } = await authorRecord(db, userId);
   const [row] = await db
     .insert(socialComments)
-    .values({ postId, authorUserId: userId, body: body.trim(), authorRecordSnapshot: record, createdAt: now })
+    .values({
+      postId,
+      parentCommentId: resolvedParentId,
+      authorUserId: userId,
+      body: cleanBody,
+      authorRecordSnapshot: record,
+      createdAt: now,
+    })
     .returning({ id: socialComments.id, createdAt: socialComments.createdAt });
 
-  if (post.authorUserId !== userId) {
+  const commentId = row!.id;
+  const notifiedUsers = new Set<string>([userId]);
+
+  if (parentAuthorUserId && !notifiedUsers.has(parentAuthorUserId)) {
+    await db.insert(notifications).values({
+      userId: parentAuthorUserId,
+      kind: "comment_reply",
+      actorUserId: userId,
+      postId,
+      commentId,
+      createdAt: now,
+    });
+    notifiedUsers.add(parentAuthorUserId);
+  }
+
+  if (!notifiedUsers.has(post.authorUserId)) {
     await db.insert(notifications).values({
       userId: post.authorUserId,
       kind: "comment",
       actorUserId: userId,
       postId,
+      commentId,
       createdAt: now,
     });
+    notifiedUsers.add(post.authorUserId);
+  }
+
+  const mentionedHandles = extractMentionHandles(cleanBody);
+  if (mentionedHandles.length > 0) {
+    const mentionedUsers = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(and(inArray(users.handle, mentionedHandles), eq(users.socialPauseEnabled, false)));
+    for (const target of mentionedUsers) {
+      if (notifiedUsers.has(target.id)) continue;
+      notifiedUsers.add(target.id);
+      await db.insert(notifications).values({
+        userId: target.id,
+        kind: "mention",
+        actorUserId: userId,
+        postId,
+        commentId,
+        createdAt: now,
+      });
+    }
   }
 
   return {
     ok: true,
     comment: {
-      id: row!.id,
+      id: commentId,
+      parentCommentId: resolvedParentId,
+      replyToHandle,
       authorHandle: author.handle,
       authorName: author.displayName ?? author.handle,
       authorAvatarUrl: author.avatarUrl ?? null,
       record,
-      body: body.trim(),
+      body: cleanBody,
       createdAt: row!.createdAt.toISOString(),
       isMine: true,
+      helpfulCount: 0,
+      helpfulByMe: false,
     },
   };
+}
+
+/** Solo el autor borra su comentario. */
+export async function deleteSocialComment(
+  db: Db,
+  userId: string,
+  commentId: string,
+  postId?: string,
+): Promise<boolean> {
+  if (!UUID_PATTERN.test(commentId)) return false;
+  if (postId && !UUID_PATTERN.test(postId)) return false;
+  const deleted = await db
+    .delete(socialComments)
+    .where(
+      and(
+        eq(socialComments.id, commentId),
+        eq(socialComments.authorUserId, userId),
+        postId ? eq(socialComments.postId, postId) : undefined,
+      ),
+    )
+    .returning({ id: socialComments.id });
+  return deleted.length > 0;
+}
+
+/** Marca o quita «Útil» en un comentario; devuelve el total actualizado. */
+export async function setSocialCommentHelpful(
+  db: Db,
+  userId: string,
+  commentId: string,
+  helpful: boolean,
+  now: Date = new Date(),
+  postId?: string,
+): Promise<{ ok: true; helpfulCount: number; helpfulByMe: boolean } | { ok: false; reason: "no_existe" }> {
+  if (!UUID_PATTERN.test(commentId)) return { ok: false, reason: "no_existe" };
+  if (postId && !UUID_PATTERN.test(postId)) return { ok: false, reason: "no_existe" };
+  const [comment] = await db
+    .select({ id: socialComments.id })
+    .from(socialComments)
+    .innerJoin(socialPosts, eq(socialPosts.id, socialComments.postId))
+    .where(
+      and(
+        eq(socialComments.id, commentId),
+        postId ? eq(socialComments.postId, postId) : undefined,
+        eq(socialComments.isHiddenByModeration, false),
+        eq(socialPosts.isHiddenByModeration, false),
+      ),
+    );
+  if (!comment) return { ok: false, reason: "no_existe" };
+  if (helpful) {
+    await db.insert(socialCommentLikes).values({ commentId, userId, createdAt: now }).onConflictDoNothing();
+  } else {
+    await db
+      .delete(socialCommentLikes)
+      .where(and(eq(socialCommentLikes.commentId, commentId), eq(socialCommentLikes.userId, userId)));
+  }
+  const [{ count }] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(socialCommentLikes)
+    .where(eq(socialCommentLikes.commentId, commentId));
+  return { ok: true, helpfulCount: count, helpfulByMe: helpful };
+}
+
+/** Registra que otro socio copió a su bitácora el pick adjunto. */
+export async function recordSocialPostPickCopy(
+  db: Db,
+  userId: string,
+  postId: string,
+): Promise<{ ok: true; copiesCount: number } | { ok: false; reason: "no_existe" }> {
+  if (!UUID_PATTERN.test(postId)) return { ok: false, reason: "no_existe" };
+  const [post] = await db
+    .select({
+      id: socialPosts.id,
+      authorUserId: socialPosts.authorUserId,
+      copiesCount: socialPosts.copiesToJournalCount,
+    })
+    .from(socialPosts)
+    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
+  if (!post) return { ok: false, reason: "no_existe" };
+  if (post.authorUserId === userId) return { ok: true, copiesCount: post.copiesCount };
+  const [updated] = await db
+    .update(socialPosts)
+    .set({ copiesToJournalCount: sql`${socialPosts.copiesToJournalCount} + 1` })
+    .where(eq(socialPosts.id, postId))
+    .returning({ copiesCount: socialPosts.copiesToJournalCount });
+  return { ok: true, copiesCount: updated?.copiesCount ?? post.copiesCount + 1 };
 }
 
 /** Pone o quita el «me gusta»; devuelve el total actualizado. */
@@ -368,16 +591,225 @@ export interface FeedQuery {
   limit?: number;
   /** Publicaciones anteriores a esta fecha (paginación). */
   before?: Date;
+  /** Solo de quienes sigue `viewerUserId` (socios, ligas y equipos). */
+  following?: boolean;
   /** Solo de este @usuario. */
   authorHandle?: string;
-  /** Solo de quienes sigue `viewerUserId`. */
-  following?: boolean;
+  /** Solo publicaciones ligadas a este partido (`gameId` o pick del partido). */
+  gameId?: string;
+  /** Orden del feed: recientes o con más conversación. */
+  sort?: "recent" | "most_commented";
+  /** Filtrar por liga (`leagueLabel` o identificador canonico). */
+  leagueLabel?: string;
+  /** Solo publicaciones con pick abierto (no liquidado). */
+  openPickOnly?: boolean;
+  /** Tope de comentarios devueltos por publicación (default `SOCIAL_LIMITS.commentsPerPost`). */
+  commentsLimit?: number;
   /** Una sola publicación por id (p. ej. al abrir un aviso de comentario). */
   postId?: string;
 }
 
+const LEAGUE_ID_TO_LABEL: Record<string, string> = {
+  "liga-mx": "Liga MX",
+  ligamx: "Liga MX",
+  "premier-league": "Premier League",
+  premier: "Premier League",
+  laliga: "LaLiga",
+  bundesliga: "Bundesliga",
+  "serie-a": "Serie A",
+  "ligue-1": "Ligue 1",
+  nfl: "NFL",
+  nba: "NBA",
+  nhl: "NHL",
+  mlb: "MLB",
+  ncaaf: "NCAAF",
+  champions: "Champions League",
+};
+
+function resolveLeagueFilterLabel(raw: string): string {
+  const clean = raw.trim();
+  return LEAGUE_ID_TO_LABEL[clean.toLowerCase()] ?? clean;
+}
+
+function toFeedPickStatus(status: string | undefined): FeedPickStatus | null {
+  if (status === "won" || status === "lost" || status === "void") return status;
+  if (status === "pending") return "open";
+  return null;
+}
+
+async function resolvePostPickStatuses(
+  db: Db,
+  rows: ReadonlyArray<{
+    id: string;
+    authorUserId: string;
+    sealedJournalEntryId: string | null;
+    pick: unknown;
+  }>,
+): Promise<Map<string, FeedPickStatus | null>> {
+  const result = new Map<string, FeedPickStatus | null>();
+  const postsWithPick = rows.filter((r) => Boolean(r.pick));
+  if (postsWithPick.length === 0) return result;
+
+  const sealedIds = Array.from(
+    new Set(postsWithPick.map((r) => r.sealedJournalEntryId).filter((v): v is string => Boolean(v))),
+  );
+  const authorIds = Array.from(new Set(postsWithPick.map((r) => r.authorUserId)));
+  const pickIds = Array.from(
+    new Set(
+      postsWithPick
+        .map((r) => (r.pick as SocialPickSnapshot | null)?.pickId)
+        .filter((v): v is string => typeof v === "string" && v.length > 0),
+    ),
+  );
+
+  const lookupConditions = [];
+  if (sealedIds.length > 0) lookupConditions.push(inArray(sealedPicks.id, sealedIds));
+  if (authorIds.length > 0 && pickIds.length > 0) {
+    lookupConditions.push(and(inArray(sealedPicks.userId, authorIds), inArray(sealedPicks.pickId, pickIds))!);
+  }
+  if (lookupConditions.length === 0) return result;
+
+  const sealedRows = await db
+    .select({
+      id: sealedPicks.id,
+      userId: sealedPicks.userId,
+      pickId: sealedPicks.pickId,
+      status: sealedPicks.status,
+    })
+    .from(sealedPicks)
+    .where(or(...lookupConditions));
+
+  const byId = new Map<string, string>();
+  const byUserPick = new Map<string, string>();
+  for (const s of sealedRows) {
+    byId.set(s.id, s.status);
+    byUserPick.set(`${s.userId}:${s.pickId}`, s.status);
+  }
+  for (const r of postsWithPick) {
+    const pickId = (r.pick as SocialPickSnapshot | null)?.pickId;
+    const status =
+      (r.sealedJournalEntryId ? byId.get(r.sealedJournalEntryId) : undefined) ??
+      (pickId ? byUserPick.get(`${r.authorUserId}:${pickId}`) : undefined);
+    result.set(r.id, toFeedPickStatus(status));
+  }
+  return result;
+}
+
+async function loadFeedCommentsForPosts(
+  db: Db,
+  viewerUserId: string | null,
+  postIds: readonly string[],
+  perPostLimit: number,
+): Promise<{ commentsByPost: Map<string, FeedComment[]>; totalByPost: Map<string, number> }> {
+  const commentsByPost = new Map<string, FeedComment[]>();
+  const totalByPost = new Map<string, number>();
+  if (postIds.length === 0) return { commentsByPost, totalByPost };
+
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+
+  const comments = await db
+    .select({
+      id: socialComments.id,
+      postId: socialComments.postId,
+      parentCommentId: socialComments.parentCommentId,
+      authorUserId: socialComments.authorUserId,
+      authorHandle: users.handle,
+      authorName: users.displayName,
+      authorAvatarUrl: users.avatarUrl,
+      record: socialComments.authorRecordSnapshot,
+      body: socialComments.body,
+      createdAt: socialComments.createdAt,
+    })
+    .from(socialComments)
+    .innerJoin(users, eq(users.id, socialComments.authorUserId))
+    .where(
+      and(
+        inArray(socialComments.postId, [...postIds]),
+        eq(socialComments.isHiddenByModeration, false),
+        isNotNull(users.handle),
+        notPausedForViewer,
+      ),
+    )
+    .orderBy(asc(socialComments.createdAt), asc(socialComments.id));
+
+  if (comments.length === 0) return { commentsByPost, totalByPost };
+
+  const commentIds = comments.map((c) => c.id);
+  const [helpfulRows, viewerHelpfulRows] = await Promise.all([
+    db
+      .select({
+        commentId: socialCommentLikes.commentId,
+        count: sql<number>`count(*)::int`,
+      })
+      .from(socialCommentLikes)
+      .where(inArray(socialCommentLikes.commentId, commentIds))
+      .groupBy(socialCommentLikes.commentId),
+    viewerUserId
+      ? db
+          .select({ commentId: socialCommentLikes.commentId })
+          .from(socialCommentLikes)
+          .where(and(eq(socialCommentLikes.userId, viewerUserId), inArray(socialCommentLikes.commentId, commentIds)))
+      : Promise.resolve([] as { commentId: string }[]),
+  ]);
+
+  const helpfulCountMap = new Map(helpfulRows.map((h) => [h.commentId, h.count]));
+  const helpfulByMeSet = new Set(viewerHelpfulRows.map((h) => h.commentId));
+  const authorHandleByCommentId = new Map(comments.map((c) => [c.id, c.authorHandle!]));
+
+  const allByPost = new Map<string, FeedComment[]>();
+  for (const c of comments) {
+    const list = allByPost.get(c.postId) ?? [];
+    list.push({
+      id: c.id,
+      parentCommentId: c.parentCommentId ?? null,
+      replyToHandle: c.parentCommentId ? (authorHandleByCommentId.get(c.parentCommentId) ?? null) : null,
+      authorHandle: c.authorHandle!,
+      authorName: c.authorName ?? c.authorHandle!,
+      authorAvatarUrl: c.authorAvatarUrl ?? null,
+      record: c.record,
+      body: c.body,
+      createdAt: c.createdAt.toISOString(),
+      isMine: viewerUserId !== null && c.authorUserId === viewerUserId,
+      helpfulCount: helpfulCountMap.get(c.id) ?? 0,
+      helpfulByMe: helpfulByMeSet.has(c.id),
+    });
+    allByPost.set(c.postId, list);
+  }
+
+  for (const [postId, list] of allByPost) {
+    totalByPost.set(postId, list.length);
+    commentsByPost.set(postId, list.length > perPostLimit ? list.slice(-perPostLimit) : list);
+  }
+  return { commentsByPost, totalByPost };
+}
+
+/** Todos los comentarios visibles de una publicación (sin el corte de 30 del feed). */
+export async function listPostComments(
+  db: Db,
+  viewerUserId: string | null,
+  postId: string,
+  limit = 200,
+): Promise<{ ok: true; comments: FeedComment[]; commentsCount: number } | { ok: false; reason: "no_existe" }> {
+  if (!UUID_PATTERN.test(postId)) return { ok: false, reason: "no_existe" };
+  const [post] = await db
+    .select({ id: socialPosts.id })
+    .from(socialPosts)
+    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
+  if (!post) return { ok: false, reason: "no_existe" };
+  const safeLimit = Math.min(Math.max(limit, 1), 200);
+  const { commentsByPost, totalByPost } = await loadFeedCommentsForPosts(db, viewerUserId, [postId], safeLimit);
+  return {
+    ok: true,
+    comments: commentsByPost.get(postId) ?? [],
+    commentsCount: totalByPost.get(postId) ?? 0,
+  };
+}
+
 export async function listSocialFeed(db: Db, viewerUserId: string | null, query: FeedQuery = {}): Promise<FeedPost[]> {
   const limit = Math.min(Math.max(query.limit ?? 30, 1), SOCIAL_LIMITS.feedPageMax);
+  const commentsLimit = Math.min(Math.max(query.commentsLimit ?? SOCIAL_LIMITS.commentsPerPost, 1), 200);
   const notPausedForViewer = viewerUserId
     ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
     : eq(users.socialPauseEnabled, false);
@@ -385,18 +817,79 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
   if (query.postId) conditions.push(eq(socialPosts.id, query.postId));
   if (query.before) conditions.push(lt(socialPosts.createdAt, query.before));
   if (query.authorHandle) conditions.push(eq(users.handle, query.authorHandle.toLowerCase()));
-  if (query.following) {
-    if (!viewerUserId) return [];
+  if (query.gameId) {
+    const cleanGameId = query.gameId.trim();
+    if (cleanGameId) {
+      conditions.push(
+        or(eq(socialPosts.gameId, cleanGameId), sql`${socialPosts.pick}->>'gameId' = ${cleanGameId}`)!,
+      );
+    }
+  }
+  if (query.leagueLabel) {
+    const label = resolveLeagueFilterLabel(query.leagueLabel);
+    if (label) conditions.push(eq(socialPosts.leagueLabel, label));
+  }
+  if (query.openPickOnly) {
     conditions.push(
-      inArray(
-        socialPosts.authorUserId,
-        db
-          .select({ id: socialFollows.followedUserId })
-          .from(socialFollows)
-          .where(eq(socialFollows.followerUserId, viewerUserId)),
-      ),
+      and(
+        isNotNull(socialPosts.pick),
+        sql`not exists (select 1 from ${sealedPicks} sp where (sp.id = ${socialPosts.sealedJournalEntryId} or (sp.user_id = ${socialPosts.authorUserId} and sp.pick_id = ${socialPosts.pick}->>'pickId')) and sp.status in ('won', 'lost', 'void'))`,
+      )!,
     );
   }
+  if (query.following) {
+    if (!viewerUserId) return [];
+    const [followRows, prefRow] = await Promise.all([
+      db
+        .select({ id: socialFollows.followedUserId })
+        .from(socialFollows)
+        .where(eq(socialFollows.followerUserId, viewerUserId)),
+      db
+        .select({ followedTopics: userPreferences.followedTopics })
+        .from(userPreferences)
+        .where(eq(userPreferences.userId, viewerUserId))
+        .limit(1),
+    ]);
+    const followedUserIds = followRows.map((f) => f.id);
+    const topics = sanitizeFollowedTopics(prefRow[0]?.followedTopics);
+    const followedLeagueLabels = Array.from(
+      new Set(topics.leagues.map(resolveLeagueFilterLabel).filter((l) => l.length > 0)),
+    );
+
+    const followingOr = [];
+    if (followedUserIds.length > 0) {
+      followingOr.push(inArray(socialPosts.authorUserId, followedUserIds));
+    }
+    if (followedLeagueLabels.length > 0) {
+      followingOr.push(inArray(socialPosts.leagueLabel, followedLeagueLabels));
+    }
+    for (const key of topics.teams) {
+      const sep = key.indexOf(":");
+      if (sep <= 0) continue;
+      const leagueLabel = resolveLeagueFilterLabel(key.slice(0, sep));
+      const rawSlug = key.slice(sep + 1).toLowerCase();
+      const safeSlug = rawSlug.replace(/[^a-z0-9._-]/g, "");
+      const safeToken = rawSlug.replace(/[^a-z0-9]+/g, " ").trim();
+      if (!leagueLabel || safeToken.length < 2) continue;
+      followingOr.push(
+        and(
+          eq(socialPosts.leagueLabel, leagueLabel),
+          or(
+            safeSlug ? sql`lower(coalesce(${socialPosts.gameId}, '')) LIKE ${`%${safeSlug}%`}` : undefined,
+            sql`translate(lower(${socialPosts.matchLabel}), 'áéíóúüñ', 'aeiouun') LIKE ${`%${safeToken}%`}`,
+          )!,
+        )!,
+      );
+    }
+    if (followingOr.length === 0) return [];
+    conditions.push(or(...followingOr)!);
+  }
+
+  const commentCountExpr = sql<number>`(select count(*)::int from ${socialComments} where ${socialComments.postId} = ${socialPosts.id} and ${socialComments.isHiddenByModeration} = false)`;
+  const orderByClauses =
+    query.sort === "most_commented"
+      ? [desc(commentCountExpr), desc(socialPosts.createdAt), desc(socialPosts.id)]
+      : [desc(socialPosts.createdAt), desc(socialPosts.id)];
 
   const rows = await db
     .select({
@@ -405,7 +898,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
       authorHandle: users.handle,
       authorName: users.displayName,
       authorAvatarUrl: users.avatarUrl,
-      authorIsTipster: sql<boolean>`${tipsterProfiles.userId} is not null`,
+      authorIsTipster: sql<boolean>`(${tipsterProfiles.userId} is not null or ${socialPosts.authorRoleBadgeSnapshot} = 'Tipster Oficial')`,
       roleBadge: socialPosts.authorRoleBadgeSnapshot,
       record: socialPosts.authorRecordSnapshot,
       clv: socialPosts.authorClvSnapshot,
@@ -414,7 +907,9 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
       gameId: socialPosts.gameId,
       pickBadge: socialPosts.pickBadge,
       originType: socialPosts.originType,
+      sealedJournalEntryId: socialPosts.sealedJournalEntryId,
       pick: socialPosts.pick,
+      copiesCount: socialPosts.copiesToJournalCount,
       body: socialPosts.body,
       createdAt: socialPosts.createdAt,
       likes: sql<number>`(select count(*)::int from ${socialLikes} where ${socialLikes.postId} = ${socialPosts.id})`,
@@ -423,60 +918,22 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     .innerJoin(users, eq(users.id, socialPosts.authorUserId))
     .leftJoin(tipsterProfiles, and(eq(tipsterProfiles.userId, users.id), eq(tipsterProfiles.isActive, true)))
     .where(and(...conditions))
-    .orderBy(desc(socialPosts.createdAt), desc(socialPosts.id))
+    .orderBy(...orderByClauses)
     .limit(limit);
   if (rows.length === 0) return [];
 
   const ids = rows.map((r) => r.id);
-  const [liked, comments] = await Promise.all([
+  const [liked, { commentsByPost, totalByPost }, pickStatuses] = await Promise.all([
     viewerUserId
       ? db
           .select({ postId: socialLikes.postId })
           .from(socialLikes)
           .where(and(eq(socialLikes.userId, viewerUserId), inArray(socialLikes.postId, ids)))
       : Promise.resolve([] as { postId: string }[]),
-    db
-      .select({
-        id: socialComments.id,
-        postId: socialComments.postId,
-        authorUserId: socialComments.authorUserId,
-        authorHandle: users.handle,
-        authorName: users.displayName,
-        authorAvatarUrl: users.avatarUrl,
-        record: socialComments.authorRecordSnapshot,
-        body: socialComments.body,
-        createdAt: socialComments.createdAt,
-      })
-      .from(socialComments)
-      .innerJoin(users, eq(users.id, socialComments.authorUserId))
-      .where(
-        and(
-          inArray(socialComments.postId, ids),
-          eq(socialComments.isHiddenByModeration, false),
-          isNotNull(users.handle),
-          notPausedForViewer,
-        ),
-      )
-      .orderBy(asc(socialComments.createdAt)),
+    loadFeedCommentsForPosts(db, viewerUserId, ids, commentsLimit),
+    resolvePostPickStatuses(db, rows),
   ]);
   const likedSet = new Set(liked.map((l) => l.postId));
-  const byPost = new Map<string, FeedComment[]>();
-  for (const c of comments) {
-    const list = byPost.get(c.postId) ?? [];
-    if (list.length < SOCIAL_LIMITS.commentsPerPost) {
-      list.push({
-        id: c.id,
-        authorHandle: c.authorHandle!,
-        authorName: c.authorName ?? c.authorHandle!,
-        authorAvatarUrl: c.authorAvatarUrl ?? null,
-        record: c.record,
-        body: c.body,
-        createdAt: c.createdAt.toISOString(),
-        isMine: viewerUserId !== null && c.authorUserId === viewerUserId,
-      });
-    }
-    byPost.set(c.postId, list);
-  }
 
   return rows.map((r) => ({
     id: r.id,
@@ -493,12 +950,15 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     pickBadge: r.pickBadge,
     originType: r.originType,
     pick: (r.pick as SocialPickSnapshot | null) ?? null,
+    pickStatus: pickStatuses.get(r.id) ?? null,
     body: r.body,
     createdAt: r.createdAt.toISOString(),
     likes: r.likes,
     likedByMe: likedSet.has(r.id),
     isMine: viewerUserId !== null && r.authorUserId === viewerUserId,
-    comments: byPost.get(r.id) ?? [],
+    commentsCount: totalByPost.get(r.id) ?? 0,
+    copiesCount: r.copiesCount,
+    comments: commentsByPost.get(r.id) ?? [],
   }));
 }
 
@@ -553,11 +1013,11 @@ export async function getSocialPostById(
   viewerUserId: string | null,
   postId: string,
 ): Promise<FeedPost | null> {
-  const [post] = await listSocialFeed(db, viewerUserId, { postId, limit: 1 });
+  const [post] = await listSocialFeed(db, viewerUserId, { postId, limit: 1, commentsLimit: 200 });
   return post ?? null;
 }
 
-export type SocialNotificationKind = "comment" | "follow" | "like";
+export type SocialNotificationKind = "comment" | "comment_reply" | "mention" | "follow" | "like";
 
 export interface SocialNotificationRow {
   id: string;
@@ -565,6 +1025,7 @@ export interface SocialNotificationRow {
   actorHandle: string;
   actorName: string;
   postId: string | null;
+  commentId: string | null;
   postExcerpt: string | null;
   /** Cantidad de otros socios a quienes les gustó esa publicación (solo para `kind === "like"`). */
   likeCount: number;
@@ -579,9 +1040,7 @@ function excerptOf(body: string | null): string | null {
   return clean.length > 90 ? `${clean.slice(0, 89).trimEnd()}…` : clean;
 }
 
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-/** Últimos avisos sociales del socio (comentarios, seguidos y «me gusta» agrupados). */
+/** Últimos avisos sociales del socio (comentarios, respuestas, menciones, seguidos y «me gusta» agrupados). */
 export async function listSocialNotifications(
   db: Db,
   userId: string,
@@ -595,8 +1054,9 @@ export async function listSocialNotifications(
       actorHandle: users.handle,
       actorName: users.displayName,
       postId: notifications.postId,
+      commentId: notifications.commentId,
       postBody: socialPosts.body,
-      postHidden: socialPosts.isHiddenByModeration,
+      commentBody: socialComments.body,
       likeCount: sql<number>`case when ${notifications.kind} = 'like' and ${notifications.postId} is not null then (select count(*)::int from ${socialLikes} where ${socialLikes.postId} = ${notifications.postId} and ${socialLikes.userId} <> ${notifications.userId}) else 0 end`,
       createdAt: notifications.createdAt,
       readAt: notifications.readAt,
@@ -604,12 +1064,14 @@ export async function listSocialNotifications(
     .from(notifications)
     .innerJoin(users, eq(users.id, notifications.actorUserId))
     .leftJoin(socialPosts, eq(socialPosts.id, notifications.postId))
+    .leftJoin(socialComments, eq(socialComments.id, notifications.commentId))
     .where(
       and(
         eq(notifications.userId, userId),
         isNotNull(users.handle),
         eq(users.socialPauseEnabled, false),
         sql`(${notifications.postId} is null or (${socialPosts.id} is not null and ${socialPosts.isHiddenByModeration} = false))`,
+        sql`(${notifications.commentId} is null or (${socialComments.id} is not null and ${socialComments.isHiddenByModeration} = false))`,
       ),
     )
     .orderBy(desc(notifications.createdAt))
@@ -623,7 +1085,11 @@ export async function listSocialNotifications(
       actorHandle: r.actorHandle!,
       actorName: r.actorName ?? r.actorHandle!,
       postId: r.postId,
-      postExcerpt: excerptOf(r.postBody),
+      commentId: r.commentId ?? null,
+      postExcerpt:
+        r.kind === "comment_reply" || r.kind === "mention"
+          ? excerptOf(r.commentBody ?? r.postBody)
+          : excerptOf(r.postBody),
       likeCount: r.likeCount,
       createdAt: r.createdAt.toISOString(),
       readAt: r.readAt ? r.readAt.toISOString() : null,

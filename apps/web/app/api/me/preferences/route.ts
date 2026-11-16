@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   getUserPreferences,
+  sanitizeFollowedTopics,
   upsertUserPreferences,
   type OddsFormatPref,
   type ResponsiblePauseKind,
@@ -49,6 +50,7 @@ function serializePreferences(pref: UserPreferencesRecord) {
     responsiblePauseUntilIso: pref.responsiblePauseUntil ? pref.responsiblePauseUntil.toISOString() : null,
     recordPrivacy: normalizeRecordPrivacy(pref.recordPrivacy),
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos,
+    followedTopics: pref.followedTopics,
     featuredBadges: pref.featuredBadges,
     updatedAtIso: pref.updatedAt ? pref.updatedAt.toISOString() : null,
   };
@@ -178,6 +180,13 @@ function parsePatch(body: Record<string, unknown>): {
     } else {
       patch.bankrollStartMxnCentavos = Math.round(rawBank);
     }
+  }
+
+  if (body.followedTopics !== undefined) {
+    if (!body.followedTopics || typeof body.followedTopics !== "object" || Array.isArray(body.followedTopics)) {
+      return { error: "Temas seguidos inválidos." };
+    }
+    patch.followedTopics = sanitizeFollowedTopics(body.followedTopics);
   }
 
   if (body.featuredBadges !== undefined) {

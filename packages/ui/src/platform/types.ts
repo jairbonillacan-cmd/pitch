@@ -406,6 +406,8 @@ export type SocialReportReason = "spam_enlaces" | "ofensivo" | "apuesta_riesgosa
 
 export interface SocialComment {
   id: string;
+  parentCommentId?: string | null;
+  replyToHandle?: string | null;
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
@@ -416,6 +418,9 @@ export interface SocialComment {
   fromServer?: boolean;
   /** Lo escribió quien está viendo. */
   isMine?: boolean;
+  /** Conteo de votos «Útil» y si quien mira lo marcó. */
+  helpfulCount?: number;
+  helpfulByMe?: boolean;
 }
 
 /** Pick adjunto a una publicación: el mismo que se registra en la bitácora. */
@@ -428,7 +433,7 @@ export interface SocialPostPick {
   fairDecimal: number;
   /** Probabilidad del modelo, 0–1. */
   modelProbability: number;
-  status: "open" | "won" | "lost";
+  status: "open" | "won" | "lost" | "void";
 }
 
 export interface SocialPost {
@@ -436,6 +441,8 @@ export interface SocialPost {
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
+  /** Tipster oficial real confirmado por el servidor. */
+  authorIsTipster?: boolean;
   roleBadge: "Tipster Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
   avatarGradVar: string;
   verifiedRecord: string;
@@ -450,6 +457,10 @@ export interface SocialPost {
   likes: number;
   likedByMe?: boolean;
   comments: SocialComment[];
+  /** Total de comentarios visibles (puede ser mayor que `comments.length` en el feed). */
+  commentsCount?: number;
+  /** Socios que siguieron este pick en su bitácora. */
+  copiesCount?: number;
   /** Publicación de demostración: la UI la marca como «Ejemplo». */
   isExample?: boolean;
   /** Pick adjunto, si la publicación trae uno. */

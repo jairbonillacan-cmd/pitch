@@ -2506,7 +2506,7 @@ export function ComunidadPageSurface({
                     color: "var(--pl-text-muted)",
                   }}
                 >
-                  Unidades verificadas: <strong>{creator.verifiedUnits}</strong> · CLV{" "}
+                  Unidades verificadas: <strong>{creator.verifiedUnits}</strong> · Ventaja{" "}
                   {creator.clvAvg} · {creator.settledCount} picks calificados
                 </p>
               </article>

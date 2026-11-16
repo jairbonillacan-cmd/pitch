@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
 import {
   exampleLeaderboardRows,
   getExampleAnalystSpec,
@@ -10,7 +10,7 @@ import {
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { usePlatform, type ViewerIdentity } from "../platform-provider";
+import { useOptionalPlatformCore, usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
@@ -282,7 +282,7 @@ export function Avatar({
   );
 }
 
-export type PickOutcome = "open" | "won" | "lost";
+export type PickOutcome = "open" | "won" | "lost" | "void";
 
 export function outcomeOf(status: JournalEntry["status"] | PickOutcome): PickOutcome {
   if (status === "pending" || status === "open") return "open";
@@ -299,7 +299,14 @@ export function PickStatus({
   detail?: string;
   className?: string;
 }): React.JSX.Element {
-  const label = status === "won" ? "Cumplido" : status === "lost" ? "No se cumplió" : "Abierto";
+  const label =
+    status === "won"
+      ? "Cumplido"
+      : status === "lost"
+        ? "No se cumplió"
+        : status === "void"
+          ? "Nulo"
+          : "Abierto";
   return (
     <span className={["pl-pick-status", `pl-pick-status--${status}`, className].filter(Boolean).join(" ")}>
       {label}
@@ -890,30 +897,46 @@ const TOPICS_KEY = "pl-follow-topics-v1";
 const TOPICS_EVENT = "pl:follow-topics";
 const TOPICS_MAX = 40;
 
+function sanitizeTopicList(v: unknown): string[] {
+  return Array.isArray(v)
+    ? Array.from(new Set(v.filter((x): x is string => typeof x === "string" && x.trim().length > 0 && x.length <= 80))).slice(0, TOPICS_MAX)
+    : [];
+}
+
 function readTopics(): FollowedTopics {
   try {
     const raw = JSON.parse(window.localStorage.getItem(TOPICS_KEY) ?? "null") as Partial<FollowedTopics> | null;
-    const clean = (v: unknown) =>
-      Array.isArray(v) ? v.filter((x): x is string => typeof x === "string" && x.length <= 80).slice(0, TOPICS_MAX) : [];
-    return { leagues: clean(raw?.leagues), teams: clean(raw?.teams) };
+    return { leagues: sanitizeTopicList(raw?.leagues), teams: sanitizeTopicList(raw?.teams) };
   } catch (err) {
     void err;
     return { leagues: [], teams: [] };
   }
 }
 
+function cacheTopicsLocally(next: FollowedTopics): void {
+  try {
+    window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
+  } catch (err) {
+    void err;
+  }
+  window.dispatchEvent(new Event(TOPICS_EVENT));
+}
+
 export const teamTopicKey = (league: string, slug: string): string => `${league}:${slug}`;
 
 /**
- * Ligas y equipos que sigues en Comunidad. Viven en este navegador (no son tus ligas
- * favoritas del Inicio): si se borran los datos del sitio, se pierden sin afectar nada más.
+ * Ligas y equipos que sigues en Comunidad. Se guardan en tu cuenta cuando hay sesión
+ * activa y en caché local para respuesta instantánea entre dispositivos.
  */
 export function useFollowedTopics(): {
   topics: FollowedTopics;
   toggleLeague: (league: string) => void;
   toggleTeam: (key: string) => void;
 } {
+  const core = useOptionalPlatformCore();
+  const hasAccountSessionAuth = Boolean(core?.hasAccountSessionAuth);
   const [topics, setTopics] = useState<FollowedTopics>({ leagues: [], teams: [] });
+
   useEffect(() => {
     const sync = (): void => setTopics(readTopics());
     sync();
@@ -924,17 +947,62 @@ export function useFollowedTopics(): {
       window.removeEventListener("storage", sync);
     };
   }, []);
-  const write = useCallback((next: FollowedTopics) => {
-    setTopics(next);
-    try {
-      window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
-    } catch (err) {
-      void err;
-    }
-    window.dispatchEvent(new Event(TOPICS_EVENT));
-  }, []);
+
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/me/preferences", { credentials: "same-origin" });
+        if (!res.ok) return;
+        const json = (await res.json().catch(() => null)) as {
+          preferences?: { followedTopics?: Partial<FollowedTopics> | null };
+        } | null;
+        const remoteRaw = json?.preferences?.followedTopics;
+        if (!remoteRaw || cancelled) return;
+        const remote: FollowedTopics = {
+          leagues: sanitizeTopicList(remoteRaw.leagues),
+          teams: sanitizeTopicList(remoteRaw.teams),
+        };
+        setTopics(remote);
+        cacheTopicsLocally(remote);
+      } catch (err) {
+        void err;
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [hasAccountSessionAuth]);
+
+  const write = useCallback(
+    (next: FollowedTopics) => {
+      const prev = readTopics();
+      setTopics(next);
+      cacheTopicsLocally(next);
+      if (!hasAccountSessionAuth) return;
+      void (async () => {
+        try {
+          const res = await fetch("/api/me/preferences", {
+            method: "PUT",
+            credentials: "same-origin",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ followedTopics: next }),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+        } catch (err) {
+          void err;
+          setTopics(prev);
+          cacheTopicsLocally(prev);
+        }
+      })();
+    },
+    [hasAccountSessionAuth],
+  );
+
   const toggle = (list: string[], value: string): string[] =>
     list.includes(value) ? list.filter((v) => v !== value) : [...list, value].slice(0, TOPICS_MAX);
+
   return {
     topics,
     toggleLeague: (league) => {
@@ -948,20 +1016,55 @@ export function useFollowedTopics(): {
   };
 }
 
+function normalizeTopicText(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function leagueLabelsFor(id: string): string[] {
+  const entry = LEAGUE_CATALOG.find((c) => c.id === id);
+  if (!entry) return [id.toLowerCase()];
+  return [entry.name.toLowerCase(), entry.shortName.toLowerCase()];
+}
+
 /** ¿La publicación habla de una liga o un equipo que sigues? */
 export function postMatchesTopics(
-  post: Pick<SocialPost, "gameId" | "pick">,
+  post: Pick<SocialPost, "gameId" | "pick"> & Partial<Pick<SocialPost, "leagueLabel" | "matchLabel">>,
   topics: FollowedTopics,
   dataset: PlatformDataset,
 ): boolean {
   if (topics.leagues.length === 0 && topics.teams.length === 0) return false;
   const gameId = post.pick?.gameId ?? post.gameId;
-  if (!gameId) return false;
-  const meta = resolveEntryGame(gameId, dataset);
-  if (!meta) return false;
-  return (
-    topics.leagues.includes(meta.league) ||
-    topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
-    topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
-  );
+  if (gameId) {
+    const meta = resolveEntryGame(gameId, dataset);
+    if (meta) {
+      return (
+        topics.leagues.includes(meta.league) ||
+        topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
+        topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
+      );
+    }
+  }
+  const postLeagueLower = post.leagueLabel?.trim().toLowerCase() ?? "";
+  if (
+    postLeagueLower &&
+    topics.leagues.some((l) => leagueLabelsFor(l).includes(postLeagueLower))
+  ) {
+    return true;
+  }
+  const matchNorm = normalizeTopicText(post.matchLabel ?? "");
+  const gameNorm = (gameId ?? "").toLowerCase();
+  for (const key of topics.teams) {
+    const sep = key.indexOf(":");
+    if (sep <= 0) continue;
+    const leagueId = key.slice(0, sep) as LeagueId;
+    const slug = key.slice(sep + 1).toLowerCase();
+    if (postLeagueLower && !leagueLabelsFor(leagueId).includes(postLeagueLower)) continue;
+    if (gameNorm && gameNorm.includes(slug)) return true;
+    const token = slug.replace(/[^a-z0-9]+/g, " ").trim();
+    if (token.length >= 2 && matchNorm.includes(token)) return true;
+  }
+  return false;
 }

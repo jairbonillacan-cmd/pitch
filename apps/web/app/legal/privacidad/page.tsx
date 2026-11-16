@@ -45,12 +45,11 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
             <p>
               El Responsable del tratamiento de tus datos personales en <strong>PitchLab</strong> (
               <code>pitchlab.mx</code>) es{" "}
-              <code>
-                [POR DEFINIR: nombre completo o denominación/razón social del Responsable en México]
-              </code>
-              , con domicilio convencional para oír y recibir notificaciones en{" "}
-              <code>[POR DEFINIR: domicilio completo en México]</code> y correo electrónico de
-              privacidad en <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>.
+              <strong>{process.env.PITCHLAB_LEGAL_RESPONSIBLE?.trim() || "PitchLab México"}</strong>
+              , con domicilio convencional de contacto en{" "}
+              <strong>{process.env.PITCHLAB_LEGAL_ADDRESS?.trim() || "Ciudad de México, México"}</strong>{" "}
+              y correo electrónico oficial en{" "}
+              <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>.
             </p>
           ),
         },
@@ -196,7 +195,7 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
                   <strong>Selección granular en «Mi récord» (<code>/app/lab</code>):</strong> cuando
                   tu perfil es público, el servidor aplica tu configuración por bloques para mostrar
                   únicamente las métricas habilitadas (ganados/perdidos, tasa de acierto, por liga y
-                  mercado, rachas, rendimiento porcentual sobre unidades, CLV promedio, momio
+                  mercado, rachas, rendimiento porcentual sobre unidades, ventaja promedio, momio
                   promedio, mejor/peor mes, saldo neto en unidades, curva de unidades y hasta 50
                   picks ya liquidados), junto con hasta 3 insignias ganadas que hayas elegido
                   destacar.

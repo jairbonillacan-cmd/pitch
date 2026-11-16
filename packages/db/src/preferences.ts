@@ -11,6 +11,30 @@ export type ThemeModePref = "dark" | "light" | "system";
 export type RiskPreference = "conservador" | "medio" | "arriesgado";
 export type ResponsiblePauseKind = "24h" | "7d" | "30d";
 
+export interface FollowedTopicsPref {
+  leagues: string[];
+  teams: string[];
+}
+
+export function sanitizeFollowedTopics(raw: unknown): FollowedTopicsPref {
+  const cleanList = (v: unknown): string[] =>
+    Array.isArray(v)
+      ? Array.from(
+          new Set(
+            v
+              .filter((x): x is string => typeof x === "string")
+              .map((x) => x.trim())
+              .filter((x) => x.length > 0 && x.length <= 80),
+          ),
+        ).slice(0, 40)
+      : [];
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return { leagues: [], teams: [] };
+  }
+  const obj = raw as Record<string, unknown>;
+  return { leagues: cleanList(obj.leagues), teams: cleanList(obj.teams) };
+}
+
 export interface UserPreferencesRecord {
   oddsFormat: OddsFormatPref;
   themeMode: ThemeModePref;
@@ -32,6 +56,8 @@ export interface UserPreferencesRecord {
   recordPrivacy: Record<string, unknown>;
   /** Banca inicial en pesos (centavos); siempre privada. */
   bankrollStartMxnCentavos: number | null;
+  /** Ligas y equipos seguidos en Comunidad. */
+  followedTopics: FollowedTopicsPref;
   /** Insignias destacadas (máximo 3); la app las filtra contra las que el socio ya ganó. */
   featuredBadges: string[];
   updatedAt: Date | null;
@@ -55,6 +81,7 @@ export interface UserPreferencesPatch {
   responsiblePauseKind?: ResponsiblePauseKind | null;
   recordPrivacy?: Record<string, unknown>;
   bankrollStartMxnCentavos?: number | null;
+  followedTopics?: FollowedTopicsPref;
   featuredBadges?: string[];
 }
 
@@ -86,6 +113,7 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
     responsiblePauseUntil: null,
     recordPrivacy: {},
     bankrollStartMxnCentavos: null,
+    followedTopics: { leagues: [], teams: [] },
     featuredBadges: [],
     updatedAt: null,
   };
@@ -135,6 +163,7 @@ export function toUserPreferencesRecord(
     recordPrivacy:
       pref.recordPrivacy && typeof pref.recordPrivacy === "object" ? (pref.recordPrivacy as Record<string, unknown>) : {},
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos ?? null,
+    followedTopics: sanitizeFollowedTopics((pref as { followedTopics?: unknown }).followedTopics),
     featuredBadges: pref.featuredBadges ?? [],
     updatedAt: pref.updatedAt,
   };
@@ -180,6 +209,8 @@ export async function upsertUserPreferences(
         : patch.bankrollStartMxnCentavos === null
           ? null
           : Math.min(1_000_000_000, Math.max(0, Math.round(patch.bankrollStartMxnCentavos)));
+    const followedTopics =
+      patch.followedTopics !== undefined ? sanitizeFollowedTopics(patch.followedTopics) : current.followedTopics;
     const featuredBadges =
       patch.featuredBadges !== undefined
         ? Array.from(new Set(patch.featuredBadges.map((b) => b.trim()).filter(Boolean))).slice(0, 3)
@@ -219,6 +250,7 @@ export async function upsertUserPreferences(
         responsiblePauseUntil,
         recordPrivacy,
         bankrollStartMxnCentavos,
+        followedTopics,
         featuredBadges,
         updatedAt: now,
       })
@@ -243,6 +275,7 @@ export async function upsertUserPreferences(
           responsiblePauseUntil,
           recordPrivacy,
           bankrollStartMxnCentavos,
+          followedTopics,
           featuredBadges,
           updatedAt: now,
         },

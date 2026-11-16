@@ -86,6 +86,10 @@ export function parseNewPost(body: Record<string, unknown> | null): { ok: true; 
   const text = checkSocialText(body?.body, "post");
   if (!text.ok) return text;
   const pick = parseSocialPick(body?.pick);
+  const rawSealedId = typeof body?.sealedJournalEntryId === "string" ? body.sealedJournalEntryId.trim() : "";
+  const sealedJournalEntryId = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(rawSealedId)
+    ? rawSealedId
+    : null;
   return {
     ok: true,
     post: {
@@ -96,6 +100,7 @@ export function parseNewPost(body: Record<string, unknown> | null): { ok: true; 
       gameId: pick?.gameId ?? (shortText(body?.gameId) || null),
       originType: body?.originType === "Spacetime Suite" ? "Spacetime Suite" : "Bitácora Propia",
       pick,
+      ...(sealedJournalEntryId ? { sealedJournalEntryId } : {}),
     },
   };
 }

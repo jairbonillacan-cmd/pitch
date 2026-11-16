@@ -1,0 +1,856 @@
+"use client";
+
+import React, { useEffect, useId, useRef, useState } from "react";
+import { LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
+import { LeagueBadge, TeamBadge } from "../../sports";
+import { formatOddsValue } from "../access-guard";
+import { getExampleAnalystSpec } from "../community-examples";
+import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
+import type { RankedAnalyst } from "../profile-stats";
+import { formatUnits } from "../profile-stats";
+import type { JournalEntry, MatchPick, OddsFormat, PlatformDataset, SocialComment, SocialPost } from "../types";
+import { BadgeChip } from "./badges/ProfileBadges";
+import {
+  Avatar,
+  CommentIcon,
+  HeartIcon,
+  PickStatus,
+  ShareIcon,
+  SocialReportMenu,
+  resolveEntryGame,
+  shareUrl,
+  type EntryGameMeta,
+  type OwnIdentity,
+  type SocialReportTarget,
+} from "./community-ui";
+
+export const SOCIAL_POST_MAX_CHARS = 600;
+export const SOCIAL_COMMENT_MAX_CHARS = 400;
+
+export interface SocialPostAuthor {
+  handle: string;
+  name: string;
+  initials: string;
+  gradVar: string;
+  avatarUrl?: string | null;
+  isTipster: boolean;
+  saldo: string | null;
+}
+
+export function isPlainClick(e: React.MouseEvent<HTMLAnchorElement>): boolean {
+  return e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+}
+
+function kickoffShortLabel(iso?: string, timeZone?: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const time = d.toLocaleTimeString("es-MX", {
+    hour: "2-digit",
+    minute: "2-digit",
+    ...(timeZone ? { timeZone } : {}),
+  });
+  return `${d.toLocaleDateString("es-MX", {
+    day: "numeric",
+    month: "short",
+    ...(timeZone ? { timeZone } : {}),
+  })} ${time}`;
+}
+
+const LEAGUE_ID_BY_LABEL: Record<string, LeagueId> = Object.fromEntries(
+  LEAGUE_CATALOG.flatMap((c) => [
+    [c.name.toLowerCase(), c.id] as const,
+    [c.shortName.toLowerCase(), c.id] as const,
+  ]),
+);
+
+export function resolveLeagueIdFromLabel(leagueLabel: string): LeagueId | null {
+  const key = leagueLabel.trim().toLowerCase();
+  return LEAGUE_ID_BY_LABEL[key] ?? null;
+}
+
+export function resolvePostAuthor(
+  post: SocialPost,
+  own: OwnIdentity | null,
+  seasonRanked: readonly RankedAnalyst[],
+): SocialPostAuthor {
+  const spec = getExampleAnalystSpec(post.authorHandle);
+  const isOwnPost = own?.handle === post.authorHandle;
+  const avatarUrl = spec
+    ? null
+    : ((isOwnPost ? (own?.avatarUrl ?? post.authorAvatarUrl) : post.authorAvatarUrl) ?? null);
+  const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
+
+  let saldo: string | null = null;
+  if (ranked && ranked.record.settled > 0) {
+    saldo = formatUnits(ranked.record.netUnits);
+  } else if (post.verifiedRecord && post.verifiedRecord !== "Sin picks liquidados") {
+    const showClv = post.clvBadge && !post.clvBadge.endsWith("—");
+    saldo = showClv ? `${post.verifiedRecord} · ${post.clvBadge}` : post.verifiedRecord;
+  } else if (post.verifiedRecord === "Sin picks liquidados") {
+    saldo = "Sin picks liquidados";
+  }
+
+  return {
+    handle: post.authorHandle,
+    name: isOwnPost && !spec ? own!.name : post.authorName,
+    initials:
+      spec?.avatarInitials ??
+      (isOwnPost ? own!.avatarInitials : post.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2)),
+    gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
+    avatarUrl,
+    isTipster: spec?.isTipster ?? Boolean(post.authorIsTipster || post.roleBadge === "Tipster Oficial"),
+    saldo,
+  };
+}
+
+export interface SocialPostCardProps {
+  post: SocialPost;
+  author: SocialPostAuthor;
+  own: OwnIdentity | null;
+  dataset: PlatformDataset;
+  journal?: readonly JournalEntry[];
+  oddsFormat: OddsFormat;
+  variant?: "feed" | "profile" | "compact";
+  following?: boolean;
+  onToggleFollow?: (handle: string) => void;
+  onCopy?: (post: SocialPost) => void;
+  onCopyToParlay?: (post: SocialPost) => void;
+  onShare: (post: SocialPost) => void;
+  toggleSocialLike: (postId: string) => void;
+  addSocialComment: (
+    postId: string,
+    body: string,
+    parentCommentId?: string | null,
+  ) => { ok: boolean; error?: string; pending?: boolean };
+  onDeleteComment?: (postId: string, commentId: string) => void;
+  onToggleCommentHelpful?: (postId: string, commentId: string) => void;
+  onLoadAllComments?: (postId: string) => Promise<void>;
+  onDeletePost?: (postId: string) => void;
+  onOpenReport?: (target: SocialReportTarget) => void;
+  onNavigate?: (href: string) => void;
+  goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  highlighted?: boolean;
+}
+
+function resolveEffectivePickStatus(
+  post: SocialPost,
+  journal: readonly JournalEntry[],
+): NonNullable<SocialPost["pick"]>["status"] | null {
+  if (!post.pick) return null;
+  if (post.pick.status !== "open") return post.pick.status;
+  const localMatch = journal.find((j) => j.pickId === post.pick!.pickId);
+  if (localMatch && localMatch.status !== "pending") return localMatch.status;
+  return "open";
+}
+
+function commentAvatarFor(comment: SocialComment, own: OwnIdentity | null): string | null | undefined {
+  return own?.handle === comment.authorHandle
+    ? (own.avatarUrl ?? comment.authorAvatarUrl)
+    : comment.authorAvatarUrl;
+}
+
+function commentInitialsFor(comment: SocialComment): string {
+  return comment.authorName
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+export function shareSocialPost(
+  post: SocialPost,
+  pushToast: (text: string, tone?: "default" | "success" | "warning" | "danger") => void,
+): void {
+  void shareUrl(
+    `/app/social?post=${encodeURIComponent(post.id)}`,
+    `${post.authorName} en PitchLab`,
+    () => pushToast("Copiamos el enlace.", "success"),
+    () => pushToast("No pudimos compartir.", "warning"),
+  );
+}
+
+export function copyPostPickToJournal(
+  post: SocialPost,
+  deps: {
+    dataset: PlatformDataset;
+    sealPickToJournal: (pick: MatchPick, units: number, userDecimal: number) => void;
+    recordSocialPostCopy: (postId: string) => void;
+    pushToast: (text: string, tone?: "default" | "success" | "warning" | "danger") => void;
+  },
+): void {
+  if (!post.pick) return;
+  const game = deps.dataset.games.find((g) => g.id === post.pick!.gameId);
+  const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
+  if (!pick) {
+    deps.pushToast("Ese partido ya no está disponible para registrar.", "warning");
+    return;
+  }
+  deps.sealPickToJournal(pick, post.pick.units, post.pick.userDecimal);
+  deps.recordSocialPostCopy(post.id);
+}
+
+export function copyPostPickToParlay(
+  post: SocialPost,
+  deps: {
+    dataset: PlatformDataset;
+    addPickToParlay: (pick: MatchPick) => boolean;
+    pushToast: (text: string, tone?: "default" | "success" | "warning" | "danger") => void;
+  },
+): void {
+  if (!post.pick) return;
+  const game = deps.dataset.games.find((g) => g.id === post.pick!.gameId);
+  const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
+  if (!pick || game?.status !== "NS") {
+    deps.pushToast("Ese partido ya no está disponible para tu parlay.", "warning");
+    return;
+  }
+  if (deps.addPickToParlay(pick)) deps.pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
+}
+
+export function SocialPostCard({
+  post,
+  author,
+  own,
+  dataset,
+  journal = [],
+  oddsFormat,
+  variant = "feed",
+  following = false,
+  onToggleFollow,
+  onCopy,
+  onCopyToParlay,
+  onShare,
+  toggleSocialLike,
+  addSocialComment,
+  onDeleteComment,
+  onToggleCommentHelpful,
+  onLoadAllComments,
+  onDeletePost,
+  onOpenReport,
+  onNavigate,
+  goProfile,
+  highlighted = false,
+}: SocialPostCardProps): React.JSX.Element {
+  const uid = useId();
+  const cardRef = useRef<HTMLElement>(null);
+  const replyInputRef = useRef<HTMLInputElement>(null);
+
+  const [threadOpen, setThreadOpen] = useState(highlighted);
+  const [confirmDeletePost, setConfirmDeletePost] = useState(false);
+  const [confirmDeleteCommentId, setConfirmDeleteCommentId] = useState<string | null>(null);
+  const [replyTarget, setReplyTarget] = useState<{ commentId: string; handle: string; rootId: string } | null>(null);
+  const [reply, setReply] = useState("");
+  const [replyError, setReplyError] = useState("");
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
+
+  useEffect(() => {
+    if (!highlighted) return;
+    setThreadOpen(true);
+    cardRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" });
+  }, [highlighted]);
+
+  useEffect(() => {
+    if (!shareCopied) return;
+    const t = window.setTimeout(() => setShareCopied(false), 1800);
+    return () => window.clearTimeout(t);
+  }, [shareCopied]);
+
+  const isMine = Boolean(post.isMine || own?.handle === post.authorHandle);
+  const canDeletePost = Boolean(post.fromServer && isMine && onDeletePost);
+  const canReportPost = Boolean(!isMine && !post.isExample && onOpenReport);
+
+  const pick = post.pick;
+  const pickStatus = resolveEffectivePickStatus(post, journal);
+  const targetGameId = pick?.gameId ?? post.gameId;
+  const meta: EntryGameMeta | null = targetGameId ? resolveEntryGame(targetGameId, dataset) : null;
+  const resolvedLeague = meta?.league ?? resolveLeagueIdFromLabel(post.leagueLabel);
+  const gameHref =
+    targetGameId && resolvedLeague ? `/app/${resolvedLeague}/games/${encodeURIComponent(targetGameId)}` : null;
+
+  const units =
+    pick && pickStatus
+      ? pickStatus === "won"
+        ? pick.units * (pick.userDecimal - 1)
+        : pickStatus === "lost"
+          ? -pick.units
+          : null
+      : null;
+
+  const pickMeta =
+    pick && pickStatus
+      ? pickStatus === "open"
+        ? [
+            meta?.leagueLabel ?? post.leagueLabel,
+            kickoffShortLabel(meta?.kickoffIso),
+            formatOddsValue(pick.userDecimal, oddsFormat),
+            `justo ${formatOddsValue(pick.fairDecimal, oddsFormat)}`,
+            `modelo ${(pick.modelProbability * 100).toFixed(1)} %`,
+          ]
+        : [
+            meta?.leagueLabel ?? post.leagueLabel,
+            meta?.score ? `${meta.home.name} ${meta.score.home}–${meta.score.away} ${meta.away.name}` : post.matchLabel,
+            formatOddsValue(pick.userDecimal, oddsFormat),
+          ]
+      : [];
+
+  const totalComments = Math.max(post.commentsCount ?? 0, post.comments.length);
+  const authorLatestReply = [...post.comments].reverse().find((c) => c.authorHandle === post.authorHandle);
+  const previewComment = authorLatestReply ?? post.comments.at(-1);
+
+  const loadedIds = new Set(post.comments.map((c) => c.id));
+  const rootComments: SocialComment[] = [];
+  const repliesByRoot = new Map<string, SocialComment[]>();
+  for (const c of post.comments) {
+    if (c.parentCommentId && loadedIds.has(c.parentCommentId)) {
+      const bucket = repliesByRoot.get(c.parentCommentId) ?? [];
+      bucket.push(c);
+      repliesByRoot.set(c.parentCommentId, bucket);
+    } else {
+      rootComments.push(c);
+    }
+  }
+
+  const handleLinkClick = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!onNavigate || !isPlainClick(e)) return;
+    e.preventDefault();
+    onNavigate(href);
+  };
+
+  const startReplyTo = (comment: SocialComment): void => {
+    const rootId = comment.parentCommentId && loadedIds.has(comment.parentCommentId) ? comment.parentCommentId : comment.id;
+    const rootComment = post.comments.find((c) => c.id === rootId);
+    setThreadOpen(true);
+    setReplyTarget({ commentId: comment.id, handle: comment.authorHandle, rootId });
+    if (
+      comment.parentCommentId &&
+      rootComment &&
+      rootComment.authorHandle !== comment.authorHandle &&
+      !reply.trim()
+    ) {
+      setReply(`@${comment.authorHandle} `);
+    }
+    window.requestAnimationFrame(() => replyInputRef.current?.focus());
+  };
+
+  const handleLoadMoreComments = (): void => {
+    if (!onLoadAllComments || loadingComments) return;
+    setLoadingComments(true);
+    void onLoadAllComments(post.id).finally(() => setLoadingComments(false));
+  };
+
+  const renderComment = (comment: SocialComment, isReply: boolean): React.JSX.Element => {
+    const isCommentMine = Boolean(comment.isMine || own?.handle === comment.authorHandle);
+    const canDeleteComment = Boolean(isCommentMine && onDeleteComment && !comment.id.startsWith("sc-"));
+    const showReportComment = Boolean(!isCommentMine && !post.isExample && onOpenReport && !comment.id.startsWith("sc-"));
+    const helpfulCount = comment.helpfulCount ?? 0;
+
+    return (
+      <li key={comment.id} className={`pl-com-comment-row${isReply ? " is-reply" : ""}`}>
+        <a
+          href={`/app/u/${comment.authorHandle}`}
+          onClick={goProfile(comment.authorHandle)}
+          className="pl-com-comment-avatar-link"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          <Avatar
+            initials={commentInitialsFor(comment)}
+            avatarUrl={commentAvatarFor(comment, own)}
+            gradVar={getExampleAnalystSpec(comment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+            size={isReply ? 22 : 26}
+            loading="lazy"
+          />
+        </a>
+        <div className="pl-com-comment-body">
+          <div className="pl-com-comment-head">
+            <p className="pl-com-comment-meta">
+              <a
+                href={`/app/u/${comment.authorHandle}`}
+                onClick={goProfile(comment.authorHandle)}
+                className="pl-com-comment-author"
+              >
+                <strong>{comment.authorName}</strong>{" "}
+                <span className="pl-prof-muted">@{comment.authorHandle}</span>
+              </a>
+              {comment.verifiedBadge && comment.verifiedBadge !== "Sin picks liquidados" ? (
+                <span className="pl-com-comment-record num">· {comment.verifiedBadge}</span>
+              ) : null}
+              <span className="pl-prof-muted">· {comment.createdAt.toLowerCase()}</span>
+            </p>
+            {showReportComment ? (
+              <SocialReportMenu
+                compact
+                triggerLabel={`Más opciones del comentario de ${comment.authorName}`}
+                onReport={() =>
+                  onOpenReport!({
+                    kind: "comment",
+                    commentId: comment.id,
+                    authorHandle: comment.authorHandle,
+                  })
+                }
+              />
+            ) : null}
+          </div>
+          {comment.replyToHandle ? (
+            <p className="pl-com-replying-tag">En respuesta a @{comment.replyToHandle}</p>
+          ) : null}
+          <p>{comment.body}</p>
+          <div className="pl-com-comment-actions num">
+            {onToggleCommentHelpful && !comment.id.startsWith("sc-") ? (
+              <button
+                type="button"
+                className={`pl-com-comment-act${comment.helpfulByMe ? " is-on" : ""}`}
+                aria-pressed={Boolean(comment.helpfulByMe)}
+                onClick={() => onToggleCommentHelpful(post.id, comment.id)}
+              >
+                <HeartIcon filled={Boolean(comment.helpfulByMe)} size={12} />
+                <span>Útil</span>
+                {helpfulCount > 0 ? <span>({helpfulCount})</span> : null}
+              </button>
+            ) : null}
+            <button
+              type="button"
+              className="pl-com-comment-act"
+              onClick={() => startReplyTo(comment)}
+            >
+              Responder
+            </button>
+            {canDeleteComment ? (
+              confirmDeleteCommentId === comment.id ? (
+                <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado del comentario">
+                  <button
+                    type="button"
+                    className="pl-com-comment-act pl-com-act--danger"
+                    onClick={() => {
+                      setConfirmDeleteCommentId(null);
+                      onDeleteComment!(post.id, comment.id);
+                    }}
+                  >
+                    Borrar
+                  </button>
+                  <button
+                    type="button"
+                    className="pl-com-comment-act"
+                    onClick={() => setConfirmDeleteCommentId(null)}
+                  >
+                    Cancelar
+                  </button>
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className="pl-com-comment-act"
+                  onClick={() => setConfirmDeleteCommentId(comment.id)}
+                >
+                  Borrar
+                </button>
+              )
+            ) : null}
+          </div>
+        </div>
+      </li>
+    );
+  };
+
+  const articleClasses = [
+    "pl-com-post",
+    "glass-lens",
+    "glass-ring",
+    variant === "profile" ? "pl-prof-post" : "",
+    variant === "compact" ? "pl-com-post--compact" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const copiesCount = post.copiesCount ?? 0;
+
+  return (
+    <article
+      ref={cardRef}
+      id={`post-${post.id}`}
+      data-highlighted={highlighted ? "true" : undefined}
+      className={articleClasses}
+      aria-labelledby={`${uid}-author`}
+    >
+      {variant === "profile" ? (
+        <div className="pl-prof-post-meta">
+          <span className="pl-prof-post-league">
+            {resolvedLeague ? <LeagueBadge league={resolvedLeague} size={16} /> : null}
+            <span>{post.leagueLabel}</span>
+            {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
+          </span>
+          <span className="pl-com-meta-end">
+            <a
+              id={`${uid}-author`}
+              href={`/app/u/${post.authorHandle}`}
+              onClick={goProfile(post.authorHandle)}
+              className="pl-prof-muted"
+            >
+              @{post.authorHandle}
+            </a>
+            <span>· {post.createdAt.toLowerCase()}</span>
+            {canReportPost ? (
+              <SocialReportMenu
+                compact
+                triggerLabel={`Más opciones de la publicación de @${post.authorHandle}`}
+                onReport={() =>
+                  onOpenReport!({
+                    kind: "post",
+                    postId: post.id,
+                    authorHandle: post.authorHandle,
+                  })
+                }
+              />
+            ) : null}
+          </span>
+        </div>
+      ) : (
+        <header className="pl-com-post-head">
+          <a
+            href={`/app/u/${post.authorHandle}`}
+            onClick={goProfile(post.authorHandle)}
+            className="pl-com-post-avatar"
+            tabIndex={-1}
+            aria-hidden="true"
+          >
+            <Avatar
+              initials={author.initials}
+              avatarUrl={author.avatarUrl}
+              gradVar={author.gradVar}
+              size={variant === "compact" ? 34 : 42}
+              loading="lazy"
+            />
+          </a>
+          <div className="pl-com-post-who">
+            <p className="pl-com-post-name">
+              <a id={`${uid}-author`} href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)}>
+                {author.name}
+              </a>
+              {author.isTipster ? <VerifiedSeal size={16} /> : null}
+              {post.authorBadge ? <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" /> : null}
+              {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
+            </p>
+            <p className="pl-com-post-sub num">
+              @{post.authorHandle}
+              {author.saldo ? ` · ${author.saldo}` : ""} · {post.createdAt.toLowerCase()}
+            </p>
+          </div>
+          {!isMine && onToggleFollow ? (
+            <button
+              type="button"
+              className={`pl-prof-btn pl-prof-btn--sm ${following ? "pl-prof-btn--ghost" : "pl-prof-btn--primary"} pl-com-follow`}
+              aria-pressed={following}
+              aria-label={`${following ? "Siguiendo" : "Seguir"} a ${author.name}`}
+              onClick={() => onToggleFollow(post.authorHandle)}
+            >
+              {following ? "Siguiendo" : "Seguir"}
+            </button>
+          ) : null}
+          {canReportPost ? (
+            <SocialReportMenu
+              compact={variant === "compact"}
+              triggerLabel={`Más opciones de la publicación de ${author.name}`}
+              onReport={() =>
+                onOpenReport!({
+                  kind: "post",
+                  postId: post.id,
+                  authorHandle: post.authorHandle,
+                })
+              }
+            />
+          ) : null}
+        </header>
+      )}
+
+      <p className="pl-com-post-body">{post.body}</p>
+
+      {pick && pickStatus ? (
+        gameHref ? (
+          <a
+            href={gameHref}
+            onClick={handleLinkClick(gameHref)}
+            className="pl-com-pick pl-com-pick--link glass-card glass-ring"
+          >
+            {meta ? (
+              <span className="pl-prof-teams" aria-hidden="true">
+                <TeamBadge league={meta.league} slug={meta.home.slug} name={meta.home.name} size={28} decorative />
+                <span className="pl-prof-teams-away">
+                  <TeamBadge league={meta.league} slug={meta.away.slug} name={meta.away.name} size={28} decorative />
+                </span>
+              </span>
+            ) : null}
+            <div className="pl-com-pick-copy">
+              <p className="pl-prof-row-title">
+                {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
+              </p>
+              <p className="pl-prof-row-sub num">{pickMeta.filter(Boolean).join(" · ")}</p>
+            </div>
+            <PickStatus status={pickStatus} detail={units === null ? undefined : formatUnits(units)} />
+          </a>
+        ) : (
+          <div className="pl-com-pick glass-card glass-ring">
+            {meta ? (
+              <span className="pl-prof-teams" aria-hidden="true">
+                <TeamBadge league={meta.league} slug={meta.home.slug} name={meta.home.name} size={28} decorative />
+                <span className="pl-prof-teams-away">
+                  <TeamBadge league={meta.league} slug={meta.away.slug} name={meta.away.name} size={28} decorative />
+                </span>
+              </span>
+            ) : null}
+            <div className="pl-com-pick-copy">
+              <p className="pl-prof-row-title">
+                {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
+              </p>
+              <p className="pl-prof-row-sub num">{pickMeta.filter(Boolean).join(" · ")}</p>
+            </div>
+            <PickStatus status={pickStatus} detail={units === null ? undefined : formatUnits(units)} />
+          </div>
+        )
+      ) : gameHref && post.matchLabel && variant !== "compact" ? (
+        <a href={gameHref} onClick={handleLinkClick(gameHref)} className="pl-com-match-chip glass-card glass-ring">
+          {resolvedLeague ? <LeagueBadge league={resolvedLeague} size={15} /> : null}
+          <span>{post.matchLabel}</span>
+          {post.pickBadge ? <span className="pl-prof-muted">· {post.pickBadge}</span> : null}
+        </a>
+      ) : null}
+
+      {copiesCount > 0 && pick ? (
+        <p className="pl-com-copies-note num">
+          {copiesCount} {copiesCount === 1 ? "socio lo siguió" : "socios lo siguieron"}
+        </p>
+      ) : null}
+
+      <div className="pl-com-actions num">
+        <button
+          type="button"
+          className={`pl-com-act ${post.likedByMe ? "is-on" : ""}`}
+          aria-pressed={Boolean(post.likedByMe)}
+          aria-label={`Me gusta, ${post.likes}`}
+          onClick={() => toggleSocialLike(post.id)}
+        >
+          <HeartIcon filled={Boolean(post.likedByMe)} />
+          <span>{post.likes}</span>
+        </button>
+        <button
+          type="button"
+          className="pl-com-act"
+          aria-expanded={threadOpen}
+          aria-controls={`${uid}-thread`}
+          aria-label={`Comentarios, ${totalComments}`}
+          onClick={() => setThreadOpen((v) => !v)}
+        >
+          <CommentIcon />
+          <span>{totalComments}</span>
+        </button>
+        {pick && !isMine && onCopy ? (
+          <button type="button" className="pl-com-act" aria-label="Copiar a mi récord" onClick={() => onCopy(post)}>
+            <MaestroIcon name="copy" size={15} />
+            A mi récord
+          </button>
+        ) : null}
+        {pick && pickStatus === "open" && onCopyToParlay ? (
+          <button
+            type="button"
+            className="pl-com-act"
+            aria-label="Copiar a mi parlay"
+            onClick={() => onCopyToParlay(post)}
+          >
+            <MaestroIcon name="layers" size={15} />
+            A mi parlay
+          </button>
+        ) : null}
+        {canDeletePost ? (
+          confirmDeletePost ? (
+            <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado">
+              <button type="button" className="pl-com-act pl-com-act--danger" onClick={() => onDeletePost!(post.id)}>
+                Borrar
+              </button>
+              <button type="button" className="pl-com-act" onClick={() => setConfirmDeletePost(false)}>
+                Cancelar
+              </button>
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="pl-com-act pl-com-act--end"
+              aria-label="Borrar publicación"
+              onClick={() => setConfirmDeletePost(true)}
+            >
+              <MaestroIcon name="trash" size={15} />
+            </button>
+          )
+        ) : null}
+        <button
+          type="button"
+          className={`pl-com-act ${canDeletePost ? "" : "pl-com-act--end"}`}
+          aria-label={shareCopied ? "Compartir, enlace copiado" : "Compartir"}
+          onClick={() => {
+            setShareCopied(true);
+            onShare(post);
+          }}
+        >
+          {shareCopied ? <MaestroIcon name="check" size={15} /> : <ShareIcon size={16} />}
+        </button>
+      </div>
+
+      <div id={`${uid}-thread`}>
+        {!threadOpen && previewComment ? (
+          <div className="pl-com-comment-preview">
+            <a
+              href={`/app/u/${previewComment.authorHandle}`}
+              onClick={goProfile(previewComment.authorHandle)}
+              className="pl-com-comment-avatar-link"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <Avatar
+                initials={commentInitialsFor(previewComment)}
+                avatarUrl={commentAvatarFor(previewComment, own)}
+                gradVar={getExampleAnalystSpec(previewComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                size={28}
+                loading="lazy"
+              />
+            </a>
+            <div className="pl-com-comment-preview-body">
+              <div className="pl-com-comment-head">
+                <p className="pl-com-comment-meta">
+                  <a
+                    href={`/app/u/${previewComment.authorHandle}`}
+                    onClick={goProfile(previewComment.authorHandle)}
+                    className="pl-com-comment-author"
+                  >
+                    <strong>{previewComment.authorName}</strong>{" "}
+                    <span className="pl-prof-muted">@{previewComment.authorHandle}</span>
+                  </a>
+                  {previewComment.verifiedBadge && previewComment.verifiedBadge !== "Sin picks liquidados" ? (
+                    <span className="pl-com-comment-record num">· {previewComment.verifiedBadge}</span>
+                  ) : null}
+                </p>
+                {!(previewComment.isMine || own?.handle === previewComment.authorHandle) &&
+                !post.isExample &&
+                onOpenReport &&
+                !previewComment.id.startsWith("sc-") ? (
+                  <SocialReportMenu
+                    compact
+                    triggerLabel={`Más opciones del comentario de ${previewComment.authorName}`}
+                    onReport={() =>
+                      onOpenReport({
+                        kind: "comment",
+                        commentId: previewComment.id,
+                        authorHandle: previewComment.authorHandle,
+                      })
+                    }
+                  />
+                ) : null}
+              </div>
+              <button
+                type="button"
+                className="pl-com-preview-btn"
+                onClick={() => setThreadOpen(true)}
+                aria-label={`Abrir conversación con ${previewComment.authorName}`}
+              >
+                <span>{previewComment.body}</span>
+                {totalComments > 1 ? (
+                  <span className="pl-com-more-comments">Ver los {totalComments} comentarios</span>
+                ) : null}
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {threadOpen ? (
+          <div className="pl-com-thread">
+            {totalComments > post.comments.length && onLoadAllComments ? (
+              <div className="pl-com-thread-more">
+                <button
+                  type="button"
+                  className="pl-com-more-comments"
+                  disabled={loadingComments}
+                  onClick={handleLoadMoreComments}
+                >
+                  {loadingComments
+                    ? "Cargando comentarios…"
+                    : `Ver ${totalComments - post.comments.length} comentarios anteriores`}
+                </button>
+              </div>
+            ) : null}
+            {rootComments.length > 0 ? (
+              <ul>
+                {rootComments.map((root) => (
+                  <React.Fragment key={root.id}>
+                    {renderComment(root, false)}
+                    {(repliesByRoot.get(root.id) ?? []).map((child) => renderComment(child, true))}
+                  </React.Fragment>
+                ))}
+              </ul>
+            ) : null}
+            {replyTarget ? (
+              <div className="pl-com-reply-banner">
+                <span>
+                  Respondiendo a <strong>@{replyTarget.handle}</strong>
+                </span>
+                <button
+                  type="button"
+                  className="pl-com-comment-act"
+                  onClick={() => setReplyTarget(null)}
+                >
+                  Cancelar respuesta
+                </button>
+              </div>
+            ) : null}
+            <form
+              className="pl-com-reply"
+              noValidate
+              onSubmit={(e) => {
+                e.preventDefault();
+                const res = addSocialComment(post.id, reply, replyTarget?.commentId ?? null);
+                if (!res.ok) {
+                  setReplyError(res.error ?? "No pudimos comentar.");
+                  return;
+                }
+                setReply("");
+                setReplyTarget(null);
+                setReplyError("");
+              }}
+            >
+              <label className="sr-only" htmlFor={`${uid}-reply`}>
+                {replyTarget ? `Responder a @${replyTarget.handle}` : "Responder"}
+              </label>
+              <input
+                ref={replyInputRef}
+                id={`${uid}-reply`}
+                value={reply}
+                maxLength={SOCIAL_COMMENT_MAX_CHARS}
+                placeholder={replyTarget ? `Responde a @${replyTarget.handle}…` : "Responde…"}
+                aria-invalid={replyError ? true : undefined}
+                aria-describedby={replyError ? `${uid}-reply-err` : undefined}
+                onChange={(e) => {
+                  setReply(e.target.value);
+                  if (replyError) setReplyError("");
+                }}
+              />
+              {reply.length >= Math.round(SOCIAL_COMMENT_MAX_CHARS * 0.7) ? (
+                <span className="pl-com-char-count num">
+                  {reply.length}/{SOCIAL_COMMENT_MAX_CHARS}
+                </span>
+              ) : null}
+              <button type="submit" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm">
+                Responder
+              </button>
+            </form>
+            <div id={`${uid}-reply-err`} aria-live="polite">
+              {replyError ? (
+                <p className="pl-com-error" role="alert">
+                  {replyError}
+                </p>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </article>
+  );
+}

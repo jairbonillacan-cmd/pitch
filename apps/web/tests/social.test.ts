@@ -2,6 +2,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET as getModeration, POST as postModeration } from "../app/api/admin/moderation/route";
 import { GET as getMyNotifications } from "../app/api/me/notifications/route";
 import { POST as postReadNotifications } from "../app/api/me/notifications/read/route";
+import { DELETE as deleteCommentRoute } from "../app/api/social/posts/[id]/comments/[commentId]/route";
+import { PUT as putCommentHelpfulRoute } from "../app/api/social/posts/[id]/comments/[commentId]/like/route";
+import { GET as getPostCommentsRoute, POST as postCommentRoute } from "../app/api/social/posts/[id]/comments/route";
+import { POST as postCopyRoute } from "../app/api/social/posts/[id]/copy/route";
+import { GET as getPostsRoute, POST as postSocialRoute } from "../app/api/social/posts/route";
 import { POST as postSocialReport } from "../app/api/social/reports/route";
 import { checkSocialText, parseNewPost, parseSocialPick } from "../src/server/social";
 
@@ -14,8 +19,18 @@ const mocks = vi.hoisted(() => ({
   reportSocialContent: vi.fn(),
   listModerationPanelData: vi.fn(),
   applyModerationAction: vi.fn(),
+  listSocialFeed: vi.fn(),
+  createSocialPost: vi.fn(),
+  getSocialPostById: vi.fn(),
+  listPostComments: vi.fn(),
+  addSocialComment: vi.fn(),
+  deleteSocialComment: vi.fn(),
+  setSocialCommentHelpful: vi.fn(),
+  recordSocialPostPickCopy: vi.fn(),
+  withAuthorBadges: vi.fn(),
 }));
 vi.mock("../src/server/auth", () => ({ getAuth: mocks.getAuth }));
+vi.mock("../src/server/badges", () => ({ withAuthorBadges: mocks.withAuthorBadges }));
 vi.mock("../src/server/session-user", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../src/server/session-user")>();
   return {
@@ -44,6 +59,14 @@ vi.mock("@pitchlab/db", async (importOriginal) => ({
   reportSocialContent: mocks.reportSocialContent,
   listModerationPanelData: mocks.listModerationPanelData,
   applyModerationAction: mocks.applyModerationAction,
+  listSocialFeed: mocks.listSocialFeed,
+  createSocialPost: mocks.createSocialPost,
+  getSocialPostById: mocks.getSocialPostById,
+  listPostComments: mocks.listPostComments,
+  addSocialComment: mocks.addSocialComment,
+  deleteSocialComment: mocks.deleteSocialComment,
+  setSocialCommentHelpful: mocks.setSocialCommentHelpful,
+  recordSocialPostPickCopy: mocks.recordSocialPostPickCopy,
 }));
 
 afterEach(() => {
@@ -215,5 +238,136 @@ describe("comunidad: reportes y panel de moderación", () => {
       }),
     );
     expect(dupRes.status).toBe(409);
+  });
+
+  it("reenvía gameId, liga, openPick, sort y acepta sealedJournalEntryId en /api/social/posts", async () => {
+    const sealedUuid = "11111111-1111-4111-8111-111111111111";
+    const parsed = parseNewPost({
+      body: "Debate directo sobre este partido.",
+      gameId: "g-lmx-1",
+      sealedJournalEntryId: sealedUuid,
+    });
+    expect(parsed).toMatchObject({
+      ok: true,
+      post: { gameId: "g-lmx-1", sealedJournalEntryId: sealedUuid },
+    });
+
+    const badParsed = parseNewPost({
+      body: "Debate directo sin uuid válido.",
+      sealedJournalEntryId: "no-es-uuid",
+    });
+    expect(badParsed).toMatchObject({ ok: true, post: { gameId: null } });
+    if (badParsed.ok) expect(badParsed.post.sealedJournalEntryId).toBeUndefined();
+
+    mocks.requireSocialMember.mockResolvedValue({ db: {}, userId: "u1" });
+    mocks.listSocialFeed.mockResolvedValue([{ id: "p1" }]);
+    mocks.withAuthorBadges.mockImplementation(async (_db, items) => items);
+
+    const getRes = await getPostsRoute(
+      new Request("http://localhost:9990/api/social/posts?gameId=g-lmx-1&league=Liga%20MX&openPick=1&sort=most_commented"),
+    );
+    expect(getRes.status).toBe(200);
+    expect(mocks.listSocialFeed).toHaveBeenCalledWith(
+      {},
+      "u1",
+      expect.objectContaining({
+        gameId: "g-lmx-1",
+        leagueLabel: "Liga MX",
+        openPickOnly: true,
+        sort: "most_commented",
+      }),
+    );
+
+    const postId = "22222222-2222-4222-8222-222222222222";
+    mocks.createSocialPost.mockResolvedValue({ ok: true, id: postId });
+    mocks.getSocialPostById.mockResolvedValue({ id: postId, gameId: "g-lmx-1" });
+    const postRes = await postSocialRoute(
+      new Request("http://localhost:9990/api/social/posts", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          body: "Lectura directa de ficha con pick sellado.",
+          gameId: "g-lmx-1",
+          sealedJournalEntryId: sealedUuid,
+        }),
+      }),
+    );
+    expect(postRes.status).toBe(201);
+    expect(mocks.getSocialPostById).toHaveBeenCalledWith({}, "u1", postId);
+  });
+
+  it("lista y crea respuestas con parentCommentId, borra comentario propio, marca Útil y cuenta copias", async () => {
+    const postId = "22222222-2222-4222-8222-222222222222";
+    const commentId = "33333333-3333-4333-8333-333333333333";
+    const parentId = "44444444-4444-4444-8444-444444444444";
+
+    mocks.requireSocialMember.mockResolvedValue({ db: {}, userId: "u1" });
+    mocks.requireMember.mockResolvedValue({ db: {}, userId: "u1" });
+
+    mocks.listPostComments.mockResolvedValue({
+      ok: true,
+      comments: [{ id: commentId, body: "Respuesta completa" }],
+      commentsCount: 35,
+    });
+    const listRes = await getPostCommentsRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments?limit=200`),
+      { params: Promise.resolve({ id: postId }) },
+    );
+    expect(listRes.status).toBe(200);
+    expect(await listRes.json()).toEqual({ comments: [{ id: commentId, body: "Respuesta completa" }], commentsCount: 35 });
+
+    mocks.addSocialComment.mockResolvedValue({ ok: true, comment: { id: commentId, parentCommentId: parentId } });
+    const replyRes = await postCommentRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ body: "De acuerdo contigo.", parentCommentId: parentId }),
+      }),
+      { params: Promise.resolve({ id: postId }) },
+    );
+    expect(replyRes.status).toBe(201);
+    expect(mocks.addSocialComment).toHaveBeenCalledWith({}, "u1", postId, "De acuerdo contigo.", expect.any(Date), parentId);
+
+    mocks.setSocialCommentHelpful.mockResolvedValue({ ok: true, helpfulCount: 3, helpfulByMe: true });
+    const badHelpful = await putCommentHelpfulRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}/like`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({}),
+      }),
+      { params: Promise.resolve({ id: postId, commentId }) },
+    );
+    expect(badHelpful.status).toBe(400);
+
+    const goodHelpful = await putCommentHelpfulRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}/like`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ helpful: true }),
+      }),
+      { params: Promise.resolve({ id: postId, commentId }) },
+    );
+    expect(goodHelpful.status).toBe(200);
+    expect(await goodHelpful.json()).toEqual({ helpfulCount: 3, helpfulByMe: true });
+
+    mocks.deleteSocialComment.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+    const delOk = await deleteCommentRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, { method: "DELETE" }),
+      { params: Promise.resolve({ id: postId, commentId }) },
+    );
+    expect(delOk.status).toBe(200);
+    const delFail = await deleteCommentRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, { method: "DELETE" }),
+      { params: Promise.resolve({ id: postId, commentId }) },
+    );
+    expect(delFail.status).toBe(404);
+
+    mocks.recordSocialPostPickCopy.mockResolvedValue({ ok: true, copiesCount: 4 });
+    const copyRes = await postCopyRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/copy`, { method: "POST" }),
+      { params: Promise.resolve({ id: postId }) },
+    );
+    expect(copyRes.status).toBe(200);
+    expect(await copyRes.json()).toEqual({ copiesCount: 4 });
   });
 });

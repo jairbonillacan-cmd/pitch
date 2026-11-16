@@ -137,6 +137,10 @@ export const userPreferences = pgTable(
     recordPrivacy: jsonb("record_privacy").notNull().default(sql`'{}'::jsonb`),
     /** Banca inicial en pesos (centavos); nunca pública. */
     bankrollStartMxnCentavos: integer("bankroll_start_mxn_centavos"),
+    /** Ligas y equipos seguidos en Comunidad (`{ leagues: string[], teams: string[] }`). */
+    followedTopics: jsonb("followed_topics")
+      .notNull()
+      .default(sql`'{"leagues":[],"teams":[]}'::jsonb`),
     /** Hasta 3 insignias destacadas en el perfil; la app vuelve a validarlas al leer. */
     featuredBadges: text("featured_badges").array().notNull().default(sql`'{}'::text[]`),
     updatedAt: ts("updated_at").notNull().defaultNow(),
@@ -553,6 +557,9 @@ export const socialComments = pgTable(
     postId: uuid("post_id")
       .notNull()
       .references(() => socialPosts.id, { onDelete: "cascade" }),
+    parentCommentId: uuid("parent_comment_id").references((): AnyPgColumn => socialComments.id, {
+      onDelete: "set null",
+    }),
     authorUserId: uuid("author_user_id")
       .notNull()
       .references(() => users.id),
@@ -564,6 +571,7 @@ export const socialComments = pgTable(
   (t) => [
     index("social_comments_post_idx").on(t.postId, t.createdAt),
     index("social_comments_author_idx").on(t.authorUserId, t.createdAt),
+    index("social_comments_parent_idx").on(t.parentCommentId),
   ],
 );
 
@@ -580,6 +588,24 @@ export const socialLikes = pgTable(
     createdAt: createdAt(),
   },
   (t) => [primaryKey({ columns: [t.postId, t.userId] })],
+);
+
+/** Marcas de «Útil» en respuestas de Comunidad. */
+export const socialCommentLikes = pgTable(
+  "social_comment_likes",
+  {
+    commentId: uuid("comment_id")
+      .notNull()
+      .references(() => socialComments.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.commentId, t.userId] }),
+    index("social_comment_likes_user_idx").on(t.userId),
+  ],
 );
 
 /** A quién sigue cada socio. */
@@ -661,6 +687,7 @@ export const notifications = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     postId: uuid("post_id").references(() => socialPosts.id, { onDelete: "cascade" }),
+    commentId: uuid("comment_id").references(() => socialComments.id, { onDelete: "cascade" }),
     createdAt: createdAt(),
     readAt: ts("read_at"),
   },
@@ -672,7 +699,7 @@ export const notifications = pgTable(
     uniqueIndex("notifications_like_post_uidx")
       .on(t.userId, t.postId)
       .where(sql`${t.kind} = 'like'`),
-    check("notifications_kind_ck", sql`${t.kind} IN ('comment', 'follow', 'like')`),
+    check("notifications_kind_ck", sql`${t.kind} IN ('comment', 'comment_reply', 'mention', 'follow', 'like')`),
   ],
 );
 

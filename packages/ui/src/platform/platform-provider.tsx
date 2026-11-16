@@ -178,8 +178,8 @@ async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: st
 }
 
 function formatClvBadge(avgClvPct: number | null): string {
-  if (avgClvPct === null) return "CLV —";
-  return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
+  if (avgClvPct === null) return "Ventaja —";
+  return `Ventaja ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
 }
 import {
   fromServerComment,
@@ -266,6 +266,10 @@ export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole):
 export interface SocialFeedScope {
   following?: boolean;
   author?: string;
+  gameId?: string;
+  leagueLabel?: string;
+  openPickOnly?: boolean;
+  sort?: "recent" | "most_commented";
 }
 
 export interface SocialFeedPageState {
@@ -276,7 +280,11 @@ export interface SocialFeedPageState {
 
 export function socialScopeKey(scope?: SocialFeedScope): string {
   if (scope?.author) return `author:${scope.author.trim().toLowerCase()}`;
+  if (scope?.gameId) return `game:${scope.gameId.trim()}`;
   if (scope?.following) return "following";
+  if (scope?.leagueLabel || scope?.openPickOnly || scope?.sort === "most_commented") {
+    return `feed:${scope.leagueLabel ?? "all"}:${scope.openPickOnly ? "open" : "all"}:${scope.sort ?? "recent"}`;
+  }
   return "feed";
 }
 
@@ -344,24 +352,35 @@ export interface PlatformContextValue {
   socialPosts: SocialPost[];
   publishSocialPost: (payload: {
     leagueLabel: string;
+    gameId?: string;
     matchLabel: string;
     pickBadge: string;
     originType: "Spacetime Suite" | "Bitácora Propia";
     body: string;
-    /** Pick adjunto: se publica con la publicación y se registra en la bitácora. */
-    pick?: { matchPick: MatchPick; units: number; userDecimal: number };
+    /** Pick adjunto: se publica con la publicación y se registra en la bitácora si es nuevo. */
+    pick?: { matchPick: MatchPick; units: number; userDecimal: number; sealedEntryId?: string };
   }) => { ok: boolean; error?: string };
-  addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
+  addSocialComment: (
+    postId: string,
+    body: string,
+    parentCommentId?: string | null,
+  ) => { ok: boolean; error?: string; pending?: boolean };
+  deleteSocialComment: (postId: string, commentId: string) => void;
+  toggleSocialCommentHelpful: (postId: string, commentId: string) => void;
+  loadAllPostComments: (postId: string) => Promise<void>;
+  recordSocialPostCopy: (postId: string) => void;
   toggleSocialLike: (postId: string) => void;
   /** Borra una publicación propia (solo las guardadas en el servidor). */
   deleteSocialPost: (postId: string) => void;
-  /** Vuelve a pedir el feed compartido (al abrir Comunidad o volver a la pestaña). */
-  refreshSocialFeed: () => void;
+  /** Vuelve a pedir el feed compartido (con filtros/orden opcionales). */
+  refreshSocialFeed: (scope?: SocialFeedScope) => void;
   /** Trae las publicaciones recientes de quienes sigue el socio. */
   loadFollowingSocialPosts: () => void;
   /** Trae las publicaciones de un socio para su perfil. */
   loadSocialPostsByAuthor: (handle: string) => void;
-  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo o perfil. */
+  /** Trae las publicaciones ligadas a un partido por su `gameId`. */
+  loadMatchSocialPosts: (gameId: string) => Promise<void>;
+  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo, partido o perfil. */
   loadOlderSocialPosts: (scope?: SocialFeedScope) => Promise<boolean>;
   /** Estado de paginación por ámbito (`feed`, `following`, `author:<handle>`). */
   socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
@@ -485,11 +504,16 @@ const ACTION_KEYS = [
   "exportJournalCsv",
   "publishSocialPost",
   "addSocialComment",
+  "deleteSocialComment",
+  "toggleSocialCommentHelpful",
+  "loadAllPostComments",
+  "recordSocialPostCopy",
   "toggleSocialLike",
   "deleteSocialPost",
   "refreshSocialFeed",
   "loadFollowingSocialPosts",
   "loadSocialPostsByAuthor",
+  "loadMatchSocialPosts",
   "loadOlderSocialPosts",
   "ensureSocialPostLoaded",
   "reportSocialContent",
@@ -555,6 +579,9 @@ function required<T>(value: T | null, hook: string): T {
 
 export function usePlatformCore(): PlatformCoreValue {
   return required(useContext(PlatformCoreContext), "usePlatformCore");
+}
+export function useOptionalPlatformCore(): PlatformCoreValue | null {
+  return useContext(PlatformCoreContext);
 }
 export function usePlatformActions(): PlatformActions {
   return required(useContext(PlatformActionsContext), "usePlatformActions");
@@ -1237,7 +1264,7 @@ export function PlatformProvider({
 
   const exportJournalCsv = useCallback((): string => {
     const header =
-      "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,CLV_Pts,Estado";
+      "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,Ventaja_Pts,Estado";
     const lines = journal.map((j) =>
       [
         `"${sanitizeCsvCell(j.sealedAt)}"`,
@@ -1271,11 +1298,12 @@ export function PlatformProvider({
   const publishSocialPost = useCallback(
     (payload: {
       leagueLabel: string;
+      gameId?: string;
       matchLabel: string;
       pickBadge: string;
       originType: "Spacetime Suite" | "Bitácora Propia";
       body: string;
-      pick?: { matchPick: MatchPick; units: number; userDecimal: number };
+      pick?: { matchPick: MatchPick; units: number; userDecimal: number; sealedEntryId?: string };
     }): { ok: boolean; error?: string } => {
       if (viewerRole === "visitor") {
         return {
@@ -1307,12 +1335,22 @@ export function PlatformProvider({
           error: "Enlaces externos (Telegram, WhatsApp, URLs) bloqueados automáticamente.",
         };
       }
+      const resolvedGameId = payload.pick?.matchPick.gameId ?? payload.gameId;
+      const existingSealed = payload.pick
+        ? journal.find(
+            (j) =>
+              (payload.pick?.sealedEntryId ? j.id === payload.pick.sealedEntryId : j.pickId === payload.pick?.matchPick.id),
+          )
+        : undefined;
+      const existingUuid = existingSealed && /^[0-9a-f-]{36}$/i.test(existingSealed.id) ? existingSealed.id : undefined;
+
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
-        authorHandle: ownHandleFor(viewerIdentity, viewerRole),
+        authorHandle: myHandle,
         authorName:
           viewerIdentity?.displayName ?? (viewerRole === "tipster" ? "Sofía Méndez" : "Socio PitchLab"),
         authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
+        authorIsTipster: viewerRole === "tipster",
         roleBadge:
           viewerRole === "tipster" ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
@@ -1321,11 +1359,12 @@ export function PlatformProvider({
           viewerRole === "tipster" ? "+18.4u · 142 picks" : journalRecord(journal).label,
         clvBadge:
           viewerRole === "tipster"
-            ? "CLV +4.2 %"
+            ? "Ventaja +4.2 %"
             : formatClvBadge(journalRecord(journal).avgClvPct),
         // Publicar como tipster usa el perfil de ejemplo @sofia_nfl.
         isExample: viewerRole === "tipster",
         leagueLabel: payload.leagueLabel,
+        gameId: resolvedGameId,
         matchLabel: payload.matchLabel,
         pickBadge: payload.pickBadge,
         originType: payload.originType,
@@ -1334,6 +1373,8 @@ export function PlatformProvider({
         likes: 0,
         likedByMe: false,
         comments: [],
+        commentsCount: 0,
+        copiesCount: 0,
         pick: payload.pick
           ? {
               pickId: payload.pick.matchPick.id,
@@ -1344,26 +1385,72 @@ export function PlatformProvider({
               fairDecimal: payload.pick.matchPick.fairDecimal,
               modelProbability: payload.pick.matchPick.p,
               status:
-                payload.pick.matchPick.gameStatus === "FT"
-                  ? payload.pick.matchPick.result === "miss"
+                existingSealed?.status === "won"
+                  ? "won"
+                  : existingSealed?.status === "lost"
                     ? "lost"
-                    : "won"
-                  : "open",
+                    : payload.pick.matchPick.gameStatus === "FT"
+                      ? payload.pick.matchPick.result === "miss"
+                        ? "lost"
+                        : "won"
+                      : "open",
             }
           : undefined,
       };
+
+      // Preparamos el registro en bitácora si aún no existe para ligar su UUID en la publicación.
+      let sealedEntryToSync: JournalEntry | null = null;
+      if (payload.pick && !payload.pick.sealedEntryId && !existingSealed) {
+        const mp = payload.pick.matchPick;
+        const pFair = 1 / Math.max(1.04, mp.fairDecimal);
+        const pUser = 1 / Math.max(1.04, payload.pick.userDecimal);
+        const clvPct = Math.round((pFair - pUser) * 1000) / 10;
+        sealedEntryToSync = {
+          id: `j-${Date.now()}`,
+          pickId: mp.id,
+          gameId: mp.gameId,
+          leagueLabel: mp.leagueLabel,
+          matchLabel: mp.matchLabel,
+          pickLabel: mp.label,
+          origin: payload.originType === "Spacetime Suite" ? "Spacetime Suite" : "Propio",
+          units: Math.max(0.25, Math.min(5, payload.pick.units)),
+          userDecimal: payload.pick.userDecimal,
+          fairDecimal: mp.fairDecimal,
+          clvPct,
+          status:
+            mp.gameStatus === "FT" ? (mp.result === "miss" ? "lost" : "won") : "pending",
+          sealedAt: "Sellado ahora",
+          sealedAtIso: new Date().toISOString(),
+        };
+        setJournal((prev) => [sealedEntryToSync!, ...prev]);
+        setComposerPick(null);
+      }
+
       if (socialOnServer && !newPost.isExample) {
         // Se ve al instante; el servidor la confirma (o la quita con su motivo).
         const tempId = `tmp-${Date.now()}`;
         setSocialPosts((prev) => [{ ...newPost, id: tempId, isMine: true }, ...prev]);
         void (async () => {
+          let resolvedSealedId = payload.pick?.sealedEntryId ?? existingUuid;
+          if (!resolvedSealedId && sealedEntryToSync && hasAccountSessionAuth && sealedEntryToSync.status === "pending") {
+            const sealRes = await sealOnServer(sealedEntryToSync);
+            if (sealRes.ok && sealRes.id) {
+              resolvedSealedId = sealRes.id;
+              setJournal((prev) =>
+                prev.map((j) => (j.id === sealedEntryToSync!.id ? { ...j, id: sealRes.id! } : j)),
+              );
+            } else if (sealRes.reason && sealRes.reason !== "sin_sesion") {
+              setJournal((prev) => prev.filter((j) => j.id !== sealedEntryToSync!.id));
+            }
+          }
           const res = await postJson("/api/social/posts", {
             body: trimmed,
             leagueLabel: payload.leagueLabel,
+            gameId: resolvedGameId,
             matchLabel: payload.matchLabel,
             pickBadge: payload.pickBadge,
             originType: payload.originType,
-            gameId: payload.pick?.matchPick.gameId,
+            sealedJournalEntryId: resolvedSealedId,
             pick: newPost.pick
               ? {
                   pickId: newPost.pick.pickId,
@@ -1382,31 +1469,37 @@ export function PlatformProvider({
           if (res?.ok && data?.post?.authorHandle) {
             const saved = fromServerPost(data.post, rawDataset.games, new Date());
             setSocialPosts((prev) => prev.map((p) => (p.id === tempId ? saved : p)));
+            pushToast("Publicado en Comunidad.", "success");
           } else {
             setSocialPosts((prev) => prev.filter((p) => p.id !== tempId));
             pushToast(data?.error ?? "No pudimos publicar. Revisa tu conexión.", "danger");
           }
         })();
-      } else {
-        setSocialPosts((prev) => [newPost, ...prev]);
+        return { ok: true };
       }
-      if (payload.pick) {
-        sealPickToJournal(payload.pick.matchPick, payload.pick.units, payload.pick.userDecimal);
-      }
+
+      setSocialPosts((prev) => [newPost, ...prev]);
       pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal, socialOnServer, rawDataset.games],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer, hasAccountSessionAuth, rawDataset.games],
   );
 
   const addSocialComment = useCallback(
-    (postId: string, body: string): { ok: boolean; error?: string } => {
+    (
+      postId: string,
+      body: string,
+      parentCommentId?: string | null,
+    ): { ok: boolean; error?: string; pending?: boolean } => {
       if (viewerRole === "visitor") {
         return { ok: false, error: "Activa Pase PitchLab Ultra para comentar." };
       }
       const trimmed = body.trim();
       if (!trimmed) {
         return { ok: false, error: "Escribe un comentario." };
+      }
+      if (trimmed.length > 400) {
+        return { ok: false, error: "Máximo 400 caracteres." };
       }
       if (containsExternalLink(trimmed)) {
         setBlockedSpamAttempts((n) => n + 1);
@@ -1418,36 +1511,26 @@ export function PlatformProvider({
         return { ok: false, error: "Espera a que termine de publicarse." };
       }
       const tempId = `sc-${Date.now()}`;
-      if (socialOnServer && target?.fromServer) {
-        void (async () => {
-          const res = await postJson(`/api/social/posts/${postId}/comments`, { body: trimmed });
-          const data = res
-            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
-            : null;
-          if (res?.ok && data?.comment) {
-            const saved = fromServerComment(data.comment, new Date());
-            setSocialPosts((prev) =>
-              prev.map((p) =>
-                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
-              ),
-            );
-          } else {
-            setSocialPosts((prev) =>
-              prev.map((p) => (p.id === postId ? { ...p, comments: p.comments.filter((c) => c.id !== tempId) } : p)),
-            );
-            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
-          }
-        })();
-      }
+      const cleanParentArg = typeof parentCommentId === "string" && parentCommentId.trim() ? parentCommentId.trim() : null;
+      const clickedParent = cleanParentArg ? target?.comments.find((c) => c.id === cleanParentArg) : undefined;
+      const resolvedParentId = clickedParent ? (clickedParent.parentCommentId ?? clickedParent.id) : null;
+      const replyToHandle = resolvedParentId
+        ? (target?.comments.find((c) => c.id === resolvedParentId)?.authorHandle ?? clickedParent?.authorHandle ?? null)
+        : null;
+      const needsServerSync = Boolean(socialOnServer && target?.fromServer);
+
       setSocialPosts((prev) =>
         prev.map((post) =>
           post.id === postId
             ? {
                 ...post,
+                commentsCount: (post.commentsCount ?? post.comments.length) + 1,
                 comments: [
                   ...post.comments,
                   {
                     id: tempId,
+                    parentCommentId: resolvedParentId,
+                    replyToHandle,
                     authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
                       viewerIdentity?.displayName ??
@@ -1459,16 +1542,222 @@ export function PlatformProvider({
                         : journalRecord(journal).label,
                     createdAt: "Ahora",
                     body: trimmed,
+                    fromServer: needsServerSync,
+                    isMine: true,
+                    helpfulCount: 0,
+                    helpfulByMe: false,
                   },
                 ],
               }
             : post,
         ),
       );
+
+      if (needsServerSync) {
+        void (async () => {
+          const res = await postJson(`/api/social/posts/${postId}/comments`, {
+            body: trimmed,
+            ...(cleanParentArg ? { parentCommentId: cleanParentArg } : {}),
+          });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
+            : null;
+          if (res?.ok && data?.comment) {
+            const saved = fromServerComment(data.comment, new Date());
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
+              ),
+            );
+            pushToast("Respuesta agregada al hilo.", "success");
+          } else {
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId
+                  ? {
+                      ...p,
+                      commentsCount: Math.max(0, (p.commentsCount ?? p.comments.length) - 1),
+                      comments: p.comments.filter((c) => c.id !== tempId),
+                    }
+                  : p,
+              ),
+            );
+            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
+          }
+        })();
+        return { ok: true, pending: true };
+      }
+
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
     [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer],
+  );
+
+  const deleteSocialComment = useCallback(
+    (postId: string, commentId: string) => {
+      const targetPost = socialPosts.find((p) => p.id === postId);
+      const targetComment = targetPost?.comments.find((c) => c.id === commentId);
+      if (!targetPost || !targetComment || !targetComment.isMine) return;
+
+      const snapshotComments = targetPost.comments;
+      const snapshotCount = targetPost.commentsCount ?? targetPost.comments.length;
+
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId
+            ? {
+                ...p,
+                commentsCount: Math.max(0, (p.commentsCount ?? p.comments.length) - 1),
+                comments: p.comments
+                  .filter((c) => c.id !== commentId)
+                  .map((c) =>
+                    c.parentCommentId === commentId
+                      ? { ...c, parentCommentId: null, replyToHandle: null }
+                      : c,
+                  ),
+              }
+            : p,
+        ),
+      );
+
+      if (!socialOnServer || !targetComment.fromServer || commentId.startsWith("sc-")) {
+        pushToast("Comentario borrado.", "default");
+        return;
+      }
+
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${encodeURIComponent(postId)}/comments/${encodeURIComponent(commentId)}`, {
+            method: "DELETE",
+            credentials: "same-origin",
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          pushToast("Comentario borrado.", "default");
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, comments: snapshotComments, commentsCount: snapshotCount } : p)),
+          );
+          pushToast("No pudimos borrar tu comentario.", "danger");
+        }
+      })();
+    },
+    [socialPosts, socialOnServer, pushToast],
+  );
+
+  const toggleSocialCommentHelpful = useCallback(
+    (postId: string, commentId: string) => {
+      if (viewerRole === "visitor") return;
+      const targetPost = socialPosts.find((p) => p.id === postId);
+      const targetComment = targetPost?.comments.find((c) => c.id === commentId);
+      if (!targetPost || !targetComment || commentId.startsWith("sc-")) return;
+
+      const nextHelpful = !targetComment.helpfulByMe;
+      const prevCount = targetComment.helpfulCount ?? 0;
+      const nextCount = nextHelpful ? prevCount + 1 : Math.max(0, prevCount - 1);
+
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId
+            ? {
+                ...p,
+                comments: p.comments.map((c) =>
+                  c.id === commentId ? { ...c, helpfulByMe: nextHelpful, helpfulCount: nextCount } : c,
+                ),
+              }
+            : p,
+        ),
+      );
+
+      if (!socialOnServer || !targetComment.fromServer) return;
+      void (async () => {
+        try {
+          const res = await fetch(
+            `/api/social/posts/${encodeURIComponent(postId)}/comments/${encodeURIComponent(commentId)}/like`,
+            {
+              method: "PUT",
+              credentials: "same-origin",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ helpful: nextHelpful }),
+            },
+          );
+          const data = (await res.json().catch(() => null)) as { helpfulCount?: number; helpfulByMe?: boolean } | null;
+          if (!res.ok || typeof data?.helpfulCount !== "number") throw new Error(String(res.status));
+          setSocialPosts((prev) =>
+            prev.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    comments: p.comments.map((c) =>
+                      c.id === commentId
+                        ? { ...c, helpfulCount: data.helpfulCount, helpfulByMe: Boolean(data.helpfulByMe) }
+                        : c,
+                    ),
+                  }
+                : p,
+            ),
+          );
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    comments: p.comments.map((c) =>
+                      c.id === commentId
+                        ? { ...c, helpfulCount: prevCount, helpfulByMe: Boolean(targetComment.helpfulByMe) }
+                        : c,
+                    ),
+                  }
+                : p,
+            ),
+          );
+        }
+      })();
+    },
+    [viewerRole, socialPosts, socialOnServer],
+  );
+
+  const loadAllPostComments = useCallback(
+    async (postId: string): Promise<void> => {
+      if (!hasAccountSessionAuth || !postId) return;
+      const data = await getJson<{ comments?: ServerSocialComment[]; commentsCount?: number }>(
+        `/api/social/posts/${encodeURIComponent(postId)}/comments?limit=200`,
+      );
+      if (!data?.comments) return;
+      const now = new Date();
+      const mapped = data.comments.map((c) => fromServerComment(c, now));
+      const total = typeof data.commentsCount === "number" ? Math.max(data.commentsCount, mapped.length) : mapped.length;
+      setSocialPosts((prev) =>
+        prev.map((p) => (p.id === postId ? { ...p, comments: mapped, commentsCount: total } : p)),
+      );
+    },
+    [hasAccountSessionAuth],
+  );
+
+  const recordSocialPostCopy = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target || target.isMine || isPendingPost(target)) return;
+      setSocialPosts((prev) =>
+        prev.map((p) => (p.id === postId ? { ...p, copiesCount: (p.copiesCount ?? 0) + 1 } : p)),
+      );
+      if (!socialOnServer || !target.fromServer) return;
+      void (async () => {
+        const res = await postJson(`/api/social/posts/${encodeURIComponent(postId)}/copy`, {});
+        const data = res
+          ? ((await res.json().catch(() => null)) as { copiesCount?: number } | null)
+          : null;
+        if (res?.ok && typeof data?.copiesCount === "number") {
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, copiesCount: data.copiesCount } : p)),
+          );
+        }
+      })();
+    },
+    [socialPosts, socialOnServer],
   );
 
   const toggleSocialLike = useCallback(
@@ -1525,26 +1814,44 @@ export function PlatformProvider({
     [socialPosts, pushToast],
   );
 
-  const refreshSocialFeed = useCallback(() => {
-    if (!hasAccountSessionAuth) return;
-    void (async () => {
-      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?limit=50");
-      if (!data?.posts) return;
-      const now = new Date();
-      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
-      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
-      const prevPage = socialFeedPagesRef.current.feed;
-      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
-      updateFeedPage(
-        "feed",
-        keepOlderCursor
-          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
-          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
-      );
-      setSocialOnServer(true);
-      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
-    })();
-  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
+  const buildFeedParams = useCallback((limit: number, scope?: SocialFeedScope, before?: string | null) => {
+    const params = new URLSearchParams({ limit: String(limit) });
+    if (before) params.set("before", before);
+    if (scope?.following) params.set("following", "1");
+    if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+    if (scope?.gameId) params.set("gameId", scope.gameId.trim());
+    if (scope?.leagueLabel && scope.leagueLabel !== "all") params.set("league", scope.leagueLabel);
+    if (scope?.openPickOnly) params.set("openPick", "1");
+    if (scope?.sort === "most_commented") params.set("sort", "most_commented");
+    return params;
+  }, []);
+
+  const refreshSocialFeed = useCallback(
+    (scope?: SocialFeedScope) => {
+      if (!hasAccountSessionAuth) return;
+      void (async () => {
+        const params = buildFeedParams(50, scope);
+        const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
+        if (!data?.posts) return;
+        const now = new Date();
+        const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+        const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+        const key = socialScopeKey(scope);
+        const prevPage = socialFeedPagesRef.current[key];
+        const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+        updateFeedPage(
+          key,
+          keepOlderCursor
+            ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+            : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+        );
+        setSocialOnServer(true);
+        const mergeMode = key === "feed" ? "feed" : "extra";
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, mergeMode));
+      })();
+    },
+    [buildFeedParams, hasAccountSessionAuth, rawDataset.games, updateFeedPage],
+  );
 
   const loadFollowingSocialPosts = useCallback(() => {
     if (!hasAccountSessionAuth) return;
@@ -1595,6 +1902,32 @@ export function PlatformProvider({
     [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
   );
 
+  const loadMatchSocialPosts = useCallback(
+    async (gameId: string): Promise<void> => {
+      const clean = gameId.trim();
+      if (!hasAccountSessionAuth || !clean) return;
+      const data = await getJson<{ posts?: ServerSocialPost[] }>(
+        `/api/social/posts?limit=30&gameId=${encodeURIComponent(clean)}`,
+      );
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const key = `game:${clean}`;
+      const prevPage = socialFeedPagesRef.current[key];
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        key,
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 30, loading: false },
+      );
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+    },
+    [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
+  );
+
   const loadOlderSocialPosts = useCallback(
     async (scope?: SocialFeedScope): Promise<boolean> => {
       if (!hasAccountSessionAuth) return false;
@@ -1605,9 +1938,12 @@ export function PlatformProvider({
       let cursor = current?.cursor ?? null;
       if (!cursor) {
         const cleanAuthor = scope?.author?.trim().toLowerCase() ?? null;
+        const cleanGame = scope?.gameId?.trim() ?? null;
         cursor = socialPosts.reduce<string | null>((oldest, p) => {
           if (!p.fromServer || p.isExample || !p.createdAtIso) return oldest;
           if (cleanAuthor && p.authorHandle.toLowerCase() !== cleanAuthor) return oldest;
+          if (cleanGame && (p.pick?.gameId ?? p.gameId) !== cleanGame) return oldest;
+          if (scope?.leagueLabel && scope.leagueLabel !== "all" && p.leagueLabel !== scope.leagueLabel) return oldest;
           return !oldest || p.createdAtIso < oldest ? p.createdAtIso : oldest;
         }, null);
       }
@@ -1617,9 +1953,7 @@ export function PlatformProvider({
       }
 
       updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: true });
-      const params = new URLSearchParams({ before: cursor, limit: "30" });
-      if (scope?.following) params.set("following", "1");
-      if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+      const params = buildFeedParams(30, scope, cursor);
 
       const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
       if (!data?.posts) {
@@ -1637,7 +1971,7 @@ export function PlatformProvider({
       updateFeedPage(key, { cursor: nextCursor, hasMore: nextHasMore, loading: false });
       return incoming.length > 0;
     },
-    [hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
+    [buildFeedParams, hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
   );
 
   const ensureSocialPostLoaded = useCallback(
@@ -1872,11 +2206,16 @@ export function PlatformProvider({
       socialPosts,
       publishSocialPost,
       addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      recordSocialPostCopy,
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
       loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadMatchSocialPosts,
       loadOlderSocialPosts,
       socialFeedPages,
       ensureSocialPostLoaded,
@@ -1959,11 +2298,16 @@ export function PlatformProvider({
       socialPosts,
       publishSocialPost,
       addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      recordSocialPostCopy,
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
       loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadMatchSocialPosts,
       loadOlderSocialPosts,
       socialFeedPages,
       ensureSocialPostLoaded,

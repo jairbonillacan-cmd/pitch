@@ -24,9 +24,7 @@ import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
-  ExampleBadge,
   StackedAvatars,
-  UserBadges,
 } from "../components/MaestroPrimitives";
 import { MatchList } from "../components/MatchList";
 import { PlLeagueSelect } from "../components/PlSelect";
@@ -51,6 +49,21 @@ import {
 import {
   usePlatform,
 } from "../platform-provider";
+import {
+  SocialReportDialog,
+  ownIdentityFor,
+  useFollowing,
+  type SocialReportTarget,
+} from "./community-ui";
+import {
+  SOCIAL_POST_MAX_CHARS,
+  SocialPostCard,
+  copyPostPickToJournal,
+  copyPostPickToParlay,
+  isPlainClick,
+  resolvePostAuthor,
+  shareSocialPost,
+} from "./SocialPostCard";
 import type {
   MatchPick,
   MatchTabKey,
@@ -390,14 +403,33 @@ export function MatchStudioClubView({
     dataset,
     viewerRole,
     viewerIdentity,
+    hasAccountSessionAuth,
     oddsFormat,
     setSelectedTipsterPickId,
     socialPosts,
     publishSocialPost,
+    addSocialComment,
+    deleteSocialComment,
+    toggleSocialCommentHelpful,
+    loadAllPostComments,
+    deleteSocialPost,
+    toggleSocialLike,
+    loadMatchSocialPosts,
+    sealPickToJournal,
+    recordSocialPostCopy,
+    addPickToParlay,
+    journal,
     openComposer,
     navigateTo,
     pushToast,
   } = usePlatform();
+
+  const follows = useFollowing();
+  const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
+  const own = useMemo(
+    () => ownIdentityFor(viewerRole, viewerIdentity),
+    [viewerRole, viewerIdentity],
+  );
 
   const [activeTab, setActiveTab] = useMatchUrlTab(initialTab);
   const [marketUserOddsRaw, setMarketUserOddsRaw] = useState<string>("");
@@ -413,6 +445,10 @@ export function MatchStudioClubView({
       dataset.games[0]!;
     return detail && base.id === gameId ? { ...base, ...detail } : base;
   }, [dataset.games, gameId, leagueId, detail]);
+
+  useEffect(() => {
+    void loadMatchSocialPosts(game.id);
+  }, [game.id, loadMatchSocialPosts]);
 
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
@@ -448,30 +484,31 @@ export function MatchStudioClubView({
 
   const matchLabelShort = `${game.home.shortName} vs ${game.away.shortName}`;
 
-  const matchDebateItems = useMemo(() => {
-    return socialPosts
-      .filter(
-        (p) =>
-          p.gameId === game.id ||
-          p.matchLabel.toLowerCase().includes(game.home.shortName.toLowerCase()) ||
-          p.matchLabel.toLowerCase().includes(game.away.shortName.toLowerCase()),
-      )
-      .map((p) => ({
-        id: p.id,
-        handle: `@${p.authorHandle}`,
-        roleBadge: p.roleBadge,
-        record: `${p.verifiedRecord} · ${p.clvBadge}`,
-        createdAt: p.createdAt,
-        body: p.body,
-        isExample: Boolean(p.isExample),
-      }));
+  const matchDebatePosts = useMemo(() => {
+    const homeShort = game.home.shortName.toLowerCase();
+    const awayShort = game.away.shortName.toLowerCase();
+    return socialPosts.filter((p) => {
+      if (p.gameId === game.id || p.pick?.gameId === game.id) return true;
+      if (!p.gameId && p.isExample) {
+        const lower = p.matchLabel.toLowerCase();
+        return lower.includes(homeShort) || lower.includes(awayShort);
+      }
+      return false;
+    });
   }, [game.away.shortName, game.home.shortName, game.id, socialPosts]);
+
+  const goProfile = (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isPlainClick(e)) return;
+    e.preventDefault();
+    navigateTo(`/app/u/${handle}`);
+  };
 
   const handlePublishDebate = (e: React.FormEvent) => {
     e.preventDefault();
     setDebateError("");
     const res = publishSocialPost({
       leagueLabel: game.leagueLabel,
+      gameId: game.id,
       matchLabel: matchLabelShort,
       pickBadge: game.picks[0]?.categoryLabel ?? "Lectura Socio",
       originType: "Spacetime Suite",
@@ -1006,14 +1043,14 @@ export function MatchStudioClubView({
                 <div>
                   <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
                 </div>
-                {matchDebateItems.length > 0 ? (
+                {matchDebatePosts.length > 0 ? (
                   <StackedAvatars
-                    items={matchDebateItems.slice(0, 3).map((item, idx) => ({
-                      initials: item.handle.replace(/^@/, "").slice(0, 2).toUpperCase(),
-                      gradVar: `var(--avatar-grad-${(idx % 3) + 1})`,
-                      label: item.handle,
+                    items={matchDebatePosts.slice(0, 3).map((post, idx) => ({
+                      initials: post.authorHandle.slice(0, 2).toUpperCase(),
+                      gradVar: post.avatarGradVar || `var(--avatar-grad-${(idx % 3) + 1})`,
+                      label: `@${post.authorHandle}`,
                     }))}
-                    extraCount={Math.max(0, matchDebateItems.length - 3)}
+                    extraCount={Math.max(0, matchDebatePosts.length - 3)}
                   />
                 ) : (
                   <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
@@ -1022,40 +1059,52 @@ export function MatchStudioClubView({
                 )}
               </div>
 
-              {matchDebateItems.length > 0 ? (
-                <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
-                  {matchDebateItems.map((item) => (
-                    <article
-                      key={item.id}
-                      className="rounded-2xl p-3 space-y-1.5 text-xs"
-                      style={{ background: "var(--pl-surface)" }}
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-1">
-                        <div className="flex items-center gap-1.5">
-                          <strong className="font-extrabold">{item.handle}</strong>
-                          <UserBadges roleLabel={item.roleBadge} />
-                          {item.isExample ? <ExampleBadge /> : null}
-                        </div>
-                        <span
-                          className="text-[11px] num font-bold"
-                          style={{ color: "var(--pl-success)" }}
-                        >
-                          {item.record}
-                        </span>
-                      </div>
-                      <p
-                        className="m-0 leading-relaxed"
-                        style={{ color: "var(--pl-text-secondary)" }}
-                      >
-                        {item.body}
-                      </p>
-                      <span
-                        className="block text-[11px]"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        {item.createdAt}
-                      </span>
-                    </article>
+              {matchDebatePosts.length > 0 ? (
+                <div className="pl-studio-debate-list space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
+                  {matchDebatePosts.map((post) => (
+                    <SocialPostCard
+                      key={post.id}
+                      variant="compact"
+                      post={post}
+                      author={resolvePostAuthor(post, own, [])}
+                      own={own}
+                      dataset={dataset}
+                      journal={journal}
+                      oddsFormat={oddsFormat}
+                      following={follows.isFollowing(post.authorHandle)}
+                      onToggleFollow={(handle) => {
+                        const now = follows.toggle(handle);
+                        pushToast(
+                          now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
+                          "default",
+                        );
+                      }}
+                      onCopy={(p) =>
+                        copyPostPickToJournal(p, {
+                          dataset,
+                          sealPickToJournal,
+                          recordSocialPostCopy,
+                          pushToast,
+                        })
+                      }
+                      onCopyToParlay={(p) =>
+                        copyPostPickToParlay(p, {
+                          dataset,
+                          addPickToParlay,
+                          pushToast,
+                        })
+                      }
+                      onShare={(p) => shareSocialPost(p, pushToast)}
+                      toggleSocialLike={toggleSocialLike}
+                      addSocialComment={addSocialComment}
+                      onDeleteComment={deleteSocialComment}
+                      onToggleCommentHelpful={toggleSocialCommentHelpful}
+                      onLoadAllComments={loadAllPostComments}
+                      onDeletePost={deleteSocialPost}
+                      onOpenReport={setReportTarget}
+                      onNavigate={navigateTo}
+                      goProfile={goProfile}
+                    />
                   ))}
                 </div>
               ) : (
@@ -1068,7 +1117,7 @@ export function MatchStudioClubView({
                 </p>
               )}
 
-              <form onSubmit={handlePublishDebate} className="space-y-2 pt-2 hairline-t">
+              <form onSubmit={handlePublishDebate} noValidate className="space-y-2 pt-2 hairline-t">
                 <label
                   htmlFor="studio-debate-input"
                   className="text-xs font-bold block"
@@ -1078,8 +1127,12 @@ export function MatchStudioClubView({
                 <textarea
                   id="studio-debate-input"
                   rows={2}
+                  maxLength={SOCIAL_POST_MAX_CHARS}
                   value={debateBody}
-                  onChange={(e) => setDebateBody(e.target.value)}
+                  onChange={(e) => {
+                    setDebateBody(e.target.value);
+                    if (debateError) setDebateError("");
+                  }}
                   placeholder="¿Qué ves en este partido?"
                   className="glass-input w-full p-2.5 text-xs resize-none"
                 />
@@ -1093,7 +1146,13 @@ export function MatchStudioClubView({
                   </p>
                 ) : null}
                 <div className="flex items-center justify-between gap-2">
-                  <span />
+                  <span>
+                    {debateBody.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7) ? (
+                      <span className="pl-com-char-count num">
+                        {debateBody.length}/{SOCIAL_POST_MAX_CHARS}
+                      </span>
+                    ) : null}
+                  </span>
                   <button
                     type="submit"
                     className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
@@ -1103,6 +1162,7 @@ export function MatchStudioClubView({
                   </button>
                 </div>
               </form>
+              <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
             </aside>
           </section>
         </MatchTabPanel>

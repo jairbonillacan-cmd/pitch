@@ -67,17 +67,15 @@ import {
 import {
   Avatar,
   ChevronRightIcon,
-  CommentIcon,
   GiftIcon,
-  HeartIcon,
   isOwnProfileHandle,
   PickStatus,
   ShareIcon,
   SocialReportDialog,
-  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
   outcomeOf,
+  ownIdentityFor,
   registeredBeforeLabel,
   resolveEntryGame,
   shareUrl,
@@ -89,6 +87,14 @@ import {
   type SocialReportTarget,
   type TabDef,
 } from "./community-ui";
+import {
+  SocialPostCard,
+  copyPostPickToJournal,
+  copyPostPickToParlay,
+  isPlainClick,
+  resolvePostAuthor,
+  shareSocialPost,
+} from "./SocialPostCard";
 
 type ProfileTab = "publicaciones" | "picks" | "parlays" | "estadisticas";
 
@@ -896,10 +902,32 @@ function PostsPanel({
   canReport: boolean;
   ownHandle: string | null;
 }): React.JSX.Element {
-  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
+  const {
+    socialFeedPages,
+    loadOlderSocialPosts,
+    viewerRole,
+    viewerIdentity,
+    hasAccountSessionAuth,
+    journal,
+    addSocialComment,
+    deleteSocialComment,
+    toggleSocialCommentHelpful,
+    loadAllPostComments,
+    deleteSocialPost,
+    sealPickToJournal,
+    recordSocialPostCopy,
+    addPickToParlay,
+    navigateTo,
+    pushToast,
+  } = usePlatform();
+  const follows = useFollowing();
   const [limit, setLimit] = useState(PROFILE_POSTS_PAGE);
-  const [openComments, setOpenComments] = useState<string[]>([]);
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
+
+  const own = useMemo(
+    () => ownIdentityFor(viewerRole, viewerIdentity),
+    [viewerRole, viewerIdentity],
+  );
 
   useEffect(() => {
     setLimit(PROFILE_POSTS_PAGE);
@@ -931,119 +959,57 @@ function PostsPanel({
     }
   };
 
+  const goProfile = (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isPlainClick(e)) return;
+    e.preventDefault();
+    navigateTo(`/app/u/${handle}`);
+  };
+
+  const onCopy = (post: SocialPost): void =>
+    copyPostPickToJournal(post, {
+      dataset,
+      sealPickToJournal,
+      recordSocialPostCopy,
+      pushToast,
+    });
+
+  const onCopyToParlay = (post: SocialPost): void =>
+    copyPostPickToParlay(post, {
+      dataset,
+      addPickToParlay,
+      pushToast,
+    });
+
+  const onShare = (post: SocialPost): void => shareSocialPost(post, pushToast);
+
   return (
     <div className="pl-prof-posts">
       {displayPool.slice(0, limit).map((post) => {
-        const meta = post.pick ? resolveEntryGame(post.pick.gameId, dataset) : null;
-        const commentsOpen = openComments.includes(post.id);
-        const isPostMine = Boolean(post.isMine || (ownHandle && post.authorHandle === ownHandle));
-        const showPostReport = canReport && !isPostMine && !post.isExample;
+        const effectiveOwn = ownHandle ? own : null;
         return (
-          <article key={post.id} className="pl-prof-post glass-lens glass-ring">
-            <div className="pl-prof-post-meta">
-              <span className="pl-prof-post-league">
-                {meta ? <LeagueBadge league={meta.league} size={16} /> : null}
-                {post.leagueLabel}
-              </span>
-              <span className="pl-com-meta-end">
-                <span>{post.createdAt}</span>
-                {showPostReport ? (
-                  <SocialReportMenu
-                    compact
-                    triggerLabel={`Más opciones de la publicación de @${post.authorHandle}`}
-                    onReport={() =>
-                      setReportTarget({
-                        kind: "post",
-                        postId: post.id,
-                        authorHandle: post.authorHandle,
-                      })
-                    }
-                  />
-                ) : null}
-              </span>
-            </div>
-            <p className="pl-prof-post-body">{post.body}</p>
-            {post.pick ? (
-              <div className="pl-prof-post-pick glass-card glass-ring">
-                {meta ? <TeamPair meta={meta} size={28} /> : null}
-                <div className="pl-prof-post-pick-copy">
-                  <p className="pl-prof-row-title">
-                    {post.pick.label} · <span className="num">{post.pick.units.toFixed(1)}u</span>
-                  </p>
-                  <p className="pl-prof-row-sub num">
-                    Su momio {formatOddsValue(post.pick.userDecimal, oddsFormat)} · momio justo{" "}
-                    {formatOddsValue(post.pick.fairDecimal, oddsFormat)}
-                  </p>
-                </div>
-                <PickStatus status={post.pick.status} />
-              </div>
-            ) : null}
-            <div className="pl-prof-post-actions num">
-              <button
-                type="button"
-                className="pl-prof-chip"
-                aria-pressed={Boolean(post.likedByMe)}
-                aria-label={`Me gusta, ${post.likes}`}
-                onClick={() => toggleSocialLike(post.id)}
-              >
-                <HeartIcon filled={Boolean(post.likedByMe)} size={14} />
-                {post.likes}
-              </button>
-              <button
-                type="button"
-                className="pl-prof-chip"
-                aria-expanded={commentsOpen}
-                onClick={() =>
-                  setOpenComments((prev) =>
-                    prev.includes(post.id) ? prev.filter((id) => id !== post.id) : [...prev, post.id],
-                  )
-                }
-              >
-                <CommentIcon size={14} />
-                {post.comments.length} {post.comments.length === 1 ? "comentario" : "comentarios"}
-              </button>
-            </div>
-            {commentsOpen && post.comments.length > 0 ? (
-              <ul className="pl-prof-comments">
-                {post.comments.map((c) => {
-                  const isCommentMine = Boolean(c.isMine || (ownHandle && c.authorHandle === ownHandle));
-                  const showCommentReport = canReport && !isCommentMine && !post.isExample;
-                  return (
-                    <li key={c.id} className="pl-com-comment-row">
-                      <Avatar
-                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
-                        avatarUrl={c.authorAvatarUrl}
-                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
-                        size={26}
-                        loading="lazy"
-                      />
-                      <div className="pl-com-comment-body">
-                        <div className="pl-com-comment-head">
-                          <span>
-                            <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
-                          </span>
-                          {showCommentReport ? (
-                            <SocialReportMenu
-                              compact
-                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
-                              onReport={() =>
-                                setReportTarget({
-                                  kind: "comment",
-                                  commentId: c.id,
-                                  authorHandle: c.authorHandle,
-                                })
-                              }
-                            />
-                          ) : null}
-                        </div>
-                        <p>{c.body}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
-          </article>
+          <SocialPostCard
+            key={post.id}
+            variant="profile"
+            post={post}
+            author={resolvePostAuthor(post, effectiveOwn, [])}
+            own={effectiveOwn}
+            dataset={dataset}
+            journal={journal}
+            oddsFormat={oddsFormat}
+            following={follows.isFollowing(post.authorHandle)}
+            onCopy={onCopy}
+            onCopyToParlay={onCopyToParlay}
+            onShare={onShare}
+            toggleSocialLike={toggleSocialLike}
+            addSocialComment={addSocialComment}
+            onDeleteComment={deleteSocialComment}
+            onToggleCommentHelpful={toggleSocialCommentHelpful}
+            onLoadAllComments={loadAllPostComments}
+            onDeletePost={deleteSocialPost}
+            onOpenReport={canReport ? setReportTarget : undefined}
+            onNavigate={navigateTo}
+            goProfile={goProfile}
+          />
         );
       })}
       {canShowMore ? (

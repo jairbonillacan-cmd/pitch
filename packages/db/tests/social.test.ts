@@ -1,4 +1,5 @@
 import { PGlite } from "@electric-sql/pglite";
+import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/pglite";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
@@ -6,20 +7,25 @@ import {
   applyMigrations,
   applyModerationAction,
   createSocialPost,
+  deleteSocialComment,
   deleteSocialPost,
   followCounts,
   getSocialPostById,
   listFollowing,
   listModerationPanelData,
+  listPostComments,
   listSocialFeed,
   listSocialNotifications,
   markSocialNotificationsRead,
+  recordSocialPostPickCopy,
   reportSocialContent,
   sealedPicks,
+  setSocialCommentHelpful,
   setSocialFollow,
   setSocialLike,
   SOCIAL_LIMITS,
   socialModerationLogs,
+  upsertUserPreferences,
   users,
   type Db,
   type NewSocialPost,
@@ -124,7 +130,7 @@ describe("comunidad compartida", () => {
     ]);
     await createSocialPost(db, ana.id, post("Récord al día, sigo con Liga MX."), now);
     const [p] = await listSocialFeed(db, null);
-    expect(p).toMatchObject({ record: "+0.5u · 2 picks", clv: "CLV +2.0 %" });
+    expect(p).toMatchObject({ record: "+0.5u · 2 picks", clv: "Ventaja +2.0 %" });
   });
 
   it("frena texto repetido y más de 10 publicaciones por hora", async () => {
@@ -407,5 +413,206 @@ describe("comunidad compartida", () => {
         expect.stringContaining(":pausar_socio"),
       ]),
     );
+  });
+
+  it("hilos de 1 nivel, @menciones, borrar propio, «Útil», paginación >30 y avisos", async () => {
+    const ana = await member("ana_mx", "Ana López");
+    const beto = await member("beto_nfl", "Beto Ruiz");
+    const carla = await member("carla_nba", "Carla Díaz");
+
+    const created = await createSocialPost(
+      db,
+      ana.id,
+      post("Debate abierto sobre el partido de esta noche.", { leagueLabel: "Liga MX", gameId: "g-lmx-1" }),
+      now,
+    );
+    expect(created.ok).toBe(true);
+    const postId = created.ok ? created.id : "";
+
+    // Comentario raíz de Beto mencionando a @carla_nba y respuesta anidada de Carla con @beto_nfl.
+    const rootRes = await addSocialComment(
+      db,
+      beto.id,
+      postId,
+      "Coincido, ¿qué opinas @carla_nba?",
+      new Date(now.getTime() + MIN),
+    );
+    expect(rootRes.ok).toBe(true);
+    const rootId = rootRes.ok ? rootRes.comment.id : "";
+
+    // Responder a la respuesta de 2.º nivel se aplana a parentCommentId del hilo padre (1 nivel).
+    const replyRes = await addSocialComment(
+      db,
+      carla.id,
+      postId,
+      "@beto_nfl me gusta el under en segunda mitad.",
+      new Date(now.getTime() + 2 * MIN),
+      rootId,
+    );
+    expect(replyRes).toMatchObject({
+      ok: true,
+      comment: { parentCommentId: rootId, replyToHandle: "beto_nfl" },
+    });
+    const replyId = replyRes.ok ? replyRes.comment.id : "";
+
+    const nestedReply = await addSocialComment(
+      db,
+      ana.id,
+      postId,
+      "También veo el under firme.",
+      new Date(now.getTime() + 3 * MIN),
+      replyId,
+    );
+    expect(nestedReply).toMatchObject({
+      ok: true,
+      comment: { parentCommentId: rootId, replyToHandle: "beto_nfl" },
+    });
+
+    // Notificaciones: Beto recibe 1 `comment_reply` (deduplicada aunque también fue @mencionado),
+    // Carla recibe 1 `mention` y Ana recibe `comment` de su post.
+    const betoNotifs = await listSocialNotifications(db, beto.id);
+    expect(betoNotifs.some((n) => n.kind === "comment_reply" && n.commentId === replyId)).toBe(true);
+    expect(betoNotifs.filter((n) => n.commentId === replyId)).toHaveLength(1);
+
+    const carlaNotifs = await listSocialNotifications(db, carla.id);
+    expect(carlaNotifs.some((n) => n.kind === "mention" && n.commentId === rootId)).toBe(true);
+
+    // «Útil» en comentario y borrar comentario solo por el autor.
+    expect(await setSocialCommentHelpful(db, ana.id, rootId, true, new Date(now.getTime() + 4 * MIN), postId)).toEqual({
+      ok: true,
+      helpfulCount: 1,
+      helpfulByMe: true,
+    });
+    expect(await setSocialCommentHelpful(db, beto.id, rootId, true, new Date(now.getTime() + 4 * MIN), postId)).toEqual({
+      ok: true,
+      helpfulCount: 2,
+      helpfulByMe: true,
+    });
+    expect(await setSocialCommentHelpful(db, ana.id, rootId, false, new Date(now.getTime() + 4 * MIN), postId)).toEqual({
+      ok: true,
+      helpfulCount: 1,
+      helpfulByMe: false,
+    });
+
+    expect(await deleteSocialComment(db, beto.id, replyId, postId)).toBe(false);
+    expect(await deleteSocialComment(db, carla.id, replyId, postId)).toBe(true);
+
+    // Más de 30 comentarios: listSocialFeed devuelve los últimos 30 + commentsCount total, y listPostComments devuelve todos.
+    for (let i = 0; i < 32; i++) {
+      const r = await addSocialComment(
+        db,
+        i % 2 === 0 ? beto.id : carla.id,
+        postId,
+        `Comentario extra número ${i + 1} en hilo largo.`,
+        new Date(now.getTime() + (10 + i) * MIN),
+      );
+      expect(r.ok).toBe(true);
+    }
+
+    const [feedRow] = await listSocialFeed(db, ana.id);
+    expect(feedRow?.commentsCount).toBe(34);
+    expect(feedRow?.comments).toHaveLength(SOCIAL_LIMITS.commentsPerPost);
+    expect(feedRow?.comments[feedRow.comments.length - 1]?.body).toContain("número 32");
+
+    const allComments = await listPostComments(db, ana.id, postId, 200);
+    expect(allComments).toMatchObject({ ok: true, commentsCount: 34 });
+    if (allComments.ok) {
+      expect(allComments.comments).toHaveLength(34);
+    }
+  });
+
+  it("liga el pick sellado, resuelve pickStatus al liquidarse, cuenta copias y filtra el feed por gameId/liga/temas seguidos", async () => {
+    const ana = await member("ana_mx", "Ana López");
+    const beto = await member("beto_nfl", "Beto Ruiz");
+
+    const [sealed] = await db
+      .insert(sealedPicks)
+      .values({
+        userId: ana.id,
+        pickId: "pk-lmx-1",
+        gameId: "g-lmx-10",
+        leagueLabel: "Liga MX",
+        matchLabel: "América vs Chivas",
+        pickLabel: "América gana",
+        origin: "Spacetime Suite",
+        units: "2.00",
+        userDecimal: "2.050",
+        fairDecimal: "1.920",
+        clvPct: "3.30",
+        status: "pending",
+        kickoffAt: new Date(now.getTime() + 120 * MIN),
+        sealedAt: now,
+        sealHash: "hash-sealed-1",
+      })
+      .returning();
+
+    const p1 = await createSocialPost(
+      db,
+      ana.id,
+      post("Clásico con ventaja local y buen precio.", {
+        leagueLabel: "Liga MX",
+        gameId: "g-lmx-10",
+        matchLabel: "América vs Chivas",
+        pickBadge: "América gana · 2u @ 2.05",
+        originType: "Spacetime Suite",
+        sealedJournalEntryId: sealed!.id,
+        pick: {
+          pickId: "pk-lmx-1",
+          gameId: "g-lmx-10",
+          label: "América gana",
+          units: 2,
+          userDecimal: 2.05,
+          fairDecimal: 1.92,
+          modelProbability: 0.52,
+        },
+      }),
+      now,
+    );
+    expect(p1.ok).toBe(true);
+    const p1Id = p1.ok ? p1.id : "";
+
+    const p2 = await createSocialPost(
+      db,
+      ana.id,
+      post("Lectura NBA para comparar filtros.", {
+        leagueLabel: "NBA",
+        gameId: "g-nba-20",
+        matchLabel: "Lakers vs Celtics",
+      }),
+      new Date(now.getTime() + MIN),
+    );
+    expect(p2.ok).toBe(true);
+    const p2Id = p2.ok ? p2.id : "";
+
+    // Comentamos p1 para que p1 gane por `most_commented`.
+    await addSocialComment(db, beto.id, p1Id, "Me sumo al clásico.", new Date(now.getTime() + 2 * MIN));
+
+    // Copiar pick: el autor no suma, otro socio sí incrementa `copiesCount`.
+    expect(await recordSocialPostPickCopy(db, ana.id, p1Id)).toEqual({ ok: true, copiesCount: 0 });
+    expect(await recordSocialPostPickCopy(db, beto.id, p1Id)).toEqual({ ok: true, copiesCount: 1 });
+
+    // Antes de liquidar, p1 aparece en openPickOnly=true con pickStatus="open".
+    const openBefore = await listSocialFeed(db, beto.id, { openPickOnly: true });
+    expect(openBefore.map((r) => r.id)).toEqual([p1Id]);
+    expect(openBefore[0]).toMatchObject({ pickStatus: "open", copiesCount: 1, gameId: "g-lmx-10" });
+
+    // Se liquida el pick en sealed_picks: p1 pasa a `won` aunque el partido ya no esté en cartelera, y sale de `openPickOnly`.
+    await db
+      .update(sealedPicks)
+      .set({ status: "won", settledAt: new Date(now.getTime() + 240 * MIN) })
+      .where(eq(sealedPicks.id, sealed!.id));
+
+    const byGame = await listSocialFeed(db, beto.id, { gameId: "g-lmx-10" });
+    expect(byGame).toHaveLength(1);
+    expect(byGame[0]).toMatchObject({ id: p1Id, pickStatus: "won", copiesCount: 1 });
+
+    expect(await listSocialFeed(db, beto.id, { openPickOnly: true })).toEqual([]);
+    expect((await listSocialFeed(db, beto.id, { leagueLabel: "NBA" })).map((r) => r.id)).toEqual([p2Id]);
+    expect((await listSocialFeed(db, beto.id, { sort: "most_commented" })).map((r) => r.id)).toEqual([p1Id, p2Id]);
+
+    // Temas seguidos en preferencias (`followedTopics`) aparecen en `following: true` aunque no siga al autor.
+    await upsertUserPreferences(db, beto.id, { followedTopics: { leagues: ["Liga MX"], teams: [] } }, now);
+    const followingFeed = await listSocialFeed(db, beto.id, { following: true });
+    expect(followingFeed.map((r) => r.id)).toEqual([p1Id]);
   });
 });
