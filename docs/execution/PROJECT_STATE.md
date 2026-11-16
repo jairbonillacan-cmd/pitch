@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-15 · **Rama:** `gemini-reestructura` (integra `feat/bzzoiro-snapshot-logos`, `feat/redesign-match-and-list` y `feat/nba-nhl-fase2` sobre `main` `5ba54c3`)
+> **Última actualización:** 2026-11-16 · **Rama:** `gemini-reestructura` (integra `CIERRE-PLATAFORMA-2`, rediseño Inicio/Sólido, análisis Cortex IA, noticias reales ESPN, vista *¿Dónde está el dinero?*, selecciones nacionales + 8 competencias internacionales y endurecimiento integral de seguridad/FD-16/UI)
 
 ## Estado actual
 
@@ -1428,3 +1428,24 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Aplicar migraciones `0023` y `0024` en Neon (`scripts/migrate-prod.ps1`) antes de promover `gemini-reestructura` → `main`.
   - Cargar `VAPID_PUBLIC_KEY`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` y `UNSUBSCRIBE_SECRET` en Vercel junto con las credenciales externas ya documentadas en `docs/product/GUIA_CUENTAS_Y_DESPLIEGUE.md`.
   - Confirmación explícita del fundador para fusionar `gemini-reestructura` en `main`.
+
+### ENTREGA-SELECCIONES-Y-ENDURECIMIENTO · Rediseño UX, noticias reales, selecciones nacionales y cierre de seguridad/FD-16 — 2026-11-16 — Rama `gemini-reestructura`
+- **Hecho:**
+  - **Encabezado, Modo Sólido, Cortex IA, Noticias reales y Preferencias (`@pitchlab/ui`, `apps/web`):**
+    - Nuevo encabezado de club con buscador ampliado, desplazamiento dedicado del riel y menú de cuenta reorganizado (`Estilo` Cristal/Sólido, `Momio`, `Tema`) sin el botón «Compartir tarjeta» ni filas de funciones no ofrecidas todavía.
+    - Preferencias ampliadas con estilo Cristal/Sólido y 17 zonas horarias globales (`Ciudad de México`, `Madrid`, `Buenos Aires`, `Nueva York`, etc.).
+    - Pestaña dedicada `Análisis IA` junto a `Resumen` (`cortex-narrative.ts`, `CortexAnalysisCard.tsx`) con lectura editorial estructurada; noticias reales vía `apps/web/src/server/espn-news.ts` y resumen interno en modal (`apps/web/app/api/news/article/route.ts`) sin sacar al usuario a sitios externos.
+    - Pestaña `¿Dónde está el dinero?` (`MatchMoneyPanel.tsx`) integrada en la barra de 5 pestañas de la ficha y equilibrio de columnas en `PreMatchModule`, `MatchContextPanel`, `MatchNumbersPanel`, `MatchMarketsGrid` y `SportOutlookCard`.
+  - **217 selecciones nacionales y 8 competencias internacionales (`@pitchlab/contracts`, `@pitchlab/models`, `@pitchlab/sports-assets`, `@pitchlab/ingest`, `@pitchlab/ui`, `apps/web`):**
+    - Contratos y catálogo completo en español (`es-MX`) en `packages/contracts/src/sports/national-teams.ts` (`NATIONAL_TEAMS`, `findNationalTeamDef`) y `packages/contracts/src/sports/index.ts` para `concacaf-nations`, `uefa-nations`, `amistosos`, `copa-del-mundo`, `eliminatorias`, `copa-america`, `eurocopa` y `copa-oro`.
+    - Adaptador real `services/ingest/src/adapters/espn-national.ts` + CLI `services/ingest/src/national-cli.ts`, histórico internacional cruzado en `data/history/international.jsonl` (`790` partidos), ajuste de neutralidad de sede en `EloTracker` (`packages/models/src/football/elo.ts`) y derivación automática de mercados adicionales (`buildDerivedFootballFallbackRows` en `apps/web/src/server/outlook-derived-rows.ts`).
+    - 217 banderas PNG (`apps/web/public/brand/official/countries/*.png`), 8 emblemas de competencias (`apps/web/public/brand/official/competitions/*.png`), activos locales NFL/NHL y respaldo maestro de íconos en `design/sports-icons/`.
+    - Filtro `Selecciones` en `/app` (`home-model.ts`, `HomeClubView.tsx`), agrupación Clubes/Selecciones en menú lateral (`ShellChrome.tsx`) y Preferencias (`PrefsTab.tsx`), buscador `Cmd+K` sin acentos (`PlatformOverlays.tsx`), directorio buscable por competencia (`CoreMatchViews.tsx`) y perfiles de selección en `/app/[league]/teams/[teamId]`.
+  - **Endurecimiento de seguridad, FD-16, Cero-Fuga y bugs UI/E2E:**
+    - Recorte de `?apiKey=...` en `detectAntiBotChallenge` (`services/ingest/src/odds/legal-registry.ts`) para impedir exposición en logs o `data-health.json`; exclusión de `data/odds_timeseries/the_odds_api_budget.json` en `.gitignore`; reinicio de `remainingHeader` en `rollMonth()` y guardado garantizado con `try/finally` en `services/ingest/src/odds/the-odds-api.ts`; rastreo consistente en `odds-refresh-cli.ts`.
+    - Retiro de «Elo» (`id: "strength"`, `"Índice de fuerza"`) y resguardo de `injuries`, `elevationM` y `roofType` con `fullAccess` en `apps/web/src/server/team-profile.ts` (`team-profile.test.ts` reforzado con `|elo`); retiro de `counts` en visitantes (`access-guard.ts`) y de `data-emblem-source="bzzoiro"` (`sports.tsx`).
+    - Corrección de falsos muros de pago cuando un partido aún no tiene picks (`MatchList.tsx`, `HomeMatchCard.tsx`, `MatchTicketCard.tsx`) o mercados (`MatchMarketsGrid.tsx`, `MatchNumbersPanel.tsx`), texto correcto en NHL (`Goles esperados`), eliminación de `backdrop-filter: blur(8px)` en hero de equipo (`ADR-035`), sustitución del token inexistente `--pl-surface-soft` → `--pl-surface-elevated`, estabilidad de foco en `MatchTabs.tsx`, caché con `mtimeMs` en `team-profile.ts` y actualización de `docs/architecture/ROUTE_MAP.md`.
+- **Verificado:**
+  - Gates estáticos (`node scripts/check-no-demo-prod.mjs`, `node scripts/check-no-secrets.mjs`, `node scripts/lint-codebase.mjs`), `pnpm -r typecheck`, `pnpm -r lint`, suites unitarias de los paquetes (`pnpm -r test`), `pnpm build`, `pnpm build-storybook` y suite Playwright E2E completa (`36/36` desktop + mobile, dark + light, Axe WCAG AA).
+- **Pendiente (requiere intervención/confirmación humana):**
+  - Aplicar migraciones `0023` y `0024` en Neon (`scripts/migrate-prod.ps1`) y configurar secretos en Vercel antes de fusionar `gemini-reestructura` → `main`.

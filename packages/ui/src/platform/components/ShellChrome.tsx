@@ -9,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { isNationalCompetition } from "@pitchlab/contracts";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
@@ -180,7 +181,7 @@ function applyTheme(next: "dark" | "light"): void {
 export type VisualStyle = "glass" | "solid";
 
 /** Estilo visual del documento (`html[data-style]`): vidrio (por defecto) o sólido. */
-function useDocumentStyle(): VisualStyle {
+export function useDocumentStyle(): VisualStyle {
   const [style, setStyle] = useState<VisualStyle>("glass");
   useEffect(() => {
     const root = document.documentElement;
@@ -970,53 +971,59 @@ function ClubWorkspaceShellImpl({
           handle={viewerIdentity ? `@${viewerIdentity.handle}` : null}
         />
       )}
-      <header className="panel-header sticky top-0 z-30 glass-nav-surface">
-        <div className="max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2.5">
-          {/* Izquierda: Logo a / + Buscador inline + Selector de Rol */}
-          <div className="flex items-center gap-3 min-w-0">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo("/");
-              }}
-              className="inline-flex items-center gap-2 no-underline shrink-0"
-              aria-label="PitchLab Inicio"
-            >
-              <BrandLogo variant="horizontal" width={120} height={24} alt="" />
-            </a>
-
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center justify-between gap-3 md:min-w-[230px] lg:min-w-[265px]"
-              aria-label="Buscar"
-              onClick={() => setCmdkOpen(true)}
-            >
-              <span className="inline-flex items-center gap-2 truncate" style={{ color: "var(--pl-text-secondary)" }}>
-                <MaestroIcon name="search" size={14} />
-                <span className="hidden sm:inline truncate">
-                  Buscar partido, liga o @socio...
-                </span>
-              </span>
-              <kbd
-                className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold num shrink-0"
-                style={{
-                  background: "var(--pl-surface-elevated)",
-                  border: "1px solid var(--pl-border)",
-                  color: "var(--pl-text-muted)",
+      <header
+        className="panel-header sticky top-0 z-30 glass-nav-surface"
+        data-collapsed={collapsed ? "true" : "false"}
+      >
+        <div className="pl-header-grid max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16">
+          {/* En desktop (lg+) la barra comienza justo sobre <main> (donde dice «Todos»), alineada con el contenido. */}
+          <div className="pl-header-bar flex items-center justify-between gap-3 h-full min-w-0">
+            {/* Izquierda: Logo a / + Buscador amplio + Selector de Rol */}
+            <div className="pl-header-left flex items-center gap-3.5 min-w-0 flex-1">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/");
                 }}
+                className="pl-header-logo inline-flex items-center gap-2 no-underline shrink-0"
+                aria-label="PitchLab Inicio"
               >
-                ⌘K
-              </kbd>
-            </button>
+                <BrandLogo variant="horizontal" width={132} height={26} alt="" />
+              </a>
 
-            <div className="hidden xl:block shrink-0">
-              <RoleSwitcherPill compact />
+              <button
+                type="button"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-3.5 inline-flex items-center justify-between gap-3"
+                aria-label="Buscar"
+                onClick={() => setCmdkOpen(true)}
+              >
+                <span className="inline-flex items-center gap-2.5 min-w-0 truncate" style={{ color: "var(--pl-text-secondary)" }}>
+                  <MaestroIcon name="search" size={16} />
+                  <span className="hidden sm:inline truncate">
+                    Buscar partido, liga o @socio
+                  </span>
+                  <span className="sm:hidden font-semibold">Buscar</span>
+                </span>
+                <kbd
+                  className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold num shrink-0"
+                  style={{
+                    background: "var(--pl-surface-elevated)",
+                    border: "1px solid var(--pl-border)",
+                    color: "var(--pl-text-muted)",
+                  }}
+                >
+                  ⌘K
+                </kbd>
+              </button>
+
+              <div className="hidden xl:block shrink-0">
+                <RoleSwitcherPill compact />
+              </div>
             </div>
-          </div>
 
-          {/* Derecha: Campana (2), Momio/Decimal, Tema, Chip Perfil @jair/@sofia_nfl, Salir */}
-          <div className="flex items-center gap-2 shrink-0">
+            {/* Derecha: Campana + Chip de perfil */}
+            <div className="flex items-center gap-2 shrink-0">
             <NotificationBell />
 
             {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
@@ -1280,6 +1287,7 @@ function ClubWorkspaceShellImpl({
                 </div>
               ) : null}
             </div>
+            </div>
           </div>
         </div>
 
@@ -1408,35 +1416,78 @@ function ClubWorkspaceShellImpl({
               inert={!leaguesOpen}
             >
             <nav aria-label="Ligas" className="rail-collapsible-inner space-y-0.5">
-              {dataset.leagues.map((lg) => {
-                const href = `/app/${lg.league}`;
-                const active = activePath === href || activePath.startsWith(`${href}/`);
-                return (
-                  <a
-                    key={lg.league}
-                    href={href}
-                    data-league={lg.league}
-                    aria-current={active ? "page" : undefined}
-                    title={collapsed ? lg.label : undefined}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo(href);
-                    }}
-                    className="league-tab rail-item justify-between"
-                  >
-                    <span className="flex items-center gap-2 min-w-0">
-                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
-                      <span className="rail-hide-collapsed truncate">{lg.label}</span>
-                    </span>
-                    <span
-                      className="rail-hide-collapsed text-xs num font-semibold"
-                      style={{ color: "var(--pl-text-muted)" }}
+              {dataset.leagues
+                .filter((lg) => !isNationalCompetition(lg.league))
+                .map((lg) => {
+                  const href = `/app/${lg.league}`;
+                  const active = activePath === href || activePath.startsWith(`${href}/`);
+                  return (
+                    <a
+                      key={lg.league}
+                      href={href}
+                      data-league={lg.league}
+                      aria-current={active ? "page" : undefined}
+                      title={collapsed ? lg.label : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigateTo(href);
+                      }}
+                      className="league-tab rail-item justify-between"
                     >
-                      {lg.upcomingCount || lg.totalGames}
-                    </span>
-                  </a>
-                );
-              })}
+                      <span className="flex items-center gap-2 min-w-0 flex-1">
+                        <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                        <span className="rail-hide-collapsed truncate">{lg.label}</span>
+                      </span>
+                      <span
+                        className="rail-hide-collapsed text-xs num font-semibold shrink-0"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        {lg.upcomingCount || lg.totalGames}
+                      </span>
+                    </a>
+                  );
+                })}
+              {dataset.leagues.some((lg) => isNationalCompetition(lg.league)) ? (
+                <>
+                  <span
+                    className="rail-hide-collapsed rail-heading block pt-2"
+                    style={{ color: "var(--pl-text-muted)" }}
+                  >
+                    Selecciones
+                  </span>
+                  {dataset.leagues
+                    .filter((lg) => isNationalCompetition(lg.league))
+                    .map((lg) => {
+                      const href = `/app/${lg.league}`;
+                      const active = activePath === href || activePath.startsWith(`${href}/`);
+                      return (
+                        <a
+                          key={lg.league}
+                          href={href}
+                          data-league={lg.league}
+                          aria-current={active ? "page" : undefined}
+                          title={collapsed ? lg.label : undefined}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo(href);
+                          }}
+                          className="league-tab rail-item justify-between"
+                        >
+                          <span className="flex items-center gap-2 min-w-0 flex-1">
+                            <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                            <span className="rail-hide-collapsed truncate">{lg.label}</span>
+                          </span>
+                          <span
+                            className="rail-hide-collapsed text-xs num font-semibold shrink-0"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {lg.upcomingCount || lg.totalGames}
+                          </span>
+                        </a>
+                      );
+                    })}
+                </>
+              ) : null}
             </nav>
             </div>
           </div>

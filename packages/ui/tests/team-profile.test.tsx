@@ -69,7 +69,7 @@ const BASE_SOCCER: TeamProfileData = {
     sampleNote: "Calibración con 16 partidos",
     updatedLabel: "15 nov 2026",
     metrics: [
-      { id: "elo", label: "Índice de fuerza Elo", value: "1,712 pts", tone: "brand" },
+      { id: "strength", label: "Índice de fuerza", value: "1,712 pts", tone: "brand" },
     ],
     unavailableReason: null,
   },

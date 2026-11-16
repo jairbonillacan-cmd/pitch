@@ -93,7 +93,7 @@ async function main(): Promise<void> {
   }
 
   const { adapters, skipped } = buildPermittedActiveOddsAdapters(process.env, {
-    theOddsApiBudgetPath: dryRun ? null : THE_ODDS_API_BUDGET_PATH,
+    theOddsApiBudgetPath: THE_ODDS_API_BUDGET_PATH,
   });
   for (const sk of skipped) {
     if (sk.status !== "blocked_pending_owner_decision") {

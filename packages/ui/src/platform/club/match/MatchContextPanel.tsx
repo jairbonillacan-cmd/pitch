@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { sportHasDraw, sportScoringUnit, type StandingRow } from "@pitchlab/contracts";
+import {
+  isNationalCompetition,
+  sportHasDraw,
+  sportScoringUnit,
+  type StandingRow,
+} from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { useOptionalPlatformActions } from "../../platform-provider";
@@ -91,10 +96,12 @@ export function MatchContextPanel({
   game,
   standings = [],
   unlocked = true,
+  opinionsSlot,
 }: {
   readonly game: PlatformGame;
   readonly standings?: readonly StandingRow[];
   readonly unlocked?: boolean;
+  readonly opinionsSlot?: React.ReactNode;
 }): React.JSX.Element {
   const platformActions = useOptionalPlatformActions();
   const hasDraw = sportHasDraw(game.sport);
@@ -253,36 +260,50 @@ export function MatchContextPanel({
       <div className="pl-ctx-split">
         <section className="pl-ctx-card glass-card glass-ring" aria-labelledby="ctx-venue">
           <h3 id="ctx-venue" className="pl-cortex-label">
-            Sede
+            Sede y ficha del encuentro
           </h3>
           <p className="m-0 flex items-center gap-2 text-sm font-bold">
             <MaestroIcon name="pin" size={15} />
             <span>{stadium?.name ?? game.venue}</span>
           </p>
-          <ul className="pl-ctx-facts">
-            <li>
-              {game.neutralSite
-                ? "Sede neutral: ningún equipo juega en casa."
-                : `Local: ${game.home.name}. Visitante: ${game.away.name}.`}
-            </li>
+          <dl className="pl-ctx-stats pl-ctx-facts-grid">
+            <div>
+              <dt>Condición</dt>
+              <dd className="text-sm font-bold">
+                {game.neutralSite ? "Sede neutral" : `Local: ${game.home.shortName}`}
+              </dd>
+            </div>
+            <div>
+              <dt>Visitante</dt>
+              <dd className="text-sm font-bold">{game.away.shortName}</dd>
+            </div>
+            <div>
+              <dt>Inicio</dt>
+              <dd className="text-sm font-bold num">{game.kickoffLocal}</dd>
+            </div>
             {stadium?.elevationM ? (
-              <li className="num">Altitud: {Math.round(stadium.elevationM).toLocaleString("es-MX")} m sobre el nivel del mar.</li>
+              <div>
+                <dt>Altitud</dt>
+                <dd className="text-sm font-bold num">
+                  {Math.round(stadium.elevationM).toLocaleString("es-MX")} m
+                </dd>
+              </div>
             ) : null}
-            <li>
-              {game.dayLabel} · {game.kickoffLocal} (hora del centro de México)
-            </li>
-          </ul>
+          </dl>
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            {game.dayLabel} · {game.kickoffLocal}
+          </p>
           {others.length > 0 ? (
             <>
-              <h3 className="pl-cortex-label mt-2">Otros datos</h3>
-              <ul className="pl-ctx-facts">
+              <h3 className="pl-cortex-label mt-1">Otros datos del encuentro</h3>
+              <dl className="pl-ctx-stats pl-ctx-facts-grid">
                 {others.map((f) => (
-                  <li key={f.label}>
-                    <strong>{f.label}:</strong> {f.value}
-                    {f.sub ? <span style={{ color: "var(--pl-text-muted)" }}> · {f.sub}</span> : null}
-                  </li>
+                  <div key={f.label}>
+                    <dt>{f.label}</dt>
+                    <dd className="text-sm font-bold num">{f.value}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </>
           ) : null}
         </section>
@@ -338,49 +359,60 @@ export function MatchContextPanel({
         </section>
       </div>
 
-      {/* Bajas y ausencias detalladas */}
-      <section
-        className="pl-ctx-card glass-card glass-ring"
-        aria-labelledby="ctx-absences"
-        data-ctx-absences=""
-      >
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 id="ctx-absences" className="pl-cortex-label m-0">
-            Bajas y disponibilidad
-          </h3>
-          {canReadContext ? (
-            <span className="text-xs num font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-              {absences.length > 0
-                ? `${absences.length} ${absences.length === 1 ? "reporte" : "reportes"}`
-                : "Sin bajas registradas"}
-            </span>
-          ) : null}
-        </div>
-        {!canReadContext ? (
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            El reporte detallado de bajas y plantilla fuera está disponible con Pase PitchLab Ultra.
-          </p>
-        ) : absences.length > 0 ? (
-          <ul className="pl-ctx-absences" role="list">
-            {absences.map((item, idx) => (
-              <li key={`${item.player}-${idx}`} className="pl-ctx-absence-row">
-                <div className="min-w-0">
-                  <strong className="block text-sm truncate">{item.player}</strong>
-                  <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    {item.role}
-                    {item.impactNote ? ` · ${item.impactNote}` : ""}
-                  </span>
-                </div>
-                <span className="pl-pill text-[11px] shrink-0">{item.status}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            {HONEST_NO_ABSENCES_COPY}.
-          </p>
-        )}
-      </section>
+      {/* Bajas y ausencias detalladas + Opiniones de socios lado a lado cuando existe */}
+      {(() => {
+        const absencesSection = (
+          <section
+            className="pl-ctx-card glass-card glass-ring"
+            aria-labelledby="ctx-absences"
+            data-ctx-absences=""
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 id="ctx-absences" className="pl-cortex-label m-0">
+                Bajas y disponibilidad
+              </h3>
+              {canReadContext ? (
+                <span className="text-xs num font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                  {absences.length > 0
+                    ? `${absences.length} ${absences.length === 1 ? "reporte" : "reportes"}`
+                    : "Sin bajas registradas"}
+                </span>
+              ) : null}
+            </div>
+            {!canReadContext ? (
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                El reporte detallado de bajas y plantilla fuera está disponible con Pase PitchLab Ultra.
+              </p>
+            ) : absences.length > 0 ? (
+              <ul className="pl-ctx-absences" role="list">
+                {absences.map((item, idx) => (
+                  <li key={`${item.player}-${idx}`} className="pl-ctx-absence-row">
+                    <div className="min-w-0">
+                      <strong className="block text-sm truncate">{item.player}</strong>
+                      <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                        {item.role}
+                        {item.impactNote ? ` · ${item.impactNote}` : ""}
+                      </span>
+                    </div>
+                    <span className="pl-pill text-[11px] shrink-0">{item.status}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                {HONEST_NO_ABSENCES_COPY}.
+              </p>
+            )}
+          </section>
+        );
+        if (!opinionsSlot) return absencesSection;
+        return (
+          <div className="pl-ctx-split">
+            {absencesSection}
+            {opinionsSlot}
+          </div>
+        );
+      })()}
 
       {/* Tabla de posiciones */}
       <section
@@ -424,7 +456,9 @@ export function MatchContextPanel({
               <thead>
                 <tr className="hairline-b text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   <th scope="col" className="py-2 pr-3">Pos.</th>
-                  <th scope="col" className="py-2 pr-3">Club</th>
+                  <th scope="col" className="py-2 pr-3">
+                    {isNationalCompetition(game.league) ? "Selección" : "Club"}
+                  </th>
                   <th scope="col" className="py-2 px-2 text-right">PJ</th>
                   <th scope="col" className="py-2 px-2 text-right">G</th>
                   <th scope="col" className="py-2 px-2 text-right">E</th>

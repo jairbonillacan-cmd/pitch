@@ -174,111 +174,132 @@ export function MatchNumbersPanel({
   }, [canReadNumbers, decimals, game.counts, game.goalLine, game.projection, game.score, isFinished, isNfl, markets, oddsFormat]);
 
   const hasCountMetrics = cards.some((card) => card.key !== "goals");
+  const hasSimulator =
+    !isFinished &&
+    unlocked &&
+    Boolean(game.projection && game.x12 && game.hasForecast !== false);
+  const pairNumbersWithSim = canReadNumbers && cards.length === 1 && hasSimulator;
+
+  const expectedSection = (
+    <section
+      className="glass-card glass-ring rounded-2xl p-5 space-y-4 h-full"
+      data-numbers-expected=""
+      data-card-count={cards.length}
+      aria-labelledby="num-expected-heading"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div>
+          <h2 id="num-expected-heading" className="m-0 text-lg font-extrabold">
+            Números esperados por equipo
+          </h2>
+          <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+            {game.sport === "football"
+              ? "Goles, tiros de esquina, faltas y tarjetas amarillas estimadas por club."
+              : unit.plural === "goles"
+                ? "Goles esperados por equipo, líneas de total y distribución proyectada."
+                : "Puntos esperados por club, totales de línea y distribución proyectada."}
+          </p>
+        </div>
+        <div className="flex items-center gap-2 text-xs font-bold">
+          <span className="inline-flex items-center gap-1.5">
+            <TeamBadge league={game.league} slug={game.home.slug} name={game.home.name} size={18} />
+            <span>{game.home.shortName}</span>
+          </span>
+          <span style={{ color: "var(--pl-text-muted)" }}>vs</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span>{game.away.shortName}</span>
+            <TeamBadge league={game.league} slug={game.away.slug} name={game.away.name} size={18} />
+          </span>
+        </div>
+      </div>
+
+      {!canReadNumbers ? (
+        <div className="pl-num-locked" data-numbers-locked="">
+          <MaestroIcon name="lock" size={16} />
+          <div>
+            <p className="m-0 text-sm font-bold">
+              Goles, córners, faltas y tarjetas esperadas reservadas
+            </p>
+            <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+              Activa tu Pase PitchLab Ultra para desbloquear la proyección por equipo y los mercados de conteos.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="pl-num-grid" data-card-count={cards.length}>
+            {cards.map((card) => (
+              <article key={card.key} className="pl-num-card" data-count-card={card.key}>
+                <header className="pl-num-card-head">
+                  <div>
+                    <h3 className="m-0 text-sm font-extrabold">{card.title}</h3>
+                    <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                      {card.subtitle}
+                    </span>
+                  </div>
+                  <span className="pl-pill pl-pill--brand num text-xs">
+                    Total {card.totalValue}
+                  </span>
+                </header>
+
+                <div className="pl-num-split num">
+                  <div className="pl-num-side">
+                    <span className="pl-num-team">{game.home.shortName}</span>
+                    <strong>{card.homeValue}</strong>
+                  </div>
+                  <div className="pl-num-side is-away">
+                    <span className="pl-num-team">{game.away.shortName}</span>
+                    <strong>{card.awayValue}</strong>
+                  </div>
+                </div>
+
+                <div className="pl-num-bar" aria-hidden="true">
+                  <span className="is-home" style={{ width: `${card.homeSharePct}%` }} />
+                  <span className="is-away" style={{ width: `${100 - card.homeSharePct}%` }} />
+                </div>
+
+                {card.lineSummary ? (
+                  <p className="pl-num-line num m-0">{card.lineSummary}</p>
+                ) : null}
+
+                {card.marketRows.length > 0 ? (
+                  <ul className="pl-num-rows num" role="list">
+                    {card.marketRows.map((row) => (
+                      <li key={`${row.market}-${row.selection}`}>
+                        <span>{row.label}</span>
+                        <strong>
+                          {Math.round(row.p * 100)} % · {formatOddsValue(row.fairDecimal, oddsFormat)}
+                        </strong>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+            ))}
+          </div>
+
+          {!isNfl && !hasCountMetrics ? (
+            <p className="pl-num-empty m-0 text-xs" data-no-counts="">
+              Córners, faltas y tarjetas esperadas se muestran cuando ambos clubes acumulan historial reciente suficiente en la liga.
+            </p>
+          ) : null}
+        </>
+      )}
+    </section>
+  );
 
   return (
     <div className="pl-num-wrap">
-      <section
-        className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-        data-numbers-expected=""
-        aria-labelledby="num-expected-heading"
-      >
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <div>
-            <h2 id="num-expected-heading" className="m-0 text-lg font-extrabold">
-              Números esperados por equipo
-            </h2>
-            <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-              {isNfl
-                ? "Puntos esperados por club, totales de línea y distribución proyectada."
-                : "Goles, tiros de esquina, faltas y tarjetas amarillas estimadas por club."}
-            </p>
-          </div>
-          <div className="flex items-center gap-2 text-xs font-bold">
-            <span className="inline-flex items-center gap-1.5">
-              <TeamBadge league={game.league} slug={game.home.slug} name={game.home.name} size={18} />
-              <span>{game.home.shortName}</span>
-            </span>
-            <span style={{ color: "var(--pl-text-muted)" }}>vs</span>
-            <span className="inline-flex items-center gap-1.5">
-              <span>{game.away.shortName}</span>
-              <TeamBadge league={game.league} slug={game.away.slug} name={game.away.name} size={18} />
-            </span>
-          </div>
+      {pairNumbersWithSim ? (
+        <div className="pl-num-duo">
+          <div className="min-w-0">{expectedSection}</div>
+          <section aria-label="Simulador de escenarios" className="min-w-0">
+            <MatchSimulator game={game} />
+          </section>
         </div>
-
-        {!canReadNumbers ? (
-          <div className="pl-num-locked" data-numbers-locked="">
-            <MaestroIcon name="lock" size={16} />
-            <div>
-              <p className="m-0 text-sm font-bold">
-                Goles, córners, faltas y tarjetas esperadas reservadas
-              </p>
-              <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-                Activa tu Pase PitchLab Ultra para desbloquear la proyección por equipo y los mercados de conteos.
-              </p>
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="pl-num-grid">
-              {cards.map((card) => (
-                <article key={card.key} className="pl-num-card" data-count-card={card.key}>
-                  <header className="pl-num-card-head">
-                    <div>
-                      <h3 className="m-0 text-sm font-extrabold">{card.title}</h3>
-                      <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                        {card.subtitle}
-                      </span>
-                    </div>
-                    <span className="pl-pill pl-pill--brand num text-xs">
-                      Total {card.totalValue}
-                    </span>
-                  </header>
-
-                  <div className="pl-num-split num">
-                    <div className="pl-num-side">
-                      <span className="pl-num-team">{game.home.shortName}</span>
-                      <strong>{card.homeValue}</strong>
-                    </div>
-                    <div className="pl-num-side is-away">
-                      <span className="pl-num-team">{game.away.shortName}</span>
-                      <strong>{card.awayValue}</strong>
-                    </div>
-                  </div>
-
-                  <div className="pl-num-bar" aria-hidden="true">
-                    <span className="is-home" style={{ width: `${card.homeSharePct}%` }} />
-                    <span className="is-away" style={{ width: `${100 - card.homeSharePct}%` }} />
-                  </div>
-
-                  {card.lineSummary ? (
-                    <p className="pl-num-line num m-0">{card.lineSummary}</p>
-                  ) : null}
-
-                  {card.marketRows.length > 0 ? (
-                    <ul className="pl-num-rows num" role="list">
-                      {card.marketRows.map((row) => (
-                        <li key={`${row.market}-${row.selection}`}>
-                          <span>{row.label}</span>
-                          <strong>
-                            {Math.round(row.p * 100)} % · {formatOddsValue(row.fairDecimal, oddsFormat)}
-                          </strong>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-
-            {!isNfl && !hasCountMetrics ? (
-              <p className="pl-num-empty m-0 text-xs" data-no-counts="">
-                Córners, faltas y tarjetas esperadas se muestran cuando ambos clubes acumulan historial reciente suficiente en la liga.
-              </p>
-            ) : null}
-          </>
-        )}
-      </section>
+      ) : (
+        expectedSection
+      )}
 
       <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -322,7 +343,7 @@ export function MatchNumbersPanel({
           markets={markets}
           oddsFormat={oddsFormat}
           watermark={watermark}
-          locked={!unlocked && !isFinished && markets.length === 0}
+          locked={!unlocked && !isFinished}
           isFinished={isFinished}
           canSeal={canSeal}
           sealedKeys={sealedKeys}
@@ -333,11 +354,11 @@ export function MatchNumbersPanel({
         />
       </section>
 
-      {isFinished || !unlocked ? null : (
+      {hasSimulator && !pairNumbersWithSim ? (
         <section aria-label="Simulador de escenarios">
           <MatchSimulator game={game} />
         </section>
-      )}
+      ) : null}
     </div>
   );
 }

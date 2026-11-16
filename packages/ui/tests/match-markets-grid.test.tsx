@@ -222,5 +222,17 @@ describe("MatchMarketsGrid (Punto 5)", () => {
     expect(lockedHtml).toContain('data-watermark="@visitante"');
     expect(lockedHtml).not.toContain("América · Más de 0.5 goles");
     expect(lockedHtml).not.toContain("Justo");
+
+    const emptyUnlockedHtml = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={[]}
+        oddsFormat="american"
+        watermark="@socio"
+        locked={false}
+      />,
+    );
+    expect(emptyUnlockedHtml).toContain("data-empty-markets");
+    expect(emptyUnlockedHtml).not.toContain("Pase PitchLab Ultra");
   });
 });

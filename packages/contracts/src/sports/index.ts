@@ -22,11 +22,31 @@ export interface League {
   shortName: string;
   country: string;
   enabled: boolean;
+  competitionType?: "club" | "national";
   assetEdition?: string;
   mascot: string;
   defaultSeason: string;
   defaultPeriod: string;
   logoUrl?: string;
+}
+
+export const NATIONAL_COMPETITION_IDS = [
+  "uefa-nations",
+  "concacaf-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
+] as const;
+
+export type NationalCompetitionId = (typeof NATIONAL_COMPETITION_IDS)[number];
+
+const NATIONAL_COMPETITION_SET = new Set<string>(NATIONAL_COMPETITION_IDS);
+
+export function isNationalCompetition(leagueId: string): boolean {
+  return NATIONAL_COMPETITION_SET.has(leagueId);
 }
 
 export interface Season {
@@ -80,13 +100,20 @@ export interface SportConfig {
   allowsDraw: boolean;
 }
 
+export const LogoUrlSchema = z
+  .string()
+  .refine(
+    (v) => v.startsWith("/brand/") || z.string().url().safeParse(v).success,
+    "logoUrl debe ser una URL absoluta o ruta /brand/...",
+  );
+
 export const TeamSchema = z.object({
   id: TeamIdSchema,
   league: LeagueIdSchema,
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
-  logoUrl: z.string().url().optional(),
+  logoUrl: LogoUrlSchema.optional(),
 });
 
 export const GameResultSchema = z.object({
@@ -216,6 +243,102 @@ export const LEAGUE_CATALOG: League[] = [
     mascot: "nba",
     defaultSeason: "2026-27",
     defaultPeriod: "",
+  },
+  {
+    id: asLeagueId("concacaf-nations"),
+    sport: asSportId("soccer"),
+    name: "Concacaf Nations League",
+    shortName: "Concacaf Nations",
+    country: "Norteamérica y Caribe",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2026/27",
+    defaultPeriod: "Fase de grupos y cuartos",
+  },
+  {
+    id: asLeagueId("uefa-nations"),
+    sport: asSportId("soccer"),
+    name: "UEFA Nations League",
+    shortName: "Nations League",
+    country: "Europa",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2026/27",
+    defaultPeriod: "Fase de ligas",
+  },
+  {
+    id: asLeagueId("amistosos"),
+    sport: asSportId("soccer"),
+    name: "Amistosos FIFA",
+    shortName: "Amistosos",
+    country: "Internacional",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2026",
+    defaultPeriod: "Fecha FIFA",
+  },
+  {
+    id: asLeagueId("copa-del-mundo"),
+    sport: asSportId("soccer"),
+    name: "Copa del Mundo FIFA",
+    shortName: "Mundial",
+    country: "Internacional",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2026",
+    defaultPeriod: "Torneo 2026",
+  },
+  {
+    id: asLeagueId("eliminatorias"),
+    sport: asSportId("soccer"),
+    name: "Eliminatorias Mundialistas",
+    shortName: "Eliminatorias",
+    country: "Internacional",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2025–26",
+    defaultPeriod: "Clasificación FIFA",
+  },
+  {
+    id: asLeagueId("copa-america"),
+    sport: asSportId("soccer"),
+    name: "Copa América",
+    shortName: "Copa América",
+    country: "Conmebol",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2024",
+    defaultPeriod: "Edición 2024",
+  },
+  {
+    id: asLeagueId("eurocopa"),
+    sport: asSportId("soccer"),
+    name: "Eurocopa UEFA",
+    shortName: "Eurocopa",
+    country: "Europa",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2024",
+    defaultPeriod: "Edición 2024",
+  },
+  {
+    id: asLeagueId("copa-oro"),
+    sport: asSportId("soccer"),
+    name: "Copa Oro Concacaf",
+    shortName: "Copa Oro",
+    country: "Concacaf",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2025",
+    defaultPeriod: "Edición 2025",
   },
   {
     id: asLeagueId("mlb"),

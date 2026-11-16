@@ -5,7 +5,7 @@ import { isLivePhaseActive, sportHasDraw, sportScoringUnit, type LiveScoreboardE
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
-import { alternativePick, mostLikelyOutcome } from "../club/home/home-model";
+import { alternativePick, mostLikelyOutcome, shortDateLabel } from "../club/home/home-model";
 import { usePlatformActions, usePlatformCore } from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { ConfidenceChip } from "./ConfidenceChip";
@@ -82,7 +82,9 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
               logoUrl={game.leagueLogoUrl}
               size={14}
             />
-            <span>{isFinished ? "Final" : game.kickoffLocal}</span>
+            <span>
+              {shortDateLabel(game.dayId)} · {isFinished ? "Final" : game.kickoffLocal}
+            </span>
           </span>
         )}
         <span className="pl-home-card-round">{game.round}</span>
@@ -225,7 +227,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
               ) : null}
             </div>
           </>
-        ) : (
+        ) : mainPick ? (
           <div className="flex items-center justify-between gap-2" data-card-locked="">
             <div className="min-w-0">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold" style={{ color: "var(--pl-brand)" }}>
@@ -238,12 +240,16 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
             </div>
             <span className="pl-pill shrink-0">Pase PitchLab Ultra</span>
           </div>
+        ) : (
+          <div className="text-xs" style={{ color: "var(--pl-text-muted)" }} data-empty-picks="">
+            Sin pick principal publicado en este corte.
+          </div>
         )}
       </div>
 
       <footer className="pl-home-card-actions">
         {!isFinished && !live && mainPick && unlocked ? <ParlayPickButton pick={mainPick} matchLabel={matchLabel} /> : null}
-        {!isFinished && !unlocked ? (
+        {!isFinished && mainPick && !unlocked ? (
           <a
             href={upgradeHref}
             onClick={(e) => {

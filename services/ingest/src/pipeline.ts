@@ -20,11 +20,16 @@ import {
   asSeasonId,
   type GameAnalysis,
   type GameDTO,
+  type LeagueId,
   type StandingRow,
   type LeagueSnapshot,
   type Team,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
+import {
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
+} from "@pitchlab/sports-assets";
 import {
   analyzeFootballGame,
   analyzeNflGame,
@@ -266,7 +271,7 @@ export function buildNflSnapshot(params: {
 }
 
 export function buildFootballSnapshot(params: {
-  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
+  league: LeagueId | string;
   leagueName: string;
   seasonId: string;
   seasonLabel: string;
@@ -338,14 +343,17 @@ export function buildFootballSnapshot(params: {
     ? footballTeamRatesFromModel(teamRateInputs, footballModel)
     : computeFootballTeamRates(league, teamRateInputs).rates;
 
+  const resolveLogo = (teamId: string): string | null =>
+    mapBzzoiroTeamLogoUrl(league, teamId) ?? getOfficialEspnTeamLogoUrl(league, teamId);
+
   for (const rate of Object.values(rates)) {
-    const logoUrl = rate.logoUrl ?? mapBzzoiroTeamLogoUrl(league, rate.teamId);
+    const logoUrl = rate.logoUrl ?? resolveLogo(rate.teamId);
     if (logoUrl) rate.logoUrl = logoUrl;
   }
 
   const withTeamLogo = (team: Team): Team => {
     if (team.logoUrl) return team;
-    const logoUrl = mapBzzoiroTeamLogoUrl(league, team.id);
+    const logoUrl = resolveLogo(team.id);
     return logoUrl ? { ...team, logoUrl } : team;
   };
   const resolvedGames: GameDTO[] = games.map((g) => ({
@@ -356,18 +364,26 @@ export function buildFootballSnapshot(params: {
 
   const standings = seasonGames
     ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs).map((row) => {
-        const logoUrl = row.logoUrl ?? mapBzzoiroTeamLogoUrl(league, row.teamId);
+        const logoUrl = row.logoUrl ?? resolveLogo(row.teamId);
         return logoUrl ? { ...row, logoUrl } : row;
       })
     : [];
 
   const analyses: Record<string, GameAnalysis> = {};
-  const contextRows: ContextRow[] = [
+  const contextSeen = new Set<string>();
+  const contextRows: ContextRow[] = [];
+  for (const row of [
     ...(history ?? [])
       .filter((m) => m.date < seasonStart)
       .map((m) => ({ date: m.date, home: m.home, away: m.away, homeGoals: m.homeGoals, awayGoals: m.awayGoals })),
     ...seasonRows,
-  ];
+  ]) {
+    const k = `${row.date}|${row.home}|${row.away}`;
+    if (!contextSeen.has(k)) {
+      contextSeen.add(k);
+      contextRows.push(row);
+    }
+  }
 
   const analyze = (game: GameDTO, publishedAt: string): GameAnalysis =>
     footballModel
@@ -383,7 +399,12 @@ export function buildFootballSnapshot(params: {
           recentResults: seasonRows,
           standings,
           outcomeBlend: ratings
-            ? { ...ratings.predict(game.home.id, game.away.id), weight: historyBlendWeight }
+            ? {
+                ...ratings.predict(game.home.id, game.away.id, {
+                  neutralSite: game.neutralSite,
+                }),
+                weight: historyBlendWeight,
+              }
             : undefined,
         })
       : analyzeFootballGame({
@@ -429,11 +450,12 @@ export function buildFootballSnapshot(params: {
     );
   }
 
-  const leagueLogoUrl = mapBzzoiroLeagueLogoUrl(league);
+  const leagueLogoUrl =
+    mapBzzoiroLeagueLogoUrl(league) ?? getOfficialEspnLeagueLogoUrl(league);
 
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
-    league: asLeagueId(league),
+    league: asLeagueId(league as LeagueId),
     ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(seasonId),
     seasonLabel,

@@ -15,6 +15,7 @@ import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
 import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
+import { buildDerivedFootballFallbackRows } from "./outlook-derived-rows";
 import {
   createDb,
   eq,
@@ -220,7 +221,14 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
       row.market === "fouls_total" ||
       row.market === "yellow_total",
   );
-  const markets = v32 ? [...v32.markets, ...countMarkets] : game.markets;
+  const derivedFallbackRows =
+    !v32 && game.status !== "FT" && game.sport === "football"
+      ? buildDerivedFootballFallbackRows(
+          game,
+          !game.markets.some((row) => row.market === "correct_score"),
+        )
+      : [];
+  const markets = v32 ? [...v32.markets, ...countMarkets] : [...game.markets, ...derivedFallbackRows];
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
   return {

@@ -1,6 +1,7 @@
 export * from "./ids";
 export * from "./data-state";
 export * from "./sports/index";
+export * from "./sports/national-teams";
 export * from "./odds";
 export * from "./analysis";
 export * from "./market-pulse";

@@ -2,10 +2,10 @@
  * Lógica pura del Inicio del Club: días, deportes, ligas, agrupación y picks destacados.
  * Sin React ni estado, para probarla aparte de la vista.
  */
-import type { LeagueId } from "@pitchlab/contracts";
+import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
 import type { MatchPick, PlatformGame } from "../../types";
 
-export type SportId = "futbol" | "nfl" | "nba" | "nhl";
+export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl";
 export const ALL = "all" as const;
 export type SportFilter = SportId | typeof ALL;
 export type LeagueFilter = LeagueId | typeof ALL;
@@ -18,12 +18,13 @@ export const UPCOMING_WINDOW_DAYS = 7;
 
 export const SPORTS: ReadonlyArray<{ id: SportId; label: string; shortLabel: string }> = [
   { id: "futbol", label: "Fútbol", shortLabel: "Fútbol" },
+  { id: "selecciones", label: "Selecciones", shortLabel: "Selecciones" },
   { id: "nfl", label: "Fútbol americano", shortLabel: "NFL" },
   { id: "nba", label: "Basquetbol", shortLabel: "NBA" },
   { id: "nhl", label: "Hockey", shortLabel: "NHL" },
 ];
 
-/** Orden fijo de ligas: México primero, luego Europa y después EE. UU. / Canadá. */
+/** Orden fijo de ligas y competencias: México y clubes top primero, luego selecciones y EE. UU. / Canadá. */
 const LEAGUE_ORDER: readonly string[] = [
   "liga-mx",
   "premier-league",
@@ -31,6 +32,14 @@ const LEAGUE_ORDER: readonly string[] = [
   "bundesliga",
   "serie-a",
   "ligue-1",
+  "concacaf-nations",
+  "uefa-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
   "nfl",
   "nba",
   "nhl",
@@ -41,6 +50,15 @@ export function sportOf(game: Pick<PlatformGame, "sport">): SportId {
   if (game.sport === "basketball") return "nba";
   if (game.sport === "ice-hockey") return "nhl";
   return "futbol";
+}
+
+export function matchesSportFilter(
+  game: Pick<PlatformGame, "sport" | "league">,
+  sport: SportFilter,
+): boolean {
+  if (sport === ALL) return true;
+  if (sport === "selecciones") return isNationalCompetition(game.league);
+  return sportOf(game) === sport;
 }
 
 export function leagueRank(league: string): number {
@@ -90,12 +108,37 @@ const MONTHS = [
   "diciembre",
 ];
 
+const SHORT_MONTHS_ES = [
+  "ene",
+  "feb",
+  "mar",
+  "abr",
+  "may",
+  "jun",
+  "jul",
+  "ago",
+  "sep",
+  "oct",
+  "nov",
+  "dic",
+] as const;
+
 export function shortWeekday(dayId: string): string {
   return WEEKDAY_SHORT[dateOf(dayId).getUTCDay()] ?? "";
 }
 
 export function dayNumber(dayId: string): number {
   return dateOf(dayId).getUTCDate();
+}
+
+/** «lun 16 nov» o «sáb 21 nov». */
+export function shortDateLabel(dayId: string): string {
+  if (!dayId || dayId.length < 10) return dayId;
+  const d = dateOf(dayId);
+  if (Number.isNaN(d.getTime())) return dayId;
+  const wd = (WEEKDAY_SHORT[d.getUTCDay()] ?? "").toLowerCase();
+  const mon = SHORT_MONTHS_ES[d.getUTCMonth()] ?? "";
+  return `${wd} ${d.getUTCDate()} ${mon}`.trim();
 }
 
 /** «Sábado 21 de noviembre». */
@@ -170,7 +213,7 @@ export function filterGames(
   league: LeagueFilter,
 ): PlatformGame[] {
   return games.filter(
-    (g) => (sport === ALL || sportOf(g) === sport) && (league === ALL || g.league === league),
+    (g) => matchesSportFilter(g, sport) && (league === ALL || g.league === league),
   );
 }
 

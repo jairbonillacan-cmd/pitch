@@ -7,6 +7,7 @@ import { isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
 import {
   longDayLabel,
   mostLikelyOutcome,
+  shortDateLabel,
   type DayMatchGroup,
 } from "../club/home/home-model";
 import {
@@ -131,7 +132,7 @@ export const MatchListRow = React.memo(function MatchListRow({
       >
         <div className="pl-mlist-time num">
           <span className="pl-mlist-clock">
-            {isFinished ? "Final" : game.kickoffLocal}
+            {shortDateLabel(game.dayId)} · {isFinished ? "Final" : game.kickoffLocal}
           </span>
           <span className="pl-mlist-round">{game.round}</span>
           {!isFinished ? <ConfidenceChip game={game} /> : null}
@@ -220,7 +221,7 @@ export const MatchListRow = React.memo(function MatchListRow({
             <span className="pl-mlist-chip is-goals" data-goal-line="">
               {goalHint}
             </span>
-          ) : !isFinished && !intelUnlocked ? (
+          ) : !isFinished && !intelUnlocked && hasForecast ? (
             <span className="pl-mlist-chip is-locked">
               <MaestroIcon name="lock" size={12} />
               <span>Línea Pase Ultra</span>
@@ -236,7 +237,7 @@ export const MatchListRow = React.memo(function MatchListRow({
         <div className="pl-mlist-actions">
           {!isFinished && mainPick && mainUnlocked ? (
             <ParlayPickButton pick={mainPick} matchLabel={matchLabel} />
-          ) : !isFinished && !mainUnlocked ? (
+          ) : !isFinished && mainPick && !mainUnlocked ? (
             <a
               href={upgradeHref}
               onClick={(e) => {

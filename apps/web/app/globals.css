@@ -222,12 +222,15 @@
    PitchLab · D1 · proto.css (temas, tipografía, componentes y movimiento)
    ========================================================================== */
 
-/* ---------- Scrollbars de marca ---------- */
+/* ---------- Scrollbars de marca (contraste >= 3:1 y respaldo legacy aislado) ---------- */
 html {
-  /* Barra de desplazamiento neutra: carril del color del fondo (negro en oscuro) y pulgar gris. */
-  --pl-scroll-track: black;
-  --pl-scroll-thumb: color-mix(in srgb, var(--text-primary) 20%, black);
-  --pl-scroll-thumb-hover: color-mix(in srgb, var(--text-primary) 36%, black);
+  --pl-scroll-track: color-mix(in srgb, var(--pl-stage-subtle) 65%, var(--pl-stage-bg));
+  --pl-scroll-thumb: color-mix(
+    in srgb,
+    var(--pl-brand) 34%,
+    color-mix(in srgb, var(--pl-text-muted) 48%, var(--pl-stage-bg))
+  );
+  --pl-scroll-thumb-hover: color-mix(in srgb, var(--pl-brand) 48%, var(--pl-text-muted));
   scrollbar-width: thin;
   scrollbar-color: var(--pl-scroll-thumb) var(--pl-scroll-track);
   -webkit-text-size-adjust: 100%;
@@ -235,27 +238,41 @@ html {
   overflow-x: clip;
 }
 html[data-theme="light"] {
-  --pl-scroll-track: var(--background-primary);
-  --pl-scroll-thumb: color-mix(in srgb, var(--text-primary) 25%, var(--background-primary));
-  --pl-scroll-thumb-hover: color-mix(in srgb, var(--text-primary) 40%, var(--background-primary));
+  --pl-scroll-track: var(--pl-stage-bg);
+  --pl-scroll-thumb: color-mix(
+    in srgb,
+    var(--pl-brand) 32%,
+    color-mix(in srgb, var(--pl-text-muted) 64%, var(--pl-stage-bg))
+  );
+  --pl-scroll-thumb-hover: color-mix(in srgb, var(--pl-brand) 46%, var(--pl-text-muted));
 }
-::-webkit-scrollbar {
-  width: 10px;
-  height: 8px;
+@media (prefers-contrast: more) {
+  html {
+    --pl-scroll-track: var(--pl-stage-bg);
+    --pl-scroll-thumb: var(--pl-text);
+    --pl-scroll-thumb-hover: var(--pl-brand);
+  }
 }
-::-webkit-scrollbar-track {
-  background: var(--pl-scroll-track);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--pl-scroll-thumb);
-  border-radius: 999px;
-  border: 2px solid var(--pl-scroll-track);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--pl-scroll-thumb-hover);
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--pl-scroll-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--pl-scroll-thumb);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--pl-scroll-thumb-hover);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 /* ---------- Base ---------- */

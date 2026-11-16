@@ -707,7 +707,9 @@ describe("Parlay oficial del día y generador personal (Punto 4)", () => {
     expect(cardHtml).toContain("Más probable");
     expect(cardHtml).toContain("JAX -7.5");
     expect(cardHtml).toContain("Momio justo combinado");
-    expect(cardHtml).toContain("Compartir tarjeta");
+    expect(cardHtml).toContain("Cargar a mi parlay");
+    expect(cardHtml).toContain("Abrir en armador");
+    expect(cardHtml).not.toContain("Compartir tarjeta");
     expect(cardHtml).not.toContain("En casa");
 
     // ShareTicketModal renderiza lista multi-pata para tarjeta oficial y sella picks individuales pre-kickoff

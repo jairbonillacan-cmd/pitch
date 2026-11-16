@@ -291,7 +291,7 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(friHtml).toContain("vie 20");
   });
 
-  it("renderiza HomeMatchCard en rejilla con estado en vivo y sin marca de agua diagonal", () => {
+  it("renderiza bloques de liga y filas de partido con estado en vivo y sin marca de agua diagonal", () => {
     const html = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <HomeClubView
@@ -309,10 +309,10 @@ describe("Encabezado unificado de filtros en Inicio", () => {
       </PlatformProvider>,
     );
 
-    expect(html).toContain('class="pl-home-grid"');
+    expect(html).toContain("pl-astro-league-block");
     expect(html).toContain('data-game-card="nfl-live"');
     expect(html).toContain("pl-home-card-live");
-    expect(html).toContain("Vivo · Q3&#x27;");
+    expect(html).toContain("Q3&#x27;");
     expect(html).toContain("en vivo");
     expect(html).toContain("data-card-open");
     expect(html).not.toContain("pl-club-watermark");

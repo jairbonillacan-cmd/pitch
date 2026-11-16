@@ -73,7 +73,7 @@ const SOCCER_PROFILE: TeamProfileData = {
     metrics: [
       { id: "adj-for", label: "Ataque ajustado", value: "1.98 goles/p", detail: "Crudo: 1.94 goles/p", tone: "positive" },
       { id: "adj-against", label: "Defensa ajustada", value: "1.02 goles/p", detail: "Crudo concedido: 1.06/p", tone: "positive" },
-      { id: "elo", label: "Índice de fuerza Elo", value: "1,712 pts", detail: "Fuerza relativa de club", tone: "brand" },
+      { id: "strength", label: "Índice de fuerza", value: "1,712 pts", detail: "Fuerza relativa de club", tone: "brand" },
       { id: "xg-for", label: "Goles esperados (xG)", value: "28.4", detail: "Sin penales: 24.9", tone: "positive" },
       { id: "xg-against", label: "xG concedidos", value: "16.2", detail: "Sin penales: 14.8" },
       { id: "xpts", label: "Puntos esperados (xPts)", value: "30.8", detail: "Diferencia vs tabla: +2.2" },

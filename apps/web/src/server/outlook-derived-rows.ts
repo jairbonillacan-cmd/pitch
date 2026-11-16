@@ -128,164 +128,162 @@ function makeDerivedRow(input: {
   };
 }
 
-/**
- * Construye los mercados derivados adicionales (fútbol y NFL) desde el `MatchOutlook` v3.2.
- * Mantiene lenguaje simple en español de México y evita cualquier jerga interna del modelo.
- */
-export function buildDerivedOutlookExtras(
-  outlook: MatchOutlook,
-  game: TeamNamesWithProjection,
-): {
+function buildFootballDerivedRows(params: {
+  readonly homeName: string;
+  readonly awayName: string;
+  readonly lamHome: number;
+  readonly lamAway: number;
+  readonly rho?: number;
+  readonly maxGoals?: number;
+  readonly includeScorelines?: boolean;
+}): {
   readonly rows: PlatformMarketRow[];
   readonly scorelines: MatchOutlookSummary["scorelines"];
 } {
-  const homeName = game.home.name;
-  const awayName = game.away.name;
+  const { homeName, awayName, includeScorelines = true } = params;
+  const derived = deriveFootballExtraMarkets({
+    homeTeam: homeName,
+    awayTeam: awayName,
+    lamHome: params.lamHome,
+    lamAway: params.lamAway,
+    ...(params.rho !== undefined ? { rho: params.rho } : {}),
+    ...(params.maxGoals !== undefined ? { maxGoals: params.maxGoals } : {}),
+  });
 
-  if (outlook.sport === "football" && outlook.dixonColesParams) {
-    const dc = outlook.dixonColesParams;
-    const derived = deriveFootballExtraMarkets({
-      homeTeam: homeName,
-      awayTeam: awayName,
-      lamHome: dc.lamHome,
-      lamAway: dc.lamAway,
-      rho: dc.rho,
-      maxGoals: dc.maxGoals,
-    });
+  const rows: PlatformMarketRow[] = [];
 
-    const rows: PlatformMarketRow[] = [];
-
-    for (const line of derived.homeTeamGoals) {
-      const cardTitle = `Goles ${homeName} (${line.line})`;
-      const group = `Goles · ${homeName}`;
-      rows.push(
-        makeDerivedRow({
-          group,
-          market: "team_goals_home",
-          selection: `home_over_${line.line}`,
-          label: `${homeName} · Más de ${line.line} goles`,
-          p: line.pOver,
-          fairDecimal: line.fairOver.decimal,
-          fairAmerican: line.fairOver.american,
-          cardCategory: "goles",
-          cardTitle,
-          isMostLikely: line.mostLikely === "over",
-        }),
-        makeDerivedRow({
-          group,
-          market: "team_goals_home",
-          selection: `home_under_${line.line}`,
-          label: `${homeName} · Menos de ${line.line} goles`,
-          p: line.pUnder,
-          fairDecimal: line.fairUnder.decimal,
-          fairAmerican: line.fairUnder.american,
-          cardCategory: "goles",
-          cardTitle,
-          isMostLikely: line.mostLikely === "under",
-        }),
-      );
-    }
-
-    for (const line of derived.awayTeamGoals) {
-      const cardTitle = `Goles ${awayName} (${line.line})`;
-      const group = `Goles · ${awayName}`;
-      rows.push(
-        makeDerivedRow({
-          group,
-          market: "team_goals_away",
-          selection: `away_over_${line.line}`,
-          label: `${awayName} · Más de ${line.line} goles`,
-          p: line.pOver,
-          fairDecimal: line.fairOver.decimal,
-          fairAmerican: line.fairOver.american,
-          cardCategory: "goles",
-          cardTitle,
-          isMostLikely: line.mostLikely === "over",
-        }),
-        makeDerivedRow({
-          group,
-          market: "team_goals_away",
-          selection: `away_under_${line.line}`,
-          label: `${awayName} · Menos de ${line.line} goles`,
-          p: line.pUnder,
-          fairDecimal: line.fairUnder.decimal,
-          fairAmerican: line.fairUnder.american,
-          cardCategory: "goles",
-          cardTitle,
-          isMostLikely: line.mostLikely === "under",
-        }),
-      );
-    }
-
+  for (const line of derived.homeTeamGoals) {
+    const cardTitle = `Goles ${homeName} (${line.line})`;
+    const group = `Goles · ${homeName}`;
     rows.push(
       makeDerivedRow({
-        group: "1er tiempo · Resultado",
-        market: "ht_1x2",
-        selection: "ht_home",
-        label: `1T · Gana ${homeName}`,
-        p: derived.firstHalf1X2.pHome,
-        fairDecimal: derived.firstHalf1X2.fairHome.decimal,
-        fairAmerican: derived.firstHalf1X2.fairHome.american,
-        cardCategory: "primer_tiempo",
-        cardTitle: "1er tiempo · Resultado 1X2",
-        isMostLikely: derived.firstHalf1X2.mostLikely === "home",
+        group,
+        market: "team_goals_home",
+        selection: `home_over_${line.line}`,
+        label: `${homeName} · Más de ${line.line} goles`,
+        p: line.pOver,
+        fairDecimal: line.fairOver.decimal,
+        fairAmerican: line.fairOver.american,
+        cardCategory: "goles",
+        cardTitle,
+        isMostLikely: line.mostLikely === "over",
       }),
       makeDerivedRow({
-        group: "1er tiempo · Resultado",
-        market: "ht_1x2",
-        selection: "ht_draw",
-        label: "1T · Empate",
-        p: derived.firstHalf1X2.pDraw,
-        fairDecimal: derived.firstHalf1X2.fairDraw.decimal,
-        fairAmerican: derived.firstHalf1X2.fairDraw.american,
-        cardCategory: "primer_tiempo",
-        cardTitle: "1er tiempo · Resultado 1X2",
-        isMostLikely: derived.firstHalf1X2.mostLikely === "draw",
-      }),
-      makeDerivedRow({
-        group: "1er tiempo · Resultado",
-        market: "ht_1x2",
-        selection: "ht_away",
-        label: `1T · Gana ${awayName}`,
-        p: derived.firstHalf1X2.pAway,
-        fairDecimal: derived.firstHalf1X2.fairAway.decimal,
-        fairAmerican: derived.firstHalf1X2.fairAway.american,
-        cardCategory: "primer_tiempo",
-        cardTitle: "1er tiempo · Resultado 1X2",
-        isMostLikely: derived.firstHalf1X2.mostLikely === "away",
+        group,
+        market: "team_goals_home",
+        selection: `home_under_${line.line}`,
+        label: `${homeName} · Menos de ${line.line} goles`,
+        p: line.pUnder,
+        fairDecimal: line.fairUnder.decimal,
+        fairAmerican: line.fairUnder.american,
+        cardCategory: "goles",
+        cardTitle,
+        isMostLikely: line.mostLikely === "under",
       }),
     );
+  }
 
-    for (const line of derived.firstHalfTotals) {
-      const cardTitle = `1er tiempo · Total (${line.line})`;
-      rows.push(
-        makeDerivedRow({
-          group: "1er tiempo · Goles",
-          market: "ht_totals",
-          selection: `ht_over_${line.line}`,
-          label: `1T · Más de ${line.line} goles`,
-          p: line.pOver,
-          fairDecimal: line.fairOver.decimal,
-          fairAmerican: line.fairOver.american,
-          cardCategory: "primer_tiempo",
-          cardTitle,
-          isMostLikely: line.mostLikely === "over",
-        }),
-        makeDerivedRow({
-          group: "1er tiempo · Goles",
-          market: "ht_totals",
-          selection: `ht_under_${line.line}`,
-          label: `1T · Menos de ${line.line} goles`,
-          p: line.pUnder,
-          fairDecimal: line.fairUnder.decimal,
-          fairAmerican: line.fairUnder.american,
-          cardCategory: "primer_tiempo",
-          cardTitle,
-          isMostLikely: line.mostLikely === "under",
-        }),
-      );
-    }
+  for (const line of derived.awayTeamGoals) {
+    const cardTitle = `Goles ${awayName} (${line.line})`;
+    const group = `Goles · ${awayName}`;
+    rows.push(
+      makeDerivedRow({
+        group,
+        market: "team_goals_away",
+        selection: `away_over_${line.line}`,
+        label: `${awayName} · Más de ${line.line} goles`,
+        p: line.pOver,
+        fairDecimal: line.fairOver.decimal,
+        fairAmerican: line.fairOver.american,
+        cardCategory: "goles",
+        cardTitle,
+        isMostLikely: line.mostLikely === "over",
+      }),
+      makeDerivedRow({
+        group,
+        market: "team_goals_away",
+        selection: `away_under_${line.line}`,
+        label: `${awayName} · Menos de ${line.line} goles`,
+        p: line.pUnder,
+        fairDecimal: line.fairUnder.decimal,
+        fairAmerican: line.fairUnder.american,
+        cardCategory: "goles",
+        cardTitle,
+        isMostLikely: line.mostLikely === "under",
+      }),
+    );
+  }
 
+  rows.push(
+    makeDerivedRow({
+      group: "1er tiempo · Resultado",
+      market: "ht_1x2",
+      selection: "ht_home",
+      label: `1T · Gana ${homeName}`,
+      p: derived.firstHalf1X2.pHome,
+      fairDecimal: derived.firstHalf1X2.fairHome.decimal,
+      fairAmerican: derived.firstHalf1X2.fairHome.american,
+      cardCategory: "primer_tiempo",
+      cardTitle: "1er tiempo · Resultado 1X2",
+      isMostLikely: derived.firstHalf1X2.mostLikely === "home",
+    }),
+    makeDerivedRow({
+      group: "1er tiempo · Resultado",
+      market: "ht_1x2",
+      selection: "ht_draw",
+      label: "1T · Empate",
+      p: derived.firstHalf1X2.pDraw,
+      fairDecimal: derived.firstHalf1X2.fairDraw.decimal,
+      fairAmerican: derived.firstHalf1X2.fairDraw.american,
+      cardCategory: "primer_tiempo",
+      cardTitle: "1er tiempo · Resultado 1X2",
+      isMostLikely: derived.firstHalf1X2.mostLikely === "draw",
+    }),
+    makeDerivedRow({
+      group: "1er tiempo · Resultado",
+      market: "ht_1x2",
+      selection: "ht_away",
+      label: `1T · Gana ${awayName}`,
+      p: derived.firstHalf1X2.pAway,
+      fairDecimal: derived.firstHalf1X2.fairAway.decimal,
+      fairAmerican: derived.firstHalf1X2.fairAway.american,
+      cardCategory: "primer_tiempo",
+      cardTitle: "1er tiempo · Resultado 1X2",
+      isMostLikely: derived.firstHalf1X2.mostLikely === "away",
+    }),
+  );
+
+  for (const line of derived.firstHalfTotals) {
+    const cardTitle = `1er tiempo · Total (${line.line})`;
+    rows.push(
+      makeDerivedRow({
+        group: "1er tiempo · Goles",
+        market: "ht_totals",
+        selection: `ht_over_${line.line}`,
+        label: `1T · Más de ${line.line} goles`,
+        p: line.pOver,
+        fairDecimal: line.fairOver.decimal,
+        fairAmerican: line.fairOver.american,
+        cardCategory: "primer_tiempo",
+        cardTitle,
+        isMostLikely: line.mostLikely === "over",
+      }),
+      makeDerivedRow({
+        group: "1er tiempo · Goles",
+        market: "ht_totals",
+        selection: `ht_under_${line.line}`,
+        label: `1T · Menos de ${line.line} goles`,
+        p: line.pUnder,
+        fairDecimal: line.fairUnder.decimal,
+        fairAmerican: line.fairUnder.american,
+        cardCategory: "primer_tiempo",
+        cardTitle,
+        isMostLikely: line.mostLikely === "under",
+      }),
+    );
+  }
+
+  if (includeScorelines) {
     for (const score of derived.topScorelines) {
       rows.push(
         makeDerivedRow({
@@ -302,16 +300,73 @@ export function buildDerivedOutlookExtras(
         }),
       );
     }
+  }
 
-    return {
-      rows,
-      scorelines: derived.topScorelines.map((s) => ({
-        home: s.homeGoals,
-        away: s.awayGoals,
-        p: s.p,
-        fairDecimal: s.fairOdds.decimal,
-      })),
-    };
+  return {
+    rows,
+    scorelines: derived.topScorelines.map((s) => ({
+      home: s.homeGoals,
+      away: s.awayGoals,
+      p: s.p,
+      fairDecimal: s.fairOdds.decimal,
+    })),
+  };
+}
+
+/**
+ * Deriva mercados adicionales de fútbol desde la proyección del snapshot cuando no existe entrada
+ * en `live_matchday_v3_snapshot` (por ejemplo competencias de selecciones internacionales).
+ */
+export function buildDerivedFootballFallbackRows(
+  game: TeamNamesWithProjection,
+  includeScorelines = false,
+): PlatformMarketRow[] {
+  const lamHome = game.projection?.home;
+  const lamAway = game.projection?.away;
+  if (
+    typeof lamHome !== "number" ||
+    typeof lamAway !== "number" ||
+    !Number.isFinite(lamHome) ||
+    !Number.isFinite(lamAway) ||
+    lamHome <= 0 ||
+    lamAway <= 0
+  ) {
+    return [];
+  }
+  return buildFootballDerivedRows({
+    homeName: game.home.name,
+    awayName: game.away.name,
+    lamHome,
+    lamAway,
+    includeScorelines,
+  }).rows;
+}
+
+/**
+ * Construye los mercados derivados adicionales (fútbol y NFL) desde el `MatchOutlook` v3.2.
+ * Mantiene lenguaje simple en español de México y evita cualquier jerga interna del modelo.
+ */
+export function buildDerivedOutlookExtras(
+  outlook: MatchOutlook,
+  game: TeamNamesWithProjection,
+): {
+  readonly rows: PlatformMarketRow[];
+  readonly scorelines: MatchOutlookSummary["scorelines"];
+} {
+  const homeName = game.home.name;
+  const awayName = game.away.name;
+
+  if (outlook.sport === "football" && outlook.dixonColesParams) {
+    const dc = outlook.dixonColesParams;
+    return buildFootballDerivedRows({
+      homeName,
+      awayName,
+      lamHome: dc.lamHome,
+      lamAway: dc.lamAway,
+      rho: dc.rho,
+      maxGoals: dc.maxGoals,
+      includeScorelines: true,
+    });
   }
 
   if (outlook.sport === "nfl") {

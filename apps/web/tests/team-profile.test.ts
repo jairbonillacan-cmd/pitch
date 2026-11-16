@@ -8,7 +8,7 @@ import {
 } from "../src/server/team-profile";
 
 const FORBIDDEN_FD16_RE =
-  /\b(understat|clubelo|fbref|nflverse|openfootball|transfermarkt|bzzoiro|rotowire|moneypuck|basketball-reference|sofascore|fotmob|api-football|polymarket|kalshi|pinnacle|caliente|poisson|dixon-coles|lightgbm|pitagoras|pitágoras|log5)\b/i;
+  /\b(understat|clubelo|fbref|nflverse|openfootball|transfermarkt|bzzoiro|rotowire|moneypuck|basketball-reference|sofascore|fotmob|api-football|polymarket|kalshi|pinnacle|caliente|poisson|dixon-coles|lightgbm|pitagoras|pitágoras|log5|elo)\b/i;
 
 describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () => {
   it("valida ligas y existencia de equipos reales frente a rutas inválidas", () => {
@@ -73,8 +73,13 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
       expect(upcoming.winProbability).toBeNull();
       expect(upcoming.confidenceLabel).toBeNull();
     }
-    // Resultados finalizados e identidad siguen disponibles con honestidad.
+    // Resultados finalizados e identidad siguen disponibles con honestidad; bajas y datos de sede restringidos sin acceso.
     expect(restricted!.recentMatches.length).toBeGreaterThan(0);
-    expect(restricted!.injuries.length).toBe(full!.injuries.length);
+    expect(restricted!.injuries).toEqual([]);
+    expect(full!.injuries.length).toBeGreaterThanOrEqual(0);
+    if (restricted!.venue) {
+      expect(restricted!.venue.elevationM).toBeNull();
+      expect(restricted!.venue.roofType).toBeNull();
+    }
   });
 });

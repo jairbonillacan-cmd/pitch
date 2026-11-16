@@ -55,9 +55,9 @@ export function useMatchUrlTab(
 }
 
 /**
- * Barra de 3 pestañas accesibles de la ficha («Resumen», «Números», «Contexto»).
+ * Barra de 5 pestañas accesibles de la ficha («Resumen», «Análisis IA», «Números», «¿Dónde está el dinero?», «Contexto»).
  * Usa selección por activación para no reescribir la URL al recorrerlas con flechas,
- * evita `aria-controls` y mantiene las 3 pestañas en una sola fila desplazable en móvil.
+ * evita `aria-controls` y mantiene las 5 pestañas en una sola fila desplazable en móvil.
  */
 export function MatchTabs({
   idPrefix,
@@ -81,7 +81,10 @@ export function MatchTabs({
   useEffect(() => {
     const idx = tabs.findIndex((t) => t.key === active);
     if (idx >= 0) setFocusedIndex(idx);
-  }, [active, tabs]);
+    // Solo resincronizar el foco roving cuando cambia la pestaña activa; evitar
+    // depender de la referencia de `tabs` que cambia en cada render del padre.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   const moveFocus = (nextIdx: number) => {
     setFocusedIndex(nextIdx);
@@ -144,8 +147,9 @@ export function MatchTabs({
             aria-selected={isSelected}
             tabIndex={isFocusable ? 0 : -1}
             onFocus={() => setFocusedIndex(index)}
-            onClick={() => {
+            onClick={(e) => {
               setFocusedIndex(index);
+              e.currentTarget.scrollIntoView?.({ block: "nearest", inline: "nearest" });
               onSelect(tab.key);
             }}
             onKeyDown={(e) => handleKeyDown(e, index)}

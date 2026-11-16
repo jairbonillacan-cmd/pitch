@@ -27,9 +27,28 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   nfl: "NFL",
   nba: "NBA",
   nhl: "NHL",
+  "concacaf-nations": "Concacaf Nations League",
+  "uefa-nations": "UEFA Nations League",
+  amistosos: "Amistosos FIFA",
+  "copa-del-mundo": "Copa del Mundo FIFA",
+  eliminatorias: "Eliminatorias Mundialistas",
+  "copa-america": "Copa América",
+  eurocopa: "Eurocopa UEFA",
+  "copa-oro": "Copa Oro Concacaf",
 };
 
-const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>(["nba", "nhl"]);
+const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>([
+  "nba",
+  "nhl",
+  "concacaf-nations",
+  "uefa-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
+]);
 
 const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   nfl: "nfl",
@@ -41,6 +60,14 @@ const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   "liga-mx": "liga-mx",
   nba: "nba",
   nhl: "nhl",
+  "concacaf-nations": "concacaf-nations",
+  "uefa-nations": "uefa-nations",
+  amistosos: "amistosos",
+  "copa-del-mundo": "copa-del-mundo",
+  eliminatorias: "eliminatorias",
+  "copa-america": "copa-america",
+  eurocopa: "eurocopa",
+  "copa-oro": "copa-oro",
 };
 
 function resolveRepoRoot(): string {

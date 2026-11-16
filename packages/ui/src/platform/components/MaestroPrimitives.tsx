@@ -51,10 +51,18 @@ export type MaestroIconName =
   | "chevronDown"
   | "dots"
   | "flag"
-  | "pin";
+  | "pin"
+  | "globe";
 
 function renderIconGeometry(name: MaestroIconName): React.ReactNode {
   switch (name) {
+    case "globe":
+      return (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </>
+      );
     case "pin":
       return (
         <>

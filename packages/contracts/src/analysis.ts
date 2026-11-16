@@ -9,7 +9,7 @@ import {
   type MarketKey,
   type SeasonId,
 } from "./ids";
-import { GameDTOSchema, type GameDTO } from "./sports/index";
+import { GameDTOSchema, LogoUrlSchema, type GameDTO } from "./sports/index";
 
 export interface MarketProbability {
   market: MarketKey;
@@ -357,7 +357,7 @@ export const TeamSeasonRateSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
-  logoUrl: z.string().url().optional(),
+  logoUrl: LogoUrlSchema.optional(),
   forPerGame: z.number().nonnegative(),
   againstPerGame: z.number().nonnegative(),
   gamesPlayed: z.number().int().nonnegative(),
@@ -370,7 +370,7 @@ export const StandingRowSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
-  logoUrl: z.string().url().optional(),
+  logoUrl: LogoUrlSchema.optional(),
   played: z.number().int().nonnegative(),
   won: z.number().int().nonnegative(),
   drawn: z.number().int().nonnegative(),
@@ -383,7 +383,7 @@ export const StandingRowSchema = z.object({
 export const LeagueSnapshotSchema = z.object({
   schemaVersion: z.literal(1),
   league: LeagueIdSchema,
-  logoUrl: z.string().url().optional(),
+  logoUrl: LogoUrlSchema.optional(),
   season: SeasonIdSchema,
   seasonLabel: z.string().min(1),
   periodLabel: z.string().min(1),

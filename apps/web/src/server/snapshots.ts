@@ -22,6 +22,8 @@ import {
 import {
   getBzzoiroLeagueEmblemUrl,
   getBzzoiroTeamEmblemUrl,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
 } from "@pitchlab/sports-assets";
 
 export interface ClientLeagueSnapshot {
@@ -62,7 +64,7 @@ export function resolveSnapshotsRoot(): string {
   return candidates[1] ?? candidates[0]!;
 }
 
-/** Ligas con producto en la beta (las que tienen snapshot propio). */
+/** Ligas y competencias con producto en la beta (las que tienen snapshot propio). */
 export const PRODUCT_LEAGUES = [
   "liga-mx",
   "premier-league",
@@ -73,6 +75,14 @@ export const PRODUCT_LEAGUES = [
   "nfl",
   "nba",
   "nhl",
+  "concacaf-nations",
+  "uefa-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
 ] as const;
 
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
@@ -156,6 +166,14 @@ export const LEAGUE_LABELS: Record<ProductLeague, string> = {
   nfl: "NFL",
   nba: "NBA",
   nhl: "NHL",
+  "concacaf-nations": "Concacaf Nations League",
+  "uefa-nations": "UEFA Nations League",
+  amistosos: "Amistosos FIFA",
+  "copa-del-mundo": "Copa del Mundo FIFA",
+  eliminatorias: "Eliminatorias Mundialistas",
+  "copa-america": "Copa América",
+  eurocopa: "Eurocopa UEFA",
+  "copa-oro": "Copa Oro Concacaf",
 };
 
 const LEAGUE_SEASONS: Record<ProductLeague, string> = {
@@ -168,6 +186,14 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = {
   nfl: "2026",
   nba: "2026-27",
   nhl: "2026-27",
+  "concacaf-nations": "2026/27",
+  "uefa-nations": "2026/27",
+  amistosos: "2026",
+  "copa-del-mundo": "2026",
+  eliminatorias: "2025–26",
+  "copa-america": "2024",
+  eurocopa: "2024",
+  "copa-oro": "2025",
 };
 
 export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
@@ -220,9 +246,15 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
     const pulses = loadMarketPulse(pulsePath);
     const injuriesByTeam = loadLeagueInjuries(injuriesPath);
     const leagueLogoUrl =
-      parsed.logoUrl ?? getBzzoiroLeagueEmblemUrl(parsed.league) ?? undefined;
+      parsed.logoUrl ??
+      getBzzoiroLeagueEmblemUrl(parsed.league) ??
+      getOfficialEspnLeagueLogoUrl(parsed.league) ??
+      undefined;
     const teamLogo = (slug: string, existing?: string): string | undefined =>
-      existing ?? getBzzoiroTeamEmblemUrl(parsed.league, slug) ?? undefined;
+      existing ??
+      getBzzoiroTeamEmblemUrl(parsed.league, slug) ??
+      getOfficialEspnTeamLogoUrl(parsed.league, slug) ??
+      undefined;
     const standingsWithLogos = parsed.standings?.map((row) => {
       const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
       const logoUrl = teamLogo(slug, row.logoUrl);

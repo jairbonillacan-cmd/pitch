@@ -396,6 +396,14 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
     nfl: "NFL",
     nba: "NBA",
     nhl: "NHL",
+    "concacaf-nations": "Concacaf Nations League",
+    "uefa-nations": "UEFA Nations League",
+    amistosos: "Amistosos FIFA",
+    "copa-del-mundo": "Copa del Mundo FIFA",
+    eliminatorias: "Eliminatorias Mundialistas",
+    "copa-america": "Copa América",
+    eurocopa: "Eurocopa UEFA",
+    "copa-oro": "Copa Oro Concacaf",
   };
   const leagueLabel = LEAGUE_NAMES[snapshot.league] ?? snapshot.league;
 

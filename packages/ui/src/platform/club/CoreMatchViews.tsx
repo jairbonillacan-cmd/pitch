@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
-  formatOddsCaptureEs,
+  isNationalCompetition,
   sportHasDraw,
   sportScoringUnit,
   type LeagueId,
@@ -10,7 +10,6 @@ import {
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   LeagueBadge,
-  PBar,
   ProbSplit,
   TeamBadge,
   parseUserOdds,
@@ -33,6 +32,7 @@ import { ConfidenceChip } from "../components/ConfidenceChip";
 import { groupMatchesByDayAndLeague } from "./home/home-model";
 import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
 import { MatchContextPanel } from "./match/MatchContextPanel";
+import { MatchMoneyPanel } from "./match/MatchMoneyPanel";
 import { MatchNumbersPanel } from "./match/MatchNumbersPanel";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
@@ -42,6 +42,7 @@ import {
 } from "./match/sport-outlook";
 import { FollowControl, LiveMatchPanel } from "../live/LiveMatchCenter";
 import { PicksFinderClubView } from "./PicksFinderView";
+import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -65,13 +66,149 @@ import {
   shareSocialPost,
 } from "./SocialPostCard";
 import type {
+  LeagueNewsArticleSummary,
+  LeagueNewsCategory,
+  LeagueNewsItem,
   MatchPick,
   MatchTabKey,
+  PlatformDataset,
   PlatformGame,
   PlatformGameDetail,
+  PlatformLeagueSummary,
   PlatformMarketRow,
   RiskBand,
+  ViewerRole,
 } from "../types";
+import { shortDateLabel } from "./home/home-model";
+
+export type LeagueHubSectionKey = "partidos" | "tabla" | "noticias" | "equipos";
+
+const LEAGUE_SECTIONS: ReadonlyArray<{ key: LeagueHubSectionKey; label: string }> = [
+  { key: "partidos", label: "Partidos" },
+  { key: "tabla", label: "Tabla de posiciones" },
+  { key: "noticias", label: "Noticias" },
+  { key: "equipos", label: "Equipos" },
+];
+
+const NEWS_CATEGORY_FILTERS: ReadonlyArray<{
+  key: LeagueNewsCategory | "all";
+  label: string;
+}> = [
+  { key: "all", label: "Todas" },
+  { key: "jornada", label: "Actualidad y tabla" },
+  { key: "lesiones", label: "Parte médico" },
+  { key: "analisis", label: "Claves y análisis" },
+  { key: "mercado", label: "Mercado" },
+  { key: "resultados", label: "Resultados" },
+];
+
+function normalizeLeagueSection(raw: string | null | undefined): LeagueHubSectionKey {
+  const v = (raw ?? "").trim().toLowerCase();
+  if (v === "tabla" || v === "posiciones" || v === "standings") return "tabla";
+  if (v === "noticias" || v === "news") return "noticias";
+  if (v === "equipos" || v === "selecciones" || v === "teams") return "equipos";
+  return "partidos";
+}
+
+function buildFallbackLeagueNews(
+  leagueSummary: PlatformLeagueSummary,
+  leagueGames: readonly PlatformGame[],
+  viewerRole: ViewerRole,
+): LeagueNewsItem[] {
+  const items: LeagueNewsItem[] = [];
+  const league = leagueSummary.league;
+
+  if (leagueSummary.standings.length >= 2) {
+    const leader = leagueSummary.standings[0]!;
+    const second = leagueSummary.standings[1]!;
+    const gap = leader.points - second.points;
+    const leaderSlug = leader.teamId.includes(".")
+      ? leader.teamId.split(".").slice(1).join(".")
+      : leader.teamId;
+    items.push({
+      id: `${league}-fb-leader`,
+      category: "jornada",
+      categoryLabel: "Tabla y liderato",
+      title: `${leader.name} lidera ${leagueSummary.label} con ${leader.points} puntos`,
+      summary:
+        gap > 0
+          ? `Suma ${leader.won}G-${leader.drawn}E-${leader.lost}P en ${leader.played} partidos, con +${gap} pts sobre ${second.name}.`
+          : `Comparte la cima en puntos (${leader.points}) junto a ${second.name} en ${leader.played} partidos.`,
+      publishedAtLabel: "Jornada vigente",
+      badge: `1.º · ${leader.points} pts`,
+      team: {
+        slug: leaderSlug,
+        name: leader.name,
+        logoUrl: leader.logoUrl,
+      },
+      href: `/app/${league}/teams/${leaderSlug}`,
+      ctaLabel: `Ver perfil de ${leader.shortName || leader.name}`,
+    });
+  }
+
+  for (const g of leagueGames) {
+    if (items.length >= 8) break;
+    const intelUnlocked = g.status === "FT" || isPreGameIntelUnlocked(g, viewerRole);
+    if (intelUnlocked && g.preGame.absences.length > 0 && g.status !== "FT") {
+      const sample = g.preGame.absences
+        .slice(0, 2)
+        .map((a) => `${a.player} (${a.status}${a.impactNote ? ` · ${a.impactNote}` : ""})`)
+        .join("; ");
+      items.push({
+        id: `${league}-fb-abs-${g.id}`,
+        category: "lesiones",
+        categoryLabel: "Parte médico",
+        title: `Disponibilidad rumbo a ${g.home.shortName} vs ${g.away.shortName}`,
+        summary: sample,
+        publishedAtLabel: `${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
+        badge: `${g.preGame.absences.length} reportes`,
+        team: {
+          slug: g.home.slug,
+          name: g.home.name,
+          logoUrl: g.home.logoUrl,
+        },
+        href: `/app/${league}/games/${g.id}`,
+        ctaLabel: "Ver partido",
+      });
+    } else if (intelUnlocked && g.status !== "FT" && g.preGame.cortexSynthesis) {
+      items.push({
+        id: `${league}-fb-ana-${g.id}`,
+        category: "analisis",
+        categoryLabel: "Claves del modelo",
+        title: `${g.home.name} vs ${g.away.name} (${shortDateLabel(g.dayId)} · ${g.kickoffLocal})`,
+        summary: g.preGame.cortexSynthesis,
+        publishedAtLabel: `${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
+        badge: g.confidenceScore ? `Conf. ${g.confidenceScore}` : g.round,
+        team: {
+          slug: g.home.slug,
+          name: g.home.name,
+          logoUrl: g.home.logoUrl,
+        },
+        href: `/app/${league}/games/${g.id}`,
+        ctaLabel: "Ver análisis y picks",
+      });
+    } else if (g.status === "FT" && g.score) {
+      items.push({
+        id: `${league}-fb-ft-${g.id}`,
+        category: "resultados",
+        categoryLabel: "Resultado verificado FT",
+        title: `${g.home.shortName} ${g.score.home} – ${g.score.away} ${g.away.shortName}`,
+        summary: `Marcador oficial cerrado en ${g.venue || leagueSummary.label}.`,
+        publishedAtLabel: `${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
+        badge: "Final FT",
+        team: {
+          slug: g.score.away > g.score.home ? g.away.slug : g.home.slug,
+          name: g.score.away > g.score.home ? g.away.name : g.home.name,
+          logoUrl: g.score.away > g.score.home ? g.away.logoUrl : g.home.logoUrl,
+        },
+        href: `/app/${league}/games/${g.id}`,
+        ctaLabel: "Ver resultado",
+      });
+    }
+  }
+
+  return items;
+}
 
 /** El Inicio del Club vive en `home/HomeClubView`; se conserva el nombre anterior.
  */
@@ -84,28 +221,94 @@ export function MultiPicksClubView(): React.JSX.Element {
 
 export function LeagueHubClubView({
   leagueId,
+  initialNews,
+  initialSection = "partidos",
 }: {
   leagueId: LeagueId;
+  initialNews?: readonly LeagueNewsItem[];
+  initialSection?: LeagueHubSectionKey;
 }): React.JSX.Element {
-  const { dataset, navigateTo } = usePlatform();
+  const { dataset, viewerRole, navigateTo } = usePlatform();
   const [dayFilter, setDayFilter] = useState<string>("all");
+  const [section, setSection] = useState<LeagueHubSectionKey>(initialSection);
+  const [teamQuery, setTeamQuery] = useState<string>("");
+  const [newsCategory, setNewsCategory] = useState<LeagueNewsCategory | "all">("all");
+  const [selectedNewsItem, setSelectedNewsItem] = useState<LeagueNewsItem | null>(null);
+  const [loadedNewsSummary, setLoadedNewsSummary] = useState<LeagueNewsArticleSummary | null>(null);
+  const [summaryLoading, setSummaryLoading] = useState<boolean>(false);
+  const newsSummaryCacheRef = useRef<Map<string, LeagueNewsArticleSummary>>(new Map());
+  const summaryAbortRef = useRef<AbortController | null>(null);
+  const newsDialogTitleId = useId();
+  const sectionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const panelPartidosRef = useRef<HTMLDivElement | null>(null);
+  const panelTablaRef = useRef<HTMLDivElement | null>(null);
+  const panelNoticiasRef = useRef<HTMLDivElement | null>(null);
+  const panelEquiposRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const raw = new URLSearchParams(window.location.search).get("vista") ??
+      new URLSearchParams(window.location.search).get("tab");
+    if (raw) {
+      setSection(normalizeLeagueSection(raw));
+    }
+  }, [leagueId]);
+
+  useEffect(() => {
+    const map: Array<[React.RefObject<HTMLDivElement | null>, LeagueHubSectionKey]> = [
+      [panelPartidosRef, "partidos"],
+      [panelTablaRef, "tabla"],
+      [panelNoticiasRef, "noticias"],
+      [panelEquiposRef, "equipos"],
+    ];
+    const cleanups: Array<() => void> = [];
+    for (const [ref, key] of map) {
+      const el = ref.current;
+      if (!el) continue;
+      const handler = () => setSection(key);
+      el.addEventListener("beforematch", handler);
+      cleanups.push(() => el.removeEventListener("beforematch", handler));
+    }
+    return () => {
+      cleanups.forEach((fn) => fn());
+    };
+  }, []);
+
+  const selectSection = (next: LeagueHubSectionKey) => {
+    setSection(next);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("vista", next);
+      window.history.replaceState(window.history.state, "", url.toString());
+    }
+  };
 
   const leagueSummary =
     dataset.leagues.find((l) => l.league === leagueId) ?? dataset.leagues[0]!;
+  const isNational = isNationalCompetition(leagueSummary.league);
   const leagueGames = useMemo(
     () => dataset.games.filter((g) => g.league === leagueSummary.league),
     [dataset.games, leagueSummary.league],
   );
 
   const dayOptions = useMemo(() => {
-    const map = new Map<string, string>();
-    map.set("all", "Toda la jornada");
+    const byDay = new Map<string, { label: string; hasOpen: boolean }>();
     for (const g of leagueGames) {
-      if (!map.has(g.dayId)) {
-        map.set(g.dayId, g.dayLabel);
+      const existing = byDay.get(g.dayId);
+      const isOpen = g.status !== "FT";
+      if (!existing) {
+        byDay.set(g.dayId, { label: g.dayLabel, hasOpen: isOpen });
+      } else if (isOpen && !existing.hasOpen) {
+        existing.hasOpen = true;
       }
     }
-    return Array.from(map.entries()).map(([id, label]) => ({ id, label }));
+    const sortedDays = Array.from(byDay.entries())
+      .sort(([aId], [bId]) => aId.localeCompare(bId))
+      .map(([id, info]) => ({
+        id,
+        label: info.hasOpen ? info.label : `${info.label} (FT)`,
+      }));
+    return [{ id: "all", label: "Toda la jornada" }, ...sortedDays];
   }, [leagueGames]);
 
   const filteredGames = useMemo(
@@ -121,7 +324,129 @@ export function LeagueHubClubView({
   const upcomingGroups = useMemo(() => groupMatchesByDayAndLeague(upcoming), [upcoming]);
   const finishedGroups = useMemo(() => groupMatchesByDayAndLeague(finished), [finished]);
 
+  const directoryTeams = useMemo(() => {
+    const directoryFromDataset = (dataset.teams ?? []).filter(
+      (t) => t.league === leagueSummary.league,
+    );
+    if (directoryFromDataset.length > 0) return directoryFromDataset;
+    const fallbackMap = new Map<
+      string,
+      { slug: string; name: string; shortName: string; href: string }
+    >();
+    for (const g of leagueGames) {
+      for (const side of [g.home, g.away]) {
+        if (!fallbackMap.has(side.slug)) {
+          fallbackMap.set(side.slug, {
+            slug: side.slug,
+            name: side.name,
+            shortName: side.shortName,
+            href: `/app/${leagueSummary.league}/teams/${side.slug}`,
+          });
+        }
+      }
+    }
+    return [...fallbackMap.values()].sort((a, b) => a.name.localeCompare(b.name, "es-MX"));
+  }, [dataset.teams, leagueSummary.league, leagueGames]);
+
+  const newsItems = useMemo<readonly LeagueNewsItem[]>(() => {
+    if (initialNews && initialNews.length > 0) return initialNews;
+    return buildFallbackLeagueNews(leagueSummary, leagueGames, viewerRole);
+  }, [initialNews, leagueSummary, leagueGames, viewerRole]);
+
+  const filteredNews = useMemo(
+    () =>
+      newsCategory === "all"
+        ? newsItems
+        : newsItems.filter((item) => item.category === newsCategory),
+    [newsItems, newsCategory],
+  );
+
+  const availableNewsCategories = useMemo(() => {
+    const present = new Set(newsItems.map((n) => n.category));
+    return NEWS_CATEGORY_FILTERS.filter((f) => f.key === "all" || present.has(f.key));
+  }, [newsItems]);
+
+  const closeNewsModal = () => {
+    summaryAbortRef.current?.abort();
+    summaryAbortRef.current = null;
+    setSelectedNewsItem(null);
+    setSummaryLoading(false);
+  };
+
+  useEffect(() => () => summaryAbortRef.current?.abort(), []);
+
+  const openNewsSummary = async (item: LeagueNewsItem) => {
+    summaryAbortRef.current?.abort();
+    summaryAbortRef.current = null;
+    setSelectedNewsItem(item);
+
+    if (item.preloadedSummary) {
+      setLoadedNewsSummary(item.preloadedSummary);
+      setSummaryLoading(false);
+      return;
+    }
+
+    const cached = newsSummaryCacheRef.current.get(item.id);
+    if (cached) {
+      setLoadedNewsSummary(cached);
+      setSummaryLoading(false);
+      return;
+    }
+
+    setLoadedNewsSummary(null);
+    if (!item.summaryHref) {
+      setSummaryLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    summaryAbortRef.current = controller;
+    setSummaryLoading(true);
+    try {
+      const res = await fetch(item.summaryHref, {
+        headers: { accept: "application/json" },
+        signal: controller.signal,
+      });
+      if (!res.ok) {
+        if (!controller.signal.aborted) setSummaryLoading(false);
+        return;
+      }
+      const data = (await res.json()) as LeagueNewsArticleSummary;
+      if (controller.signal.aborted) return;
+      newsSummaryCacheRef.current.set(item.id, data);
+      setLoadedNewsSummary(data);
+    } catch (err) {
+      if (controller.signal.aborted) return;
+      void err;
+    } finally {
+      if (!controller.signal.aborted) {
+        setSummaryLoading(false);
+      }
+    }
+  };
+
   const hubPath = `/app/${leagueSummary.league}`;
+  const leader = leagueSummary.standings[0];
+
+  const handleSectionKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    idx: number,
+  ) => {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      const next = LEAGUE_SECTIONS[(idx + 1) % LEAGUE_SECTIONS.length]!;
+      selectSection(next.key);
+      sectionRefs.current[(idx + 1) % LEAGUE_SECTIONS.length]?.focus();
+      return;
+    }
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      const prevIdx = (idx - 1 + LEAGUE_SECTIONS.length) % LEAGUE_SECTIONS.length;
+      const prev = LEAGUE_SECTIONS[prevIdx]!;
+      selectSection(prev.key);
+      sectionRefs.current[prevIdx]?.focus();
+    }
+  };
 
   return (
     <AtmosphereStage activePath={hubPath}>
@@ -160,218 +485,615 @@ export function LeagueHubClubView({
               <MaestroIcon name="check" size={12} />
               <span>{leagueSummary.finishedCount} auditados FT</span>
             </span>
+            <button
+              type="button"
+              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+              data-jump-standings=""
+              onClick={() => selectSection("tabla")}
+            >
+              <MaestroIcon name="trophy" size={12} />
+              <span>
+                {leader
+                  ? `Tabla · 1.º ${leader.shortName || leader.name}`
+                  : "Ver tabla"}
+              </span>
+            </button>
+            <button
+              type="button"
+              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+              data-jump-news=""
+              onClick={() => selectSection("noticias")}
+            >
+              <MaestroIcon name="bolt" size={12} />
+              <span>Noticias ({newsItems.length})</span>
+            </button>
           </div>
         </section>
 
-        {/* Chips de filtro por día */}
+        {/* Barra de secciones de la liga: acceso inmediato sin hacer scroll */}
+        <nav aria-label={`Secciones de ${leagueSummary.label}`}>
+          <div
+            role="tablist"
+            aria-label={`Navegar en ${leagueSummary.label}`}
+            className="pl-match-tabs pl-league-tabs"
+          >
+            {LEAGUE_SECTIONS.map((tabDef, index) => {
+              const isSelected = section === tabDef.key;
+              const badgeCount =
+                tabDef.key === "partidos"
+                  ? filteredGames.length
+                  : tabDef.key === "tabla"
+                    ? leagueSummary.standings.length > 0
+                      ? leagueSummary.standings.length
+                      : undefined
+                    : tabDef.key === "noticias"
+                      ? newsItems.length
+                      : directoryTeams.length;
+              return (
+                <button
+                  key={tabDef.key}
+                  ref={(el) => {
+                    sectionRefs.current[index] = el;
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`pl-league-tab-${tabDef.key}`}
+                  data-league-section-tab={tabDef.key}
+                  aria-selected={isSelected}
+                  tabIndex={isSelected ? 0 : -1}
+                  className="pl-match-tab"
+                  onClick={() => selectSection(tabDef.key)}
+                  onKeyDown={(e) => handleSectionKeyDown(e, index)}
+                >
+                  <span>{tabDef.key === "equipos" && isNational ? "Selecciones" : tabDef.label}</span>
+                  {badgeCount !== undefined ? (
+                    <span className="pl-match-tab-count num">{badgeCount}</span>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* Sección 1: Partidos */}
         <div
-          id="day-chips"
-          className="seg-well"
-          role="group"
-          aria-label="Filtrar partidos por día"
+          ref={panelPartidosRef}
+          role="tabpanel"
+          id="pl-league-panel-partidos"
+          aria-labelledby="pl-league-tab-partidos"
+          className="pl-match-panel"
+          {...(section !== "partidos"
+            ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
+            : {})}
         >
-          {dayOptions.map((d) => (
-            <button
-              key={d.id}
-              type="button"
-              className="day-chip seg-btn"
-              aria-pressed={dayFilter === d.id}
-              onClick={() => setDayFilter(d.id)}
+          <div className="pl-match-panel-body">
+            {/* Chips de filtro por día */}
+            <div
+              id="day-chips"
+              className="seg-well"
+              role="group"
+              aria-label="Filtrar partidos por día"
             >
-              {d.label}
-            </button>
-          ))}
+              {dayOptions.map((d) => (
+                <button
+                  key={d.id}
+                  type="button"
+                  className="day-chip seg-btn"
+                  aria-pressed={dayFilter === d.id}
+                  onClick={() => setDayFilter(d.id)}
+                >
+                  {d.label}
+                </button>
+              ))}
+            </div>
+
+            {upcoming.length > 0 ? (
+              <section className="space-y-3">
+                <h2 className="m-0 text-lg font-extrabold">
+                  Próximos encuentros ({upcoming.length})
+                </h2>
+                <MatchList groups={upcomingGroups} hideLeagueHeader />
+              </section>
+            ) : finished.length > 0 && isNational ? (
+              <section
+                className="glass-card glass-ring rounded-2xl p-4 text-xs"
+                style={{ color: "var(--pl-text-secondary)" }}
+              >
+                Sin partidos próximos en el calendario actual de {leagueSummary.label}. Mostrando
+                resultados oficiales recientes del torneo.
+              </section>
+            ) : null}
+
+            {finished.length > 0 ? (
+              <section className="space-y-3">
+                <h2 className="m-0 text-lg font-extrabold">
+                  Resultados cerrados FT ({finished.length})
+                </h2>
+                <MatchList groups={finishedGroups} hideLeagueHeader />
+              </section>
+            ) : (
+              <section className="glass-card glass-ring rounded-2xl p-4 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Aún no hay marcadores cerrados (FT) registrados en este corte de la jornada.
+              </section>
+            )}
+          </div>
         </div>
 
-        {upcoming.length > 0 ? (
-          <section className="space-y-3">
-            <h2 className="m-0 text-lg font-extrabold">
-              Próximos encuentros ({upcoming.length})
-            </h2>
-            <MatchList groups={upcomingGroups} hideLeagueHeader />
-          </section>
-        ) : null}
-
-        {finished.length > 0 ? (
-          <section className="space-y-3">
-            <h2 className="m-0 text-lg font-extrabold">
-              Resultados cerrados FT ({finished.length})
-            </h2>
-            <MatchList groups={finishedGroups} hideLeagueHeader />
-          </section>
-        ) : (
-          <section className="glass-card glass-ring rounded-2xl p-4 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Aún no hay marcadores cerrados (FT) registrados en este corte de la jornada.
-          </section>
-        )}
-
-        {/* Tabla de posiciones real del snapshot */}
-        {leagueSummary.standings.length > 0 ? (
-          <section className="standings-block pl-deferred-section glass-card glass-ring rounded-2xl p-5 space-y-3">
-            <h2 className="m-0 text-lg font-extrabold">
-              Tabla de Posiciones · {leagueSummary.label}
-            </h2>
-            <div
-              className="pl-table-region"
-              tabIndex={0}
-              role="region"
-              aria-label={`Tabla de posiciones de ${leagueSummary.label}`}
-            >
-              <table className="standings w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr
-                    className="hairline-b text-xs"
-                    style={{ color: "var(--pl-text-muted)" }}
-                  >
-                    <th scope="col" className="py-2 pr-3">
-                      Pos.
-                    </th>
-                    <th scope="col" className="py-2 pr-3">
-                      Club
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      PJ
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      G
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      E
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      P
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
-                      DG
-                    </th>
-                    <th scope="col" className="py-2 pl-2 text-right">
-                      Pts
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {leagueSummary.standings.map((row, idx) => {
-                    const slug = row.teamId.includes(".")
-                      ? row.teamId.split(".")[1]!
-                      : row.teamId;
-                    const dg = row.goalsFor - row.goalsAgainst;
-                    return (
-                      <tr key={row.teamId} className="hairline-b">
-                        <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
-                        <td className="py-2.5 pr-3">
-                          <a
-                            href={`/app/${leagueSummary.league}/teams/${slug}`}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(`/app/${leagueSummary.league}/teams/${slug}`);
-                            }}
-                            className="pl-team-link flex items-center gap-2 font-semibold min-h-11 py-1"
-                            title={`Ver perfil de ${row.name}`}
-                          >
-                            <TeamBadge
-                              league={leagueSummary.league}
-                              slug={slug}
-                              name={row.name}
-                              logoUrl={row.logoUrl}
-                              size={20}
-                            />
-                            <span>{row.name}</span>
-                          </a>
-                        </td>
-                        <td className="py-2.5 px-2 text-right num">{row.played}</td>
-                        <td className="py-2.5 px-2 text-right num">{row.won}</td>
-                        <td className="py-2.5 px-2 text-right num">{row.drawn}</td>
-                        <td className="py-2.5 px-2 text-right num">{row.lost}</td>
-                        <td className="py-2.5 px-2 text-right num">
-                          {dg > 0 ? `+${dg}` : dg}
-                        </td>
-                        <td className="py-2.5 pl-2 text-right num font-extrabold">
-                          {row.points}
-                        </td>
+        {/* Sección 2: Tabla de Posiciones (accesible al instante desde arriba) */}
+        <div
+          ref={panelTablaRef}
+          role="tabpanel"
+          id="pl-league-panel-tabla"
+          aria-labelledby="pl-league-tab-tabla"
+          className="pl-match-panel"
+          {...(section !== "tabla"
+            ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
+            : {})}
+        >
+          <div className="pl-match-panel-body">
+            {leagueSummary.standings.length > 0 ? (
+              <section className="standings-block glass-card glass-ring rounded-2xl p-5 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="m-0 text-lg font-extrabold">
+                    Tabla de Posiciones · {leagueSummary.label}
+                  </h2>
+                  <span className="pl-pill num text-xs">
+                    {leagueSummary.standings.length} {isNational ? "selecciones" : "clubes"}
+                  </span>
+                </div>
+                <div
+                  className="pl-table-region"
+                  tabIndex={0}
+                  role="region"
+                  aria-label={`Tabla de posiciones de ${leagueSummary.label}`}
+                >
+                  <table className="standings w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr
+                        className="hairline-b text-xs"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        <th scope="col" className="py-2 pr-3">
+                          Pos.
+                        </th>
+                        <th scope="col" className="py-2 pr-3">
+                          {isNational ? "Selección" : "Club"}
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-right">
+                          PJ
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-right">
+                          G
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-right">
+                          E
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-right">
+                          P
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-right">
+                          DG
+                        </th>
+                        <th scope="col" className="py-2 pl-2 text-right">
+                          Pts
+                        </th>
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        ) : (
-          <section className="standings-block glass-card glass-ring rounded-2xl p-5 space-y-1.5">
-            <h2 className="m-0 text-lg font-extrabold">
-              Tabla de Posiciones · {leagueSummary.label}
-            </h2>
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              La clasificación actualizada aún no está disponible en el corte vigente de esta
-              competición.
-            </p>
-          </section>
-        )}
+                    </thead>
+                    <tbody>
+                      {leagueSummary.standings.map((row, idx) => {
+                        const slug = row.teamId.includes(".")
+                          ? row.teamId.split(".")[1]!
+                          : row.teamId;
+                        const dg = row.goalsFor - row.goalsAgainst;
+                        return (
+                          <tr key={row.teamId} className="hairline-b">
+                            <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
+                            <td className="py-2.5 pr-3">
+                              <a
+                                href={`/app/${leagueSummary.league}/teams/${slug}`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  navigateTo(`/app/${leagueSummary.league}/teams/${slug}`);
+                                }}
+                                className="pl-team-link flex items-center gap-2 font-semibold min-h-11 py-1"
+                                title={`Ver perfil de ${row.name}`}
+                              >
+                                <TeamBadge
+                                  league={leagueSummary.league}
+                                  slug={slug}
+                                  name={row.name}
+                                  logoUrl={row.logoUrl}
+                                  size={20}
+                                />
+                                <span>{row.name}</span>
+                              </a>
+                            </td>
+                            <td className="py-2.5 px-2 text-right num">{row.played}</td>
+                            <td className="py-2.5 px-2 text-right num">{row.won}</td>
+                            <td className="py-2.5 px-2 text-right num">{row.drawn}</td>
+                            <td className="py-2.5 px-2 text-right num">{row.lost}</td>
+                            <td className="py-2.5 px-2 text-right num">
+                              {dg > 0 ? `+${dg}` : dg}
+                            </td>
+                            <td className="py-2.5 pl-2 text-right num font-extrabold">
+                              {row.points}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            ) : (
+              <section className="standings-block glass-card glass-ring rounded-2xl p-5 space-y-2">
+                <h2 className="m-0 text-lg font-extrabold">
+                  Tabla de Posiciones · {leagueSummary.label}
+                </h2>
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  La clasificación actualizada aún no está disponible en el corte vigente de esta
+                  competición.
+                </p>
+              </section>
+            )}
+          </div>
+        </div>
 
-        {(() => {
-          const directoryFromDataset = (dataset.teams ?? []).filter(
-            (t) => t.league === leagueSummary.league,
-          );
-          const fallbackMap = new Map<
-            string,
-            { slug: string; name: string; shortName: string; href: string }
-          >();
-          if (directoryFromDataset.length === 0) {
-            for (const g of leagueGames) {
-              for (const side of [g.home, g.away]) {
-                if (!fallbackMap.has(side.slug)) {
-                  fallbackMap.set(side.slug, {
-                    slug: side.slug,
-                    name: side.name,
-                    shortName: side.shortName,
-                    href: `/app/${leagueSummary.league}/teams/${side.slug}`,
-                  });
-                }
-              }
-            }
-          }
-          const directoryTeams =
-            directoryFromDataset.length > 0
-              ? directoryFromDataset
-              : [...fallbackMap.values()].sort((a, b) => a.name.localeCompare(b.name, "es-MX"));
-
-          if (directoryTeams.length === 0) return null;
-
-          return (
+        {/* Sección 3: Noticias verificadas de la liga */}
+        <div
+          ref={panelNoticiasRef}
+          role="tabpanel"
+          id="pl-league-panel-noticias"
+          aria-labelledby="pl-league-tab-noticias"
+          className="pl-match-panel"
+          {...(section !== "noticias"
+            ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
+            : {})}
+        >
+          <div className="pl-match-panel-body">
             <section
-              className="glass-card glass-ring rounded-2xl p-5 space-y-3"
-              aria-labelledby="league-clubs-directory-heading"
-              data-league-teams-directory=""
+              className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+              aria-labelledby="league-news-heading"
+              data-league-news=""
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 id="league-clubs-directory-heading" className="m-0 text-base sm:text-lg font-extrabold">
-                  Perfiles de equipos · {leagueSummary.label}
-                </h2>
-                <span className="pl-pill num text-xs">{directoryTeams.length} equipos</span>
+                <div>
+                  <h2 id="league-news-heading" className="m-0 text-lg font-extrabold">
+                    Noticias y novedades · {leagueSummary.label}
+                  </h2>
+                  <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                    Titulares actualizados de la liga, parte médico, pulso de mercado y claves del modelo.
+                  </p>
+                </div>
+                <span className="pl-pill pl-pill--brand num text-xs">
+                  {filteredNews.length} notas
+                </span>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {directoryTeams.map((teamItem) => (
+
+              {availableNewsCategories.length > 2 ? (
+                <div
+                  className="pl-league-news-cats"
+                  role="group"
+                  aria-label="Filtrar noticias por categoría"
+                >
+                  {availableNewsCategories.map((cat) => (
+                    <button
+                      key={cat.key}
+                      type="button"
+                      className="pl-astro-status-btn"
+                      aria-pressed={newsCategory === cat.key}
+                      onClick={() => setNewsCategory(cat.key)}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+
+              {filteredNews.length === 0 ? (
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Aún no hay novedades publicadas en este corte de {leagueSummary.label}.
+                </p>
+              ) : (
+                <div className="pl-league-news-grid">
+                  {filteredNews.map((item) => (
+                    <article key={item.id} className="pl-league-news-card">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="pl-pill pl-pill--info text-[11px]">
+                          {item.categoryLabel}
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          {item.badge ? (
+                            <span className="pl-pill text-[11px] num">{item.badge}</span>
+                          ) : null}
+                          <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                            {item.publishedAtLabel}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2.5 min-w-0">
+                        {item.team ? (
+                          <TeamBadge
+                            league={leagueSummary.league}
+                            slug={item.team.slug}
+                            name={item.team.name}
+                            logoUrl={item.team.logoUrl}
+                            size={24}
+                          />
+                        ) : (
+                          <LeagueBadge
+                            league={leagueSummary.league}
+                            label={leagueSummary.label}
+                            logoUrl={leagueSummary.logoUrl}
+                            size={22}
+                          />
+                        )}
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <h3 className="m-0 text-sm font-extrabold leading-snug">
+                            {item.title}
+                          </h3>
+                          <p
+                            className="m-0 text-xs leading-relaxed"
+                            style={{ color: "var(--pl-text-secondary)" }}
+                          >
+                            {item.summary}
+                          </p>
+                        </div>
+                      </div>
+
+                      {item.href || item.summaryHref || item.preloadedSummary ? (
+                        <div className="flex flex-wrap justify-end gap-2 pt-1 mt-auto">
+                          {item.href ? (
+                            <a
+                              href={item.href}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo(item.href!);
+                              }}
+                              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                            >
+                              <span>{item.ctaLabel ?? "Ver detalle"}</span>
+                              <MaestroIcon name="arrowRight" size={12} />
+                            </a>
+                          ) : null}
+                          {item.summaryHref || item.preloadedSummary ? (
+                            <button
+                              type="button"
+                              data-news-read-btn={item.id}
+                              onClick={() => void openNewsSummary(item)}
+                              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+                            >
+                              <MaestroIcon name="eye" size={12} />
+                              <span>{item.readMoreLabel ?? "Leer nota"}</span>
+                            </button>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+        </div>
+
+        {/* Sección 4: Equipos de la liga */}
+        <div
+          ref={panelEquiposRef}
+          role="tabpanel"
+          id="pl-league-panel-equipos"
+          aria-labelledby="pl-league-tab-equipos"
+          className="pl-match-panel"
+          {...(section !== "equipos"
+            ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
+            : {})}
+        >
+          <div className="pl-match-panel-body">
+            {directoryTeams.length > 0 ? (
+              <section
+                className="glass-card glass-ring rounded-2xl p-5 space-y-3"
+                aria-labelledby="league-clubs-directory-heading"
+                data-league-teams-directory=""
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 id="league-clubs-directory-heading" className="m-0 text-base sm:text-lg font-extrabold">
+                    {isNational
+                      ? `Perfiles de selecciones · ${leagueSummary.label}`
+                      : `Perfiles de equipos · ${leagueSummary.label}`}
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {directoryTeams.length > 24 ? (
+                      <input
+                        type="search"
+                        value={teamQuery}
+                        onChange={(e) => setTeamQuery(e.target.value)}
+                        placeholder="Filtrar selección..."
+                        aria-label={`Filtrar selecciones en ${leagueSummary.label}`}
+                        className="glass-input px-3 py-1.5 text-xs min-h-9"
+                      />
+                    ) : null}
+                    <span className="pl-pill num text-xs">
+                      {directoryTeams.length} {isNational ? "selecciones" : "equipos"}
+                    </span>
+                  </div>
+                </div>
+                <div className={directoryTeams.length > 24 ? "pl-league-directory-scroll" : undefined}>
+                  <div className="pl-league-directory-grid">
+                    {directoryTeams
+                      .filter((teamItem) => {
+                        const q = teamQuery
+                          .normalize("NFD")
+                          .replace(/[\u0300-\u036f]/g, "")
+                          .trim()
+                          .toLowerCase();
+                        if (!q) return true;
+                        const norm = (s: string) =>
+                          s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                        return norm(teamItem.name).includes(q) || norm(teamItem.shortName).includes(q);
+                      })
+                      .map((teamItem) => (
+                        <a
+                          key={teamItem.slug}
+                          href={teamItem.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo(teamItem.href);
+                          }}
+                          className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center justify-start gap-2 no-underline min-w-0"
+                        >
+                          <TeamBadge
+                            league={leagueSummary.league}
+                            slug={teamItem.slug}
+                            name={teamItem.name}
+                            size={20}
+                          />
+                          <span className="truncate">{teamItem.shortName}</span>
+                        </a>
+                      ))}
+                  </div>
+                </div>
+              </section>
+            ) : null}
+          </div>
+        </div>
+
+        <TopLayerModalDialog
+          open={Boolean(selectedNewsItem)}
+          onClose={closeNewsModal}
+          ariaLabelledBy={newsDialogTitleId}
+          maxWidth="38rem"
+        >
+          {selectedNewsItem ? (
+            <div className="pl-news-reader w-full p-5 sm:p-6 space-y-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                  <span className="pl-pill pl-pill--info text-[11px]">
+                    {loadedNewsSummary?.categoryLabel ?? selectedNewsItem.categoryLabel}
+                  </span>
+                  {loadedNewsSummary?.byline || selectedNewsItem.badge ? (
+                    <span className="pl-pill text-[11px] num">
+                      {loadedNewsSummary?.byline ?? selectedNewsItem.badge}
+                    </span>
+                  ) : null}
+                  <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                    {loadedNewsSummary?.publishedAtLabel ?? selectedNewsItem.publishedAtLabel}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  autoFocus
+                  className="pl-btn-glass px-2.5 min-h-9 shrink-0 inline-flex items-center justify-center"
+                  aria-label="Cerrar resumen de la nota"
+                  onClick={closeNewsModal}
+                >
+                  <MaestroIcon name="x" size={14} />
+                </button>
+              </div>
+
+              <div className="flex items-start gap-3 min-w-0">
+                {selectedNewsItem.team ? (
+                  <TeamBadge
+                    league={leagueSummary.league}
+                    slug={selectedNewsItem.team.slug}
+                    name={selectedNewsItem.team.name}
+                    logoUrl={selectedNewsItem.team.logoUrl}
+                    size={32}
+                  />
+                ) : (
+                  <LeagueBadge
+                    league={leagueSummary.league}
+                    label={leagueSummary.label}
+                    logoUrl={leagueSummary.logoUrl}
+                    size={28}
+                  />
+                )}
+                <div className="min-w-0 flex-1 space-y-1">
+                  <span
+                    className="text-[11px] font-bold uppercase tracking-wider block"
+                    style={{ color: "var(--pl-brand)" }}
+                  >
+                    Resumen de la nota · {leagueSummary.label}
+                  </span>
+                  <h2 id={newsDialogTitleId} className="m-0 text-lg sm:text-xl font-extrabold leading-snug">
+                    {loadedNewsSummary?.title ?? selectedNewsItem.title}
+                  </h2>
+                </div>
+              </div>
+
+              <div className="pl-news-reader-body space-y-3">
+                <p className="m-0 text-sm font-semibold leading-relaxed" style={{ color: "var(--pl-text)" }}>
+                  {loadedNewsSummary?.lead || selectedNewsItem.summary}
+                </p>
+
+                {summaryLoading ? (
+                  <div className="space-y-2 pt-1" role="status" aria-live="polite">
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Cargando resumen ampliado de la nota…
+                    </p>
+                    <div className="pl-news-skel" aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                  </div>
+                ) : loadedNewsSummary && loadedNewsSummary.paragraphs.length > 0 ? (
+                  <div className="space-y-2.5">
+                    {loadedNewsSummary.paragraphs.map((paragraph, idx) => (
+                      <p
+                        key={idx}
+                        className="m-0 text-sm leading-relaxed"
+                        style={{ color: "var(--pl-text-secondary)" }}
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                ) : null}
+
+                {((loadedNewsSummary?.keyPoints ?? selectedNewsItem.summaryHighlights)?.length ?? 0) > 0 ? (
+                  <div className="pt-2 hairline-t space-y-1.5">
+                    <span className="text-[11px] font-bold block" style={{ color: "var(--pl-text-muted)" }}>
+                      Protagonistas y claves
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(loadedNewsSummary?.keyPoints ?? selectedNewsItem.summaryHighlights ?? []).map((kp) => (
+                        <span key={kp} className="pl-pill text-[11px]">
+                          {kp}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-end gap-2 pt-2 hairline-t">
+                {selectedNewsItem.href ? (
                   <a
-                    key={teamItem.slug}
-                    href={teamItem.href}
+                    href={selectedNewsItem.href}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigateTo(teamItem.href);
+                      const targetHref = selectedNewsItem.href!;
+                      closeNewsModal();
+                      navigateTo(targetHref);
                     }}
-                    className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-2"
+                    className="pl-btn-primary text-xs min-h-10 px-4 inline-flex items-center gap-1.5 no-underline"
                   >
-                    <TeamBadge
-                      league={leagueSummary.league}
-                      slug={teamItem.slug}
-                      name={teamItem.name}
-                      size={20}
-                    />
-                    <span>{teamItem.shortName}</span>
+                    <span>{selectedNewsItem.ctaLabel ?? "Ver detalle en PitchLab"}</span>
+                    <MaestroIcon name="arrowRight" size={12} />
                   </a>
-                ))}
+                ) : null}
+                <button
+                  type="button"
+                  onClick={closeNewsModal}
+                  className="pl-btn-glass text-xs min-h-10 px-4"
+                >
+                  Cerrar
+                </button>
               </div>
-            </section>
-          );
-        })()}
+            </div>
+          ) : null}
+        </TopLayerModalDialog>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );
@@ -418,6 +1140,8 @@ export function MatchStudioClubView({
     sealPickToJournal,
     recordSocialPostCopy,
     addPickToParlay,
+    parlaySummary,
+    upgradeHref,
     journal,
     openComposer,
     navigateTo,
@@ -429,6 +1153,10 @@ export function MatchStudioClubView({
   const own = useMemo(
     () => ownIdentityFor(viewerRole, viewerIdentity),
     [viewerRole, viewerIdentity],
+  );
+  const parlayPickIds = useMemo(
+    () => new Set(parlaySummary.legs.map((l) => l.pick.id)),
+    [parlaySummary.legs],
   );
 
   const [activeTab, setActiveTab] = useMatchUrlTab(initialTab);
@@ -755,7 +1483,7 @@ export function MatchStudioClubView({
             <div
               className="relative z-10 rounded-2xl px-4 py-3 text-xs"
               style={{
-                background: "var(--pl-surface-soft)",
+                background: "var(--pl-surface-elevated)",
                 color: "var(--pl-text-muted)",
               }}
               data-empty-forecast=""
@@ -768,192 +1496,152 @@ export function MatchStudioClubView({
         {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
         <LiveMatchPanel game={game} />
 
-        {/* Navegación accesible en 3 pestañas sincronizada con ?tab= */}
+        {/* Navegación accesible en 5 pestañas sincronizada con ?tab= */}
         <MatchTabs
           idPrefix="pl-match"
           active={activeTab}
           onSelect={setActiveTab}
           tabs={[
             { key: "resumen", label: "Resumen", count: game.picks.length },
+            { key: "ia", label: "Análisis IA" },
             {
               key: "numeros",
               label: "Números",
               count: activeMarkets.length > 0 ? activeMarkets.length : undefined,
             },
+            { key: "dinero", label: "¿Dónde está el dinero?" },
             { key: "contexto", label: "Contexto" },
           ]}
         />
 
-        {/* Pestaña 1: Resumen (Antes del partido, pronóstico, Cortex IA, pulso de dinero y factores) */}
+        {/* Pestaña 1: Resumen (Picks, pulso de mercado, puente a Análisis IA, Pre-Match, panorama y factores) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
+          <div className="pl-resumen-top">
+            {/* Izquierda: Pronóstico / Picks del partido */}
+            <section className="pl-resumen-picks-col space-y-3.5 min-w-0" data-picks="">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
+                {viewerRole === "tipster" || viewerRole === "admin" ? (
+                  <span
+                    className="text-xs font-semibold inline-flex items-center gap-1"
+                    style={{ color: "var(--pl-brand)" }}
+                  >
+                    <MaestroIcon name="crown" size={13} />
+                    <span>Elige cualquiera como tu Pick abierto semanal</span>
+                  </span>
+                ) : null}
+              </div>
+
+              {game.picks.length === 0 ? (
+                <div
+                  className="glass-card glass-ring rounded-2xl p-4 text-sm"
+                  style={{ color: "var(--pl-text-muted)" }}
+                  data-empty-forecast=""
+                >
+                  Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
+                </div>
+              ) : (
+                <div
+                  className="pl-resumen-picks-grid"
+                  data-odd-picks={game.picks.length > 1 && game.picks.length % 2 === 1 ? "true" : undefined}
+                >
+                  {game.picks.map((pk) => (
+                    <div key={pk.id} className="pl-resumen-pick-cell space-y-1.5 min-w-0">
+                      <MultiPickRow pick={pk} gameStatus={game.status} />
+                      {(viewerRole === "tipster" || viewerRole === "admin") &&
+                      game.status !== "FT" ? (
+                        <div className="flex justify-end">
+                          <button
+                            type="button"
+                            className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
+                            onClick={() => {
+                              setSelectedTipsterPickId(pk.id);
+                              pushToast(
+                                `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
+                                "success",
+                              );
+                            }}
+                          >
+                            <MaestroIcon name="crown" size={12} />
+                            <span>Usar como mi Pick abierto semanal</span>
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* Derecha: Lectura rápida de Cortex IA + Acceso directo a ¿Dónde está el dinero? y Números */}
+            <aside className="pl-resumen-side-col" aria-label="Lectura rápida de IA y pulso de mercado">
+              <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-extrabold">
+                    <MaestroIcon name="sparkles" size={14} style={{ color: "var(--pl-brand)" }} />
+                    <span>Cortex IA</span>
+                  </span>
+                  <span className="pl-pill pl-pill--brand text-[11px]">{mainEngineName}</span>
+                </div>
+                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
+                  {!intelUnlocked
+                    ? "Consulta el pronóstico estructurado de Cortex IA, proyección exacta y claves tácticas con Pase PitchLab Ultra."
+                    : cortexHeadline?.trim() ||
+                      cortexSections?.find((sec) => sec.key === "lectura")?.text ||
+                      cortexSynthesisOverride ||
+                      game.preGame.cortexSynthesis}
+                </p>
+                <button
+                  type="button"
+                  className="pl-btn-glass text-xs min-h-10 px-3 w-full justify-between"
+                  onClick={() => setActiveTab("ia")}
+                >
+                  <span>Abrir Análisis IA completo</span>
+                  <MaestroIcon name="arrowRight" size={13} />
+                </button>
+              </div>
+
+              <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-extrabold">
+                    <MaestroIcon name="activity" size={14} style={{ color: "var(--pl-brand)" }} />
+                    <span>Mercado y líneas</span>
+                  </span>
+                  <span className="pl-pill text-[11px] num">
+                    {flow ? `${flow.homeShare} % / ${flow.awayShare} %` : "Modelo"}
+                  </span>
+                </div>
+                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
+                  {flow
+                    ? flow.sharpNote
+                    : "Contrasta los momios justos del modelo con las cuotas capturadas y explora el flujo del mercado."}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-0.5">
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs min-h-10 px-3 justify-between"
+                    onClick={() => setActiveTab("dinero")}
+                  >
+                    <span>¿Dónde está el dinero?</span>
+                    <MaestroIcon name="arrowRight" size={12} />
+                  </button>
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs min-h-10 px-3 justify-between"
+                    onClick={() => setActiveTab("numeros")}
+                  >
+                    <span>Ver números</span>
+                    <MaestroIcon name="arrowRight" size={12} />
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </div>
+
           {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
           {sportOutlook ? (
             <SportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
           ) : null}
-
-          {/* Pronóstico / Picks del partido */}
-          <section className="space-y-3.5" data-picks="">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
-              {viewerRole === "tipster" || viewerRole === "admin" ? (
-                <span
-                  className="text-xs font-semibold inline-flex items-center gap-1"
-                  style={{ color: "var(--pl-brand)" }}
-                >
-                  <MaestroIcon name="crown" size={13} />
-                  <span>Elige cualquiera como tu Pick abierto semanal</span>
-                </span>
-              ) : null}
-            </div>
-
-            {game.picks.length === 0 ? (
-              <div
-                className="glass-card glass-ring rounded-2xl p-4 text-sm"
-                style={{ color: "var(--pl-text-muted)" }}
-                data-empty-forecast=""
-              >
-                Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
-              </div>
-            ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              {game.picks.map((pk) => (
-                <div key={pk.id} className="space-y-1.5">
-                  <MultiPickRow pick={pk} gameStatus={game.status} />
-                  {(viewerRole === "tipster" || viewerRole === "admin") &&
-                  game.status !== "FT" ? (
-                    <div className="flex justify-end">
-                      <button
-                        type="button"
-                        className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
-                        onClick={() => {
-                          setSelectedTipsterPickId(pk.id);
-                          pushToast(
-                            `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
-                            "success",
-                          );
-                        }}
-                      >
-                        <MaestroIcon name="crown" size={12} />
-                        <span>Usar como mi Pick abierto semanal</span>
-                      </button>
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-            )}
-          </section>
-
-          {/* Lectura de Cortex IA + pulso de mercado */}
-          <section aria-label="Análisis de Cortex IA y pulso de mercado" className="pl-studio-main">
-            <CortexAnalysisCard
-              game={game}
-              synthesis={
-                cortexSections?.find((sec) => sec.key === "lectura")?.text ??
-                cortexSynthesisOverride ??
-                game.preGame.cortexSynthesis
-              }
-              unlocked={intelUnlocked}
-              sections={cortexSections}
-              headline={cortexHeadline}
-            />
-            <div className="pl-studio-side">
-              {!flow ? (
-                <div
-                  className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0"
-                  data-market-pulse=""
-                >
-                  <div data-no-market="" className="space-y-2">
-                    <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
-                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                      Este partido todavía no tiene momios verificados. Mostramos solo la probabilidad del modelo.
-                    </p>
-                  </div>
-                  <div className="pt-1">
-                    <button
-                      type="button"
-                      className="pl-btn-glass text-xs min-h-11 px-3 w-full justify-center"
-                      onClick={() => setActiveTab("numeros")}
-                    >
-                      Ver números y líneas
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className="glass-card glass-ring rounded-2xl p-4 space-y-3 flex flex-col justify-between min-w-0"
-                  data-market-pulse=""
-                >
-                  <div className="space-y-2.5 min-w-0">
-                    <div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
-                      <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
-                      <span className="pl-pill pl-pill--brand text-[11px] num">
-                        {game.spacetime?.market?.asOfUtc ? (
-                          <>
-                            {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
-                            <time dateTime={game.spacetime.market.asOfUtc}>
-                              {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
-                            </time>
-                          </>
-                        ) : (
-                          game.spacetime?.market?.bookLabel ?? "Mercado"
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="space-y-1.5 text-xs num min-w-0">
-                      <div className="flex items-center justify-between gap-2 min-w-0">
-                        <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
-                          {game.home.shortName}: dinero / modelo
-                        </span>
-                        <strong className="shrink-0">
-                          {flow.homeShare} %{game.x12 ? ` / ${(game.x12[0] * 100).toFixed(0)} %` : ""}
-                        </strong>
-                      </div>
-                      <PBar p={flow.homeShare / 100} lead={flow.homeShare >= 50} />
-
-                      {flow.drawShare !== undefined && hasDraw ? (
-                        <>
-                          <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
-                            <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
-                              Empate: dinero / modelo
-                            </span>
-                            <strong className="shrink-0">
-                              {flow.drawShare} %{game.x12 ? ` / ${(game.x12[1] * 100).toFixed(0)} %` : ""}
-                            </strong>
-                          </div>
-                          <PBar p={flow.drawShare / 100} />
-                        </>
-                      ) : null}
-
-                      <div className="flex items-center justify-between gap-2 pt-1 min-w-0">
-                        <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
-                          {game.away.shortName}: dinero / modelo
-                        </span>
-                        <strong className="shrink-0">
-                          {flow.awayShare} %{game.x12 ? ` / ${(game.x12[2] * 100).toFixed(0)} %` : ""}
-                        </strong>
-                      </div>
-                      <PBar p={flow.awayShare / 100} lead={flow.awayShare > 50} />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-2 hairline-t text-xs min-w-0">
-                    <span className="min-w-0 flex-1" style={{ color: "var(--pl-text-secondary)" }}>
-                      {flow.sharpNote}
-                    </span>
-                    <button
-                      type="button"
-                      className="pl-btn-glass text-xs min-h-11 px-3 shrink-0"
-                      onClick={() => setActiveTab("numeros")}
-                    >
-                      Ver números
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
 
           {/* Factores clave del análisis */}
           <section
@@ -986,7 +1674,7 @@ export function MatchStudioClubView({
                 Los factores cuantitativos del encuentro están reservados para socios con Pase PitchLab Ultra.
               </p>
             ) : game.factors.length > 0 ? (
-              <div className="pl-factors-grid">
+              <div className="pl-factors-grid" data-factor-count={game.factors.length}>
                 {game.factors.map((factor) => (
                   <article key={`${factor.label}-${factor.value}`} className="pl-factor-item">
                     <span className="pl-factor-label">{factor.label}</span>
@@ -1005,7 +1693,103 @@ export function MatchStudioClubView({
           </section>
         </MatchTabPanel>
 
-        {/* Pestaña 2: Números esperados, mercados y simulador */}
+        {/* Pestaña 2: Análisis IA (Pronóstico estructurado de Cortex IA + Análisis editorial + Señales) */}
+        <MatchTabPanel idPrefix="pl-match" tabKey="ia" active={activeTab}>
+          <CortexAnalysisCard
+            game={game}
+            synthesis={
+              cortexSections?.find((sec) => sec.key === "lectura")?.text ??
+              cortexSynthesisOverride ??
+              game.preGame.cortexSynthesis
+            }
+            unlocked={intelUnlocked}
+            sections={cortexSections}
+            headline={cortexHeadline}
+            onAddPickToParlay={(pk) => {
+              addPickToParlay(pk);
+              pushToast(`«${pk.label}» agregado a tu parlay.`, "success");
+            }}
+            inParlayPickIds={parlayPickIds}
+            onUpgrade={() => navigateTo(upgradeHref)}
+            sideSlot={
+              intelUnlocked &&
+              hasForecast &&
+              ((game.spacetime?.drivers.length ?? 0) > 0 ||
+                game.preGame.tacticalKeys.length > 0 ||
+                (game.confidenceDetail?.reasons.length ?? 0) > 0) ? (
+                <div
+                  className="glass-card glass-ring rounded-2xl p-4 space-y-3 min-w-0"
+                  data-cortex-signals=""
+                >
+                  <h2 className="m-0 text-sm font-extrabold">Señales del modelo</h2>
+
+                  {(game.spacetime?.drivers.length ?? 0) > 0 ? (() => {
+                    const drivers = game.spacetime!.drivers;
+                    const maxImpact = Math.max(
+                      0.0001,
+                      ...drivers.map((d) => Math.abs(d.impactLogit)),
+                    );
+                    return (
+                      <div className="space-y-1.5">
+                        <h3 className="pl-cortex-label">Lo que más mueve el pronóstico</h3>
+                        <ul className="pl-cortex-drivers">
+                          {drivers.slice(0, 4).map((d) => (
+                            <li key={d.label}>
+                              <span className="text-xs">{d.label}</span>
+                              <span className="pl-cortex-impact" aria-hidden="true">
+                                <span
+                                  style={{
+                                    width: `${Math.round((Math.abs(d.impactLogit) / maxImpact) * 100)}%`,
+                                    background:
+                                      d.impactLogit >= 0
+                                        ? "var(--pl-success)"
+                                        : "var(--pl-warning)",
+                                  }}
+                                />
+                              </span>
+                              <span
+                                className="text-[11px] num"
+                                style={{ color: "var(--pl-text-muted)" }}
+                              >
+                                {d.impactLogit >= 0
+                                  ? `a favor de ${game.home.shortName}`
+                                  : `a favor de ${game.away.shortName}`}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })() : null}
+
+                  {game.preGame.tacticalKeys.length > 0 ? (
+                    <div className="space-y-1.5 pt-2 hairline-t">
+                      <h3 className="pl-cortex-label">Claves rápidas</h3>
+                      <ul className="pl-cortex-list text-xs">
+                        {game.preGame.tacticalKeys.map((k) => (
+                          <li key={k}>{k}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {(game.confidenceDetail?.reasons.length ?? 0) > 0 ? (
+                    <div className="space-y-1.5 pt-2 hairline-t">
+                      <h3 className="pl-cortex-label">Qué tan firme es</h3>
+                      <ul className="pl-cortex-list text-xs">
+                        {game.confidenceDetail!.reasons.map((r) => (
+                          <li key={r}>{r}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null
+            }
+          />
+        </MatchTabPanel>
+
+        {/* Pestaña 3: Números esperados, mercados y simulador */}
         <MatchTabPanel idPrefix="pl-match" tabKey="numeros" active={activeTab}>
           <MatchNumbersPanel
             game={game}
@@ -1034,7 +1818,28 @@ export function MatchStudioClubView({
           />
         </MatchTabPanel>
 
-        {/* Pestaña 3: Contexto (tabla, forma, bajas, descanso, H2H y opiniones) */}
+        {/* Pestaña 4: ¿Dónde está el dinero? (flujo de mercado vs. modelo + comparativa de cuotas) */}
+        <MatchTabPanel idPrefix="pl-match" tabKey="dinero" active={activeTab}>
+          <MatchMoneyPanel
+            game={game}
+            markets={activeMarkets}
+            oddsFormat={oddsFormat}
+            unlocked={intelUnlocked}
+            isFinished={isFinished}
+            onOpenNumbers={() => setActiveTab("numeros")}
+            onAddPickToParlay={
+              viewerRole !== "visitor"
+                ? (pk) => {
+                    addPickToParlay(pk);
+                    pushToast(`«${pk.label}» agregado a tu parlay.`, "success");
+                  }
+                : undefined
+            }
+            inParlayPickIds={parlayPickIds}
+          />
+        </MatchTabPanel>
+
+        {/* Pestaña 5: Contexto (equipos, sede/H2H, bajas + opiniones lado a lado y tabla) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="contexto" active={activeTab}>
           <MatchContextPanel
             game={game}
@@ -1042,139 +1847,138 @@ export function MatchStudioClubView({
               dataset.leagues.find((l) => l.league === game.league)?.standings ?? []
             }
             unlocked={intelUnlocked}
-          />
-
-          <section className="max-w-3xl">
-            <aside
-              aria-label="Opiniones de socios sobre el partido"
-              className="glass-lens glass-ring rounded-3xl p-5 space-y-4"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div>
-                  <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
-                </div>
-                {matchDebatePosts.length > 0 ? (
-                  <StackedAvatars
-                    items={matchDebatePosts.slice(0, 3).map((post, idx) => ({
-                      initials: post.authorHandle.slice(0, 2).toUpperCase(),
-                      gradVar: post.avatarGradVar || `var(--avatar-grad-${(idx % 3) + 1})`,
-                      label: `@${post.authorHandle}`,
-                    }))}
-                    extraCount={Math.max(0, matchDebatePosts.length - 3)}
-                  />
-                ) : (
-                  <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-                    0 publicaciones
-                  </span>
-                )}
-              </div>
-
-              {matchDebatePosts.length > 0 ? (
-                <div className="pl-studio-debate-list space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
-                  {matchDebatePosts.map((post) => (
-                    <SocialPostCard
-                      key={post.id}
-                      variant="compact"
-                      post={post}
-                      author={resolvePostAuthor(post, own, [])}
-                      own={own}
-                      dataset={dataset}
-                      journal={journal}
-                      oddsFormat={oddsFormat}
-                      following={follows.isFollowing(post.authorHandle)}
-                      onToggleFollow={(handle) => {
-                        const now = follows.toggle(handle);
-                        pushToast(
-                          now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
-                          "default",
-                        );
-                      }}
-                      onCopy={(p) =>
-                        copyPostPickToJournal(p, {
-                          dataset,
-                          sealPickToJournal,
-                          recordSocialPostCopy,
-                          pushToast,
-                        })
-                      }
-                      onCopyToParlay={(p) =>
-                        copyPostPickToParlay(p, {
-                          dataset,
-                          addPickToParlay,
-                          pushToast,
-                        })
-                      }
-                      onShare={(p) => shareSocialPost(p, pushToast)}
-                      toggleSocialLike={toggleSocialLike}
-                      addSocialComment={addSocialComment}
-                      onDeleteComment={deleteSocialComment}
-                      onToggleCommentHelpful={toggleSocialCommentHelpful}
-                      onLoadAllComments={loadAllPostComments}
-                      onDeletePost={deleteSocialPost}
-                      onOpenReport={setReportTarget}
-                      onNavigate={navigateTo}
-                      goProfile={goProfile}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <p
-                  className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
-                  style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
-                >
-                  Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
-                  lectura.
-                </p>
-              )}
-
-              <form onSubmit={handlePublishDebate} noValidate className="space-y-2 pt-2 hairline-t">
-                <label
-                  htmlFor="studio-debate-input"
-                  className="text-xs font-bold block"
-                >
-                  Tu opinión sobre {matchLabelShort}
-                </label>
-                <textarea
-                  id="studio-debate-input"
-                  rows={2}
-                  maxLength={SOCIAL_POST_MAX_CHARS}
-                  value={debateBody}
-                  onChange={(e) => {
-                    setDebateBody(e.target.value);
-                    if (debateError) setDebateError("");
-                  }}
-                  placeholder="¿Qué ves en este partido?"
-                  className="glass-input w-full p-2.5 text-xs resize-none"
-                />
-                {debateError ? (
-                  <p
-                    role="alert"
-                    className="m-0 text-xs font-semibold"
-                    style={{ color: "var(--pl-danger)" }}
-                  >
-                    {debateError}
-                  </p>
-                ) : null}
+            opinionsSlot={
+              <aside
+                aria-label="Opiniones de socios sobre el partido"
+                className="pl-ctx-card glass-lens glass-ring"
+              >
                 <div className="flex items-center justify-between gap-2">
-                  <span>
-                    {debateBody.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7) ? (
-                      <span className="pl-com-char-count num">
-                        {debateBody.length}/{SOCIAL_POST_MAX_CHARS}
-                      </span>
-                    ) : null}
-                  </span>
-                  <button
-                    type="submit"
-                    className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
-                  >
-                    <MaestroIcon name="users" size={12} />
-                    <span>Publicar opinión</span>
-                  </button>
+                  <div>
+                    <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
+                  </div>
+                  {matchDebatePosts.length > 0 ? (
+                    <StackedAvatars
+                      items={matchDebatePosts.slice(0, 3).map((post, idx) => ({
+                        initials: post.authorHandle.slice(0, 2).toUpperCase(),
+                        gradVar: post.avatarGradVar || `var(--avatar-grad-${(idx % 3) + 1})`,
+                        label: `@${post.authorHandle}`,
+                      }))}
+                      extraCount={Math.max(0, matchDebatePosts.length - 3)}
+                    />
+                  ) : (
+                    <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                      0 publicaciones
+                    </span>
+                  )}
                 </div>
-              </form>
-              <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
-            </aside>
-          </section>
+
+                {matchDebatePosts.length > 0 ? (
+                  <div className="pl-studio-debate-list space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
+                    {matchDebatePosts.map((post) => (
+                      <SocialPostCard
+                        key={post.id}
+                        variant="compact"
+                        post={post}
+                        author={resolvePostAuthor(post, own, [])}
+                        own={own}
+                        dataset={dataset}
+                        journal={journal}
+                        oddsFormat={oddsFormat}
+                        following={follows.isFollowing(post.authorHandle)}
+                        onToggleFollow={(handle) => {
+                          const now = follows.toggle(handle);
+                          pushToast(
+                            now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
+                            "default",
+                          );
+                        }}
+                        onCopy={(p) =>
+                          copyPostPickToJournal(p, {
+                            dataset,
+                            sealPickToJournal,
+                            recordSocialPostCopy,
+                            pushToast,
+                          })
+                        }
+                        onCopyToParlay={(p) =>
+                          copyPostPickToParlay(p, {
+                            dataset,
+                            addPickToParlay,
+                            pushToast,
+                          })
+                        }
+                        onShare={(p) => shareSocialPost(p, pushToast)}
+                        toggleSocialLike={toggleSocialLike}
+                        addSocialComment={addSocialComment}
+                        onDeleteComment={deleteSocialComment}
+                        onToggleCommentHelpful={toggleSocialCommentHelpful}
+                        onLoadAllComments={loadAllPostComments}
+                        onDeletePost={deleteSocialPost}
+                        onOpenReport={setReportTarget}
+                        onNavigate={navigateTo}
+                        goProfile={goProfile}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p
+                    className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
+                    style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
+                  >
+                    Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
+                    lectura.
+                  </p>
+                )}
+
+                <form onSubmit={handlePublishDebate} noValidate className="space-y-2 pt-2 hairline-t">
+                  <label
+                    htmlFor="studio-debate-input"
+                    className="text-xs font-bold block"
+                  >
+                    Tu opinión sobre {matchLabelShort}
+                  </label>
+                  <textarea
+                    id="studio-debate-input"
+                    rows={2}
+                    maxLength={SOCIAL_POST_MAX_CHARS}
+                    value={debateBody}
+                    onChange={(e) => {
+                      setDebateBody(e.target.value);
+                      if (debateError) setDebateError("");
+                    }}
+                    placeholder="¿Qué ves en este partido?"
+                    className="glass-input w-full p-2.5 text-xs resize-none"
+                  />
+                  {debateError ? (
+                    <p
+                      role="alert"
+                      className="m-0 text-xs font-semibold"
+                      style={{ color: "var(--pl-danger)" }}
+                    >
+                      {debateError}
+                    </p>
+                  ) : null}
+                  <div className="flex items-center justify-between gap-2">
+                    <span>
+                      {debateBody.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7) ? (
+                        <span className="pl-com-char-count num">
+                          {debateBody.length}/{SOCIAL_POST_MAX_CHARS}
+                        </span>
+                      ) : null}
+                    </span>
+                    <button
+                      type="submit"
+                      className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
+                    >
+                      <MaestroIcon name="users" size={12} />
+                      <span>Publicar opinión</span>
+                    </button>
+                  </div>
+                </form>
+                <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
+              </aside>
+            }
+          />
         </MatchTabPanel>
       </ClubWorkspaceShell>
     </AtmosphereStage>

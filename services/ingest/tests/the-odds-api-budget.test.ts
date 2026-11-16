@@ -2,7 +2,10 @@ import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { CleanHttpTransport } from "../src/odds/legal-registry.js";
+import {
+  CleanHttpTransport,
+  detectAntiBotChallenge,
+} from "../src/odds/legal-registry.js";
 import { buildPermittedActiveOddsAdapters } from "../src/odds/betfair-exchange.js";
 import {
   DEFAULT_THE_ODDS_API_MARKETS,
@@ -199,6 +202,32 @@ describe("The Odds API · presupuesto gratuito y prechequeo /events", () => {
     const dec01 = Date.parse("2026-12-01T10:00:00Z");
     expect(budget.check("soccer_epl", 1, dec01)).toBeNull();
     expect(budget.creditsUsed).toBe(0);
+
+    // Regresión: si el mes cierra pegado a la reserva, el encabezado viejo no debe
+    // bloquear el mes siguiente (antes quedaba atorado para siempre).
+    const stuck = new OddsApiBudget({
+      monthlyCredits: 500,
+      reserveCredits: 25,
+      minIntervalMinutes: 0,
+      lookaheadHours: 48,
+    });
+    const nov30Stuck = Date.parse("2026-11-30T10:00:00Z");
+    stuck.record("soccer_epl", 1, nov30Stuck, 25);
+    expect(stuck.check("soccer_epl", 1, nov30Stuck)).toBe("reserva_mensual");
+    const dec01Stuck = Date.parse("2026-12-01T10:00:00Z");
+    expect(stuck.check("soccer_epl", 1, dec01Stuck)).toBeNull();
+
+    // Regresión de seguridad S-1: detectAntiBotChallenge nunca expone apiKey en query string.
+    const antiBotMsg = detectAntiBotChallenge({
+      status: 403,
+      url: "https://api.the-odds-api.com/v4/sports/americanfootball_nfl/events?apiKey=SECRET_KEY_123&regions=eu",
+      headers: { "cf-mitigated": "challenge" },
+      bodyText: "",
+      sha256: "abc",
+    });
+    expect(antiBotMsg).not.toBeNull();
+    expect(antiBotMsg).not.toContain("SECRET_KEY_123");
+    expect(antiBotMsg).not.toContain("apiKey=");
 
     const unlimited = new OddsApiBudget(UNLIMITED_ODDS_API_BUDGET);
     expect(unlimited.dailyAllowance(nov16)).toBeNull();

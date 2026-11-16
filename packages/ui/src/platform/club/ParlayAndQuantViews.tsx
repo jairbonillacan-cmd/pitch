@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import { OddsCompareClubView } from "./OddsCompareView";
 import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
+import { shortDateLabel } from "./home/home-model";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import { getTeamColors } from "@pitchlab/sports-assets";
@@ -404,7 +405,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       </span>
                     </span>
                     <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                      {g.kickoffLocal}
+                      {shortDateLabel(g.dayId)} · {g.kickoffLocal}
                     </span>
                   </div>
 
@@ -577,7 +578,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
               ) : (
                 <div className="space-y-2.5">
-                  {parlaySummary.legs.map(({ pick }) => (
+                  {parlaySummary.legs.map(({ pick }) => {
+                    const gm = dataset.games.find((g) => g.id === pick.gameId);
+                    return (
                     <div
                       key={pick.id}
                       className="rounded-2xl p-3 flex items-start justify-between gap-2"
@@ -589,6 +592,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           style={{ color: "var(--pl-text-muted)" }}
                         >
                           {pick.leagueLabel} · {pick.matchLabel}
+                          {gm ? ` · ${shortDateLabel(gm.dayId)} · ${gm.kickoffLocal}` : ` · ${pick.kickoffLocal}`}
                         </span>
                         <strong className="block text-sm truncate">{pick.label}</strong>
                         <span
@@ -608,7 +612,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <MaestroIcon name="x" size={12} />
                       </button>
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
               )}
 

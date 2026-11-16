@@ -361,7 +361,7 @@ function TeamContextCard({
               { k: "DG", v: standing.goalDiff > 0 ? `+${standing.goalDiff}` : standing.goalDiff },
               { k: "Pts", v: standing.points, bold: true },
             ].map((cell) => (
-              <div key={cell.k} className="rounded-lg py-1.5 px-1" style={{ background: "var(--pl-surface-soft)" }}>
+              <div key={cell.k} className="rounded-lg py-1.5 px-1" style={{ background: "var(--pl-surface-elevated)" }}>
                 <span className="block text-[10px]" style={{ color: "var(--pl-text-muted)" }}>
                   {cell.k}
                 </span>

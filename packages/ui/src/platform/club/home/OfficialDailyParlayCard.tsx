@@ -15,7 +15,7 @@ import {
 } from "../../daily-parlay";
 import { usePlatform } from "../../platform-provider";
 import type { OddsFormat, PlatformGame } from "../../types";
-import { longDayLabel } from "./home-model";
+import { longDayLabel, shortDateLabel } from "./home-model";
 
 function formatCombinedOdds(decimal: number, oddsFormat: OddsFormat): string {
   const dec = decimal.toFixed(2);
@@ -30,6 +30,8 @@ export function OfficialDailyParlayCard({
   isPastDay = false,
   activeLeague = null,
   initialMode,
+  embedded = false,
+  onLoadedToParlay,
 }: {
   games: readonly PlatformGame[];
   selectedDay: string;
@@ -37,13 +39,14 @@ export function OfficialDailyParlayCard({
   isPastDay?: boolean;
   activeLeague?: LeagueId | null;
   initialMode?: DailyParlayMode;
+  embedded?: boolean;
+  onLoadedToParlay?: () => void;
 }): React.JSX.Element {
   const {
     viewerRole,
     oddsFormat,
     riskPreference,
     loadParlayPicks,
-    openShareTicket,
     navigateTo,
   } = usePlatform();
   const [selectedMode, setSelectedMode] = useState<DailyParlayMode>(
@@ -165,46 +168,10 @@ export function OfficialDailyParlayCard({
       ? (active.combinedProbability - 1 / active.bookDecimal) * 100
       : null;
 
-  const handleOpenShare = () => {
-    if (active.status !== "ready" || active.legs.length === 0) return;
-    const titlePrefix =
-      selectedMode === "objetivo" ? "Parlay objetivo ~5.0×" : `Parlay del día (${spec.label})`;
-    openShareTicket({
-      kind: "parlay",
-      title:
-        effectiveLeagueFilter === "all"
-          ? titlePrefix
-          : `${titlePrefix} · ${activeScopeLabel}`,
-      subtitle: `${spec.ruleHint} (${dayCaption})`,
-      leagueLabel: effectiveLeagueFilter === "all" ? "Jornada PitchLab" : activeScopeLabel,
-      pickLabel: active.legs.map((l) => l.pick.label).join(" + "),
-      probability: active.combinedProbability,
-      fairDecimal: active.fairDecimal,
-      marketDecimal: active.hasCapturedBookOdds ? active.bookDecimal : active.fairDecimal,
-      units: 1,
-      gameStatus: isPastDay ? "FT" : "NS",
-      revealLegs: true,
-      legs: active.legs.map(({ pick }) => {
-        const g = gamesById.get(pick.gameId);
-        const isAmerican =
-          g && (g.sport === "american-football" || g.sport === "basketball" || g.sport === "ice-hockey");
-        const matchupText = isAmerican && g ? `${g.away.code} @ ${g.home.code}` : pick.matchLabel;
-        return {
-          label: pick.label,
-          matchLabel: `${matchupText} · ${pick.kickoffLocal}`,
-          p: pick.p,
-          fairDecimal: pick.fairDecimal,
-          marketDecimal: pick.marketDecimal,
-          kickoffLocal: pick.kickoffLocal,
-        };
-      }),
-    });
-  };
-
   return (
     <section
       aria-labelledby="home-daily-parlay-title"
-      className="pl-daily-parlay glass-card glass-ring"
+      className={embedded ? "pl-daily-parlay is-embedded" : "pl-daily-parlay glass-card glass-ring"}
       data-daily-parlay-card=""
     >
       <div className="pl-daily-parlay-head">
@@ -359,10 +326,15 @@ export function OfficialDailyParlayCard({
                       ) : null}
                     </div>
                     <span
-                      className="text-xs truncate"
+                      className={embedded ? "text-[11px] leading-snug" : "text-xs truncate"}
                       style={{ color: "var(--pl-text-muted)" }}
                     >
-                      {matchupLabel} · <span className="num">{pick.kickoffLocal}</span> · {pick.leagueLabel}
+                      {matchupLabel} ·{" "}
+                      <span className="num">
+                        {game ? `${shortDateLabel(game.dayId)} · ` : ""}
+                        {pick.kickoffLocal}
+                      </span>
+                      {embedded ? null : ` · ${pick.leagueLabel}`}
                     </span>
                   </div>
                   <div className="pl-daily-leg-meta num">
@@ -420,49 +392,39 @@ export function OfficialDailyParlayCard({
             ) : null}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
-            {hasOpenLegs ? (
-              <>
-                <button
-                  type="button"
-                  className="pl-btn-primary min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
-                  data-load-daily-parlay=""
-                  onClick={() =>
-                    loadParlayPicks(openPicks, {
-                      allowSgp: false,
-                      label: `Parlay del día (${spec.label})`,
-                    })
-                  }
-                >
-                  <MaestroIcon name="layers" size={14} />
-                  <span>Cargar a mi parlay</span>
-                </button>
-                <button
-                  type="button"
-                  className="pl-btn-glass min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
-                  onClick={() => {
-                    loadParlayPicks(openPicks, {
-                      allowSgp: false,
-                      label: `Parlay del día (${spec.label})`,
-                    });
-                    navigateTo("/app/parlays");
-                  }}
-                >
-                  <span>Abrir en armador</span>
-                  <MaestroIcon name="arrowRight" size={14} />
-                </button>
-              </>
-            ) : null}
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
-              data-share-daily-parlay=""
-              onClick={handleOpenShare}
-            >
-              <MaestroIcon name="share" size={14} />
-              <span>Compartir tarjeta</span>
-            </button>
-          </div>
+          {hasOpenLegs ? (
+            <div className="pl-daily-parlay-actions">
+              <button
+                type="button"
+                className="pl-btn-primary min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
+                data-load-daily-parlay=""
+                onClick={() => {
+                  loadParlayPicks(openPicks, {
+                    allowSgp: false,
+                    label: `Parlay del día (${spec.label})`,
+                  });
+                  onLoadedToParlay?.();
+                }}
+              >
+                <MaestroIcon name="layers" size={14} />
+                <span>Cargar a mi parlay</span>
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-4 text-sm inline-flex items-center justify-center gap-1.5"
+                onClick={() => {
+                  loadParlayPicks(openPicks, {
+                    allowSgp: false,
+                    label: `Parlay del día (${spec.label})`,
+                  });
+                  navigateTo("/app/parlays");
+                }}
+              >
+                <span>Abrir en armador</span>
+                <MaestroIcon name="arrowRight" size={14} />
+              </button>
+            </div>
+          ) : null}
         </>
       ) : (
         <div className="pl-daily-empty" role="status">

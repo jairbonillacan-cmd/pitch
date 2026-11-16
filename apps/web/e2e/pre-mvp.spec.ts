@@ -468,8 +468,6 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("[data-picks]")).toBeVisible();
     // Socio con Pase PitchLab Ultra ve los 5 picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
-    await expect(page.locator("[data-market-pulse]")).toBeVisible();
-    await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
     await expect(page.locator("[data-summary-factors]")).toBeVisible();
 
     // Pestañas accesibles (role=tablist, flechas + Enter, sincronizadas con ?tab=)
@@ -478,10 +476,20 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await resumenTab.focus();
     await page.keyboard.press("ArrowRight");
     await page.keyboard.press("Enter");
+    await expect(page.locator("[data-section-tab='ia']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=ia$/);
+
+    await page.locator("[data-section-tab='numeros']").click();
     await expect(page.locator("[data-section-tab='numeros']")).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(/\?tab=numeros$/);
     await expect(page.locator("[data-numbers-expected]")).toBeVisible();
     await expect(page.locator("body")).toContainText("Mercados del partido");
+
+    await page.locator("[data-section-tab='dinero']").click();
+    await expect(page.locator("[data-section-tab='dinero']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=dinero$/);
+    await expect(page.locator("[data-market-pulse]")).toBeVisible();
+    await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
 
     await page.locator("[data-section-tab='contexto']").click();
     await expect(page.locator("[data-section-tab='contexto']")).toHaveAttribute("aria-selected", "true");
@@ -527,6 +535,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     );
     expect(overflow).toBe(false);
 
+    await page.locator("#pl-league-tab-tabla").click();
+    await expect(page.locator("#pl-league-tab-tabla")).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".standings-block")).toBeVisible();
     await expect(page.locator(".standings")).toContainText("Pts");
 

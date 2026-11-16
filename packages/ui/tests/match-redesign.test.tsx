@@ -293,17 +293,22 @@ describe("propagación de counts y goalLine desde snapshots y contracts", () => 
   });
 });
 
-describe("Ficha rediseñada en 3 pestañas accesibles", () => {
-  it("normaliza ?tab= incluyendo respaldo a enlaces previos", () => {
+describe("Ficha rediseñada en 5 pestañas accesibles", () => {
+  it("normaliza ?tab= incluyendo Análisis IA, ¿Dónde está el dinero? y respaldo a enlaces previos", () => {
     expect(normalizeMatchTab(undefined)).toBe("resumen");
     expect(normalizeMatchTab("resumen")).toBe("resumen");
+    expect(normalizeMatchTab("ia")).toBe("ia");
+    expect(normalizeMatchTab("analisis")).toBe("ia");
+    expect(normalizeMatchTab("cortex")).toBe("ia");
     expect(normalizeMatchTab("numeros")).toBe("numeros");
     expect(normalizeMatchTab(["números"])).toBe("numeros");
     expect(normalizeMatchTab("mercados")).toBe("numeros");
+    expect(normalizeMatchTab("dinero")).toBe("dinero");
+    expect(normalizeMatchTab("money")).toBe("dinero");
     expect(normalizeMatchTab("contexto")).toBe("contexto");
   });
 
-  it("renderiza role=tablist sin aria-controls, con 3 paneles en HTML y hidden en los inactivos", () => {
+  it("renderiza role=tablist con 5 pestañas sin aria-controls y hidden en los paneles inactivos", () => {
     const html = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <MatchStudioClubView
@@ -317,20 +322,29 @@ describe("Ficha rediseñada en 3 pestañas accesibles", () => {
     expect(tablistHtml).toContain('role="tablist"');
     expect(tablistHtml).not.toContain("aria-controls=");
     expect(html).toContain('id="pl-match-tab-resumen"');
+    expect(html).toContain('id="pl-match-tab-ia"');
     expect(html).toContain('id="pl-match-tab-numeros"');
+    expect(html).toContain('id="pl-match-tab-dinero"');
     expect(html).toContain('id="pl-match-tab-contexto"');
+    expect(html).toContain('id="pl-match-panel-ia"');
     expect(html).toContain('id="pl-match-panel-numeros"');
+    expect(html).toContain('id="pl-match-panel-dinero"');
     expect(html).toContain('aria-selected="true"');
 
-    // Paneles resumen y contexto deben estar hidden cuando initialTab="numeros"
+    // Paneles resumen, ia, dinero y contexto deben estar hidden cuando initialTab="numeros"
     expect(html).toMatch(/id="pl-match-panel-resumen"[^>]*hidden=""/);
+    expect(html).toMatch(/id="pl-match-panel-ia"[^>]*hidden=""/);
+    expect(html).toMatch(/id="pl-match-panel-dinero"[^>]*hidden=""/);
     expect(html).toMatch(/id="pl-match-panel-contexto"[^>]*hidden=""/);
 
-    // Contenido de las 3 pestañas presente en el árbol inicial
+    // Contenido de las 5 pestañas presente en el árbol inicial
     expect(html).toContain("Pronóstico del partido");
+    expect(html).toContain("Análisis IA");
     expect(html).toContain("Cortex IA");
     expect(html).toContain("Factores del partido");
     expect(html).toContain("Goles esperados");
+    expect(html).toContain("¿Dónde está el dinero?");
+    expect(html).toContain("Comparativa de cuotas y valor");
     expect(html).toContain("Córners esperados");
     expect(html).toContain("Faltas esperadas");
     expect(html).toContain("Amarillas esperadas");
@@ -380,6 +394,71 @@ describe("Ficha rediseñada en 3 pestañas accesibles", () => {
     expect(html).not.toContain("10.7");
     expect(html).not.toContain("21.9");
     expect(html).not.toContain("J. Gómez");
+  });
+
+  it("renderiza Pronóstico de Cortex IA y Análisis de IA editorial con probabilidades, momios justos y resultado FT sin fugas", () => {
+    const preMatchHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={DATASET} initialRole="member">
+        <MatchStudioClubView
+          leagueId={asLeagueId("liga-mx")}
+          gameId={MATCH.id}
+        />
+      </PlatformProvider>,
+    );
+    expect(preMatchHtml).toContain("Pronóstico de Cortex IA");
+    expect(preMatchHtml).toContain("Goles esperados");
+    expect(preMatchHtml).toContain("Total de goles");
+    expect(preMatchHtml).toContain("Más de 2.5 goles");
+    expect(preMatchHtml).toContain("Margen esperado");
+    expect(preMatchHtml).toContain("Probabilidad de victoria");
+    expect(preMatchHtml).toContain("1 · Querétaro");
+    expect(preMatchHtml).toContain("X · Empate");
+    expect(preMatchHtml).toContain("2 · Rayados de Monterrey");
+    expect(preMatchHtml).toContain("Análisis de IA");
+    expect(preMatchHtml).toContain("Con los números del modelo");
+    expect(preMatchHtml).toContain("Resumen");
+    expect(preMatchHtml).toContain("Goles y ritmo");
+    expect(preMatchHtml).toContain("A tener en cuenta");
+    expect(preMatchHtml).toContain("Pronóstico estadístico de Cortex IA. No garantiza resultados.");
+    expect(preMatchHtml).not.toMatch(/Poisson|Dixon-Coles|sigma|matriz|tipstar/i);
+
+    const ftMatch = buildRichMatch({
+      id: "ft-check-mty",
+      status: "FT",
+      score: { home: 1, away: 2 },
+      marketGroups: [
+        ...(MATCH.marketGroups ?? []),
+        {
+          group: "Ambos anotan",
+          rows: [
+            row("btts", "yes", "Sí", 0.63),
+            row("btts", "no", "No", 0.37),
+          ],
+        },
+      ],
+    });
+    const ftDataset = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura",
+        roundLabel: "Jornada 16",
+        generatedAt: "2030-11-15T06:00:00Z",
+        games: [ftMatch],
+        standings: [],
+      },
+    ]);
+    const ftHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={ftDataset} initialRole="member">
+        <MatchStudioClubView
+          leagueId={asLeagueId("liga-mx")}
+          gameId="ft-check-mty"
+        />
+      </PlatformProvider>,
+    );
+    expect(ftHtml).toContain("Ambos anotan · Sí");
+    expect(ftHtml).toContain("Resultado real del partido · 1–2");
   });
 });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { isNationalCompetition } from "@pitchlab/contracts";
 import { getLogoPath } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import {
@@ -11,6 +12,7 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import { usePlatform } from "../platform-provider";
+import { shortDateLabel } from "../club/home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
@@ -1211,73 +1213,104 @@ export function CommandPaletteModal(): React.JSX.Element | null {
   );
 
   const indexedTeams = (() => {
-    if (dataset.teams && dataset.teams.length > 0) return dataset.teams;
-    const seen = new Map<
-      string,
-      {
-        id: string;
-        league: typeof dataset.leagues[number]["league"];
-        leagueLabel: string;
-        slug: string;
-        name: string;
-        shortName: string;
-        code: string;
-        rank: number | null;
-        href: string;
-      }
-    >();
-    const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
-    for (const lg of dataset.leagues) {
-      lg.standings.forEach((row, idx) => {
-        const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
-        const key = `${lg.league}:${slug}`;
-        if (!seen.has(key)) {
-          seen.set(key, {
-            id: row.teamId,
-            league: lg.league,
-            leagueLabel: lg.label,
-            slug,
-            name: row.name,
-            shortName: row.shortName,
-            code: row.code,
-            rank: idx + 1,
-            href: `/app/${lg.league}/teams/${slug}`,
-          });
+    const rawList = (() => {
+      if (dataset.teams && dataset.teams.length > 0) return dataset.teams;
+      const seen = new Map<
+        string,
+        {
+          id: string;
+          league: typeof dataset.leagues[number]["league"];
+          leagueLabel: string;
+          slug: string;
+          name: string;
+          shortName: string;
+          code: string;
+          rank: number | null;
+          href: string;
         }
-      });
-    }
+      >();
+      const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
+      for (const lg of dataset.leagues) {
+        lg.standings.forEach((row, idx) => {
+          const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
+          const key = `${lg.league}:${slug}`;
+          if (!seen.has(key)) {
+            seen.set(key, {
+              id: row.teamId,
+              league: lg.league,
+              leagueLabel: lg.label,
+              slug,
+              name: row.name,
+              shortName: row.shortName,
+              code: row.code,
+              rank: idx + 1,
+              href: `/app/${lg.league}/teams/${slug}`,
+            });
+          }
+        });
+      }
+      for (const g of dataset.games) {
+        for (const side of [g.home, g.away]) {
+          const key = `${g.league}:${side.slug}`;
+          if (!seen.has(key)) {
+            seen.set(key, {
+              id: key,
+              league: g.league,
+              leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
+              slug: side.slug,
+              name: side.name,
+              shortName: side.shortName,
+              code: side.code,
+              rank: null,
+              href: `/app/${g.league}/teams/${side.slug}`,
+            });
+          }
+        }
+      }
+      return [...seen.values()];
+    })();
+
+    const upcomingKeys = new Set<string>();
     for (const g of dataset.games) {
-      for (const side of [g.home, g.away]) {
-        const key = `${g.league}:${side.slug}`;
-        if (!seen.has(key)) {
-          seen.set(key, {
-            id: key,
-            league: g.league,
-            leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
-            slug: side.slug,
-            name: side.name,
-            shortName: side.shortName,
-            code: side.code,
-            rank: null,
-            href: `/app/${g.league}/teams/${side.slug}`,
-          });
-        }
+      if (g.status !== "FT") {
+        upcomingKeys.add(`${g.league}:${g.home.slug}`);
+        upcomingKeys.add(`${g.league}:${g.away.slug}`);
       }
     }
-    return [...seen.values()];
+    const deduped = new Map<string, (typeof rawList)[number]>();
+    for (const item of rawList) {
+      const dedupeKey = isNationalCompetition(item.league)
+        ? `national:${item.slug}`
+        : `club:${item.league}:${item.slug}`;
+      const current = deduped.get(dedupeKey);
+      if (!current) {
+        deduped.set(dedupeKey, item);
+        continue;
+      }
+      const nextUpcoming = upcomingKeys.has(`${item.league}:${item.slug}`);
+      const curUpcoming = upcomingKeys.has(`${current.league}:${current.slug}`);
+      if (nextUpcoming && !curUpcoming) {
+        deduped.set(dedupeKey, item);
+      }
+    }
+    return [...deduped.values()];
   })();
+
+  const normSearch = (s: string) =>
+    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const nq = normSearch(q);
 
   const matchingTeams = indexedTeams
     .filter((t) => {
-      if (!q) return false;
+      if (!nq) return false;
       return (
-        t.name.toLowerCase().includes(q) ||
-        t.shortName.toLowerCase().includes(q) ||
-        t.code.toLowerCase().includes(q) ||
-        t.leagueLabel.toLowerCase().includes(q)
+        normSearch(t.name).includes(nq) ||
+        normSearch(t.shortName).includes(nq) ||
+        normSearch(t.code).includes(nq) ||
+        normSearch(t.leagueLabel).includes(nq)
       );
     })
-    .slice(0, 6);
+    .slice(0, 8);
 
   const hasResults =
     matchingTeams.length > 0 ||
@@ -1337,7 +1370,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Equipos y franquicias
+                  Equipos y selecciones
                 </p>
                 <div className="space-y-1">
                   {matchingTeams.map((teamItem) => (
@@ -1411,7 +1444,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         style={{ color: "var(--pl-text-muted)" }}
                       >
                         <span>
-                          {g.leagueLabel} ·{" "}
+                          {g.leagueLabel} · {shortDateLabel(g.dayId)} ·{" "}
                           {g.status === "FT" ? "Final" : g.kickoffLocal}
                         </span>
                         <MaestroIcon name="chevronRight" size={14} />

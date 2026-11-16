@@ -12,11 +12,13 @@
  * 3. Los textos de `steps` y `factors` cumplen FD-16 (sin nombres de proveedores ni de algoritmos).
  */
 import {
+  LEAGUE_CATALOG,
   asMarketKey,
   formatCutTimestamp,
   type AnalysisMarketGroup,
   type GameAnalysis,
   type GameDTO,
+  type LeagueId,
   type MarketProbability,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
@@ -35,7 +37,7 @@ export interface FootballTeamRateInput {
 }
 
 export interface FootballAdapterInput {
-  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
+  league: LeagueId | string;
   leagueName: string;
   game: GameDTO;
   teams: FootballTeamRateInput[];
@@ -46,7 +48,7 @@ export interface FootballAdapterInput {
 
 type FootballCompCode = "PL" | "MX" | "LL" | "BL" | "SA" | "L1";
 
-function getCompCode(league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1"): FootballCompCode {
+function getCompCode(league: LeagueId | string): FootballCompCode {
   switch (league) {
     case "liga-mx":
       return "MX";
@@ -64,7 +66,7 @@ function getCompCode(league: "premier-league" | "liga-mx" | "laliga" | "bundesli
 }
 
 export function computeFootballTeamRates(
-  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1",
+  league: LeagueId | string,
   teams: FootballTeamRateInput[],
 ): { engine: FootballEngine; rates: Record<string, TeamSeasonRate>; compCode: FootballCompCode } {
   const compCode = getCompCode(league);
@@ -84,19 +86,9 @@ export function computeFootballTeamRates(
 
   const fallbackHome = teams[0]?.teamId ?? "home";
   const fallbackAway = teams[1]?.teamId ?? "away";
+  const catalogName = LEAGUE_CATALOG.find((entry) => entry.id === league)?.name;
   const compMeta: FbComp = {
-    n:
-      league === "liga-mx"
-        ? "Liga MX"
-        : league === "laliga"
-          ? "LaLiga"
-          : league === "bundesliga"
-            ? "Bundesliga"
-            : league === "serie-a"
-              ? "Serie A"
-              : league === "ligue-1"
-                ? "Ligue 1"
-                : "Premier League",
+    n: catalogName ?? "Premier League",
     sub: "",
     lg: compCode,
     em: compCode,

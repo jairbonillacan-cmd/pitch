@@ -206,7 +206,7 @@ export function MatchMarketsGrid({
     return cardsByCategory;
   }, [markets]);
 
-  if (locked || markets.length === 0) {
+  if (locked) {
     return (
       <div
         className="glass-card glass-ring rounded-2xl p-5"
@@ -214,6 +214,20 @@ export function MatchMarketsGrid({
       >
         <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
           Los mercados de este partido están disponibles con Pase PitchLab Ultra.
+        </p>
+      </div>
+    );
+  }
+
+  if (markets.length === 0) {
+    return (
+      <div
+        className="glass-card glass-ring rounded-2xl p-5"
+        data-empty-markets=""
+        data-watermark={watermark}
+      >
+        <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+          Este partido aún no tiene mercados publicados en el corte vigente.
         </p>
       </div>
     );
@@ -288,7 +302,7 @@ export function MatchMarketsGrid({
                 </span>
               </header>
 
-              <div className="pl-mkt-grid">
+              <div className="pl-mkt-grid" data-card-count={cards.length}>
                 {cards.map((card) => (
                   <article
                     key={card.id}
@@ -303,7 +317,7 @@ export function MatchMarketsGrid({
                       ) : null}
                     </header>
 
-                    <div className="pl-mkt-rows">
+                    <div className="pl-mkt-rows" data-row-count={card.rows.length}>
                       {card.rows.map(({ row, key, isMostLikely }) => {
                         const pct = Math.round(row.p * 1000) / 10;
                         const fairText = formatOddsValue(

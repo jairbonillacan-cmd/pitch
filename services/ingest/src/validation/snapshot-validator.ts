@@ -6,6 +6,7 @@
 import {
   LeagueInjuriesFileSchema,
   LeagueSnapshotSchema,
+  isNationalCompetition,
   type LeagueInjuriesFile,
   type LeagueSnapshot,
   type Team,
@@ -32,6 +33,7 @@ const MIN_PLAUSIBLE_YEAR = 2024;
 const MAX_PLAUSIBLE_YEAR = 2028;
 const MAX_FUTURE_CLOCK_SKEW_MS = 10 * 60_000;
 const MAX_FIXTURE_HORIZON_MS = 400 * 86_400_000;
+const MAX_NATIONAL_CYCLE_ARCHIVE_MS = 1100 * 86_400_000;
 
 const PSEUDO_TEAM_NAMES = new Set([
   "tbd",
@@ -423,13 +425,17 @@ export function validateLeagueSnapshotCandidate(
     }
 
     const startMs = parseStrictIsoMs(game.startTime);
+    const maxHorizonMs =
+      game.status === "final" && isNationalCompetition(snapshot.league)
+        ? MAX_NATIONAL_CYCLE_ARCHIVE_MS
+        : MAX_FIXTURE_HORIZON_MS;
     if (startMs === null) {
       issues.push({
         code: "IMPOSSIBLE_DATE",
         path: `games.${game.id}.startTime`,
         message: `Fecha startTime imposible en '${game.id}': '${game.startTime}'.`,
       });
-    } else if (updatedMs !== null && Math.abs(startMs - updatedMs) > MAX_FIXTURE_HORIZON_MS) {
+    } else if (updatedMs !== null && Math.abs(startMs - updatedMs) > maxHorizonMs) {
       issues.push({
         code: "IMPOSSIBLE_DATE",
         path: `games.${game.id}.startTime`,

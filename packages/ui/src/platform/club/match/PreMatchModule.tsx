@@ -182,6 +182,9 @@ export function PreMatchModule({
       ? { label: freeze.pick.label, p: freeze.pick.p }
       : null;
 
+  const hasManyAbsences =
+    absencesState.state === "with_absences" && absencesState.items.length > 2;
+
   return (
     <section
       className="pl-prematch glass-card glass-ring"
@@ -234,197 +237,92 @@ export function PreMatchModule({
         </div>
       </header>
 
-      <div className="pl-prematch-grid">
-        <div className="pl-prematch-stack">
-          {/* 1) Pick principal congelado 1 h antes */}
-          <article
-            className={`pl-prematch-card pl-prematch-pick ${freeze.isFrozen ? "is-frozen" : ""}`.trim()}
-            data-pre-match-pick=""
-          >
-            <div className="pl-prematch-card-head">
-              <h3 className="pl-prematch-card-title">Pick principal</h3>
-              <span
-                className={`pl-prematch-seal num ${freeze.isFrozen ? "is-frozen" : "is-pending"}`.trim()}
-                data-freeze-seal=""
-                data-freeze-state={freeze.phase}
-                aria-live="polite"
-              >
-                <MaestroIcon
-                  name={freeze.isFrozen ? "lock" : "calendar"}
-                  size={12}
-                />
-                <time dateTime={freeze.freezeAtUtc}>{freeze.sealLabel}</time>
-              </span>
-            </div>
+      <div
+        className="pl-prematch-grid"
+        data-absences-layout={hasManyAbsences ? "wide" : "compact"}
+      >
+        {/* 1) Pick principal congelado 1 h antes */}
+        <article
+          className={`pl-prematch-card pl-prematch-pick ${freeze.isFrozen ? "is-frozen" : ""}`.trim()}
+          data-pre-match-pick=""
+        >
+          <div className="pl-prematch-card-head">
+            <h3 className="pl-prematch-card-title">Pick principal</h3>
+            <span
+              className={`pl-prematch-seal num ${freeze.isFrozen ? "is-frozen" : "is-pending"}`.trim()}
+              data-freeze-seal=""
+              data-freeze-state={freeze.phase}
+              aria-live="polite"
+            >
+              <MaestroIcon
+                name={freeze.isFrozen ? "lock" : "calendar"}
+                size={12}
+              />
+              <time dateTime={freeze.freezeAtUtc}>{freeze.sealLabel}</time>
+            </span>
+          </div>
 
-            {mainPickUnlocked && freeze.pick ? (
-              <div className="pl-prematch-pick-body">
-                <div className="pl-prematch-pick-main">
-                  <div className="min-w-0">
-                    <span className="pl-prematch-kicker">
-                      {freeze.pick.categoryLabel} · {freeze.pick.marketGroup}
-                    </span>
-                    <strong className="pl-prematch-pick-name" data-frozen-pick-label="">
-                      {freeze.pick.label}
+          {mainPickUnlocked && freeze.pick ? (
+            <div className="pl-prematch-pick-body">
+              <div className="pl-prematch-pick-main">
+                <div className="min-w-0">
+                  <span className="pl-prematch-kicker">
+                    {freeze.pick.categoryLabel} · {freeze.pick.marketGroup}
+                  </span>
+                  <strong className="pl-prematch-pick-name" data-frozen-pick-label="">
+                    {freeze.pick.label}
+                  </strong>
+                </div>
+
+                <div className="pl-prematch-metrics num">
+                  <div className="pl-prematch-metric">
+                    <span className="pl-prematch-metric-label">Probabilidad</span>
+                    <strong className="pl-prematch-metric-value is-accent" data-frozen-pick-prob="">
+                      {formatPctEs(freeze.pick.p)}
                     </strong>
                   </div>
-
-                  <div className="pl-prematch-metrics num">
-                    <div className="pl-prematch-metric">
-                      <span className="pl-prematch-metric-label">Probabilidad</span>
-                      <strong className="pl-prematch-metric-value is-accent" data-frozen-pick-prob="">
-                        {formatPctEs(freeze.pick.p)}
-                      </strong>
-                    </div>
-                    <div className="pl-prematch-metric">
-                      <span className="pl-prematch-metric-label">Momio justo</span>
-                      <strong className="pl-prematch-metric-value" data-frozen-pick-odds="">
-                        {formatOddsValue(freeze.pick.fairDecimal, oddsFormat)}
-                      </strong>
-                    </div>
+                  <div className="pl-prematch-metric">
+                    <span className="pl-prematch-metric-label">Momio justo</span>
+                    <strong className="pl-prematch-metric-value" data-frozen-pick-odds="">
+                      {formatOddsValue(freeze.pick.fairDecimal, oddsFormat)}
+                    </strong>
                   </div>
                 </div>
-
-                <PBar p={freeze.pick.p} lead />
-
-                <p className="pl-prematch-note">
-                  {freeze.isFrozen
-                    ? "Selección y probabilidad selladas 60 min antes del inicio. No cambian aunque el motor vuelva a calcularse."
-                    : "La selección principal y su probabilidad quedan selladas 60 min antes del saque inicial."}
-                </p>
               </div>
-            ) : !mainPickUnlocked ? (
-              <div className="pl-prematch-locked">
-                <p className="pl-prematch-note">
-                  El pick principal congelado y su momio justo están incluidos en el Pase PitchLab Ultra.
-                </p>
-                <a
-                  href={upgradeHref}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo(upgradeHref);
-                  }}
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
-                >
-                  <MaestroIcon name="lock" size={13} />
-                  <span>Activar Pase PitchLab Ultra</span>
-                </a>
-              </div>
-            ) : (
+
+              <PBar p={freeze.pick.p} lead />
+
               <p className="pl-prematch-note">
-                Aún no hay selección principal calculada para este encuentro.
+                {freeze.isFrozen
+                  ? "Selección y probabilidad selladas 60 min antes del inicio. No cambian aunque el motor vuelva a calcularse."
+                  : "La selección principal y su probabilidad quedan selladas 60 min antes del saque inicial."}
               </p>
-            )}
-          </article>
-
-          {/* 2) Bajas y lesiones */}
-          <article className="pl-prematch-card" data-pre-match-absences="">
-            <div className="pl-prematch-card-head">
-              <h3 className="pl-prematch-card-title">Bajas y lesiones</h3>
-              {absencesState.state === "with_absences" ? (
-                <span className="pl-prematch-count num">
-                  {absencesState.items.length}{" "}
-                  {absencesState.items.length === 1 ? "reporte" : "reportes"}
-                </span>
-              ) : null}
             </div>
-
-            {absencesState.state === "with_absences" ? (
-              <ul role="list" className="pl-prematch-absence-list">
-                {absencesState.items.map((item, idx) => {
-                  const team = item.teamSide === "home" ? game.home : game.away;
-                  const statusTone =
-                    item.status === "Baja"
-                      ? "pl-pill pl-pill--danger"
-                      : "pl-pill pl-pill--warning";
-                  return (
-                    <li key={`${item.teamSide}-${item.player}-${idx}`} className="pl-prematch-absence-item">
-                      <div className="pl-prematch-absence-top">
-                        <div className="pl-prematch-absence-team">
-                          <TeamBadge
-                            league={game.league}
-                            slug={team.slug}
-                            name={team.name}
-                            logoUrl={team.logoUrl}
-                            size={20}
-                          />
-                          <strong className="pl-prematch-absence-player">
-                            {item.player}
-                          </strong>
-                        </div>
-                        <span className={`${statusTone} text-[11px] shrink-0`}>
-                          {item.status}
-                        </span>
-                      </div>
-                      <p className="pl-prematch-absence-impact">{item.impactNote}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : absencesState.state === "no_absences" ? (
-              <p className="pl-prematch-empty" data-no-absences="">
-                {absencesState.honestEmptyLabel}
-              </p>
-            ) : (
+          ) : !mainPickUnlocked ? (
+            <div className="pl-prematch-locked">
               <p className="pl-prematch-note">
-                Reporte de bajas y disponibilidad reservado para socios con Pase PitchLab Ultra.
+                El pick principal congelado y su momio justo están incluidos en el Pase PitchLab Ultra.
               </p>
-            )}
-          </article>
-
-          {/* 3) Ranura «Alineación confirmada» — preparada pero APAGADA sin fuente verificada */}
-          <article
-            className={`pl-prematch-card pl-prematch-lineup ${lineupSlot.enabled ? "is-enabled" : "is-off"}`.trim()}
-            data-lineup-slot={lineupSlot.enabled ? "on" : "off"}
-          >
-            <div className="pl-prematch-card-head">
-              <h3 className="pl-prematch-card-title">Alineación confirmada</h3>
-              <span
-                className={`pl-prematch-slot-chip ${lineupSlot.enabled ? "is-on" : "is-off"}`.trim()}
-                data-lineup-status={lineupSlot.enabled ? "on" : "off"}
+              <a
+                href={upgradeHref}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(upgradeHref);
+                }}
+                className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
               >
-                {lineupSlot.statusBadge}
-              </span>
+                <MaestroIcon name="lock" size={13} />
+                <span>Activar Pase PitchLab Ultra</span>
+              </a>
             </div>
+          ) : (
+            <p className="pl-prematch-note">
+              Aún no hay selección principal calculada para este encuentro.
+            </p>
+          )}
+        </article>
 
-            {lineupSlot.enabled && lineupSlot.lineups ? (
-              <div className="pl-prematch-lineup-grid">
-                <div className="pl-prematch-lineup-col">
-                  <strong className="pl-prematch-lineup-team">
-                    {game.home.shortName}
-                    {lineupSlot.lineups.homeFormation ? ` · ${lineupSlot.lineups.homeFormation}` : ""}
-                  </strong>
-                  <ul role="list" className="pl-prematch-starters">
-                    {lineupSlot.lineups.homeStarters.map((p, idx) => (
-                      <li key={`h-${p.name}-${idx}`}>
-                        {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                        <span>{p.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="pl-prematch-lineup-col">
-                  <strong className="pl-prematch-lineup-team">
-                    {game.away.shortName}
-                    {lineupSlot.lineups.awayFormation ? ` · ${lineupSlot.lineups.awayFormation}` : ""}
-                  </strong>
-                  <ul role="list" className="pl-prematch-starters">
-                    {lineupSlot.lineups.awayStarters.map((p, idx) => (
-                      <li key={`a-${p.name}-${idx}`}>
-                        {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                        <span>{p.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ) : (
-              <p className="pl-prematch-note">{lineupSlot.helperText}</p>
-            )}
-          </article>
-        </div>
-
-        {/* 4) Votos de la comunidad (integrado en el módulo sin duplicarse fuera) */}
+        {/* 2) Votos de la comunidad (emparejado a la derecha del pick principal con altura equilibrada) */}
         <div className="pl-prematch-poll-col">
           <MatchCommunityPoll
             game={game}
@@ -434,6 +332,118 @@ export function PreMatchModule({
             nowOverride={nowProp}
           />
         </div>
+
+        {/* 3) Bajas y lesiones (en rejilla multi-columna si supera 2 reportes para aprovechar todo el ancho) */}
+        <article
+          className={`pl-prematch-card pl-prematch-absences ${hasManyAbsences ? "is-wide" : ""}`.trim()}
+          data-pre-match-absences=""
+        >
+          <div className="pl-prematch-card-head">
+            <h3 className="pl-prematch-card-title">Bajas y lesiones</h3>
+            {absencesState.state === "with_absences" ? (
+              <span className="pl-prematch-count num">
+                {absencesState.items.length}{" "}
+                {absencesState.items.length === 1 ? "reporte" : "reportes"}
+              </span>
+            ) : null}
+          </div>
+
+          {absencesState.state === "with_absences" ? (
+            <ul
+              role="list"
+              className={`pl-prematch-absence-list ${hasManyAbsences ? "is-grid" : ""}`.trim()}
+            >
+              {absencesState.items.map((item, idx) => {
+                const team = item.teamSide === "home" ? game.home : game.away;
+                const statusTone =
+                  item.status === "Baja"
+                    ? "pl-pill pl-pill--danger"
+                    : "pl-pill pl-pill--warning";
+                return (
+                  <li key={`${item.teamSide}-${item.player}-${idx}`} className="pl-prematch-absence-item">
+                    <div className="pl-prematch-absence-top">
+                      <div className="pl-prematch-absence-team">
+                        <TeamBadge
+                          league={game.league}
+                          slug={team.slug}
+                          name={team.name}
+                          logoUrl={team.logoUrl}
+                          size={20}
+                        />
+                        <strong className="pl-prematch-absence-player">
+                          {item.player}
+                        </strong>
+                      </div>
+                      <span className={`${statusTone} text-[11px] shrink-0`}>
+                        {item.status}
+                      </span>
+                    </div>
+                    <p className="pl-prematch-absence-impact">{item.impactNote}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : absencesState.state === "no_absences" ? (
+            <p className="pl-prematch-empty" data-no-absences="">
+              {absencesState.honestEmptyLabel}
+            </p>
+          ) : (
+            <p className="pl-prematch-note">
+              Reporte de bajas y disponibilidad reservado para socios con Pase PitchLab Ultra.
+            </p>
+          )}
+        </article>
+
+        {/* 4) Ranura «Alineación confirmada» — franja compacta horizontal cuando es ancho completo o par 50/50 */}
+        <article
+          className={`pl-prematch-card pl-prematch-lineup ${lineupSlot.enabled ? "is-enabled" : "is-off"} ${hasManyAbsences ? "is-wide" : ""}`.trim()}
+          data-lineup-slot={lineupSlot.enabled ? "on" : "off"}
+        >
+          <div className="pl-prematch-card-head">
+            <h3 className="pl-prematch-card-title">Alineación confirmada</h3>
+            <span
+              className={`pl-prematch-slot-chip ${lineupSlot.enabled ? "is-on" : "is-off"}`.trim()}
+              data-lineup-status={lineupSlot.enabled ? "on" : "off"}
+            >
+              {lineupSlot.statusBadge}
+            </span>
+          </div>
+
+          {lineupSlot.enabled && lineupSlot.lineups ? (
+            <div className="pl-prematch-lineup-grid">
+              <div className="pl-prematch-lineup-col">
+                <strong className="pl-prematch-lineup-team">
+                  {game.home.shortName}
+                  {lineupSlot.lineups.homeFormation ? ` · ${lineupSlot.lineups.homeFormation}` : ""}
+                </strong>
+                <ul role="list" className="pl-prematch-starters">
+                  {lineupSlot.lineups.homeStarters.map((p, idx) => (
+                    <li key={`h-${p.name}-${idx}`}>
+                      {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                      <span>{p.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="pl-prematch-lineup-col">
+                <strong className="pl-prematch-lineup-team">
+                  {game.away.shortName}
+                  {lineupSlot.lineups.awayFormation ? ` · ${lineupSlot.lineups.awayFormation}` : ""}
+                </strong>
+                <ul role="list" className="pl-prematch-starters">
+                  {lineupSlot.lineups.awayStarters.map((p, idx) => (
+                    <li key={`a-${p.name}-${idx}`}>
+                      {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                      <span>{p.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <p className="pl-prematch-note">{lineupSlot.helperText}</p>
+          )}
+        </article>
       </div>
     </section>
   );

@@ -372,6 +372,8 @@ export class OddsApiBudget {
       this.month = m;
       this.creditsUsed = 0;
       this.byDay = {};
+      // Al reiniciar el mes, descartar el encabezado del ciclo previo evita bloqueo permanente por reserva.
+      this.remainingHeader = null;
     }
   }
 
@@ -540,62 +542,64 @@ export class TheOddsApiAdapter implements OddsSourceAdapter {
       (Object.keys(LEAGUE_TO_THE_ODDS_SPORT_KEY) as CanonicalLeague[]);
 
     const allRows: OddsSnapshotRow[] = [];
-    for (const league of targetLeagues) {
-      if (this.options.excludeLeagues?.includes(league)) continue;
-      const sportKey = LEAGUE_TO_THE_ODDS_SPORT_KEY[league];
-      if (!sportKey) continue;
-      if (this.leagueFilter && !this.leagueFilter.has(sportKey) && !this.leagueFilter.has(league)) {
-        continue;
-      }
-
-      let skipReason = budget.check(sportKey, cost, nowMs);
-      if (skipReason === null && this.precheckEvents) {
-        const hasUpcoming = await this.hasEventsInWindow(apiKey, sportKey, nowMs);
-        if (!hasUpcoming) {
-          skipReason = "sin_partidos_en_ventana";
+    try {
+      for (const league of targetLeagues) {
+        if (this.options.excludeLeagues?.includes(league)) continue;
+        const sportKey = LEAGUE_TO_THE_ODDS_SPORT_KEY[league];
+        if (!sportKey) continue;
+        if (this.leagueFilter && !this.leagueFilter.has(sportKey) && !this.leagueFilter.has(league)) {
+          continue;
         }
-      }
-      if (skipReason !== null) {
-        skipped[sportKey] = skipReason;
-        continue;
-      }
 
-      const resp = await this.transport.request({
-        method: "GET",
-        url: `${THE_ODDS_API_BASE_URL}/sports/${sportKey}/odds`,
-        query: {
-          apiKey,
-          regions: this.regions,
-          markets: this.markets,
-          oddsFormat: "decimal",
-          dateFormat: "iso",
-        },
-      });
-
-      for (const qk of ["x-requests-remaining", "x-requests-used", "x-requests-last"]) {
-        if (resp.headers[qk]) {
-          this.lastQuotaHeaders[qk] = resp.headers[qk]!;
+        let skipReason = budget.check(sportKey, cost, nowMs);
+        if (skipReason === null && this.precheckEvents) {
+          const hasUpcoming = await this.hasEventsInWindow(apiKey, sportKey, nowMs);
+          if (!hasUpcoming) {
+            skipReason = "sin_partidos_en_ventana";
+          }
         }
-      }
-      const actualCost = parseIntHeader(resp.headers["x-requests-last"]) ?? cost;
-      const remaining = parseIntHeader(resp.headers["x-requests-remaining"]);
-      budget.record(sportKey, actualCost, nowMs, remaining);
-      fetched.push(sportKey);
+        if (skipReason !== null) {
+          skipped[sportKey] = skipReason;
+          continue;
+        }
 
-      const payload = JSON.parse(resp.bodyText) as unknown;
-      if (Array.isArray(payload)) {
-        const rows = parseTheOddsApiEvents({
-          eventsPayload: payload,
-          appLeague: league,
-          capturedAtIso,
-          rawSha256: resp.sha256 || sha256Hex(resp.bodyText),
-          nowMs,
+        const resp = await this.transport.request({
+          method: "GET",
+          url: `${THE_ODDS_API_BASE_URL}/sports/${sportKey}/odds`,
+          query: {
+            apiKey,
+            regions: this.regions,
+            markets: this.markets,
+            oddsFormat: "decimal",
+            dateFormat: "iso",
+          },
         });
-        allRows.push(...rows);
-      }
-    }
 
-    budget.save();
+        for (const qk of ["x-requests-remaining", "x-requests-used", "x-requests-last"]) {
+          if (resp.headers[qk]) {
+            this.lastQuotaHeaders[qk] = resp.headers[qk]!;
+          }
+        }
+        const actualCost = parseIntHeader(resp.headers["x-requests-last"]) ?? cost;
+        const remaining = parseIntHeader(resp.headers["x-requests-remaining"]);
+        budget.record(sportKey, actualCost, nowMs, remaining);
+        fetched.push(sportKey);
+
+        const payload = JSON.parse(resp.bodyText) as unknown;
+        if (Array.isArray(payload)) {
+          const rows = parseTheOddsApiEvents({
+            eventsPayload: payload,
+            appLeague: league,
+            capturedAtIso,
+            rawSha256: resp.sha256 || sha256Hex(resp.bodyText),
+            nowMs,
+          });
+          allRows.push(...rows);
+        }
+      }
+    } finally {
+      budget.save();
+    }
     const allowance = budget.dailyAllowance(nowMs);
     this.lastBudgetReport = {
       creditsPerCall: cost,

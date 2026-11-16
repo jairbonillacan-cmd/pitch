@@ -45,8 +45,8 @@ afterEach(() => {
 });
 
 describe("Preferencias PWA/Push, embudo Admin y consentimiento local", () => {
-  it("renderiza resúmenes por correo, interruptor Web Push y botón Instalar PWA según disponibilidad", () => {
-    const htmlVisibleInstall = renderToStaticMarkup(
+  it("oculta en Preferencias los envíos periódicos, Web Push e instalación PWA que aún no se ofrecen", () => {
+    const prefsHtml = renderToStaticMarkup(
       <PlatformProvider
         dataset={EMPTY_DATASET}
         initialRole="member"
@@ -61,55 +61,22 @@ describe("Preferencias PWA/Push, embudo Admin y consentimiento local", () => {
             prefs: {
               accountsEnabled: true,
               email: "carlos@pitchlab.mx",
-              pushState: "subscribed",
-              installAvailable: true,
-              initialPrefs: {
-                alerts: {
-                  valueAlerts: true,
-                  beforeMatch: true,
-                  pickSettled: true,
-                  billingReminder: true,
-                  weeklyDigest: true,
-                  monthlyRecord: true,
-                },
-              },
+              visualStyle: "solid",
             },
           }}
         />
       </PlatformProvider>,
     );
 
-    expect(htmlVisibleInstall).toContain("Resumen semanal por correo");
-    expect(htmlVisibleInstall).toContain("Corte mensual de Mi récord");
-    expect(htmlVisibleInstall).toContain("Notificaciones push en este dispositivo");
-    expect(htmlVisibleInstall).toContain("Instalar PitchLab como app");
-    expect(htmlVisibleInstall).toContain("Instalar app");
-    expect(htmlVisibleInstall).not.toContain("<button type=\"button\" hidden=\"\"");
-
-    const htmlHiddenInstall = renderToStaticMarkup(
-      <PlatformProvider
-        dataset={EMPTY_DATASET}
-        initialRole="member"
-        accountsEnabled={true}
-        allowRoleSimulation={false}
-      >
-        <AccountReferralsClubView
-          initialTab="prefs"
-          storyOverride={{
-            accountsEnabled: true,
-            profile: { handle: "carlos_mx", displayName: "Carlos Méndez", email: "carlos@pitchlab.mx" },
-            prefs: {
-              accountsEnabled: true,
-              email: "carlos@pitchlab.mx",
-              pushState: "unsubscribed",
-              installAvailable: false,
-            },
-          }}
-        />
-      </PlatformProvider>,
-    );
-
-    expect(htmlHiddenInstall).toContain('hidden=""');
+    expect(prefsHtml).toContain("Estilo");
+    expect(prefsHtml).toContain("Cristal");
+    expect(prefsHtml).toContain("Sólido");
+    expect(prefsHtml).toContain("Madrid · España");
+    expect(prefsHtml).not.toContain("Resumen semanal por correo");
+    expect(prefsHtml).not.toContain("Corte mensual de Mi récord");
+    expect(prefsHtml).not.toContain("Notificaciones push en este dispositivo");
+    expect(prefsHtml).not.toContain("Instalar PitchLab como app");
+    expect(prefsHtml).not.toContain("Instalar app");
   });
 
   it("renderiza tabla semántica del embudo propio en FounderAdminClubView", () => {

@@ -242,7 +242,8 @@ describe("@pitchlab/ui components", () => {
         </div>
       </EmblemSurfaceProvider>,
     );
-    expect(appHtml).toContain('data-emblem-source="bzzoiro"');
+    expect(appHtml).toContain('data-emblem-source="external"');
+    expect(appHtml).not.toContain('data-emblem-source="bzzoiro"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/18/?bg=transparent"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/7777/?bg=transparent"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/league/154/?bg=transparent"');
@@ -254,7 +255,7 @@ describe("@pitchlab/ui components", () => {
     expect(appHtml).toContain('height="36"');
     expect(appHtml).toContain('alt="Arsenal"');
 
-    // editorialOnly y ligas sin cobertura: en /app solo NFL conserva SVG local; NHL/MLB caen a iniciales salvo editorialOnly.
+    // editorialOnly usa SVG local; dentro de /app sin editorialOnly, NFL y NHL resuelven su logo oficial en ESPN CDN con respaldo SVG.
     const localHtml = renderToStaticMarkup(
       <EmblemSurfaceProvider surface="app">
         <div>
@@ -262,19 +263,16 @@ describe("@pitchlab/ui components", () => {
           <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={36} />
           <LeagueBadge league="nfl" label="NFL" size={24} />
           <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} />
+          <LeagueBadge league="nhl" label="NHL" size={24} />
           <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} />
-          <TeamBadge league="nhl" slug="boston-bruins" name="Bruins" size={36} editorialOnly />
-          <TeamBadge league="mlb" slug="new-york-yankees" name="Yankees" size={36} editorialOnly />
         </div>
       </EmblemSurfaceProvider>,
     );
     expect(localHtml).toContain('src="/brand/sports/premier-league/r2/svg/arsenal.svg"');
-    expect(localHtml).toContain('src="/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg"');
-    expect(localHtml).toContain('src="/brand/sports/nfl/r1/svg/nfl.svg"');
-    expect(localHtml).toContain("badge-fallback");
-    expect(localHtml).toContain(">BRU<");
-    expect(localHtml).toContain(">YAN<");
-    expect(localHtml).toContain('src="/brand/sports/nhl/r1/svg/boston-bruins.svg"');
+    expect(localHtml).toContain('src="/brand/official/nfl/kansas-city-chiefs.png"');
+    expect(localHtml).toContain('src="/brand/official/nfl/nfl.png"');
+    expect(localHtml).toContain('src="/brand/official/nhl/boston-bruins.png"');
+    expect(localHtml).toContain('src="/brand/official/nhl/nhl.png"');
     expect(localHtml).toContain('src="/brand/sports/mlb/r1/svg/new-york-yankees.svg"');
     expect(localHtml).not.toContain("sports.bzzoiro.com");
 

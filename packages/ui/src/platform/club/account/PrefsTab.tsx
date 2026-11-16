@@ -2,9 +2,10 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Switch } from "@heroui/react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
+import { applyVisualStyle, useDocumentStyle, type VisualStyle } from "../../components/ShellChrome";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { PlSelect } from "../../components/PlSelect";
 import { usePlatform } from "../../platform-provider";
@@ -22,39 +23,11 @@ import {
   type ThemePreference,
 } from "./account-helpers";
 
-export type PushUiState = "subscribed" | "unsubscribed" | "denied" | "unconfigured";
-
 export interface PrefsTabStoryOverride {
   accountsEnabled?: boolean;
   email?: string | null;
   initialPrefs?: Partial<StoredAccountPrefsV1>;
-  pushState?: PushUiState;
-  installAvailable?: boolean;
-  standalone?: boolean;
-}
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
-
-function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
-  const rawData = typeof window !== "undefined" ? window.atob(base64) : "";
-  const buffer = new ArrayBuffer(rawData.length);
-  const bytes = new Uint8Array(buffer);
-  for (let i = 0; i < rawData.length; i += 1) {
-    bytes[i] = rawData.charCodeAt(i);
-  }
-  return bytes;
-}
-
-function supportsNativeWebInstall(): boolean {
-  return (
-    typeof Navigator !== "undefined" &&
-    typeof (Navigator.prototype as { install?: unknown }).install === "function"
-  );
+  visualStyle?: VisualStyle;
 }
 
 const PREF_GROUPS = [
@@ -78,13 +51,34 @@ const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string }> = [
   { id: "bundesliga" as LeagueId, name: "Bundesliga" },
   { id: "serie-a" as LeagueId, name: "Serie A" },
   { id: "ligue-1" as LeagueId, name: "Ligue 1" },
+  { id: "concacaf-nations" as LeagueId, name: "Concacaf Nations League" },
+  { id: "uefa-nations" as LeagueId, name: "UEFA Nations League" },
+  { id: "amistosos" as LeagueId, name: "Amistosos FIFA" },
+  { id: "copa-del-mundo" as LeagueId, name: "Copa del Mundo FIFA" },
+  { id: "eliminatorias" as LeagueId, name: "Eliminatorias Mundialistas" },
+  { id: "copa-america" as LeagueId, name: "Copa América" },
+  { id: "eurocopa" as LeagueId, name: "Eurocopa UEFA" },
+  { id: "copa-oro" as LeagueId, name: "Copa Oro Concacaf" },
 ];
 
 const TIMEZONE_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
   { value: "America/Mexico_City", label: "Ciudad de México (UTC−6)" },
-  { value: "America/Tijuana", label: "Tijuana (UTC−8)" },
   { value: "America/Cancun", label: "Cancún (UTC−5)" },
   { value: "America/Hermosillo", label: "Hermosillo (UTC−7)" },
+  { value: "America/Tijuana", label: "Tijuana (UTC−8)" },
+  { value: "America/Los_Angeles", label: "Los Ángeles · EE. UU. (UTC−8)" },
+  { value: "America/Denver", label: "Denver · EE. UU. (UTC−7)" },
+  { value: "America/Chicago", label: "Chicago · EE. UU. (UTC−6)" },
+  { value: "America/New_York", label: "Nueva York · EE. UU. (UTC−5)" },
+  { value: "America/Bogota", label: "Bogotá · Colombia (UTC−5)" },
+  { value: "America/Lima", label: "Lima · Perú (UTC−5)" },
+  { value: "America/Caracas", label: "Caracas · Venezuela (UTC−4)" },
+  { value: "America/Santiago", label: "Santiago · Chile (UTC−3)" },
+  { value: "America/Argentina/Buenos_Aires", label: "Buenos Aires · Argentina (UTC−3)" },
+  { value: "America/Sao_Paulo", label: "São Paulo · Brasil (UTC−3)" },
+  { value: "Europe/London", label: "Londres · Reino Unido (UTC+0)" },
+  { value: "Europe/Madrid", label: "Madrid · España (UTC+1)" },
+  { value: "UTC", label: "Tiempo universal · UTC (UTC+0)" },
 ];
 
 const RISK_OPTIONS: ReadonlyArray<{ value: RiskBand; name: string; detail: string }> = [
@@ -117,16 +111,6 @@ const ALERT_ITEMS: ReadonlyArray<{
     key: "billingReminder",
     title: "Aviso antes de cobrar",
     detail: "Unos días antes de renovar tu pase.",
-  },
-  {
-    key: "weeklyDigest",
-    title: "Resumen semanal por correo",
-    detail: "Resumen de resultados, ventaja acumulada y partidos clave de tus ligas.",
-  },
-  {
-    key: "monthlyRecord",
-    title: "Corte mensual de Mi récord",
-    detail: "Balance del mes con unidades netas, ventaja promedio e insignias desbloqueadas.",
   },
 ];
 
@@ -191,12 +175,14 @@ function PrefsSegment<T extends string>({
   value,
   onChange,
   options,
+  dataAttr,
 }: {
   labelledBy?: string;
   ariaLabel?: string;
   value: T;
   onChange: (next: T) => void;
   options: ReadonlyArray<{ value: T; label: string }>;
+  dataAttr?: string;
 }): React.JSX.Element {
   return (
     <div
@@ -223,6 +209,7 @@ function PrefsSegment<T extends string>({
           key={opt.value}
           type="button"
           data-seg-value={opt.value}
+          {...(dataAttr ? { [dataAttr]: opt.value } : {})}
           aria-pressed={value === opt.value}
           onClick={() => onChange(opt.value)}
         >
@@ -286,6 +273,7 @@ export function PrefsTab({
   const baseId = useId();
   const oddsLabelId = `${baseId}-odds`;
   const themeLabelId = `${baseId}-theme`;
+  const styleLabelId = `${baseId}-style`;
   const tzSelectId = `${baseId}-tz`;
   const unitInputId = `${baseId}-unit`;
   const unitErrorId = `${baseId}-unit-err`;
@@ -295,8 +283,9 @@ export function PrefsTab({
   const exportDialogTitleId = `${baseId}-export-dlg`;
   const deleteDialogTitleId = `${baseId}-delete-dlg`;
   const deleteReasonId = `${baseId}-delete-reason`;
-  const pushTitleId = `${baseId}-push-title`;
-  const pushDescId = `${baseId}-push-desc`;
+
+  const documentStyle = useDocumentStyle();
+  const visualStyle = storyOverride?.visualStyle ?? documentStyle;
 
   const [prefs, setPrefs] = useState<StoredAccountPrefsV1>(() =>
     mergePrefs(DEFAULT_STORED_PREFS_V1, storyOverride?.initialPrefs),
@@ -315,28 +304,9 @@ export function PrefsTab({
   const [deleteBusy, setDeleteBusy] = useState<boolean>(false);
   const [deleteReason, setDeleteReason] = useState<string>("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
-  const [pushConfigured, setPushConfigured] = useState<boolean>(
-    () => storyOverride?.pushState !== "unconfigured",
-  );
-  const [vapidPublicKey, setVapidPublicKey] = useState<string | null>(null);
-  const [pushSubscribed, setPushSubscribed] = useState<boolean>(
-    () => storyOverride?.pushState === "subscribed",
-  );
-  const [pushPermission, setPushPermission] = useState<NotificationPermission>(() =>
-    storyOverride?.pushState === "denied" ? "denied" : "default",
-  );
-  const [pushBusy, setPushBusy] = useState<boolean>(false);
-  const [pushStatusMsg, setPushStatusMsg] = useState<string | null>(null);
-  const [installCanPrompt, setInstallCanPrompt] = useState<boolean>(() =>
-    Boolean(storyOverride?.installAvailable && !storyOverride?.standalone),
-  );
-  const [appInstalled, setAppInstalled] = useState<boolean>(() => Boolean(storyOverride?.standalone));
-  const [installBusy, setInstallBusy] = useState<boolean>(false);
-  const [installStatusMsg, setInstallStatusMsg] = useState<string | null>(null);
 
   const navRef = useRef<HTMLElement | null>(null);
   const unitDebounceRef = useRef<number | null>(null);
-  const deferredInstallPromptRef = useRef<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
     return () => {
@@ -667,6 +637,39 @@ export function PrefsTab({
     });
   };
 
+  const handleStyleChange = (next: VisualStyle) => {
+    applyVisualStyle(next);
+    notifySaved();
+  };
+
+  const timezoneOptions = useMemo(() => {
+    const base = TIMEZONE_OPTIONS.map((tz) => {
+      const match = /^(.*)\s+\((UTC[^)]+)\)$/.exec(tz.label);
+      return {
+        value: tz.value,
+        label: match ? match[1]! : tz.label,
+        description: match ? match[2] : undefined,
+        triggerLabel: tz.label,
+        textValue: tz.label,
+        icon: <MaestroIcon name="calendar" size={14} />,
+      };
+    });
+    if (
+      prefs.timezone &&
+      !base.some((opt) => opt.value === prefs.timezone)
+    ) {
+      base.push({
+        value: prefs.timezone,
+        label: prefs.timezone,
+        description: undefined,
+        triggerLabel: prefs.timezone,
+        textValue: prefs.timezone,
+        icon: <MaestroIcon name="calendar" size={14} />,
+      });
+    }
+    return base;
+  }, [prefs.timezone]);
+
   const handleUnitInputChange = (raw: string) => {
     setUnitDraft(raw);
     const cleaned = Number(raw.replace(/[^0-9.]/g, ""));
@@ -703,205 +706,6 @@ export function PrefsTab({
     if (!section) return;
     const reduced = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
     section.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-  };
-
-  // Hidrata estado PWA (display-mode, Web Install API / beforeinstallprompt) y Push en navegador.
-  useEffect(() => {
-    if (storyOverride) return;
-    if (typeof window === "undefined") return;
-
-    const standaloneMq = window.matchMedia?.("(display-mode: standalone)");
-    const navStandalone = (navigator as { standalone?: boolean }).standalone === true;
-    const isStandaloneNow = Boolean(standaloneMq?.matches || navStandalone);
-    setAppInstalled(isStandaloneNow);
-
-    if (!isStandaloneNow && supportsNativeWebInstall()) {
-      setInstallCanPrompt(true);
-    }
-
-    const onBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      deferredInstallPromptRef.current = e as BeforeInstallPromptEvent;
-      if (!isStandaloneNow) {
-        setInstallCanPrompt(true);
-      }
-    };
-
-    const onAppInstalled = () => {
-      deferredInstallPromptRef.current = null;
-      setAppInstalled(true);
-      setInstallCanPrompt(false);
-      setInstallStatusMsg("App instalada en tu dispositivo.");
-    };
-
-    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
-    window.addEventListener("appinstalled", onAppInstalled);
-
-    if (typeof Notification !== "undefined") {
-      setPushPermission(Notification.permission);
-    }
-
-    if (canPersistServer && typeof fetch === "function") {
-      void fetch("/api/me/push", { credentials: "same-origin", cache: "no-store" })
-        .then(async (r) => (r.ok ? ((await r.json().catch(() => null)) as {
-          configured?: boolean;
-          vapidPublicKey?: string | null;
-          subscriptions?: Array<{ endpoint: string }>;
-        } | null) : null))
-        .then(async (data) => {
-          if (!data) return;
-          setPushConfigured(Boolean(data.configured && data.vapidPublicKey));
-          setVapidPublicKey(data.vapidPublicKey ?? null);
-          if ("serviceWorker" in navigator) {
-            try {
-              const reg = await navigator.serviceWorker.getRegistration("/");
-              const currentSub = await reg?.pushManager?.getSubscription();
-              if (currentSub) {
-                setPushSubscribed(true);
-                return;
-              }
-            } catch (err) {
-              void err;
-            }
-          }
-          setPushSubscribed(Array.isArray(data.subscriptions) && data.subscriptions.length > 0);
-        })
-        .catch((err) => {
-          void err;
-        });
-    }
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
-      window.removeEventListener("appinstalled", onAppInstalled);
-    };
-  }, [canPersistServer, storyOverride]);
-
-  const handleTogglePush = async (next: boolean): Promise<void> => {
-    if (pushBusy) return;
-    if (storyOverride) {
-      setPushSubscribed(next);
-      return;
-    }
-    if (!canPersistServer || !vapidPublicKey || typeof window === "undefined") {
-      setPushStatusMsg("Activa tu sesión y VAPID en el servidor para habilitar avisos push.");
-      return;
-    }
-    if (!("serviceWorker" in navigator) || !("PushManager" in window) || typeof Notification === "undefined") {
-      setPushStatusMsg("Este navegador no soporta Web Push en segundo plano.");
-      return;
-    }
-
-    setPushBusy(true);
-    setPushStatusMsg(null);
-    try {
-      if (next) {
-        const perm =
-          Notification.permission === "granted"
-            ? "granted"
-            : await Notification.requestPermission();
-        setPushPermission(perm);
-        if (perm !== "granted") {
-          setPushSubscribed(false);
-          setPushStatusMsg("No diste permiso de notificaciones en este navegador.");
-          return;
-        }
-        await navigator.serviceWorker.register("/sw.js", { scope: "/" });
-        const readyReg = await navigator.serviceWorker.ready;
-        const sub =
-          (await readyReg.pushManager.getSubscription()) ??
-          (await readyReg.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
-          }));
-        const raw = sub.toJSON();
-        const res = await fetch("/api/me/push", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            endpoint: sub.endpoint,
-            keys: {
-              p256dh: raw.keys?.p256dh ?? "",
-              auth: raw.keys?.auth ?? "",
-            },
-            topics: { picks: true, live: true, social: true },
-          }),
-        });
-        if (!res.ok) {
-          setPushSubscribed(false);
-          setPushStatusMsg("No pudimos guardar tu suscripción push. Intenta otra vez.");
-          return;
-        }
-        setPushSubscribed(true);
-        setPushStatusMsg("Push activo en este dispositivo.");
-        notifySaved();
-      } else {
-        const reg = await navigator.serviceWorker.getRegistration("/");
-        const sub = await reg?.pushManager?.getSubscription();
-        const endpoint = sub?.endpoint;
-        if (sub) {
-          await sub.unsubscribe().catch((err) => {
-            void err;
-          });
-        }
-        await fetch("/api/me/push", {
-          method: "DELETE",
-          credentials: "same-origin",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(endpoint ? { endpoint } : {}),
-        });
-        setPushSubscribed(false);
-        setPushStatusMsg("Notificaciones push desactivadas en este dispositivo.");
-        notifySaved();
-      }
-    } catch (err) {
-      void err;
-      setPushStatusMsg("No pudimos actualizar las notificaciones push.");
-    } finally {
-      setPushBusy(false);
-    }
-  };
-
-  const handleInstallPwa = async (): Promise<void> => {
-    if (installBusy) return;
-    if (storyOverride) {
-      setAppInstalled(true);
-      setInstallCanPrompt(false);
-      setInstallStatusMsg("La app fue instalada en este dispositivo.");
-      return;
-    }
-    setInstallBusy(true);
-    try {
-      if (supportsNativeWebInstall()) {
-        await (navigator as Navigator & { install: () => Promise<void> }).install();
-        setInstallStatusMsg("La aplicación quedó instalada o abierta.");
-        setInstallCanPrompt(false);
-      } else if (deferredInstallPromptRef.current) {
-        const promptEvent = deferredInstallPromptRef.current;
-        deferredInstallPromptRef.current = null;
-        await promptEvent.prompt();
-        const choice = await promptEvent.userChoice;
-        if (choice.outcome === "accepted") {
-          setInstallStatusMsg("La aplicación quedó instalada.");
-          setInstallCanPrompt(false);
-        } else {
-          setInstallStatusMsg("Instalación cancelada.");
-          if (!deferredInstallPromptRef.current) {
-            setInstallCanPrompt(false);
-          }
-        }
-      }
-    } catch (err) {
-      const name = err instanceof Error ? err.name : "";
-      if (name === "AbortError") {
-        setInstallStatusMsg("Instalación cancelada o bloqueada por el navegador.");
-      } else {
-        setInstallStatusMsg("No se pudo iniciar la instalación desde aquí.");
-      }
-    } finally {
-      setInstallBusy(false);
-    }
   };
 
   const record = useMemo(() => profileRecord(journal), [journal]);
@@ -971,23 +775,49 @@ export function PrefsTab({
               </p>
             </div>
 
-            <div className="pl-acct-league-grid" role="group" aria-label="Ligas">
-              {LEAGUE_OPTIONS.map((league) => {
-                const isSelected = favoriteLeagues.includes(league.id);
-                return (
-                  <button
-                    key={league.id}
-                    type="button"
-                    className="pl-acct-league-pill"
-                    data-league-toggle={league.id}
-                    aria-pressed={isSelected}
-                    onClick={() => handleToggleLeague(league.id)}
-                  >
-                    <LeagueBadge league={league.id} size={20} />
-                    <span>{league.name}</span>
-                  </button>
-                );
-              })}
+            <div className="space-y-3" role="group" aria-label="Ligas">
+              <div className="pl-acct-league-grid">
+                {LEAGUE_OPTIONS.filter((l) => !isNationalCompetition(l.id)).map((league) => {
+                  const isSelected = favoriteLeagues.includes(league.id);
+                  return (
+                    <button
+                      key={league.id}
+                      type="button"
+                      className="pl-acct-league-pill"
+                      data-league-toggle={league.id}
+                      aria-pressed={isSelected}
+                      onClick={() => handleToggleLeague(league.id)}
+                    >
+                      <LeagueBadge league={league.id} size={20} />
+                      <span>{league.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p
+                className="m-0 text-xs font-bold uppercase tracking-wider"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Selecciones y competencias internacionales
+              </p>
+              <div className="pl-acct-league-grid">
+                {LEAGUE_OPTIONS.filter((l) => isNationalCompetition(l.id)).map((league) => {
+                  const isSelected = favoriteLeagues.includes(league.id);
+                  return (
+                    <button
+                      key={league.id}
+                      type="button"
+                      className="pl-acct-league-pill"
+                      data-league-toggle={league.id}
+                      aria-pressed={isSelected}
+                      onClick={() => handleToggleLeague(league.id)}
+                    >
+                      <LeagueBadge league={league.id} size={20} />
+                      <span>{league.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {lastLeagueWarn ? (
@@ -1056,6 +886,27 @@ export function PrefsTab({
 
             <div className="pl-acct-prefs-row">
               <div className="pl-acct-prefs-row-copy">
+                <b id={styleLabelId} className="pl-acct-prefs-row-title">
+                  Estilo
+                </b>
+                <span className="pl-acct-prefs-row-detail">
+                  Superficies traslúcidas tipo vidrio o paneles en modo sólido.
+                </span>
+              </div>
+              <PrefsSegment
+                labelledBy={styleLabelId}
+                value={visualStyle}
+                onChange={handleStyleChange}
+                dataAttr="data-prefs-style-option"
+                options={[
+                  { value: "glass", label: "Cristal" },
+                  { value: "solid", label: "Sólido" },
+                ]}
+              />
+            </div>
+
+            <div className="pl-acct-prefs-row">
+              <div className="pl-acct-prefs-row-copy">
                 <label
                   id={`${tzSelectId}-label`}
                   htmlFor={tzSelectId}
@@ -1088,17 +939,7 @@ export function PrefsTab({
                     });
                   });
                 }}
-                options={TIMEZONE_OPTIONS.map((tz) => {
-                  const match = /^(.*)\s+\((UTC[^)]+)\)$/.exec(tz.label);
-                  return {
-                    value: tz.value,
-                    label: match ? match[1] : tz.label,
-                    description: match ? match[2] : undefined,
-                    triggerLabel: tz.label,
-                    textValue: tz.label,
-                    icon: <MaestroIcon name="calendar" size={14} />,
-                  };
-                })}
+                options={timezoneOptions}
               />
             </div>
           </section>
@@ -1258,11 +1099,7 @@ export function PrefsTab({
                     ? "emailBeforeMatch"
                     : item.key === "pickSettled"
                       ? "emailPickResults"
-                      : item.key === "weeklyDigest"
-                        ? "emailWeeklyDigest"
-                        : item.key === "monthlyRecord"
-                          ? "emailMonthlyRecord"
-                          : "emailBillingReminder";
+                      : "emailBillingReminder";
               return (
                 <div
                   key={item.key}
@@ -1306,63 +1143,6 @@ export function PrefsTab({
                 </div>
               );
             })}
-
-            <div className="pl-acct-prefs-row pl-acct-prefs-row--switch">
-              <div className="pl-acct-prefs-row-copy">
-                <b id={pushTitleId} className="pl-acct-prefs-row-title">
-                  Notificaciones push en este dispositivo
-                </b>
-                <span id={pushDescId} className="pl-acct-prefs-row-detail">
-                  {pushPermission === "denied"
-                    ? "Permiso bloqueado en este navegador. Habilita las notificaciones desde la barra de dirección."
-                    : !pushConfigured
-                      ? "Activa las llaves VAPID en el servidor para habilitar envíos push en producción."
-                      : pushStatusMsg ??
-                        "Avisos instantáneos cuando responden tu hilo en Comunidad, arranca un partido o se califica un pick."}
-                </span>
-              </div>
-              <Switch
-                aria-labelledby={pushTitleId}
-                aria-describedby={pushDescId}
-                isSelected={pushSubscribed}
-                isDisabled={
-                  pushBusy ||
-                  pushPermission === "denied" ||
-                  (!storyOverride && (!canPersistServer || !pushConfigured || !vapidPublicKey))
-                }
-                onChange={(next) => {
-                  void handleTogglePush(next);
-                }}
-                className="pl-acct-switch"
-              >
-                <Switch.Control className="pl-acct-switch-control">
-                  <Switch.Thumb className="pl-acct-switch-thumb" />
-                </Switch.Control>
-              </Switch>
-            </div>
-
-            <div className="pl-acct-prefs-row">
-              <div className="pl-acct-prefs-row-copy">
-                <b className="pl-acct-prefs-row-title">Instalar PitchLab como app</b>
-                <span role="status" aria-live="polite" className="pl-acct-prefs-row-detail">
-                  {appInstalled
-                    ? "La app ya está instalada en modo independiente en este dispositivo."
-                    : installStatusMsg ??
-                      "Añade el acceso directo a tu pantalla de inicio para recibir alertas push y abrir más rápido."}
-                </span>
-              </div>
-              <button
-                type="button"
-                hidden={!installCanPrompt}
-                aria-disabled={installBusy ? "true" : undefined}
-                className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm"
-                onClick={() => {
-                  void handleInstallPwa();
-                }}
-              >
-                {installBusy ? "Instalando…" : "Instalar app"}
-              </button>
-            </div>
           </section>
 
           {/* 5. Privacidad */}

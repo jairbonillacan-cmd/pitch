@@ -134,6 +134,7 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(homeHtml).toContain("Hockey");
     expect(homeHtml).toContain("NBA");
     expect(homeHtml).toContain("NHL");
+    expect(homeHtml).toContain("Ver partido ·");
 
     const nbaHubHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member">
@@ -142,6 +143,29 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     );
     expect(nbaHubHtml).toContain(nbaScheduled.home.name);
     expect(nbaHubHtml).toContain("NBA");
+    expect(nbaHubHtml).toContain('id="pl-league-tab-tabla"');
+    expect(nbaHubHtml).toContain('id="pl-league-tab-noticias"');
+    expect(nbaHubHtml).toContain('data-league-news=""');
+
+    // Aun si llegan partidos FT de un día pasado después de los próximos, los chips respetan orden cronológico.
+    const pastFtNba = {
+      ...nbaScheduled,
+      id: "nba-past-ft-day",
+      dayId: "2026-11-14",
+      dayLabel: "sábado, 14 de noviembre",
+      kickoffUtc: "2026-11-14T23:00:00Z",
+      status: "FT" as const,
+      score: { home: 110, away: 102 },
+    };
+    const orderedHubHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={{ ...dataset, games: [...dataset.games, pastFtNba] }} initialRole="member">
+        <LeagueHubClubView leagueId={nbaScheduled.league} />
+      </PlatformProvider>,
+    );
+    const chip14 = orderedHubHtml.indexOf("sábado, 14 de noviembre (FT)");
+    const chip15 = orderedHubHtml.indexOf("domingo, 15 de noviembre");
+    expect(chip14).toBeGreaterThan(-1);
+    expect(chip15).toBeGreaterThan(chip14);
 
     const nbaStudioHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member">
@@ -151,6 +175,14 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(nbaStudioHtml).toContain(nbaScheduled.home.name);
     expect(nbaStudioHtml).toContain("Puntos esperados");
     expect(nbaStudioHtml).not.toContain('aria-label="Empate"');
+    const scoreIdx = nbaStudioHtml.indexOf("data-match-studio");
+    const resumenTabIdx = nbaStudioHtml.indexOf('id="pl-match-tab-resumen"');
+    const iaTabIdx = nbaStudioHtml.indexOf('id="pl-match-tab-ia"');
+    const aiIdx = nbaStudioHtml.indexOf('data-cortex-card=""');
+    expect(scoreIdx).toBeGreaterThan(-1);
+    expect(resumenTabIdx).toBeGreaterThan(scoreIdx);
+    expect(iaTabIdx).toBeGreaterThan(resumenTabIdx);
+    expect(aiIdx).toBeGreaterThan(iaTabIdx);
 
     const nhlStudioHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member">
@@ -188,6 +220,8 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     );
     expect(emptyCardHtml).toContain("Sin pronóstico publicado");
     expect(emptyCardHtml).toContain("Sin confianza");
+    expect(emptyCardHtml).not.toContain("Activar Pase");
+    expect(emptyCardHtml).not.toContain("Pase PitchLab Ultra");
 
     const emptyStudioHtml = renderToStaticMarkup(
       <PlatformProvider dataset={emptyDs} initialRole="member">

@@ -326,6 +326,15 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(
       formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Hermosillo"),
     ).toBe("18:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/New_York"),
+    ).toBe("20:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Argentina/Buenos_Aires"),
+    ).toBe("22:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "Europe/Madrid"),
+    ).toBe("02:00");
 
     expect(formatUnitsAsMxn(6.4, 250)).toBe("+$1,600 MXN");
     expect(formatUnitsAsMxn(-2, 250)).toBe("−$500 MXN");

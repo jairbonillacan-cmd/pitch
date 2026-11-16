@@ -4,8 +4,21 @@
 // - ID canónico de equipo: <league>.<slug> (ej. liga-mx.atlante != liga-mx.atlas).
 // - Si un nombre de la fuente no está registrado en la tabla de la liga, el pipeline
 //   falla de inmediato con UnmappedTeamError (nunca adivina).
-import { asLeagueId, asTeamId, type LeagueId, type Team } from "@pitchlab/contracts";
-import { getBzzoiroTeamEmblemUrl, getTeamAsset, TEAM_ASSETS } from "@pitchlab/sports-assets";
+import {
+  NATIONAL_COMPETITION_IDS,
+  asLeagueId,
+  asTeamId,
+  findNationalTeamDef,
+  isNationalCompetition,
+  type LeagueId,
+  type Team,
+} from "@pitchlab/contracts";
+import {
+  getBzzoiroTeamEmblemUrl,
+  getOfficialEspnTeamLogoUrl,
+  getTeamAsset,
+  TEAM_ASSETS,
+} from "@pitchlab/sports-assets";
 import { slugifyTeamName, teamCodeFromSlug } from "./team-slug.js";
 
 export class UnmappedTeamError extends Error {
@@ -335,8 +348,10 @@ export type CanonicalLeague =
   | "serie-a"
   | "ligue-1";
 
-/** Ligas cuyos equipos se resuelven y validan (las de momios + NHL y NBA). */
-export type TeamLeague = CanonicalLeague | "nhl" | "nba";
+export type NationalLeague = (typeof NATIONAL_COMPETITION_IDS)[number];
+
+/** Ligas cuyos equipos se resuelven y validan (las de momios + selecciones + NHL y NBA). */
+export type TeamLeague = CanonicalLeague | NationalLeague | "nhl" | "nba";
 
 /**
  * Ligas sin manifiesto de emblemas propio: el nombre de la fuente se confía y se
@@ -349,6 +364,7 @@ export const GENERIC_LEAGUES: ReadonlySet<string> = new Set([
   "ligue-1",
   // NBA aún no tiene emblemas propios: id por nombre y la app muestra iniciales.
   "nba",
+  ...NATIONAL_COMPETITION_IDS,
 ]);
 
 export function resolveCanonicalTeam(
@@ -362,8 +378,24 @@ export function resolveCanonicalTeam(
     if (!GENERIC_LEAGUES.has(league)) {
       throw new UnmappedTeamError(league, rawName);
     }
+    if (isNationalCompetition(league)) {
+      const national = findNationalTeamDef(trimmed);
+      if (national) {
+        const logoUrl =
+          getOfficialEspnTeamLogoUrl(league, national.slug) ?? national.emblemPath;
+        return {
+          id: asTeamId(`${league}.${national.slug}`),
+          league: asLeagueId(league as LeagueId),
+          name: national.nameEs,
+          shortName: national.shortEs,
+          code: national.code,
+          ...(logoUrl ? { logoUrl } : {}),
+        };
+      }
+    }
     const slug = slugifyTeamName(trimmed);
-    const logoUrl = getBzzoiroTeamEmblemUrl(league, slug);
+    const logoUrl =
+      getBzzoiroTeamEmblemUrl(league, slug) ?? getOfficialEspnTeamLogoUrl(league, slug);
     return {
       id: asTeamId(`${league}.${slug}`),
       league: asLeagueId(league as LeagueId),

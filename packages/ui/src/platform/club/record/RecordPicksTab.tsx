@@ -5,6 +5,7 @@ import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchTicketCard } from "../../components/MatchTicketCard";
+import { shortDateLabel } from "../home/home-model";
 import type { ShareTicketPayload } from "../../platform-provider";
 import type { JournalEntry, OddsFormat, PlatformGame } from "../../types";
 
@@ -310,7 +311,7 @@ export function RecordPicksTab({
                         className="block text-xs num truncate"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        {g.leagueLabel} · {g.kickoffLocal}
+                        {g.leagueLabel} · {shortDateLabel(g.dayId)} · {g.kickoffLocal}
                       </span>
                     </div>
                   </div>

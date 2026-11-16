@@ -73,10 +73,12 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     const vp = testInfo.project.name === "mobile" ? "375px" : "desktop";
 
     await page.goto("/app/liga-mx");
+    await page.locator("#pl-league-tab-equipos").click();
+    await expect(page.locator("#pl-league-tab-equipos")).toHaveAttribute("aria-selected", "true");
     await expect(page.locator("[data-league-teams-directory]")).toBeVisible();
 
     const mtyLink = page
-      .locator('a[href="/app/liga-mx/teams/monterrey"]')
+      .locator('[data-league-teams-directory] a[href="/app/liga-mx/teams/monterrey"]')
       .first();
     await expect(mtyLink).toBeVisible();
     await mtyLink.click();

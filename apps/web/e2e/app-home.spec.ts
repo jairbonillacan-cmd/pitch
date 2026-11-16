@@ -35,11 +35,15 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
   await expect(sportGroup).toBeVisible();
   await expect(page.getByRole("group", { name: "Elegir liga" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Tu parlay" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
+  const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+  await expect(dailyParlayTab).toBeVisible();
+  await dailyParlayTab.click();
   await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
   await page.locator('[data-daily-risk="conservador"]').click();
   await page.locator('[data-daily-risk="arriesgado"]').click();
   await page.locator('[data-daily-risk="medio"]').click();
+  await page.getByRole("tab", { name: /Tu parlay/i }).click();
 
   // Encabezado del Inicio: elegir NBA deja solo sus chips; avanzar con › hasta viernes; volver con Hoy; día vacío muestra «Ir al …».
   const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
@@ -331,6 +335,8 @@ test("Estilo Cristal / Sólido desde el menú de cuenta: se aplica, persiste y p
   await expect(html).toHaveAttribute("data-style", "solid");
   await expect(menu.locator('[data-style-option="solid"]')).toHaveAttribute("aria-pressed", "true");
   await page.keyboard.press("Escape");
+  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
+  await page.waitForTimeout(250);
 
   await expect(page.locator(".pl-atmo")).toBeHidden();
   const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();

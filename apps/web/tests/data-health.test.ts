@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET } from "../app/api/admin/data-health/route";
 import { loadServerDataHealthReport } from "../src/server/data-health";
-import { loadLeagueSnapshotEnvelope } from "../src/server/snapshots";
+import { PRODUCT_LEAGUES, loadLeagueSnapshotEnvelope } from "../src/server/snapshots";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -15,7 +15,7 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
       "odds-refresh",
       "pre-mvp-snapshot",
     ]);
-    expect(report.leagues).toHaveLength(9);
+    expect(report.leagues).toHaveLength(PRODUCT_LEAGUES.length);
 
     const nfl = report.leagues.find((l) => l.league === "nfl");
     expect(nfl).toBeDefined();
@@ -52,7 +52,7 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
     expect(allowed.status).toBe(200);
     const body = (await allowed.json()) as { leagues: unknown[]; workflows: unknown[] };
     expect(body.workflows).toHaveLength(2);
-    expect(body.leagues).toHaveLength(9);
+    expect(body.leagues).toHaveLength(PRODUCT_LEAGUES.length);
   });
 
   it("adjunta bajas nominales de data/snapshots/nfl/injuries.json a los partidos de NFL", () => {

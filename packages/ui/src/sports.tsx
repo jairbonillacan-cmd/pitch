@@ -27,6 +27,8 @@ import {
   getBzzoiroLeagueEmblemUrl,
   getBzzoiroTeamEmblemUrl,
   getLeagueEmblemPath,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
   hasLeagueAsset,
 } from "@pitchlab/sports-assets";
@@ -60,6 +62,14 @@ const GENERIC_LEAGUE_CODES: Record<string, string> = {
   nba: "NBA",
   nhl: "NHL",
   mlb: "MLB",
+  "concacaf-nations": "CNL",
+  "uefa-nations": "UNL",
+  amistosos: "FIFA",
+  "copa-del-mundo": "WC",
+  eliminatorias: "WCQ",
+  "copa-america": "CA",
+  eurocopa: "EURO",
+  "copa-oro": "GC",
 };
 
 export type EmblemSurface = "public" | "app";
@@ -135,20 +145,28 @@ function resolveBadgeEmblem(params: {
     };
   }
 
-  const isNfl = league === "nfl";
+  const hasLocalSvgFallback =
+    league === "nfl" ||
+    league === "nhl" ||
+    league === "mlb";
+  const localNationalFallback =
+    kind === "team"
+      ? getOfficialEspnTeamLogoUrl(league, slug)
+      : getOfficialEspnLeagueLogoUrl(league);
+  const resolvedFallback = hasLocalSvgFallback ? localSvg : localNationalFallback;
 
-  // Dentro de `/app`, `logoUrl={null}` o vacío fuerza iniciales (salvo NFL sin cobertura Bzzoiro).
+  // Dentro de `/app`, `logoUrl={null}` o vacío fuerza iniciales (salvo ligas/selecciones locales sin Bzzoiro).
   if (logoUrl !== undefined) {
     const cleanUrl = typeof logoUrl === "string" ? logoUrl.trim() : "";
     if (cleanUrl) {
       return {
         src: cleanUrl,
-        fallbackSrc: isNfl ? localSvg : null,
-        isExternal: true,
+        fallbackSrc: resolvedFallback && resolvedFallback !== cleanUrl ? resolvedFallback : null,
+        isExternal: !cleanUrl.startsWith("/"),
       };
     }
     return {
-      src: isNfl ? localSvg : null,
+      src: hasLocalSvgFallback ? localSvg : logoUrl === "" ? localNationalFallback : null,
       fallbackSrc: null,
       isExternal: false,
     };
@@ -156,18 +174,18 @@ function resolveBadgeEmblem(params: {
 
   const externalUrl =
     kind === "team"
-      ? getBzzoiroTeamEmblemUrl(league, slug)
-      : getBzzoiroLeagueEmblemUrl(league);
+      ? (getBzzoiroTeamEmblemUrl(league, slug) ?? getOfficialEspnTeamLogoUrl(league, slug))
+      : (getBzzoiroLeagueEmblemUrl(league) ?? getOfficialEspnLeagueLogoUrl(league));
   if (externalUrl) {
     return {
       src: externalUrl,
-      fallbackSrc: null,
-      isExternal: true,
+      fallbackSrc: hasLocalSvgFallback ? localSvg : null,
+      isExternal: !externalUrl.startsWith("/"),
     };
   }
 
   return {
-    src: isNfl ? localSvg : null,
+    src: hasLocalSvgFallback ? localSvg : null,
     fallbackSrc: null,
     isExternal: false,
   };
@@ -260,7 +278,13 @@ function EmblemGraphic({
   return (
     <span
       className="badge"
-      data-emblem-source={isCurrentExternal ? "bzzoiro" : "editorial"}
+      data-emblem-source={
+        currentSrc.startsWith("/brand/official/")
+          ? "official"
+          : isCurrentExternal
+            ? "external"
+            : "editorial"
+      }
       data-emblem-league={league}
       style={{ width: size, height: size }}
       aria-hidden={decorative ? "true" : undefined}

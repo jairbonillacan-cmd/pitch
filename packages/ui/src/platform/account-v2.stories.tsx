@@ -320,16 +320,16 @@ export const PreferenciasConCuentasOscuro = {
           prefs: {
             accountsEnabled: true,
             email: "carlos@pitchlab.mx",
-            pushState: "subscribed",
-            installAvailable: true,
+            visualStyle: "solid",
             initialPrefs: {
+              timezone: "Europe/Madrid",
               alerts: {
                 valueAlerts: true,
                 beforeMatch: true,
                 pickSettled: true,
                 billingReminder: true,
-                weeklyDigest: true,
-                monthlyRecord: true,
+                weeklyDigest: false,
+                monthlyRecord: false,
               },
             },
           },
@@ -353,17 +353,17 @@ export const PreferenciasConCuentasClaro = {
           prefs: {
             accountsEnabled: true,
             email: "carlos@pitchlab.mx",
-            pushState: "subscribed",
-            installAvailable: true,
+            visualStyle: "solid",
             initialPrefs: {
               themeMode: "light",
+              timezone: "America/New_York",
               alerts: {
                 valueAlerts: true,
                 beforeMatch: true,
                 pickSettled: true,
                 billingReminder: true,
-                weeklyDigest: true,
-                monthlyRecord: true,
+                weeklyDigest: false,
+                monthlyRecord: false,
               },
             },
           },

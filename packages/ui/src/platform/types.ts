@@ -186,7 +186,7 @@ export type MarketCardCategory =
   | "marcador"
   | "primer_tiempo";
 
-export type MatchTabKey = "resumen" | "numeros" | "contexto";
+export type MatchTabKey = "resumen" | "ia" | "numeros" | "dinero" | "contexto";
 
 export interface PlatformMarketRow {
   group: string;
@@ -584,6 +584,48 @@ export interface TeamLeagueDirectoryItem {
   code: string;
   rank: number | null;
   href: string;
+}
+
+export type LeagueNewsCategory =
+  | "lesiones"
+  | "mercado"
+  | "analisis"
+  | "resultados"
+  | "jornada";
+
+export interface LeagueNewsArticleSummary {
+  id: string;
+  title: string;
+  lead: string;
+  paragraphs: string[];
+  keyPoints: string[];
+  publishedAtLabel: string;
+  byline?: string;
+  categoryLabel: string;
+}
+
+export interface LeagueNewsItem {
+  id: string;
+  category: LeagueNewsCategory;
+  categoryLabel: string;
+  title: string;
+  summary: string;
+  publishedAtLabel: string;
+  badge?: string;
+  meta?: string;
+  team?: {
+    slug: string;
+    name: string;
+    logoUrl?: string;
+  };
+  href?: string;
+  ctaLabel?: string;
+  /** Ruta del servidor para ampliar el resumen editorial dentro de la app (sin salir de PitchLab). */
+  summaryHref?: string;
+  readMoreLabel?: string;
+  summaryHighlights?: string[];
+  /** Resumen pre-cargado opcional (útil en stories o señales locales sin llamada extra). */
+  preloadedSummary?: LeagueNewsArticleSummary;
 }
 
 export interface PlatformDataset {

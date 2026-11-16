@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   asLeagueId,
+  findNationalTeamDef,
   sportForLeague,
   sportHasDraw,
   sportScoringUnit,
@@ -80,6 +81,14 @@ interface InternalFinishedGame {
 
 const HISTORY_FILENAME_OVERRIDES: Readonly<Record<string, string>> = {
   laliga: "la-liga.jsonl",
+  "uefa-nations": "international.jsonl",
+  "concacaf-nations": "international.jsonl",
+  amistosos: "international.jsonl",
+  "copa-del-mundo": "international.jsonl",
+  eliminatorias: "international.jsonl",
+  "copa-america": "international.jsonl",
+  eurocopa: "international.jsonl",
+  "copa-oro": "international.jsonl",
 };
 
 /** Equivalencias entre slugs de snapshot y slugs históricos (sin exponer nombres de proveedores). */
@@ -132,7 +141,7 @@ const ENGINE_BY_SPORT: Readonly<Record<PlatformSport, string>> = {
   "ice-hockey": "Motor NHL · Peligro y posesión",
 };
 
-const historyCache = new Map<string, HistoryJsonlEntry[]>();
+const historyCache = new Map<string, { mtimeMs: number; entries: HistoryJsonlEntry[] }>();
 
 export function isProductLeague(raw: string): raw is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(raw);
@@ -163,13 +172,20 @@ function loadRecentHistoryEntries(league: ProductLeague): HistoryJsonlEntry[] {
   const fullPath = path.join(resolveHistoryRoot(), filename);
   if (!fs.existsSync(fullPath)) return [];
 
+  let mtimeMs = 0;
+  try {
+    mtimeMs = fs.statSync(fullPath).mtimeMs;
+  } catch {
+    return [];
+  }
+
   const cached = historyCache.get(fullPath);
-  if (cached) return cached;
+  if (cached && cached.mtimeMs === mtimeMs) return cached.entries;
 
   try {
     const raw = fs.readFileSync(fullPath, "utf8");
     const lines = raw.trim().split(/\r?\n/);
-    const tail = lines.slice(-900);
+    const tail = filename === "international.jsonl" ? lines : lines.slice(-900);
     const parsed: HistoryJsonlEntry[] = [];
     for (const line of tail) {
       if (!line) continue;
@@ -178,7 +194,7 @@ function loadRecentHistoryEntries(league: ProductLeague): HistoryJsonlEntry[] {
         parsed.push(row);
       }
     }
-    historyCache.set(fullPath, parsed);
+    historyCache.set(fullPath, { mtimeMs, entries: parsed });
     return parsed;
   } catch (err) {
     console.warn(`[team-profile] no se pudo leer histórico de ${league}:`, err);
@@ -434,10 +450,10 @@ function buildModelMetrics(
     }
     if (master?.club_elo_rating != null) {
       metrics.push({
-        id: "elo",
-        label: "Índice de fuerza Elo",
+        id: "strength",
+        label: "Índice de fuerza",
         value: `${Math.round(master.club_elo_rating).toLocaleString("es-MX")} pts`,
-        detail: "Fuerza relativa de club",
+        detail: "Fuerza relativa de equipo",
         tone: "brand",
       });
     }
@@ -857,6 +873,8 @@ export function loadTeamProfile(
 
     const homeRef = byCanonical.get(hKey);
     const awayRef = byCanonical.get(aKey);
+    const homeNat = !homeRef ? findNationalTeamDef(hKey) : null;
+    const awayNat = !awayRef ? findNationalTeamDef(aKey) : null;
     const roundLabel =
       h.stage ??
       (typeof h.period === "number"
@@ -871,8 +889,14 @@ export function loadTeamProfile(
       round: roundLabel,
       homeTeamKey: hKey,
       awayTeamKey: aKey,
-      homeName: homeRef?.shortName ?? slugFromTeamId(h.homeTeam).replace(/-/g, " "),
-      awayName: awayRef?.shortName ?? slugFromTeamId(h.awayTeam).replace(/-/g, " "),
+      homeName:
+        homeRef?.shortName ??
+        homeNat?.shortEs ??
+        slugFromTeamId(h.homeTeam).replace(/-/g, " "),
+      awayName:
+        awayRef?.shortName ??
+        awayNat?.shortEs ??
+        slugFromTeamId(h.awayTeam).replace(/-/g, " "),
       homeScore: h.homeScore,
       awayScore: h.awayScore,
       neutralSite: Boolean(h.neutralSite),
@@ -925,12 +949,14 @@ export function loadTeamProfile(
     venueName || master?.stadium_elevation_m != null || master?.roof_type
       ? {
           name: venueName,
-          elevationM: master?.stadium_elevation_m ?? null,
-          roofType:
-            master?.roof_type === "open" ||
-            master?.roof_type === "retractable" ||
-            master?.roof_type === "dome" ||
-            master?.roof_type === "indoor_arena"
+          // Altitud y tipo de techo vienen de la ficha maestra: se reservan a sesiones con acceso completo.
+          elevationM: options.fullAccess ? (master?.stadium_elevation_m ?? null) : null,
+          roofType: !options.fullAccess
+            ? null
+            : master?.roof_type === "open" ||
+                master?.roof_type === "retractable" ||
+                master?.roof_type === "dome" ||
+                master?.roof_type === "indoor_arena"
               ? master.roof_type
               : null,
         }
@@ -967,7 +993,7 @@ export function loadTeamProfile(
     },
     standing,
     venue,
-    injuries: loadTeamInjuries(leagueRaw, team.id),
+    injuries: options.fullAccess ? loadTeamInjuries(leagueRaw, team.id) : [],
     recentAverages,
     modelSection: buildModelMetrics(leagueRaw, sport, snapshot, team, options.fullAccess),
     upcomingFixtures,

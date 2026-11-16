@@ -205,46 +205,56 @@ export function SportOutlookCard({
         </div>
       ) : null}
 
-      {confirmations.length > 0 || rest.length > 0 ? (
-        <div className="pl-so-section" data-block="confirmations">
-          <h4 className="pl-so-label">Antes del partido</h4>
-          <ul className="pl-so-checks">
-            {confirmations.map((c) => (
-              <li key={c.key} className="pl-so-check" data-tone={c.tone}>
-                <span className="pl-so-check-icon" aria-hidden="true">
-                  <MaestroIcon name={TONE_ICON[c.tone]} size={14} />
-                </span>
-                <span className="pl-so-check-text">
-                  <strong>{c.title}</strong>
-                  {c.detail ? <span>{c.detail}</span> : null}
-                </span>
-              </li>
-            ))}
-            {rest.map((note) => (
-              <li key={note} className="pl-so-check" data-tone="info">
-                <span className="pl-so-check-icon" aria-hidden="true">
-                  <MaestroIcon name="activity" size={14} />
-                </span>
-                <span className="pl-so-check-text">
-                  <strong>{note}</strong>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      {confirmations.length > 0 || rest.length > 0 || drivers.length > 0 ? (
+        <div
+          className={
+            (confirmations.length > 0 || rest.length > 0) && drivers.length > 0
+              ? "pl-so-bottom-grid"
+              : "pl-so-bottom-single"
+          }
+        >
+          {confirmations.length > 0 || rest.length > 0 ? (
+            <div className="pl-so-section" data-block="confirmations">
+              <h4 className="pl-so-label">Antes del partido</h4>
+              <ul className="pl-so-checks">
+                {confirmations.map((c) => (
+                  <li key={c.key} className="pl-so-check" data-tone={c.tone}>
+                    <span className="pl-so-check-icon" aria-hidden="true">
+                      <MaestroIcon name={TONE_ICON[c.tone]} size={14} />
+                    </span>
+                    <span className="pl-so-check-text">
+                      <strong>{c.title}</strong>
+                      {c.detail ? <span>{c.detail}</span> : null}
+                    </span>
+                  </li>
+                ))}
+                {rest.map((note) => (
+                  <li key={note} className="pl-so-check" data-tone="info">
+                    <span className="pl-so-check-icon" aria-hidden="true">
+                      <MaestroIcon name="activity" size={14} />
+                    </span>
+                    <span className="pl-so-check-text">
+                      <strong>{note}</strong>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
-      {drivers.length > 0 ? (
-        <div className="pl-so-section" data-block="drivers">
-          <h4 className="pl-so-label">Qué inclina el partido</h4>
-          <ul className="pl-so-drivers">
-            {drivers.map((d) => (
-              <li key={d.factor} className="pl-so-driver" data-favors={d.favors ?? "none"}>
-                <span>{d.label}</span>
-                <span className="pl-so-driver-value num">{d.text}</span>
-              </li>
-            ))}
-          </ul>
+          {drivers.length > 0 ? (
+            <div className="pl-so-section" data-block="drivers">
+              <h4 className="pl-so-label">Qué inclina el partido</h4>
+              <ul className="pl-so-drivers">
+                {drivers.map((d) => (
+                  <li key={d.factor} className="pl-so-driver" data-favors={d.favors ?? "none"}>
+                    <span>{d.label}</span>
+                    <span className="pl-so-driver-value num">{d.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

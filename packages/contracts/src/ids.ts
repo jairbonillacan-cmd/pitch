@@ -15,6 +15,14 @@ export const VALID_LEAGUES = [
   "nhl",
   "mlb",
   "nba",
+  "uefa-nations",
+  "concacaf-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
 ] as const;
 
 export type SportId = Brand<(typeof VALID_SPORTS)[number], "SportId">;
@@ -42,10 +50,12 @@ export const SeasonIdSchema = z
   .regex(/^[a-z0-9-]+$/, "SeasonId debe ser kebab-case alfanumérico")
   .transform((v) => v as SeasonId);
 
+const TEAM_ID_PATTERN = new RegExp(`^(${VALID_LEAGUES.join("|")})\\.[a-z0-9-]+$`);
+
 export const TeamIdSchema = z
   .string()
   .regex(
-    /^(nfl|liga-mx|premier-league|laliga|bundesliga|serie-a|ligue-1|ncaaf|nhl|mlb|nba)\.[a-z0-9-]+$/,
+    TEAM_ID_PATTERN,
     "TeamId debe seguir el formato canónico <league>.<slug>",
   )
   .transform((v) => v as TeamId);

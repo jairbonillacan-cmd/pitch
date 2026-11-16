@@ -1348,6 +1348,7 @@
 .pl-acct-league-grid {
   display: flex;
   flex-wrap: wrap;
+  flex-wrap: balance;
   gap: 8px;
 }
 

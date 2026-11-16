@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "snapshot": "tsx src/cli.ts",
+    "national:snapshot": "tsx src/national-cli.ts",
     "odds:refresh": "tsx src/odds-refresh-cli.ts",
     "injuries": "tsx src/cli.ts --mode=injuries",
     "health:check": "tsx src/health-check-cli.ts",

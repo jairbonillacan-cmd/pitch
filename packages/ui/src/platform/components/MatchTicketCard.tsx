@@ -10,6 +10,7 @@ import {
   isPickUnlocked,
   pickReferenceDecimal,
 } from "../access-guard";
+import { shortDateLabel } from "../club/home/home-model";
 import {
   useIsPickInParlay,
   useJournalEntries,
@@ -345,7 +346,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               size={15}
             />
             <span className="truncate">
-              {game.leagueLabel} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
+              {game.leagueLabel} · {shortDateLabel(game.dayId)} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
             </span>
           </span>
 
@@ -474,7 +475,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
         ) : !isFinished ? (
           <div
             className="rounded-xl px-3 py-2 text-xs"
-            style={{ background: "var(--pl-surface-soft)", color: "var(--pl-text-muted)" }}
+            style={{ background: "var(--pl-surface-elevated)", color: "var(--pl-text-muted)" }}
             data-empty-forecast=""
           >
             Sin pronóstico ni confianza publicados en este snapshot.
@@ -528,7 +529,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               ) : null}
             </div>
           </div>
-        ) : (
+        ) : mainPick ? (
           <div className="flex items-center justify-between gap-2 text-xs" data-card-locked="">
             <div className="min-w-0">
               <span
@@ -543,6 +544,10 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               </span>
             </div>
             <span className="pl-pill shrink-0">Pase PitchLab Ultra</span>
+          </div>
+        ) : (
+          <div className="text-xs" style={{ color: "var(--pl-text-muted)" }} data-empty-picks="">
+            Sin picks publicados en este snapshot.
           </div>
         )}
       </div>
@@ -576,7 +581,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <span>Sellar</span>
             </button>
           </div>
-        ) : !isFinished && !unlockedMain ? (
+        ) : !isFinished && mainPick && !unlockedMain ? (
           <a
             href={upgradeHref}
             onClick={(e) => {

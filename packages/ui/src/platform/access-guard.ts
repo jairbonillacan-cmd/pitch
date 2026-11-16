@@ -223,7 +223,6 @@ export function redactDatasetForVisitor(
       factors: [],
       headToHead: game.headToHead,
       ...(game.restDays ? { restDays: game.restDays } : {}),
-      ...(hasPromoOpenPick && game.counts ? { counts: game.counts } : {}),
       updatedAtLabel: game.updatedAtLabel,
       spacetime: null,
     };

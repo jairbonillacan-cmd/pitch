@@ -79,6 +79,22 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(detail!.markets.some((r) => r.cardCategory === "goles" && r.isDerived)).toBe(true);
     expect(detail!.outlook.scorelines).toEqual([]);
   });
+
+  it("deriva goles por equipo y 1er tiempo para partidos de selecciones fuera del outlook v3.2", async () => {
+    const { buildDerivedFootballFallbackRows } = await import("../src/server/outlook-derived-rows");
+    const rows = buildDerivedFootballFallbackRows(
+      {
+        home: { name: "México" },
+        away: { name: "Canadá" },
+        projection: { home: 1.55, away: 1.15, total: 2.7 },
+      },
+      false,
+    );
+    expect(rows.some((r) => r.market === "team_goals_home" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "team_goals_away" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_1x2" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_totals" && r.isDerived)).toBe(true);
+  });
 });
 
 describe("dataset del Club sobre el panorama v3.2", () => {

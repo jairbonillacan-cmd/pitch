@@ -1,9 +1,58 @@
+import { findNationalTeamDef, isNationalCompetition } from "@pitchlab/contracts";
 import { BZZOIRO_TEAM_IDS } from "./bzzoiro-teams.generated";
+import {
+  NATIONAL_COMPETITION_ASSETS,
+  NATIONAL_COUNTRY_SLUGS,
+} from "./national-assets.generated";
 import { TEAM_ASSETS } from "./registry.generated";
 
 export { BZZOIRO_TEAM_IDS };
 
 export const BZZOIRO_IMAGE_BASE_URL = "https://sports.bzzoiro.com/img";
+export const ESPN_IMAGE_BASE_URL = "/brand/official";
+
+/**
+ * Ruta pública del escudo oficial en `/brand/official/{nfl|nhl|countries}/<slug>.png` (128×128 PNG transparente).
+ * Devuelve `null` si la liga o selección no tiene recurso oficial registrado.
+ */
+export function getOfficialEspnTeamLogoUrl(league: string, slug?: string): string | null {
+  const target = resolveEmblemTarget(league, slug);
+  if (target.resolvedLeague && isNationalCompetition(target.resolvedLeague)) {
+    const rawSlug = slug?.includes(".")
+      ? slug.split(".")[1]!
+      : slug || (league.includes(".") ? league.split(".")[1]! : "");
+    if (!rawSlug) return null;
+    if (NATIONAL_COUNTRY_SLUGS.has(rawSlug)) {
+      return `${ESPN_IMAGE_BASE_URL}/countries/${rawSlug}.png`;
+    }
+    const resolved = findNationalTeamDef(rawSlug);
+    if (resolved && NATIONAL_COUNTRY_SLUGS.has(resolved.slug)) {
+      return `${ESPN_IMAGE_BASE_URL}/countries/${resolved.slug}.png`;
+    }
+    return null;
+  }
+
+  for (const key of target.keys) {
+    const asset = TEAM_ASSETS[key];
+    if (!asset) continue;
+    if (asset.league !== "nfl" && asset.league !== "nhl") return null;
+    return `${ESPN_IMAGE_BASE_URL}/${asset.league}/${asset.slug}.png`;
+  }
+  return null;
+}
+
+/**
+ * Ruta pública del escudo oficial de liga/competencia en `/brand/official/{nfl|nhl|competitions}/<league>.png`.
+ */
+export function getOfficialEspnLeagueLogoUrl(league: string): string | null {
+  if (league === "nfl" || league === "nhl") {
+    return `${ESPN_IMAGE_BASE_URL}/${league}/${league}.png`;
+  }
+  if (NATIONAL_COMPETITION_ASSETS.has(league)) {
+    return `${ESPN_IMAGE_BASE_URL}/competitions/${league}.png`;
+  }
+  return null;
+}
 
 export const BZZOIRO_LEAGUE_IDS: Readonly<Record<string, number>> = {
   "liga-mx": 19,

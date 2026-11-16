@@ -434,6 +434,21 @@ export const FichaResumenOscuro = {
 };
 export const FichaResumenClaro = { ...FichaResumenOscuro, ...light };
 
+export const FichaAnalisisIaOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="ia"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaAnalisisIaClaro = { ...FichaAnalisisIaOscuro, ...light };
+
 export const FichaNumerosOscuro = {
   render: () => (
     <PlatformProvider dataset={DATASET} initialRole="member">
@@ -448,6 +463,21 @@ export const FichaNumerosOscuro = {
   ),
 };
 export const FichaNumerosClaro = { ...FichaNumerosOscuro, ...light };
+
+export const FichaDineroOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="dinero"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaDineroClaro = { ...FichaDineroOscuro, ...light };
 
 export const FichaContextoOscuro = {
   render: () => (
