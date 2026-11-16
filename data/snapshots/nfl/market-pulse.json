@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-16T01:17:33.445Z",
+  "observedAt": "2026-11-16T13:01:04.076Z",
   "entries": [
     {
       "gameId": "nfl-2026-w10-buffalo-bills-new-york-jets",
@@ -97,17 +97,17 @@
       "gameId": "nfl-2026-w10-los-angeles-chargers-baltimore-ravens",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-16T01:17:33.445Z",
+      "observedAt": "2026-11-16T13:01:04.076Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 213987.14,
-          "price": 0.67
+          "volume": 5285355,
+          "price": 0.69
         },
         {
           "side": "away",
-          "volume": 279760.36,
-          "price": 0.34
+          "volume": 933973.5,
+          "price": 0.32
         }
       ]
     },
