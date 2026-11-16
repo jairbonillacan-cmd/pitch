@@ -17,7 +17,7 @@ import {
 } from "./schema";
 
 export interface BadgeSealedPick {
-  status: "pending" | "won" | "lost";
+  status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   fairDecimal: number;
@@ -124,7 +124,7 @@ export async function loadBadgeFacts(
   const prefsById = new Map(prefs.map((r) => [r.userId, r]));
   const picksById = new Map<string, BadgeSealedPick[]>();
   for (const r of pickRows) {
-    if (r.status !== "won" && r.status !== "lost" && r.status !== "pending") continue;
+    if (r.status !== "won" && r.status !== "lost" && r.status !== "pending" && r.status !== "void") continue;
     const list = picksById.get(r.userId) ?? [];
     list.push({
       status: r.status,

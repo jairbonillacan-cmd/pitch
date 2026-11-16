@@ -962,12 +962,6 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "sliders",
   },
   {
-    label: "Props de jugadores (próximamente)",
-    subtitle: "Simulador interactivo de líneas individuales",
-    href: "/app/props",
-    icon: "activity",
-  },
-  {
     label: "Comunidad",
     subtitle: "Boletos compartidos, conversación y tablero de socios",
     href: "/app/social",

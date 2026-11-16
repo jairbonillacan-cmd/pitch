@@ -1,6 +1,14 @@
+import { PGlite } from "@electric-sql/pglite";
+import { drizzle } from "drizzle-orm/pglite";
 import { describe, expect, it } from "vitest";
+import { applyMigrations, type Db } from "@pitchlab/db";
 import type { PlatformGame } from "@pitchlab/ui";
-import { cortexFactsFor, cortexSummary, validateCortexText } from "../src/server/cortex";
+import {
+  cortexFactsFor,
+  cortexSummary,
+  resetCortexCacheForTests,
+  validateCortexText,
+} from "../src/server/cortex";
 
 const game = {
   id: "pl-1",
@@ -96,5 +104,50 @@ describe("Cortex IA", () => {
   it("si el texto no pasa la validación o no hay clave, devuelve null", async () => {
     expect(await cortexSummary({ ...game, id: "pl-3" } as PlatformGame, { apiKey: "k", fetchImpl: reply("Chelsea gana 3-0 seguro.") })).toBeNull();
     expect(await cortexSummary({ ...game, id: "pl-4" } as PlatformGame, { apiKey: "" })).toBeNull();
+  });
+
+  it("persiste la lectura en Neon entre arranques en frío sin volver a llamar a OpenRouter", async () => {
+    resetCortexCacheForTests();
+    const pg = new PGlite();
+    await applyMigrations((sql) => pg.exec(sql));
+    const db = drizzle(pg) as unknown as Db;
+
+    let calls = 0;
+    const countingFetch = (async () => {
+      calls += 1;
+      return new Response(
+        JSON.stringify({
+          choices: [
+            {
+              message: {
+                content:
+                  "Chelsea parte con 54 % y el mercado de Caliente coincide con 52 %, con Leeds en 22 %.",
+              },
+            },
+          ],
+        }),
+        { status: 200 },
+      );
+    }) as unknown as typeof fetch;
+
+    const first = await cortexSummary({ ...game, id: "pl-persist-1" } as PlatformGame, {
+      apiKey: "k",
+      db,
+      fetchImpl: countingFetch,
+    });
+    expect(first).toContain("54 %");
+    expect(calls).toBe(1);
+
+    // Simula arranque en frío limpiando la caché L1 en RAM.
+    resetCortexCacheForTests();
+    const second = await cortexSummary({ ...game, id: "pl-persist-1" } as PlatformGame, {
+      apiKey: "k",
+      db,
+      fetchImpl: countingFetch,
+    });
+    expect(second).toBe(first);
+    expect(calls).toBe(1);
+
+    await pg.close();
   });
 });

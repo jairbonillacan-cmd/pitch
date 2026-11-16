@@ -10,6 +10,7 @@ import {
   createDb,
   eq,
   followCounts,
+  hasActivePaseTotal,
   listFollowing,
   SOCIAL_LIMITS,
   users,
@@ -19,8 +20,7 @@ import {
 } from "@pitchlab/db";
 import { getAuth } from "./auth";
 import { profileIdForAuthUser } from "./member-data";
-import { requireMember } from "./session-user";
-import { getViewerAccess } from "./viewer-access";
+import { isAdminEmail, requireMember } from "./session-user";
 
 let socialDb: Db | undefined;
 
@@ -30,11 +30,16 @@ type Member = Exclude<Awaited<ReturnType<typeof requireMember>>, { error: NextRe
 export async function requireSocialMember(request: Request): Promise<Member | { error: NextResponse }> {
   const member = await requireMember(request);
   if ("error" in member) return member;
-  const access = await getViewerAccess();
-  if (!access.signupComplete || !access.profile?.handle) {
+  const [profile] = await member.db
+    .select({ handle: users.handle })
+    .from(users)
+    .where(eq(users.id, member.userId))
+    .limit(1);
+  if (!profile?.handle) {
     return { error: NextResponse.json({ error: "Termina tu registro para participar." }, { status: 403 }) };
   }
-  if (!access.fullAccess) {
+  const verifiedAdmin = member.emailVerified && isAdminEmail(member.email);
+  if (!verifiedAdmin && !(await hasActivePaseTotal(member.db, member.userId, new Date()))) {
     return { error: NextResponse.json({ error: "La comunidad es para socios con Pase vigente." }, { status: 403 }) };
   }
   return member;

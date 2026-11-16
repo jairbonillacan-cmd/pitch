@@ -429,6 +429,8 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       engineName: item.engineName,
       marketGroup: item.marketGroup,
       selectionKey: row.selection,
+      market: asMarketKey(row.market),
+      ...(row.line !== undefined ? { line: row.line } : {}),
       conflictGroup,
       label: pickLabelOf(item.marketGroup, row),
       rationale: item.rationale,

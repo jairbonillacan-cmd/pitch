@@ -320,6 +320,18 @@ export const PreferenciasConCuentasOscuro = {
           prefs: {
             accountsEnabled: true,
             email: "carlos@pitchlab.mx",
+            pushState: "subscribed",
+            installAvailable: true,
+            initialPrefs: {
+              alerts: {
+                valueAlerts: true,
+                beforeMatch: true,
+                pickSettled: true,
+                billingReminder: true,
+                weeklyDigest: true,
+                monthlyRecord: true,
+              },
+            },
           },
         },
       }}
@@ -341,7 +353,19 @@ export const PreferenciasConCuentasClaro = {
           prefs: {
             accountsEnabled: true,
             email: "carlos@pitchlab.mx",
-            initialPrefs: { themeMode: "light" },
+            pushState: "subscribed",
+            installAvailable: true,
+            initialPrefs: {
+              themeMode: "light",
+              alerts: {
+                valueAlerts: true,
+                beforeMatch: true,
+                pickSettled: true,
+                billingReminder: true,
+                weeklyDigest: true,
+                monthlyRecord: true,
+              },
+            },
           },
         },
       }}

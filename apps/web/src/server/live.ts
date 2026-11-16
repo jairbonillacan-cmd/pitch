@@ -22,9 +22,10 @@ import {
 import {
   claimLiveRefresh,
   getProviderLinks,
+  listLiveGameWatchers,
   providerQuotaToday,
   readLiveCache,
-  recordLiveMoments,
+  recordLiveMomentsDetailed,
   recordProviderRequest,
   releaseLiveRefresh,
   saveProviderLinks,
@@ -32,6 +33,9 @@ import {
   type Db,
   type LiveMomentInput,
 } from "@pitchlab/db";
+import { serverDb } from "./session-user";
+import { resolveSnapshotsRoot } from "./snapshots";
+import { isWebPushConfigured, sendPushToUsers } from "./web-push";
 import {
   BZZOIRO_ATTRIBUTION,
   detectMoments,
@@ -48,8 +52,6 @@ import {
   type LinkCandidate,
 } from "@pitchlab/ingest/providers/bzzoiro-live";
 import { readProviderConfigs } from "@pitchlab/ingest/providers/config";
-import { serverDb } from "./session-user";
-import { resolveSnapshotsRoot } from "./snapshots";
 
 /** Ligas de fútbol con marcador en vivo y su id en Bzzoiro (ver `BZZOIRO_LEAGUES`). */
 export const LIVE_LEAGUES = {
@@ -103,7 +105,43 @@ export function dbLiveStore(db: Db): LiveStore {
     links: (ids) => getProviderLinks(db, "bzzoiro", ids),
     saveLinks: (links, now) => saveProviderLinks(db, "bzzoiro", links, now),
     moments: async (m, now) => {
-      await recordLiveMoments(db, m, now);
+      const inserted = await recordLiveMomentsDetailed(db, m, now);
+      if (inserted.length === 0 || !isWebPushConfigured()) return;
+      const watchers = await listLiveGameWatchers(
+        db,
+        inserted.map((ev) => ev.gameId),
+      );
+      if (watchers.length === 0) return;
+      for (const ev of inserted) {
+        const recipients = watchers
+          .filter((w) => {
+            if (w.gameId !== ev.gameId) return false;
+            if (ev.kind === "kickoff") return w.kickoff;
+            if (ev.kind === "goal") return w.goals;
+            if (ev.kind === "final") return w.final;
+            return false;
+          })
+          .map((w) => w.userId);
+        if (recipients.length === 0) continue;
+        const cand = findLiveCandidate(ev.gameId);
+        const matchName = cand ? `${cand.homeName} vs ${cand.awayName}` : ev.gameId;
+        const title =
+          ev.kind === "kickoff"
+            ? `Arrancó: ${matchName}`
+            : ev.kind === "goal"
+              ? `Gol en vivo (${ev.homeScore}-${ev.awayScore})`
+              : `Final: ${matchName} (${ev.homeScore}-${ev.awayScore})`;
+        const body =
+          ev.kind === "goal"
+            ? `${matchName}${ev.minute != null ? ` · min ${ev.minute}'` : ""}`
+            : matchName;
+        await sendPushToUsers(db, recipients, "live", {
+          title,
+          body,
+          url: cand ? `/app/${cand.league}/games/${ev.gameId}` : "/app",
+          tag: `live-${ev.gameId}-${ev.kind}-${ev.homeScore}-${ev.awayScore}`,
+        }).catch(() => undefined);
+      }
     },
   };
 }

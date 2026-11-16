@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { createTipsterCode, listTipsterCodes, recordAdminAudit } from "@pitchlab/db";
+import { createTipsterCode, findTipsterByPromoCode, listTipsterCodes, recordAdminAudit } from "@pitchlab/db";
+import { sendTipsterActivatedEmail } from "../../../../src/server/lifecycle-emails";
+import { getMailer } from "../../../../src/server/mailer";
 import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireAdmin } from "../../../../src/server/session-user";
 import { trialHashes } from "../../../../src/server/signup";
@@ -44,5 +46,16 @@ export async function POST(request: Request): Promise<NextResponse> {
     },
     ipSubnetHash,
   });
+  const createdTipster = await findTipsterByPromoCode(admin.db, s("promoCode"));
+  if (createdTipster) {
+    await sendTipsterActivatedEmail(admin.db, getMailer(), {
+      userId: createdTipster.userId,
+      email: createdTipster.email,
+      displayName: createdTipster.displayName,
+      promoCode: createdTipster.promoCode,
+      trialDays: createdTipster.freeTrialDays,
+      commissionPct: createdTipster.commissionPct,
+    });
+  }
   return NextResponse.json({ tipsters: await listTipsterCodes(admin.db) }, { status: 201 });
 }

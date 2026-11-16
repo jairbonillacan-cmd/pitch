@@ -2,7 +2,7 @@ import type { JournalEntry } from "./types";
 
 /** Lo mínimo que necesita el récord de un pick. */
 export interface RecordablePick {
-  status: "pending" | "won" | "lost";
+  status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   clvPct: number;
@@ -19,7 +19,7 @@ export interface ProfileRecord {
   open: number;
 }
 
-/** Saldo de un pick cerrado (+ cumplido, − no cumplido) o `null` si sigue abierto. */
+/** Saldo de un pick cerrado (+ cumplido, − no cumplido) o `null` si sigue abierto o nulo. */
 export function pickSettlementUnits(entry: RecordablePick): number | null {
   if (entry.status === "won") return entry.units * (entry.userDecimal - 1);
   if (entry.status === "lost") return -entry.units;
@@ -29,10 +29,15 @@ export function pickSettlementUnits(entry: RecordablePick): number | null {
 export function profileRecord(entries: ReadonlyArray<RecordablePick>): ProfileRecord {
   let settled = 0;
   let won = 0;
+  let open = 0;
   let netUnits = 0;
   let clvSum = 0;
   for (const entry of entries) {
     clvSum += entry.clvPct;
+    if (entry.status === "pending") {
+      open += 1;
+      continue;
+    }
     const units = pickSettlementUnits(entry);
     if (units === null) continue;
     settled += 1;
@@ -45,7 +50,7 @@ export function profileRecord(entries: ReadonlyArray<RecordablePick>): ProfileRe
     hitRatePct: settled > 0 ? (won / settled) * 100 : null,
     netUnits,
     avgClvPct: entries.length > 0 ? clvSum / entries.length : null,
-    open: entries.length - settled,
+    open,
   };
 }
 
@@ -128,7 +133,7 @@ export interface LeagueHitRate {
 export function hitRateByLeague(entries: ReadonlyArray<JournalEntry>): LeagueHitRate[] {
   const map = new Map<string, { won: number; settled: number }>();
   for (const entry of entries) {
-    if (entry.status === "pending") continue;
+    if (entry.status !== "won" && entry.status !== "lost") continue;
     const row = map.get(entry.leagueLabel) ?? { won: 0, settled: 0 };
     row.settled += 1;
     if (entry.status === "won") row.won += 1;
@@ -167,7 +172,7 @@ export function calibrationBuckets(entries: ReadonlyArray<JournalEntry>): Calibr
     let won = 0;
     let settled = 0;
     for (const entry of entries) {
-      if (entry.status === "pending") continue;
+      if (entry.status !== "won" && entry.status !== "lost") continue;
       const p = 1 / Math.max(1.0001, entry.fairDecimal);
       if (p < r.min || p >= r.max) continue;
       settled += 1;

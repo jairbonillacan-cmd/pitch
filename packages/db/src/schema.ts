@@ -60,6 +60,31 @@ export const users = pgTable("users", {
 });
 
 /** Bitácora: picks sellados antes del inicio, con su liquidación. */
+export interface SealedParlayLegSpec {
+  pickId: string;
+  gameId: string;
+  leagueLabel: string;
+  matchLabel: string;
+  pickLabel: string;
+  market: string;
+  selection: string;
+  line?: number | null;
+  p: number;
+  fairDecimal: number;
+  kickoffAt: string;
+}
+
+export interface SealedParlayLegResult {
+  pickId: string;
+  gameId: string;
+  status: "won" | "lost" | "void";
+  homeScore: number;
+  awayScore: number;
+  closingDecimal?: number | null;
+  clvPct?: number | null;
+  settledAt: string;
+}
+
 export const sealedPicks = pgTable(
   "sealed_picks",
   {
@@ -84,11 +109,20 @@ export const sealedPicks = pgTable(
     sealedAt: ts("sealed_at").notNull().defaultNow(),
     kickoffAt: ts("kickoff_at").notNull(),
     settledAt: ts("settled_at"),
+    pickKind: text("pick_kind").notNull().default("single"),
+    pickMarket: text("pick_market"),
+    pickSelection: text("pick_selection"),
+    pickLine: numeric("pick_line", { precision: 6, scale: 2 }),
+    parlayLegs: jsonb("parlay_legs").$type<SealedParlayLegSpec[] | null>(),
+    parlayLegResults: jsonb("parlay_leg_results").$type<SealedParlayLegResult[] | null>(),
+    closingDecimal: numeric("closing_decimal", { precision: 7, scale: 3 }),
   },
   (t) => [
     index("sealed_picks_user_idx").on(t.userId, t.sealedAt),
+    index("sealed_picks_status_kickoff_idx").on(t.status, t.kickoffAt),
     uniqueIndex("sealed_picks_user_pick_uq").on(t.userId, t.pickId),
     check("sealed_picks_status_ck", sql`${t.status} IN ('pending', 'won', 'lost', 'void')`),
+    check("sealed_picks_kind_ck", sql`${t.pickKind} IN ('single', 'parlay')`),
     check("sealed_picks_units_ck", sql`${t.units} > 0 AND ${t.units} <= 5`),
     check("sealed_picks_before_kickoff_ck", sql`${t.sealedAt} < ${t.kickoffAt}`),
   ],
@@ -129,6 +163,9 @@ export const userPreferences = pgTable(
     emailValueAlerts: boolean("email_value_alerts").notNull().default(true),
     emailBeforeMatch: boolean("email_before_match").notNull().default(false),
     emailBillingReminder: boolean("email_billing_reminder").notNull().default(true),
+    emailWeeklyDigest: boolean("email_weekly_digest").notNull().default(false),
+    emailMonthlyRecord: boolean("email_monthly_record").notNull().default(false),
+    pushEnabled: boolean("push_enabled").notNull().default(false),
     showInRanking: boolean("show_in_ranking").notNull().default(true),
     pauseCommunity: boolean("pause_community").notNull().default(false),
     responsiblePauseKind: text("responsible_pause_kind"),
@@ -1100,5 +1137,93 @@ export const liveMatchEvents = pgTable(
     check("live_match_events_side_ck", sql`${t.side} IS NULL OR ${t.side} IN ('home', 'away')`),
     check("live_match_events_scores_ck", sql`${t.homeScore} >= 0 AND ${t.awayScore} >= 0`),
     check("live_match_events_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
+  ],
+);
+
+/** Última cuota observada pre-kickoff para calcular CLV real al liquidar picks. */
+export const closingOdds = pgTable(
+  "closing_odds",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    gameId: text("game_id").notNull(),
+    market: text("market").notNull(),
+    selection: text("selection").notNull(),
+    lineKey: text("line_key").notNull().default(""),
+    book: text("book").notNull(),
+    decimalOdds: numeric("decimal_odds", { precision: 7, scale: 3 }).notNull(),
+    fairDecimal: numeric("fair_decimal", { precision: 7, scale: 3 }),
+    noVigProb: numeric("no_vig_prob", { precision: 6, scale: 5 }),
+    source: text("source").notNull(),
+    kickoffAt: ts("kickoff_at").notNull(),
+    capturedAt: ts("captured_at").notNull(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("closing_odds_key_uq").on(t.gameId, t.market, t.selection, t.lineKey),
+    index("closing_odds_kickoff_idx").on(t.kickoffAt),
+    check("closing_odds_before_kickoff_ck", sql`${t.capturedAt} <= ${t.kickoffAt}`),
+  ],
+);
+
+/** Caché persistente de análisis Cortex IA compartido entre instancias serverless. */
+export const cortexCache = pgTable(
+  "cortex_cache",
+  {
+    cacheKey: text("cache_key").primaryKey(),
+    gameId: text("game_id").notNull(),
+    factsHash: text("facts_hash").notNull(),
+    model: text("model").notNull(),
+    summary: jsonb("summary").notNull(),
+    expiresAt: ts("expires_at").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("cortex_cache_game_idx").on(t.gameId),
+    index("cortex_cache_expires_idx").on(t.expiresAt),
+  ],
+);
+
+/** Suscripciones Web Push VAPID del socio. */
+export const pushSubscriptions = pgTable(
+  "push_subscriptions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    endpoint: text("endpoint").notNull().unique("push_subscriptions_endpoint_uq"),
+    p256dh: text("p256dh").notNull(),
+    auth: text("auth").notNull(),
+    topicPicks: boolean("topic_picks").notNull().default(true),
+    topicLive: boolean("topic_live").notNull().default(true),
+    topicSocial: boolean("topic_social").notNull().default(true),
+    userAgent: text("user_agent"),
+    createdAt: createdAt(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+    lastSentAt: ts("last_sent_at"),
+  },
+  (t) => [index("push_subscriptions_user_idx").on(t.userId)],
+);
+
+/** Embudo de conversión mínimo propio, activado solo bajo consentimiento de analítica. */
+export const funnelEvents = pgTable(
+  "funnel_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    eventName: text("event_name").notNull(),
+    stageOrder: integer("stage_order").notNull(),
+    sessionHash: text("session_hash").notNull(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    sourcePath: text("source_path"),
+    meta: jsonb("meta"),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex("funnel_events_session_event_uq").on(t.sessionHash, t.eventName),
+    index("funnel_events_name_created_idx").on(t.eventName, t.createdAt),
+    check(
+      "funnel_events_name_ck",
+      sql`${t.eventName} IN ('landing', 'signup_step1', 'signup_step2', 'first_sealed_pick', 'spei_transfer', 'coupon_redeemed')`,
+    ),
   ],
 );

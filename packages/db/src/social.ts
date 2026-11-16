@@ -244,7 +244,7 @@ export async function createSocialPost(
 }
 
 export type AddCommentResult =
-  | { ok: true; comment: FeedComment }
+  | { ok: true; comment: FeedComment; notifiedUserIds: string[] }
   | { ok: false; reason: "no_existe" | "limite" | "sin_usuario" | "pausado" };
 
 const MENTION_PATTERN = /(?:^|[\s(])@([a-z0-9_]{3,24})/gi;
@@ -392,6 +392,7 @@ export async function addSocialComment(
 
   return {
     ok: true,
+    notifiedUserIds: [...notifiedUsers].filter((id) => id !== userId),
     comment: {
       id: commentId,
       parentCommentId: resolvedParentId,
@@ -1596,4 +1597,29 @@ export async function applyModerationAction(
   });
 
   return { ok: true };
+}
+
+/** Obtiene el usuario autor de una publicación o comentario moderado para avisarle por correo. */
+export async function findModerationTargetAuthor(
+  db: Db,
+  targetType: "post" | "comment",
+  targetId: string,
+): Promise<{ userId: string; email: string; displayName: string | null } | null> {
+  if (!UUID_PATTERN.test(targetId.trim())) return null;
+  if (targetType === "post") {
+    const [row] = await db
+      .select({ userId: users.id, email: users.email, displayName: users.displayName })
+      .from(socialPosts)
+      .innerJoin(users, eq(users.id, socialPosts.authorUserId))
+      .where(eq(socialPosts.id, targetId.trim()))
+      .limit(1);
+    return row ?? null;
+  }
+  const [row] = await db
+    .select({ userId: users.id, email: users.email, displayName: users.displayName })
+    .from(socialComments)
+    .innerJoin(users, eq(users.id, socialComments.authorUserId))
+    .where(eq(socialComments.id, targetId.trim()))
+    .limit(1);
+  return row ?? null;
 }

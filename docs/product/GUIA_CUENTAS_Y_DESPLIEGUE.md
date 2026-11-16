@@ -33,7 +33,10 @@
 | `BLOB_READ_WRITE_TOKEN` | Vercel (**Storage → Blob**, opcional) | Foto de perfil |
 | `PITCHLAB_PAYMENTS_MODE` | `"transfer"` (SPEI/cupones Beta 1.0) o `"stripe"` | Cobro |
 | `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY`, `PITCHLAB_TRANSFER_CLABE`, `PITCHLAB_TRANSFER_INSTRUCTIONS` | Tu cuenta bancaria SPEI (opcional la nota) | Beta 1.0 |
-| `CRON_SECRET` | Secreto generado (cron `/api/cron/tipster-payouts`) | Diario |
+| `CRON_SECRET` | Secreto generado (crons `tipster-payouts`, `settle-picks`, `weekly-digest`, `monthly-record`) | Diario / semanal |
+| `UNSUBSCRIBE_SECRET` | Secreto generado (enlaces firmados de baja en resúmenes semanales/mensuales) | Correos |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | Llaves P-256 base64url (PWA Web Push sin servicios externos) | Móvil / PWA |
+| `PITCHLAB_LEGAL_RESPONSIBLE`, `PITCHLAB_LEGAL_ADDRESS`, `PITCHLAB_LEGAL_RFC` | Opcional: sobrescribe razón social/domicilio en `/legal/*` | Legal |
 | `BZZOIRO_API_KEY` | Bzzoiro Sports Data (momios de fútbol por casa, en vivo y xG; en GitHub Actions Secrets y en Vercel) | Datos automáticos |
 | `THE_ODDS_API_KEY` | The Odds API v4 (plan gratis 500 req/mes, en GitHub Actions Secrets); con Bzzoiro solo cubre la NFL | Datos automáticos |
 | `BETFAIR_APP_KEY`, `BETFAIR_SESSION_TOKEN` | Betfair Exchange API-NG Delayed App Key (opcional, en GitHub Actions Secrets) | Datos automáticos |
@@ -100,7 +103,7 @@ Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar 
    powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
    ```
 
-2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (hoy pueden incluir hasta `0015_transferencias_cupones_preferencias`, según cuándo se corrió por última vez). Si ya está al día, avisa y termina sin tocar nada.
+2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (incluyendo hasta `0024_liquidacion_parlays_push_embudo`). Si ya está al día, avisa y termina sin tocar nada.
 3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
 4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
@@ -202,7 +205,16 @@ En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportami
    - `PITCHLAB_PAYMENTS_MODE=transfer`
    - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para mostrar la cuenta destino y la referencia única ligada a la cuenta en `/precio` y `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
    - `EMAIL_NOREPLY_FROM` (por defecto `PitchLab <noreply@pitchlab.mx>`, remitente de los cupones SPEI y comprobantes).
-   - `CRON_SECRET` para que Vercel Cron ejecute `/api/cron/tipster-payouts` diariamente (promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails` dentro de la ventana de 28 días).
+   - `CRON_SECRET` para que Vercel Cron ejecute los cuatro trabajos declarados en `apps/web/vercel.json`:
+     - `/api/cron/settle-picks` (diario `0 10 * * *`): congela momios de cierre en `closing_odds`, liquida picks pendientes y parlays reales en `sealed_picks`, actualiza ranking e insignias y despacha avisos.
+     - `/api/cron/tipster-payouts` (diario `0 15 * * *`): promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails`.
+     - `/api/cron/weekly-digest` (lunes `0 14 * * 1`) y `/api/cron/monthly-record` (día 1 `0 15 1 * *`): envían resumen semanal y corte mensual únicamente a quienes activaron el opt-in y adjuntan enlace firmado con `UNSUBSCRIBE_SECRET`.
+   - Web Push e instalación PWA en móvil (opcional hasta que generes llaves):
+     - Genera un par VAPID P-256 con:
+       ```bash
+       node -e "const {publicKey,privateKey}=require('crypto').generateKeyPairSync('ec',{namedCurve:'P-256'}); const j=publicKey.export({format:'jwk'}), k=privateKey.export({format:'jwk'}); const raw=Buffer.concat([Buffer.from([4]),Buffer.from(j.x,'base64url'),Buffer.from(j.y,'base64url')]); console.log('VAPID_PUBLIC_KEY='+raw.toString('base64url')+'\nNEXT_PUBLIC_VAPID_PUBLIC_KEY='+raw.toString('base64url')+'\nVAPID_PRIVATE_KEY='+Buffer.from(k.d,'base64url').toString('base64url'));"
+       ```
+     - Guarda `VAPID_PUBLIC_KEY`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y `VAPID_SUBJECT=mailto:soporte@pitchlab.mx` en Vercel, más `UNSUBSCRIBE_SECRET` para bajas de correo sin sesión.
 2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite revisar transferencias SPEI pendientes con la referencia única del socio y confirmarlas (lo que genera un cupón personal de un solo uso con vigencia de 30 días y lo envía desde `noreply@pitchlab.mx` para canjear en `/canjear`; al canjearlo se activan los días pagados, el recibo, la recompensa bilateral `+7 días` de referidos, los avisos de renovación/vencimiento y la comisión de tipster), rechazar transferencias con motivo, crear o desactivar cupones promocionales, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
 
 ### Recetas SQL útiles en Neon (emergencia o auditoría)

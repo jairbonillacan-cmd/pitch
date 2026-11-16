@@ -547,7 +547,7 @@ function ProfileContent({
 
   const onShare = (): void => {
     void shareUrl(
-      `/app/u/${profile.handle}`,
+      profile.isExample ? `/app/u/${profile.handle}` : `/u/${profile.handle}`,
       `${profile.name} en PitchLab`,
       () => pushToast("Copiamos el enlace del perfil.", "success"),
       () => pushToast("No pudimos compartir el perfil.", "warning"),

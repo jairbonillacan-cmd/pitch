@@ -184,6 +184,46 @@ export async function createTipsterCode(
   return inserted.length ? { ok: true } : { ok: false, reason: "duplicado" };
 }
 
+export interface TipsterCreatedRecord {
+  userId: string;
+  email: string;
+  displayName: string;
+  handle: string;
+  promoCode: string;
+  freeTrialDays: number;
+  commissionPct: number;
+}
+
+/** Busca el perfil recién creado de tipster oficial junto con su correo para notificaciones. */
+export async function findTipsterByPromoCode(db: Db, promoCode: string): Promise<TipsterCreatedRecord | null> {
+  const code = promoCode.trim().toUpperCase();
+  if (!code) return null;
+  const [row] = await db
+    .select({
+      userId: tipsterProfiles.userId,
+      email: users.email,
+      displayName: tipsterProfiles.displayName,
+      handle: tipsterProfiles.handle,
+      promoCode: tipsterProfiles.promoCode,
+      freeTrialDays: tipsterProfiles.freeTrialDays,
+      commissionBps: tipsterProfiles.commissionBps,
+    })
+    .from(tipsterProfiles)
+    .innerJoin(users, eq(users.id, tipsterProfiles.userId))
+    .where(eq(tipsterProfiles.promoCode, code))
+    .limit(1);
+  if (!row) return null;
+  return {
+    userId: row.userId,
+    email: row.email,
+    displayName: row.displayName,
+    handle: row.handle,
+    promoCode: row.promoCode,
+    freeTrialDays: row.freeTrialDays,
+    commissionPct: row.commissionBps / 100,
+  };
+}
+
 export interface MyReferrals {
   referralCode: string | null;
   paidFriends: number;

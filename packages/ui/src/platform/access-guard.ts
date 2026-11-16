@@ -336,7 +336,7 @@ export function formatEdgePts(edgePts: number | null): string {
 
 /** Récord real de la Bitácora: unidades netas y picks liquidados. */
 export function journalRecord(
-  journal: ReadonlyArray<{ status: "pending" | "won" | "lost"; units: number; userDecimal: number; clvPct: number }>,
+  journal: ReadonlyArray<{ status: "pending" | "won" | "lost" | "void"; units: number; userDecimal: number; clvPct: number }>,
 ): { settled: number; netUnits: number; avgClvPct: number | null; label: string } {
   const { settled, netUnits, avgClvPct } = profileRecord(journal);
   const units = `${netUnits >= 0 ? "+" : ""}${netUnits.toFixed(1)}u`;

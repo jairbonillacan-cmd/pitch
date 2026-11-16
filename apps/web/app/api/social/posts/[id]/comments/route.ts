@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { addSocialComment, listPostComments } from "@pitchlab/db";
 import { checkSocialText, reasonResponse, requireSocialMember } from "../../../../../../src/server/social";
+import { isWebPushConfigured, sendPushToUsers } from "../../../../../../src/server/web-push";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,5 +29,23 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const parentCommentId = typeof body?.parentCommentId === "string" ? body.parentCommentId.trim() : null;
   const result = await addSocialComment(member.db, member.userId, id, text.text, new Date(), parentCommentId);
   if (!result.ok) return reasonResponse(result.reason);
+
+  const notifiedUserIds = Array.isArray(result.notifiedUserIds) ? result.notifiedUserIds : [];
+  if (notifiedUserIds.length > 0 && isWebPushConfigured()) {
+    const pushWork = async () => {
+      await sendPushToUsers(member.db, notifiedUserIds, "social", {
+        title: `${result.comment.authorName} respondió en Comunidad`,
+        body: result.comment.body.slice(0, 140),
+        url: `/app/social?post=${id}`,
+        tag: `social-${id}`,
+      });
+    };
+    try {
+      after(pushWork);
+    } catch {
+      await pushWork();
+    }
+  }
+
   return NextResponse.json({ comment: result.comment }, { status: 201 });
 }

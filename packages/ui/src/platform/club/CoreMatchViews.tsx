@@ -34,12 +34,12 @@ import { groupMatchesByDayAndLeague } from "./home/home-model";
 import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
 import { MatchContextPanel } from "./match/MatchContextPanel";
 import { MatchNumbersPanel } from "./match/MatchNumbersPanel";
-import {
-  MatchTabPanel,
-  MatchTabs,
-  useMatchUrlTab,
-} from "./match/MatchTabs";
+import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
+import {
+  SportOutlookCard,
+  platformGameToSportOutlook,
+} from "./match/sport-outlook";
 import { FollowControl, LiveMatchPanel } from "../live/LiveMatchCenter";
 import { PicksFinderClubView } from "./PicksFinderView";
 import {
@@ -482,6 +482,11 @@ export function MatchStudioClubView({
     return detail?.markets && detail.markets.length > 0 ? detail.markets : game.markets;
   }, [detail?.markets, game.markets, intelUnlocked, isFinished]);
 
+  const sportOutlook = useMemo(
+    () => (isFinished ? null : platformGameToSportOutlook(game, detail)),
+    [detail, game, isFinished],
+  );
+
   const matchLabelShort = `${game.home.shortName} vs ${game.away.shortName}`;
 
   const matchDebatePosts = useMemo(() => {
@@ -538,7 +543,7 @@ export function MatchStudioClubView({
     const edgeForSeal =
       effectiveBookDec === null ? null : Math.round((m.p - 1 / effectiveBookDec) * 1000) / 10;
     const syntheticPick: MatchPick = {
-      id: `${game.id}-mkt-${idx}`,
+      id: `${game.id}__mkt__${encodeURIComponent(m.group)}__${encodeURIComponent(m.selection)}`,
       gameId: game.id,
       league: game.league,
       leagueLabel: game.leagueLabel,
@@ -553,6 +558,8 @@ export function MatchStudioClubView({
       engineName: "PitchLab Geodesic v2.0",
       marketGroup: m.group,
       selectionKey: m.selection,
+      market: m.market,
+      ...(m.line !== undefined ? { line: m.line } : {}),
       conflictGroup: "independent",
       label: m.label,
       rationale: `Línea directa del panel de mercados (${(m.p * 100).toFixed(1)} % de probabilidad real).`,
@@ -780,6 +787,9 @@ export function MatchStudioClubView({
         {/* Pestaña 1: Resumen (Antes del partido, pronóstico, Cortex IA, pulso de dinero y factores) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
           {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
+          {sportOutlook ? (
+            <SportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
+          ) : null}
 
           {/* Pronóstico / Picks del partido */}
           <section className="space-y-3.5" data-picks="">

@@ -21,10 +21,18 @@ export async function PUT(request: Request): Promise<NextResponse> {
 
   const member = await requireMember(request);
   if ("error" in member) return member.error;
-  const body = (await request.json().catch(() => null)) as { pickResults?: unknown } | null;
-  if (typeof body?.pickResults !== "boolean") {
+  const body = (await request.json().catch(() => null)) as {
+    pickResults?: unknown;
+    weeklyDigest?: unknown;
+    monthlyRecord?: unknown;
+  } | null;
+  const patch: { pickResults?: boolean; weeklyDigest?: boolean; monthlyRecord?: boolean } = {};
+  if (typeof body?.pickResults === "boolean") patch.pickResults = body.pickResults;
+  if (typeof body?.weeklyDigest === "boolean") patch.weeklyDigest = body.weeklyDigest;
+  if (typeof body?.monthlyRecord === "boolean") patch.monthlyRecord = body.monthlyRecord;
+  if (Object.keys(patch).length === 0) {
     return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
   }
-  await setEmailPreferences(member.db, member.userId, { pickResults: body.pickResults });
-  return NextResponse.json({ pickResults: body.pickResults });
+  await setEmailPreferences(member.db, member.userId, patch);
+  return NextResponse.json(await getEmailPreferences(member.db, member.userId));
 }

@@ -5,3 +5,4 @@ export {
   SPORT_LABEL,
   isValidOutlook,
 } from "./sport-outlook-logic";
+export { platformGameToSportOutlook } from "./sport-outlook-mapper";

@@ -16,6 +16,8 @@ function buildSecurityHeaders(isDev) {
     "font-src 'self' data:",
     connectSrc,
     "frame-src https://challenges.cloudflare.com",
+    "worker-src 'self'",
+    "manifest-src 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -100,6 +102,20 @@ export default function config(phase) {
         {
           source: "/:path*",
           headers: securityHeaders,
+        },
+        {
+          source: "/sw.js",
+          headers: [
+            { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+            { key: "Service-Worker-Allowed", value: "/" },
+          ],
+        },
+        {
+          source: "/manifest.webmanifest",
+          headers: [
+            { key: "Content-Type", value: "application/manifest+json; charset=utf-8" },
+            { key: "Cache-Control", value: "public, max-age=3600" },
+          ],
         },
       ];
     },

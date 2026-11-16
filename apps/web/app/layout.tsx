@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { DashboardEntryProvider } from "../src/client/dashboard-entry";
+import { PwaRuntimeMount } from "../src/client/pwa-runtime";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,8 +9,19 @@ export const metadata: Metadata = {
   title: "PitchLab · Probabilidades deportivas, momio justo y parlays",
   description:
     "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y bitácora verificada.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "PitchLab",
+    statusBarStyle: "black-translucent",
+  },
   icons: {
-    icon: { url: "/brand/app-icons/favicon.svg", type: "image/svg+xml" },
+    icon: [
+      { url: "/brand/app-icons/favicon.svg", type: "image/svg+xml" },
+      { url: "/brand/app-icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/brand/app-icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/brand/app-icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -33,6 +45,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body>
+        <PwaRuntimeMount />
         <DashboardEntryProvider>{children}</DashboardEntryProvider>
       </body>
     </html>

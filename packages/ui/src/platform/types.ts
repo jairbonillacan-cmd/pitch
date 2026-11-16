@@ -95,6 +95,8 @@ export interface MatchPick {
   engineName: string;
   marketGroup: string;
   selectionKey: string;
+  market?: string;
+  line?: number | null;
   conflictGroup: PickConflictGroup;
   label: string;
   rationale: string;
@@ -191,6 +193,7 @@ export interface PlatformMarketRow {
   market: string;
   selection: string;
   label: string;
+  line?: number | null;
   p: number;
   fairDecimal: number;
   fairAmerican: number;
@@ -500,6 +503,31 @@ export interface PlayerPropItem {
   contextNote: string;
 }
 
+export interface JournalParlayLeg {
+  pickId: string;
+  gameId: string;
+  leagueLabel?: string;
+  matchLabel?: string;
+  pickLabel?: string;
+  market?: string;
+  selection?: string;
+  line?: number | null;
+  p?: number;
+  fairDecimal?: number;
+  kickoffAt?: string;
+}
+
+export interface JournalParlayLegResult {
+  pickId: string;
+  gameId: string;
+  status: "won" | "lost" | "void";
+  homeScore: number;
+  awayScore: number;
+  closingDecimal?: number | null;
+  clvPct?: number | null;
+  settledAt: string;
+}
+
 export interface JournalEntry {
   id: string;
   pickId: string;
@@ -512,7 +540,11 @@ export interface JournalEntry {
   userDecimal: number;
   fairDecimal: number;
   clvPct: number;
-  status: "pending" | "won" | "lost";
+  closingDecimal?: number | null;
+  status: "pending" | "won" | "lost" | "void";
+  pickKind?: "single" | "parlay";
+  parlayLegs?: JournalParlayLeg[];
+  parlayLegResults?: JournalParlayLegResult[];
   sealedAt: string;
   /** Fecha ISO del registro; permite ventanas reales (30 días, por mes). */
   sealedAtIso?: string;

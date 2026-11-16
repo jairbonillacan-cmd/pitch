@@ -29,6 +29,8 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   nhl: "NHL",
 };
 
+const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>(["nba", "nhl"]);
+
 const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   nfl: "nfl",
   "premier-league": "epl",
@@ -273,6 +275,18 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
           : {}),
         lastError: prevErr,
       };
+    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+      bajasCell = {
+        dataType: "bajas",
+        status: prevRow?.cells.bajas.lastError ? "error" : "pending_source",
+        updatedAtUtc: null,
+        ageHours: null,
+        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.bajas.staleHours,
+        sourceLabel: "solo snapshot (latest.json)",
+        recordsCount: 0,
+        note: "Liga cubierta por snapshot (latest.json); sin pipeline separado de bajas todavía.",
+        lastError: prevRow?.cells.bajas.lastError ?? null,
+      };
     } else {
       bajasCell = {
         dataType: "bajas",
@@ -307,6 +321,18 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
         sourceLabel: oddsEntry.sourceLabel,
         recordsCount: oddsEntry.count,
+        lastError: prevOddsErr,
+      };
+    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+      momiosCell = {
+        dataType: "momios",
+        status: prevOddsErr ? "error" : "pending_source",
+        updatedAtUtc: null,
+        ageHours: null,
+        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+        sourceLabel: "solo snapshot (latest.json)",
+        recordsCount: 0,
+        note: "Liga cubierta por snapshot (latest.json); aún sin captura de momios en LIVE_LEAGUES.",
         lastError: prevOddsErr,
       };
     } else {

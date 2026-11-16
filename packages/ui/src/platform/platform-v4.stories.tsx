@@ -304,6 +304,18 @@ export const ClubFounderAdminModeracionOscuro = {
   render: () => (
     <StoryShell role="admin">
       <FounderAdminClubView
+        storyFunnel={{
+          windowDays: 30,
+          generatedAtIso: "2026-11-15T12:00:00.000Z",
+          stages: [
+            { stage: "landing", order: 1, label: "Visita a landing", count30d: 840, conversionFromPrevPct: null, conversionFromLandingPct: 100 },
+            { stage: "signup_step1", order: 2, label: "Inicio paso 1 (cuenta)", count30d: 315, conversionFromPrevPct: 37.5, conversionFromLandingPct: 37.5 },
+            { stage: "signup_step2", order: 3, label: "Completa paso 2 (perfil)", count30d: 240, conversionFromPrevPct: 76.2, conversionFromLandingPct: 28.6 },
+            { stage: "first_sealed_pick", order: 4, label: "Primer pick sellado", count30d: 175, conversionFromPrevPct: 72.9, conversionFromLandingPct: 20.8 },
+            { stage: "spei_transfer", order: 5, label: "Solicitud SPEI", count30d: 62, conversionFromPrevPct: 35.4, conversionFromLandingPct: 7.4 },
+            { stage: "coupon_redeemed", order: 6, label: "Cupón canjeado", count30d: 54, conversionFromPrevPct: 87.1, conversionFromLandingPct: 6.4 },
+          ],
+        }}
         storyModeration={{
           pendingQueue: [
             {

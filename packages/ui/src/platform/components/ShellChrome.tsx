@@ -265,11 +265,10 @@ function FloatingQuickJumpBar({
       { id: "picks", label: "4. Buscar picks", href: "/app/picks" },
       { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
       { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
-      { id: "props", label: "7. Props", href: "/app/props" },
-      { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
-      { id: "tipster", label: "9. Portal Tipster", href: "/app/tipster" },
-      { id: "referrals", label: "10. Referidos", href: "/app/account" },
-      { id: "admin", label: "11. Admin", href: "/app/admin" },
+      { id: "social", label: "7. Comunidad VIP", href: "/app/social" },
+      { id: "tipster", label: "8. Portal Tipster", href: "/app/tipster" },
+      { id: "referrals", label: "9. Referidos", href: "/app/account" },
+      { id: "admin", label: "10. Admin", href: "/app/admin" },
     ],
     [firstStudioHref],
   );
@@ -920,7 +919,6 @@ function ClubWorkspaceShellImpl({
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Buscar picks", icon: "search" },
       { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
-      { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
     return [

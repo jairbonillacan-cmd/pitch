@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./funnel-consent";
 export * from "./spacetime-catalog";
 export * from "./access-guard";
 export * from "./profile-stats";

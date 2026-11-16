@@ -48,6 +48,9 @@ export interface UserPreferencesRecord {
   emailValueAlerts: boolean;
   emailBeforeMatch: boolean;
   emailBillingReminder: boolean;
+  emailWeeklyDigest: boolean;
+  emailMonthlyRecord: boolean;
+  pushEnabled: boolean;
   showInRanking: boolean;
   pauseCommunity: boolean;
   responsiblePauseKind: ResponsiblePauseKind | null;
@@ -76,6 +79,9 @@ export interface UserPreferencesPatch {
   emailValueAlerts?: boolean;
   emailBeforeMatch?: boolean;
   emailBillingReminder?: boolean;
+  emailWeeklyDigest?: boolean;
+  emailMonthlyRecord?: boolean;
+  pushEnabled?: boolean;
   showInRanking?: boolean;
   pauseCommunity?: boolean;
   responsiblePauseKind?: ResponsiblePauseKind | null;
@@ -107,6 +113,9 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
     emailValueAlerts: true,
     emailBeforeMatch: false,
     emailBillingReminder: true,
+    emailWeeklyDigest: false,
+    emailMonthlyRecord: false,
+    pushEnabled: false,
     showInRanking: publicProfileFallback,
     pauseCommunity: false,
     responsiblePauseKind: null,
@@ -146,11 +155,14 @@ export function toUserPreferencesRecord(
     favoriteLeagues: pref.favoriteLeagues.length > 0 ? pref.favoriteLeagues : [...DEFAULT_LEAGUES],
     unitMxnCentavos: pref.unitMxnCentavos,
     showMxnBalance: pref.showMxnBalance,
-    publicRecordVisible: publicProfile ?? pref.publicRecordVisible,
+    publicRecordVisible: publicProfile === false ? false : pref.publicRecordVisible,
     emailPickResults: pref.emailPickResults,
     emailValueAlerts: pref.emailValueAlerts,
     emailBeforeMatch: pref.emailBeforeMatch,
     emailBillingReminder: pref.emailBillingReminder,
+    emailWeeklyDigest: pref.emailWeeklyDigest,
+    emailMonthlyRecord: pref.emailMonthlyRecord,
+    pushEnabled: pref.pushEnabled,
     showInRanking: pref.showInRanking,
     pauseCommunity: pref.pauseCommunity,
     responsiblePauseKind:
@@ -201,6 +213,9 @@ export async function upsertUserPreferences(
     const emailValueAlerts = patch.emailValueAlerts ?? current.emailValueAlerts;
     const emailBeforeMatch = patch.emailBeforeMatch ?? current.emailBeforeMatch;
     const emailBillingReminder = patch.emailBillingReminder ?? current.emailBillingReminder;
+    const emailWeeklyDigest = patch.emailWeeklyDigest ?? current.emailWeeklyDigest;
+    const emailMonthlyRecord = patch.emailMonthlyRecord ?? current.emailMonthlyRecord;
+    const pushEnabled = patch.pushEnabled ?? current.pushEnabled;
     const pauseCommunity = patch.pauseCommunity ?? current.pauseCommunity;
     const recordPrivacy = patch.recordPrivacy ?? current.recordPrivacy;
     const bankrollStartMxnCentavos =
@@ -244,6 +259,9 @@ export async function upsertUserPreferences(
         emailValueAlerts,
         emailBeforeMatch,
         emailBillingReminder,
+        emailWeeklyDigest,
+        emailMonthlyRecord,
+        pushEnabled,
         showInRanking,
         pauseCommunity,
         responsiblePauseKind,
@@ -269,6 +287,9 @@ export async function upsertUserPreferences(
           emailValueAlerts,
           emailBeforeMatch,
           emailBillingReminder,
+          emailWeeklyDigest,
+          emailMonthlyRecord,
+          pushEnabled,
           showInRanking,
           pauseCommunity,
           responsiblePauseKind,

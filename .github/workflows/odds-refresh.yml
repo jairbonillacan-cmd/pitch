@@ -136,3 +136,16 @@ jobs:
           else
             echo "Sin deploy hook configurado; se omite."
           fi
+
+      - name: Sincronizar cuotas de cierre y liquidación
+        if: success()
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          PITCHLAB_SITE_URL: ${{ secrets.PITCHLAB_SITE_URL }}
+        run: |
+          if [ -n "$CRON_SECRET" ] && [ -n "$PITCHLAB_SITE_URL" ]; then
+            printf 'url = "%s/api/cron/settle-picks"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fsS --config - >/dev/null || echo "Aviso: cron settle-picks no respondió 200."
+            echo "Liquidación y cierre sincronizados."
+          else
+            echo "Sin CRON_SECRET/PITCHLAB_SITE_URL; se omite."
+          fi

@@ -56,7 +56,7 @@ function isJournalEntry(v: unknown): v is JournalEntry {
     typeof e.pickId === "string" &&
     typeof e.units === "number" &&
     typeof e.userDecimal === "number" &&
-    (e.status === "pending" || e.status === "won" || e.status === "lost")
+    (e.status === "pending" || e.status === "won" || e.status === "lost" || e.status === "void")
   );
 }
 
@@ -77,7 +77,11 @@ interface ServerJournalRow {
   userDecimal: string;
   fairDecimal: string;
   clvPct: string | null;
+  closingDecimal?: string | null;
   status: string;
+  pickKind?: string | null;
+  parlayLegs?: JournalEntry["parlayLegs"] | null;
+  parlayLegResults?: JournalEntry["parlayLegResults"] | null;
   note: string | null;
   sealedAt: string;
   settledAt?: string | null;
@@ -88,10 +92,13 @@ const SEAL_ERRORS: Record<string, string> = {
   unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
   momio_invalido: "Momio inválido.",
   ya_sellado: "Ese pick ya estaba sellado en Mi récord.",
+  parlay_invalido: "Las selecciones de este parlay ya no son compatibles o faltan en cartelera.",
 };
 
 function fromServerRow(row: ServerJournalRow): JournalEntry {
   const origins: JournalEntry["origin"][] = ["Spacetime Suite", "Parlay Combinado", "Player Prop", "Propio"];
+  const status: JournalEntry["status"] =
+    row.status === "won" || row.status === "lost" || row.status === "void" ? row.status : "pending";
   return {
     id: row.id,
     pickId: row.pickId,
@@ -104,7 +111,11 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     userDecimal: Number(row.userDecimal),
     fairDecimal: Number(row.fairDecimal),
     clvPct: row.clvPct === null ? 0 : Number(row.clvPct),
-    status: row.status === "won" || row.status === "lost" ? row.status : "pending",
+    closingDecimal: row.closingDecimal ? Number(row.closingDecimal) : null,
+    status,
+    pickKind: row.pickKind === "parlay" ? "parlay" : "single",
+    ...(Array.isArray(row.parlayLegs) ? { parlayLegs: row.parlayLegs } : {}),
+    ...(Array.isArray(row.parlayLegResults) ? { parlayLegResults: row.parlayLegResults } : {}),
     sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
     sealedAtIso: new Date(row.sealedAt).toISOString(),
     settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
@@ -169,6 +180,10 @@ async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: st
     units: entry.units,
     userDecimal: entry.userDecimal,
     fairDecimal: entry.fairDecimal,
+    pickKind: entry.pickKind ?? "single",
+    ...(entry.pickKind === "parlay" && entry.parlayLegs
+      ? { parlayLegs: entry.parlayLegs.map((l) => ({ gameId: l.gameId, pickId: l.pickId })) }
+      : {}),
     note: entry.note,
   });
   if (!res) return { ok: false };
@@ -1226,19 +1241,34 @@ export function PlatformProvider({
           earliestGameId = leg.pick.gameId;
         }
       }
+      const rawPickIds = parlaySummary.legs.map((l) => l.pick.id).sort();
+      const canonicalPickId = `parlay:${rawPickIds.join("+")}`;
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
-        pickId: parlaySummary.legs.map((l) => l.pick.id).join("+"),
+        pickId: canonicalPickId,
         gameId: earliestGameId,
         leagueLabel: "Combinada Multi-Liga",
         matchLabel: `${parlaySummary.legs.length} selecciones${parlaySummary.hasSgpCorrelation ? " · SGP" : ""}`,
         pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
         origin: "Parlay Combinado",
-        units: parlaySummary.stakeUnits,
+        units: Math.max(0.25, Math.min(5, parlaySummary.stakeUnits)),
         userDecimal: parlaySummary.bookDecimal,
         fairDecimal: parlaySummary.fairDecimal,
         clvPct: parlaySummary.edgePts,
         status: "pending",
+        pickKind: "parlay",
+        parlayLegs: parlaySummary.legs.map((l) => ({
+          pickId: l.pick.id,
+          gameId: l.pick.gameId,
+          leagueLabel: l.pick.leagueLabel,
+          matchLabel: l.pick.matchLabel,
+          pickLabel: l.pick.label,
+          market: l.pick.market,
+          selection: l.pick.selectionKey,
+          line: l.pick.line ?? null,
+          p: l.pick.p,
+          fairDecimal: l.pick.fairDecimal,
+        })),
         sealedAt: "Sellado ahora",
         sealedAtIso: new Date().toISOString(),
         note: note ?? "Armador Inteligente Geodesic v2.0",

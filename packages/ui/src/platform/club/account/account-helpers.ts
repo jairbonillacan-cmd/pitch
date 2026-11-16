@@ -173,6 +173,8 @@ export interface StoredAccountPrefsV1 {
     beforeMatch: boolean;
     pickSettled: boolean;
     billingReminder: boolean;
+    weeklyDigest: boolean;
+    monthlyRecord: boolean;
   };
   privacy: {
     publicProfile: boolean;
@@ -196,6 +198,8 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
     beforeMatch: true,
     pickSettled: true,
     billingReminder: true,
+    weeklyDigest: false,
+    monthlyRecord: false,
   },
   privacy: {
     publicProfile: true,
@@ -255,6 +259,10 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
         pickSettled: parsed.alerts?.pickSettled ?? DEFAULT_STORED_PREFS_V1.alerts.pickSettled,
         billingReminder:
           parsed.alerts?.billingReminder ?? DEFAULT_STORED_PREFS_V1.alerts.billingReminder,
+        weeklyDigest:
+          parsed.alerts?.weeklyDigest ?? DEFAULT_STORED_PREFS_V1.alerts.weeklyDigest,
+        monthlyRecord:
+          parsed.alerts?.monthlyRecord ?? DEFAULT_STORED_PREFS_V1.alerts.monthlyRecord,
       },
       privacy: {
         publicProfile:

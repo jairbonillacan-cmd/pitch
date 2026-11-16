@@ -542,3 +542,27 @@ export async function viewerProfile(db: Db, userId: string): Promise<ViewerProfi
     .where(eq(users.id, userId));
   return row ?? null;
 }
+
+export interface ReferralHostInfo {
+  referrerUserId: string;
+  referrerEmail: string;
+  referrerDisplayName: string | null;
+}
+
+/** Obtiene los datos del anfitrión cuando un socio acaba de registrarse usando su enlace de referido. */
+export async function findFriendReferrerForUser(
+  db: Db,
+  referredUserId: string,
+): Promise<ReferralHostInfo | null> {
+  const [row] = await db
+    .select({
+      referrerUserId: users.id,
+      referrerEmail: users.email,
+      referrerDisplayName: users.displayName,
+    })
+    .from(referralGrants)
+    .innerJoin(users, eq(users.id, referralGrants.referrerUserId))
+    .where(eq(referralGrants.referredUserId, referredUserId))
+    .limit(1);
+  return row ?? null;
+}

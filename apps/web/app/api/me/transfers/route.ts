@@ -15,6 +15,7 @@ import {
   verifySameOriginMutation,
 } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
+import { recordMemberFunnelIfConsented } from "../../../../src/server/funnel";
 import { parseTransferReceiptFields } from "../../../../src/server/transfer-helpers";
 
 export const runtime = "nodejs";
@@ -83,11 +84,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: parsedReceipt.error }, { status: 400 });
   }
 
+  const now = new Date();
   const res = await createTransferRequest(member.db, {
     userId: member.userId,
     planInterval,
     ...parsedReceipt.fields,
-    now: new Date(),
+    now,
   });
 
   if (!res.ok) {
@@ -106,6 +108,15 @@ export async function POST(request: Request): Promise<NextResponse> {
       { status: 400 },
     );
   }
+
+  await recordMemberFunnelIfConsented(
+    member.db,
+    member.userId,
+    "spei_transfer",
+    "/app/account",
+    { planInterval, transferId: res.request.id },
+    now,
+  );
 
   return NextResponse.json(
     {

@@ -7,7 +7,7 @@
  */
 
 export interface RecordEntry {
-  status: "pending" | "won" | "lost";
+  status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   fairDecimal: number;
@@ -122,7 +122,7 @@ const round2 = (v: number) => Math.round(v * 100) / 100;
  */
 export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, startingUnits: number | null = null): RecordStats {
   const settledEntries = entries
-    .filter((e) => e.status !== "pending")
+    .filter((e) => e.status === "won" || e.status === "lost")
     .map((e, i) => ({ e, i, day: dayOf(e) }))
     .sort((a, b) => (a.day ?? "").localeCompare(b.day ?? "") || a.i - b.i);
 
@@ -165,6 +165,7 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
   }
 
   const settled = settledEntries.length;
+  const open = entries.filter((e) => e.status === "pending").length;
   const clvAll = entries.length > 0 ? entries.reduce((s, e) => s + e.clvPct, 0) / entries.length : null;
   const monthRows: MonthResult[] = Array.from(months.entries()).map(([key, value]) => ({
     key,
@@ -177,7 +178,7 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
     settled,
     won,
     lost: settled - won,
-    open: entries.length - settled,
+    open,
     hitRatePct: settled > 0 ? (won / settled) * 100 : null,
     netUnits: round2(net),
     stakedUnits: round2(staked),
