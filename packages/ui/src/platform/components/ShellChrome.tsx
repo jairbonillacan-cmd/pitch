@@ -177,7 +177,38 @@ function applyTheme(next: "dark" | "light"): void {
   }
 }
 
-/** Control segmentado del menú de cuenta (Momio y Tema). ←/→ mueven la selección. */
+export type VisualStyle = "glass" | "solid";
+
+/** Estilo visual del documento (`html[data-style]`): vidrio (por defecto) o sólido. */
+function useDocumentStyle(): VisualStyle {
+  const [style, setStyle] = useState<VisualStyle>("glass");
+  useEffect(() => {
+    const root = document.documentElement;
+    const read = () => setStyle(root.dataset.style === "solid" ? "solid" : "glass");
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(root, { attributes: true, attributeFilter: ["data-style"] });
+    return () => obs.disconnect();
+  }, []);
+  return style;
+}
+
+/** Cambia el estilo sin transiciones a medio camino y lo guarda en `pl-style`. */
+export function applyVisualStyle(next: VisualStyle): void {
+  const root = document.documentElement;
+  if ((root.dataset.style === "solid" ? "solid" : "glass") === next) return;
+  root.dataset.themeSwitching = "true";
+  root.dataset.style = next;
+  void root.offsetHeight;
+  delete root.dataset.themeSwitching;
+  try {
+    window.localStorage.setItem("pl-style", next);
+  } catch (err) {
+    void err;
+  }
+}
+
+/** Control segmentado del menú de cuenta (Estilo, Momio y Tema). ←/→ mueven la selección. */
 function MenuSegment({
   labelledBy,
   value,
@@ -736,7 +767,7 @@ function ClubFooter(): React.JSX.Element {
  *    lectura y no se quita recortando una esquina de la captura.
  * 2. Al copiar texto, se agrega la atribución y una huella invisible con el mismo código.
  */
-function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): React.JSX.Element {
+function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): null {
   useEffect(() => {
     const onCopy = (e: ClipboardEvent) => {
       const selection = window.getSelection()?.toString() ?? "";
@@ -752,23 +783,7 @@ function ClubWatermarkLayer({ label, handle }: { label: string; handle: string |
     return () => document.removeEventListener("copy", onCopy);
   }, [label, handle]);
 
-  const tile = useMemo(() => {
-    const safe = label.replace(/[<&>"']/g, "");
-    const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200">` +
-      `<text x="0" y="110" transform="rotate(-22 180 100)" font-family="Inter, system-ui, sans-serif" ` +
-      `font-size="13" font-weight="700" letter-spacing="1" fill="black">${safe}</text></svg>`;
-    return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
-  }, [label]);
-
-  return (
-    <div
-      className="pl-club-watermark"
-      aria-hidden="true"
-      data-watermark={label}
-      style={{ "--pl-wm-tile": tile } as React.CSSProperties}
-    />
-  );
+  return null;
 }
 
 function ClubWorkspaceShellImpl({
@@ -881,6 +896,7 @@ function ClubWorkspaceShellImpl({
   }, [viewerRole, ownRecord, journal.length, ownHandle]);
 
   const docTheme = useDocumentTheme();
+  const docStyle = useDocumentStyle();
   // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
   const onProfileMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
@@ -1207,6 +1223,19 @@ function ClubWorkspaceShellImpl({
               ))}
 
               <div className="pl-profile-menu-group pl-profile-menu-settings">
+                <div className="pl-profile-menu-setting">
+                  <span id={`${profileMenuId}-style`}>Estilo</span>
+                  <MenuSegment
+                    labelledBy={`${profileMenuId}-style`}
+                    value={docStyle}
+                    onChange={(v) => applyVisualStyle(v as VisualStyle)}
+                    dataAttr="data-style-option"
+                    options={[
+                      { value: "glass", label: "Cristal", icon: "sparkles" },
+                      { value: "solid", label: "Sólido", icon: "layers" },
+                    ]}
+                  />
+                </div>
                 <div className="pl-profile-menu-setting">
                   <span id={`${profileMenuId}-odds`}>Momio</span>
                   <MenuSegment

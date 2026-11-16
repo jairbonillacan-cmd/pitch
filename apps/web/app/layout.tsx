@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem("pl-theme");document.documentElement.dataset.theme=(t==="light"||t==="dark")?t:"dark";}catch(e){document.documentElement.dataset.theme="dark";}})();`;
+const THEME_INIT_SCRIPT = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("pl-theme");d.dataset.theme=(t==="light"||t==="dark")?t:"dark";var s=localStorage.getItem("pl-style");d.dataset.style=s==="solid"?"solid":"glass";}catch(e){d.dataset.theme="dark";d.dataset.style="glass";}})();`;
 
 export default function RootLayout({
   children,
@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <html lang="es-MX" data-theme="dark" suppressHydrationWarning>
+    <html lang="es-MX" data-theme="dark" data-style="glass" suppressHydrationWarning>
       <head>
         <link
           rel="preload"

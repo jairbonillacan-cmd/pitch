@@ -37,7 +37,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { addPickToParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
+  const { addPickToParlay, removePickFromParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
   const inParlay = useIsPickInParlay(pick.id);
 
@@ -209,15 +209,18 @@ export const MultiPickRow = React.memo(function MultiPickRow({
         // v3.2: el modelo no sugiere monto (sin stake ni Kelly); la decisión y el monto son del socio.
         <div className="flex flex-wrap items-center justify-end gap-2 pt-1.5 hairline-t">
           <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
-              onClick={() => addPickToParlay(pick)}
-              data-add-parlay={pick.id}
-            >
-              <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
-              <span>{inParlay ? "En Parlay" : "Parlay"}</span>
-            </button>
+            {gameStatus !== "LIVE" ? (
+              <button
+                type="button"
+                className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+                aria-pressed={inParlay}
+                onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
+                data-add-parlay={pick.id}
+              >
+                <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+                <span>{inParlay ? "En Parlay" : "Parlay"}</span>
+              </button>
+            ) : null}
             <button
               type="button"
               className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"

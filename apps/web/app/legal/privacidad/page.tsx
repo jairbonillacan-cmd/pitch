@@ -286,7 +286,7 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
               <li>
                 <strong>Almacenamiento en tu navegador (<code>localStorage</code>):</strong>{" "}
                 guardamos preferencias locales de interfaz como el tema oscuro o claro (
-                <code>pl-theme</code>), preferencias visuales, partidos seguidos y datos temporales
+                <code>pl-theme</code>) y el estilo visual cristal o sólido (<code>pl-style</code>), preferencias visuales, partidos seguidos y datos temporales
                 del paso de registro mientras confirmas tu correo (con vigencia máxima de 24 horas).
               </li>
               <li>

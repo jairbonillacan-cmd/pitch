@@ -21,6 +21,8 @@ export type MaestroIconName =
   | "x"
   | "trash"
   | "chevronRight"
+  | "chevronLeft"
+  | "grid"
   | "arrowRight"
   | "arrowLeft"
   | "calendar"
@@ -148,6 +150,17 @@ function renderIconGeometry(name: MaestroIconName): React.ReactNode {
       return <path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 12.5h9l1-12.5M10 11v5M14 11v5" />;
     case "chevronRight":
       return <path d="M9 6l6 6-6 6" />;
+    case "chevronLeft":
+      return <path d="m15 6-6 6 6 6" />;
+    case "grid":
+      return (
+        <>
+          <rect x="3.5" y="3.5" width="6.8" height="6.8" rx="1.8" />
+          <rect x="13.7" y="3.5" width="6.8" height="6.8" rx="1.8" />
+          <rect x="3.5" y="13.7" width="6.8" height="6.8" rx="1.8" />
+          <rect x="13.7" y="13.7" width="6.8" height="6.8" rx="1.8" />
+        </>
+      );
     case "arrowRight":
       return <path d="M5 12h14M13 6l6 6-6 6" />;
     case "arrowLeft":

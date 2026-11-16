@@ -11,6 +11,7 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import { usePlatform } from "../platform-provider";
+import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
@@ -135,6 +136,16 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
     return null;
   }
 
+  const dockRisk = assessParlayRisk(parlaySummary);
+  const dockRiskColor =
+    dockRisk.tone === "success"
+      ? "var(--pl-success)"
+      : dockRisk.tone === "warning"
+        ? "var(--pl-warning)"
+        : dockRisk.tone === "danger"
+          ? "var(--pl-danger)"
+          : "var(--pl-brand)";
+
   return (
     <aside
       className="parlay-dock glass-pill-bar glass-ring"
@@ -147,6 +158,13 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
             <MaestroIcon name="layers" size={13} />
             {parlaySummary.legs.length}{" "}
             {parlaySummary.legs.length === 1 ? "pick" : "picks"}
+          </span>
+          <span
+            className="pl-pill num text-xs font-extrabold"
+            data-dock-risk={dockRisk.level}
+            style={{ color: dockRiskColor }}
+          >
+            {dockRisk.shortLabel}
           </span>
           {parlaySummary.hasSgpCorrelation ? (
             <span className="pl-pill pl-pill--info">Mismo partido</span>

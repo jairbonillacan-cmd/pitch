@@ -29,18 +29,52 @@ import {
   buildPlayerPropsCatalog,
   evaluatePropLineProbability,
 } from "../match-picks-engine";
-import { checkParlayCompatibility } from "../parlay-engine";
+import {
+  assessParlayRisk,
+  checkParlayCompatibility,
+  PARLAY_NON_COMBINABLE_RULES,
+  type ParlayCompatibilityResult,
+} from "../parlay-engine";
 import { usePlatform } from "../platform-provider";
 import type { MatchPick, PlayerPropItem, RiskBand } from "../types";
+
+function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
+  if (tone === "success") return "var(--pl-success)";
+  if (tone === "warning") return "var(--pl-warning)";
+  if (tone === "danger") return "var(--pl-danger)";
+  return "var(--pl-brand)";
+}
 
 function getCompactBlockReason(
   sameGameExists: boolean,
   allowSgp: boolean,
-  rawReason: string | undefined,
+  compat: ParlayCompatibilityResult,
 ): string {
-  if (sameGameExists && !allowSgp) {
+  if (compat.code === "live") {
+    return "Partido en vivo (cerrado)";
+  }
+  if (compat.code === "finished") {
+    return "Partido finalizado";
+  }
+  if (compat.code === "invalid_odds") {
+    return "Línea cerrada para parlay";
+  }
+  if ((compat.code === "same_game_disabled" || sameGameExists) && !allowSgp) {
     return "Mismo partido: actívalo en el paso 4";
   }
+  if (compat.code === "sgp_limit") {
+    return "Máx. 2 selecciones por partido";
+  }
+  if (compat.code === "exact_score_sgp") {
+    return "Marcador exacto: no combinable en SGP";
+  }
+  if (compat.code === "logical_contradiction") {
+    return "Contradicción lógica en el partido";
+  }
+  if (compat.code === "same_axis") {
+    return "Mismo eje de mercado (opuesto o redundante)";
+  }
+  const rawReason = compat.reason;
   if (!rawReason) {
     return "Mercado contradictorio";
   }
@@ -48,7 +82,7 @@ function getCompactBlockReason(
   if (lower.includes("mismo partido") && !allowSgp) {
     return "Mismo partido: actívalo en el paso 4";
   }
-  if (lower.includes("contradic") || lower.includes("opuest")) {
+  if (lower.includes("contradic") || lower.includes("opuest") || lower.includes("choca")) {
     return "Mercado contradictorio";
   }
   if (lower.includes("máximo 2") || lower.includes("2 selecciones")) {
@@ -84,6 +118,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   );
   const [autoRisk, setAutoRisk] = useState<RiskBand>("medio");
   const [autoLegCount, setAutoLegCount] = useState<number>(3);
+  const [catalogLimit, setCatalogLimit] = useState<number>(12);
   const [bookParlayOddsRaw, setBookParlayOddsRaw] = useState<string>("");
 
   const parsedBookParlayDec = useMemo(
@@ -105,13 +140,22 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     setSelectedLeagues(dataset.leagues.map((l) => l.league));
   };
 
-  const candidateGames = useMemo(
+  const allOpenGames = useMemo(
     () =>
-      dataset.games
-        .filter((g) => g.status !== "FT" && selectedLeagues.includes(g.league))
-        .slice(0, 8),
+      dataset.games.filter(
+        (g) => g.status !== "FT" && g.status !== "LIVE" && selectedLeagues.includes(g.league),
+      ),
     [dataset.games, selectedLeagues],
   );
+
+  const candidateGames = useMemo(
+    () => allOpenGames.slice(0, catalogLimit),
+    [allOpenGames, catalogLimit],
+  );
+
+  const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
+  const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
+  const slipRisk = useMemo(() => assessParlayRisk(parlaySummary), [parlaySummary]);
 
   const effectiveSlipBookDec =
     parsedBookParlayDec && parsedBookParlayDec > 1
@@ -232,26 +276,27 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </div>
                   </div>
 
-                  {/* Paso 3: Selecciones 2–6 */}
+                  {/* Paso 3: Selecciones libres (mín. 2) */}
                   <div className="space-y-2">
                     <span
                       className="text-xs font-extrabold block"
                       style={{ color: "var(--pl-brand)" }}
                     >
-                      3. Selecciones 2–6
+                      3. Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <div
                         className="seg-well"
                         role="group"
-                        aria-label="3. Selecciones 2–6"
+                        aria-label="3. Selecciones"
                       >
-                        {[2, 3, 4, 5, 6].map((cnt) => (
+                        {[2, 3, 4, 5, 6, 8, 10].map((cnt) => (
                           <button
                             key={cnt}
                             type="button"
+                            disabled={cnt > maxAutoLegs}
                             className="seg-btn num text-xs px-2.5"
-                            aria-pressed={autoLegCount === cnt}
+                            aria-pressed={effectiveAutoLegCount === cnt}
                             onClick={() => setAutoLegCount(cnt)}
                           >
                             {cnt}
@@ -266,15 +311,17 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <button
                           type="button"
                           aria-label="Menos selecciones"
-                          onClick={() => setAutoLegCount((n) => Math.max(2, n - 1))}
+                          disabled={effectiveAutoLegCount <= 2}
+                          onClick={() => setAutoLegCount(Math.max(2, effectiveAutoLegCount - 1))}
                         >
                           −
                         </button>
-                        <span className="num">{autoLegCount}</span>
+                        <span className="num">{effectiveAutoLegCount}</span>
                         <button
                           type="button"
                           aria-label="Más selecciones"
-                          onClick={() => setAutoLegCount((n) => Math.min(6, n + 1))}
+                          disabled={effectiveAutoLegCount >= maxAutoLegs}
+                          onClick={() => setAutoLegCount(Math.min(maxAutoLegs, effectiveAutoLegCount + 1))}
                         >
                           +
                         </button>
@@ -296,7 +343,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       4. Mismo partido
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones compatibles del mismo partido. Ajustamos la probabilidad porque dependen una de otra.
+                      Permite hasta 2 selecciones de distinto eje del mismo partido (ej. Ganador + Totales). Bloquea líneas redundantes, marcador exacto y contradicciones.
                     </span>
                   </div>
 
@@ -320,14 +367,14 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     generateAutoParlay({
                       leagues: selectedLeagues,
                       risk: autoRisk,
-                      legCount: autoLegCount,
+                      legCount: effectiveAutoLegCount,
                       allowSgp,
                     })
                   }
                 >
                   <MaestroIcon name="sparkles" size={15} />
                   <span>
-                    Generar Mejor Parlay ({autoLegCount} selecciones · {autoRisk})
+                    Generar Mejor Parlay ({effectiveAutoLegCount} selecciones · {autoRisk})
                   </span>
                 </button>
               </div>
@@ -405,7 +452,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           ? getCompactBlockReason(
                               sameGameExists,
                               allowSgp,
-                              compat.reason,
+                              compat,
                             )
                           : null;
 
@@ -472,6 +519,18 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   </div>
                 </div>
               ))}
+
+              {allOpenGames.length > catalogLimit ? (
+                <div className="flex justify-center pt-1">
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs min-h-11 px-4"
+                    onClick={() => setCatalogLimit((c) => c + 12)}
+                  >
+                    Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
+                  </button>
+                </div>
+              ) : null}
             </section>
           </div>
 
@@ -513,7 +572,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     Tu boleto combinado está vacío
                   </p>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Pulsa «Generar Mejor Parlay» o selecciona de 2 a 6 picks compatibles del catálogo.
+                    Pulsa «Generar Mejor Parlay» o selecciona todas las jugadas compatibles que quieras del catálogo (mínimo 2 para sellar).
                   </p>
                 </div>
               ) : (
@@ -552,6 +611,55 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   ))}
                 </div>
               )}
+
+              <div
+                className="rounded-2xl p-3.5 space-y-2"
+                style={{
+                  background: "var(--pl-surface)",
+                  boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
+                }}
+                data-parlay-risk-meter={slipRisk.level}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+                    Nivel de riesgo del boleto
+                  </span>
+                  <span
+                    className="text-xs font-extrabold num"
+                    style={{ color: riskToneCss(slipRisk.tone) }}
+                  >
+                    {slipRisk.label}
+                  </span>
+                </div>
+                {parlaySummary.legs.length > 0 ? (
+                  <div
+                    className="h-2 rounded-full overflow-hidden"
+                    style={{ background: "var(--pl-surface-hover)" }}
+                    aria-hidden="true"
+                  >
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{
+                        width: `${slipRisk.meterPct}%`,
+                        background: riskToneCss(slipRisk.tone),
+                      }}
+                    />
+                  </div>
+                ) : null}
+                <p className="m-0 text-xs font-semibold num" style={{ color: "var(--pl-text)" }}>
+                  {slipRisk.headline}
+                </p>
+                <p className="m-0 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
+                  {slipRisk.guidance}
+                </p>
+                {slipRisk.warnings.length > 0 ? (
+                  <ul className="m-0 pl-4 space-y-1 text-[11px] font-semibold" style={{ color: riskToneCss(slipRisk.tone) }}>
+                    {slipRisk.warnings.map((w) => (
+                      <li key={w}>{w}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
 
               <div className="ticket-perf" />
 
@@ -636,7 +744,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       Prob. Conjunta Real
                     </span>
                     <strong className="text-base font-extrabold">
-                      {(parlaySummary.combinedProbability * 100).toFixed(1)} %
+                      {parlaySummary.combinedProbability * 100 < 0.1 && parlaySummary.legs.length > 0
+                        ? "< 0.1 %"
+                        : `${(parlaySummary.combinedProbability * 100).toFixed(1)} %`}
                     </strong>
                   </div>
                   <div
@@ -729,6 +839,23 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   <MaestroIcon name="ticket" size={13} />
                   <span>Sellar Parlay ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
                 </button>
+              </div>
+
+              <div
+                className="rounded-2xl p-3.5 space-y-2"
+                style={{ background: "var(--pl-surface)" }}
+                data-parlay-rules=""
+              >
+                <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
+                  Qué no se puede combinar en parlay
+                </span>
+                <ul className="m-0 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
+                  {PARLAY_NON_COMBINABLE_RULES.map((rule) => (
+                    <li key={rule.title}>
+                      <strong style={{ color: "var(--pl-text-secondary)" }}>{rule.title}:</strong> {rule.detail}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </aside>

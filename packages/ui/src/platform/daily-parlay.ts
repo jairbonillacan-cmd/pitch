@@ -468,7 +468,7 @@ export function buildTargetOddsParlay(
     viewerRole = "member",
   } = options;
 
-  const legCount = Math.min(6, Math.max(2, Math.round(rawLegCount)));
+  const legCount = Math.max(2, Math.round(rawLegCount));
   const minPct = Math.round(minLegProbability * 100);
   const idealLegDecimal = Math.pow(targetRange.target, 1 / legCount);
 
@@ -476,7 +476,7 @@ export function buildTargetOddsParlay(
     .filter((g) => {
       if (dayId !== undefined) {
         if (g.dayId !== dayId) return false;
-      } else if (g.status === "FT") {
+      } else if (g.status === "FT" || g.status === "LIVE") {
         return false;
       }
       return matchesPersonalScope(g, scope);
@@ -522,7 +522,8 @@ export function buildTargetOddsParlay(
   }
 
   // Acotar el universo de partidos según legCount para mantener la búsqueda combinatoria < 1 ms.
-  const maxPoolGames = legCount >= 6 ? 9 : legCount === 5 ? 11 : 14;
+  const maxPoolGames =
+    legCount >= 7 ? legCount + 2 : legCount === 6 ? 9 : legCount === 5 ? 11 : 14;
   const searchPool = perGameBuckets
     .slice()
     .sort((a, b) => {
@@ -590,7 +591,11 @@ export function buildTargetOddsParlay(
     for (let gi = startGameIdx; gi <= searchPool.length - remainingNeeded; gi += 1) {
       const bucket = searchPool[gi]!;
       for (const pick of bucket.candidates) {
-        if (!checkParlayCompatibility(chosen, pick, false).allowed) continue;
+        const canAdd =
+          dayId !== undefined
+            ? canAddSinglePerGame(chosen, pick)
+            : checkParlayCompatibility(chosen, pick, false).allowed;
+        if (!canAdd) continue;
         chosen.push({ pick });
         search(gi + 1);
         chosen.pop();
@@ -931,7 +936,7 @@ export function buildPersonalQuickParlay(options: {
     viewerRole = "member",
     allowSgp = false,
   } = options;
-  const requestedCount = Math.min(6, Math.max(2, Math.round(legCount)));
+  const requestedCount = Math.max(2, Math.round(legCount));
   const preset =
     PARLAY_TARGET_PRESETS.find((p) => p.id === targetPreset) ?? PARLAY_TARGET_PRESETS[0]!;
 
@@ -962,7 +967,7 @@ export function buildPersonalQuickParlay(options: {
   }
 
   const scopedGames = games
-    .filter((g) => g.status !== "FT" && matchesPersonalScope(g, scope))
+    .filter((g) => g.status !== "FT" && g.status !== "LIVE" && matchesPersonalScope(g, scope))
     .slice()
     .sort((a, b) => a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id));
 

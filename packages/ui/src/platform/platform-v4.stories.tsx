@@ -1,5 +1,5 @@
-import React from "react";
-import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
+import React, { useMemo, useState } from "react";
+import { asLeagueId, asMarketKey, type LiveScoreboardEntry, type MatchAnalysis } from "@pitchlab/contracts";
 import { STORY_DATASET, makeStoryMatch } from "./story-fixtures";
 import { redactDatasetForVisitor } from "./access-guard";
 import {
@@ -23,7 +23,15 @@ import {
   SocialVipClubView,
   TipsterPortalClubView,
 } from "./club/SocialAndTipsterViews";
-import { HomeClubView } from "./club/home/HomeClubView";
+import { HomeClubView, HomeFilterHeader } from "./club/home/HomeClubView";
+import {
+  ALL,
+  filterGames,
+  gamesForSelection,
+  type DaySelection,
+  type LeagueFilter,
+  type SportFilter,
+} from "./club/home/home-model";
 import { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
 import { DailyParlaysResultsSection } from "./club/DailyParlaysResultsSection";
 import { HomeMatchCard } from "./components/HomeMatchCard";
@@ -745,5 +753,249 @@ export const ParlayObjetivoNflOscuro = {
 
 export const ParlayObjetivoNflClaro = {
   ...ParlayObjetivoNflOscuro,
+  globals: { theme: "light" },
+};
+
+function makeHeaderStoryGame(opts: {
+  id: string;
+  league: "liga-mx" | "premier-league" | "nfl" | "nba";
+  leagueLabel: string;
+  sport: "football" | "american-football" | "basketball";
+  day: string;
+  dayLabel: string;
+  kickoffUtc: string;
+  kickoffLocal: string;
+  homeCode: string;
+  homeName: string;
+  awayCode: string;
+  awayName: string;
+  status?: "NS" | "FT";
+}): MatchAnalysis {
+  const base = makeStoryMatch({
+    id: opts.id,
+    league: opts.league === "nba" ? "nfl" : opts.league,
+    leagueLabel: opts.leagueLabel,
+    sport: opts.sport === "basketball" ? "american-football" : opts.sport,
+    status: opts.status ?? "NS",
+    homeSlug: opts.homeCode.toLowerCase(),
+    homeName: opts.homeName,
+    homeCode: opts.homeCode,
+    awaySlug: opts.awayCode.toLowerCase(),
+    awayName: opts.awayName,
+    awayCode: opts.awayCode,
+    x12: [0.62, opts.sport === "football" ? 0.22 : 0, opts.sport === "football" ? 0.16 : 0.38],
+    proj: { home: 26, away: 20, total: 46 },
+  });
+  return {
+    ...base,
+    league: asLeagueId(opts.league),
+    leagueLabel: opts.leagueLabel,
+    sport: opts.sport,
+    day: opts.day,
+    dayLabel: opts.dayLabel,
+    kickoffUtc: opts.kickoffUtc,
+    kickoffLocal: opts.kickoffLocal,
+  };
+}
+
+const HEADER_STORY_DATASET = buildPlatformDataset([
+  {
+    league: asLeagueId("nfl"),
+    leagueLabel: "NFL",
+    sport: "american-football",
+    season: "2026",
+    roundLabel: "Semana 10",
+    generatedAt: "2026-11-15T16:00:00Z",
+    games: [
+      makeHeaderStoryGame({
+        id: "hdr-nfl-kc-buf",
+        league: "nfl",
+        leagueLabel: "NFL",
+        sport: "american-football",
+        day: "2026-11-15",
+        dayLabel: "domingo, 15 de noviembre",
+        kickoffUtc: "2026-11-15T20:00:00Z",
+        kickoffLocal: "14:00",
+        homeCode: "KC",
+        homeName: "Kansas City",
+        awayCode: "BUF",
+        awayName: "Buffalo",
+      }),
+      makeHeaderStoryGame({
+        id: "hdr-nfl-sf-dal",
+        league: "nfl",
+        leagueLabel: "NFL",
+        sport: "american-football",
+        day: "2026-11-15",
+        dayLabel: "domingo, 15 de noviembre",
+        kickoffUtc: "2026-11-15T21:25:00Z",
+        kickoffLocal: "15:25",
+        homeCode: "SF",
+        homeName: "San Francisco",
+        awayCode: "DAL",
+        awayName: "Dallas",
+      }),
+    ],
+  },
+  {
+    league: asLeagueId("nba"),
+    leagueLabel: "NBA",
+    sport: "basketball",
+    season: "2026-27",
+    roundLabel: "Temporada regular",
+    generatedAt: "2026-11-15T16:00:00Z",
+    games: [
+      makeHeaderStoryGame({
+        id: "hdr-nba-bos-mia",
+        league: "nba",
+        leagueLabel: "NBA",
+        sport: "basketball",
+        day: "2026-11-15",
+        dayLabel: "domingo, 15 de noviembre",
+        kickoffUtc: "2026-11-16T00:00:00Z",
+        kickoffLocal: "18:00",
+        homeCode: "BOS",
+        homeName: "Celtics",
+        awayCode: "MIA",
+        awayName: "Heat",
+      }),
+      makeHeaderStoryGame({
+        id: "hdr-nba-lal-den",
+        league: "nba",
+        leagueLabel: "NBA",
+        sport: "basketball",
+        day: "2026-11-15",
+        dayLabel: "domingo, 15 de noviembre",
+        kickoffUtc: "2026-11-16T02:30:00Z",
+        kickoffLocal: "20:30",
+        homeCode: "LAL",
+        homeName: "Lakers",
+        awayCode: "DEN",
+        awayName: "Nuggets",
+      }),
+    ],
+  },
+  {
+    league: asLeagueId("liga-mx"),
+    leagueLabel: "Liga MX",
+    sport: "football",
+    season: "Apertura 2026",
+    roundLabel: "Jornada 17",
+    generatedAt: "2026-11-15T16:00:00Z",
+    games: [
+      makeHeaderStoryGame({
+        id: "hdr-lmx-ame-tig",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        day: "2026-11-15",
+        dayLabel: "domingo, 15 de noviembre",
+        kickoffUtc: "2026-11-16T01:00:00Z",
+        kickoffLocal: "19:00",
+        homeCode: "AME",
+        homeName: "América",
+        awayCode: "TIG",
+        awayName: "Tigres",
+      }),
+      makeHeaderStoryGame({
+        id: "hdr-lmx-caz-pum",
+        league: "liga-mx",
+        leagueLabel: "Liga MX",
+        sport: "football",
+        day: "2026-11-20",
+        dayLabel: "viernes, 20 de noviembre",
+        kickoffUtc: "2026-11-21T01:00:00Z",
+        kickoffLocal: "19:00",
+        homeCode: "CAZ",
+        homeName: "Cruz Azul",
+        awayCode: "PUM",
+        awayName: "Pumas",
+      }),
+    ],
+  },
+]);
+
+const HEADER_LIVE_MAP: ReadonlyMap<string, LiveScoreboardEntry> = new Map([
+  [
+    "hdr-nfl-kc-buf",
+    {
+      gameId: "hdr-nfl-kc-buf",
+      league: "nfl",
+      phase: "live",
+      clock: "Q3",
+      minute: null,
+      score: { home: 28, away: 3 },
+      htScore: { home: 21, away: 3 },
+      redCards: null,
+      kickoffUtc: "2026-11-15T20:00:00Z",
+    },
+  ],
+]);
+
+function EncabezadoInicioStory({
+  initialDay = "2026-11-15",
+  initialSport = ALL,
+}: {
+  initialDay?: string;
+  initialSport?: SportFilter;
+}): React.JSX.Element {
+  const today = "2026-11-15";
+  const [day, setDay] = useState<string>(initialDay);
+  const [sport, setSport] = useState<SportFilter>(initialSport);
+  const [league, setLeague] = useState<LeagueFilter>(ALL);
+  const games = HEADER_STORY_DATASET.games;
+  const dayGames = useMemo(() => gamesForSelection(games, day, today), [games, day, today]);
+  const visible = useMemo(() => filterGames(dayGames, sport, league), [dayGames, sport, league]);
+  return (
+    <PlatformProvider dataset={HEADER_STORY_DATASET} initialRole="member">
+      <div className="pl-stage" style={{ minHeight: "auto" }}>
+        <div className="p-3 sm:p-6 max-w-6xl mx-auto">
+          <HomeFilterHeader
+            allGames={games}
+            dayGames={dayGames}
+            visibleGames={visible}
+            today={today}
+            day={day}
+            sport={sport}
+            league={league}
+            liveByGameId={HEADER_LIVE_MAP}
+            onDayChange={(next: DaySelection) => {
+              setDay(String(next));
+              setLeague(ALL);
+            }}
+            onSportChange={(next) => {
+              setSport(next);
+              setLeague(ALL);
+            }}
+            onLeagueChange={setLeague}
+            onJumpDay={(target, reset) => {
+              setDay(target);
+              if (reset) setSport(ALL);
+              setLeague(ALL);
+            }}
+          />
+        </div>
+      </div>
+    </PlatformProvider>
+  );
+}
+
+export const EncabezadoInicioOscuro = {
+  globals: { theme: "dark" },
+  render: () => <EncabezadoInicioStory />,
+};
+
+export const EncabezadoInicioClaro = {
+  ...EncabezadoInicioOscuro,
+  globals: { theme: "light" },
+};
+
+export const EncabezadoInicioDiaVacioOscuro = {
+  globals: { theme: "dark" },
+  render: () => <EncabezadoInicioStory initialDay="2026-11-18" />,
+};
+
+export const EncabezadoInicioDiaVacioClaro = {
+  ...EncabezadoInicioDiaVacioOscuro,
   globals: { theme: "light" },
 };

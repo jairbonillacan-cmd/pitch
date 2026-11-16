@@ -95,7 +95,7 @@ export const ComoCalculamosClaro = { ...ComoCalculamos, ...light };
 
 const ICONS = [
   "sparkles", "lock", "unlock", "shield", "layers", "bolt", "chart", "users", "gift",
-  "share", "bell", "search", "check", "x", "trash", "chevronRight", "arrowRight",
+  "share", "bell", "search", "check", "x", "trash", "chevronRight", "chevronLeft", "grid", "arrowRight",
   "arrowLeft", "calendar", "flame", "trophy", "sliders", "eye", "copy", "download",
   "plus", "minus", "sun", "moon", "star", "ticket", "cpu", "activity", "crown",
   "message", "heart", "link", "users-plus", "user", "receipt", "logout",
