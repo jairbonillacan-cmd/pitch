@@ -1,0 +1,21 @@
+{
+  "source": "statsbomb/open-data (season_id=27, 2015/2016 Big-5 Europe, < 2020 train-only)",
+  "n_matches_sampled": 180,
+  "n_team_innings": 360,
+  "home": {
+    "intercept": 0.0,
+    "w_sot": 0.23698,
+    "w_soff": 0.04696,
+    "w_corners": 0.00163,
+    "r2_vs_statsbomb_xg": 0.5289,
+    "mae_xg": 0.4893
+  },
+  "away": {
+    "intercept": 0.0,
+    "w_sot": 0.17822,
+    "w_soff": 0.0718,
+    "w_corners": 0.01403,
+    "r2_vs_statsbomb_xg": 0.4848,
+    "mae_xg": 0.4014
+  }
+}

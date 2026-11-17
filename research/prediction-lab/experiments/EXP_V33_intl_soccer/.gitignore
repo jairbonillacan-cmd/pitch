@@ -1,0 +1,6 @@
+# Cache crudo descargado de martj42/international_results y parquets intermedios pesados
+raw_cache/
+__pycache__/
+*.pyc
+artifacts/*.parquet
+artifacts/ts_parity_cases.json
