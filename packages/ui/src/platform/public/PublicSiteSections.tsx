@@ -873,6 +873,26 @@ export function buildFeaturedCommunityPick(
   return DEFAULT_FEATURED_COMMUNITY_PICK;
 }
 
+const LANDING_FOOTER_LINKS = [
+  { title: "Producto", links: [
+    { href: "#que-obtienes", label: "Funciones" },
+    { href: "/parlays", label: "Parlays" },
+    { href: "/comunidad", label: "Comunidad" },
+    { href: "/precio", label: "Precio" },
+  ] },
+  { title: "Transparencia", links: [
+    { href: "/como-funciona", label: "Cómo funciona" },
+    { href: "/motores", label: "Motores" },
+    { href: "/resultados", label: "Resultados" },
+    { href: "/legal/creditos", label: "Créditos" },
+  ] },
+  { title: "Legal", links: [
+    { href: "/legal/terminos", label: "Términos" },
+    { href: "/legal/privacidad", label: "Aviso de privacidad" },
+    { href: "/legal/juego-responsable", label: "Juego responsable" },
+  ] },
+] as const;
+
 export function PublicSiteShell({
   activePath,
   children,
@@ -892,6 +912,24 @@ export function PublicSiteShell({
       </a>
       <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
       <main id="main">{children}</main>
+      {className === "pl-lp--clean" ? (
+        <footer className="pl-clean-footer">
+          <div className="pl-lp-wrap">
+            <nav aria-label="Pie" className="pl-clean-footer-links">
+              {LANDING_FOOTER_LINKS.map(({ title, links }) => (
+                <div key={title}>
+                  <h2>{title}</h2>
+                  <ul>{links.map(({ href, label }) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
+                </div>
+              ))}
+            </nav>
+            <div className="pl-clean-footer-note">
+              <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
+              <p>Información para decidir · No somos casa de apuestas · +18</p>
+            </div>
+          </div>
+        </footer>
+      ) : (
       <footer className="pl-lp-footer">
         <div className="pl-lp-wrap pl-lp-footer-inner">
           <div className="pl-lp-footer-brand">
@@ -910,6 +948,7 @@ export function PublicSiteShell({
           </nav>
         </div>
       </footer>
+      )}
     </div>
   );
 }
@@ -2078,19 +2117,28 @@ export function PricingSection({
   );
 }
 
-export function FaqSection(): React.JSX.Element {
+export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX.Element {
+  const landing = variant === "landing";
+  const items = landing ? [
+    ...LANDING_FAQS,
+    {
+      question: "¿Qué es el momio justo?",
+      answer: "Es la cuota que corresponde a la probabilidad estimada por el modelo. Te sirve como referencia para comparar el momio de tu casa.",
+      defaultOpen: false,
+    },
+  ] : LANDING_FAQS;
   return (
-    <section id="faq" className="pl-lp-section" aria-labelledby="pl-lp-faq-heading">
+    <section id="faq" className={landing ? "pl-clean-section pl-clean-faq" : "pl-lp-section"} aria-labelledby="pl-lp-faq-heading">
       <div className="pl-lp-wrap pl-lp-wrap--narrow pl-lp-stack" style={{ gap: 28 }}>
         <div className="pl-lp-section-head pl-lp-section-head--center">
-          <p className="pl-lp-eyebrow">Dudas claras</p>
+          {landing ? null : <p className="pl-lp-eyebrow">Dudas claras</p>}
           <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq">
             Preguntas frecuentes
           </h2>
         </div>
 
         <div className="pl-lp-faq-list">
-          {LANDING_FAQS.map((item) => (
+          {items.map((item) => (
             <details
               key={item.question}
               name="pl-lp-faq"
@@ -2099,9 +2147,11 @@ export function FaqSection(): React.JSX.Element {
             >
               <summary>
                 <span>{item.question}</span>
-                <span className="pl-lp-chev" aria-hidden="true">
-                  +
-                </span>
+                {landing ? (
+                  <svg className="pl-clean-chevron" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true">
+                    <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : <span className="pl-lp-chev" aria-hidden="true">+</span>}
               </summary>
               <p className="pl-lp-faq-body">{item.answer}</p>
             </details>
@@ -2112,7 +2162,31 @@ export function FaqSection(): React.JSX.Element {
   );
 }
 
-export function ClosingCtaSection({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
+export function ClosingCtaSection({
+  hasSession = false,
+  variant,
+}: { hasSession?: boolean; variant?: "banner" } = {}): React.JSX.Element {
+  if (variant === "banner") {
+    return (
+      <section className="pl-clean-section pl-clean-closing" aria-labelledby="pl-clean-cta-title">
+        <div className="pl-lp-wrap">
+          <div className="pl-clean-banner">
+            <div className="pl-clean-banner-copy">
+              <h2 id="pl-clean-cta-title">Lee el juego con datos.</h2>
+              <p>Abre la jornada y compara el momio justo antes de decidir.</p>
+              <a className="pl-lp-btn" href={hasSession ? "/app" : "/signup"}>
+                Probar 7 días gratis <span aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure className="pl-clean-banner-render">
+              <img src="/landing/cta-ball-cards.webp" width={1480} height={1010} loading="lazy" decoding="async" alt="" />
+            </figure>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="pl-lp-closing">
       <div className="pl-lp-wrap">

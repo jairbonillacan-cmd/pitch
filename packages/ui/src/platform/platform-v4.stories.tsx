@@ -80,11 +80,13 @@ export default {
 };
 
 export const PublicLanding = {
-  render: () => (
-    <StoryShell role="visitor" redacted>
-      <LandingSurface />
-    </StoryShell>
-  ),
+  globals: { theme: "dark" },
+  render: () => <LandingSurface dataset={VISITOR_REDACTED_DATASET} />,
+};
+
+export const PublicLandingLight = {
+  ...PublicLanding,
+  globals: { theme: "light" },
 };
 
 export const PublicTechPrecision = {

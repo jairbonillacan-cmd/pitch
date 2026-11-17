@@ -104,6 +104,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       "Lo más probable de cada partido, con su momio justo.",
     );
 
+    const heroImage = page.locator('#top img[src="/landing/app-phones.webp"]');
+    await expect(heroImage).toHaveAttribute("fetchpriority", "high");
+    await expect(heroImage).toHaveAttribute("width", "913");
+    await expect(heroImage).toHaveAttribute("height", "1000");
+    await expect(page.locator("#main")).not.toContainText(/\bejemplo\b/i);
+    await expect(page.locator("#main > section")).toHaveCount(6);
+    await expect(page.locator("#faq details")).toHaveCount(5);
+    await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
+
     // Sección de motores: 5 motores propios nombrados + +100,000 partidos históricos + 16,126 de Singularity
     const motoresSection = page.locator("#motores");
     await expect(motoresSection).toBeVisible();
@@ -177,6 +186,24 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await heroLeagueButtons.nth(0).click();
     await expect(heroLeagueButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
 
+    // Cada selección editorial cambia la vista y expone su estado a tecnología de asistencia.
+    const features = page.getByRole("group", { name: "Herramientas incluidas" }).getByRole("button");
+    await expect(features).toHaveCount(4);
+    for (const [index, title] of [
+      [1, "Selecciones compatibles"],
+      [2, "Tu partido está por empezar"],
+      [3, "Pronóstico registrado antes del partido"],
+    ] as const) {
+      await features.nth(index).click();
+      await expect(features.nth(index)).toHaveAttribute("aria-pressed", "true");
+      await expect(page.getByRole("heading", { name: title })).toBeVisible();
+      await expect(page.locator("#que-obtienes")).not.toContainText(/\bejemplo\b/i);
+    }
+    await features.nth(0).click();
+    await expect(page.locator('#que-obtienes img[src="/landing/feature-odds.webp"]')).toBeVisible();
+    await expect(page.locator('#que-obtienes img[src="/landing/feature-expected-goals.webp"]')).toBeVisible();
+    await expect(page.locator('img[src="/landing/app-phones.webp"]')).toHaveCount(1);
+
     // Conmutador Mensual / Anual en Precio (aria-pressed="true" cambia y actualiza $299 <-> $2,390)
     const precioSection = page.locator("#precio");
     const billingButtons = precioSection.locator('[role="group"] button[aria-pressed]');
@@ -231,7 +258,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     });
 
     const lightA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
     expect(lightA11y.violations).toEqual([]);
 
@@ -259,7 +286,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(brokenImages).toEqual([]);
 
     const darkA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
     expect(darkA11y.violations).toEqual([]);
     expect(errors).toEqual([]);
