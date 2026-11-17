@@ -10,6 +10,7 @@ import type { RankedAnalyst } from "../profile-stats";
 import { formatUnits } from "../profile-stats";
 import type { JournalEntry, MatchPick, OddsFormat, PlatformDataset, SocialComment, SocialPost } from "../types";
 import { BadgeChip } from "./badges/ProfileBadges";
+import { buildCommentTree, type CommentTreeNode } from "./comment-tree";
 import {
   Avatar,
   CommentIcon,
@@ -235,12 +236,16 @@ export function SocialPostCard({
 }: SocialPostCardProps): React.JSX.Element {
   const uid = useId();
   const cardRef = useRef<HTMLElement>(null);
-  const replyInputRef = useRef<HTMLInputElement>(null);
+  const inlineReplyInputRef = useRef<HTMLInputElement>(null);
+  const replyTriggerRefs = useRef<Map<string, HTMLButtonElement | null>>(new Map());
 
   const [threadOpen, setThreadOpen] = useState(highlighted);
   const [confirmDeletePost, setConfirmDeletePost] = useState(false);
   const [confirmDeleteCommentId, setConfirmDeleteCommentId] = useState<string | null>(null);
-  const [replyTarget, setReplyTarget] = useState<{ commentId: string; handle: string; rootId: string } | null>(null);
+  const [inlineReplyTarget, setInlineReplyTarget] = useState<{ commentId: string; handle: string } | null>(null);
+  const [inlineReply, setInlineReply] = useState("");
+  const [inlineReplyError, setInlineReplyError] = useState("");
+  const [collapsedThreads, setCollapsedThreads] = useState<Set<string>>(() => new Set());
   const [reply, setReply] = useState("");
   const [replyError, setReplyError] = useState("");
   const [loadingComments, setLoadingComments] = useState(false);
@@ -299,19 +304,7 @@ export function SocialPostCard({
   const totalComments = Math.max(post.commentsCount ?? 0, post.comments.length);
   const authorLatestReply = [...post.comments].reverse().find((c) => c.authorHandle === post.authorHandle);
   const previewComment = authorLatestReply ?? post.comments.at(-1);
-
-  const loadedIds = new Set(post.comments.map((c) => c.id));
-  const rootComments: SocialComment[] = [];
-  const repliesByRoot = new Map<string, SocialComment[]>();
-  for (const c of post.comments) {
-    if (c.parentCommentId && loadedIds.has(c.parentCommentId)) {
-      const bucket = repliesByRoot.get(c.parentCommentId) ?? [];
-      bucket.push(c);
-      repliesByRoot.set(c.parentCommentId, bucket);
-    } else {
-      rootComments.push(c);
-    }
-  }
+  const commentTree = buildCommentTree(post.comments);
 
   const handleLinkClick = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!onNavigate || !isPlainClick(e)) return;
@@ -319,20 +312,38 @@ export function SocialPostCard({
     onNavigate(href);
   };
 
-  const startReplyTo = (comment: SocialComment): void => {
-    const rootId = comment.parentCommentId && loadedIds.has(comment.parentCommentId) ? comment.parentCommentId : comment.id;
-    const rootComment = post.comments.find((c) => c.id === rootId);
-    setThreadOpen(true);
-    setReplyTarget({ commentId: comment.id, handle: comment.authorHandle, rootId });
-    if (
-      comment.parentCommentId &&
-      rootComment &&
-      rootComment.authorHandle !== comment.authorHandle &&
-      !reply.trim()
-    ) {
-      setReply(`@${comment.authorHandle} `);
+  const closeInlineReply = (restoreFocusForId?: string): void => {
+    setInlineReplyTarget(null);
+    setInlineReply("");
+    setInlineReplyError("");
+    if (restoreFocusForId) {
+      window.requestAnimationFrame(() => replyTriggerRefs.current.get(restoreFocusForId)?.focus());
     }
-    window.requestAnimationFrame(() => replyInputRef.current?.focus());
+  };
+
+  const startReplyTo = (comment: SocialComment): void => {
+    if (comment.pending) return;
+    setThreadOpen(true);
+    if (inlineReplyTarget?.commentId === comment.id) {
+      closeInlineReply(comment.id);
+      return;
+    }
+    setInlineReplyTarget({ commentId: comment.id, handle: comment.authorHandle });
+    setInlineReply("");
+    setInlineReplyError("");
+    window.requestAnimationFrame(() => inlineReplyInputRef.current?.focus());
+  };
+
+  const toggleBranchCollapsed = (commentId: string): void => {
+    setCollapsedThreads((prev) => {
+      const next = new Set(prev);
+      if (next.has(commentId)) {
+        next.delete(commentId);
+      } else {
+        next.add(commentId);
+      }
+      return next;
+    });
   };
 
   const handleLoadMoreComments = (): void => {
@@ -341,116 +352,244 @@ export function SocialPostCard({
     void onLoadAllComments(post.id).finally(() => setLoadingComments(false));
   };
 
-  const renderComment = (comment: SocialComment, isReply: boolean): React.JSX.Element => {
+  const renderCommentNode = (node: CommentTreeNode, depth: number): React.JSX.Element => {
+    const { comment, children, descendantCount } = node;
+    const isReply = depth > 0;
     const isCommentMine = Boolean(comment.isMine || own?.handle === comment.authorHandle);
-    const canDeleteComment = Boolean(isCommentMine && onDeleteComment && !comment.id.startsWith("sc-"));
-    const showReportComment = Boolean(!isCommentMine && !post.isExample && onOpenReport && !comment.id.startsWith("sc-"));
+    const isPending = Boolean(comment.pending);
+    const canDeleteComment = Boolean(isCommentMine && onDeleteComment && !isPending);
+    const canToggleHelpful = Boolean(onToggleCommentHelpful && !isPending);
+    const showReportComment = Boolean(
+      !isCommentMine && !post.isExample && onOpenReport && comment.fromServer && !isPending,
+    );
     const helpfulCount = comment.helpfulCount ?? 0;
+    const isReplyingHere = inlineReplyTarget?.commentId === comment.id;
+    const isBranchCollapsed = collapsedThreads.has(comment.id);
+    const inlineFormId = `${uid}-inline-form-${comment.id}`;
+    const inlineInputId = `${uid}-inline-input-${comment.id}`;
+    const inlineErrId = `${uid}-inline-err-${comment.id}`;
+    const branchListId = `${uid}-branch-${comment.id}`;
+    const nextDepthAttr = depth >= 3 ? "max" : String(depth + 1);
 
     return (
-      <li key={comment.id} className={`pl-com-comment-row${isReply ? " is-reply" : ""}`}>
-        <a
-          href={`/app/u/${comment.authorHandle}`}
-          onClick={goProfile(comment.authorHandle)}
-          className="pl-com-comment-avatar-link"
-          tabIndex={-1}
-          aria-hidden="true"
-        >
-          <Avatar
-            initials={commentInitialsFor(comment)}
-            avatarUrl={commentAvatarFor(comment, own)}
-            gradVar={getExampleAnalystSpec(comment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
-            size={isReply ? 22 : 26}
-            loading="lazy"
-          />
-        </a>
-        <div className="pl-com-comment-body">
-          <div className="pl-com-comment-head">
-            <p className="pl-com-comment-meta">
-              <a
-                href={`/app/u/${comment.authorHandle}`}
-                onClick={goProfile(comment.authorHandle)}
-                className="pl-com-comment-author"
-              >
-                <strong>{comment.authorName}</strong>{" "}
-                <span className="pl-prof-muted">@{comment.authorHandle}</span>
-              </a>
-              {comment.verifiedBadge && comment.verifiedBadge !== "Sin picks liquidados" ? (
-                <span className="pl-com-comment-record num">· {comment.verifiedBadge}</span>
-              ) : null}
-              <span className="pl-prof-muted">· {comment.createdAt.toLowerCase()}</span>
-            </p>
-            {showReportComment ? (
-              <SocialReportMenu
-                compact
-                triggerLabel={`Más opciones del comentario de ${comment.authorName}`}
-                onReport={() =>
-                  onOpenReport!({
-                    kind: "comment",
-                    commentId: comment.id,
-                    authorHandle: comment.authorHandle,
-                  })
-                }
-              />
-            ) : null}
-          </div>
-          {comment.replyToHandle ? (
-            <p className="pl-com-replying-tag">En respuesta a @{comment.replyToHandle}</p>
-          ) : null}
-          <p>{comment.body}</p>
-          <div className="pl-com-comment-actions num">
-            {onToggleCommentHelpful && !comment.id.startsWith("sc-") ? (
-              <button
-                type="button"
-                className={`pl-com-comment-act${comment.helpfulByMe ? " is-on" : ""}`}
-                aria-pressed={Boolean(comment.helpfulByMe)}
-                onClick={() => onToggleCommentHelpful(post.id, comment.id)}
-              >
-                <HeartIcon filled={Boolean(comment.helpfulByMe)} size={12} />
-                <span>Útil</span>
-                {helpfulCount > 0 ? <span>({helpfulCount})</span> : null}
-              </button>
-            ) : null}
-            <button
-              type="button"
-              className="pl-com-comment-act"
-              onClick={() => startReplyTo(comment)}
-            >
-              Responder
-            </button>
-            {canDeleteComment ? (
-              confirmDeleteCommentId === comment.id ? (
-                <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado del comentario">
-                  <button
-                    type="button"
-                    className="pl-com-comment-act pl-com-act--danger"
-                    onClick={() => {
-                      setConfirmDeleteCommentId(null);
-                      onDeleteComment!(post.id, comment.id);
-                    }}
-                  >
-                    Borrar
-                  </button>
-                  <button
-                    type="button"
-                    className="pl-com-comment-act"
-                    onClick={() => setConfirmDeleteCommentId(null)}
-                  >
-                    Cancelar
-                  </button>
+      <li key={comment.id} className={`pl-com-comment-item${isReply ? " is-reply-node" : ""}`}>
+        <div className="pl-com-comment-row">
+          <a
+            href={`/app/u/${comment.authorHandle}`}
+            onClick={goProfile(comment.authorHandle)}
+            className="pl-com-comment-avatar-link"
+            tabIndex={-1}
+            aria-hidden="true"
+          >
+            <Avatar
+              initials={commentInitialsFor(comment)}
+              avatarUrl={commentAvatarFor(comment, own)}
+              gradVar={getExampleAnalystSpec(comment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+              size={isReply ? 22 : 26}
+              loading="lazy"
+            />
+          </a>
+          <div className="pl-com-comment-body">
+            <div className="pl-com-comment-head">
+              <p className="pl-com-comment-meta">
+                <a
+                  href={`/app/u/${comment.authorHandle}`}
+                  onClick={goProfile(comment.authorHandle)}
+                  className="pl-com-comment-author"
+                >
+                  <strong>{comment.authorName}</strong>{" "}
+                  <span className="pl-prof-muted">@{comment.authorHandle}</span>
+                </a>
+                {comment.verifiedBadge && comment.verifiedBadge !== "Sin picks liquidados" ? (
+                  <span className="pl-com-comment-record num">· {comment.verifiedBadge}</span>
+                ) : null}
+                <span className="pl-prof-muted">
+                  · {isPending ? "Enviando…" : comment.createdAt.toLowerCase()}
                 </span>
-              ) : (
+              </p>
+              {showReportComment ? (
+                <SocialReportMenu
+                  compact
+                  triggerLabel={`Más opciones del comentario de ${comment.authorName}`}
+                  onReport={() =>
+                    onOpenReport!({
+                      kind: "comment",
+                      commentId: comment.id,
+                      authorHandle: comment.authorHandle,
+                    })
+                  }
+                />
+              ) : null}
+            </div>
+            {comment.replyToHandle ? (
+              <p className="pl-com-replying-tag">En respuesta a @{comment.replyToHandle}</p>
+            ) : null}
+            <p className="pl-com-comment-text">{comment.body}</p>
+            <div className="pl-com-comment-actions num">
+              {canToggleHelpful ? (
+                <button
+                  type="button"
+                  className={`pl-com-comment-act${comment.helpfulByMe ? " is-on" : ""}`}
+                  aria-pressed={Boolean(comment.helpfulByMe)}
+                  aria-label={`Útil al comentario de ${comment.authorName}${helpfulCount > 0 ? `, ${helpfulCount}` : ""}`}
+                  onClick={() => onToggleCommentHelpful!(post.id, comment.id)}
+                >
+                  <HeartIcon filled={Boolean(comment.helpfulByMe)} size={12} />
+                  <span>Útil</span>
+                  {helpfulCount > 0 ? <span>({helpfulCount})</span> : null}
+                </button>
+              ) : null}
+              <button
+                ref={(el) => {
+                  if (el) replyTriggerRefs.current.set(comment.id, el);
+                  else replyTriggerRefs.current.delete(comment.id);
+                }}
+                type="button"
+                className={`pl-com-comment-act${isReplyingHere ? " is-on" : ""}`}
+                disabled={isPending}
+                aria-expanded={isReplyingHere}
+                aria-controls={isReplyingHere ? inlineFormId : undefined}
+                aria-label={`Responder a ${comment.authorName}`}
+                onClick={() => startReplyTo(comment)}
+              >
+                Responder
+              </button>
+              {descendantCount > 0 ? (
                 <button
                   type="button"
                   className="pl-com-comment-act"
-                  onClick={() => setConfirmDeleteCommentId(comment.id)}
+                  aria-expanded={!isBranchCollapsed}
+                  aria-controls={branchListId}
+                  aria-label={`${isBranchCollapsed ? "Ver" : "Ocultar"} ${descendantCount} ${descendantCount === 1 ? "respuesta" : "respuestas"} al comentario de ${comment.authorName}`}
+                  onClick={() => toggleBranchCollapsed(comment.id)}
                 >
-                  Borrar
+                  {isBranchCollapsed
+                    ? `Ver ${descendantCount} ${descendantCount === 1 ? "respuesta" : "respuestas"}`
+                    : `Ocultar ${descendantCount === 1 ? "respuesta" : `respuestas (${descendantCount})`}`}
                 </button>
-              )
+              ) : null}
+              {canDeleteComment ? (
+                confirmDeleteCommentId === comment.id ? (
+                  <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado del comentario">
+                    <button
+                      type="button"
+                      className="pl-com-comment-act pl-com-act--danger"
+                      onClick={() => {
+                        setConfirmDeleteCommentId(null);
+                        if (inlineReplyTarget?.commentId === comment.id) {
+                          closeInlineReply();
+                        }
+                        onDeleteComment!(post.id, comment.id);
+                      }}
+                    >
+                      Borrar
+                    </button>
+                    <button
+                      type="button"
+                      className="pl-com-comment-act"
+                      onClick={() => setConfirmDeleteCommentId(null)}
+                    >
+                      Cancelar
+                    </button>
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    className="pl-com-comment-act"
+                    aria-label={`Borrar comentario de ${comment.authorName}`}
+                    onClick={() => setConfirmDeleteCommentId(comment.id)}
+                  >
+                    Borrar
+                  </button>
+                )
+              ) : null}
+            </div>
+
+            {isReplyingHere ? (
+              <div className="pl-com-inline-reply-wrap">
+                <div className="pl-com-reply-banner">
+                  <span>
+                    Respondiendo a <strong>@{comment.authorHandle}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    className="pl-com-comment-act"
+                    onClick={() => closeInlineReply(comment.id)}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+                <form
+                  id={inlineFormId}
+                  className="pl-com-reply pl-com-reply--inline"
+                  noValidate
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const res = addSocialComment(post.id, inlineReply, comment.id);
+                    if (!res.ok) {
+                      setInlineReplyError(res.error ?? "No pudimos enviar tu respuesta.");
+                      inlineReplyInputRef.current?.focus();
+                      return;
+                    }
+                    setCollapsedThreads((prev) => {
+                      if (!prev.has(comment.id)) return prev;
+                      const next = new Set(prev);
+                      next.delete(comment.id);
+                      return next;
+                    });
+                    closeInlineReply();
+                  }}
+                >
+                  <label className="sr-only" htmlFor={inlineInputId}>
+                    Respuesta a @{comment.authorHandle}
+                  </label>
+                  <input
+                    ref={inlineReplyInputRef}
+                    id={inlineInputId}
+                    name="inlineReply"
+                    value={inlineReply}
+                    maxLength={SOCIAL_COMMENT_MAX_CHARS}
+                    enterKeyHint="send"
+                    placeholder={`Responde a @${comment.authorHandle}…`}
+                    aria-invalid={inlineReplyError ? true : undefined}
+                    aria-describedby={inlineReplyError ? inlineErrId : undefined}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        e.preventDefault();
+                        closeInlineReply(comment.id);
+                      }
+                    }}
+                    onChange={(e) => {
+                      setInlineReply(e.target.value);
+                      if (inlineReplyError) setInlineReplyError("");
+                    }}
+                  />
+                  {inlineReply.length >= Math.round(SOCIAL_COMMENT_MAX_CHARS * 0.7) ? (
+                    <span className="pl-com-char-count num">
+                      {inlineReply.length}/{SOCIAL_COMMENT_MAX_CHARS}
+                    </span>
+                  ) : null}
+                  <button type="submit" className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm">
+                    Responder
+                  </button>
+                </form>
+                <div id={inlineErrId} aria-live="polite">
+                  {inlineReplyError ? (
+                    <p className="pl-com-error" role="alert">
+                      {inlineReplyError}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             ) : null}
           </div>
         </div>
+
+        {children.length > 0 && !isBranchCollapsed ? (
+          <ul id={branchListId} className="pl-com-thread-children" data-depth={nextDepthAttr}>
+            {children.map((child) => renderCommentNode(child, depth + 1))}
+          </ul>
+        ) : null}
       </li>
     );
   };
@@ -752,6 +891,9 @@ export function SocialPostCard({
                 onClick={() => setThreadOpen(true)}
                 aria-label={`Abrir conversación con ${previewComment.authorName}`}
               >
+                {previewComment.replyToHandle ? (
+                  <span className="pl-com-replying-tag">En respuesta a @{previewComment.replyToHandle}</span>
+                ) : null}
                 <span>{previewComment.body}</span>
                 {totalComments > 1 ? (
                   <span className="pl-com-more-comments">Ver los {totalComments} comentarios</span>
@@ -777,54 +919,35 @@ export function SocialPostCard({
                 </button>
               </div>
             ) : null}
-            {rootComments.length > 0 ? (
-              <ul>
-                {rootComments.map((root) => (
-                  <React.Fragment key={root.id}>
-                    {renderComment(root, false)}
-                    {(repliesByRoot.get(root.id) ?? []).map((child) => renderComment(child, true))}
-                  </React.Fragment>
-                ))}
+            {commentTree.length > 0 ? (
+              <ul className="pl-com-thread-list">
+                {commentTree.map((rootNode) => renderCommentNode(rootNode, 0))}
               </ul>
-            ) : null}
-            {replyTarget ? (
-              <div className="pl-com-reply-banner">
-                <span>
-                  Respondiendo a <strong>@{replyTarget.handle}</strong>
-                </span>
-                <button
-                  type="button"
-                  className="pl-com-comment-act"
-                  onClick={() => setReplyTarget(null)}
-                >
-                  Cancelar respuesta
-                </button>
-              </div>
             ) : null}
             <form
               className="pl-com-reply"
               noValidate
               onSubmit={(e) => {
                 e.preventDefault();
-                const res = addSocialComment(post.id, reply, replyTarget?.commentId ?? null);
+                const res = addSocialComment(post.id, reply, null);
                 if (!res.ok) {
                   setReplyError(res.error ?? "No pudimos comentar.");
                   return;
                 }
                 setReply("");
-                setReplyTarget(null);
                 setReplyError("");
               }}
             >
               <label className="sr-only" htmlFor={`${uid}-reply`}>
-                {replyTarget ? `Responder a @${replyTarget.handle}` : "Responder"}
+                Comentar en la publicación
               </label>
               <input
-                ref={replyInputRef}
                 id={`${uid}-reply`}
+                name="comment"
                 value={reply}
                 maxLength={SOCIAL_COMMENT_MAX_CHARS}
-                placeholder={replyTarget ? `Responde a @${replyTarget.handle}…` : "Responde…"}
+                enterKeyHint="send"
+                placeholder="Escribe un comentario…"
                 aria-invalid={replyError ? true : undefined}
                 aria-describedby={replyError ? `${uid}-reply-err` : undefined}
                 onChange={(e) => {
@@ -838,7 +961,7 @@ export function SocialPostCard({
                 </span>
               ) : null}
               <button type="submit" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm">
-                Responder
+                Comentar
               </button>
             </form>
             <div id={`${uid}-reply-err`} aria-live="polite">

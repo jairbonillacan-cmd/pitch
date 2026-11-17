@@ -421,6 +421,8 @@ export interface SocialComment {
   body: string;
   /** Guardado en el servidor (permite reportarlo si es ajeno). */
   fromServer?: boolean;
+  /** En camino al servidor (optimista sin UUID definitivo todavía). */
+  pending?: boolean;
   /** Lo escribió quien está viendo. */
   isMine?: boolean;
   /** Conteo de votos «Útil» y si quien mira lo marcó. */

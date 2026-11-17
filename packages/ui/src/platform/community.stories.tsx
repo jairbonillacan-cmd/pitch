@@ -6,6 +6,7 @@ import {
   SocialVipClubView,
 } from "./club/CommunityClubView";
 import { SocialPostCard, resolvePostAuthor } from "./club/SocialPostCard";
+import { reparentDeletedComment } from "./club/comment-tree";
 import type { FollowedTopics } from "./club/community-ui";
 import { computeConsensus, type WinnerVoteTally } from "./community-stats";
 import { buildPlatformDataset } from "./match-picks-engine";
@@ -157,7 +158,7 @@ const STORY_POST: SocialPost = {
   likes: 14,
   likedByMe: false,
   copiesCount: 6,
-  commentsCount: 2,
+  commentsCount: 4,
   comments: [
     {
       id: "c-root-1",
@@ -168,6 +169,7 @@ const STORY_POST: SocialPost = {
       verifiedBadge: "+6.2u · 12 picks",
       body: "¿El pronóstico cuenta si llueve fuerte antes del descanso?",
       createdAt: "hace 18 min",
+      isMine: true,
       helpfulCount: 3,
       helpfulByMe: true,
     },
@@ -178,9 +180,33 @@ const STORY_POST: SocialPost = {
       authorHandle: "sofia_nfl",
       authorName: "Sofía Méndez",
       verifiedBadge: "+18.4u · 24 picks",
-      body: "@ana_mx Baja ligeramente a 1.5u si el pronóstico de lluvia pasa de 70 %, pero el ritmo sigue favoreciendo llegadas.",
+      body: "Baja ligeramente a 1.5u si el pronóstico de lluvia pasa de 70 %, pero el ritmo sigue favoreciendo llegadas.",
       createdAt: "hace 9 min",
       helpfulCount: 5,
+      helpfulByMe: false,
+    },
+    {
+      id: "c-reply-2",
+      parentCommentId: "c-reply-1",
+      replyToHandle: "sofia_nfl",
+      authorHandle: "carlos_quant",
+      authorName: "Carlos Vega",
+      verifiedBadge: "+14.9u · 186 picks",
+      body: "Coincido; además la línea de córners suele subir con lluvia ligera si ambos equipos juegan por banda.",
+      createdAt: "hace 5 min",
+      helpfulCount: 2,
+      helpfulByMe: false,
+    },
+    {
+      id: "c-root-2",
+      parentCommentId: null,
+      replyToHandle: null,
+      authorHandle: "diego_tactico",
+      authorName: "Diego Aranda",
+      verifiedBadge: "+11.6u · 118 picks",
+      body: "Buen margen frente al cierre; sigo el Over también.",
+      createdAt: "hace 2 min",
+      helpfulCount: 1,
       helpfulByMe: false,
     },
   ],
@@ -232,26 +258,38 @@ function ThreadCardStory(): React.JSX.Element {
           }))
         }
         addSocialComment={(_postId, body, parentCommentId) => {
-          const next = {
-            id: `c-${Date.now()}`,
-            parentCommentId: parentCommentId ?? null,
-            replyToHandle: parentCommentId ? "sofia_nfl" : null,
-            authorHandle: "ana_mx",
-            authorName: "Ana López",
-            verifiedBadge: "+6.2u · 12 picks",
-            body,
-            createdAt: "ahora",
-            isMine: true,
-            helpfulCount: 0,
-            helpfulByMe: false,
-          };
-          setPost((prev) => ({
-            ...prev,
-            comments: [...prev.comments, next],
-            commentsCount: (prev.commentsCount ?? prev.comments.length) + 1,
-          }));
+          const clean = body.trim();
+          if (!clean) return { ok: false, error: "Escribe una respuesta." };
+          setPost((prev) => {
+            const parent = parentCommentId ? prev.comments.find((c) => c.id === parentCommentId) : undefined;
+            const next = {
+              id: `c-${Date.now()}`,
+              parentCommentId: parent?.id ?? null,
+              replyToHandle: parent?.authorHandle ?? null,
+              authorHandle: "ana_mx",
+              authorName: "Ana López",
+              verifiedBadge: "+6.2u · 12 picks",
+              body: clean,
+              createdAt: "ahora",
+              isMine: true,
+              helpfulCount: 0,
+              helpfulByMe: false,
+            };
+            return {
+              ...prev,
+              comments: [...prev.comments, next],
+              commentsCount: (prev.commentsCount ?? prev.comments.length) + 1,
+            };
+          });
           return { ok: true };
         }}
+        onDeleteComment={(_postId, commentId) =>
+          setPost((prev) => ({
+            ...prev,
+            comments: reparentDeletedComment(prev.comments, commentId),
+            commentsCount: Math.max(0, (prev.commentsCount ?? prev.comments.length) - 1),
+          }))
+        }
       />
     </div>
   );
@@ -262,7 +300,7 @@ const threadCardStory = (theme: "dark" | "light") => ({
   render: () => <ThreadCardStory />,
 });
 
-/** Tarjeta unificada de publicación con pick liquidado, seguidores, respuestas de 1 nivel y voto Útil. */
+/** Tarjeta unificada de publicación con pick liquidado, seguidores, hilos multinivel y voto Útil. */
 export const PublicacionConHiloOscuro = threadCardStory("dark");
 export const PublicacionConHiloClaro = threadCardStory("light");
 

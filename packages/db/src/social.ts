@@ -306,19 +306,10 @@ export async function addSocialComment(
     if (!parentRow || parentRow.postId !== postId || parentRow.hidden) {
       return { ok: false, reason: "no_existe" };
     }
-    // Un solo nivel de anidación visual en el hilo; conservamos el autor del comentario raíz para coincidir con el feed.
-    resolvedParentId = parentRow.parentCommentId ?? parentRow.id;
+    // Conservamos el padre directo para soportar hilos multinivel reales.
+    resolvedParentId = parentRow.id;
     parentAuthorUserId = parentRow.authorUserId;
-    if (parentRow.parentCommentId) {
-      const [rootAuthor] = await db
-        .select({ handle: users.handle })
-        .from(socialComments)
-        .innerJoin(users, eq(users.id, socialComments.authorUserId))
-        .where(eq(socialComments.id, resolvedParentId));
-      replyToHandle = rootAuthor?.handle ?? parentRow.authorHandle ?? null;
-    } else {
-      replyToHandle = parentRow.authorHandle ?? null;
-    }
+    replyToHandle = parentRow.authorHandle ?? null;
   }
 
   const [{ count }] = await db
@@ -410,7 +401,7 @@ export async function addSocialComment(
   };
 }
 
-/** Solo el autor borra su comentario. */
+/** Solo el autor borra su comentario; las respuestas hijas suben al padre anterior para no romper el hilo. */
 export async function deleteSocialComment(
   db: Db,
   userId: string,
@@ -419,6 +410,23 @@ export async function deleteSocialComment(
 ): Promise<boolean> {
   if (!UUID_PATTERN.test(commentId)) return false;
   if (postId && !UUID_PATTERN.test(postId)) return false;
+  const [existing] = await db
+    .select({ id: socialComments.id, parentCommentId: socialComments.parentCommentId })
+    .from(socialComments)
+    .where(
+      and(
+        eq(socialComments.id, commentId),
+        eq(socialComments.authorUserId, userId),
+        postId ? eq(socialComments.postId, postId) : undefined,
+      ),
+    );
+  if (!existing) return false;
+  if (existing.parentCommentId) {
+    await db
+      .update(socialComments)
+      .set({ parentCommentId: existing.parentCommentId })
+      .where(eq(socialComments.parentCommentId, commentId));
+  }
   const deleted = await db
     .delete(socialComments)
     .where(

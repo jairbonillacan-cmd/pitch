@@ -209,6 +209,7 @@ import {
   checkParlayCompatibility,
   computeParlaySummary,
 } from "./parlay-engine";
+import { reparentDeletedComment } from "./club/comment-tree";
 import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
 import { attachExamplePostPicks } from "./community-examples";
 import {
@@ -1558,14 +1559,15 @@ export function PlatformProvider({
       if (target && isPendingPost(target)) {
         return { ok: false, error: "Espera a que termine de publicarse." };
       }
-      const tempId = `sc-${Date.now()}`;
       const cleanParentArg = typeof parentCommentId === "string" && parentCommentId.trim() ? parentCommentId.trim() : null;
       const clickedParent = cleanParentArg ? target?.comments.find((c) => c.id === cleanParentArg) : undefined;
-      const resolvedParentId = clickedParent ? (clickedParent.parentCommentId ?? clickedParent.id) : null;
-      const replyToHandle = resolvedParentId
-        ? (target?.comments.find((c) => c.id === resolvedParentId)?.authorHandle ?? clickedParent?.authorHandle ?? null)
-        : null;
+      if (clickedParent?.pending) {
+        return { ok: false, error: "Espera a que se guarde ese comentario antes de responderle." };
+      }
+      const resolvedParentId = clickedParent ? clickedParent.id : null;
+      const replyToHandle = clickedParent ? clickedParent.authorHandle : null;
       const needsServerSync = Boolean(socialOnServer && target?.fromServer);
+      const tempId = `${needsServerSync ? "pending" : "local"}-sc-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 
       setSocialPosts((prev) =>
         prev.map((post) =>
@@ -1591,6 +1593,7 @@ export function PlatformProvider({
                     createdAt: "Ahora",
                     body: trimmed,
                     fromServer: needsServerSync,
+                    pending: needsServerSync,
                     isMine: true,
                     helpfulCount: 0,
                     helpfulByMe: false,
@@ -1605,7 +1608,7 @@ export function PlatformProvider({
         void (async () => {
           const res = await postJson(`/api/social/posts/${postId}/comments`, {
             body: trimmed,
-            ...(cleanParentArg ? { parentCommentId: cleanParentArg } : {}),
+            ...(resolvedParentId ? { parentCommentId: resolvedParentId } : {}),
           });
           const data = res
             ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
@@ -1646,7 +1649,7 @@ export function PlatformProvider({
     (postId: string, commentId: string) => {
       const targetPost = socialPosts.find((p) => p.id === postId);
       const targetComment = targetPost?.comments.find((c) => c.id === commentId);
-      if (!targetPost || !targetComment || !targetComment.isMine) return;
+      if (!targetPost || !targetComment || !targetComment.isMine || targetComment.pending) return;
 
       const snapshotComments = targetPost.comments;
       const snapshotCount = targetPost.commentsCount ?? targetPost.comments.length;
@@ -1657,19 +1660,13 @@ export function PlatformProvider({
             ? {
                 ...p,
                 commentsCount: Math.max(0, (p.commentsCount ?? p.comments.length) - 1),
-                comments: p.comments
-                  .filter((c) => c.id !== commentId)
-                  .map((c) =>
-                    c.parentCommentId === commentId
-                      ? { ...c, parentCommentId: null, replyToHandle: null }
-                      : c,
-                  ),
+                comments: reparentDeletedComment(p.comments, commentId),
               }
             : p,
         ),
       );
 
-      if (!socialOnServer || !targetComment.fromServer || commentId.startsWith("sc-")) {
+      if (!socialOnServer || !targetComment.fromServer) {
         pushToast("Comentario borrado.", "default");
         return;
       }
@@ -1699,7 +1696,7 @@ export function PlatformProvider({
       if (viewerRole === "visitor") return;
       const targetPost = socialPosts.find((p) => p.id === postId);
       const targetComment = targetPost?.comments.find((c) => c.id === commentId);
-      if (!targetPost || !targetComment || commentId.startsWith("sc-")) return;
+      if (!targetPost || !targetComment || targetComment.pending) return;
 
       const nextHelpful = !targetComment.helpfulByMe;
       const prevCount = targetComment.helpfulCount ?? 0;

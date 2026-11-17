@@ -440,7 +440,7 @@ describe("comunidad compartida", () => {
     expect(rootRes.ok).toBe(true);
     const rootId = rootRes.ok ? rootRes.comment.id : "";
 
-    // Responder a la respuesta de 2.º nivel se aplana a parentCommentId del hilo padre (1 nivel).
+    // Responder a una respuesta conserva su parentCommentId directo (hilo multinivel real).
     const replyRes = await addSocialComment(
       db,
       carla.id,
@@ -465,17 +465,19 @@ describe("comunidad compartida", () => {
     );
     expect(nestedReply).toMatchObject({
       ok: true,
-      comment: { parentCommentId: rootId, replyToHandle: "beto_nfl" },
+      comment: { parentCommentId: replyId, replyToHandle: "carla_nba" },
     });
+    const nestedId = nestedReply.ok ? nestedReply.comment.id : "";
 
     // Notificaciones: Beto recibe 1 `comment_reply` (deduplicada aunque también fue @mencionado),
-    // Carla recibe 1 `mention` y Ana recibe `comment` de su post.
+    // Carla recibe `mention` en el raíz y `comment_reply` cuando Ana responde a su respuesta.
     const betoNotifs = await listSocialNotifications(db, beto.id);
     expect(betoNotifs.some((n) => n.kind === "comment_reply" && n.commentId === replyId)).toBe(true);
     expect(betoNotifs.filter((n) => n.commentId === replyId)).toHaveLength(1);
 
     const carlaNotifs = await listSocialNotifications(db, carla.id);
     expect(carlaNotifs.some((n) => n.kind === "mention" && n.commentId === rootId)).toBe(true);
+    expect(carlaNotifs.some((n) => n.kind === "comment_reply" && n.commentId === nestedId)).toBe(true);
 
     // «Útil» en comentario y borrar comentario solo por el autor.
     expect(await setSocialCommentHelpful(db, ana.id, rootId, true, new Date(now.getTime() + 4 * MIN), postId)).toEqual({
@@ -496,6 +498,14 @@ describe("comunidad compartida", () => {
 
     expect(await deleteSocialComment(db, beto.id, replyId, postId)).toBe(false);
     expect(await deleteSocialComment(db, carla.id, replyId, postId)).toBe(true);
+
+    // Al borrar `replyId`, su hija `nestedId` sube a `rootId` sin perder el hilo.
+    const afterMiddleDelete = await listPostComments(db, ana.id, postId, 200);
+    expect(afterMiddleDelete.ok).toBe(true);
+    if (afterMiddleDelete.ok) {
+      const movedReply = afterMiddleDelete.comments.find((c) => c.id === nestedId);
+      expect(movedReply).toMatchObject({ parentCommentId: rootId, replyToHandle: "beto_nfl" });
+    }
 
     // Más de 30 comentarios: listSocialFeed devuelve los últimos 30 + commentsCount total, y listPostComments devuelve todos.
     for (let i = 0; i < 32; i++) {
