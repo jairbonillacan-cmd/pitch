@@ -1,0 +1,42 @@
+{
+  "experiment_id": "EXP_V33_open_meteo_era5_weather",
+  "license": "CC-BY 4.0 (Open-Meteo Historical Weather API / Copernicus ERA5)",
+  "eval_split": "walk_forward_dev",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "weather_match_coverage_pct": 5.53,
+  "val_2010_2019": {
+    "meridian_v2_ll": 0.899523,
+    "meridian_v2_plus_era5_ll": 0.900252
+  },
+  "walk_forward_2010_2024_vs_meridian_v2": {
+    "n": 12904,
+    "ece": 0.00813158787953776,
+    "ece_ci95": [
+      0.005254914584841828,
+      0.013472943696533068
+    ],
+    "log_loss": 0.8960470477313291,
+    "log_loss_ci95": [
+      0.8859894717947335,
+      0.9066429913782914
+    ],
+    "brier": 0.5285937689203875,
+    "brier_ci95": [
+      0.5219062778731554,
+      0.5359195186185768
+    ],
+    "rps": 0.1750136817719491,
+    "rps_ci95": [
+      0.1723470109406933,
+      0.17770616687297447
+    ],
+    "delta_ll_vs_benchmark": 0.0006948349885513233,
+    "delta_ll_ci95": [
+      -0.00016750386032139008,
+      0.0014494893733667767
+    ],
+    "significance": "no significativa"
+  },
+  "decision": "rejected_keep_deterministic_v2",
+  "rationale": "Meridian v2.0 ya captura la climatolog\u00eda t\u00e9rmica estacional (`thermal_climate_adv`) y la hipoxia barom\u00e9trica (`ISA`). Se documenta el experimento real con ERA5 diario (`< 2025-02-02`) manteniendo inferencia s\u00edncrona determinista `< 0.1 ms` sin I/O HTTP."
+}

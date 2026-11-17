@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "license": "CC0-1.0",
+  "source_repo": "https://github.com/martj42/international_results",
+  "generated_at_utc": "2026-11-17T22:38:44+00:00",
+  "holdout_cut_date": "2025-02-02",
+  "min_year": 1960,
+  "total_clean_fifa_matches": 41215,
+  "dev_matches_before_cut": 39619,
+  "post_cut_matches_excluded_from_dev": 1596,
+  "unique_federations": 189,
+  "files": {
+    "results.csv": {
+      "url": "https://raw.githubusercontent.com/martj42/international_results/master/results.csv",
+      "sha256": "09aac809e317f3004c69720a38addb656c49ebb19f1937deab96f96e3362257a",
+      "bytes": 3764347
+    },
+    "shootouts.csv": {
+      "url": "https://raw.githubusercontent.com/martj42/international_results/master/shootouts.csv",
+      "sha256": "072b445adf5183fbe981087857e5b64c8f17abfdbf257b1822ceacb4a37919fa",
+      "bytes": 29789
+    },
+    "former_names.csv": {
+      "url": "https://raw.githubusercontent.com/martj42/international_results/master/former_names.csv",
+      "sha256": "2d57f59a3ac13b24c2fcf208ced5a38710529d122da38929838d0980b002677e",
+      "bytes": 1691
+    }
+  }
+}
