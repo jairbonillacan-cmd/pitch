@@ -50,10 +50,6 @@ export function LegalDocumentSurface({
     <PublicSiteShell hasSession={hasSession} className="pl-lp--legal">
       <article className="pl-blog-article" aria-labelledby="pl-legal-title">
         <header className="pl-lp-section pl-lp-section--top pl-blog-hero">
-          <div className="pl-lp-atmo" aria-hidden="true">
-            <div className="pl-lp-orb pl-lp-orb--2" />
-          </div>
-          <div className="pl-lp-fieldgrid" aria-hidden="true" />
           <div className="pl-lp-wrap pl-blog-hero-inner">
             <div className="pl-lp-section-head pl-blog-head">
               <p className="pl-lp-eyebrow">{eyebrow}</p>

@@ -277,10 +277,6 @@
   text-align: center;
 }
 
-.pl-blog-empty img {
-  filter: drop-shadow(0 0 32px var(--pl-glow));
-}
-
 /* ---------- Artículo ---------- */
 
 .pl-blog-layout {
@@ -300,7 +296,7 @@
     grid-column: 2;
     grid-row: 1;
     position: sticky;
-    top: 24px;
+    top: 96px;
     padding: 4px 0 4px 20px;
     border: 0;
     border-inline-start: 1px solid var(--pl-border);
@@ -395,7 +391,7 @@
 .pl-blog-prose h4 {
   color: var(--pl-text);
   text-wrap: balance;
-  scroll-margin-top: 24px;
+  scroll-margin-top: 96px;
 }
 
 .pl-blog-prose h2 {

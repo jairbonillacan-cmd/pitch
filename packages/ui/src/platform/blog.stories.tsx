@@ -85,7 +85,7 @@ const ARTICLE_HTML = `
 <p>Si sumas las probabilidades de los tres resultados casi nunca te da 100 %. En el ejemplo, la suma es <strong>110.0 %</strong>.</p>
 <ul><li>Local −150 → 60.0 %</li><li>Empate +260 → 27.8 %</li><li>Visitante +350 → 22.2 %</li></ul>
 <h2 id="paso-3-calcula-el-momio-justo">Paso 3: calcula el momio justo</h2>
-<p>El momio justo es el inverso de la probabilidad. Puedes ver cómo se leen en <a href="/como-funciona">Cómo funciona</a>.</p>
+<p>El momio justo es el inverso de la probabilidad. Puedes ver cómo se leen en <a href="/#hoy">Análisis del día</a>.</p>
 <blockquote><p>Una probabilidad no es una promesa. Un 70 % falla 3 de cada 10 veces.</p></blockquote>
 `;
 

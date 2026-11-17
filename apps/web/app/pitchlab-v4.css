@@ -4134,6 +4134,17 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
     display: none;
   }
 
+  .pl-lp-steps > li:not(:has(.pl-lp-step-fig)) {
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .pl-lp-steps > li:not(:has(.pl-lp-step-fig)) > .pl-lp-step-idx {
+    display: block;
+    grid-column: 1;
+    padding-top: 2px;
+  }
+
   .pl-lp-steps > li > .pl-lp-step-fig {
     grid-column: 1;
     grid-row: 1 / span 2;
@@ -14225,9 +14236,12 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
 
 .pl-lp--clean .pl-lp-section {
   border-top: 0;
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }
 
 .pl-lp--clean :is(
+  .pl-lp-card,
   .pl-lp-engines-card,
   .pl-lp-table-card,
   .pl-lp-cortex-card,
@@ -14235,7 +14249,11 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
   .pl-lp-results-card,
   .pl-lp-spei-card,
   .pl-lp--precio .pl-lp-pricing-card,
-  .pl-lp-steps > li
+  .pl-lp-steps > li,
+  .pl-blog-card,
+  .pl-blog-note,
+  .pl-blog-prose pre,
+  .pl-prof-header
 ) {
   border: 1px solid var(--pl-clean-edge);
   border-radius: 22px;
@@ -14243,23 +14261,51 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
   box-shadow: none;
 }
 
+@media (max-width: 1099px) {
+  .pl-lp--clean .pl-blog-toc {
+    border: 1px solid var(--pl-clean-edge);
+    background: var(--pl-clean-surface);
+  }
+}
+
+@media (min-width: 1100px) {
+  .pl-lp--clean .pl-blog-layout--toc .pl-blog-toc {
+    border-inline-start-color: var(--pl-clean-edge);
+  }
+}
+
+.pl-lp--clean .pl-blog-cats a:not([aria-current="page"]),
+.pl-lp--clean .pl-lp-league-tabs .pl-lp-tab:not([aria-pressed="true"]) {
+  border-color: var(--pl-clean-edge);
+  background: var(--pl-clean-surface);
+}
+
+.pl-lp--clean .pl-blog-cats a:not([aria-current="page"]):hover,
+.pl-lp--clean .pl-lp-league-tabs .pl-lp-tab:not([aria-pressed="true"]):hover {
+  background: var(--pl-clean-raised);
+}
+
 .pl-lp--clean :is(
+  .pl-lp-card,
   .pl-lp-engines-card,
   .pl-lp-table-card,
   .pl-lp-cortex-card,
   .pl-lp-calib-card,
   .pl-lp-results-card,
   .pl-lp-spei-card,
-  .pl-lp--precio .pl-lp-pricing-card
+  .pl-lp--precio .pl-lp-pricing-card,
+  .pl-prof-header
 )::before,
 .pl-lp--clean :is(
+  .pl-lp-card,
   .pl-lp-engines-card,
   .pl-lp-table-card,
   .pl-lp-cortex-card,
   .pl-lp-calib-card,
   .pl-lp-results-card,
   .pl-lp-spei-card,
-  .pl-lp--precio .pl-lp-pricing-card
+  .pl-lp--precio .pl-lp-pricing-card,
+  .pl-prof-header
 )::after {
   display: none;
 }
@@ -15230,7 +15276,8 @@ html[data-theme="light"] .pl-clean-hero-light img {
       opacity: 0;
       overflow: clip;
       transition: block-size 250ms var(--pl-landing-ease), opacity 170ms ease,
-        content-visibility 250ms allow-discrete;
+        content-visibility 250ms;
+      transition-behavior: allow-discrete;
     }
 
     .pl-clean-faq details[open]::details-content {

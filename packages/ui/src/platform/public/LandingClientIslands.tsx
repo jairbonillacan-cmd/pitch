@@ -1128,12 +1128,20 @@ export function PricingCardIsland({
   );
 }
 
+const RESULTS_PAGE_SIZE = 20;
+
 export function ResultsFilterListIsland({
   results,
 }: {
   results: readonly LandingFinishedResultItem[];
 }): React.JSX.Element {
   const [selectedLeague, setSelectedLeague] = useState<string>("all");
+  const [visibleCount, setVisibleCount] = useState<number>(RESULTS_PAGE_SIZE);
+
+  const selectLeague = (league: string): void => {
+    setSelectedLeague(league);
+    setVisibleCount(RESULTS_PAGE_SIZE);
+  };
 
   const leagues = React.useMemo(() => {
     const map = new Map<
@@ -1154,6 +1162,8 @@ export function ResultsFilterListIsland({
       : results.filter((item) => item.league === selectedLeague);
 
   const hitsCount = filtered.filter((item) => item.hit).length;
+  const visibleItems = filtered.slice(0, visibleCount);
+  const remainingCount = Math.max(0, filtered.length - visibleItems.length);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
@@ -1167,7 +1177,7 @@ export function ResultsFilterListIsland({
             type="button"
             className="pl-lp-tab"
             aria-pressed={selectedLeague === "all"}
-            onClick={() => setSelectedLeague("all")}
+            onClick={() => selectLeague("all")}
           >
             Todas ({results.length})
           </button>
@@ -1177,7 +1187,7 @@ export function ResultsFilterListIsland({
               type="button"
               className="pl-lp-tab"
               aria-pressed={selectedLeague === lg.league}
-              onClick={() => setSelectedLeague(lg.league)}
+              onClick={() => selectLeague(lg.league)}
             >
               <LeagueBadge league={lg.league} size={18} />
               <span>{lg.label}</span>
@@ -1193,7 +1203,7 @@ export function ResultsFilterListIsland({
           </p>
         ) : (
           <>
-            {filtered.map((item) => (
+            {visibleItems.map((item) => (
               <div key={item.id} className="pl-lp-result-row">
                 <div style={{ minWidth: 0 }}>
                   <p
@@ -1277,17 +1287,36 @@ export function ResultsFilterListIsland({
                 </span>
               </div>
             ))}
-            <p
-              className="num"
+            <div
               style={{
-                margin: 0,
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
                 padding: "16px 0",
-                fontSize: 13,
-                color: "var(--pl-text-muted)",
               }}
             >
-              Historial publicado antes del partido · {hitsCount} de {filtered.length} cumplidos
-            </p>
+              <p
+                className="num"
+                style={{
+                  margin: 0,
+                  fontSize: 13,
+                  color: "var(--pl-text-muted)",
+                }}
+              >
+                Mostrando {visibleItems.length} de {filtered.length} · Historial publicado antes del partido · {hitsCount} de {filtered.length} cumplidos
+              </p>
+              {remainingCount > 0 ? (
+                <button
+                  type="button"
+                  className="pl-lp-btn pl-lp-btn-ghost pl-lp-btn--compact num"
+                  onClick={() => setVisibleCount((prev) => prev + RESULTS_PAGE_SIZE)}
+                >
+                  Mostrar más partidos ({remainingCount} restantes)
+                </button>
+              ) : null}
+            </div>
           </>
         )}
       </div>

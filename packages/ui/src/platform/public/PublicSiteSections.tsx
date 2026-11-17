@@ -397,7 +397,7 @@ function pickPreferredHeroGame(
 }
 
 /**
- * Construye las tarjetas interactivas del Hero y de `/como-funciona`.
+ * Construye las tarjetas interactivas del comparador por liga de la portada (`/#hoy`).
  * Regla del fundador: «Lo más probable» es el resultado con mayor `p` del grupo `h2h`,
  * y su momio justo es `1 / p` en americano (con signo `−` tipográfico o `+`) y decimal.
  */

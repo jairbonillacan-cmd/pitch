@@ -14,12 +14,16 @@ async function warmLazySectionsAndWaitImages(
   page: import("@playwright/test").Page,
 ): Promise<void> {
   await page.evaluate(async () => {
+    for (const img of Array.from(document.querySelectorAll("img"))) {
+      if (img.loading === "lazy") img.loading = "eager";
+    }
     const step = Math.max(400, window.innerHeight);
     for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 30));
+      await new Promise((r) => setTimeout(r, 25));
     }
     window.scrollTo(0, 0);
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(undefined))));
   });
   await page.evaluate(async () => {
     const imgs = Array.from(document.querySelectorAll("img")).filter((img) => {
@@ -27,15 +31,18 @@ async function warmLazySectionsAndWaitImages(
       return style.display !== "none" && style.visibility !== "hidden";
     });
     await Promise.all(
-      imgs.map((img) =>
-        img.complete
-          ? Promise.resolve()
-          : new Promise<void>((resolve) => {
-              img.addEventListener("load", () => resolve(), { once: true });
-              img.addEventListener("error", () => resolve(), { once: true });
-              setTimeout(resolve, 3000);
-            }),
-      ),
+      imgs.map(async (img) => {
+        if (!img.complete) {
+          await new Promise<void>((resolve) => {
+            img.addEventListener("load", () => resolve(), { once: true });
+            img.addEventListener("error", () => resolve(), { once: true });
+            setTimeout(resolve, 3000);
+          });
+        }
+        if (typeof img.decode === "function") {
+          await img.decode().catch(() => {});
+        }
+      }),
     );
   });
 }
@@ -295,11 +302,12 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   }, testInfo) => {
     test.setTimeout(120_000);
 
-    // Las 3 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page", sin mascota y pasan Axe AA
+    // Las 3 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page", sin mascota ni atmósfera vieja y pasan Axe AA en oscuro y claro
     for (const route of PUBLIC_MENU_ROUTES) {
       const res = await page.goto(route);
       expect(res?.status(), `Expected 200 on ${route}`).toBe(200);
       await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
+      await expect(page.locator(".pl-lp-atmo, .pl-lp-orb, .pl-lp-fieldgrid")).toHaveCount(0);
 
       const mobileMenuBtn = page.locator('header button[aria-label*="menú" i]:visible');
       if ((await mobileMenuBtn.count()) > 0) {
@@ -329,16 +337,77 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
         );
       }
 
+      const slug = route.replace(/\//g, "") || "home";
+      await warmLazySectionsAndWaitImages(page);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-dark.png`),
+        fullPage: true,
+      });
+
       const routeA11y = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa"])
         .analyze();
-      expect(routeA11y.violations, `Axe violations on ${route}`).toEqual([]);
+      expect(routeA11y.violations, `Axe dark violations on ${route}`).toEqual([]);
+
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+      await page.waitForTimeout(150);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-light.png`),
+        fullPage: true,
+      });
+      const routeLightA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(routeLightA11y.violations, `Axe light violations on ${route}`).toEqual([]);
+
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     }
 
-    // Redirecciones permanentes 308 + navegación (incluyendo rutas podadas de marketing)
+    // Blog y documentos legales también comparten el shell limpio sin mascota ni orbes viejos
+    for (const extraRoute of ["/blog", "/blog/que-es-el-momio-justo", "/legal/terminos"]) {
+      const res = await page.goto(extraRoute);
+      expect(res?.status(), `Expected 200 on ${extraRoute}`).toBe(200);
+      await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
+      await expect(page.locator(".pl-lp-atmo, .pl-lp-orb, .pl-lp-fieldgrid")).toHaveCount(0);
+      const slug = extraRoute.replace(/^\//, "").replace(/\//g, "-");
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-dark.png`),
+        fullPage: false,
+      });
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+      await page.waitForTimeout(120);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-light.png`),
+        fullPage: false,
+      });
+      const extraLightA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(extraLightA11y.violations, `Axe light violations on ${extraRoute}`).toEqual([]);
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    }
+
+    // Ancla legal no queda oculta detrás del encabezado fijo
+    await page.goto("/legal/terminos#comunidad");
+    const anchorClearance = await page.evaluate(() => {
+      const header = document.querySelector(".pl-lp-header");
+      const target = document.getElementById("comunidad");
+      if (!header || !target) return null;
+      return target.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+    });
+    expect(anchorClearance).not.toBeNull();
+    expect(anchorClearance!).toBeGreaterThanOrEqual(0);
+
+    // Redirecciones permanentes 308 + navegación (incluyendo rutas podadas de marketing y preservación de query string antes de #fragment)
     const permanentRedirects: ReadonlyArray<[string, string]> = [
       ["/como-funciona", "/#hoy"],
+      ["/como-funciona?ref=SOCIO1", "/?ref=SOCIO1#hoy"],
       ["/parlays", "/#que-obtienes"],
+      ["/parlays?ref=SOCIO1", "/?ref=SOCIO1#que-obtienes"],
       ["/comunidad", "/"],
       ["/metodologia", "/motores"],
       ["/tecnologia", "/motores"],
@@ -351,7 +420,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       expect(redirectRes.headers()["location"]).toContain(toPath);
 
       await page.goto(fromPath);
-      await expect(page).toHaveURL(new RegExp(`${toPath}$`));
+      const escapedTarget = toPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      await expect(page).toHaveURL(new RegExp(`${escapedTarget}$`));
     }
 
     // Boleto público de Tipster (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido

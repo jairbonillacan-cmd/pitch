@@ -27,4 +27,4 @@ Usa `##` para cada sección: forman el índice «En este artículo».
 |---|---|
 | Dato | Dato |
 
-Cierra con un enlace interno, por ejemplo a [Cómo funciona](/como-funciona).
+Cierra con un enlace interno, por ejemplo a [Análisis del día](/#hoy).
