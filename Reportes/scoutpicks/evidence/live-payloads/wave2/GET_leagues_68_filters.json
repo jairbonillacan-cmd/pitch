@@ -1,0 +1,236 @@
+{
+  "status": 200,
+  "url": "/leagues/68/filters",
+  "data": {
+    "seasonId": 699,
+    "groups": [],
+    "rounds": [
+      {
+        "name": "1",
+        "number": 1
+      },
+      {
+        "name": "2",
+        "number": 2
+      },
+      {
+        "name": "3",
+        "number": 3
+      },
+      {
+        "name": "4",
+        "number": 4
+      },
+      {
+        "name": "5",
+        "number": 5
+      },
+      {
+        "name": "6",
+        "number": 6
+      },
+      {
+        "name": "7",
+        "number": 7
+      },
+      {
+        "name": "8",
+        "number": 8
+      },
+      {
+        "name": "9",
+        "number": 9
+      },
+      {
+        "name": "10",
+        "number": 10
+      },
+      {
+        "name": "11",
+        "number": 11
+      },
+      {
+        "name": "12",
+        "number": 12
+      },
+      {
+        "name": "13",
+        "number": 13
+      },
+      {
+        "name": "14",
+        "number": 14
+      },
+      {
+        "name": "15",
+        "number": 15
+      },
+      {
+        "name": "16",
+        "number": 16
+      },
+      {
+        "name": "17",
+        "number": 17
+      }
+    ],
+    "teams": [
+      {
+        "id": 67757036,
+        "name": "1st ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 67757040,
+        "name": "2nd ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 21351550,
+        "name": "3rd ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 21351546,
+        "name": "4th ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 21351547,
+        "name": "5th ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 21351553,
+        "name": "6th ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 67842045,
+        "name": "7th ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 67842046,
+        "name": "8th ranked",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null
+      },
+      {
+        "id": 67544,
+        "name": "América",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+        "code": "AME"
+      },
+      {
+        "id": 72126,
+        "name": "Atlante",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+        "code": "ATL"
+      },
+      {
+        "id": 67508,
+        "name": "Atlas",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+        "code": "ATS"
+      },
+      {
+        "id": 67642,
+        "name": "Atlético San Luis",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+        "code": "ASL"
+      },
+      {
+        "id": 67600,
+        "name": "Cruz Azul",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+        "code": "CAZ"
+      },
+      {
+        "id": 67801,
+        "name": "Guadalajara",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+        "code": "GUA"
+      },
+      {
+        "id": 67543,
+        "name": "Juárez",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+        "code": "JUA"
+      },
+      {
+        "id": 67641,
+        "name": "León",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+        "code": "LEO"
+      },
+      {
+        "id": 67619,
+        "name": "Monterrey",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+        "code": "MNT"
+      },
+      {
+        "id": 67560,
+        "name": "Necaxa",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+        "code": "NXA"
+      },
+      {
+        "id": 67620,
+        "name": "Pachuca",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+        "code": "PCH"
+      },
+      {
+        "id": 67507,
+        "name": "Puebla",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+        "code": "PUE"
+      },
+      {
+        "id": 67577,
+        "name": "Pumas UNAM",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+        "code": "PUM"
+      },
+      {
+        "id": 67523,
+        "name": "Querétaro",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+        "code": "QUE"
+      },
+      {
+        "id": 67578,
+        "name": "Santos Laguna",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+        "code": "SLA"
+      },
+      {
+        "id": 67808,
+        "name": "Tigres UANL",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+        "code": "TUA"
+      },
+      {
+        "id": 67524,
+        "name": "Tijuana",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+        "code": "TIJ"
+      },
+      {
+        "id": 67561,
+        "name": "Toluca",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+        "code": "TOL"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/odds/player-props?category=shots",
+  "requestBody": null,
+  "status": 400,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "success": false,
+    "error": {
+      "name": "ZodError",
+      "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"attacking\",\n      \"cards-fouls\",\n      \"passing\",\n      \"defense\"\n    ],\n    \"path\": [\n      \"category\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"attacking\\\"|\\\"cards-fouls\\\"|\\\"passing\\\"|\\\"defense\\\"\"\n  }\n]"
+    }
+  }
+}

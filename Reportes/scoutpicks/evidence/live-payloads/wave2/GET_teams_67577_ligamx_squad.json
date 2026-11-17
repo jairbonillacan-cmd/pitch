@@ -1,0 +1,347 @@
+{
+  "team": {
+    "id": 67577,
+    "name": "Pumas UNAM",
+    "shortName": "PUM",
+    "code": "PUM",
+    "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+    "country": {
+      "name": "Mexico",
+      "code": "MX",
+      "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+    },
+    "isNationalTeam": false,
+    "venue": null,
+    "competitions": [
+      {
+        "id": 68,
+        "name": "Liga MX",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+        "seasonId": 699,
+        "seasonYear": 2026
+      },
+      {
+        "id": 357,
+        "name": "Club Friendlies 3",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png",
+        "seasonId": 1526,
+        "seasonYear": 2026
+      }
+    ],
+    "founded": 1954
+  },
+  "squad": {
+    "teamId": 67577,
+    "players": [
+      {
+        "id": 15353,
+        "name": "Keylor Navas",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/13/186029.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": 1,
+        "captain": true,
+        "age": 39
+      },
+      {
+        "id": 49498,
+        "name": "Miguel Ángel Paul Hernández",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": 32,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 49997,
+        "name": "Pablo Lara",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/0/37731200.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": 35,
+        "captain": false,
+        "age": 21
+      },
+      {
+        "id": 49488,
+        "name": "Pablo Bennevendo Peña",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/27/32258139.png",
+        "position": "Defender",
+        "detailedPosition": "RB",
+        "positionGroup": "defender",
+        "shirtNumber": 2,
+        "captain": false,
+        "age": 26
+      },
+      {
+        "id": 49489,
+        "name": "Rubén Duarte Sánchez",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/7/186663.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": 5,
+        "captain": false,
+        "age": 31
+      },
+      {
+        "id": 49490,
+        "name": "Nathanael Ananias da Silva",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/6/219782.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": 6,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 49491,
+        "name": "Rodrigo López",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/27/37542779.png",
+        "position": "Defender",
+        "detailedPosition": "RB",
+        "positionGroup": "defender",
+        "shirtNumber": 7,
+        "captain": false,
+        "age": 25
+      },
+      {
+        "id": 49458,
+        "name": "Cristian Calderón",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/1/254209.png",
+        "position": "Defender",
+        "detailedPosition": "LB",
+        "positionGroup": "defender",
+        "shirtNumber": 12,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 49493,
+        "name": "Pablo Alfonso Monroy Reyes",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/8/37683208.png",
+        "position": "Defender",
+        "detailedPosition": "RB",
+        "positionGroup": "defender",
+        "shirtNumber": 13,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 49354,
+        "name": "Jesús Rivas",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Defender",
+        "detailedPosition": "RB",
+        "positionGroup": "defender",
+        "shirtNumber": 19,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 49549,
+        "name": "Tony Leone",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/22/37524950.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": 24,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 49499,
+        "name": "Ángel Amhed Azuaje García",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": 34,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 15262,
+        "name": "Álvaro Angulo",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/19/238227.png",
+        "position": "Defender",
+        "detailedPosition": "LB",
+        "positionGroup": "defender",
+        "shirtNumber": 77,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 14316,
+        "name": "Adalberto Carrasquilla",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/7/512743.png",
+        "position": "Midfielder",
+        "detailedPosition": "CM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 8,
+        "captain": false,
+        "age": 27
+      },
+      {
+        "id": 8111,
+        "name": "César Huerta",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/0/5666528.png",
+        "position": "Midfielder",
+        "detailedPosition": "LW",
+        "positionGroup": "midfielder",
+        "shirtNumber": 10,
+        "captain": false,
+        "age": 25
+      },
+      {
+        "id": 49562,
+        "name": "Israel Luna López",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/17/34862033.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 15,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 49682,
+        "name": "Sebastián Córdova",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/27/257243.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 17,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 49447,
+        "name": "Víctor Arteaga",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Midfielder",
+        "detailedPosition": "CM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 18,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 49495,
+        "name": "Santiago Trigos Nava",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/28/37579644.png",
+        "position": "Midfielder",
+        "detailedPosition": "DM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 20,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 49496,
+        "name": "Ángel Jesús Rico Reyes",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/1/37760737.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 26,
+        "captain": false,
+        "age": 21
+      },
+      {
+        "id": 15585,
+        "name": "Pedro Vite",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/22/37341910.png",
+        "position": "Midfielder",
+        "detailedPosition": "CM",
+        "positionGroup": "midfielder",
+        "shirtNumber": 45,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 49994,
+        "name": "José Juan Macías Guzmán",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/15/1846735.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": 11,
+        "captain": false,
+        "age": 27
+      },
+      {
+        "id": 13090,
+        "name": "Luciano Herrera",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/13/2875981.png",
+        "position": "Attacker",
+        "detailedPosition": "LW",
+        "positionGroup": "attacker",
+        "shirtNumber": 14,
+        "captain": false,
+        "age": 30
+      },
+      {
+        "id": 49294,
+        "name": "Uriel Antuna",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/27/254491.png",
+        "position": "Attacker",
+        "detailedPosition": "RW",
+        "positionGroup": "attacker",
+        "shirtNumber": 21,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 49369,
+        "name": "Alan Medina",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/13/2158445.png",
+        "position": "Attacker",
+        "detailedPosition": "RW",
+        "positionGroup": "attacker",
+        "shirtNumber": 22,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 2662,
+        "name": "Juninho",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/13/163181.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": 23,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 49497,
+        "name": "Santiago López López",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/12/37704460.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": 30,
+        "captain": false,
+        "age": 21
+      },
+      {
+        "id": 49195,
+        "name": "Robert Morales",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": 31,
+        "captain": false,
+        "age": 27
+      }
+    ],
+    "total": 28
+  }
+}

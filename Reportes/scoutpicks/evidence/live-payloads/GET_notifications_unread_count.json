@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/notifications/unread-count",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "unreadCount": 0
+  }
+}

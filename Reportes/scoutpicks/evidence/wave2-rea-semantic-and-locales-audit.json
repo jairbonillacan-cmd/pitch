@@ -1,0 +1,2712 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2026-11-17T17:48:00Z",
+  "target": "https://scoutpicks.app/dashboard/",
+  "wave": "Wave 2 Deep Forensic Audit — Specialist #2 (REA Semantic Graph, 13 Locales & Code Audit)",
+  "zeroPiiAndCredentialsVerified": true,
+  "reaSemanticGraphArchitecture": {
+    "evolutionAcrossAttempts": [
+      {
+        "stage": "Wave 1 — Monolithic Bundle Analysis",
+        "evidenceIds": [
+          "ev_a394dec94a9e5e5f399bf393e8aea83ab29cb391995908919172dae4bbe2b087",
+          "ev_4ff9ca99acb83bcb092e616a2dd3b0f3c84c5b8e0758e446059ac73f5cd13fd0"
+        ],
+        "epistemicStatus": "DERIVADO",
+        "inputBytes": 3361584,
+        "topLevelStatementsInSingleLexicalScope": 5179,
+        "workerTimeoutMs": 300000,
+        "visitedAstNodes": 0,
+        "parseFailures": 0,
+        "outcome": "provider_timeout (300,000 ms per-file deadline exceeded due to quadratic scope/binding/object-flow resolution across 5,179 top-level statements sharing a single Rollup module scope)"
+      },
+      {
+        "stage": "Wave 2 Attempt 0 — Naive Byte-Offset Slicing",
+        "evidenceIds": [
+          "ev_526e3839a5274cce4bde3420ccb3e4dbfaf7cc5740fbbf8c9a7f02a5324f68a2",
+          "ev_8f1c5653dc87e51f5ef7e8ceb3165005be935ab44b2ccc8fc744574f034bf926"
+        ],
+        "epistemicStatus": "DERIVADO",
+        "inputBytes": 1532091,
+        "relevantFiles": 13,
+        "parsedJavascriptFiles": 12,
+        "visitedAstNodes": 552,
+        "parseFailures": 11,
+        "outcome": "11 of 12 JS slices failed syntax parsing because arbitrary byte-offset cuts bisected multi-declarator VariableDeclarations and expressions; only mod_00_notification_worker.js (552 AST nodes) succeeded"
+      },
+      {
+        "stage": "Wave 2 Final — Exact @babel/parser AST Decomposition + 3-Pass REA JAG/JSRG Extraction",
+        "evidenceIds": [
+          "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+          "ev_542ac53c12e44e344659cd787f90163cef75894b6a259547f82b5fb51e1048fb",
+          "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+          "ev_15467abeaa90f54b297ad6134a8cca31c152269c7f7191d0c31f5fde50dfbf2c",
+          "ev_3ccc9da78405000164ac83ee66d1029e7951de658fc484c5ab9765b0a4b58055",
+          "ev_35a49a886cd76903e51b354287e8fa7e5363fcb36eee351e659e968351766108"
+        ],
+        "epistemicStatus": "DERIVADO",
+        "containerSha256": "990f733e7d532a0c5188206142403deb515551b6f08d5625bdd074a8c4a5d792",
+        "inputBytes": 1320530,
+        "relevantFiles": 18,
+        "parsedJavascriptFiles": 18,
+        "parseFailures": 0,
+        "totalVisitedAstNodes": 314226,
+        "semanticCoverageModules": "18/18 (100%)",
+        "outcome": "Zero parse failures and 100% untruncated JSRG semantic graph coverage across all 18 first-party modules by combining Pass 1 (mod_00..09, 17) + Pass 2 (mod_10..14, 16) + Pass 3 (mod_15)"
+      },
+      {
+        "stage": "Wave 2 Lazy Locales — Complete REA JAG/JSRG Analysis of 10 Locale Chunks",
+        "evidenceIds": [
+          "ev_0eb9279cfa7e2970ad6feec84923b3cdd551b1ac00b55b0058a723d6bd904ceb",
+          "ev_bdeaa5cdb491b21843c744b00429d756876454bd56eba43a58f604c4ceb9f9a2"
+        ],
+        "epistemicStatus": "DERIVADO",
+        "containerSha256": "d1c65ed63e600f937c7444c0f2c745eb991463f5b93a2c75408f5bbf9d41a907",
+        "inputBytes": 1043374,
+        "relevantFiles": 10,
+        "parsedJavascriptFiles": 10,
+        "parseFailures": 0,
+        "totalVisitedAstNodes": 75248,
+        "findings": 10,
+        "outcome": "10/10 lazy locale chunks parsed with 0 failures and 0 omitted relations (23,906 data-flow + 26,446 object-flow + 10 call-flow relations)"
+      }
+    ],
+    "passesDetail": {
+      "pass1_all18": {
+        "evidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "summaryViewEvidenceId": "ev_542ac53c12e44e344659cd787f90163cef75894b6a259547f82b5fb51e1048fb",
+        "filesParsed": 18,
+        "bytesRead": 1320530,
+        "visitedAstNodes": 314226,
+        "findings": 955,
+        "parseFailures": 0,
+        "parentResultBudgetBytes": 1940696192,
+        "workerHeapLimitBytes": 1098907648,
+        "workerTimeoutMs": 300000,
+        "untruncatedSemanticModules": [
+          "mod_00_notification_worker.js",
+          "mod_01_app_module.js",
+          "mod_02_i18n_inline_en_es_pt.js",
+          "mod_03_i18n_inline_en_es_pt.js",
+          "mod_04_insights_engine_and_scoring.js",
+          "mod_05_market_alerts_and_ai_assistant.js",
+          "mod_06_app_module.js",
+          "mod_07_app_module.js",
+          "mod_08_simulations_and_explore_screener.js",
+          "mod_09_insights_engine_and_scoring.js",
+          "mod_17_onboarding_and_paywall.js"
+        ],
+        "budgetDeferredModules": [
+          "mod_10_app_module.js",
+          "mod_11_leagues_teams_players_referees.js",
+          "mod_12_app_module.js",
+          "mod_13_app_module.js",
+          "mod_14_onboarding_and_paywall.js",
+          "mod_15_creator_pick_calendar_and_profile.js",
+          "mod_16_app_module.js"
+        ]
+      },
+      "pass2_mod10_to_16": {
+        "evidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "summaryViewEvidenceId": "ev_15467abeaa90f54b297ad6134a8cca31c152269c7f7191d0c31f5fde50dfbf2c",
+        "filesParsed": 6,
+        "bytesRead": 578887,
+        "visitedAstNodes": 121779,
+        "findings": 572,
+        "parseFailures": 0,
+        "semanticTruncated": false,
+        "completedModules": [
+          "mod_10_app_module.js",
+          "mod_11_leagues_teams_players_referees.js",
+          "mod_12_app_module.js",
+          "mod_13_app_module.js",
+          "mod_14_onboarding_and_paywall.js",
+          "mod_16_app_module.js"
+        ]
+      },
+      "pass3_mod15": {
+        "evidenceId": "ev_3ccc9da78405000164ac83ee66d1029e7951de658fc484c5ab9765b0a4b58055",
+        "summaryViewEvidenceId": "ev_35a49a886cd76903e51b354287e8fa7e5363fcb36eee351e659e968351766108",
+        "filesParsed": 1,
+        "bytesRead": 85282,
+        "visitedAstNodes": 23382,
+        "findings": 88,
+        "parseFailures": 0,
+        "semanticTruncated": false,
+        "completedModules": [
+          "mod_15_creator_pick_calendar_and_profile.js"
+        ]
+      }
+    },
+    "semanticRelationsMatrix": {
+      "boundary": {
+        "pass1_mod00_09_17": 173,
+        "pass2_mod10_14_16": 86,
+        "pass3_mod15": 16,
+        "total_18_first_party_modules": 275,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 275
+      },
+      "call-flow": {
+        "pass1_mod00_09_17": 3848,
+        "pass2_mod10_14_16": 2239,
+        "pass3_mod15": 1723,
+        "total_18_first_party_modules": 7810,
+        "lazy_10_locales": 10,
+        "grand_total_with_lazy_locales": 7820
+      },
+      "child-process": {
+        "pass1_mod00_09_17": 0,
+        "pass2_mod10_14_16": 0,
+        "pass3_mod15": 0,
+        "total_18_first_party_modules": 0,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 0
+      },
+      "closure": {
+        "pass1_mod00_09_17": 5097,
+        "pass2_mod10_14_16": 4390,
+        "pass3_mod15": 1158,
+        "total_18_first_party_modules": 10645,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 10645
+      },
+      "configuration": {
+        "pass1_mod00_09_17": 0,
+        "pass2_mod10_14_16": 0,
+        "pass3_mod15": 0,
+        "total_18_first_party_modules": 0,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 0
+      },
+      "data-flow": {
+        "pass1_mod00_09_17": 120431,
+        "pass2_mod10_14_16": 80293,
+        "pass3_mod15": 14523,
+        "total_18_first_party_modules": 215247,
+        "lazy_10_locales": 23906,
+        "grand_total_with_lazy_locales": 239153
+      },
+      "event": {
+        "pass1_mod00_09_17": 22,
+        "pass2_mod10_14_16": 51,
+        "pass3_mod15": 14,
+        "total_18_first_party_modules": 87,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 87
+      },
+      "object-flow": {
+        "pass1_mod00_09_17": 13115,
+        "pass2_mod10_14_16": 4649,
+        "pass3_mod15": 1300,
+        "total_18_first_party_modules": 19064,
+        "lazy_10_locales": 26446,
+        "grand_total_with_lazy_locales": 45510
+      },
+      "promise-ownership": {
+        "pass1_mod00_09_17": 183,
+        "pass2_mod10_14_16": 80,
+        "pass3_mod15": 25,
+        "total_18_first_party_modules": 288,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 288
+      },
+      "request": {
+        "pass1_mod00_09_17": 0,
+        "pass2_mod10_14_16": 0,
+        "pass3_mod15": 0,
+        "total_18_first_party_modules": 0,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 0
+      },
+      "resource-lifecycle": {
+        "pass1_mod00_09_17": 0,
+        "pass2_mod10_14_16": 0,
+        "pass3_mod15": 0,
+        "total_18_first_party_modules": 0,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 0
+      },
+      "timer": {
+        "pass1_mod00_09_17": 15,
+        "pass2_mod10_14_16": 14,
+        "pass3_mod15": 3,
+        "total_18_first_party_modules": 32,
+        "lazy_10_locales": 0,
+        "grand_total_with_lazy_locales": 32
+      }
+    },
+    "totalRetainedRelations18FirstPartyModules": 253448,
+    "totalRetainedRelationsLazyLocales": 50362,
+    "grandTotalRetainedRelationsAll28Files": 303810,
+    "jagViews": {
+      "javascriptRoutes": {
+        "evidenceId": "ev_7b3edd41edd5c3d249236f152e12fb9f1909c8c6e6cf5fba5d13883cdae79504",
+        "sourceModule": "mod_17_onboarding_and_paywall.js",
+        "totalDiscoveredRoutes": 18,
+        "routes": [
+          {
+            "path": "/",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1182,
+              1185
+            ]
+          },
+          {
+            "path": "/explore",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object",
+              "route-string-constant"
+            ],
+            "occurrenceCount": 2,
+            "sourceColumnRange": [
+              2694,
+              2704
+            ]
+          },
+          {
+            "path": "/leagues/$leagueId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2497,
+              2517
+            ]
+          },
+          {
+            "path": "/login",
+            "classification": "system",
+            "mechanisms": [
+              "nested-route-object",
+              "route-string-constant"
+            ],
+            "occurrenceCount": 3,
+            "sourceColumnRange": [
+              627,
+              635
+            ]
+          },
+          {
+            "path": "/login/verify",
+            "classification": "system",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              403,
+              418
+            ]
+          },
+          {
+            "path": "/market-alerts",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2756,
+              2772
+            ]
+          },
+          {
+            "path": "/matches",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1434,
+              1444
+            ]
+          },
+          {
+            "path": "/matches/$matchId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1514,
+              1533
+            ]
+          },
+          {
+            "path": "/onboarding",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object",
+              "route-string-constant"
+            ],
+            "occurrenceCount": 3,
+            "sourceColumnRange": [
+              2886,
+              2899
+            ]
+          },
+          {
+            "path": "/paywall",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object",
+              "route-string-constant"
+            ],
+            "occurrenceCount": 4,
+            "sourceColumnRange": [
+              854,
+              864
+            ]
+          },
+          {
+            "path": "/performance",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2588,
+              2602
+            ]
+          },
+          {
+            "path": "/picks",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1237,
+              1245
+            ]
+          },
+          {
+            "path": "/picks/$pickId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1851,
+              1867
+            ]
+          },
+          {
+            "path": "/players/$playerId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              1919,
+              1939
+            ]
+          },
+          {
+            "path": "/profile",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2824,
+              2834
+            ]
+          },
+          {
+            "path": "/referees/$refereeId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2266,
+              2288
+            ]
+          },
+          {
+            "path": "/return-to-app",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              410,
+              426
+            ]
+          },
+          {
+            "path": "/teams/$teamId",
+            "classification": "page",
+            "mechanisms": [
+              "nested-route-object"
+            ],
+            "occurrenceCount": 1,
+            "sourceColumnRange": [
+              2096,
+              2112
+            ]
+          }
+        ],
+        "redirectOnlyRoutesOmittedByComponentHeuristic": [
+          "/filters",
+          "/checkout"
+        ],
+        "layoutWrapperRoutesWithoutPath": [
+          "__root__ ($N)",
+          "authed (Yv)",
+          "shell (Bs)"
+        ]
+      },
+      "javascriptFacts": {
+        "evidenceId": "ev_d70f42bfeb67cdf4f433726f0e07944120ee929eef854a2ad7084ba48a968128",
+        "totalFacts": 999,
+        "examinedFirstPage": 64
+      }
+    },
+    "jsrgTraces": [
+      {
+        "evidenceId": "ev_0d526b8113c1c1f9d68c0c0082442d700cefcc52dbfc17a8a8775892c51d4134",
+        "parentEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "seedProperty": "expectedLineupStatus",
+        "direction": "backward-provenance",
+        "status": "ambiguous",
+        "totalSeedMatches": 8,
+        "traversedNodes": 8,
+        "traversedFunctions": 7,
+        "traversedModules": 3,
+        "relevantUnknowns": 8,
+        "matchedModules": [
+          "mod_03_i18n_inline_en_es_pt.js",
+          "mod_08_simulations_and_explore_screener.js",
+          "mod_04_insights_engine_and_scoring.js"
+        ]
+      },
+      {
+        "evidenceId": "ev_a7aa14de5724cdcc06f39d7b7593d9583601571f0451fd2e98da5c99f5a29abf",
+        "parentEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "seedProperty": "togglePick",
+        "direction": "backward-provenance",
+        "status": "ambiguous",
+        "totalSeedMatches": 5,
+        "traversedNodes": 5,
+        "traversedFunctions": 5,
+        "traversedModules": 4,
+        "relevantUnknowns": 5,
+        "matchedModules": [
+          "mod_08_simulations_and_explore_screener.js",
+          "mod_04_insights_engine_and_scoring.js",
+          "mod_09_insights_engine_and_scoring.js",
+          "mod_07_app_module.js"
+        ]
+      },
+      {
+        "evidenceId": "ev_90b1af38cd04e30e3e319ceb8f92cc13c282ed045e4f6b19929beaf77eb8e442",
+        "parentEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "seedProperty": "opponentMetricRank",
+        "direction": "backward-provenance",
+        "status": "found",
+        "totalSeedMatches": 1,
+        "traversedNodes": 1,
+        "traversedFunctions": 1,
+        "traversedModules": 1,
+        "relevantUnknowns": 1,
+        "matchedModules": [
+          "mod_09_insights_engine_and_scoring.js"
+        ]
+      },
+      {
+        "evidenceId": "ev_d3f533ae74217e4b9a0e2eaffdf605534586ac3d8b8d0000c4713a31e4b29d70",
+        "parentEvidenceId": "ev_3ccc9da78405000164ac83ee66d1029e7951de658fc484c5ab9765b0a4b58055",
+        "seedProperty": "canManagePickCalendar",
+        "direction": "backward-provenance",
+        "status": "partial",
+        "totalSeedMatches": 0,
+        "traversedNodes": 0,
+        "traversedFunctions": 0,
+        "traversedModules": 0,
+        "relevantUnknowns": 0,
+        "matchedModules": []
+      },
+      {
+        "evidenceId": "ev_5fe2335a2fd936e45456e95c9cb6b18f68c9b9df80f24606191a687a9620df9b",
+        "parentEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "seedProperty": "freeLeagueId",
+        "direction": "backward-provenance",
+        "status": "partial",
+        "totalSeedMatches": 0,
+        "traversedNodes": 0,
+        "traversedFunctions": 0,
+        "traversedModules": 0,
+        "relevantUnknowns": 0,
+        "matchedModules": []
+      },
+      {
+        "evidenceId": "ev_ac446d6ddc07dd8eaedd91ee1b59670f7056f13531203387491e1fa411acdf6e",
+        "parentEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "seedProperty": "onboardingV2",
+        "direction": "backward-provenance",
+        "status": "partial",
+        "totalSeedMatches": 0,
+        "traversedNodes": 0,
+        "traversedFunctions": 0,
+        "traversedModules": 0,
+        "relevantUnknowns": 0,
+        "matchedModules": []
+      }
+    ],
+    "perModuleInventory": [
+      {
+        "filename": "mod_00_notification_worker.js",
+        "bytes": 4216,
+        "unitCount": 1,
+        "startOffset": 0,
+        "endOffset": 4214,
+        "sha256": "6c311f1e5e20d48272b5769ecd5375fd7a70155178afe0b8fada93ccf3ede882",
+        "lines": 127,
+        "astNodes": 569,
+        "functionNodes": 13,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_01_app_module.js",
+        "bytes": 83673,
+        "unitCount": 148,
+        "startOffset": 5699,
+        "endOffset": 131776,
+        "sha256": "3dbf8b4b7e2c1a8148cac3d0c7d220b5fcce0e280d47924089a967d0997de680",
+        "lines": 148,
+        "astNodes": 23776,
+        "functionNodes": 300,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_02_i18n_inline_en_es_pt.js",
+        "bytes": 81774,
+        "unitCount": 22,
+        "startOffset": 131782,
+        "endOffset": 213110,
+        "sha256": "b79fa8889aee53f7887f2dc89049fe8dd8c4e168ba2071a3561e20179f1ff612",
+        "lines": 36,
+        "astNodes": 7652,
+        "functionNodes": 0,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_03_i18n_inline_en_es_pt.js",
+        "bytes": 60795,
+        "unitCount": 18,
+        "startOffset": 227066,
+        "endOffset": 2055370,
+        "sha256": "590c09adbde30737bc14c3d5262d90a7347fe922ae8e1fed98e6e9571b8b4256",
+        "lines": 38,
+        "astNodes": 6761,
+        "functionNodes": 46,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_04_insights_engine_and_scoring.js",
+        "bytes": 81736,
+        "unitCount": 136,
+        "startOffset": 2230578,
+        "endOffset": 2312125,
+        "sha256": "50a178ac302ae41c6613245636d58ae7ab2762bf0684ddf9b47647dde6d03914",
+        "lines": 136,
+        "astNodes": 19636,
+        "functionNodes": 377,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_05_market_alerts_and_ai_assistant.js",
+        "bytes": 84885,
+        "unitCount": 133,
+        "startOffset": 2312125,
+        "endOffset": 2396837,
+        "sha256": "d6279e57b84f2c9dde5e1b93c175542fb5a011a56405607e99da50a60e78dc96",
+        "lines": 133,
+        "astNodes": 21853,
+        "functionNodes": 418,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_06_app_module.js",
+        "bytes": 84256,
+        "unitCount": 42,
+        "startOffset": 2396837,
+        "endOffset": 2481046,
+        "sha256": "cb5e9676f4d97d41bf45e0a02dae90ad5326affc357f6590cb2c515dbb6ebccb",
+        "lines": 42,
+        "astNodes": 19882,
+        "functionNodes": 346,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_07_app_module.js",
+        "bytes": 84994,
+        "unitCount": 135,
+        "startOffset": 2481046,
+        "endOffset": 2565844,
+        "sha256": "903cf34be5e85d34b724306520c320d385107286ccfa663e44448723bf04c86f",
+        "lines": 135,
+        "astNodes": 21710,
+        "functionNodes": 374,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_08_simulations_and_explore_screener.js",
+        "bytes": 84994,
+        "unitCount": 86,
+        "startOffset": 2565844,
+        "endOffset": 2650701,
+        "sha256": "028efd7406d5a4a7b088b034daccbf3d6206dfcd80ae2d76ee197e5914a7ae1f",
+        "lines": 86,
+        "astNodes": 22688,
+        "functionNodes": 394,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_09_insights_engine_and_scoring.js",
+        "bytes": 84853,
+        "unitCount": 68,
+        "startOffset": 2650701,
+        "endOffset": 2735439,
+        "sha256": "91f67209813214905db03d022a0e793596775c89b3ba05c810a4daf6acac4b26",
+        "lines": 68,
+        "astNodes": 22030,
+        "functionNodes": 332,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      },
+      {
+        "filename": "mod_10_app_module.js",
+        "bytes": 84766,
+        "unitCount": 66,
+        "startOffset": 2735439,
+        "endOffset": 2820103,
+        "sha256": "023ff0896c980861ad3a25d2c76117cbe6f317b0dabd7a43e0eb328ad482ddde",
+        "lines": 66,
+        "astNodes": 21073,
+        "functionNodes": 450,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_11_leagues_teams_players_referees.js",
+        "bytes": 75400,
+        "unitCount": 109,
+        "startOffset": 2820103,
+        "endOffset": 2895389,
+        "sha256": "9d9c19984feccab9d206930b450f0460b5850cc66e395d38ef35f9a8fddfa02e",
+        "lines": 109,
+        "astNodes": 17819,
+        "functionNodes": 387,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_12_app_module.js",
+        "bytes": 84502,
+        "unitCount": 103,
+        "startOffset": 2895389,
+        "endOffset": 2979749,
+        "sha256": "dcd2f80ec7f60fec7024a1b8f30d1668b01489e778caaaa6b4a844381753f397",
+        "lines": 103,
+        "astNodes": 22432,
+        "functionNodes": 454,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_13_app_module.js",
+        "bytes": 81351,
+        "unitCount": 115,
+        "startOffset": 2979749,
+        "endOffset": 3060984,
+        "sha256": "27e8d7ef4d0e1954569bf91ace7e478ba0cd3b3415979afcd6e12ee082b9f6e1",
+        "lines": 115,
+        "astNodes": 21637,
+        "functionNodes": 480,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_14_onboarding_and_paywall.js",
+        "bytes": 83165,
+        "unitCount": 65,
+        "startOffset": 3060984,
+        "endOffset": 3144070,
+        "sha256": "3a6d6c819964df2a5ca2033f25de76e412925eb7b7c9d32f578656ffd945b3cc",
+        "lines": 65,
+        "astNodes": 15431,
+        "functionNodes": 236,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_15_creator_pick_calendar_and_profile.js",
+        "bytes": 85282,
+        "unitCount": 304,
+        "startOffset": 3144070,
+        "endOffset": 3229046,
+        "sha256": "96c8562898f96e3e30842abf6d55fe2a4aac930dde7dea53fbe77d8c68ca9ee2",
+        "lines": 312,
+        "astNodes": 23381,
+        "functionNodes": 502,
+        "semanticPassEvidenceId": "ev_3ccc9da78405000164ac83ee66d1029e7951de658fc484c5ab9765b0a4b58055",
+        "semanticPassLabel": "Pass 3 (1/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_16_app_module.js",
+        "bytes": 84421,
+        "unitCount": 298,
+        "startOffset": 3229046,
+        "endOffset": 3313168,
+        "sha256": "8912239a1bb83cee8d197110cdad33b2b8b8f8204a34420602e506c526cd0257",
+        "lines": 310,
+        "astNodes": 24406,
+        "functionNodes": 502,
+        "semanticPassEvidenceId": "ev_2ba4fc93becc9afbb1fd0fb0862986cb06588ecc636243b71f721af68fbff515",
+        "semanticPassLabel": "Pass 2 (6/18 full semantic untruncated)"
+      },
+      {
+        "filename": "mod_17_onboarding_and_paywall.js",
+        "bytes": 5467,
+        "unitCount": 19,
+        "startOffset": 3313168,
+        "endOffset": 3318617,
+        "sha256": "7fb4f1cb891a1f3bc16d3b8fa8f7e4376549aa75a4db16b2dc3790234716fc46",
+        "lines": 19,
+        "astNodes": 1490,
+        "functionNodes": 58,
+        "semanticPassEvidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "semanticPassLabel": "Pass 1 (11/18 full semantic + 18/18 JAG)"
+      }
+    ]
+  },
+  "fourLiveBuildsComparison": {
+    "builds": [
+      {
+        "buildKey": "Build 1",
+        "filename": "index-BZ3_gLK3.js",
+        "bytes": 3361584,
+        "utf16CodeUnits": 3313154,
+        "lines": 1175,
+        "sha256": "674b3c11a894c8bc508732ad3031a2dcf3932400c252b1ce68a0ccb146d7d903",
+        "evidenceId": "ev_abdb3cf1dbd8a7aab2a952ca236449585bd2de775d8200297a3b94e836220fb3",
+        "capturedWindowUtc": "2026-11-17T15:01:03Z",
+        "buildId": "34d7fb96e12d47910688cd31cdcee47352e38c12-44092619889.1",
+        "gitCommitSha": "34d7fb96e12d47910688cd31cdcee47352e38c12",
+        "githubActionsRunId": "44092619889.1",
+        "sentryDebugId": "d3d32496-d7c1-4e3e-a926-e30c137428da",
+        "topLevelAstStatements": 5179,
+        "lazyLocaleImports": [
+          "./it-D64XgvOw.js",
+          "./zh-B9Q4DO47.js",
+          "./ar-mU0P8YAR.js",
+          "./ru-BDw0HTsc.js",
+          "./hi-CXL6oNyA.js",
+          "./ja-fpPYJiRJ.js",
+          "./de-sW_zOHej.js",
+          "./tr-DwxvYBBl.js",
+          "./el-CoNXKQu4.js",
+          "./ro-8hYGVb8g.js"
+        ]
+      },
+      {
+        "buildKey": "Build 2",
+        "filename": "index--7dqLkuo.js",
+        "bytes": 3361584,
+        "utf16CodeUnits": 3313154,
+        "lines": 1175,
+        "sha256": "15bba82d3bdad2d4a99a9cc696ef6ef61ccdbdbacd05b64fc93cb7024a935f68",
+        "evidenceId": "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be",
+        "capturedWindowUtc": "2026-11-17T15:30:04Z",
+        "buildId": "cb0f6a961495fdbd12ef646d497dc3389a2ca2c7-44112075563.1",
+        "gitCommitSha": "cb0f6a961495fdbd12ef646d497dc3389a2ca2c7",
+        "githubActionsRunId": "44112075563.1",
+        "sentryDebugId": "1ab08850-266e-4c4a-a55e-e3af2e4c2d05",
+        "topLevelAstStatements": 5179,
+        "lazyLocaleImports": [
+          "./it-BUPtdTTJ.js",
+          "./zh-Sq_VduiI.js",
+          "./ar-BAbSsL-k.js",
+          "./ru-CfVg0zAi.js",
+          "./hi-tzgJ-AOY.js",
+          "./ja-DSH86J28.js",
+          "./de-DRh_GvEq.js",
+          "./tr-Bd5FM3ka.js",
+          "./el-DCcMyGys.js",
+          "./ro-S3niGd_L.js"
+        ]
+      },
+      {
+        "buildKey": "Build 3",
+        "filename": "index-De_Y7Tky.js",
+        "bytes": 3367067,
+        "utf16CodeUnits": 3318618,
+        "lines": 1180,
+        "sha256": "ae1f2c4697d1be462641f0373d0de31f2275368fd4562020065c374062140f3b",
+        "evidenceId": "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "capturedWindowUtc": "2026-11-17T16:45:00Z (live /dashboard/ fetch)",
+        "buildId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "gitCommitSha": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa",
+        "githubActionsRunId": "44127063438.1",
+        "sentryDebugId": "ecc4c938-79be-421a-abd0-7916ce4cdc21",
+        "topLevelAstStatements": 5183,
+        "lazyLocaleImports": [
+          "./it-DpWNWq-s.js",
+          "./zh-DeaxvHPq.js",
+          "./ar-Bp7VYTmE.js",
+          "./ru-BlZoQDfy.js",
+          "./hi-Dyn_SWLd.js",
+          "./ja-DwRugUWt.js",
+          "./de-DA3ZH38I.js",
+          "./tr-DBs6phff.js",
+          "./el-Dgjo_CBM.js",
+          "./ro-DJPW9t2h.js"
+        ]
+      },
+      {
+        "buildKey": "Build 4",
+        "filename": "index-DyN-BnCU.js",
+        "bytes": 3367067,
+        "utf16CodeUnits": 3318618,
+        "lines": 1180,
+        "sha256": "d0f001bcf070ece3470a61128649840d3cb34bf82b38ce9fec49de769cbe6f8f",
+        "evidenceId": "ev_3b9c90fb0c981b84008f879d4097d98b90b43cd6e242d4ddf8387a8378b8229a",
+        "capturedWindowUtc": "2026-11-17T17:17:18Z",
+        "buildId": "f3845b61b35c331cdcc57cd00bc4b6be060da02a-44130056569.1",
+        "gitCommitSha": "f3845b61b35c331cdcc57cd00bc4b6be060da02a",
+        "githubActionsRunId": "44130056569.1",
+        "sentryDebugId": "daa02109-278e-4527-8cb2-5ddecab526f7",
+        "topLevelAstStatements": 5183,
+        "lazyLocaleImports": [
+          "./it-DZOLGwia.js",
+          "./zh-BxFH_-iM.js",
+          "./ar-Dv24SS_-.js",
+          "./ru-CmbgS4O7.js",
+          "./hi-BZ2RbDV8.js",
+          "./ja-BGDeQM4q.js",
+          "./de-CI5boTjf.js",
+          "./tr-Bd9rsZHh.js",
+          "./el-DkOKS2Yb.js",
+          "./ro-BL1ZpXE_.js"
+        ]
+      }
+    ],
+    "transitions": {
+      "build1_to_build2": {
+        "deltaBytes": 0,
+        "deltaTopLevelStatements": 0,
+        "exactByteDiffRegions": 18,
+        "summary": "Zero functional or i18n changes. Only SENTRY_RELEASE/buildId (5 call-sites), _sentryDebugIds UUIDv4 (2 call-sites), and all 10 lazy locale chunk filenames rotated due to @sentry/vite-plugin debugId injection on a monorepo non-web commit."
+      },
+      "build2_to_build3": {
+        "deltaBytes": 5483,
+        "deltaUtf16Chars": 5464,
+        "deltaLines": 5,
+        "deltaTopLevelStatements": 4,
+        "addedStringLiteralsCount": 75,
+        "removedStringLiteralsCount": 13,
+        "addedFeature": {
+          "name": "Guide Videos (Profile -> Video guides)",
+          "featureFlag": "lc.GUIDE_VIDEOS_ENABLED = 'guide_videos_enabled'",
+          "apiEndpoint": "GET /guide/videos",
+          "tanStackQueryKey": "['guide', 'videos', userId, language] (staleTime: 600,000 ms)",
+          "embedOrigin": "https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0&playsinline=1&autoplay=1",
+          "posthogEventsAdded": [
+            "guide_opened",
+            "guide_video_played",
+            "guide_load_failed",
+            "guide_retry_clicked"
+          ],
+          "i18nNamespaceAdded": "guide (8 keys translated across all 13 locales = 104 strings)",
+          "componentsAdded": [
+            "Qrt (API client)",
+            "Xrt (queryKey factory)",
+            "Zrt (YouTube nocookie URL builder)",
+            "Jrt (video player & list UI)",
+            "k3 (circle-play Lucide icon)"
+          ]
+        }
+      },
+      "build3_to_build4": {
+        "deltaBytes": 0,
+        "deltaTopLevelStatements": 0,
+        "exactByteDiffRegions": 18,
+        "summary": "Zero functional, AST, or i18n changes between index-De_Y7Tky.js and index-DyN-BnCU.js. Identical 3,367,067 bytes and 5,183 top-level statements; only SENTRY_RELEASE/buildId (70dc4f66...-44127063438.1 -> f3845b61...-44130056569.1), Sentry Debug ID (ecc4c938... -> daa02109...), and all 10 lazy locale chunk hashes rotated again."
+      }
+    }
+  },
+  "localesAndChunkLoadErrorAudit": {
+    "totalSupportedLanguages": 13,
+    "inlineLanguages": [
+      "en",
+      "es",
+      "pt"
+    ],
+    "lazyLanguages": [
+      "ar",
+      "de",
+      "el",
+      "hi",
+      "it",
+      "ja",
+      "ro",
+      "ru",
+      "tr",
+      "zh"
+    ],
+    "totalLazyChunksBytes": 1043374,
+    "totalTopLevelNamespaces": 70,
+    "uniqueSemanticBaseKeysPerLocale": 2166,
+    "pluralizedBaseKeysCount": 26,
+    "nonPluralBaseKeysCount": 2140,
+    "totalLeafKeysAcrossAll13Locales": 28704,
+    "missingSemanticBaseKeysAcrossAll13Locales": 0,
+    "brokenInterpolationPlaceholdersAcrossAll13Locales": 0,
+    "nonStringLeafKey": {
+      "key": "calendar.dayInitials",
+      "type": "array",
+      "length": 7,
+      "enValue": [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S"
+      ]
+    },
+    "focusNamespacesAcrossAll13Locales": {
+      "guide": {
+        "presentInAll13": true,
+        "leafCountPerLocale": 8
+      },
+      "creatorTools": {
+        "presentInAll13": true,
+        "leafCountPerLocale": 49
+      },
+      "onboardingV2": {
+        "presentInAll13": true,
+        "leafCountPerLocale": 78
+      },
+      "profileParity": {
+        "presentInAll13": true,
+        "leafCountPerLocale": 12
+      },
+      "marketAlerts": {
+        "presentInAll13": true,
+        "leafCountByLocale": {
+          "en": 255,
+          "es": 256,
+          "pt": 256,
+          "ar": 259,
+          "de": 255,
+          "el": 255,
+          "hi": 255,
+          "it": 256,
+          "ja": 254,
+          "ro": 256,
+          "ru": 257,
+          "tr": 255,
+          "zh": 254
+        }
+      }
+    },
+    "reachabilityAndOrphanKeys": {
+      "totalSemanticBaseKeys": 2166,
+      "reachableInProductionWebCode": 1949,
+      "referencedOnlyInUnreachableGttOnboardingV2": 79,
+      "completelyUnreferencedAnywhereInWebBundle": 138,
+      "totalEffectivelyDeadBaseKeysInWeb": 217,
+      "topUnreferencedNamespaces": [
+        {
+          "ns": "creatorTools",
+          "unreferencedCount": 24,
+          "totalInNs": 49,
+          "pctUnreferenced": 49,
+          "samples": [
+            "creatorTools.pickCalendar.previewCta",
+            "creatorTools.pickCalendar.previewError",
+            "creatorTools.pickCalendar.applyCta",
+            "creatorTools.pickCalendar.applyError",
+            "creatorTools.pickCalendar.poolChangedError",
+            "creatorTools.pickCalendar.summaryTitle"
+          ]
+        },
+        {
+          "ns": "webCheckout",
+          "unreferencedCount": 16,
+          "totalInNs": 30,
+          "pctUnreferenced": 53.3,
+          "samples": [
+            "webCheckout.title",
+            "webCheckout.plans.weekly",
+            "webCheckout.plans.monthly",
+            "webCheckout.plans.yearly",
+            "webCheckout.pricePer.weekly",
+            "webCheckout.pricePer.monthly"
+          ]
+        },
+        {
+          "ns": "insightsV2",
+          "unreferencedCount": 14,
+          "totalInNs": 48,
+          "pctUnreferenced": 29.2,
+          "samples": [
+            "insightsV2.chooseAnalysisTeam",
+            "insightsV2.chooseAnalysisLens",
+            "insightsV2.headlineLens",
+            "insightsV2.lensHitSummary",
+            "insightsV2.lensHitCount",
+            "insightsV2.expectedStarter"
+          ]
+        },
+        {
+          "ns": "auth",
+          "unreferencedCount": 12,
+          "totalInNs": 18,
+          "pctUnreferenced": 66.7,
+          "samples": [
+            "auth.enterEmail",
+            "auth.login",
+            "auth.logoutConfirm",
+            "auth.emailRequired",
+            "auth.emailInvalid",
+            "auth.invalidCode"
+          ]
+        },
+        {
+          "ns": "marketAlerts",
+          "unreferencedCount": 10,
+          "totalInNs": 254,
+          "pctUnreferenced": 3.9,
+          "samples": [
+            "marketAlerts.hub.openBadge",
+            "marketAlerts.hub.seeAll",
+            "marketAlerts.hub.noUpcomingMatch",
+            "marketAlerts.card.lineMarketTitle",
+            "marketAlerts.card.watchingOpening",
+            "marketAlerts.card.currentPrice"
+          ]
+        },
+        {
+          "ns": "lockedInsight",
+          "unreferencedCount": 10,
+          "totalInNs": 13,
+          "pctUnreferenced": 76.9,
+          "samples": [
+            "lockedInsight.inlineTitle",
+            "lockedInsight.title",
+            "lockedInsight.description",
+            "lockedInsight.viewPlans",
+            "lockedInsight.maybeLater",
+            "lockedInsight.hitRateTeaser"
+          ]
+        },
+        {
+          "ns": "webPlaceholder",
+          "unreferencedCount": 10,
+          "totalInNs": 10,
+          "pctUnreferenced": 100,
+          "samples": [
+            "webPlaceholder.matchDetailTitle",
+            "webPlaceholder.matchDetail",
+            "webPlaceholder.pickDetailTitle",
+            "webPlaceholder.pickDetail",
+            "webPlaceholder.comingSoon",
+            "webPlaceholder.picks"
+          ]
+        },
+        {
+          "ns": "authScreens",
+          "unreferencedCount": 8,
+          "totalInNs": 33,
+          "pctUnreferenced": 24.2,
+          "samples": [
+            "authScreens.paste",
+            "authScreens.pasteCodeTitle",
+            "authScreens.pasteCodePrompt",
+            "authScreens.errorTitle",
+            "authScreens.signInErrorTitle",
+            "authScreens.googleNotConfigured"
+          ]
+        },
+        {
+          "ns": "bookmakerPreferences",
+          "unreferencedCount": 7,
+          "totalInNs": 16,
+          "pctUnreferenced": 43.8,
+          "samples": [
+            "bookmakerPreferences.title",
+            "bookmakerPreferences.requiredPromptTitle",
+            "bookmakerPreferences.requiredPromptSubtitle",
+            "bookmakerPreferences.requiredPromptSave",
+            "bookmakerPreferences.savedTitle",
+            "bookmakerPreferences.savedMessage"
+          ]
+        },
+        {
+          "ns": "injuries",
+          "unreferencedCount": 5,
+          "totalInNs": 5,
+          "pctUnreferenced": 100,
+          "samples": [
+            "injuries.statuses.questionable",
+            "injuries.statuses.doubtful",
+            "injuries.statuses.probable",
+            "injuries.statuses.out",
+            "injuries.statuses.injured"
+          ]
+        },
+        {
+          "ns": "homeLayout",
+          "unreferencedCount": 5,
+          "totalInNs": 13,
+          "pctUnreferenced": 38.5,
+          "samples": [
+            "homeLayout.tooltipDescription",
+            "homeLayout.description",
+            "homeLayout.moveHint",
+            "homeLayout.moveUp",
+            "homeLayout.moveDown"
+          ]
+        },
+        {
+          "ns": "homeHub",
+          "unreferencedCount": 4,
+          "totalInNs": 13,
+          "pctUnreferenced": 30.8,
+          "samples": [
+            "homeHub.openSearch",
+            "homeHub.lastSevenDays",
+            "homeHub.pickCount",
+            "homeHub.viewMatches"
+          ]
+        },
+        {
+          "ns": "paywall",
+          "unreferencedCount": 3,
+          "totalInNs": 78,
+          "pctUnreferenced": 3.8,
+          "samples": [
+            "paywall.web.features.insights",
+            "paywall.web.features.analysis",
+            "paywall.web.features.access"
+          ]
+        },
+        {
+          "ns": "webHome",
+          "unreferencedCount": 3,
+          "totalInNs": 24,
+          "pctUnreferenced": 12.5,
+          "samples": [
+            "webHome.signedInAs",
+            "webHome.save",
+            "webHome.saved"
+          ]
+        },
+        {
+          "ns": "webProfile",
+          "unreferencedCount": 3,
+          "totalInNs": 25,
+          "pctUnreferenced": 12,
+          "samples": [
+            "webProfile.subtitle",
+            "webProfile.languageDescription",
+            "webProfile.joinTelegramSubtitle"
+          ]
+        },
+        {
+          "ns": "matchResult",
+          "unreferencedCount": 2,
+          "totalInNs": 6,
+          "pctUnreferenced": 33.3,
+          "samples": [
+            "matchResult.homeWin",
+            "matchResult.awayWin"
+          ]
+        },
+        {
+          "ns": "profileCommon",
+          "unreferencedCount": 1,
+          "totalInNs": 5,
+          "pctUnreferenced": 20,
+          "samples": [
+            "profileCommon.save"
+          ]
+        },
+        {
+          "ns": "webNav",
+          "unreferencedCount": 1,
+          "totalInNs": 15,
+          "pctUnreferenced": 6.7,
+          "samples": [
+            "webNav.filters"
+          ]
+        }
+      ]
+    },
+    "perLanguageMetrics": {
+      "en": {
+        "delivery": "inline-monolith",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2192,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 52,
+        "totalStringChars": 45738,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 0,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 255,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 22,
+          "webPlayer": 75,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 111,
+          "matchTimeline": 24,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 82,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 205,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 14,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 6,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 82,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 34,
+          "webSubscription": 28
+        }
+      },
+      "es": {
+        "delivery": "inline-monolith",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2218,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 78,
+        "totalStringChars": 51976,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 26,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 39,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 256,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 23,
+          "webPlayer": 76,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 119,
+          "matchTimeline": 26,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 83,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 206,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 15,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 8,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 86,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 38,
+          "webSubscription": 28
+        }
+      },
+      "pt": {
+        "delivery": "inline-monolith",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2218,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 78,
+        "totalStringChars": 51593,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 26,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 47,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 256,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 23,
+          "webPlayer": 76,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 119,
+          "matchTimeline": 26,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 83,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 206,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 15,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 8,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 86,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 38,
+          "webSubscription": 28
+        }
+      },
+      "ar": {
+        "delivery": "lazy-chunk",
+        "file": "ar-Bp7VYTmE.js",
+        "bytes": 114233,
+        "sha256": "6de889d26b41a3dd7a79e1c9068374f94c62e4c94379e080b46ac3dbd85b4bf5",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "1a000323-40e6-479c-b35f-96329ccdc1a3",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2296,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 156,
+        "totalStringChars": 45519,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 104,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 2,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 259,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 26,
+          "webPlayer": 79,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 143,
+          "matchTimeline": 32,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 86,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 209,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 18,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 14,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 98,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 50,
+          "webSubscription": 28
+        }
+      },
+      "de": {
+        "delivery": "lazy-chunk",
+        "file": "de-DA3ZH38I.js",
+        "bytes": 87723,
+        "sha256": "1a4bd02f5415f52b2aab340438279d003bccbe938f6bd14b5abbde5f5da569d9",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "b23e5b78-ecf0-4b56-98d4-7cd57447acc3",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2192,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 52,
+        "totalStringChars": 54218,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 43,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 255,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 22,
+          "webPlayer": 75,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 111,
+          "matchTimeline": 24,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 82,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 205,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 14,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 6,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 82,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 34,
+          "webSubscription": 28
+        }
+      },
+      "el": {
+        "delivery": "lazy-chunk",
+        "file": "el-Dgjo_CBM.js",
+        "bytes": 134569,
+        "sha256": "068cecbc246c21c20824594124a10dfb7e2ed0b4c48f516f76bf2f6477918c82",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "27acba45-48c5-43db-abcc-4010aba2e33d",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2192,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 52,
+        "totalStringChars": 57248,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 6,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 255,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 22,
+          "webPlayer": 75,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 111,
+          "matchTimeline": 24,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 82,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 205,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 14,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 6,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 82,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 34,
+          "webSubscription": 28
+        }
+      },
+      "hi": {
+        "delivery": "lazy-chunk",
+        "file": "hi-Dyn_SWLd.js",
+        "bytes": 145291,
+        "sha256": "3fd6bbb7fc9480476f3347717ee859514fe5e18271ad8d352b0522b394d3570e",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "aa9e77e6-9e41-4308-9edf-60ded5257ac1",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2192,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 52,
+        "totalStringChars": 45877,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 5,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 255,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 22,
+          "webPlayer": 75,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 111,
+          "matchTimeline": 24,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 82,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 205,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 14,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 6,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 82,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 34,
+          "webSubscription": 28
+        }
+      },
+      "it": {
+        "delivery": "lazy-chunk",
+        "file": "it-DpWNWq-s.js",
+        "bytes": 86806,
+        "sha256": "38fb46e52f69e7f2b922b3b81f42a99a31fa95a7bdd5d1da3c4a8410f6c7e923",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "a0919854-90c4-42e2-be9b-2b14216b0c1a",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2218,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 78,
+        "totalStringChars": 53324,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 26,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 25,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 256,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 23,
+          "webPlayer": 76,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 119,
+          "matchTimeline": 26,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 83,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 206,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 15,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 8,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 86,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 38,
+          "webSubscription": 28
+        }
+      },
+      "ja": {
+        "delivery": "lazy-chunk",
+        "file": "ja-DwRugUWt.js",
+        "bytes": 97815,
+        "sha256": "a760c86cebdc40f15f2fae3c712df7bb90cd1932c7dfb655f28354c06e15c81b",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "8647086b-1291-4c17-a109-c2170567a35b",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2166,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 26,
+        "totalStringChars": 25660,
+        "missingExactVsEn": 26,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 5,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 254,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 21,
+          "webPlayer": 74,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 103,
+          "matchTimeline": 22,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 81,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 204,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 13,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 4,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 78,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 30,
+          "webSubscription": 28
+        }
+      },
+      "ro": {
+        "delivery": "lazy-chunk",
+        "file": "ro-DJPW9t2h.js",
+        "bytes": 88918,
+        "sha256": "3cf6881916d2eb909f159bad6fd81438f533934d693ac4cf87f179924f31ce12",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "426df0d0-2c6d-4375-a5da-045ae9185ad7",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2218,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 78,
+        "totalStringChars": 52751,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 26,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 16,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 256,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 23,
+          "webPlayer": 76,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 119,
+          "matchTimeline": 26,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 83,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 206,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 15,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 8,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 86,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 38,
+          "webSubscription": 28
+        }
+      },
+      "ru": {
+        "delivery": "lazy-chunk",
+        "file": "ru-BlZoQDfy.js",
+        "bytes": 126192,
+        "sha256": "23a4ac314634e2acea129f7c000bbd5c736f847757d2b09f3f8c9a47283c0610",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "bf7f0b91-1411-42e1-86ef-de09744fe7ae",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2244,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 104,
+        "totalStringChars": 52215,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 52,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 5,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 257,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 24,
+          "webPlayer": 77,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 127,
+          "matchTimeline": 28,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 84,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 207,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 16,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 10,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 90,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 42,
+          "webSubscription": 28
+        }
+      },
+      "tr": {
+        "delivery": "lazy-chunk",
+        "file": "tr-DBs6phff.js",
+        "bytes": 84802,
+        "sha256": "c962ba42eb720230c48930a003ac7c77a8503619904f3f72cde773c80d37dd6b",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "5cca2379-ffc5-4a66-9104-b76fc65900b9",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2192,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 52,
+        "totalStringChars": 48374,
+        "missingExactVsEn": 0,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 6,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 255,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 22,
+          "webPlayer": 75,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 111,
+          "matchTimeline": 24,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 82,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 205,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 14,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 6,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 82,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 34,
+          "webSubscription": 28
+        }
+      },
+      "zh": {
+        "delivery": "lazy-chunk",
+        "file": "zh-DeaxvHPq.js",
+        "bytes": 77025,
+        "sha256": "c606e3c29e53e2ee98b0c7bd02735ab3dbffbdeb30d4a4bf84e04ea6df279ead",
+        "sentryReleaseId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+        "sentryDebugId": "e0c661ea-3c3e-4bbc-a8a2-7f7fa32c351c",
+        "topLevelNamespaces": 70,
+        "totalLeafKeys": 2166,
+        "uniqueSemanticBaseKeys": 2166,
+        "pluralVariantKeys": 26,
+        "totalStringChars": 18908,
+        "missingExactVsEn": 26,
+        "extraExactVsEn": 0,
+        "missingSemanticBaseKeysVsEn": 0,
+        "extraSemanticBaseKeysVsEn": 0,
+        "verbatimEnglishCount": 5,
+        "nonStringLeavesCount": 1,
+        "namespaceLeafCounts": {
+          "webReferee": 21,
+          "webLeague": 26,
+          "home": 1,
+          "marketAlerts": 254,
+          "maintenance": 6,
+          "webErrorBoundary": 5,
+          "webNotFound": 6,
+          "webTeamBet": 12,
+          "webNotifications": 26,
+          "webTeam": 21,
+          "webPlayer": 74,
+          "profileCommon": 5,
+          "creatorTools": 49,
+          "profile": 8,
+          "oddsFormats": 3,
+          "bookmakerPreferences": 16,
+          "notificationSettings": 46,
+          "profileParity": 12,
+          "webSearch": 18,
+          "filterManager": 78,
+          "savedPicks": 71,
+          "filterBuilder": 103,
+          "matchTimeline": 22,
+          "feedback": 28,
+          "guide": 8,
+          "bookmakerOffers": 67,
+          "performancePage": 98,
+          "webPicks": 81,
+          "webMatchPicksBet": 84,
+          "webMatchOdds": 38,
+          "matchContext": 33,
+          "webMatches": 204,
+          "auth": 18,
+          "authScreens": 33,
+          "homeHub": 13,
+          "metrics": 37,
+          "directions": 2,
+          "periods": 3,
+          "handicapRule": 7,
+          "betDescriptions": 4,
+          "matchResult": 6,
+          "btts": 2,
+          "match": 3,
+          "common": 2,
+          "calendar": 1,
+          "errors": 1,
+          "insightsV2": 48,
+          "insights": 1,
+          "lockedInsight": 13,
+          "position": 35,
+          "injuries": 5,
+          "homeLayout": 13,
+          "onboardingQuiz": 51,
+          "onboardingV2": 78,
+          "paywall": 78,
+          "appReturn": 5,
+          "webCustomFilters": 5,
+          "webAuth": 5,
+          "webHomeLayout": 6,
+          "webHome": 24,
+          "webMyPicks": 13,
+          "webPerformance": 3,
+          "webNav": 15,
+          "webHeader": 2,
+          "webAppUpdate": 4,
+          "webPlaceholder": 10,
+          "languageNames": 13,
+          "webProfile": 25,
+          "webCheckout": 30,
+          "webSubscription": 28
+        }
+      }
+    },
+    "chunkLoadErrorRaceCondition": {
+      "rootCause": "@sentry/vite-plugin injects per-build SENTRY_RELEASE + random _sentryDebugIds UUID into all 10 lazy locale chunks on every monorepo commit, rotating all 10 hashes even on 0-line web diffs, while AWS S3 deployment deletes prior hashes immediately.",
+      "empirical404Verification": "All 10 Build 1 lazy chunks (it-D64XgvOw.js, zh-B9Q4DO47.js, ar-mU0P8YAR.js, ru-BDw0HTsc.js, hi-CXL6oNyA.js, ja-fpPYJiRJ.js, de-sW_zOHej.js, tr-DwxvYBBl.js, el-CoNXKQu4.js, ro-8hYGVb8g.js) returned HTTP 404 immediately after Build 3 deployed.",
+      "vitePreloadErrorListenersInBundle": 0,
+      "versionJsonPollIntervalMs": 300000,
+      "versionJsonFocusThrottleMs": 60000,
+      "initialMountVersionCheck": false
+    }
+  },
+  "deadCodeAndFeatureFlagsAudit": {
+    "posthogFeatureFlagsCompiledInClient": [
+      {
+        "constant": "lc.MAINTENANCE_MODE",
+        "flagKey": "maintenance_mode",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "Hje / Vje (offset 1,056,495)",
+        "effect": "Replaces entire app tree with full-screen <div class='maintenance-page'> scoreboard UI."
+      },
+      {
+        "constant": "lc.PICK_PROGRESS_FREQUENCIES_ENABLED",
+        "flagKey": "pick_progress_frequencies_enabled",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "mod_15_creator_pick_calendar_and_profile.js:L1 (zrt)",
+        "effect": "Exposes live notification rate-limit frequency controls (everyUpdate vs everyNMinutes) in /notifications/preferences."
+      },
+      {
+        "constant": "lc.SOCIAL_AUTH_ENABLED",
+        "flagKey": "social_auth_enabled",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "mod_10_app_module.js:L53,L55 (fQe / vQe)",
+        "effect": "Renders Google Identity Services (uQe) and Apple Sign-In (lQe) buttons alongside Email OTP login."
+      },
+      {
+        "constant": "lc.ONBOARDING_QUIZ_ENABLED",
+        "flagKey": "onboarding_quiz_enabled (via Zfe)",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "mod_17_onboarding_and_paywall.js:L1,L5 (Yde / vdt)",
+        "effect": "Redirects authenticated users with !hasCompletedOnboarding to /onboarding (rendering ftt 3-step quiz) and invalidates router on flag toggle."
+      },
+      {
+        "constant": "lc.HOME_CUSTOMIZATION_ENABLED",
+        "flagKey": "home_customization_enabled",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "mod_11_leagues_teams_players_referees.js:L42 (kle)",
+        "effect": "Enables Home widget ordering and hiding via /users/settings (homeWidgetOrder, homeHiddenWidgets)."
+      },
+      {
+        "constant": "lc.GUIDE_VIDEOS_ENABLED",
+        "flagKey": "guide_videos_enabled",
+        "defaultValue": false,
+        "reactiveSubscription": true,
+        "moduleAndLocation": "mod_15_creator_pick_calendar_and_profile.js:L17 (tat) — ADDED LIVE IN BUILD 3",
+        "effect": "Displays the new Guide -> Video guides section in /dashboard/profile backed by GET /guide/videos and YouTube nocookie embeds."
+      }
+    ],
+    "unreachableCodeCatalog": [
+      {
+        "id": "DEAD-01",
+        "symbol": "Gtt() + 10 step components (Dtt, Ltt, $tt, ztt, Ftt, Btt, qtt, Utt, Htt, Vtt) + Wtt, Stt, jtt, Ptt, Vf + Ee.completeOnboardingPersonalization",
+        "module": "mod_14_onboarding_and_paywall.js:L7-L28 & mod_17_onboarding_and_paywall.js:L1-L2",
+        "mechanism": "Vite constant-folded import.meta.env.DEV to !1 inside Qde.validateSearch (`{ plan: zN(e).plan, preview: !1, flow: void 0 }`), making `e && t === 'personalization'` in pdt() identically false, while TanStack Router's opaque Qde.useSearch() boundary prevented Rollup from tree-shaking Gtt.",
+        "bundledCodeBytes": 17745,
+        "deadI18nStringsAcross13Locales": 1027
+      },
+      {
+        "id": "DEAD-02",
+        "symbol": "Constant-folded `n = !1` in ftt() / Gtt() and `l = !1` in gZe() (/paywall)",
+        "module": "mod_14_onboarding_and_paywall.js:L1,L28 & mod_17_onboarding_and_paywall.js:L3",
+        "mechanism": "fdt.validateSearch hardcodes `preview: !1`, and gZe(), ftt(), and Gtt() each inline `const isPreview = !1` while retaining `l`/`n` inside React useEffect dependency arrays (`[I, D, l]`, `[B, c, l]`)."
+      },
+      {
+        "id": "DEAD-03",
+        "symbol": "138 completely unreferenced semantic i18n base keys across 13 locales (~1,794+ strings)",
+        "module": "mod_02, mod_03 & 10 lazy locale chunks",
+        "mechanism": "Shared mobile/web translation monorepo exports mobile-only dialogs (creatorTools confirmation sheets, bookmakerPreferences.requiredPrompt*, injuries.statuses.*, webPlaceholder.*, lockedInsight.*, webCheckout.*) into every web bundle without key-level tree-shaking."
+      }
+    ]
+  },
+  "serverOverfetchingAndPriceMovementAudit": {
+    "zeroReadServerFieldsInWebBundle": [
+      {
+        "field": "hasMovementHistory",
+        "endpoints": [
+          "GET /matches/:id/odds/gamelines",
+          "GET /matches/:id/odds/game-props",
+          "GET /matches/:id/odds/team-props",
+          "GET /insights*"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "latestMovementId",
+        "endpoints": [
+          "GET /insights",
+          "GET /insights/top",
+          "GET /insights/grouped"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "hasMovementAlert",
+        "endpoints": [
+          "GET /insights",
+          "GET /insights/top",
+          "GET /insights/grouped"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "relevanceScore",
+        "endpoints": [
+          "GET /insights",
+          "GET /insights/top",
+          "GET /insights/grouped"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "powerPriority",
+        "endpoints": [
+          "GET /leagues/all"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "accessibleLeagueIds",
+        "endpoints": [
+          "GET /subscriptions/me"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "freeLeagueId",
+        "endpoints": [
+          "GET /subscriptions/me"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "isContentCreator",
+        "endpoints": [
+          "GET /subscriptions/me"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "hasSeenOneTimeOffer",
+        "endpoints": [
+          "GET /auth/get-session"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "adjustedHitRate",
+        "endpoints": [
+          "GET /insights*"
+        ],
+        "occurrencesInFullBundle": 0
+      },
+      {
+        "field": "oddsMaterialChangeAt",
+        "endpoints": [
+          "GET /matches/:id",
+          "GET /matches/:id/players"
+        ],
+        "occurrencesInFullBundle": 0
+      }
+    ],
+    "priceMovementClientImplementation": {
+      "occurrencesInFullBundle": 1,
+      "module": "mod_05_market_alerts_and_ai_assistant.js",
+      "functionName": "zHe(e, t)",
+      "line": 64,
+      "mechanism": "Web client has zero historical odds movement charts or sparklines (ignoring hasMovementHistory and latestMovementId), and blocks creating price-movement alerts in the builder ('Price moves: coming soon') and AI assistant ('price_condition_unsupported'). Its sole client-side support is quote reconciliation in zHe(e, t) for alerts created elsewhere/backend with e.kind === 'price_movement', matching live non-stale quotes strictly by m.oddsId === o.oddsId (every 60s via market-alert-current-quotes)."
+    }
+  },
+  "novelClientBugsCatalogWave2": [
+    {
+      "id": "BUG-W2-01",
+      "severity": "HIGH",
+      "title": "Broken Parameterized Deep-Link Redirects & Promo Code Loss Across Auth Flow (TanStack Router `to:` vs `href:` + Premature Throw in `Yv.beforeLoad`)",
+      "locations": [
+        "mod_17_onboarding_and_paywall.js:L1",
+        "mod_10_app_module.js:L55 (vQe)",
+        "mod_10_app_module.js:L65 (PQe)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-02",
+      "severity": "HIGH",
+      "title": "Deterministic Lazy Locale `HTTP 404` (`ChunkLoadError`) Race Condition on Every Monorepo Commit (`@sentry/vite-plugin` Hash Churn + Destructive S3 Sync + Zero `vite:preloadError` Handler + 5-Min Blind Poll)",
+      "locations": [
+        "mod_03_i18n_inline_en_es_pt.js:L27",
+        "mod_15_creator_pick_calendar_and_profile.js:L17 (tat)",
+        "index-De_Y7Tky.js offset 15794 ($o) & 1095291 (kPe)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-03",
+      "severity": "MEDIUM-HIGH",
+      "title": "Unbounded Sequential Pagination Loop (`for(;;)`) in Background Notification Poller `CQe(e, t)` When Prior Inbox Array Is Empty (`t = []` -> `n = -Infinity`)",
+      "locations": [
+        "mod_10_app_module.js:L66 (CQe)",
+        "mod_11_leagues_teams_players_referees.js:L11 (MQe)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-04",
+      "severity": "MEDIUM",
+      "title": "Missing Dependency Array in `MQe(e)` `useEffect` Causing Per-Render Teardown/Re-Binding of `navigator.serviceWorker` `message` Listener and Repeated `mue(e)` Execution",
+      "locations": [
+        "mod_11_leagues_teams_players_referees.js:L11",
+        "mod_00_notification_worker.js:L21-L38"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-05",
+      "severity": "MEDIUM",
+      "title": "False-Positive Browser Alert Activation When Service Worker Enters `redundant` State (`EQe`) + Unprotected `localStorage.setItem` in `dR()`",
+      "locations": [
+        "mod_11_leagues_teams_players_referees.js:L5,L7,L11",
+        "mod_14_onboarding_and_paywall.js:L27"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-06",
+      "severity": "MEDIUM",
+      "title": "Stale Selected Video State Across Locale/User Changes & Missing `timeZone: 'UTC'` Date Shift in Brand-New Build 3 `Jrt()` (`Guide Videos`) Component",
+      "locations": [
+        "mod_15_creator_pick_calendar_and_profile.js:L15 (Jrt)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-07",
+      "severity": "LOW-MEDIUM",
+      "title": "Hardcoded `Etc/GMT+12` (UTC-12) Timezone Shifting Promo Expiry Dates Backwards in `hZe()` + Unhandled Promise Rejection on `onCopy`",
+      "locations": [
+        "mod_11_leagues_teams_players_referees.js:L100 (lZe), L109 (hZe)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    },
+    {
+      "id": "BUG-W2-08",
+      "severity": "LOW-MEDIUM",
+      "title": "Cross-Tab `localStorage.clear()` Blindness (`n.key === null` Ignored in `ydt`) & Permanent Silent `'busy'` Lockout in `gr.togglePick` After Initial Network Failure",
+      "locations": [
+        "mod_17_onboarding_and_paywall.js:L16 (ydt)",
+        "index-De_Y7Tky.js offset 645120 (gr store)"
+      ],
+      "epistemicStatus": "OBSERVADO"
+    }
+  ]
+}

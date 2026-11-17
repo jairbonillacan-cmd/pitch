@@ -1,0 +1,3344 @@
+{
+  "status": 200,
+  "url": "/leagues/68/matches?startTime=2026-11-17T17%3A00%3A11.292Z&endTime=2026-12-08T17%3A00%3A11.292Z&limit=50&timezoneOffset=360",
+  "data": {
+    "league": {
+      "id": 68,
+      "name": "Liga MX",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+    },
+    "season": {
+      "id": 699,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "dateGroups": [
+      {
+        "dateKey": "2026-11-20",
+        "dateIso": "2026-11-20T00:00:00.000Z",
+        "dateLabel": "2026-11-20",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671579,
+                "apiId": null,
+                "date": "2026-11-21T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-21T01:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67507,
+                "awayTeamId": 67642,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.6,
+                  "draw": 3.58,
+                  "awayWin": 2.73,
+                  "homeBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239265575,
+                      "oddsValue": 2.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239251803,
+                      "oddsValue": 2.57,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239441851,
+                      "oddsValue": 2.57,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239668307,
+                      "oddsValue": 2.54,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239668169,
+                      "oddsValue": 2.48,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239251804,
+                      "oddsValue": 3.58,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239441852,
+                      "oddsValue": 3.5,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239668170,
+                      "oddsValue": 3.45,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239668308,
+                      "oddsValue": 3.44,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265577,
+                      "oddsValue": 3.4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239251805,
+                      "oddsValue": 2.73,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239668171,
+                      "oddsValue": 2.6,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239441853,
+                      "oddsValue": 2.6,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239668309,
+                      "oddsValue": 2.59,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239265576,
+                      "oddsValue": 2.55,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671578,
+                "apiId": null,
+                "date": "2026-11-21T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-21T03:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67543,
+                "awayTeamId": 67508,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 3.43,
+                  "draw": 3.69,
+                  "awayWin": 2.12,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239254054,
+                      "oddsValue": 3.43,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239445292,
+                      "oddsValue": 3.35,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681090,
+                      "oddsValue": 3.25,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239681144,
+                      "oddsValue": 3.25,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239265309,
+                      "oddsValue": 3.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239254055,
+                      "oddsValue": 3.69,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681091,
+                      "oddsValue": 3.65,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239681145,
+                      "oddsValue": 3.64,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265311,
+                      "oddsValue": 3.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239445293,
+                      "oddsValue": 3.5,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254056,
+                      "oddsValue": 2.12,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239445294,
+                      "oddsValue": 2.1,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239265310,
+                      "oddsValue": 2.05,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239681146,
+                      "oddsValue": 2.05,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681092,
+                      "oddsValue": 2.01,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671575,
+                "apiId": null,
+                "date": "2026-11-21T04:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-21T04:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67524,
+                "awayTeamId": 72126,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 1.65,
+                  "draw": 4.27,
+                  "awayWin": 5.27,
+                  "homeBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239445186,
+                      "oddsValue": 1.65,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239254009,
+                      "oddsValue": 1.64,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239689807,
+                      "oddsValue": 1.62,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681070,
+                      "oddsValue": 1.6,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239316637,
+                      "oddsValue": 1.571,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239254010,
+                      "oddsValue": 4.27,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681071,
+                      "oddsValue": 4.1,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239445187,
+                      "oddsValue": 4.1,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239689808,
+                      "oddsValue": 4.05,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239316639,
+                      "oddsValue": 4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254011,
+                      "oddsValue": 5.27,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239316638,
+                      "oddsValue": 5.25,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239689809,
+                      "oddsValue": 4.82,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239681072,
+                      "oddsValue": 4.8,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239445188,
+                      "oddsValue": 4.75,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-21",
+        "dateIso": "2026-11-21T00:00:00.000Z",
+        "dateLabel": "2026-11-21",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671573,
+                "apiId": null,
+                "date": "2026-11-21T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-21T23:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67620,
+                "awayTeamId": 67561,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.85,
+                  "draw": 4.09,
+                  "awayWin": 2.28,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239254103,
+                      "oddsValue": 2.85,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239520418,
+                      "oddsValue": 2.82,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239825063,
+                      "oddsValue": 2.8,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825581,
+                      "oddsValue": 2.79,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239264138,
+                      "oddsValue": 2.75,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239254104,
+                      "oddsValue": 4.09,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239264140,
+                      "oddsValue": 4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825582,
+                      "oddsValue": 3.96,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825064,
+                      "oddsValue": 3.95,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239520419,
+                      "oddsValue": 3.9,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254105,
+                      "oddsValue": 2.28,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239520420,
+                      "oddsValue": 2.22,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239264139,
+                      "oddsValue": 2.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825583,
+                      "oddsValue": 2.18,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239825065,
+                      "oddsValue": 2.13,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671574,
+                "apiId": null,
+                "date": "2026-11-21T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-21T23:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67578,
+                "awayTeamId": 67641,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "awayTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.51,
+                  "draw": 3.82,
+                  "awayWin": 2.67,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239241812,
+                      "oddsValue": 2.51,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239520578,
+                      "oddsValue": 2.47,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239825514,
+                      "oddsValue": 2.43,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239825081,
+                      "oddsValue": 2.38,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239249569,
+                      "oddsValue": 2.375,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239241813,
+                      "oddsValue": 3.82,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239249571,
+                      "oddsValue": 3.7,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825515,
+                      "oddsValue": 3.66,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825082,
+                      "oddsValue": 3.65,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239520579,
+                      "oddsValue": 3.65,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239241814,
+                      "oddsValue": 2.67,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239520580,
+                      "oddsValue": 2.62,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239825083,
+                      "oddsValue": 2.6,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239249570,
+                      "oddsValue": 2.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239825516,
+                      "oddsValue": 2.59,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671572,
+                "apiId": null,
+                "date": "2026-11-22T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-22T01:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67577,
+                "awayTeamId": 67619,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.61,
+                  "draw": 3.69,
+                  "awayWin": 2.62,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239243382,
+                      "oddsValue": 2.61,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239521994,
+                      "oddsValue": 2.57,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239833270,
+                      "oddsValue": 2.55,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239833428,
+                      "oddsValue": 2.53,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239249572,
+                      "oddsValue": 2.5,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239243383,
+                      "oddsValue": 3.69,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239833271,
+                      "oddsValue": 3.65,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239521995,
+                      "oddsValue": 3.65,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239833429,
+                      "oddsValue": 3.63,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239249574,
+                      "oddsValue": 3.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239243384,
+                      "oddsValue": 2.62,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239521996,
+                      "oddsValue": 2.52,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239249573,
+                      "oddsValue": 2.5,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239833430,
+                      "oddsValue": 2.5,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239833272,
+                      "oddsValue": 2.44,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671571,
+                "apiId": null,
+                "date": "2026-11-22T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-22T03:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67808,
+                "awayTeamId": 67544,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 3.41,
+                  "draw": 3.76,
+                  "awayWin": 2.09,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239254149,
+                      "oddsValue": 3.41,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239522214,
+                      "oddsValue": 3.4,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239848354,
+                      "oddsValue": 3.32,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239848276,
+                      "oddsValue": 3.3,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265284,
+                      "oddsValue": 3.3,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239254150,
+                      "oddsValue": 3.76,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239848277,
+                      "oddsValue": 3.6,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265286,
+                      "oddsValue": 3.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239848355,
+                      "oddsValue": 3.59,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239522215,
+                      "oddsValue": 3.55,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254151,
+                      "oddsValue": 2.09,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239522216,
+                      "oddsValue": 2.07,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239848356,
+                      "oddsValue": 2.04,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239848278,
+                      "oddsValue": 2,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265285,
+                      "oddsValue": 1.95,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-22",
+        "dateIso": "2026-11-22T00:00:00.000Z",
+        "dateLabel": "2026-11-22",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671570,
+                "apiId": null,
+                "date": "2026-11-22T23:07:00.000Z",
+                "effectiveKickoffDate": "2026-11-22T23:07:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67801,
+                "awayTeamId": 67600,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.29,
+                  "draw": 4.02,
+                  "awayWin": 2.85,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239254194,
+                      "oddsValue": 2.29,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239530424,
+                      "oddsValue": 2.25,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239938128,
+                      "oddsValue": 2.21,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239265379,
+                      "oddsValue": 2.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239938225,
+                      "oddsValue": 2.17,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239254195,
+                      "oddsValue": 4.02,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239265381,
+                      "oddsValue": 4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239938129,
+                      "oddsValue": 3.87,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239938226,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239530425,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254196,
+                      "oddsValue": 2.85,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239938227,
+                      "oddsValue": 2.8,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239265380,
+                      "oddsValue": 2.8,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239530426,
+                      "oddsValue": 2.8,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239938130,
+                      "oddsValue": 2.78,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10671569,
+                "apiId": null,
+                "date": "2026-11-23T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-23T01:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "17",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67523,
+                "awayTeamId": 67560,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "17",
+                "roundNumber": 17,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.06,
+                  "draw": 4,
+                  "awayWin": 3.38,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239254242,
+                      "oddsValue": 2.06,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239530821,
+                      "oddsValue": 2.05,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239954078,
+                      "oddsValue": 2.01,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239953836,
+                      "oddsValue": 1.97,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239264559,
+                      "oddsValue": 1.95,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239264561,
+                      "oddsValue": 4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239254243,
+                      "oddsValue": 3.92,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239953837,
+                      "oddsValue": 3.8,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239954079,
+                      "oddsValue": 3.78,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239530822,
+                      "oddsValue": 3.75,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239254244,
+                      "oddsValue": 3.38,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239530823,
+                      "oddsValue": 3.3,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239953838,
+                      "oddsValue": 3.25,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239954080,
+                      "oddsValue": 3.24,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239264560,
+                      "oddsValue": 3.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-24",
+        "dateIso": "2026-11-24T00:00:00.000Z",
+        "dateLabel": "2026-11-24",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 37224156,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351547,
+                "awayTeamId": 21351546,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351547,
+                  "name": "5th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351546,
+                  "name": "4th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224157,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351553,
+                "awayTeamId": 21351550,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351553,
+                  "name": "6th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351550,
+                  "name": "3rd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224158,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67842045,
+                "awayTeamId": 67757040,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67842045,
+                  "name": "7th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67757040,
+                  "name": "2nd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224159,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67842046,
+                "awayTeamId": 67757036,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67842046,
+                  "name": "8th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67757036,
+                  "name": "1st ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37521613,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351547,
+                "awayTeamId": 21351546,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351547,
+                  "name": "5th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351546,
+                  "name": "4th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37521614,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351553,
+                "awayTeamId": 21351550,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351553,
+                  "name": "6th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351550,
+                  "name": "3rd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37521615,
+                "apiId": null,
+                "date": "2026-11-25T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67842045,
+                "awayTeamId": 67757040,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67842045,
+                  "name": "7th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67757040,
+                  "name": "2nd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-27",
+        "dateIso": "2026-11-27T00:00:00.000Z",
+        "dateLabel": "2026-11-27",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 37224152,
+                "apiId": null,
+                "date": "2026-11-28T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351546,
+                "awayTeamId": 21351547,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351546,
+                  "name": "4th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351547,
+                  "name": "5th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224153,
+                "apiId": null,
+                "date": "2026-11-28T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351550,
+                "awayTeamId": 21351553,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351550,
+                  "name": "3rd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351553,
+                  "name": "6th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224154,
+                "apiId": null,
+                "date": "2026-11-28T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67757040,
+                "awayTeamId": 67842045,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67757040,
+                  "name": "2nd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67842045,
+                  "name": "7th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224155,
+                "apiId": null,
+                "date": "2026-11-28T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67757036,
+                "awayTeamId": 67842046,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Quarter-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67757036,
+                  "name": "1st ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67842046,
+                  "name": "8th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-12-01",
+        "dateIso": "2026-12-01T00:00:00.000Z",
+        "dateLabel": "2026-12-01",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 37224162,
+                "apiId": null,
+                "date": "2026-12-02T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-12-02T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351550,
+                "awayTeamId": 67757040,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Semi-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351550,
+                  "name": "3rd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67757040,
+                  "name": "2nd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224163,
+                "apiId": null,
+                "date": "2026-12-02T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-12-02T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 21351546,
+                "awayTeamId": 67757036,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Semi-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 21351546,
+                  "name": "4th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67757036,
+                  "name": "1st ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-12-04",
+        "dateIso": "2026-12-04T00:00:00.000Z",
+        "dateLabel": "2026-12-04",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 37224160,
+                "apiId": null,
+                "date": "2026-12-05T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-12-05T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67757040,
+                "awayTeamId": 21351550,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Semi-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67757040,
+                  "name": "2nd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351550,
+                  "name": "3rd ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 37224161,
+                "apiId": null,
+                "date": "2026-12-05T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-12-05T00:00:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": null,
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 67757036,
+                "awayTeamId": 21351546,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": null,
+                "roundNumber": null,
+                "stageName": "Apertura - Semi-finals",
+                "stageKind": "knockout",
+                "homeTeam": {
+                  "id": 67757036,
+                  "name": "1st ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 21351546,
+                  "name": "4th ranked",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+                  "code": null,
+                  "isNationalTeam": false,
+                  "form": [],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasMore": false,
+    "hasPrevious": false
+  }
+}

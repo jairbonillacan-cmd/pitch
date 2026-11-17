@@ -1,0 +1,16 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/market-alerts/competitions?teamId=17181",
+  "requestBody": null,
+  "status": 403,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "error": "Las alertas de mercado aún no están disponibles para tu cuenta.",
+    "code": "MARKET_ALERT_DISABLED",
+    "bookmakerIds": []
+  }
+}

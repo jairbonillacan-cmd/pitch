@@ -1,0 +1,982 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance/filters",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "04a07389-0206-402f-a5c2-1be64c07809d",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:22 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "teams": [
+      {
+        "id": 1125,
+        "name": "AFC Bournemouth",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png",
+        "code": "BOU"
+      },
+      {
+        "id": 120,
+        "name": "Benfica",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/605.png",
+        "code": "SLB"
+      },
+      {
+        "id": 13821452,
+        "name": "Benfica II",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2946.png",
+        "code": "SLB B"
+      },
+      {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      }
+    ],
+    "opponents": [
+      {
+        "id": 749,
+        "name": "AC Milan",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/113.png",
+        "code": "MIL",
+        "matches": 1
+      },
+      {
+        "id": 4948,
+        "name": "AVS",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/269225.png",
+        "code": "AFS",
+        "matches": 4
+      },
+      {
+        "id": 36380,
+        "name": "Academico Viseu",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/8297.png",
+        "code": "AVFC",
+        "matches": 1
+      },
+      {
+        "id": 201,
+        "name": "Ajax",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/629.png",
+        "code": "AJA",
+        "matches": 1
+      },
+      {
+        "id": 4964,
+        "name": "Alverca",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/35867.png",
+        "code": "ALV",
+        "matches": 2
+      },
+      {
+        "id": 4947,
+        "name": "Arouca",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/4092.png",
+        "code": "FCA",
+        "matches": 5
+      },
+      {
+        "id": 746,
+        "name": "Aston Villa",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/15.png",
+        "code": "AVL",
+        "matches": 1
+      },
+      {
+        "id": 36366,
+        "name": "Atlético CP",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/3112.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 210,
+        "name": "Atlético de Madrid",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/7980.png",
+        "code": "ATM",
+        "matches": 1
+      },
+      {
+        "id": 102609,
+        "name": "Auckland City",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/1022.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 168,
+        "name": "Basel",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/468.png",
+        "code": "BAS",
+        "matches": 1
+      },
+      {
+        "id": 7408,
+        "name": "Boavista",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/960.png",
+        "code": "BOA",
+        "matches": 5
+      },
+      {
+        "id": 12903,
+        "name": "Boca Juniors",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/587.png",
+        "code": "BOC",
+        "matches": 1
+      },
+      {
+        "id": 17231,
+        "name": "Bosnia and Herzegovina",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+        "code": "BIH",
+        "matches": 1
+      },
+      {
+        "id": 1137,
+        "name": "Brentford",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/236.png",
+        "code": "BRE",
+        "matches": 2
+      },
+      {
+        "id": 36101,
+        "name": "Caldas",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/12314.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 4912,
+        "name": "Casa Pia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/11741.png",
+        "code": "CPAC",
+        "matches": 7
+      },
+      {
+        "id": 1123,
+        "name": "Celta de Vigo",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/36.png",
+        "code": "CEL",
+        "matches": 1
+      },
+      {
+        "id": 36128,
+        "name": "Chaves",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/988.png",
+        "code": "GDC",
+        "matches": 4
+      },
+      {
+        "id": 219,
+        "name": "Chelsea",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18.png",
+        "code": "CHE",
+        "matches": 3
+      },
+      {
+        "id": 140,
+        "name": "Club Brugge",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/340.png",
+        "code": "BRU",
+        "matches": 2
+      },
+      {
+        "id": 13234,
+        "name": "Croatia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
+        "code": "CRO",
+        "matches": 1
+      },
+      {
+        "id": 77,
+        "name": "Crvena Zvezda",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/2673.png",
+        "code": "CRV",
+        "matches": 1
+      },
+      {
+        "id": 4931,
+        "name": "Estoril",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/1198.png",
+        "code": "EPF",
+        "matches": 7
+      },
+      {
+        "id": 4932,
+        "name": "Estrela Amadora",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/12152.png",
+        "code": "CFEA",
+        "matches": 7
+      },
+      {
+        "id": 1166,
+        "name": "Everton",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/13.png",
+        "code": "EVE",
+        "matches": 1
+      },
+      {
+        "id": 211,
+        "name": "FC Barcelona",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/83.png",
+        "code": "BAR",
+        "matches": 3
+      },
+      {
+        "id": 226,
+        "name": "FC Bayern München",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/503.png",
+        "code": "FCB",
+        "matches": 2
+      },
+      {
+        "id": 4340,
+        "name": "FSV Mainz 05",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/794.png",
+        "code": "M05",
+        "matches": 1
+      },
+      {
+        "id": 4938,
+        "name": "Famalicão",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/3161.png",
+        "code": "FCF",
+        "matches": 8
+      },
+      {
+        "id": 7431,
+        "name": "Farense",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/7214.png",
+        "code": "SCF",
+        "matches": 5
+      },
+      {
+        "id": 118,
+        "name": "Fenerbahçe",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/88.png",
+        "code": "FEN",
+        "matches": 3
+      },
+      {
+        "id": 117,
+        "name": "Feyenoord",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/73.png",
+        "code": "FEY",
+        "matches": 2
+      },
+      {
+        "id": 13259,
+        "name": "Finland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18570.png",
+        "code": "FIN",
+        "matches": 1
+      },
+      {
+        "id": 13224,
+        "name": "Georgia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png",
+        "code": "GEO",
+        "matches": 1
+      },
+      {
+        "id": 4921,
+        "name": "Gil Vicente",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/364.png",
+        "code": "GVFC",
+        "matches": 8
+      },
+      {
+        "id": 17054,
+        "name": "Hungary",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18732.png",
+        "code": "HUN",
+        "matches": 1
+      },
+      {
+        "id": 202,
+        "name": "Inter",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/2930.png",
+        "code": "INT",
+        "matches": 3
+      },
+      {
+        "id": 2795,
+        "name": "Ipswich Town",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/116.png",
+        "code": "IPS",
+        "matches": 1
+      },
+      {
+        "id": 190,
+        "name": "Juventus",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/625.png",
+        "code": "JUV",
+        "matches": 3
+      },
+      {
+        "id": 17059,
+        "name": "Korea Republic",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+        "code": "KOR",
+        "matches": 1
+      },
+      {
+        "id": 1165,
+        "name": "Leeds United",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+        "code": "LEE",
+        "matches": 1
+      },
+      {
+        "id": 14576,
+        "name": "Liechtenstein",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png",
+        "code": "LIE",
+        "matches": 1
+      },
+      {
+        "id": 18081,
+        "name": "Lincoln City",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/305.png",
+        "code": "LNC",
+        "matches": 1
+      },
+      {
+        "id": 230,
+        "name": "Liverpool",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/8.png",
+        "code": "LIV",
+        "matches": 1
+      },
+      {
+        "id": 36042,
+        "name": "Lusitânia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/24805.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 17240,
+        "name": "Luxembourg",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/18779.png",
+        "code": "LUX",
+        "matches": 1
+      },
+      {
+        "id": 34559,
+        "name": "Maccabi Haifa",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/571.png",
+        "code": "MHA",
+        "matches": 2
+      },
+      {
+        "id": 36373,
+        "name": "Mafra",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/11114.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 205,
+        "name": "Manchester City",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/9.png",
+        "code": "MCI",
+        "matches": 1
+      },
+      {
+        "id": 1161,
+        "name": "Manchester United",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/14.png",
+        "code": "MUN",
+        "matches": 1
+      },
+      {
+        "id": 36216,
+        "name": "Marítimo",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/5931.png",
+        "code": "CSM",
+        "matches": 2
+      },
+      {
+        "id": 13211,
+        "name": "Mexico",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18576.png",
+        "code": "MEX",
+        "matches": 1
+      },
+      {
+        "id": 206,
+        "name": "Monaco",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/6789.png",
+        "code": "ASM",
+        "matches": 2
+      },
+      {
+        "id": 4963,
+        "name": "Moreirense",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/1085.png",
+        "code": "MFC",
+        "matches": 5
+      },
+      {
+        "id": 4922,
+        "name": "Nacional",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/7035.png",
+        "code": "CDN",
+        "matches": 3
+      },
+      {
+        "id": 237,
+        "name": "Napoli",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/597.png",
+        "code": "NAP",
+        "matches": 1
+      },
+      {
+        "id": 241,
+        "name": "Newcastle United",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/20.png",
+        "code": "NEW",
+        "matches": 2
+      },
+      {
+        "id": 119,
+        "name": "Nice",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/450.png",
+        "code": "NCE",
+        "matches": 2
+      },
+      {
+        "id": 14538,
+        "name": "Nigeria",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/18737.png",
+        "code": "NGA",
+        "matches": 1
+      },
+      {
+        "id": 195,
+        "name": "Olympique Marseille",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/44.png",
+        "code": "OM",
+        "matches": 2
+      },
+      {
+        "id": 212,
+        "name": "Paris Saint Germain",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/591.png",
+        "code": "PSG",
+        "matches": 2
+      },
+      {
+        "id": 36430,
+        "name": "Paços de Ferreira",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/1122.png",
+        "code": "FCPF",
+        "matches": 1
+      },
+      {
+        "id": 37125,
+        "name": "Pevidem",
+        "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "code": null,
+        "matches": 1
+      },
+      {
+        "id": 17226,
+        "name": "Poland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png",
+        "code": "POL",
+        "matches": 1
+      },
+      {
+        "id": 36120,
+        "name": "Portimonense SAD",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/1658.png",
+        "code": "PSC",
+        "matches": 3
+      },
+      {
+        "id": 4376,
+        "name": "Porto",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/652.png",
+        "code": "FCP",
+        "matches": 8
+      },
+      {
+        "id": 98,
+        "name": "Qarabağ",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/5317.png",
+        "code": "QAR",
+        "matches": 1
+      },
+      {
+        "id": 43,
+        "name": "Rangers",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/62.png",
+        "code": "RAN",
+        "matches": 2
+      },
+      {
+        "id": 196,
+        "name": "Real Madrid",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+        "code": "RMA",
+        "matches": 1
+      },
+      {
+        "id": 1149,
+        "name": "Real Sociedad",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/594.png",
+        "code": "RSO",
+        "matches": 3
+      },
+      {
+        "id": 17179,
+        "name": "Republic of Ireland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18654.png",
+        "code": "IRL",
+        "matches": 1
+      },
+      {
+        "id": 5009,
+        "name": "Rio Ave",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/6377.png",
+        "code": "RAFC",
+        "matches": 5
+      },
+      {
+        "id": 45,
+        "name": "Salzburg",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/49.png",
+        "code": "RBS",
+        "matches": 1
+      },
+      {
+        "id": 4939,
+        "name": "Santa Clara",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/2628.png",
+        "code": "CDSC",
+        "matches": 5
+      },
+      {
+        "id": 14719,
+        "name": "Scotland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+        "code": "SCO",
+        "matches": 2
+      },
+      {
+        "id": 17177,
+        "name": "Slovakia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18648.png",
+        "code": "SVK",
+        "matches": 2
+      },
+      {
+        "id": 17053,
+        "name": "Slovenia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18630.png",
+        "code": "SVN",
+        "matches": 1
+      },
+      {
+        "id": 4198,
+        "name": "Sporting Braga",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/884.png",
+        "code": "SCB",
+        "matches": 9
+      },
+      {
+        "id": 240,
+        "name": "Sporting CP",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/58.png",
+        "code": "SCP",
+        "matches": 10
+      },
+      {
+        "id": 49450,
+        "name": "St. Gallen",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/362.png",
+        "code": "SG",
+        "matches": 2
+      },
+      {
+        "id": 158,
+        "name": "Sturm Graz",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/3357.png",
+        "code": "STU",
+        "matches": 1
+      },
+      {
+        "id": 1144,
+        "name": "Sunderland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/3.png",
+        "code": "SUN",
+        "matches": 1
+      },
+      {
+        "id": 17213,
+        "name": "Sweden",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+        "code": "SWE",
+        "matches": 1
+      },
+      {
+        "id": 36087,
+        "name": "Tirsense",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/8209.png",
+        "code": null,
+        "matches": 2
+      },
+      {
+        "id": 4970,
+        "name": "Tondela",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3497.png",
+        "code": "CDT",
+        "matches": 2
+      },
+      {
+        "id": 28170,
+        "name": "Toulouse",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/289.png",
+        "code": "TOU",
+        "matches": 2
+      },
+      {
+        "id": 17251,
+        "name": "Türkiye",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png",
+        "code": "TUR",
+        "matches": 1
+      },
+      {
+        "id": 14695,
+        "name": "United States",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18571.png",
+        "code": "USA",
+        "matches": 1
+      },
+      {
+        "id": 199,
+        "name": "Villarreal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/3477.png",
+        "code": "VIL",
+        "matches": 1
+      },
+      {
+        "id": 4955,
+        "name": "Vitória Guimarães",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/830.png",
+        "code": "VSC",
+        "matches": 5
+      },
+      {
+        "id": 36130,
+        "name": "Vizela",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/8164.png",
+        "code": "FCV",
+        "matches": 4
+      }
+    ],
+    "leagues": [
+      {
+        "id": 22,
+        "name": "Carabao Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+      },
+      {
+        "id": 1,
+        "name": "Champions League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+      },
+      {
+        "id": 355,
+        "name": "Club Friendlies 1",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+      },
+      {
+        "id": 357,
+        "name": "Club Friendlies 3",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+      },
+      {
+        "id": 108,
+        "name": "Euro Qualification",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+      },
+      {
+        "id": 4,
+        "name": "Europa League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+      },
+      {
+        "id": 109,
+        "name": "European Championship",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1326.png"
+      },
+      {
+        "id": 139,
+        "name": "FIFA Club World Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/3412.png"
+      },
+      {
+        "id": 15,
+        "name": "Friendly International",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+      },
+      {
+        "id": 7,
+        "name": "Liga Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png"
+      },
+      {
+        "id": 151,
+        "name": "Liga Portugal 2",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/465.png"
+      },
+      {
+        "id": 2,
+        "name": "Premier League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+      },
+      {
+        "id": 43,
+        "name": "Taça De Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/468.png"
+      },
+      {
+        "id": 116,
+        "name": "UEFA Nations League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+      },
+      {
+        "id": 63,
+        "name": "WC Qualification Europe",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+      },
+      {
+        "id": 67,
+        "name": "World Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/732.png"
+      }
+    ],
+    "seasons": [
+      {
+        "id": 89,
+        "year": 2026,
+        "name": "2026",
+        "leagueId": 15
+      },
+      {
+        "id": 250,
+        "year": 2026,
+        "name": "2026",
+        "leagueId": 63
+      },
+      {
+        "id": 647,
+        "year": 2026,
+        "name": "2026/2027",
+        "leagueId": 22
+      },
+      {
+        "id": 663,
+        "year": 2026,
+        "name": "2026/2027",
+        "leagueId": 2
+      },
+      {
+        "id": 665,
+        "year": 2026,
+        "name": "2026/2027",
+        "leagueId": 4
+      },
+      {
+        "id": 1526,
+        "year": 2026,
+        "name": "2026",
+        "leagueId": 357
+      },
+      {
+        "id": 26,
+        "year": 2025,
+        "name": "2025/2026",
+        "leagueId": 1
+      },
+      {
+        "id": 67,
+        "year": 2025,
+        "name": "2025/2026",
+        "leagueId": 7
+      },
+      {
+        "id": 173,
+        "year": 2025,
+        "name": "2025/2026",
+        "leagueId": 43
+      },
+      {
+        "id": 581,
+        "year": 2025,
+        "name": "2025",
+        "leagueId": 139
+      },
+      {
+        "id": 1521,
+        "year": 2025,
+        "name": "2025",
+        "leagueId": 355
+      },
+      {
+        "id": 1,
+        "year": 2024,
+        "name": "2024/2025",
+        "leagueId": 1
+      },
+      {
+        "id": 66,
+        "year": 2024,
+        "name": "2024/2025",
+        "leagueId": 7
+      },
+      {
+        "id": 90,
+        "year": 2024,
+        "name": "2024",
+        "leagueId": 15
+      },
+      {
+        "id": 175,
+        "year": 2024,
+        "name": "2024/2025",
+        "leagueId": 43
+      },
+      {
+        "id": 453,
+        "year": 2024,
+        "name": "2024",
+        "leagueId": 108
+      },
+      {
+        "id": 458,
+        "year": 2024,
+        "name": "2024",
+        "leagueId": 109
+      },
+      {
+        "id": 509,
+        "year": 2024,
+        "name": "2024/2025",
+        "leagueId": 116
+      },
+      {
+        "id": 1520,
+        "year": 2024,
+        "name": "2024",
+        "leagueId": 355
+      },
+      {
+        "id": 1527,
+        "year": 2024,
+        "name": "2024",
+        "leagueId": 357
+      },
+      {
+        "id": 3,
+        "year": 2023,
+        "name": "2023/2024",
+        "leagueId": 1
+      },
+      {
+        "id": 38,
+        "year": 2023,
+        "name": "2023/2024",
+        "leagueId": 4
+      },
+      {
+        "id": 65,
+        "year": 2023,
+        "name": "2023/2024",
+        "leagueId": 7
+      },
+      {
+        "id": 174,
+        "year": 2023,
+        "name": "2023/2024",
+        "leagueId": 43
+      },
+      {
+        "id": 3291,
+        "year": 2023,
+        "name": "2023",
+        "leagueId": 355
+      },
+      {
+        "id": 3308,
+        "year": 2023,
+        "name": "2023",
+        "leagueId": 357
+      },
+      {
+        "id": 2,
+        "year": 2022,
+        "name": "2022/2023",
+        "leagueId": 1
+      },
+      {
+        "id": 275,
+        "year": 2022,
+        "name": "2022",
+        "leagueId": 67
+      },
+      {
+        "id": 1652,
+        "year": 2022,
+        "name": "2022/2023",
+        "leagueId": 7
+      },
+      {
+        "id": 1791,
+        "year": 2022,
+        "name": "2022",
+        "leagueId": 15
+      },
+      {
+        "id": 2199,
+        "year": 2022,
+        "name": "2022/2023",
+        "leagueId": 43
+      },
+      {
+        "id": 3126,
+        "year": 2022,
+        "name": "2022/2023",
+        "leagueId": 151
+      },
+      {
+        "id": 3131,
+        "year": 2021,
+        "name": "2021/2022",
+        "leagueId": 151
+      }
+    ]
+  }
+}

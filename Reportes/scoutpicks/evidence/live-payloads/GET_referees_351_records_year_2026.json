@@ -1,0 +1,133 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/referees/351/records?year=2026",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "8ffe2605-b5ba-4378-9ce4-051364f3bd3c",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:42 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "refereeId": 351,
+    "year": 2026,
+    "rows": [
+      {
+        "leagueId": 5,
+        "leagueName": "Bundesliga",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/18/82.png",
+        "matches": 14,
+        "yellowCards": 34,
+        "redCards": 1
+      },
+      {
+        "leagueId": 1,
+        "leagueName": "Champions League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png",
+        "matches": 5,
+        "yellowCards": 14,
+        "redCards": 1
+      },
+      {
+        "leagueId": 4,
+        "leagueName": "Europa League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png",
+        "matches": 2,
+        "yellowCards": 9,
+        "redCards": 0
+      },
+      {
+        "leagueId": 9,
+        "leagueName": "Pro League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/16/944.png",
+        "matches": 2,
+        "yellowCards": 6,
+        "redCards": 0
+      },
+      {
+        "leagueId": 15,
+        "leagueName": "Friendly International",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png",
+        "matches": 2,
+        "yellowCards": 5,
+        "redCards": 0
+      },
+      {
+        "leagueId": 25,
+        "leagueName": "DFB Pokal",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/13/109.png",
+        "matches": 2,
+        "yellowCards": 6,
+        "redCards": 0
+      },
+      {
+        "leagueId": 37,
+        "leagueName": "Super League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/5/325.png",
+        "matches": 2,
+        "yellowCards": 9,
+        "redCards": 1
+      },
+      {
+        "leagueId": 81,
+        "leagueName": "UAE Pro League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/31/959.png",
+        "matches": 1,
+        "yellowCards": 7,
+        "redCards": 1
+      },
+      {
+        "leagueId": 116,
+        "leagueName": "UEFA Nations League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+        "matches": 1,
+        "yellowCards": 1,
+        "redCards": 0
+      },
+      {
+        "leagueId": 133,
+        "leagueName": "Europa Conference League",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/14/2286.png",
+        "matches": 1,
+        "yellowCards": 8,
+        "redCards": 0
+      },
+      {
+        "leagueId": 149,
+        "leagueName": "2. Bundesliga",
+        "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/21/85.png",
+        "matches": 1,
+        "yellowCards": 4,
+        "redCards": 1
+      }
+    ],
+    "availableYears": [
+      2026,
+      2025,
+      2024,
+      2023,
+      2022,
+      2021,
+      2020,
+      2019,
+      2018,
+      2017,
+      2016
+    ]
+  }
+}

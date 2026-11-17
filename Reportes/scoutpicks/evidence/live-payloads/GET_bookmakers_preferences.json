@@ -1,0 +1,127 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/bookmakers/preferences",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "bookmakers": [
+      {
+        "id": 1,
+        "name": "Bet365",
+        "logo": null,
+        "countryCodes": [
+          "GB",
+          "CY",
+          "EE",
+          "GR",
+          "RS",
+          "SE",
+          "NL",
+          "BG",
+          "BR",
+          "AT",
+          "AU",
+          "MX",
+          "DE",
+          "AR",
+          "IE",
+          "DK",
+          "IT",
+          "ES",
+          "PE",
+          "FR",
+          "US",
+          "CA",
+          "GL"
+        ],
+        "recommendedForUser": false
+      },
+      {
+        "id": 2,
+        "name": "Betano",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+        "countryCodes": [
+          "GB",
+          "CZ",
+          "RO",
+          "EC",
+          "CL",
+          "PT",
+          "BG",
+          "BR",
+          "MX",
+          "DE",
+          "GH",
+          "NG",
+          "AR",
+          "DK",
+          "CO",
+          "PE",
+          "CA",
+          "BE"
+        ],
+        "recommendedForUser": false
+      },
+      {
+        "id": 3,
+        "name": "Draftea",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+        "countryCodes": [
+          "MX"
+        ],
+        "recommendedForUser": false
+      },
+      {
+        "id": 5,
+        "name": "JugaBet",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+        "countryCodes": [
+          "AR",
+          "BR",
+          "CL",
+          "MX",
+          "PE",
+          "CO",
+          "VE",
+          "EC",
+          "PA"
+        ],
+        "recommendedForUser": false
+      },
+      {
+        "id": 4,
+        "name": "Stake",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+        "countryCodes": [
+          "AR",
+          "BO",
+          "BR",
+          "CA",
+          "CL",
+          "CO",
+          "CR",
+          "EC",
+          "GT",
+          "HN",
+          "MX",
+          "NI",
+          "PA",
+          "PE",
+          "PY",
+          "SV",
+          "UY",
+          "VE"
+        ],
+        "recommendedForUser": false
+      }
+    ],
+    "selectedBookmakerIds": [],
+    "configured": false,
+    "countryCode": null
+  }
+}

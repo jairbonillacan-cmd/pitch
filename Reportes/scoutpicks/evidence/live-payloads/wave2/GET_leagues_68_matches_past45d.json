@@ -1,0 +1,5120 @@
+{
+  "status": 200,
+  "url": "/leagues/68/matches?startTime=2026-10-03T17%3A00%3A11.292Z&endTime=2026-11-17T17%3A00%3A11.292Z&limit=100&timezoneOffset=360",
+  "data": {
+    "league": {
+      "id": 68,
+      "name": "Liga MX",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+    },
+    "season": {
+      "id": 699,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "dateGroups": [
+      {
+        "dateKey": "2026-10-09",
+        "dateIso": "2026-10-09T00:00:00.000Z",
+        "dateLabel": "2026-10-09",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671455,
+                "apiId": null,
+                "date": "2026-10-10T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-10T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67507,
+                "awayTeamId": 67641,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671454,
+                "apiId": null,
+                "date": "2026-10-10T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-10T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 3,
+                "awayScore": 2,
+                "homeScoreHT": 2,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67808,
+                "awayTeamId": 67561,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-10",
+        "dateIso": "2026-10-10T00:00:00.000Z",
+        "dateLabel": "2026-10-10",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671453,
+                "apiId": null,
+                "date": "2026-10-10T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-10T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67543,
+                "awayTeamId": 67524,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671456,
+                "apiId": null,
+                "date": "2026-10-10T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-10T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 2,
+                "awayScore": 0,
+                "homeScoreHT": 1,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67523,
+                "awayTeamId": 72126,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671452,
+                "apiId": null,
+                "date": "2026-10-11T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-11T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67508,
+                "awayTeamId": 67801,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671450,
+                "apiId": null,
+                "date": "2026-10-11T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-11T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67544,
+                "awayTeamId": 67619,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-11",
+        "dateIso": "2026-10-11T00:00:00.000Z",
+        "dateLabel": "2026-10-11",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671446,
+                "apiId": null,
+                "date": "2026-10-11T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-11T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 1,
+                "awayScore": 2,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67642,
+                "awayTeamId": 67578,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671448,
+                "apiId": null,
+                "date": "2026-10-11T23:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-11T23:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 3,
+                "awayScore": 3,
+                "homeScoreHT": 1,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67620,
+                "awayTeamId": 67560,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671445,
+                "apiId": null,
+                "date": "2026-10-12T01:15:00.000Z",
+                "effectiveKickoffDate": "2026-10-12T01:15:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "11",
+                "homeScore": 3,
+                "awayScore": 3,
+                "homeScoreHT": 2,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67577,
+                "awayTeamId": 67600,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "11",
+                "roundNumber": 11,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-16",
+        "dateIso": "2026-10-16T00:00:00.000Z",
+        "dateLabel": "2026-10-16",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671443,
+                "apiId": null,
+                "date": "2026-10-17T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-17T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 0,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67560,
+                "awayTeamId": 67508,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671558,
+                "apiId": null,
+                "date": "2026-10-17T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-17T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 1,
+                "awayScore": 2,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 72126,
+                "awayTeamId": 67577,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671557,
+                "apiId": null,
+                "date": "2026-10-17T03:05:00.000Z",
+                "effectiveKickoffDate": "2026-10-17T03:05:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 0,
+                "awayScore": 0,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67524,
+                "awayTeamId": 67507,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-17",
+        "dateIso": "2026-10-17T00:00:00.000Z",
+        "dateLabel": "2026-10-17",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671554,
+                "apiId": null,
+                "date": "2026-10-17T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-17T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 5,
+                "awayScore": 0,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67578,
+                "awayTeamId": 67523,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "awayTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671555,
+                "apiId": null,
+                "date": "2026-10-17T23:07:00.000Z",
+                "effectiveKickoffDate": "2026-10-17T23:07:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67801,
+                "awayTeamId": 67808,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671550,
+                "apiId": null,
+                "date": "2026-10-18T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-18T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67561,
+                "awayTeamId": 67642,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671553,
+                "apiId": null,
+                "date": "2026-10-18T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-18T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 3,
+                "awayScore": 5,
+                "homeScoreHT": 0,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67641,
+                "awayTeamId": 67544,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671549,
+                "apiId": null,
+                "date": "2026-10-18T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-18T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 5,
+                "awayScore": 0,
+                "homeScoreHT": 3,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67600,
+                "awayTeamId": 67543,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "awayTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-18",
+        "dateIso": "2026-10-18T00:00:00.000Z",
+        "dateLabel": "2026-10-18",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671547,
+                "apiId": null,
+                "date": "2026-10-19T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-19T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "12",
+                "homeScore": 2,
+                "awayScore": 1,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67619,
+                "awayTeamId": 67620,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "12",
+                "roundNumber": 12,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-20",
+        "dateIso": "2026-10-20T00:00:00.000Z",
+        "dateLabel": "2026-10-20",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671540,
+                "apiId": null,
+                "date": "2026-10-21T00:07:00.000Z",
+                "effectiveKickoffDate": "2026-10-21T00:07:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 1,
+                "awayScore": 0,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67801,
+                "awayTeamId": 67560,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671544,
+                "apiId": null,
+                "date": "2026-10-21T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-21T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67543,
+                "awayTeamId": 72126,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671546,
+                "apiId": null,
+                "date": "2026-10-21T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-21T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 2,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67642,
+                "awayTeamId": 67523,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671542,
+                "apiId": null,
+                "date": "2026-10-21T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-21T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 0,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67808,
+                "awayTeamId": 67641,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-21",
+        "dateIso": "2026-10-21T00:00:00.000Z",
+        "dateLabel": "2026-10-21",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671536,
+                "apiId": null,
+                "date": "2026-10-22T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-22T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 2,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67561,
+                "awayTeamId": 67524,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671537,
+                "apiId": null,
+                "date": "2026-10-22T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-22T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 2,
+                "awayScore": 5,
+                "homeScoreHT": 0,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67508,
+                "awayTeamId": 67544,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671538,
+                "apiId": null,
+                "date": "2026-10-22T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-22T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 1,
+                "awayScore": 4,
+                "homeScoreHT": 0,
+                "awayScoreHT": 3,
+                "elapsed": null,
+                "homeTeamId": 67507,
+                "awayTeamId": 67619,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671534,
+                "apiId": null,
+                "date": "2026-10-22T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-22T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 2,
+                "awayScore": 0,
+                "homeScoreHT": 1,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67578,
+                "awayTeamId": 67577,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "awayTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671535,
+                "apiId": null,
+                "date": "2026-10-22T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-22T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "13",
+                "homeScore": 1,
+                "awayScore": 2,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67620,
+                "awayTeamId": 67600,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "13",
+                "roundNumber": 13,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-23",
+        "dateIso": "2026-10-23T00:00:00.000Z",
+        "dateLabel": "2026-10-23",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671533,
+                "apiId": null,
+                "date": "2026-10-24T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-24T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 1,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67560,
+                "awayTeamId": 67543,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671532,
+                "apiId": null,
+                "date": "2026-10-24T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-24T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 72126,
+                "awayTeamId": 67642,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-24",
+        "dateIso": "2026-10-24T00:00:00.000Z",
+        "dateLabel": "2026-10-24",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671531,
+                "apiId": null,
+                "date": "2026-10-24T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-24T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67641,
+                "awayTeamId": 67561,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671617,
+                "apiId": null,
+                "date": "2026-10-25T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-25T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67619,
+                "awayTeamId": 67801,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671614,
+                "apiId": null,
+                "date": "2026-10-25T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-25T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67577,
+                "awayTeamId": 67808,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-25",
+        "dateIso": "2026-10-25T00:00:00.000Z",
+        "dateLabel": "2026-10-25",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671613,
+                "apiId": null,
+                "date": "2026-10-25T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-25T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 4,
+                "awayScore": 3,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67508,
+                "awayTeamId": 67507,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671611,
+                "apiId": null,
+                "date": "2026-10-26T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-26T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 1,
+                "awayScore": 3,
+                "homeScoreHT": 1,
+                "awayScoreHT": 3,
+                "elapsed": null,
+                "homeTeamId": 67523,
+                "awayTeamId": 67600,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671612,
+                "apiId": null,
+                "date": "2026-10-26T01:05:00.000Z",
+                "effectiveKickoffDate": "2026-10-26T01:05:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 1,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67544,
+                "awayTeamId": 67620,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671609,
+                "apiId": null,
+                "date": "2026-10-26T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-10-26T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "14",
+                "homeScore": 4,
+                "awayScore": 1,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67524,
+                "awayTeamId": 67578,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "14",
+                "roundNumber": 14,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-28",
+        "dateIso": "2026-10-28T00:00:00.000Z",
+        "dateLabel": "2026-10-28",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671506,
+                "apiId": null,
+                "date": "2026-10-29T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-29T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "7",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67544,
+                "awayTeamId": 67524,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "7",
+                "roundNumber": 7,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-30",
+        "dateIso": "2026-10-30T00:00:00.000Z",
+        "dateLabel": "2026-10-30",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671607,
+                "apiId": null,
+                "date": "2026-10-31T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-31T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 3,
+                "awayScore": 1,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67543,
+                "awayTeamId": 67523,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671608,
+                "apiId": null,
+                "date": "2026-10-31T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-31T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67642,
+                "awayTeamId": 67508,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671606,
+                "apiId": null,
+                "date": "2026-10-31T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-31T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 1,
+                "awayScore": 2,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67507,
+                "awayTeamId": 67577,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-10-31",
+        "dateIso": "2026-10-31T00:00:00.000Z",
+        "dateLabel": "2026-10-31",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671604,
+                "apiId": null,
+                "date": "2026-10-31T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-10-31T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 3,
+                "awayScore": 0,
+                "homeScoreHT": 1,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67620,
+                "awayTeamId": 67808,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671601,
+                "apiId": null,
+                "date": "2026-11-01T01:05:00.000Z",
+                "effectiveKickoffDate": "2026-11-01T01:05:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 3,
+                "awayScore": 3,
+                "homeScoreHT": 2,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67619,
+                "awayTeamId": 67524,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671603,
+                "apiId": null,
+                "date": "2026-11-01T01:07:00.000Z",
+                "effectiveKickoffDate": "2026-11-01T01:07:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 4,
+                "awayScore": 2,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67801,
+                "awayTeamId": 72126,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671598,
+                "apiId": null,
+                "date": "2026-11-01T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-11-01T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 2,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67544,
+                "awayTeamId": 67561,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-01",
+        "dateIso": "2026-11-01T00:00:00.000Z",
+        "dateLabel": "2026-11-01",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671597,
+                "apiId": null,
+                "date": "2026-11-01T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-01T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 1,
+                "awayScore": 0,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67578,
+                "awayTeamId": 67560,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "awayTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671596,
+                "apiId": null,
+                "date": "2026-11-02T01:10:00.000Z",
+                "effectiveKickoffDate": "2026-11-02T01:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "15",
+                "homeScore": 2,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67600,
+                "awayTeamId": 67641,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "15",
+                "roundNumber": 15,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "awayTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-06",
+        "dateIso": "2026-11-06T00:00:00.000Z",
+        "dateLabel": "2026-11-06",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671594,
+                "apiId": null,
+                "date": "2026-11-07T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-07T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 1,
+                "awayScore": 0,
+                "homeScoreHT": 1,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67560,
+                "awayTeamId": 67524,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67560,
+                  "name": "Necaxa",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/3951.png",
+                  "code": "NXA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67524,
+                  "name": "Tijuana",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/11023.png",
+                  "code": "TIJ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671595,
+                "apiId": null,
+                "date": "2026-11-07T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-07T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67642,
+                "awayTeamId": 67543,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67642,
+                  "name": "Atlético San Luis",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                  "code": "ASL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67543,
+                  "name": "Juárez",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/6335.png",
+                  "code": "JUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671592,
+                "apiId": null,
+                "date": "2026-11-07T03:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-07T03:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 0,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 72126,
+                "awayTeamId": 67578,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 72126,
+                  "name": "Atlante",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/7023.png",
+                  "code": "ATL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67578,
+                  "name": "Santos Laguna",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/2844.png",
+                  "code": "SLA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-07",
+        "dateIso": "2026-11-07T00:00:00.000Z",
+        "dateLabel": "2026-11-07",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671591,
+                "apiId": null,
+                "date": "2026-11-07T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-07T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 1,
+                "awayScore": 4,
+                "homeScoreHT": 0,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67508,
+                "awayTeamId": 67620,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67508,
+                  "name": "Atlas",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/680.png",
+                  "code": "ATS",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 67620,
+                  "name": "Pachuca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10036.png",
+                  "code": "PCH",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671586,
+                "apiId": null,
+                "date": "2026-11-08T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-08T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 4,
+                "awayScore": 0,
+                "homeScoreHT": 2,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67561,
+                "awayTeamId": 67619,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67561,
+                  "name": "Toluca",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/967.png",
+                  "code": "TOL",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "D",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671589,
+                "apiId": null,
+                "date": "2026-11-08T01:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-08T01:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 2,
+                "awayScore": 3,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67808,
+                "awayTeamId": 67600,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67808,
+                  "name": "Tigres UANL",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/609.png",
+                  "code": "TUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "D",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67600,
+                  "name": "Cruz Azul",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/2626.png",
+                  "code": "CAZ",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 100
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671584,
+                "apiId": null,
+                "date": "2026-11-08T03:10:00.000Z",
+                "effectiveKickoffDate": "2026-11-08T03:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 2,
+                "awayScore": 2,
+                "homeScoreHT": 1,
+                "awayScoreHT": 1,
+                "elapsed": null,
+                "homeTeamId": 67577,
+                "awayTeamId": 67544,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67577,
+                  "name": "Pumas UNAM",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/2989.png",
+                  "code": "PUM",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 67544,
+                  "name": "América",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                  "code": "AME",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-08",
+        "dateIso": "2026-11-08T00:00:00.000Z",
+        "dateLabel": "2026-11-08",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671583,
+                "apiId": null,
+                "date": "2026-11-09T00:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-09T00:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 0,
+                "awayScore": 2,
+                "homeScoreHT": 0,
+                "awayScoreHT": 2,
+                "elapsed": null,
+                "homeTeamId": 67523,
+                "awayTeamId": 67507,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67507,
+                  "name": "Puebla",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+                  "code": "PUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              },
+              {
+                "id": 10671581,
+                "apiId": null,
+                "date": "2026-11-09T02:10:00.000Z",
+                "effectiveKickoffDate": "2026-11-09T02:10:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "16",
+                "homeScore": 1,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67641,
+                "awayTeamId": 67801,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "16",
+                "roundNumber": 16,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67641,
+                  "name": "León",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/10836.png",
+                  "code": "LEO",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "L",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 67801,
+                  "name": "Guadalajara",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/427.png",
+                  "code": "GUA",
+                  "isNationalTeam": false,
+                  "form": [
+                    "D",
+                    "W",
+                    "W",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateKey": "2026-11-14",
+        "dateIso": "2026-11-14T00:00:00.000Z",
+        "dateLabel": "2026-11-14",
+        "groups": [
+          {
+            "group": null,
+            "matches": [
+              {
+                "id": 10671508,
+                "apiId": null,
+                "date": "2026-11-14T23:00:00.000Z",
+                "effectiveKickoffDate": "2026-11-14T23:00:00.000Z",
+                "status": "FT",
+                "venue": null,
+                "round": "7",
+                "homeScore": 0,
+                "awayScore": 1,
+                "homeScoreHT": 0,
+                "awayScoreHT": 0,
+                "elapsed": null,
+                "homeTeamId": 67523,
+                "awayTeamId": 67619,
+                "seasonId": 699,
+                "referee": null,
+                "statsStatus": "synced",
+                "groupName": null,
+                "groupSportmonksId": null,
+                "roundName": "7",
+                "roundNumber": 7,
+                "stageName": "Apertura",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 67523,
+                  "name": "Querétaro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                  "code": "QUE",
+                  "isNationalTeam": false,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 67619,
+                  "name": "Monterrey",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/2662.png",
+                  "code": "MNT",
+                  "isNationalTeam": false,
+                  "form": [
+                    "W",
+                    "L",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 699,
+                  "year": 2026,
+                  "startDate": "2026-07-17T00:00:00.000Z",
+                  "endDate": "2026-12-05T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 28009,
+                  "name": "2026/2027",
+                  "leagueId": 68,
+                  "backfillPostProcessedAt": "2026-08-31T18:04:54.949Z",
+                  "phases": null,
+                  "createdAt": "2026-07-11T04:46:07.027Z",
+                  "updatedAt": "2026-11-17T16:11:56.162Z",
+                  "league": {
+                    "id": 68,
+                    "name": "Liga MX",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+                    "isNationalTeam": false,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": null,
+                  "draw": null,
+                  "awayWin": null,
+                  "homeBookmaker": null,
+                  "drawBookmaker": null,
+                  "awayBookmaker": null,
+                  "homeBookmakerOdds": [],
+                  "drawBookmakerOdds": [],
+                  "awayBookmakerOdds": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasMore": false,
+    "hasPrevious": false
+  }
+}

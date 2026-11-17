@@ -1,0 +1,439 @@
+{
+  "status": 200,
+  "url": "/leagues/68/bracket",
+  "data": {
+    "league": {
+      "id": 68,
+      "name": "Liga MX",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+    },
+    "season": {
+      "id": 699,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "source": "derived",
+    "rounds": [
+      {
+        "key": "apertura_quarter_finals",
+        "label": "Apertura - Quarter-finals",
+        "order": 0,
+        "ties": [
+          {
+            "key": "m_37224156",
+            "home": {
+              "id": 21351547,
+              "name": "5th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351546,
+              "name": "4th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224156,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224157",
+            "home": {
+              "id": 21351553,
+              "name": "6th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351550,
+              "name": "3rd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224157,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224158",
+            "home": {
+              "id": 67842045,
+              "name": "7th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67757040,
+              "name": "2nd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224158,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224159",
+            "home": {
+              "id": 67842046,
+              "name": "8th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67757036,
+              "name": "1st ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224159,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37521613",
+            "home": {
+              "id": 21351547,
+              "name": "5th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351546,
+              "name": "4th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37521613,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37521614",
+            "home": {
+              "id": 21351553,
+              "name": "6th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351550,
+              "name": "3rd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37521614,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37521615",
+            "home": {
+              "id": 67842045,
+              "name": "7th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67757040,
+              "name": "2nd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37521615,
+                "date": "2026-11-25T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224152",
+            "home": {
+              "id": 21351546,
+              "name": "4th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351547,
+              "name": "5th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224152,
+                "date": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224153",
+            "home": {
+              "id": 21351550,
+              "name": "3rd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351553,
+              "name": "6th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224153,
+                "date": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224154",
+            "home": {
+              "id": 67757040,
+              "name": "2nd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67842045,
+              "name": "7th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224154,
+                "date": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224155",
+            "home": {
+              "id": 67757036,
+              "name": "1st ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67842046,
+              "name": "8th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224155,
+                "date": "2026-11-28T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          }
+        ]
+      },
+      {
+        "key": "apertura_semi_finals",
+        "label": "Apertura - Semi-finals",
+        "order": 1,
+        "ties": [
+          {
+            "key": "m_37224162",
+            "home": {
+              "id": 21351550,
+              "name": "3rd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67757040,
+              "name": "2nd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224162,
+                "date": "2026-12-02T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224163",
+            "home": {
+              "id": 21351546,
+              "name": "4th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 67757036,
+              "name": "1st ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224163,
+                "date": "2026-12-02T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224160",
+            "home": {
+              "id": 67757040,
+              "name": "2nd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351550,
+              "name": "3rd ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224160,
+                "date": "2026-12-05T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          },
+          {
+            "key": "m_37224161",
+            "home": {
+              "id": 67757036,
+              "name": "1st ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "away": {
+              "id": 21351546,
+              "name": "4th ranked",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+            },
+            "legs": [
+              {
+                "matchId": 37224161,
+                "date": "2026-12-05T00:00:00.000Z",
+                "status": "NS",
+                "homeScore": null,
+                "awayScore": null
+              }
+            ],
+            "aggregate": null,
+            "winnerTeamId": null,
+            "placeholder": true
+          }
+        ]
+      }
+    ],
+    "connectors": []
+  }
+}

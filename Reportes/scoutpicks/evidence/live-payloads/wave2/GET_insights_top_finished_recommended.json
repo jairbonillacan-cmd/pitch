@@ -1,0 +1,11 @@
+{
+  "status": 400,
+  "url": "/insights/top?statusFilter=finished&sortBy=recommended&limit=100&offset=0&timezoneOffset=360",
+  "data": {
+    "success": false,
+    "error": {
+      "name": "ZodError",
+      "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"live\",\n      \"upcoming\"\n    ],\n    \"path\": [\n      \"statusFilter\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"live\\\"|\\\"upcoming\\\"\"\n  }\n]"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "method": "GET",
+  "url": "https://api.revenuecat.com/rcbilling/v1/subscribers/usr_redacted_0000000000000000000/offerings",
+  "requestBody": null,
+  "status": 404,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "code": 7117,
+    "message": "Page not found."
+  }
+}

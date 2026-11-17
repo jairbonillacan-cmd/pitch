@@ -1,0 +1,121 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues/116",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "44e567e7-988e-4672-8a9c-c8753559ae24",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:30 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "id": 116,
+    "apiId": null,
+    "name": "UEFA Nations League",
+    "type": "league",
+    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+    "country": {
+      "id": 1,
+      "name": "Europe",
+      "code": "EU",
+      "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+    },
+    "seasons": [
+      {
+        "id": 513,
+        "name": "2026/2027",
+        "year": 2026,
+        "startDate": "2026-09-24T00:00:00.000Z",
+        "endDate": "2026-11-17T00:00:00.000Z",
+        "current": true,
+        "structure": {
+          "hasGroups": true,
+          "hasLeagueTable": false,
+          "hasKnockout": false,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 509,
+        "name": "2024/2025",
+        "year": 2024,
+        "startDate": "2024-09-05T00:00:00.000Z",
+        "endDate": "2026-03-31T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": true,
+          "hasLeagueTable": false,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 510,
+        "name": "2022/2023",
+        "year": 2022,
+        "startDate": "2022-06-01T00:00:00.000Z",
+        "endDate": "2024-03-26T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": true,
+          "hasLeagueTable": false,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 512,
+        "name": "2020/2021",
+        "year": 2020,
+        "startDate": "2020-09-03T00:00:00.000Z",
+        "endDate": "2022-03-29T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": true,
+          "hasLeagueTable": false,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 511,
+        "name": "2018/2019",
+        "year": 2018,
+        "startDate": "2018-09-06T00:00:00.000Z",
+        "endDate": "2019-06-09T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": true,
+          "hasLeagueTable": false,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      }
+    ]
+  }
+}

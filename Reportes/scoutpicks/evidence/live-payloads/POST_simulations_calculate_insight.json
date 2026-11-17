@@ -1,0 +1,545 @@
+{
+  "method": "POST",
+  "url": "https://api.scoutpicks.aertech-labs.com/simulations/calculate",
+  "requestBody": {
+    "insightId": "draft:p1113_m54091_tackles_0.5_over"
+  },
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "probability": 100,
+    "confidence": "medium",
+    "entity": {
+      "id": 1113,
+      "name": "António Silva",
+      "image": "https://cdn.sportmonks.com/images/soccer/players/12/37354828.png",
+      "type": "player"
+    },
+    "bet": {
+      "metric": "tackles",
+      "metricLabel": "Entradas",
+      "comparison": "over",
+      "comparisonLabel": "Más de",
+      "line": 0.5,
+      "period": "full_match",
+      "periodLabel": "Todo el encuentro"
+    },
+    "match": {
+      "id": 54091,
+      "opponent": {
+        "id": 17181,
+        "name": "Wales",
+        "shortName": "WAL",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+      },
+      "date": "2026-11-17T19:45:00.000Z",
+      "competition": "UEFA Nations League",
+      "isHome": false
+    },
+    "analysis": {
+      "summary": "António Silva ha superado más de 0.5 entradas en 100% de los últimos 10 partidos. Contra Wales, ha cumplido en 10 de 10 enfrentamientos. Su media es de 1.9 entradas por partido.",
+      "keyFactors": [
+        "100% de cumplimiento en los últimos 10 partidos",
+        "Media de 1.9 entradas por partido",
+        "Racha de 10 partidos consecutivos superando la línea",
+        "2.25 entradas de media como visitante",
+        "Media de 1.9 entradas vs Wales"
+      ]
+    },
+    "charts": {
+      "vsOpponent": {
+        "title": "Entradas - Últimos 10",
+        "type": "vertical_bar",
+        "targetLine": 0.5,
+        "data": [
+          {
+            "label": "08/11/26",
+            "value": 1,
+            "meetsTarget": true,
+            "matchId": 10618064,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 2795,
+              "name": "Ipswich Town",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/116.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 2,
+              "isHome": false,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "31/10/26",
+            "value": 1,
+            "meetsTarget": true,
+            "matchId": 10618111,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 1165,
+              "name": "Leeds United",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "28/10/26",
+            "value": 2,
+            "meetsTarget": true,
+            "matchId": 35895753,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 746,
+              "name": "Aston Villa",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/15.png"
+            },
+            "competition": "Carabao Cup",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "25/10/26",
+            "value": 2,
+            "meetsTarget": true,
+            "matchId": 10618118,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 1161,
+              "name": "Manchester United",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/14.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 3,
+              "isHome": false,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "22/10/26",
+            "value": 1,
+            "meetsTarget": true,
+            "matchId": 32187435,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 749,
+              "name": "AC Milan",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/113.png"
+            },
+            "competition": "Europa League",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "18/10/26",
+            "value": 1,
+            "meetsTarget": true,
+            "matchId": 10618183,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 1144,
+              "name": "Sunderland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/3.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "15/10/26",
+            "value": 3,
+            "meetsTarget": true,
+            "matchId": 32187395,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 158,
+              "name": "Sturm Graz",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/3357.png"
+            },
+            "competition": "Europa League",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "10/10/26",
+            "value": 2,
+            "meetsTarget": true,
+            "matchId": 10618205,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 219,
+              "name": "Chelsea",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 5,
+              "awayScore": 1,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "20/09/26",
+            "value": 2,
+            "meetsTarget": true,
+            "matchId": 10451227,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 230,
+              "name": "Liverpool",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/8.png"
+            },
+            "competition": "Premier League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "17/09/26",
+            "value": 4,
+            "meetsTarget": true,
+            "matchId": 32187386,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 1149,
+              "name": "Real Sociedad",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/594.png"
+            },
+            "competition": "Europa League",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 2,
+              "isHome": false,
+              "outcome": "W"
+            }
+          }
+        ]
+      },
+      "vsTop5": {
+        "title": "Rendimiento vs equipos TOP 5",
+        "type": "horizontal_bar",
+        "targetLine": 0.5,
+        "data": [
+          {
+            "label": "LUX",
+            "value": 2,
+            "meetsTarget": true
+          },
+          {
+            "label": "CRO",
+            "value": 0,
+            "meetsTarget": false
+          }
+        ]
+      },
+      "homeAway": {
+        "title": "LOCAL vs VISITANTE",
+        "type": "horizontal_bar",
+        "targetLine": 0.5,
+        "data": [
+          {
+            "label": "Local",
+            "value": 1.67,
+            "meetsTarget": true
+          },
+          {
+            "label": "Visitante",
+            "value": 2.25,
+            "meetsTarget": true
+          }
+        ]
+      },
+      "compliance": {
+        "title": "Cumplimiento",
+        "meetsCount": 10,
+        "totalCount": 10,
+        "meetsPercentage": 100,
+        "missPercentage": 0,
+        "data": [
+          {
+            "label": "Cumple",
+            "value": 100,
+            "meetsTarget": true
+          },
+          {
+            "label": "No cumple",
+            "value": 0,
+            "meetsTarget": false
+          }
+        ]
+      }
+    },
+    "timeframe": {
+      "value": "l10",
+      "label": "Últimos 10"
+    },
+    "appliedIsHome": null,
+    "appliedVenue": "all",
+    "teamContext": {
+      "value": "national",
+      "label": "Solo Selección",
+      "teamId": 14678,
+      "teamName": "Portugal"
+    },
+    "odds": {
+      "available": true,
+      "bestOdds": {
+        "value": 1.4,
+        "bookmaker": "Betano"
+      },
+      "options": [
+        {
+          "oddsId": 239911262,
+          "value": 1.4,
+          "bookmaker": "Betano",
+          "impliedProbability": 0.71,
+          "edge": 99.29
+        },
+        {
+          "oddsId": 239886374,
+          "value": 1.25,
+          "bookmaker": "Bet365",
+          "impliedProbability": 0.8,
+          "edge": 99.2
+        }
+      ]
+    },
+    "defenseChart": {
+      "data": {
+        "title": "Wales - Entradas",
+        "type": "vertical_bar",
+        "targetLine": 0.5,
+        "data": [
+          {
+            "label": "14/11/26",
+            "value": 11,
+            "meetsTarget": true,
+            "matchId": 54100,
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 1,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "04/10/26",
+            "value": 9,
+            "meetsTarget": true,
+            "matchId": 54041,
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "01/10/26",
+            "value": 8,
+            "meetsTarget": true,
+            "matchId": 54049,
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "27/09/26",
+            "value": 13,
+            "meetsTarget": true,
+            "matchId": 53993,
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 0,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "24/09/26",
+            "value": 10,
+            "meetsTarget": true,
+            "matchId": 53999,
+            "opponent": {
+              "id": 14678,
+              "name": "Portugal",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 0,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "06/06/26",
+            "value": 10,
+            "meetsTarget": true,
+            "matchId": 8663,
+            "opponent": {
+              "id": 17178,
+              "name": "Romania",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18638.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 1,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "02/06/26",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 8606,
+            "opponent": {
+              "id": 14472,
+              "name": "Ghana",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18553.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "31/03/26",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 8591,
+            "opponent": {
+              "id": 17182,
+              "name": "Northern Ireland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "26/03/26",
+            "value": 16,
+            "meetsTarget": true,
+            "matchId": 33726,
+            "opponent": {
+              "id": 17231,
+              "name": "Bosnia and Herzegovina",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "18/11/25",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 33663,
+            "opponent": {
+              "id": 17180,
+              "name": "North Macedonia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18689.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 7,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          }
+        ]
+      },
+      "opponent": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+      },
+      "timeframe": {
+        "value": "l10",
+        "label": "Últimos 10"
+      },
+      "appliedIsHome": null,
+      "hitRate": 100,
+      "average": 11.3,
+      "median": 11.5
+    },
+    "average": 1.9,
+    "median": 2
+  }
+}

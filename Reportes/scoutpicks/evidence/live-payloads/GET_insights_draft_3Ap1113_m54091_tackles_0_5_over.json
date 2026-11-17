@@ -1,0 +1,539 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/insights/draft%3Ap1113_m54091_tackles_0.5_over",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "3ca6ff5f-3705-4c8a-a5e1-5be59fd527bc",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:22 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "id": "draft:p1113_m54091_tackles_0.5_over",
+    "type": "value_player_prop",
+    "playerId": 1113,
+    "teamId": null,
+    "oddsId": 239911262,
+    "metric": "tackles",
+    "line": 0.5,
+    "direction": "over",
+    "period": "full_match",
+    "selection": null,
+    "hitRate": 100,
+    "sampleSize": 10,
+    "average": 1.9,
+    "median": 2,
+    "timeWindow": "L10",
+    "confidence": 100,
+    "streak": null,
+    "trend": null,
+    "impliedProbability": 71.43,
+    "edgePercentage": 28.57,
+    "expectedValue": 0.4,
+    "valueRating": "strong",
+    "opponentId": 17181,
+    "opponentRank": null,
+    "opponentAvgConceded": null,
+    "opponentLeagueAvg": null,
+    "adjustedHitRate": null,
+    "matchupScore": null,
+    "matchupRating": null,
+    "description": "Más de 0.5 entradas: 100% (L10)",
+    "isHome": null,
+    "venue": "all",
+    "aggregateScope": "overall",
+    "stageKind": null,
+    "minMinutes": 45,
+    "variants": [
+      {
+        "scope": "match_team",
+        "teamId": 14678,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L10",
+        "competitionScope": "all",
+        "hitRate": 80,
+        "sampleSize": 10,
+        "edge": 8.57,
+        "teamIds": [
+          14678
+        ],
+        "leagueIds": [
+          15,
+          116,
+          109,
+          108
+        ],
+        "matchIds": [
+          7340,
+          54363,
+          54196,
+          54146,
+          52839,
+          10730631,
+          10730404,
+          53158,
+          53065,
+          53014
+        ]
+      },
+      {
+        "scope": "overall",
+        "teamId": null,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L5",
+        "competitionScope": "all",
+        "hitRate": 100,
+        "sampleSize": 5,
+        "edge": 28.57,
+        "teamIds": [
+          1125
+        ],
+        "leagueIds": [
+          2,
+          22,
+          4
+        ],
+        "matchIds": [
+          10618064,
+          10618111,
+          35895753,
+          10618118,
+          32187435
+        ]
+      },
+      {
+        "scope": "overall",
+        "teamId": null,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L20",
+        "competitionScope": "all",
+        "hitRate": 80,
+        "sampleSize": 20,
+        "edge": 8.57,
+        "teamIds": [
+          1125,
+          120
+        ],
+        "leagueIds": [
+          2,
+          22,
+          4,
+          357,
+          7
+        ],
+        "matchIds": [
+          10618064,
+          10618111,
+          35895753,
+          10618118,
+          32187435,
+          10618183,
+          32187395,
+          10618205,
+          10451227,
+          32187386,
+          10451415,
+          32292030,
+          10617960,
+          10618007,
+          10618014,
+          10945815,
+          10618160,
+          10618194,
+          10944526,
+          3656
+        ]
+      },
+      {
+        "scope": "match_team",
+        "teamId": 14678,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L5",
+        "competitionScope": "all",
+        "hitRate": 60,
+        "sampleSize": 5,
+        "edge": -11.43,
+        "teamIds": [
+          14678
+        ],
+        "leagueIds": [
+          15,
+          116,
+          109
+        ],
+        "matchIds": [
+          7340,
+          54363,
+          54196,
+          54146,
+          52839
+        ]
+      },
+      {
+        "scope": "match_team",
+        "teamId": 14678,
+        "venue": "all",
+        "stageKind": "group_phase",
+        "timeWindow": "L10",
+        "competitionScope": "all",
+        "hitRate": 80,
+        "sampleSize": 10,
+        "edge": 8.57,
+        "teamIds": [
+          14678
+        ],
+        "leagueIds": [
+          116,
+          109,
+          108,
+          67
+        ],
+        "matchIds": [
+          54363,
+          54196,
+          54146,
+          52839,
+          53158,
+          53065,
+          53014,
+          52850,
+          52645,
+          33781
+        ]
+      }
+    ],
+    "headlineCompetitionScoped": false,
+    "headlineHeadToHead": false,
+    "opponentMetricRank": null,
+    "substitutionPattern": null,
+    "stackedSnapshot": null,
+    "underdog": null,
+    "isNationalTeamMatch": true,
+    "isNeutralVenueMatch": false,
+    "injuryStatus": null,
+    "expectedLineupStatus": null,
+    "avgMinutesPlayed": null,
+    "recentValues": [
+      1,
+      1,
+      2,
+      2,
+      1,
+      1,
+      3,
+      2,
+      2,
+      4
+    ],
+    "recentMinutesPlayed": [
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90
+    ],
+    "matchIds": [
+      10618064,
+      10618111,
+      35895753,
+      10618118,
+      32187435,
+      10618183,
+      32187395,
+      10618205,
+      10451227,
+      32187386
+    ],
+    "headlineTeamIds": [
+      1125
+    ],
+    "headlineLeagueIds": [
+      2,
+      22,
+      4
+    ],
+    "matchId": 54091,
+    "reason": "Acierto en 10 de últimos 10 Más de 0.5 entradas (prom: 1.9). Cuota implica 71% — vemos 100%. 29% de ventaja.",
+    "oddsValue": 1.4,
+    "bookmaker": "Betano",
+    "status": "active",
+    "expiresAt": "2026-11-17T19:45:00.000Z",
+    "saveCount": 9,
+    "relevanceScore": 186.2919607053426,
+    "createdAt": "2026-11-15T14:43:11.309Z",
+    "updatedAt": "2026-11-15T17:11:36.266Z",
+    "hasMovementAlert": false,
+    "latestMovementId": null,
+    "contentHash": "56798a933505c36260486a4f0c17dab83eb3207b13ee2f6a52fcf0ba536f1c66",
+    "odds": {
+      "id": 239911262,
+      "matchId": 54091,
+      "bookmakerId": 2,
+      "source": "betano",
+      "perks": [
+        "sub_cover"
+      ],
+      "selection": "António Silva Over 0.5",
+      "value": 1.4,
+      "line": 0.5,
+      "playerId": 1113,
+      "teamId": 14678,
+      "status": "active",
+      "disabledOnMatchStart": false,
+      "hasMovementHistory": false,
+      "bookmaker": {
+        "id": 2,
+        "name": "Betano",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+      },
+      "betType": {
+        "id": 3120441,
+        "name": "Player Tackles",
+        "category": "tackles",
+        "level": "player",
+        "period": "full_match"
+      }
+    },
+    "periodLabel": null,
+    "leagueId": 116,
+    "seasonId": 513,
+    "player": {
+      "id": 1113,
+      "apiId": null,
+      "sportmonksId": 37354828,
+      "name": "António Silva",
+      "searchName": "antonio silva antonio joao pereira albuquerque tavares silva a tavares silva antonio silva",
+      "firstname": "António João Pereira Albuquerque",
+      "lastname": "Tavares Silva",
+      "commonName": "A. Tavares Silva",
+      "displayName": "António Silva",
+      "age": 23,
+      "nationality": "Portugal",
+      "height": "187 cm",
+      "weight": "82 kg",
+      "photo": "https://cdn.sportmonks.com/images/soccer/players/12/37354828.png",
+      "photoStatus": "pending",
+      "position": "Defender",
+      "currentTeamId": 1125,
+      "createdAt": "2026-05-15T14:58:05.775Z",
+      "updatedAt": "2026-11-17T14:27:59.213Z",
+      "nationalTeamId": 14678,
+      "inNationalTeamSquad": true,
+      "nationalSquadUpdatedAt": "2026-11-07T05:16:01.269Z",
+      "isWomen": false,
+      "aggregatesRefreshedAt": null,
+      "lastStatsAt": "2026-11-16T13:53:20.756Z",
+      "backfillInvalidationToken": null,
+      "currentTeam": {
+        "id": 1125,
+        "name": "AFC Bournemouth",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png",
+        "code": "BOU"
+      },
+      "nationalTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "detailedPosition": "CB"
+    },
+    "team": {
+      "id": 14678,
+      "name": "Portugal",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+      "code": "POR",
+      "isNationalTeam": true
+    },
+    "match": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "status": "NS",
+      "isNeutralVenue": false,
+      "homeTeam": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL",
+        "isNationalTeam": true
+      },
+      "awayTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR",
+        "isNationalTeam": true
+      },
+      "homeScore": null,
+      "awayScore": null,
+      "elapsed": null,
+      "league": "UEFA Nations League",
+      "isHome": false
+    },
+    "recentHits": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "value": {
+      "impliedProbability": 71.43,
+      "edgePercentage": 28.57,
+      "expectedValue": 0.4,
+      "valueRating": "strong"
+    },
+    "betting": {
+      "oddsId": 239911262,
+      "oddsValue": 1.4,
+      "bookmaker": "Betano",
+      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+      "bookmakerOdds": [
+        {
+          "oddsId": 239911262,
+          "oddsValue": 1.4,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "isStale": false,
+          "perks": [
+            "sub_cover"
+          ]
+        },
+        {
+          "oddsId": 239886374,
+          "oddsValue": 1.25,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "isStale": false
+        }
+      ],
+      "betType": "Player Tackles",
+      "category": "tackles",
+      "selection": "António Silva Over 0.5",
+      "isStale": false,
+      "hasMovementHistory": false
+    },
+    "gamesWithCurrentTeam": 16,
+    "recentTransfer": false,
+    "liveProgress": null,
+    "headlineScope": {
+      "scope": "overall",
+      "teamId": null,
+      "venue": "all",
+      "stageKind": "all",
+      "timeWindow": "L10",
+      "competitionScope": "all",
+      "teamIds": [
+        1125
+      ],
+      "leagueIds": [
+        2,
+        22,
+        4
+      ]
+    },
+    "lensEntities": {
+      "teams": [
+        {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "code": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        {
+          "id": 120,
+          "name": "Benfica",
+          "code": "SLB",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/605.png"
+        }
+      ],
+      "competitions": [
+        {
+          "id": 2,
+          "name": "Premier League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+        },
+        {
+          "id": 22,
+          "name": "Carabao Cup",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+        },
+        {
+          "id": 4,
+          "name": "Europa League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+        },
+        {
+          "id": 15,
+          "name": "Friendly International",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+        },
+        {
+          "id": 116,
+          "name": "UEFA Nations League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+        },
+        {
+          "id": 109,
+          "name": "European Championship",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1326.png"
+        },
+        {
+          "id": 108,
+          "name": "Euro Qualification",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+        },
+        {
+          "id": 357,
+          "name": "Club Friendlies 3",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+        },
+        {
+          "id": 7,
+          "name": "Liga Portugal",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png"
+        },
+        {
+          "id": 67,
+          "name": "World Cup",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/732.png"
+        }
+      ]
+    }
+  }
+}

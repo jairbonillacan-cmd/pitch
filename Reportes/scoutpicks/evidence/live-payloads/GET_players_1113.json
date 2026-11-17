@@ -1,0 +1,78 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/players/1113",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "538c494d-18e7-4aa4-9f2a-0e003883fe1b",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:22 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "id": 1113,
+    "name": "António Silva",
+    "firstName": "António João Pereira Albuquerque",
+    "lastName": "Tavares Silva",
+    "image": "https://cdn.sportmonks.com/images/soccer/players/12/37354828.png",
+    "position": "Defender",
+    "detailedPosition": "CB",
+    "nationality": {
+      "name": "Portugal",
+      "code": "PT",
+      "flag": "https://flagcdn.com/w80/pt.png"
+    },
+    "currentTeam": {
+      "id": 1125,
+      "name": "AFC Bournemouth",
+      "shortName": "BOU",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+    },
+    "nationalTeam": {
+      "id": 14678,
+      "name": "Portugal",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+      "code": "POR"
+    },
+    "inNationalTeamSquad": true,
+    "currentCompetitions": [
+      {
+        "id": 2,
+        "name": "Premier League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+      },
+      {
+        "id": 357,
+        "name": "Club Friendlies 3",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+      },
+      {
+        "id": 4,
+        "name": "Europa League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+      },
+      {
+        "id": 22,
+        "name": "Carabao Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+      }
+    ],
+    "height": 187,
+    "weight": 82,
+    "age": 23
+  }
+}

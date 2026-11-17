@@ -1,0 +1,53 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/lineups",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "59424e08-798a-4d73-88a5-3d0edf1fc685",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:51 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "match": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "status": "NS",
+      "homeTeam": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "awayTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "league": {
+        "id": 116,
+        "name": "UEFA Nations League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+      }
+    },
+    "lineupsStatus": "pending",
+    "home": null,
+    "away": null
+  }
+}

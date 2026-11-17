@@ -1,0 +1,2807 @@
+{
+  "status": 200,
+  "url": "/insights/team/12796?limit=25",
+  "data": {
+    "teamId": 12796,
+    "insights": [
+      {
+        "id": "draft:t12796_m10708874_goals_0.5_under",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239667756,
+        "metric": "goals",
+        "line": 0.5,
+        "direction": "under",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 80,
+        "sampleSize": 5,
+        "average": 0.2,
+        "median": 0,
+        "timeWindow": "L5",
+        "confidence": 67,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 20,
+        "edgePercentage": 60,
+        "expectedValue": 3,
+        "valueRating": "strong",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Menos de 0.5 goles: 80% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 10,
+            "edge": 20,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 40,
+            "sampleSize": 20,
+            "edge": 20,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775,
+              10708771,
+              10708762,
+              10708755,
+              10708749,
+              10708739,
+              10708735,
+              10708719,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "opponentScope": "head_to_head",
+            "hitRate": 33.33,
+            "sampleSize": 3,
+            "edge": 13.33,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708771,
+              36857,
+              36531
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 10,
+            "edge": 40,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 35,
+            "sampleSize": 20,
+            "edge": 15,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "goals",
+          "rankType": "defense",
+          "rank": 1,
+          "totalTeams": 12,
+          "average": 1.75609756097561,
+          "leagueAvg": 1.229166666666667,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "matchIds": [
+          10708864,
+          10708855,
+          10708846,
+          10708833,
+          10708829
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 4 de últimos 5 Menos de 0.5 goles (prom: 0.2). Cuota implica 20% — vemos 80%. 60% de ventaja.",
+        "oddsValue": 5,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-13T16:17:07.125Z",
+        "updatedAt": "2026-11-17T00:59:38.292Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "2e8f1b9991ff9a5d4d7a5a55cbd8d29b43466aafbea55d461bed26c1dc0856af",
+        "odds": {
+          "id": 239667756,
+          "matchId": 10708874,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Under 0.5",
+          "value": 5,
+          "line": 0.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 8220004,
+            "name": "Team Total Home",
+            "category": "goals",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          false,
+          true
+        ],
+        "value": {
+          "impliedProbability": 20,
+          "edgePercentage": 60,
+          "expectedValue": 3,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239667756,
+          "oddsValue": 5,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239667756,
+              "oddsValue": 5,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239618903,
+              "oddsValue": 4.35,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239630048,
+              "oddsValue": 4.35,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Team Total Home",
+          "category": "goals",
+          "selection": "Under 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_goals_1.5_under",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239667758,
+        "metric": "goals",
+        "line": 1.5,
+        "direction": "under",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 0.2,
+        "median": 0,
+        "timeWindow": "L5",
+        "confidence": 75,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 52.38,
+        "edgePercentage": 47.62,
+        "expectedValue": 0.91,
+        "valueRating": "strong",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Menos de 1.5 goles: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 10,
+            "edge": 27.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 80,
+            "sampleSize": 20,
+            "edge": 27.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              36322,
+              36311,
+              36248
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "opponentScope": "head_to_head",
+            "hitRate": 66.67,
+            "sampleSize": 3,
+            "edge": 14.29,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708771,
+              36857,
+              36531
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 10,
+            "edge": 27.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": 17.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775,
+              10708771,
+              10708762,
+              10708755,
+              10708749,
+              10708739,
+              10708735,
+              10708719,
+              10708712,
+              36801,
+              36857
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "goals",
+          "rankType": "defense",
+          "rank": 1,
+          "totalTeams": 12,
+          "average": 1.75609756097561,
+          "leagueAvg": 1.229166666666667,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "matchIds": [
+          10708864,
+          10708855,
+          10708846,
+          10708833,
+          10708829
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 5 de últimos 5 Menos de 1.5 goles (prom: 0.2). Cuota implica 52% — vemos 100%. 48% de ventaja.",
+        "oddsValue": 1.909,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-13T16:17:07.125Z",
+        "updatedAt": "2026-11-17T00:59:38.292Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "7c6a9dffebabc1c0e0ca018b431a91f0133f9b967659d3fb841cc3c8981e62f9",
+        "odds": {
+          "id": 239667758,
+          "matchId": 10708874,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Under 1.5",
+          "value": 1.909,
+          "line": 1.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 8220004,
+            "name": "Team Total Home",
+            "category": "goals",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 52.38,
+          "edgePercentage": 47.62,
+          "expectedValue": 0.91,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239667758,
+          "oddsValue": 1.909,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239667758,
+              "oddsValue": 1.909,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239630046,
+              "oddsValue": 1.88,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239618897,
+              "oddsValue": 1.85,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Team Total Home",
+          "category": "goals",
+          "selection": "Under 1.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_goals_2.5_under",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239667760,
+        "metric": "goals",
+        "line": 2.5,
+        "direction": "under",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 20,
+        "average": 0.9,
+        "median": 1,
+        "timeWindow": "L20",
+        "confidence": 85,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 77.82,
+        "edgePercentage": 22.18,
+        "expectedValue": 0.28,
+        "valueRating": "strong",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Menos de 2.5 goles: 100% (L20)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 10,
+            "edge": 22.18,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "opponentScope": "head_to_head",
+            "hitRate": 100,
+            "sampleSize": 3,
+            "edge": 22.18,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708771,
+              36857,
+              36531
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 20,
+            "edge": 22.18,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 100,
+            "sampleSize": 20,
+            "edge": 22.18,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              36322,
+              36311,
+              36248
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "goals",
+          "rankType": "defense",
+          "rank": 1,
+          "totalTeams": 12,
+          "average": 1.75609756097561,
+          "leagueAvg": 1.229166666666667,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          2,
+          2,
+          0,
+          0,
+          2,
+          2,
+          1,
+          0,
+          2,
+          1,
+          1,
+          2,
+          1,
+          0
+        ],
+        "matchIds": [
+          10708864,
+          10708855,
+          10708846,
+          10708833,
+          10708829,
+          10708813,
+          10708811,
+          10708790,
+          10708787,
+          10708775,
+          10708771,
+          10708762,
+          10708755,
+          10708749,
+          10708739,
+          10708735,
+          10708719,
+          10708712,
+          36801,
+          36857
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 20 de últimos 20 Menos de 2.5 goles (prom: 0.9). Cuota implica 78% — vemos 100%. 22% de ventaja.",
+        "oddsValue": 1.285,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-13T16:17:07.125Z",
+        "updatedAt": "2026-11-17T00:59:38.292Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "ac4180b49cecad53745fb6b899a07049a1b436a5d3efaf5c68927dffa4d8a709",
+        "odds": {
+          "id": 239667760,
+          "matchId": 10708874,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Under 2.5",
+          "value": 1.285,
+          "line": 2.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 8220004,
+            "name": "Team Total Home",
+            "category": "goals",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 77.82,
+          "edgePercentage": 22.18,
+          "expectedValue": 0.28,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239667760,
+          "oddsValue": 1.285,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239667760,
+              "oddsValue": 1.285,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239630050,
+              "oddsValue": 1.27,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Team Total Home",
+          "category": "goals",
+          "selection": "Under 2.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L20",
+          "competitionScope": "all",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_corners_5.5_over",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239748486,
+        "metric": "corners",
+        "line": 5.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 60,
+        "sampleSize": 5,
+        "average": 5.8,
+        "median": 6,
+        "timeWindow": "L5",
+        "confidence": 50,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 47.62,
+        "edgePercentage": 12.38,
+        "expectedValue": 0.26,
+        "valueRating": "moderate",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 5.5 córners: 60% (L5)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 10,
+            "edge": 2.38,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 35,
+            "sampleSize": 20,
+            "edge": -12.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775,
+              10708771,
+              10708762,
+              10708755,
+              10708749,
+              10708739,
+              10708735,
+              10708719,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "opponentScope": "head_to_head",
+            "hitRate": 33.33,
+            "sampleSize": 3,
+            "edge": -14.29,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708771,
+              36857,
+              36531
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 45,
+            "sampleSize": 20,
+            "edge": -2.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 10,
+            "edge": -7.62,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "corners",
+          "rankType": "defense",
+          "rank": 2,
+          "totalTeams": 12,
+          "average": 5.170731707317073,
+          "leagueAvg": 4.589888211382114,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          5,
+          8,
+          6,
+          3,
+          7
+        ],
+        "matchIds": [
+          10708855,
+          10708833,
+          10708813,
+          10708775,
+          10708762
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 3 de últimos 5 Más de 5.5 córners (prom: 5.8). Cuota implica 48% — vemos 60%. 12% de ventaja.",
+        "oddsValue": 2.1,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-14T16:25:23.459Z",
+        "updatedAt": "2026-11-14T16:25:23.459Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "58ddda37d6a96ecccfb185af4bc312725d2cd78c748c5e6d61e2d4948b5fc6cd",
+        "odds": {
+          "id": 239748486,
+          "matchId": 10708874,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Over 5.5",
+          "value": 2.1,
+          "line": 5.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 3529640,
+            "name": "Corners Totals Home",
+            "category": "corners",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          false,
+          true,
+          true,
+          false,
+          true
+        ],
+        "value": {
+          "impliedProbability": 47.62,
+          "edgePercentage": 12.38,
+          "expectedValue": 0.26,
+          "valueRating": "moderate"
+        },
+        "betting": {
+          "oddsId": 239748486,
+          "oddsValue": 2.1,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239748486,
+              "oddsValue": 2.1,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239903434,
+              "oddsValue": 2.1,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Corners Totals Home",
+          "category": "corners",
+          "selection": "Over 5.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_goals_3.5_under",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239630052,
+        "metric": "goals",
+        "line": 3.5,
+        "direction": "under",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 20,
+        "average": 0.9,
+        "median": 1,
+        "timeWindow": "L20",
+        "confidence": 69,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 92.59,
+        "edgePercentage": 7.41,
+        "expectedValue": 0.08,
+        "valueRating": "marginal",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Menos de 3.5 goles: 100% (L20)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 10,
+            "edge": 7.41,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "opponentScope": "head_to_head",
+            "hitRate": 100,
+            "sampleSize": 3,
+            "edge": 7.41,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708771,
+              36857,
+              36531
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 20,
+            "edge": 7.41,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 100,
+            "sampleSize": 20,
+            "edge": 7.41,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              36322,
+              36311,
+              36248
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "goals",
+          "rankType": "defense",
+          "rank": 1,
+          "totalTeams": 12,
+          "average": 1.75609756097561,
+          "leagueAvg": 1.229166666666667,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          2,
+          2,
+          0,
+          0,
+          2,
+          2,
+          1,
+          0,
+          2,
+          1,
+          1,
+          2,
+          1,
+          0
+        ],
+        "matchIds": [
+          10708864,
+          10708855,
+          10708846,
+          10708833,
+          10708829,
+          10708813,
+          10708811,
+          10708790,
+          10708787,
+          10708775,
+          10708771,
+          10708762,
+          10708755,
+          10708749,
+          10708739,
+          10708735,
+          10708719,
+          10708712,
+          36801,
+          36857
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 20 de últimos 20 Menos de 3.5 goles (prom: 0.9). Cuota implica 93% — vemos 100%. 7% de ventaja.",
+        "oddsValue": 1.08,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-13T16:17:07.125Z",
+        "updatedAt": "2026-11-16T23:13:56.378Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "5a232b38d83c76495595c7439a5a1734b2fffbfe4c3a6ddee11720b3e34373f9",
+        "odds": {
+          "id": 239630052,
+          "matchId": 10708874,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [],
+          "selection": "Under 3.5",
+          "value": 1.08,
+          "line": 3.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899013,
+            "name": "Team Total Goals Home",
+            "category": "goals",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 92.59,
+          "edgePercentage": 7.41,
+          "expectedValue": 0.08,
+          "valueRating": "marginal"
+        },
+        "betting": {
+          "oddsId": 239630052,
+          "oddsValue": 1.08,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239630052,
+              "oddsValue": 1.08,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239667762,
+              "oddsValue": 1.071,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            }
+          ],
+          "betType": "Team Total Goals Home",
+          "category": "goals",
+          "selection": "Under 3.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L20",
+          "competitionScope": "all",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_corners_5.5_under",
+        "type": "value_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239748487,
+        "metric": "corners",
+        "line": 5.5,
+        "direction": "under",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 66.67,
+        "sampleSize": 3,
+        "average": 5,
+        "median": 5,
+        "timeWindow": "L5",
+        "confidence": 41,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 60.02,
+        "edgePercentage": 6.65,
+        "expectedValue": 0.11,
+        "valueRating": "marginal",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Menos de 5.5 córners: 67% (L3)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 10,
+            "edge": -10.02,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 65,
+            "sampleSize": 20,
+            "edge": 4.98,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775,
+              10708771,
+              10708762,
+              10708755,
+              10708749,
+              10708739,
+              10708735,
+              10708719,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 10,
+            "edge": -0.02,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 55,
+            "sampleSize": 20,
+            "edge": -5.02,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -20.02,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": true,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "corners",
+          "rankType": "defense",
+          "rank": 2,
+          "totalTeams": 12,
+          "average": 5.170731707317073,
+          "leagueAvg": 4.589888211382114,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          7,
+          5
+        ],
+        "matchIds": [
+          10708771,
+          36857,
+          36531
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 2 de últimos 3 Menos de 5.5 córners (prom: 5.0). Cuota implica 60% — vemos 67%. 7% de ventaja.",
+        "oddsValue": 1.666,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-14T16:25:23.459Z",
+        "updatedAt": "2026-11-14T16:25:23.459Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "8eafd81f6fc7dac91c35302bd2665a158f81cfa7599450969adb0ca2f8a384e2",
+        "odds": {
+          "id": 239748487,
+          "matchId": 10708874,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Under 5.5",
+          "value": 1.666,
+          "line": 5.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 3529640,
+            "name": "Corners Totals Home",
+            "category": "corners",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          false,
+          true
+        ],
+        "value": {
+          "impliedProbability": 60.02,
+          "edgePercentage": 6.65,
+          "expectedValue": 0.11,
+          "valueRating": "marginal"
+        },
+        "betting": {
+          "oddsId": 239748487,
+          "oddsValue": 1.666,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239748487,
+              "oddsValue": 1.666,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            }
+          ],
+          "betType": "Corners Totals Home",
+          "category": "corners",
+          "selection": "Under 5.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "opponentScope": "head_to_head",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:t12796_m10708874_goals_0.5_over",
+        "type": "consistent_team_prop",
+        "playerId": null,
+        "teamId": 12796,
+        "oddsId": 239630047,
+        "metric": "goals",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 66.67,
+        "sampleSize": 3,
+        "average": 1,
+        "median": 1,
+        "timeWindow": "L5",
+        "confidence": 26,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 84.03,
+        "edgePercentage": -17.36,
+        "expectedValue": -0.21,
+        "valueRating": "none",
+        "opponentId": null,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 goles: 67% (L3)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": null,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 10,
+            "edge": -24.03,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "competition",
+            "hitRate": 60,
+            "sampleSize": 20,
+            "edge": -24.03,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775,
+              10708771,
+              10708762,
+              10708755,
+              10708749,
+              10708739,
+              10708735,
+              10708719,
+              10708712,
+              36801,
+              36857
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 20,
+            "sampleSize": 5,
+            "edge": -64.03,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 65,
+            "sampleSize": 20,
+            "edge": -19.03,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70,
+              13
+            ],
+            "matchIds": [
+              10708855,
+              10708833,
+              10708813,
+              10708775,
+              10708762,
+              10708749,
+              10708735,
+              10708712,
+              36801,
+              36857,
+              36829,
+              36778,
+              36607,
+              36560,
+              36421,
+              36356,
+              36333,
+              6431,
+              36322,
+              6403
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 12796,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 10,
+            "edge": -44.03,
+            "teamIds": [
+              12796
+            ],
+            "leagueIds": [
+              70
+            ],
+            "matchIds": [
+              10708864,
+              10708855,
+              10708846,
+              10708833,
+              10708829,
+              10708813,
+              10708811,
+              10708790,
+              10708787,
+              10708775
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": true,
+        "opponentMetricRank": {
+          "opponentTeamId": 72510,
+          "metric": "goals",
+          "rankType": "defense",
+          "rank": 1,
+          "totalTeams": 12,
+          "average": 1.75609756097561,
+          "leagueAvg": 1.229166666666667,
+          "leagueId": 70,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": false,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          0,
+          1
+        ],
+        "matchIds": [
+          10708771,
+          36857,
+          36531
+        ],
+        "headlineTeamIds": [
+          12796
+        ],
+        "headlineLeagueIds": [
+          70
+        ],
+        "matchId": 10708874,
+        "reason": "2 de Mayo: Acierto en 2 de últimos 3 Más de 0.5 goles (prom: 1.0).",
+        "oddsValue": 1.19,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-23T21:00:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 81.32,
+        "createdAt": "2026-11-13T16:17:07.125Z",
+        "updatedAt": "2026-11-16T23:13:56.378Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "0834521caae974a78da06bba2f35b15820964fd8b077f65af8e446dada8e6929",
+        "odds": {
+          "id": 239630047,
+          "matchId": 10708874,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [],
+          "selection": "Over 0.5",
+          "value": 1.19,
+          "line": 0.5,
+          "playerId": null,
+          "teamId": 12796,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899013,
+            "name": "Team Total Goals Home",
+            "category": "goals",
+            "level": "team",
+            "period": "full_match"
+          }
+        },
+        "opponent": null,
+        "match": {
+          "id": 10708874,
+          "date": "2026-11-23T21:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 12796,
+            "name": "2 de Mayo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "awayTeam": {
+            "id": 72510,
+            "name": "Sportivo San Lorenzo",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/10896.png",
+            "code": null,
+            "isNationalTeam": false
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Division 1",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 70,
+        "seasonId": 285,
+        "team": {
+          "id": 12796,
+          "name": "2 de Mayo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+          "code": null
+        },
+        "recentHits": [
+          true,
+          false,
+          true
+        ],
+        "value": {
+          "impliedProbability": 84.03,
+          "edgePercentage": -17.36,
+          "expectedValue": -0.21,
+          "valueRating": "none"
+        },
+        "betting": {
+          "oddsId": 239630047,
+          "oddsValue": 1.19,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239630047,
+              "oddsValue": 1.19,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239667755,
+              "oddsValue": 1.166,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239618902,
+              "oddsValue": 1.15,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Team Total Goals Home",
+          "category": "goals",
+          "selection": "Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": null,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 12796,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "opponentScope": "head_to_head",
+          "teamIds": [
+            12796
+          ],
+          "leagueIds": [
+            70
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 12796,
+              "name": "2 de Mayo",
+              "code": null,
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 70,
+              "name": "Division 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png"
+            },
+            {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          ]
+        },
+        "isLocked": false
+      }
+    ],
+    "count": 7
+  }
+}

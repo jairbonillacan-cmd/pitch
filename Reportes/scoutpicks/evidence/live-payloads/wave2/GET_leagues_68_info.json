@@ -1,0 +1,312 @@
+{
+  "status": 200,
+  "url": "/leagues/68",
+  "data": {
+    "id": 68,
+    "apiId": null,
+    "name": "Liga MX",
+    "type": "league",
+    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+    "country": {
+      "id": 83,
+      "name": "Mexico",
+      "code": "MX",
+      "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+    },
+    "seasons": [
+      {
+        "id": 699,
+        "name": "2026/2027",
+        "year": 2026,
+        "startDate": "2026-07-17T00:00:00.000Z",
+        "endDate": "2026-12-05T00:00:00.000Z",
+        "current": true,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 279,
+        "name": "2025/2026",
+        "year": 2025,
+        "startDate": "2025-07-12T00:00:00.000Z",
+        "endDate": "2026-05-25T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77476863,
+            "name": "Apertura",
+            "startDate": "2025-07-12T01:00:00.000Z",
+            "endDate": "2025-12-15T01:00:00.000Z"
+          },
+          {
+            "phaseStageId": 77479601,
+            "name": "Clausura",
+            "startDate": "2026-01-10T01:00:00.000Z",
+            "endDate": "2026-05-25T01:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 278,
+        "name": "2024/2025",
+        "year": 2024,
+        "startDate": "2024-07-06T00:00:00.000Z",
+        "endDate": "2025-05-26T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77471163,
+            "name": "Apertura",
+            "startDate": "2024-07-06T01:00:00.000Z",
+            "endDate": "2024-12-16T01:00:00.000Z"
+          },
+          {
+            "phaseStageId": 77471157,
+            "name": "Clausura",
+            "startDate": "2025-01-11T01:00:00.000Z",
+            "endDate": "2025-05-26T01:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 277,
+        "name": "2023/2024",
+        "year": 2023,
+        "startDate": "2023-07-01T00:00:00.000Z",
+        "endDate": "2024-05-27T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77463895,
+            "name": "Apertura",
+            "startDate": "2023-07-01T01:00:00.000Z",
+            "endDate": "2023-12-18T01:30:00.000Z"
+          },
+          {
+            "phaseStageId": 77463890,
+            "name": "Clausura",
+            "startDate": "2024-01-13T01:00:00.000Z",
+            "endDate": "2024-05-27T01:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2491,
+        "name": "2022/2023",
+        "year": 2022,
+        "startDate": "2022-07-02T00:00:00.000Z",
+        "endDate": "2023-05-29T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77457688,
+            "name": "Apertura",
+            "startDate": "2022-07-02T02:05:00.000Z",
+            "endDate": "2022-10-31T01:36:00.000Z"
+          },
+          {
+            "phaseStageId": 77457683,
+            "name": "Clausura",
+            "startDate": "2023-01-07T01:00:00.000Z",
+            "endDate": "2023-05-29T01:35:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2493,
+        "name": "2021/2022",
+        "year": 2021,
+        "startDate": "2021-07-23T00:00:00.000Z",
+        "endDate": "2022-05-30T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77454040,
+            "name": "Apertura",
+            "startDate": "2021-07-23T02:00:00.000Z",
+            "endDate": "2021-12-13T02:15:00.000Z"
+          },
+          {
+            "phaseStageId": 77454035,
+            "name": "Clausura",
+            "startDate": "2022-01-07T03:00:00.000Z",
+            "endDate": "2022-05-30T01:10:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2497,
+        "name": "2020/2021",
+        "year": 2020,
+        "startDate": "2020-07-25T00:00:00.000Z",
+        "endDate": "2021-05-31T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 77447674,
+            "name": "Apertura",
+            "startDate": "2020-07-25T00:30:00.000Z",
+            "endDate": "2020-12-14T02:30:00.000Z"
+          },
+          {
+            "phaseStageId": 77447669,
+            "name": "Clausura",
+            "startDate": "2021-01-09T01:30:00.000Z",
+            "endDate": "2021-05-31T01:15:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2492,
+        "name": "2019/2020",
+        "year": 2019,
+        "startDate": "2019-07-20T00:00:00.000Z",
+        "endDate": "2020-05-11T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": null
+      },
+      {
+        "id": 2508,
+        "name": "2018/2019",
+        "year": 2018,
+        "startDate": "2018-07-21T00:00:00.000Z",
+        "endDate": "2019-05-27T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 7743089,
+            "name": "Apertura",
+            "startDate": "2018-07-21T00:00:00.000Z",
+            "endDate": "2018-12-17T00:30:00.000Z"
+          },
+          {
+            "phaseStageId": 7743088,
+            "name": "Clausura",
+            "startDate": "2019-01-05T01:00:00.000Z",
+            "endDate": "2019-05-27T01:06:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2494,
+        "name": "2017/2018",
+        "year": 2017,
+        "startDate": "2017-07-22T00:00:00.000Z",
+        "endDate": "2018-05-21T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 53257,
+            "name": "Apertura",
+            "startDate": "2017-07-22T00:00:00.000Z",
+            "endDate": "2017-12-11T00:00:00.000Z"
+          },
+          {
+            "phaseStageId": 53256,
+            "name": "Clausura",
+            "startDate": "2018-01-06T01:00:00.000Z",
+            "endDate": "2018-05-21T00:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": 2502,
+        "name": "2016/2017",
+        "year": 2016,
+        "startDate": "2016-07-16T00:00:00.000Z",
+        "endDate": "2017-05-29T00:00:00.000Z",
+        "current": false,
+        "structure": {
+          "hasGroups": false,
+          "hasLeagueTable": true,
+          "hasKnockout": true,
+          "standingsAvailable": true,
+          "refereesAvailable": true
+        },
+        "phases": [
+          {
+            "phaseStageId": 1830,
+            "name": "Apertura",
+            "startDate": "2016-07-16T02:00:00.000Z",
+            "endDate": "2016-12-26T00:30:00.000Z"
+          },
+          {
+            "phaseStageId": 1829,
+            "name": "Clausura",
+            "startDate": "2017-01-07T03:00:00.000Z",
+            "endDate": "2017-05-28T23:06:00.000Z"
+          }
+        ]
+      }
+    ]
+  }
+}

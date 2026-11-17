@@ -1,0 +1,482 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/search?q=Real",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "query": "Real",
+    "type": "all",
+    "items": [
+      {
+        "type": "team",
+        "id": 196,
+        "name": "Real Madrid",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+        "code": "RMA",
+        "isNationalTeam": false,
+        "countryCode": "ES",
+        "country": {
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657184,
+        "date": "2026-11-21T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1123,
+          "name": "Celta de Vigo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/36.png",
+          "code": "CEL"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 32288890,
+        "date": "2026-11-24T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 194,
+          "name": "PSV",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/682.png",
+          "code": "PSV"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 1,
+          "name": "Champions League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657408,
+        "date": "2026-11-28T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1127,
+          "name": "Deportivo Alavés",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/2975.png",
+          "code": "ALA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657427,
+        "date": "2026-12-02T18:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 1149,
+          "name": "Real Sociedad",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/594.png",
+          "code": "RSO"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657402,
+        "date": "2026-12-06T15:15:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 186,
+          "name": "Athletic Club",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/13258.png",
+          "code": "ATH"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 32288941,
+        "date": "2026-12-09T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 185,
+          "name": "Arsenal",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/19.png",
+          "code": "ARS"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 1,
+          "name": "Champions League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657372,
+        "date": "2026-12-13T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1145,
+          "name": "Osasuna",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/459.png",
+          "code": "OSA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657358,
+        "date": "2026-12-20T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 44615,
+          "name": "Deportivo A Coruña",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/429.png",
+          "code": "COR"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657321,
+        "date": "2027-01-03T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1124,
+          "name": "Getafe",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/106.png",
+          "code": "GET"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657475,
+        "date": "2027-01-10T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1128,
+          "name": "Levante",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/3457.png",
+          "code": "LVT"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657464,
+        "date": "2027-01-17T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 44618,
+          "name": "Málaga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/126.png",
+          "code": "MLA"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 32288943,
+        "date": "2027-01-19T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 5747,
+          "name": "LASK",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3369.png",
+          "code": "ASK"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 1,
+          "name": "Champions League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657451,
+        "date": "2027-01-24T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "awayTeam": {
+          "id": 1132,
+          "name": "Real Betis",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/485.png",
+          "code": "BET"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 32288982,
+        "date": "2027-01-27T20:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 756,
+          "name": "Shakhtar Donetsk",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/621.png",
+          "code": "SHK"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 1,
+          "name": "Champions League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 10657440,
+        "date": "2027-01-31T00:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 1139,
+          "name": "Rayo Vallecano",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/377.png",
+          "code": "RAY"
+        },
+        "awayTeam": {
+          "id": 196,
+          "name": "Real Madrid",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png",
+          "code": "RMA"
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 1132,
+        "name": "Real Betis",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/485.png",
+        "code": "BET",
+        "isNationalTeam": false,
+        "countryCode": "ES",
+        "country": {
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 1149,
+        "name": "Real Sociedad",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/594.png",
+        "code": "RSO",
+        "isNationalTeam": false,
+        "countryCode": "ES",
+        "country": {
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "league": {
+          "id": 3,
+          "name": "La Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 1154,
+        "name": "Real Oviedo",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/93.png",
+        "code": "OVI",
+        "isNationalTeam": false,
+        "countryCode": "ES",
+        "country": {
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "league": {
+          "id": 147,
+          "name": "La Liga 2",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/23/567.png"
+        }
+      },
+      {
+        "type": "player",
+        "id": 173105,
+        "name": "Rodrigo Ramos Real",
+        "photo": "https://cdn.sportmonks.com/images/soccer/players/12/38216940.png",
+        "position": "Goalkeeper",
+        "nationality": null,
+        "team": {
+          "id": 5009,
+          "name": "Rio Ave",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/6377.png",
+          "code": "RAFC"
+        }
+      }
+    ]
+  }
+}

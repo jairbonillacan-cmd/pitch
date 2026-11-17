@@ -1,0 +1,785 @@
+{
+  "metadata": {
+    "reportId": "pitchlab-rea-scoutpicks-04-data-provenance",
+    "targetApplication": "Scout Picks (https://scoutpicks.app)",
+    "targetApiOrigin": "https://api.scoutpicks.aertech-labs.com",
+    "operatorEntity": "Aertech Labs",
+    "capturedAtUtc": "2026-11-17T15:25:28Z/2026-11-17T15:36:34Z",
+    "zeroPiiZeroCredentialsCertified": true,
+    "epistemologyScale": [
+      "OBSERVADO",
+      "DERIVADO",
+      "INFERIDO",
+      "DESCONOCIDO"
+    ],
+    "reaEvidenceRefs": [
+      {
+        "evidenceId": "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+        "operation": "inspect_web_network_capture",
+        "confidence": "observed",
+        "subject": "scoutpicks_api_only.har"
+      },
+      {
+        "evidenceId": "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+        "operation": "inspect_web_network_capture",
+        "confidence": "observed",
+        "subject": "scoutpicks_sanitized.har (2340 HTTP entries)"
+      },
+      {
+        "evidenceId": "ev_df01cbb53c87b27583cfc4e68865e5b374bcc4767b2613810e7471542644d25e",
+        "operation": "inspect_analysis_view",
+        "confidence": "derived",
+        "subject": "scoutpicks_api_only.har"
+      },
+      {
+        "evidenceId": "ev_8150c3164a6116de13bb6c319f3c8c991d1c716c94639ecb702419e237b980a0",
+        "operation": "inspect_analysis_view",
+        "confidence": "derived",
+        "subject": "scoutpicks_sanitized.har"
+      },
+      {
+        "evidenceId": "ev_12af56688af8dcd8ed633f02b9f0a9c7d06c84fc5cbd2b053f43228ec9120b3a",
+        "operation": "analyze_web_bundle",
+        "confidence": "observed",
+        "subject": "SPA web bundle (CDP)"
+      },
+      {
+        "evidenceId": "ev_b6a4cee9fad3dc1fed4479078d5de2a278bbd8e812e600d7fa36c9cfde5b5456",
+        "operation": "analyze_web_bundle",
+        "confidence": "observed",
+        "subject": "SPA web bundle (CDP)"
+      },
+      {
+        "evidenceId": "ev_c070dbadc8d0f222fd7dbf9e07c2e0d5594a52d986dad13a32989b438af65350",
+        "operation": "analyze_web_bundle",
+        "confidence": "observed",
+        "subject": "SPA web bundle (CDP)"
+      },
+      {
+        "evidenceId": "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be",
+        "operation": "export_web_scripts",
+        "confidence": "derived",
+        "subject": "Exported client JS chunks"
+      },
+      {
+        "evidenceId": "ev_abdb3cf1dbd8a7aab2a952ca236449585bd2de775d8200297a3b94e836220fb3",
+        "operation": "export_web_scripts",
+        "confidence": "derived",
+        "subject": "Exported landing/app scripts"
+      },
+      {
+        "evidenceId": "ev_036f50356d956efdf3eeea3e3b25f6651b5252264443c86dbb79c13886fdbf3a",
+        "operation": "inspect_web_page",
+        "confidence": "observed",
+        "subject": "Live DOM & network inspection"
+      }
+    ]
+  },
+  "assetProvenanceMatrix": {
+    "summary": {
+      "totalHarRequests": 2340,
+      "sportmonksCdnHarRequests": 975,
+      "sportmonksCdnShareOfBrowserTrafficPct": 41.67,
+      "uniqueSportmonksUrlsAcrossPayloads": 1534,
+      "modulo32ShardedUrlsVerified": 1456,
+      "modulo32Failures": 0
+    },
+    "categories": [
+      {
+        "assetCategory": "Escudos de equipos (Team Crests)",
+        "epistemology": "OBSERVADO",
+        "provider": "Sportmonks Football API v3 CDN",
+        "cdnOperator": "Cloudflare (Access-Control-Allow-Origin: *, max-age=2592000)",
+        "deliveryMode": "Hotlinking directo desde navegador cliente (sin proxy S3/CloudFront propio)",
+        "urlPattern": "https://cdn.sportmonks.com/images/soccer/teams/{sportmonks_id % 32}/{sportmonks_id}.png",
+        "placeholderUrl": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+        "uniqueUrlsObservedInPayloads": 1167,
+        "modulo32RuleVerified": true,
+        "examples": [
+          {
+            "entityName": "Wales",
+            "scoutPicksId": 17181,
+            "sportmonksId": 18721,
+            "modulo32Bucket": 1,
+            "url": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+          },
+          {
+            "entityName": "Portugal",
+            "scoutPicksId": 14678,
+            "sportmonksId": 18701,
+            "modulo32Bucket": 13,
+            "url": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+          },
+          {
+            "entityName": "Real Madrid",
+            "scoutPicksId": 196,
+            "sportmonksId": 3468,
+            "modulo32Bucket": 12,
+            "url": "https://cdn.sportmonks.com/images/soccer/teams/12/3468.png"
+          },
+          {
+            "entityName": "AFC Bournemouth",
+            "scoutPicksId": 1125,
+            "sportmonksId": 52,
+            "modulo32Bucket": 20,
+            "url": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+          },
+          {
+            "entityName": "1st ranked (TBD Playoff Placeholder)",
+            "scoutPicksId": 67757036,
+            "sportmonksId": null,
+            "modulo32Bucket": null,
+            "url": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+          }
+        ],
+        "evidenceIds": [
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52"
+        ]
+      },
+      {
+        "assetCategory": "Logos de ligas y competiciones (League Logos)",
+        "epistemology": "OBSERVADO",
+        "provider": "Sportmonks Football API v3 CDN",
+        "cdnOperator": "Cloudflare",
+        "deliveryMode": "Hotlinking directo desde navegador cliente (URL almacenada verbatim de Sportmonks image_path)",
+        "urlPattern": "https://cdn.sportmonks.com/images/soccer/leagues/{sportmonks_id % 32}/{sportmonks_id}.png",
+        "legacyUnshardedUrlPattern": "https://cdn.sportmonks.com/images/soccer/leagues/{sportmonks_id}.png",
+        "placeholderUrl": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "uniqueUrlsObservedInPayloads": 168,
+        "shardedCount": 162,
+        "legacyUnshardedCount": 5,
+        "placeholderLeagueCountInCatalog": 9,
+        "modulo32RuleVerified": true,
+        "examples": [
+          {
+            "entityName": "UEFA Nations League",
+            "scoutPicksId": 116,
+            "sportmonksId": 1538,
+            "modulo32Bucket": 2,
+            "url": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+          },
+          {
+            "entityName": "Premier League (England)",
+            "scoutPicksId": 2,
+            "sportmonksId": 8,
+            "modulo32Bucket": 8,
+            "url": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+          },
+          {
+            "entityName": "Liga MX",
+            "scoutPicksId": 68,
+            "sportmonksId": 743,
+            "modulo32Bucket": 7,
+            "url": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+          },
+          {
+            "entityName": "Champions League (Legacy Unsharded)",
+            "scoutPicksId": 1,
+            "sportmonksId": 2,
+            "modulo32Bucket": null,
+            "url": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+          },
+          {
+            "entityName": "Eredivisie (Legacy Unsharded)",
+            "scoutPicksId": 23,
+            "sportmonksId": 72,
+            "modulo32Bucket": null,
+            "url": "https://cdn.sportmonks.com/images/soccer/leagues/72.png"
+          }
+        ],
+        "evidenceIds": [
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd"
+        ]
+      },
+      {
+        "assetCategory": "Fotos de jugadores (Player Headshots)",
+        "epistemology": "OBSERVADO",
+        "provider": "Sportmonks Football API v3 CDN",
+        "cdnOperator": "Cloudflare",
+        "deliveryMode": "Hotlinking directo desde navegador cliente",
+        "urlPattern": "https://cdn.sportmonks.com/images/soccer/players/{sportmonks_id % 32}/{sportmonks_id}.png",
+        "placeholderUrl": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "uniqueUrlsObservedInPayloads": 126,
+        "modulo32RuleVerified": true,
+        "examples": [
+          {
+            "entityName": "António Silva",
+            "scoutPicksId": 1113,
+            "sportmonksId": 37354828,
+            "modulo32Bucket": 12,
+            "url": "https://cdn.sportmonks.com/images/soccer/players/12/37354828.png"
+          },
+          {
+            "entityName": "Harry Wilson",
+            "scoutPicksId": 3580,
+            "sportmonksId": 5403,
+            "modulo32Bucket": 27,
+            "url": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png"
+          },
+          {
+            "entityName": "Joseph Duncan (Sin foto en Sportmonks)",
+            "scoutPicksId": 78956,
+            "sportmonksId": null,
+            "modulo32Bucket": null,
+            "url": "https://cdn.sportmonks.com/images/soccer/placeholder.png"
+          }
+        ],
+        "evidenceIds": [
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd"
+        ]
+      },
+      {
+        "assetCategory": "Fotos de árbitros (Referee Photos)",
+        "epistemology": "OBSERVADO",
+        "provider": "Sportmonks Football API v3 CDN",
+        "cdnOperator": "Cloudflare",
+        "deliveryMode": "Hotlinking directo (incluye doble barra literal '//soccer/referees/' heredada de Sportmonks)",
+        "urlPattern": "https://cdn.sportmonks.com/images//soccer/referees/{sportmonks_id % 32}/{sportmonks_id}.png",
+        "placeholderUrl": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "coverageSampleLeague116": {
+          "totalReferees": 106,
+          "withRealHeadshot": 1,
+          "withPlaceholderPng": 105,
+          "realHeadshotCoveragePct": 0.94
+        },
+        "examples": [
+          {
+            "entityName": "Michael Oliver",
+            "scoutPicksId": 226,
+            "sportmonksId": 15273,
+            "modulo32Bucket": 9,
+            "url": "https://cdn.sportmonks.com/images//soccer/referees/9/15273.png"
+          },
+          {
+            "entityName": "Sven Jablonski",
+            "scoutPicksId": 351,
+            "sportmonksId": null,
+            "modulo32Bucket": null,
+            "url": "https://cdn.sportmonks.com/images/soccer/placeholder.png"
+          }
+        ],
+        "evidenceIds": [
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52"
+        ]
+      },
+      {
+        "assetCategory": "Banderas de países y regiones — Entidades Liga, Árbitro y Equipo en Búsqueda",
+        "epistemology": "OBSERVADO",
+        "provider": "Sportmonks Country Flags CDN",
+        "cdnOperator": "Cloudflare",
+        "deliveryMode": "Hotlinking directo desde image_path de Country en Sportmonks",
+        "urlPattern": "https://cdn.sportmonks.com/images/countries/png/short/{iso_or_continent_slug}.png",
+        "uniqueUrlsObservedInPayloads": 70,
+        "examples": [
+          "https://cdn.sportmonks.com/images/countries/png/short/eu.png",
+          "https://cdn.sportmonks.com/images/countries/png/short/de.png",
+          "https://cdn.sportmonks.com/images/countries/png/short/en.png",
+          "https://cdn.sportmonks.com/images/countries/png/short/mx.png",
+          "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png",
+          "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        ],
+        "evidenceIds": [
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd"
+        ]
+      },
+      {
+        "assetCategory": "Banderas de nacionalidad de Jugadores (Player.nationality.flag)",
+        "epistemology": "OBSERVADO",
+        "provider": "FlagCDN (flagpedia.net / flagcdn.com)",
+        "cdnOperator": "Cloudflare (max-age=2678400)",
+        "deliveryMode": "Hotlinking directo hacia CDN público gratuito usando código ISO 3166-1/3166-2 en minúsculas",
+        "urlPattern": "https://flagcdn.com/w80/{iso_code_lowercase}.png",
+        "uniqueUrlsObservedInPayloads": 2,
+        "examples": [
+          "https://flagcdn.com/w80/gb-wls.png",
+          "https://flagcdn.com/w80/pt.png"
+        ],
+        "evidenceIds": [
+          "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd"
+        ]
+      },
+      {
+        "assetCategory": "Logos de casas de apuestas (Bookmaker Logos — 4 de 5 en S3/CloudFront + 1 override en cliente)",
+        "epistemology": "OBSERVADO",
+        "provider": "Aertech Labs First-Party AWS S3 + CloudFront + Bundle Estático SPA (excepción Bet365)",
+        "cdnOperator": "Amazon CloudFront + AmazonS3 (d3tvhrcz0jw9wc.cloudfront.net y scoutpicks.app)",
+        "deliveryMode": "Bucket S3 propio tras CloudFront para Betano/Draftea/Stake/JugaBet; asset empaquetado por Vite para Bet365 porque Bookmaker.logo es null en PostgreSQL",
+        "urlPattern": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/{slug}.png",
+        "clientOverrideRule": "const QTe='/dashboard/assets/bet365-BH5MBRBJ.png', XTe={bet365:QTe}; function wv(e,t){return XTe[(e?.trim().toLowerCase())??'']??t??null}",
+        "bookmakerAssets": [
+          {
+            "bookmakerId": 1,
+            "name": "Bet365",
+            "dbLogoValue": null,
+            "effectiveClientUrl": "https://scoutpicks.app/dashboard/assets/bet365-BH5MBRBJ.png",
+            "s3LastModifiedUtc": "2026-11-17T13:31:39Z",
+            "etag": "\"b2f16e00b5f69c987a761f62999e8edb\""
+          },
+          {
+            "bookmakerId": 2,
+            "name": "Betano",
+            "dbLogoValue": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+            "effectiveClientUrl": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+            "s3LastModifiedUtc": "2026-09-30T03:07:35Z",
+            "etag": "\"0756710294abaa761b9e31ac1018f582\""
+          },
+          {
+            "bookmakerId": 3,
+            "name": "Draftea",
+            "dbLogoValue": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+            "effectiveClientUrl": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+            "s3LastModifiedUtc": "2026-09-30T16:35:42Z",
+            "etag": "\"ae070285e4f31db93f224a13b1e6163b\""
+          },
+          {
+            "bookmakerId": 4,
+            "name": "Stake",
+            "dbLogoValue": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+            "effectiveClientUrl": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+            "s3LastModifiedUtc": "2026-09-29T18:19:15Z",
+            "etag": "\"eaeab0268bf33b1dddc59ca06e7b0bf7\""
+          },
+          {
+            "bookmakerId": 5,
+            "name": "JugaBet",
+            "dbLogoValue": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+            "effectiveClientUrl": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+            "s3LastModifiedUtc": "2026-10-30T23:26:57Z",
+            "etag": "\"5067218168b21f9f6af74599cb7b0dea\""
+          }
+        ],
+        "evidenceIds": [
+          "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+          "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be"
+        ]
+      },
+      {
+        "assetCategory": "Assets y fuentes de marca del Paywall de RevenueCat",
+        "epistemology": "OBSERVADO",
+        "provider": "RevenueCat Web Billing SDK (@revenuecat/purchases-js Svelte UI)",
+        "cdnOperator": "Amazon CloudFront (da08ctfrofx1b.cloudfront.net)",
+        "deliveryMode": "Helper jg(e) embebido en runtime Svelte de RevenueCat para cargar fuentes/assets de branding configurados en RevenueCat Dashboard",
+        "urlPattern": "https://da08ctfrofx1b.cloudfront.net/${asset_path}",
+        "evidenceIds": [
+          "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be",
+          "ev_12af56688af8dcd8ed633f02b9f0a9c7d06c84fc5cbd2b053f43228ec9120b3a"
+        ]
+      }
+    ],
+    "fallbackAvatarBehavior": {
+      "epistemology": "OBSERVADO",
+      "uiPrimitives": "Radix UI Avatar (sr = Avatar.Root, or = Avatar.Image, ur = Avatar.Fallback)",
+      "sportmonksPlaceholderFilterAppliedInClient": false,
+      "whenSportmonksReturnsPlaceholderPng": "El navegador descarga y renderiza directamente la silueta PNG de Sportmonks (placeholder.png, team_placeholder.png o league_placeholder.png) con HTTP 200.",
+      "whenUrlIsNullOrNetworkError": {
+        "playersAndReferees": "name.split(' ').slice(0, 2).map(n => n[0]).join('') — iniciales de 2 letras (ej. 'HW', 'SJ')",
+        "teamsCompact": "team.code ?? team.name.slice(0, 2) — código FIFA/club de 3 letras o prefijo de 2 letras",
+        "leagues": "leagueName.slice(0, 2).toUpperCase() — primeras 2 letras en mayúsculas",
+        "userProfile": "tXe(name, fallback) — iniciales en mayúsculas de las 2 primeras palabras",
+        "searchAndFlagsImg": "onError: e => { e.currentTarget.hidden = true }"
+      },
+      "evidenceIds": [
+        "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be"
+      ]
+    }
+  },
+  "providerMigrationArchaeology": {
+    "legacySportsProvider": {
+      "name": "API-Football (api-sports.io)",
+      "epistemology": "DERIVADO",
+      "fossilSchemaColumns": [
+        "League.apiId (null en las 176 ligas actuales)",
+        "Match.apiId (null en todos los partidos inspeccionados)",
+        "Match.lastApiHash (null)",
+        "Match.venue / Match.referee (columnas texto planas legadas que permanecen null en GET /matches/:id/players mientras GET /matches/:id hidrata desde FKs venueId y refereeId)"
+      ],
+      "zombieSubscriptionEntitlementIds": {
+        "endpoint": "GET /subscriptions/me",
+        "field": "accessibleLeagueIds",
+        "count": 59,
+        "observedValues": [
+          39, 140, 78, 135, 61, 94, 88, 144, 203, 179, 218, 207, 197, 119, 106,
+          45, 48, 143, 137, 81, 66, 96, 90, 147, 181, 206, 220, 121, 199, 108,
+          2, 3, 307, 504, 253, 257, 262, 16, 71, 73, 128, 130, 13, 11, 239, 241,
+          265, 267, 242, 917, 250, 501, 281, 268, 270, 930, 299, 188, 169
+        ],
+        "forensicDiagnosis": "Los 59 enteros corresponden exactamente al catálogo canónico de API-Football (39=Premier League, 140=LaLiga, 78=Bundesliga, 135=Serie A, 61=Ligue 1, 2=Champions League, 3=Europa League, 262=Liga MX, 71=Brasileirão, 128=Liga Profesional Argentina, 253=MLS, 307=Saudi Pro League). Al cruzar contra League.id actual de Scout Picks: 32 de los 59 IDs ni siquiera existen en GET /leagues/all, y 25 de los 27 restantes colisionan con ligas erróneas (ej. 39 apunta a Irlanda Premier Division, 78 a Irán Persian Gulf Pro League, 2 a Premier League en vez de Champions League, 71 a Perú en vez de Brasil; solo 13=Copa Libertadores coincide por azar)."
+      }
+    },
+    "currentSportsProvider": {
+      "name": "Sportmonks Football API v3",
+      "epistemology": "OBSERVADO",
+      "activeSchemaColumns": [
+        "Match.sportmonksId",
+        "Match.stageSportmonksId",
+        "Match.roundSportmonksId",
+        "Match.groupSportmonksId",
+        "Season.sportmonksId",
+        "Season.backfillPostProcessedAt",
+        "Player.sportmonksId (expuesto en objetos anidados de insights)"
+      ],
+      "xgAddonPurchased": false,
+      "xgEvidence": "0 de 109 registros PlayerStat/TeamStat tienen xg != null (xg, xgot y shootingPerformance siempre null)",
+      "migrationTimelineUtc": [
+        {
+          "dateUtc": "2026-05-15T14:57:37Z a 2026-05-16T04:27:52Z",
+          "event": "Re-seed fundacional de PostgreSQL sobre Sportmonks v3 (Players id 736..30325, Seasons id 89..553, Leagues id 1..160, Matches id 216..68407)"
+        },
+        {
+          "dateUtc": "2026-07-14T18:47:06Z a 2026-07-15T00:12:10Z",
+          "event": "Ola 1 de backfill histórico multi-temporada (2022-2025); secuencia Match.id ya inflada a ~10,661,126 - 10,730,635"
+        },
+        {
+          "dateUtc": "2026-08-29T04:45:24Z a 2026-08-31T19:11:17Z",
+          "event": "Ola 2 de creación de temporadas históricas (Season.id 1791..1796) y backfillPostProcessedAt de temporadas 2026/2027 (ej. Season 513 UEFA Nations League)"
+        },
+        {
+          "dateUtc": "2026-09-29T18:19:15Z a 2026-09-30T16:35:42Z",
+          "event": "Despliegue de logos S3/CloudFront para Stake, Betano y Draftea"
+        },
+        {
+          "dateUtc": "2026-10-05T04:09:48Z a 2026-10-05T04:44:31Z",
+          "event": "Ola 3 de backfill histórico de amistosos internacionales; secuencia Match.id en ~34,770,804 - 34,771,621"
+        },
+        {
+          "dateUtc": "2026-10-30T23:26:57Z",
+          "event": "Incorporación de JugaBet (id=5) al bucket S3 d3tvhrcz0jw9wc.cloudfront.net"
+        },
+        {
+          "dateUtc": "2026-11-08T14:46:43Z a 2026-11-17T15:36:34Z",
+          "event": "Ingesta de partidos de fecha FIFA noviembre y playoffs sudamericanos; Match.id alcanza 37,222,996 (08-Nov) y 37,727,964 (17-Nov)"
+        }
+      ]
+    },
+    "matchIdBimodalDistributionExplanation": {
+      "epistemology": "DERIVADO",
+      "observedRanges": {
+        "fourToFiveDigits": {
+          "range": "216 .. 68407",
+          "countInSample": 166,
+          "example": {
+            "matchId": 54091,
+            "sportmonksId": 19676648,
+            "fixture": "Wales vs Portugal (UEFA Nations League)",
+            "kickoffUtc": "2026-11-17T19:45:00Z",
+            "createdAtUtc": "2026-05-16T03:11:43.497Z"
+          },
+          "meaning": "Partidos cuyo calendario oficial ya existía en Sportmonks durante el seed inicial del 15-16 de mayo de 2026."
+        },
+        "sevenToEightDigits": {
+          "range": "6901848 .. 37727964",
+          "countInSample": 1044,
+          "example": {
+            "matchId": 37222996,
+            "sportmonksId": 19902404,
+            "fixture": "Qatar vs Korea Republic (Friendly International)",
+            "kickoffUtc": "2026-11-17T14:00:00Z",
+            "createdAtUtc": "2026-11-08T14:46:43.283Z"
+          },
+          "meaning": "NO son IDs de Sportmonks (cuyos fixture IDs están en 18.4M-19.9M). Son IDs autoincrementales internos de PostgreSQL inflados por operaciones masivas INSERT ... ON CONFLICT (sportmonksId) DO UPDATE (~205,000 nextval/día durante 185 días), asignados a amistosos agendados tarde, llaves eliminatorias y backfills posteriores a julio de 2026."
+        }
+      },
+      "sequenceInflationAcrossTables": {
+        "Match.id": 37727964,
+        "Team.id": 67842046,
+        "PlayerStat.id": 62964148,
+        "BetType.id": 39642051,
+        "Odds.id": 240044492
+      }
+    },
+    "namingAndLocalization": {
+      "epistemology": "OBSERVADO",
+      "entities": {
+        "teams": "Nombres en inglés internacional directo de Sportmonks ('Wales', 'Korea Republic', 'Türkiye'), con shortName y code de 3 letras ('WAL', 'POR', 'RMA'). Sin traducción al español.",
+        "players": "name (display_name de Sportmonks, ej. 'António Silva'), firstName, lastName, position ('Goalkeeper'|'Defender'|'Midfielder'|'Attacker') y detailedPosition ('GK','CB','LB','RB','DM','CM','AM','LW','RW','CF','SS'). Traducción de posiciones ocurre en cliente vía i18next.",
+        "leaguesAndStages": "Nombres crudos de Sportmonks en inglés/idioma local ('Friendly International', 'League A', 'Group 4', 'Club Friendlies 3').",
+        "venuesAndReferees": "Normalizados en tablas Venue (venueId: 800 -> 'Cardiff City Stadium') y Referee (refereeId: 351 -> 'Sven Jablonski').",
+        "marketsAndAnalysis": "Doble capa i18n: el backend localiza metricLabel ('Tarjetas', 'Tiros al Arco', 'Ataque') y resúmenes de /simulations/calculate según idioma del usuario, mientras el cliente usa i18next con diccionarios completos en EN/ES/PT (y nombres de 12 idiomas en selector)."
+      }
+    }
+  },
+  "oddsHybridArchitecture": {
+    "primaryAggregator": {
+      "provider": "Odds-API.io (https://odds-api.io)",
+      "epistemology": "DERIVADO",
+      "identificationProof": "Match.oddsApiEventId es un entero secuencial de 8 dígitos (68932056 para Wales-Portugal, 76169018 para Qatar-Korea), formato exclusivo de Odds-API.io (/v3/events), descartando The-Odds-API.com que utiliza hashes hexadecimales de 32 caracteres. Además, las columnas oddsApiLastListedAt y oddsApiLastCatalogueAt reflejan los endpoints de listado y catálogo de mercados de Odds-API.io, y el límite de 5 casas de Scout Picks calza exactamente con el tier Starter de Odds-API.io (hasta 5 bookmakers).",
+      "roleInArchitecture": "Descubrimiento global de eventos, líneas principales, y ÚNICO feed que continúa sincronizando momios EN VIVO (in-play cada ~60s) una vez iniciado el partido."
+    },
+    "directBookmakerConnectors": [
+      {
+        "bookmakerId": 1,
+        "name": "Bet365",
+        "epistemology": "OBSERVADO",
+        "matchColumns": [
+          "bet365EventId ('202407734')",
+          "bet365CompetitionId ('138628513')",
+          "bet365EventDate",
+          "bet365LastSync (.000Z precisión a segundo)"
+        ],
+        "countryCodesCount": 23,
+        "countryCodes": ["GB", "CY", "EE", "GR", "RS", "SE", "NL", "BG", "BR", "AT", "AU", "MX", "DE", "AR", "IE", "DK", "IT", "ES", "PE", "FR", "US", "CA", "GL"],
+        "observedPromotionalPerks": [],
+        "affiliateOfferObserved": false,
+        "oddsQuotesInMatch54091": 1102
+      },
+      {
+        "bookmakerId": 2,
+        "name": "Betano",
+        "epistemology": "OBSERVADO",
+        "matchColumns": [
+          "betanoEventId ('95621790', '95748851')",
+          "betanoLastSync (.000Z precisión a segundo)"
+        ],
+        "countryCodesCount": 18,
+        "countryCodes": ["GB", "CZ", "RO", "EC", "CL", "PT", "BG", "BR", "MX", "DE", "GH", "NG", "AR", "DK", "CO", "PE", "CA", "BE"],
+        "observedPromotionalPerks": ["acca_bonus", "acca_insurance", "early_payout_2_goals", "sub_cover"],
+        "exclusiveMarketsInMatch54091": ["player-props/passing (passes 19.5..122.5 — 100% exclusivo de Betano)", "game-props/bothTeamsCards", "game-props/redCards", "team-props/offsides"],
+        "affiliateOfferObserved": false,
+        "oddsQuotesInMatch54091": 2117
+      },
+      {
+        "bookmakerId": 3,
+        "name": "Draftea",
+        "epistemology": "OBSERVADO",
+        "matchColumns": [
+          "drafteaEventId ('6a8cdc6539a12c38e035445a' — MongoDB ObjectId creado 2026-08-25T00:05:57Z)",
+          "drafteaLeagueId ('tnm_oKHzwWTMwKsAfsAUh')",
+          "drafteaEventDate",
+          "drafteaLastSync (precisión milisegundos .655Z/.044Z)"
+        ],
+        "countryCodesCount": 1,
+        "countryCodes": ["MX"],
+        "observedPromotionalPerks": ["early_payout_2_goals", "sub_cover"],
+        "strategicRole": "Casa nativa mexicana clave para monetización y retención en México; ausente en agregadores europeos estándar.",
+        "affiliateOfferObserved": false,
+        "oddsQuotesInMatch54091": 422
+      },
+      {
+        "bookmakerId": 4,
+        "name": "Stake",
+        "epistemology": "OBSERVADO",
+        "matchColumns": [
+          "stakeEventSlug ('1794944700000-wales-portugal' — {kickoff_epoch_ms}-{home}-{away})",
+          "stakeEventDate",
+          "stakeLastSync (.000Z precisión a segundo)"
+        ],
+        "countryCodesCount": 18,
+        "countryCodes": ["AR", "BO", "BR", "CA", "CL", "CO", "CR", "EC", "GT", "HN", "MX", "NI", "PA", "PE", "PY", "SV", "UY", "VE"],
+        "observedPromotionalPerks": [],
+        "affiliateOfferObserved": true,
+        "affiliateCampaignKey": "stake-mx-welcome-2026-11",
+        "affiliateTargetDomain": "stake.mx",
+        "oddsQuotesInMatch54091": 745
+      },
+      {
+        "bookmakerId": 5,
+        "name": "JugaBet",
+        "epistemology": "OBSERVADO",
+        "matchColumns": [
+          "jugabetEventId ('19167428')",
+          "jugabetEventDate",
+          "jugabetLastSync (.000Z precisión a segundo)"
+        ],
+        "countryCodesCount": 9,
+        "countryCodes": ["AR", "BR", "CL", "MX", "PE", "CO", "VE", "EC", "PA"],
+        "endpointDiscrepancy": "Omitida en GET /bookmakers (solo devuelve IDs 1..4), pero activa en GET /bookmakers/preferences, GET /bookmakers/offers y en todos los feeds de momios.",
+        "observedPromotionalPerks": ["early_payout_2_goals", "price_boost"],
+        "exclusiveMarketsInMatch54091": ["game-props/tackles (28.5..32.5)"],
+        "affiliateOfferObserved": true,
+        "affiliateCampaignKey": "jugabet-mx-welcome-2026-11",
+        "affiliateTargetDomain": "trackinginflu.com (con incentivo +1 mes Scout Picks Pro gratis contra validación de ID de jugador)",
+        "oddsQuotesInMatch54091": 1082
+      }
+    ],
+    "empiricalSyncCadences": {
+      "epistemology": "DERIVADO",
+      "measurementMethod": "Diferencia exacta entre dos capturas del mismo partido pre-match 54091 separadas ~11 min (T1=15:25:54Z vs T2=15:36:34Z) más partido en vivo 37222996 (capturado 15:27:18Z en minuto 69).",
+      "preMatchCadencesMatch54091": {
+        "oddsApiLastSync": {
+          "t1Utc": "2026-11-17T15:07:57.666Z",
+          "t2Utc": "2026-11-17T15:27:56.841Z",
+          "deltaSeconds": 1199.175,
+          "derivedInterval": "~20 minutos (pre-match a ~4h del inicio)"
+        },
+        "betanoLastSync": {
+          "t1Utc": "2026-11-17T15:14:23.000Z",
+          "t2Utc": "2026-11-17T15:34:23.000Z",
+          "deltaSeconds": 1200.0,
+          "derivedInterval": "20 minutos exactos (cron determinista)"
+        },
+        "bet365LastSync": {
+          "t1Utc": "2026-11-17T15:14:18.000Z",
+          "t2Utc": "2026-11-17T15:34:20.000Z",
+          "deltaSeconds": 1202.0,
+          "derivedInterval": "20 minutos exactos (sincronizado junto a Betano)"
+        },
+        "drafteaLastSync": {
+          "t1Utc": "2026-11-17T15:17:37.655Z",
+          "t2Utc": "2026-11-17T15:28:48.044Z",
+          "deltaSeconds": 670.389,
+          "derivedInterval": "~10-11 minutos"
+        },
+        "stakeLastSync": {
+          "t1Utc": "2026-11-17T15:22:52.000Z",
+          "t2Utc": "2026-11-17T15:35:55.000Z",
+          "deltaSeconds": 783.0,
+          "derivedInterval": "~13 minutos (rango 10-15 min)"
+        },
+        "jugabetLastSync": {
+          "t1Utc": "2026-11-17T15:23:28.000Z",
+          "t2Utc": "2026-11-17T15:23:28.000Z",
+          "deltaSeconds": 0.0,
+          "derivedInterval": "15-20 minutos (sin nuevo tick entre 15:23:28Z y 15:36:34Z)"
+        },
+        "injuriesLastSyncedAt": {
+          "t1Utc": "2026-11-17T14:27:59.462Z",
+          "match37222996Utc": "2026-11-17T14:28:08.742Z",
+          "derivedInterval": "Job global por lotes cada ~60-120 minutos (ambos partidos procesados con 9.28s de diferencia en el batch de las 14:28Z)"
+        },
+        "reactiveInsightRegenerationLatency": {
+          "t1MaterialChangeUtc": "2026-11-17T15:25:27.008Z",
+          "t1InsightsGeneratedUtc": "2026-11-17T15:25:31.421Z",
+          "t1LatencySeconds": 4.413,
+          "t2MaterialChangeUtc": "2026-11-17T15:35:53.390Z",
+          "t2InsightsGeneratedUtc": "2026-11-17T15:36:00.657Z",
+          "t2LatencySeconds": 7.267,
+          "live37222996LatencySeconds": 1.783
+        }
+      },
+      "inPlayCadencesMatch37222996": {
+        "kickoffUtc": "2026-11-17T14:00:00.000Z",
+        "responseDateUtc": "2026-11-17T15:27:18.000Z",
+        "liveScoreUpdatedAtLagSeconds": 9.619,
+        "playerStatsAndEventsSyncLagSeconds": 71.998,
+        "lineupsSyncLagSeconds": 52.499,
+        "oddsApiLiveSyncLagSeconds": 53.04,
+        "directScrapersBehaviorInPlay": "CORTE TOTAL AL KICKOFF: los 5 conectores directos hicieron su último sync entre 13:49:58Z y 13:59:51Z (< 14:00:00Z) y dejan de ejecutarse en vivo."
+      }
+    },
+    "supportedMarketsCatalog": {
+      "gamelines": {
+        "periods": ["full_match", "first_half", "second_half"],
+        "markets": ["ML (1X2)", "Double Chance (1X, 12, X2)"]
+      },
+      "playerProps": {
+        "zodValidatedCategories": [
+          {
+            "key": "attacking",
+            "labelEs": "Ataque",
+            "propsInMatch54091": 292,
+            "metrics": ["goals", "assists", "goalsAssists", "shots", "shotsOnTarget", "offsides"]
+          },
+          {
+            "key": "cards-fouls",
+            "labelEs": "Tarjetas/Faltas",
+            "propsInMatch54091": 156,
+            "metrics": ["foulsCommitted", "foulsDrawn", "yellowCards"]
+          },
+          {
+            "key": "passing",
+            "labelEs": "Pases",
+            "propsInMatch54091": 48,
+            "metrics": ["passes"]
+          },
+          {
+            "key": "defense",
+            "labelEs": "Defensa",
+            "propsInMatch54091": 56,
+            "metrics": ["tackles", "saves"]
+          }
+        ],
+        "totalPlayerPropsInMatch54091": 552
+      },
+      "teamProps": {
+        "periods": ["game (full_match)", "half (first_half)"],
+        "metrics": ["goals", "corners", "shots", "shotsOnTarget", "fouls", "offsides", "yellowCards"],
+        "additionalBlocks": ["combinedProps (bothTeamsCards)", "teamResultOdds (resultWin, resultDraw, resultLoss, double chance)"]
+      },
+      "gameProps": {
+        "periods": ["full_match"],
+        "metrics": ["goals", "btts", "corners", "cards", "bothTeamsCards", "redCards", "shots", "shotsOnTarget", "fouls", "tackles", "offsides"]
+      }
+    }
+  },
+  "leagueCoverageAndMonthlyCogs": {
+    "catalogSummary": {
+      "epistemology": "OBSERVADO",
+      "totalLeagues": 176,
+      "distinctCountriesAndRegions": 71,
+      "activeCurrentSeasonLeagues": 145,
+      "leaguesWithUpcomingMatchAtCapture": 79,
+      "leaguesWithPowerPriorityScore": 50,
+      "ingestionWaves": [
+        {
+          "wave": 1,
+          "idRange": "1..160",
+          "leagueCount": 148,
+          "description": "Catálogo inicial Sportmonks v3 (Top Europa, UEFA, FIFA, Conmebol, Concacaf, Liga MX, MLS, Asia/África principales)"
+        },
+        {
+          "wave": 2,
+          "idRange": "350..359",
+          "leagueCount": 10,
+          "description": "Amistosos de clubes (Club Friendlies 1-4), Leagues Cup, segundas divisiones (Rusia FNL, Turquía 1. Lig, Inglaterra National League)"
+        },
+        {
+          "wave": 3,
+          "idRange": "1257..1293",
+          "leagueCount": 18,
+          "description": "Expansión LATAM/Centroamérica y segundas divisiones (Liga de Expansión MX, Primera B Nacional Argentina, Primera B Colombia, Costa Rica, Guatemala, Honduras, El Salvador, Nicaragua, Panamá, Bolivia, Venezuela, Indonesia, Tailandia, Jordania)"
+        }
+      ],
+      "dataQualityAnomalyObserved": "League id=10 ('Premiership', logo Sportmonks 501.png = Scottish Premiership) está erróneamente vinculada a country='Wales' (id=9, code='GB') por colisión del código ISO 'GB' durante la deduplicación de países."
+    },
+    "estimatedMonthlyCogsUsd": {
+      "epistemology": "INFERIDO",
+      "lineItems": [
+        {
+          "component": "Sportmonks Football API v3 (Plan Enterprise / Worldwide Custom >120 ligas, sin add-on xG)",
+          "lowUsd": 450,
+          "baseUsd": 650,
+          "highUsd": 950,
+          "rationale": "El plan Pro público (€249/mes) cubre máximo 120 ligas; Scout Picks ingiere 176 ligas (145 activas) con estadísticas granulares de jugador, alineaciones y árbitros, pero omite el add-on de xG (xg=null en 100% de registros)."
+        },
+        {
+          "component": "Odds-API.io (Tier Starter/Growth + posible add-on WebSocket/volumen para 5 casas)",
+          "lowUsd": 129,
+          "baseUsd": 239,
+          "highUsd": 478,
+          "rationale": "Odds-API.io cobra por número de casas: Starter ($129/mes hasta 5 casas, 5,000 req/h) o Growth ($239/mes hasta 10 casas), duplicando si usan streaming WebSocket."
+        },
+        {
+          "component": "Infraestructura de scraping directo (proxies residenciales MX/LATAM + workers para Bet365, Betano, Draftea, Stake, JugaBet)",
+          "lowUsd": 150,
+          "baseUsd": 320,
+          "highUsd": 650,
+          "rationale": "El polling sólo pre-partido cada 10-20 min (cortando al kickoff) reduce drásticamente el consumo de ancho de banda de proxies residenciales/anti-Cloudflare/anti-DataDome frente a un scraper in-play."
+        },
+        {
+          "component": "AWS Core (ALB us-east-1, ECS/EC2 workers + API, RDS PostgreSQL con >240M filas históricas de Odds, S3 + 2 distribuciones CloudFront)",
+          "lowUsd": 220,
+          "baseUsd": 410,
+          "highUsd": 750,
+          "rationale": "ALB dedicado en us-east-1, base PostgreSQL con secuencias de 240M en Odds y 63M en PlayerStat, y hotlinking gratuito a cdn.sportmonks.com/flagcdn.com que ahorra casi todo el egreso CDN de imágenes."
+        },
+        {
+          "component": "Observabilidad, Analítica y Auth/Billing SaaS (PostHog, Sentry, RevenueCat/Stripe fees excluidos del COGS fijo)",
+          "lowUsd": 0,
+          "baseUsd": 60,
+          "highUsd": 200,
+          "rationale": "Tiers gratuitos o iniciales de PostHog Cloud US y Sentry."
+        }
+      ],
+      "totalEstimatedMonthlyFixedCogsUsd": {
+        "lowUsd": 949,
+        "baseUsd": 1679,
+        "highUsd": 3028
+      }
+    }
+  }
+}

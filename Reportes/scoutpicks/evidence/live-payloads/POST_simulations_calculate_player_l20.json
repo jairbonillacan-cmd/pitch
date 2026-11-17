@@ -1,0 +1,675 @@
+{
+  "method": "POST",
+  "url": "https://api.scoutpicks.aertech-labs.com/simulations/calculate",
+  "requestBody": {
+    "matchId": 54091,
+    "playerId": 1113,
+    "metric": "tackles",
+    "comparison": "over",
+    "line": 1.5,
+    "period": "full_match",
+    "timeframe": "l20"
+  },
+  "status": 200,
+  "data": {
+    "probability": 14,
+    "confidence": "low",
+    "entity": {
+      "id": 1113,
+      "name": "António Silva",
+      "image": "https://cdn.sportmonks.com/images/soccer/players/12/37354828.png",
+      "type": "player"
+    },
+    "bet": {
+      "metric": "tackles",
+      "metricLabel": "Entradas",
+      "comparison": "over",
+      "comparisonLabel": "Más de",
+      "line": 1.5,
+      "period": "full_match",
+      "periodLabel": "Todo el encuentro"
+    },
+    "match": {
+      "id": 54091,
+      "opponent": {
+        "id": 17181,
+        "name": "Wales",
+        "shortName": "WAL",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+      },
+      "date": "2026-11-17T19:45:00.000Z",
+      "competition": "UEFA Nations League",
+      "isHome": false
+    },
+    "analysis": {
+      "summary": "António Silva ha superado más de 1.5 entradas en 14% de los últimos 7 partidos. Contra Wales, ha cumplido en 1 de 7 enfrentamientos. Su media es de 0.86 entradas por partido.",
+      "keyFactors": [
+        "14% de cumplimiento en los últimos 7 partidos",
+        "Media de 0.86 entradas por partido",
+        "0.86 entradas de media como visitante",
+        "Media de 0.86 entradas vs Wales"
+      ]
+    },
+    "charts": {
+      "vsOpponent": {
+        "title": "Entradas - Últimos 20",
+        "type": "vertical_bar",
+        "targetLine": 1.5,
+        "data": [
+          {
+            "label": "29/03/26",
+            "value": 0,
+            "meetsTarget": false,
+            "matchId": 7340,
+            "minutesPlayed": 45,
+            "opponent": {
+              "id": 13211,
+              "name": "Mexico",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18576.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 0,
+              "isHome": false,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "15/10/24",
+            "value": 0,
+            "meetsTarget": false,
+            "matchId": 54196,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 14719,
+              "name": "Scotland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 0,
+              "isHome": false,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "26/06/24",
+            "value": 1,
+            "meetsTarget": false,
+            "matchId": 52839,
+            "minutesPlayed": 66,
+            "opponent": {
+              "id": 13224,
+              "name": "Georgia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png"
+            },
+            "competition": "European Championship",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 0,
+              "isHome": false,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "16/11/23",
+            "value": 1,
+            "meetsTarget": false,
+            "matchId": 53158,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 14576,
+              "name": "Liechtenstein",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 2,
+              "isHome": false,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "08/09/23",
+            "value": 1,
+            "meetsTarget": false,
+            "matchId": 53014,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 17177,
+              "name": "Slovakia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18648.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 1,
+              "isHome": false,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "26/03/23",
+            "value": 2,
+            "meetsTarget": true,
+            "matchId": 52645,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 17240,
+              "name": "Luxembourg",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/18779.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 6,
+              "isHome": false,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "02/12/22",
+            "value": 1,
+            "meetsTarget": false,
+            "matchId": 33781,
+            "minutesPlayed": 90,
+            "opponent": {
+              "id": 17059,
+              "name": "Korea Republic",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png"
+            },
+            "competition": "World Cup",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 1,
+              "isHome": false,
+              "outcome": "L"
+            }
+          }
+        ]
+      },
+      "vsTop5": {
+        "title": "Rendimiento vs equipos TOP 5",
+        "type": "horizontal_bar",
+        "targetLine": 1.5,
+        "data": [
+          {
+            "label": "LUX",
+            "value": 2,
+            "meetsTarget": true
+          },
+          {
+            "label": "CRO",
+            "value": 0,
+            "meetsTarget": false
+          }
+        ]
+      },
+      "homeAway": {
+        "title": "LOCAL vs VISITANTE",
+        "type": "horizontal_bar",
+        "targetLine": 1.5,
+        "data": [
+          {
+            "label": "Local",
+            "value": 0,
+            "meetsTarget": false
+          },
+          {
+            "label": "Visitante",
+            "value": 0.86,
+            "meetsTarget": false
+          }
+        ]
+      },
+      "compliance": {
+        "title": "Cumplimiento",
+        "meetsCount": 1,
+        "totalCount": 7,
+        "meetsPercentage": 14,
+        "missPercentage": 86,
+        "data": [
+          {
+            "label": "Cumple",
+            "value": 14,
+            "meetsTarget": true
+          },
+          {
+            "label": "No cumple",
+            "value": 86,
+            "meetsTarget": false
+          }
+        ]
+      }
+    },
+    "timeframe": {
+      "value": "l20",
+      "label": "Últimos 20"
+    },
+    "appliedIsHome": false,
+    "appliedVenue": "away",
+    "teamContext": {
+      "value": "national",
+      "label": "Solo Selección",
+      "teamId": 14678,
+      "teamName": "Portugal"
+    },
+    "odds": {
+      "available": true,
+      "bestOdds": {
+        "value": 2.75,
+        "bookmaker": "Betano"
+      },
+      "options": [
+        {
+          "oddsId": 239911263,
+          "value": 2.75,
+          "bookmaker": "Betano",
+          "impliedProbability": 0.36,
+          "edge": 13.64
+        },
+        {
+          "oddsId": 239886375,
+          "value": 2.1,
+          "bookmaker": "Bet365",
+          "impliedProbability": 0.48,
+          "edge": 13.52
+        },
+        {
+          "oddsId": 239950808,
+          "value": 1.88,
+          "bookmaker": "Stake",
+          "impliedProbability": 0.53,
+          "edge": 13.47
+        }
+      ]
+    },
+    "defenseChart": {
+      "data": {
+        "title": "Wales - Entradas",
+        "type": "vertical_bar",
+        "targetLine": 1.5,
+        "data": [
+          {
+            "label": "04/10/26",
+            "value": 9,
+            "meetsTarget": true,
+            "matchId": 54041,
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "01/10/26",
+            "value": 8,
+            "meetsTarget": true,
+            "matchId": 54049,
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "02/06/26",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 8606,
+            "opponent": {
+              "id": 14472,
+              "name": "Ghana",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18553.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "31/03/26",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 8591,
+            "opponent": {
+              "id": 17182,
+              "name": "Northern Ireland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "26/03/26",
+            "value": 16,
+            "meetsTarget": true,
+            "matchId": 33726,
+            "opponent": {
+              "id": 17231,
+              "name": "Bosnia and Herzegovina",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "18/11/25",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 33663,
+            "opponent": {
+              "id": 17180,
+              "name": "North Macedonia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18689.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 7,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "13/10/25",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 33324,
+            "opponent": {
+              "id": 14696,
+              "name": "Belgium",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 4,
+              "isHome": true,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "09/09/25",
+            "value": 24,
+            "meetsTarget": true,
+            "matchId": 8842,
+            "opponent": {
+              "id": 13227,
+              "name": "Canada",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18572.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "L"
+            }
+          },
+          {
+            "label": "06/06/25",
+            "value": 11,
+            "meetsTarget": true,
+            "matchId": 32846,
+            "opponent": {
+              "id": 14576,
+              "name": "Liechtenstein",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "22/03/25",
+            "value": 14,
+            "meetsTarget": true,
+            "matchId": 32830,
+            "opponent": {
+              "id": 14633,
+              "name": "Kazakhstan",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18603.png"
+            },
+            "competition": "WC Qualification Europe",
+            "result": {
+              "homeScore": 3,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "19/11/24",
+            "value": 18,
+            "meetsTarget": true,
+            "matchId": 54465,
+            "opponent": {
+              "id": 13220,
+              "name": "Iceland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18635.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 4,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "14/10/24",
+            "value": 16,
+            "meetsTarget": true,
+            "matchId": 54344,
+            "opponent": {
+              "id": 14481,
+              "name": "Montenegro",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18836.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "06/09/24",
+            "value": 7,
+            "meetsTarget": true,
+            "matchId": 54172,
+            "opponent": {
+              "id": 17251,
+              "name": "Türkiye",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png"
+            },
+            "competition": "UEFA Nations League",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "26/03/24",
+            "value": 20,
+            "meetsTarget": true,
+            "matchId": 53178,
+            "opponent": {
+              "id": 17226,
+              "name": "Poland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "21/03/24",
+            "value": 10,
+            "meetsTarget": true,
+            "matchId": 53165,
+            "opponent": {
+              "id": 13259,
+              "name": "Finland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18570.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 4,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "21/11/23",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 53133,
+            "opponent": {
+              "id": 17251,
+              "name": "Türkiye",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 1,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "15/10/23",
+            "value": 11,
+            "meetsTarget": true,
+            "matchId": 53037,
+            "opponent": {
+              "id": 13234,
+              "name": "Croatia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 1,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "11/10/23",
+            "value": 20,
+            "meetsTarget": true,
+            "matchId": 34770854,
+            "opponent": {
+              "id": 17283,
+              "name": "Gibraltar",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/27487.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 4,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "W"
+            }
+          },
+          {
+            "label": "07/09/23",
+            "value": 12,
+            "meetsTarget": true,
+            "matchId": 34770804,
+            "opponent": {
+              "id": 17059,
+              "name": "Korea Republic",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png"
+            },
+            "competition": "Friendly International",
+            "result": {
+              "homeScore": 0,
+              "awayScore": 0,
+              "isHome": true,
+              "outcome": "D"
+            }
+          },
+          {
+            "label": "16/06/23",
+            "value": 14,
+            "meetsTarget": true,
+            "matchId": 52710,
+            "opponent": {
+              "id": 17055,
+              "name": "Armenia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18639.png"
+            },
+            "competition": "Euro Qualification",
+            "result": {
+              "homeScore": 2,
+              "awayScore": 4,
+              "isHome": true,
+              "outcome": "L"
+            }
+          }
+        ]
+      },
+      "opponent": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+      },
+      "timeframe": {
+        "value": "l20",
+        "label": "Últimos 20"
+      },
+      "appliedIsHome": true,
+      "hitRate": 100,
+      "average": 13.5,
+      "median": 12
+    },
+    "average": 0.86,
+    "median": 1
+  }
+}

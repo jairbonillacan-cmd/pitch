@@ -1,0 +1,691 @@
+{
+  "metadata": {
+    "target": "Scout Picks (https://scoutpicks.app | https://api.scoutpicks.aertech-labs.com)",
+    "verifier": "Reportes/scoutpicks/evidence/verify_scoutpicks_math.py",
+    "epistemic_basis": {
+      "OBSERVADO": "Payloads HTTP reales y AST de index-BZ3_gLK3.js",
+      "DERIVADO": "Identidades algebraicas exactas validadas con residuo 0",
+      "RECONSTRUIDO": "Fórmulas servidor de confidence, valueRating, relevanceScore y Mfe"
+    },
+    "rea_evidence_ids": [
+      "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+      "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+      "ev_abdb3cf1dbd8a7aab2a952ca236449585bd2de775d8200297a3b94e836220fb3",
+      "ev_7aae1b8faebfaae85bd8513669e557fd705e9a7b85ff530e366823d93f7910d4"
+    ],
+    "pii_sanitized": true
+  },
+  "engine_nature_verdict": {
+    "classification": "Motor Empírico Frecuentista Multi-Ventana (Hit-Rate) sin De-Vigging ni Modelos Paramétricos",
+    "uses_poisson_or_dixon_coles": false,
+    "uses_elo_or_monte_carlo": false,
+    "uses_expected_goals_xg": false,
+    "removes_bookmaker_overround_vig": false,
+    "uses_llm_for_simulation_narratives": false,
+    "uses_llm_for_market_alerts_assistant": true
+  },
+  "repo_corpus_audit": {
+    "files_with_insights": {
+      "GET_insights_draft_3Ap1113_m54091_tackles_0_5_over.json": 1,
+      "GET_insights_grouped_statusFilter_upcoming_sortBy_recommended_timezone.json": 40,
+      "GET_insights_matchIds_54091_limit_500_sample15.json": 15,
+      "GET_insights_player_1113_limit_50.json": 9,
+      "GET_insights_playerId_3580_matchIds_54091_limit_50.json": 11,
+      "GET_insights_team_17181_limit_50.json": 27,
+      "GET_insights_top_limit_40_offset_0_statusFilter_upcoming_sortBySav.json": 40,
+      "GET_insights_top_limit_6_offset_0_statusFilter_upcoming_sortBySave.json": 6,
+      "GET_insights_top_limit_6_offset_6_statusFilter_upcoming_sortBySave.json": 6,
+      "GET_referees_351_insights.json": 20
+    },
+    "total_occurrences": 175,
+    "unique_insights": 114,
+    "total_variants_checked": 537,
+    "type_distribution": {
+      "safe_team_prop": 3,
+      "value_match_result": 1,
+      "value_match_totals": 9,
+      "value_period_result": 2,
+      "value_period_side_totals": 5,
+      "value_period_totals": 4,
+      "value_player_prop": 60,
+      "value_team_prop": 30
+    },
+    "residuals": {
+      "impliedProbability_vs_v8_round2_100_div_odds": {
+        "n": 114,
+        "max_abs_delta": 0.0,
+        "exact_zero_count": 114
+      },
+      "edgePercentage_vs_v8_round2_rawHitRate_minus_100_div_odds": {
+        "n": 114,
+        "max_abs_delta": 0.01,
+        "within_0_01_count": 114
+      },
+      "edgePercentage_vs_v8_round2_hitRate_minus_impliedProb": {
+        "n": 114,
+        "max_abs_delta": 0.0
+      },
+      "variants_edge_vs_v8_round2_variantHitRate_minus_impliedProb": {
+        "n": 537,
+        "max_abs_delta": 0.0,
+        "within_0_01_count": 537
+      },
+      "expectedValue_vs_v8_round2_rawHitRate_div_100_mul_odds_minus_1": {
+        "n": 114,
+        "max_abs_delta": 0.01,
+        "within_0_01_count": 114
+      },
+      "average_vs_v8_round2_mean_recentValues": {
+        "n": 98,
+        "max_abs_delta": 0.0
+      },
+      "median_player_team_vs_median_recentValues": {
+        "n": 93,
+        "max_abs_delta": 0.0,
+        "period_and_match_hardcoded_zero_median_count": 3
+      },
+      "hitRate_individual_vs_recentHits_ratio": {
+        "n": 98,
+        "max_abs_delta": 0.0
+      }
+    },
+    "classifications_and_scores": {
+      "valueRating_exact_matches": 114,
+      "valueRating_total": 114,
+      "confidence_exact_primary_odds": 107,
+      "confidence_exact_including_bookmaker_freeze": 114,
+      "confidence_total": 114,
+      "confidence_unexplained_ids": [],
+      "client_Yte_hidden_edge_badges_count": 1
+    },
+    "legacy_v1_null_audit": {
+      "total_checked": 114,
+      "non_null_counts": {
+        "streak": 0,
+        "trend": 0,
+        "opponentRank": 0,
+        "opponentAvgConceded": 0,
+        "opponentLeagueAvg": 0,
+        "adjustedHitRate": 0,
+        "matchupScore": 0,
+        "matchupRating": 0
+      }
+    },
+    "v2_context_enrichment_counts": {
+      "opponentMetricRank": 61,
+      "substitutionPattern": 19,
+      "stackedSnapshot": 16,
+      "underdog": 0,
+      "minMinutes_eq_45_on_players": 60,
+      "player_insights_total": 60
+    },
+    "relevance_score_per_match": {
+      "54091": [
+        186.2919607053426
+      ],
+      "54092": [
+        172.7410825292872
+      ],
+      "54107": [
+        162.9393069150892
+      ],
+      "54108": [
+        142.3796557339731
+      ],
+      "54110": [
+        153.9509167002294
+      ],
+      "54141": [
+        152.2978794193357
+      ],
+      "54142": [
+        145.9746616001541
+      ],
+      "10618282": [
+        178.43
+      ],
+      "37222561": [
+        172.27
+      ],
+      "37222994": [
+        165.0401877177929
+      ]
+    },
+    "detected_confidence_bugs": {
+      "player_team_under_unflipped_margin_count": 11,
+      "player_team_under_samples": [
+        {
+          "id": "draft:t17181_m54091_offsides_1.5_under",
+          "average": 0.7,
+          "line": 1.5,
+          "confidence_observed": 77,
+          "buggy_margin_pts": 0.0,
+          "intended_margin_pts": 8.0
+        },
+        {
+          "id": "draft:t17181_m54091_corners_4.5_under",
+          "average": 2.8,
+          "line": 4.5,
+          "confidence_observed": 73,
+          "buggy_margin_pts": 0.0,
+          "intended_margin_pts": 5.67
+        },
+        {
+          "id": "draft:t17181_m54091_fouls_11.5_under",
+          "average": 9.6,
+          "line": 11.5,
+          "confidence_observed": 77,
+          "buggy_margin_pts": 0.0,
+          "intended_margin_pts": 2.48
+        },
+        {
+          "id": "draft:t17181_m54091_goals_0.5_under",
+          "average": 0.6,
+          "line": 0.5,
+          "confidence_observed": 62,
+          "buggy_margin_pts": 3.0,
+          "intended_margin_pts": 0.0
+        },
+        {
+          "id": "draft:t17181_m54091_corners_3.5_under",
+          "average": 2.8,
+          "line": 3.5,
+          "confidence_observed": 65,
+          "buggy_margin_pts": 0.0,
+          "intended_margin_pts": 3.0
+        },
+        {
+          "id": "draft:t17181_m54091_shotsOnTarget_3.5_under",
+          "average": 3.2,
+          "line": 3.5,
+          "confidence_observed": 60,
+          "buggy_margin_pts": 0.0,
+          "intended_margin_pts": 1.29
+        }
+      ],
+      "totals_losing_side_abs_margin_bonus_count": 0,
+      "totals_losing_side_samples": []
+    }
+  },
+  "sorting_and_matchup_audit": {
+    "server_Mfe_recommended_sort": {
+      "sample15_pairs_checked": 14,
+      "sample15_inversions": 0,
+      "sample15_top5_scores": [
+        94.3466,
+        93.6082,
+        93.5189,
+        92.9466,
+        92.8543
+      ],
+      "grouped_pairs_checked": 36,
+      "grouped_inversions": 0
+    },
+    "Afe_discontinuity_at_1_35": {
+      "Afe_1_3499": 34.99,
+      "Afe_1_3500": 100.0,
+      "jump_points": 65.01,
+      "weighted_Mfe_jump_points": 26.004
+    },
+    "opponentMetricRank_vs_matchup_rankings": {
+      "cross_checked": 6,
+      "exact_matches": 6
+    },
+    "relevanceScore_54091_decomposition": {
+      "wales_score": 69.68147512564133,
+      "portugal_score": 91.61048557970126,
+      "league_bonus": 25.0,
+      "reconstructed": 186.2919607053426,
+      "observed": 186.2919607053426,
+      "ieee754_abs_delta": 0.0
+    },
+    "bookmaker_1x2_overround_audit_match_54091": {
+      "Bet365": {
+        "odds_1x2": {
+          "Home": 7.0,
+          "Draw": 5.0,
+          "Away": 1.4
+        },
+        "sum_implied_pct": 105.71,
+        "overround_pct": 5.71,
+        "away_scoutpicks_implied_pct": 71.43,
+        "away_fair_multiplicative_pct": 67.57,
+        "vig_bias_pp_on_away": 3.86
+      },
+      "Betano": {
+        "odds_1x2": {
+          "Home": 6.9,
+          "Draw": 5.0,
+          "Away": 1.42
+        },
+        "sum_implied_pct": 104.92,
+        "overround_pct": 4.92,
+        "away_scoutpicks_implied_pct": 70.42,
+        "away_fair_multiplicative_pct": 67.12,
+        "vig_bias_pp_on_away": 3.3
+      },
+      "Draftea": {
+        "odds_1x2": {
+          "Home": 6.59,
+          "Draw": 5.13,
+          "Away": 1.4
+        },
+        "sum_implied_pct": 106.1,
+        "overround_pct": 6.1,
+        "away_scoutpicks_implied_pct": 71.43,
+        "away_fair_multiplicative_pct": 67.32,
+        "vig_bias_pp_on_away": 4.11
+      },
+      "JugaBet": {
+        "odds_1x2": {
+          "Home": 6.91,
+          "Draw": 5.11,
+          "Away": 1.42
+        },
+        "sum_implied_pct": 104.46,
+        "overround_pct": 4.46,
+        "away_scoutpicks_implied_pct": 70.42,
+        "away_fair_multiplicative_pct": 67.41,
+        "vig_bias_pp_on_away": 3.01
+      },
+      "Stake": {
+        "odds_1x2": {
+          "Home": 6.4,
+          "Draw": 5.0,
+          "Away": 1.39
+        },
+        "sum_implied_pct": 107.57,
+        "overround_pct": 7.57,
+        "away_scoutpicks_implied_pct": 71.94,
+        "away_fair_multiplicative_pct": 66.88,
+        "vig_bias_pp_on_away": 5.06
+      }
+    }
+  },
+  "simulations_and_performance_audit": {
+    "ground_truth_antonio_silva_vs_wales_matches": 0,
+    "simulations_200_audit": [
+      {
+        "file": "POST_simulations_calculate_insight.json",
+        "request": {
+          "insightId": "draft:p1113_m54091_tackles_0.5_over"
+        },
+        "entity": "António Silva",
+        "target_opponent": "Wales",
+        "sample_n": 10,
+        "probability_observed": 100,
+        "probability_reconstructed": 100,
+        "confidence_label": "medium",
+        "average_delta": 0.0,
+        "median_delta": 0.0,
+        "home_avg_delta": 0.0,
+        "away_avg_delta": 0.0,
+        "defense_hr_delta": 0,
+        "defense_avg_delta": 0.0,
+        "defense_med_delta": 0.0,
+        "actual_matches_vs_target_opponent_in_series": 0,
+        "contains_false_h2h_claim_in_summary": true,
+        "summary_excerpt": "António Silva ha superado más de 0.5 entradas en 100% de los últimos 10 partidos. Contra Wales, ha cumplido en 10 de 10 enfrentamientos. Su media es de 1.9 entradas por partido."
+      },
+      {
+        "file": "POST_simulations_calculate_player_l20.json",
+        "request": {
+          "matchId": 54091,
+          "playerId": 1113,
+          "metric": "tackles",
+          "comparison": "over",
+          "line": 1.5,
+          "period": "full_match",
+          "timeframe": "l20"
+        },
+        "entity": "António Silva",
+        "target_opponent": "Wales",
+        "sample_n": 7,
+        "probability_observed": 14,
+        "probability_reconstructed": 14,
+        "confidence_label": "low",
+        "average_delta": 0.0,
+        "median_delta": 0.0,
+        "home_avg_delta": 0.0,
+        "away_avg_delta": 0.0,
+        "defense_hr_delta": 0,
+        "defense_avg_delta": 0.0,
+        "defense_med_delta": 0.0,
+        "actual_matches_vs_target_opponent_in_series": 0,
+        "contains_false_h2h_claim_in_summary": true,
+        "summary_excerpt": "António Silva ha superado más de 1.5 entradas en 14% de los últimos 7 partidos. Contra Wales, ha cumplido en 1 de 7 enfrentamientos. Su media es de 0.86 entradas por partido."
+      },
+      {
+        "file": "POST_simulations_calculate_team_goals.json",
+        "request": {
+          "matchId": 54091,
+          "teamId": 17181,
+          "metric": "goals",
+          "comparison": "over",
+          "line": 0.5,
+          "period": "full_match",
+          "timeframe": "l10"
+        },
+        "entity": "Wales",
+        "target_opponent": "Portugal",
+        "sample_n": 10,
+        "probability_observed": 80,
+        "probability_reconstructed": 80,
+        "confidence_label": "medium",
+        "average_delta": 0.0,
+        "median_delta": 0.0,
+        "home_avg_delta": 0.0,
+        "away_avg_delta": 0.0,
+        "defense_hr_delta": 0,
+        "defense_avg_delta": 0.0,
+        "defense_med_delta": 0.0,
+        "actual_matches_vs_target_opponent_in_series": 0,
+        "contains_false_h2h_claim_in_summary": true,
+        "summary_excerpt": "Wales ha superado más de 0.5 goles en 80% de los últimos 10 partidos. Contra Portugal, ha cumplido en 8 de 10 enfrentamientos. Su media es de 2 goles por partido."
+      }
+    ],
+    "simulations_dimensional_edge_bug_audit": {
+      "quotes_checked": 10,
+      "max_delta_vs_bug_formula": 0.0,
+      "mean_inflation_pp": 61.36,
+      "max_inflation_pp": 79.2,
+      "sign_flip_cases": [
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Betano",
+          "odds": 2.75,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.36,
+          "reconstructed_impliedProbability_unit": 0.36,
+          "observed_edge": 13.64,
+          "reconstructed_buggy_edge": 13.64,
+          "true_edge_pct": -22.36,
+          "inflation_error_pp": 36.0,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Bet365",
+          "odds": 2.1,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.48,
+          "reconstructed_impliedProbability_unit": 0.48,
+          "observed_edge": 13.52,
+          "reconstructed_buggy_edge": 13.52,
+          "true_edge_pct": -33.62,
+          "inflation_error_pp": 47.14,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Stake",
+          "odds": 1.88,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.53,
+          "reconstructed_impliedProbability_unit": 0.53,
+          "observed_edge": 13.47,
+          "reconstructed_buggy_edge": 13.47,
+          "true_edge_pct": -39.19,
+          "inflation_error_pp": 52.66,
+          "delta_vs_bug_formula": 0.0
+        }
+      ],
+      "all_quotes": [
+        {
+          "file": "POST_simulations_calculate_insight.json",
+          "bookmaker": "Betano",
+          "odds": 1.4,
+          "probability_pct": 100,
+          "observed_impliedProbability_unit": 0.71,
+          "reconstructed_impliedProbability_unit": 0.71,
+          "observed_edge": 99.29,
+          "reconstructed_buggy_edge": 99.29,
+          "true_edge_pct": 28.57,
+          "inflation_error_pp": 70.72,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_insight.json",
+          "bookmaker": "Bet365",
+          "odds": 1.25,
+          "probability_pct": 100,
+          "observed_impliedProbability_unit": 0.8,
+          "reconstructed_impliedProbability_unit": 0.8,
+          "observed_edge": 99.2,
+          "reconstructed_buggy_edge": 99.2,
+          "true_edge_pct": 20.0,
+          "inflation_error_pp": 79.2,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Betano",
+          "odds": 2.75,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.36,
+          "reconstructed_impliedProbability_unit": 0.36,
+          "observed_edge": 13.64,
+          "reconstructed_buggy_edge": 13.64,
+          "true_edge_pct": -22.36,
+          "inflation_error_pp": 36.0,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Bet365",
+          "odds": 2.1,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.48,
+          "reconstructed_impliedProbability_unit": 0.48,
+          "observed_edge": 13.52,
+          "reconstructed_buggy_edge": 13.52,
+          "true_edge_pct": -33.62,
+          "inflation_error_pp": 47.14,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_player_l20.json",
+          "bookmaker": "Stake",
+          "odds": 1.88,
+          "probability_pct": 14,
+          "observed_impliedProbability_unit": 0.53,
+          "reconstructed_impliedProbability_unit": 0.53,
+          "observed_edge": 13.47,
+          "reconstructed_buggy_edge": 13.47,
+          "true_edge_pct": -39.19,
+          "inflation_error_pp": 52.66,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_team_goals.json",
+          "bookmaker": "JugaBet",
+          "odds": 1.53,
+          "probability_pct": 80,
+          "observed_impliedProbability_unit": 0.65,
+          "reconstructed_impliedProbability_unit": 0.65,
+          "observed_edge": 79.35,
+          "reconstructed_buggy_edge": 79.35,
+          "true_edge_pct": 14.64,
+          "inflation_error_pp": 64.71,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_team_goals.json",
+          "bookmaker": "Draftea",
+          "odds": 1.51,
+          "probability_pct": 80,
+          "observed_impliedProbability_unit": 0.66,
+          "reconstructed_impliedProbability_unit": 0.66,
+          "observed_edge": 79.34,
+          "reconstructed_buggy_edge": 79.34,
+          "true_edge_pct": 13.77,
+          "inflation_error_pp": 65.57,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_team_goals.json",
+          "bookmaker": "Stake",
+          "odds": 1.51,
+          "probability_pct": 80,
+          "observed_impliedProbability_unit": 0.66,
+          "reconstructed_impliedProbability_unit": 0.66,
+          "observed_edge": 79.34,
+          "reconstructed_buggy_edge": 79.34,
+          "true_edge_pct": 13.77,
+          "inflation_error_pp": 65.57,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_team_goals.json",
+          "bookmaker": "Bet365",
+          "odds": 1.5,
+          "probability_pct": 80,
+          "observed_impliedProbability_unit": 0.67,
+          "reconstructed_impliedProbability_unit": 0.67,
+          "observed_edge": 79.33,
+          "reconstructed_buggy_edge": 79.33,
+          "true_edge_pct": 13.33,
+          "inflation_error_pp": 66.0,
+          "delta_vs_bug_formula": 0.0
+        },
+        {
+          "file": "POST_simulations_calculate_team_goals.json",
+          "bookmaker": "Betano",
+          "odds": 1.5,
+          "probability_pct": 80,
+          "observed_impliedProbability_unit": 0.67,
+          "reconstructed_impliedProbability_unit": 0.67,
+          "observed_edge": 79.33,
+          "reconstructed_buggy_edge": 79.33,
+          "true_edge_pct": 13.33,
+          "inflation_error_pp": 66.0,
+          "delta_vs_bug_formula": 0.0
+        }
+      ]
+    },
+    "simulations_400_zod_rejections": [
+      {
+        "file": "POST_simulations_calculate_btts.json",
+        "status": 400,
+        "error_name": "ZodError"
+      },
+      {
+        "file": "POST_simulations_calculate_match_totals.json",
+        "status": 400,
+        "error_name": "ZodError"
+      }
+    ],
+    "performance_endpoints_audit": [
+      {
+        "file": "GET_players_1113_performance_metric_tackles_matchIds_10618064_10618111_3589575.json",
+        "sample": 10,
+        "threshold": {
+          "value": 0.5,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 1,
+        "uses_inclusive_ge_on_integer_line": false,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      },
+      {
+        "file": "GET_players_1113_performance_metric_tackles_opponentTeamId_17181_window_l20_mi.json",
+        "sample": 0,
+        "threshold": {
+          "value": 2,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 0,
+        "uses_inclusive_ge_on_integer_line": false,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      },
+      {
+        "file": "GET_players_1113_performance_metric_tackles_window_l10_minMinutes_45.json",
+        "sample": 10,
+        "threshold": {
+          "value": 2,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 0.6,
+        "uses_inclusive_ge_on_integer_line": true,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      },
+      {
+        "file": "GET_players_1113_performance_metric_tackles_window_l20_minMinutes_45.json",
+        "sample": 20,
+        "threshold": {
+          "value": 2,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 0.5,
+        "uses_inclusive_ge_on_integer_line": true,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      },
+      {
+        "file": "GET_players_1113_performance_metric_tackles_window_l5_minMinutes_45.json",
+        "sample": 5,
+        "threshold": {
+          "value": 2,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 0.4,
+        "uses_inclusive_ge_on_integer_line": true,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      },
+      {
+        "file": "GET_teams_17181_performance_metric_goals_metricDirection_for_window_l10_line_.json",
+        "sample": 10,
+        "threshold": {
+          "value": 1.5,
+          "direction": "over"
+        },
+        "summary_hitRate_unit_scale": 0.2,
+        "uses_inclusive_ge_on_integer_line": false,
+        "avg_delta": 0.0,
+        "med_delta": 0.0,
+        "hitRate_delta": 0.0
+      }
+    ],
+    "client_odds_conversion_audit": [
+      {
+        "decimal": 1.37,
+        "american": "-270",
+        "expected": "-270"
+      },
+      {
+        "decimal": 1.4,
+        "american": "-250",
+        "expected": "-250"
+      },
+      {
+        "decimal": 1.5,
+        "american": "-200",
+        "expected": "-200"
+      },
+      {
+        "decimal": 2.0,
+        "american": "+100",
+        "expected": "+100"
+      },
+      {
+        "decimal": 2.5,
+        "american": "+150",
+        "expected": "+150"
+      },
+      {
+        "decimal": 1.0,
+        "american": "1.00",
+        "expected": "1.00"
+      }
+    ]
+  }
+}

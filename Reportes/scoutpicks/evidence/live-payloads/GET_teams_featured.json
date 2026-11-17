@@ -1,0 +1,253 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/teams/featured",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": [
+    {
+      "id": 67757036,
+      "name": "1st ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Costa Rica",
+      "league": {
+        "id": 1268,
+        "name": "Primera Division",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png"
+      }
+    },
+    {
+      "id": 12796,
+      "name": "2 de Mayo",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/15077.png",
+      "code": null,
+      "country": "South America",
+      "league": {
+        "id": 13,
+        "name": "Copa Libertadores",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+      }
+    },
+    {
+      "id": 67757040,
+      "name": "2nd ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Mexico",
+      "league": {
+        "id": 68,
+        "name": "Liga MX",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+      }
+    },
+    {
+      "id": 21351550,
+      "name": "3rd ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Brazil",
+      "league": {
+        "id": 153,
+        "name": "Serie B",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+      }
+    },
+    {
+      "id": 21351546,
+      "name": "4th ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Brazil",
+      "league": {
+        "id": 153,
+        "name": "Serie B",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+      }
+    },
+    {
+      "id": 21351547,
+      "name": "5th ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Brazil",
+      "league": {
+        "id": 153,
+        "name": "Serie B",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+      }
+    },
+    {
+      "id": 21351553,
+      "name": "6th ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Brazil",
+      "league": {
+        "id": 153,
+        "name": "Serie B",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+      }
+    },
+    {
+      "id": 67842045,
+      "name": "7th ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Mexico",
+      "league": {
+        "id": 68,
+        "name": "Liga MX",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+      }
+    },
+    {
+      "id": 67842046,
+      "name": "8th ranked",
+      "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+      "code": null,
+      "country": "Mexico",
+      "league": {
+        "id": 68,
+        "name": "Liga MX",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+      }
+    },
+    {
+      "id": 67743984,
+      "name": "ABB",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/258992.png",
+      "code": null,
+      "country": "Bolivia",
+      "league": {
+        "id": 1292,
+        "name": "Liga De Futbol Prof",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1098.png"
+      }
+    },
+    {
+      "id": 749,
+      "name": "AC Milan",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/113.png",
+      "code": "MIL",
+      "country": "Europe",
+      "league": {
+        "id": 4,
+        "name": "Europa League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+      }
+    },
+    {
+      "id": 18586,
+      "name": "ADO Den Haag",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/1128.png",
+      "code": "ADO",
+      "country": "Netherlands",
+      "league": {
+        "id": 24,
+        "name": "KNVB Beker",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/78.png"
+      }
+    },
+    {
+      "id": 31187,
+      "name": "AEK Athens",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/781.png",
+      "code": "AEK",
+      "country": "World",
+      "league": {
+        "id": 356,
+        "name": "Club Friendlies 2",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/2450.png"
+      }
+    },
+    {
+      "id": 18688,
+      "name": "AFC",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/2421.png",
+      "code": null,
+      "country": "Netherlands",
+      "league": {
+        "id": 24,
+        "name": "KNVB Beker",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/78.png"
+      }
+    },
+    {
+      "id": 1125,
+      "name": "AFC Bournemouth",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png",
+      "code": "BOU",
+      "country": "England",
+      "league": {
+        "id": 22,
+        "name": "Carabao Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+      }
+    },
+    {
+      "id": 27958,
+      "name": "AFC Hornchurch",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/1151.png",
+      "code": "HOR",
+      "country": "England",
+      "league": {
+        "id": 33,
+        "name": "FA Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/24.png"
+      }
+    },
+    {
+      "id": 18078,
+      "name": "AFC Wimbledon",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/301.png",
+      "code": "AWM",
+      "country": "England",
+      "league": {
+        "id": 154,
+        "name": "League One",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/12/12.png"
+      }
+    },
+    {
+      "id": 12575,
+      "name": "AGF",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/2905.png",
+      "code": "AGF",
+      "country": "Europe",
+      "league": {
+        "id": 133,
+        "name": "Europa Conference League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/2286.png"
+      }
+    },
+    {
+      "id": 45120,
+      "name": "AIK",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/2825.png",
+      "code": "AIK",
+      "country": "Sweden",
+      "league": {
+        "id": 50,
+        "name": "Allsvenskan",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/573.png"
+      }
+    },
+    {
+      "id": 80941,
+      "name": "ASO Chlef",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/3723.png",
+      "code": null,
+      "country": "Algeria",
+      "league": {
+        "id": 75,
+        "name": "Ligue 1",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/9/809.png"
+      }
+    }
+  ]
+}

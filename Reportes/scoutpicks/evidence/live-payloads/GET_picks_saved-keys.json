@@ -1,0 +1,35 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/picks/saved-keys",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "e6d49ea8-a732-475a-b350-47d3193095ea",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:29 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "keys": [
+      {
+        "key": "player_3580_m54091_foulsCommitted_over_0.5_full_match",
+        "id": "cmwk4otqf0049oh01bymlilwy",
+        "oddsId": 239803551
+      }
+    ]
+  }
+}

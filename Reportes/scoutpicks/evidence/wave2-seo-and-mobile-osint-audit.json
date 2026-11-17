@@ -1,0 +1,3253 @@
+{
+  "metadata": {
+    "auditWave": "Wave 2 Deep Forensic OSINT & Programmatic SEO Audit",
+    "targetOrigin": "https://scoutpicks.app",
+    "corporateEntity": "Aertech Labs, LLC (Delaware, EIN 35-2938733)",
+    "generatedAt": "2026-11-17T17:40:00Z",
+    "zeroPiiVerified": true,
+    "reaEvidenceIds": [
+      "ev_9afb9a36732e3300accd2b8f883a71df7237be8d90d98f9704980890984abfb0",
+      "ev_5479d706f4bfb95dce77ce0f8c901533c28df2fba262247202d753b5e544fca7",
+      "ev_2042082f0b1a0b067ea501537d7537ec2aadf72e50c106be1b84700b7f8ee1d0",
+      "ev_4a13ea907ee1e5dd09372840f8324ff77cfce3c5a6be6aad33aed85739c6acfa",
+      "ev_74b541a57159f5b5975cfbe9c641d44f5355061d23a9f470fa1ff363bc832221",
+      "ev_0eb9279cfa7e2970ad6feec84923b3cdd551b1ac00b55b0058a723d6bd904ceb",
+      "ev_bdeaa5cdb491b21843c744b00429d756876454bd56eba43a58f604c4ceb9f9a2",
+      "ev_abdb3cf1dbd8a7aab2a952ca236449585bd2de775d8200297a3b94e836220fb3",
+      "ev_d6aea026e24cc7285f592385c27b572003bb7a591dbda6be9d5c2ff8366790be",
+      "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+      "ev_eb381a1446763d94752838fd77caee295d4b64c43f3b7536a70f7c2183578a69"
+    ]
+  },
+  "seoProgrammaticFactory": {
+    "robotsTxt": "User-agent: *\\nAllow: /\\n\\nSitemap: https://scoutpicks.app/sitemap-index.xml\\n",
+    "sitemapIndexUrl": "https://scoutpicks.app/sitemap-index.xml",
+    "totalSubSitemaps": 55,
+    "totalIndexedUrls": 81197,
+    "arithmeticDecomposition": {
+      "sportsSitemapsCount": 54,
+      "languagesCount": 9,
+      "verticalsCount": 6,
+      "urlsPerLanguage": 9021,
+      "totalSportsUrls": 81189,
+      "pagesSitemapFile": "sitemap-pages-0.xml",
+      "pagesSitemapUrlCount": 8,
+      "grandTotalUrls": 81197
+    },
+    "anomaliesAndBrokenRoutes": {
+      "sitemapZeroXml": {
+        "url": "https://scoutpicks.app/sitemap-0.xml",
+        "status": 404,
+        "note": "Default @astrojs/sitemap chunk name returns HTTP 404 HTML (404.astro); custom sitemaps use per-vertical naming."
+      },
+      "sitemapXml": {
+        "url": "https://scoutpicks.app/sitemap.xml",
+        "status": 404,
+        "note": "Only /sitemap-index.xml exists."
+      },
+      "spanishFilenameVsUrlPrefixParadox": "Spanish sitemaps omit language code in filename (sitemap-estadisticas-0.xml) yet use /es/ URL prefix; English sitemaps include -en- in filename (sitemap-en-stats-0.xml) yet live at root / without /en/ prefix.",
+      "missingLocalizedLandingRoots": {
+        "existingLandingRoots": [
+          "/",
+          "/es",
+          "/pt"
+        ],
+        "missingLandingRootsReturning404": [
+          "/fr",
+          "/id",
+          "/vi",
+          "/th",
+          "/hi",
+          "/ar"
+        ],
+        "seoPagesInLanguagesUnsupportedByWebAppAndIosApp": {
+          "unsupportedLanguages": [
+            "fr",
+            "id",
+            "vi",
+            "th"
+          ],
+          "indexedPagesCount": 36084,
+          "shareOfTotalSeoFootprintPct": 44.44
+        }
+      },
+      "pagesSitemapMissingLastmod": true,
+      "sportsEventSchemaStatusBug": "Finished historical matches emit eventStatus: https://schema.org/EventScheduled in JSON-LD.",
+      "continentalAndUruguayAsymmetries": {
+        "leaguesWithoutPlayerPagesOrHubs": [
+          "champions-league",
+          "copa-libertadores",
+          "copa-sudamericana",
+          "europa-league",
+          "primera-division-uruguay"
+        ],
+        "leaguesWithoutRefereeHubs": [
+          "champions-league",
+          "copa-libertadores",
+          "copa-sudamericana",
+          "europa-league"
+        ],
+        "leaguesWithZeroH2hPages": [
+          "copa-sudamericana",
+          "europa-league"
+        ]
+      },
+      "desktopCtaConversionLeak": "Zero direct /dashboard/ links exist on any of the 81,189 SEO pages; all CTAs point to AppsFlyer OneLink (scoutpicks.onelink.me/FDsu) which 301-redirects Windows/macOS desktop browsers to the iOS App Store instead of /dashboard/."
+    },
+    "pagesSitemapUrls": [
+      "https://scoutpicks.app/",
+      "https://scoutpicks.app/delete-account",
+      "https://scoutpicks.app/es",
+      "https://scoutpicks.app/es/delete-account",
+      "https://scoutpicks.app/privacy",
+      "https://scoutpicks.app/pt",
+      "https://scoutpicks.app/pt/delete-account",
+      "https://scoutpicks.app/terms"
+    ],
+    "languageVerticalMatrix": {
+      "es": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-estadisticas-0.xml",
+          "teams": "sitemap-equipos-0.xml",
+          "players": "sitemap-jugadores-0.xml",
+          "referees": "sitemap-arbitros-0.xml",
+          "h2h": "sitemap-enfrentamientos-0.xml",
+          "matches": "sitemap-partidos-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "estadisticas",
+          "teams": "equipos",
+          "players": "jugadores",
+          "referees": "arbitros",
+          "h2h": "enfrentamientos",
+          "matches": "partidos"
+        }
+      },
+      "en": {
+        "hasLangPrefix": false,
+        "sitemaps": {
+          "stats": "sitemap-en-stats-0.xml",
+          "teams": "sitemap-en-teams-0.xml",
+          "players": "sitemap-en-players-0.xml",
+          "referees": "sitemap-en-referees-0.xml",
+          "h2h": "sitemap-en-head-to-head-0.xml",
+          "matches": "sitemap-en-matches-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "stats",
+          "teams": "teams",
+          "players": "players",
+          "referees": "referees",
+          "h2h": "head-to-head",
+          "matches": "matches"
+        }
+      },
+      "fr": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-fr-statistiques-0.xml",
+          "teams": "sitemap-fr-equipes-0.xml",
+          "players": "sitemap-fr-joueurs-0.xml",
+          "referees": "sitemap-fr-arbitres-0.xml",
+          "h2h": "sitemap-fr-face-a-face-0.xml",
+          "matches": "sitemap-fr-matchs-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "statistiques",
+          "teams": "equipes",
+          "players": "joueurs",
+          "referees": "arbitres",
+          "h2h": "face-a-face",
+          "matches": "matchs"
+        }
+      },
+      "pt": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-pt-estatisticas-0.xml",
+          "teams": "sitemap-pt-equipas-0.xml",
+          "players": "sitemap-pt-jogadores-0.xml",
+          "referees": "sitemap-pt-arbitros-0.xml",
+          "h2h": "sitemap-pt-confrontos-0.xml",
+          "matches": "sitemap-pt-jogos-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "estatisticas",
+          "teams": "equipas",
+          "players": "jogadores",
+          "referees": "arbitros",
+          "h2h": "confrontos",
+          "matches": "jogos"
+        }
+      },
+      "id": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-id-statistik-0.xml",
+          "teams": "sitemap-id-tim-0.xml",
+          "players": "sitemap-id-pemain-0.xml",
+          "referees": "sitemap-id-wasit-0.xml",
+          "h2h": "sitemap-id-head-to-head-0.xml",
+          "matches": "sitemap-id-pertandingan-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "statistik",
+          "teams": "tim",
+          "players": "pemain",
+          "referees": "wasit",
+          "h2h": "head-to-head",
+          "matches": "pertandingan"
+        }
+      },
+      "vi": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-vi-thong-ke-0.xml",
+          "teams": "sitemap-vi-doi-bong-0.xml",
+          "players": "sitemap-vi-cau-thu-0.xml",
+          "referees": "sitemap-vi-trong-tai-0.xml",
+          "h2h": "sitemap-vi-doi-dau-0.xml",
+          "matches": "sitemap-vi-tran-dau-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "thong-ke",
+          "teams": "doi-bong",
+          "players": "cau-thu",
+          "referees": "trong-tai",
+          "h2h": "doi-dau",
+          "matches": "tran-dau"
+        }
+      },
+      "th": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-th-stats-0.xml",
+          "teams": "sitemap-th-teams-0.xml",
+          "players": "sitemap-th-players-0.xml",
+          "referees": "sitemap-th-referees-0.xml",
+          "h2h": "sitemap-th-head-to-head-0.xml",
+          "matches": "sitemap-th-matches-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "stats",
+          "teams": "teams",
+          "players": "players",
+          "referees": "referees",
+          "h2h": "head-to-head",
+          "matches": "matches"
+        }
+      },
+      "hi": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-hi-stats-0.xml",
+          "teams": "sitemap-hi-teams-0.xml",
+          "players": "sitemap-hi-players-0.xml",
+          "referees": "sitemap-hi-referees-0.xml",
+          "h2h": "sitemap-hi-head-to-head-0.xml",
+          "matches": "sitemap-hi-matches-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "stats",
+          "teams": "teams",
+          "players": "players",
+          "referees": "referees",
+          "h2h": "head-to-head",
+          "matches": "matches"
+        }
+      },
+      "ar": {
+        "hasLangPrefix": true,
+        "sitemaps": {
+          "stats": "sitemap-ar-stats-0.xml",
+          "teams": "sitemap-ar-teams-0.xml",
+          "players": "sitemap-ar-players-0.xml",
+          "referees": "sitemap-ar-referees-0.xml",
+          "h2h": "sitemap-ar-head-to-head-0.xml",
+          "matches": "sitemap-ar-matches-0.xml"
+        },
+        "counts": {
+          "stats": 20,
+          "teams": 412,
+          "players": 2991,
+          "referees": 292,
+          "h2h": 2450,
+          "matches": 2856
+        },
+        "total": 9021,
+        "slugs": {
+          "stats": "stats",
+          "teams": "teams",
+          "players": "players",
+          "referees": "referees",
+          "h2h": "head-to-head",
+          "matches": "matches"
+        }
+      }
+    },
+    "crossLanguageSymmetryVerification": {
+      "allNineLanguages100PercentSymmetric": true,
+      "detailsByVertical": {
+        "stats": {
+          "es": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 20,
+            "missing": 0,
+            "extra": 0
+          }
+        },
+        "teams": {
+          "es": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 412,
+            "missing": 0,
+            "extra": 0
+          }
+        },
+        "players": {
+          "es": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 2991,
+            "missing": 0,
+            "extra": 0
+          }
+        },
+        "referees": {
+          "es": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 292,
+            "missing": 0,
+            "extra": 0
+          }
+        },
+        "h2h": {
+          "es": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 2450,
+            "missing": 0,
+            "extra": 0
+          }
+        },
+        "matches": {
+          "es": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "en": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "fr": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "pt": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "id": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "vi": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "th": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "hi": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          },
+          "ar": {
+            "count": 2856,
+            "missing": 0,
+            "extra": 0
+          }
+        }
+      }
+    },
+    "entitiesInventoryPerLanguage": {
+      "leaguesCount": 20,
+      "leaguesList": [
+        "brasileirao",
+        "bundesliga",
+        "champions-league",
+        "copa-libertadores",
+        "copa-sudamericana",
+        "europa-league",
+        "laliga",
+        "laliga-hypermotion",
+        "liga-1-peru",
+        "liga-betplay",
+        "liga-mx",
+        "liga-portugal",
+        "liga-pro-ecuador",
+        "liga-profesional-argentina",
+        "liga-saudi",
+        "ligue-1-francia",
+        "mls",
+        "premier-league",
+        "primera-division-uruguay",
+        "serie-a-italia"
+      ],
+      "teamLeagueUrls": 412,
+      "uniqueTeamSlugs": 351,
+      "multiLeagueTeamsCount": 61,
+      "multiLeagueTeamsSample": [
+        [
+          "atletico-mineiro",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "botafogo",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "bragantino",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "corinthians",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "cruzeiro",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "flamengo",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "fluminense",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "gremio",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "mirassol",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "palmeiras",
+          [
+            "brasileirao",
+            "copa-libertadores"
+          ]
+        ],
+        [
+          "santos",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "sao-paulo",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "vasco-da-gama",
+          [
+            "brasileirao",
+            "copa-sudamericana"
+          ]
+        ],
+        [
+          "borussia-dortmund",
+          [
+            "bundesliga",
+            "champions-league"
+          ]
+        ],
+        [
+          "fc-bayern-munchen",
+          [
+            "bundesliga",
+            "champions-league"
+          ]
+        ]
+      ],
+      "playerUrlsTotal": 2991,
+      "playerLeagueHubsCount": 15,
+      "playerEntityUrlsCount": 2976,
+      "uniquePlayerSportmonksIds": 2976,
+      "multiLeaguePlayersCount": 0,
+      "multiLeaguePlayersSample": [],
+      "playerIdMin": 157,
+      "playerIdMax": 38210334,
+      "refereeUrlsTotal": 292,
+      "refereeLeagueHubsCount": 16,
+      "refereeLeagueHubsList": [
+        "brasileirao",
+        "bundesliga",
+        "laliga",
+        "laliga-hypermotion",
+        "liga-1-peru",
+        "liga-betplay",
+        "liga-mx",
+        "liga-portugal",
+        "liga-pro-ecuador",
+        "liga-profesional-argentina",
+        "liga-saudi",
+        "ligue-1-francia",
+        "mls",
+        "premier-league",
+        "primera-division-uruguay",
+        "serie-a-italia"
+      ],
+      "refereeEntityUrlsCount": 276,
+      "refereeIdMin": 525,
+      "refereeIdMax": 1158977,
+      "h2hUrlsTotal": 2450,
+      "matchUrlsTotal": 2856,
+      "uniqueMatchSportmonksIds": 2856,
+      "matchIdMin": 19609416,
+      "matchIdMax": 19907482
+    },
+    "perLeagueBreakdown": [
+      {
+        "league": "brasileirao",
+        "teams": 20,
+        "hasPlayerHub": true,
+        "players": 221,
+        "hasRefereeHub": true,
+        "h2hPairs": 152,
+        "matches": 185
+      },
+      {
+        "league": "bundesliga",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 143,
+        "hasRefereeHub": true,
+        "h2hPairs": 118,
+        "matches": 90
+      },
+      {
+        "league": "champions-league",
+        "teams": 18,
+        "hasPlayerHub": false,
+        "players": 0,
+        "hasRefereeHub": false,
+        "h2hPairs": 30,
+        "matches": 167
+      },
+      {
+        "league": "copa-libertadores",
+        "teams": 32,
+        "hasPlayerHub": false,
+        "players": 0,
+        "hasRefereeHub": false,
+        "h2hPairs": 6,
+        "matches": 28
+      },
+      {
+        "league": "copa-sudamericana",
+        "teams": 32,
+        "hasPlayerHub": false,
+        "players": 0,
+        "hasRefereeHub": false,
+        "h2hPairs": 0,
+        "matches": 44
+      },
+      {
+        "league": "europa-league",
+        "teams": 8,
+        "hasPlayerHub": false,
+        "players": 0,
+        "hasRefereeHub": false,
+        "h2hPairs": 0,
+        "matches": 152
+      },
+      {
+        "league": "laliga",
+        "teams": 20,
+        "hasPlayerHub": true,
+        "players": 186,
+        "hasRefereeHub": true,
+        "h2hPairs": 152,
+        "matches": 129
+      },
+      {
+        "league": "laliga-hypermotion",
+        "teams": 22,
+        "hasPlayerHub": true,
+        "players": 171,
+        "hasRefereeHub": true,
+        "h2hPairs": 114,
+        "matches": 162
+      },
+      {
+        "league": "liga-1-peru",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 197,
+        "hasRefereeHub": true,
+        "h2hPairs": 105,
+        "matches": 153
+      },
+      {
+        "league": "liga-betplay",
+        "teams": 20,
+        "hasPlayerHub": true,
+        "players": 244,
+        "hasRefereeHub": true,
+        "h2hPairs": 169,
+        "matches": 195
+      },
+      {
+        "league": "liga-mx",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 186,
+        "hasRefereeHub": true,
+        "h2hPairs": 136,
+        "matches": 153
+      },
+      {
+        "league": "liga-portugal",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 138,
+        "hasRefereeHub": true,
+        "h2hPairs": 116,
+        "matches": 98
+      },
+      {
+        "league": "liga-pro-ecuador",
+        "teams": 16,
+        "hasPlayerHub": true,
+        "players": 191,
+        "hasRefereeHub": true,
+        "h2hPairs": 103,
+        "matches": 167
+      },
+      {
+        "league": "liga-profesional-argentina",
+        "teams": 30,
+        "hasPlayerHub": true,
+        "players": 299,
+        "hasRefereeHub": true,
+        "h2hPairs": 315,
+        "matches": 248
+      },
+      {
+        "league": "liga-saudi",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 146,
+        "hasRefereeHub": true,
+        "h2hPairs": 108,
+        "matches": 110
+      },
+      {
+        "league": "ligue-1-francia",
+        "teams": 18,
+        "hasPlayerHub": true,
+        "players": 134,
+        "hasRefereeHub": true,
+        "h2hPairs": 116,
+        "matches": 99
+      },
+      {
+        "league": "mls",
+        "teams": 30,
+        "hasPlayerHub": true,
+        "players": 339,
+        "hasRefereeHub": true,
+        "h2hPairs": 332,
+        "matches": 300
+      },
+      {
+        "league": "premier-league",
+        "teams": 20,
+        "hasPlayerHub": true,
+        "players": 194,
+        "hasRefereeHub": true,
+        "h2hPairs": 124,
+        "matches": 110
+      },
+      {
+        "league": "primera-division-uruguay",
+        "teams": 16,
+        "hasPlayerHub": false,
+        "players": 0,
+        "hasRefereeHub": true,
+        "h2hPairs": 96,
+        "matches": 146
+      },
+      {
+        "league": "serie-a-italia",
+        "teams": 20,
+        "hasPlayerHub": true,
+        "players": 187,
+        "hasRefereeHub": true,
+        "h2hPairs": 158,
+        "matches": 120
+      }
+    ],
+    "all55SubSitemaps": [
+      {
+        "loc": "https://scoutpicks.app/sitemap-estadisticas-0.xml",
+        "filename": "sitemap-estadisticas-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2687,
+        "urlCount": 20,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "estadisticas",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-equipos-0.xml",
+        "filename": "sitemap-equipos-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51877,
+        "urlCount": 412,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "equipos",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-jugadores-0.xml",
+        "filename": "sitemap-jugadores-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 407100,
+        "urlCount": 2991,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "jugadores",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-arbitros-0.xml",
+        "filename": "sitemap-arbitros-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "arbitros",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-enfrentamientos-0.xml",
+        "filename": "sitemap-enfrentamientos-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 361562,
+        "urlCount": 2450,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "enfrentamientos",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-partidos-0.xml",
+        "filename": "sitemap-partidos-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 428221,
+        "urlCount": 2856,
+        "lang": "es",
+        "hasLangPrefix": true,
+        "verticalSlug": "partidos",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-stats-0.xml",
+        "filename": "sitemap-en-stats-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2487,
+        "urlCount": 20,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "stats",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-teams-0.xml",
+        "filename": "sitemap-en-teams-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 49817,
+        "urlCount": 412,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "teams",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-players-0.xml",
+        "filename": "sitemap-en-players-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 392145,
+        "urlCount": 2991,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "players",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-referees-0.xml",
+        "filename": "sitemap-en-referees-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 35835,
+        "urlCount": 292,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "referees",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-head-to-head-0.xml",
+        "filename": "sitemap-en-head-to-head-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 346862,
+        "urlCount": 2450,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "head-to-head",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-en-matches-0.xml",
+        "filename": "sitemap-en-matches-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 416797,
+        "urlCount": 2856,
+        "lang": "en",
+        "hasLangPrefix": false,
+        "verticalSlug": "matches",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-statistiques-0.xml",
+        "filename": "sitemap-fr-statistiques-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2687,
+        "urlCount": 20,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "statistiques",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-equipes-0.xml",
+        "filename": "sitemap-fr-equipes-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51877,
+        "urlCount": 412,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "equipes",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-joueurs-0.xml",
+        "filename": "sitemap-fr-joueurs-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 401118,
+        "urlCount": 2991,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "joueurs",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-arbitres-0.xml",
+        "filename": "sitemap-fr-arbitres-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "arbitres",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-face-a-face-0.xml",
+        "filename": "sitemap-fr-face-a-face-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 351762,
+        "urlCount": 2450,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "face-a-face",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-fr-matchs-0.xml",
+        "filename": "sitemap-fr-matchs-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 422509,
+        "urlCount": 2856,
+        "lang": "fr",
+        "hasLangPrefix": true,
+        "verticalSlug": "matchs",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-estatisticas-0.xml",
+        "filename": "sitemap-pt-estatisticas-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2687,
+        "urlCount": 20,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "estatisticas",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-equipas-0.xml",
+        "filename": "sitemap-pt-equipas-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51877,
+        "urlCount": 412,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "equipas",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-jogadores-0.xml",
+        "filename": "sitemap-pt-jogadores-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 407100,
+        "urlCount": 2991,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "jogadores",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-arbitros-0.xml",
+        "filename": "sitemap-pt-arbitros-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "arbitros",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-confrontos-0.xml",
+        "filename": "sitemap-pt-confrontos-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 349312,
+        "urlCount": 2450,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "confrontos",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pt-jogos-0.xml",
+        "filename": "sitemap-pt-jogos-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 419653,
+        "urlCount": 2856,
+        "lang": "pt",
+        "hasLangPrefix": true,
+        "verticalSlug": "jogos",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-statistik-0.xml",
+        "filename": "sitemap-id-statistik-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2627,
+        "urlCount": 20,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "statistik",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-tim-0.xml",
+        "filename": "sitemap-id-tim-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 50229,
+        "urlCount": 412,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "tim",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-pemain-0.xml",
+        "filename": "sitemap-id-pemain-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 398127,
+        "urlCount": 2991,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "pemain",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-wasit-0.xml",
+        "filename": "sitemap-id-wasit-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 35835,
+        "urlCount": 292,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "wasit",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-head-to-head-0.xml",
+        "filename": "sitemap-id-head-to-head-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 354212,
+        "urlCount": 2450,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "head-to-head",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-id-pertandingan-0.xml",
+        "filename": "sitemap-id-pertandingan-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 439645,
+        "urlCount": 2856,
+        "lang": "id",
+        "hasLangPrefix": true,
+        "verticalSlug": "pertandingan",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-thong-ke-0.xml",
+        "filename": "sitemap-vi-thong-ke-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2607,
+        "urlCount": 20,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "thong-ke",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-doi-bong-0.xml",
+        "filename": "sitemap-vi-doi-bong-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 52289,
+        "urlCount": 412,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "doi-bong",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-cau-thu-0.xml",
+        "filename": "sitemap-vi-cau-thu-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 401118,
+        "urlCount": 2991,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "cau-thu",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-trong-tai-0.xml",
+        "filename": "sitemap-vi-trong-tai-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 37003,
+        "urlCount": 292,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "trong-tai",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-doi-dau-0.xml",
+        "filename": "sitemap-vi-doi-dau-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 341962,
+        "urlCount": 2450,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "doi-dau",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-vi-tran-dau-0.xml",
+        "filename": "sitemap-vi-tran-dau-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 428221,
+        "urlCount": 2856,
+        "lang": "vi",
+        "hasLangPrefix": true,
+        "verticalSlug": "tran-dau",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-stats-0.xml",
+        "filename": "sitemap-th-stats-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2547,
+        "urlCount": 20,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "stats",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-teams-0.xml",
+        "filename": "sitemap-th-teams-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51053,
+        "urlCount": 412,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "teams",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-players-0.xml",
+        "filename": "sitemap-th-players-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 401118,
+        "urlCount": 2991,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "players",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-referees-0.xml",
+        "filename": "sitemap-th-referees-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "referees",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-head-to-head-0.xml",
+        "filename": "sitemap-th-head-to-head-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 354212,
+        "urlCount": 2450,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "head-to-head",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-th-matches-0.xml",
+        "filename": "sitemap-th-matches-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 425365,
+        "urlCount": 2856,
+        "lang": "th",
+        "hasLangPrefix": true,
+        "verticalSlug": "matches",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-stats-0.xml",
+        "filename": "sitemap-hi-stats-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2547,
+        "urlCount": 20,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "stats",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-teams-0.xml",
+        "filename": "sitemap-hi-teams-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51053,
+        "urlCount": 412,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "teams",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-players-0.xml",
+        "filename": "sitemap-hi-players-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 401118,
+        "urlCount": 2991,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "players",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-referees-0.xml",
+        "filename": "sitemap-hi-referees-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "referees",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-head-to-head-0.xml",
+        "filename": "sitemap-hi-head-to-head-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 354212,
+        "urlCount": 2450,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "head-to-head",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-hi-matches-0.xml",
+        "filename": "sitemap-hi-matches-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 425365,
+        "urlCount": 2856,
+        "lang": "hi",
+        "hasLangPrefix": true,
+        "verticalSlug": "matches",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-stats-0.xml",
+        "filename": "sitemap-ar-stats-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 2547,
+        "urlCount": 20,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "stats",
+        "vertical": "stats",
+        "minLastmod": "2026-09-15T00:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-teams-0.xml",
+        "filename": "sitemap-ar-teams-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 51053,
+        "urlCount": 412,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "teams",
+        "vertical": "teams",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-players-0.xml",
+        "filename": "sitemap-ar-players-0.xml",
+        "indexLastmod": "2026-11-16T20:15:00.000Z",
+        "bytes": 401118,
+        "urlCount": 2991,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "players",
+        "vertical": "players",
+        "minLastmod": "2026-07-24T22:00:00.000Z",
+        "maxLastmod": "2026-11-16T20:15:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-referees-0.xml",
+        "filename": "sitemap-ar-referees-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 36711,
+        "urlCount": 292,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "referees",
+        "vertical": "referees",
+        "minLastmod": "2026-10-31T18:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-head-to-head-0.xml",
+        "filename": "sitemap-ar-head-to-head-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 354212,
+        "urlCount": 2450,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "head-to-head",
+        "vertical": "h2h",
+        "minLastmod": "2019-11-26T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-ar-matches-0.xml",
+        "filename": "sitemap-ar-matches-0.xml",
+        "indexLastmod": "2026-11-16T23:00:00.000Z",
+        "bytes": 425365,
+        "urlCount": 2856,
+        "lang": "ar",
+        "hasLangPrefix": true,
+        "verticalSlug": "matches",
+        "vertical": "matches",
+        "minLastmod": "2026-01-28T20:00:00.000Z",
+        "maxLastmod": "2026-11-16T23:00:00.000Z"
+      },
+      {
+        "loc": "https://scoutpicks.app/sitemap-pages-0.xml",
+        "filename": "sitemap-pages-0.xml",
+        "indexLastmod": null,
+        "bytes": 2246,
+        "urlCount": 8,
+        "lang": "multi/root",
+        "vertical": "pages",
+        "urlPrefix": "mixed",
+        "minLastmod": null,
+        "maxLastmod": null
+      }
+    ],
+    "templatesAndJsonLdAnatomy": {
+      "zeroInlineExecutableJsAcrossAllSamples": true,
+      "templates": [
+        {
+          "astroBundleEntry": "LeagueStatsPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "league_stats",
+          "sitemapVertical": "stats",
+          "urlCountPerLang": 20,
+          "sampleBytes": 83119,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "SportsOrganization",
+            "FAQPage"
+          ],
+          "tablesCount": 4,
+          "sampleTitleEs": "Estadísticas de la Liga MX 2026/2027: córners, tarjetas y goles",
+          "sampleMetaDescEs": "Tabla y estadísticas de 144 partidos de la Liga MX (Apertura). Más córners: Guadalajara (7,56 por partido). Más goles: América (2,38 por partido)."
+        },
+        {
+          "astroBundleEntry": "TeamStatsPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "team_stats",
+          "sitemapVertical": "teams",
+          "urlCountPerLang": 412,
+          "sampleBytes": 46128,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "SportsTeam",
+            "FAQPage"
+          ],
+          "tablesCount": 4,
+          "sampleTitleEs": "Estadísticas de América 2026/2027: córners, tarjetas y goles | Liga MX",
+          "sampleMetaDescEs": "América en la Liga MX (Apertura): 6,13 córners, 2,13 tarjetas y 2,38 goles por partido. Over 2.5 en el 68,8 % de sus partidos."
+        },
+        {
+          "astroBundleEntry": "PlayerHubPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "league_players",
+          "sitemapVertical": "players (hub)",
+          "urlCountPerLang": 15,
+          "sampleBytes": 310482,
+          "jsonLdTypes": [
+            "BreadcrumbList"
+          ],
+          "tablesCount": 6,
+          "sampleTitleEs": "Jugadores de la Liga MX: goleadores, tiros y tarjetas por partido",
+          "sampleMetaDescEs": "186 jugadores de la Liga MX: tiros, goles y tarjetas por partido (12 meses). Goleador del torneo actual (Apertura): Salomón Rondón, 16 goles."
+        },
+        {
+          "astroBundleEntry": "PlayerPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "player_stats",
+          "sitemapVertical": "players (entity)",
+          "urlCountPerLang": 2976,
+          "sampleBytes": 65773,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "Person",
+            "FAQPage"
+          ],
+          "tablesCount": 3,
+          "sampleTitleEn": "Erling Haaland stats: shots, shots on target, goals and cards per game | Premier League",
+          "sampleTitleEs": "Kylian Mbappé: tiros, remates al arco, goles y tarjetas por partido | LaLiga"
+        },
+        {
+          "astroBundleEntry": "RefereeHubPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "league_referees",
+          "sitemapVertical": "referees (hub)",
+          "urlCountPerLang": 16,
+          "sampleBytes": 32543,
+          "jsonLdTypes": [
+            "BreadcrumbList"
+          ],
+          "tablesCount": 2,
+          "sampleTitleEs": "Árbitros de la Liga MX: tarjetas por partido"
+        },
+        {
+          "astroBundleEntry": "RefereePage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "referee_stats",
+          "sitemapVertical": "referees (entity)",
+          "urlCountPerLang": 276,
+          "sampleBytes": 25780,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "Person",
+            "FAQPage"
+          ],
+          "tablesCount": 2,
+          "sampleTitleEs": "Abdullah Al-Harbi: tarjetas por partido en la Liga Profesional Saudí"
+        },
+        {
+          "astroBundleEntry": "HeadToHeadPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "head_to_head",
+          "sitemapVertical": "h2h",
+          "urlCountPerLang": 2450,
+          "sampleBytes": 44172,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage"
+          ],
+          "tablesCount": 3,
+          "sampleTitleEs": "América vs Cruz Azul: historial y estadísticas | Liga MX"
+        },
+        {
+          "astroBundleEntry": "MatchPage.astro_astro_type_script_index_0_lang.jh8qhxTK.js",
+          "dataSeoPageType": "match_result",
+          "sitemapVertical": "matches",
+          "urlCountPerLang": 2856,
+          "sampleBytes": 44059,
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "SportsEvent",
+            "FAQPage"
+          ],
+          "tablesCount": 2,
+          "sampleTitleEs": "América 3-0 Atlético San Luis: resultado, goles y estadísticas | Liga MX"
+        }
+      ],
+      "clientRuntimeAndGeoGating": {
+        "sharedEntryHash": "jh8qhxTK",
+        "coreModule": "/_astro/seo-page.D28xgYo3.js (4,871 B)",
+        "ctaModule": "/_astro/seo-cta.KzQJazLN.js (389 B)",
+        "analyticsModule": "/_astro/analytics.DvUUnk4I.js (3,055 B)",
+        "countryLookupEndpoint": "https://api.scoutpicks.aertech-labs.com/app/country",
+        "countryLookupTimeoutMs": 3000,
+        "sessionStorageCacheKey": "seo_visitor_country",
+        "restrictedCountriesGeoBlockedForCta": [
+          "IN",
+          "ID",
+          "VN",
+          "TH",
+          "CN",
+          "SA",
+          "AE",
+          "QA",
+          "KW",
+          "PK",
+          "BD",
+          "KH",
+          "BN"
+        ],
+        "languagesWithCtaShownByDefaultInSsg": [
+          "es",
+          "en",
+          "fr",
+          "pt"
+        ],
+        "languagesWithCtaHiddenByDefaultInSsg": [
+          "id",
+          "vi",
+          "th",
+          "hi",
+          "ar"
+        ],
+        "posthogNamespace": "web-seo",
+        "posthogEvents": [
+          "$pageview",
+          "seo_cta_visibility",
+          "seo_cta_clicked",
+          "web_landing_footer_link_clicked"
+        ]
+      },
+      "sportmonksToInternalDbCrosswalkSample": [
+        {
+          "campaignType": "player_stats",
+          "leagueSlug": "premier-league",
+          "publicEntitySlug": "erling-haaland-154421",
+          "sportmonksIdInSlug": 154421,
+          "internalDeepLinkValue": "player/1628",
+          "internalEntityType": "player",
+          "internalDbId": 1628
+        },
+        {
+          "campaignType": "league_referees",
+          "leagueSlug": "liga-mx",
+          "publicEntitySlug": "liga-mx",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "league/68",
+          "internalEntityType": "league",
+          "internalDbId": 68
+        },
+        {
+          "campaignType": "team_stats",
+          "leagueSlug": "liga-mx",
+          "publicEntitySlug": "america",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "team/67544",
+          "internalEntityType": "team",
+          "internalDbId": 67544
+        },
+        {
+          "campaignType": "player_stats",
+          "leagueSlug": "laliga",
+          "publicEntitySlug": "kylian-mbappe-96611",
+          "sportmonksIdInSlug": 96611,
+          "internalDeepLinkValue": "player/1487",
+          "internalEntityType": "player",
+          "internalDbId": 1487
+        },
+        {
+          "campaignType": "match_result",
+          "leagueSlug": "liga-mx",
+          "publicEntitySlug": "america-vs-atletico-san-luis-19715284",
+          "sportmonksIdInSlug": 19715284,
+          "internalDeepLinkValue": "match/10671389",
+          "internalEntityType": "match",
+          "internalDbId": 10671389
+        },
+        {
+          "campaignType": "head_to_head",
+          "leagueSlug": "champions-league",
+          "publicEntitySlug": "champions-league",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "league/1",
+          "internalEntityType": "league",
+          "internalDbId": 1
+        },
+        {
+          "campaignType": "match_result",
+          "leagueSlug": "champions-league",
+          "publicEntitySlug": "aek-athens-vs-real-madrid-19873705",
+          "sportmonksIdInSlug": 19873705,
+          "internalDeepLinkValue": "match/32288930",
+          "internalEntityType": "match",
+          "internalDbId": 32288930
+        },
+        {
+          "campaignType": "match_result",
+          "leagueSlug": "liga-mx",
+          "publicEntitySlug": "atletico-san-luis-vs-cruz-azul-19715313",
+          "sportmonksIdInSlug": 19715313,
+          "internalDeepLinkValue": "match/9647174",
+          "internalEntityType": "match",
+          "internalDbId": 9647174
+        },
+        {
+          "campaignType": "referee_stats",
+          "leagueSlug": "liga-saudi",
+          "publicEntitySlug": "liga-saudi",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "league/9",
+          "internalEntityType": "league",
+          "internalDbId": 9
+        },
+        {
+          "campaignType": "head_to_head",
+          "leagueSlug": "brasileirao",
+          "publicEntitySlug": "brasileirao",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "league/55",
+          "internalEntityType": "league",
+          "internalDbId": 55
+        },
+        {
+          "campaignType": "match_result",
+          "leagueSlug": "brasileirao",
+          "publicEntitySlug": "athletico-pr-vs-atletico-mineiro-19621792",
+          "sportmonksIdInSlug": 19621792,
+          "internalDeepLinkValue": "match/27062",
+          "internalEntityType": "match",
+          "internalDbId": 27062
+        },
+        {
+          "campaignType": "team_stats",
+          "leagueSlug": "brasileirao",
+          "publicEntitySlug": "athletico-pr",
+          "sportmonksIdInSlug": null,
+          "internalDeepLinkValue": "team/51709",
+          "internalEntityType": "team",
+          "internalDbId": 51709
+        }
+      ]
+    },
+    "spSignedInCookieEdgeRouting": [
+      {
+        "url": "https://scoutpicks.app/",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Miss from cloudfront",
+          "bodyLen": 66242,
+          "titleMatch": "Scout Picks — Bet smarter, improve your odds"
+        },
+        "withCookie": {
+          "status": 302,
+          "location": "/dashboard/?from=landing",
+          "xCache": "FunctionGeneratedResponse from cloudfront",
+          "bodyLen": 0
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/es",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Miss from cloudfront",
+          "bodyLen": 67236,
+          "titleMatch": "Scout Picks — Apuesta con cabeza, mejora tus probabilidades"
+        },
+        "withCookie": {
+          "status": 302,
+          "location": "/dashboard/?from=landing",
+          "xCache": "FunctionGeneratedResponse from cloudfront",
+          "bodyLen": 0
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/pt",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Miss from cloudfront",
+          "bodyLen": 67082,
+          "titleMatch": "Scout Picks — Aposte com inteligência, melhore suas chances"
+        },
+        "withCookie": {
+          "status": 302,
+          "location": "/dashboard/?from=landing",
+          "xCache": "FunctionGeneratedResponse from cloudfront",
+          "bodyLen": 0
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/es/estadisticas/liga-mx",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "RefreshHit from cloudfront",
+          "bodyLen": 83119,
+          "titleMatch": "Estadísticas de la Liga MX 2026/2027: córners, tarjetas y goles"
+        },
+        "withCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Hit from cloudfront",
+          "bodyLen": 83119
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/players/premier-league/erling-haaland-154421",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "RefreshHit from cloudfront",
+          "bodyLen": 65773,
+          "titleMatch": "Erling Haaland stats: shots, shots on target, goals and cards per game | Premier League"
+        },
+        "withCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Hit from cloudfront",
+          "bodyLen": 65773
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/delete-account",
+        "withoutCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Miss from cloudfront",
+          "bodyLen": 15870,
+          "titleMatch": "Delete your Scout Picks account"
+        },
+        "withCookie": {
+          "status": 200,
+          "location": null,
+          "xCache": "Hit from cloudfront",
+          "bodyLen": 15870
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/fr",
+        "withoutCookie": {
+          "status": 404,
+          "location": null,
+          "xCache": "Error from cloudfront",
+          "bodyLen": 2959,
+          "titleMatch": "Page not found — Scout Picks"
+        },
+        "withCookie": {
+          "status": 404,
+          "location": null,
+          "xCache": "Error from cloudfront",
+          "bodyLen": 2959
+        }
+      },
+      {
+        "url": "https://scoutpicks.app/ar",
+        "withoutCookie": {
+          "status": 404,
+          "location": null,
+          "xCache": "Error from cloudfront",
+          "bodyLen": 2959,
+          "titleMatch": "Page not found — Scout Picks"
+        },
+        "withCookie": {
+          "status": 404,
+          "location": null,
+          "xCache": "Error from cloudfront",
+          "bodyLen": 2959
+        }
+      }
+    ]
+  },
+  "wellKnownAndDeepLinksAudit": {
+    "probedEndpoints": {
+      "https://scoutpicks.app/.well-known/apple-app-site-association": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/apple-app-site-association": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/.well-known/assetlinks.json": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/.well-known/security.txt": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/manifest.webmanifest": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/site.webmanifest": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/dashboard/manifest.webmanifest": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://scoutpicks.app/dashboard/manifest.json": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": null
+      },
+      "https://aertech-labs.com/.well-known/apple-app-site-association": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": "https://aertech-labs.com/.well-known/apple-app-site-association"
+      },
+      "https://aertech-labs.com/.well-known/assetlinks.json": {
+        "status": 404,
+        "contentType": "text/html; charset=utf-8",
+        "redirectedFrom": "https://aertech-labs.com/.well-known/assetlinks.json"
+      },
+      "https://api.scoutpicks.aertech-labs.com/.well-known/apple-app-site-association": {
+        "status": 404,
+        "contentType": "text/plain; charset=UTF-8",
+        "redirectedFrom": null
+      },
+      "https://api.scoutpicks.aertech-labs.com/.well-known/assetlinks.json": {
+        "status": 404,
+        "contentType": "text/plain; charset=UTF-8",
+        "redirectedFrom": null
+      },
+      "https://api.scoutpicks.aertech-labs.com/health": {
+        "status": 404,
+        "contentType": "text/plain; charset=UTF-8",
+        "redirectedFrom": null
+      },
+      "https://api.scoutpicks.aertech-labs.com/openapi.json": {
+        "status": 404,
+        "contentType": "text/plain; charset=UTF-8",
+        "redirectedFrom": null
+      },
+      "https://api.scoutpicks.aertech-labs.com/docs": {
+        "status": 404,
+        "contentType": "text/plain; charset=UTF-8",
+        "redirectedFrom": null
+      },
+      "https://api.scoutpicks.aertech-labs.com/auth/ok": {
+        "status": 200,
+        "contentType": "application/json",
+        "redirectedFrom": null
+      }
+    },
+    "appsFlyerOneLinkAudit": {
+      "oneLinkBaseUrl": "https://scoutpicks.onelink.me/FDsu",
+      "aasaUrl": "https://scoutpicks.onelink.me/.well-known/apple-app-site-association",
+      "aasaStatus": 200,
+      "aasaBody": {
+        "appclips": {
+          "apps": null
+        },
+        "applinks": {
+          "apps": [],
+          "details": []
+        }
+      },
+      "aasaDiagnosis": "BROKEN / EMPTY: Aertech Labs never configured their Apple Team ID (App ID Prefix) in AppsFlyer OneLink template FDsu; applinks.details is empty, preventing iOS Universal Links from opening the installed app.",
+      "assetlinksUrl": "https://scoutpicks.onelink.me/.well-known/assetlinks.json",
+      "assetlinksStatus": 404,
+      "assetlinksBody": "domain_not_found",
+      "assetlinksDiagnosis": "BROKEN / MISSING: Aertech Labs never configured their Android SHA-256 signing certificate fingerprint in AppsFlyer OneLink template FDsu; Android App Links cannot verify domain ownership.",
+      "httpRedirectBehaviorByUserAgent": {
+        "windowsDesktop": {
+          "status": 301,
+          "locationPattern": "https://apps.apple.com/<CC>/app/id6759328850?mt=8"
+        },
+        "macosDesktop": {
+          "status": 301,
+          "locationPattern": "https://apps.apple.com/<CC>/app/id6759328850?mt=8"
+        },
+        "iphoneIosSafari": {
+          "status": 301,
+          "locationPattern": "https://apps.apple.com/<CC>/app/id6759328850?mt=8"
+        },
+        "androidChromeMobile": {
+          "status": 301,
+          "locationPattern": "market://details?id=com.scoutpicks.app&referrer=..."
+        }
+      }
+    },
+    "customSchemeAndWebHandoff": {
+      "customUriScheme": "scoutai://",
+      "legacyBrandOrigin": "Scout AI (foundational internal name preserved in native URI scheme)",
+      "inboundAppToWebFlow": "/dashboard/paywall?return=app#ott=<43-char-base64url-256bit-token>",
+      "tokenRegexValidation": "/^[A-Za-z0-9_-]{43}$/",
+      "redeemEndpoint": "POST https://api.scoutpicks.aertech-labs.com/auth/web-handoff/redeem",
+      "outboundWebToAppFlow": "/dashboard/return-to-app?status=purchased|closed -> window.location.href = \"scoutai://\""
+    }
+  },
+  "mobileAppsForensics": {
+    "iosAppStore": {
+      "appId": 6759328850,
+      "bundleId": "com.scoutpicks.ios",
+      "developerName": "Aertech Labs, LLC",
+      "developerArtistId": 1878105108,
+      "currentVersion": "1.5.4",
+      "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+      "initialReleaseDateAmericasUkAsia": "2026-02-20T08:00:00Z",
+      "initialReleaseDateEuropeEsPtFr": "2026-03-02T08:00:00Z",
+      "fileSizeBytes": 80572416,
+      "fileSizeMB": 76.84,
+      "minimumOsVersion": "15.1",
+      "contentAdvisoryRating": "17+",
+      "advisoriesEn": [
+        "Gambling",
+        "Frequent/Intense Simulated Gambling"
+      ],
+      "advisoriesEs": [
+        "Apuestas",
+        "Simulación de apuestas frecuente/intensa"
+      ],
+      "supportedLocalesISO2A": [
+        "AR",
+        "EN",
+        "HI",
+        "IT",
+        "JA",
+        "PT",
+        "RU",
+        "ZH",
+        "ES"
+      ],
+      "ipadScreenshotsCount": 0,
+      "geoBlockedStorefrontsObserved": [
+        "br",
+        "sa"
+      ],
+      "byCountry": {
+        "us": {
+          "available": true,
+          "resultCount": 1,
+          "trackId": 6759328850,
+          "bundleId": "com.scoutpicks.ios",
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "minimumOsVersion": "15.1",
+          "fileSizeBytes": 80572416,
+          "fileSizeMB": 76.84,
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "contentAdvisoryRating": "17+",
+          "advisories": [
+            "Gambling",
+            "Frequent/Intense Simulated Gambling"
+          ],
+          "userRatingCount": 230,
+          "averageUserRating": 4.83043,
+          "currency": "USD",
+          "sellerName": "Aertech Labs, LLC",
+          "sellerUrl": "https://scoutpicks.app",
+          "artistId": 1878105108,
+          "languageCodesISO2A": [
+            "AR",
+            "EN",
+            "HI",
+            "IT",
+            "JA",
+            "PT",
+            "RU",
+            "ZH",
+            "ES"
+          ]
+        },
+        "mx": {
+          "available": true,
+          "resultCount": 1,
+          "trackId": 6759328850,
+          "bundleId": "com.scoutpicks.ios",
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "minimumOsVersion": "15.1",
+          "fileSizeBytes": 80572416,
+          "fileSizeMB": 76.84,
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "contentAdvisoryRating": "17+",
+          "advisories": [
+            "Apuestas",
+            "Simulación de apuestas frecuente/intensa"
+          ],
+          "userRatingCount": 1372,
+          "averageUserRating": 4.86224,
+          "currency": "MXN",
+          "sellerName": "Aertech Labs, LLC",
+          "sellerUrl": "https://aertech-labs.com",
+          "artistId": 1878105108,
+          "languageCodesISO2A": [
+            "AR",
+            "EN",
+            "HI",
+            "IT",
+            "JA",
+            "PT",
+            "RU",
+            "ZH",
+            "ES"
+          ]
+        },
+        "ar": {
+          "available": true,
+          "resultCount": 1,
+          "trackId": 6759328850,
+          "bundleId": "com.scoutpicks.ios",
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "minimumOsVersion": "15.1",
+          "fileSizeBytes": 80572416,
+          "fileSizeMB": 76.84,
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "contentAdvisoryRating": "17+",
+          "advisories": [
+            "Apuestas",
+            "Simulación de apuestas frecuente/intensa"
+          ],
+          "userRatingCount": 189,
+          "averageUserRating": 4.8148,
+          "currency": "USD",
+          "sellerName": "Aertech Labs, LLC",
+          "sellerUrl": "https://aertech-labs.com",
+          "artistId": 1878105108,
+          "languageCodesISO2A": [
+            "AR",
+            "EN",
+            "HI",
+            "IT",
+            "JA",
+            "PT",
+            "RU",
+            "ZH",
+            "ES"
+          ]
+        },
+        "es": {
+          "available": true,
+          "resultCount": 1,
+          "trackId": 6759328850,
+          "bundleId": "com.scoutpicks.ios",
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "minimumOsVersion": "15.1",
+          "fileSizeBytes": 80572416,
+          "fileSizeMB": 76.84,
+          "releaseDate": "2026-03-02T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "contentAdvisoryRating": "17+",
+          "advisories": [
+            "Apuestas",
+            "Simulación de apuestas frecuente/intensa"
+          ],
+          "userRatingCount": 70,
+          "averageUserRating": 4.68571,
+          "currency": "EUR",
+          "sellerName": "Aertech Labs, LLC",
+          "sellerUrl": "https://aertech-labs.com",
+          "artistId": 1878105108,
+          "languageCodesISO2A": [
+            "AR",
+            "EN",
+            "HI",
+            "IT",
+            "JA",
+            "PT",
+            "RU",
+            "ZH",
+            "ES"
+          ]
+        },
+        "br": {
+          "available": false,
+          "resultCount": 0,
+          "trackId": 6759328850,
+          "bundleId": null,
+          "trackName": null,
+          "version": null,
+          "minimumOsVersion": null,
+          "fileSizeBytes": null,
+          "fileSizeMB": null,
+          "releaseDate": null,
+          "currentVersionReleaseDate": null,
+          "contentAdvisoryRating": null,
+          "advisories": [],
+          "userRatingCount": null,
+          "averageUserRating": null,
+          "currency": null,
+          "sellerName": null,
+          "sellerUrl": null,
+          "artistId": null,
+          "languageCodesISO2A": []
+        },
+        "pt": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-03-02T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 5,
+          "averageUserRating": 4.2,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "EUR"
+        },
+        "gb": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 4,
+          "averageUserRating": 4.75,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "GBP"
+        },
+        "fr": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks : Jouer malin",
+          "version": "1.5.4",
+          "releaseDate": "2026-03-02T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 5,
+          "averageUserRating": 4.59999,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "EUR"
+        },
+        "co": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 217,
+          "averageUserRating": 4.73271,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "COP"
+        },
+        "cl": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 88,
+          "averageUserRating": 4.75,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "CLP"
+        },
+        "pe": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Juega con datos",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 128,
+          "averageUserRating": 4.76563,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "PEN"
+        },
+        "id": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 0,
+          "averageUserRating": 0,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "IDR"
+        },
+        "vn": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 1,
+          "averageUserRating": 5,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "VND"
+        },
+        "th": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 0,
+          "averageUserRating": 0,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "THB"
+        },
+        "in": {
+          "available": true,
+          "resultCount": 1,
+          "trackName": "Scout Picks: Bet Smarter",
+          "version": "1.5.4",
+          "releaseDate": "2026-02-20T08:00:00Z",
+          "currentVersionReleaseDate": "2026-11-02T14:15:34Z",
+          "userRatingCount": 0,
+          "averageUserRating": 0,
+          "sellerUrl": "https://aertech-labs.com",
+          "currency": "INR"
+        },
+        "sa": {
+          "available": false,
+          "resultCount": 0,
+          "trackName": null,
+          "version": null,
+          "releaseDate": null,
+          "currentVersionReleaseDate": null,
+          "userRatingCount": null,
+          "averageUserRating": null,
+          "sellerUrl": null,
+          "currency": null
+        }
+      }
+    },
+    "googlePlayStore": {
+      "packageName": "com.scoutpicks.app",
+      "developerName": "Aertech Labs, LLC",
+      "developerNumericId": "6392794809833910514",
+      "developerSupportEmail": "team@aertech-labs.com",
+      "developerRegisteredAddress": "131 Continental Dr, Newark, DE 19713-4305, United States",
+      "developerVerifiedPhoneCountryAndArea": "+54 11 (Buenos Aires AMBA, Argentina) — +54 11 3350-[REDACTED]",
+      "titleUs": "Scout Picks: Bet Smarter",
+      "titleMx": "Scout Picks: Jugá con datos",
+      "currentVersion": "1.5.4",
+      "lastUpdatedDate": "2026-11-01 (epoch 1793570225)",
+      "initialReleaseDate": "2026-02-02 PST / 2026-02-03T01:30:53Z (epoch 1770082253)",
+      "minimumAndroidVersion": "7.0 (API level 24)",
+      "targetAndroidSdk": 36,
+      "publicDownloadBadge": "50,000+ (50K+)",
+      "exactInternalInstallCount": 90412,
+      "marketingClaimComparison": "Marketing claims 200k+ users vs 90,412 exact Android installs + estimated ~15k-30k iOS installs (~2,300+ global iOS ratings).",
+      "ratingsMx": {
+        "displayedAverage": "4.8",
+        "exactAverage": 4.8158913,
+        "globalTotalRatings": 23034,
+        "writtenReviewsInLocale": 380,
+        "histogram1To5": {
+          "1": 175,
+          "2": 87,
+          "3": 490,
+          "4": 2274,
+          "5": 19996
+        }
+      },
+      "ratingsUs": {
+        "displayedAverage": "4.9",
+        "exactAverage": 4.86,
+        "globalTotalRatings": 23034,
+        "writtenReviewsInLocale": 33,
+        "histogram1To5": {
+          "1": 0,
+          "2": 0,
+          "3": 897,
+          "4": 1367,
+          "5": 20726
+        }
+      },
+      "ratingToInstallRatioPct": 25.48,
+      "contentRatingDiscrepancy": {
+        "googlePlayUs": "Everyone (ESRB)",
+        "googlePlayMx": "Apto para todo público",
+        "appleAppStore": "17+ (Gambling; Frequent/Intense Simulated Gambling)",
+        "termsOfUseMinimumAge": "18+"
+      },
+      "iapPriceRangeUs": "$4.99 - $99.99 per item",
+      "iapPriceRangeMx": "$105.00 - $2,049.00 MXN por elemento",
+      "declaredAndroidPermissions": [
+        "Photos/Media/Files & Storage (READ/WRITE USB storage)",
+        "Microphone (RECORD_AUDIO — unpruned Expo AV/media template artifact)",
+        "Modify audio settings (MODIFY_AUDIO_SETTINGS)",
+        "Display over other apps (SYSTEM_ALERT_WINDOW — React Native/Expo artifact)",
+        "Run at startup (RECEIVE_BOOT_COMPLETED — expo-notifications)",
+        "Full network access, View network connections, Vibration, Wake lock, Play Install Licensing"
+      ],
+      "dataSafetySection": {
+        "dataSharedDeclaration": "No data shared with third parties (CONTRADICTS /privacy disclosure of AppsFlyer ad-network sharing, PostHog PII profile, RevenueCat, Telegram ops alerts, and Apple refund consumption sharing)",
+        "encryptedInTransit": true,
+        "accountDeletionSupported": true,
+        "accountDeletionWebUrls": [
+          "https://scoutpicks.app/delete-account",
+          "https://scoutpicks.app/es/delete-account",
+          "https://scoutpicks.app/pt/delete-account"
+        ],
+        "collectedCategories": [
+          {
+            "category": "Location",
+            "types": [
+              "Approximate location"
+            ],
+            "purposes": [
+              "Personalization"
+            ]
+          },
+          {
+            "category": "Personal info",
+            "types": [
+              "Email address",
+              "User IDs"
+            ],
+            "purposes": [
+              "App functionality",
+              "Analytics",
+              "Developer communications",
+              "Personalization",
+              "Account management"
+            ]
+          },
+          {
+            "category": "Financial info",
+            "types": [
+              "Purchase history"
+            ],
+            "purposes": [
+              "App functionality",
+              "Analytics",
+              "Personalization",
+              "Account management"
+            ]
+          },
+          {
+            "category": "App activity",
+            "types": [
+              "App interactions"
+            ],
+            "purposes": [
+              "App functionality",
+              "Analytics",
+              "Personalization"
+            ]
+          },
+          {
+            "category": "App info and performance",
+            "types": [
+              "Crash logs",
+              "Diagnostics",
+              "Other app performance data"
+            ],
+            "purposes": [
+              "Analytics"
+            ]
+          },
+          {
+            "category": "Device or other IDs",
+            "types": [
+              "Device or other IDs"
+            ],
+            "purposes": [
+              "App functionality",
+              "Analytics",
+              "Personalization"
+            ]
+          }
+        ]
+      },
+      "expoAndOtaPresence": {
+        "privacyPolicyExplicitConfirmation": "Expo: Delivery of push notifications and app updates (Expo passes notifications to Apple and Google, which deliver them to your device)",
+        "webSpaMechanism": "Polls /dashboard/version.json every 5 minutes (no u.expo.dev in web bundle)",
+        "nativeMobileMechanism": "Expo EAS Update (expo-updates) + Expo Push Service confirmed via Privacy Policy and AndroidManifest permission fingerprint"
+      }
+    }
+  },
+  "subdomainsTlsAndDnsOsint": {
+    "authoritativeNameservers": [
+      "ns1.vercel-dns.com",
+      "ns2.vercel-dns.com"
+    ],
+    "wildcardDnsConfirmed": {
+      "scoutpicksAppWildcard": {
+        "testedRandomHosts": [
+          {
+            "host": "nonexistent-wildcard-check-98412.scoutpicks.app",
+            "cname": "ENODATA",
+            "a": [
+              "216.198.79.1",
+              "216.198.79.65"
+            ],
+            "aaaa": "ENODATA",
+            "txt": "ENODATA"
+          },
+          {
+            "host": "another-random-sub-44109.scoutpicks.app",
+            "cname": "ENODATA",
+            "a": [
+              "64.29.17.65",
+              "216.198.79.65"
+            ],
+            "aaaa": "ENODATA",
+            "txt": "ENODATA"
+          }
+        ],
+        "resolvesToVercelAnycastPool": [
+          "64.29.17.1",
+          "64.29.17.65",
+          "216.198.79.1",
+          "216.198.79.65"
+        ],
+        "wildcardTlsCertificate": {
+          "subjectCN": "*.scoutpicks.app",
+          "san": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+          "issuer": "Let's Encrypt"
+        },
+        "httpResponseOnUnboundSubdomains": {
+          "status": 404,
+          "server": "Vercel",
+          "xVercelError": "DEPLOYMENT_NOT_FOUND"
+        }
+      },
+      "aertechLabsWildcard": {
+        "testedRandomHost": {
+          "host": "nonexistent-wildcard-check-98412.aertech-labs.com",
+          "cname": "ENODATA",
+          "a": [
+            "64.29.17.1",
+            "216.198.79.1"
+          ],
+          "aaaa": "ENODATA",
+          "txt": "ENODATA"
+        },
+        "resolvesToVercelAnycastPool": [
+          "64.29.17.1",
+          "64.29.17.65",
+          "216.198.79.1",
+          "216.198.79.65"
+        ],
+        "wildcardTlsCertificate": {
+          "subjectCN": "*.aertech-labs.com",
+          "san": "DNS:*.aertech-labs.com, DNS:aertech-labs.com",
+          "issuer": "Let's Encrypt (YR1/YR2/R12/R13 in crt.sh, 17 CT log entries since 2026-01-12)",
+          "serialNumberCurrent": "050D4EF20B6C939EC8A093BB4661091466E4",
+          "validFrom": "Sep 21 15:58:20 2026 GMT",
+          "validTo": "Dec 20 15:58:19 2026 GMT"
+        }
+      }
+    },
+    "explicitDnsOverridesAndActiveEndpoints": [
+      {
+        "host": "scoutpicks.app",
+        "dnsType": "A + AAAA (Alias to AWS CloudFront)",
+        "ips": [
+          "108.138.159.55",
+          "108.138.159.80",
+          "108.138.159.86",
+          "108.138.159.119"
+        ],
+        "tlsCert": {
+          "subjectCN": "scoutpicks.app",
+          "san": "DNS:scoutpicks.app, DNS:www.scoutpicks.app",
+          "issuer": "Amazon RSA 2048 M01",
+          "validFrom": "Sep 30 00:00:00 2026 GMT",
+          "validTo": "Apr 15 23:59:59 2027 GMT",
+          "sha256Fingerprint": "D3:13:72:5C:CC:10:FA:97:37:3F:29:3A:98:1F:49:25:2C:CC:65:8E:F6:00:3B:D8:C2:89:18:1F:69:57:1A:29"
+        },
+        "httpBehavior": "200 OK (AmazonS3 + CloudFront, Astro SSG & /dashboard/ SPA)"
+      },
+      {
+        "host": "www.scoutpicks.app",
+        "dnsType": "CNAME",
+        "cnameTarget": "d3lmzjp5k89ft.cloudfront.net",
+        "httpBehavior": "301 Moved Permanently -> https://scoutpicks.app/ (Server: CloudFront)"
+      },
+      {
+        "host": "aertech-labs.com / www.aertech-labs.com",
+        "dnsType": "A",
+        "ips": [
+          "64.29.17.1",
+          "64.29.17.65",
+          "216.198.79.65"
+        ],
+        "httpBehavior": "200 OK (Server: Vercel, Next.js App Router v0.app corporate landing)"
+      },
+      {
+        "host": "api.scoutpicks.aertech-labs.com",
+        "dnsType": "CNAME",
+        "cnameTarget": "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+        "tlsCert": {
+          "subjectCN": "api.scoutpicks.aertech-labs.com",
+          "san": "DNS:api.scoutpicks.aertech-labs.com",
+          "issuer": "Amazon RSA 2048 M04"
+        },
+        "endpointsProbed": {
+          "/auth/ok": {
+            "status": 200,
+            "contentType": "application/json",
+            "body": "{\"ok\":true}"
+          },
+          "/health": {
+            "status": 404,
+            "contentType": "text/plain; charset=UTF-8",
+            "body": "404 Not Found"
+          },
+          "/openapi.json": {
+            "status": 404,
+            "contentType": "text/plain; charset=UTF-8",
+            "body": "404 Not Found"
+          },
+          "/docs": {
+            "status": 404,
+            "contentType": "text/plain; charset=UTF-8",
+            "body": "404 Not Found"
+          }
+        }
+      }
+    ],
+    "crtShCertificateTransparencySummary": {
+      "scoutpicks.app": {
+        "status": 0,
+        "rawCount": 1,
+        "uniqueNames": [],
+        "recordsSample": [
+          {
+            "parseError": true,
+            "status": 0,
+            "preview": ""
+          }
+        ]
+      },
+      "aertech-labs.com": {
+        "status": 200,
+        "rawCount": 17,
+        "uniqueNames": [
+          "*.aertech-labs.com",
+          "aertech-labs.com"
+        ],
+        "recordsSample": [
+          {
+            "issuer_ca_id": 432476,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=YR1",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 29506150611,
+            "not_before": "2026-09-18T07:01:51",
+            "not_after": "2026-12-17T07:01:50",
+            "serial_number": "0603b3d456a7e698fa0ed53e529cd065491a",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 432477,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 28105149718,
+            "not_before": "2026-07-20T21:12:15",
+            "not_after": "2026-10-18T21:12:14",
+            "serial_number": "05792f1cc4f0ed0c8a6c66ddff7e1213387f",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 432477,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 28105141811,
+            "not_before": "2026-07-20T21:12:15",
+            "not_after": "2026-10-18T21:12:14",
+            "serial_number": "05792f1cc4f0ed0c8a6c66ddff7e1213387f",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 432477,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 27942398071,
+            "not_before": "2026-07-15T02:02:53",
+            "not_after": "2026-10-13T02:02:52",
+            "serial_number": "057fe62a2bf6edcd8fb275daf44875cf47fe",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 432477,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 27942393230,
+            "not_before": "2026-07-15T02:02:53",
+            "not_after": "2026-10-13T02:02:52",
+            "serial_number": "057fe62a2bf6edcd8fb275daf44875cf47fe",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 26510512790,
+            "not_before": "2026-05-21T04:19:54",
+            "not_after": "2026-08-19T04:19:53",
+            "serial_number": "06f53857e4f7f8acc5b8fcd107c951ed31f6",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 26510513130,
+            "not_before": "2026-05-21T04:19:54",
+            "not_after": "2026-08-19T04:19:53",
+            "serial_number": "06f53857e4f7f8acc5b8fcd107c951ed31f6",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 26342204935,
+            "not_before": "2026-05-14T20:19:51",
+            "not_after": "2026-08-12T20:19:50",
+            "serial_number": "0560307adafb1d7967a31dd188d09fee422d",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 26342576513,
+            "not_before": "2026-05-14T20:19:51",
+            "not_after": "2026-08-12T20:19:50",
+            "serial_number": "0560307adafb1d7967a31dd188d09fee422d",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295817,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 25125433130,
+            "not_before": "2026-03-21T02:10:02",
+            "not_after": "2026-06-19T02:10:01",
+            "serial_number": "062991c8bd18807dbd7d7db058ffd2c0af37",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295817,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 25125413132,
+            "not_before": "2026-03-21T02:10:02",
+            "not_after": "2026-06-19T02:10:01",
+            "serial_number": "062991c8bd18807dbd7d7db058ffd2c0af37",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 24985627082,
+            "not_before": "2026-03-14T14:57:29",
+            "not_after": "2026-06-12T14:57:28",
+            "serial_number": "0571893b4001229872418a5fbb46a0f42ab5",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 24985608654,
+            "not_before": "2026-03-14T14:57:29",
+            "not_after": "2026-06-12T14:57:28",
+            "serial_number": "0571893b4001229872418a5fbb46a0f42ab5",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295817,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 23846967335,
+            "not_before": "2026-01-18T20:37:44",
+            "not_after": "2026-04-18T20:37:43",
+            "serial_number": "06121ffbbc63bc2fc781979b3d58a6ebc9a2",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295817,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+            "common_name": "*.aertech-labs.com",
+            "name_value": "*.aertech-labs.com\naertech-labs.com",
+            "id": 23846985975,
+            "not_before": "2026-01-18T20:37:44",
+            "not_after": "2026-04-18T20:37:43",
+            "serial_number": "06121ffbbc63bc2fc781979b3d58a6ebc9a2",
+            "result_count": 3
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 23726815701,
+            "not_before": "2026-01-12T17:47:21",
+            "not_after": "2026-04-12T17:47:20",
+            "serial_number": "05d255d06fcb2272b8403239e5f98dc79a7a",
+            "result_count": 2
+          },
+          {
+            "issuer_ca_id": 295816,
+            "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+            "common_name": "aertech-labs.com",
+            "name_value": "aertech-labs.com",
+            "id": 23726813967,
+            "not_before": "2026-01-12T17:47:21",
+            "not_after": "2026-04-12T17:47:20",
+            "serial_number": "05d255d06fcb2272b8403239e5f98dc79a7a",
+            "result_count": 2
+          }
+        ]
+      }
+    },
+    "passiveSubdomainHttpsAudit": [
+      {
+        "url": "https://docs.aertech-labs.com/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.aertech-labs.com",
+        "certSAN": "DNS:*.aertech-labs.com, DNS:aertech-labs.com",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Sep 21 15:58:20 2026 GMT",
+        "certValidTo": "Dec 20 15:58:19 2026 GMT"
+      },
+      {
+        "url": "https://status.aertech-labs.com/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.aertech-labs.com",
+        "certSAN": "DNS:*.aertech-labs.com, DNS:aertech-labs.com",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Sep 21 15:58:20 2026 GMT",
+        "certValidTo": "Dec 20 15:58:19 2026 GMT"
+      },
+      {
+        "url": "https://www.aertech-labs.com/",
+        "status": 200,
+        "server": "Vercel",
+        "xVercelError": null,
+        "location": null,
+        "certSubjectCN": "*.aertech-labs.com",
+        "certSAN": "DNS:*.aertech-labs.com, DNS:aertech-labs.com",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Sep 21 15:58:20 2026 GMT",
+        "certValidTo": "Dec 20 15:58:19 2026 GMT"
+      },
+      {
+        "url": "https://api.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://staging.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://dev.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://admin.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://app.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://posthog.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://link.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": null,
+        "certSAN": null,
+        "certIssuerO": null,
+        "certValidFrom": null,
+        "certValidTo": null
+      },
+      {
+        "url": "https://go.scoutpicks.app/",
+        "status": 404,
+        "server": "Vercel",
+        "xVercelError": "DEPLOYMENT_NOT_FOUND",
+        "location": null,
+        "certSubjectCN": "*.scoutpicks.app",
+        "certSAN": "DNS:*.scoutpicks.app, DNS:scoutpicks.app",
+        "certIssuerO": "Let's Encrypt",
+        "certValidFrom": "Oct  9 10:17:28 2026 GMT",
+        "certValidTo": "Jan  7 10:17:27 2027 GMT"
+      },
+      {
+        "url": "https://www.scoutpicks.app/",
+        "status": 301,
+        "server": "CloudFront",
+        "xVercelError": null,
+        "location": "https://scoutpicks.app/",
+        "certSubjectCN": "scoutpicks.app",
+        "certSAN": "DNS:scoutpicks.app, DNS:www.scoutpicks.app",
+        "certIssuerO": "Amazon",
+        "certValidFrom": "Sep 30 00:00:00 2026 GMT",
+        "certValidTo": "Apr 15 23:59:59 2027 GMT"
+      },
+      {
+        "url": "https://api.scoutpicks.aertech-labs.com/auth/ok",
+        "status": 200,
+        "server": null,
+        "xVercelError": null,
+        "location": null,
+        "certSubjectCN": "api.scoutpicks.aertech-labs.com",
+        "certSAN": "DNS:api.scoutpicks.aertech-labs.com",
+        "certIssuerO": "Amazon",
+        "certValidFrom": "Oct  9 00:00:00 2026 GMT",
+        "certValidTo": "Apr 24 23:59:59 2027 GMT"
+      },
+      {
+        "url": "https://api.scoutpicks.aertech-labs.com/health",
+        "status": 404,
+        "server": null,
+        "xVercelError": null,
+        "location": null,
+        "certSubjectCN": "api.scoutpicks.aertech-labs.com",
+        "certSAN": "DNS:api.scoutpicks.aertech-labs.com",
+        "certIssuerO": "Amazon",
+        "certValidFrom": "Oct  9 00:00:00 2026 GMT",
+        "certValidTo": "Apr 24 23:59:59 2027 GMT"
+      }
+    ]
+  }
+}

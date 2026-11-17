@@ -1,0 +1,155 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/matchup",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "701fe123-7c8d-481f-a6b4-241113c5e170",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:47 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "match": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "status": "NS",
+      "homeTeam": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "awayTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "league": {
+        "id": 116,
+        "name": "UEFA Nations League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+      }
+    },
+    "homeTeam": {
+      "team": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "records": {
+        "overall": {
+          "wins": 1,
+          "draws": 0,
+          "losses": 4
+        },
+        "home": {
+          "wins": 1,
+          "draws": 0,
+          "losses": 1
+        },
+        "away": {
+          "wins": 0,
+          "draws": 0,
+          "losses": 3
+        },
+        "firstHalf": {
+          "wins": 0,
+          "draws": 4,
+          "losses": 1
+        },
+        "secondHalf": {
+          "wins": 1,
+          "draws": 1,
+          "losses": 3
+        }
+      },
+      "injuries": []
+    },
+    "awayTeam": {
+      "team": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "records": {
+        "overall": {
+          "wins": 4,
+          "draws": 0,
+          "losses": 1
+        },
+        "home": {
+          "wins": 2,
+          "draws": 0,
+          "losses": 1
+        },
+        "away": {
+          "wins": 2,
+          "draws": 0,
+          "losses": 0
+        },
+        "firstHalf": {
+          "wins": 3,
+          "draws": 1,
+          "losses": 1
+        },
+        "secondHalf": {
+          "wins": 2,
+          "draws": 2,
+          "losses": 1
+        }
+      },
+      "injuries": [
+        {
+          "player": {
+            "id": 2957,
+            "name": "Rafael Leão",
+            "photo": "https://cdn.sportmonks.com/images/soccer/players/27/540251.png",
+            "position": "Attacker",
+            "detailedPosition": null
+          },
+          "type": "Out",
+          "reason": "Hamstring Injury",
+          "category": "injury",
+          "startDate": "2026-11-07T00:00:00.000Z",
+          "endDate": "2026-12-05T00:00:00.000Z",
+          "completed": false,
+          "updatedAt": "2026-11-17T14:27:59.449Z"
+        },
+        {
+          "player": {
+            "id": 6098,
+            "name": "Nuno Tavares",
+            "photo": "https://cdn.sportmonks.com/images/soccer/players/1/9308193.png",
+            "position": "Defender",
+            "detailedPosition": null
+          },
+          "type": "Out",
+          "reason": "Muscle Injury",
+          "category": "injury",
+          "startDate": "2026-11-08T00:00:00.000Z",
+          "endDate": "2026-12-08T00:00:00.000Z",
+          "completed": false,
+          "updatedAt": "2026-11-17T14:27:59.449Z"
+        }
+      ]
+    }
+  }
+}

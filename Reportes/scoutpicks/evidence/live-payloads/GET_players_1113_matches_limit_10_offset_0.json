@@ -1,0 +1,534 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/players/1113/matches?limit=10&offset=0",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "76f42c45-e73c-4231-8dec-e1759e6b5076",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:22 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "playerId": 1113,
+    "total": 288,
+    "limit": 10,
+    "offset": 0,
+    "matches": [
+      {
+        "id": 54099,
+        "date": "2026-11-14",
+        "kickoffTime": "19:45:00",
+        "competition": {
+          "id": 116,
+          "name": "UEFA Nations League",
+          "shortName": "UEF",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+          "round": "5"
+        },
+        "homeTeam": {
+          "id": 14678,
+          "name": "Portugal",
+          "shortName": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "awayTeam": {
+          "id": 17254,
+          "name": "Denmark",
+          "shortName": "DEN",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+        },
+        "score": {
+          "home": 1,
+          "away": 4,
+          "halfTimeHome": 0,
+          "halfTimeAway": 1
+        },
+        "playerStats": {
+          "started": false,
+          "minutesPlayed": 0,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 0,
+          "passAccuracy": null,
+          "aerialDuelsWon": 0,
+          "tackles": 0,
+          "interceptions": 0,
+          "foulsCommitted": 0,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": null
+        }
+      },
+      {
+        "id": 10618064,
+        "date": "2026-11-08",
+        "kickoffTime": "14:00:00",
+        "competition": {
+          "id": 2,
+          "name": "Premier League",
+          "shortName": "PRE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+          "round": "10"
+        },
+        "homeTeam": {
+          "id": 2795,
+          "name": "Ipswich Town",
+          "shortName": "IPS",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/116.png"
+        },
+        "awayTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "score": {
+          "home": 1,
+          "away": 2,
+          "halfTimeHome": 0,
+          "halfTimeAway": 1
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 1,
+          "passAccuracy": 91,
+          "aerialDuelsWon": 2,
+          "tackles": 1,
+          "interceptions": 1,
+          "foulsCommitted": 4,
+          "foulsSuffered": 1,
+          "yellowCards": 1,
+          "redCards": 0,
+          "rating": 7.23
+        }
+      },
+      {
+        "id": 32187432,
+        "date": "2026-11-05",
+        "kickoffTime": "17:45:00",
+        "competition": {
+          "id": 4,
+          "name": "Europa League",
+          "shortName": "EUR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png",
+          "round": "4"
+        },
+        "homeTeam": {
+          "id": 640,
+          "name": "Sparta Praha",
+          "shortName": "SPA",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/2727.png"
+        },
+        "awayTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "score": {
+          "home": 1,
+          "away": 3,
+          "halfTimeHome": 1,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": false,
+          "minutesPlayed": 0,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 0,
+          "passAccuracy": null,
+          "aerialDuelsWon": 0,
+          "tackles": 0,
+          "interceptions": 0,
+          "foulsCommitted": 0,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": null
+        }
+      },
+      {
+        "id": 10618111,
+        "date": "2026-10-31",
+        "kickoffTime": "15:00:00",
+        "competition": {
+          "id": 2,
+          "name": "Premier League",
+          "shortName": "PRE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+          "round": "9"
+        },
+        "homeTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "awayTeam": {
+          "id": 1165,
+          "name": "Leeds United",
+          "shortName": "LEE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+        },
+        "score": {
+          "home": 2,
+          "away": 0,
+          "halfTimeHome": 1,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 0,
+          "passAccuracy": 89,
+          "aerialDuelsWon": 2,
+          "tackles": 1,
+          "interceptions": 1,
+          "foulsCommitted": 0,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 6.95
+        }
+      },
+      {
+        "id": 35895753,
+        "date": "2026-10-28",
+        "kickoffTime": "19:45:00",
+        "competition": {
+          "id": 22,
+          "name": "Carabao Cup",
+          "shortName": "CAR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png",
+          "round": null
+        },
+        "homeTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "awayTeam": {
+          "id": 746,
+          "name": "Aston Villa",
+          "shortName": "AVL",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/15.png"
+        },
+        "score": {
+          "home": 3,
+          "away": 0,
+          "halfTimeHome": 1,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 1,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 1,
+          "keyPasses": 0,
+          "passAccuracy": 94,
+          "aerialDuelsWon": 1,
+          "tackles": 2,
+          "interceptions": 0,
+          "foulsCommitted": 0,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 7.34
+        }
+      },
+      {
+        "id": 10618118,
+        "date": "2026-10-25",
+        "kickoffTime": "14:00:00",
+        "competition": {
+          "id": 2,
+          "name": "Premier League",
+          "shortName": "PRE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+          "round": "8"
+        },
+        "homeTeam": {
+          "id": 1161,
+          "name": "Manchester United",
+          "shortName": "MUN",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/14.png"
+        },
+        "awayTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "score": {
+          "home": 0,
+          "away": 3,
+          "halfTimeHome": 0,
+          "halfTimeAway": 2
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 1,
+          "dribblesAttempted": 1,
+          "keyPasses": 0,
+          "passAccuracy": 77,
+          "aerialDuelsWon": 3,
+          "tackles": 2,
+          "interceptions": 2,
+          "foulsCommitted": 2,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 7.34
+        }
+      },
+      {
+        "id": 32187435,
+        "date": "2026-10-22",
+        "kickoffTime": "19:00:00",
+        "competition": {
+          "id": 4,
+          "name": "Europa League",
+          "shortName": "EUR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png",
+          "round": "3"
+        },
+        "homeTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "awayTeam": {
+          "id": 749,
+          "name": "AC Milan",
+          "shortName": "MIL",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/113.png"
+        },
+        "score": {
+          "home": 3,
+          "away": 0,
+          "halfTimeHome": 2,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 1,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 1,
+          "passAccuracy": 97,
+          "aerialDuelsWon": 3,
+          "tackles": 1,
+          "interceptions": 0,
+          "foulsCommitted": 2,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 7.82
+        }
+      },
+      {
+        "id": 10618183,
+        "date": "2026-10-18",
+        "kickoffTime": "13:00:00",
+        "competition": {
+          "id": 2,
+          "name": "Premier League",
+          "shortName": "PRE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+          "round": "7"
+        },
+        "homeTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "awayTeam": {
+          "id": 1144,
+          "name": "Sunderland",
+          "shortName": "SUN",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/3.png"
+        },
+        "score": {
+          "home": 2,
+          "away": 0,
+          "halfTimeHome": 1,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 0,
+          "shotsOnTarget": 0,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 1,
+          "passAccuracy": 92,
+          "aerialDuelsWon": 7,
+          "tackles": 1,
+          "interceptions": 0,
+          "foulsCommitted": 1,
+          "foulsSuffered": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "rating": 7.44
+        }
+      },
+      {
+        "id": 32187395,
+        "date": "2026-10-15",
+        "kickoffTime": "19:00:00",
+        "competition": {
+          "id": 4,
+          "name": "Europa League",
+          "shortName": "EUR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png",
+          "round": "2"
+        },
+        "homeTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "awayTeam": {
+          "id": 158,
+          "name": "Sturm Graz",
+          "shortName": "STU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/3357.png"
+        },
+        "score": {
+          "home": 3,
+          "away": 0,
+          "halfTimeHome": 1,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 1,
+          "shotsOnTarget": 1,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 1,
+          "passAccuracy": 84,
+          "aerialDuelsWon": 5,
+          "tackles": 3,
+          "interceptions": 1,
+          "foulsCommitted": 0,
+          "foulsSuffered": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 7.7
+        }
+      },
+      {
+        "id": 10618205,
+        "date": "2026-10-10",
+        "kickoffTime": "14:00:00",
+        "competition": {
+          "id": 2,
+          "name": "Premier League",
+          "shortName": "PRE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+          "round": "6"
+        },
+        "homeTeam": {
+          "id": 219,
+          "name": "Chelsea",
+          "shortName": "CHE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18.png"
+        },
+        "awayTeam": {
+          "id": 1125,
+          "name": "AFC Bournemouth",
+          "shortName": "BOU",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png"
+        },
+        "score": {
+          "home": 5,
+          "away": 1,
+          "halfTimeHome": 2,
+          "halfTimeAway": 0
+        },
+        "playerStats": {
+          "started": true,
+          "minutesPlayed": 90,
+          "goals": 0,
+          "assists": 0,
+          "shotsTotal": 2,
+          "shotsOnTarget": 1,
+          "dribblesCompleted": 0,
+          "dribblesAttempted": 0,
+          "keyPasses": 0,
+          "passAccuracy": 89,
+          "aerialDuelsWon": 3,
+          "tackles": 2,
+          "interceptions": 0,
+          "foulsCommitted": 1,
+          "foulsSuffered": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "rating": 5.51
+        }
+      }
+    ]
+  }
+}

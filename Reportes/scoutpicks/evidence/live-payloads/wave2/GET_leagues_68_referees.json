@@ -1,0 +1,460 @@
+{
+  "status": 200,
+  "url": "/leagues/68/referees",
+  "data": {
+    "league": {
+      "id": 68,
+      "name": "Liga MX",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+    },
+    "season": {
+      "id": 699,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "referees": [
+      {
+        "id": 9342,
+        "name": "Ismael Rosario Lopez Peñuelas",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 10,
+        "competition": {
+          "matches": 84,
+          "avgYellows": 5.035714285714286,
+          "rank": 5,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 9142,
+        "name": "Marco Antonio Ortíz Nava",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 10,
+        "competition": {
+          "matches": 224,
+          "avgYellows": 4.419642857142857,
+          "rank": 17,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 9218,
+        "name": "Víctor Alfonso Cáceres Hernández",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 10,
+        "competition": {
+          "matches": 117,
+          "avgYellows": 3.871794871794872,
+          "rank": 33,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10374,
+        "name": "Fernando Hernandez Gomez",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": null,
+        "seasonMatches": 9,
+        "competition": {
+          "matches": 32,
+          "avgYellows": 3.625,
+          "rank": 36,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 3487,
+        "name": "Luis Enrique Santander Aguirre",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 9,
+        "competition": {
+          "matches": 190,
+          "avgYellows": 3.9,
+          "rank": 32,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 9248,
+        "name": "Adonai Escobedo González",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 8,
+        "competition": {
+          "matches": 171,
+          "avgYellows": 4.47953216374269,
+          "rank": 14,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 2043,
+        "name": "César Arturo Ramos Palazuelos",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 8,
+        "competition": {
+          "matches": 247,
+          "avgYellows": 4.210526315789473,
+          "rank": 23,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 3080,
+        "name": "Daniel Quintero Huittrón",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 8,
+        "competition": {
+          "matches": 109,
+          "avgYellows": 4.678899082568807,
+          "rank": 10,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 9220,
+        "name": "Katia Itzel García",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 8,
+        "competition": {
+          "matches": 35,
+          "avgYellows": 4.914285714285715,
+          "rank": 7,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 3106,
+        "name": "Jesus Rafael Lopez Valle",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 6,
+        "competition": {
+          "matches": 59,
+          "avgYellows": 4.796610169491525,
+          "rank": 8,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10140,
+        "name": "Jorge Abraham Camacho Peregrina",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 6,
+        "competition": {
+          "matches": 51,
+          "avgYellows": 4.352941176470588,
+          "rank": 21,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10069,
+        "name": "Maximiliano Quintero Hernández",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 6,
+        "competition": {
+          "matches": 44,
+          "avgYellows": 4.363636363636363,
+          "rank": 20,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10182,
+        "name": "Guillermo Pacheco Larios",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 5,
+        "competition": {
+          "matches": 63,
+          "avgYellows": 4.063492063492063,
+          "rank": 28,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10045,
+        "name": "Mario Terrazas Chávez",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 5,
+        "competition": {
+          "matches": 24,
+          "avgYellows": 4.083333333333333,
+          "rank": 27,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10094,
+        "name": "Salvador Pérez Villalobos",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 5,
+        "competition": {
+          "matches": 19,
+          "avgYellows": 4.526315789473684,
+          "rank": 12,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10049,
+        "name": "Vicente Jassiel Reynoso Arce",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 5,
+        "competition": {
+          "matches": 33,
+          "avgYellows": 3.121212121212121,
+          "rank": 38,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10056,
+        "name": "Joaquín Alberto Vizcarra Armenta",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 4,
+        "competition": {
+          "matches": 14,
+          "avgYellows": 4,
+          "rank": 30,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10220,
+        "name": "Abraham de Jesús Quirarte Contreras",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 23,
+          "avgYellows": 5.043478260869565,
+          "rank": 4,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 9117,
+        "name": "Karen Hernández Andrade",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 18,
+          "avgYellows": 4.055555555555555,
+          "rank": 29,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10470,
+        "name": "Luis Rodriguez",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Venezuela",
+          "code": "VE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ve.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 9,
+          "avgYellows": 2.666666666666667,
+          "rank": null,
+          "populationSize": null
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10102,
+        "name": "Martín Molina Astorga",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 17,
+          "avgYellows": 4.176470588235294,
+          "rank": 25,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10469,
+        "name": "Oscar Mejia Garcia",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": null,
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 17,
+          "avgYellows": 3.705882352941177,
+          "rank": 34,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10063,
+        "name": "Yonatan Peinado Aguirre",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 18,
+          "avgYellows": 5.222222222222222,
+          "rank": 1,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10575,
+        "name": "Aldo Ballesteros Barba",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 2,
+        "competition": {
+          "matches": 2,
+          "avgYellows": 0.5,
+          "rank": null,
+          "populationSize": null
+        },
+        "nextMatch": null
+      },
+      {
+        "id": 10051,
+        "name": "Iván Antonio López Sánchez",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 2,
+        "competition": {
+          "matches": 30,
+          "avgYellows": 5.1,
+          "rank": 3,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      }
+    ]
+  }
+}

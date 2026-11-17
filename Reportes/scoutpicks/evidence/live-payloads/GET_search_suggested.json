@@ -1,0 +1,364 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/search/suggested",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "items": [
+      {
+        "type": "match",
+        "id": 37224742,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 17104,
+          "name": "Guinea-Bissau",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/18880.png",
+          "code": "GNB"
+        },
+        "awayTeam": {
+          "id": 17084,
+          "name": "Madagascar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18828.png",
+          "code": "MDG"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 99,
+          "name": "Africa Cup of Nations Qualifications",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 37222998,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 14608,
+          "name": "Russia",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18702.png",
+          "code": "RUS"
+        },
+        "awayTeam": {
+          "id": 14505,
+          "name": "Venezuela",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18711.png",
+          "code": "VEN"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 15,
+          "name": "Friendly International",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 37224758,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 17099,
+          "name": "Sierra Leone",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18881.png",
+          "code": "SLE"
+        },
+        "awayTeam": {
+          "id": 14644,
+          "name": "Congo DR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18552.png",
+          "code": "COD"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 99,
+          "name": "Africa Cup of Nations Qualifications",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 37224750,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 14642,
+          "name": "Libya",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/18545.png",
+          "code": "LBY"
+        },
+        "awayTeam": {
+          "id": 14738,
+          "name": "Tunisia",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/18554.png",
+          "code": "TUN"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 99,
+          "name": "Africa Cup of Nations Qualifications",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 37224747,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 14558,
+          "name": "Togo",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/18549.png",
+          "code": "TGO"
+        },
+        "awayTeam": {
+          "id": 14559,
+          "name": "Algeria",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18620.png",
+          "code": "ALG"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 99,
+          "name": "Africa Cup of Nations Qualifications",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png"
+        }
+      },
+      {
+        "type": "match",
+        "id": 34773123,
+        "date": "2026-11-17T16:00:00.000Z",
+        "status": "NS",
+        "homeTeam": {
+          "id": 14548,
+          "name": "Jordan",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/18559.png",
+          "code": "JOR"
+        },
+        "awayTeam": {
+          "id": 14461,
+          "name": "Australia",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18730.png",
+          "code": "AUS"
+        },
+        "homeScore": 0,
+        "awayScore": 0,
+        "league": {
+          "id": 15,
+          "name": "Friendly International",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 17099,
+        "name": "Sierra Leone",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18881.png",
+        "code": "SLE",
+        "isNationalTeam": true,
+        "countryCode": "SL",
+        "country": {
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "league": {
+          "id": 15,
+          "name": "Friendly International",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 43919,
+        "name": "Železničar Pančevo",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/28029.png",
+        "code": "ZEL",
+        "isNationalTeam": false,
+        "countryCode": "RS",
+        "country": {
+          "name": "Serbia",
+          "code": "RS",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/rs.png"
+        },
+        "league": {
+          "id": 48,
+          "name": "Super Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/531.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 43906,
+        "name": "Mladost Lučani",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/230490.png",
+        "code": "MLLU",
+        "isNationalTeam": false,
+        "countryCode": "RS",
+        "country": {
+          "name": "Serbia",
+          "code": "RS",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/rs.png"
+        },
+        "league": {
+          "id": 48,
+          "name": "Super Liga",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/531.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 45087,
+        "name": "Brommapojkarna",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/3285.png",
+        "code": "BP",
+        "isNationalTeam": false,
+        "countryCode": "SE",
+        "country": {
+          "name": "Sweden",
+          "code": "SE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/se.png"
+        },
+        "league": {
+          "id": 50,
+          "name": "Allsvenskan",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/573.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 45095,
+        "name": "Halmstad",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/720.png",
+        "code": "HAL",
+        "isNationalTeam": false,
+        "countryCode": "SE",
+        "country": {
+          "name": "Sweden",
+          "code": "SE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/se.png"
+        },
+        "league": {
+          "id": 50,
+          "name": "Allsvenskan",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/573.png"
+        }
+      },
+      {
+        "type": "team",
+        "id": 134859,
+        "name": "Kauno Žalgiris",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/928.png",
+        "code": "KAU",
+        "isNationalTeam": false,
+        "countryCode": "LT",
+        "country": {
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "league": {
+          "id": 1,
+          "name": "Champions League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+        }
+      },
+      {
+        "type": "league",
+        "id": 91,
+        "name": "ASEAN Championship",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/1104.png",
+        "competitionType": "league",
+        "isNationalTeam": true,
+        "country": {
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        }
+      },
+      {
+        "type": "league",
+        "id": 99,
+        "name": "Africa Cup of Nations Qualifications",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png",
+        "competitionType": "league",
+        "isNationalTeam": true,
+        "country": {
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        }
+      },
+      {
+        "type": "league",
+        "id": 90,
+        "name": "African Nations Championship",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/1103.png",
+        "competitionType": "league",
+        "isNationalTeam": true,
+        "country": {
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        }
+      },
+      {
+        "type": "league",
+        "id": 135,
+        "name": "African Nations Championship Qualification",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "competitionType": "league",
+        "isNationalTeam": true,
+        "country": {
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        }
+      },
+      {
+        "type": "referee",
+        "id": 5327,
+        "name": "L. El Bedoui",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        }
+      },
+      {
+        "type": "referee",
+        "id": 5690,
+        "name": "Aymeric Gaches",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        }
+      },
+      {
+        "type": "referee",
+        "id": 16062870,
+        "name": "Lucas Fouret",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        }
+      }
+    ]
+  }
+}

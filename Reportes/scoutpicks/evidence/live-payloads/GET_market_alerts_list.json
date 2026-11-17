@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/market-alerts?status=active&limit=20",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "data": [],
+    "pagination": {
+      "limit": 20,
+      "offset": 0,
+      "status": "active",
+      "total": 0,
+      "hasMore": false
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/matches/upcoming",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "team": {
+      "id": 17181,
+      "name": "Wales",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+      "code": "WAL"
+    },
+    "matches": [
+      {
+        "id": 54091,
+        "date": "2026-11-17T19:45:00.000Z",
+        "status": "NS",
+        "homeScore": null,
+        "awayScore": null,
+        "elapsed": null,
+        "venue": "home",
+        "homeTeam": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "awayTeam": {
+          "id": 14678,
+          "name": "Portugal",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+          "code": "POR",
+          "isNationalTeam": true
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+          "code": "POR",
+          "isNationalTeam": true
+        },
+        "league": {
+          "id": 116,
+          "name": "UEFA Nations League",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+          "isNationalTeam": true,
+          "isNeutral": false
+        }
+      }
+    ]
+  }
+}

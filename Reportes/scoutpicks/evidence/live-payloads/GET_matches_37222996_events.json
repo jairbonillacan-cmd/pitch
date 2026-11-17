@@ -1,0 +1,335 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/37222996/events",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "3e50537b-9746-47e6-9dee-652e7a3792b3",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:19 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "match": {
+      "id": 37222996,
+      "homeTeam": {
+        "id": 13251,
+        "name": "Qatar",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+        "code": "QAT"
+      },
+      "awayTeam": {
+        "id": 17059,
+        "name": "Korea Republic",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+        "code": "KOR"
+      },
+      "status": "2H",
+      "elapsed": 69
+    },
+    "events": [
+      {
+        "id": 22860156,
+        "elapsed": 67,
+        "extraTime": null,
+        "type": "Card",
+        "detail": "Yellow Card",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": null,
+          "apiId": null,
+          "name": null
+        },
+        "assist": {
+          "id": null,
+          "apiId": null,
+          "name": null
+        },
+        "comments": "1st Yellowcard"
+      },
+      {
+        "id": 22860155,
+        "elapsed": 66,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 17059,
+          "name": "Korea Republic",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+          "code": "KOR"
+        },
+        "player": {
+          "id": 48896,
+          "apiId": 37420362,
+          "name": "Hyun-taek Cho"
+        },
+        "assist": {
+          "id": 48760,
+          "apiId": 37563553,
+          "name": "Bong-soo Kim"
+        },
+        "comments": "10th Substitution"
+      },
+      {
+        "id": 22860154,
+        "elapsed": 66,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 17059,
+          "name": "Korea Republic",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+          "code": "KOR"
+        },
+        "player": {
+          "id": 5653,
+          "apiId": 320838,
+          "name": "Jae-sung Lee"
+        },
+        "assist": {
+          "id": 17072,
+          "apiId": 310020,
+          "name": "Myung-jae Lee"
+        },
+        "comments": "9th Substitution"
+      },
+      {
+        "id": 22860153,
+        "elapsed": 66,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 17059,
+          "name": "Korea Republic",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+          "code": "KOR"
+        },
+        "player": {
+          "id": 17076,
+          "apiId": 13186239,
+          "name": "Dong-gyeong Lee"
+        },
+        "assist": {
+          "id": 1757,
+          "apiId": 9967153,
+          "name": "Kang-in Lee"
+        },
+        "comments": "8th Substitution"
+      },
+      {
+        "id": 22860152,
+        "elapsed": 66,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 17059,
+          "name": "Korea Republic",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+          "code": "KOR"
+        },
+        "player": {
+          "id": 5623,
+          "apiId": 11353231,
+          "name": "Woo-yeong Jeong"
+        },
+        "assist": {
+          "id": 4608,
+          "apiId": 4313,
+          "name": "Heung-min Son"
+        },
+        "comments": "7th Substitution"
+      },
+      {
+        "id": 22860151,
+        "elapsed": 60,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 55535,
+          "apiId": 37636090,
+          "name": "Issa Laye"
+        },
+        "assist": {
+          "id": 17273,
+          "apiId": 54065,
+          "name": "Assim Madibo"
+        },
+        "comments": "6th Substitution"
+      },
+      {
+        "id": 22860150,
+        "elapsed": 60,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 47511,
+          "apiId": 24446328,
+          "name": "Ahmed Al-Ganehi"
+        },
+        "assist": {
+          "id": 17266,
+          "apiId": 301403,
+          "name": "Karim Boudiaf"
+        },
+        "comments": "5th Substitution"
+      },
+      {
+        "id": 22860149,
+        "elapsed": 60,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 17269,
+          "apiId": 302695,
+          "name": "Sultan Al-Brake"
+        },
+        "assist": {
+          "id": 17267,
+          "apiId": 16488492,
+          "name": "Homam Al-Amin"
+        },
+        "comments": "4th Substitution"
+      },
+      {
+        "id": 22860148,
+        "elapsed": 60,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 46414,
+          "apiId": 54304,
+          "name": "Almoez Ali"
+        },
+        "assist": {
+          "id": 17231,
+          "apiId": 32777402,
+          "name": "Yusuf Abdurisag"
+        },
+        "comments": "3rd Substitution"
+      },
+      {
+        "id": 22860147,
+        "elapsed": 46,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 17268,
+          "apiId": 301352,
+          "name": "Boualem Khoukhi"
+        },
+        "assist": {
+          "id": 17359,
+          "apiId": 37540713,
+          "name": "Mohamed Al-Mannai"
+        },
+        "comments": "2nd Substitution"
+      },
+      {
+        "id": 22860146,
+        "elapsed": 46,
+        "extraTime": null,
+        "type": "subst",
+        "detail": "Substitution",
+        "team": {
+          "id": 13251,
+          "name": "Qatar",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
+          "code": "QAT"
+        },
+        "player": {
+          "id": 17358,
+          "apiId": 301237,
+          "name": "Abdulaziz Hatim"
+        },
+        "assist": {
+          "id": 17261,
+          "apiId": 302082,
+          "name": "Ahmed Alaaeldin"
+        },
+        "comments": "1st Substitution"
+      },
+      {
+        "id": 22860145,
+        "elapsed": 43,
+        "extraTime": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "team": {
+          "id": 17059,
+          "name": "Korea Republic",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+          "code": "KOR"
+        },
+        "player": {
+          "id": 17075,
+          "apiId": 12109880,
+          "name": "Se-hun Oh"
+        },
+        "assist": {
+          "id": 47635,
+          "apiId": 13186117,
+          "name": "Min-kyu Song"
+        },
+        "comments": "Header"
+      }
+    ]
+  }
+}

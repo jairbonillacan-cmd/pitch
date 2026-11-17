@@ -1,0 +1,26 @@
+{
+  "method": "POST",
+  "url": "https://api.scoutpicks.aertech-labs.com/simulations/calculate",
+  "requestBody": {
+    "matchId": 54091,
+    "betType": "match_totals",
+    "metric": "goals",
+    "comparison": "over",
+    "line": 2.5,
+    "period": "full_match",
+    "timeframe": "l10"
+  },
+  "status": 400,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "success": false,
+    "error": {
+      "name": "ZodError",
+      "message": "[\n  {\n    \"code\": \"custom\",\n    \"path\": [],\n    \"message\": \"Either insightId OR (playerId/teamId + metric + comparison + line) must be provided\"\n  }\n]"
+    }
+  }
+}

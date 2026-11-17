@@ -1,0 +1,67 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/props/h2h/17181/14678",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "8e072157-e83a-4b4f-8dc4-fb964f0124e0",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:47 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "team1": {
+      "id": 17181,
+      "name": "Wales",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+      "code": "WAL"
+    },
+    "team2": {
+      "id": 14678,
+      "name": "Portugal",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+      "code": "POR"
+    },
+    "matchesPlayed": 2,
+    "record": {
+      "team1Wins": 0,
+      "draws": 0,
+      "team2Wins": 2
+    },
+    "averages": {
+      "totalGoals": 1.5,
+      "totalCorners": 6,
+      "bttsRate": 0
+    },
+    "matches": [
+      {
+        "date": "2026-09-24T18:45:00.000Z",
+        "team1Goals": 0,
+        "team2Goals": 1,
+        "venue": "away",
+        "corners": 12
+      },
+      {
+        "date": "2016-07-06T19:00:00.000Z",
+        "team1Goals": 0,
+        "team2Goals": 2,
+        "venue": "away",
+        "corners": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/bookmakers/offers?channel=web",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "f797fa40-90eb-4053-9172-561ddc3b5a6f",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:29 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "cache-control": "private, no-store",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "eligible": true,
+    "offers": [
+      {
+        "bookmakerId": 4,
+        "bookmakerName": "Stake",
+        "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+        "campaignKey": "stake-mx-welcome-2026-11",
+        "campaignId": "bkc_stake_mx_202611",
+        "linkId": "bkl_stake_mx_202611",
+        "url": "https://stake.mx/?offer=scoutpicks&c=scoutpicks",
+        "termsUrl": null,
+        "termsSummary": null,
+        "benefits": [
+          {
+            "type": "deposit_match",
+            "amount": "2000.00",
+            "currency": "MXN",
+            "percent": 100,
+            "minDeposit": null,
+            "title": "Duplicamos tu primer depósito",
+            "description": "hasta $2.000 MXN"
+          }
+        ],
+        "perkClaim": null,
+        "registered": false
+      },
+      {
+        "bookmakerId": 5,
+        "bookmakerName": "JugaBet",
+        "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+        "campaignKey": "jugabet-mx-welcome-2026-11",
+        "campaignId": "bkc_jugabet_mx_202611",
+        "linkId": "bkl_jugabet_mx_202611",
+        "url": "https://trackinginflu.com/?serial=61372431&creative_id=7507",
+        "termsUrl": null,
+        "termsSummary": [
+          {
+            "title": "Depósito",
+            "items": [
+              "Depósito mínimo: $100 MXN",
+              "Tienes 3 días desde que recibes el bono",
+              "Solo califica el primer depósito",
+              "El depósito queda retenido hasta cumplir el rollover"
+            ]
+          },
+          {
+            "title": "Bono",
+            "items": [
+              "125% del depósito, máximo $5.000 MXN",
+              "Apuéstalo 10 veces en cualquier evento deportivo"
+            ]
+          },
+          {
+            "title": "Apuestas que califican",
+            "items": [
+              "Simples y múltiples: cuota mínima 1.67 (−150) por selección",
+              "Pre-partido y en vivo · 10 días para cumplirlo",
+              "Ganancia máxima: 3 veces el bono"
+            ]
+          }
+        ],
+        "benefits": [
+          {
+            "type": "deposit_match",
+            "amount": "5000.00",
+            "currency": "MXN",
+            "percent": 125,
+            "minDeposit": "100.00",
+            "title": "125% de bono + 50 giros gratis",
+            "description": "hasta $5.000 MXN · depósito mínimo $100 · en casino: 500% + 125 giros"
+          },
+          {
+            "type": "scout_pro_month",
+            "amount": null,
+            "currency": null,
+            "percent": null,
+            "minDeposit": null,
+            "title": "+1 mes de Scout Picks Pro gratis",
+            "description": "Cuando deposites, mándanos tu ID de jugador de JugaBet y lo activamos."
+          }
+        ],
+        "perkClaim": null,
+        "registered": false
+      }
+    ]
+  }
+}

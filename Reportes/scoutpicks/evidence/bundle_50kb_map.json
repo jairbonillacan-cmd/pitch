@@ -1,0 +1,1059 @@
+[
+  {
+    "range": "0..50,000",
+    "sample_strings": [
+      "?self:{};e.SENTRY_RELEASE={id:",
+      "sentry-dbid-d3d32496-d7c1-4e3e-a926-e30c137428da",
+      "scoutai://",
+      "pick",
+      "match",
+      "picks",
+      "),matchId:e.get(",
+      "),pickId:e.get(",
+      "notificationMatchId",
+      "notificationPickId",
+      "AxiosError",
+      "authorization"
+    ]
+  },
+  {
+    "range": "50,000..100,000",
+    "sample_strings": [
+      "https://api.scoutpicks.aertech-labs.com",
+      "),revenueCatWebApiKey:Cc(",
+      "),revenueCatWebOfferingId:Cc(",
+      "https://us.i.posthog.com",
+      "i18next:",
+      "i18next/PATH_KEY",
+      "hasLoadedNamespace: i18next was not initialized",
+      "react-i18next::"
+    ]
+  },
+  {
+    "range": "100,000..150,000",
+    "sample_strings": [
+      "NO_I18NEXT_INSTANCE",
+      "player",
+      "player_prop",
+      "team",
+      "team_prop",
+      "match",
+      "match_totals",
+      "full_match",
+      "}var Rz={es:{match_result:",
+      ",player_goals:",
+      ",player_assists:",
+      ",player_ga:"
+    ]
+  },
+  {
+    "range": "150,000..200,000",
+    "sample_strings": [
+      "}},profile:{oddsFormat:",
+      ",bookmakers:",
+      "},oddsFormats:{example:",
+      "},bookmakerPreferences:{title:",
+      ",noBookmakers:",
+      ",noBookmakersSubtitle:",
+      "},notificationSettings:{marketAlerts:",
+      ",marketAlertsSubtitle:",
+      "},sections:{alerts:",
+      ",playerUpdates:",
+      "},pickProgress:",
+      ",pickProgressSubtitle:"
+    ]
+  },
+  {
+    "range": "200,000..250,000",
+    "sample_strings": [
+      ",closestMatch:",
+      ",player:",
+      ",team:",
+      ",leagueIds:",
+      ",teamIds:",
+      ",matchIds:",
+      ",playerPositions:",
+      ",minOddsValue:",
+      ",maxOddsValue:",
+      ",full_match:",
+      ",matchDateStart:",
+      ",matchDateEnd:"
+    ]
+  },
+  {
+    "range": "250,000..300,000",
+    "sample_strings": [
+      ",refineMatches:",
+      ",matchStatus:",
+      ",filtersSelected_one:",
+      ",filtersSelected_other:",
+      ",filtersSelected_many:",
+      ",applyFilters:",
+      ",activeFilters:",
+      ",removeFilter:",
+      ",filteredMatches:",
+      ",filters:",
+      ",loadingMatches:",
+      ",noMatches:"
+    ]
+  },
+  {
+    "range": "300,000..350,000",
+    "sample_strings": [
+      ",moreBookmakers_other:",
+      ",matchFinished:",
+      ",goToMatch:",
+      ",goToMatchHint:",
+      ",alertWhenOpens:",
+      ",tokenMatch:",
+      ",matchTitle:",
+      ",cardNotice:{pick_market:",
+      ",pick_match:",
+      ",recurring_this_match:",
+      ",recurring_next_match:",
+      ",player_not_found:"
+    ]
+  },
+  {
+    "range": "350,000..400,000",
+    "sample_strings": [
+      "Encontrar valor nas odds",
+      "O Scout Picks mostra se os dados confirmam sua leitura.",
+      "}}},_ge={onboardingV2:{common:{continue:",
+      "}},leagues:{titleStart:`Quais ligas\n`,titleHighlight:",
+      "}},oddsFormat:{titleStart:`Escolha seu\n`,titleHighlight:",
+      ",titleStart:`Picks ativos\n`,titleHighlight:",
+      ",titleStart:`Os melhores picks\n`,titleHighlight:",
+      ",cards:{safePickLabel:",
+      ",safePickTitle:",
+      ",safePickSubtitle:",
+      "}}}},vge={paywall:{brandTitle:",
+      "},features:{insights:"
+    ]
+  },
+  {
+    "range": "400,000..450,000",
+    "sample_strings": [
+      "PostHog logs flush failed:",
+      "}let y_e=class{match(t){return typeof t==",
+      "You must initialize PostHog before calling ",
+      "posthog-js",
+      "PostHog Person URL",
+      "PostHog Recording URL",
+      "https://sentry.io/organizations/",
+      "$posthog_sr_group_event_trigger_",
+      "$posthog_sr_group_url_trigger_",
+      "$posthog_sr_group_sampling_",
+      "+n),m},R2=function(e,t){var r=e.match(new RegExp(t+"
+    ]
+  },
+  {
+    "range": "450,000..500,000",
+    "sample_strings": [
+      "_posthog",
+      "Failed to fetch remote config from PostHog.",
+      ").filter(c=>c.split(",
+      "PostHog request timed out",
+      ")===0),...r.filter(a=>a.url.indexOf(",
+      "SessionIdManager requires a PostHogPersistence instance",
+      "i.posthog.com",
+      "https://us.i.posthog.com",
+      "https://us.posthog.com",
+      "[PostHog ExternalIntegrations]",
+      "posthog",
+      "__posthog_debug=true"
+    ]
+  },
+  {
+    "range": "500,000..550,000",
+    "sample_strings": [
+      "No userId set, resetting PostHog",
+      "UserId set, identifying with PostHog",
+      "PostHog JS",
+      "PostHog extensions initialized (",
+      "Error executing queued PostHog call",
+      "No event name provided to posthog.capture",
+      "posthog.capture",
+      "Unique user id has not been set in posthog.identify",
+      "posthog.identify",
+      "posthog.setPersonProperties",
+      "posthog.unsetPersonProperties",
+      "posthog.group requires a group type and group key"
+    ]
+  },
+  {
+    "range": "550,000..600,000",
+    "sample_strings": [
+      "__posthog",
+      "_postHogToolbarParams",
+      "__posthogHandledLogsRequestError",
+      "posthog.featureFlags.overrideFeatureFlags",
+      "capturePerformance",
+      "Exception dropped: matched a suppression rule",
+      "Exception dropped: thrown by the PostHog SDK",
+      "posthog.com/static"
+    ]
+  },
+  {
+    "range": "600,000..650,000",
+    "sample_strings": [
+      "PostHog Extensions not found.",
+      "__posthog",
+      "ph_authorize",
+      "posthog-browser-logs",
+      "PostHog logs flush failed:",
+      "PostHog metrics flush failed:",
+      "scout_pro_all_v2:baseline-v2-weekly",
+      "scout_pro_all_v2:baseline-v2-monthly",
+      "scout_pro_all_v2:baseline-v2-yearly",
+      "scout_pro_one_extra_v1:one-extra-v1-monthly",
+      "scout_pro_two_extra_v1:two-extra-v1-monthly",
+      "scout_pro_all_v2:mx-2026q3-v1-weekly"
+    ]
+  },
+  {
+    "range": "650,000..700,000",
+    "sample_strings": [
+      "saved_filters_opened",
+      "home_find_another_match_clicked",
+      "home_match_bookmaker_odds_toggled",
+      "saved_insight_view_error",
+      "saved_insight_view_retry",
+      "scout_list",
+      "saved_insight_view_editor_action",
+      "custom_filters_browsed",
+      "saved_insight_view_wizard_action",
+      "filter_builder_action",
+      "my_picks_tab_selected",
+      "v2_bookmaker_odds_toggled"
+    ]
+  },
+  {
+    "range": "700,000..750,000",
+    "sample_strings": [
+      "/picks/saved-keys",
+      "/picks/performance/filters",
+      "/picks/performance",
+      "/picks",
+      "Failed to fetch saved pick keys:",
+      "Failed to fetch picks",
+      "Saved pick has no id",
+      "Failed to unsave pick:",
+      "Failed to save pick:",
+      "Failed to move pick to another bookmaker:",
+      "[Auth] locale sync failed:",
+      "[Auth] onboarding completion failed:"
+    ]
+  },
+  {
+    "range": "750,000..800,000",
+    "sample_strings": []
+  },
+  {
+    "range": "800,000..850,000",
+    "sample_strings": []
+  },
+  {
+    "range": "850,000..900,000",
+    "sample_strings": []
+  },
+  {
+    "range": "900,000..950,000",
+    "sample_strings": []
+  },
+  {
+    "range": "950,000..1,000,000",
+    "sample_strings": [
+      "match",
+      "backdrop-filter"
+    ]
+  },
+  {
+    "range": "1,000,000..1,050,000",
+    "sample_strings": [
+      "pick-name",
+      "pick-caption",
+      "lucide",
+      "list-filter",
+      "radix.slottable",
+      "__radixId"
+    ]
+  },
+  {
+    "range": "1,050,000..1,100,000",
+    "sample_strings": [
+      "Scout Picks",
+      ",t].filter(Boolean).join(",
+      "sonner-loader",
+      "data-sonner-toast",
+      "&&window.matchMedia&&window.matchMedia(",
+      ").matches?",
+      ")return;const G=window.matchMedia(",
+      ",({matches:V})=>{I(V?",
+      "players",
+      "teams",
+      "radix.slottable"
+    ]
+  },
+  {
+    "range": "1,100,000..1,150,000",
+    "sample_strings": [
+      "__radixId",
+      "radix.slottable",
+      "data-radix-focus-guard",
+      "),remove:mn(a=>t(n=>n.filter(s=>s!==a)),",
+      "data-radix-popper-side",
+      "data-radix-popper-align",
+      "--radix-popper-available-width",
+      "--radix-popper-available-height",
+      "--radix-popper-anchor-width",
+      "--radix-popper-anchor-height"
+    ]
+  },
+  {
+    "range": "1,150,000..1,200,000",
+    "sample_strings": [
+      "RADIX:SYNC_STATE",
+      ")].filter(Boolean).join(",
+      "--radix-popover-content-transform-origin",
+      "var(--radix-popper-transform-origin)",
+      "--radix-popover-content-available-width",
+      "var(--radix-popper-available-width)",
+      "--radix-popover-content-available-height",
+      "var(--radix-popper-available-height)",
+      "--radix-popover-trigger-width",
+      "var(--radix-popper-anchor-width)",
+      "--radix-popover-trigger-height",
+      "var(--radix-popper-anchor-height)"
+    ]
+  },
+  {
+    "range": "1,200,000..1,250,000",
+    "sample_strings": [
+      "]:not(:disabled)')).filter(c=>c.closest('[role=",
+      "]:not(:disabled)')).filter(m=>m.closest('[role=",
+      "referees",
+      "matches",
+      "insights",
+      "webMatchPicksBet.picksTable",
+      "odds",
+      ",children:o(`webMatchPicksBet.columns.${l}`)},l))})}),i.jsx(",
+      "match-timeline gap-0 p-4",
+      "picks",
+      "pick",
+      "matches_error"
+    ]
+  },
+  {
+    "range": "1,250,000..1,300,000",
+    "sample_strings": [
+      "bookmaker_offer_viewed",
+      "odds_menu",
+      ",bookmaker:i.jsx(r8,{src:N,name:P,small:m===",
+      ",{bookmaker:A.bookmakerName})} ${h(",
+      "webHome.savePick",
+      "/matches/$matchId",
+      "matches",
+      "/picks/$pickId",
+      "picks",
+      "/players/$playerId",
+      "players",
+      "/teams/$teamId"
+    ]
+  },
+  {
+    "range": "1,300,000..1,350,000",
+    "sample_strings": [
+      "--radix-tooltip-content-transform-origin",
+      "var(--radix-popper-transform-origin)",
+      "--radix-tooltip-content-available-width",
+      "var(--radix-popper-available-width)",
+      "--radix-tooltip-content-available-height",
+      "var(--radix-popper-available-height)",
+      "--radix-tooltip-trigger-width",
+      "var(--radix-popper-anchor-width)",
+      "--radix-tooltip-trigger-height",
+      "var(--radix-popper-anchor-height)",
+      "player",
+      "match"
+    ]
+  },
+  {
+    "range": "1,350,000..1,400,000",
+    "sample_strings": [
+      "BackendInvalidAuthToken",
+      "BackendGatewaySetupErrorStripeTaxNotActive",
+      "stripe_tax_unsupported_country",
+      "StripeTaxNotActive",
+      "StripeInvalidTaxOriginAddress",
+      "StripeMissingRequiredPermission",
+      "StripeInvalidTaxOriginAddressDuringCheckout",
+      "Secure checkout by RevenueCat",
+      "error_page.error_title_stripe_tax_not_active",
+      "Stripe Tax not active",
+      "error_page.error_title_stripe_invalid_tax_origin_address",
+      "error_page.error_title_stripe_missing_required_permission"
+    ]
+  },
+  {
+    "range": "1,400,000..1,450,000",
+    "sample_strings": [
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_missing_required_permission",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "Pago seguro mediante RevenueCat",
+      "error_page.error_title_stripe_missing_required_permission",
+      "Falta permiso de Stripe",
+      "error_page.error_title_stripe_tax_not_active",
+      "Stripe Tax no está activo"
+    ]
+  },
+  {
+    "range": "1,450,000..1,500,000",
+    "sample_strings": [
+      "RevenueCat 安全結帳",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "缺少 Stripe 權限",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "購買失敗，因為 Stripe Tax 未啟用。在正式環境中，購買將在不套用稅金的情況下運作。",
+      "error_page.error_message_stripe_missing_required_permission",
+      "購買失敗，因為 Stripe 應用程式缺少必要的權限。在正式環境中，購買將在不套用稅金的情況下運作。"
+    ]
+  },
+  {
+    "range": "1,500,000..1,550,000",
+    "sample_strings": [
+      "Suojautunut kassatoiminto RevenueCatin kautta",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "Puuttuva Stripe-käyttöoikeus",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_missing_required_permission",
+      "error_page.error_title_stripe_tax_not_active",
+      "Stripe Tax ei ole aktiivinen"
+    ]
+  },
+  {
+    "range": "1,550,000..1,600,000",
+    "sample_strings": [
+      "RevenueCat द्वारा सुरक्षित चेकआउट",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_missing_required_permission",
+      "error_page.error_title_stripe_tax_not_active",
+      "error_page.error_title_stripe_invalid_tax_origin_address",
+      "Biztonságos fizetés a RevenueCat-en keresztül"
+    ]
+  },
+  {
+    "range": "1,600,000..1,650,000",
+    "sample_strings": [
+      "Pembayaran selamat oleh RevenueCat",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "Kebenaran Stripe hilang",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_missing_required_permission",
+      "error_page.error_title_stripe_tax_not_active",
+      "Cukai Stripe tidak aktif"
+    ]
+  },
+  {
+    "range": "1,650,000..1,700,000",
+    "sample_strings": [
+      "Безопасная оплата через RevenueCat",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "Отсутствует разрешение Stripe",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_missing_required_permission",
+      "error_page.error_title_stripe_tax_not_active",
+      "Stripe Tax не активен"
+    ]
+  },
+  {
+    "range": "1,700,000..1,750,000",
+    "sample_strings": [
+      "RevenueCat ile güvenli ödeme",
+      "paywall_variables.price_per_period",
+      "paywall_variables.sub_relative_discount",
+      "paywall_variables.free_price",
+      "paywall_variables.total_price_and_per_month",
+      "error_page.error_title_stripe_missing_required_permission",
+      "Eksik Stripe izni",
+      "error_page.error_message_stripe_invalid_tax_origin_address",
+      "error_page.error_message_stripe_tax_not_active",
+      "error_page.error_message_stripe_missing_required_permission",
+      "error_page.error_title_stripe_tax_not_active",
+      "Stripe Vergi aktif değil"
+    ]
+  },
+  {
+    "range": "1,750,000..1,800,000",
+    "sample_strings": [
+      "svelte-1eerlbf",
+      "paywall",
+      "Paywall context not found",
+      "paywall-state",
+      "web_paywall_link",
+      "sizer svelte-17mln20",
+      "alert",
+      "rc-input-error svelte-17mln20",
+      "svelte-17mln20",
+      "rc-gradient-border svelte-17mln20",
+      ")return;const g=window.matchMedia("
+    ]
+  },
+  {
+    "range": "1,800,000..1,850,000",
+    "sample_strings": [
+      "rc-zlayer-layer svelte-1hicfnk",
+      "svelte-1hicfnk",
+      "].filter(Boolean).join(",
+      "option-wrapper svelte-votjdk",
+      "svelte-votjdk",
+      ".option-wrapper.svelte-votjdk {display:contents;}",
+      "qr-wrapper svelte-j0pl28",
+      "qr-code svelte-j0pl28",
+      "svelte-j0pl28",
+      "),p=Le(!1);Qa(()=>{const _=window.matchMedia(",
+      "page svelte-1b5rmw2",
+      "svelte-1b5rmw2"
+    ]
+  },
+  {
+    "range": "1,850,000..1,900,000",
+    "sample_strings": [
+      "svelte-7u9xkl",
+      "].filter(Boolean).join(",
+      "custom-wallet-button svelte-1wondk4",
+      "svelte-1wondk4",
+      "wallet-skeleton rc-gradient-border svelte-k8z4d2",
+      "wallet-skeleton-shimmer svelte-k8z4d2",
+      "svelte-k8z4d2",
+      "svelte-16x6nlz",
+      "rc-zlayer-layer svelte-20zubz",
+      "svelte-us0djn",
+      "svelte-pt59af",
+      "backdrop svelte-myl4hm"
+    ]
+  },
+  {
+    "range": "1,900,000..1,950,000",
+    "sample_strings": [
+      "svelte-12cqcmf",
+      "https://sdk.revenuecat-static.com",
+      "web-view svelte-1b8p8cw",
+      "svelte-1agy3p0",
+      "rcb-processing svelte-18lt1pg",
+      "svelte-18lt1pg",
+      "svelte-7rmpg4",
+      "rcb-modal-footer svelte-gz2zuy",
+      "svelte-gz2zuy",
+      "footer.svelte-gz2zuy {display:flex;flex-direction:column;}",
+      "svelte-1lkpm18",
+      "svelte-7lmlfa"
+    ]
+  },
+  {
+    "range": "1,950,000..2,000,000",
+    "sample_strings": [
+      "stripe-js",
+      "Failed to load Stripe.js",
+      "Stripe.js not available",
+      "Stripe.js@",
+      " was loaded on the page, but @stripe/stripe-js@",
+      " expected Stripe.js@",
+      "You cannot change load parameters after calling loadStripe",
+      "ErrorLoadingStripe",
+      "Stripe client not found",
+      "Stripe configuration is missing",
+      "stripe",
+      "linkAuthentication"
+    ]
+  },
+  {
+    "range": "2,000,000..2,050,000",
+    "sample_strings": [
+      "miss-match",
+      "rc-checkout-form-container svelte-zfhfge",
+      "rc-checkout-price-update-info-container svelte-zfhfge",
+      "rc-checkout-pay-container svelte-zfhfge",
+      "rc-sandbox-only-error svelte-1dod9xz",
+      "svelte-1dod9xz",
+      "rcb-upgrade-section svelte-hmx3uo",
+      "rcb-upgrade-section-label svelte-hmx3uo",
+      "rcb-upgrade-checkout svelte-hmx3uo",
+      "rcb-upgrade-header svelte-hmx3uo",
+      "rcb-upgrade-header-title svelte-hmx3uo",
+      "rcb-upgrade-header-subtitle svelte-hmx3uo"
+    ]
+  },
+  {
+    "range": "2,050,000..2,100,000",
+    "sample_strings": [
+      "rcb-pricing-info svelte-1jzyaxi",
+      "rcb-pricing-info-header svelte-1jzyaxi",
+      "svelte-1jzyaxi",
+      "svelte-18ddpt0",
+      "rcb-ui-container svelte-18ddpt0",
+      "svelte-1ewgunr",
+      "rcb-ui-layout svelte-1ewgunr",
+      "layout-wrapper svelte-13h5jq9",
+      "svelte-13h5jq9",
+      "navbar-body svelte-191m2u3",
+      "navbar-header svelte-191m2u3",
+      "rcb-ui-navbar svelte-191m2u3"
+    ]
+  },
+  {
+    "range": "2,100,000..2,150,000",
+    "sample_strings": [
+      "rcb-fullscreen-wrapper svelte-skuziz",
+      "rcb-fullscreen-content svelte-skuziz",
+      "svelte-skuziz",
+      "rcb-paddle-summary-muted svelte-1k1pux8",
+      "rcb-paddle-summary svelte-1k1pux8",
+      "rcb-paddle-summary-card svelte-1k1pux8",
+      "rcb-paddle-summary-amount-row svelte-1k1pux8",
+      "rcb-paddle-summary-amount svelte-1k1pux8",
+      "rcb-paddle-summary-product svelte-1k1pux8",
+      "rcb-paddle-summary-product-price svelte-1k1pux8",
+      "svelte-1k1pux8",
+      "rcb-paddle-return-button svelte-5dakll"
+    ]
+  },
+  {
+    "range": "2,150,000..2,200,000",
+    "sample_strings": [
+      "paywall_impression",
+      "paywall_close",
+      "paywall_cancel",
+      "paywall_component_interacted",
+      "custom_paywall_impression",
+      "svelte-17914yi",
+      "rc-simulated-store-modal-overlay svelte-17914yi",
+      "rc-simulated-store-modal svelte-17914yi",
+      "rc-simulated-store-modal-content svelte-17914yi",
+      "rc-simulated-store-modal-title svelte-17914yi",
+      "rc-simulated-store-modal-details svelte-17914yi",
+      "rc-simulated-store-modal-buttons svelte-17914yi"
+    ]
+  },
+  {
+    "range": "2,200,000..2,250,000",
+    "sample_strings": [
+      "),!h.paywallComponents)throw new Error(",
+      "paywall_close",
+      "paywall_cancel",
+      "paywall_impression",
+      "Stripe Billing Apple Pay purchase is ready",
+      "Apple Pay is unavailable; purchase will use Stripe Checkout",
+      "RevenueCat web API key not configured",
+      "web_paywall",
+      "Scout Picks Pro",
+      "lockedInsight.thisLeague",
+      "lockedInsight.unlockFor",
+      "lockedInsight.moreAngles"
+    ]
+  },
+  {
+    "range": "2,250,000..2,300,000",
+    "sample_strings": [
+      ",{children:t(`webReferee.${a}`)}),i.jsx(",
+      "webReferee.empty",
+      "referee_screen_error",
+      "referee_profile_opened",
+      "referee_desktop_overview_viewed",
+      "referee_tab_viewed",
+      "/matches",
+      "webReferee.strictness",
+      "webReferee.rank",
+      "webReferee.noRank",
+      "webPlayer.back",
+      "referee_back_clicked"
+    ]
+  },
+  {
+    "range": "2,300,000..2,350,000",
+    "sample_strings": [
+      "picks",
+      "odds",
+      "/matches",
+      "matches-group-card gap-0 overflow-hidden rounded-lg p-0",
+      "matches",
+      "league_matches_filter_changed",
+      "webLeague.allDates",
+      "performancePage.applyDates",
+      "performancePage.cancel",
+      "webLeague.group",
+      "webLeague.round",
+      "webLeague.team"
+    ]
+  },
+  {
+    "range": "2,350,000..2,400,000",
+    "sample_strings": [
+      "marketAlerts.card.options",
+      ",children:a.odds}),i.jsx(Bd,{name:a.bookmaker,className:",
+      "marketAlerts.builder.sentenceRecurringPlayer",
+      "marketAlerts.builder.sentenceRecurringTeam",
+      "marketAlerts.card.recurringIn",
+      "marketAlerts.card.recurringEverywhere",
+      "marketAlerts.card.nextMatch",
+      "marketAlerts.card.noNextMatch",
+      "marketAlerts.manage.watchingAt",
+      "marketAlerts.card.moreBookmakers",
+      ",children:o.odds}),i.jsx(",
+      "marketAlerts.manage.watchedAt"
+    ]
+  },
+  {
+    "range": "2,400,000..2,450,000",
+    "sample_strings": [
+      ",{bookmakers:s.map(Z).join(",
+      ")}):t.family&&r&&t.bookmakerIds.length===0?f(",
+      "marketAlerts.builder.tokenMarket",
+      "marketAlerts.builder.tokenOpens",
+      "team",
+      "marketAlerts.builder.tokenEitherTeam",
+      "marketAlerts.builder.tokenAnyone",
+      "marketAlerts.recurring.everyTeamMatch",
+      "marketAlerts.recurring.everyMatch",
+      "marketAlerts.recurring.inCompetitions",
+      "marketAlerts.recurring.anyCompetition",
+      "marketAlerts.builder.matchTitle"
+    ]
+  },
+  {
+    "range": "2,450,000..2,500,000",
+    "sample_strings": [
+      "onboardingQuiz.back",
+      "marketAlerts.builder.stepper.progress",
+      "marketAlerts.builder.title",
+      "market-alert-step-exit",
+      "marketAlerts.builder.stepper.choices",
+      "player",
+      "Players",
+      "team",
+      "Teams",
+      "Match",
+      "match",
+      "marketAlerts.builder.stepper.kindHint"
+    ]
+  },
+  {
+    "range": "2,500,000..2,550,000",
+    "sample_strings": [
+      "player_chart_live_bar_viewed",
+      "player_chart_live_tooltip_opened",
+      "webPlayer.liveMatch",
+      "webPlayer.minutesPlayed",
+      "webPlayer.liveNotCounted",
+      "player_chart_match_opened",
+      "webPlayer.awayOpponent",
+      "webPlayer.neutralOpponent",
+      "webPlayer.homeOpponent",
+      "player_chart_minutes_viewed",
+      "webPicks.chartValues",
+      "webPlayer.versus"
+    ]
+  },
+  {
+    "range": "2,550,000..2,600,000",
+    "sample_strings": [
+      "team_matches_load_failed",
+      "team_matches_competition_filter_changed",
+      "team_match_opened",
+      "matches_tab",
+      "teams",
+      "team_squad_load_error",
+      "team_squad_retry_pressed",
+      "webTeam.squadEmpty",
+      ",onOpen:()=>z.trackTeamTabEvent(",
+      "webTeam.shirtNumber",
+      "team_standings_load_failed",
+      "webTeam.noStandings"
+    ]
+  },
+  {
+    "range": "2,600,000..2,650,000",
+    "sample_strings": [
+      "match-comparison-card gap-0 overflow-hidden p-0",
+      ",children:[[d.team1.name,d.record.team1Wins],[a(",
+      "webMatches.averageCorners",
+      "webMatches.btts",
+      ",children:d.matches.map((u,p)=>{const m=u.venue===",
+      "?d.team1:d.team2,f=u.venue===",
+      "?d.team2:d.team1;return i.jsxs(",
+      "?u.team1Goals:u.team2Goals,",
+      "?u.team2Goals:u.team1Goals]}),i.jsxs(",
+      "webMatches.noMeetings",
+      ",children:l.data.homeTeam.team.name}),i.jsx(",
+      ",children:l.data.awayTeam.team.name})]})}),i.jsx("
+    ]
+  },
+  {
+    "range": "2,650,000..2,700,000",
+    "sample_strings": [
+      "match-injuries-section gap-0 overflow-hidden p-0",
+      "matchContext.noInjuries",
+      "matches",
+      "match",
+      "webMatches.details",
+      "match-detail-panel relative min-w-0",
+      "match-detail-header flex items-start gap-3 md:items-center",
+      "match-primary-tabs w-full",
+      "match-tab-content match-tab-picks",
+      "picks",
+      "match-tab-content match-tab-odds",
+      "odds"
+    ]
+  },
+  {
+    "range": "2,700,000..2,750,000",
+    "sample_strings": [
+      "webPlayer.market",
+      "webMatchPicksBet.line",
+      "player_defense_analysis_toggled",
+      "webPlayer.analyzeDefense",
+      "webHome.removePick",
+      "webHome.savePick",
+      "webPlayer.noPrice",
+      "players",
+      "insights",
+      "player_detail_error",
+      "related_picks",
+      "webPlayer.morePicks"
+    ]
+  },
+  {
+    "range": "2,750,000..2,800,000",
+    "sample_strings": [
+      "filterBuilder.matchDates",
+      "filterBuilder.previousMonth",
+      "filterBuilder.nextMonth",
+      "filterBuilder.sheetApply",
+      ",onClick:()=>{z.trackCustomFiltersAction(",
+      "webCustomFilters.retry",
+      "filterManager.search",
+      "leagueIds",
+      "teamIds",
+      "matchIds",
+      "playerPositions",
+      "player"
+    ]
+  },
+  {
+    "range": "2,800,000..2,850,000",
+    "sample_strings": [
+      "saved_insight_view_create_opened",
+      "scout",
+      "filterBuilder.changesAction",
+      "filterBuilder.saveAction",
+      "user_cancelled_authorize",
+      "authScreens.appleSignInError",
+      "webAuth.continueWithApple",
+      "authScreens.emailPlaceholder",
+      "authScreens.googleSignInError",
+      "webAuth.continueWithGoogle",
+      "authScreens.loginShowcase.step1Title",
+      "authScreens.loginShowcase.step1Subtitle"
+    ]
+  },
+  {
+    "range": "2,850,000..2,900,000",
+    "sample_strings": [
+      "featured-picks",
+      "market-alerts",
+      "my-picks",
+      "big-matches",
+      "homeHub.featuredPicks",
+      "marketAlerts.hub.title",
+      "homeHub.performanceTitle",
+      "homeHub.bigMatches",
+      "webMyPicks.title",
+      "bookmakerOffers.offer.cta",
+      "bookmakerOffers.offer.newTab",
+      "bookmakerOffers.terms.title"
+    ]
+  },
+  {
+    "range": "2,900,000..2,950,000",
+    "sample_strings": [
+      "paywall.states.empty",
+      "paywall-plans-title",
+      "paywall.badges.bestValue",
+      "paywall.price.plain",
+      "paywall.continueFree",
+      "paywall-showcase-title",
+      "player",
+      "performancePage.mobile.didNotStart",
+      ",children:[i.jsx(bZe,{pick:e}),i.jsxs(",
+      "performancePage.mobile.profit",
+      "performancePage.mobile.ungrouped",
+      "performance-period"
+    ]
+  },
+  {
+    "range": "2,950,000..3,000,000",
+    "sample_strings": [
+      "performance_calendar_today",
+      "performancePage.today",
+      "performancePage.calendarHint",
+      "performancePage.grouping",
+      ",children:l(`performancePage.group.${p}`)},p))})]}),i.jsxs(",
+      "performancePage.chartTitle",
+      "performancePage.barLabel",
+      "performance",
+      "performance-filters",
+      "Performance",
+      "performance_error",
+      "filters"
+    ]
+  },
+  {
+    "range": "3,000,000..3,050,000",
+    "sample_strings": [
+      "featured_picks",
+      "featured-picks",
+      "homeHub.featuredPicks",
+      "webHome.viewAllPicks",
+      "webHome.previousPicks",
+      "webHome.nextPicks",
+      "insight",
+      "webCustomFilters.retry",
+      "matchDate",
+      "match",
+      ",children:[i.jsx(UJe,{match:e}),i.jsx(H,{as:",
+      "webMyPicks.progress"
+    ]
+  },
+  {
+    "range": "3,050,000..3,100,000",
+    "sample_strings": [
+      "Matches",
+      "matches",
+      "filtered",
+      "})),leagues:f.map(Ce=>I.get(Ce)??L.leagues[Ce]??{id:Ce,name:",
+      "matches_league_autojumped",
+      "matches_detail_viewed",
+      "matches_live_toggled",
+      "matches_filter_applied",
+      "matches_filters_closed",
+      "matches_filters_cleared",
+      "matches_fixture_selected",
+      "/matches/$matchId"
+    ]
+  },
+  {
+    "range": "3,100,000..3,150,000",
+    "sample_strings": [
+      ",children:e(`savedPicks.${q}`)}),i.jsx(",
+      ",onClick:()=>z.trackSavedPicksAction(",
+      "alert-circle",
+      "bookmakerOffers.claim.errors.invalid_id",
+      "bookmakerOffers.claim.errors.not_offered",
+      "bookmakerOffers.claim.errors.already_approved",
+      "bookmakerOffers.claim.errors.pending",
+      "bookmakerOffers.claim.errors.id_in_use",
+      "bookmakerOffers.claim.errors.network",
+      "bookmaker_perk_claim_viewed",
+      "bookmaker_perk_claim_submitted",
+      "bookmaker_perk_claim_failed"
+    ]
+  },
+  {
+    "range": "3,150,000..3,200,000",
+    "sample_strings": [
+      "/creator/pick-calendar",
+      "profileParity.creator",
+      "creatorTools.pickCalendar.title",
+      "creatorTools.pickCalendar.subtitle",
+      "pick_calendar",
+      "creatorTools.pickCalendar.redDaysLabel",
+      "creatorTools.pickCalendar.redDays.few",
+      "creatorTools.pickCalendar.redDays.some",
+      "creatorTools.pickCalendar.redDays.many",
+      "odds_range",
+      "creatorTools.pickCalendar.oddsLabel",
+      "webProfile.noLanguagesMatch"
+    ]
+  },
+  {
+    "range": "3,200,000..3,250,000",
+    "sample_strings": [
+      "__SENTRY_SUPPRESS_TRACING__",
+      "application/vnd.sentry.items.trace-metric+json",
+      "SentryBufferFullError",
+      "x-sentry-rate-limits",
+      "SentryInternalError",
+      "SentryDoNotSendEventError",
+      "__sentry_fetch_url_host__",
+      "Invalid sentry-trace data. Cannot generate trace data",
+      "sentry-trace",
+      "EventFilters",
+      "InboundFilters"
+    ]
+  },
+  {
+    "range": "3,250,000..3,300,000",
+    "sample_strings": [
+      "&&!!__SENTRY_BROWSER_BUNDLE__}function Iit(){return",
+      "__sentry_wrapped__",
+      "||__SENTRY_DEBUG__,Wt=Ar,Xit=(e,t)=>e>t[1]?",
+      "sentry.pageload.span_id",
+      "sentry.report_event",
+      "sentry-tracing-init",
+      "performance.timeOrigin",
+      "performance.activationStart",
+      "sentry.browser.measure_happened_before_request",
+      "sentry.browser.measure_start_time",
+      "sentry.browser.measure.detail",
+      "sentry.span_start_time_source"
+    ]
+  },
+  {
+    "range": "3,300,000..3,313,154",
+    "sample_strings": [
+      "sentry-trace",
+      "_sentry_idleSpan",
+      "auto.pageload.react.tanstack_router",
+      "auto.navigation.react.tanstack_router",
+      "authed",
+      "/paywall",
+      "/onboarding",
+      ",validateSearch:e=>({filters:e.filters===!0||e.filters===",
+      "/matches",
+      "/matches/$matchId",
+      "/picks/$pickId",
+      "/players/$playerId"
+    ]
+  }
+]

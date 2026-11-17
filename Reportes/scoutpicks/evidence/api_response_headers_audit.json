@@ -1,0 +1,41 @@
+{
+  "OPTIONS": {
+    "url": "https://api.scoutpicks.aertech-labs.com/insight-views",
+    "status": 204,
+    "headers": {
+      "access-control-allow-credentials": "true",
+      "access-control-allow-headers": "authorization,x-platform",
+      "access-control-allow-methods": "GET,HEAD,PUT,POST,DELETE,PATCH,QUERY",
+      "access-control-allow-origin": "https://scoutpicks.app",
+      "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+      "date": "Tue, 17 Nov 2026 15:25:28 GMT",
+      "vary": "Origin, Access-Control-Request-Headers",
+      "x-request-id": "01319caa-56d9-4046-9674-40398e34dbf9"
+    }
+  },
+  "GET": {
+    "url": "https://api.scoutpicks.aertech-labs.com/auth/get-session",
+    "status": 200,
+    "headers": {
+      "x-request-id": "0476057b-e62a-4959-929e-f2b994dc3c27",
+      "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+      "content-encoding": "gzip",
+      "x-permitted-cross-domain-policies": "none",
+      "x-content-type-options": "nosniff",
+      "date": "Tue, 17 Nov 2026 15:25:29 GMT",
+      "content-type": "application/json",
+      "vary": "Origin, Accept-Encoding",
+      "x-frame-options": "DENY",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+      "x-dns-prefetch-control": "off",
+      "cross-origin-resource-policy": "cross-origin",
+      "access-control-allow-credentials": "true",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "x-download-options": "noopen",
+      "access-control-allow-origin": "https://scoutpicks.app",
+      "x-xss-protection": "0",
+      "origin-agent-cluster": "?1"
+    }
+  }
+}

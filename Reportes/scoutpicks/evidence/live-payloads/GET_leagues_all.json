@@ -1,0 +1,2982 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "leagues": [
+      {
+        "id": 98,
+        "apiId": null,
+        "name": "Africa Cup of Nations",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/1117.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 99,
+        "apiId": null,
+        "name": "Africa Cup of Nations Qualifications",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1118.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": "2026-11-17T16:00:00.000Z",
+        "powerPriority": {
+          "score": 122.58917470712872,
+          "matchAt": "2026-11-17T20:00:00.000Z"
+        }
+      },
+      {
+        "id": 90,
+        "apiId": null,
+        "name": "African Nations Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/1103.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 135,
+        "apiId": null,
+        "name": "African Nations Championship Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 137,
+        "apiId": null,
+        "name": "All Africa Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 94,
+        "apiId": null,
+        "name": "CAF Champions League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/1107.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 60,
+        "apiId": null,
+        "name": "CAF World Cup Qualifiers",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/711.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 112,
+        "apiId": null,
+        "name": "Cosafa Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/3/1379.png",
+        "country": {
+          "id": 233,
+          "name": "Africa",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/africa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 75,
+        "apiId": null,
+        "name": "Ligue 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/9/809.png",
+        "country": {
+          "id": 82,
+          "name": "Algeria",
+          "code": "DZ",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/dz.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-18T16:45:00.000Z",
+        "powerPriority": {
+          "score": 111.25,
+          "matchAt": "2026-11-19T16:45:00.000Z"
+        }
+      },
+      {
+        "id": 54,
+        "apiId": null,
+        "name": "Copa Argentina",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/642.png",
+        "country": {
+          "id": 50,
+          "name": "Argentina",
+          "code": "AR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ar.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 119,
+        "apiId": null,
+        "name": "Copa de la Superliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1658.png",
+        "country": {
+          "id": 50,
+          "name": "Argentina",
+          "code": "AR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ar.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 12,
+        "apiId": null,
+        "name": "Liga Profesional de Fútbol",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/636.png",
+        "country": {
+          "id": 50,
+          "name": "Argentina",
+          "code": "AR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ar.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T23:00:00.000Z",
+        "powerPriority": {
+          "score": 135.17000000000002,
+          "matchAt": "2026-11-20T23:00:00.000Z"
+        }
+      },
+      {
+        "id": 1261,
+        "apiId": null,
+        "name": "Primera B Nacional",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/645.png",
+        "country": {
+          "id": 50,
+          "name": "Argentina",
+          "code": "AR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ar.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 115,
+        "apiId": null,
+        "name": "Super Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/30/1502.png",
+        "country": {
+          "id": 50,
+          "name": "Argentina",
+          "code": "AR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ar.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 92,
+        "apiId": null,
+        "name": "AFC Asian Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/1105.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 88,
+        "apiId": null,
+        "name": "AFC Champions League Elite",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/1085.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 89,
+        "apiId": null,
+        "name": "AFC Champions League Two",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/1088.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 91,
+        "apiId": null,
+        "name": "ASEAN Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/1104.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 93,
+        "apiId": null,
+        "name": "Asian Cup Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/1106.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 118,
+        "apiId": null,
+        "name": "Asian Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/1555.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2030,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 100,
+        "apiId": null,
+        "name": "EAFF E-1 Football Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/31/1119.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 140,
+        "apiId": null,
+        "name": "EAFF Football Championship Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 124,
+        "apiId": null,
+        "name": "King's Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1690.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 104,
+        "apiId": null,
+        "name": "SAFF Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/1127.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-17T14:00:00.000Z",
+        "powerPriority": {
+          "score": 41.741817990789215,
+          "matchAt": "2026-11-17T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 127,
+        "apiId": null,
+        "name": "Southeast Asian Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1/1729.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 61,
+        "apiId": null,
+        "name": "WC Qualification Asia",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/714.png",
+        "country": {
+          "id": 243,
+          "name": "Asia",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/asia.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 14,
+        "apiId": null,
+        "name": "A-League Men",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/12/1356.png",
+        "country": {
+          "id": 53,
+          "name": "Australia",
+          "code": "AU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/au.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T08:40:00.000Z",
+        "powerPriority": {
+          "score": 130.81,
+          "matchAt": "2026-11-21T04:00:00.000Z"
+        }
+      },
+      {
+        "id": 26,
+        "apiId": null,
+        "name": "Admiral Bundesliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/21/181.png",
+        "country": {
+          "id": 24,
+          "name": "Austria",
+          "code": "AT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/at.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T16:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 152,
+        "apiId": null,
+        "name": "Challenger Pro League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/211.png",
+        "country": {
+          "id": 29,
+          "name": "Belgium",
+          "code": "BE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/be.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 27,
+        "apiId": null,
+        "name": "Pro League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/208.png",
+        "country": {
+          "id": 29,
+          "name": "Belgium",
+          "code": "BE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/be.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:45:00.000Z",
+        "powerPriority": {
+          "score": 152.69,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 105,
+        "apiId": null,
+        "name": "Super Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/1128.png",
+        "country": {
+          "id": 29,
+          "name": "Belgium",
+          "code": "BE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/be.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 111,
+        "apiId": null,
+        "name": "UEFA Europa League Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/1371.png",
+        "country": {
+          "id": 29,
+          "name": "Belgium",
+          "code": "BE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/be.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1292,
+        "apiId": null,
+        "name": "Liga De Futbol Prof",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1098.png",
+        "country": {
+          "id": 99,
+          "name": "Bolivia",
+          "code": "BO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/bo.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T19:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 56,
+        "apiId": null,
+        "name": "Copa do Brasil",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/654.png",
+        "country": {
+          "id": 51,
+          "name": "Brazil",
+          "code": "BR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/br.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 55,
+        "apiId": null,
+        "name": "Serie A",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/648.png",
+        "country": {
+          "id": 51,
+          "name": "Brazil",
+          "code": "BR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/br.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-18T22:30:00.000Z",
+        "powerPriority": {
+          "score": 145.49,
+          "matchAt": "2026-11-18T23:30:00.000Z"
+        }
+      },
+      {
+        "id": 153,
+        "apiId": null,
+        "name": "Serie B",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png",
+        "country": {
+          "id": 51,
+          "name": "Brazil",
+          "code": "BR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/br.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-22T19:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 131,
+        "apiId": null,
+        "name": "Supercopa do Brasil",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/1798.png",
+        "country": {
+          "id": 51,
+          "name": "Brazil",
+          "code": "BR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/br.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 28,
+        "apiId": null,
+        "name": "First League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/229.png",
+        "country": {
+          "id": 12,
+          "name": "Bulgaria",
+          "code": "BG",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/bg.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T16:00:00.000Z",
+        "powerPriority": {
+          "score": 111.22999999999999,
+          "matchAt": "2026-11-21T15:15:00.000Z"
+        }
+      },
+      {
+        "id": 123,
+        "apiId": null,
+        "name": "Parva Liga - Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/1682.png",
+        "country": {
+          "id": 12,
+          "name": "Bulgaria",
+          "code": "BG",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/bg.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 83,
+        "apiId": null,
+        "name": "Canadian Soccer League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/23/983.png",
+        "country": {
+          "id": 133,
+          "name": "Canada",
+          "code": "CA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ca.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 57,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/23/663.png",
+        "country": {
+          "id": 59,
+          "name": "Chile",
+          "code": "CL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/cl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T21:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 84,
+        "apiId": null,
+        "name": "Super League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/989.png",
+        "country": {
+          "id": 136,
+          "name": "China",
+          "code": "CN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/cn.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 58,
+        "apiId": null,
+        "name": "Liga BetPlay",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/672.png",
+        "country": {
+          "id": 56,
+          "name": "Colombia",
+          "code": "CO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/co.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T21:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 1267,
+        "apiId": null,
+        "name": "Primera B",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/678.png",
+        "country": {
+          "id": 56,
+          "name": "Colombia",
+          "code": "CO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/co.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1268,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png",
+        "country": {
+          "id": 103,
+          "name": "Costa Rica",
+          "code": "CR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/cr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T02:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 29,
+        "apiId": null,
+        "name": "1. HNL",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/244.png",
+        "country": {
+          "id": 11,
+          "name": "Croatia",
+          "code": "HR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/hr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T14:00:00.000Z",
+        "powerPriority": {
+          "score": 139.45,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 30,
+        "apiId": null,
+        "name": "Chance Liga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/262.png",
+        "country": {
+          "id": 38,
+          "name": "Czech Republic",
+          "code": "CZ",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/cz.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T14:00:00.000Z",
+        "powerPriority": {
+          "score": 145.11,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 31,
+        "apiId": null,
+        "name": "First Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/274.png",
+        "country": {
+          "id": 16,
+          "name": "Denmark",
+          "code": "DK",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/dk.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-19T18:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 11,
+        "apiId": null,
+        "name": "Superliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/271.png",
+        "country": {
+          "id": 16,
+          "name": "Denmark",
+          "code": "DK",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/dk.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T18:00:00.000Z",
+        "powerPriority": {
+          "score": 124.44999999999999,
+          "matchAt": "2026-11-20T18:00:00.000Z"
+        }
+      },
+      {
+        "id": 120,
+        "apiId": null,
+        "name": "Superliga Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/1659.png",
+        "country": {
+          "id": 16,
+          "name": "Denmark",
+          "code": "DK",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/dk.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 59,
+        "apiId": null,
+        "name": "Liga Pro",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/696.png",
+        "country": {
+          "id": 97,
+          "name": "Ecuador",
+          "code": "EC",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ec.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:00:00.000Z",
+        "powerPriority": {
+          "score": 128.69,
+          "matchAt": "2026-11-20T17:00:00.000Z"
+        }
+      },
+      {
+        "id": 76,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/30/830.png",
+        "country": {
+          "id": 88,
+          "name": "Egypt",
+          "code": "EG",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eg.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-23T15:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 1269,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/30/702.png",
+        "country": {
+          "id": 81,
+          "name": "El Salvador",
+          "code": "SV",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/sv.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 22,
+        "apiId": null,
+        "name": "Carabao Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 145,
+        "apiId": null,
+        "name": "Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/9/9.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:30:00.000Z",
+        "powerPriority": {
+          "score": 153.49,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 21,
+        "apiId": null,
+        "name": "Community Shield",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/23/23.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 350,
+        "apiId": null,
+        "name": "Enterprise National League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/17.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:45:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 33,
+        "apiId": null,
+        "name": "FA Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/24.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 154,
+        "apiId": null,
+        "name": "League One",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/12/12.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T20:00:00.000Z",
+        "powerPriority": {
+          "score": 147,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 156,
+        "apiId": null,
+        "name": "League Two",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/14.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:30:00.000Z",
+        "powerPriority": {
+          "score": 136.64,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 2,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+        "country": {
+          "id": 27,
+          "name": "England",
+          "code": "EN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:30:00.000Z",
+        "powerPriority": {
+          "score": 185.55,
+          "matchAt": "2026-11-21T12:30:00.000Z"
+        }
+      },
+      {
+        "id": 1,
+        "apiId": null,
+        "name": "Champions League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-24T17:45:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 108,
+        "apiId": null,
+        "name": "Euro Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 133,
+        "apiId": null,
+        "name": "Europa Conference League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/2286.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-26T15:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 4,
+        "apiId": null,
+        "name": "Europa League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-26T17:45:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 109,
+        "apiId": null,
+        "name": "European Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1326.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 116,
+        "apiId": null,
+        "name": "UEFA Nations League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-17T19:45:00.000Z",
+        "powerPriority": {
+          "score": 161.2919607053426,
+          "matchAt": "2026-11-17T19:45:00.000Z"
+        }
+      },
+      {
+        "id": 110,
+        "apiId": null,
+        "name": "UEFA Super Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/1328.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 63,
+        "apiId": null,
+        "name": "WC Qualification Europe",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png",
+        "country": {
+          "id": 1,
+          "name": "Europe",
+          "code": "EU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/eu.png"
+        },
+        "currentSeason": 2030,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 32,
+        "apiId": null,
+        "name": "Veikkausliiga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/4/292.png",
+        "country": {
+          "id": 20,
+          "name": "Finland",
+          "code": "FI",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fi.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 35,
+        "apiId": null,
+        "name": "Coupe de France",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/307.png",
+        "country": {
+          "id": 42,
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 36,
+        "apiId": null,
+        "name": "Coupe de la Ligue",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/22/310.png",
+        "country": {
+          "id": 42,
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 34,
+        "apiId": null,
+        "name": "Ligue 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/301.png",
+        "country": {
+          "id": 42,
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:45:00.000Z",
+        "powerPriority": {
+          "score": 138.09,
+          "matchAt": "2026-11-20T19:45:00.000Z"
+        }
+      },
+      {
+        "id": 121,
+        "apiId": null,
+        "name": "Ligue 1 Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/9/1673.png",
+        "country": {
+          "id": 42,
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 148,
+        "apiId": null,
+        "name": "Ligue 2",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/304.png",
+        "country": {
+          "id": 42,
+          "name": "France",
+          "code": "FR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/fr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:00:00.000Z",
+        "powerPriority": {
+          "score": 132.8,
+          "matchAt": "2026-11-21T13:00:00.000Z"
+        }
+      },
+      {
+        "id": 149,
+        "apiId": null,
+        "name": "2. Bundesliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/21/85.png",
+        "country": {
+          "id": 36,
+          "name": "Germany",
+          "code": "DE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/de.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:30:00.000Z",
+        "powerPriority": {
+          "score": 149.54000000000002,
+          "matchAt": "2026-11-21T12:00:00.000Z"
+        }
+      },
+      {
+        "id": 160,
+        "apiId": null,
+        "name": "3. Liga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/88.png",
+        "country": {
+          "id": 36,
+          "name": "Germany",
+          "code": "DE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/de.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T18:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 5,
+        "apiId": null,
+        "name": "Bundesliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/82.png",
+        "country": {
+          "id": 36,
+          "name": "Germany",
+          "code": "DE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/de.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:30:00.000Z",
+        "powerPriority": {
+          "score": 176.6,
+          "matchAt": "2026-11-20T19:30:00.000Z"
+        }
+      },
+      {
+        "id": 25,
+        "apiId": null,
+        "name": "DFB Pokal",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/109.png",
+        "country": {
+          "id": 36,
+          "name": "Germany",
+          "code": "DE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/de.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 37,
+        "apiId": null,
+        "name": "Super League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/325.png",
+        "country": {
+          "id": 25,
+          "name": "Greece",
+          "code": "GR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/gr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T17:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 1270,
+        "apiId": null,
+        "name": "Liga Nacional",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1/705.png",
+        "country": {
+          "id": 84,
+          "name": "Guatemala",
+          "code": "GT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/gt.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-26T02:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 1271,
+        "apiId": null,
+        "name": "Liga Nacional",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/30/734.png",
+        "country": {
+          "id": 255,
+          "name": "Honduras",
+          "code": "HN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/hn.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 38,
+        "apiId": null,
+        "name": "NB I",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/334.png",
+        "country": {
+          "id": 41,
+          "name": "Hungary",
+          "code": "HU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/hu.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:30:00.000Z",
+        "powerPriority": {
+          "score": 113.68,
+          "matchAt": "2026-11-21T12:30:00.000Z"
+        }
+      },
+      {
+        "id": 85,
+        "apiId": null,
+        "name": "Indian Super League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/1007.png",
+        "country": {
+          "id": 180,
+          "name": "India",
+          "code": "IN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/in.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T11:30:00.000Z",
+        "powerPriority": {
+          "score": 89.74000000000001,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 1276,
+        "apiId": null,
+        "name": "Liga 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/1019.png",
+        "country": {
+          "id": 114,
+          "name": "Indonesia",
+          "code": "ID",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/id.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T08:30:00.000Z",
+        "powerPriority": {
+          "score": 54.51,
+          "matchAt": "2026-11-21T12:00:00.000Z"
+        }
+      },
+      {
+        "id": 78,
+        "apiId": null,
+        "name": "Persian Gulf Pro League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/902.png",
+        "country": {
+          "id": 75,
+          "name": "Iran",
+          "code": "IR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ir.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-19T13:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 40,
+        "apiId": null,
+        "name": "Ligat ha'Al",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/372.png",
+        "country": {
+          "id": 55,
+          "name": "Israel",
+          "code": "IL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/il.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 41,
+        "apiId": null,
+        "name": "Coppa Italia",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/390.png",
+        "country": {
+          "id": 14,
+          "name": "Italy",
+          "code": "IT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/it.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 6,
+        "apiId": null,
+        "name": "Serie A",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/384.png",
+        "country": {
+          "id": 14,
+          "name": "Italy",
+          "code": "IT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/it.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T14:00:00.000Z",
+        "powerPriority": {
+          "score": 158.87,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 146,
+        "apiId": null,
+        "name": "Serie B",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/3/387.png",
+        "country": {
+          "id": 14,
+          "name": "Italy",
+          "code": "IT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/it.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:30:00.000Z",
+        "powerPriority": {
+          "score": 123.19,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 106,
+        "apiId": null,
+        "name": "Super Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/1202.png",
+        "country": {
+          "id": 14,
+          "name": "Italy",
+          "code": "IT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/it.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 82,
+        "apiId": null,
+        "name": "J1 League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/968.png",
+        "country": {
+          "id": 33,
+          "name": "Japan",
+          "code": "JP",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/jp.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T10:00:00.000Z",
+        "powerPriority": {
+          "score": 121.17,
+          "matchAt": "2026-11-21T05:00:00.000Z"
+        }
+      },
+      {
+        "id": 1275,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/920.png",
+        "country": {
+          "id": 248,
+          "name": "Jordan",
+          "code": "JO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/jo.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 69,
+        "apiId": null,
+        "name": "Copa MX",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/746.png",
+        "country": {
+          "id": 83,
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "currentSeason": 2025,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 68,
+        "apiId": null,
+        "name": "Liga MX",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+        "country": {
+          "id": 83,
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T01:00:00.000Z",
+        "powerPriority": {
+          "score": 124.81,
+          "matchAt": "2026-11-21T04:00:00.000Z"
+        }
+      },
+      {
+        "id": 1272,
+        "apiId": null,
+        "name": "Liga de Expansión MX",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/749.png",
+        "country": {
+          "id": 83,
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 77,
+        "apiId": null,
+        "name": "Botola Pro",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/860.png",
+        "country": {
+          "id": 119,
+          "name": "Morocco",
+          "code": "MA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ma.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 150,
+        "apiId": null,
+        "name": "Eerste Divisie",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/74.png",
+        "country": {
+          "id": 46,
+          "name": "Netherlands",
+          "code": "NL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/nl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:00:00.000Z",
+        "powerPriority": {
+          "score": 110.9,
+          "matchAt": "2026-11-20T19:00:00.000Z"
+        }
+      },
+      {
+        "id": 23,
+        "apiId": null,
+        "name": "Eredivisie",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/72.png",
+        "country": {
+          "id": 46,
+          "name": "Netherlands",
+          "code": "NL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/nl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T15:30:00.000Z",
+        "powerPriority": {
+          "score": 159.41,
+          "matchAt": "2026-11-21T15:30:00.000Z"
+        }
+      },
+      {
+        "id": 24,
+        "apiId": null,
+        "name": "KNVB Beker",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/78.png",
+        "country": {
+          "id": 46,
+          "name": "Netherlands",
+          "code": "NL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/nl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1273,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/752.png",
+        "country": {
+          "id": 90,
+          "name": "Nicaragua",
+          "code": "NI",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ni.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 95,
+        "apiId": null,
+        "name": "CONCACAF Gold Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/1112.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 134,
+        "apiId": null,
+        "name": "CONCACAF Gold Cup Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 128,
+        "apiId": null,
+        "name": "CONCACAF Nations League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1741.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-17T19:00:00.000Z",
+        "powerPriority": {
+          "score": 140.01260791146447,
+          "matchAt": "2026-11-18T02:30:00.000Z"
+        }
+      },
+      {
+        "id": 129,
+        "apiId": null,
+        "name": "CONCACAF Nations League Qualification",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1742.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 117,
+        "apiId": null,
+        "name": "Central American & Caribbean Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1546.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 114,
+        "apiId": null,
+        "name": "Concacaf League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/1479.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 359,
+        "apiId": null,
+        "name": "Leagues Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/3211.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 132,
+        "apiId": null,
+        "name": "Olympic Qualifying Concacaf",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": 2028,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 62,
+        "apiId": null,
+        "name": "WC Qualification Concacaf",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/717.png",
+        "country": {
+          "id": 253,
+          "name": "North & Central America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/north-central-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 42,
+        "apiId": null,
+        "name": "Eliteserien",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/444.png",
+        "country": {
+          "id": 48,
+          "name": "Norway",
+          "code": "NO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/no.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T18:00:00.000Z",
+        "powerPriority": {
+          "score": 152.92000000000002,
+          "matchAt": "2026-11-20T18:00:00.000Z"
+        }
+      },
+      {
+        "id": 101,
+        "apiId": null,
+        "name": "OFC Champions League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/3/1123.png",
+        "country": {
+          "id": 260,
+          "name": "Oceania",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/oceania.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 102,
+        "apiId": null,
+        "name": "OFC Nations Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/4/1124.png",
+        "country": {
+          "id": 260,
+          "name": "Oceania",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/oceania.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 136,
+        "apiId": null,
+        "name": "Olympic Qualifying: Oceania",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 260,
+          "name": "Oceania",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/oceania.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 126,
+        "apiId": null,
+        "name": "Pacific Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/1714.png",
+        "country": {
+          "id": 260,
+          "name": "Oceania",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/oceania.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 64,
+        "apiId": null,
+        "name": "WC Qualification Oceania",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/723.png",
+        "country": {
+          "id": 260,
+          "name": "Oceania",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/oceania.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1293,
+        "apiId": null,
+        "name": "Lpf",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/1477.png",
+        "country": {
+          "id": 102,
+          "name": "Panama",
+          "code": "PA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-18T01:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 70,
+        "apiId": null,
+        "name": "Division 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/755.png",
+        "country": {
+          "id": 98,
+          "name": "Paraguay",
+          "code": "PY",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/py.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T20:30:00.000Z",
+        "powerPriority": {
+          "score": 102.59,
+          "matchAt": "2026-11-20T23:00:00.000Z"
+        }
+      },
+      {
+        "id": 71,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/764.png",
+        "country": {
+          "id": 89,
+          "name": "Peru",
+          "code": "PE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pe.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-18T20:00:00.000Z",
+        "powerPriority": {
+          "score": 100.41,
+          "matchAt": "2026-11-18T20:00:00.000Z"
+        }
+      },
+      {
+        "id": 1257,
+        "apiId": null,
+        "name": "1. Liga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/456.png",
+        "country": {
+          "id": 37,
+          "name": "Poland",
+          "code": "PL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 8,
+        "apiId": null,
+        "name": "Ekstraklasa",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/453.png",
+        "country": {
+          "id": 37,
+          "name": "Poland",
+          "code": "PL",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pl.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:00:00.000Z",
+        "powerPriority": {
+          "score": 132.94,
+          "matchAt": "2026-11-21T13:45:00.000Z"
+        }
+      },
+      {
+        "id": 7,
+        "apiId": null,
+        "name": "Liga Portugal",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png",
+        "country": {
+          "id": 23,
+          "name": "Portugal",
+          "code": "PT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pt.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-27T20:15:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 151,
+        "apiId": null,
+        "name": "Liga Portugal 2",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/465.png",
+        "country": {
+          "id": 23,
+          "name": "Portugal",
+          "code": "PT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pt.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-22T14:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 43,
+        "apiId": null,
+        "name": "Taça De Portugal",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/468.png",
+        "country": {
+          "id": 23,
+          "name": "Portugal",
+          "code": "PT",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/pt.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 79,
+        "apiId": null,
+        "name": "Stars League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/938.png",
+        "country": {
+          "id": 73,
+          "name": "Qatar",
+          "code": "QA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/qa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-19T15:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 39,
+        "apiId": null,
+        "name": "Premier Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/360.png",
+        "country": {
+          "id": 26,
+          "name": "Republic of Ireland",
+          "code": "IE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ie.png"
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 44,
+        "apiId": null,
+        "name": "Superliga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/474.png",
+        "country": {
+          "id": 43,
+          "name": "Romania",
+          "code": "RO",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ro.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T15:30:00.000Z",
+        "powerPriority": {
+          "score": 129.15,
+          "matchAt": "2026-11-20T18:30:00.000Z"
+        }
+      },
+      {
+        "id": 351,
+        "apiId": null,
+        "name": "FNL",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/9/489.png",
+        "country": {
+          "id": 61,
+          "name": "Russia",
+          "code": "RU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ru.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 45,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/486.png",
+        "country": {
+          "id": 61,
+          "name": "Russia",
+          "code": "RU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ru.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 46,
+        "apiId": null,
+        "name": "Russian Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/12/492.png",
+        "country": {
+          "id": 61,
+          "name": "Russia",
+          "code": "RU",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ru.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 80,
+        "apiId": null,
+        "name": "Kings Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/22/950.png",
+        "country": {
+          "id": 71,
+          "name": "Saudi Arabia",
+          "code": "SA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/sa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 9,
+        "apiId": null,
+        "name": "Pro League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/944.png",
+        "country": {
+          "id": 71,
+          "name": "Saudi Arabia",
+          "code": "SA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/sa.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:30:00.000Z",
+        "powerPriority": {
+          "score": 142.56,
+          "matchAt": "2026-11-20T17:30:00.000Z"
+        }
+      },
+      {
+        "id": 48,
+        "apiId": null,
+        "name": "Super Liga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/531.png",
+        "country": {
+          "id": 10,
+          "name": "Serbia",
+          "code": "RS",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/rs.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 74,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/806.png",
+        "country": {
+          "id": 111,
+          "name": "South Africa",
+          "code": "ZA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/za.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 130,
+        "apiId": null,
+        "name": "CONMEBOL Pre-Olympic Tournament",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/1784.png",
+        "country": {
+          "id": 96,
+          "name": "South America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 96,
+        "apiId": null,
+        "name": "Copa America",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1114.png",
+        "country": {
+          "id": 96,
+          "name": "South America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 13,
+        "apiId": null,
+        "name": "Copa Libertadores",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png",
+        "country": {
+          "id": 96,
+          "name": "South America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-28T20:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 97,
+        "apiId": null,
+        "name": "Copa Sudamericana",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/1116.png",
+        "country": {
+          "id": 96,
+          "name": "South America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T22:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 65,
+        "apiId": null,
+        "name": "WC Qualification South America",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/22/726.png",
+        "country": {
+          "id": 96,
+          "name": "South America",
+          "code": null,
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/south-america.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 86,
+        "apiId": null,
+        "name": "K League 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1034.png",
+        "country": {
+          "id": 125,
+          "name": "South Korea",
+          "code": "KR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/kr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T05:00:00.000Z",
+        "powerPriority": {
+          "score": 121.19999999999999,
+          "matchAt": "2026-11-21T05:00:00.000Z"
+        }
+      },
+      {
+        "id": 49,
+        "apiId": null,
+        "name": "Copa Del Rey",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/570.png",
+        "country": {
+          "id": 7,
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-18T18:00:00.000Z",
+        "powerPriority": {
+          "score": 77.35,
+          "matchAt": "2026-11-18T19:00:00.000Z"
+        }
+      },
+      {
+        "id": 3,
+        "apiId": null,
+        "name": "La Liga",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/564.png",
+        "country": {
+          "id": 7,
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T20:00:00.000Z",
+        "powerPriority": {
+          "score": 161.72,
+          "matchAt": "2026-11-21T15:15:00.000Z"
+        }
+      },
+      {
+        "id": 147,
+        "apiId": null,
+        "name": "La Liga 2",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/23/567.png",
+        "country": {
+          "id": 7,
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:30:00.000Z",
+        "powerPriority": {
+          "score": 132.9,
+          "matchAt": "2026-11-20T19:30:00.000Z"
+        }
+      },
+      {
+        "id": 107,
+        "apiId": null,
+        "name": "Super Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/3/1251.png",
+        "country": {
+          "id": 7,
+          "name": "Spain",
+          "code": "ES",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/es.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 50,
+        "apiId": null,
+        "name": "Allsvenskan",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/573.png",
+        "country": {
+          "id": 5,
+          "name": "Sweden",
+          "code": "SE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/se.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T14:00:00.000Z",
+        "powerPriority": {
+          "score": 127.27000000000001,
+          "matchAt": "2026-11-21T14:00:00.000Z"
+        }
+      },
+      {
+        "id": 1260,
+        "apiId": null,
+        "name": "Superettan",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/3/579.png",
+        "country": {
+          "id": 5,
+          "name": "Sweden",
+          "code": "SE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/se.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T12:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 51,
+        "apiId": null,
+        "name": "Super League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/591.png",
+        "country": {
+          "id": 39,
+          "name": "Switzerland",
+          "code": "CH",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ch.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T17:00:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 122,
+        "apiId": null,
+        "name": "Super League Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/1681.png",
+        "country": {
+          "id": 39,
+          "name": "Switzerland",
+          "code": "CH",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ch.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1277,
+        "apiId": null,
+        "name": "Thai Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/1064.png",
+        "country": {
+          "id": 157,
+          "name": "Thailand",
+          "code": "TH",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/th.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 352,
+        "apiId": null,
+        "name": "1. Lig",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/603.png",
+        "country": {
+          "id": 4,
+          "name": "Türkiye",
+          "code": "TR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/tr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T17:00:00.000Z",
+        "powerPriority": {
+          "score": 108.65,
+          "matchAt": "2026-11-21T13:00:00.000Z"
+        }
+      },
+      {
+        "id": 52,
+        "apiId": null,
+        "name": "Super Lig",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/600.png",
+        "country": {
+          "id": 4,
+          "name": "Türkiye",
+          "code": "TR",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/tr.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T10:30:00.000Z",
+        "powerPriority": {
+          "score": 158.94,
+          "matchAt": "2026-11-21T13:00:00.000Z"
+        }
+      },
+      {
+        "id": 53,
+        "apiId": null,
+        "name": "Premier League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1/609.png",
+        "country": {
+          "id": 34,
+          "name": "Ukraine",
+          "code": "UA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ua.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T16:00:00.000Z",
+        "powerPriority": {
+          "score": 120.63,
+          "matchAt": "2026-11-20T16:00:00.000Z"
+        }
+      },
+      {
+        "id": 125,
+        "apiId": null,
+        "name": "Premier League - Playoffs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/1691.png",
+        "country": {
+          "id": 34,
+          "name": "Ukraine",
+          "code": "UA",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ua.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 81,
+        "apiId": null,
+        "name": "UAE Pro League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/31/959.png",
+        "country": {
+          "id": 76,
+          "name": "United Arab Emirates",
+          "code": "AE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ae.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-19T12:45:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 73,
+        "apiId": null,
+        "name": "Major League Soccer",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/779.png",
+        "country": {
+          "id": 60,
+          "name": "United States",
+          "code": "US",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/us.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T00:30:00.000Z",
+        "powerPriority": {
+          "score": 132.98000000000002,
+          "matchAt": "2026-11-20T00:30:00.000Z"
+        }
+      },
+      {
+        "id": 353,
+        "apiId": null,
+        "name": "NASL",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/788.png",
+        "country": {
+          "id": 60,
+          "name": "United States",
+          "code": "US",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/us.png"
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 72,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/770.png",
+        "country": {
+          "id": 62,
+          "name": "Uruguay",
+          "code": "UY",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/uy.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-19T19:30:00.000Z",
+        "powerPriority": {
+          "score": 107.67,
+          "matchAt": "2026-11-19T19:30:00.000Z"
+        }
+      },
+      {
+        "id": 1274,
+        "apiId": null,
+        "name": "Primera Division",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/800.png",
+        "country": {
+          "id": 74,
+          "name": "Venezuela",
+          "code": "VE",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/ve.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T21:30:00.000Z",
+        "powerPriority": null
+      },
+      {
+        "id": 87,
+        "apiId": null,
+        "name": "V-League",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/1073.png",
+        "country": {
+          "id": 250,
+          "name": "Vietnam",
+          "code": "VN",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/vn.png"
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 1258,
+        "apiId": null,
+        "name": "Championship",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/504.png",
+        "country": {
+          "id": 9,
+          "name": "Wales",
+          "code": "GB",
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-20T19:30:00.000Z",
+        "powerPriority": {
+          "score": 112.19,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 1259,
+        "apiId": null,
+        "name": "Championship Play-Offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/525.png",
+        "country": {
+          "id": 9,
+          "name": "Wales",
+          "code": "GB",
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 10,
+        "apiId": null,
+        "name": "Premiership",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/501.png",
+        "country": {
+          "id": 9,
+          "name": "Wales",
+          "code": "GB",
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-21T15:00:00.000Z",
+        "powerPriority": {
+          "score": 143.91,
+          "matchAt": "2026-11-21T15:00:00.000Z"
+        }
+      },
+      {
+        "id": 47,
+        "apiId": null,
+        "name": "Premiership Play-Offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/1/513.png",
+        "country": {
+          "id": 9,
+          "name": "Wales",
+          "code": "GB",
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 355,
+        "apiId": null,
+        "name": "Club Friendlies 1",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 356,
+        "apiId": null,
+        "name": "Club Friendlies 2",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/18/2450.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 357,
+        "apiId": null,
+        "name": "Club Friendlies 3",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 358,
+        "apiId": null,
+        "name": "Club Friendlies 4",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/2452.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2027,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 139,
+        "apiId": null,
+        "name": "FIFA Club World Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/20/3412.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 141,
+        "apiId": null,
+        "name": "FIFA Club World Cup Play-In",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 113,
+        "apiId": null,
+        "name": "FIFA Intercontinental Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/12/1452.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 15,
+        "apiId": null,
+        "name": "Friendly International",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": "2026-11-17T14:00:00.000Z",
+        "powerPriority": {
+          "score": 165.04018771779295,
+          "matchAt": "2026-11-17T23:00:00.000Z"
+        }
+      },
+      {
+        "id": 354,
+        "apiId": null,
+        "name": "Non-FIFA Friendlies",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2026,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 103,
+        "apiId": null,
+        "name": "Olympic Games",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/1125.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 138,
+        "apiId": null,
+        "name": "Olympics Intercontinental Play-offs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/league_placeholder.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 66,
+        "apiId": null,
+        "name": "WC Qualification Intercontinental Playoffs",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/25/729.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": 2030,
+        "nextMatchAt": null,
+        "powerPriority": null
+      },
+      {
+        "id": 67,
+        "apiId": null,
+        "name": "World Cup",
+        "type": "league",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/732.png",
+        "country": {
+          "id": 101,
+          "name": "World",
+          "code": null,
+          "flag": null
+        },
+        "currentSeason": null,
+        "nextMatchAt": null,
+        "powerPriority": null
+      }
+    ],
+    "count": 176
+  }
+}

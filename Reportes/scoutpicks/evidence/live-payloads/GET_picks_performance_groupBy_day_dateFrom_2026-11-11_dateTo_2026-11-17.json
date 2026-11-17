@@ -1,0 +1,126 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/picks/performance?groupBy=day&dateFrom=2026-11-11&dateTo=2026-11-17&timezoneOffset=360",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "1ab8c848-34e7-4610-a49a-929477a78ef7",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:29 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "groupBy": "day",
+    "buckets": [
+      {
+        "key": "2026-11-11",
+        "startDate": "2026-11-11T06:00:00.000Z",
+        "endDate": "2026-11-12T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-12",
+        "startDate": "2026-11-12T06:00:00.000Z",
+        "endDate": "2026-11-13T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-13",
+        "startDate": "2026-11-13T06:00:00.000Z",
+        "endDate": "2026-11-14T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-14",
+        "startDate": "2026-11-14T06:00:00.000Z",
+        "endDate": "2026-11-15T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-15",
+        "startDate": "2026-11-15T06:00:00.000Z",
+        "endDate": "2026-11-16T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-16",
+        "startDate": "2026-11-16T06:00:00.000Z",
+        "endDate": "2026-11-17T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "totalPicks": 0
+      },
+      {
+        "key": "2026-11-17",
+        "startDate": "2026-11-17T06:00:00.000Z",
+        "endDate": "2026-11-18T06:00:00.000Z",
+        "netUnits": 0,
+        "roi": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 1,
+        "totalPicks": 1
+      }
+    ],
+    "summary": {
+      "totalPicks": 1,
+      "resolvedPicks": 0,
+      "won": 0,
+      "lost": 0,
+      "void": 0,
+      "pending": 1,
+      "winRate": 0,
+      "totalProfit": 0,
+      "roi": 0
+    }
+  }
+}

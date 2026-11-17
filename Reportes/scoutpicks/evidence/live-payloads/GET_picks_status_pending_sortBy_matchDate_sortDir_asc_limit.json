@@ -1,0 +1,97 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/picks?status=pending&sortBy=matchDate&sortDir=asc&limit=30",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "20f64c7b-a500-46b1-b028-b215a841c1f7",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:29 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "data": [
+      {
+        "id": "cmwk4otqf0049oh01bymlilwy",
+        "entity": {
+          "id": 3580,
+          "name": "Harry Wilson",
+          "image": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "type": "player"
+        },
+        "bet": {
+          "metric": "foulsCommitted",
+          "metricLabel": "Faltas cometidas",
+          "comparison": "over",
+          "comparisonLabel": "Más de",
+          "line": 0.5,
+          "period": "full_match",
+          "periodLabel": "Todo el encuentro",
+          "betType": null,
+          "betTypeLabel": "",
+          "selection": null,
+          "selectionLabel": ""
+        },
+        "match": {
+          "id": 54091,
+          "opponent": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+          },
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR"
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "date": "2026-11-17T19:45:00.000Z",
+          "competition": "UEFA Nations League",
+          "status": "NS",
+          "liveProgress": null,
+          "handicapProgress": null
+        },
+        "odds": {
+          "oddsId": 239803551,
+          "value": 1.37,
+          "bookmaker": "JugaBet"
+        },
+        "status": "pending",
+        "result": null,
+        "voidReason": null,
+        "createdAt": "2026-11-17T03:24:05.127Z",
+        "insightSnapshot": null,
+        "profit": null
+      }
+    ],
+    "pagination": {
+      "limit": 30,
+      "offset": 0,
+      "total": 1,
+      "hasMore": false
+    }
+  }
+}

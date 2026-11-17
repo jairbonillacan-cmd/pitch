@@ -1,0 +1,1180 @@
+[
+  {
+    "file": "GET_app_pricing.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/app/pricing",
+    "status": 200,
+    "top_keys": [
+      "country",
+      "offering",
+      "currency",
+      "prices",
+      "trialDays",
+      "offer"
+    ],
+    "bytes": 1533
+  },
+  {
+    "file": "GET_auth_get-session.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/auth/get-session",
+    "status": 200,
+    "top_keys": [
+      "session",
+      "user"
+    ],
+    "bytes": 2315
+  },
+  {
+    "file": "GET_bookmakers.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/bookmakers",
+    "status": 200,
+    "top_keys": [
+      "bookmakers",
+      "countryCode"
+    ],
+    "bytes": 2985
+  },
+  {
+    "file": "GET_bookmakers_offers_channel_web.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/bookmakers/offers?channel=web",
+    "status": 200,
+    "top_keys": [
+      "eligible",
+      "offers"
+    ],
+    "bytes": 4180
+  },
+  {
+    "file": "GET_creator_access.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/creator/access",
+    "status": 200,
+    "top_keys": [
+      "enabled",
+      "source",
+      "role"
+    ],
+    "bytes": 1265
+  },
+  {
+    "file": "GET_insight-views.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insight-views",
+    "status": 200,
+    "top_keys": [
+      "views"
+    ],
+    "bytes": 1221
+  },
+  {
+    "file": "GET_insights_draft_3Ap1113_m54091_tackles_0_5_over.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/draft%3Ap1113_m54091_tackles_0.5_over",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "type",
+      "playerId",
+      "teamId",
+      "oddsId",
+      "metric",
+      "line",
+      "direction",
+      "period",
+      "selection",
+      "hitRate",
+      "sampleSize",
+      "average",
+      "median",
+      "timeWindow",
+      "confidence",
+      "streak",
+      "trend",
+      "impliedProbability",
+      "edgePercentage",
+      "expectedValue",
+      "valueRating",
+      "opponentId",
+      "opponentRank",
+      "opponentAvgConceded",
+      "opponentLeagueAvg",
+      "adjustedHitRate",
+      "matchupScore",
+      "matchupRating",
+      "description",
+      "isHome",
+      "venue",
+      "aggregateScope",
+      "stageKind",
+      "minMinutes",
+      "variants",
+      "headlineCompetitionScoped",
+      "headlineHeadToHead",
+      "opponentMetricRank",
+      "substitutionPattern",
+      "stackedSnapshot",
+      "underdog",
+      "isNationalTeamMatch",
+      "isNeutralVenueMatch",
+      "injuryStatus",
+      "expectedLineupStatus",
+      "avgMinutesPlayed",
+      "recentValues",
+      "recentMinutesPlayed",
+      "matchIds",
+      "headlineTeamIds",
+      "headlineLeagueIds",
+      "matchId",
+      "reason",
+      "oddsValue",
+      "bookmaker",
+      "status",
+      "expiresAt",
+      "saveCount",
+      "relevanceScore",
+      "createdAt",
+      "updatedAt",
+      "hasMovementAlert",
+      "latestMovementId",
+      "contentHash",
+      "odds",
+      "periodLabel",
+      "leagueId",
+      "seasonId",
+      "player",
+      "team",
+      "match",
+      "recentHits",
+      "value",
+      "betting",
+      "gamesWithCurrentTeam",
+      "recentTransfer",
+      "liveProgress",
+      "headlineScope",
+      "lensEntities"
+    ],
+    "bytes": 13568
+  },
+  {
+    "file": "GET_insights_filter-ranges.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/filter-ranges",
+    "status": 200,
+    "top_keys": [
+      "oddsRange",
+      "hitRateRange",
+      "periodInsightsEnabled"
+    ],
+    "bytes": 1373
+  },
+  {
+    "file": "GET_insights_filters_statusFilter_upcoming_timezoneOffset_360.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/filters?statusFilter=upcoming&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "types",
+      "teams",
+      "leagues",
+      "countries",
+      "matches",
+      "metrics",
+      "directions",
+      "oddsRange",
+      "oddsDistribution",
+      "hitRateRange",
+      "hitRateDistribution",
+      "totalCount"
+    ],
+    "bytes": 476820
+  },
+  {
+    "file": "GET_insights_grouped_statusFilter_upcoming_sortBy_recommended_timezone.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/grouped?statusFilter=upcoming&sortBy=recommended&timezoneOffset=360&groupBy=match&groupLimit=4&perGroupLimit=10&groupOffset=0",
+    "status": 200,
+    "top_keys": [
+      "groups",
+      "hasMoreGroups",
+      "nextGroupOffset"
+    ],
+    "bytes": 586735
+  },
+  {
+    "file": "GET_insights_matchIds_54091_limit_500.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights?matchIds=54091&limit=500",
+    "status": 200,
+    "top_keys": [
+      "insights",
+      "count",
+      "totalCount",
+      "filters"
+    ],
+    "bytes": 6266801
+  },
+  {
+    "file": "GET_insights_player_1113_limit_50.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/player/1113?limit=50",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "insights",
+      "count"
+    ],
+    "bytes": 125545
+  },
+  {
+    "file": "GET_insights_playerId_3580_matchIds_54091_limit_50.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights?playerId=3580&matchIds=54091&limit=50",
+    "status": 200,
+    "top_keys": [
+      "insights",
+      "count",
+      "totalCount",
+      "filters"
+    ],
+    "bytes": 161700
+  },
+  {
+    "file": "GET_insights_team_17181_limit_50.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/team/17181?limit=50",
+    "status": 200,
+    "top_keys": [
+      "teamId",
+      "insights",
+      "count"
+    ],
+    "bytes": 312778
+  },
+  {
+    "file": "GET_insights_top_limit_40_offset_0_statusFilter_upcoming_sortBySav.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/top?limit=40&offset=0&statusFilter=upcoming&sortBySaveCount=false&sortBy=recommended&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "insights",
+      "count",
+      "totalCount",
+      "hasMore"
+    ],
+    "bytes": 517291
+  },
+  {
+    "file": "GET_insights_top_limit_6_offset_0_statusFilter_upcoming_sortBySave.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/top?limit=6&offset=0&statusFilter=upcoming&sortBySaveCount=true&sortBy=recommended&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "insights",
+      "count",
+      "totalCount",
+      "hasMore"
+    ],
+    "bytes": 82837
+  },
+  {
+    "file": "GET_insights_top_limit_6_offset_6_statusFilter_upcoming_sortBySave.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/insights/top?limit=6&offset=6&statusFilter=upcoming&sortBySaveCount=true&sortBy=recommended&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "insights",
+      "count",
+      "totalCount",
+      "hasMore"
+    ],
+    "bytes": 81602
+  },
+  {
+    "file": "GET_leagues_116.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/leagues/116",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "apiId",
+      "name",
+      "type",
+      "logo",
+      "country",
+      "seasons"
+    ],
+    "bytes": 3726
+  },
+  {
+    "file": "GET_leagues_116_filters_seasonId_513.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/filters?seasonId=513",
+    "status": 200,
+    "top_keys": [
+      "seasonId",
+      "groups",
+      "rounds",
+      "teams"
+    ],
+    "bytes": 10749
+  },
+  {
+    "file": "GET_leagues_116_matches_seasonId_513_limit_20_timezoneOffset_360_startTim.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/matches?seasonId=513&limit=20&timezoneOffset=360&startTime=2026-11-17T06:00:00.000Z&endTime=2026-11-18T05:59:59.999Z",
+    "status": 200,
+    "top_keys": [
+      "league",
+      "season",
+      "dateGroups",
+      "hasMore",
+      "hasPrevious"
+    ],
+    "bytes": 77460
+  },
+  {
+    "file": "GET_leagues_116_standings_seasonId_513.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/standings?seasonId=513",
+    "status": 200,
+    "top_keys": [
+      "league",
+      "season",
+      "scope",
+      "groups",
+      "updatedAt",
+      "primaryStageId",
+      "phases"
+    ],
+    "bytes": 117796
+  },
+  {
+    "file": "GET_leagues_15_standings_seasonId_89.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/leagues/15/standings?seasonId=89",
+    "status": 200,
+    "top_keys": [
+      "league",
+      "season",
+      "scope",
+      "groups",
+      "updatedAt",
+      "primaryStageId",
+      "phases"
+    ],
+    "bytes": 1570
+  },
+  {
+    "file": "GET_market-alerts_catalog.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/market-alerts/catalog",
+    "status": 200,
+    "top_keys": [
+      "enabled",
+      "requiresPro",
+      "bookmakers",
+      "match"
+    ],
+    "bytes": 1301
+  },
+  {
+    "file": "GET_market-alerts_catalog_matchId_54091.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/market-alerts/catalog?matchId=54091",
+    "status": 200,
+    "top_keys": [
+      "enabled",
+      "requiresPro",
+      "bookmakers",
+      "match"
+    ],
+    "bytes": 1315
+  },
+  {
+    "file": "GET_matches_37222996.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/37222996",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "apiId",
+      "sportmonksId",
+      "seasonId",
+      "homeTeamId",
+      "awayTeamId",
+      "date",
+      "venue",
+      "referee",
+      "status",
+      "homeScore",
+      "awayScore",
+      "homeScoreHT",
+      "awayScoreHT",
+      "elapsed",
+      "livePeriodStartedAt",
+      "livePeriodCountsFrom",
+      "livePeriodTicking",
+      "round",
+      "createdAt",
+      "updatedAt",
+      "statsStatus",
+      "statsSyncedAt",
+      "lastFetchAttemptAt",
+      "lastSettlementAttemptAt",
+      "lastApiHash",
+      "pendingAggregateBatchId",
+      "oddsApiEventId",
+      "oddsApiEventDate",
+      "oddsApiEventAssignedAt",
+      "effectiveKickoffDate",
+      "oddsApiLastSync",
+      "oddsApiLastListedAt",
+      "oddsApiLastCatalogueAt",
+      "betanoEventId",
+      "betanoLastSync",
+      "drafteaEventId",
+      "drafteaEventDate",
+      "drafteaLeagueId",
+      "drafteaLastSync",
+      "stakeEventSlug",
+      "stakeEventDate",
+      "stakeLastSync",
+      "jugabetEventId",
+      "jugabetEventDate",
+      "jugabetLastSync",
+      "bet365EventId",
+      "bet365EventDate",
+      "bet365LastSync",
+      "bet365CompetitionId",
+      "oddsMaterialChangeAt",
+      "injuriesLastSyncedAt",
+      "lineupsStatus",
+      "lineupsLastSyncedAt",
+      "expectedLineupsPersistedAt",
+      "eventsStatus",
+      "eventsLastSyncedAt",
+      "insightsGeneratedAt",
+      "draftsGeneratedAt",
+      "roundSportmonksId",
+      "roundName",
+      "roundNumber",
+      "stageSportmonksId",
+      "stageName",
+      "stageKind",
+      "groupSportmonksId",
+      "groupName",
+      "aggregateId",
+      "leg",
+      "length",
+      "hasExtraTime",
+      "wentToPenalties",
+      "attendance",
+      "resultInfo",
+      "placeholder",
+      "hashtag",
+      "kitColors",
+      "lineupsConfirmed",
+      "isNeutralVenue",
+      "venueId",
+      "homeTeam",
+      "awayTeam",
+      "season",
+      "penaltyShootout",
+      "playerStats",
+      "teamStats",
+      "refereeId"
+    ],
+    "bytes": 129207
+  },
+  {
+    "file": "GET_matches_37222996_events.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/37222996/events",
+    "status": 200,
+    "top_keys": [
+      "match",
+      "events"
+    ],
+    "bytes": 8933
+  },
+  {
+    "file": "GET_matches_54091.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "apiId",
+      "sportmonksId",
+      "seasonId",
+      "homeTeamId",
+      "awayTeamId",
+      "date",
+      "venue",
+      "referee",
+      "status",
+      "homeScore",
+      "awayScore",
+      "homeScoreHT",
+      "awayScoreHT",
+      "elapsed",
+      "livePeriodStartedAt",
+      "livePeriodCountsFrom",
+      "livePeriodTicking",
+      "round",
+      "createdAt",
+      "updatedAt",
+      "statsStatus",
+      "statsSyncedAt",
+      "lastFetchAttemptAt",
+      "lastSettlementAttemptAt",
+      "lastApiHash",
+      "pendingAggregateBatchId",
+      "oddsApiEventId",
+      "oddsApiEventDate",
+      "oddsApiEventAssignedAt",
+      "effectiveKickoffDate",
+      "oddsApiLastSync",
+      "oddsApiLastListedAt",
+      "oddsApiLastCatalogueAt",
+      "betanoEventId",
+      "betanoLastSync",
+      "drafteaEventId",
+      "drafteaEventDate",
+      "drafteaLeagueId",
+      "drafteaLastSync",
+      "stakeEventSlug",
+      "stakeEventDate",
+      "stakeLastSync",
+      "jugabetEventId",
+      "jugabetEventDate",
+      "jugabetLastSync",
+      "bet365EventId",
+      "bet365EventDate",
+      "bet365LastSync",
+      "bet365CompetitionId",
+      "oddsMaterialChangeAt",
+      "injuriesLastSyncedAt",
+      "lineupsStatus",
+      "lineupsLastSyncedAt",
+      "expectedLineupsPersistedAt",
+      "eventsStatus",
+      "eventsLastSyncedAt",
+      "insightsGeneratedAt",
+      "draftsGeneratedAt",
+      "roundSportmonksId",
+      "roundName",
+      "roundNumber",
+      "stageSportmonksId",
+      "stageName",
+      "stageKind",
+      "groupSportmonksId",
+      "groupName",
+      "aggregateId",
+      "leg",
+      "length",
+      "hasExtraTime",
+      "wentToPenalties",
+      "attendance",
+      "resultInfo",
+      "placeholder",
+      "hashtag",
+      "kitColors",
+      "lineupsConfirmed",
+      "isNeutralVenue",
+      "venueId",
+      "homeTeam",
+      "awayTeam",
+      "season",
+      "penaltyShootout",
+      "playerStats",
+      "teamStats",
+      "refereeId"
+    ],
+    "bytes": 5113
+  },
+  {
+    "file": "GET_matches_54091_lineups.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/lineups",
+    "status": 200,
+    "top_keys": [
+      "match",
+      "lineupsStatus",
+      "home",
+      "away"
+    ],
+    "bytes": 1901
+  },
+  {
+    "file": "GET_matches_54091_matchup.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/matchup",
+    "status": 200,
+    "top_keys": [
+      "match",
+      "homeTeam",
+      "awayTeam"
+    ],
+    "bytes": 4402
+  },
+  {
+    "file": "GET_matches_54091_matchup_rankings.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/matchup/rankings",
+    "status": 200,
+    "top_keys": [
+      "match",
+      "homeTeam",
+      "awayTeam"
+    ],
+    "bytes": 9783
+  },
+  {
+    "file": "GET_matches_54091_odds_gamelines_oddsPeriod_first_half.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/odds/gamelines?oddsPeriod=first_half",
+    "status": 200,
+    "top_keys": [
+      "tab",
+      "match",
+      "markets",
+      "h2h",
+      "teamForm"
+    ],
+    "bytes": 16555
+  },
+  {
+    "file": "GET_matches_54091_odds_gamelines_oddsPeriod_full_match.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/odds/gamelines?oddsPeriod=full_match",
+    "status": 200,
+    "top_keys": [
+      "tab",
+      "match",
+      "markets",
+      "h2h",
+      "teamForm"
+    ],
+    "bytes": 18683
+  },
+  {
+    "file": "GET_matches_54091_odds_gamelines_oddsPeriod_second_half.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/odds/gamelines?oddsPeriod=second_half",
+    "status": 200,
+    "top_keys": [
+      "tab",
+      "match",
+      "markets",
+      "h2h",
+      "teamForm"
+    ],
+    "bytes": 15671
+  },
+  {
+    "file": "GET_matches_day_overview_startTime_2026-11-17T06_00_00_000Z_endTime_2026-1.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/matches/day/overview?startTime=2026-11-17T06:00:00.000Z&endTime=2026-11-18T05:59:59.999Z&region=419",
+    "status": 200,
+    "top_keys": [
+      "recommended",
+      "countries",
+      "totalMatches",
+      "liveCount"
+    ],
+    "bytes": 292423
+  },
+  {
+    "file": "GET_notifications_offset_0_limit_20.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/notifications?offset=0&limit=20",
+    "status": 200,
+    "top_keys": [
+      "notifications",
+      "unreadCount",
+      "pagination"
+    ],
+    "bytes": 1357
+  },
+  {
+    "file": "GET_picks_cmwk4otqf0049oh01bymlilwy.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/cmwk4otqf0049oh01bymlilwy",
+    "status": 200,
+    "top_keys": [
+      "pick"
+    ],
+    "bytes": 2971
+  },
+  {
+    "file": "GET_picks_performance_dateFrom_2026-10-19_dateTo_2026-11-17_timezoneOff.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/performance?dateFrom=2026-10-19&dateTo=2026-11-17&timezoneOffset=360&groupBy=day",
+    "status": 200,
+    "top_keys": [
+      "groupBy",
+      "buckets",
+      "summary"
+    ],
+    "bytes": 10074
+  },
+  {
+    "file": "GET_picks_performance_filters.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/performance/filters",
+    "status": 200,
+    "top_keys": [
+      "competitions",
+      "teams",
+      "betTypes"
+    ],
+    "bytes": 1853
+  },
+  {
+    "file": "GET_picks_performance_filters_dateFrom_2026-10-19_dateTo_2026-11-17_timezoneOff.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/performance/filters?dateFrom=2026-10-19&dateTo=2026-11-17&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "competitions",
+      "teams",
+      "betTypes"
+    ],
+    "bytes": 1910
+  },
+  {
+    "file": "GET_picks_performance_groupBy_day_dateFrom_2026-11-11_dateTo_2026-11-17.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/performance?groupBy=day&dateFrom=2026-11-11&dateTo=2026-11-17&timezoneOffset=360",
+    "status": 200,
+    "top_keys": [
+      "groupBy",
+      "buckets",
+      "summary"
+    ],
+    "bytes": 3519
+  },
+  {
+    "file": "GET_picks_saved-keys.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks/saved-keys",
+    "status": 200,
+    "top_keys": [
+      "keys"
+    ],
+    "bytes": 1387
+  },
+  {
+    "file": "GET_picks_status_pending_sortBy_matchDate_sortDir_asc_limit.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/picks?status=pending&sortBy=matchDate&sortDir=asc&limit=30",
+    "status": 200,
+    "top_keys": [
+      "data",
+      "pagination"
+    ],
+    "bytes": 3238
+  },
+  {
+    "file": "GET_players_1113.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "name",
+      "firstName",
+      "lastName",
+      "image",
+      "position",
+      "detailedPosition",
+      "nationality",
+      "currentTeam",
+      "nationalTeam",
+      "inNationalTeamSquad",
+      "currentCompetitions",
+      "height",
+      "weight",
+      "age"
+    ],
+    "bytes": 2646
+  },
+  {
+    "file": "GET_players_1113_matches_limit_10_offset_0.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/matches?limit=10&offset=0",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "total",
+      "limit",
+      "offset",
+      "matches"
+    ],
+    "bytes": 15279
+  },
+  {
+    "file": "GET_players_1113_odds.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/odds",
+    "status": 200,
+    "top_keys": [
+      "matchId",
+      "opponent",
+      "date",
+      "markets"
+    ],
+    "bytes": 13033
+  },
+  {
+    "file": "GET_players_1113_performance_filters.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance/filters",
+    "status": 200,
+    "top_keys": [
+      "teams",
+      "opponents",
+      "leagues",
+      "seasons"
+    ],
+    "bytes": 25278
+  },
+  {
+    "file": "GET_players_1113_performance_metric_tackles_matchIds_10618064_10618111_3589575.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance?metric=tackles&matchIds=10618064,10618111,35895753,10618118,32187435,10618183,32187395,10618205,10451227,32187386&window=l10&minMinutes=45&line=0.5&direction=over",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "window",
+      "metric",
+      "statLabel",
+      "points",
+      "livePoint",
+      "includeSubstitutes",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 26347
+  },
+  {
+    "file": "GET_players_1113_performance_metric_tackles_opponentTeamId_17181_window_l20_mi.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance?metric=tackles&opponentTeamId=17181&window=l20&minMinutes=45",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "window",
+      "metric",
+      "statLabel",
+      "points",
+      "livePoint",
+      "includeSubstitutes",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 1618
+  },
+  {
+    "file": "GET_players_1113_performance_metric_tackles_window_l10_minMinutes_45.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance?metric=tackles&window=l10&minMinutes=45",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "window",
+      "metric",
+      "statLabel",
+      "points",
+      "livePoint",
+      "includeSubstitutes",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 26228
+  },
+  {
+    "file": "GET_players_1113_performance_metric_tackles_window_l20_minMinutes_45.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance?metric=tackles&window=l20&minMinutes=45",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "window",
+      "metric",
+      "statLabel",
+      "points",
+      "livePoint",
+      "includeSubstitutes",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 50938
+  },
+  {
+    "file": "GET_players_1113_performance_metric_tackles_window_l5_minMinutes_45.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/1113/performance?metric=tackles&window=l5&minMinutes=45",
+    "status": 200,
+    "top_keys": [
+      "playerId",
+      "window",
+      "metric",
+      "statLabel",
+      "points",
+      "livePoint",
+      "includeSubstitutes",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 13909
+  },
+  {
+    "file": "GET_players_3580.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/3580",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "name",
+      "firstName",
+      "lastName",
+      "image",
+      "position",
+      "detailedPosition",
+      "nationality",
+      "currentTeam",
+      "nationalTeam",
+      "inNationalTeamSquad",
+      "currentCompetitions",
+      "height",
+      "weight",
+      "age"
+    ],
+    "bytes": 2461
+  },
+  {
+    "file": "GET_players_3580_matches_upcoming.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/3580/matches/upcoming",
+    "status": 200,
+    "top_keys": [
+      "player",
+      "matches"
+    ],
+    "bytes": 23854
+  },
+  {
+    "file": "GET_players_3580_odds.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/players/3580/odds",
+    "status": 200,
+    "top_keys": [
+      "matchId",
+      "opponent",
+      "date",
+      "markets"
+    ],
+    "bytes": 16373
+  },
+  {
+    "file": "GET_props_h2h_17181_14678.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/props/h2h/17181/14678",
+    "status": 200,
+    "top_keys": [
+      "team1",
+      "team2",
+      "matchesPlayed",
+      "record",
+      "averages",
+      "matches"
+    ],
+    "bytes": 2077
+  },
+  {
+    "file": "GET_referees_351.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/referees/351",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "name",
+      "photo",
+      "country",
+      "nextMatch",
+      "career",
+      "competitionRank"
+    ],
+    "bytes": 2293
+  },
+  {
+    "file": "GET_referees_351_insights.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/referees/351/insights",
+    "status": 200,
+    "top_keys": [
+      "refereeId",
+      "insights",
+      "count"
+    ],
+    "bytes": 246832
+  },
+  {
+    "file": "GET_referees_351_matches_metric_yellowCards_year_2026_limit_20.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/referees/351/matches?metric=yellowCards&year=2026&limit=20",
+    "status": 200,
+    "top_keys": [
+      "refereeId",
+      "metric",
+      "points"
+    ],
+    "bytes": 12135
+  },
+  {
+    "file": "GET_referees_351_records_year_2026.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/referees/351/records?year=2026",
+    "status": 200,
+    "top_keys": [
+      "refereeId",
+      "year",
+      "rows",
+      "availableYears"
+    ],
+    "bytes": 4040
+  },
+  {
+    "file": "GET_subscriptions_me.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/subscriptions/me",
+    "status": 200,
+    "top_keys": [
+      "tier",
+      "status",
+      "expiresAt",
+      "period",
+      "isTrialing",
+      "isContentCreator",
+      "productId",
+      "worldCupPassExpiresAt",
+      "planType",
+      "freeLeagueId",
+      "selectedLeagueIds",
+      "accessibleLeagueIds",
+      "needsLeagueSelection",
+      "requiresFreeLeagueSelection",
+      "leagueChangeEligibility"
+    ],
+    "bytes": 2553
+  },
+  {
+    "file": "GET_teams_17181.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181",
+    "status": 200,
+    "top_keys": [
+      "id",
+      "name",
+      "shortName",
+      "code",
+      "logo",
+      "country",
+      "isNationalTeam",
+      "venue",
+      "competitions",
+      "founded"
+    ],
+    "bytes": 1953
+  },
+  {
+    "file": "GET_teams_17181_matches_limit_50_status_finished.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/matches?limit=50&status=finished",
+    "status": 200,
+    "top_keys": "list[50]",
+    "bytes": 203333
+  },
+  {
+    "file": "GET_teams_17181_odds.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/odds",
+    "status": 200,
+    "top_keys": [
+      "matchId",
+      "opponent",
+      "date",
+      "markets",
+      "resultOdds",
+      "matchTotalsMarkets"
+    ],
+    "bytes": 48177
+  },
+  {
+    "file": "GET_teams_17181_odds_matchId_54091.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/odds?matchId=54091",
+    "status": 200,
+    "top_keys": [
+      "matchId",
+      "opponent",
+      "date",
+      "markets",
+      "resultOdds",
+      "matchTotalsMarkets"
+    ],
+    "bytes": 48126
+  },
+  {
+    "file": "GET_teams_17181_performance_filters.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/performance/filters",
+    "status": 200,
+    "top_keys": [
+      "leagues",
+      "opponents"
+    ],
+    "bytes": 12153
+  },
+  {
+    "file": "GET_teams_17181_performance_metric_goals_metricDirection_for_window_l10_line_.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/performance?metric=goals&metricDirection=for&window=l10&line=1.5&direction=over",
+    "status": 200,
+    "top_keys": [
+      "teamId",
+      "window",
+      "period",
+      "metric",
+      "metricDirection",
+      "statLabel",
+      "points",
+      "summary",
+      "threshold"
+    ],
+    "bytes": 17877
+  },
+  {
+    "file": "GET_users_settings.json",
+    "method": "GET",
+    "url": "https://api.scoutpicks.aertech-labs.com/users/settings",
+    "status": 200,
+    "top_keys": [
+      "homeWidgetOrder",
+      "homeHiddenWidgets",
+      "preferredLeagues",
+      "favouriteTeamId",
+      "favouritePlayers",
+      "favouriteBets",
+      "hasSimulatedBet",
+      "riskProfile",
+      "oddsFormat"
+    ],
+    "bytes": 1564
+  }
+]

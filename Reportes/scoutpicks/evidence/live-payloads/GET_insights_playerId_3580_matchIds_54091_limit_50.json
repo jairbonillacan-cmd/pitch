@@ -1,0 +1,5837 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/insights?playerId=3580&matchIds=54091&limit=50",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "aacb71ac-5c41-4329-b438-61503c72af8a",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:07 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "insights": [
+      {
+        "id": "draft:p3580_m54091_foulsCommitted_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239803551,
+        "metric": "foulsCommitted",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 10,
+        "average": 1.6,
+        "median": 1,
+        "timeWindow": "L10",
+        "confidence": 100,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 72.99,
+        "edgePercentage": 27.01,
+        "expectedValue": 0.37,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 faltas: 100% (L10)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -32.99,
+            "teamIds": [
+              17181,
+              1165
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 7.01,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 65,
+            "sampleSize": 20,
+            "edge": -7.99,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 35,
+            "sampleSize": 20,
+            "edge": -37.99,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342,
+              1319,
+              1306,
+              1280,
+              1258,
+              8591,
+              33726,
+              1246,
+              1225,
+              1164,
+              1150
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 5,
+            "edge": 27.01,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          2,
+          3,
+          1
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 10 de últimos 10 Más de 0.5 faltas (prom: 1.6). Cuota implica 73% — vemos 100%. 27% de ventaja.",
+        "oddsValue": 1.37,
+        "bookmaker": "JugaBet",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 2,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T14:44:37.715Z",
+        "updatedAt": "2026-11-15T14:44:37.715Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "b6cab5db888ce5e498eae30bf0acb2c089271d702d5f1ea027284f829b25d3ea",
+        "odds": {
+          "id": 239803551,
+          "matchId": 54091,
+          "bookmakerId": 5,
+          "source": "jugabet",
+          "perks": [],
+          "selection": "Harry Wilson Over 0.5",
+          "value": 1.37,
+          "line": 0.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 5,
+            "name": "JugaBet",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+          },
+          "betType": {
+            "id": 84055200,
+            "name": "Player Fouls",
+            "category": "foulsCommitted",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 72.99,
+          "edgePercentage": 27.01,
+          "expectedValue": 0.37,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239803551,
+          "oddsValue": 1.37,
+          "bookmaker": "JugaBet",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239803551,
+              "oddsValue": 1.37,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239886800,
+              "oddsValue": 1.25,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            }
+          ],
+          "betType": "Player Fouls",
+          "category": "foulsCommitted",
+          "selection": "Harry Wilson Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_foulsDrawn_1.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239911430,
+        "metric": "foulsDrawn",
+        "line": 1.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 3.6,
+        "median": 3,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 59.88,
+        "edgePercentage": 40.12,
+        "expectedValue": 0.67,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 1.5 faltas recibidas: 100% (L5)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 20,
+            "sampleSize": 10,
+            "edge": -39.88,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": 10.12,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": 0.12,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 65,
+            "sampleSize": 20,
+            "edge": 5.12,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 10,
+            "edge": 20.12,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          5,
+          3,
+          4,
+          3
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 5 de últimos 5 Más de 1.5 faltas recibidas (prom: 3.6). Cuota implica 60% — vemos 100%. 40% de ventaja.",
+        "oddsValue": 1.67,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T12:12:25.713Z",
+        "updatedAt": "2026-11-16T17:40:55.948Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "4246cb11a85920af3574f989e93953c83ff0dbfa7f5e60e0483ac9973daa2a60",
+        "odds": {
+          "id": 239911430,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Harry Wilson Over 1.5",
+          "value": 1.67,
+          "line": 1.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 7020063,
+            "name": "Player To Be Fouled",
+            "category": "foulsDrawn",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 59.88,
+          "edgePercentage": 40.12,
+          "expectedValue": 0.67,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239911430,
+          "oddsValue": 1.67,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239911430,
+              "oddsValue": 1.67,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239869408,
+              "oddsValue": 1.666,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            }
+          ],
+          "betType": "Player To Be Fouled",
+          "category": "foulsDrawn",
+          "selection": "Harry Wilson Over 1.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_shots_1.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239910510,
+        "metric": "shots",
+        "line": 1.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 80,
+        "sampleSize": 10,
+        "average": 2.8,
+        "median": 3,
+        "timeWindow": "L10",
+        "confidence": 88,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 61.73,
+        "edgePercentage": 18.27,
+        "expectedValue": 0.3,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 1.5 tiros: 80% (L10)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 30,
+            "sampleSize": 10,
+            "edge": -31.73,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -21.73,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": 8.27,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 18.27,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": 8.27,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 14678,
+          "metric": "shots",
+          "rankType": "defense",
+          "rank": 24,
+          "totalTeams": 54,
+          "average": 13,
+          "leagueAvg": 13.12623456790123,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          7,
+          3,
+          1,
+          2,
+          3,
+          3,
+          3,
+          2,
+          1
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 8 de últimos 10 Más de 1.5 tiros (prom: 2.8). Cuota implica 62% — vemos 80%. 18% de ventaja.",
+        "oddsValue": 1.62,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-13T16:51:33.120Z",
+        "updatedAt": "2026-11-17T07:33:29.044Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "98270efbe33d310dab61bb2cdc236fe101356e3266f6f3fb8f8592b156be7f3a",
+        "odds": {
+          "id": 239910510,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Harry Wilson Over 1.5",
+          "value": 1.62,
+          "line": 1.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899025,
+            "name": "Player Shots",
+            "category": "shots",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "value": {
+          "impliedProbability": 61.73,
+          "edgePercentage": 18.27,
+          "expectedValue": 0.3,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239910510,
+          "oddsValue": 1.62,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910510,
+              "oddsValue": 1.62,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239803170,
+              "oddsValue": 1.42,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239632151,
+              "oddsValue": 1.333,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239827126,
+              "oddsValue": 1.3,
+              "bookmaker": "Draftea",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239950478,
+              "oddsValue": 1.23,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Shots",
+          "category": "shots",
+          "selection": "Harry Wilson Over 1.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_tackles_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239886437,
+        "metric": "tackles",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 80,
+        "sampleSize": 20,
+        "average": 1.2,
+        "median": 1,
+        "timeWindow": "L20",
+        "confidence": 78,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 71.43,
+        "edgePercentage": 8.57,
+        "expectedValue": 0.12,
+        "valueRating": "moderate",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 entradas: 80% (L20)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 8.57,
+            "teamIds": [
+              17181,
+              1165
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 8.57,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 8.57,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 20,
+            "edge": -11.43,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342,
+              1319,
+              1306,
+              1280,
+              1258,
+              8591,
+              33726,
+              1246,
+              1225,
+              1164,
+              1150
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": -1.43,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          0,
+          3,
+          1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          2,
+          1,
+          2,
+          1,
+          1,
+          2,
+          2,
+          1,
+          1,
+          2,
+          0
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120,
+          90,
+          80,
+          81,
+          60,
+          90,
+          90,
+          73,
+          90,
+          76,
+          90
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178,
+          53165,
+          53133,
+          53037,
+          34770804,
+          52710,
+          52608,
+          10661794,
+          10661752,
+          34036,
+          34772425
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 16 de últimos 20 Más de 0.5 entradas (prom: 1.2). Cuota implica 71% — vemos 80%. 9% de ventaja.",
+        "oddsValue": 1.4,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T14:43:11.309Z",
+        "updatedAt": "2026-11-15T14:43:11.309Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "a3bb94811084357192e107650cba7c9a38655fa84ff0b4081990720db0ed8310",
+        "odds": {
+          "id": 239886437,
+          "matchId": 54091,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Harry Wilson Over 0.5",
+          "value": 1.4,
+          "line": 0.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 44,
+            "name": "Player Tackles",
+            "category": "tackles",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "value": {
+          "impliedProbability": 71.43,
+          "edgePercentage": 8.57,
+          "expectedValue": 0.12,
+          "valueRating": "moderate"
+        },
+        "betting": {
+          "oddsId": 239886437,
+          "oddsValue": 1.4,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239886437,
+              "oddsValue": 1.4,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239911095,
+              "oddsValue": 1.31,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player Tackles",
+          "category": "tackles",
+          "selection": "Harry Wilson Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L20",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_passes_29.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239910786,
+        "metric": "passes",
+        "line": 29.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 70,
+        "sampleSize": 10,
+        "average": 35.4,
+        "median": 35.5,
+        "timeWindow": "L10",
+        "confidence": 63,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 60.61,
+        "edgePercentage": 9.39,
+        "expectedValue": 0.15,
+        "valueRating": "moderate",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 29.5 pases: 70% (L10)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": -0.61,
+            "teamIds": [
+              17181,
+              1165
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": -0.61,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 20,
+            "edge": -10.61,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 25,
+            "sampleSize": 20,
+            "edge": -35.61,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342,
+              1319,
+              1306,
+              1280,
+              1258,
+              8591,
+              33726,
+              1246,
+              1225,
+              1164,
+              1150
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": -0.61,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              8591,
+              33726,
+              33663,
+              33324
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          45,
+          29,
+          32,
+          21,
+          26,
+          36,
+          48,
+          37,
+          45,
+          35
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 7 de últimos 10 Más de 29.5 pases (prom: 35.4). Cuota implica 61% — vemos 70%. 9% de ventaja.",
+        "oddsValue": 1.65,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T17:11:36.266Z",
+        "updatedAt": "2026-11-15T17:11:36.266Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "141dee61277aaf8023411a5547d562844d98025f9477ac619f5cefadcf471db6",
+        "odds": {
+          "id": 239910786,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [],
+          "selection": "Harry Wilson Over 29.5",
+          "value": 1.65,
+          "line": 29.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 3160510,
+            "name": "Player Passes",
+            "category": "passes",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 60.61,
+          "edgePercentage": 9.39,
+          "expectedValue": 0.15,
+          "valueRating": "moderate"
+        },
+        "betting": {
+          "oddsId": 239910786,
+          "oddsValue": 1.65,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910786,
+              "oddsValue": 1.65,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Passes",
+          "category": "passes",
+          "selection": "Harry Wilson Over 29.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_shotsOnTarget_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239910134,
+        "metric": "shotsOnTarget",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 65,
+        "sampleSize": 20,
+        "average": 1.05,
+        "median": 1,
+        "timeWindow": "L20",
+        "confidence": 83,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 47.17,
+        "edgePercentage": 17.83,
+        "expectedValue": 0.38,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 tiros a puerta: 65% (L20)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 10,
+            "sampleSize": 10,
+            "edge": -37.17,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": 12.83,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 20,
+            "edge": 12.83,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -7.17,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              8591,
+              33726,
+              33663,
+              33324
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 10,
+            "edge": 32.83,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 14678,
+          "metric": "shotsOnTarget",
+          "rankType": "defense",
+          "rank": 34,
+          "totalTeams": 54,
+          "average": 3.8,
+          "leagueAvg": 4.359876543209876,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          0,
+          0,
+          1,
+          3,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          3,
+          1,
+          2,
+          2,
+          1,
+          0,
+          0,
+          3,
+          0,
+          1
+        ],
+        "recentMinutesPlayed": [
+          90,
+          90,
+          120,
+          90,
+          90,
+          64,
+          90,
+          90,
+          90,
+          74,
+          90,
+          90,
+          69,
+          90,
+          80,
+          90,
+          120,
+          90,
+          80,
+          66
+        ],
+        "matchIds": [
+          54100,
+          8591,
+          33726,
+          33663,
+          33324,
+          8894,
+          8842,
+          32930,
+          32908,
+          32846,
+          54465,
+          54413,
+          54344,
+          54341,
+          54173,
+          54172,
+          53178,
+          53165,
+          53133,
+          53130
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          116,
+          15,
+          63,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 13 de últimos 20 Más de 0.5 tiros a puerta (prom: 1.1). Cuota implica 47% — vemos 65%. 18% de ventaja.",
+        "oddsValue": 2.12,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-13T20:31:29.880Z",
+        "updatedAt": "2026-11-17T07:33:29.044Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "3f8b8761a4f1f1f1142ba48bf8821b4ec64d9d5aa4ab2624103e068c58535a1e",
+        "odds": {
+          "id": 239910134,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Harry Wilson Over 0.5",
+          "value": 2.12,
+          "line": 0.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899015,
+            "name": "Player Shots On Target",
+            "category": "shotsOnTarget",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ],
+        "value": {
+          "impliedProbability": 47.17,
+          "edgePercentage": 17.83,
+          "expectedValue": 0.38,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239910134,
+          "oddsValue": 2.12,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910134,
+              "oddsValue": 2.12,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239651072,
+              "oddsValue": 1.727,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239803380,
+              "oddsValue": 1.71,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239950642,
+              "oddsValue": 1.58,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239826993,
+              "oddsValue": 1.54,
+              "bookmaker": "Draftea",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player Shots On Target",
+          "category": "shotsOnTarget",
+          "selection": "Harry Wilson Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L20",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            116,
+            15,
+            63,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_shots_2.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239910511,
+        "metric": "shots",
+        "line": 2.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 60,
+        "sampleSize": 10,
+        "average": 2.8,
+        "median": 3,
+        "timeWindow": "L10",
+        "confidence": 71,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 34.84,
+        "edgePercentage": 25.16,
+        "expectedValue": 0.72,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 2.5 tiros: 60% (L10)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 10,
+            "sampleSize": 10,
+            "edge": -24.84,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 20,
+            "sampleSize": 5,
+            "edge": -14.84,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 20,
+            "edge": 15.16,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": 25.16,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              8591,
+              33726,
+              33663,
+              33324
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 45,
+            "sampleSize": 20,
+            "edge": 10.16,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 14678,
+          "metric": "shots",
+          "rankType": "defense",
+          "rank": 24,
+          "totalTeams": 54,
+          "average": 13,
+          "leagueAvg": 13.12623456790123,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          7,
+          3,
+          1,
+          2,
+          3,
+          3,
+          3,
+          2,
+          1
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 6 de últimos 10 Más de 2.5 tiros (prom: 2.8). Cuota implica 35% — vemos 60%. 25% de ventaja.",
+        "oddsValue": 2.87,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-13T16:51:33.120Z",
+        "updatedAt": "2026-11-17T07:33:29.044Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "a52ab4a205509f3c2b1b811e3b925154f0fa980eac93088adaff280b76520ea3",
+        "odds": {
+          "id": 239910511,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Harry Wilson Over 2.5",
+          "value": 2.87,
+          "line": 2.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899025,
+            "name": "Player Shots",
+            "category": "shots",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        "value": {
+          "impliedProbability": 34.84,
+          "edgePercentage": 25.16,
+          "expectedValue": 0.72,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239910511,
+          "oddsValue": 2.87,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910511,
+              "oddsValue": 2.87,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239803179,
+              "oddsValue": 2.25,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239827127,
+              "oddsValue": 2.17,
+              "bookmaker": "Draftea",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239632152,
+              "oddsValue": 1.909,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239950479,
+              "oddsValue": 1.76,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Shots",
+          "category": "shots",
+          "selection": "Harry Wilson Over 2.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_tackles_1.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239886438,
+        "metric": "tackles",
+        "line": 1.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 60,
+        "sampleSize": 5,
+        "average": 1.6,
+        "median": 2,
+        "timeWindow": "L5",
+        "confidence": 60,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 36.36,
+        "edgePercentage": 23.64,
+        "expectedValue": 0.65,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 1.5 entradas: 60% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": 23.64,
+            "teamIds": [
+              17181,
+              1165
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 30,
+            "sampleSize": 20,
+            "edge": -6.36,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 30,
+            "sampleSize": 20,
+            "edge": -6.36,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342,
+              1319,
+              1306,
+              1280,
+              1258,
+              8591,
+              33726,
+              1246,
+              1225,
+              1164,
+              1150
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 35,
+            "sampleSize": 20,
+            "edge": -1.36,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": 3.64,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          2,
+          0,
+          3,
+          1
+        ],
+        "recentMinutesPlayed": [
+          90,
+          90,
+          120,
+          90,
+          90
+        ],
+        "matchIds": [
+          54100,
+          8591,
+          33726,
+          33663,
+          33324
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          116,
+          15,
+          63
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 3 de últimos 5 Más de 1.5 entradas (prom: 1.6). Cuota implica 36% — vemos 60%. 24% de ventaja.",
+        "oddsValue": 2.75,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T14:43:11.309Z",
+        "updatedAt": "2026-11-17T14:44:18.217Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "d0eca4bba352b1ba9e331ea88ab9d1e7a16b10cd48c1182ca43be4b1ef0c23a9",
+        "odds": {
+          "id": 239886438,
+          "matchId": 54091,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Harry Wilson Over 1.5",
+          "value": 2.75,
+          "line": 1.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 44,
+            "name": "Player Tackles",
+            "category": "tackles",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          false,
+          true,
+          false
+        ],
+        "value": {
+          "impliedProbability": 36.36,
+          "edgePercentage": 23.64,
+          "expectedValue": 0.65,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239886438,
+          "oddsValue": 2.75,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239886438,
+              "oddsValue": 2.75,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239911096,
+              "oddsValue": 2.37,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239950881,
+              "oddsValue": 2.24,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Tackles",
+          "category": "tackles",
+          "selection": "Harry Wilson Over 1.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            116,
+            15,
+            63
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_foulsDrawn_2.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239911431,
+        "metric": "foulsDrawn",
+        "line": 2.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 3.6,
+        "median": 3,
+        "timeWindow": "L5",
+        "confidence": 82,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 32.79,
+        "edgePercentage": 67.21,
+        "expectedValue": 2.05,
+        "valueRating": "strong",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 2.5 faltas recibidas: 100% (L5)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 0,
+            "sampleSize": 10,
+            "edge": -32.79,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 20,
+            "edge": 7.21,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": 27.21,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 20,
+            "edge": 17.21,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 10,
+            "edge": 37.21,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          5,
+          3,
+          4,
+          3
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 5 de últimos 5 Más de 2.5 faltas recibidas (prom: 3.6). Cuota implica 33% — vemos 100%. 67% de ventaja.",
+        "oddsValue": 3.05,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T12:12:25.713Z",
+        "updatedAt": "2026-11-15T17:11:36.266Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "f08ff1ebf1549fc052642c9fe6f01572c0bc3d3c56f12fa985a622568be14da7",
+        "odds": {
+          "id": 239911431,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Harry Wilson Over 2.5",
+          "value": 3.05,
+          "line": 2.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 7020063,
+            "name": "Player To Be Fouled",
+            "category": "foulsDrawn",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 32.79,
+          "edgePercentage": 67.21,
+          "expectedValue": 2.05,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239911431,
+          "oddsValue": 3.05,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239911431,
+              "oddsValue": 3.05,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239869409,
+              "oddsValue": 3,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            }
+          ],
+          "betType": "Player To Be Fouled",
+          "category": "foulsDrawn",
+          "selection": "Harry Wilson Over 2.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_passes_32.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239910787,
+        "metric": "passes",
+        "line": 32.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 60,
+        "sampleSize": 10,
+        "average": 35.4,
+        "median": 35.5,
+        "timeWindow": "L10",
+        "confidence": 53,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 53.48,
+        "edgePercentage": 6.52,
+        "expectedValue": 0.12,
+        "valueRating": "marginal",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 32.5 pases: 60% (L10)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -13.48,
+            "teamIds": [
+              17181,
+              1165
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -13.48,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 45,
+            "sampleSize": 20,
+            "edge": -8.48,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 15,
+            "sampleSize": 20,
+            "edge": -38.48,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355,
+              15,
+              63
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342,
+              1319,
+              1306,
+              1280,
+              1258,
+              8591,
+              33726,
+              1246,
+              1225,
+              1164,
+              1150
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 10,
+            "edge": 6.52,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          45,
+          29,
+          32,
+          21,
+          26,
+          36,
+          48,
+          37,
+          45,
+          35
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90,
+          74,
+          90,
+          69,
+          90,
+          120
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842,
+          32846,
+          54465,
+          54344,
+          54172,
+          53178
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63,
+          116,
+          108
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 6 de últimos 10 Más de 32.5 pases (prom: 35.4). Cuota implica 53% — vemos 60%. 7% de ventaja.",
+        "oddsValue": 1.87,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T17:11:36.266Z",
+        "updatedAt": "2026-11-15T17:11:36.266Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "4b4795ec91eac424be68759dc38e23400d3669baedf6b348b39ff5e12d2fbcd3",
+        "odds": {
+          "id": 239910787,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [],
+          "selection": "Harry Wilson Over 32.5",
+          "value": 1.87,
+          "line": 32.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 3160510,
+            "name": "Player Passes",
+            "category": "passes",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 53.48,
+          "edgePercentage": 6.52,
+          "expectedValue": 0.12,
+          "valueRating": "marginal"
+        },
+        "betting": {
+          "oddsId": 239910787,
+          "oddsValue": 1.87,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910787,
+              "oddsValue": 1.87,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Passes",
+          "category": "passes",
+          "selection": "Harry Wilson Over 32.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63,
+            116,
+            108
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p3580_m54091_foulsDrawn_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 3580,
+        "teamId": 17181,
+        "oddsId": 239869407,
+        "metric": "foulsDrawn",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 3.6,
+        "median": 3,
+        "timeWindow": "L5",
+        "confidence": 81,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 87.57,
+        "edgePercentage": 12.43,
+        "expectedValue": 0.14,
+        "valueRating": "moderate",
+        "opponentId": 14678,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 faltas recibidas: 100% (L5)",
+        "isHome": null,
+        "venue": "home",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 20,
+            "sampleSize": 10,
+            "edge": -67.57,
+            "teamIds": [
+              17181,
+              1165,
+              1134
+            ],
+            "leagueIds": [
+              116,
+              2,
+              22,
+              357,
+              355
+            ],
+            "matchIds": [
+              54100,
+              10618111,
+              10618115,
+              32292027,
+              10618020,
+              10945811,
+              10934618,
+              10945728,
+              10934615,
+              1342
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 85,
+            "sampleSize": 20,
+            "edge": -2.57,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63,
+              108
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908,
+              32846,
+              54465,
+              54413,
+              54344,
+              54341,
+              54173,
+              54172,
+              53133,
+              53130,
+              53037,
+              52869,
+              52730,
+              52710,
+              52608,
+              52606
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 5,
+            "edge": -27.57,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54100,
+              33663,
+              33324,
+              32930,
+              32908
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 20,
+            "edge": -7.57,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178,
+              53165,
+              53133,
+              53037,
+              34770804,
+              52710,
+              52608,
+              10661794,
+              10661752,
+              34036,
+              34772425
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17181,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 90,
+            "sampleSize": 10,
+            "edge": 2.43,
+            "teamIds": [
+              17181
+            ],
+            "leagueIds": [
+              15,
+              63,
+              116,
+              108
+            ],
+            "matchIds": [
+              8591,
+              33726,
+              33663,
+              33324,
+              8842,
+              32846,
+              54465,
+              54344,
+              54172,
+              53178
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          3,
+          5,
+          3,
+          4,
+          3
+        ],
+        "recentMinutesPlayed": [
+          90,
+          120,
+          90,
+          90,
+          90
+        ],
+        "matchIds": [
+          8591,
+          33726,
+          33663,
+          33324,
+          8842
+        ],
+        "headlineTeamIds": [
+          17181
+        ],
+        "headlineLeagueIds": [
+          15,
+          63
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 5 de últimos 5 Más de 0.5 faltas recibidas (prom: 3.6). Cuota implica 88% — vemos 100%. 12% de ventaja.",
+        "oddsValue": 1.142,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 0,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-15T12:12:25.713Z",
+        "updatedAt": "2026-11-15T12:12:25.713Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "54d2250a685649f452bb56f11e5d3c35ca12704b42938b33d1f62a52199f08ce",
+        "odds": {
+          "id": 239869407,
+          "matchId": 54091,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Harry Wilson Over 0.5",
+          "value": 1.142,
+          "line": 0.5,
+          "playerId": 3580,
+          "teamId": 17181,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 48,
+            "name": "Player To Be Fouled",
+            "category": "foulsDrawn",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14678,
+          "name": "Portugal",
+          "code": "POR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 3580,
+          "apiId": null,
+          "sportmonksId": 5403,
+          "name": "Harry Wilson",
+          "searchName": "harry wilson harry wilson h wilson harry wilson",
+          "firstname": "Harry",
+          "lastname": "Wilson",
+          "commonName": "H. Wilson",
+          "displayName": "Harry Wilson",
+          "age": 29,
+          "nationality": "Wales",
+          "height": "173 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 1165,
+          "createdAt": "2026-05-15T16:36:49.656Z",
+          "updatedAt": "2026-11-17T14:27:59.299Z",
+          "nationalTeamId": 17181,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 1165,
+            "name": "Leeds United",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png",
+            "code": "LEE"
+          },
+          "nationalTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17181,
+          "name": "Wales",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+          "code": "WAL",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 87.57,
+          "edgePercentage": 12.43,
+          "expectedValue": 0.14,
+          "valueRating": "moderate"
+        },
+        "betting": {
+          "oddsId": 239869407,
+          "oddsValue": 1.142,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239869407,
+              "oddsValue": 1.142,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239911429,
+              "oddsValue": 1.13,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player To Be Fouled",
+          "category": "foulsDrawn",
+          "selection": "Harry Wilson Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17181,
+          "venue": "home",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17181
+          ],
+          "leagueIds": [
+            15,
+            63
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+            },
+            {
+              "id": 1165,
+              "name": "Leeds United",
+              "code": "LEE",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+            },
+            {
+              "id": 1134,
+              "name": "Fulham",
+              "code": "FUL",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/11.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            },
+            {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 355,
+              "name": "Club Friendlies 1",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1101.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            }
+          ]
+        },
+        "isLocked": false
+      }
+    ],
+    "count": 11,
+    "totalCount": 11,
+    "filters": {
+      "matchIds": [
+        54091
+      ]
+    }
+  }
+}

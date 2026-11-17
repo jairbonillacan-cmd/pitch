@@ -1,0 +1,1 @@
+import{t as e}from"./analytics.DvUUnk4I.js";e(`web-legal`);

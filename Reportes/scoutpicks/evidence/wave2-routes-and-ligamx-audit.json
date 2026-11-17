@@ -1,0 +1,3169 @@
+{
+  "metadata": {
+    "reportId": "11-rutas-faltantes-onboarding-paywall-y-liga-mx",
+    "auditWave": "Wave 2 Deep Forensics",
+    "generatedAt": "2026-11-17",
+    "targetWebApp": "https://scoutpicks.app/dashboard",
+    "targetApi": "https://api.scoutpicks.aertech-labs.com",
+    "operator": "Aertech Labs, LLC",
+    "privacyCompliance": {
+      "zeroPii": true,
+      "zeroCredentials": true,
+      "redactedUserIdToken": "usr_redacted_0000000000000000000",
+      "cdpPort9222Untouched": true
+    },
+    "reaEvidenceIds": {
+      "firstPartyBundleUnpacked": [
+        "ev_0fb357d4a1453d5471dc808a4f58ca40c99849c2e422e22cda01df49487dad6d",
+        "ev_15467abeaa90f54b297ad6134a8cca31c152269c7f7191d0c31f5fde50dfbf2c",
+        "ev_542ac53c12e44e344659cd787f90163cef75894b6a259547f82b5fb51e1048fb",
+        "ev_d70f42bfeb67cdf4f433726f0e07944120ee929eef854a2ad7084ba48a968128"
+      ],
+      "wave1AndWave2ScriptExports": [
+        "ev_abdb3cf1dbd8a7aab2a952ca236449585bd2de775d8200297a3b94e836220fb3",
+        "ev_3b9c90fb0c981b84008f879d4097d98b90b43cd6e242d4ddf8387a8378b8229a",
+        "ev_0eb9279cfa7e2970ad6feec84923b3cdd551b1ac00b55b0058a723d6bd904ceb"
+      ],
+      "liveRuntimeHarAndCdp": [
+        "ev_036f50356d956efdf3eeea3e3b25f6651b5252264443c86dbb79c13886fdbf3a",
+        "ev_11901b4af84b37db9b0fc563415c1b6cfdfa4a06192bf99ed58009d3c6cf1a37",
+        "ev_a8cc2cac2b89c752b96729755d7ca8e0e523864f8f3f6a685dea369b29451743",
+        "ev_eb381a1446763d94752838fd77caee295d4b64c43f3b7536a70f7c2183578a69",
+        "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+        "ev_8d1fa2225983ff98a4c350ad528895985cc9cdd8f4efab6f7eceda9da4dc30cd",
+        "ev_6d836a06220d2106784294f02029484fc18f6a66368ab72b60dd608a1c5cd704",
+        "ev_d0465c848825fb2dbc9ee2948e5d6a4ade88053e7dfd02958b0fdb4f0f1470b1",
+        "ev_da106603423e33c7a10d674bbe71dd6c337e3da9c7518134aaecfa3db09f7d80"
+      ],
+      "semanticFeatureTraces": [
+        "ev_0d526b8113c1c1f9d68c0c0082442d700cefcc52dbfc17a8a8775892c51d4134",
+        "ev_5fe2335a2fd936e45456e95c9cb6b18f68c9b9df80f24606191a687a9620df9b",
+        "ev_90b1af38cd04e30e3e319ceb8f92cc13c282ed045e4f6b19929beaf77eb8e442"
+      ]
+    }
+  },
+  "pillar1_onboarding": {
+    "epistemologicalStatus": "[OBSERVADO] en mod_01, mod_13, mod_14, mod_17 y wave2_ui_tour_audit.json",
+    "routeDefinition": {
+      "symbol": "Qde",
+      "parentLayout": "Yv (id: 'authed')",
+      "path": "/onboarding",
+      "fullUrl": "https://scoutpicks.app/dashboard/onboarding",
+      "sourceLocation": "scoutpicks-first-party/mod_17_onboarding_and_paywall.js#L13",
+      "validateSearchCompiled": "e => ({ plan: zN(e).plan, preview: !1, flow: void 0 })",
+      "beforeLoadCompiled": "({ search: e }) => { if (!e.preview && !Yde()) throw cc({ to: '/' }) }",
+      "componentDispatcher": "pdt () => { const { preview: e, flow: t } = Qde.useSearch(); return e && t === 'personalization' ? jsx(Gtt, {}) : jsx(ftt, {}) }"
+    },
+    "guardMechanism": {
+      "guardSymbol": "Yde",
+      "expression": "!Ee.getState().hasCompletedOnboarding && ec(lc.ONBOARDING_QUIZ_ENABLED)",
+      "posthogFlagKey": "onboarding_quiz_enabled",
+      "reactiveFlagSubscriber": "vdt() listens to Go.onFeatureFlags -> FN.invalidate() when isAuthenticated && !hasCompletedOnboarding",
+      "authedLayoutInterceptor": "Yv.beforeLoad redirects any authed route !== '/onboarding' to '/onboarding' (preserving search.plan from /checkout or /paywall) when Yde() is true"
+    },
+    "whyPreviewRedirectedInProduction": {
+      "rootCause": "Vite build-time dead-code constant folding replaced import.meta.env.DEV with !1 (false) inside Qde.validateSearch, pdt, ftt, and Gtt",
+      "consequence1_redirect": "Navigating to /dashboard/onboarding?preview=true evaluates validateSearch -> { plan: undefined, preview: false, flow: undefined }. Since hasCompletedOnboarding === true on the audited account, Yde() === false and !e.preview === true, throwing redirect cc({ to: '/' }) -> /dashboard/",
+      "consequence2_urlRewriteProof": "Unauthenticated navigation to /dashboard/onboarding?preview=true rewrites search params before Yv.beforeLoad throws redirect to /dashboard/login?redirect=%2Fonboarding%3Fpreview%3Dfalse (observed in wave2_ui_tour_audit.json)",
+      "consequence3_deadGatedV2": "Because flow is unconditionally void 0 and preview is !1, Gtt (onboardingV2 / flowType: 'personalization') is 100% unreachable in production builds despite shipping all code, assets, and i18n strings"
+    },
+    "activeFlow_ftt": {
+      "componentSymbol": "ftt",
+      "flowType": "profile_quiz",
+      "sourceLocation": "scoutpicks-first-party/mod_14_onboarding_and_paywall.js#L1-L20",
+      "totalSteps": 5,
+      "stepKeys": [
+        "welcome",
+        "style",
+        "goal",
+        "profile",
+        "how_it_works"
+      ],
+      "dialectNote": "Spanish copy in onboardingQuiz and onboardingV2 uses Rioplatense voseo ('Jugá', 'Apostás', 'Elegí', 'Descubrí')",
+      "steps": [
+        {
+          "index": 1,
+          "key": "welcome",
+          "esHeadline": "Jugá con los datos de tu lado",
+          "controls": "CTA button 'Empezar' (no inputs)",
+          "validation": "None"
+        },
+        {
+          "index": 2,
+          "key": "style",
+          "symbol": "Wfe",
+          "options": [
+            "intuitive",
+            "social",
+            "analytical",
+            "conservative"
+          ],
+          "controlType": "Single-select radio cards (mH)",
+          "validation": "Continue disabled until style !== null"
+        },
+        {
+          "index": 3,
+          "key": "goal",
+          "symbol": "Gfe",
+          "options": [
+            "confidence",
+            "value",
+            "selection",
+            "profitability"
+          ],
+          "controlType": "Single-select radio cards (mH)",
+          "validation": "Continue disabled until goal !== null"
+        },
+        {
+          "index": 4,
+          "key": "profile",
+          "synthesizerSymbols": [
+            "gtt",
+            "Xfe",
+            "Qfe",
+            "ptt"
+          ],
+          "combinationsCount": 16,
+          "goalToFeatureVideoMap": {
+            "confidence": "context",
+            "value": "value",
+            "selection": "highlights",
+            "profitability": "performance"
+          },
+          "localizedMedia": "Looping MP4 + PNG poster per locale (es/en/pt) in mod_13; static poster fallback when prefers-reduced-motion: reduce"
+        },
+        {
+          "index": 5,
+          "key": "how_it_works",
+          "pillars": [
+            "01 Valor",
+            "02 Elegir mejor",
+            "03 Rentabilidad"
+          ],
+          "localizedVideo": "/dashboard/assets/how-it-works-{es,en,pt}-*.mp4 (autoPlay, controls, playsInline)"
+        }
+      ],
+      "completionMutation": {
+        "method": "POST",
+        "endpoint": "/onboarding/complete",
+        "sdkCall": "Ee.completeOnboardingQuiz({ style, goal }) -> Ige.complete",
+        "requestBodySchema": {
+          "flowType": "profile_quiz",
+          "bettingStyle": "intuitive | social | analytical | conservative",
+          "bettingGoal": "confidence | value | selection | profitability",
+          "expectedUserId": "usr_redacted_0000000000000000000"
+        },
+        "doesNotCall": [
+          "PATCH /users/settings",
+          "POST /users/onboarding"
+        ],
+        "sideEffects": [
+          "Optimistically sets hasCompletedOnboarding: true in auth Zustand store (Ee)",
+          "Updates localStorage['sp.cachedUser'] with hasCompletedOnboarding: true",
+          "Tracks PostHog event onboarding_quiz_completed { style, goal, persisted }",
+          "Redirects replace: true to /paywall?source=web_onboarding&plan=<plan>"
+        ]
+      }
+    },
+    "hiddenFlow_Gtt_onboardingV2": {
+      "componentSymbol": "Gtt",
+      "i18nNamespace": "onboardingV2",
+      "flowType": "personalization",
+      "sourceLocation": "scoutpicks-first-party/mod_14_onboarding_and_paywall.js#L21-L59",
+      "totalSteps": 10,
+      "stepConstant": "AA = 10",
+      "noteOnPromptTerminology": "Prompt's conceptual painPoints/howItWorks correspond in mod_14 to steps 8-10: showcase (active picks preview), comparison ('Sin Scout' painPoints xtt vs 'Con Scout' ktt + 82% hit-rate badge), and notifications (web push opt-in)",
+      "steps": [
+        {
+          "index": 1,
+          "key": "source",
+          "component": "Dtt",
+          "optionsSymbol": "_tt",
+          "options": [
+            "instagram",
+            "tiktok",
+            "friend",
+            "google",
+            "store",
+            "ai"
+          ],
+          "behavior": "Shuffled randomly on mount via [..._tt].sort(() => Math.random() - 0.5); single-select"
+        },
+        {
+          "index": 2,
+          "key": "experience",
+          "component": "Ltt",
+          "optionsSymbol": "vtt",
+          "options": [
+            "beginner",
+            "intermediate",
+            "regular"
+          ],
+          "behavior": "Single-select radio"
+        },
+        {
+          "index": 3,
+          "key": "markets",
+          "component": "$tt",
+          "optionsSymbol": "ytt",
+          "options": [
+            "cards",
+            "corners",
+            "fouls",
+            "goals",
+            "offsides",
+            "result",
+            "saves",
+            "shots",
+            "tackles",
+            "assists"
+          ],
+          "behavior": "Multi-select checkboxes (min 1)"
+        },
+        {
+          "index": 4,
+          "key": "leagues",
+          "component": "ztt",
+          "query": "GET /leagues (yN.list)",
+          "priorityLeagueIdsSymbol": "wtt = [2, 3, 6, 5, 12, 34, 1]",
+          "maxSelectionCap": "yR = 3",
+          "behavior": "Searchable list prioritizing EPL(2), LaLiga(3), Serie A(6), Bundesliga(5), Ligue 1(12), Brasileirao(34), UCL(1) then alphabetical; hard limit 1..3 leagues"
+        },
+        {
+          "index": 5,
+          "key": "play_style",
+          "component": "Ftt",
+          "optionsSymbol": "btt",
+          "options": [
+            "singles",
+            "combos",
+            "both"
+          ],
+          "behavior": "Single-select radio"
+        },
+        {
+          "index": 6,
+          "key": "odds_format",
+          "component": "Btt",
+          "options": [
+            "decimal",
+            "american"
+          ],
+          "default": "decimal",
+          "immediateMutation": "PATCH /users/settings with { oddsFormat } via Kl store on step advance (rolls back on error)"
+        },
+        {
+          "index": 7,
+          "key": "bookmakers",
+          "component": "qtt",
+          "query": "GET /bookmakers/preferences (Sv.detail)",
+          "behavior": "Pre-selects selectedBookmakerIds if configured === true, else selects ALL returned bookmakers (jtt); requires >= 1 if catalog non-empty"
+        },
+        {
+          "index": 8,
+          "key": "showcase",
+          "component": "Utt",
+          "asset": "/dashboard/assets/showcase-active-picks-CkhF6gUP.webp"
+        },
+        {
+          "index": 9,
+          "key": "comparison",
+          "component": "Htt",
+          "painPointsWithoutScout_xtt": [
+            "intuition",
+            "noValue",
+            "repeatErrors"
+          ],
+          "benefitsWithScout_ktt": [
+            "realData",
+            "seeEdge",
+            "trackRoi"
+          ],
+          "hardcodedSocialProofStat": "82% average hit rate in last 30 days"
+        },
+        {
+          "index": 10,
+          "key": "notifications",
+          "component": "Vtt + Wtt",
+          "mockCards": [
+            "Barcelona gana vs Betis",
+            "Mbappé anota vs Lyon · 92%"
+          ],
+          "pushSideEffects": "Notification.requestPermission() -> registers /dashboard/notification-worker.js -> sets localStorage['notification-alerts:<userId>'] = 'on'"
+        }
+      ],
+      "mutations": [
+        {
+          "trigger": "Step 6 (odds_format) -> Continue (U())",
+          "method": "PATCH",
+          "endpoint": "/users/settings",
+          "payload": {
+            "oddsFormat": "decimal | american"
+          }
+        },
+        {
+          "trigger": "Step 10 (notifications) -> Final Continue (B())",
+          "method": "POST",
+          "endpoint": "/onboarding/complete",
+          "payload": {
+            "flowType": "personalization",
+            "source": "string",
+            "experience": "beginner | intermediate | regular",
+            "markets": "string[]",
+            "leagues": "number[] (1..3 IDs)",
+            "playStyle": "singles | combos | both",
+            "oddsFormat": "decimal | american",
+            "notificationsEnabled": "boolean",
+            "bookmakerIds": "number[]",
+            "expectedUserId": "usr_redacted_0000000000000000000"
+          },
+          "queryInvalidations": [
+            "['bookmaker-preferences']",
+            "['profile', userId]"
+          ],
+          "postRedirect": "/paywall?source=web_onboarding&plan=<plan> (replace: true)"
+        }
+      ]
+    }
+  },
+  "pillar2_filters_and_explore_screener": {
+    "epistemologicalStatus": "[OBSERVADO] en mod_09, mod_10, mod_11, mod_14, mod_17 y capturas 05/06 + payloads live",
+    "routes": {
+      "filtersAliasRoute": {
+        "symbol": "cdt",
+        "path": "/filters",
+        "sourceLocation": "scoutpicks-first-party/mod_17_onboarding_and_paywall.js#L13",
+        "behavior": "beforeLoad unconditionally throws cc({ to: '/explore', replace: !0 }). Unauthenticated access redirects to /dashboard/login?redirect=%2Ffilters"
+      },
+      "exploreRoute": {
+        "symbol": "edt",
+        "path": "/explore",
+        "component": "aQe",
+        "sourceLocation": "scoutpicks-first-party/mod_17_onboarding_and_paywall.js#L13",
+        "validateSearch": "e => ({ filters: e.filters === !0 || e.filters === 'true' ? !0 : void 0 })",
+        "internalCallersWithFiltersTrue": [
+          "trt (My Picks header filter CTA in mod_14)",
+          "uXe (Mobile Tools bottom sheet in mod_11)"
+        ],
+        "proSubscriptionGate": {
+          "hook": "SN('explore') -> BGe(sub)",
+          "lockedCondition": "planType === 'free' && !hasActiveEntitlement",
+          "whenLockedAndFiltersTrue": "Scrubs URL to /explore (replace: true) and redirects to /paywall?source=web_insight_filters",
+          "whenUnlockedAndFiltersTrue": "On mobile (<768px) opens full-screen drawer KYe (m('filters')); on desktop focuses aside.picks-filter-sidebar; scrubs ?filters=true"
+        }
+      }
+    },
+    "endpointsAndLiveContracts": {
+      "GET_/insights/filters": {
+        "queryKey": "Ui.options(timing, propType)",
+        "staleTimeMs": 60000,
+        "observedUpcomingCounts": {
+          "types": 3,
+          "leagues": 82,
+          "countries": 55,
+          "teams": 1090,
+          "matches": 698,
+          "metrics": 19
+        },
+        "placeholderSanitationNote": "Unlike GET /teams/featured and GET /leagues/68/filters, GET /insights/filters joins active insights so teams[0] is '2 de Mayo' (zero '1st ranked' placeholders)"
+      },
+      "GET_/insights/filter-ranges": {
+        "queryKey": "Ui.ranges()",
+        "staleTimeMs": 60000,
+        "liveResponse": {
+          "oddsRange": {
+            "min": 1.05,
+            "max": 126
+          },
+          "hitRateRange": {
+            "min": 50,
+            "max": 100
+          },
+          "periodInsightsEnabled": true
+        }
+      },
+      "savedViewsCrud": {
+        "list": "GET /insight-views -> { views: InsightView[] }",
+        "create": "POST /insight-views { name, showOnHome, sortBy, filters, timing: 'upcoming' }",
+        "update": "PATCH /insight-views/:id",
+        "delete": "DELETE /insight-views/:id",
+        "nameMaxLength": {
+          "desktopSavePopover_ole": 48,
+          "mobileCreateView_AYe": 20
+        },
+        "autoNameGenerator_TYe": "Joins up to 4 active facets [leagues, metrics, propType, minHitRate] with ' · '",
+        "sortByOptions": [
+          "recommended",
+          "mostSaved",
+          "closestMatch",
+          "highestEV"
+        ]
+      }
+    },
+    "facetsAndScaleDiscrepancies": {
+      "facetsCount": 12,
+      "facets": [
+        "propType (undefined | 'player' | 'team'; changing resets metrics; 'team' clears playerPositions)",
+        "metrics (multi-select string[])",
+        "leagueIds (multi-select number[])",
+        "teamIds (multi-select number[])",
+        "countryIds (multi-select number[])",
+        "matchIds (multi-select number[]; hidden when timing === 'live')",
+        "playerPositions (4 macro groups GK/DEF/MID/FWD + 11 granular roles CB,RB,LB,DM,CM,AM,RM,LM,RW,LW,CF,SS; selecting forces propType='player')",
+        "minOddsValue / maxOddsValue",
+        "minHitRate / maxHitRate",
+        "direction ('over' | 'under')",
+        "period ('full_match' | 'first_half' | 'second_half' | 'both_halves' -> serialized by iR() as 'first_half,second_half')",
+        "matchDateStart / matchDateEnd (presets today, tomorrow, weekend, next7Days + calendar dle)"
+      ],
+      "oddsScaleDiscrepancy": {
+        "backendRange": {
+          "min": 1.05,
+          "max": 126
+        },
+        "sliderLookupArray_mP": "81 discrete points: 1.00..3.00 (step 0.05, 41 pts), 3.10..5.00 (step 0.10, 20 pts), 5.50..10.00 (step 0.50, 10 pts), 11.00..20.00 (step 1.00, 10 pts); max index 80 treated as open-ended 20.00+",
+        "desktopNumericInputs_YYe": "Debounced 300ms, step 0.01, allows minOddsValue >= 1.00 up to Infinity (exceeding slider cap 20.00)"
+      },
+      "hitRateScaleDiscrepancy": {
+        "backendRange": {
+          "min": 50,
+          "max": 100
+        },
+        "sliderConfig_n0": {
+          "min": 0,
+          "max": 100,
+          "step": 5
+        },
+        "desktopNumericInputs": {
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      },
+      "clientSideLockedStrip_gP": "When ale(filters) is true (any of metrics, direction, minOddsValue, maxOddsValue, or period active), client filters out r.isLocked items locally",
+      "liveCounter_nle": "Debounces 300ms (PYe), queries GET /insights?limit=50 (CYe), displays '50+' when totalCount > 50",
+      "resetBehavior": "Ll() / gYe() resets all 12 facets to empty/default state and detaches activeViewId"
+    }
+  },
+  "pillar3_paywall_checkout_promos_offers_and_post_save": {
+    "epistemologicalStatus": "[OBSERVADO] en mod_03, mod_04, mod_11, mod_12, mod_14, mod_17 y payloads live",
+    "routesComparison": {
+      "paywallRoute_fdt": {
+        "path": "/paywall",
+        "validateSearch": "e => ({ ...zN(e), preview: !1 })",
+        "unauthRedirectObserved": "/dashboard/login?redirect=%2Fpaywall%3Fpreview%3Dfalse%26promo%3DSCOUT50 (preview folded to false, offer stripped from parsed search)"
+      },
+      "checkoutRoute_mdt": {
+        "path": "/checkout",
+        "validateSearch": "zN -> { source, plan, promo: CN(e.promo) }",
+        "beforeLoad": "({ search: e }) => { throw cc({ to: '/paywall', search: e, replace: !0 }) }",
+        "unauthRedirectObserved": "/dashboard/login?redirect=%2Fcheckout%3Fpreview%3Dtrue%26promo%3DSCOUT50%26offer%3Djugabet (Yv.beforeLoad runs before mdt.beforeLoad and preserves raw e.href when validateSearch omits preview)"
+      }
+    },
+    "promoCodeLifecycle": {
+      "validatorSymbol": "CN",
+      "regex_cZe": "^[A-Za-z0-9_-]{1,32}$",
+      "normalization": ".trim().toUpperCase()",
+      "storageType": "sessionStorage",
+      "storageKey_zle": "scoutpicks.webPromo",
+      "capturePoint": "Yv.beforeLoad calls dZe(CN(e.search.promo)) when pathname is /checkout or /paywall (only AFTER authentication check passes!)",
+      "unauthLossBug": "If an unauthenticated user visits /paywall?promo=SCOUT50, Yv.beforeLoad redirects to /login BEFORE calling dZe(); although redirect query keeps promo=SCOUT50, sessionStorage is not populated until post-login return",
+      "backendValidationEndpoint": "GET /app/pricing?promo=<CODE>",
+      "liveTestSCOUT50": {
+        "httpStatus": 200,
+        "promoReturned": null
+      },
+      "pollingAndExpiry": "Polled every 60,000ms (DU = 6e4) plus exact setTimeout until promo.expiresAt (formatted in Etc/GMT+12 AoE)",
+      "monthlyOnlyConstraint_tZe": "In tZe (mod_12), const p = o === 'monthly' ? n : void 0 restricts promotional first-period pricing display to monthly packages; hZe renders paywall.promo.monthlyOnly banner when annual/weekly is selected",
+      "stripeRevenueCatQuirk": "L9e (RevenueCat purchase wrapper) passes ONLY { rcPackage, customerEmail, selectedLocale } and NEVER passes promo code to Stripe/RC SDK; instead click handler Y() calls se(A.code, 'purchase') -> navigator.clipboard.writeText(code) so user must paste coupon manually in Stripe Checkout!"
+    },
+    "affiliateOfferLifecycle": {
+      "bootstrapCaptureSymbol": "const PV = iZe(window.location.search)",
+      "sourceLocation": "scoutpicks-first-party/mod_17_onboarding_and_paywall.js#L13",
+      "validatorSymbol": "sZe",
+      "regex_Rle": "^[a-z0-9-]{3,40}$",
+      "storageType": "localStorage",
+      "storageKey_xP": "sp_web_offer",
+      "ttlMs_nZe": 2592000000,
+      "ttlDays": 30,
+      "survivesPreLoginRedirect": true,
+      "resolutionFlow": "$le reads Dle() -> GET /app/pricing?offer=<code>; if backend returns offer: null, Lle() deletes localStorage['sp_web_offer'] and fires PostHog web_offer_resolved { status: 'rejected' }",
+      "liveTestsFromMX": {
+        "jugabet": {
+          "httpStatus": 200,
+          "offerReturned": null,
+          "reason": "jugabet is a bookmaker CPA partner slug, not a subscription pricing offer"
+        },
+        "br_ios_webapp_2026_11": {
+          "httpStatus": 200,
+          "offerReturned": null,
+          "reason": "Geo-fenced to BR"
+        }
+      }
+    },
+    "postSaveCpaOffers": {
+      "endpoint": "GET /bookmakers/offers/post-save?bookmakerId=<id>&channel=web",
+      "catalogDiscrepancy": {
+        "GET_/bookmakers_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "GET_/bookmakers/preferences_ids": [
+          1,
+          2,
+          3,
+          5,
+          4
+        ],
+        "note": "JugaBet (bookmakerId: 5) is missing from GET /bookmakers (returns only 1..4) despite supplying live odds, user preferences, and MX CPA offers!"
+      },
+      "liveAuditByBookmakerId_1_to_8": {
+        "1": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "2": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "3": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "4": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": true,
+          "offer": {
+            "bookmakerId": 4,
+            "bookmakerName": "Stake",
+            "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+            "campaignKey": "stake-mx-welcome-2026-11",
+            "campaignId": "bkc_stake_mx_202611",
+            "linkId": "bkl_stake_mx_202611",
+            "url": "https://stake.mx/?offer=scoutpicks&c=scoutpicks",
+            "termsUrl": null,
+            "termsSummary": null,
+            "benefits": [
+              {
+                "type": "deposit_match",
+                "amount": "2000.00",
+                "currency": "MXN",
+                "percent": 100,
+                "minDeposit": null,
+                "title": "Duplicamos tu primer depósito",
+                "description": "hasta $2.000 MXN"
+              }
+            ],
+            "perkClaim": null,
+            "registered": false
+          }
+        },
+        "5": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "6": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "7": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        },
+        "8": {
+          "httpStatus": 200,
+          "hasPostSaveOffer": false,
+          "offer": null
+        }
+      },
+      "whyStakeReturnedOfferAndJugaBetReturnedNullInWave2": {
+        "bet365_1_betano_2_draftea_3": "Zero active CPA campaigns in GET /bookmakers/offers?channel=web -> post-save always returns { offer: null }",
+        "stake_4": "Active MX CPA campaign stake-mx-welcome-2026-11 (100% deposit_match up to MXN 2,000.00 via https://stake.mx/?offer=scoutpicks&c=scoutpicks), not yet prompted on audited account -> returns full offer object",
+        "jugabet_5_forensicProof": {
+          "activeInWebOffersList": true,
+          "webOffersCampaignKey": "jugabet-mx-welcome-2026-11",
+          "webOffersUrl": "https://trackinginflu.com/?serial=61372431&creative_id=7507",
+          "benefits": [
+            "125% deposit_match up to MXN 5,000.00",
+            "1 free month Scout Pro (scout_pro_month)"
+          ],
+          "priorSavedPickEvidence": {
+            "pickId": null,
+            "savedBookmaker": null,
+            "savedOddsValue": null,
+            "createdAt": null
+          },
+          "conclusion": "Saving pick cmwk4otqf0049oh01bymlilwy with JugaBet odds at 2026-11-17T03:24:05Z triggered POST /bookmakers/offers/5/events (prompted/dismissed), activating server-side post-save suppression for bookmakerId=5 while bookmakerId=4 (Stake) remained eligible!"
+        }
+      },
+      "clientTriggerAndCooldownMechanics": {
+        "sourceLocation": "scoutpicks-first-party/mod_04_insights_engine_and_scoring.js#L19-L25",
+        "triggerChain": "vu() (savePick mutation onSuccess when outcome === 'saved') -> V9e(pick) -> iAe(bookmakerId) -> 600ms delay (z9e) -> Jg.getState().show(offer, pickContext) -> mounts tXe / rXe modal",
+        "cooldownGuards": {
+          "q9e(userId)": "Verifies Ee.getState().user?.id === userId before and after async calls + 600ms timer to prevent cross-account modal leak",
+          "D9(userId)": "Checks in-memory Set xie.has(userId) OR sessionStorage['sp.partnerOfferPromptShown:' + userId] === '1'",
+          "U9e(userId)": "Adds userId to xie and writes sessionStorage['sp.partnerOfferPromptShown:' + userId] = '1' (strictly max 1 post-save modal per browser tab session across ALL bookmakers!)",
+          "windowBlurFocusReturn_Nle": "When user clicks CTA to affiliate URL, Nle() listens for window blur + focus (>1000ms away) and flips modal to follow-up confirmation '¿Te registraste en <Bookmaker>?' -> POST /bookmakers/offers/:id/events { type: 'registered' }"
+        }
+      }
+    }
+  },
+  "pillar4_liga_mx_and_new_endpoints": {
+    "epistemologicalStatus": "[OBSERVADO] en payloads live Wave 2 y código mod_04, mod_05, mod_11, mod_15",
+    "leagueMetadata": {
+      "id": 68,
+      "name": "Liga MX",
+      "sportmonksLeagueId": 743,
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png",
+      "country": {
+        "id": 83,
+        "name": "Mexico",
+        "code": "MX",
+        "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+      },
+      "currentSeason": null,
+      "sportmonksSeasonId": 28009,
+      "seasonsCount": 11,
+      "phasesNullAnomaly": "Current season 699 (2026/2027) and 2019/2020 have phases: null, whereas 9 prior seasons expose Apertura + Clausura phases",
+      "structure": null,
+      "regularSeasonRounds": 17,
+      "hiddenRefereesTabWebBug": "Although structure.refereesAvailable === true and GET /leagues/68/referees returns 25 referees, dHe() calls dUe(structure) without { referees: true } and Tie() only allows ['matches', 'standings', 'knockout'], making the Referees tab unreachable on /dashboard/leagues/68"
+    },
+    "standingsApertura": {
+      "primaryStageId": 77482470,
+      "clubsCount": 18,
+      "playInRemovedNote": "Positions 1..8 carry ruleType: 'Final Series Play-offs' (direct Quarter-finals Liguilla for 2026/2027 Apertura, no Play-In 7..10)",
+      "atlanteExpansionShift": "Atlante (teamId: 72126) competes in Liga MX 2026/2027 (16th place, 14 pts), replacing Mazatlán FC (67599)",
+      "uiZoneColorBug_yUe": "In mod_04:63, yUe(ruleType) checks r.includes('play-off') before championship promotion rules, misclassifying Liga MX top-8 Liguilla qualifiers with CSS token 'zoneRelegation'",
+      "table": [
+        {
+          "position": 1,
+          "teamId": 67600,
+          "teamName": "Cruz Azul",
+          "teamCode": "CAZ",
+          "played": 16,
+          "won": 10,
+          "draw": 2,
+          "lost": 4,
+          "goalsFor": 37,
+          "goalsAgainst": 26,
+          "goalDiff": 11,
+          "points": 32,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 5,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 19,
+            "goalsAgainst": 13,
+            "points": 16
+          },
+          "away": {
+            "played": 8,
+            "won": 5,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 18,
+            "goalsAgainst": 13,
+            "points": 16
+          }
+        },
+        {
+          "position": 2,
+          "teamId": 67544,
+          "teamName": "América",
+          "teamCode": "AME",
+          "played": 16,
+          "won": 8,
+          "draw": 6,
+          "lost": 2,
+          "goalsFor": 38,
+          "goalsAgainst": 23,
+          "goalDiff": 15,
+          "points": 30,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 3,
+            "draw": 4,
+            "lost": 1,
+            "goalsFor": 15,
+            "goalsAgainst": 8,
+            "points": 13
+          },
+          "away": {
+            "played": 8,
+            "won": 5,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 23,
+            "goalsAgainst": 15,
+            "points": 17
+          }
+        },
+        {
+          "position": 3,
+          "teamId": 67801,
+          "teamName": "Guadalajara",
+          "teamCode": "GUA",
+          "played": 16,
+          "won": 8,
+          "draw": 6,
+          "lost": 2,
+          "goalsFor": 26,
+          "goalsAgainst": 15,
+          "goalDiff": 11,
+          "points": 30,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 5,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 15,
+            "goalsAgainst": 9,
+            "points": 16
+          },
+          "away": {
+            "played": 8,
+            "won": 3,
+            "draw": 5,
+            "lost": 0,
+            "goalsFor": 11,
+            "goalsAgainst": 6,
+            "points": 14
+          }
+        },
+        {
+          "position": 4,
+          "teamId": 67561,
+          "teamName": "Toluca",
+          "teamCode": "TOL",
+          "played": 16,
+          "won": 7,
+          "draw": 6,
+          "lost": 3,
+          "goalsFor": 35,
+          "goalsAgainst": 21,
+          "goalDiff": 14,
+          "points": 27,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 4,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 22,
+            "goalsAgainst": 11,
+            "points": 14
+          },
+          "away": {
+            "played": 8,
+            "won": 3,
+            "draw": 4,
+            "lost": 1,
+            "goalsFor": 13,
+            "goalsAgainst": 10,
+            "points": 13
+          }
+        },
+        {
+          "position": 5,
+          "teamId": 67508,
+          "teamName": "Atlas",
+          "teamCode": "ATS",
+          "played": 16,
+          "won": 8,
+          "draw": 3,
+          "lost": 5,
+          "goalsFor": 27,
+          "goalsAgainst": 30,
+          "goalDiff": -3,
+          "points": 27,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 9,
+            "won": 2,
+            "draw": 3,
+            "lost": 4,
+            "goalsFor": 13,
+            "goalsAgainst": 21,
+            "points": 9
+          },
+          "away": {
+            "played": 7,
+            "won": 6,
+            "draw": 0,
+            "lost": 1,
+            "goalsFor": 14,
+            "goalsAgainst": 9,
+            "points": 18
+          }
+        },
+        {
+          "position": 6,
+          "teamId": 67578,
+          "teamName": "Santos Laguna",
+          "teamCode": "SLA",
+          "played": 16,
+          "won": 8,
+          "draw": 1,
+          "lost": 7,
+          "goalsFor": 23,
+          "goalsAgainst": 20,
+          "goalDiff": 3,
+          "points": 25,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 5,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 11,
+            "goalsAgainst": 3,
+            "points": 16
+          },
+          "away": {
+            "played": 8,
+            "won": 3,
+            "draw": 0,
+            "lost": 5,
+            "goalsFor": 12,
+            "goalsAgainst": 17,
+            "points": 9
+          }
+        },
+        {
+          "position": 7,
+          "teamId": 67619,
+          "teamName": "Monterrey",
+          "teamCode": "MNT",
+          "played": 16,
+          "won": 7,
+          "draw": 3,
+          "lost": 6,
+          "goalsFor": 27,
+          "goalsAgainst": 25,
+          "goalDiff": 2,
+          "points": 24,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 4,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 16,
+            "goalsAgainst": 11,
+            "points": 14
+          },
+          "away": {
+            "played": 8,
+            "won": 3,
+            "draw": 1,
+            "lost": 4,
+            "goalsFor": 11,
+            "goalsAgainst": 14,
+            "points": 10
+          }
+        },
+        {
+          "position": 8,
+          "teamId": 67641,
+          "teamName": "León",
+          "teamCode": "LEO",
+          "played": 16,
+          "won": 6,
+          "draw": 5,
+          "lost": 5,
+          "goalsFor": 23,
+          "goalsAgainst": 21,
+          "goalDiff": 2,
+          "points": 23,
+          "ruleType": "Final Series Play-offs",
+          "home": {
+            "played": 8,
+            "won": 4,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 14,
+            "goalsAgainst": 11,
+            "points": 14
+          },
+          "away": {
+            "played": 8,
+            "won": 2,
+            "draw": 3,
+            "lost": 3,
+            "goalsFor": 9,
+            "goalsAgainst": 10,
+            "points": 9
+          }
+        },
+        {
+          "position": 9,
+          "teamId": 67620,
+          "teamName": "Pachuca",
+          "teamCode": "PCH",
+          "played": 16,
+          "won": 6,
+          "draw": 4,
+          "lost": 6,
+          "goalsFor": 29,
+          "goalsAgainst": 20,
+          "goalDiff": 9,
+          "points": 22,
+          "ruleType": null,
+          "home": {
+            "played": 7,
+            "won": 1,
+            "draw": 3,
+            "lost": 3,
+            "goalsFor": 13,
+            "goalsAgainst": 13,
+            "points": 6
+          },
+          "away": {
+            "played": 9,
+            "won": 5,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 16,
+            "goalsAgainst": 7,
+            "points": 16
+          }
+        },
+        {
+          "position": 10,
+          "teamId": 67524,
+          "teamName": "Tijuana",
+          "teamCode": "TIJ",
+          "played": 16,
+          "won": 5,
+          "draw": 7,
+          "lost": 4,
+          "goalsFor": 25,
+          "goalsAgainst": 22,
+          "goalDiff": 3,
+          "points": 22,
+          "ruleType": null,
+          "home": {
+            "played": 8,
+            "won": 5,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 14,
+            "goalsAgainst": 7,
+            "points": 16
+          },
+          "away": {
+            "played": 8,
+            "won": 0,
+            "draw": 6,
+            "lost": 2,
+            "goalsFor": 11,
+            "goalsAgainst": 15,
+            "points": 6
+          }
+        },
+        {
+          "position": 11,
+          "teamId": 67577,
+          "teamName": "Pumas UNAM",
+          "teamCode": "PUM",
+          "played": 16,
+          "won": 5,
+          "draw": 6,
+          "lost": 5,
+          "goalsFor": 24,
+          "goalsAgainst": 26,
+          "goalDiff": -2,
+          "points": 21,
+          "ruleType": null,
+          "home": {
+            "played": 8,
+            "won": 1,
+            "draw": 5,
+            "lost": 2,
+            "goalsFor": 12,
+            "goalsAgainst": 14,
+            "points": 8
+          },
+          "away": {
+            "played": 8,
+            "won": 4,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 12,
+            "goalsAgainst": 12,
+            "points": 13
+          }
+        },
+        {
+          "position": 12,
+          "teamId": 67523,
+          "teamName": "Querétaro",
+          "teamCode": "QUE",
+          "played": 16,
+          "won": 6,
+          "draw": 2,
+          "lost": 8,
+          "goalsFor": 18,
+          "goalsAgainst": 24,
+          "goalDiff": -6,
+          "points": 20,
+          "ruleType": null,
+          "home": {
+            "played": 8,
+            "won": 2,
+            "draw": 1,
+            "lost": 5,
+            "goalsFor": 8,
+            "goalsAgainst": 12,
+            "points": 7
+          },
+          "away": {
+            "played": 8,
+            "won": 4,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 10,
+            "goalsAgainst": 12,
+            "points": 13
+          }
+        },
+        {
+          "position": 13,
+          "teamId": 67507,
+          "teamName": "Puebla",
+          "teamCode": "PUE",
+          "played": 16,
+          "won": 5,
+          "draw": 4,
+          "lost": 7,
+          "goalsFor": 19,
+          "goalsAgainst": 23,
+          "goalDiff": -4,
+          "points": 19,
+          "ruleType": null,
+          "home": {
+            "played": 7,
+            "won": 1,
+            "draw": 3,
+            "lost": 3,
+            "goalsFor": 8,
+            "goalsAgainst": 12,
+            "points": 6
+          },
+          "away": {
+            "played": 9,
+            "won": 4,
+            "draw": 1,
+            "lost": 4,
+            "goalsFor": 11,
+            "goalsAgainst": 11,
+            "points": 13
+          }
+        },
+        {
+          "position": 14,
+          "teamId": 67642,
+          "teamName": "Atlético San Luis",
+          "teamCode": "ASL",
+          "played": 16,
+          "won": 5,
+          "draw": 4,
+          "lost": 7,
+          "goalsFor": 19,
+          "goalsAgainst": 24,
+          "goalDiff": -5,
+          "points": 19,
+          "ruleType": null,
+          "home": {
+            "played": 9,
+            "won": 2,
+            "draw": 2,
+            "lost": 5,
+            "goalsFor": 9,
+            "goalsAgainst": 13,
+            "points": 8
+          },
+          "away": {
+            "played": 7,
+            "won": 3,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 10,
+            "goalsAgainst": 11,
+            "points": 11
+          }
+        },
+        {
+          "position": 15,
+          "teamId": 67808,
+          "teamName": "Tigres UANL",
+          "teamCode": "TUA",
+          "played": 16,
+          "won": 3,
+          "draw": 6,
+          "lost": 7,
+          "goalsFor": 17,
+          "goalsAgainst": 25,
+          "goalDiff": -8,
+          "points": 15,
+          "ruleType": null,
+          "home": {
+            "played": 7,
+            "won": 3,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 11,
+            "goalsAgainst": 10,
+            "points": 11
+          },
+          "away": {
+            "played": 9,
+            "won": 0,
+            "draw": 4,
+            "lost": 5,
+            "goalsFor": 6,
+            "goalsAgainst": 15,
+            "points": 4
+          }
+        },
+        {
+          "position": 16,
+          "teamId": 72126,
+          "teamName": "Atlante",
+          "teamCode": "ATL",
+          "played": 16,
+          "won": 3,
+          "draw": 5,
+          "lost": 8,
+          "goalsFor": 16,
+          "goalsAgainst": 26,
+          "goalDiff": -10,
+          "points": 14,
+          "ruleType": null,
+          "home": {
+            "played": 8,
+            "won": 1,
+            "draw": 3,
+            "lost": 4,
+            "goalsFor": 7,
+            "goalsAgainst": 12,
+            "points": 6
+          },
+          "away": {
+            "played": 8,
+            "won": 2,
+            "draw": 2,
+            "lost": 4,
+            "goalsFor": 9,
+            "goalsAgainst": 14,
+            "points": 8
+          }
+        },
+        {
+          "position": 17,
+          "teamId": 67560,
+          "teamName": "Necaxa",
+          "teamCode": "NXA",
+          "played": 16,
+          "won": 3,
+          "draw": 4,
+          "lost": 9,
+          "goalsFor": 17,
+          "goalsAgainst": 28,
+          "goalDiff": -11,
+          "points": 13,
+          "ruleType": null,
+          "home": {
+            "played": 9,
+            "won": 3,
+            "draw": 1,
+            "lost": 5,
+            "goalsFor": 10,
+            "goalsAgainst": 15,
+            "points": 10
+          },
+          "away": {
+            "played": 7,
+            "won": 0,
+            "draw": 3,
+            "lost": 4,
+            "goalsFor": 7,
+            "goalsAgainst": 13,
+            "points": 3
+          }
+        },
+        {
+          "position": 18,
+          "teamId": 67543,
+          "teamName": "Juárez",
+          "teamCode": "JUA",
+          "played": 16,
+          "won": 3,
+          "draw": 2,
+          "lost": 11,
+          "goalsFor": 13,
+          "goalsAgainst": 34,
+          "goalDiff": -21,
+          "points": 11,
+          "ruleType": null,
+          "home": {
+            "played": 8,
+            "won": 2,
+            "draw": 1,
+            "lost": 5,
+            "goalsFor": 8,
+            "goalsAgainst": 13,
+            "points": 7
+          },
+          "away": {
+            "played": 8,
+            "won": 1,
+            "draw": 1,
+            "lost": 6,
+            "goalsFor": 5,
+            "goalsAgainst": 21,
+            "points": 4
+          }
+        }
+      ]
+    },
+    "knockoutBracket": {
+      "source": "derived",
+      "connectorsCount": 0,
+      "roundsCount": 2,
+      "structuralAnomalies": [
+        "Each match leg is emitted as an isolated 1-leg tie (aggregate: null) instead of 2-legged Ida/Vuelta ties",
+        "apertura_quarter_finals contains 11 ties instead of 4 (or 8 legs): 3 duplicate SportMonks fixture IDs (37521613, 37521614, 37521615) duplicate 37224156, 37224157, 37224158 on 2026-11-25 for 5v4, 6v3, and 7v2",
+        "apertura_semi_finals contains 4 single-leg ties (2026-12-02 and 2026-12-05) hardcoded with 1st..4th ranked placeholders",
+        "apertura_final round is completely absent from GET /leagues/68/bracket"
+      ],
+      "rounds": [
+        {
+          "key": "apertura_quarter_finals",
+          "label": "Apertura - Quarter-finals",
+          "order": 0,
+          "ties": [
+            {
+              "key": "m_37224156",
+              "home": {
+                "id": 21351547,
+                "name": "5th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351546,
+                "name": "4th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224156,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224157",
+              "home": {
+                "id": 21351553,
+                "name": "6th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351550,
+                "name": "3rd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224157,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224158",
+              "home": {
+                "id": 67842045,
+                "name": "7th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67757040,
+                "name": "2nd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224158,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224159",
+              "home": {
+                "id": 67842046,
+                "name": "8th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67757036,
+                "name": "1st ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224159,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37521613",
+              "home": {
+                "id": 21351547,
+                "name": "5th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351546,
+                "name": "4th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37521613,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37521614",
+              "home": {
+                "id": 21351553,
+                "name": "6th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351550,
+                "name": "3rd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37521614,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37521615",
+              "home": {
+                "id": 67842045,
+                "name": "7th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67757040,
+                "name": "2nd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37521615,
+                  "date": "2026-11-25T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224152",
+              "home": {
+                "id": 21351546,
+                "name": "4th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351547,
+                "name": "5th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224152,
+                  "date": "2026-11-28T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224153",
+              "home": {
+                "id": 21351550,
+                "name": "3rd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351553,
+                "name": "6th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224153,
+                  "date": "2026-11-28T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224154",
+              "home": {
+                "id": 67757040,
+                "name": "2nd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67842045,
+                "name": "7th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224154,
+                  "date": "2026-11-28T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224155",
+              "home": {
+                "id": 67757036,
+                "name": "1st ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67842046,
+                "name": "8th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224155,
+                  "date": "2026-11-28T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            }
+          ]
+        },
+        {
+          "key": "apertura_semi_finals",
+          "label": "Apertura - Semi-finals",
+          "order": 1,
+          "ties": [
+            {
+              "key": "m_37224162",
+              "home": {
+                "id": 21351550,
+                "name": "3rd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67757040,
+                "name": "2nd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224162,
+                  "date": "2026-12-02T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224163",
+              "home": {
+                "id": 21351546,
+                "name": "4th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 67757036,
+                "name": "1st ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224163,
+                  "date": "2026-12-02T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224160",
+              "home": {
+                "id": 67757040,
+                "name": "2nd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351550,
+                "name": "3rd ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224160,
+                  "date": "2026-12-05T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            },
+            {
+              "key": "m_37224161",
+              "home": {
+                "id": 67757036,
+                "name": "1st ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "away": {
+                "id": 21351546,
+                "name": "4th ranked",
+                "code": null,
+                "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png"
+              },
+              "legs": [
+                {
+                  "matchId": 37224161,
+                  "date": "2026-12-05T00:00:00.000Z",
+                  "status": "NS",
+                  "homeScore": null,
+                  "awayScore": null
+                }
+              ],
+              "aggregate": null,
+              "winnerTeamId": null,
+              "placeholder": true
+            }
+          ]
+        }
+      ]
+    },
+    "refereesCatalog": {
+      "totalReferees": 25,
+      "populationSizeInRankings": 54,
+      "dataQualityBugs": [
+        "Fernando Hernandez Gomez (id: 10374, 5 season matches, 189 career Liga MX matches) has country: null",
+        "Luis Rodriguez (id: 79413) is tagged country: Venezuela (VE) inside Liga MX",
+        "All 25 referees use generic placeholder avatar https://cdn.sportmonks.com/images/soccer/placeholder.png"
+      ],
+      "top10BySeasonMatches": [
+        {
+          "id": 9342,
+          "name": "Ismael Rosario Lopez Peñuelas",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 10,
+          "competition": {
+            "matches": 84,
+            "avgYellows": 5.035714285714286,
+            "rank": 5,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 9142,
+          "name": "Marco Antonio Ortíz Nava",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 10,
+          "competition": {
+            "matches": 224,
+            "avgYellows": 4.419642857142857,
+            "rank": 17,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 9218,
+          "name": "Víctor Alfonso Cáceres Hernández",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 10,
+          "competition": {
+            "matches": 117,
+            "avgYellows": 3.871794871794872,
+            "rank": 33,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 10374,
+          "name": "Fernando Hernandez Gomez",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": null,
+          "seasonMatches": 9,
+          "competition": {
+            "matches": 32,
+            "avgYellows": 3.625,
+            "rank": 36,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 3487,
+          "name": "Luis Enrique Santander Aguirre",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 9,
+          "competition": {
+            "matches": 190,
+            "avgYellows": 3.9,
+            "rank": 32,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 9248,
+          "name": "Adonai Escobedo González",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 8,
+          "competition": {
+            "matches": 171,
+            "avgYellows": 4.47953216374269,
+            "rank": 14,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 2043,
+          "name": "César Arturo Ramos Palazuelos",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 8,
+          "competition": {
+            "matches": 247,
+            "avgYellows": 4.210526315789473,
+            "rank": 23,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 3080,
+          "name": "Daniel Quintero Huittrón",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 8,
+          "competition": {
+            "matches": 109,
+            "avgYellows": 4.678899082568807,
+            "rank": 10,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 9220,
+          "name": "Katia Itzel García",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 8,
+          "competition": {
+            "matches": 35,
+            "avgYellows": 4.914285714285715,
+            "rank": 7,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        },
+        {
+          "id": 3106,
+          "name": "Jesus Rafael Lopez Valle",
+          "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+          "country": {
+            "name": "Mexico",
+            "code": "MX",
+            "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+          },
+          "seasonMatches": 6,
+          "competition": {
+            "matches": 59,
+            "avgYellows": 4.796610169491525,
+            "rank": 8,
+            "populationSize": 54
+          },
+          "nextMatch": null
+        }
+      ],
+      "strictestReferee": {
+        "id": 10063,
+        "name": "Yonatan Peinado Aguirre",
+        "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "country": {
+          "name": "Mexico",
+          "code": "MX",
+          "flag": "https://cdn.sportmonks.com/images/countries/png/short/mx.png"
+        },
+        "seasonMatches": 3,
+        "competition": {
+          "matches": 18,
+          "avgYellows": 5.222222222222222,
+          "rank": 1,
+          "populationSize": 54
+        },
+        "nextMatch": null
+      }
+    },
+    "matchesAndBookmakerCoverage": {
+      "past45d": {
+        "dateGroupsCount": 19,
+        "matchesCount": 56
+      },
+      "next21d": {
+        "dateGroupsCount": 7,
+        "totalFixtures": 24,
+        "realJornada17Fixtures": 9,
+        "placeholderLiguillaFixtures": 15
+      },
+      "jornada17FullExternalSync": [
+        {
+          "matchId": 10671579,
+          "sportmonksId": 19715171,
+          "date": "2026-11-21T01:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67507,
+            "name": "Puebla"
+          },
+          "awayTeam": {
+            "id": 67642,
+            "name": "Atlético San Luis"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055316,
+            "bet365EventId": "203962859",
+            "betanoEventId": "95443796",
+            "drafteaEventId": "6a51166872c1398f3f577227",
+            "stakeEventSlug": "1795222800000-puebla-atletico-san-luis",
+            "jugabetEventId": "19360878"
+          }
+        },
+        {
+          "matchId": 10671578,
+          "sportmonksId": 19715170,
+          "date": "2026-11-21T03:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67543,
+            "name": "Juárez"
+          },
+          "awayTeam": {
+            "id": 67508,
+            "name": "Atlas"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055318,
+            "bet365EventId": "203962866",
+            "betanoEventId": "95443951",
+            "drafteaEventId": "6a51166972c1398f3f577267",
+            "stakeEventSlug": "1795230000000-juarez-atlas",
+            "jugabetEventId": "19362880"
+          }
+        },
+        {
+          "matchId": 10671575,
+          "sportmonksId": 19715169,
+          "date": "2026-11-21T04:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67524,
+            "name": "Tijuana"
+          },
+          "awayTeam": {
+            "id": 72126,
+            "name": "Atlante"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055320,
+            "bet365EventId": "203962862",
+            "betanoEventId": "95443942",
+            "drafteaEventId": "6a51166872c1398f3f577238",
+            "stakeEventSlug": "1795230000000-club-tijuana-atlante-fc",
+            "jugabetEventId": "19362879"
+          }
+        },
+        {
+          "matchId": 10671573,
+          "sportmonksId": 19715167,
+          "date": "2026-11-21T23:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67620,
+            "name": "Pachuca"
+          },
+          "awayTeam": {
+            "id": 67561,
+            "name": "Toluca"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055324,
+            "bet365EventId": "203962868",
+            "betanoEventId": "95443961",
+            "drafteaEventId": "6a51166872c1398f3f577252",
+            "stakeEventSlug": "1795302000000-pachuca-deportivo-toluca",
+            "jugabetEventId": "19379485"
+          }
+        },
+        {
+          "matchId": 10671574,
+          "sportmonksId": 19715168,
+          "date": "2026-11-21T23:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67578,
+            "name": "Santos Laguna"
+          },
+          "awayTeam": {
+            "id": 67641,
+            "name": "León"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055322,
+            "bet365EventId": "203962871",
+            "betanoEventId": "95441675",
+            "drafteaEventId": "6a51166772c1398f3f5771fc",
+            "stakeEventSlug": "1795302000000-santos-laguna-club-leon",
+            "jugabetEventId": "19379484"
+          }
+        },
+        {
+          "matchId": 10671572,
+          "sportmonksId": 19715166,
+          "date": "2026-11-22T01:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67577,
+            "name": "Pumas UNAM"
+          },
+          "awayTeam": {
+            "id": 67619,
+            "name": "Monterrey"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055326,
+            "bet365EventId": "203962873",
+            "betanoEventId": "95441986",
+            "drafteaEventId": "6a51166872c1398f3f577228",
+            "stakeEventSlug": "1795309200000-pumas-unam-monterrey",
+            "jugabetEventId": "19381306"
+          }
+        },
+        {
+          "matchId": 10671571,
+          "sportmonksId": 19715165,
+          "date": "2026-11-22T03:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67808,
+            "name": "Tigres UANL"
+          },
+          "awayTeam": {
+            "id": 67544,
+            "name": "América"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055328,
+            "bet365EventId": "203962876",
+            "betanoEventId": "95443967",
+            "drafteaEventId": "6a51166772c1398f3f5771ef",
+            "stakeEventSlug": "1795316400000-tigres-club-america",
+            "jugabetEventId": "19382913"
+          }
+        },
+        {
+          "matchId": 10671570,
+          "sportmonksId": 19715164,
+          "date": "2026-11-22T23:07:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67801,
+            "name": "Guadalajara"
+          },
+          "awayTeam": {
+            "id": 67600,
+            "name": "Cruz Azul"
+          },
+          "insightsCount": 30,
+          "externalProviderSync": {
+            "oddsApiEventId": true,
+            "bet365EventId": true,
+            "betanoEventId": true,
+            "drafteaEventId": true,
+            "stakeEventSlug": true,
+            "jugabetEventId": true
+          },
+          "externalIds": {
+            "oddsApiEventId": 72055330,
+            "bet365EventId": "203962878",
+            "betanoEventId": "95443936",
+            "drafteaEventId": "6a51166872c1398f3f577211",
+            "stakeEventSlug": "1795388820000-guadalajara-cf-cruz-azul",
+            "jugabetEventId": "19399449"
+          }
+        },
+        {
+          "matchId": 10671569,
+          "sportmonksId": null,
+          "date": "2026-11-23T01:00:00.000Z",
+          "round": "17",
+          "homeTeam": {
+            "id": 67523,
+            "name": "Querétaro"
+          },
+          "awayTeam": {
+            "id": 67560,
+            "name": "Necaxa"
+          },
+          "insightsCount": null,
+          "sourceNote": "Captured in GET /leagues/68/matches (schedule card schema; individual GET /matches/10671569 not fetched in 8-match corpus)"
+        }
+      ],
+      "finishedMatchDeepAudit_10671591": {
+        "matchId": 10671591,
+        "sportmonksId": 19715177,
+        "date": "2026-11-07T23:00:00.000Z",
+        "venue": "Estadio Jalisco",
+        "referee": "Fernando Hernandez Gomez",
+        "score": "Atlas 1 - 4 Pachuca (HT 0-2)",
+        "rosterEntries": 42,
+        "playersWithMinutesGt0": 30,
+        "eventsCount": 2,
+        "settledInsightsCount": 0,
+        "xgAndXgotPopulated": false,
+        "xgForensicNote": "Both xg and xgot are null across all 42 player records in 10671591 (and also null in EPL match 10618059), proving SportMonks xG add-on is not ingested into match player box-scores"
+      },
+      "matchesDayGrouped": {
+        "ligamx_weekend": {
+          "dateGroups": 2,
+          "matchesCount": 6
+        },
+        "today_2026_11_17": {
+          "leaguesCount": 7,
+          "matchesCount": 56
+        },
+        "club_sunday_2026_11_22": {
+          "leaguesCount": 46,
+          "matchesCount": 99,
+          "hasMore": true
+        }
+      }
+    },
+    "squadsAndTeamInsights": {
+      "auditedLigaMxClubs": [
+        {
+          "teamId": 67523,
+          "teamName": "Querétaro",
+          "shortName": "QUE",
+          "founded": 1950,
+          "venue": null,
+          "totalPlayers": 23,
+          "playerSchemaFields": [
+            "id",
+            "name",
+            "image",
+            "position",
+            "detailedPosition",
+            "positionGroup",
+            "shirtNumber",
+            "captain",
+            "age"
+          ],
+          "exposesPerformanceMetricsInSquad": false,
+          "captains": [
+            {
+              "id": 49886,
+              "name": "Diego Reyes",
+              "shirtNumber": 13
+            }
+          ],
+          "positionGroupBreakdown": {
+            "goalkeeper": 2,
+            "defender": 6,
+            "midfielder": 8,
+            "attacker": 7
+          },
+          "teamInsightsCount": 9,
+          "teamInsightsMetricsDistribution": {
+            "goals": 4,
+            "corners": 5
+          }
+        },
+        {
+          "teamId": 67641,
+          "teamName": "León",
+          "shortName": "LEO",
+          "founded": 1944,
+          "venue": null,
+          "totalPlayers": 26,
+          "playerSchemaFields": [
+            "id",
+            "name",
+            "image",
+            "position",
+            "detailedPosition",
+            "positionGroup",
+            "shirtNumber",
+            "captain",
+            "age"
+          ],
+          "exposesPerformanceMetricsInSquad": false,
+          "captains": [
+            {
+              "id": 49464,
+              "name": "José Iván Rodríguez Rebollar",
+              "shirtNumber": 29
+            }
+          ],
+          "positionGroupBreakdown": {
+            "goalkeeper": 2,
+            "defender": 10,
+            "midfielder": 9,
+            "attacker": 5
+          },
+          "teamInsightsCount": 18,
+          "teamInsightsMetricsDistribution": {
+            "shots": 3,
+            "yellowCards": 2,
+            "goals": 5,
+            "shotsOnTarget": 4,
+            "corners": 4
+          }
+        },
+        {
+          "teamId": 67577,
+          "teamName": "Pumas UNAM",
+          "shortName": "PUM",
+          "founded": 1954,
+          "venue": null,
+          "totalPlayers": 28,
+          "playerSchemaFields": [
+            "id",
+            "name",
+            "image",
+            "position",
+            "detailedPosition",
+            "positionGroup",
+            "shirtNumber",
+            "captain",
+            "age"
+          ],
+          "exposesPerformanceMetricsInSquad": false,
+          "captains": [
+            {
+              "id": 15353,
+              "name": "Keylor Navas",
+              "shirtNumber": 1
+            }
+          ],
+          "positionGroupBreakdown": {
+            "goalkeeper": 3,
+            "defender": 10,
+            "midfielder": 8,
+            "attacker": 7
+          },
+          "teamInsightsCount": 22,
+          "teamInsightsMetricsDistribution": {
+            "yellowCards": 1,
+            "corners": 5,
+            "shotsOnTarget": 6,
+            "shots": 5,
+            "goals": 5
+          }
+        },
+        {
+          "teamId": 67561,
+          "teamName": "Toluca",
+          "shortName": "TOL",
+          "founded": 1917,
+          "venue": null,
+          "totalPlayers": 28,
+          "playerSchemaFields": [
+            "id",
+            "name",
+            "image",
+            "position",
+            "detailedPosition",
+            "positionGroup",
+            "shirtNumber",
+            "captain",
+            "age"
+          ],
+          "exposesPerformanceMetricsInSquad": false,
+          "captains": [],
+          "positionGroupBreakdown": {
+            "goalkeeper": 4,
+            "defender": 9,
+            "midfielder": 8,
+            "attacker": 7
+          },
+          "teamInsightsCount": 23,
+          "teamInsightsMetricsDistribution": {
+            "shots": 6,
+            "shotsOnTarget": 6,
+            "corners": 4,
+            "goals": 5,
+            "yellowCards": 2
+          }
+        }
+      ],
+      "placeholderTeam67757036": {
+        "squadTotal": 0,
+        "squadPlayers": [],
+        "teamInsightsCount": 0
+      },
+      "uiOmissionNote": "xGe (mod_11) renders shirtNumber, image, name, detailedPosition, and captain badge, ignoring the age field returned by GET /teams/:id/squad"
+    },
+    "individualDraftInsightAnatomy": {
+      "endpoint": "GET /insights/draft%3Ap49516_m10671579_shots_0.5_over",
+      "id": "draft:p49516_m10671579_shots_0.5_over",
+      "isEphemeralDraftId": true,
+      "type": "value_player_prop",
+      "player": {
+        "id": 49516,
+        "apiId": null,
+        "sportmonksId": 26715334,
+        "name": "Facundo Almada",
+        "searchName": "facundo almada facundo ezequiel almada f almada facundo almada",
+        "firstname": "Facundo Ezequiel",
+        "lastname": "Almada",
+        "commonName": "F. Almada",
+        "displayName": "Facundo Almada",
+        "age": 28,
+        "nationality": "Argentina",
+        "height": "179 cm",
+        "weight": "82 kg",
+        "photo": "https://cdn.sportmonks.com/images/soccer/players/6/26715334.png",
+        "photoStatus": "pending",
+        "position": "Defender",
+        "currentTeamId": 67507,
+        "createdAt": "2026-05-16T01:52:40.301Z",
+        "updatedAt": "2026-11-17T17:00:49.044Z",
+        "nationalTeamId": null,
+        "inNationalTeamSquad": false,
+        "nationalSquadUpdatedAt": null,
+        "isWomen": false,
+        "aggregatesRefreshedAt": null,
+        "lastStatsAt": "2026-11-10T18:11:22.179Z",
+        "backfillInvalidationToken": null,
+        "currentTeam": {
+          "id": 67507,
+          "name": "Puebla",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+          "code": "PUE"
+        },
+        "nationalTeam": null,
+        "detailedPosition": "CB"
+      },
+      "team": {
+        "id": 67507,
+        "name": "Puebla",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+        "code": "PUE"
+      },
+      "match": {
+        "id": 10671579,
+        "date": "2026-11-21T01:00:00.000Z",
+        "status": "NS",
+        "isNeutralVenue": false,
+        "homeTeam": {
+          "id": 67507,
+          "name": "Puebla",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+          "code": "PUE",
+          "isNationalTeam": false
+        },
+        "awayTeam": {
+          "id": 67642,
+          "name": "Atlético San Luis",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+          "code": "ASL",
+          "isNationalTeam": false
+        },
+        "homeScore": null,
+        "awayScore": null,
+        "elapsed": null,
+        "league": "Liga MX",
+        "isHome": true
+      },
+      "metric": "shots",
+      "line": 0.5,
+      "direction": "over",
+      "period": "full_match",
+      "timeWindow": "L5",
+      "hitRate": 100,
+      "sampleSize": 5,
+      "recentValues": [
+        4,
+        2,
+        1,
+        2,
+        3
+      ],
+      "recentMinutesPlayed": [
+        90,
+        90,
+        90,
+        90,
+        90
+      ],
+      "bestOdds": {
+        "bookmaker": "JugaBet",
+        "oddsValue": 1.35,
+        "oddsObject": {
+          "id": 240046941,
+          "matchId": 10671579,
+          "bookmakerId": 5,
+          "source": "jugabet",
+          "perks": [],
+          "selection": "Facundo Almada Over 0.5",
+          "value": 1.35,
+          "line": 0.5,
+          "playerId": 49516,
+          "teamId": 67507,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 5,
+            "name": "JugaBet",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+          },
+          "betType": {
+            "id": 84055191,
+            "name": "Player Shots",
+            "category": "shots",
+            "level": "player",
+            "period": "full_match"
+          }
+        }
+      },
+      "impliedProbability": 74.07,
+      "edgePercentage": 25.93,
+      "expectedValue": 0.35,
+      "confidence": 90,
+      "relevanceScore": 104.11,
+      "opponentMetricRank": {
+        "opponentTeamId": 67642,
+        "metric": "shots",
+        "rankType": "defense",
+        "rank": 4,
+        "totalTeams": 18,
+        "average": 16.3125,
+        "leagueAvg": 14.70138888888889,
+        "leagueId": 68,
+        "seasonYear": 2026
+      },
+      "variantsCount": 5,
+      "variants": [
+        {
+          "scope": "match_team",
+          "teamId": 67507,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L20",
+          "competitionScope": "competition",
+          "hitRate": 68.75,
+          "sampleSize": 16,
+          "edge": -5.32,
+          "teamIds": [
+            67507
+          ],
+          "leagueIds": [
+            68
+          ],
+          "matchIds": [
+            10671583,
+            10671606,
+            10671613,
+            10671538,
+            10671557,
+            10671455,
+            10671465,
+            10671484,
+            10671512,
+            10671495,
+            10671519,
+            10671380,
+            10671383,
+            10671408,
+            10671419,
+            9647176
+          ]
+        },
+        {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "opponentScope": "head_to_head",
+          "hitRate": 42.86,
+          "sampleSize": 7,
+          "edge": -31.21,
+          "teamIds": [
+            67599
+          ],
+          "leagueIds": [
+            68
+          ],
+          "matchIds": [
+            34647,
+            34197,
+            35711,
+            35073,
+            32069728,
+            32069542,
+            32070722
+          ]
+        },
+        {
+          "scope": "match_team",
+          "teamId": 67507,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "hitRate": 40,
+          "sampleSize": 5,
+          "edge": -34.07,
+          "teamIds": [
+            67507
+          ],
+          "leagueIds": [
+            68
+          ],
+          "matchIds": [
+            10671583,
+            10671606,
+            10671613,
+            10671538,
+            10671557
+          ]
+        },
+        {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "home",
+          "stageKind": "group_phase",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "opponentScope": "head_to_head",
+          "hitRate": 33.33,
+          "sampleSize": 3,
+          "edge": -40.74,
+          "teamIds": [
+            67599
+          ],
+          "leagueIds": [
+            68
+          ],
+          "matchIds": [
+            34197,
+            35073,
+            32069728
+          ]
+        },
+        {
+          "scope": "match_team",
+          "teamId": 67507,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "hitRate": 60,
+          "sampleSize": 10,
+          "edge": -14.07,
+          "teamIds": [
+            67507
+          ],
+          "leagueIds": [
+            68
+          ],
+          "matchIds": [
+            10671583,
+            10671606,
+            10671613,
+            10671538,
+            10671557,
+            10671455,
+            10671465,
+            10671484,
+            10671512,
+            10671495
+          ]
+        }
+      ],
+      "staleTransferEntityBug": "H2H variants reference Mazatlán FC (id: 67599, Facundo Almada's former club) in lensEntities while attributing the match to Puebla (67507) vs Atlético San Luis (67642)"
+    },
+    "criticalPlaceholderAndFeaturedTeamsAnomaly": {
+      "endpoint": "GET /teams/featured?limit=50",
+      "webClientCallersCount": 0,
+      "orphanSdkSymbol": "qi.getFeatured (defined in mod_04, never invoked in SPA)",
+      "rootCauseSqlInference": "Backend executes SELECT ... FROM teams ORDER BY name ASC LIMIT :limit using C/UTF-8 byte collation without WHERE is_placeholder = false or popularity ranking, joining an arbitrary/latest match or season-team row for country & league",
+      "asciiCollationProof": [
+        "#1 '1st ranked' (0x31) precedes '#2 2 de Mayo' (0x32) and '#10 ABB' (0x41)",
+        "#30 'Academico Viseu' ('o' = 0x6F) precedes '#31 Académica' ('é' = 0xC3 0xA9) instead of Unicode locale collation"
+      ],
+      "infiltrationInLigaMxFilters": {
+        "endpoint": "GET /leagues/68/filters",
+        "totalTeamsReturned": 26,
+        "placeholderTeamsCount": 8,
+        "realClubsCount": 18,
+        "first8TeamsInFilters": [
+          {
+            "id": 67757036,
+            "name": "1st ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 67757040,
+            "name": "2nd ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 21351550,
+            "name": "3rd ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 21351546,
+            "name": "4th ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 21351547,
+            "name": "5th ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 21351553,
+            "name": "6th ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 67842045,
+            "name": "7th ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          },
+          {
+            "id": 67842046,
+            "name": "8th ranked",
+            "logo": "https://cdn.sportmonks.com/images/soccer/team_placeholder.png",
+            "code": null
+          }
+        ]
+      },
+      "aberdeenCountryCorruption": "Team #27 Aberdeen (id: 4298, Scottish Premiership logo 501.png) is returned with country: 'Wales' and leagueId: 10",
+      "top12AndWave1VsWave2Flips": [
+        {
+          "rankInLimit50": 1,
+          "teamId": 67757036,
+          "name": "1st ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Costa Rica",
+            "league": {
+              "id": 1268,
+              "name": "Primera Division",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png"
+            }
+          },
+          "wave2": {
+            "country": "Costa Rica",
+            "league": {
+              "id": 1268,
+              "name": "Primera Division",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 2,
+          "teamId": 12796,
+          "name": "2 de Mayo",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "South America",
+            "league": {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          },
+          "wave2": {
+            "country": "South America",
+            "league": {
+              "id": 13,
+              "name": "Copa Libertadores",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1122.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 3,
+          "teamId": 67757040,
+          "name": "2nd ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Mexico",
+            "league": {
+              "id": 68,
+              "name": "Liga MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+            }
+          },
+          "wave2": {
+            "country": "Costa Rica",
+            "league": {
+              "id": 1268,
+              "name": "Primera Division",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 4,
+          "teamId": 21351550,
+          "name": "3rd ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Brazil",
+            "league": {
+              "id": 153,
+              "name": "Serie B",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+            }
+          },
+          "wave2": {
+            "country": "Costa Rica",
+            "league": {
+              "id": 1268,
+              "name": "Primera Division",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/15/687.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 5,
+          "teamId": 21351546,
+          "name": "4th ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Brazil",
+            "league": {
+              "id": 153,
+              "name": "Serie B",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+            }
+          },
+          "wave2": {
+            "country": "Mexico",
+            "league": {
+              "id": 1272,
+              "name": "Liga de Expansión MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/749.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 6,
+          "teamId": 21351547,
+          "name": "5th ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Brazil",
+            "league": {
+              "id": 153,
+              "name": "Serie B",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+            }
+          },
+          "wave2": {
+            "country": "Mexico",
+            "league": {
+              "id": 1272,
+              "name": "Liga de Expansión MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/749.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 7,
+          "teamId": 21351553,
+          "name": "6th ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Brazil",
+            "league": {
+              "id": 153,
+              "name": "Serie B",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/11/651.png"
+            }
+          },
+          "wave2": {
+            "country": "Mexico",
+            "league": {
+              "id": 1272,
+              "name": "Liga de Expansión MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/749.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 8,
+          "teamId": 67842045,
+          "name": "7th ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Mexico",
+            "league": {
+              "id": 68,
+              "name": "Liga MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+            }
+          },
+          "wave2": {
+            "country": "Mexico",
+            "league": {
+              "id": 68,
+              "name": "Liga MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 9,
+          "teamId": 67842046,
+          "name": "8th ranked",
+          "isPlaceholder": true,
+          "wave1": {
+            "country": "Mexico",
+            "league": {
+              "id": 68,
+              "name": "Liga MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+            }
+          },
+          "wave2": {
+            "country": "Mexico",
+            "league": {
+              "id": 68,
+              "name": "Liga MX",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 10,
+          "teamId": 67743984,
+          "name": "ABB",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "Bolivia",
+            "league": {
+              "id": 1292,
+              "name": "Liga De Futbol Prof",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1098.png"
+            }
+          },
+          "wave2": {
+            "country": "Bolivia",
+            "league": {
+              "id": 1292,
+              "name": "Liga De Futbol Prof",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/10/1098.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 11,
+          "teamId": 749,
+          "name": "AC Milan",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "Europe",
+            "league": {
+              "id": 4,
+              "name": "Europa League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+            }
+          },
+          "wave2": {
+            "country": "Italy",
+            "league": {
+              "id": 6,
+              "name": "Serie A",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/384.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 12,
+          "teamId": 18586,
+          "name": "ADO Den Haag",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "Netherlands",
+            "league": {
+              "id": 24,
+              "name": "KNVB Beker",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/78.png"
+            }
+          },
+          "wave2": {
+            "country": "Netherlands",
+            "league": {
+              "id": 23,
+              "name": "Eredivisie",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/72.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 15,
+          "teamId": 1125,
+          "name": "AFC Bournemouth",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "England",
+            "league": {
+              "id": 22,
+              "name": "Carabao Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+            }
+          },
+          "wave2": {
+            "country": "England",
+            "league": {
+              "id": 2,
+              "name": "Premier League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 16,
+          "teamId": 27958,
+          "name": "AFC Hornchurch",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "England",
+            "league": {
+              "id": 33,
+              "name": "FA Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/24/24.png"
+            }
+          },
+          "wave2": {
+            "country": "England",
+            "league": {
+              "id": 350,
+              "name": "Enterprise National League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/17.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 19,
+          "teamId": 45120,
+          "name": "AIK",
+          "isPlaceholder": false,
+          "wave1": {
+            "country": "Sweden",
+            "league": {
+              "id": 50,
+              "name": "Allsvenskan",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/29/573.png"
+            }
+          },
+          "wave2": {
+            "country": "World",
+            "league": {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            }
+          },
+          "flippedBetweenWaves": true
+        },
+        {
+          "rankInLimit50": 27,
+          "teamId": 4298,
+          "name": "Aberdeen",
+          "isPlaceholder": false,
+          "wave1": null,
+          "wave2": {
+            "country": "Wales",
+            "league": {
+              "id": 10,
+              "name": "Premiership",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/501.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 30,
+          "teamId": 36380,
+          "name": "Academico Viseu",
+          "isPlaceholder": false,
+          "wave1": null,
+          "wave2": {
+            "country": "Portugal",
+            "league": {
+              "id": 7,
+              "name": "Liga Portugal",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        },
+        {
+          "rankInLimit50": 31,
+          "teamId": 36085,
+          "name": "Académica",
+          "isPlaceholder": false,
+          "wave1": null,
+          "wave2": {
+            "country": "Portugal",
+            "league": {
+              "id": 151,
+              "name": "Liga Portugal 2",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/17/465.png"
+            }
+          },
+          "flippedBetweenWaves": false
+        }
+      ]
+    },
+    "guideVideosEndpoint": {
+      "endpoint": "GET /guide/videos",
+      "introducedIn": "Wave 2 live redeploy (Build 3/4, index-DyN-BnCU.js / mod_15)",
+      "featureFlag": "guide_videos_enabled (lc.GUIDE_VIDEOS_ENABLED)",
+      "uiMountLocation": "Profile page (tat -> Jrt / Zrt modal)",
+      "staleTimeMs": 600000,
+      "embedTemplate": "https://www.youtube-nocookie.com/embed/${videoId}?rel=0&playsinline=1&autoplay=1",
+      "videosCount": 3,
+      "videos": [
+        {
+          "videoId": "hpqwM_3Dwq8",
+          "title": "Cómo usar la página del jugador en Scout Picks | Tutorial",
+          "thumbnailUrl": "https://i1.ytimg.com/vi/hpqwM_3Dwq8/hqdefault.jpg",
+          "publishedAt": "2026-10-23T15:37:50.000Z"
+        },
+        {
+          "videoId": "mXMmiafWr24",
+          "title": "Cómo seguir su rendimiento en Scout Picks | Tutorial",
+          "thumbnailUrl": "https://i2.ytimg.com/vi/mXMmiafWr24/hqdefault.jpg",
+          "publishedAt": "2026-10-22T15:45:17.000Z"
+        },
+        {
+          "videoId": "RFaz-TihDig",
+          "title": "Cómo leer una tarjeta de pick en Scout Picks | Tutorial",
+          "thumbnailUrl": "https://i3.ytimg.com/vi/RFaz-TihDig/hqdefault.jpg",
+          "publishedAt": "2026-10-20T18:33:04.000Z"
+        }
+      ]
+    },
+    "anonymousAuthEnforcementMatrix": [
+      {
+        "endpoint": "GET /leagues/68",
+        "anonymousStatus": 401,
+        "body": {
+          "error": "Authentication required"
+        }
+      },
+      {
+        "endpoint": "GET /teams/featured?limit=50",
+        "anonymousStatus": 401,
+        "body": {
+          "error": "Authentication required"
+        }
+      },
+      {
+        "endpoint": "GET /guide/videos",
+        "anonymousStatus": 401,
+        "body": {
+          "error": "Authentication required"
+        }
+      },
+      {
+        "endpoint": "GET /bookmakers/offers/post-save?bookmakerId=4&channel=web",
+        "anonymousStatus": 401,
+        "body": {
+          "error": "Authentication required"
+        }
+      },
+      {
+        "endpoint": "GET /insights/draft%3Ap49516_m10671579_shots_0.5_over",
+        "anonymousStatus": 401,
+        "body": {
+          "error": "Authentication required"
+        }
+      },
+      {
+        "endpoint": "GET /app/pricing?promo=SCOUT50",
+        "anonymousStatus": 200,
+        "note": "Public pricing endpoint; returns promo: null, offer: null without auth"
+      }
+    ]
+  }
+}

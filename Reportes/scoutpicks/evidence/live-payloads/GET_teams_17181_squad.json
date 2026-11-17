@@ -1,0 +1,303 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/teams/17181/squad",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "teamId": 17181,
+    "players": [
+      {
+        "id": 4611,
+        "name": "Danny Ward",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/18/3282.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 33
+      },
+      {
+        "id": 78956,
+        "name": "Joseph Duncan",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 20
+      },
+      {
+        "id": 3963,
+        "name": "Karl Darlow",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/21/1397.png",
+        "position": "Goalkeeper",
+        "detailedPosition": "GK",
+        "positionGroup": "goalkeeper",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 36
+      },
+      {
+        "id": 15991,
+        "name": "Ben Cabango",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/28/7687676.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 26
+      },
+      {
+        "id": 1543,
+        "name": "Ben Davies",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/29/989.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 33
+      },
+      {
+        "id": 17054,
+        "name": "Chris Mepham",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/11/339083.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 20399,
+        "name": "Connor Roberts",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/2/5410.png",
+        "position": "Defender",
+        "detailedPosition": "RB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 31
+      },
+      {
+        "id": 15987,
+        "name": "Jay Dasilva",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/0/10496.png",
+        "position": "Defender",
+        "detailedPosition": "LB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 28
+      },
+      {
+        "id": 4534,
+        "name": "Jayden Lienou",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/25/37769337.png",
+        "position": "Defender",
+        "detailedPosition": "LB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 18
+      },
+      {
+        "id": 3951,
+        "name": "Joe Rodon",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/8/339112.png",
+        "position": "Defender",
+        "detailedPosition": "CB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 3633,
+        "name": "Neco Williams",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/6/11720838.png",
+        "position": "Defender",
+        "detailedPosition": "LB",
+        "positionGroup": "defender",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 25
+      },
+      {
+        "id": 18093,
+        "name": "Cian Ashford",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/26/37550074.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 3952,
+        "name": "Daniel James",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/29/5149.png",
+        "position": "Midfielder",
+        "detailedPosition": "RW",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 3949,
+        "name": "Ethan Ampadu",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/30/12542.png",
+        "position": "Midfielder",
+        "detailedPosition": "DM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 26
+      },
+      {
+        "id": 3580,
+        "name": "Harry Wilson",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+        "position": "Midfielder",
+        "detailedPosition": "RW",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 15994,
+        "name": "Joel Colwill",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/14/37612654.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 22
+      },
+      {
+        "id": 15997,
+        "name": "Josh Sheehan",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/6/902.png",
+        "position": "Midfielder",
+        "detailedPosition": "CM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 31
+      },
+      {
+        "id": 10368,
+        "name": "Kai Andrews",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/20/37609172.png",
+        "position": "Midfielder",
+        "detailedPosition": "CM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 20
+      },
+      {
+        "id": 17388,
+        "name": "Rubin Colwill",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/17/24081649.png",
+        "position": "Midfielder",
+        "detailedPosition": "AM",
+        "positionGroup": "midfielder",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 24
+      },
+      {
+        "id": 19753,
+        "name": "Aaron Collins",
+        "image": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 1536,
+        "name": "Brennan Johnson",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/6/25930790.png",
+        "position": "Attacker",
+        "detailedPosition": "RW",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 25
+      },
+      {
+        "id": 3473,
+        "name": "David Brooks",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/16/9808.png",
+        "position": "Attacker",
+        "detailedPosition": "RW",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 29
+      },
+      {
+        "id": 15989,
+        "name": "Lewis Koumas",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/10/37657770.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 21
+      },
+      {
+        "id": 15990,
+        "name": "Liam Cullen",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/16/3857328.png",
+        "position": "Attacker",
+        "detailedPosition": "AM",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 27
+      },
+      {
+        "id": 15995,
+        "name": "Mark Harris",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/25/8057.png",
+        "position": "Attacker",
+        "detailedPosition": "CF",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 27
+      },
+      {
+        "id": 15996,
+        "name": "Sorba Thomas",
+        "image": "https://cdn.sportmonks.com/images/soccer/players/18/18226.png",
+        "position": "Attacker",
+        "detailedPosition": "LW",
+        "positionGroup": "attacker",
+        "shirtNumber": null,
+        "captain": false,
+        "age": 27
+      }
+    ],
+    "total": 26
+  }
+}

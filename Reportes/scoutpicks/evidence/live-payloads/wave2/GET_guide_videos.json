@@ -1,0 +1,26 @@
+{
+  "status": 200,
+  "url": "/guide/videos",
+  "data": {
+    "videos": [
+      {
+        "videoId": "hpqwM_3Dwq8",
+        "title": "Cómo usar la página del jugador en Scout Picks | Tutorial",
+        "thumbnailUrl": "https://i1.ytimg.com/vi/hpqwM_3Dwq8/hqdefault.jpg",
+        "publishedAt": "2026-10-23T15:37:50.000Z"
+      },
+      {
+        "videoId": "mXMmiafWr24",
+        "title": "Cómo seguir su rendimiento en Scout Picks | Tutorial",
+        "thumbnailUrl": "https://i2.ytimg.com/vi/mXMmiafWr24/hqdefault.jpg",
+        "publishedAt": "2026-10-22T15:45:17.000Z"
+      },
+      {
+        "videoId": "RFaz-TihDig",
+        "title": "Cómo leer una tarjeta de pick en Scout Picks | Tutorial",
+        "thumbnailUrl": "https://i3.ytimg.com/vi/RFaz-TihDig/hqdefault.jpg",
+        "publishedAt": "2026-10-20T18:33:04.000Z"
+      }
+    ]
+  }
+}

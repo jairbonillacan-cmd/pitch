@@ -1,0 +1,26 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/bracket?seasonId=513",
+  "requestBody": null,
+  "status": 200,
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "data": {
+    "league": {
+      "id": 116,
+      "name": "UEFA Nations League",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+    },
+    "season": {
+      "id": 513,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "source": "derived",
+    "rounds": [],
+    "connectors": []
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "bundle": "index-De_Y7Tky.js",
+  "buildId": "70dc4f66c9ca1b52276661ceb1282fd028daa9fa-44127063438.1",
+  "totalModules": 18,
+  "totalBytes": 1320530,
+  "modules": [
+    {
+      "filename": "mod_00_notification_worker.js",
+      "bytes": 4216,
+      "unitCount": 1,
+      "startOffset": 0,
+      "endOffset": 4214,
+      "sha256": "6c311f1e5e20d48272b5769ecd5375fd7a70155178afe0b8fada93ccf3ede882"
+    },
+    {
+      "filename": "mod_01_app_module.js",
+      "bytes": 83673,
+      "unitCount": 148,
+      "startOffset": 5699,
+      "endOffset": 131776,
+      "sha256": "3dbf8b4b7e2c1a8148cac3d0c7d220b5fcce0e280d47924089a967d0997de680"
+    },
+    {
+      "filename": "mod_02_i18n_inline_en_es_pt.js",
+      "bytes": 81774,
+      "unitCount": 22,
+      "startOffset": 131782,
+      "endOffset": 213110,
+      "sha256": "b79fa8889aee53f7887f2dc89049fe8dd8c4e168ba2071a3561e20179f1ff612"
+    },
+    {
+      "filename": "mod_03_i18n_inline_en_es_pt.js",
+      "bytes": 60795,
+      "unitCount": 18,
+      "startOffset": 227066,
+      "endOffset": 2055370,
+      "sha256": "590c09adbde30737bc14c3d5262d90a7347fe922ae8e1fed98e6e9571b8b4256"
+    },
+    {
+      "filename": "mod_04_insights_engine_and_scoring.js",
+      "bytes": 81736,
+      "unitCount": 136,
+      "startOffset": 2230578,
+      "endOffset": 2312125,
+      "sha256": "50a178ac302ae41c6613245636d58ae7ab2762bf0684ddf9b47647dde6d03914"
+    },
+    {
+      "filename": "mod_05_market_alerts_and_ai_assistant.js",
+      "bytes": 84885,
+      "unitCount": 133,
+      "startOffset": 2312125,
+      "endOffset": 2396837,
+      "sha256": "d6279e57b84f2c9dde5e1b93c175542fb5a011a56405607e99da50a60e78dc96"
+    },
+    {
+      "filename": "mod_06_app_module.js",
+      "bytes": 84256,
+      "unitCount": 42,
+      "startOffset": 2396837,
+      "endOffset": 2481046,
+      "sha256": "cb5e9676f4d97d41bf45e0a02dae90ad5326affc357f6590cb2c515dbb6ebccb"
+    },
+    {
+      "filename": "mod_07_app_module.js",
+      "bytes": 84994,
+      "unitCount": 135,
+      "startOffset": 2481046,
+      "endOffset": 2565844,
+      "sha256": "903cf34be5e85d34b724306520c320d385107286ccfa663e44448723bf04c86f"
+    },
+    {
+      "filename": "mod_08_simulations_and_explore_screener.js",
+      "bytes": 84994,
+      "unitCount": 86,
+      "startOffset": 2565844,
+      "endOffset": 2650701,
+      "sha256": "028efd7406d5a4a7b088b034daccbf3d6206dfcd80ae2d76ee197e5914a7ae1f"
+    },
+    {
+      "filename": "mod_09_insights_engine_and_scoring.js",
+      "bytes": 84853,
+      "unitCount": 68,
+      "startOffset": 2650701,
+      "endOffset": 2735439,
+      "sha256": "91f67209813214905db03d022a0e793596775c89b3ba05c810a4daf6acac4b26"
+    },
+    {
+      "filename": "mod_10_app_module.js",
+      "bytes": 84766,
+      "unitCount": 66,
+      "startOffset": 2735439,
+      "endOffset": 2820103,
+      "sha256": "023ff0896c980861ad3a25d2c76117cbe6f317b0dabd7a43e0eb328ad482ddde"
+    },
+    {
+      "filename": "mod_11_leagues_teams_players_referees.js",
+      "bytes": 75400,
+      "unitCount": 109,
+      "startOffset": 2820103,
+      "endOffset": 2895389,
+      "sha256": "9d9c19984feccab9d206930b450f0460b5850cc66e395d38ef35f9a8fddfa02e"
+    },
+    {
+      "filename": "mod_12_app_module.js",
+      "bytes": 84502,
+      "unitCount": 103,
+      "startOffset": 2895389,
+      "endOffset": 2979749,
+      "sha256": "dcd2f80ec7f60fec7024a1b8f30d1668b01489e778caaaa6b4a844381753f397"
+    },
+    {
+      "filename": "mod_13_app_module.js",
+      "bytes": 81351,
+      "unitCount": 115,
+      "startOffset": 2979749,
+      "endOffset": 3060984,
+      "sha256": "27e8d7ef4d0e1954569bf91ace7e478ba0cd3b3415979afcd6e12ee082b9f6e1"
+    },
+    {
+      "filename": "mod_14_onboarding_and_paywall.js",
+      "bytes": 83165,
+      "unitCount": 65,
+      "startOffset": 3060984,
+      "endOffset": 3144070,
+      "sha256": "3a6d6c819964df2a5ca2033f25de76e412925eb7b7c9d32f578656ffd945b3cc"
+    },
+    {
+      "filename": "mod_15_creator_pick_calendar_and_profile.js",
+      "bytes": 85282,
+      "unitCount": 304,
+      "startOffset": 3144070,
+      "endOffset": 3229046,
+      "sha256": "96c8562898f96e3e30842abf6d55fe2a4aac930dde7dea53fbe77d8c68ca9ee2"
+    },
+    {
+      "filename": "mod_16_app_module.js",
+      "bytes": 84421,
+      "unitCount": 298,
+      "startOffset": 3229046,
+      "endOffset": 3313168,
+      "sha256": "8912239a1bb83cee8d197110cdad33b2b8b8f8204a34420602e506c526cd0257"
+    },
+    {
+      "filename": "mod_17_onboarding_and_paywall.js",
+      "bytes": 5467,
+      "unitCount": 19,
+      "startOffset": 3313168,
+      "endOffset": 3318617,
+      "sha256": "7fb4f1cb891a1f3bc16d3b8fa8f7e4376549aa75a4db16b2dc3790234716fc46"
+    }
+  ]
+}

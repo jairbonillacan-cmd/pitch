@@ -1,0 +1,563 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/players/3580/odds",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "1934dc37-3dd3-4da7-b1dc-6775a25f7f39",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:06 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "matchId": 54091,
+    "opponent": {
+      "id": 14678,
+      "name": "Portugal",
+      "shortName": "POR",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png"
+    },
+    "date": "2026-11-17T19:45:00.000Z",
+    "markets": [
+      {
+        "metric": "assists",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 5.1,
+              "oddsId": 239803303,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 27,
+              "oddsId": 239950743,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "foulsCommitted",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 1.37,
+              "oddsId": 239803551,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 2.6,
+              "oddsId": 239803500,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 5.9,
+              "oddsId": 239803513,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 3.5,
+            "over": {
+              "value": 13,
+              "oddsId": 239886803,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 4.5,
+            "over": {
+              "value": 26,
+              "oddsId": 239886804,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "foulsDrawn",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 1.142,
+              "oddsId": 239869407,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 1.67,
+              "oddsId": 239911430,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 3.05,
+              "oddsId": 239911431,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 3.5,
+            "over": {
+              "value": 6.5,
+              "oddsId": 239869410,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 4.5,
+            "over": {
+              "value": 15,
+              "oddsId": 239869411,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 5.5,
+            "over": {
+              "value": 19,
+              "oddsId": 239911434,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 6.5,
+            "over": {
+              "value": 23,
+              "oddsId": 239911435,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "goals",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 4.45,
+              "oddsId": 239803062,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 30,
+              "oddsId": 239803095,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 151,
+              "oddsId": 239950332,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "goalsAssists",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 2.75,
+              "oddsId": 239910247,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "offsides",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 4,
+              "oddsId": 239911300,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 16.5,
+              "oddsId": 239911301,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 24,
+              "oddsId": 239911302,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "passes",
+        "lines": [
+          {
+            "line": 29.5,
+            "over": {
+              "value": 1.65,
+              "oddsId": 239910786,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 32.5,
+            "over": {
+              "value": 1.87,
+              "oddsId": 239910787,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 35.5,
+            "over": {
+              "value": 2.15,
+              "oddsId": 239910788,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 38.5,
+            "over": {
+              "value": 2.52,
+              "oddsId": 239910789,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 41.5,
+            "over": {
+              "value": 2.95,
+              "oddsId": 239910790,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 44.5,
+            "over": {
+              "value": 3.5,
+              "oddsId": 239910791,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 47.5,
+            "over": {
+              "value": 4.2,
+              "oddsId": 239910792,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "shots",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 1.12,
+              "oddsId": 239910509,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 1.62,
+              "oddsId": 239910510,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 2.87,
+              "oddsId": 239910511,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 3.5,
+            "over": {
+              "value": 5.8,
+              "oddsId": 239910512,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 4.5,
+            "over": {
+              "value": 11.5,
+              "oddsId": 239910513,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 5.5,
+            "over": {
+              "value": 18.5,
+              "oddsId": 239910514,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 6.5,
+            "over": {
+              "value": 23,
+              "oddsId": 239910515,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "shotsOnTarget",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 2.12,
+              "oddsId": 239910134,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 6.7,
+              "oddsId": 239910135,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 17,
+              "oddsId": 239910136,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 3.5,
+            "over": {
+              "value": 30,
+              "oddsId": 239950645,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png"
+            },
+            "under": null
+          },
+          {
+            "line": 4.5,
+            "over": {
+              "value": 90,
+              "oddsId": 239950646,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "tackles",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 1.4,
+              "oddsId": 239886437,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 1.5,
+            "over": {
+              "value": 2.75,
+              "oddsId": 239886438,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 2.5,
+            "over": {
+              "value": 6.5,
+              "oddsId": 239886439,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          },
+          {
+            "line": 3.5,
+            "over": {
+              "value": 11.75,
+              "oddsId": 239911098,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 4.5,
+            "over": {
+              "value": 19,
+              "oddsId": 239911099,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+            },
+            "under": null
+          },
+          {
+            "line": 5.5,
+            "over": {
+              "value": 16,
+              "oddsId": 239950885,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png"
+            },
+            "under": null
+          }
+        ]
+      },
+      {
+        "metric": "yellowCards",
+        "lines": [
+          {
+            "line": 0.5,
+            "over": {
+              "value": 17,
+              "oddsId": 239864644,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null
+            },
+            "under": null
+          }
+        ]
+      }
+    ]
+  }
+}

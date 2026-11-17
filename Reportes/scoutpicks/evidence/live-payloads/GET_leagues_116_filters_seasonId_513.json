@@ -1,0 +1,387 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/filters?seasonId=513",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "5183ad93-853c-4ea1-b48a-94a1fa437daa",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:30 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "seasonId": 513,
+    "groups": [
+      "Group 1",
+      "Group 2",
+      "Group 3",
+      "Group 4"
+    ],
+    "rounds": [
+      {
+        "name": "1",
+        "number": 1
+      },
+      {
+        "name": "2",
+        "number": 2
+      },
+      {
+        "name": "3",
+        "number": 3
+      },
+      {
+        "name": "4",
+        "number": 4
+      },
+      {
+        "name": "5",
+        "number": 5
+      },
+      {
+        "name": "6",
+        "number": 6
+      }
+    ],
+    "teams": [
+      {
+        "id": 17184,
+        "name": "Albania",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/18641.png",
+        "code": "ALB"
+      },
+      {
+        "id": 14482,
+        "name": "Andorra",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/18781.png",
+        "code": "AND"
+      },
+      {
+        "id": 17055,
+        "name": "Armenia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18639.png",
+        "code": "ARM"
+      },
+      {
+        "id": 14471,
+        "name": "Austria",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/18643.png",
+        "code": "AUT"
+      },
+      {
+        "id": 14533,
+        "name": "Azerbaijan",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/18623.png",
+        "code": "AZE"
+      },
+      {
+        "id": 13239,
+        "name": "Belarus",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18634.png",
+        "code": "BLR"
+      },
+      {
+        "id": 14696,
+        "name": "Belgium",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
+        "code": "BEL"
+      },
+      {
+        "id": 17231,
+        "name": "Bosnia and Herzegovina",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+        "code": "BIH"
+      },
+      {
+        "id": 14500,
+        "name": "Bulgaria",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18690.png",
+        "code": "BGR"
+      },
+      {
+        "id": 13234,
+        "name": "Croatia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
+        "code": "CRO"
+      },
+      {
+        "id": 13240,
+        "name": "Cyprus",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18626.png",
+        "code": "CYP"
+      },
+      {
+        "id": 17277,
+        "name": "Czech Republic",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
+        "code": "CZE"
+      },
+      {
+        "id": 17254,
+        "name": "Denmark",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+        "code": "DEN"
+      },
+      {
+        "id": 13191,
+        "name": "England",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/18645.png",
+        "code": "ENG"
+      },
+      {
+        "id": 14581,
+        "name": "Estonia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/18697.png",
+        "code": "EST"
+      },
+      {
+        "id": 17090,
+        "name": "Faroe Islands",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18777.png",
+        "code": "FRO"
+      },
+      {
+        "id": 13259,
+        "name": "Finland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18570.png",
+        "code": "FIN"
+      },
+      {
+        "id": 13201,
+        "name": "France",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18647.png",
+        "code": "FRA"
+      },
+      {
+        "id": 13224,
+        "name": "Georgia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png",
+        "code": "GEO"
+      },
+      {
+        "id": 13188,
+        "name": "Germany",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18660.png",
+        "code": "GER"
+      },
+      {
+        "id": 17283,
+        "name": "Gibraltar",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/27487.png",
+        "code": "GIB"
+      },
+      {
+        "id": 14521,
+        "name": "Greece",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18568.png",
+        "code": "GRC"
+      },
+      {
+        "id": 17054,
+        "name": "Hungary",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18732.png",
+        "code": "HUN"
+      },
+      {
+        "id": 13220,
+        "name": "Iceland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18635.png",
+        "code": "ICE"
+      },
+      {
+        "id": 13223,
+        "name": "Israel",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18657.png",
+        "code": "ISR"
+      },
+      {
+        "id": 17239,
+        "name": "Italy",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18658.png",
+        "code": "ITA"
+      },
+      {
+        "id": 14633,
+        "name": "Kazakhstan",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18603.png",
+        "code": "KAZ"
+      },
+      {
+        "id": 17278,
+        "name": "Kosovo",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/27488.png",
+        "code": "KVX"
+      },
+      {
+        "id": 17616,
+        "name": "Latvia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18735.png",
+        "code": "LVA"
+      },
+      {
+        "id": 14576,
+        "name": "Liechtenstein",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png",
+        "code": "LIE"
+      },
+      {
+        "id": 13244,
+        "name": "Lithuania",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/27065.png",
+        "code": "LTU"
+      },
+      {
+        "id": 17240,
+        "name": "Luxembourg",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/18779.png",
+        "code": "LUX"
+      },
+      {
+        "id": 17238,
+        "name": "Malta",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/18691.png",
+        "code": "MLT"
+      },
+      {
+        "id": 13243,
+        "name": "Moldova",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/18778.png",
+        "code": "MDA"
+      },
+      {
+        "id": 14481,
+        "name": "Montenegro",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18836.png",
+        "code": "MNE"
+      },
+      {
+        "id": 13197,
+        "name": "Netherlands",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",
+        "code": "NED"
+      },
+      {
+        "id": 17180,
+        "name": "North Macedonia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18689.png",
+        "code": "MKD"
+      },
+      {
+        "id": 17182,
+        "name": "Northern Ireland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png",
+        "code": "NIR"
+      },
+      {
+        "id": 13198,
+        "name": "Norway",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+        "code": "NOR"
+      },
+      {
+        "id": 17226,
+        "name": "Poland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png",
+        "code": "POL"
+      },
+      {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      {
+        "id": 17179,
+        "name": "Republic of Ireland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18654.png",
+        "code": "IRL"
+      },
+      {
+        "id": 17178,
+        "name": "Romania",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18638.png",
+        "code": "ROM"
+      },
+      {
+        "id": 17089,
+        "name": "San Marino",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18872.png",
+        "code": "SMR"
+      },
+      {
+        "id": 14719,
+        "name": "Scotland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+        "code": "SCO"
+      },
+      {
+        "id": 13252,
+        "name": "Serbia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18873.png",
+        "code": "SRB"
+      },
+      {
+        "id": 17177,
+        "name": "Slovakia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18648.png",
+        "code": "SVK"
+      },
+      {
+        "id": 17053,
+        "name": "Slovenia",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18630.png",
+        "code": "SVN"
+      },
+      {
+        "id": 17088,
+        "name": "Spain",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18710.png",
+        "code": "ESP"
+      },
+      {
+        "id": 17213,
+        "name": "Sweden",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+        "code": "SWE"
+      },
+      {
+        "id": 13187,
+        "name": "Switzerland",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18708.png",
+        "code": "SUI"
+      },
+      {
+        "id": 17251,
+        "name": "Türkiye",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png",
+        "code": "TUR"
+      },
+      {
+        "id": 17183,
+        "name": "Ukraine",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/18624.png",
+        "code": "UKR"
+      },
+      {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      }
+    ]
+  }
+}

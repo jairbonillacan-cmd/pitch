@@ -1,0 +1,1 @@
+import{i as e}from"./analytics.DvUUnk4I.js";document.querySelectorAll(`[data-footer-link]`).forEach(t=>{t.addEventListener(`click`,()=>e(t.dataset.footerLink))});

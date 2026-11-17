@@ -1,0 +1,1960 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/matches?seasonId=513&limit=20&timezoneOffset=360&startTime=2026-11-17T06:00:00.000Z&endTime=2026-11-18T05:59:59.999Z",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "09ea2c6c-6530-41d4-8133-6c7542fc9bbf",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:30 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "league": {
+      "id": 116,
+      "name": "UEFA Nations League",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+    },
+    "season": {
+      "id": 513,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "dateGroups": [
+      {
+        "dateKey": "2026-11-17",
+        "dateIso": "2026-11-17T00:00:00.000Z",
+        "dateLabel": "2026-11-17",
+        "groups": [
+          {
+            "group": {
+              "sportmonksId": 253637,
+              "name": "Group 2"
+            },
+            "matches": [
+              {
+                "id": 54141,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17183,
+                "awayTeamId": 13224,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 2",
+                "groupSportmonksId": 253637,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17183,
+                  "name": "Ukraine",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/18624.png",
+                  "code": "UKR",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "L",
+                    "L",
+                    "D",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 13224,
+                  "name": "Georgia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png",
+                  "code": "GEO",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "D",
+                    "L",
+                    "D",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.12,
+                  "draw": 3.28,
+                  "awayWin": 3.85,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239455395,
+                      "oddsValue": 2.12,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239660086,
+                      "oddsValue": 2.1,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239594693,
+                      "oddsValue": 2.08,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619038,
+                      "oddsValue": 2.05,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239594530,
+                      "oddsValue": 2.04,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239455396,
+                      "oddsValue": 3.28,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239594694,
+                      "oddsValue": 3.24,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239619040,
+                      "oddsValue": 3.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239594531,
+                      "oddsValue": 3.15,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239660087,
+                      "oddsValue": 3.15,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239660088,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619039,
+                      "oddsValue": 3.8,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239455397,
+                      "oddsValue": 3.75,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239594695,
+                      "oddsValue": 3.69,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239594532,
+                      "oddsValue": 3.55,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 54142,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17054,
+                "awayTeamId": 17182,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 2",
+                "groupSportmonksId": 253637,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17054,
+                  "name": "Hungary",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18732.png",
+                  "code": "HUN",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "W",
+                    "W",
+                    "D",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 17182,
+                  "name": "Northern Ireland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png",
+                  "code": "NIR",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "D",
+                    "W",
+                    "D",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 1.91,
+                  "draw": 3.4,
+                  "awayWin": 4.55,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "awayBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239430336,
+                      "oddsValue": 1.91,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239617068,
+                      "oddsValue": 1.9,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239660192,
+                      "oddsValue": 1.9,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239407362,
+                      "oddsValue": 1.87,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239406813,
+                      "oddsValue": 1.83,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239617070,
+                      "oddsValue": 3.4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239407363,
+                      "oddsValue": 3.36,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239430337,
+                      "oddsValue": 3.35,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239660193,
+                      "oddsValue": 3.3,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239406814,
+                      "oddsValue": 3.25,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239660194,
+                      "oddsValue": 4.55,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239430338,
+                      "oddsValue": 4.49,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239407364,
+                      "oddsValue": 4.39,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239406815,
+                      "oddsValue": 4.2,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239617069,
+                      "oddsValue": 4.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "group": {
+              "sportmonksId": 253636,
+              "name": "Group 3"
+            },
+            "matches": [
+              {
+                "id": 54109,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17179,
+                "awayTeamId": 17278,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 3",
+                "groupSportmonksId": 253636,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17179,
+                  "name": "Republic of Ireland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18654.png",
+                  "code": "IRL",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "D",
+                    "D",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 17278,
+                  "name": "Kosovo",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/27488.png",
+                  "code": "KVX",
+                  "isNationalTeam": true,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.01,
+                  "draw": 3.23,
+                  "awayWin": 4.15,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239431755,
+                      "oddsValue": 2.01,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239404704,
+                      "oddsValue": 2.01,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619030,
+                      "oddsValue": 2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659882,
+                      "oddsValue": 2,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239404765,
+                      "oddsValue": 1.96,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239431756,
+                      "oddsValue": 3.23,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239404705,
+                      "oddsValue": 3.21,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239619032,
+                      "oddsValue": 3.2,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659883,
+                      "oddsValue": 3.2,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239404766,
+                      "oddsValue": 3.1,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239431757,
+                      "oddsValue": 4.15,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239659884,
+                      "oddsValue": 4.15,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239404706,
+                      "oddsValue": 4,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619031,
+                      "oddsValue": 3.9,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239404767,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 54110,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 13223,
+                "awayTeamId": 14471,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 3",
+                "groupSportmonksId": 253636,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 13223,
+                  "name": "Israel",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18657.png",
+                  "code": "ISR",
+                  "isNationalTeam": true,
+                  "form": [
+                    "D",
+                    "D",
+                    "D",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 0
+                },
+                "awayTeam": {
+                  "id": 14471,
+                  "name": "Austria",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/18643.png",
+                  "code": "AUT",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "D",
+                    "D",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 60
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 4.1,
+                  "draw": 4.05,
+                  "awayWin": 1.81,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239431803,
+                      "oddsValue": 4.1,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239659978,
+                      "oddsValue": 4.1,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603849,
+                      "oddsValue": 3.98,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619033,
+                      "oddsValue": 3.9,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603840,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239659979,
+                      "oddsValue": 4.05,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239431804,
+                      "oddsValue": 4.02,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603850,
+                      "oddsValue": 3.99,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239619035,
+                      "oddsValue": 3.9,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603841,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239431805,
+                      "oddsValue": 1.81,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239619034,
+                      "oddsValue": 1.8,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659980,
+                      "oddsValue": 1.8,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603851,
+                      "oddsValue": 1.79,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603842,
+                      "oddsValue": 1.76,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "group": {
+              "sportmonksId": 253631,
+              "name": "Group 4"
+            },
+            "matches": [
+              {
+                "id": 54091,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17181,
+                "awayTeamId": 14678,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 4",
+                "groupSportmonksId": 253631,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League A",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17181,
+                  "name": "Wales",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+                  "code": "WAL",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 14678,
+                  "name": "Portugal",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+                  "code": "POR",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "W",
+                    "W",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 7,
+                  "draw": 5.13,
+                  "awayWin": 1.44,
+                  "homeBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "drawBookmaker": {
+                    "name": "Draftea",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239617033,
+                      "oddsValue": 7,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239431666,
+                      "oddsValue": 6.91,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603049,
+                      "oddsValue": 6.59,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239602993,
+                      "oddsValue": 6.4,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659430,
+                      "oddsValue": 6.4,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239603050,
+                      "oddsValue": 5.13,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239431667,
+                      "oddsValue": 5.11,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239602994,
+                      "oddsValue": 5,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239617035,
+                      "oddsValue": 5,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659431,
+                      "oddsValue": 5,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239659432,
+                      "oddsValue": 1.44,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239431668,
+                      "oddsValue": 1.42,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239617034,
+                      "oddsValue": 1.4,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603051,
+                      "oddsValue": 1.4,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239602995,
+                      "oddsValue": 1.39,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 54092,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17254,
+                "awayTeamId": 13198,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 4",
+                "groupSportmonksId": 253631,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League A",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17254,
+                  "name": "Denmark",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+                  "code": "DEN",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "L"
+                  ],
+                  "l5WinRate": 60
+                },
+                "awayTeam": {
+                  "id": 13198,
+                  "name": "Norway",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+                  "code": "NOR",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "W"
+                  ],
+                  "l5WinRate": 40
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.62,
+                  "draw": 4.1,
+                  "awayWin": 2.46,
+                  "homeBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "awayBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239659548,
+                      "oddsValue": 2.62,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239455348,
+                      "oddsValue": 2.59,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603043,
+                      "oddsValue": 2.57,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603001,
+                      "oddsValue": 2.55,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239617038,
+                      "oddsValue": 2.5,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239617040,
+                      "oddsValue": 4.1,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239455349,
+                      "oddsValue": 3.95,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603044,
+                      "oddsValue": 3.95,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603002,
+                      "oddsValue": 3.9,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659549,
+                      "oddsValue": 3.85,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239455350,
+                      "oddsValue": 2.46,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239617039,
+                      "oddsValue": 2.45,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659550,
+                      "oddsValue": 2.45,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603045,
+                      "oddsValue": 2.4,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603003,
+                      "oddsValue": 2.37,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "group": {
+              "sportmonksId": 253635,
+              "name": "Group 4"
+            },
+            "matches": [
+              {
+                "id": 54107,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17226,
+                "awayTeamId": 17213,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 4",
+                "groupSportmonksId": 253635,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17226,
+                  "name": "Poland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png",
+                  "code": "POL",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "L",
+                    "W",
+                    "L",
+                    "D"
+                  ],
+                  "l5WinRate": 20
+                },
+                "awayTeam": {
+                  "id": 17213,
+                  "name": "Sweden",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+                  "code": "SWE",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "W",
+                    "D",
+                    "W",
+                    "W"
+                  ],
+                  "l5WinRate": 80
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.16,
+                  "draw": 3.85,
+                  "awayWin": 3.1,
+                  "homeBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239431711,
+                      "oddsValue": 2.16,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239659666,
+                      "oddsValue": 2.15,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239617043,
+                      "oddsValue": 2.1,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603855,
+                      "oddsValue": 2.1,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603834,
+                      "oddsValue": 2.06,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239431712,
+                      "oddsValue": 3.85,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603856,
+                      "oddsValue": 3.83,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239617045,
+                      "oddsValue": 3.8,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659667,
+                      "oddsValue": 3.8,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603835,
+                      "oddsValue": 3.7,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239659668,
+                      "oddsValue": 3.1,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239431713,
+                      "oddsValue": 3.09,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603857,
+                      "oddsValue": 3.09,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603836,
+                      "oddsValue": 3,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239617044,
+                      "oddsValue": 3,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 54108,
+                "apiId": null,
+                "date": "2026-11-17T19:45:00.000Z",
+                "effectiveKickoffDate": "2026-11-17T19:45:00.000Z",
+                "status": "NS",
+                "venue": null,
+                "round": "6",
+                "homeScore": null,
+                "awayScore": null,
+                "homeScoreHT": null,
+                "awayScoreHT": null,
+                "elapsed": null,
+                "homeTeamId": 17231,
+                "awayTeamId": 17178,
+                "seasonId": 513,
+                "referee": null,
+                "statsStatus": "not_available",
+                "groupName": "Group 4",
+                "groupSportmonksId": 253635,
+                "roundName": "6",
+                "roundNumber": 6,
+                "stageName": "League B",
+                "stageKind": "group_phase",
+                "homeTeam": {
+                  "id": 17231,
+                  "name": "Bosnia and Herzegovina",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+                  "code": "BIH",
+                  "isNationalTeam": true,
+                  "form": [
+                    "L",
+                    "W",
+                    "D",
+                    "W",
+                    "D"
+                  ],
+                  "l5WinRate": 40
+                },
+                "awayTeam": {
+                  "id": 17178,
+                  "name": "Romania",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18638.png",
+                  "code": "ROM",
+                  "isNationalTeam": true,
+                  "form": [
+                    "W",
+                    "L",
+                    "L",
+                    "L",
+                    "L"
+                  ],
+                  "l5WinRate": 20
+                },
+                "season": {
+                  "id": 513,
+                  "year": 2026,
+                  "startDate": "2026-09-24T00:00:00.000Z",
+                  "endDate": "2026-11-17T00:00:00.000Z",
+                  "current": true,
+                  "sportmonksId": 27797,
+                  "name": "2026/2027",
+                  "leagueId": 116,
+                  "backfillPostProcessedAt": "2026-08-31T17:11:10.550Z",
+                  "phases": null,
+                  "createdAt": "2026-05-16T03:11:37.488Z",
+                  "updatedAt": "2026-11-17T15:10:38.230Z",
+                  "league": {
+                    "id": 116,
+                    "name": "UEFA Nations League",
+                    "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png",
+                    "isNationalTeam": true,
+                    "isNeutral": false
+                  }
+                },
+                "odds": {
+                  "homeWin": 2.18,
+                  "draw": 3.6,
+                  "awayWin": 3.3,
+                  "homeBookmaker": {
+                    "name": "Betano",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+                  },
+                  "drawBookmaker": {
+                    "name": "JugaBet",
+                    "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+                  },
+                  "awayBookmaker": {
+                    "name": "Bet365",
+                    "logo": null
+                  },
+                  "homeBookmakerOdds": [
+                    {
+                      "oddsId": 239659776,
+                      "oddsValue": 2.18,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239431350,
+                      "oddsValue": 2.17,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603861,
+                      "oddsValue": 2.14,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603837,
+                      "oddsValue": 2.09,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239615700,
+                      "oddsValue": 2.05,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    }
+                  ],
+                  "drawBookmakerOdds": [
+                    {
+                      "oddsId": 239431351,
+                      "oddsValue": 3.6,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost"
+                      ]
+                    },
+                    {
+                      "oddsId": 239615702,
+                      "oddsValue": 3.6,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239603862,
+                      "oddsValue": 3.54,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239659777,
+                      "oddsValue": 3.5,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603838,
+                      "oddsValue": 3.45,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ],
+                  "awayBookmakerOdds": [
+                    {
+                      "oddsId": 239615701,
+                      "oddsValue": 3.3,
+                      "bookmaker": "Bet365",
+                      "bookmakerLogo": null,
+                      "isStale": false
+                    },
+                    {
+                      "oddsId": 239431352,
+                      "oddsValue": 3.28,
+                      "bookmaker": "JugaBet",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                      "isStale": false,
+                      "perks": [
+                        "price_boost",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239659778,
+                      "oddsValue": 3.25,
+                      "bookmaker": "Betano",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                      "isStale": false,
+                      "perks": [
+                        "acca_bonus",
+                        "acca_insurance",
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603863,
+                      "oddsValue": 3.23,
+                      "bookmaker": "Draftea",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+                      "isStale": false,
+                      "perks": [
+                        "early_payout_2_goals"
+                      ]
+                    },
+                    {
+                      "oddsId": 239603839,
+                      "oddsValue": 3.15,
+                      "bookmaker": "Stake",
+                      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                      "isStale": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasMore": false,
+    "hasPrevious": false
+  }
+}

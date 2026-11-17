@@ -1,0 +1,81 @@
+{
+  "1": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=1&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "2": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=2&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "3": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=3&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "4": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=4&channel=web",
+    "data": {
+      "offer": {
+        "bookmakerId": 4,
+        "bookmakerName": "Stake",
+        "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+        "campaignKey": "stake-mx-welcome-2026-11",
+        "campaignId": "bkc_stake_mx_202611",
+        "linkId": "bkl_stake_mx_202611",
+        "url": "https://stake.mx/?offer=scoutpicks&c=scoutpicks",
+        "termsUrl": null,
+        "termsSummary": null,
+        "benefits": [
+          {
+            "type": "deposit_match",
+            "amount": "2000.00",
+            "currency": "MXN",
+            "percent": 100,
+            "minDeposit": null,
+            "title": "Duplicamos tu primer depósito",
+            "description": "hasta $2.000 MXN"
+          }
+        ],
+        "perkClaim": null,
+        "registered": false
+      }
+    }
+  },
+  "5": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=5&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "6": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=6&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "7": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=7&channel=web",
+    "data": {
+      "offer": null
+    }
+  },
+  "8": {
+    "status": 200,
+    "url": "/bookmakers/offers/post-save?bookmakerId=8&channel=web",
+    "data": {
+      "offer": null
+    }
+  }
+}

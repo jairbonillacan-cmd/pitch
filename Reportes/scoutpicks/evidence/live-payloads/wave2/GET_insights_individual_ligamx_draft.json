@@ -1,0 +1,426 @@
+{
+  "status": 200,
+  "url": "/insights/draft%3Ap49516_m10671579_shots_0.5_over",
+  "data": {
+    "id": "draft:p49516_m10671579_shots_0.5_over",
+    "type": "value_player_prop",
+    "playerId": 49516,
+    "teamId": 67507,
+    "oddsId": 240046941,
+    "metric": "shots",
+    "line": 0.5,
+    "direction": "over",
+    "period": "full_match",
+    "selection": null,
+    "hitRate": 100,
+    "sampleSize": 5,
+    "average": 2.4,
+    "median": 2,
+    "timeWindow": "L5",
+    "confidence": 90,
+    "streak": null,
+    "trend": null,
+    "impliedProbability": 74.07,
+    "edgePercentage": 25.93,
+    "expectedValue": 0.35,
+    "valueRating": "strong",
+    "opponentId": 67642,
+    "opponentRank": null,
+    "opponentAvgConceded": null,
+    "opponentLeagueAvg": null,
+    "adjustedHitRate": null,
+    "matchupScore": null,
+    "matchupRating": null,
+    "description": "Más de 0.5 tiros: 100% (L5)",
+    "isHome": null,
+    "venue": "home",
+    "aggregateScope": "match_team",
+    "stageKind": null,
+    "minMinutes": 45,
+    "variants": [
+      {
+        "scope": "match_team",
+        "teamId": 67507,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L20",
+        "competitionScope": "competition",
+        "hitRate": 68.75,
+        "sampleSize": 16,
+        "edge": -5.32,
+        "teamIds": [
+          67507
+        ],
+        "leagueIds": [
+          68
+        ],
+        "matchIds": [
+          10671583,
+          10671606,
+          10671613,
+          10671538,
+          10671557,
+          10671455,
+          10671465,
+          10671484,
+          10671512,
+          10671495,
+          10671519,
+          10671380,
+          10671383,
+          10671408,
+          10671419,
+          9647176
+        ]
+      },
+      {
+        "scope": "overall",
+        "teamId": null,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L10",
+        "competitionScope": "all",
+        "opponentScope": "head_to_head",
+        "hitRate": 42.86,
+        "sampleSize": 7,
+        "edge": -31.21,
+        "teamIds": [
+          67599
+        ],
+        "leagueIds": [
+          68
+        ],
+        "matchIds": [
+          34647,
+          34197,
+          35711,
+          35073,
+          32069728,
+          32069542,
+          32070722
+        ]
+      },
+      {
+        "scope": "match_team",
+        "teamId": 67507,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L5",
+        "competitionScope": "all",
+        "hitRate": 40,
+        "sampleSize": 5,
+        "edge": -34.07,
+        "teamIds": [
+          67507
+        ],
+        "leagueIds": [
+          68
+        ],
+        "matchIds": [
+          10671583,
+          10671606,
+          10671613,
+          10671538,
+          10671557
+        ]
+      },
+      {
+        "scope": "overall",
+        "teamId": null,
+        "venue": "home",
+        "stageKind": "group_phase",
+        "timeWindow": "L5",
+        "competitionScope": "all",
+        "opponentScope": "head_to_head",
+        "hitRate": 33.33,
+        "sampleSize": 3,
+        "edge": -40.74,
+        "teamIds": [
+          67599
+        ],
+        "leagueIds": [
+          68
+        ],
+        "matchIds": [
+          34197,
+          35073,
+          32069728
+        ]
+      },
+      {
+        "scope": "match_team",
+        "teamId": 67507,
+        "venue": "all",
+        "stageKind": "all",
+        "timeWindow": "L10",
+        "competitionScope": "all",
+        "hitRate": 60,
+        "sampleSize": 10,
+        "edge": -14.07,
+        "teamIds": [
+          67507
+        ],
+        "leagueIds": [
+          68
+        ],
+        "matchIds": [
+          10671583,
+          10671606,
+          10671613,
+          10671538,
+          10671557,
+          10671455,
+          10671465,
+          10671484,
+          10671512,
+          10671495
+        ]
+      }
+    ],
+    "headlineCompetitionScoped": false,
+    "headlineHeadToHead": false,
+    "opponentMetricRank": {
+      "opponentTeamId": 67642,
+      "metric": "shots",
+      "rankType": "defense",
+      "rank": 4,
+      "totalTeams": 18,
+      "average": 16.3125,
+      "leagueAvg": 14.70138888888889,
+      "leagueId": 68,
+      "seasonYear": 2026
+    },
+    "substitutionPattern": null,
+    "stackedSnapshot": null,
+    "underdog": null,
+    "isNationalTeamMatch": false,
+    "isNeutralVenueMatch": false,
+    "injuryStatus": null,
+    "expectedLineupStatus": "starter",
+    "avgMinutesPlayed": null,
+    "recentValues": [
+      4,
+      2,
+      1,
+      2,
+      3
+    ],
+    "recentMinutesPlayed": [
+      90,
+      90,
+      90,
+      90,
+      90
+    ],
+    "matchIds": [
+      10671606,
+      10671538,
+      10671455,
+      10671484,
+      10671512
+    ],
+    "headlineTeamIds": [
+      67507
+    ],
+    "headlineLeagueIds": [
+      68
+    ],
+    "matchId": 10671579,
+    "reason": "Acierto en 5 de últimos 5 Más de 0.5 tiros (prom: 2.4). Cuota implica 74% — vemos 100%. 26% de ventaja.",
+    "oddsValue": 1.35,
+    "bookmaker": "JugaBet",
+    "status": "active",
+    "expiresAt": "2026-11-21T01:00:00.000Z",
+    "saveCount": 0,
+    "relevanceScore": 104.11,
+    "createdAt": "2026-11-09T16:10:31.590Z",
+    "updatedAt": "2026-11-16T10:36:37.580Z",
+    "hasMovementAlert": false,
+    "latestMovementId": null,
+    "contentHash": "66d5c33ea91946d2ac1a3becea414992df1f50db1a92ac422499ff8aef032d7f",
+    "odds": {
+      "id": 240046941,
+      "matchId": 10671579,
+      "bookmakerId": 5,
+      "source": "jugabet",
+      "perks": [],
+      "selection": "Facundo Almada Over 0.5",
+      "value": 1.35,
+      "line": 0.5,
+      "playerId": 49516,
+      "teamId": 67507,
+      "status": "active",
+      "disabledOnMatchStart": false,
+      "hasMovementHistory": true,
+      "bookmaker": {
+        "id": 5,
+        "name": "JugaBet",
+        "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png"
+      },
+      "betType": {
+        "id": 84055191,
+        "name": "Player Shots",
+        "category": "shots",
+        "level": "player",
+        "period": "full_match"
+      }
+    },
+    "periodLabel": null,
+    "leagueId": 68,
+    "seasonId": 699,
+    "player": {
+      "id": 49516,
+      "apiId": null,
+      "sportmonksId": 26715334,
+      "name": "Facundo Almada",
+      "searchName": "facundo almada facundo ezequiel almada f almada facundo almada",
+      "firstname": "Facundo Ezequiel",
+      "lastname": "Almada",
+      "commonName": "F. Almada",
+      "displayName": "Facundo Almada",
+      "age": 28,
+      "nationality": "Argentina",
+      "height": "179 cm",
+      "weight": "82 kg",
+      "photo": "https://cdn.sportmonks.com/images/soccer/players/6/26715334.png",
+      "photoStatus": "pending",
+      "position": "Defender",
+      "currentTeamId": 67507,
+      "createdAt": "2026-05-16T01:52:40.301Z",
+      "updatedAt": "2026-11-17T17:00:49.044Z",
+      "nationalTeamId": null,
+      "inNationalTeamSquad": false,
+      "nationalSquadUpdatedAt": null,
+      "isWomen": false,
+      "aggregatesRefreshedAt": null,
+      "lastStatsAt": "2026-11-10T18:11:22.179Z",
+      "backfillInvalidationToken": null,
+      "currentTeam": {
+        "id": 67507,
+        "name": "Puebla",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+        "code": "PUE"
+      },
+      "nationalTeam": null,
+      "detailedPosition": "CB"
+    },
+    "team": {
+      "id": 67507,
+      "name": "Puebla",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+      "code": "PUE"
+    },
+    "match": {
+      "id": 10671579,
+      "date": "2026-11-21T01:00:00.000Z",
+      "status": "NS",
+      "isNeutralVenue": false,
+      "homeTeam": {
+        "id": 67507,
+        "name": "Puebla",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png",
+        "code": "PUE",
+        "isNationalTeam": false
+      },
+      "awayTeam": {
+        "id": 67642,
+        "name": "Atlético San Luis",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+        "code": "ASL",
+        "isNationalTeam": false
+      },
+      "homeScore": null,
+      "awayScore": null,
+      "elapsed": null,
+      "league": "Liga MX",
+      "isHome": true
+    },
+    "recentHits": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "value": {
+      "impliedProbability": 74.07,
+      "edgePercentage": 25.93,
+      "expectedValue": 0.35,
+      "valueRating": "strong"
+    },
+    "betting": {
+      "oddsId": 240046941,
+      "oddsValue": 1.35,
+      "bookmaker": "JugaBet",
+      "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+      "bookmakerOdds": [
+        {
+          "oddsId": 240046941,
+          "oddsValue": 1.35,
+          "bookmaker": "JugaBet",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+          "isStale": false
+        },
+        {
+          "oddsId": 239265696,
+          "oddsValue": 1.25,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "isStale": false
+        },
+        {
+          "oddsId": 240085768,
+          "oddsValue": 1.13,
+          "bookmaker": "Stake",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+          "isStale": false
+        }
+      ],
+      "betType": "Player Shots",
+      "category": "shots",
+      "selection": "Facundo Almada Over 0.5",
+      "isStale": false,
+      "hasMovementHistory": true
+    },
+    "gamesWithCurrentTeam": 19,
+    "recentTransfer": false,
+    "liveProgress": null,
+    "headlineScope": {
+      "scope": "match_team",
+      "teamId": 67507,
+      "venue": "home",
+      "stageKind": "all",
+      "timeWindow": "L5",
+      "competitionScope": "all",
+      "teamIds": [
+        67507
+      ],
+      "leagueIds": [
+        68
+      ]
+    },
+    "lensEntities": {
+      "teams": [
+        {
+          "id": 67507,
+          "name": "Puebla",
+          "code": "PUE",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/3849.png"
+        },
+        {
+          "id": 67599,
+          "name": "Mazatlán",
+          "code": "MZA",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/247689.png"
+        }
+      ],
+      "competitions": [
+        {
+          "id": 68,
+          "name": "Liga MX",
+          "logo": "https://cdn.sportmonks.com/images/soccer/leagues/7/743.png"
+        }
+      ]
+    }
+  }
+}

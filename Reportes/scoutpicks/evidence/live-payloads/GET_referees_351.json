@@ -1,0 +1,66 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/referees/351",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "a219029c-fe87-4f04-8626-ed51966a025a",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:27:42 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "id": 351,
+    "name": "Sven Jablonski",
+    "photo": "https://cdn.sportmonks.com/images/soccer/placeholder.png",
+    "country": {
+      "name": "Germany",
+      "code": "DE",
+      "flag": "https://cdn.sportmonks.com/images/countries/png/short/de.png"
+    },
+    "nextMatch": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "homeTeam": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "awayTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      }
+    },
+    "career": {
+      "matches": 280,
+      "avgYellows": 3.589285714285714,
+      "avgReds": 0.1357142857142857,
+      "avgFouls": 21.525
+    },
+    "competitionRank": {
+      "leagueId": 5,
+      "leagueName": "Bundesliga",
+      "leagueLogo": "https://cdn.sportmonks.com/images/soccer/leagues/18/82.png",
+      "rank": 32,
+      "populationSize": 37,
+      "percentile": 13.9
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "status": "planned",
+  "dry_run": true,
+  "name": "scoutpicks-api-env",
+  "capture": {
+    "evidence_id": "ev_03f837b1e4aec03bcac8791498a5d2cbbd06e25f39474bde43e541baa4acff52",
+    "operation": "inspect_web_network_capture",
+    "records": 403,
+    "artifact": "scoutpicks_api_only.har",
+    "sha256": "cf7b7263b3f1f0fc06c73a5e931dd1a9a98c70ae388ee1104d782a7a4a131e92"
+  },
+  "manifest": {
+    "evidence_id": "ev_fb68f72c9110dd8882345346ad8f2e6682b09def83967a96405e5093bdf8a2d0",
+    "tools": 50,
+    "excluded_groups": 0,
+    "template_rules": [
+      "after-uid-literal",
+      "opaque-token",
+      "sibling-variance",
+      "prefix-variance"
+    ]
+  },
+  "state": {
+    "served": true,
+    "evidence_id": "ev_252a4bf2b2e9096baca8e254bf50c78662f360c6428fb9675febc0f167c2dcc5"
+  },
+  "coverage": {
+    "reads": {
+      "state": 40,
+      "recorded": 10,
+      "recorded_reasons": {
+        "body-unusable": 4,
+        "list-differs": 2,
+        "path-varies": 1,
+        "query-varies": 3
+      }
+    },
+    "writes": {
+      "served": [],
+      "withheld": []
+    }
+  },
+  "tool_count": 50,
+  "planned_bundle_files": [
+    { "path": "README.md", "bytes": 3265 },
+    { "path": "envs/scoutpicks-api-env/env.toml", "bytes": 40 },
+    { "path": "envs/scoutpicks-api-env/Dockerfile", "bytes": 404 },
+    { "path": "artifacts/check_scoutpicks-api-env/verify.py", "bytes": 1600 },
+    { "path": "tasks/smoke.json", "bytes": 298 },
+    { "path": "envs/scoutpicks-api-env/manifest.json", "bytes": 68420 },
+    { "path": "envs/scoutpicks-api-env/evidence.json", "bytes": 5805349 }
+  ]
+}

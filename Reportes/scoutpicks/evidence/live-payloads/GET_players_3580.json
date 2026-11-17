@@ -1,0 +1,73 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/players/3580",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "003cfa12-5830-486e-897c-5ccc4467062a",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:06 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "id": 3580,
+    "name": "Harry Wilson",
+    "firstName": "Harry",
+    "lastName": "Wilson",
+    "image": "https://cdn.sportmonks.com/images/soccer/players/27/5403.png",
+    "position": "Midfielder",
+    "detailedPosition": "RW",
+    "nationality": {
+      "name": "Wales",
+      "code": "GB-WLS",
+      "flag": "https://flagcdn.com/w80/gb-wls.png"
+    },
+    "currentTeam": {
+      "id": 1165,
+      "name": "Leeds United",
+      "shortName": "LEE",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/71.png"
+    },
+    "nationalTeam": {
+      "id": 17181,
+      "name": "Wales",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+      "code": "WAL"
+    },
+    "inNationalTeamSquad": true,
+    "currentCompetitions": [
+      {
+        "id": 2,
+        "name": "Premier League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png"
+      },
+      {
+        "id": 357,
+        "name": "Club Friendlies 3",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+      },
+      {
+        "id": 22,
+        "name": "Carabao Cup",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/27/27.png"
+      }
+    ],
+    "height": 173,
+    "weight": 63,
+    "age": 29
+  }
+}

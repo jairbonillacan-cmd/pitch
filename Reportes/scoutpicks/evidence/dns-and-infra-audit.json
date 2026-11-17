@@ -1,0 +1,690 @@
+﻿{
+    "aertech-labs.com":  {
+                             "CNAME":  {
+                                           "Name":  "aertech-labs.com",
+                                           "Type":  6,
+                                           "TTL":  600,
+                                           "IPAddress":  null,
+                                           "NameHost":  null,
+                                           "Strings":  null,
+                                           "NameExchange":  null,
+                                           "Preference":  null
+                                       },
+                             "AAAA":  {
+                                          "Name":  "aertech-labs.com",
+                                          "Type":  6,
+                                          "TTL":  600,
+                                          "IPAddress":  null,
+                                          "NameHost":  null,
+                                          "Strings":  null,
+                                          "NameExchange":  null,
+                                          "Preference":  null
+                                      },
+                             "MX":  {
+                                        "Name":  "aertech-labs.com",
+                                        "Type":  15,
+                                        "TTL":  60,
+                                        "IPAddress":  null,
+                                        "NameHost":  null,
+                                        "Strings":  null,
+                                        "NameExchange":  "smtp.google.com",
+                                        "Preference":  1
+                                    },
+                             "NS":  [
+                                        {
+                                            "Name":  "aertech-labs.com",
+                                            "Type":  2,
+                                            "TTL":  21600,
+                                            "IPAddress":  null,
+                                            "NameHost":  "ns2.vercel-dns.com",
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "aertech-labs.com",
+                                            "Type":  2,
+                                            "TTL":  21600,
+                                            "IPAddress":  null,
+                                            "NameHost":  "ns1.vercel-dns.com",
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        }
+                                    ],
+                             "TXT":  {
+                                         "Name":  "aertech-labs.com",
+                                         "Type":  16,
+                                         "TTL":  60,
+                                         "IPAddress":  null,
+                                         "NameHost":  null,
+                                         "Strings":  [
+                                                         "google-site-verification=faFPuqPgKU1FaPyyjpXzXW928cNZWYgXJQhhf5wHJZg"
+                                                     ],
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     },
+                             "A":  [
+                                       {
+                                           "Name":  "aertech-labs.com",
+                                           "Type":  1,
+                                           "TTL":  1800,
+                                           "IPAddress":  "216.198.79.65",
+                                           "NameHost":  null,
+                                           "Strings":  null,
+                                           "NameExchange":  null,
+                                           "Preference":  null
+                                       },
+                                       {
+                                           "Name":  "aertech-labs.com",
+                                           "Type":  1,
+                                           "TTL":  1800,
+                                           "IPAddress":  "64.29.17.65",
+                                           "NameHost":  null,
+                                           "Strings":  null,
+                                           "NameExchange":  null,
+                                           "Preference":  null
+                                       }
+                                   ]
+                         },
+    "api.scoutpicks.aertech-labs.com":  {
+                                            "CNAME":  {
+                                                          "Name":  "api.scoutpicks.aertech-labs.com",
+                                                          "Type":  5,
+                                                          "TTL":  60,
+                                                          "IPAddress":  null,
+                                                          "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                            "AAAA":  [
+                                                         {
+                                                             "Name":  "api.scoutpicks.aertech-labs.com",
+                                                             "Type":  5,
+                                                             "TTL":  60,
+                                                             "IPAddress":  null,
+                                                             "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7204:41f1:e5e7:49e6:b496",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7200:fad2:87ac:4448:38b4",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7205:4374:aff4:5511:1239",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7202:88b5:68de:5527:9e08",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7201:d9c2:e874:d352:131c",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         },
+                                                         {
+                                                             "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                             "Type":  28,
+                                                             "TTL":  60,
+                                                             "IPAddress":  "2600:1f18:77c4:7203:5bc0:4d99:862f:ca8e",
+                                                             "NameHost":  null,
+                                                             "Strings":  null,
+                                                             "NameExchange":  null,
+                                                             "Preference":  null
+                                                         }
+                                                     ],
+                                            "MX":  [
+                                                       {
+                                                           "Name":  "api.scoutpicks.aertech-labs.com",
+                                                           "Type":  5,
+                                                           "TTL":  60,
+                                                           "IPAddress":  null,
+                                                           "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                           "Strings":  null,
+                                                           "NameExchange":  null,
+                                                           "Preference":  null
+                                                       },
+                                                       {
+                                                           "Name":  "us-east-1.elb.amazonaws.com",
+                                                           "Type":  6,
+                                                           "TTL":  60,
+                                                           "IPAddress":  null,
+                                                           "NameHost":  null,
+                                                           "Strings":  null,
+                                                           "NameExchange":  null,
+                                                           "Preference":  null
+                                                       }
+                                                   ],
+                                            "NS":  [
+                                                       {
+                                                           "Name":  "api.scoutpicks.aertech-labs.com",
+                                                           "Type":  5,
+                                                           "TTL":  31,
+                                                           "IPAddress":  null,
+                                                           "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                           "Strings":  null,
+                                                           "NameExchange":  null,
+                                                           "Preference":  null
+                                                       },
+                                                       {
+                                                           "Name":  "us-east-1.elb.amazonaws.com",
+                                                           "Type":  6,
+                                                           "TTL":  60,
+                                                           "IPAddress":  null,
+                                                           "NameHost":  null,
+                                                           "Strings":  null,
+                                                           "NameExchange":  null,
+                                                           "Preference":  null
+                                                       }
+                                                   ],
+                                            "TXT":  [
+                                                        {
+                                                            "Name":  "api.scoutpicks.aertech-labs.com",
+                                                            "Type":  5,
+                                                            "TTL":  60,
+                                                            "IPAddress":  null,
+                                                            "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                            "Strings":  null,
+                                                            "NameExchange":  null,
+                                                            "Preference":  null
+                                                        },
+                                                        {
+                                                            "Name":  "us-east-1.elb.amazonaws.com",
+                                                            "Type":  6,
+                                                            "TTL":  60,
+                                                            "IPAddress":  null,
+                                                            "NameHost":  null,
+                                                            "Strings":  null,
+                                                            "NameExchange":  null,
+                                                            "Preference":  null
+                                                        }
+                                                    ],
+                                            "A":  [
+                                                      {
+                                                          "Name":  "api.scoutpicks.aertech-labs.com",
+                                                          "Type":  5,
+                                                          "TTL":  22,
+                                                          "IPAddress":  null,
+                                                          "NameHost":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "32.201.142.9",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "98.94.204.196",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "98.84.205.242",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "3.219.36.196",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "3.209.78.214",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "scoutpicks-api-343470550.us-east-1.elb.amazonaws.com",
+                                                          "Type":  1,
+                                                          "TTL":  22,
+                                                          "IPAddress":  "184.196.226.61",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      }
+                                                  ]
+                                        },
+    "scoutpicks.app":  {
+                           "CNAME":  {
+                                         "Name":  "scoutpicks.app",
+                                         "Type":  6,
+                                         "TTL":  600,
+                                         "IPAddress":  null,
+                                         "NameHost":  null,
+                                         "Strings":  null,
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     },
+                           "AAAA":  [
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:7400:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:4c00:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:f200:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:5600:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:1e00:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:c600:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:600:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        },
+                                        {
+                                            "Name":  "scoutpicks.app",
+                                            "Type":  28,
+                                            "TTL":  60,
+                                            "IPAddress":  "2600:9000:2357:9c00:2:8f7e:7240:93a1",
+                                            "NameHost":  null,
+                                            "Strings":  null,
+                                            "NameExchange":  null,
+                                            "Preference":  null
+                                        }
+                                    ],
+                           "MX":  {
+                                      "Name":  "scoutpicks.app",
+                                      "Type":  6,
+                                      "TTL":  600,
+                                      "IPAddress":  null,
+                                      "NameHost":  null,
+                                      "Strings":  null,
+                                      "NameExchange":  null,
+                                      "Preference":  null
+                                  },
+                           "NS":  [
+                                      {
+                                          "Name":  "scoutpicks.app",
+                                          "Type":  2,
+                                          "TTL":  21600,
+                                          "IPAddress":  null,
+                                          "NameHost":  "ns1.vercel-dns.com",
+                                          "Strings":  null,
+                                          "NameExchange":  null,
+                                          "Preference":  null
+                                      },
+                                      {
+                                          "Name":  "scoutpicks.app",
+                                          "Type":  2,
+                                          "TTL":  21600,
+                                          "IPAddress":  null,
+                                          "NameHost":  "ns2.vercel-dns.com",
+                                          "Strings":  null,
+                                          "NameExchange":  null,
+                                          "Preference":  null
+                                      }
+                                  ],
+                           "TXT":  {
+                                       "Name":  "scoutpicks.app",
+                                       "Type":  16,
+                                       "TTL":  60,
+                                       "IPAddress":  null,
+                                       "NameHost":  null,
+                                       "Strings":  [
+                                                       "google-site-verification=UTgCG2Qchv_CH1aIstZjfVvKikkgAXYnOLFc1llNOSU"
+                                                   ],
+                                       "NameExchange":  null,
+                                       "Preference":  null
+                                   },
+                           "A":  [
+                                     {
+                                         "Name":  "scoutpicks.app",
+                                         "Type":  1,
+                                         "TTL":  60,
+                                         "IPAddress":  "108.138.159.55",
+                                         "NameHost":  null,
+                                         "Strings":  null,
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     },
+                                     {
+                                         "Name":  "scoutpicks.app",
+                                         "Type":  1,
+                                         "TTL":  60,
+                                         "IPAddress":  "108.138.159.80",
+                                         "NameHost":  null,
+                                         "Strings":  null,
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     },
+                                     {
+                                         "Name":  "scoutpicks.app",
+                                         "Type":  1,
+                                         "TTL":  60,
+                                         "IPAddress":  "108.138.159.86",
+                                         "NameHost":  null,
+                                         "Strings":  null,
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     },
+                                     {
+                                         "Name":  "scoutpicks.app",
+                                         "Type":  1,
+                                         "TTL":  60,
+                                         "IPAddress":  "108.138.159.119",
+                                         "NameHost":  null,
+                                         "Strings":  null,
+                                         "NameExchange":  null,
+                                         "Preference":  null
+                                     }
+                                 ]
+                       },
+    "da08ctfrofx1b.cloudfront.net":  {
+                                         "CNAME":  {
+                                                       "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                       "Type":  6,
+                                                       "TTL":  60,
+                                                       "IPAddress":  null,
+                                                       "NameHost":  null,
+                                                       "Strings":  null,
+                                                       "NameExchange":  null,
+                                                       "Preference":  null
+                                                   },
+                                         "AAAA":  [
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:ea00:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:5400:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:3c00:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:e00:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:a200:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:9a00:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:a400:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      },
+                                                      {
+                                                          "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                          "Type":  28,
+                                                          "TTL":  60,
+                                                          "IPAddress":  "2600:9000:2366:c400:6:f33a:3fc0:93a1",
+                                                          "NameHost":  null,
+                                                          "Strings":  null,
+                                                          "NameExchange":  null,
+                                                          "Preference":  null
+                                                      }
+                                                  ],
+                                         "MX":  {
+                                                    "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                    "Type":  6,
+                                                    "TTL":  60,
+                                                    "IPAddress":  null,
+                                                    "NameHost":  null,
+                                                    "Strings":  null,
+                                                    "NameExchange":  null,
+                                                    "Preference":  null
+                                                },
+                                         "NS":  [
+                                                    {
+                                                        "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                        "Type":  2,
+                                                        "TTL":  21600,
+                                                        "IPAddress":  null,
+                                                        "NameHost":  "ns-1672.awsdns-17.co.uk",
+                                                        "Strings":  null,
+                                                        "NameExchange":  null,
+                                                        "Preference":  null
+                                                    },
+                                                    {
+                                                        "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                        "Type":  2,
+                                                        "TTL":  21600,
+                                                        "IPAddress":  null,
+                                                        "NameHost":  "ns-652.awsdns-17.net",
+                                                        "Strings":  null,
+                                                        "NameExchange":  null,
+                                                        "Preference":  null
+                                                    },
+                                                    {
+                                                        "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                        "Type":  2,
+                                                        "TTL":  21600,
+                                                        "IPAddress":  null,
+                                                        "NameHost":  "ns-422.awsdns-52.com",
+                                                        "Strings":  null,
+                                                        "NameExchange":  null,
+                                                        "Preference":  null
+                                                    },
+                                                    {
+                                                        "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                        "Type":  2,
+                                                        "TTL":  21600,
+                                                        "IPAddress":  null,
+                                                        "NameHost":  "ns-1153.awsdns-16.org",
+                                                        "Strings":  null,
+                                                        "NameExchange":  null,
+                                                        "Preference":  null
+                                                    }
+                                                ],
+                                         "TXT":  {
+                                                     "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                     "Type":  6,
+                                                     "TTL":  60,
+                                                     "IPAddress":  null,
+                                                     "NameHost":  null,
+                                                     "Strings":  null,
+                                                     "NameExchange":  null,
+                                                     "Preference":  null
+                                                 },
+                                         "A":  [
+                                                   {
+                                                       "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                       "Type":  1,
+                                                       "TTL":  60,
+                                                       "IPAddress":  "18.65.3.29",
+                                                       "NameHost":  null,
+                                                       "Strings":  null,
+                                                       "NameExchange":  null,
+                                                       "Preference":  null
+                                                   },
+                                                   {
+                                                       "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                       "Type":  1,
+                                                       "TTL":  60,
+                                                       "IPAddress":  "18.65.3.89",
+                                                       "NameHost":  null,
+                                                       "Strings":  null,
+                                                       "NameExchange":  null,
+                                                       "Preference":  null
+                                                   },
+                                                   {
+                                                       "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                       "Type":  1,
+                                                       "TTL":  60,
+                                                       "IPAddress":  "18.65.3.88",
+                                                       "NameHost":  null,
+                                                       "Strings":  null,
+                                                       "NameExchange":  null,
+                                                       "Preference":  null
+                                                   },
+                                                   {
+                                                       "Name":  "da08ctfrofx1b.cloudfront.net",
+                                                       "Type":  1,
+                                                       "TTL":  60,
+                                                       "IPAddress":  "18.65.3.84",
+                                                       "NameHost":  null,
+                                                       "Strings":  null,
+                                                       "NameExchange":  null,
+                                                       "Preference":  null
+                                                   }
+                                               ]
+                                     }
+}

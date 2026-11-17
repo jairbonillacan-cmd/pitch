@@ -1,0 +1,11 @@
+{
+  "status": 400,
+  "url": "/insights/grouped?statusFilter=finished&groupBy=match&groupLimit=40&groupOffset=0&perGroupLimit=30&sortBy=recommended&timezoneOffset=360",
+  "data": {
+    "success": false,
+    "error": {
+      "name": "ZodError",
+      "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"live\",\n      \"upcoming\"\n    ],\n    \"path\": [\n      \"statusFilter\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"live\\\"|\\\"upcoming\\\"\"\n  },\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_big\",\n    \"maximum\": 30,\n    \"inclusive\": true,\n    \"path\": [\n      \"groupLimit\"\n    ],\n    \"message\": \"Too big: expected number to be <=30\"\n  }\n]"
+    }
+  }
+}

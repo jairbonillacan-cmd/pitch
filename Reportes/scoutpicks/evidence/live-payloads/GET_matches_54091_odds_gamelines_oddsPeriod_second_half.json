@@ -1,0 +1,510 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/odds/gamelines?oddsPeriod=second_half",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "2cc6c22e-9cd7-4ec5-85c3-886fa439013b",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:42 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "tab": "gamelines",
+    "match": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "status": "NS",
+      "homeTeam": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "awayTeam": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "league": {
+        "id": 116,
+        "name": "UEFA Nations League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+      }
+    },
+    "markets": [
+      {
+        "marketName": "Double Chance",
+        "period": "second_half",
+        "betTypeId": 39642051,
+        "outcomes": [
+          {
+            "selection": "Home/Draw",
+            "odds": [
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 2.06,
+                "oddsId": 239950944,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 2.03,
+                "oddsId": 239431662,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 2.02,
+                "oddsId": 239659517,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          },
+          {
+            "selection": "Home/Away",
+            "odds": [
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 1.34,
+                "oddsId": 239431661,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 1.34,
+                "oddsId": 239659518,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 1.32,
+                "oddsId": 239950942,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          },
+          {
+            "selection": "Draw/Away",
+            "odds": [
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 1.15,
+                "oddsId": 239950943,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 1.15,
+                "oddsId": 239659519,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 1.12,
+                "oddsId": 239431663,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketName": "ML",
+        "period": "second_half",
+        "betTypeId": 39642050,
+        "outcomes": [
+          {
+            "selection": "Home",
+            "odds": [
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 5.7,
+                "oddsId": 239659514,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 5.6,
+                "oddsId": 239950939,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 1,
+                "bookmakerName": "Bet365",
+                "bookmakerLogo": null,
+                "value": 5.5,
+                "oddsId": 239651215,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 5.22,
+                "oddsId": 239431658,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          },
+          {
+            "selection": "Draw",
+            "odds": [
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 3.15,
+                "oddsId": 239950940,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 3.05,
+                "oddsId": 239659515,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 3,
+                "oddsId": 239431659,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 1,
+                "bookmakerName": "Bet365",
+                "bookmakerLogo": null,
+                "value": 3,
+                "oddsId": 239651217,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          },
+          {
+            "selection": "Away",
+            "odds": [
+              {
+                "bookmakerId": 1,
+                "bookmakerName": "Bet365",
+                "bookmakerLogo": null,
+                "value": 1.727,
+                "oddsId": 239651216,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 4,
+                "bookmakerName": "Stake",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+                "value": 1.72,
+                "oddsId": 239950941,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 5,
+                "bookmakerName": "JugaBet",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+                "value": 1.7,
+                "oddsId": 239431660,
+                "isStale": false,
+                "hasMovementHistory": true
+              },
+              {
+                "bookmakerId": 2,
+                "bookmakerName": "Betano",
+                "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+                "value": 1.67,
+                "oddsId": 239659516,
+                "isStale": false,
+                "hasMovementHistory": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "h2h": {
+      "matchesPlayed": 2,
+      "homeWinPct": 0,
+      "drawPct": 0,
+      "awayWinPct": 100
+    },
+    "teamForm": {
+      "home": {
+        "l10WinRate": 20,
+        "wins": 2,
+        "draws": 3,
+        "losses": 5,
+        "recentResults": [
+          {
+            "matchId": 54100,
+            "date": "2026-11-14T17:00:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "code": "NOR"
+            }
+          },
+          {
+            "matchId": 54041,
+            "date": "2026-10-04T18:45:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN"
+            }
+          },
+          {
+            "matchId": 54049,
+            "date": "2026-10-01T18:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "code": "NOR"
+            }
+          },
+          {
+            "matchId": 53993,
+            "date": "2026-09-27T16:00:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN"
+            }
+          },
+          {
+            "matchId": 53999,
+            "date": "2026-09-24T18:45:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 14678,
+              "name": "Portugal",
+              "code": "POR"
+            }
+          },
+          {
+            "matchId": 8663,
+            "date": "2026-06-06T17:45:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 17178,
+              "name": "Romania",
+              "code": "ROM"
+            }
+          },
+          {
+            "matchId": 8606,
+            "date": "2026-06-02T18:45:00.000Z",
+            "result": "D",
+            "opponent": {
+              "id": 14472,
+              "name": "Ghana",
+              "code": "GHA"
+            }
+          },
+          {
+            "matchId": 8591,
+            "date": "2026-03-31T18:45:00.000Z",
+            "result": "D",
+            "opponent": {
+              "id": 17182,
+              "name": "Northern Ireland",
+              "code": "NIR"
+            }
+          },
+          {
+            "matchId": 33726,
+            "date": "2026-03-26T19:45:00.000Z",
+            "result": "D",
+            "opponent": {
+              "id": 17231,
+              "name": "Bosnia and Herzegovina",
+              "code": "BIH"
+            }
+          },
+          {
+            "matchId": 33663,
+            "date": "2025-11-18T19:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 17180,
+              "name": "North Macedonia",
+              "code": "MKD"
+            }
+          }
+        ]
+      },
+      "away": {
+        "l10WinRate": 60,
+        "wins": 6,
+        "draws": 2,
+        "losses": 2,
+        "recentResults": [
+          {
+            "matchId": 54099,
+            "date": "2026-11-14T19:45:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN"
+            }
+          },
+          {
+            "matchId": 54042,
+            "date": "2026-10-04T18:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "code": "NOR"
+            }
+          },
+          {
+            "matchId": 54050,
+            "date": "2026-10-01T18:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN"
+            }
+          },
+          {
+            "matchId": 53991,
+            "date": "2026-09-27T18:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 13198,
+              "name": "Norway",
+              "code": "NOR"
+            }
+          },
+          {
+            "matchId": 53999,
+            "date": "2026-09-24T18:45:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 17181,
+              "name": "Wales",
+              "code": "WAL"
+            }
+          },
+          {
+            "matchId": 33483,
+            "date": "2026-07-06T19:00:00.000Z",
+            "result": "L",
+            "opponent": {
+              "id": 17088,
+              "name": "Spain",
+              "code": "ESP"
+            }
+          },
+          {
+            "matchId": 33464,
+            "date": "2026-07-02T23:00:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 13234,
+              "name": "Croatia",
+              "code": "CRO"
+            }
+          },
+          {
+            "matchId": 33510,
+            "date": "2026-06-27T23:30:00.000Z",
+            "result": "D",
+            "opponent": {
+              "id": 13233,
+              "name": "Colombia",
+              "code": "COL"
+            }
+          },
+          {
+            "matchId": 33412,
+            "date": "2026-06-23T17:00:00.000Z",
+            "result": "W",
+            "opponent": {
+              "id": 14596,
+              "name": "Uzbekistan",
+              "code": "UZB"
+            }
+          },
+          {
+            "matchId": 33432,
+            "date": "2026-06-17T17:00:00.000Z",
+            "result": "D",
+            "opponent": {
+              "id": 14644,
+              "name": "Congo DR",
+              "code": "COD"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

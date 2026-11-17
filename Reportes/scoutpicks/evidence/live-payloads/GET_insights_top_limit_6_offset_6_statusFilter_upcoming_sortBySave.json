@@ -1,0 +1,2874 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/insights/top?limit=6&offset=6&statusFilter=upcoming&sortBySaveCount=true&sortBy=recommended&timezoneOffset=360",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "c04c4c04-71cc-4cb8-85ec-d9f956681351",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:31 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "insights": [
+      {
+        "id": "draft:p6509_m54091_shotsOnTarget_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 6509,
+        "teamId": null,
+        "oddsId": 239910070,
+        "metric": "shotsOnTarget",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 1.8,
+        "median": 2,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 70.42,
+        "edgePercentage": 29.58,
+        "expectedValue": 0.42,
+        "valueRating": "strong",
+        "opponentId": 17181,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 tiros a puerta: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "overall",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 85,
+            "sampleSize": 20,
+            "edge": 14.58,
+            "teamIds": [
+              7332,
+              4921
+            ],
+            "leagueIds": [
+              6,
+              41,
+              7
+            ],
+            "matchIds": [
+              10647658,
+              10647305,
+              10647341,
+              10647369,
+              10647420,
+              10647453,
+              10528058,
+              10528068,
+              10528271,
+              10647198,
+              10531440,
+              3671,
+              3660,
+              3533,
+              3523,
+              3460,
+              3412,
+              3386,
+              3285,
+              3121
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 90,
+            "sampleSize": 10,
+            "edge": 19.58,
+            "teamIds": [
+              7332
+            ],
+            "leagueIds": [
+              6
+            ],
+            "matchIds": [
+              10647658,
+              10647305,
+              10647341,
+              10647369,
+              10647420,
+              10647453,
+              10528058,
+              10528068,
+              10528271,
+              10647198
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 17181,
+          "metric": "shotsOnTarget",
+          "rankType": "defense",
+          "rank": 20,
+          "totalTeams": 54,
+          "average": 4.6,
+          "leagueAvg": 4.359876543209876,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          1,
+          3,
+          1,
+          2
+        ],
+        "recentMinutesPlayed": [
+          90,
+          71,
+          90,
+          90,
+          81
+        ],
+        "matchIds": [
+          10647658,
+          10647305,
+          10647341,
+          10647369,
+          10647420
+        ],
+        "headlineTeamIds": [
+          7332
+        ],
+        "headlineLeagueIds": [
+          6
+        ],
+        "matchId": 54091,
+        "reason": "Acierto en 5 de últimos 5 Más de 0.5 tiros a puerta (prom: 1.8). Cuota implica 70% — vemos 100%. 30% de ventaja.",
+        "oddsValue": 1.42,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 5,
+        "relevanceScore": 186.2919607053426,
+        "createdAt": "2026-11-17T00:55:54.372Z",
+        "updatedAt": "2026-11-17T07:33:29.044Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "4e6d53b307884dda7782c5802be8768aca66e96690166878d7daba8255162bad",
+        "odds": {
+          "id": 239910070,
+          "matchId": 54091,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Gustavo Varela Over 0.5",
+          "value": 1.42,
+          "line": 0.5,
+          "playerId": 6509,
+          "teamId": 14678,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899015,
+            "name": "Player Shots On Target",
+            "category": "shotsOnTarget",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 17181,
+          "name": "Wales",
+          "code": "WAL",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png"
+        },
+        "match": {
+          "id": 54091,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17181,
+            "name": "Wales",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+            "code": "WAL",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": false
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 6509,
+          "apiId": null,
+          "sportmonksId": 37596971,
+          "name": "Gustavo Varela",
+          "searchName": "gustavo varela gustavo miguel pereira de sousa g pereira de sousa gustavo varela",
+          "firstname": "Gustavo Miguel",
+          "lastname": "Pereira De Sousa",
+          "commonName": "G. Pereira De Sousa",
+          "displayName": "Gustavo Varela",
+          "age": 21,
+          "nationality": "Portugal",
+          "height": "184 cm",
+          "weight": "74 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/11/37596971.png",
+          "photoStatus": "pending",
+          "position": "Attacker",
+          "currentTeamId": 7332,
+          "createdAt": "2026-05-15T16:53:26.804Z",
+          "updatedAt": "2026-11-10T08:08:20.262Z",
+          "nationalTeamId": 14678,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-07T05:16:01.269Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-10T08:08:20.261Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 7332,
+            "name": "Monza",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/1628.png",
+            "code": "MON"
+          },
+          "nationalTeam": {
+            "id": 14678,
+            "name": "Portugal",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+            "code": "POR"
+          },
+          "detailedPosition": "CF"
+        },
+        "team": {
+          "id": 14678,
+          "name": "Portugal",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+          "code": "POR",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 70.42,
+          "edgePercentage": 29.58,
+          "expectedValue": 0.42,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239910070,
+          "oddsValue": 1.42,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239910070,
+              "oddsValue": 1.42,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player Shots On Target",
+          "category": "shotsOnTarget",
+          "selection": "Gustavo Varela Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 11,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            7332
+          ],
+          "leagueIds": [
+            6
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 7332,
+              "name": "Monza",
+              "code": "MON",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/1628.png"
+            },
+            {
+              "id": 4921,
+              "name": "Gil Vicente",
+              "code": "GVFC",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/364.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 6,
+              "name": "Serie A",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/384.png"
+            },
+            {
+              "id": 41,
+              "name": "Coppa Italia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/390.png"
+            },
+            {
+              "id": 7,
+              "name": "Liga Portugal",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p1189_m54092_shots_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 1189,
+        "teamId": 13198,
+        "oddsId": 239897008,
+        "metric": "shots",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 1.2,
+        "median": 1,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 73.53,
+        "edgePercentage": 26.47,
+        "expectedValue": 0.36,
+        "valueRating": "strong",
+        "opponentId": 17254,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 tiros: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 13198,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "competition",
+            "hitRate": 100,
+            "sampleSize": 3,
+            "edge": 26.47,
+            "teamIds": [
+              13198
+            ],
+            "leagueIds": [
+              116
+            ],
+            "matchIds": [
+              54042,
+              53991,
+              54000
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 6.47,
+            "teamIds": [
+              157
+            ],
+            "leagueIds": [
+              42,
+              1
+            ],
+            "matchIds": [
+              18259,
+              32288927,
+              18289,
+              18324,
+              32288915
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 13198,
+            "venue": "away",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 75,
+            "sampleSize": 8,
+            "edge": 1.47,
+            "teamIds": [
+              13198
+            ],
+            "leagueIds": [
+              116,
+              15,
+              63,
+              108
+            ],
+            "matchIds": [
+              54042,
+              6599,
+              33651,
+              54167,
+              53125,
+              52598,
+              52597,
+              34771894
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 90,
+            "sampleSize": 20,
+            "edge": 16.47,
+            "teamIds": [
+              157,
+              13198
+            ],
+            "leagueIds": [
+              42,
+              1,
+              116
+            ],
+            "matchIds": [
+              18259,
+              32288927,
+              18289,
+              18324,
+              32288915,
+              18305,
+              32288862,
+              18315,
+              54042,
+              53991,
+              54000,
+              18165,
+              18181,
+              32288863,
+              18198,
+              18208,
+              28970526,
+              25422331,
+              22175325,
+              18091
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 13198,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 20,
+            "edge": -13.53,
+            "teamIds": [
+              13198
+            ],
+            "leagueIds": [
+              116,
+              67,
+              15,
+              63,
+              108
+            ],
+            "matchIds": [
+              54042,
+              53991,
+              54000,
+              33491,
+              33486,
+              33472,
+              33508,
+              6599,
+              33651,
+              33620,
+              8893,
+              33298,
+              32838,
+              54169,
+              54167,
+              10730108,
+              53125,
+              53027,
+              52860,
+              52687
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 17254,
+          "metric": "shots",
+          "rankType": "defense",
+          "rank": 26,
+          "totalTeams": 54,
+          "average": 12.6,
+          "leagueAvg": 13.12623456790123,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": {
+          "windowSize": 10,
+          "starts": 7,
+          "subbedOffCount": 3,
+          "avgSubOffMinute": 75,
+          "lastSubOffMinute": 87,
+          "typicalReplacement": null
+        },
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          1,
+          2,
+          1,
+          1,
+          1
+        ],
+        "recentMinutesPlayed": [
+          87,
+          72,
+          66,
+          120,
+          90
+        ],
+        "matchIds": [
+          54042,
+          53991,
+          54000,
+          33491,
+          33486
+        ],
+        "headlineTeamIds": [
+          13198
+        ],
+        "headlineLeagueIds": [
+          116,
+          67
+        ],
+        "matchId": 54092,
+        "reason": "Acierto en 5 de últimos 5 Más de 0.5 tiros (prom: 1.2). Cuota implica 74% — vemos 100%. 26% de ventaja.",
+        "oddsValue": 1.36,
+        "bookmaker": "Betano",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 11,
+        "relevanceScore": 172.7410825292872,
+        "createdAt": "2026-11-17T00:55:50.356Z",
+        "updatedAt": "2026-11-17T07:33:27.187Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "74121dbb17ca2322ca85cac610190494661e1ea4ed81e55a21f7b9606ba716b9",
+        "odds": {
+          "id": 239897008,
+          "matchId": 54092,
+          "bookmakerId": 2,
+          "source": "betano",
+          "perks": [
+            "sub_cover"
+          ],
+          "selection": "Patrick Berg Over 0.5",
+          "value": 1.36,
+          "line": 0.5,
+          "playerId": 1189,
+          "teamId": 13198,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 2,
+            "name": "Betano",
+            "logo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png"
+          },
+          "betType": {
+            "id": 1899025,
+            "name": "Player Shots",
+            "category": "shots",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 17254,
+          "name": "Denmark",
+          "code": "DEN",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+        },
+        "match": {
+          "id": 54092,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 13198,
+            "name": "Norway",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+            "code": "NOR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": false
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 1189,
+          "apiId": null,
+          "sportmonksId": 151243,
+          "name": "Patrick Berg",
+          "searchName": "patrick berg patrick berg p berg patrick berg",
+          "firstname": "Patrick",
+          "lastname": "Berg",
+          "commonName": "P. Berg",
+          "displayName": "Patrick Berg",
+          "age": 28,
+          "nationality": "Norway",
+          "height": "177 cm",
+          "weight": null,
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/11/151243.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 157,
+          "createdAt": "2026-05-15T14:58:19.080Z",
+          "updatedAt": "2026-11-17T14:27:51.282Z",
+          "nationalTeamId": 13198,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-06-08T00:59:39.783Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T11:08:19.328Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 157,
+            "name": "Bodø / Glimt",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/1668.png",
+            "code": "BOD"
+          },
+          "nationalTeam": {
+            "id": 13198,
+            "name": "Norway",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+            "code": "NOR"
+          },
+          "detailedPosition": "DM"
+        },
+        "team": {
+          "id": 13198,
+          "name": "Norway",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+          "code": "NOR",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 73.53,
+          "edgePercentage": 26.47,
+          "expectedValue": 0.36,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239897008,
+          "oddsValue": 1.36,
+          "bookmaker": "Betano",
+          "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+          "bookmakerOdds": [
+            {
+              "oddsId": 239897008,
+              "oddsValue": 1.36,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239865329,
+              "oddsValue": 1.333,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239803978,
+              "oddsValue": 1.24,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239951946,
+              "oddsValue": 1.24,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Shots",
+          "category": "shots",
+          "selection": "Patrick Berg Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 318,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 13198,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            13198
+          ],
+          "leagueIds": [
+            116,
+            67
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 13198,
+              "name": "Norway",
+              "code": "NOR",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+            },
+            {
+              "id": 157,
+              "name": "Bodø / Glimt",
+              "code": "BOD",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/1668.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 67,
+              "name": "World Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/732.png"
+            },
+            {
+              "id": 42,
+              "name": "Eliteserien",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/444.png"
+            },
+            {
+              "id": 1,
+              "name": "Champions League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p1926_m54092_shotsOnTarget_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 1926,
+        "teamId": null,
+        "oddsId": 239870884,
+        "metric": "shotsOnTarget",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 1.4,
+        "median": 1,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 73.37,
+        "edgePercentage": 26.63,
+        "expectedValue": 0.36,
+        "valueRating": "strong",
+        "opponentId": 13198,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 tiros a puerta: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "overall",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 10,
+            "edge": -33.37,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              63,
+              15,
+              108
+            ],
+            "matchIds": [
+              54050,
+              53993,
+              33724,
+              33338,
+              8818,
+              54375,
+              10730630,
+              10730401,
+              10730105,
+              53054
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "competition",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 6.63,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116
+            ],
+            "matchIds": [
+              54099,
+              54041,
+              54050,
+              53993,
+              54000
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 60,
+            "sampleSize": 20,
+            "edge": -13.37,
+            "teamIds": [
+              17254,
+              237
+            ],
+            "leagueIds": [
+              116,
+              6,
+              1,
+              357
+            ],
+            "matchIds": [
+              54099,
+              10647653,
+              32288913,
+              10647341,
+              10647375,
+              32288915,
+              32288864,
+              10647446,
+              54041,
+              54050,
+              53993,
+              54000,
+              10528062,
+              10528067,
+              32288761,
+              10528093,
+              10528270,
+              10647203,
+              10945846,
+              10945766
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 78.95,
+            "sampleSize": 19,
+            "edge": 5.58,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              63,
+              109,
+              108
+            ],
+            "matchIds": [
+              54099,
+              54041,
+              54050,
+              53993,
+              54000,
+              33457,
+              33338,
+              33132,
+              54375,
+              54230,
+              52750,
+              52738,
+              52729,
+              53057,
+              53054,
+              52832,
+              52824,
+              52624,
+              52622
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 10,
+            "edge": 6.63,
+            "teamIds": [
+              17254,
+              237
+            ],
+            "leagueIds": [
+              116,
+              6,
+              1
+            ],
+            "matchIds": [
+              54099,
+              10647653,
+              32288913,
+              10647341,
+              10647375,
+              32288915,
+              32288864,
+              10647446,
+              54041,
+              54050
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 13198,
+          "metric": "shotsOnTarget",
+          "rankType": "defense",
+          "rank": 11,
+          "totalTeams": 54,
+          "average": 5.8,
+          "leagueAvg": 4.359876543209876,
+          "leagueId": 116,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": {
+          "windowSize": 10,
+          "starts": 10,
+          "subbedOffCount": 7,
+          "avgSubOffMinute": 80,
+          "lastSubOffMinute": 73,
+          "typicalReplacement": {
+            "playerId": 1191,
+            "name": "Kasper Høgh",
+            "count": 4
+          }
+        },
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          1,
+          1,
+          2,
+          1
+        ],
+        "recentMinutesPlayed": [
+          73,
+          74,
+          90,
+          81,
+          90
+        ],
+        "matchIds": [
+          54099,
+          10647653,
+          32288913,
+          10647341,
+          10647375
+        ],
+        "headlineTeamIds": [
+          17254,
+          237
+        ],
+        "headlineLeagueIds": [
+          116,
+          6,
+          1
+        ],
+        "matchId": 54092,
+        "reason": "Acierto en 5 de últimos 5 Más de 0.5 tiros a puerta (prom: 1.4). Cuota implica 73% — vemos 100%. 27% de ventaja.",
+        "oddsValue": 1.363,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 18,
+        "relevanceScore": 172.7410825292872,
+        "createdAt": "2026-11-15T01:02:24.441Z",
+        "updatedAt": "2026-11-17T09:13:13.000Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "5799434971cb01c170e3b7fdf73e88f5ad4cdb98dc1e0d097364b124b809f0fc",
+        "odds": {
+          "id": 239870884,
+          "matchId": 54092,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Rasmus Højlund Over 0.5",
+          "value": 1.363,
+          "line": 0.5,
+          "playerId": 1926,
+          "teamId": 17254,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 18,
+            "name": "Player Shots On Target",
+            "category": "shotsOnTarget",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 13198,
+          "name": "Norway",
+          "code": "NOR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+        },
+        "match": {
+          "id": 54092,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 13198,
+            "name": "Norway",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+            "code": "NOR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 1926,
+          "apiId": null,
+          "sportmonksId": 37325012,
+          "name": "Rasmus Højlund",
+          "searchName": "rasmus hojlund rasmus winther hojlund r hojlund rasmus hojlund",
+          "firstname": "Rasmus Winther",
+          "lastname": "Højlund",
+          "commonName": "R. Højlund",
+          "displayName": "Rasmus Højlund",
+          "age": 23,
+          "nationality": "Denmark",
+          "height": "191 cm",
+          "weight": "86 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/20/37325012.png",
+          "photoStatus": "pending",
+          "position": "Attacker",
+          "currentTeamId": 237,
+          "createdAt": "2026-05-15T14:58:51.734Z",
+          "updatedAt": "2026-11-17T14:27:59.581Z",
+          "nationalTeamId": 17254,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-06-08T00:59:38.498Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T13:53:20.756Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 237,
+            "name": "Napoli",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/597.png",
+            "code": "NAP"
+          },
+          "nationalTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN"
+          },
+          "detailedPosition": "CF"
+        },
+        "team": {
+          "id": 17254,
+          "name": "Denmark",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+          "code": "DEN",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 73.37,
+          "edgePercentage": 26.63,
+          "expectedValue": 0.36,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239870884,
+          "oddsValue": 1.363,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239870884,
+              "oddsValue": 1.363,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239952093,
+              "oddsValue": 1.29,
+              "bookmaker": "Stake",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/stake.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239804214,
+              "oddsValue": 1.28,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            },
+            {
+              "oddsId": 239896612,
+              "oddsValue": 1.24,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            },
+            {
+              "oddsId": 239827293,
+              "oddsValue": 1.23,
+              "bookmaker": "Draftea",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/draftea.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player Shots On Target",
+          "category": "shotsOnTarget",
+          "selection": "Rasmus Højlund Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 61,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17254,
+            237
+          ],
+          "leagueIds": [
+            116,
+            6,
+            1
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            {
+              "id": 237,
+              "name": "Napoli",
+              "code": "NAP",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/597.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 6,
+              "name": "Serie A",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/384.png"
+            },
+            {
+              "id": 1,
+              "name": "Champions League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            },
+            {
+              "id": 109,
+              "name": "European Championship",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1326.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p2207_m54092_foulsDrawn_0.5_over",
+        "type": "value_player_prop",
+        "playerId": 2207,
+        "teamId": null,
+        "oddsId": 239876288,
+        "metric": "foulsDrawn",
+        "line": 0.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 1.4,
+        "median": 1,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 73.37,
+        "edgePercentage": 26.63,
+        "expectedValue": 0.36,
+        "valueRating": "strong",
+        "opponentId": 13198,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 0.5 faltas recibidas: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "overall",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 57.14,
+            "sampleSize": 7,
+            "edge": -16.23,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              63,
+              116,
+              15,
+              108
+            ],
+            "matchIds": [
+              33724,
+              54375,
+              54157,
+              54155,
+              10730630,
+              10730401,
+              52622
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 6.63,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54099,
+              33732,
+              33724,
+              54375,
+              54230
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 90,
+            "sampleSize": 10,
+            "edge": 16.63,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              109,
+              108
+            ],
+            "matchIds": [
+              54099,
+              54375,
+              54230,
+              54219,
+              54157,
+              54155,
+              52750,
+              52729,
+              52832,
+              52624
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 85,
+            "sampleSize": 20,
+            "edge": 11.63,
+            "teamIds": [
+              17254,
+              120
+            ],
+            "leagueIds": [
+              116,
+              7,
+              4,
+              357
+            ],
+            "matchIds": [
+              54099,
+              10647500,
+              10647510,
+              10647573,
+              32187428,
+              32187399,
+              10647622,
+              10647686,
+              10647264,
+              31603148,
+              26483653,
+              10647388,
+              10647412,
+              18537521,
+              10618160,
+              10618194,
+              10944526,
+              3679,
+              3564,
+              3443
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 90,
+            "sampleSize": 10,
+            "edge": 16.63,
+            "teamIds": [
+              17254,
+              120
+            ],
+            "leagueIds": [
+              116,
+              7,
+              4
+            ],
+            "matchIds": [
+              54099,
+              10647500,
+              10647510,
+              10647573,
+              32187428,
+              32187399,
+              10647622,
+              10647686,
+              10647264,
+              31603148
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": null,
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          1,
+          1,
+          1,
+          2,
+          2
+        ],
+        "recentMinutesPlayed": [
+          90,
+          84,
+          90,
+          90,
+          90
+        ],
+        "matchIds": [
+          54099,
+          10647500,
+          10647510,
+          10647573,
+          32187428
+        ],
+        "headlineTeamIds": [
+          17254,
+          120
+        ],
+        "headlineLeagueIds": [
+          116,
+          7,
+          4
+        ],
+        "matchId": 54092,
+        "reason": "Acierto en 5 de últimos 5 Más de 0.5 faltas recibidas (prom: 1.4). Cuota implica 73% — vemos 100%. 27% de ventaja.",
+        "oddsValue": 1.363,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 5,
+        "relevanceScore": 172.7410825292872,
+        "createdAt": "2026-11-15T13:23:33.305Z",
+        "updatedAt": "2026-11-15T13:23:33.305Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "971d3a988f4ecdfde0dcb4802c87fe1a0c3c152101118d0b679d4287ef30df5b",
+        "odds": {
+          "id": 239876288,
+          "matchId": 54092,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Alexander Bah Over 0.5",
+          "value": 1.363,
+          "line": 0.5,
+          "playerId": 2207,
+          "teamId": 17254,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 48,
+            "name": "Player To Be Fouled",
+            "category": "foulsDrawn",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 13198,
+          "name": "Norway",
+          "code": "NOR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+        },
+        "match": {
+          "id": 54092,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 13198,
+            "name": "Norway",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+            "code": "NOR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 2207,
+          "apiId": null,
+          "sportmonksId": 85996,
+          "name": "Alexander Bah",
+          "searchName": "alexander bah alexander hartmann bah a hartmann bah alexander bah",
+          "firstname": "Alexander",
+          "lastname": "Hartmann Bah",
+          "commonName": "A. Hartmann Bah",
+          "displayName": "Alexander Bah",
+          "age": 28,
+          "nationality": "Denmark",
+          "height": "183 cm",
+          "weight": "76 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/12/85996.png",
+          "photoStatus": "pending",
+          "position": "Defender",
+          "currentTeamId": 120,
+          "createdAt": "2026-05-15T15:00:33.794Z",
+          "updatedAt": "2026-11-17T14:27:59.601Z",
+          "nationalTeamId": 17254,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-05T05:17:57.870Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T13:53:20.756Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 120,
+            "name": "Benfica",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/605.png",
+            "code": "SLB"
+          },
+          "nationalTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN"
+          },
+          "detailedPosition": "RB"
+        },
+        "team": {
+          "id": 17254,
+          "name": "Denmark",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+          "code": "DEN",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 73.37,
+          "edgePercentage": 26.63,
+          "expectedValue": 0.36,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239876288,
+          "oddsValue": 1.363,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239876288,
+              "oddsValue": 1.363,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239897740,
+              "oddsValue": 1.3,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player To Be Fouled",
+          "category": "foulsDrawn",
+          "selection": "Alexander Bah Over 0.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 134,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17254,
+            120
+          ],
+          "leagueIds": [
+            116,
+            7,
+            4
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            {
+              "id": 120,
+              "name": "Benfica",
+              "code": "SLB",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/605.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 7,
+              "name": "Liga Portugal",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/462.png"
+            },
+            {
+              "id": 4,
+              "name": "Europa League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/5/5.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 108,
+              "name": "Euro Qualification",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/13/1325.png"
+            },
+            {
+              "id": 109,
+              "name": "European Championship",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/14/1326.png"
+            },
+            {
+              "id": 357,
+              "name": "Club Friendlies 3",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/19/2451.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p6401_m54092_foulsDrawn_1.5_over",
+        "type": "value_player_prop",
+        "playerId": 6401,
+        "teamId": 17254,
+        "oddsId": 239876328,
+        "metric": "foulsDrawn",
+        "line": 1.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 5,
+        "average": 3.2,
+        "median": 3,
+        "timeWindow": "L5",
+        "confidence": 90,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 73.37,
+        "edgePercentage": 26.63,
+        "expectedValue": 0.36,
+        "valueRating": "strong",
+        "opponentId": 13198,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 1.5 faltas recibidas: 100% (L5)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "match_team",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "competition",
+            "hitRate": 100,
+            "sampleSize": 3,
+            "edge": 26.63,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116
+            ],
+            "matchIds": [
+              54099,
+              54041,
+              53993
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 80,
+            "sampleSize": 5,
+            "edge": 6.63,
+            "teamIds": [
+              17254,
+              4566
+            ],
+            "leagueIds": [
+              116,
+              6
+            ],
+            "matchIds": [
+              54099,
+              10647653,
+              10647281,
+              10647325,
+              10647385
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 83.33,
+            "sampleSize": 6,
+            "edge": 9.96,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              63,
+              15
+            ],
+            "matchIds": [
+              53993,
+              33724,
+              33606,
+              33338,
+              8818,
+              54489
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 70,
+            "sampleSize": 20,
+            "edge": -3.37,
+            "teamIds": [
+              17254,
+              4566
+            ],
+            "leagueIds": [
+              116,
+              6,
+              41,
+              63
+            ],
+            "matchIds": [
+              54099,
+              10647653,
+              10647281,
+              10647325,
+              10647385,
+              10647428,
+              10647453,
+              54041,
+              53993,
+              10528074,
+              17731,
+              3554,
+              17715,
+              3399,
+              33732,
+              33724,
+              3353,
+              3326,
+              3295,
+              17726
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17254,
+            "venue": "all",
+            "stageKind": "group_phase",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 9,
+            "edge": 26.63,
+            "teamIds": [
+              17254
+            ],
+            "leagueIds": [
+              116,
+              63
+            ],
+            "matchIds": [
+              54099,
+              54041,
+              53993,
+              33457,
+              33606,
+              33338,
+              33132,
+              54377,
+              54230
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": null,
+        "substitutionPattern": {
+          "windowSize": 10,
+          "starts": 8,
+          "subbedOffCount": 8,
+          "avgSubOffMinute": 80,
+          "lastSubOffMinute": 66,
+          "typicalReplacement": null
+        },
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          5,
+          3,
+          4,
+          2
+        ],
+        "recentMinutesPlayed": [
+          66,
+          82,
+          76,
+          86,
+          73
+        ],
+        "matchIds": [
+          54099,
+          54041,
+          53993,
+          33732,
+          33724
+        ],
+        "headlineTeamIds": [
+          17254
+        ],
+        "headlineLeagueIds": [
+          116,
+          63
+        ],
+        "matchId": 54092,
+        "reason": "Acierto en 5 de últimos 5 Más de 1.5 faltas recibidas (prom: 3.2). Cuota implica 73% — vemos 100%. 27% de ventaja.",
+        "oddsValue": 1.363,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T19:45:00.000Z",
+        "saveCount": 4,
+        "relevanceScore": 172.7410825292872,
+        "createdAt": "2026-11-15T13:23:33.305Z",
+        "updatedAt": "2026-11-17T02:08:27.774Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "36990e9b353126cd240d2495e01809b1217b3f26dadf7087f33784a4cd5a5c04",
+        "odds": {
+          "id": 239876328,
+          "matchId": 54092,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Gustav Isaksen Over 1.5",
+          "value": 1.363,
+          "line": 1.5,
+          "playerId": 6401,
+          "teamId": 17254,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": true,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 48,
+            "name": "Player To Be Fouled",
+            "category": "foulsDrawn",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 13198,
+          "name": "Norway",
+          "code": "NOR",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png"
+        },
+        "match": {
+          "id": 54092,
+          "date": "2026-11-17T19:45:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 13198,
+            "name": "Norway",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+            "code": "NOR",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "UEFA Nations League",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 116,
+        "seasonId": 513,
+        "player": {
+          "id": 6401,
+          "apiId": null,
+          "sportmonksId": 23698077,
+          "name": "Gustav Isaksen",
+          "searchName": "gustav isaksen gustav tang isaksen g isaksen gustav isaksen",
+          "firstname": "Gustav Tang",
+          "lastname": "Isaksen",
+          "commonName": "G. Isaksen",
+          "displayName": "Gustav Isaksen",
+          "age": 25,
+          "nationality": "Denmark",
+          "height": "181 cm",
+          "weight": "68 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/29/23698077.png",
+          "photoStatus": "pending",
+          "position": "Attacker",
+          "currentTeamId": 4566,
+          "createdAt": "2026-05-15T16:52:58.850Z",
+          "updatedAt": "2026-11-17T14:27:59.569Z",
+          "nationalTeamId": 17254,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-09-18T05:18:57.580Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-16T13:53:20.756Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 4566,
+            "name": "Lazio",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/43.png",
+            "code": "LAZ"
+          },
+          "nationalTeam": {
+            "id": 17254,
+            "name": "Denmark",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+            "code": "DEN"
+          },
+          "detailedPosition": "RW"
+        },
+        "team": {
+          "id": 17254,
+          "name": "Denmark",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+          "code": "DEN",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 73.37,
+          "edgePercentage": 26.63,
+          "expectedValue": 0.36,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 239876328,
+          "oddsValue": 1.363,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 239876328,
+              "oddsValue": 1.363,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 239897679,
+              "oddsValue": 1.17,
+              "bookmaker": "Betano",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/betano.png",
+              "isStale": false,
+              "perks": [
+                "sub_cover"
+              ]
+            }
+          ],
+          "betType": "Player To Be Fouled",
+          "category": "foulsDrawn",
+          "selection": "Gustav Isaksen Over 1.5",
+          "isStale": false,
+          "hasMovementHistory": true
+        },
+        "gamesWithCurrentTeam": 136,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "match_team",
+          "teamId": 17254,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L5",
+          "competitionScope": "all",
+          "teamIds": [
+            17254
+          ],
+          "leagueIds": [
+            116,
+            63
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17254,
+              "name": "Denmark",
+              "code": "DEN",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png"
+            },
+            {
+              "id": 4566,
+              "name": "Lazio",
+              "code": "LAZ",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/43.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 116,
+              "name": "UEFA Nations League",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+            },
+            {
+              "id": 63,
+              "name": "WC Qualification Europe",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/16/720.png"
+            },
+            {
+              "id": 6,
+              "name": "Serie A",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/0/384.png"
+            },
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 41,
+              "name": "Coppa Italia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/6/390.png"
+            }
+          ]
+        },
+        "isLocked": false
+      },
+      {
+        "id": "draft:p2010_m37222994_shots_1.5_over",
+        "type": "value_player_prop",
+        "playerId": 2010,
+        "teamId": null,
+        "oddsId": 240145438,
+        "metric": "shots",
+        "line": 1.5,
+        "direction": "over",
+        "period": "full_match",
+        "selection": null,
+        "hitRate": 100,
+        "sampleSize": 10,
+        "average": 3.4,
+        "median": 2.5,
+        "timeWindow": "L10",
+        "confidence": 100,
+        "streak": null,
+        "trend": null,
+        "impliedProbability": 73.37,
+        "edgePercentage": 26.63,
+        "expectedValue": 0.36,
+        "valueRating": "strong",
+        "opponentId": 14547,
+        "opponentRank": null,
+        "opponentAvgConceded": null,
+        "opponentLeagueAvg": null,
+        "adjustedHitRate": null,
+        "matchupScore": null,
+        "matchupRating": null,
+        "description": "Más de 1.5 tiros: 100% (L10)",
+        "isHome": null,
+        "venue": "all",
+        "aggregateScope": "overall",
+        "stageKind": null,
+        "minMinutes": 45,
+        "variants": [
+          {
+            "scope": "match_team",
+            "teamId": 17048,
+            "venue": "home",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "all",
+            "hitRate": 50,
+            "sampleSize": 6,
+            "edge": -23.37,
+            "teamIds": [
+              17048
+            ],
+            "leagueIds": [
+              15,
+              65
+            ],
+            "matchIds": [
+              36986975,
+              8587,
+              8546,
+              33356,
+              33344,
+              33328
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17048,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L10",
+            "competitionScope": "competition",
+            "hitRate": 50,
+            "sampleSize": 4,
+            "edge": -23.37,
+            "teamIds": [
+              17048
+            ],
+            "leagueIds": [
+              15
+            ],
+            "matchIds": [
+              36986975,
+              8661,
+              8587,
+              8546
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17048,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 40,
+            "sampleSize": 5,
+            "edge": -33.37,
+            "teamIds": [
+              17048
+            ],
+            "leagueIds": [
+              15,
+              67
+            ],
+            "matchIds": [
+              36986975,
+              33461,
+              33411,
+              33410,
+              8661
+            ]
+          },
+          {
+            "scope": "match_team",
+            "teamId": 17048,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L20",
+            "competitionScope": "all",
+            "hitRate": 35.71,
+            "sampleSize": 14,
+            "edge": -37.66,
+            "teamIds": [
+              17048
+            ],
+            "leagueIds": [
+              15,
+              67,
+              65
+            ],
+            "matchIds": [
+              36986975,
+              33461,
+              33411,
+              33410,
+              8661,
+              8587,
+              8546,
+              8942,
+              33356,
+              33344,
+              33336,
+              33328,
+              33322,
+              33228
+            ]
+          },
+          {
+            "scope": "overall",
+            "teamId": null,
+            "venue": "all",
+            "stageKind": "all",
+            "timeWindow": "L5",
+            "competitionScope": "all",
+            "hitRate": 100,
+            "sampleSize": 5,
+            "edge": 26.63,
+            "teamIds": [
+              17048,
+              12671
+            ],
+            "leagueIds": [
+              15,
+              12
+            ],
+            "matchIds": [
+              36986975,
+              7819,
+              7851,
+              7765,
+              7787
+            ]
+          }
+        ],
+        "headlineCompetitionScoped": false,
+        "headlineHeadToHead": false,
+        "opponentMetricRank": {
+          "opponentTeamId": 14547,
+          "metric": "shots",
+          "rankType": "defense",
+          "rank": 24,
+          "totalTeams": 192,
+          "average": 13.6,
+          "leagueAvg": 7.933322999338626,
+          "leagueId": 15,
+          "seasonYear": 2026
+        },
+        "substitutionPattern": {
+          "windowSize": 10,
+          "starts": 7,
+          "subbedOffCount": 7,
+          "avgSubOffMinute": 65,
+          "lastSubOffMinute": 60,
+          "typicalReplacement": null
+        },
+        "stackedSnapshot": null,
+        "underdog": null,
+        "isNationalTeamMatch": true,
+        "isNeutralVenueMatch": false,
+        "injuryStatus": null,
+        "expectedLineupStatus": null,
+        "avgMinutesPlayed": null,
+        "recentValues": [
+          2,
+          5,
+          2,
+          2,
+          2,
+          3,
+          6,
+          2,
+          4,
+          6
+        ],
+        "recentMinutesPlayed": [
+          60,
+          90,
+          71,
+          89,
+          90,
+          90,
+          90,
+          90,
+          90,
+          120
+        ],
+        "matchIds": [
+          36986975,
+          7819,
+          7851,
+          7765,
+          7787,
+          7715,
+          7741,
+          7658,
+          7663,
+          10727217
+        ],
+        "headlineTeamIds": [
+          17048,
+          12671
+        ],
+        "headlineLeagueIds": [
+          15,
+          12,
+          97
+        ],
+        "matchId": 37222994,
+        "reason": "Acierto en 10 de últimos 10 Más de 1.5 tiros (prom: 3.4). Cuota implica 73% — vemos 100%. 27% de ventaja.",
+        "oddsValue": 1.363,
+        "bookmaker": "Bet365",
+        "status": "active",
+        "expiresAt": "2026-11-17T23:00:00.000Z",
+        "saveCount": 2,
+        "relevanceScore": 165.0401877177929,
+        "createdAt": "2026-11-17T11:08:31.245Z",
+        "updatedAt": "2026-11-17T11:08:31.245Z",
+        "hasMovementAlert": false,
+        "latestMovementId": null,
+        "contentHash": "d1718b5c30dd011aafc5556ef2317e8c9340a815e18983b4aeff1b62f899c131",
+        "odds": {
+          "id": 240145438,
+          "matchId": 37222994,
+          "bookmakerId": 1,
+          "source": "odds-api",
+          "perks": [],
+          "selection": "Thiago Almada Over 1.5",
+          "value": 1.363,
+          "line": 1.5,
+          "playerId": 2010,
+          "teamId": 17048,
+          "status": "active",
+          "disabledOnMatchStart": false,
+          "hasMovementHistory": false,
+          "bookmaker": {
+            "id": 1,
+            "name": "Bet365",
+            "logo": null
+          },
+          "betType": {
+            "id": 19,
+            "name": "Player Shots",
+            "category": "shots",
+            "level": "player",
+            "period": "full_match"
+          }
+        },
+        "opponent": {
+          "id": 14547,
+          "name": "Costa Rica",
+          "code": "CRI",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18598.png"
+        },
+        "match": {
+          "id": 37222994,
+          "date": "2026-11-17T23:00:00.000Z",
+          "status": "NS",
+          "isNeutralVenue": false,
+          "homeTeam": {
+            "id": 17048,
+            "name": "Argentina",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18644.png",
+            "code": "ARG",
+            "isNationalTeam": true
+          },
+          "awayTeam": {
+            "id": 14547,
+            "name": "Costa Rica",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18598.png",
+            "code": "CRI",
+            "isNationalTeam": true
+          },
+          "homeScore": null,
+          "awayScore": null,
+          "elapsed": null,
+          "league": "Friendly International",
+          "isHome": true
+        },
+        "periodLabel": null,
+        "leagueId": 15,
+        "seasonId": 89,
+        "player": {
+          "id": 2010,
+          "apiId": null,
+          "sportmonksId": 19996814,
+          "name": "Thiago Almada",
+          "searchName": "thiago almada thiago ezequiel almada t almada thiago almada",
+          "firstname": "Thiago Ezequiel",
+          "lastname": "Almada",
+          "commonName": "T. Almada",
+          "displayName": "Thiago Almada",
+          "age": 25,
+          "nationality": "Argentina",
+          "height": "171 cm",
+          "weight": "63 kg",
+          "photo": "https://cdn.sportmonks.com/images/soccer/players/14/19996814.png",
+          "photoStatus": "pending",
+          "position": "Midfielder",
+          "currentTeamId": 12671,
+          "createdAt": "2026-05-15T14:59:06.302Z",
+          "updatedAt": "2026-11-15T17:11:23.704Z",
+          "nationalTeamId": 17048,
+          "inNationalTeamSquad": true,
+          "nationalSquadUpdatedAt": "2026-11-12T05:13:26.361Z",
+          "isWomen": false,
+          "aggregatesRefreshedAt": null,
+          "lastStatsAt": "2026-11-15T17:11:21.442Z",
+          "backfillInvalidationToken": null,
+          "currentTeam": {
+            "id": 12671,
+            "name": "River Plate",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/10002.png",
+            "code": "RIV"
+          },
+          "nationalTeam": {
+            "id": 17048,
+            "name": "Argentina",
+            "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18644.png",
+            "code": "ARG"
+          },
+          "detailedPosition": "AM"
+        },
+        "team": {
+          "id": 17048,
+          "name": "Argentina",
+          "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18644.png",
+          "code": "ARG",
+          "isNationalTeam": true
+        },
+        "recentHits": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "value": {
+          "impliedProbability": 73.37,
+          "edgePercentage": 26.63,
+          "expectedValue": 0.36,
+          "valueRating": "strong"
+        },
+        "betting": {
+          "oddsId": 240145438,
+          "oddsValue": 1.363,
+          "bookmaker": "Bet365",
+          "bookmakerLogo": null,
+          "bookmakerOdds": [
+            {
+              "oddsId": 240145438,
+              "oddsValue": 1.363,
+              "bookmaker": "Bet365",
+              "bookmakerLogo": null,
+              "isStale": false
+            },
+            {
+              "oddsId": 240018887,
+              "oddsValue": 1.17,
+              "bookmaker": "JugaBet",
+              "bookmakerLogo": "https://d3tvhrcz0jw9wc.cloudfront.net/bookmaker-logos/jugabet.png",
+              "isStale": false
+            }
+          ],
+          "betType": "Player Shots",
+          "category": "shots",
+          "selection": "Thiago Almada Over 1.5",
+          "isStale": false,
+          "hasMovementHistory": false
+        },
+        "gamesWithCurrentTeam": 14,
+        "recentTransfer": false,
+        "liveProgress": null,
+        "headlineScope": {
+          "scope": "overall",
+          "teamId": null,
+          "venue": "all",
+          "stageKind": "all",
+          "timeWindow": "L10",
+          "competitionScope": "all",
+          "teamIds": [
+            17048,
+            12671
+          ],
+          "leagueIds": [
+            15,
+            12,
+            97
+          ]
+        },
+        "lensEntities": {
+          "teams": [
+            {
+              "id": 17048,
+              "name": "Argentina",
+              "code": "ARG",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18644.png"
+            },
+            {
+              "id": 12671,
+              "name": "River Plate",
+              "code": "RIV",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/10002.png"
+            }
+          ],
+          "competitions": [
+            {
+              "id": 15,
+              "name": "Friendly International",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/26/1082.png"
+            },
+            {
+              "id": 12,
+              "name": "Liga Profesional de Fútbol",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/636.png"
+            },
+            {
+              "id": 97,
+              "name": "Copa Sudamericana",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/1116.png"
+            },
+            {
+              "id": 65,
+              "name": "WC Qualification South America",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/22/726.png"
+            },
+            {
+              "id": 67,
+              "name": "World Cup",
+              "logo": "https://cdn.sportmonks.com/images/soccer/leagues/28/732.png"
+            }
+          ]
+        },
+        "isLocked": false
+      }
+    ],
+    "count": 6,
+    "totalCount": 13,
+    "hasMore": true
+  }
+}

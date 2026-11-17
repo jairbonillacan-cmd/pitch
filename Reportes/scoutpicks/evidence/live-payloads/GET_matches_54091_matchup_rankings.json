@@ -1,0 +1,368 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/matches/54091/matchup/rankings",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "f4d534c2-faf9-4493-818f-4c8bbb793589",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:26:47 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "match": {
+      "id": 54091,
+      "date": "2026-11-17T19:45:00.000Z",
+      "league": {
+        "id": 116,
+        "name": "UEFA Nations League",
+        "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+      },
+      "seasonYear": 2026
+    },
+    "homeTeam": {
+      "team": {
+        "id": 17181,
+        "name": "Wales",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+        "code": "WAL"
+      },
+      "offense": [
+        {
+          "metric": "goals",
+          "metricLabel": "Goles",
+          "rank": 43,
+          "rankDisplay": "43.º",
+          "average": 0.6,
+          "leagueAvg": 1.29,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shots",
+          "metricLabel": "Tiros",
+          "rank": 47,
+          "rankDisplay": "47.º",
+          "average": 9,
+          "leagueAvg": 13.13,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shotsOnTarget",
+          "metricLabel": "Tiros al Arco",
+          "rank": 44,
+          "rankDisplay": "44.º",
+          "average": 3.2,
+          "leagueAvg": 4.36,
+          "totalTeams": 54
+        },
+        {
+          "metric": "corners",
+          "metricLabel": "Córners",
+          "rank": 46,
+          "rankDisplay": "46.º",
+          "average": 2.8,
+          "leagueAvg": 4.42,
+          "totalTeams": 54
+        },
+        {
+          "metric": "possession",
+          "metricLabel": "Posesión %",
+          "rank": 38,
+          "rankDisplay": "38.º",
+          "average": 45.4,
+          "leagueAvg": 50,
+          "totalTeams": 54
+        },
+        {
+          "metric": "fouls",
+          "metricLabel": "Faltas",
+          "rank": 28,
+          "rankDisplay": "28.º",
+          "average": 11.6,
+          "leagueAvg": 12.09,
+          "totalTeams": 54
+        },
+        {
+          "metric": "yellowCards",
+          "metricLabel": "Tarjetas Amarillas",
+          "rank": 15,
+          "rankDisplay": "15.º",
+          "average": 2.4,
+          "leagueAvg": 2,
+          "totalTeams": 54
+        },
+        {
+          "metric": "offsides",
+          "metricLabel": "Fueras de Juego",
+          "rank": 15,
+          "rankDisplay": "15.º",
+          "average": 1.8,
+          "leagueAvg": 1.5,
+          "totalTeams": 54
+        },
+        {
+          "metric": "tackles",
+          "metricLabel": "tackles",
+          "rank": 52,
+          "rankDisplay": "52.º",
+          "average": 11.2,
+          "leagueAvg": 14.54,
+          "totalTeams": 54
+        }
+      ],
+      "defense": [
+        {
+          "metric": "goals",
+          "metricLabel": "Goles",
+          "rank": 20,
+          "rankDisplay": "20.º",
+          "average": 1.4,
+          "leagueAvg": 1.29,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shots",
+          "metricLabel": "Tiros",
+          "rank": 9,
+          "rankDisplay": "9.º",
+          "average": 16.6,
+          "leagueAvg": 13.13,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shotsOnTarget",
+          "metricLabel": "Tiros al Arco",
+          "rank": 20,
+          "rankDisplay": "20.º",
+          "average": 4.6,
+          "leagueAvg": 4.36,
+          "totalTeams": 54
+        },
+        {
+          "metric": "corners",
+          "metricLabel": "Córners",
+          "rank": 12,
+          "rankDisplay": "12.º",
+          "average": 5.2,
+          "leagueAvg": 4.42,
+          "totalTeams": 54
+        },
+        {
+          "metric": "possession",
+          "metricLabel": "Posesión %",
+          "rank": 17,
+          "rankDisplay": "17.º",
+          "average": 54.6,
+          "leagueAvg": 50,
+          "totalTeams": 54
+        },
+        {
+          "metric": "fouls",
+          "metricLabel": "Faltas",
+          "rank": 50,
+          "rankDisplay": "50.º",
+          "average": 9.4,
+          "leagueAvg": 12.09,
+          "totalTeams": 54
+        },
+        {
+          "metric": "yellowCards",
+          "metricLabel": "Tarjetas Amarillas",
+          "rank": 54,
+          "rankDisplay": "54.º",
+          "average": 0.6,
+          "leagueAvg": 2,
+          "totalTeams": 54
+        },
+        {
+          "metric": "offsides",
+          "metricLabel": "Fueras de Juego",
+          "rank": 4,
+          "rankDisplay": "4.º",
+          "average": 2.6,
+          "leagueAvg": 1.5,
+          "totalTeams": 54
+        }
+      ]
+    },
+    "awayTeam": {
+      "team": {
+        "id": 14678,
+        "name": "Portugal",
+        "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+        "code": "POR"
+      },
+      "offense": [
+        {
+          "metric": "goals",
+          "metricLabel": "Goles",
+          "rank": 10,
+          "rankDisplay": "10.º",
+          "average": 2,
+          "leagueAvg": 1.29,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shots",
+          "metricLabel": "Tiros",
+          "rank": 6,
+          "rankDisplay": "6.º",
+          "average": 17.8,
+          "leagueAvg": 13.13,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shotsOnTarget",
+          "metricLabel": "Tiros al Arco",
+          "rank": 4,
+          "rankDisplay": "4.º",
+          "average": 6.8,
+          "leagueAvg": 4.36,
+          "totalTeams": 54
+        },
+        {
+          "metric": "corners",
+          "metricLabel": "Córners",
+          "rank": 5,
+          "rankDisplay": "5.º",
+          "average": 6.2,
+          "leagueAvg": 4.42,
+          "totalTeams": 54
+        },
+        {
+          "metric": "possession",
+          "metricLabel": "Posesión %",
+          "rank": 25,
+          "rankDisplay": "25.º",
+          "average": 51.2,
+          "leagueAvg": 50,
+          "totalTeams": 54
+        },
+        {
+          "metric": "fouls",
+          "metricLabel": "Faltas",
+          "rank": 20,
+          "rankDisplay": "20.º",
+          "average": 12.6,
+          "leagueAvg": 12.09,
+          "totalTeams": 54
+        },
+        {
+          "metric": "yellowCards",
+          "metricLabel": "Tarjetas Amarillas",
+          "rank": 8,
+          "rankDisplay": "8.º",
+          "average": 2.6,
+          "leagueAvg": 2,
+          "totalTeams": 54
+        },
+        {
+          "metric": "offsides",
+          "metricLabel": "Fueras de Juego",
+          "rank": 2,
+          "rankDisplay": "2.º",
+          "average": 2.6,
+          "leagueAvg": 1.5,
+          "totalTeams": 54
+        },
+        {
+          "metric": "tackles",
+          "metricLabel": "tackles",
+          "rank": 51,
+          "rankDisplay": "51.º",
+          "average": 11.2,
+          "leagueAvg": 14.54,
+          "totalTeams": 54
+        }
+      ],
+      "defense": [
+        {
+          "metric": "goals",
+          "metricLabel": "Goles",
+          "rank": 17,
+          "rankDisplay": "17.º",
+          "average": 1.6,
+          "leagueAvg": 1.29,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shots",
+          "metricLabel": "Tiros",
+          "rank": 24,
+          "rankDisplay": "24.º",
+          "average": 13,
+          "leagueAvg": 13.13,
+          "totalTeams": 54
+        },
+        {
+          "metric": "shotsOnTarget",
+          "metricLabel": "Tiros al Arco",
+          "rank": 34,
+          "rankDisplay": "34.º",
+          "average": 3.8,
+          "leagueAvg": 4.36,
+          "totalTeams": 54
+        },
+        {
+          "metric": "corners",
+          "metricLabel": "Córners",
+          "rank": 25,
+          "rankDisplay": "25.º",
+          "average": 4.6,
+          "leagueAvg": 4.42,
+          "totalTeams": 54
+        },
+        {
+          "metric": "possession",
+          "metricLabel": "Posesión %",
+          "rank": 31,
+          "rankDisplay": "31.º",
+          "average": 48.8,
+          "leagueAvg": 50,
+          "totalTeams": 54
+        },
+        {
+          "metric": "fouls",
+          "metricLabel": "Faltas",
+          "rank": 54,
+          "rankDisplay": "54.º",
+          "average": 7,
+          "leagueAvg": 12.09,
+          "totalTeams": 54
+        },
+        {
+          "metric": "yellowCards",
+          "metricLabel": "Tarjetas Amarillas",
+          "rank": 51,
+          "rankDisplay": "51.º",
+          "average": 1,
+          "leagueAvg": 2,
+          "totalTeams": 54
+        },
+        {
+          "metric": "offsides",
+          "metricLabel": "Fueras de Juego",
+          "rank": 24,
+          "rankDisplay": "24.º",
+          "average": 1.6,
+          "leagueAvg": 1.5,
+          "totalTeams": 54
+        }
+      ]
+    }
+  }
+}

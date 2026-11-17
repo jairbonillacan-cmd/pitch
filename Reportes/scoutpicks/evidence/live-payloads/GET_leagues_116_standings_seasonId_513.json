@@ -1,0 +1,4157 @@
+{
+  "method": "GET",
+  "url": "https://api.scoutpicks.aertech-labs.com/leagues/116/standings?seasonId=513",
+  "status": 200,
+  "responseHeaders": {
+    "x-request-id": "e0726d27-937d-4c83-adcb-ced1bf3133d5",
+    "access-control-expose-headers": "x-ratelimit-limit,x-ratelimit-remaining,x-ratelimit-reset,set-auth-token,retry-after,x-retry-after,x-request-id",
+    "content-encoding": "gzip",
+    "x-permitted-cross-domain-policies": "none",
+    "x-content-type-options": "nosniff",
+    "date": "Tue, 17 Nov 2026 15:25:54 GMT",
+    "content-type": "application/json",
+    "vary": "Origin, Accept-Encoding",
+    "x-frame-options": "DENY",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "x-dns-prefetch-control": "off",
+    "cross-origin-resource-policy": "cross-origin",
+    "access-control-allow-credentials": "true",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-download-options": "noopen",
+    "access-control-allow-origin": "https://scoutpicks.app",
+    "x-xss-protection": "0",
+    "origin-agent-cluster": "?1"
+  },
+  "data": {
+    "league": {
+      "id": 116,
+      "name": "UEFA Nations League",
+      "logo": "https://cdn.sportmonks.com/images/soccer/leagues/2/1538.png"
+    },
+    "season": {
+      "id": 513,
+      "year": 2026,
+      "name": "2026/2027"
+    },
+    "scope": "groups",
+    "groups": [
+      {
+        "key": "league_a_group_1",
+        "groupName": "Group 1",
+        "stageName": "League A",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 13201,
+              "name": "France",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18647.png",
+              "code": "FRA"
+            },
+            "played": 6,
+            "won": 4,
+            "draw": 1,
+            "lost": 1,
+            "goalsFor": 10,
+            "goalsAgainst": 6,
+            "goalDiff": 4,
+            "points": 13,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 7,
+              "goalsAgainst": 3,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 3,
+              "goalsAgainst": 3,
+              "points": 6
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 14696,
+              "name": "Belgium",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
+              "code": "BEL"
+            },
+            "played": 6,
+            "won": 4,
+            "draw": 0,
+            "lost": 2,
+            "goalsFor": 12,
+            "goalsAgainst": 7,
+            "goalDiff": 5,
+            "points": 12,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 7,
+              "goalsAgainst": 2,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 5,
+              "goalsAgainst": 5,
+              "points": 6
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17239,
+              "name": "Italy",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18658.png",
+              "code": "ITA"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 12,
+            "goalsAgainst": 10,
+            "goalDiff": 2,
+            "points": 10,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 6,
+              "goalsAgainst": 4,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 6,
+              "goalsAgainst": 6,
+              "points": 4
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17251,
+              "name": "Türkiye",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png",
+              "code": "TUR"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 0,
+            "lost": 6,
+            "goalsFor": 4,
+            "goalsAgainst": 15,
+            "goalDiff": -11,
+            "points": 0,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 2,
+              "goalsAgainst": 7,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 2,
+              "goalsAgainst": 8,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_a_group_2",
+        "groupName": "Group 2",
+        "stageName": "League A",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 13188,
+              "name": "Germany",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18660.png",
+              "code": "GER"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 11,
+            "goalsAgainst": 3,
+            "goalDiff": 8,
+            "points": 11,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 7,
+              "goalsAgainst": 1,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 4,
+              "goalsAgainst": 2,
+              "points": 5
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 13197,
+              "name": "Netherlands",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",
+              "code": "NED"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 14,
+            "goalsAgainst": 10,
+            "goalDiff": 4,
+            "points": 11,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 10,
+              "goalsAgainst": 2,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 4,
+              "goalsAgainst": 8,
+              "points": 4
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 14521,
+              "name": "Greece",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18568.png",
+              "code": "GRC"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 6,
+            "goalsAgainst": 10,
+            "goalDiff": -4,
+            "points": 11,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 5
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 3,
+              "goalsAgainst": 8,
+              "points": 6
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 13252,
+              "name": "Serbia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18873.png",
+              "code": "SRB"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 0,
+            "lost": 6,
+            "goalsFor": 4,
+            "goalsAgainst": 12,
+            "goalDiff": -8,
+            "points": 0,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 3,
+              "goalsAgainst": 7,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 1,
+              "goalsAgainst": 5,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_a_group_3",
+        "groupName": "Group 3",
+        "stageName": "League A",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 13191,
+              "name": "England",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/18645.png",
+              "code": "ENG"
+            },
+            "played": 6,
+            "won": 5,
+            "draw": 0,
+            "lost": 1,
+            "goalsFor": 19,
+            "goalsAgainst": 6,
+            "goalDiff": 13,
+            "points": 15,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 7,
+              "goalsAgainst": 4,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 12,
+              "goalsAgainst": 2,
+              "points": 9
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17088,
+              "name": "Spain",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18710.png",
+              "code": "ESP"
+            },
+            "played": 6,
+            "won": 5,
+            "draw": 0,
+            "lost": 1,
+            "goalsFor": 16,
+            "goalsAgainst": 8,
+            "goalDiff": 8,
+            "points": 15,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 9,
+              "goalsAgainst": 5,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 7,
+              "goalsAgainst": 3,
+              "points": 9
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 13234,
+              "name": "Croatia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
+              "code": "CRO"
+            },
+            "played": 6,
+            "won": 2,
+            "draw": 0,
+            "lost": 4,
+            "goalsFor": 7,
+            "goalsAgainst": 17,
+            "goalDiff": -10,
+            "points": 6,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 3,
+              "goalsAgainst": 10,
+              "points": 3
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 4,
+              "goalsAgainst": 7,
+              "points": 3
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17277,
+              "name": "Czech Republic",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
+              "code": "CZE"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 0,
+            "lost": 6,
+            "goalsFor": 3,
+            "goalsAgainst": 14,
+            "goalDiff": -11,
+            "points": 0,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 1,
+              "goalsAgainst": 6,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 2,
+              "goalsAgainst": 8,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_a_group_4",
+        "groupName": "Group 4",
+        "stageName": "League A",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 14678,
+              "name": "Portugal",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+              "code": "POR"
+            },
+            "played": 5,
+            "won": 4,
+            "draw": 0,
+            "lost": 1,
+            "goalsFor": 10,
+            "goalsAgainst": 8,
+            "goalDiff": 2,
+            "points": 12,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 4,
+              "goalsAgainst": 5,
+              "points": 6
+            },
+            "away": {
+              "played": 2,
+              "won": 2,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 6,
+              "goalsAgainst": 3,
+              "points": 6
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17254,
+              "name": "Denmark",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+              "code": "DEN"
+            },
+            "played": 5,
+            "won": 3,
+            "draw": 0,
+            "lost": 2,
+            "goalsFor": 11,
+            "goalsAgainst": 8,
+            "goalDiff": 3,
+            "points": 9,
+            "ruleType": "Play-offs",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 4,
+              "goalsAgainst": 4,
+              "points": 3
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 7,
+              "goalsAgainst": 4,
+              "points": 6
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 13198,
+              "name": "Norway",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+              "code": "NOR"
+            },
+            "played": 5,
+            "won": 2,
+            "draw": 0,
+            "lost": 3,
+            "goalsFor": 9,
+            "goalsAgainst": 9,
+            "goalDiff": 0,
+            "points": 6,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 7,
+              "goalsAgainst": 5,
+              "points": 6
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 2,
+              "goalsAgainst": 4,
+              "points": 0
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17181,
+              "name": "Wales",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+              "code": "WAL"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 0,
+            "lost": 4,
+            "goalsFor": 3,
+            "goalsAgainst": 8,
+            "goalDiff": -5,
+            "points": 3,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 2,
+              "points": 3
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 1,
+              "goalsAgainst": 6,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_b_group_1",
+        "groupName": "Group 1",
+        "stageName": "League B",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 13187,
+              "name": "Switzerland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18708.png",
+              "code": "SUI"
+            },
+            "played": 6,
+            "won": 5,
+            "draw": 1,
+            "lost": 0,
+            "goalsFor": 15,
+            "goalsAgainst": 1,
+            "goalDiff": 14,
+            "points": 16,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 9,
+              "goalsAgainst": 1,
+              "points": 9
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 6,
+              "goalsAgainst": 0,
+              "points": 7
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17053,
+              "name": "Slovenia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18630.png",
+              "code": "SVN"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 8,
+            "goalsAgainst": 3,
+            "goalDiff": 5,
+            "points": 11,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 0,
+              "points": 5
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 6,
+              "goalsAgainst": 3,
+              "points": 6
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 14719,
+              "name": "Scotland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+              "code": "SCO"
+            },
+            "played": 6,
+            "won": 2,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 5,
+            "goalsAgainst": 10,
+            "goalDiff": -5,
+            "points": 7,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 3,
+              "goalsAgainst": 6,
+              "points": 3
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 4,
+              "points": 4
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17180,
+              "name": "North Macedonia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18689.png",
+              "code": "MKD"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 0,
+            "lost": 6,
+            "goalsFor": 1,
+            "goalsAgainst": 15,
+            "goalDiff": -14,
+            "points": 0,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 0,
+              "goalsAgainst": 8,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 1,
+              "goalsAgainst": 7,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_b_group_2",
+        "groupName": "Group 2",
+        "stageName": "League B",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 17182,
+              "name": "Northern Ireland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png",
+              "code": "NIR"
+            },
+            "played": 5,
+            "won": 3,
+            "draw": 2,
+            "lost": 0,
+            "goalsFor": 5,
+            "goalsAgainst": 0,
+            "goalDiff": 5,
+            "points": 11,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 1,
+              "goalsAgainst": 0,
+              "points": 5
+            },
+            "away": {
+              "played": 2,
+              "won": 2,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 4,
+              "goalsAgainst": 0,
+              "points": 6
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17054,
+              "name": "Hungary",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18732.png",
+              "code": "HUN"
+            },
+            "played": 5,
+            "won": 3,
+            "draw": 1,
+            "lost": 1,
+            "goalsFor": 5,
+            "goalsAgainst": 2,
+            "goalDiff": 3,
+            "points": 10,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 1,
+              "points": 3
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 4,
+              "goalsAgainst": 1,
+              "points": 7
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17183,
+              "name": "Ukraine",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/18624.png",
+              "code": "UKR"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 2,
+            "goalsAgainst": 6,
+            "goalDiff": -4,
+            "points": 4,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 2,
+              "won": 0,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 1,
+              "goalsAgainst": 5,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 1,
+              "points": 4
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 13224,
+              "name": "Georgia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png",
+              "code": "GEO"
+            },
+            "played": 5,
+            "won": 0,
+            "draw": 2,
+            "lost": 3,
+            "goalsFor": 0,
+            "goalsAgainst": 4,
+            "goalDiff": -4,
+            "points": 2,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 1,
+              "lost": 2,
+              "goalsFor": 0,
+              "goalsAgainst": 3,
+              "points": 1
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 0,
+              "goalsAgainst": 1,
+              "points": 1
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_b_group_3",
+        "groupName": "Group 3",
+        "stageName": "League B",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 14471,
+              "name": "Austria",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/18643.png",
+              "code": "AUT"
+            },
+            "played": 5,
+            "won": 3,
+            "draw": 2,
+            "lost": 0,
+            "goalsFor": 10,
+            "goalsAgainst": 5,
+            "goalDiff": 5,
+            "points": 11,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 7,
+              "goalsAgainst": 2,
+              "points": 9
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 3,
+              "points": 2
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17278,
+              "name": "Kosovo",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/27488.png",
+              "code": "KVX"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 3,
+            "lost": 1,
+            "goalsFor": 3,
+            "goalsAgainst": 4,
+            "goalDiff": -1,
+            "points": 6,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 5
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 3,
+              "points": 1
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17179,
+              "name": "Republic of Ireland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18654.png",
+              "code": "IRL"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 6,
+            "goalsAgainst": 5,
+            "goalDiff": 1,
+            "points": 5,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 2,
+              "won": 0,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 3,
+              "points": 2
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 3
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 13223,
+              "name": "Israel",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18657.png",
+              "code": "ISR"
+            },
+            "played": 5,
+            "won": 0,
+            "draw": 3,
+            "lost": 2,
+            "goalsFor": 2,
+            "goalsAgainst": 7,
+            "goalDiff": -5,
+            "points": 3,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 0,
+              "goalsAgainst": 3,
+              "points": 1
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 2,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 4,
+              "points": 2
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_b_group_4",
+        "groupName": "Group 4",
+        "stageName": "League B",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 17213,
+              "name": "Sweden",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+              "code": "SWE"
+            },
+            "played": 5,
+            "won": 4,
+            "draw": 1,
+            "lost": 0,
+            "goalsFor": 10,
+            "goalsAgainst": 5,
+            "goalDiff": 5,
+            "points": 13,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 8,
+              "goalsAgainst": 4,
+              "points": 9
+            },
+            "away": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 4
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17231,
+              "name": "Bosnia and Herzegovina",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+              "code": "BIH"
+            },
+            "played": 5,
+            "won": 2,
+            "draw": 2,
+            "lost": 1,
+            "goalsFor": 8,
+            "goalsAgainst": 6,
+            "goalDiff": 2,
+            "points": 8,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 4
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 6,
+              "goalsAgainst": 5,
+              "points": 4
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17226,
+              "name": "Poland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png",
+              "code": "POL"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 8,
+            "goalsAgainst": 6,
+            "goalDiff": 2,
+            "points": 4,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 6,
+              "goalsAgainst": 0,
+              "points": 4
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 2,
+              "goalsAgainst": 6,
+              "points": 0
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17178,
+              "name": "Romania",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18638.png",
+              "code": "ROM"
+            },
+            "played": 5,
+            "won": 1,
+            "draw": 0,
+            "lost": 4,
+            "goalsFor": 5,
+            "goalsAgainst": 14,
+            "goalDiff": -9,
+            "points": 3,
+            "ruleType": "Relegation",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 4,
+              "goalsAgainst": 6,
+              "points": 3
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 1,
+              "goalsAgainst": 8,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_c_group_1",
+        "groupName": "Group 1",
+        "stageName": "League C",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 17184,
+              "name": "Albania",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/18641.png",
+              "code": "ALB"
+            },
+            "played": 6,
+            "won": 5,
+            "draw": 0,
+            "lost": 1,
+            "goalsFor": 12,
+            "goalsAgainst": 3,
+            "goalDiff": 9,
+            "points": 15,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 6,
+              "goalsAgainst": 1,
+              "points": 9
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 6,
+              "goalsAgainst": 2,
+              "points": 6
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 13239,
+              "name": "Belarus",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18634.png",
+              "code": "BLR"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 7,
+            "goalsAgainst": 4,
+            "goalDiff": 3,
+            "points": 10,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 5,
+              "goalsAgainst": 2,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 2,
+              "points": 4
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 13259,
+              "name": "Finland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18570.png",
+              "code": "FIN"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 16,
+            "goalsAgainst": 6,
+            "goalDiff": 10,
+            "points": 10,
+            "ruleType": null,
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 9,
+              "goalsAgainst": 3,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 7,
+              "goalsAgainst": 3,
+              "points": 3
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17089,
+              "name": "San Marino",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18872.png",
+              "code": "SMR"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 0,
+            "lost": 6,
+            "goalsFor": 3,
+            "goalsAgainst": 25,
+            "goalDiff": -22,
+            "points": 0,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 0,
+              "goalsAgainst": 12,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 3,
+              "goalsAgainst": 13,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_c_group_2",
+        "groupName": "Group 2",
+        "stageName": "League C",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 14481,
+              "name": "Montenegro",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18836.png",
+              "code": "MNE"
+            },
+            "played": 6,
+            "won": 5,
+            "draw": 1,
+            "lost": 0,
+            "goalsFor": 13,
+            "goalsAgainst": 6,
+            "goalDiff": 7,
+            "points": 16,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 4,
+              "goalsAgainst": 2,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 3,
+              "draw": 0,
+              "lost": 0,
+              "goalsFor": 9,
+              "goalsAgainst": 4,
+              "points": 9
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 13240,
+              "name": "Cyprus",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18626.png",
+              "code": "CYP"
+            },
+            "played": 6,
+            "won": 2,
+            "draw": 2,
+            "lost": 2,
+            "goalsFor": 7,
+            "goalsAgainst": 8,
+            "goalDiff": -1,
+            "points": 8,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 5,
+              "goalsAgainst": 5,
+              "points": 6
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 2,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 3,
+              "points": 2
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17055,
+              "name": "Armenia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18639.png",
+              "code": "ARM"
+            },
+            "played": 6,
+            "won": 1,
+            "draw": 3,
+            "lost": 2,
+            "goalsFor": 5,
+            "goalsAgainst": 6,
+            "goalDiff": -1,
+            "points": 6,
+            "ruleType": null,
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 5,
+              "goalsAgainst": 4,
+              "points": 4
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 2,
+              "lost": 1,
+              "goalsFor": 0,
+              "goalsAgainst": 2,
+              "points": 2
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17616,
+              "name": "Latvia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18735.png",
+              "code": "LVA"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 2,
+            "lost": 4,
+            "goalsFor": 3,
+            "goalsAgainst": 8,
+            "goalDiff": -5,
+            "points": 2,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 2,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 2,
+              "points": 2
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 2,
+              "goalsAgainst": 6,
+              "points": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_c_group_3",
+        "groupName": "Group 3",
+        "stageName": "League C",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 17177,
+              "name": "Slovakia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18648.png",
+              "code": "SVK"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 3,
+            "lost": 0,
+            "goalsFor": 13,
+            "goalsAgainst": 6,
+            "goalDiff": 7,
+            "points": 12,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 6,
+              "goalsAgainst": 3,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 7,
+              "goalsAgainst": 3,
+              "points": 5
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 17090,
+              "name": "Faroe Islands",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18777.png",
+              "code": "FRO"
+            },
+            "played": 6,
+            "won": 1,
+            "draw": 5,
+            "lost": 0,
+            "goalsFor": 8,
+            "goalsAgainst": 7,
+            "goalDiff": 1,
+            "points": 8,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 5
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 3,
+              "lost": 0,
+              "goalsFor": 5,
+              "goalsAgainst": 5,
+              "points": 3
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 13243,
+              "name": "Moldova",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/18778.png",
+              "code": "MDA"
+            },
+            "played": 6,
+            "won": 2,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 5,
+            "goalsAgainst": 10,
+            "goalDiff": -5,
+            "points": 7,
+            "ruleType": null,
+            "home": {
+              "played": 3,
+              "won": 1,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 3,
+              "goalsAgainst": 6,
+              "points": 4
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 2,
+              "goalsAgainst": 4,
+              "points": 3
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 14633,
+              "name": "Kazakhstan",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18603.png",
+              "code": "KAZ"
+            },
+            "played": 6,
+            "won": 0,
+            "draw": 3,
+            "lost": 3,
+            "goalsFor": 8,
+            "goalsAgainst": 11,
+            "goalDiff": -3,
+            "points": 3,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 2,
+              "lost": 1,
+              "goalsFor": 5,
+              "goalsAgainst": 6,
+              "points": 2
+            },
+            "away": {
+              "played": 3,
+              "won": 0,
+              "draw": 1,
+              "lost": 2,
+              "goalsFor": 3,
+              "goalsAgainst": 5,
+              "points": 1
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_c_group_4",
+        "groupName": "Group 4",
+        "stageName": "League C",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 13220,
+              "name": "Iceland",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18635.png",
+              "code": "ICE"
+            },
+            "played": 6,
+            "won": 4,
+            "draw": 2,
+            "lost": 0,
+            "goalsFor": 15,
+            "goalsAgainst": 1,
+            "goalDiff": 14,
+            "points": 14,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 7,
+              "goalsAgainst": 1,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 8,
+              "goalsAgainst": 0,
+              "points": 7
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 14581,
+              "name": "Estonia",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/18697.png",
+              "code": "EST"
+            },
+            "played": 6,
+            "won": 3,
+            "draw": 3,
+            "lost": 0,
+            "goalsFor": 5,
+            "goalsAgainst": 2,
+            "goalDiff": 3,
+            "points": 12,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 3,
+              "won": 2,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 1,
+              "points": 7
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 5
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 14500,
+              "name": "Bulgaria",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18690.png",
+              "code": "BGR"
+            },
+            "played": 6,
+            "won": 1,
+            "draw": 1,
+            "lost": 4,
+            "goalsFor": 4,
+            "goalsAgainst": 12,
+            "goalDiff": -8,
+            "points": 4,
+            "ruleType": null,
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 1,
+              "lost": 2,
+              "goalsFor": 1,
+              "goalsAgainst": 7,
+              "points": 1
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 3,
+              "goalsAgainst": 5,
+              "points": 3
+            }
+          },
+          {
+            "position": 4,
+            "team": {
+              "id": 17240,
+              "name": "Luxembourg",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/18779.png",
+              "code": "LUX"
+            },
+            "played": 6,
+            "won": 1,
+            "draw": 0,
+            "lost": 5,
+            "goalsFor": 2,
+            "goalsAgainst": 11,
+            "goalDiff": -9,
+            "points": 3,
+            "ruleType": "Relegation Play-off",
+            "home": {
+              "played": 3,
+              "won": 0,
+              "draw": 0,
+              "lost": 3,
+              "goalsFor": 0,
+              "goalsAgainst": 6,
+              "points": 0
+            },
+            "away": {
+              "played": 3,
+              "won": 1,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 2,
+              "goalsAgainst": 5,
+              "points": 3
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_d_group_1",
+        "groupName": "Group 1",
+        "stageName": "League D",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 17238,
+              "name": "Malta",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/18691.png",
+              "code": "MLT"
+            },
+            "played": 4,
+            "won": 2,
+            "draw": 2,
+            "lost": 0,
+            "goalsFor": 5,
+            "goalsAgainst": 3,
+            "goalDiff": 2,
+            "points": 8,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 4
+            },
+            "away": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 4
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 14482,
+              "name": "Andorra",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/18781.png",
+              "code": "AND"
+            },
+            "played": 4,
+            "won": 1,
+            "draw": 1,
+            "lost": 2,
+            "goalsFor": 3,
+            "goalsAgainst": 3,
+            "goalDiff": 0,
+            "points": 4,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 3
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 0,
+              "goalsAgainst": 1,
+              "points": 1
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 17283,
+              "name": "Gibraltar",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/27487.png",
+              "code": "GIB"
+            },
+            "played": 4,
+            "won": 0,
+            "draw": 3,
+            "lost": 1,
+            "goalsFor": 2,
+            "goalsAgainst": 4,
+            "goalDiff": -2,
+            "points": 3,
+            "ruleType": null,
+            "home": {
+              "played": 2,
+              "won": 0,
+              "draw": 2,
+              "lost": 0,
+              "goalsFor": 1,
+              "goalsAgainst": 1,
+              "points": 2
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 3,
+              "points": 1
+            }
+          }
+        ]
+      },
+      {
+        "key": "league_d_group_2",
+        "groupName": "Group 2",
+        "stageName": "League D",
+        "rows": [
+          {
+            "position": 1,
+            "team": {
+              "id": 14533,
+              "name": "Azerbaijan",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/18623.png",
+              "code": "AZE"
+            },
+            "played": 4,
+            "won": 2,
+            "draw": 2,
+            "lost": 0,
+            "goalsFor": 3,
+            "goalsAgainst": 1,
+            "goalDiff": 2,
+            "points": 8,
+            "ruleType": "Promotion",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 1,
+              "goalsAgainst": 0,
+              "points": 4
+            },
+            "away": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 4
+            }
+          },
+          {
+            "position": 2,
+            "team": {
+              "id": 13244,
+              "name": "Lithuania",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/27065.png",
+              "code": "LTU"
+            },
+            "played": 4,
+            "won": 2,
+            "draw": 1,
+            "lost": 1,
+            "goalsFor": 5,
+            "goalsAgainst": 3,
+            "goalDiff": 2,
+            "points": 7,
+            "ruleType": "Promotion Play-off",
+            "home": {
+              "played": 2,
+              "won": 1,
+              "draw": 1,
+              "lost": 0,
+              "goalsFor": 3,
+              "goalsAgainst": 2,
+              "points": 4
+            },
+            "away": {
+              "played": 2,
+              "won": 1,
+              "draw": 0,
+              "lost": 1,
+              "goalsFor": 2,
+              "goalsAgainst": 1,
+              "points": 3
+            }
+          },
+          {
+            "position": 3,
+            "team": {
+              "id": 14576,
+              "name": "Liechtenstein",
+              "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png",
+              "code": "LIE"
+            },
+            "played": 4,
+            "won": 0,
+            "draw": 1,
+            "lost": 3,
+            "goalsFor": 1,
+            "goalsAgainst": 5,
+            "goalDiff": -4,
+            "points": 1,
+            "ruleType": null,
+            "home": {
+              "played": 2,
+              "won": 0,
+              "draw": 0,
+              "lost": 2,
+              "goalsFor": 0,
+              "goalsAgainst": 3,
+              "points": 0
+            },
+            "away": {
+              "played": 2,
+              "won": 0,
+              "draw": 1,
+              "lost": 1,
+              "goalsFor": 1,
+              "goalsAgainst": 2,
+              "points": 1
+            }
+          }
+        ]
+      }
+    ],
+    "updatedAt": "2026-11-17T15:10:38.198Z",
+    "primaryStageId": null,
+    "phases": [
+      {
+        "stageId": 77480650,
+        "stageName": "League A",
+        "scope": "groups",
+        "groups": [
+          {
+            "key": "group_1",
+            "groupName": "Group 1",
+            "stageName": "League A",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 13201,
+                  "name": "France",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18647.png",
+                  "code": "FRA"
+                },
+                "played": 6,
+                "won": 4,
+                "draw": 1,
+                "lost": 1,
+                "goalsFor": 10,
+                "goalsAgainst": 6,
+                "goalDiff": 4,
+                "points": 13,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 7,
+                  "goalsAgainst": 3,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 3,
+                  "goalsAgainst": 3,
+                  "points": 6
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 14696,
+                  "name": "Belgium",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
+                  "code": "BEL"
+                },
+                "played": 6,
+                "won": 4,
+                "draw": 0,
+                "lost": 2,
+                "goalsFor": 12,
+                "goalsAgainst": 7,
+                "goalDiff": 5,
+                "points": 12,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 7,
+                  "goalsAgainst": 2,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 5,
+                  "goalsAgainst": 5,
+                  "points": 6
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17239,
+                  "name": "Italy",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18658.png",
+                  "code": "ITA"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 1,
+                "lost": 2,
+                "goalsFor": 12,
+                "goalsAgainst": 10,
+                "goalDiff": 2,
+                "points": 10,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 6,
+                  "goalsAgainst": 4,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 6,
+                  "goalsAgainst": 6,
+                  "points": 4
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17251,
+                  "name": "Türkiye",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png",
+                  "code": "TUR"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 0,
+                "lost": 6,
+                "goalsFor": 4,
+                "goalsAgainst": 15,
+                "goalDiff": -11,
+                "points": 0,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 2,
+                  "goalsAgainst": 7,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 2,
+                  "goalsAgainst": 8,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_2",
+            "groupName": "Group 2",
+            "stageName": "League A",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 13188,
+                  "name": "Germany",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18660.png",
+                  "code": "GER"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 2,
+                "lost": 1,
+                "goalsFor": 11,
+                "goalsAgainst": 3,
+                "goalDiff": 8,
+                "points": 11,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 7,
+                  "goalsAgainst": 1,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 4,
+                  "goalsAgainst": 2,
+                  "points": 5
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 13197,
+                  "name": "Netherlands",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",
+                  "code": "NED"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 2,
+                "lost": 1,
+                "goalsFor": 14,
+                "goalsAgainst": 10,
+                "goalDiff": 4,
+                "points": 11,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 10,
+                  "goalsAgainst": 2,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 4,
+                  "goalsAgainst": 8,
+                  "points": 4
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 14521,
+                  "name": "Greece",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18568.png",
+                  "code": "GRC"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 2,
+                "lost": 1,
+                "goalsFor": 6,
+                "goalsAgainst": 10,
+                "goalDiff": -4,
+                "points": 11,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 5
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 3,
+                  "goalsAgainst": 8,
+                  "points": 6
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 13252,
+                  "name": "Serbia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18873.png",
+                  "code": "SRB"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 0,
+                "lost": 6,
+                "goalsFor": 4,
+                "goalsAgainst": 12,
+                "goalDiff": -8,
+                "points": 0,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 3,
+                  "goalsAgainst": 7,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 1,
+                  "goalsAgainst": 5,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_3",
+            "groupName": "Group 3",
+            "stageName": "League A",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 13191,
+                  "name": "England",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/18645.png",
+                  "code": "ENG"
+                },
+                "played": 6,
+                "won": 5,
+                "draw": 0,
+                "lost": 1,
+                "goalsFor": 19,
+                "goalsAgainst": 6,
+                "goalDiff": 13,
+                "points": 15,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 7,
+                  "goalsAgainst": 4,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 12,
+                  "goalsAgainst": 2,
+                  "points": 9
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17088,
+                  "name": "Spain",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18710.png",
+                  "code": "ESP"
+                },
+                "played": 6,
+                "won": 5,
+                "draw": 0,
+                "lost": 1,
+                "goalsFor": 16,
+                "goalsAgainst": 8,
+                "goalDiff": 8,
+                "points": 15,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 9,
+                  "goalsAgainst": 5,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 7,
+                  "goalsAgainst": 3,
+                  "points": 9
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 13234,
+                  "name": "Croatia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
+                  "code": "CRO"
+                },
+                "played": 6,
+                "won": 2,
+                "draw": 0,
+                "lost": 4,
+                "goalsFor": 7,
+                "goalsAgainst": 17,
+                "goalDiff": -10,
+                "points": 6,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 3,
+                  "goalsAgainst": 10,
+                  "points": 3
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 4,
+                  "goalsAgainst": 7,
+                  "points": 3
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17277,
+                  "name": "Czech Republic",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
+                  "code": "CZE"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 0,
+                "lost": 6,
+                "goalsFor": 3,
+                "goalsAgainst": 14,
+                "goalDiff": -11,
+                "points": 0,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 1,
+                  "goalsAgainst": 6,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 2,
+                  "goalsAgainst": 8,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_4",
+            "groupName": "Group 4",
+            "stageName": "League A",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 14678,
+                  "name": "Portugal",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
+                  "code": "POR"
+                },
+                "played": 5,
+                "won": 4,
+                "draw": 0,
+                "lost": 1,
+                "goalsFor": 10,
+                "goalsAgainst": 8,
+                "goalDiff": 2,
+                "points": 12,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 4,
+                  "goalsAgainst": 5,
+                  "points": 6
+                },
+                "away": {
+                  "played": 2,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 6,
+                  "goalsAgainst": 3,
+                  "points": 6
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17254,
+                  "name": "Denmark",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18583.png",
+                  "code": "DEN"
+                },
+                "played": 5,
+                "won": 3,
+                "draw": 0,
+                "lost": 2,
+                "goalsFor": 11,
+                "goalsAgainst": 8,
+                "goalDiff": 3,
+                "points": 9,
+                "ruleType": "Play-offs",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 4,
+                  "goalsAgainst": 4,
+                  "points": 3
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 7,
+                  "goalsAgainst": 4,
+                  "points": 6
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 13198,
+                  "name": "Norway",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18578.png",
+                  "code": "NOR"
+                },
+                "played": 5,
+                "won": 2,
+                "draw": 0,
+                "lost": 3,
+                "goalsFor": 9,
+                "goalsAgainst": 9,
+                "goalDiff": 0,
+                "points": 6,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 7,
+                  "goalsAgainst": 5,
+                  "points": 6
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 2,
+                  "goalsAgainst": 4,
+                  "points": 0
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17181,
+                  "name": "Wales",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18721.png",
+                  "code": "WAL"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 0,
+                "lost": 4,
+                "goalsFor": 3,
+                "goalsAgainst": 8,
+                "goalDiff": -5,
+                "points": 3,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 2,
+                  "points": 3
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 1,
+                  "goalsAgainst": 6,
+                  "points": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "stageId": 77480651,
+        "stageName": "League B",
+        "scope": "groups",
+        "groups": [
+          {
+            "key": "group_1",
+            "groupName": "Group 1",
+            "stageName": "League B",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 13187,
+                  "name": "Switzerland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18708.png",
+                  "code": "SUI"
+                },
+                "played": 6,
+                "won": 5,
+                "draw": 1,
+                "lost": 0,
+                "goalsFor": 15,
+                "goalsAgainst": 1,
+                "goalDiff": 14,
+                "points": 16,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 9,
+                  "goalsAgainst": 1,
+                  "points": 9
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 6,
+                  "goalsAgainst": 0,
+                  "points": 7
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17053,
+                  "name": "Slovenia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18630.png",
+                  "code": "SVN"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 2,
+                "lost": 1,
+                "goalsFor": 8,
+                "goalsAgainst": 3,
+                "goalDiff": 5,
+                "points": 11,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 0,
+                  "points": 5
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 6,
+                  "goalsAgainst": 3,
+                  "points": 6
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 14719,
+                  "name": "Scotland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+                  "code": "SCO"
+                },
+                "played": 6,
+                "won": 2,
+                "draw": 1,
+                "lost": 3,
+                "goalsFor": 5,
+                "goalsAgainst": 10,
+                "goalDiff": -5,
+                "points": 7,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 3,
+                  "goalsAgainst": 6,
+                  "points": 3
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 4,
+                  "points": 4
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17180,
+                  "name": "North Macedonia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18689.png",
+                  "code": "MKD"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 0,
+                "lost": 6,
+                "goalsFor": 1,
+                "goalsAgainst": 15,
+                "goalDiff": -14,
+                "points": 0,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 0,
+                  "goalsAgainst": 8,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 1,
+                  "goalsAgainst": 7,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_2",
+            "groupName": "Group 2",
+            "stageName": "League B",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 17182,
+                  "name": "Northern Ireland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/8/18696.png",
+                  "code": "NIR"
+                },
+                "played": 5,
+                "won": 3,
+                "draw": 2,
+                "lost": 0,
+                "goalsFor": 5,
+                "goalsAgainst": 0,
+                "goalDiff": 5,
+                "points": 11,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 1,
+                  "goalsAgainst": 0,
+                  "points": 5
+                },
+                "away": {
+                  "played": 2,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 4,
+                  "goalsAgainst": 0,
+                  "points": 6
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17054,
+                  "name": "Hungary",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18732.png",
+                  "code": "HUN"
+                },
+                "played": 5,
+                "won": 3,
+                "draw": 1,
+                "lost": 1,
+                "goalsFor": 5,
+                "goalsAgainst": 2,
+                "goalDiff": 3,
+                "points": 10,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 1,
+                  "points": 3
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 4,
+                  "goalsAgainst": 1,
+                  "points": 7
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17183,
+                  "name": "Ukraine",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/18624.png",
+                  "code": "UKR"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 1,
+                "lost": 3,
+                "goalsFor": 2,
+                "goalsAgainst": 6,
+                "goalDiff": -4,
+                "points": 4,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 1,
+                  "goalsAgainst": 5,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 1,
+                  "points": 4
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 13224,
+                  "name": "Georgia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18692.png",
+                  "code": "GEO"
+                },
+                "played": 5,
+                "won": 0,
+                "draw": 2,
+                "lost": 3,
+                "goalsFor": 0,
+                "goalsAgainst": 4,
+                "goalDiff": -4,
+                "points": 2,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 2,
+                  "goalsFor": 0,
+                  "goalsAgainst": 3,
+                  "points": 1
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 0,
+                  "goalsAgainst": 1,
+                  "points": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_3",
+            "groupName": "Group 3",
+            "stageName": "League B",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 14471,
+                  "name": "Austria",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/18643.png",
+                  "code": "AUT"
+                },
+                "played": 5,
+                "won": 3,
+                "draw": 2,
+                "lost": 0,
+                "goalsFor": 10,
+                "goalsAgainst": 5,
+                "goalDiff": 5,
+                "points": 11,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 7,
+                  "goalsAgainst": 2,
+                  "points": 9
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 3,
+                  "points": 2
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17278,
+                  "name": "Kosovo",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/0/27488.png",
+                  "code": "KVX"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 3,
+                "lost": 1,
+                "goalsFor": 3,
+                "goalsAgainst": 4,
+                "goalDiff": -1,
+                "points": 6,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 5
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 3,
+                  "points": 1
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17179,
+                  "name": "Republic of Ireland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18654.png",
+                  "code": "IRL"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 2,
+                "lost": 2,
+                "goalsFor": 6,
+                "goalsAgainst": 5,
+                "goalDiff": 1,
+                "points": 5,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 3,
+                  "points": 2
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 3
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 13223,
+                  "name": "Israel",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18657.png",
+                  "code": "ISR"
+                },
+                "played": 5,
+                "won": 0,
+                "draw": 3,
+                "lost": 2,
+                "goalsFor": 2,
+                "goalsAgainst": 7,
+                "goalDiff": -5,
+                "points": 3,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 0,
+                  "goalsAgainst": 3,
+                  "points": 1
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 4,
+                  "points": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_4",
+            "groupName": "Group 4",
+            "stageName": "League B",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 17213,
+                  "name": "Sweden",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+                  "code": "SWE"
+                },
+                "played": 5,
+                "won": 4,
+                "draw": 1,
+                "lost": 0,
+                "goalsFor": 10,
+                "goalsAgainst": 5,
+                "goalDiff": 5,
+                "points": 13,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 8,
+                  "goalsAgainst": 4,
+                  "points": 9
+                },
+                "away": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 4
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17231,
+                  "name": "Bosnia and Herzegovina",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+                  "code": "BIH"
+                },
+                "played": 5,
+                "won": 2,
+                "draw": 2,
+                "lost": 1,
+                "goalsFor": 8,
+                "goalsAgainst": 6,
+                "goalDiff": 2,
+                "points": 8,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 4
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 6,
+                  "goalsAgainst": 5,
+                  "points": 4
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17226,
+                  "name": "Poland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18699.png",
+                  "code": "POL"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 1,
+                "lost": 3,
+                "goalsFor": 8,
+                "goalsAgainst": 6,
+                "goalDiff": 2,
+                "points": 4,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 6,
+                  "goalsAgainst": 0,
+                  "points": 4
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 2,
+                  "goalsAgainst": 6,
+                  "points": 0
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17178,
+                  "name": "Romania",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/14/18638.png",
+                  "code": "ROM"
+                },
+                "played": 5,
+                "won": 1,
+                "draw": 0,
+                "lost": 4,
+                "goalsFor": 5,
+                "goalsAgainst": 14,
+                "goalDiff": -9,
+                "points": 3,
+                "ruleType": "Relegation",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 4,
+                  "goalsAgainst": 6,
+                  "points": 3
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 1,
+                  "goalsAgainst": 8,
+                  "points": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "stageId": 77480652,
+        "stageName": "League C",
+        "scope": "groups",
+        "groups": [
+          {
+            "key": "group_1",
+            "groupName": "Group 1",
+            "stageName": "League C",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 17184,
+                  "name": "Albania",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/17/18641.png",
+                  "code": "ALB"
+                },
+                "played": 6,
+                "won": 5,
+                "draw": 0,
+                "lost": 1,
+                "goalsFor": 12,
+                "goalsAgainst": 3,
+                "goalDiff": 9,
+                "points": 15,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 6,
+                  "goalsAgainst": 1,
+                  "points": 9
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 6,
+                  "goalsAgainst": 2,
+                  "points": 6
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 13239,
+                  "name": "Belarus",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18634.png",
+                  "code": "BLR"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 1,
+                "lost": 2,
+                "goalsFor": 7,
+                "goalsAgainst": 4,
+                "goalDiff": 3,
+                "points": 10,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 5,
+                  "goalsAgainst": 2,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 2,
+                  "points": 4
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 13259,
+                  "name": "Finland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/10/18570.png",
+                  "code": "FIN"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 1,
+                "lost": 2,
+                "goalsFor": 16,
+                "goalsAgainst": 6,
+                "goalDiff": 10,
+                "points": 10,
+                "ruleType": null,
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 9,
+                  "goalsAgainst": 3,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 7,
+                  "goalsAgainst": 3,
+                  "points": 3
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17089,
+                  "name": "San Marino",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18872.png",
+                  "code": "SMR"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 0,
+                "lost": 6,
+                "goalsFor": 3,
+                "goalsAgainst": 25,
+                "goalDiff": -22,
+                "points": 0,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 0,
+                  "goalsAgainst": 12,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 3,
+                  "goalsAgainst": 13,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_2",
+            "groupName": "Group 2",
+            "stageName": "League C",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 14481,
+                  "name": "Montenegro",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/20/18836.png",
+                  "code": "MNE"
+                },
+                "played": 6,
+                "won": 5,
+                "draw": 1,
+                "lost": 0,
+                "goalsFor": 13,
+                "goalsAgainst": 6,
+                "goalDiff": 7,
+                "points": 16,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 4,
+                  "goalsAgainst": 2,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 3,
+                  "draw": 0,
+                  "lost": 0,
+                  "goalsFor": 9,
+                  "goalsAgainst": 4,
+                  "points": 9
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 13240,
+                  "name": "Cyprus",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18626.png",
+                  "code": "CYP"
+                },
+                "played": 6,
+                "won": 2,
+                "draw": 2,
+                "lost": 2,
+                "goalsFor": 7,
+                "goalsAgainst": 8,
+                "goalDiff": -1,
+                "points": 8,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 5,
+                  "goalsAgainst": 5,
+                  "points": 6
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 3,
+                  "points": 2
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17055,
+                  "name": "Armenia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18639.png",
+                  "code": "ARM"
+                },
+                "played": 6,
+                "won": 1,
+                "draw": 3,
+                "lost": 2,
+                "goalsFor": 5,
+                "goalsAgainst": 6,
+                "goalDiff": -1,
+                "points": 6,
+                "ruleType": null,
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 5,
+                  "goalsAgainst": 4,
+                  "points": 4
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 1,
+                  "goalsFor": 0,
+                  "goalsAgainst": 2,
+                  "points": 2
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17616,
+                  "name": "Latvia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/15/18735.png",
+                  "code": "LVA"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 2,
+                "lost": 4,
+                "goalsFor": 3,
+                "goalsAgainst": 8,
+                "goalDiff": -5,
+                "points": 2,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 2,
+                  "points": 2
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 2,
+                  "goalsAgainst": 6,
+                  "points": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_3",
+            "groupName": "Group 3",
+            "stageName": "League C",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 17177,
+                  "name": "Slovakia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18648.png",
+                  "code": "SVK"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 3,
+                "lost": 0,
+                "goalsFor": 13,
+                "goalsAgainst": 6,
+                "goalDiff": 7,
+                "points": 12,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 6,
+                  "goalsAgainst": 3,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 7,
+                  "goalsAgainst": 3,
+                  "points": 5
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 17090,
+                  "name": "Faroe Islands",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18777.png",
+                  "code": "FRO"
+                },
+                "played": 6,
+                "won": 1,
+                "draw": 5,
+                "lost": 0,
+                "goalsFor": 8,
+                "goalsAgainst": 7,
+                "goalDiff": 1,
+                "points": 8,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 5
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 3,
+                  "lost": 0,
+                  "goalsFor": 5,
+                  "goalsAgainst": 5,
+                  "points": 3
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 13243,
+                  "name": "Moldova",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/26/18778.png",
+                  "code": "MDA"
+                },
+                "played": 6,
+                "won": 2,
+                "draw": 1,
+                "lost": 3,
+                "goalsFor": 5,
+                "goalsAgainst": 10,
+                "goalDiff": -5,
+                "points": 7,
+                "ruleType": null,
+                "home": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 3,
+                  "goalsAgainst": 6,
+                  "points": 4
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 2,
+                  "goalsAgainst": 4,
+                  "points": 3
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 14633,
+                  "name": "Kazakhstan",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18603.png",
+                  "code": "KAZ"
+                },
+                "played": 6,
+                "won": 0,
+                "draw": 3,
+                "lost": 3,
+                "goalsFor": 8,
+                "goalsAgainst": 11,
+                "goalDiff": -3,
+                "points": 3,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 1,
+                  "goalsFor": 5,
+                  "goalsAgainst": 6,
+                  "points": 2
+                },
+                "away": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 2,
+                  "goalsFor": 3,
+                  "goalsAgainst": 5,
+                  "points": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_4",
+            "groupName": "Group 4",
+            "stageName": "League C",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 13220,
+                  "name": "Iceland",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/11/18635.png",
+                  "code": "ICE"
+                },
+                "played": 6,
+                "won": 4,
+                "draw": 2,
+                "lost": 0,
+                "goalsFor": 15,
+                "goalsAgainst": 1,
+                "goalDiff": 14,
+                "points": 14,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 7,
+                  "goalsAgainst": 1,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 8,
+                  "goalsAgainst": 0,
+                  "points": 7
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 14581,
+                  "name": "Estonia",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/9/18697.png",
+                  "code": "EST"
+                },
+                "played": 6,
+                "won": 3,
+                "draw": 3,
+                "lost": 0,
+                "goalsFor": 5,
+                "goalsAgainst": 2,
+                "goalDiff": 3,
+                "points": 12,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 2,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 1,
+                  "points": 7
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 5
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 14500,
+                  "name": "Bulgaria",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/2/18690.png",
+                  "code": "BGR"
+                },
+                "played": 6,
+                "won": 1,
+                "draw": 1,
+                "lost": 4,
+                "goalsFor": 4,
+                "goalsAgainst": 12,
+                "goalDiff": -8,
+                "points": 4,
+                "ruleType": null,
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 2,
+                  "goalsFor": 1,
+                  "goalsAgainst": 7,
+                  "points": 1
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 3,
+                  "goalsAgainst": 5,
+                  "points": 3
+                }
+              },
+              {
+                "position": 4,
+                "team": {
+                  "id": 17240,
+                  "name": "Luxembourg",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/27/18779.png",
+                  "code": "LUX"
+                },
+                "played": 6,
+                "won": 1,
+                "draw": 0,
+                "lost": 5,
+                "goalsFor": 2,
+                "goalsAgainst": 11,
+                "goalDiff": -9,
+                "points": 3,
+                "ruleType": "Relegation Play-off",
+                "home": {
+                  "played": 3,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 3,
+                  "goalsFor": 0,
+                  "goalsAgainst": 6,
+                  "points": 0
+                },
+                "away": {
+                  "played": 3,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 2,
+                  "goalsAgainst": 5,
+                  "points": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "stageId": 77480653,
+        "stageName": "League D",
+        "scope": "groups",
+        "groups": [
+          {
+            "key": "group_1",
+            "groupName": "Group 1",
+            "stageName": "League D",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 17238,
+                  "name": "Malta",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/18691.png",
+                  "code": "MLT"
+                },
+                "played": 4,
+                "won": 2,
+                "draw": 2,
+                "lost": 0,
+                "goalsFor": 5,
+                "goalsAgainst": 3,
+                "goalDiff": 2,
+                "points": 8,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 4
+                },
+                "away": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 4
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 14482,
+                  "name": "Andorra",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/18781.png",
+                  "code": "AND"
+                },
+                "played": 4,
+                "won": 1,
+                "draw": 1,
+                "lost": 2,
+                "goalsFor": 3,
+                "goalsAgainst": 3,
+                "goalDiff": 0,
+                "points": 4,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 3
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 0,
+                  "goalsAgainst": 1,
+                  "points": 1
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 17283,
+                  "name": "Gibraltar",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/27487.png",
+                  "code": "GIB"
+                },
+                "played": 4,
+                "won": 0,
+                "draw": 3,
+                "lost": 1,
+                "goalsFor": 2,
+                "goalsAgainst": 4,
+                "goalDiff": -2,
+                "points": 3,
+                "ruleType": null,
+                "home": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 2,
+                  "lost": 0,
+                  "goalsFor": 1,
+                  "goalsAgainst": 1,
+                  "points": 2
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 3,
+                  "points": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "group_2",
+            "groupName": "Group 2",
+            "stageName": "League D",
+            "rows": [
+              {
+                "position": 1,
+                "team": {
+                  "id": 14533,
+                  "name": "Azerbaijan",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/18623.png",
+                  "code": "AZE"
+                },
+                "played": 4,
+                "won": 2,
+                "draw": 2,
+                "lost": 0,
+                "goalsFor": 3,
+                "goalsAgainst": 1,
+                "goalDiff": 2,
+                "points": 8,
+                "ruleType": "Promotion",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 1,
+                  "goalsAgainst": 0,
+                  "points": 4
+                },
+                "away": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 4
+                }
+              },
+              {
+                "position": 2,
+                "team": {
+                  "id": 13244,
+                  "name": "Lithuania",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/27065.png",
+                  "code": "LTU"
+                },
+                "played": 4,
+                "won": 2,
+                "draw": 1,
+                "lost": 1,
+                "goalsFor": 5,
+                "goalsAgainst": 3,
+                "goalDiff": 2,
+                "points": 7,
+                "ruleType": "Promotion Play-off",
+                "home": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 1,
+                  "lost": 0,
+                  "goalsFor": 3,
+                  "goalsAgainst": 2,
+                  "points": 4
+                },
+                "away": {
+                  "played": 2,
+                  "won": 1,
+                  "draw": 0,
+                  "lost": 1,
+                  "goalsFor": 2,
+                  "goalsAgainst": 1,
+                  "points": 3
+                }
+              },
+              {
+                "position": 3,
+                "team": {
+                  "id": 14576,
+                  "name": "Liechtenstein",
+                  "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18870.png",
+                  "code": "LIE"
+                },
+                "played": 4,
+                "won": 0,
+                "draw": 1,
+                "lost": 3,
+                "goalsFor": 1,
+                "goalsAgainst": 5,
+                "goalDiff": -4,
+                "points": 1,
+                "ruleType": null,
+                "home": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 0,
+                  "lost": 2,
+                  "goalsFor": 0,
+                  "goalsAgainst": 3,
+                  "points": 0
+                },
+                "away": {
+                  "played": 2,
+                  "won": 0,
+                  "draw": 1,
+                  "lost": 1,
+                  "goalsFor": 1,
+                  "goalsAgainst": 2,
+                  "points": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
