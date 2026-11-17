@@ -3,8 +3,8 @@
   "league": "nba",
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "15 nov – 19 nov",
-  "updatedAt": "2026-11-17T13:43:48.531Z",
+  "periodLabel": "16 nov – 19 nov",
+  "updatedAt": "2026-11-17T19:35:02.113Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -342,34 +342,6 @@
   },
   "games": [
     {
-      "id": "nba-2026-11-16-okc-sac",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-16T02:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.sacramento-kings",
-        "league": "nba",
-        "name": "Sacramento Kings",
-        "shortName": "Kings",
-        "code": "SAC"
-      },
-      "away": {
-        "id": "nba.oklahoma-city-thunder",
-        "league": "nba",
-        "name": "Oklahoma City Thunder",
-        "shortName": "Thunder",
-        "code": "OKC"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 103,
-        "away": 125,
-        "observedAt": "2026-11-17T13:43:48.531Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nba-2026-11-17-orl-bos",
       "league": "nba",
       "season": "nba-2026-27",
@@ -393,7 +365,7 @@
       "result": {
         "home": 105,
         "away": 115,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -421,7 +393,7 @@
       "result": {
         "home": 126,
         "away": 115,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -449,7 +421,7 @@
       "result": {
         "home": 120,
         "away": 136,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -477,7 +449,7 @@
       "result": {
         "home": 128,
         "away": 110,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -505,7 +477,7 @@
       "result": {
         "home": 123,
         "away": 135,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -533,7 +505,7 @@
       "result": {
         "home": 115,
         "away": 94,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -561,7 +533,7 @@
       "result": {
         "home": 106,
         "away": 98,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -589,7 +561,7 @@
       "result": {
         "home": 105,
         "away": 117,
-        "observedAt": "2026-11-17T13:43:48.531Z",
+        "observedAt": "2026-11-17T19:35:02.113Z",
         "source": "bzzoiro"
       }
     },
@@ -1057,260 +1029,6 @@
     }
   ],
   "analyses": {
-    "nba-2026-11-16-okc-sac": {
-      "game": "nba-2026-11-16-okc-sac",
-      "model": {
-        "id": "pitchlab-ratings-nba",
-        "version": "1.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 105.31904136980249,
-        "away": 118.649355874105,
-        "total": 223.96839724390748,
-        "margin": -13.330314504302507
-      },
-      "x12": [
-        0.1525851823035176,
-        0,
-        0.8474148176964824
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Kings gana",
-          "p": 0.1525851823035176,
-          "fairOdds": 6.553716323586596
-        },
-        {
-          "market": "h2h",
-          "selection": "Thunder gana",
-          "p": 0.8474148176964824,
-          "fairOdds": 1.1800596108506671
-        },
-        {
-          "market": "spreads",
-          "selection": "SAC cubre",
-          "line": 13.5,
-          "p": 0.5052071673790008,
-          "fairOdds": 1.979386011461336
-        },
-        {
-          "market": "spreads",
-          "selection": "OKC cubre",
-          "line": -13.5,
-          "p": 0.49479283262099916,
-          "fairOdds": 2.0210478690704456
-        },
-        {
-          "market": "totals",
-          "selection": "Más",
-          "line": 224.5,
-          "p": 0.4885378052540301,
-          "fairOdds": 2.046924494369519
-        },
-        {
-          "market": "totals",
-          "selection": "Menos",
-          "line": 224.5,
-          "p": 0.5114621947459699,
-          "fairOdds": 1.9551787214628331
-        },
-        {
-          "market": "team_totals",
-          "selection": "SAC más de 105.5",
-          "line": 105.5,
-          "p": 0.4944814981250545,
-          "fairOdds": 2.022320357367749
-        },
-        {
-          "market": "team_totals",
-          "selection": "SAC menos de 105.5",
-          "line": 105.5,
-          "p": 0.5055185018749455,
-          "fairOdds": 1.9781669638026
-        },
-        {
-          "market": "team_totals",
-          "selection": "OKC más de 118.5",
-          "line": 118.5,
-          "p": 0.5045547935444296,
-          "fairOdds": 1.981945296714227
-        },
-        {
-          "market": "team_totals",
-          "selection": "OKC menos de 118.5",
-          "line": 118.5,
-          "p": 0.49544520645557044,
-          "fairOdds": 2.0183866691415373
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Ganador",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Kings gana",
-              "p": 0.1525851823035176,
-              "fairOdds": 6.553716323586596
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Thunder gana",
-              "p": 0.8474148176964824,
-              "fairOdds": 1.1800596108506671
-            }
-          ]
-        },
-        {
-          "group": "Spread SAC +13.5",
-          "rows": [
-            {
-              "market": "spreads",
-              "selection": "home",
-              "label": "SAC cubre",
-              "line": 13.5,
-              "p": 0.5052071673790008,
-              "fairOdds": 1.979386011461336
-            },
-            {
-              "market": "spreads",
-              "selection": "away",
-              "label": "OKC cubre",
-              "line": -13.5,
-              "p": 0.49479283262099916,
-              "fairOdds": 2.0210478690704456
-            }
-          ]
-        },
-        {
-          "group": "Total 224.5",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over",
-              "label": "Más",
-              "line": 224.5,
-              "p": 0.4885378052540301,
-              "fairOdds": 2.046924494369519
-            },
-            {
-              "market": "totals",
-              "selection": "under",
-              "label": "Menos",
-              "line": 224.5,
-              "p": 0.5114621947459699,
-              "fairOdds": 1.9551787214628331
-            }
-          ]
-        },
-        {
-          "group": "Puntos por equipo",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "SAC más de 105.5",
-              "line": 105.5,
-              "p": 0.4944814981250545,
-              "fairOdds": 2.022320357367749
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "SAC menos de 105.5",
-              "line": 105.5,
-              "p": 0.5055185018749455,
-              "fairOdds": 1.9781669638026
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "OKC más de 118.5",
-              "line": 118.5,
-              "p": 0.5045547935444296,
-              "fairOdds": 1.981945296714227
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "OKC menos de 118.5",
-              "line": 118.5,
-              "p": 0.49544520645557044,
-              "fairOdds": 2.0183866691415373
-            }
-          ]
-        }
-      ],
-      "factors": [
-        {
-          "key": "home_projection",
-          "label": "Local",
-          "value": "105.3 pts proyectados",
-          "detail": "12 partidos esta temporada"
-        },
-        {
-          "key": "away_projection",
-          "label": "Visitante",
-          "value": "118.6 pts proyectados",
-          "detail": "13 partidos esta temporada"
-        },
-        {
-          "key": "rest",
-          "label": "Descanso",
-          "value": "SAC: 1 días de descanso",
-          "detail": "OKC: 1 días de descanso"
-        }
-      ],
-      "steps": [
-        "Sincronizando NBA · corte 14 nov 2026, 21:11",
-        "Ataque y defensa actualizados partido a partido (2825 partidos)",
-        "Localía y altitud incluidas",
-        "Proyección 105.3 – 118.6 · margen -13.3",
-        "Simulando escenarios de margen y total",
-        "10 mercados listos"
-      ],
-      "inputsAsOf": "2026-11-15T03:11:00.566Z",
-      "publishedAt": "2026-11-15T03:11:00.566Z",
-      "source": "bzzoiro",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "h2h",
-          "selection": "away",
-          "label": "Thunder gana",
-          "p": 0.8474148176964824,
-          "fairOdds": 1.1800596108506671
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under",
-          "label": "Menos de 224.5 puntos",
-          "line": 224.5,
-          "p": 0.5114621947459699,
-          "fairOdds": 1.9551787214628331
-        }
-      ],
-      "confidence": {
-        "score": 99,
-        "level": "alta",
-        "reasons": [
-          "Favorito claro",
-          "Muestra suficiente"
-        ]
-      },
-      "insights": {
-        "why": [
-          "Thunder gana en 85 % de los escenarios, por 13.3 puntos en promedio.",
-          "Se esperan 224.0 pts: 105.3 de Kings y 118.6 de Thunder."
-        ]
-      }
-    },
     "nba-2026-11-17-orl-bos": {
       "game": "nba-2026-11-17-orl-bos",
       "model": {

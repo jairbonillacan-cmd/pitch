@@ -4,7 +4,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-16T20:49:00.387Z",
+  "updatedAt": "2026-11-17T19:35:17.780Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2228987277708425,
-      "adjustedAgainst": 1.1670386071852756
+      "adjustedFor": 1.2236260119785018,
+      "adjustedAgainst": 1.1669097252783225
     },
     "laliga.atletico-madrid": {
       "teamId": "laliga.atletico-madrid",
@@ -28,19 +28,19 @@
       "forPerGame": 2.111111111111111,
       "againstPerGame": 1,
       "gamesPlayed": 9,
-      "adjustedFor": 1.7372366629691696,
-      "adjustedAgainst": 1.044050382763439
+      "adjustedFor": 1.738081408801141,
+      "adjustedAgainst": 1.044371287542784
     },
     "laliga.osasuna": {
       "teamId": "laliga.osasuna",
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "forPerGame": 0.875,
+      "forPerGame": 1,
       "againstPerGame": 2,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1530965361716536,
-      "adjustedAgainst": 1.4904354831648796
+      "gamesPlayed": 7,
+      "adjustedFor": 1.201072668460185,
+      "adjustedAgainst": 1.4662790022908176
     },
     "laliga.celta-vigo": {
       "teamId": "laliga.celta-vigo",
@@ -50,8 +50,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2600658454324682,
-      "adjustedAgainst": 1.2666743922606172
+      "adjustedFor": 1.262576474731543,
+      "adjustedAgainst": 1.2664386680663202
     },
     "laliga.alaves": {
       "teamId": "laliga.alaves",
@@ -61,8 +61,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 8,
-      "adjustedFor": 1.250706803071728,
-      "adjustedAgainst": 1.3065920562835414
+      "adjustedFor": 1.251246129795591,
+      "adjustedAgainst": 1.307010591815614
     },
     "laliga.elche": {
       "teamId": "laliga.elche",
@@ -72,8 +72,8 @@
       "forPerGame": 1.2222222222222223,
       "againstPerGame": 2.2222222222222223,
       "gamesPlayed": 9,
-      "adjustedFor": 1.2808980408264206,
-      "adjustedAgainst": 1.5697548527379526
+      "adjustedFor": 1.281708664763,
+      "adjustedAgainst": 1.5723459906574586
     },
     "laliga.barcelona": {
       "teamId": "laliga.barcelona",
@@ -83,8 +83,8 @@
       "forPerGame": 4.333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 9,
-      "adjustedFor": 2.8091453129154695,
-      "adjustedAgainst": 1.003735283617611
+      "adjustedFor": 2.8081176430350188,
+      "adjustedAgainst": 1.005222443288055
     },
     "laliga.getafe": {
       "teamId": "laliga.getafe",
@@ -94,8 +94,8 @@
       "forPerGame": 0.7777777777777778,
       "againstPerGame": 1.1111111111111112,
       "gamesPlayed": 9,
-      "adjustedFor": 0.8917560045991073,
-      "adjustedAgainst": 1.0635119160641875
+      "adjustedFor": 0.8923867503620864,
+      "adjustedAgainst": 1.063728930121139
     },
     "laliga.levante": {
       "teamId": "laliga.levante",
@@ -105,8 +105,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 6,
-      "adjustedFor": 1.343148683100021,
-      "adjustedAgainst": 1.5550704610913435
+      "adjustedFor": 1.3444234403267528,
+      "adjustedAgainst": 1.5565016003618088
     },
     "laliga.malaga": {
       "teamId": "laliga.malaga",
@@ -116,8 +116,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 2,
       "gamesPlayed": 8,
-      "adjustedFor": 0.8735509536774487,
-      "adjustedAgainst": 1.5573008147462197
+      "adjustedFor": 0.8754312333225314,
+      "adjustedAgainst": 1.5601696418219748
     },
     "laliga.racing-santander": {
       "teamId": "laliga.racing-santander",
@@ -127,8 +127,8 @@
       "forPerGame": 1.4444444444444444,
       "againstPerGame": 2.7777777777777777,
       "gamesPlayed": 9,
-      "adjustedFor": 1.4150396822231455,
-      "adjustedAgainst": 2.0379923974203753
+      "adjustedFor": 1.416492354567641,
+      "adjustedAgainst": 2.040772952566834
     },
     "laliga.rayo-vallecano": {
       "teamId": "laliga.rayo-vallecano",
@@ -138,8 +138,8 @@
       "forPerGame": 1.5555555555555556,
       "againstPerGame": 1.8888888888888888,
       "gamesPlayed": 9,
-      "adjustedFor": 1.3081808777017625,
-      "adjustedAgainst": 1.3441735955250138
+      "adjustedFor": 1.3090725739534284,
+      "adjustedAgainst": 1.3445411895093995
     },
     "laliga.deportivo-la-coruna": {
       "teamId": "laliga.deportivo-la-coruna",
@@ -149,8 +149,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.3328828077014414,
-      "adjustedAgainst": 1.1962184556747182
+      "adjustedFor": 1.3301816622772313,
+      "adjustedAgainst": 1.2003271125409967
     },
     "laliga.espanyol": {
       "teamId": "laliga.espanyol",
@@ -160,8 +160,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2416736739820078,
-      "adjustedAgainst": 1.2769486288440328
+      "adjustedFor": 1.241866540276974,
+      "adjustedAgainst": 1.2768700288477723
     },
     "laliga.real-betis": {
       "teamId": "laliga.real-betis",
@@ -171,8 +171,8 @@
       "forPerGame": 1.4444444444444444,
       "againstPerGame": 0.8888888888888888,
       "gamesPlayed": 9,
-      "adjustedFor": 1.5158357180310633,
-      "adjustedAgainst": 1.108071818836097
+      "adjustedFor": 1.5164389790561772,
+      "adjustedAgainst": 1.1093987382065793
     },
     "laliga.real-madrid": {
       "teamId": "laliga.real-madrid",
@@ -182,8 +182,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 0.8888888888888888,
       "gamesPlayed": 9,
-      "adjustedFor": 2.062260427750772,
-      "adjustedAgainst": 0.9489162200082248
+      "adjustedFor": 2.0623806191437644,
+      "adjustedAgainst": 0.9504705266721744
     },
     "laliga.real-sociedad": {
       "teamId": "laliga.real-sociedad",
@@ -193,19 +193,19 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.875,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4574907577254634,
-      "adjustedAgainst": 1.525043223518219
+      "adjustedFor": 1.4583275396176139,
+      "adjustedAgainst": 1.5267247839512021
     },
     "laliga.sevilla": {
       "teamId": "laliga.sevilla",
       "name": "Sevilla FC",
       "shortName": "Sevilla FC",
       "code": "SEV",
-      "forPerGame": 1.3,
-      "againstPerGame": 1.2,
-      "gamesPlayed": 10,
-      "adjustedFor": 1.204297596073195,
-      "adjustedAgainst": 1.2659905429965808
+      "forPerGame": 1.2222222222222223,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.1905429914568353,
+      "adjustedAgainst": 1.3103696129042905
     },
     "laliga.valencia": {
       "teamId": "laliga.valencia",
@@ -215,8 +215,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 2,
       "gamesPlayed": 8,
-      "adjustedFor": 1.0790719897253147,
-      "adjustedAgainst": 1.3712263540681595
+      "adjustedFor": 1.0786250378246218,
+      "adjustedAgainst": 1.3736797725091774
     },
     "laliga.villarreal": {
       "teamId": "laliga.villarreal",
@@ -226,8 +226,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.4444444444444444,
       "gamesPlayed": 9,
-      "adjustedFor": 1.6505664428750757,
-      "adjustedAgainst": 1.246577700489642
+      "adjustedFor": 1.6520874359946598,
+      "adjustedAgainst": 1.247926529734104
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T20:49:03.685Z",
+        "observedAt": "2026-11-17T19:35:20.862Z",
         "source": "football-data"
       }
     },
@@ -10008,13 +10008,13 @@
       "name": "Sevilla FC",
       "shortName": "Sevilla FC",
       "code": "SEV",
-      "played": 10,
-      "won": 5,
+      "played": 9,
+      "won": 4,
       "drawn": 2,
       "lost": 3,
-      "goalsFor": 13,
+      "goalsFor": 11,
       "goalsAgainst": 12,
-      "points": 17
+      "points": 14
     },
     {
       "teamId": "laliga.real-sociedad",
@@ -10138,12 +10138,12 @@
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "played": 8,
+      "played": 7,
       "won": 2,
       "drawn": 2,
-      "lost": 4,
+      "lost": 3,
       "goalsFor": 7,
-      "goalsAgainst": 16,
+      "goalsAgainst": 14,
       "points": 8
     },
     {
