@@ -1,18 +1,11 @@
-import React from "react";
-import type { Metadata } from "next";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { ParlaysPageSurface } from "@pitchlab/ui";
-import { loadParlaysViewProps } from "../../src/server/public-site-data";
+import { permanentRedirect } from "next/navigation";
+import { toQueryString } from "../../src/server/query-string";
 
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "Parlays · PitchLab",
-  description:
-    "Armador de parlays de 2 a 6 selecciones con probabilidad combinada y bloqueo de choques lógicos.",
-};
-
-export default async function ParlaysPage(): Promise<React.JSX.Element> {
-  const [props, hasSession] = await Promise.all([loadParlaysViewProps(), hasPublicSessionCookie()]);
-  return <ParlaysPageSurface {...props} hasSession={hasSession} />;
+export default async function ParlaysRedirectPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<never> {
+  const qs = toQueryString(searchParams ? await searchParams : undefined);
+  permanentRedirect(`/${qs}#que-obtienes`);
 }

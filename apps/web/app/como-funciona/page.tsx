@@ -1,18 +1,11 @@
-import React from "react";
-import type { Metadata } from "next";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { ComoFuncionaPageSurface } from "@pitchlab/ui";
-import { loadComoFuncionaViewProps } from "../../src/server/public-site-data";
+import { permanentRedirect } from "next/navigation";
+import { toQueryString } from "../../src/server/query-string";
 
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "Cómo funciona · PitchLab",
-  description:
-    "Tres números en cada partido: la probabilidad, el momio justo y el comparador con tu momio. Ejemplos reales por liga.",
-};
-
-export default async function ComoFuncionaPage(): Promise<React.JSX.Element> {
-  const [props, hasSession] = await Promise.all([loadComoFuncionaViewProps(), hasPublicSessionCookie()]);
-  return <ComoFuncionaPageSurface {...props} hasSession={hasSession} />;
+export default async function ComoFuncionaRedirectPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<never> {
+  const qs = toQueryString(searchParams ? await searchParams : undefined);
+  permanentRedirect(`/${qs}#hoy`);
 }

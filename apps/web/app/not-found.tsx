@@ -22,8 +22,8 @@ export default function NotFound(): React.JSX.Element {
           <a href="/" className="pl-prof-btn pl-prof-btn--primary">
             Ir al inicio
           </a>
-          <a href="/como-funciona" className="pl-prof-btn pl-prof-btn--ghost">
-            Cómo funciona
+          <a href="/resultados" className="pl-prof-btn pl-prof-btn--ghost">
+            Ver resultados
           </a>
         </div>
       </div>

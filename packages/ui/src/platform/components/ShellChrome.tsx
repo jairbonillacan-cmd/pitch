@@ -505,11 +505,8 @@ export function PublicHeaderV4({
   const { navigateTo, viewerRole } = usePlatform();
 
   const navItems = [
-    { href: "/como-funciona", label: "Cómo funciona" },
     { href: "/motores", label: "Motores" },
     { href: "/resultados", label: "Resultados" },
-    { href: "/parlays", label: "Parlays" },
-    { href: "/comunidad", label: "Comunidad" },
     { href: "/precio", label: "Precio" },
   ];
 
@@ -639,16 +636,6 @@ export function PublicFooterV4(): React.JSX.Element {
 
         <nav aria-label="Pie" className="flex flex-wrap items-center gap-4 text-xs font-semibold">
           <a
-            href="/como-funciona"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo("/como-funciona");
-            }}
-            className="no-underline hover:underline"
-          >
-            Cómo funciona
-          </a>
-          <a
             href="/motores"
             onClick={(e) => {
               e.preventDefault();
@@ -657,6 +644,16 @@ export function PublicFooterV4(): React.JSX.Element {
             className="no-underline hover:underline"
           >
             Motores
+          </a>
+          <a
+            href="/resultados"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/resultados");
+            }}
+            className="no-underline hover:underline"
+          >
+            Resultados
           </a>
           <a
             href="/precio"
@@ -676,16 +673,6 @@ export function PublicFooterV4(): React.JSX.Element {
           </a>
           <a href="/legal/juego-responsable" className="no-underline hover:underline">
             Juego responsable
-          </a>
-          <a
-            href="/comunidad#tipsters"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo("/comunidad#tipsters");
-            }}
-            className="no-underline hover:underline"
-          >
-            ¿Eres tipster?
           </a>
           <a href="/legal/creditos" className="no-underline hover:underline">
             Créditos de datos
@@ -727,8 +714,8 @@ interface ProfileMenuGroup {
 }
 
 const CLUB_FOOTER_LINKS = [
-  { href: "/como-funciona", label: "Cómo funciona" },
   { href: "/motores", label: "Motores" },
+  { href: "/resultados", label: "Resultados" },
   { href: "/precio", label: "Precio" },
   { href: "/legal/terminos", label: "Términos" },
   { href: "/legal/privacidad", label: "Privacidad" },

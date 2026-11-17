@@ -66,11 +66,8 @@ const FORBIDDEN_PUBLIC_PATTERNS: ReadonlyArray<{ label: string; pattern: RegExp 
 ];
 
 const PUBLIC_MENU_ROUTES = [
-  "/como-funciona",
   "/motores",
   "/resultados",
-  "/parlays",
-  "/comunidad",
   "/precio",
 ] as const;
 
@@ -292,16 +289,17 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(errors).toEqual([]);
   });
 
-  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
+  test("2. 3 public subpages (200 + aria-current + zero mascot + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
     test.setTimeout(120_000);
 
-    // Las 6 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page" y pasan Axe AA
+    // Las 3 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page", sin mascota y pasan Axe AA
     for (const route of PUBLIC_MENU_ROUTES) {
       const res = await page.goto(route);
       expect(res?.status(), `Expected 200 on ${route}`).toBe(200);
+      await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
 
       const mobileMenuBtn = page.locator('header button[aria-label*="menú" i]:visible');
       if ((await mobileMenuBtn.count()) > 0) {
@@ -337,11 +335,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       expect(routeA11y.violations, `Axe violations on ${route}`).toEqual([]);
     }
 
-    // Redirecciones permanentes 308 + navegación
+    // Redirecciones permanentes 308 + navegación (incluyendo rutas podadas de marketing)
     const permanentRedirects: ReadonlyArray<[string, string]> = [
+      ["/como-funciona", "/#hoy"],
+      ["/parlays", "/#que-obtienes"],
+      ["/comunidad", "/"],
       ["/metodologia", "/motores"],
       ["/tecnologia", "/motores"],
       ["/pricing", "/precio"],
+      ["/plans", "/precio"],
     ];
     for (const [fromPath, toPath] of permanentRedirects) {
       const redirectRes = await request.get(fromPath, { maxRedirects: 0 });

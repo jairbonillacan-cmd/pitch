@@ -8,12 +8,9 @@ export const revalidate = 3600;
 /** Páginas públicas indexables (`docs/architecture/ROUTE_MAP.md` §2). */
 const PUBLIC_PATHS = [
   "",
-  "/como-funciona",
-  "/parlays",
   "/resultados",
   "/motores",
   "/precio",
-  "/comunidad",
   "/legal/privacidad",
   "/legal/terminos",
   "/legal/juego-responsable",

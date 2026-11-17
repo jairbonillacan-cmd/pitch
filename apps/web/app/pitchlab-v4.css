@@ -14209,6 +14209,68 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
 
 .pl-lp--clean .pl-lp-mobile-menu {
   background: var(--pl-clean-surface);
+  border: 1px solid var(--pl-clean-edge);
+  box-shadow: var(--pl-clean-shadow);
+}
+
+.pl-lp--clean .pl-lp-mobile-menu::before {
+  display: none;
+}
+
+.pl-lp--clean .pl-lp-navlink[aria-current="page"] {
+  background: var(--pl-clean-raised);
+  color: var(--pl-text);
+  font-weight: 600;
+}
+
+.pl-lp--clean .pl-lp-section {
+  border-top: 0;
+}
+
+.pl-lp--clean :is(
+  .pl-lp-engines-card,
+  .pl-lp-table-card,
+  .pl-lp-cortex-card,
+  .pl-lp-calib-card,
+  .pl-lp-results-card,
+  .pl-lp-spei-card,
+  .pl-lp--precio .pl-lp-pricing-card,
+  .pl-lp-steps > li
+) {
+  border: 1px solid var(--pl-clean-edge);
+  border-radius: 22px;
+  background: var(--pl-clean-surface);
+  box-shadow: none;
+}
+
+.pl-lp--clean :is(
+  .pl-lp-engines-card,
+  .pl-lp-table-card,
+  .pl-lp-cortex-card,
+  .pl-lp-calib-card,
+  .pl-lp-results-card,
+  .pl-lp-spei-card,
+  .pl-lp--precio .pl-lp-pricing-card
+)::before,
+.pl-lp--clean :is(
+  .pl-lp-engines-card,
+  .pl-lp-table-card,
+  .pl-lp-cortex-card,
+  .pl-lp-calib-card,
+  .pl-lp-results-card,
+  .pl-lp-spei-card,
+  .pl-lp--precio .pl-lp-pricing-card
+)::after {
+  display: none;
+}
+
+.pl-lp--clean.pl-lp--precio .pl-lp-pricing-card {
+  border: 1.5px solid var(--pl-brand);
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    color-mix(in srgb, var(--pl-brand) 12%, var(--pl-clean-surface)),
+    var(--pl-clean-surface) 55%
+  );
 }
 
 .pl-lp--clean .pl-lp-btn-primary {

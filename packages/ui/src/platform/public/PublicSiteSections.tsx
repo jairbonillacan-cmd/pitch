@@ -5,7 +5,7 @@ import {
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
-import { BrandLogo, Mascot } from "../../primitives";
+import { BrandLogo } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import { checkParlayCompatibility, computeParlaySummary } from "../parlay-engine";
 import {
@@ -42,11 +42,8 @@ import {
 export { MEMBERSHIP_SPEC };
 export type PublicNavPath =
   | "/"
-  | "/como-funciona"
   | "/motores"
   | "/resultados"
-  | "/parlays"
-  | "/comunidad"
   | "/precio";
 
 export interface LandingHeroLeagueCard {
@@ -873,25 +870,36 @@ export function buildFeaturedCommunityPick(
   return DEFAULT_FEATURED_COMMUNITY_PICK;
 }
 
-const LANDING_FOOTER_LINKS = [
-  { title: "Producto", links: [
-    { href: "#que-obtienes", label: "Funciones" },
-    { href: "/parlays", label: "Parlays" },
-    { href: "/comunidad", label: "Comunidad" },
-    { href: "/precio", label: "Precio" },
-  ] },
-  { title: "Transparencia", links: [
-    { href: "/como-funciona", label: "Cómo funciona" },
-    { href: "/motores", label: "Motores" },
-    { href: "/resultados", label: "Resultados" },
-    { href: "/legal/creditos", label: "Créditos" },
-  ] },
-  { title: "Legal", links: [
-    { href: "/legal/terminos", label: "Términos" },
-    { href: "/legal/privacidad", label: "Aviso de privacidad" },
-    { href: "/legal/juego-responsable", label: "Juego responsable" },
-  ] },
-] as const;
+function buildFooterLinks(activePath?: PublicNavPath) {
+  const isHome = activePath === "/";
+  return [
+    {
+      title: "Producto",
+      links: [
+        { href: isHome ? "#que-obtienes" : "/#que-obtienes", label: "Funciones" },
+        { href: isHome ? "#hoy" : "/#hoy", label: "Comparador" },
+        { href: "/precio", label: "Precio" },
+        { href: "/blog", label: "Blog" },
+      ],
+    },
+    {
+      title: "Transparencia",
+      links: [
+        { href: "/motores", label: "Motores" },
+        { href: "/resultados", label: "Resultados" },
+        { href: "/legal/creditos", label: "Créditos" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { href: "/legal/terminos", label: "Términos" },
+        { href: "/legal/privacidad", label: "Aviso de privacidad" },
+        { href: "/legal/juego-responsable", label: "Juego responsable" },
+      ],
+    },
+  ] as const;
+}
 
 export function PublicSiteShell({
   activePath,
@@ -905,50 +913,38 @@ export function PublicSiteShell({
   className?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
+  const extraClass = className && className !== "pl-lp--clean" ? ` ${className}` : "";
+  const footerColumns = buildFooterLinks(activePath);
+
   return (
-    <div className={className ? `pl-stage pl-lp ${className}` : "pl-stage pl-lp"}>
+    <div className={`pl-stage pl-lp pl-lp--clean${extraClass}`}>
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
       <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
       <main id="main">{children}</main>
-      {className === "pl-lp--clean" ? (
-        <footer className="pl-clean-footer">
-          <div className="pl-lp-wrap">
-            <nav aria-label="Pie" className="pl-clean-footer-links">
-              {LANDING_FOOTER_LINKS.map(({ title, links }) => (
-                <div key={title}>
-                  <h2>{title}</h2>
-                  <ul>{links.map(({ href, label }) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
-                </div>
-              ))}
-            </nav>
-            <div className="pl-clean-footer-note">
-              <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
-              <p>Información para decidir · No somos casa de apuestas · +18</p>
-            </div>
-          </div>
-        </footer>
-      ) : (
-      <footer className="pl-lp-footer">
-        <div className="pl-lp-wrap pl-lp-footer-inner">
-          <div className="pl-lp-footer-brand">
-            <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
-            <p className="pl-lp-footer-legal">
-              Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.
-            </p>
-          </div>
-          <nav aria-label="Pie" className="pl-lp-footer-nav">
-            <a href="/blog">Blog</a>
-            <a href="/legal/terminos">Términos</a>
-            <a href="/legal/privacidad">Aviso de privacidad</a>
-            <a href="/legal/juego-responsable">Juego responsable</a>
-            <a href="/comunidad#tipsters">¿Eres tipster?</a>
-            <a href="/legal/creditos">Créditos</a>
+      <footer className="pl-clean-footer">
+        <div className="pl-lp-wrap">
+          <nav aria-label="Pie" className="pl-clean-footer-links">
+            {footerColumns.map(({ title, links }) => (
+              <div key={title}>
+                <h2>{title}</h2>
+                <ul>
+                  {links.map(({ href, label }) => (
+                    <li key={href}>
+                      <a href={href}>{label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
+          <div className="pl-clean-footer-note">
+            <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
+            <p>Información para decidir · No somos casa de apuestas · +18</p>
+          </div>
         </div>
       </footer>
-      )}
     </div>
   );
 }
@@ -1239,10 +1235,10 @@ export function HowItWorksSection({
         {variant === "teaser" ? (
           <a
             className="pl-lp-more"
-            href="/como-funciona"
+            href="/#hoy"
             style={{ alignSelf: "center" }}
           >
-            Ver cómo funciona, paso a paso{" "}
+            Ir al comparador{" "}
             <span className="pl-lp-arr" aria-hidden="true">
               →
             </span>
@@ -1259,11 +1255,7 @@ export function EnginesSection({
   variant?: "teaser" | "page";
 }): React.JSX.Element {
   return (
-    <section id="motores" className="pl-lp-section" style={{ overflow: "hidden" }}>
-      <div className="pl-lp-atmo" aria-hidden="true">
-        <div className="pl-lp-orb pl-lp-orb--engines" />
-      </div>
-
+    <section id="motores" className="pl-lp-section">
       <div className="pl-lp-wrap pl-lp-stack">
         <div className="pl-lp-engines-head">
           <div className="pl-lp-section-head" style={{ maxWidth: 640 }}>
@@ -1833,7 +1825,7 @@ function ParlayDemoCard({
       </p>
 
       {showLink ? (
-        <a className="pl-lp-more" href="/parlays">
+        <a className="pl-lp-more" href="/#que-obtienes">
           Así funciona el armador{" "}
           <span className="pl-lp-arr" aria-hidden="true">
             →
@@ -2005,8 +1997,8 @@ function CommunitySampleCard({
           <span>Sin spam: solo escriben socios con su pase activo.</span>
         </p>
         {showLink ? (
-          <a className="pl-lp-more" href="/comunidad">
-            Entrar a la comunidad{" "}
+          <a className="pl-lp-more" href="/signup">
+            Crear cuenta y entrar al club{" "}
             <span className="pl-lp-arr" aria-hidden="true">
               →
             </span>
@@ -2060,19 +2052,7 @@ export function PricingSection({
     <section
       id="precio"
       className={isPage ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"}
-      style={isPage ? { position: "relative", overflow: "hidden" } : undefined}
     >
-      {isPage ? (
-        <>
-          <div className="pl-lp-atmo" aria-hidden="true">
-            <div className="pl-lp-orb pl-lp-orb--1" />
-            <div className="pl-lp-orb pl-lp-orb--2" />
-            <div className="pl-lp-orb pl-lp-orb--3" />
-          </div>
-          <div className="pl-lp-fieldgrid" aria-hidden="true" />
-        </>
-      ) : null}
-
       {isPage ? (
         <div
           className="pl-lp-wrap pl-lp-pricing-grid"
@@ -2128,10 +2108,9 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
     },
   ] : LANDING_FAQS;
   return (
-    <section id="faq" className={landing ? "pl-clean-section pl-clean-faq" : "pl-lp-section"} aria-labelledby="pl-lp-faq-heading">
+    <section id="faq" className="pl-clean-section pl-clean-faq" aria-labelledby="pl-lp-faq-heading">
       <div className="pl-lp-wrap pl-lp-wrap--narrow pl-lp-stack" style={{ gap: 28 }}>
         <div className="pl-lp-section-head pl-lp-section-head--center">
-          {landing ? null : <p className="pl-lp-eyebrow">Dudas claras</p>}
           <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq">
             Preguntas frecuentes
           </h2>
@@ -2147,11 +2126,9 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
             >
               <summary>
                 <span>{item.question}</span>
-                {landing ? (
-                  <svg className="pl-clean-chevron" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true">
-                    <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                ) : <span className="pl-lp-chev" aria-hidden="true">+</span>}
+                <svg className="pl-clean-chevron" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true">
+                  <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </summary>
               <p className="pl-lp-faq-body">{item.answer}</p>
             </details>
@@ -2166,79 +2143,21 @@ export function ClosingCtaSection({
   hasSession = false,
   variant,
 }: { hasSession?: boolean; variant?: "banner" } = {}): React.JSX.Element {
-  if (variant === "banner") {
-    return (
-      <section className="pl-clean-section pl-clean-closing" aria-labelledby="pl-clean-cta-title">
-        <div className="pl-lp-wrap">
-          <div className="pl-clean-banner">
-            <div className="pl-clean-banner-copy">
-              <h2 id="pl-clean-cta-title">Lee el juego con datos.</h2>
-              <p>Abre la jornada y compara el momio justo antes de decidir.</p>
-              <a className="pl-lp-btn" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis <span aria-hidden="true">→</span>
-              </a>
-            </div>
-            <figure className="pl-clean-banner-render">
-              <img src="/landing/cta-ball-cards.webp" width={1480} height={1010} loading="lazy" decoding="async" alt="" />
-            </figure>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
+  void variant;
   return (
-    <section className="pl-lp-closing">
+    <section className="pl-clean-section pl-clean-closing" aria-labelledby="pl-clean-cta-title">
       <div className="pl-lp-wrap">
-        <div className="pl-lp-card pl-lp-closing-card pl-lp-closing-banner glass-ring">
-          <div className="pl-lp-closing-copy">
-            <span className="pl-lp-pill pl-lp-pill--brand" style={{ alignSelf: "flex-start" }}>
-              7 días gratis · Cancela cuando quieras
-            </span>
-            <h2 className="pl-lp-h2">Lee el juego con datos.</h2>
-            <p className="pl-lp-lede">
-              Abre la jornada, mira lo más probable con su momio justo y compáralo con tu casa antes de decidir.
-            </p>
-            <div className="pl-lp-hero-ctas">
-              <a
-                className="pl-lp-btn pl-lp-btn-primary"
-                href={hasSession ? "/app" : "/signup"}
-              >
-                Probar 7 días gratis{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-              <a className="pl-lp-btn pl-lp-btn-ghost" href="#hoy">
-                Probar comparador
-              </a>
-            </div>
+        <div className="pl-clean-banner">
+          <div className="pl-clean-banner-copy">
+            <h2 id="pl-clean-cta-title">Lee el juego con datos.</h2>
+            <p>Abre la jornada y compara el momio justo antes de decidir.</p>
+            <a className="pl-lp-btn" href={hasSession ? "/app" : "/signup"}>
+              Probar 7 días gratis <span aria-hidden="true">→</span>
+            </a>
           </div>
-
-          <div className="pl-lp-closing-visual" aria-hidden="true">
-            <div className="pl-lp-closing-float-stack">
-              <div className="pl-lp-closing-mini-card glass-card glass-ring">
-                <span className="pl-lp-most-kicker">Consenso · 5 motores</span>
-                <strong>Monterrey o empate</strong>
-                <span className="num">72.3 % · Justo −261</span>
-              </div>
-              <div className="pl-lp-closing-mini-card pl-lp-closing-mini-card--back glass-card glass-ring">
-                <span className="pl-lp-most-kicker">Parlay compatible</span>
-                <strong>2 selecciones sin choques</strong>
-                <span className="num">+5.6 pts sobre el momio</span>
-              </div>
-            </div>
-
-            <div className="pl-lp-radar-wrap">
-              <div className="pl-lp-radar-halo" />
-              <Mascot
-                edition="soccer"
-                size={210}
-                className="pl-lp-radar-float"
-                lazy
-              />
-            </div>
-          </div>
+          <figure className="pl-clean-banner-render">
+            <img src="/landing/cta-ball-cards.webp" width={1480} height={1010} loading="lazy" decoding="async" alt="" />
+          </figure>
         </div>
       </div>
     </section>
@@ -2257,16 +2176,8 @@ export function ComoFuncionaPageSurface({
   hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/como-funciona" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--3" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Cómo funciona</p>
@@ -2397,15 +2308,7 @@ export function ComoFuncionaPageSurface({
 export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/motores" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
             <p className="pl-lp-eyebrow">{SPACETIME_METRICS_HEADLINE.suiteName}</p>
@@ -2463,14 +2366,7 @@ export function ResultadosPageSurface({
 }): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Historial íntegro</p>
@@ -2480,20 +2376,8 @@ export function ResultadosPageSurface({
             <p className="pl-lp-lede">
               Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
             </p>
-            <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </div>
           </div>
-        </div>
-      </section>
 
-      <section className="pl-lp-section">
-        <div className="pl-lp-wrap pl-lp-stack">
           <ResultsFilterListIsland results={results} />
           <CalibrationCard />
         </div>
@@ -2539,16 +2423,8 @@ export function ParlaysPageSurface({
   hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/parlays" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Armador de parlays</p>
@@ -2639,15 +2515,8 @@ export function ComunidadPageSurface({
   const promoFreeDays = TIPSTER_CREATORS[0]?.freeDays ?? 5;
 
   return (
-    <PublicSiteShell activePath="/comunidad" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
             <p className="pl-lp-eyebrow">Comunidad de socios</p>

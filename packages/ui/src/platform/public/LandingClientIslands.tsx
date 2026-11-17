@@ -32,11 +32,8 @@ export const PUBLIC_NAV_ITEMS: ReadonlyArray<{
   href: Exclude<PublicNavPath, "/">;
   label: string;
 }> = [
-  { href: "/como-funciona", label: "Cómo funciona" },
   { href: "/motores", label: "Motores" },
   { href: "/resultados", label: "Resultados" },
-  { href: "/parlays", label: "Parlays" },
-  { href: "/comunidad", label: "Comunidad" },
   { href: "/precio", label: "Precio" },
 ];
 
@@ -179,13 +176,13 @@ export function PublicNavBarClient({
   }, [activePath]);
 
   useEffect(() => {
-    if (!landing || !scrollMarker.current) return;
+    if (!scrollMarker.current || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry) setScrolled(!entry.isIntersecting);
     });
     observer.observe(scrollMarker.current);
     return () => observer.disconnect();
-  }, [landing]);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -210,12 +207,12 @@ export function PublicNavBarClient({
 
   return (
     <>
-    {landing ? <span ref={scrollMarker} className="pl-clean-scroll-marker" aria-hidden="true" /> : null}
-    <header className="pl-lp-header" data-scrolled={landing ? scrolled : undefined}>
+    <span ref={scrollMarker} className="pl-clean-scroll-marker" aria-hidden="true" />
+    <header className="pl-lp-header" data-scrolled={scrolled}>
       <div className="pl-lp-wrap">
         <nav
           aria-label="Principal"
-          className={landing ? "pl-lp-bar" : "pl-lp-bar glass-pill-bar glass-ring"}
+          className="pl-lp-bar"
         >
           <a
             href="/"

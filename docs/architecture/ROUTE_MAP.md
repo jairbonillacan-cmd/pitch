@@ -27,13 +27,10 @@
 
 | Ruta | Propósito | Notas |
 |---|---|---|
-| `/` | Portada / Landing | Muestra interactiva y Pase PitchLab Ultra |
-| `/como-funciona` | Explicación del producto | Tres números en cada partido |
-| `/parlays` | Vitrina pública de Parlays | Combinadas de 2 a 6 selecciones |
+| `/` | Portada / Landing | Muestra interactiva, herramientas y Pase PitchLab Ultra |
 | `/resultados` | Historial público auditado | Marcadores cerrados y lectura previa |
 | `/motores` | Ciencia y validación | Precisión fuera de muestra y motores |
-| `/precio` | Planes y Pase PitchLab Ultra | Precio en MXN con IVA y CFDI |
-| `/comunidad` | Comunidad y tipsters | Ranking de muestra y portal de creadores |
+| `/precio` | Planes y Pase PitchLab Ultra | Precio en MXN con SPEI, IVA y CFDI |
 | `/legal/privacidad` | Aviso de privacidad | — |
 | `/legal/terminos` | Términos de uso | Incluye ancla `#comunidad` |
 | `/legal/juego-responsable` | Juego responsable (+18) | Pausas voluntarias y Línea de la Vida |
@@ -46,6 +43,9 @@
 
 | Ruta | Comportamiento / Propósito | Notas |
 |---|---|---|
+| `/como-funciona` | Redirección `308` -> `/#hoy` | Preserva query string |
+| `/parlays` | Redirección `308` -> `/#que-obtienes` | Preserva query string |
+| `/comunidad` | Redirección `308` -> `/` | Preserva query string |
 | `/pricing` | Redirección `308` -> `/precio` | Preserva query string |
 | `/plans` | Redirección `308` -> `/precio` | Preserva query string |
 | `/metodologia` | Redirección `308` -> `/motores` | Preserva query string |

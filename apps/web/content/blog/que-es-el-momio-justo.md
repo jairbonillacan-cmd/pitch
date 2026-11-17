@@ -68,4 +68,4 @@ Eso no significa que el local vaya a ganar. Con 58.0 %, el resultado contrario s
 - El margen se come tu ventaja: compara siempre contra el momio justo, no contra el momio de la casa.
 - Lleva registro. Sin un historial honesto no hay forma de saber si tus estimaciones son buenas.
 
-En PitchLab cada partido muestra estos tres números en el mismo orden: la probabilidad estimada, el momio justo y un comparador donde escribes el momio de tu casa. Puedes ver cómo se leen en [Cómo funciona](/como-funciona).
+En PitchLab cada partido muestra estos tres números en el mismo orden: la probabilidad estimada, el momio justo y un comparador donde escribes el momio de tu casa. Puedes probarlo directo en el [comparador de partidos](/#hoy).

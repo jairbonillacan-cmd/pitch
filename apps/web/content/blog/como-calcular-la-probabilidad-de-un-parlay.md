@@ -59,4 +59,4 @@ En PitchLab, el armador de parlays bloquea las contradicciones y permite hasta d
 - **Evita repetir el mismo partido** salvo que entiendas cómo se relacionan las selecciones.
 - **Registra el resultado.** Tu bitácora te dirá con datos si los parlays te funcionan o no.
 
-Puedes ver ejemplos con su probabilidad combinada y las reglas de compatibilidad en la [vitrina de Parlays](/parlays).
+Puedes ver ejemplos con su probabilidad combinada y las reglas de compatibilidad en las [herramientas de PitchLab](/#que-obtienes).
