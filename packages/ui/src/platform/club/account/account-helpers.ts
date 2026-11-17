@@ -1,5 +1,9 @@
 import type { LeagueId } from "@pitchlab/contracts";
 import {
+  DEFAULT_PREFERRED_BOOKS,
+  sanitizePreferredBooks,
+} from "../../bookmakers";
+import {
   DEFAULT_RECORD_PRIVACY,
   normalizeRecordPrivacy,
   type RecordPrivacy,
@@ -185,6 +189,7 @@ export interface StoredAccountPrefsV1 {
   pauseChosenAtIso: string | null;
   recordPrivacy: RecordPrivacy;
   bankrollStartMxn: number | null;
+  preferredBooks: string[];
 }
 
 export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
@@ -210,6 +215,7 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
   pauseChosenAtIso: null,
   recordPrivacy: structuredClone(DEFAULT_RECORD_PRIVACY),
   bankrollStartMxn: null,
+  preferredBooks: [...DEFAULT_PREFERRED_BOOKS],
 };
 
 export function readStoredPrefs(): StoredAccountPrefsV1 {
@@ -283,6 +289,10 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
         parsed.bankrollStartMxn <= 10_000_000
           ? Math.round(parsed.bankrollStartMxn)
           : null,
+      preferredBooks:
+        parsed.preferredBooks !== undefined
+          ? sanitizePreferredBooks(parsed.preferredBooks)
+          : [...DEFAULT_PREFERRED_BOOKS],
     };
   } catch (err) {
     void err;

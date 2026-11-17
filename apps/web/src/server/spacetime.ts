@@ -98,11 +98,15 @@ const BOOK_LABELS: Record<string, string> = {
   smarkets: "Smarkets",
   matchbook: "Matchbook",
   bet365: "Bet365",
+  bwin: "Bwin",
   draftkings: "DraftKings",
   fanduel: "FanDuel",
   betmgm: "BetMGM",
+  betonline: "BetOnline",
+  betonlineag: "BetOnline",
   codere: "Codere",
   williamhill: "William Hill",
+  william_hill: "William Hill",
   unibet: "Unibet",
 };
 

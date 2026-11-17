@@ -788,11 +788,39 @@ function ClubWorkspaceShellImpl({
 
   const [collapsed, toggleCollapsed] = usePersistentRailCollapsed();
   const [leaguesOpen, toggleLeagues] = usePersistentLeaguesOpen();
+  const headerRef = useRef<HTMLElement | null>(null);
   const profileTriggerRef = useRef<HTMLButtonElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   // id único por instancia: durante la carga conviven dos encabezados.
   const profileMenuId = `pl-profile-menu${useId().replace(/:/g, "")}`;
   const [profileMenuOpen, setProfileMenuOpen] = useState<boolean>(false);
+
+  // Auto-ocultar suavemente el header en móvil al desplazar hacia abajo y mostrarlo al subir
+  // (fallback pasivo cuando @container scroll-state no está soportado).
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof CSS === "undefined") return;
+    if (typeof CSS.supports === "function" && CSS.supports("container-type", "scroll-state")) {
+      return;
+    }
+    const bar = headerRef.current;
+    if (!bar) return;
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      if (window.innerWidth >= 1024) {
+        bar.classList.remove("is-hidden");
+        lastY = window.scrollY;
+        return;
+      }
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      const y = Math.max(0, Math.min(window.scrollY, maxScroll));
+      if (y === lastY) return;
+      bar.classList.toggle("is-hidden", y > lastY && y > bar.offsetHeight);
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   useEffect(() => {
     const menu = profileMenuRef.current;
     if (!menu) return;
@@ -903,24 +931,50 @@ function ClubWorkspaceShellImpl({
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
 
-  // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
-  // El portal de tipsters y la consola solo aparecen para quien los usa.
+  // Navegación serena de escritorio (estilo Scout Picks con ADN PitchLab) y hoja «Más» móvil.
   const railGroups: RailNavGroup[] = useMemo(() => {
-    // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
-    const explore: RailNavItem[] = [
-      { href: "/app/picks", label: "Buscar picks", icon: "search" },
-      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
+    const clubItems: RailNavItem[] = [
+      { href: "/app", label: "Partidos", icon: "calendar" },
+      { href: "/app/picks", label: "Explorar picks", icon: "sparkles" },
+      {
+        href: "/app/parlays",
+        label: "Armar parlay",
+        icon: "layers",
+        badge: parlayLegs.length > 0 ? `${parlayLegs.length}` : undefined,
+        badgeBrand: parlayLegs.length > 0,
+      },
+      {
+        href: "/app/lab",
+        label: "Mi récord",
+        icon: "ticket",
+        badge: journal.length > 0 ? `${journal.length}` : undefined,
+      },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
+      { href: "/app/social", label: "Comunidad", icon: "users" },
+    ];
+    const tools: RailNavItem[] = [
+      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
+      { href: "/app/props", label: "Props de jugadores", icon: "bolt" },
     ];
     return [
-      { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
-      { title: "Explorar", items: explore },
+      { title: "Club", items: clubItems },
+      { title: "Herramientas", items: tools },
     ];
   }, [journal.length, parlayLegs.length]);
 
-  const allClubItems = useMemo(
-    () => railGroups.flatMap((g) => g.items),
-    [railGroups],
+  const mobileDockItems = useMemo(
+    () => mobileThumbDockItems(parlayLegs.length),
+    [parlayLegs.length],
+  );
+
+  const mobileSheetItems = useMemo<RailNavItem[]>(
+    () => [
+      { href: "/app/social", label: "Comunidad", icon: "users" },
+      { href: "/app/historial", label: "Resultados del motor", icon: "shield" },
+      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
+      { href: "/app/props", label: "Props de jugadores", icon: "bolt" },
+    ],
+    [],
   );
 
   const profileHandle = `@${ownHandle}`;
@@ -946,10 +1000,11 @@ function ClubWorkspaceShellImpl({
         />
       )}
       <header
+        ref={headerRef}
         className="panel-header sticky top-0 z-30 glass-nav-surface"
         data-collapsed={collapsed ? "true" : "false"}
       >
-        <div className="pl-header-grid max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16">
+        <div className="pl-header-grid max-w-[1440px] lg:max-w-none mx-auto px-3.5 sm:px-6 h-[52px] lg:h-14">
           {/* En desktop (lg+) la barra comienza justo sobre <main> (donde dice «Todos»), alineada con el contenido. */}
           <div className="pl-header-bar flex items-center justify-between gap-3 h-full min-w-0">
             {/* Izquierda: Logo a / + Buscador amplio + Selector de Rol */}
@@ -1251,34 +1306,6 @@ function ClubWorkspaceShellImpl({
             </div>
           </div>
         </div>
-
-        {/* Tira móvil/tablet de ligas rápidas */}
-        <nav
-          aria-label="Ligas rápidas móvil"
-          className="lg:hidden flex items-center gap-1 px-4 pb-2.5 overflow-x-auto"
-        >
-          {dataset.leagues.map((lg) => {
-            const href = `/app/${lg.league}`;
-            const isCurrent = activePath === href || activePath.startsWith(`${href}/`);
-            return (
-              <a
-                key={lg.league}
-                href={href}
-                data-league={lg.league}
-                aria-current={isCurrent ? "page" : undefined}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(href);
-                }}
-                className="league-tab seg-btn text-xs shrink-0"
-                data-active={isCurrent ? "true" : undefined}
-              >
-                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
-                <span>{lg.label}</span>
-              </a>
-            );
-          })}
-        </nav>
       </header>
 
       <div className="app-frame" data-collapsed={collapsed ? "true" : "false"}>
@@ -1368,7 +1395,12 @@ function ClubWorkspaceShellImpl({
                 <MaestroIcon name="trophy" size={15} style={{ color: "var(--pl-text-secondary)" }} />
                 <span className="rail-hide-collapsed truncate">Ligas</span>
               </span>
-              <MaestroIcon name="chevronRight" size={13} className="rail-hide-collapsed rail-group-chevron" />
+              <span className="rail-hide-collapsed inline-flex items-center gap-1.5 shrink-0">
+                <span className="text-xs num font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                  {dataset.leagues.length}
+                </span>
+                <MaestroIcon name="chevronRight" size={13} className="rail-group-chevron" />
+              </span>
             </button>
             <div
               id="rail-leagues"
@@ -1524,20 +1556,12 @@ function ClubWorkspaceShellImpl({
         </main>
       </div>
 
-      {/* Barra inferior móvil: los 4 destinos principales y «Más» */}
+      {/* Dock inferior móvil optimizado para pulgar (5 ítems >= 48px): Partidos · Picks · Parlay · Récord · Más */}
       <nav
         aria-label="Navegación móvil del Club"
         className="mobile-dock glass-pill-bar glass-ring"
       >
-        {(
-          [
-            ...primaryNavItems(parlayLegs.length, journal.length).map((i) => ({
-              href: i.href,
-              label: i.shortLabel ?? i.label,
-              icon: i.icon,
-            })),
-          ] as const
-        ).map((item) => {
+        {mobileDockItems.map((item) => {
           const active = activePath === item.href;
           return (
             <a
@@ -1548,11 +1572,11 @@ function ClubWorkspaceShellImpl({
                 e.preventDefault();
                 navigateTo(item.href);
               }}
-              className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
+              className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1.5"
               data-active={active ? "true" : undefined}
             >
-              <MaestroIcon name={item.icon} size={15} />
-              <span className="truncate max-w-full">{item.label}</span>
+              <MaestroIcon name={item.icon} size={16} />
+              <span className="truncate max-w-full">{item.shortLabel ?? item.label}</span>
             </a>
           );
         })}
@@ -1560,9 +1584,9 @@ function ClubWorkspaceShellImpl({
           type="button"
           aria-expanded={mobileMoreOpen}
           onClick={() => setMobileMoreOpen(true)}
-          className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
+          className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1.5"
         >
-          <MaestroIcon name="layers" size={15} />
+          <MaestroIcon name="dots" size={16} />
           <span>Más</span>
         </button>
       </nav>
@@ -1571,26 +1595,26 @@ function ClubWorkspaceShellImpl({
         open={mobileMoreOpen}
         onClose={() => setMobileMoreOpen(false)}
         ariaLabelledBy="mobile-more-dialog-title"
-        maxWidth="24rem"
+        maxWidth="25rem"
       >
-        <div className="glass-lens glass-ring w-full rounded-2xl p-5 space-y-4 max-h-[82vh] overflow-y-auto">
+        <div className="glass-lens glass-ring w-full rounded-2xl p-4 sm:p-5 space-y-4 max-h-[84dvh] overflow-y-auto">
           <div className="flex items-center justify-between">
-            <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
+            <h2 id="mobile-more-dialog-title" className="m-0 text-base font-extrabold">
               Más del Club
             </h2>
             <button
               type="button"
               autoFocus
-              className="pl-btn-glass px-2.5 min-h-8 inline-flex items-center justify-center"
+              className="pl-btn-glass px-3 min-h-11 inline-flex items-center justify-center"
               aria-label="Cerrar menú móvil"
               onClick={() => setMobileMoreOpen(false)}
             >
-              <MaestroIcon name="x" size={14} />
+              <MaestroIcon name="x" size={15} />
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
-            {allClubItems.map((m) => (
+            {mobileSheetItems.map((m) => (
               <a
                 key={m.href}
                 href={m.href}
@@ -1599,36 +1623,41 @@ function ClubWorkspaceShellImpl({
                   setMobileMoreOpen(false);
                   navigateTo(m.href);
                 }}
-                className="pl-btn-glass text-xs justify-start gap-2"
+                className="pl-btn-glass text-xs min-h-12 px-3 justify-start gap-2 no-underline"
               >
-                <MaestroIcon name={m.icon} size={14} />
-                <span className="truncate">{m.label}</span>
+                <MaestroIcon name={m.icon} size={15} />
+                <span className="truncate font-semibold">{m.label}</span>
               </a>
             ))}
           </div>
 
           <div className="ticket-perf" />
 
-          <div className="grid grid-cols-2 gap-2">
-            {dataset.leagues.map((lg) => (
-              <a
-                key={lg.league}
-                href={`/app/${lg.league}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMoreOpen(false);
-                  navigateTo(`/app/${lg.league}`);
-                }}
-                className="pl-btn-glass text-xs justify-start gap-2"
-              >
-                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
-                <span className="truncate">{lg.label}</span>
-              </a>
-            ))}
+          <div className="space-y-2">
+            <span className="block text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+              Ligas y torneos ({dataset.leagues.length})
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              {dataset.leagues.map((lg) => (
+                <a
+                  key={lg.league}
+                  href={`/app/${lg.league}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMoreOpen(false);
+                    navigateTo(`/app/${lg.league}`);
+                  }}
+                  className="pl-btn-glass text-xs min-h-12 px-3 justify-start gap-2 no-underline"
+                >
+                  <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                  <span className="truncate font-semibold">{lg.label}</span>
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="pt-2 flex items-center justify-between text-xs">
-            <a href="/legal/juego-responsable" className="underline">
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <a href="/legal/juego-responsable" className="underline min-h-11 inline-flex items-center">
               Ayuda y juego responsable +18
             </a>
             <OddsFormatSegment />
@@ -1643,25 +1672,17 @@ interface PrimaryNavItem extends RailNavItem {
   shortLabel?: string;
 }
 
-/** Los 4 destinos principales, iguales en el riel y en el dock móvil. */
-function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavItem[] {
+/** Los 4 destinos principales del dock móvil (>= 48 px) junto con «Más». */
+function mobileThumbDockItems(parlayCount: number): PrimaryNavItem[] {
   return [
-    { href: "/app", label: "Hoy", icon: "calendar" },
+    { href: "/app", label: "Partidos", shortLabel: "Partidos", icon: "calendar" },
+    { href: "/app/picks", label: "Explorar picks", shortLabel: "Picks", icon: "sparkles" },
     {
       href: "/app/parlays",
       label: "Armar parlay",
       shortLabel: parlayCount > 0 ? `Parlay (${parlayCount})` : "Parlay",
       icon: "layers",
-      badge: parlayCount > 0 ? `${parlayCount}` : undefined,
-      badgeBrand: parlayCount > 0,
     },
-    { href: "/app/social", label: "Comunidad", icon: "users" },
-    {
-      href: "/app/lab",
-      label: "Mi récord",
-      shortLabel: "Récord",
-      icon: "ticket",
-      badge: journalCount > 0 ? `${journalCount}` : undefined,
-    },
+    { href: "/app/lab", label: "Mi récord", shortLabel: "Récord", icon: "ticket" },
   ];
 }

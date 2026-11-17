@@ -11,6 +11,7 @@
  */
 import React, { useId, useMemo, useState } from "react";
 import type { LiveIncident, LiveMomentumPoint, LiveTeamStats, LiveXgPoint } from "@pitchlab/contracts";
+import { DualStatComparisonCard } from "../components/DualStatComparisonCard";
 
 const W = 640;
 const H = 168;
@@ -285,7 +286,7 @@ export function LiveStatBars({
   const fmt = (v: number | null, r: (typeof STAT_ROWS)[number]) =>
     v === null ? "—" : r.pct ? `${Math.round(v)} %` : r.digits ? v.toFixed(r.digits) : String(Math.round(v));
   return (
-    <section className="pl-live-stats" aria-label="Estadísticas del partido">
+    <section className="pl-live-stats space-y-2.5" aria-label="Estadísticas del partido">
       <div className="pl-live-stats-head" aria-hidden="true">
         <span>
           <span className="pl-live-key pl-live-key--home" /> {homeLabel}
@@ -294,34 +295,25 @@ export function LiveStatBars({
           {awayLabel} <span className="pl-live-key pl-live-key--away" />
         </span>
       </div>
-      <dl className="pl-live-stat-list">
+      <div className="pl-dual-stat-grid">
         {rows.map((r) => {
           const h = stats.home[r.key] ?? 0;
           const a = stats.away[r.key] ?? 0;
-          const max = Math.max(h, a, r.pct ? 100 : 0) || 1;
           return (
-            <div key={r.key} className="pl-live-stat">
-              <dt>{r.label}</dt>
-              <dd>
-                <span className="pl-live-stat-value num" data-lead={h > a ? "" : undefined}>
-                  <span className="sr-only">{homeLabel}: </span>
-                  {fmt(stats.home[r.key], r)}
-                </span>
-                <span className="pl-live-stat-track pl-live-stat-track--home" aria-hidden="true">
-                  <span style={{ inlineSize: `${(h / max) * 100}%` }} />
-                </span>
-                <span className="pl-live-stat-track pl-live-stat-track--away" aria-hidden="true">
-                  <span style={{ inlineSize: `${(a / max) * 100}%` }} />
-                </span>
-                <span className="pl-live-stat-value num" data-lead={a > h ? "" : undefined}>
-                  <span className="sr-only">{awayLabel}: </span>
-                  {fmt(stats.away[r.key], r)}
-                </span>
-              </dd>
-            </div>
+            <DualStatComparisonCard
+              key={r.key}
+              label={r.label}
+              homeLabel={homeLabel}
+              awayLabel={awayLabel}
+              homeValueText={fmt(stats.home[r.key], r)}
+              awayValueText={fmt(stats.away[r.key], r)}
+              homeNumeric={h}
+              awayNumeric={a}
+              percentageScale={Boolean(r.pct)}
+            />
           );
         })}
-      </dl>
+      </div>
     </section>
   );
 }

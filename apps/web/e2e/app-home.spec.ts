@@ -35,6 +35,26 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
   await expect(sportGroup).toBeVisible();
   await expect(page.getByRole("group", { name: "Elegir liga" })).toBeVisible();
+
+  if (width >= 1100) {
+    // Escritorio: vista Maestro-Detalle abre por defecto la radiografía del partido y conmuta a Tu Parlay y Picks
+    await expect(page.locator("[data-master-detail-preview]")).toBeVisible();
+    await page.locator('[data-detail-tab="radar"]').click();
+  } else {
+    // Móvil: verificar que >= 4 partidos reales son visibles en la primera pantalla (375×812) sin hacer scroll
+    await page.setViewportSize({ width: 375, height: 812 });
+    const visibleAboveFold = await page.locator("[data-game-card]").evaluateAll((els) => {
+      const vh = window.innerHeight;
+      return els.filter((el) => {
+        const r = el.getBoundingClientRect();
+        return r.height > 20 && r.top >= 0 && r.bottom <= vh;
+      }).length;
+    });
+    expect(visibleAboveFold).toBeGreaterThanOrEqual(4);
+    await page.setViewportSize({ width, height: 900 });
+    await page.locator('[data-mobile-view-tab="radar"]').click();
+  }
+
   await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
   const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
   await expect(dailyParlayTab).toBeVisible();
@@ -44,6 +64,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.locator('[data-daily-risk="arriesgado"]').click();
   await page.locator('[data-daily-risk="medio"]').click();
   await page.getByRole("tab", { name: /Tu parlay/i }).click();
+
+  if (width >= 1100) {
+    await page.locator('[data-detail-tab="match"]').click();
+  } else {
+    await page.locator('[data-mobile-view-tab="partidos"]').click();
+  }
 
   // Encabezado del Inicio: elegir NBA deja solo sus chips; avanzar con › hasta viernes; volver con Hoy; día vacío muestra «Ir al …».
   const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
@@ -268,9 +294,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }).toPass({ timeout: 10_000 });
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
-  // 6) Resultados: Parlays oficiales del día calificados
+  // 6) Resultados: Parlays oficiales del día calificados + Calendario mensual de resultados diarios
   await page.goto("/app/historial");
   await expect(page.locator("[data-hist-daily-parlays]")).toBeVisible();
+  const histCalBtn = page.locator("[data-historial-view-toggle] button", { hasText: "Calendario" });
+  await histCalBtn.click();
+  await expect(page.locator("[data-daily-results-calendar]")).toBeVisible();
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflowHist375 = await page.evaluate(
@@ -279,6 +308,11 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     expect(overflowHist375).toBe(false);
     await page.setViewportSize({ width, height: 900 });
   }
+
+  // 6b) Explorar picks: chips de 1 toque y comparador manual
+  await page.goto("/app/picks");
+  await expect(page.locator('[data-finder-chip="probables"]')).toBeVisible();
+  await page.locator('[data-finder-chip="probables"]').click();
 
   // 7) Ficha de partido: pestañas accesibles, números esperados y mercados derivados v3.2
   if (firstMatchHref) {

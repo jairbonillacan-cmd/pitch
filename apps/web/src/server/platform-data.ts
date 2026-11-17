@@ -17,6 +17,10 @@ import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
 import { buildDerivedFootballFallbackRows } from "./outlook-derived-rows";
 import {
+  enrichDatasetWithBookQuotes,
+  enrichMarketRowsWithBookQuotes,
+} from "./book-quotes";
+import {
   createDb,
   eq,
   FLAG_MONTH1_NO_CARD,
@@ -141,7 +145,7 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
     }
   }
 
-  const dataset = buildPlatformDataset(inputs);
+  const dataset = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
 
   return {
     ...dataset,
@@ -231,7 +235,8 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
           !game.markets.some((row) => row.market === "correct_score"),
         )
       : [];
-  const markets = v32 ? [...v32.markets, ...countMarkets] : [...game.markets, ...derivedFallbackRows];
+  const rawMarkets = v32 ? [...v32.markets, ...countMarkets] : [...game.markets, ...derivedFallbackRows];
+  const markets = enrichMarketRowsWithBookQuotes(game, rawMarkets);
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
   return {

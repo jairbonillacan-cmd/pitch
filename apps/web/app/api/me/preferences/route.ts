@@ -11,6 +11,7 @@ import {
   type UserPreferencesRecord,
 } from "@pitchlab/db";
 import { normalizeRecordPrivacy } from "@pitchlab/ui/record-stats";
+import { sanitizePreferredBooks } from "@pitchlab/ui/bookmakers";
 import { sanitizeFeaturedBadges } from "@pitchlab/ui/badges";
 import { loadMemberBadges } from "../../../../src/server/badges";
 import {
@@ -54,6 +55,7 @@ function serializePreferences(pref: UserPreferencesRecord) {
     recordPrivacy: normalizeRecordPrivacy(pref.recordPrivacy),
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos,
     followedTopics: pref.followedTopics,
+    preferredBooks: sanitizePreferredBooks(pref.preferredBooks),
     featuredBadges: pref.featuredBadges,
     updatedAtIso: pref.updatedAt ? pref.updatedAt.toISOString() : null,
   };
@@ -193,6 +195,13 @@ function parsePatch(body: Record<string, unknown>): {
       return { error: "Temas seguidos inválidos." };
     }
     patch.followedTopics = sanitizeFollowedTopics(body.followedTopics);
+  }
+
+  if (body.preferredBooks !== undefined) {
+    if (!Array.isArray(body.preferredBooks) || body.preferredBooks.some((b) => typeof b !== "string")) {
+      return { error: "Lista de casas de referencia inválida." };
+    }
+    patch.preferredBooks = sanitizePreferredBooks(body.preferredBooks);
   }
 
   if (body.featuredBadges !== undefined) {

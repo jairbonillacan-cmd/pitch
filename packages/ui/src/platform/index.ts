@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./bookmakers";
 export * from "./funnel-consent";
 export * from "./spacetime-catalog";
 export * from "./access-guard";
@@ -17,6 +18,10 @@ export * from "./components/CanjearCouponView";
 export * from "./components/ExpiredPassGate";
 export * from "./components/MatchTicketCard";
 export * from "./components/ShellChrome";
+export * from "./components/DailyResultsCalendar";
+export * from "./components/LivePicksTrackerStrip";
+export * from "./components/DualStatComparisonCard";
+export * from "./live/live-pick-progress";
 
 export * from "./public/LandingClientIslands";
 export * from "./public/PublicSiteSections";
@@ -45,6 +50,7 @@ export {
 export { OfficialDailyParlayCard } from "./club/home/OfficialDailyParlayCard";
 export { PersonalParlayQuickBar } from "./club/PersonalParlayQuickBar";
 export { HomeMatchCard } from "./components/HomeMatchCard";
+export { CompactMatchRow, type CompactMatchRowProps, type RecentFormCode } from "./components/CompactMatchRow";
 export * from "./components/MatchList";
 export * from "./club/match/MatchNumbersPanel";
 export * from "./club/match/match-tab";

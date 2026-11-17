@@ -679,7 +679,37 @@ export function TeamProfileClubView({
   const [activeTab, setActiveTab] = useState<TeamProfileTab>(
     initialTab === "plantilla" && !hasSquad ? "resumen" : initialTab,
   );
+  const [sideFeedMode, setSideFeedMode] = useState<"upcoming" | "finished">(
+    profile.upcomingFixtures.length > 0 ? "upcoming" : "finished",
+  );
+  const [isFavTeam, setIsFavTeam] = useState<boolean>(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  React.useEffect(() => {
+    try {
+      const key = `${profile.league}.${profile.team.slug}`;
+      const raw = window.localStorage.getItem("pl-fav-teams");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setIsFavTeam(parsed.includes(key));
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [profile.league, profile.team.slug]);
+
+  const toggleFavTeam = () => {
+    try {
+      const key = `${profile.league}.${profile.team.slug}`;
+      const raw = window.localStorage.getItem("pl-fav-teams");
+      const prev: string[] = raw ? JSON.parse(raw) : [];
+      const next = prev.includes(key) ? prev.filter((x) => x !== key) : [...prev, key];
+      window.localStorage.setItem("pl-fav-teams", JSON.stringify(next));
+      setIsFavTeam(next.includes(key));
+    } catch (err) {
+      void err;
+    }
+  };
 
   const teamColors = getTeamColors(profile.league, profile.team.slug);
   const primaryColor = teamColors?.[0] ?? "var(--pl-aura-default-home)";
@@ -744,30 +774,39 @@ export function TeamProfileClubView({
 
   const leagueHref = `/app/${profile.league}`;
   const nextUpcoming = profile.upcomingFixtures[0] ?? null;
+  const lastMatch = profile.recentMatches[0] ?? null;
 
   return (
     <AtmosphereStage activePath={`/app/${profile.league}/teams/${profile.team.slug}`}>
       <ClubWorkspaceShell activePath={`/app/${profile.league}/teams/${profile.team.slug}`}>
-        {/* Barra superior de retorno */}
+        {/* Barra superior de ruta y retorno */}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <a
-            href={leagueHref}
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo(leagueHref);
-            }}
-            className="pl-btn-glass text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
-          >
-            <MaestroIcon name="arrowLeft" size={13} />
-            <span>Volver a {profile.leagueLabel}</span>
-          </a>
+          <nav aria-label="Ruta del equipo" className="flex flex-wrap items-center gap-1.5 text-xs">
+            <a
+              href={leagueHref}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo(leagueHref);
+              }}
+              className="pl-btn-glass text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5 no-underline"
+            >
+              <MaestroIcon name="arrowLeft" size={13} />
+              <span>Volver a {profile.leagueLabel}</span>
+            </a>
+            <span className="hidden sm:inline" aria-hidden="true" style={{ color: "var(--pl-text-muted)" }}>
+              ›
+            </span>
+            <span className="hidden sm:inline font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
+              {profile.team.name}
+            </span>
+          </nav>
 
           <span className="pl-pill num text-xs">
             Actualizado {profile.updatedAt}
           </span>
         </div>
 
-        {/* Cabecera Hero del Equipo */}
+        {/* Cabecera Hero del Equipo a ancho completo + Partido anterior / siguiente */}
         <section
           className="glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-5 relative overflow-hidden"
           data-team-hero={profile.team.slug}
@@ -782,49 +821,156 @@ export function TeamProfileClubView({
               </span>
             </div>
 
-            {profile.standing ? (
-              <span className="pl-pill pl-pill--brand num text-xs font-bold">
-                #{profile.standing.rank} de {profile.standing.totalTeams} · {profile.standing.points} pts
-              </span>
-            ) : profile.recentAverages.sampleGames > 0 ? (
-              <span className="pl-pill pl-pill--brand num text-xs font-bold">
-                Balance reciente {formatRecordSummary(profile.recentAverages, hasDraw)}
-              </span>
-            ) : null}
+            <div className="flex flex-wrap items-center gap-2">
+              {profile.standing ? (
+                <span className="pl-pill pl-pill--brand num text-xs font-bold">
+                  #{profile.standing.rank} de {profile.standing.totalTeams} · {profile.standing.points} pts
+                </span>
+              ) : profile.recentAverages.sampleGames > 0 ? (
+                <span className="pl-pill pl-pill--brand num text-xs font-bold">
+                  Balance reciente {formatRecordSummary(profile.recentAverages, hasDraw)}
+                </span>
+              ) : null}
+              <span className="pl-soon-pill">Comparar · Pronto</span>
+              <button
+                type="button"
+                aria-pressed={isFavTeam}
+                aria-label={isFavTeam ? `Quitar a ${profile.team.name} de favoritos` : `Guardar a ${profile.team.name} en favoritos`}
+                onClick={toggleFavTeam}
+                className="pl-btn-glass min-h-11 min-w-11 px-3 text-xs font-bold inline-flex items-center justify-center gap-1.5"
+              >
+                <span aria-hidden="true">{isFavTeam ? "★" : "☆"}</span>
+                <span className="hidden sm:inline">{isFavTeam ? "En Favoritos" : "Favorito"}</span>
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 relative z-10">
-            <CrestPedestal size="lg" className="pl-team-crest-hero" glowColor={primaryColor}>
-              <TeamBadge
-                league={profile.league}
-                slug={profile.team.slug}
-                name={profile.team.name}
-                size={52}
-              />
-            </CrestPedestal>
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-5 relative z-10">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-0">
+              <CrestPedestal size="lg" className="pl-team-crest-hero" glowColor={primaryColor}>
+                <TeamBadge
+                  league={profile.league}
+                  slug={profile.team.slug}
+                  name={profile.team.name}
+                  size={52}
+                />
+              </CrestPedestal>
 
-            <div className="min-w-0 flex-1 space-y-1.5">
-              <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                {profile.team.name}
-              </h1>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                <span>
-                  {profile.team.shortName} · <strong className="num">{profile.team.code}</strong>
-                </span>
-                {profile.venue?.name ? (
-                  <span className="inline-flex items-center gap-1">
-                    <MaestroIcon name="pin" size={12} />
-                    <span>{profile.venue.name}</span>
+              <div className="min-w-0 flex-1 space-y-1.5">
+                <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                  {profile.team.name}
+                </h1>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                  <span>
+                    {profile.team.shortName} · <strong className="num">{profile.team.code}</strong>
                   </span>
+                  {profile.venue?.name ? (
+                    <span className="inline-flex items-center gap-1">
+                      <MaestroIcon name="pin" size={12} />
+                      <span>{profile.venue.name}</span>
+                    </span>
+                  ) : null}
+                </div>
+                {profile.recentAverages.streak.length > 0 ? (
+                  <div className="pt-1 flex items-center gap-2 text-xs">
+                    <span style={{ color: "var(--pl-text-muted)" }}>Racha:</span>
+                    <FormDots streak={profile.recentAverages.streak} />
+                  </div>
                 ) : null}
               </div>
-              {profile.recentAverages.streak.length > 0 ? (
-                <div className="pt-1 flex items-center gap-2 text-xs">
-                  <span style={{ color: "var(--pl-text-muted)" }}>Racha:</span>
-                  <FormDots streak={profile.recentAverages.streak} />
-                </div>
-              ) : null}
             </div>
+
+            {/* Par de mini-tarjetas laterales: Partido anterior y Partido siguiente */}
+            {lastMatch || nextUpcoming ? (
+              <div className="pl-hero-fixtures-pair">
+                {lastMatch ? (
+                  <div className="pl-hero-fixture-mini">
+                    <span className="pl-hero-fixture-kicker">Partido anterior</span>
+                    <div className="flex items-center justify-between gap-2 text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                      <span>{lastMatch.dateLabel}</span>
+                      <span className="font-bold">FT</span>
+                    </div>
+                    <div className="space-y-1 text-xs num">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1.5 min-w-0 font-bold">
+                          <TeamBadge
+                            league={profile.league}
+                            slug={lastMatch.isHome ? profile.team.slug : lastMatch.opponent.slug}
+                            name={lastMatch.isHome ? profile.team.name : lastMatch.opponent.name}
+                            size={16}
+                          />
+                          <span className="truncate">
+                            {lastMatch.isHome ? profile.team.shortName : lastMatch.opponent.shortName}
+                          </span>
+                        </span>
+                        <strong className="font-extrabold">
+                          {lastMatch.isHome ? lastMatch.teamScore : lastMatch.opponentScore}
+                        </strong>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1.5 min-w-0 font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
+                          <TeamBadge
+                            league={profile.league}
+                            slug={lastMatch.isHome ? lastMatch.opponent.slug : profile.team.slug}
+                            name={lastMatch.isHome ? lastMatch.opponent.name : profile.team.name}
+                            size={16}
+                          />
+                          <span className="truncate">
+                            {lastMatch.isHome ? lastMatch.opponent.shortName : profile.team.shortName}
+                          </span>
+                        </span>
+                        <strong className="font-extrabold">
+                          {lastMatch.isHome ? lastMatch.opponentScore : lastMatch.teamScore}
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {nextUpcoming ? (
+                  <a
+                    href={nextUpcoming.gameHref}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(nextUpcoming.gameHref);
+                    }}
+                    className="pl-hero-fixture-mini no-underline"
+                  >
+                    <span className="pl-hero-fixture-kicker">Partido siguiente</span>
+                    <div className="flex items-center justify-between gap-2 text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                      <span>{nextUpcoming.dateLabel}</span>
+                      <span className="font-bold" style={{ color: "var(--pl-brand)" }}>
+                        {nextUpcoming.kickoffLocal}
+                      </span>
+                    </div>
+                    <div className="space-y-1 text-xs" style={{ color: "var(--pl-text)" }}>
+                      <div className="flex items-center gap-1.5 min-w-0 font-bold">
+                        <TeamBadge
+                          league={profile.league}
+                          slug={nextUpcoming.isHome ? profile.team.slug : nextUpcoming.opponent.slug}
+                          name={nextUpcoming.isHome ? profile.team.name : nextUpcoming.opponent.name}
+                          size={16}
+                        />
+                        <span className="truncate">
+                          {nextUpcoming.isHome ? profile.team.shortName : nextUpcoming.opponent.shortName}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 min-w-0 font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
+                        <TeamBadge
+                          league={profile.league}
+                          slug={nextUpcoming.isHome ? nextUpcoming.opponent.slug : profile.team.slug}
+                          name={nextUpcoming.isHome ? nextUpcoming.opponent.name : profile.team.name}
+                          size={16}
+                        />
+                        <span className="truncate">
+                          {nextUpcoming.isHome ? nextUpcoming.opponent.shortName : profile.team.shortName}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
           <dl className="pl-ctx-stats relative z-10">
@@ -882,38 +1028,45 @@ export function TeamProfileClubView({
           </dl>
         </section>
 
-        {/* Navegación por pestañas accesibles (WCAG 1.4.1 + teclado + ?tab=) */}
-        <div
-          className="seg-well pl-tablist-underline"
-          role="tablist"
-          aria-label="Secciones del perfil del equipo"
-        >
-          {tabs.map((tab, idx) => {
-            const selected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                ref={(el) => {
-                  tabRefs.current[idx] = el;
-                }}
-                id={`team-tab-${tab.id}`}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                aria-controls={`team-panel-${tab.id}`}
-                tabIndex={selected ? 0 : -1}
-                onClick={() => selectTab(tab.id)}
-                onKeyDown={(e) => handleTabKeyDown(e, idx)}
-                className="seg-btn"
+        {/* Cuerpo de 2 columnas en escritorio (>= 1024px): main primero en DOM para orden de pestañas y prioridad móvil */}
+        <div className="pl-team-2col">
+          <div className="pl-team-main space-y-4 min-w-0">
+            {/* Navegación por pestañas accesibles (WCAG 1.4.1 + teclado + ?tab=, >= 44px táctil) */}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div
+                className="seg-well pl-tablist-underline"
+                role="tablist"
+                aria-label="Secciones del perfil del equipo"
               >
-                <span>{tab.label}</span>
-                {typeof tab.count === "number" ? (
-                  <span className="pl-pill num text-[11px] px-1.5 py-0">{tab.count}</span>
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
+                {tabs.map((tab, idx) => {
+                  const selected = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      ref={(el) => {
+                        tabRefs.current[idx] = el;
+                      }}
+                      id={`team-tab-${tab.id}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-controls={`team-panel-${tab.id}`}
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => selectTab(tab.id)}
+                      onKeyDown={(e) => handleTabKeyDown(e, idx)}
+                      className="seg-btn min-h-11"
+                    >
+                      <span>{tab.label}</span>
+                      {typeof tab.count === "number" ? (
+                        <span className="pl-pill num text-[11px] px-1.5 py-0">{tab.count}</span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <span className="pl-soon-pill hidden sm:inline-flex">Transferencias · Pronto</span>
+            </div>
 
         {/* Panel Resumen (sin estilos de caja en el elemento role="tabpanel" cuando hidden) */}
         <div
@@ -1078,6 +1231,134 @@ export function TeamProfileClubView({
             />
           </div>
         ) : null}
+          </div>
+
+          {/* Riel lateral izquierdo en escritorio (>= 1024px): Tarjeta compacta de Partidos (Próximos | Finalizados) */}
+          <aside className="pl-team-side space-y-4 min-w-0" aria-label={`Calendario rápido de ${profile.team.shortName}`}>
+            <section className="glass-card glass-ring rounded-2xl p-4 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="m-0 text-sm font-extrabold">Calendario</h2>
+                <span className="pl-pill text-[11px] num">
+                  {profile.upcomingFixtures.length + profile.recentMatches.length}
+                </span>
+              </div>
+
+              <div className="seg-well" role="group" aria-label="Vista rápida de partidos del equipo">
+                <button
+                  type="button"
+                  className="seg-btn flex-1 min-h-10 text-xs font-bold"
+                  aria-pressed={sideFeedMode === "finished"}
+                  onClick={() => setSideFeedMode("finished")}
+                >
+                  Finalizados
+                </button>
+                <button
+                  type="button"
+                  className="seg-btn flex-1 min-h-10 text-xs font-bold"
+                  aria-pressed={sideFeedMode === "upcoming"}
+                  onClick={() => setSideFeedMode("upcoming")}
+                >
+                  Próximos
+                </button>
+              </div>
+
+              {sideFeedMode === "upcoming" ? (
+                profile.upcomingFixtures.length > 0 ? (
+                  <ul className="m-0 p-0 list-none space-y-2">
+                    {profile.upcomingFixtures.slice(0, 6).map((fx) => (
+                      <li key={fx.id}>
+                        <a
+                          href={fx.gameHref}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo(fx.gameHref);
+                          }}
+                          className="rounded-xl p-2.5 flex items-center justify-between gap-2 text-xs no-underline"
+                          style={{
+                            background: "var(--pl-surface)",
+                            border: "1px solid var(--pl-border)",
+                            color: "var(--pl-text)",
+                          }}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <TeamBadge
+                              league={profile.league}
+                              slug={fx.opponent.slug}
+                              name={fx.opponent.name}
+                              size={20}
+                            />
+                            <div className="min-w-0">
+                              <strong className="block truncate">
+                                {fx.isHome ? "vs" : "@"} {fx.opponent.shortName}
+                              </strong>
+                              <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                                {fx.dateLabel} · {fx.kickoffLocal}
+                              </span>
+                            </div>
+                          </div>
+                          <MaestroIcon name="chevronRight" size={13} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Sin próximos partidos programados en este corte.
+                  </p>
+                )
+              ) : profile.recentMatches.length > 0 ? (
+                <ul className="m-0 p-0 list-none space-y-2">
+                  {profile.recentMatches.slice(0, 6).map((rm) => (
+                    <li
+                      key={rm.id}
+                      className="rounded-xl p-2.5 flex items-center justify-between gap-2 text-xs"
+                      style={{
+                        background: "var(--pl-surface)",
+                        border: "1px solid var(--pl-border)",
+                      }}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className={`pl-form-dot is-${rm.outcome}`} aria-hidden="true">
+                          {rm.outcome}
+                        </span>
+                        <TeamBadge
+                          league={profile.league}
+                          slug={rm.opponent.slug}
+                          name={rm.opponent.name}
+                          size={18}
+                        />
+                        <div className="min-w-0">
+                          <strong className="block truncate">
+                            {rm.isHome ? "vs" : "@"} {rm.opponent.shortName}
+                          </strong>
+                          <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                            {rm.dateLabel}
+                          </span>
+                        </div>
+                      </div>
+                      <strong className="num font-extrabold shrink-0">
+                        {rm.teamScore}–{rm.opponentScore}
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Sin marcadores recientes registrados.
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={() => selectTab("partidos")}
+                className="pl-btn-glass w-full min-h-11 text-xs font-bold inline-flex items-center justify-center gap-1.5"
+              >
+                <span>Ver historial completo</span>
+                <MaestroIcon name="arrowRight" size={12} />
+              </button>
+            </section>
+          </aside>
+        </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

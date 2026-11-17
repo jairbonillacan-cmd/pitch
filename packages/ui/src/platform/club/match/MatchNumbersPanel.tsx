@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { sportScoringUnit, type CountProjection } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
+import { DualStatComparisonCard } from "../../components/DualStatComparisonCard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchOutlookStrip } from "../../components/MatchOutlookStrip";
 import type {
@@ -228,54 +229,47 @@ export function MatchNumbersPanel({
       ) : (
         <>
           <div className="pl-num-grid" data-card-count={cards.length}>
-            {cards.map((card) => (
-              <article key={card.key} className="pl-num-card" data-count-card={card.key}>
-                <header className="pl-num-card-head">
-                  <div>
-                    <h3 className="m-0 text-sm font-extrabold">{card.title}</h3>
-                    <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                      {card.subtitle}
-                    </span>
-                  </div>
-                  <span className="pl-pill pl-pill--brand num text-xs">
-                    Total {card.totalValue}
-                  </span>
-                </header>
-
-                <div className="pl-num-split num">
-                  <div className="pl-num-side">
-                    <span className="pl-num-team">{game.home.shortName}</span>
-                    <strong>{card.homeValue}</strong>
-                  </div>
-                  <div className="pl-num-side is-away">
-                    <span className="pl-num-team">{game.away.shortName}</span>
-                    <strong>{card.awayValue}</strong>
-                  </div>
-                </div>
-
-                <div className="pl-num-bar" aria-hidden="true">
-                  <span className="is-home" style={{ width: `${card.homeSharePct}%` }} />
-                  <span className="is-away" style={{ width: `${100 - card.homeSharePct}%` }} />
-                </div>
-
-                {card.lineSummary ? (
-                  <p className="pl-num-line num m-0">{card.lineSummary}</p>
-                ) : null}
-
-                {card.marketRows.length > 0 ? (
-                  <ul className="pl-num-rows num" role="list">
-                    {card.marketRows.map((row) => (
-                      <li key={`${row.market}-${row.selection}`}>
-                        <span>{row.label}</span>
-                        <strong>
-                          {Math.round(row.p * 100)} % · {formatOddsValue(row.fairDecimal, oddsFormat)}
-                        </strong>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            ))}
+            {cards.map((card) => {
+              const homeNum = Number(card.homeValue);
+              const awayNum = Number(card.awayValue);
+              return (
+                <DualStatComparisonCard
+                  key={card.key}
+                  dataCountCard={card.key}
+                  label={card.title}
+                  subtitle={card.subtitle}
+                  badgeText={`Total ${card.totalValue}`}
+                  homeLabel={game.home.shortName}
+                  awayLabel={game.away.shortName}
+                  homeValueText={card.homeValue}
+                  awayValueText={card.awayValue}
+                  homeNumeric={Number.isFinite(homeNum) ? homeNum : card.homeSharePct}
+                  awayNumeric={Number.isFinite(awayNum) ? awayNum : 100 - card.homeSharePct}
+                  footer={
+                    card.lineSummary || card.marketRows.length > 0 ? (
+                      <>
+                        {card.lineSummary ? (
+                          <p className="pl-num-line num m-0">{card.lineSummary}</p>
+                        ) : null}
+                        {card.marketRows.length > 0 ? (
+                          <ul className="pl-num-rows num" role="list">
+                            {card.marketRows.map((row) => (
+                              <li key={`${row.market}-${row.selection}`}>
+                                <span>{row.label}</span>
+                                <strong>
+                                  {Math.round(row.p * 100)} % ·{" "}
+                                  {formatOddsValue(row.fairDecimal, oddsFormat)}
+                                </strong>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </>
+                    ) : undefined
+                  }
+                />
+              );
+            })}
           </div>
 
           {!isNfl && !hasCountMetrics ? (

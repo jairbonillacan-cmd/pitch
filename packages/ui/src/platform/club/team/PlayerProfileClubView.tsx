@@ -327,6 +327,34 @@ export function PlayerProfileClubView({
   const teamHref = `/app/${profile.league}/teams/${profile.team.slug}`;
   const isVisitorRestricted = viewerRole === "visitor" || profile.picksLocked;
 
+  const [isFavPlayer, setIsFavPlayer] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    try {
+      const key = `${profile.league}.${profile.team.slug}.${profile.player.slug}`;
+      const raw = window.localStorage.getItem("pl-fav-players");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setIsFavPlayer(parsed.includes(key));
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [profile.league, profile.player.slug, profile.team.slug]);
+
+  const toggleFavPlayer = () => {
+    try {
+      const key = `${profile.league}.${profile.team.slug}.${profile.player.slug}`;
+      const raw = window.localStorage.getItem("pl-fav-players");
+      const prev: string[] = raw ? JSON.parse(raw) : [];
+      const next = prev.includes(key) ? prev.filter((x) => x !== key) : [...prev, key];
+      window.localStorage.setItem("pl-fav-players", JSON.stringify(next));
+      setIsFavPlayer(next.includes(key));
+    } catch (err) {
+      void err;
+    }
+  };
+
   const statTiles = buildPlayerStatTiles(profile.player);
 
   const navigateOnPlainClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -334,6 +362,13 @@ export function PlayerProfileClubView({
     e.preventDefault();
     navigateTo(href);
   };
+
+  const playerInitials = profile.player.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
 
   return (
     <AtmosphereStage activePath={leagueHref}>
@@ -345,12 +380,23 @@ export function PlayerProfileClubView({
               href={squadHref}
               onClick={(e) => navigateOnPlainClick(e, squadHref)}
               className="pl-team-link inline-flex items-center gap-1 font-semibold"
-              style={{ color: "var(--pl-text-muted)" }}
+              style={{ color: "var(--pl-brand)" }}
             >
               <span>← Plantilla de {profile.team.shortName}</span>
             </a>
             <span aria-hidden="true" style={{ color: "var(--pl-text-muted)" }}>
-              /
+              ›
+            </span>
+            <a
+              href={leagueHref}
+              onClick={(e) => navigateOnPlainClick(e, leagueHref)}
+              className="pl-team-link font-semibold"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
+              {profile.leagueLabel}
+            </a>
+            <span aria-hidden="true" style={{ color: "var(--pl-text-muted)" }}>
+              ›
             </span>
             <a
               href={teamHref}
@@ -362,22 +408,26 @@ export function PlayerProfileClubView({
             </a>
           </nav>
 
-          {/* Hero del jugador */}
+          {/* Hero del jugador a ancho completo: Avatar + Club + Próximo partido + Franja inferior de bio */}
           <section
-            className="glass-lens glass-ring rounded-3xl p-5 sm:p-6 relative overflow-hidden"
+            className="glass-lens glass-ring rounded-3xl p-5 sm:p-6 space-y-4 relative overflow-hidden"
             data-team-hero="player"
           >
             <LensGlowOrbs primaryColor={primaryColor} secondaryColor={secondaryColor} />
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-5">
               <div className="flex items-center gap-4 min-w-0">
-                <CrestPedestal size="lg" glowColor={primaryColor}>
-                  <TeamBadge
-                    league={profile.league}
-                    slug={profile.team.slug}
-                    name={profile.team.name}
-                    size={54}
-                  />
-                </CrestPedestal>
+                <div className="pl-player-avatar-ring shrink-0">
+                  <span className="pl-player-avatar-initials num">{playerInitials}</span>
+                  <span className="pl-player-avatar-club">
+                    <TeamBadge
+                      league={profile.league}
+                      slug={profile.team.slug}
+                      name={profile.team.name}
+                      size={22}
+                    />
+                  </span>
+                </div>
 
                 <div className="space-y-1.5 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -399,221 +449,291 @@ export function PlayerProfileClubView({
                     {profile.player.name}
                   </h1>
 
-                  <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-muted)" }}>
-                    {profile.team.name} · Temporada {profile.seasonLabel}
-                    {profile.coachName ? ` · DT: ${profile.coachName}` : ""}
-                  </p>
-                </div>
-              </div>
-
-              {/* Bio física */}
-              <dl className="pl-ctx-stats grid grid-cols-2 sm:grid-cols-4 gap-2 m-0 shrink-0">
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Edad
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.age != null ? `${profile.player.age} años` : "—"}
-                  </dd>
-                </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Estatura
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.heightCm != null ? `${profile.player.heightCm} cm` : "—"}
-                  </dd>
-                </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Peso
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.weightKg != null ? `${profile.player.weightKg} kg` : "—"}
-                  </dd>
-                </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    País
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold truncate max-w-[110px]">
-                    {profile.player.nationality ?? profile.player.nationalityCode ?? "—"}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </section>
-
-          {/* Próximo compromiso si existe */}
-          {profile.nextFixture ? (
-            <section className="glass-card glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
-                  Próximo partido aplicable
-                </span>
-                <p className="m-0 text-sm font-bold">
-                  {profile.nextFixture.isHome ? "Local" : "Visita"} vs {profile.nextFixture.opponent.name} ·{" "}
-                  <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                    {profile.nextFixture.dateLabel}
-                  </span>
-                </p>
-              </div>
-              <a
-                href={`/app/partido/${encodeURIComponent(profile.nextFixture.id)}`}
-                onClick={(e) =>
-                  navigateOnPlainClick(e, `/app/partido/${encodeURIComponent(profile.nextFixture!.id)}`)
-                }
-                className="pl-btn pl-btn--ghost px-3 py-1.5 text-xs font-semibold no-underline"
-              >
-                Abrir estudio del partido →
-              </a>
-            </section>
-          ) : null}
-
-          {/* Estadísticas de temporada */}
-          <section
-            className="glass-card glass-ring rounded-2xl p-5 space-y-3"
-            aria-labelledby="player-stats-heading"
-          >
-            <div className="flex items-center justify-between gap-2">
-              <h2 id="player-stats-heading" className="m-0 text-base sm:text-lg font-extrabold">
-                Estadísticas de temporada
-              </h2>
-              <span className="pl-pill text-xs">Actualizado: {profile.updatedAt}</span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-              {statTiles.map((tile) => (
-                <div
-                  key={tile.label}
-                  className="rounded-xl p-3 space-y-1"
-                  style={{
-                    background: "var(--pl-surface)",
-                    border: "1px solid var(--pl-border)",
-                  }}
-                >
-                  <div className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                    {tile.label}
-                  </div>
-                  <div className="text-lg font-black num">{tile.value}</div>
-                  {tile.detail ? (
-                    <div className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                      {tile.detail}
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Picks aplicables al jugador */}
-          <section
-            className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-            aria-labelledby="player-picks-heading"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h2 id="player-picks-heading" className="m-0 text-base sm:text-lg font-extrabold">
-                  Picks individuales aplicables
-                </h2>
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Evaluación de líneas ajustada por rol de titularidad, volumen por aparición y contexto del rival.
-                </p>
-              </div>
-              <span className="pl-pill text-xs font-semibold">Tachyon Player Lab</span>
-            </div>
-
-            {isVisitorRestricted ? (
-              <div
-                className="rounded-2xl p-5 space-y-3"
-                style={{
-                  background: "var(--pl-surface-soft)",
-                  border: "1px solid var(--pl-border)",
-                }}
-                data-cero-fuga-lock="player-picks"
-              >
-                <div className="inline-flex items-center gap-2 font-extrabold text-sm">
-                  <MaestroIcon name="lock" size={16} style={{ color: "var(--pl-brand)" }} />
-                  <span>Proyecciones y líneas reservadas para Pase PitchLab Ultra</span>
-                </div>
-                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
-                  Las líneas sugeridas, probabilidades calibradas, momios justos y registro directo en Bitácora
-                  se habilitan con membresía activa.
-                </p>
-                <a
-                  href={upgradeHref}
-                  onClick={(e) => navigateOnPlainClick(e, upgradeHref)}
-                  className="pl-btn pl-btn--primary inline-flex items-center gap-2 px-4 py-2 text-xs font-bold no-underline"
-                >
-                  Desbloquear con Pase Ultra
-                </a>
-              </div>
-            ) : profile.player.candidatePicks.length === 0 ? (
-              <div
-                className="rounded-xl p-4 text-xs"
-                style={{
-                  background: "var(--pl-surface-soft)",
-                  color: "var(--pl-text-muted)",
-                }}
-              >
-                Muestra estadística todavía acotada (&lt; 3 apariciones o volumen debajo del umbral) para habilitar
-                líneas individuales confiables en este torneo.
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                {profile.player.candidatePicks.map((pick) => (
-                  <PlayerInteractivePickCard
-                    key={pick.id}
-                    pick={pick}
-                    profile={profile}
-                    oddsFormat={oddsFormat}
-                    journal={journal}
-                    onAddParlay={addPickToParlay}
-                    onSealJournal={sealPickToJournal}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Compañeros de plantilla */}
-          {profile.teammates.length > 0 ? (
-            <section className="glass-card glass-ring rounded-2xl p-5 space-y-3">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="m-0 text-sm font-extrabold">
-                  Más jugadores de {profile.team.shortName}
-                </h2>
-                <a
-                  href={squadHref}
-                  onClick={(e) => navigateOnPlainClick(e, squadHref)}
-                  className="pl-team-link text-xs font-semibold"
-                  style={{ color: "var(--pl-brand)" }}
-                >
-                  Ver plantilla completa →
-                </a>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                {profile.teammates.map((mate) => (
                   <a
-                    key={mate.slug}
-                    href={mate.href}
-                    onClick={(e) => navigateOnPlainClick(e, mate.href)}
-                    className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
-                    style={{
-                      background: "var(--pl-surface)",
-                      border: "1px solid var(--pl-border)",
-                      color: "var(--pl-text)",
-                    }}
+                    href={teamHref}
+                    onClick={(e) => navigateOnPlainClick(e, teamHref)}
+                    className="pl-team-link inline-flex items-center gap-2 text-xs sm:text-sm font-semibold"
+                    style={{ color: "var(--pl-text-secondary)" }}
                   >
-                    <span className="truncate font-semibold">{mate.shortName}</span>
-                    <span className="pl-pill num text-[10px] px-1.5 py-0 shrink-0">
-                      {mate.jersey ?? mate.positionGroup}
+                    <TeamBadge
+                      league={profile.league}
+                      slug={profile.team.slug}
+                      name={profile.team.name}
+                      size={18}
+                    />
+                    <span>
+                      {profile.team.name} · Temporada {profile.seasonLabel}
+                      {profile.coachName ? ` · DT: ${profile.coachName}` : ""}
                     </span>
                   </a>
-                ))}
+                </div>
               </div>
-            </section>
-          ) : null}
+
+              {/* Acciones + Mini-tarjeta de Próximo partido */}
+              <div className="flex flex-col sm:items-end gap-2.5 shrink-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="pl-soon-pill">Comparar · Pronto</span>
+                  <button
+                    type="button"
+                    aria-pressed={isFavPlayer}
+                    aria-label={isFavPlayer ? `Quitar a ${profile.player.name} de favoritos` : `Guardar a ${profile.player.name} en favoritos`}
+                    onClick={toggleFavPlayer}
+                    className="pl-btn-glass min-h-11 min-w-11 px-3 text-xs font-bold inline-flex items-center justify-center gap-1.5"
+                  >
+                    <span aria-hidden="true">{isFavPlayer ? "★" : "☆"}</span>
+                    <span>{isFavPlayer ? "Siguiendo" : "Favorito"}</span>
+                  </button>
+                </div>
+
+                {profile.nextFixture ? (
+                  <a
+                    href={`/app/partido/${encodeURIComponent(profile.nextFixture.id)}`}
+                    onClick={(e) =>
+                      navigateOnPlainClick(e, `/app/partido/${encodeURIComponent(profile.nextFixture!.id)}`)
+                    }
+                    className="pl-hero-fixture-mini no-underline"
+                  >
+                    <span className="pl-hero-fixture-kicker">Próximo partido</span>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                        {profile.nextFixture.dateLabel}
+                      </span>
+                      <span className="text-[11px] font-bold" style={{ color: "var(--pl-brand)" }}>
+                        Estudio →
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-bold" style={{ color: "var(--pl-text)" }}>
+                      <TeamBadge
+                        league={profile.league}
+                        slug={profile.nextFixture.isHome ? profile.team.slug : profile.nextFixture.opponent.slug}
+                        name={profile.nextFixture.isHome ? profile.team.name : profile.nextFixture.opponent.name}
+                        size={18}
+                      />
+                      <span className="truncate">
+                        {profile.nextFixture.isHome ? profile.team.shortName : profile.nextFixture.opponent.shortName}
+                      </span>
+                      <span style={{ color: "var(--pl-text-muted)" }}>vs</span>
+                      <TeamBadge
+                        league={profile.league}
+                        slug={profile.nextFixture.isHome ? profile.nextFixture.opponent.slug : profile.team.slug}
+                        name={profile.nextFixture.isHome ? profile.nextFixture.opponent.name : profile.team.name}
+                        size={18}
+                      />
+                      <span className="truncate">
+                        {profile.nextFixture.isHome ? profile.nextFixture.opponent.shortName : profile.team.shortName}
+                      </span>
+                    </div>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+
+            {/* Franja horizontal inferior de atributos biográficos */}
+            <dl className="pl-player-bio-strip relative z-10 m-0">
+              <div>
+                <dt>País</dt>
+                <dd>{profile.player.nationality ?? profile.player.nationalityCode ?? "—"}</dd>
+              </div>
+              <div>
+                <dt>Edad</dt>
+                <dd className="num">{profile.player.age != null ? `${profile.player.age} años` : "—"}</dd>
+              </div>
+              <div>
+                <dt>Posición</dt>
+                <dd>{POSITION_TITLE_ES[profile.player.positionGroup]}</dd>
+              </div>
+              <div>
+                <dt>Estatura</dt>
+                <dd className="num">{profile.player.heightCm != null ? `${profile.player.heightCm} cm` : "—"}</dd>
+              </div>
+              <div>
+                <dt>Peso</dt>
+                <dd className="num">{profile.player.weightKg != null ? `${profile.player.weightKg} kg` : "—"}</dd>
+              </div>
+              <div>
+                <dt>Dorsal</dt>
+                <dd className="num">{profile.player.jersey ? `#${profile.player.jersey}` : "—"}</dd>
+              </div>
+            </dl>
+          </section>
+
+          {/* Cuerpo de 2 columnas en escritorio (>= 1024px): Estadísticas + Pronto a la izquierda | Tachyon Player Lab a la derecha */}
+          <div className="pl-player-2col">
+            <div className="space-y-4 min-w-0">
+              {/* Estadísticas de temporada */}
+              <section
+                className="glass-card glass-ring rounded-2xl p-5 space-y-3"
+                aria-labelledby="player-stats-heading"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h2 id="player-stats-heading" className="m-0 text-base font-extrabold">
+                    Estadísticas de temporada
+                  </h2>
+                  <span className="pl-pill text-[11px] num">{profile.updatedAt}</span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2.5">
+                  {statTiles.map((tile) => (
+                    <div
+                      key={tile.label}
+                      className="rounded-xl p-3 space-y-1"
+                      style={{
+                        background: "var(--pl-surface)",
+                        border: "1px solid var(--pl-border)",
+                      }}
+                    >
+                      <div className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                        {tile.label}
+                      </div>
+                      <div className="text-lg font-black num">{tile.value}</div>
+                      {tile.detail ? (
+                        <div className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                          {tile.detail}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Módulos futuros honestos (Valor de mercado y Mapa de atributos) */}
+              <section className="glass-card glass-ring rounded-2xl p-4 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <strong className="text-xs font-extrabold">Valor de mercado y Radar 360°</strong>
+                  <span className="pl-soon-pill">Pronto</span>
+                </div>
+                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
+                  Estimación de valor de transferencia, percentiles frente a su posición y mapa de calor de temporada estarán disponibles próximamente.
+                </p>
+              </section>
+
+              {/* Compañeros de plantilla */}
+              {profile.teammates.length > 0 ? (
+                <section className="glass-card glass-ring rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <h2 className="m-0 text-sm font-extrabold">
+                      Más jugadores de {profile.team.shortName}
+                    </h2>
+                    <a
+                      href={squadHref}
+                      onClick={(e) => navigateOnPlainClick(e, squadHref)}
+                      className="pl-team-link text-xs font-semibold"
+                      style={{ color: "var(--pl-brand)" }}
+                    >
+                      Plantilla →
+                    </a>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-1.5">
+                    {profile.teammates.slice(0, 8).map((mate) => (
+                      <a
+                        key={mate.slug}
+                        href={mate.href}
+                        onClick={(e) => navigateOnPlainClick(e, mate.href)}
+                        className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
+                        style={{
+                          background: "var(--pl-surface)",
+                          border: "1px solid var(--pl-border)",
+                          color: "var(--pl-text)",
+                        }}
+                      >
+                        <span className="truncate font-semibold">{mate.shortName}</span>
+                        <span className="pl-pill num text-[10px] px-1.5 py-0 shrink-0">
+                          {mate.jersey ?? mate.positionGroup}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+            </div>
+
+            <div className="space-y-4 min-w-0">
+              {/* Picks aplicables al jugador */}
+              <section
+                className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+                aria-labelledby="player-picks-heading"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <h2 id="player-picks-heading" className="m-0 text-base sm:text-lg font-extrabold">
+                      Picks individuales aplicables
+                    </h2>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Evaluación de líneas ajustada por rol de titularidad, volumen por aparición y contexto del rival.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="pl-pill text-xs font-semibold">Tachyon Player Lab</span>
+                    <span className="pl-soon-pill">Carrera · Pronto</span>
+                  </div>
+                </div>
+
+                {isVisitorRestricted ? (
+                  <div
+                    className="rounded-2xl p-5 space-y-3"
+                    style={{
+                      background: "var(--pl-surface-soft)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                    data-cero-fuga-lock="player-picks"
+                  >
+                    <div className="inline-flex items-center gap-2 font-extrabold text-sm">
+                      <MaestroIcon name="lock" size={16} style={{ color: "var(--pl-brand)" }} />
+                      <span>Proyecciones y líneas reservadas para Pase PitchLab Ultra</span>
+                    </div>
+                    <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
+                      Las líneas sugeridas, probabilidades calibradas, momios justos y registro directo en Bitácora
+                      se habilitan con membresía activa.
+                    </p>
+                    <a
+                      href={upgradeHref}
+                      onClick={(e) => navigateOnPlainClick(e, upgradeHref)}
+                      className="pl-btn pl-btn--primary inline-flex items-center gap-2 px-4 py-2 text-xs font-bold no-underline"
+                    >
+                      Desbloquear con Pase Ultra
+                    </a>
+                  </div>
+                ) : profile.player.candidatePicks.length === 0 ? (
+                  <div
+                    className="rounded-xl p-4 text-xs"
+                    style={{
+                      background: "var(--pl-surface-soft)",
+                      color: "var(--pl-text-muted)",
+                    }}
+                  >
+                    Muestra estadística todavía acotada (&lt; 3 apariciones o volumen debajo del umbral) para habilitar
+                    líneas individuales confiables en este torneo.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
+                    {profile.player.candidatePicks.map((pick) => (
+                      <PlayerInteractivePickCard
+                        key={pick.id}
+                        pick={pick}
+                        profile={profile}
+                        oddsFormat={oddsFormat}
+                        journal={journal}
+                        onAddParlay={addPickToParlay}
+                        onSealJournal={sealPickToJournal}
+                      />
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              <section className="glass-card glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-2">
+                <div className="space-y-0.5">
+                  <strong className="block text-xs font-extrabold">
+                    Registro partido a partido e historial de carrera
+                  </strong>
+                  <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Minutos jugados, tiros y tarjetas jornada por jornada se integrarán en una próxima entrega.
+                  </span>
+                </div>
+                <span className="pl-soon-pill">Pronto</span>
+              </section>
+            </div>
+          </div>
         </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>

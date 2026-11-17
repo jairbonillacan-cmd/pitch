@@ -19,6 +19,8 @@ import {
 } from "../preview-spei-store";
 import { CountUpNumber } from "./CountUpNumber";
 import { ReferralCard3D } from "./ReferralCard3D";
+import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
+import { buildModelDailyCalendar } from "../record-stats";
 import type {
   LandingFinishedResultItem,
   LandingHeroLeagueCard,
@@ -1137,6 +1139,7 @@ export function ResultsFilterListIsland({
 }): React.JSX.Element {
   const [selectedLeague, setSelectedLeague] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState<number>(RESULTS_PAGE_SIZE);
+  const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
 
   const selectLeague = (league: string): void => {
     setSelectedLeague(league);
@@ -1164,39 +1167,90 @@ export function ResultsFilterListIsland({
   const hitsCount = filtered.filter((item) => item.hit).length;
   const visibleItems = filtered.slice(0, visibleCount);
   const remainingCount = Math.max(0, filtered.length - visibleItems.length);
+  const hasCalendarDates = filtered.some((item) => Boolean(item.kickoffUtc));
+
+  const buildPublicCalendar = React.useCallback(
+    (ym: string) =>
+      buildModelDailyCalendar(
+        filtered
+          .filter((item) => Boolean(item.kickoffUtc))
+          .map((item) => ({
+            id: item.id,
+            kickoffUtc: item.kickoffUtc!,
+            label: item.scoreLabel,
+            subtitle: `${item.leagueLabel} · ${item.pickLabel}`,
+            hit: item.hit,
+          })),
+        ym || undefined,
+      ),
+    [filtered],
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
-      {leagues.length > 0 ? (
-        <div
-          role="group"
-          aria-label="Filtrar resultados por liga"
-          className="pl-lp-league-tabs"
-        >
-          <button
-            type="button"
-            className="pl-lp-tab"
-            aria-pressed={selectedLeague === "all"}
-            onClick={() => selectLeague("all")}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        {leagues.length > 0 ? (
+          <div
+            role="group"
+            aria-label="Filtrar resultados por liga"
+            className="pl-lp-league-tabs"
           >
-            Todas ({results.length})
-          </button>
-          {leagues.map((lg) => (
             <button
-              key={lg.league}
               type="button"
               className="pl-lp-tab"
-              aria-pressed={selectedLeague === lg.league}
-              onClick={() => selectLeague(lg.league)}
+              aria-pressed={selectedLeague === "all"}
+              onClick={() => selectLeague("all")}
             >
-              <LeagueBadge league={lg.league} size={18} />
-              <span>{lg.label}</span>
+              Todas ({results.length})
             </button>
-          ))}
-        </div>
-      ) : null}
+            {leagues.map((lg) => (
+              <button
+                key={lg.league}
+                type="button"
+                className="pl-lp-tab"
+                aria-pressed={selectedLeague === lg.league}
+                onClick={() => selectLeague(lg.league)}
+              >
+                <LeagueBadge league={lg.league} size={18} />
+                <span>{lg.label}</span>
+              </button>
+            ))}
+          </div>
+        ) : <span />}
 
-      <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
+        {hasCalendarDates ? (
+          <div
+            className="seg-well"
+            role="group"
+            aria-label="Modo de vista de resultados"
+            data-public-results-view-toggle=""
+          >
+            <button
+              type="button"
+              className="seg-btn text-xs min-h-10"
+              aria-pressed={viewMode === "list"}
+              onClick={() => setViewMode("list")}
+            >
+              Lista
+            </button>
+            <button
+              type="button"
+              className="seg-btn text-xs min-h-10"
+              aria-pressed={viewMode === "calendar"}
+              onClick={() => setViewMode("calendar")}
+            >
+              Calendario
+            </button>
+          </div>
+        ) : null}
+      </div>
+
+      {viewMode === "calendar" && hasCalendarDates ? (
+        <div className="pl-lp-card glass-card glass-ring p-5">
+          <DailyResultsCalendar buildMonth={buildPublicCalendar} mode="model" />
+        </div>
+      ) : (
+        <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
         {filtered.length === 0 ? (
           <p className="pl-lp-fine" style={{ padding: "20px 0" }}>
             Aún no hay partidos finalizados para mostrar en esta liga.
@@ -1319,7 +1373,8 @@ export function ResultsFilterListIsland({
             </div>
           </>
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

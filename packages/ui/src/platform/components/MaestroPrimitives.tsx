@@ -345,31 +345,13 @@ export function MaestroIcon({
   );
 }
 
-export function LensGlowOrbs({
-  primaryColor = "var(--pl-aura-1)",
-  secondaryColor = "var(--pl-aura-2)",
-  subtle = false,
-}: {
+export function LensGlowOrbs(_props: {
   primaryColor?: string;
   secondaryColor?: string;
   subtle?: boolean;
-}): React.JSX.Element {
-  return (
-    <div
-      className="pl-lens-orbs pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"
-      data-subtle={subtle ? "true" : undefined}
-      aria-hidden="true"
-    >
-      <span
-        className="pl-lens-orb pl-lens-orb--primary"
-        style={{ "--orb-color": primaryColor } as React.CSSProperties}
-      />
-      <span
-        className="pl-lens-orb pl-lens-orb--secondary"
-        style={{ "--orb-color": secondaryColor } as React.CSSProperties}
-      />
-    </div>
-  );
+}): React.JSX.Element | null {
+  void _props;
+  return null;
 }
 
 export function CrestPedestal({

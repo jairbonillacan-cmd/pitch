@@ -7,7 +7,6 @@ import {
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
-import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   LeagueBadge,
   ProbSplit,
@@ -16,6 +15,7 @@ import {
 } from "../../sports";
 import {
   decimalToAmericanInt,
+  formatOddsValue,
   getSessionWatermark,
   isPreGameIntelUnlocked,
 } from "../access-guard";
@@ -228,7 +228,7 @@ export function LeagueHubClubView({
   initialNews?: readonly LeagueNewsItem[];
   initialSection?: LeagueHubSectionKey;
 }): React.JSX.Element {
-  const { dataset, viewerRole, navigateTo } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, upgradeHref, navigateTo } = usePlatform();
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [section, setSection] = useState<LeagueHubSectionKey>(initialSection);
   const [teamQuery, setTeamQuery] = useState<string>("");
@@ -236,6 +236,7 @@ export function LeagueHubClubView({
   const [selectedNewsItem, setSelectedNewsItem] = useState<LeagueNewsItem | null>(null);
   const [loadedNewsSummary, setLoadedNewsSummary] = useState<LeagueNewsArticleSummary | null>(null);
   const [summaryLoading, setSummaryLoading] = useState<boolean>(false);
+  const [isFavLeague, setIsFavLeague] = useState<boolean>(false);
   const newsSummaryCacheRef = useRef<Map<string, LeagueNewsArticleSummary>>(new Map());
   const summaryAbortRef = useRef<AbortController | null>(null);
   const newsDialogTitleId = useId();
@@ -244,6 +245,30 @@ export function LeagueHubClubView({
   const panelTablaRef = useRef<HTMLDivElement | null>(null);
   const panelNoticiasRef = useRef<HTMLDivElement | null>(null);
   const panelEquiposRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("pl-fav-leagues");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setIsFavLeague(parsed.includes(leagueId));
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [leagueId]);
+
+  const toggleLeagueFavorite = () => {
+    try {
+      const raw = window.localStorage.getItem("pl-fav-leagues");
+      const prev: string[] = raw ? JSON.parse(raw) : [];
+      const next = prev.includes(leagueId) ? prev.filter((x) => x !== leagueId) : [...prev, leagueId];
+      window.localStorage.setItem("pl-fav-leagues", JSON.stringify(next));
+      setIsFavLeague(next.includes(leagueId));
+    } catch (err) {
+      void err;
+    }
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -427,6 +452,52 @@ export function LeagueHubClubView({
 
   const hubPath = `/app/${leagueSummary.league}`;
   const leader = leagueSummary.standings[0];
+  const leagueHasDraw = sportHasDraw(leagueSummary.sport);
+  const sportBreadcrumbLabel =
+    leagueSummary.sport === "basketball"
+      ? "Basquetbol"
+      : leagueSummary.sport === "american-football"
+        ? "Fútbol americano"
+        : leagueSummary.sport === "ice-hockey"
+          ? "Hockey"
+          : isNational
+            ? "Selecciones"
+            : "Fútbol";
+
+  const totalLeagueGames = Math.max(
+    1,
+    leagueSummary.finishedCount + leagueSummary.upcomingCount,
+  );
+
+  const featuredGame = useMemo<PlatformGame | null>(() => {
+    const open = leagueGames
+      .filter((g) => g.status !== "FT")
+      .slice()
+      .sort((a, b) => (b.confidenceScore ?? 0) - (a.confidenceScore ?? 0));
+    if (open[0]) return open[0];
+    return leagueGames[leagueGames.length - 1] ?? null;
+  }, [leagueGames]);
+
+  const recentFormBySlug = useMemo(() => {
+    const map = new Map<string, Array<"G" | "E" | "P">>();
+    const ftSorted = leagueGames
+      .filter((g) => g.status === "FT" && g.score !== undefined)
+      .slice()
+      .sort((a, b) => a.kickoffUtc.localeCompare(b.kickoffUtc));
+    for (const g of ftSorted) {
+      const sh = g.score!.home;
+      const sa = g.score!.away;
+      const hOut: "G" | "E" | "P" = sh > sa ? "G" : sh < sa ? "P" : "E";
+      const aOut: "G" | "E" | "P" = sa > sh ? "G" : sa < sh ? "P" : "E";
+      const hArr = map.get(g.home.slug) ?? [];
+      hArr.push(hOut);
+      map.set(g.home.slug, hArr.slice(-5));
+      const aArr = map.get(g.away.slug) ?? [];
+      aArr.push(aOut);
+      map.set(g.away.slug, aArr.slice(-5));
+    }
+    return map;
+  }, [leagueGames]);
 
   const handleSectionKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
@@ -451,109 +522,170 @@ export function LeagueHubClubView({
   return (
     <AtmosphereStage activePath={hubPath}>
       <ClubWorkspaceShell activePath={hubPath}>
-        <section className="glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 flex flex-wrap items-center justify-between gap-4 relative overflow-hidden">
+        {/* Ruta de navegación de la competición */}
+        <nav
+          aria-label="Ruta de la competición"
+          className="flex flex-wrap items-center gap-1.5 text-xs"
+          style={{ color: "var(--pl-text-muted)" }}
+        >
+          <a
+            href="/app"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/app");
+            }}
+            className="pl-team-link font-semibold"
+            style={{ color: "var(--pl-brand)" }}
+          >
+            Partidos
+          </a>
+          <span aria-hidden="true">›</span>
+          <span>{sportBreadcrumbLabel}</span>
+          <span aria-hidden="true">›</span>
+          <span className="truncate" style={{ color: "var(--pl-text-secondary)" }}>
+            {leagueSummary.label}
+          </span>
+        </nav>
+
+        {/* Tarjeta Hero de Competición a ancho completo + Barra de progreso de temporada */}
+        <section className="glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 relative overflow-hidden">
           <LensGlowOrbs subtle />
 
-          <div className="flex items-center gap-4 relative z-10">
-            <CrestPedestal size="lg">
-              <LeagueBadge
-                league={leagueSummary.league}
-                label={leagueSummary.label}
-                logoUrl={leagueSummary.logoUrl}
-                size={40}
-              />
-            </CrestPedestal>
-            <div>
-              <span
-                className="text-xs font-bold"
-                style={{ color: "var(--pl-brand)" }}
+          <div className="flex flex-wrap items-start justify-between gap-4 relative z-10">
+            <div className="flex items-center gap-4 min-w-0">
+              <CrestPedestal size="lg">
+                <LeagueBadge
+                  league={leagueSummary.league}
+                  label={leagueSummary.label}
+                  logoUrl={leagueSummary.logoUrl}
+                  size={44}
+                />
+              </CrestPedestal>
+              <div className="space-y-1.5 min-w-0">
+                <h1 id="panel-league-name" className="m-0 text-2xl sm:text-3xl font-extrabold truncate">
+                  {leagueSummary.label}
+                </h1>
+                <div className="flex flex-wrap items-center gap-2 text-xs">
+                  <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
+                    {sportBreadcrumbLabel}
+                  </span>
+                  {leagueSummary.season ? (
+                    <span className="pl-pill num text-[11px] font-bold">{leagueSummary.season}</span>
+                  ) : null}
+                  {leagueSummary.roundLabel ? (
+                    <span className="pl-pill pl-pill--brand text-[11px] font-bold">
+                      {leagueSummary.roundLabel}
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 text-xs num relative z-10">
+              <button
+                type="button"
+                aria-pressed={isFavLeague}
+                onClick={toggleLeagueFavorite}
+                className={`pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5 font-bold ${isFavLeague ? "" : "pl-btn-glass"}`.trim()}
               >
-                {[leagueSummary.season, leagueSummary.roundLabel].filter(Boolean).join(" · ")}
-              </span>
-              <h1 id="panel-league-name" className="m-0 text-2xl sm:text-3xl font-extrabold">
-                {leagueSummary.label}
-              </h1>
+                <span aria-hidden="true">{isFavLeague ? "★" : "☆"}</span>
+                <span>{isFavLeague ? "En Favoritos" : "Favorito"}</span>
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-1.5"
+                data-jump-standings=""
+                onClick={() => selectSection("tabla")}
+              >
+                <MaestroIcon name="trophy" size={12} />
+                <span>
+                  {leader
+                    ? `Tabla · 1.º ${leader.shortName || leader.name}`
+                    : "Ver tabla"}
+                </span>
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-1.5"
+                data-jump-news=""
+                onClick={() => selectSection("noticias")}
+              >
+                <MaestroIcon name="bolt" size={12} />
+                <span>Noticias ({newsItems.length})</span>
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs num relative z-10">
-            <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
-              <MaestroIcon name="calendar" size={12} />
-              <span>{leagueSummary.upcomingCount} por jugar</span>
-            </span>
-            <span className="pl-pill pl-pill--success inline-flex items-center gap-1">
-              <MaestroIcon name="check" size={12} />
+          {/* Barra inferior de progreso de la jornada / temporada */}
+          <div className="pl-season-progress relative z-10">
+            <progress
+              className="pl-season-progress-bar"
+              max={totalLeagueGames}
+              value={leagueSummary.finishedCount}
+              aria-label={`Avance de partidos en ${leagueSummary.label}: ${leagueSummary.finishedCount} finalizados de ${totalLeagueGames}`}
+            />
+            <div className="flex items-center justify-between gap-2 text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
               <span>{leagueSummary.finishedCount} auditados FT</span>
-            </span>
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
-              data-jump-standings=""
-              onClick={() => selectSection("tabla")}
-            >
-              <MaestroIcon name="trophy" size={12} />
-              <span>
-                {leader
-                  ? `Tabla · 1.º ${leader.shortName || leader.name}`
-                  : "Ver tabla"}
-              </span>
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
-              data-jump-news=""
-              onClick={() => selectSection("noticias")}
-            >
-              <MaestroIcon name="bolt" size={12} />
-              <span>Noticias ({newsItems.length})</span>
-            </button>
+              <span>{leagueSummary.upcomingCount} por jugar</span>
+            </div>
           </div>
         </section>
 
-        {/* Barra de secciones de la liga: acceso inmediato sin hacer scroll */}
-        <nav aria-label={`Secciones de ${leagueSummary.label}`}>
-          <div
-            role="tablist"
-            aria-label={`Navegar en ${leagueSummary.label}`}
-            className="pl-match-tabs pl-league-tabs"
-          >
-            {LEAGUE_SECTIONS.map((tabDef, index) => {
-              const isSelected = section === tabDef.key;
-              const badgeCount =
-                tabDef.key === "partidos"
-                  ? filteredGames.length
-                  : tabDef.key === "tabla"
-                    ? leagueSummary.standings.length > 0
-                      ? leagueSummary.standings.length
-                      : undefined
-                    : tabDef.key === "noticias"
-                      ? newsItems.length
-                      : directoryTeams.length;
-              return (
-                <button
-                  key={tabDef.key}
-                  ref={(el) => {
-                    sectionRefs.current[index] = el;
-                  }}
-                  type="button"
-                  role="tab"
-                  id={`pl-league-tab-${tabDef.key}`}
-                  data-league-section-tab={tabDef.key}
-                  aria-selected={isSelected}
-                  tabIndex={isSelected ? 0 : -1}
-                  className="pl-match-tab"
-                  onClick={() => selectSection(tabDef.key)}
-                  onKeyDown={(e) => handleSectionKeyDown(e, index)}
-                >
-                  <span>{tabDef.key === "equipos" && isNational ? "Selecciones" : tabDef.label}</span>
-                  {badgeCount !== undefined ? (
-                    <span className="pl-match-tab-count num">{badgeCount}</span>
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-        </nav>
+        {/* Diseño de 2 columnas estilo Hub Deportivo (DOM: main primero para accesibilidad/móvil, side a la izquierda en >= 1024px) */}
+        <div className="pl-league-2col">
+          <div className="pl-league-main space-y-4 min-w-0">
+            {/* Barra de secciones de la liga + indicadores honestos Pronto */}
+            <nav
+              aria-label={`Secciones de ${leagueSummary.label}`}
+              className="flex flex-wrap items-center justify-between gap-2"
+            >
+              <div
+                role="tablist"
+                aria-label={`Navegar en ${leagueSummary.label}`}
+                className="pl-match-tabs pl-league-tabs"
+              >
+                {LEAGUE_SECTIONS.map((tabDef, index) => {
+                  const isSelected = section === tabDef.key;
+                  const badgeCount =
+                    tabDef.key === "partidos"
+                      ? filteredGames.length
+                      : tabDef.key === "tabla"
+                        ? leagueSummary.standings.length > 0
+                          ? leagueSummary.standings.length
+                          : undefined
+                        : tabDef.key === "noticias"
+                          ? newsItems.length
+                          : directoryTeams.length;
+                  return (
+                    <button
+                      key={tabDef.key}
+                      ref={(el) => {
+                        sectionRefs.current[index] = el;
+                      }}
+                      type="button"
+                      role="tab"
+                      id={`pl-league-tab-${tabDef.key}`}
+                      data-league-section-tab={tabDef.key}
+                      aria-selected={isSelected}
+                      tabIndex={isSelected ? 0 : -1}
+                      className="pl-match-tab"
+                      onClick={() => selectSection(tabDef.key)}
+                      onKeyDown={(e) => handleSectionKeyDown(e, index)}
+                    >
+                      <span>{tabDef.key === "equipos" && isNational ? "Selecciones" : tabDef.label}</span>
+                      {badgeCount !== undefined ? (
+                        <span className="pl-match-tab-count num">{badgeCount}</span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="pl-soon-pill">Eliminatorias · Pronto</span>
+                <span className="pl-soon-pill">Líderes · Pronto</span>
+              </div>
+            </nav>
 
         {/* Sección 1: Partidos */}
         <div
@@ -619,7 +751,7 @@ export function LeagueHubClubView({
           </div>
         </div>
 
-        {/* Sección 2: Tabla de Posiciones (accesible al instante desde arriba) */}
+        {/* Sección 2: Tabla de Posiciones enriquecida con Últimas 5 (G/E/P) */}
         <div
           ref={panelTablaRef}
           role="tabpanel"
@@ -665,14 +797,19 @@ export function LeagueHubClubView({
                         <th scope="col" className="py-2 px-2 text-right">
                           G
                         </th>
-                        <th scope="col" className="py-2 px-2 text-right">
-                          E
-                        </th>
+                        {leagueHasDraw ? (
+                          <th scope="col" className="py-2 px-2 text-right">
+                            E
+                          </th>
+                        ) : null}
                         <th scope="col" className="py-2 px-2 text-right">
                           P
                         </th>
                         <th scope="col" className="py-2 px-2 text-right">
                           DG
+                        </th>
+                        <th scope="col" className="py-2 px-2 text-center hidden sm:table-cell">
+                          Últimas 5
                         </th>
                         <th scope="col" className="py-2 pl-2 text-right">
                           Pts
@@ -685,6 +822,7 @@ export function LeagueHubClubView({
                           ? row.teamId.split(".")[1]!
                           : row.teamId;
                         const dg = row.goalsFor - row.goalsAgainst;
+                        const form = recentFormBySlug.get(slug) ?? [];
                         return (
                           <tr key={row.teamId} className="hairline-b">
                             <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
@@ -710,10 +848,34 @@ export function LeagueHubClubView({
                             </td>
                             <td className="py-2.5 px-2 text-right num">{row.played}</td>
                             <td className="py-2.5 px-2 text-right num">{row.won}</td>
-                            <td className="py-2.5 px-2 text-right num">{row.drawn}</td>
+                            {leagueHasDraw ? (
+                              <td className="py-2.5 px-2 text-right num">{row.drawn}</td>
+                            ) : null}
                             <td className="py-2.5 px-2 text-right num">{row.lost}</td>
                             <td className="py-2.5 px-2 text-right num">
                               {dg > 0 ? `+${dg}` : dg}
+                            </td>
+                            <td className="py-2.5 px-2 hidden sm:table-cell">
+                              {form.length > 0 ? (
+                                <span
+                                  className="pl-form justify-center"
+                                  aria-label={`Últimos resultados de ${row.name}: ${form.join("-")}`}
+                                >
+                                  {form.map((code, fIdx) => (
+                                    <span
+                                      key={`${code}-${fIdx}`}
+                                      className={`pl-form-dot is-${code}`}
+                                      aria-hidden="true"
+                                    >
+                                      {code}
+                                    </span>
+                                  ))}
+                                </span>
+                              ) : (
+                                <span className="block text-center text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                                  —
+                                </span>
+                              )}
                             </td>
                             <td className="py-2.5 pl-2 text-right num font-extrabold">
                               {row.points}
@@ -957,6 +1119,192 @@ export function LeagueHubClubView({
             ) : null}
           </div>
         </div>
+          </div>
+
+          {/* Riel izquierdo en escritorio (>= 1024px): Partido Destacado + Próximamente */}
+          <aside className="pl-league-side space-y-4 min-w-0" aria-label={`Resumen destacado de ${leagueSummary.label}`}>
+            {featuredGame ? (
+              <section
+                className="glass-card glass-ring rounded-2xl p-4 space-y-3.5"
+                data-league-featured-match={featuredGame.id}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="m-0 text-sm font-extrabold">Destacado</h2>
+                  {featuredGame.status !== "FT" ? (
+                    <ConfidenceChip game={featuredGame} size="sm" />
+                  ) : (
+                    <span className="pl-pill text-[11px] num">Final FT</span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-center">
+                  <a
+                    href={`/app/${leagueSummary.league}/teams/${featuredGame.home.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${leagueSummary.league}/teams/${featuredGame.home.slug}`);
+                    }}
+                    className="flex flex-col items-center gap-1.5 min-w-0 no-underline"
+                    style={{ color: "var(--pl-text)" }}
+                  >
+                    <TeamBadge
+                      league={leagueSummary.league}
+                      slug={featuredGame.home.slug}
+                      name={featuredGame.home.name}
+                      logoUrl={featuredGame.home.logoUrl}
+                      size={40}
+                    />
+                    <strong className="text-xs font-extrabold truncate max-w-full">
+                      {featuredGame.home.shortName || featuredGame.home.name}
+                    </strong>
+                    {featuredGame.home.record ? (
+                      <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                        {featuredGame.home.record}
+                      </span>
+                    ) : null}
+                  </a>
+
+                  <div className="num px-1">
+                    {featuredGame.status === "FT" && featuredGame.score ? (
+                      <strong className="block text-xl font-extrabold">
+                        {featuredGame.score.home} – {featuredGame.score.away}
+                      </strong>
+                    ) : (
+                      <strong className="block text-base font-extrabold">
+                        {featuredGame.kickoffLocal}
+                      </strong>
+                    )}
+                    <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                      {shortDateLabel(featuredGame.dayId)}
+                    </span>
+                  </div>
+
+                  <a
+                    href={`/app/${leagueSummary.league}/teams/${featuredGame.away.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/app/${leagueSummary.league}/teams/${featuredGame.away.slug}`);
+                    }}
+                    className="flex flex-col items-center gap-1.5 min-w-0 no-underline"
+                    style={{ color: "var(--pl-text)" }}
+                  >
+                    <TeamBadge
+                      league={leagueSummary.league}
+                      slug={featuredGame.away.slug}
+                      name={featuredGame.away.name}
+                      logoUrl={featuredGame.away.logoUrl}
+                      size={40}
+                    />
+                    <strong className="text-xs font-extrabold truncate max-w-full">
+                      {featuredGame.away.shortName || featuredGame.away.name}
+                    </strong>
+                    {featuredGame.away.record ? (
+                      <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                        {featuredGame.away.record}
+                      </span>
+                    ) : null}
+                  </a>
+                </div>
+
+                {featuredGame.x12 &&
+                featuredGame.hasForecast !== false &&
+                (featuredGame.status === "FT" || isPreGameIntelUnlocked(featuredGame, viewerRole)) ? (
+                  <div className="pl-reg-odds-card">
+                    <div className="pl-reg-odds-head">
+                      <span className="text-[11px] font-bold">
+                        {leagueHasDraw ? "Tiempo reglamentario" : "Ganador"}
+                      </span>
+                      <span className="text-[11px] font-semibold" style={{ color: "var(--pl-brand)" }}>
+                        Momio justo
+                      </span>
+                    </div>
+                    <div
+                      className="pl-reg-odds-grid num"
+                      style={{
+                        gridTemplateColumns: leagueHasDraw
+                          ? "repeat(3, minmax(0, 1fr))"
+                          : "repeat(2, minmax(0, 1fr))",
+                      }}
+                    >
+                      <div
+                        className={`pl-reg-odds-cell ${featuredGame.x12[0] >= Math.max(featuredGame.x12[1], featuredGame.x12[2]) ? "is-lead" : ""}`.trim()}
+                      >
+                        <span className="pl-reg-odds-code">1</span>
+                        <strong className="pl-reg-odds-val">
+                          {formatOddsValue(1 / Math.max(featuredGame.x12[0], 0.01), oddsFormat)}
+                        </strong>
+                      </div>
+                      {leagueHasDraw ? (
+                        <div
+                          className={`pl-reg-odds-cell ${featuredGame.x12[1] >= Math.max(featuredGame.x12[0], featuredGame.x12[2]) ? "is-lead" : ""}`.trim()}
+                        >
+                          <span className="pl-reg-odds-code">X</span>
+                          <strong className="pl-reg-odds-val">
+                            {formatOddsValue(1 / Math.max(featuredGame.x12[1], 0.01), oddsFormat)}
+                          </strong>
+                        </div>
+                      ) : null}
+                      <div
+                        className={`pl-reg-odds-cell ${featuredGame.x12[2] >= Math.max(featuredGame.x12[0], featuredGame.x12[1]) ? "is-lead" : ""}`.trim()}
+                      >
+                        <span className="pl-reg-odds-code">2</span>
+                        <strong className="pl-reg-odds-val">
+                          {formatOddsValue(1 / Math.max(featuredGame.x12[2], 0.01), oddsFormat)}
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                ) : featuredGame.status !== "FT" ? (
+                  <div className="rounded-xl p-2.5 flex items-center justify-between gap-2 text-xs" style={{ background: "var(--pl-surface-elevated)" }}>
+                    <span style={{ color: "var(--pl-text-muted)" }}>Pronóstico Pase Ultra</span>
+                    <a
+                      href={upgradeHref}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigateTo(upgradeHref);
+                      }}
+                      className="font-bold no-underline"
+                      style={{ color: "var(--pl-brand)" }}
+                    >
+                      Activar →
+                    </a>
+                  </div>
+                ) : null}
+
+                <a
+                  href={`/app/${leagueSummary.league}/games/${featuredGame.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(`/app/${leagueSummary.league}/games/${featuredGame.id}`);
+                  }}
+                  className="pl-btn-glass w-full min-h-11 text-xs font-bold inline-flex items-center justify-center gap-1.5 no-underline"
+                >
+                  <span>Ver partido completo</span>
+                  <MaestroIcon name="arrowRight" size={13} />
+                </a>
+              </section>
+            ) : null}
+
+            <section className="glass-card glass-ring rounded-2xl p-4 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <strong className="text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
+                  Módulos en camino
+                </strong>
+                <span className="pl-soon-pill">Pronto</span>
+              </div>
+              <ul className="m-0 p-0 list-none space-y-2 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                <li className="flex items-center justify-between gap-2">
+                  <span>Cuadro interactivo de eliminatorias</span>
+                  <span className="pl-soon-pill">Pronto</span>
+                </li>
+                <li className="flex items-center justify-between gap-2">
+                  <span>Equipo ideal y líderes de la jornada</span>
+                  <span className="pl-soon-pill">Pronto</span>
+                </li>
+              </ul>
+            </section>
+          </aside>
+        </div>
 
         <TopLayerModalDialog
           open={Boolean(selectedNewsItem)}
@@ -1187,13 +1535,6 @@ export function MatchStudioClubView({
   const isFinished = game.status === "FT" && game.score !== undefined;
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
 
-  const homePrimary =
-    getTeamColors(game.league, game.home.slug)?.[0] ??
-    "var(--pl-aura-default-home)";
-  const awayPrimary =
-    getTeamColors(game.league, game.away.slug)?.[0] ??
-    "var(--pl-aura-default-away)";
-
   const studioPath = `/app/${game.league}/games/${game.id}`;
   const mainEngineName =
     game.picks[0]?.engineName ??
@@ -1307,67 +1648,44 @@ export function MatchStudioClubView({
     <AtmosphereStage activePath={studioPath}>
       <ClubWorkspaceShell activePath={studioPath}>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <a
-            href={`/app/${game.league}`}
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo(`/app/${game.league}`);
-            }}
-            className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
+          <nav
+            aria-label="Ruta del partido"
+            className="flex flex-wrap items-center gap-1.5 text-xs min-w-0"
+            style={{ color: "var(--pl-text-muted)" }}
           >
-            <MaestroIcon name="arrowLeft" size={13} />
-            <span>Volver a {game.leagueLabel}</span>
-          </a>
+            <a
+              href={`/app/${game.league}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo(`/app/${game.league}`);
+              }}
+              className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-1.5 no-underline"
+            >
+              <MaestroIcon name="arrowLeft" size={13} />
+              <span>Volver a {game.leagueLabel}</span>
+            </a>
+            <span className="hidden sm:inline" aria-hidden="true">›</span>
+            <span className="hidden sm:inline truncate" style={{ color: "var(--pl-text-secondary)" }}>
+              {game.home.shortName} – {game.away.shortName}
+            </span>
+          </nav>
 
-          {isFinished ? null : <FollowControl gameId={game.id} />}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="pl-soon-pill hidden sm:inline-flex">Comparar · Pronto</span>
+            {isFinished ? null : <FollowControl gameId={game.id} />}
+          </div>
         </div>
 
-        {/* Cabecera Estelar de Radiografía del Partido */}
+        {/* Cabecera Hero Horizontal de Radiografía del Partido */}
         <section
-          className="glass-lens glass-ring glass-ring--featured rounded-3xl p-6 space-y-5 relative overflow-hidden"
+          className="glass-lens glass-ring glass-ring--featured rounded-2xl sm:rounded-3xl p-4 sm:p-5 space-y-3 sm:space-y-4 relative overflow-hidden"
           data-match-studio={game.id}
         >
-          <LensGlowOrbs primaryColor={homePrimary} secondaryColor={awayPrimary} />
-
-          <div className="flex flex-wrap items-center justify-between gap-2 relative z-10">
-            <div className="flex items-center gap-2">
-              <LeagueBadge
-                league={game.league}
-                label={game.leagueLabel}
-                logoUrl={game.leagueLogoUrl}
-                size={22}
-              />
-              <span
-                id="modal-league"
-                className="text-xs font-semibold"
-              >
-                {[game.leagueLabel, game.round, game.venue].filter(Boolean).join(" · ")}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-1.5">
-              {isFinished ? null : <ConfidenceChip game={game} size="lg" />}
-              <span className="pl-pill pl-pill--brand num text-xs">
-                {isFinished
-                  ? "Finalizado FT"
-                  : `${game.dayLabel} · ${game.kickoffLocal}`}
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center relative z-10">
-            <div className="flex items-center gap-3.5 min-w-0">
-              <CrestPedestal size="lg" glowColor={homePrimary}>
-                <TeamBadge
-                  league={game.league}
-                  slug={game.home.slug}
-                  name={game.home.name}
-                  logoUrl={game.home.logoUrl}
-                  size={44}
-                />
-              </CrestPedestal>
+          {/* Marcador horizontal centrado de 3 columnas */}
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] gap-2 sm:gap-5 items-center relative z-10">
+            <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0 text-right">
               <div className="min-w-0">
-                <h1 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
+                <h1 className="m-0 text-sm sm:text-xl font-extrabold truncate leading-tight">
                   <a
                     href={`/app/${game.league}/teams/${game.home.slug}`}
                     onClick={(e) => {
@@ -1380,65 +1698,68 @@ export function MatchStudioClubView({
                     {game.home.name}
                   </a>
                 </h1>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  {game.home.record}
-                </span>
+                {game.home.record ? (
+                  <span className="block text-[11px] truncate" style={{ color: "var(--pl-text-muted)" }}>
+                    {game.home.record}
+                  </span>
+                ) : null}
               </div>
+              <TeamBadge
+                league={game.league}
+                slug={game.home.slug}
+                name={game.home.name}
+                logoUrl={game.home.logoUrl}
+                size={40}
+              />
             </div>
 
-            <div className="text-center space-y-1">
+            <div className="text-center px-1.5 min-w-0">
               {isFinished ? (
-                <strong className="num text-3xl font-extrabold block">
+                <strong className="num text-xl sm:text-3xl font-extrabold block leading-tight">
                   {game.score?.home} – {game.score?.away}
                 </strong>
               ) : !hasForecast || !game.projection ? (
                 <strong
-                  className="text-lg font-extrabold block"
+                  className="text-xs sm:text-base font-extrabold block"
                   style={{ color: "var(--pl-text-secondary)" }}
                 >
                   Sin pronóstico
                 </strong>
               ) : intelUnlocked ? (
                 <strong
-                  className="num text-2xl font-extrabold block"
+                  className="num text-base sm:text-2xl font-extrabold block leading-tight"
                   style={{ color: "var(--pl-brand)" }}
                 >
-                  Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
-                  {game.projection.away.toFixed(unit.decimals)}
+                  Proy. {game.projection.home.toFixed(unit.decimals)}–{game.projection.away.toFixed(unit.decimals)}
                 </strong>
               ) : (
-                <span className="pl-pill inline-flex items-center gap-1.5">
-                  <MaestroIcon name="lock" size={12} />
-                  <span>Marcador proyectado Pase PitchLab Ultra</span>
+                <span className="pl-pill inline-flex items-center gap-1 text-[11px]">
+                  <MaestroIcon name="lock" size={11} />
+                  <span>Ultra</span>
                 </span>
               )}
               <span
-                className="text-xs num block"
+                className="text-[11px] num block leading-tight mt-0.5"
                 style={{ color: "var(--pl-text-muted)" }}
               >
                 {!hasForecast || !game.projection
-                  ? "Sin pronóstico ni confianza publicados"
+                  ? "Sin pronóstico publicado"
                   : intelUnlocked || isFinished
                     ? `${unit.plural === "puntos" ? "Puntos" : "Goles"} esperados: ${game.projection.total.toFixed(unit.decimals)}`
-                    : "Disponible con Pase PitchLab Ultra"}
+                    : "Pase PitchLab Ultra"}
               </span>
-              {overtimeFactor && hasForecast ? (
-                <span
-                  className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 mt-1 max-w-full"
-                  data-overtime-pill=""
-                  title={overtimeFactor.sub ?? undefined}
-                >
-                  <span>
-                    {overtimeFactor.label}: {overtimeFactor.value}
-                    {overtimeFactor.sub ? ` · ${overtimeFactor.sub}` : ""}
-                  </span>
-                </span>
-              ) : null}
             </div>
 
-            <div className="flex items-center gap-3.5 md:justify-end min-w-0">
-              <div className="md:text-right min-w-0">
-                <h2 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 text-left">
+              <TeamBadge
+                league={game.league}
+                slug={game.away.slug}
+                name={game.away.name}
+                logoUrl={game.away.logoUrl}
+                size={40}
+              />
+              <div className="min-w-0">
+                <h2 className="m-0 text-sm sm:text-xl font-extrabold truncate leading-tight">
                   <a
                     href={`/app/${game.league}/teams/${game.away.slug}`}
                     onClick={(e) => {
@@ -1451,19 +1772,12 @@ export function MatchStudioClubView({
                     {game.away.name}
                   </a>
                 </h2>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  {game.away.record}
-                </span>
+                {game.away.record ? (
+                  <span className="block text-[11px] truncate" style={{ color: "var(--pl-text-muted)" }}>
+                    {game.away.record}
+                  </span>
+                ) : null}
               </div>
-              <CrestPedestal size="lg" glowColor={awayPrimary}>
-                <TeamBadge
-                  league={game.league}
-                  slug={game.away.slug}
-                  name={game.away.name}
-                  logoUrl={game.away.logoUrl}
-                  size={44}
-                />
-              </CrestPedestal>
             </div>
           </div>
 
@@ -1481,7 +1795,7 @@ export function MatchStudioClubView({
             </div>
           ) : (
             <div
-              className="relative z-10 rounded-2xl px-4 py-3 text-xs"
+              className="relative z-10 rounded-xl px-3 py-2 text-xs"
               style={{
                 background: "var(--pl-surface-elevated)",
                 color: "var(--pl-text-muted)",
@@ -1491,10 +1805,60 @@ export function MatchStudioClubView({
               Este snapshot aún no incluye pronóstico ni confianza publicados para este partido.
             </div>
           )}
+
+          {/* Barra inferior centrada de metadatos: fecha, liga, sede, confianza y tiempo extra */}
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 pt-2 hairline-t text-[11px] sm:text-xs relative z-10"
+            style={{ color: "var(--pl-text-muted)" }}
+          >
+            <span className="inline-flex items-center gap-1.5 num">
+              <MaestroIcon name="calendar" size={12} />
+              <span>
+                {isFinished
+                  ? `Finalizado FT · ${game.dayLabel}`
+                  : `${game.dayLabel} · ${game.kickoffLocal}`}
+              </span>
+            </span>
+
+            <span className="inline-flex items-center gap-1.5 min-w-0">
+              <LeagueBadge
+                league={game.league}
+                label={game.leagueLabel}
+                logoUrl={game.leagueLogoUrl}
+                size={15}
+              />
+              <span id="modal-league" className="font-semibold truncate" style={{ color: "var(--pl-text-secondary)" }}>
+                {[game.leagueLabel, game.round].filter(Boolean).join(" · ")}
+              </span>
+            </span>
+
+            {game.venue ? (
+              <span className="inline-flex items-center gap-1 truncate max-w-full">
+                <MaestroIcon name="pin" size={12} />
+                <span className="truncate">{game.venue}</span>
+              </span>
+            ) : null}
+
+            {isFinished ? null : <ConfidenceChip game={game} size="sm" />}
+
+            {overtimeFactor && hasForecast ? (
+              <span
+                className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 max-w-full"
+                data-overtime-pill=""
+                title={overtimeFactor.sub ?? undefined}
+              >
+                <span>
+                  {overtimeFactor.label}: {overtimeFactor.value}
+                  {overtimeFactor.sub ? ` · ${overtimeFactor.sub}` : ""}
+                </span>
+              </span>
+            ) : null}
+          </div>
         </section>
 
-        {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
-        <LiveMatchPanel game={game} />
+        {/* Cuerpo de 2 columnas en escritorio (>= 1024px): main primero en DOM para orden accesible y prioridad móvil */}
+        <div className="pl-studio-2col">
+          <div className="pl-studio-main space-y-4 min-w-0">
 
         {/* Navegación accesible en 5 pestañas sincronizada con ?tab= */}
         <MatchTabs
@@ -1980,6 +2344,87 @@ export function MatchStudioClubView({
             }
           />
         </MatchTabPanel>
+          </div>
+
+          {/* Riel lateral izquierdo en escritorio (>= 1024px): Tiempo reglamentario 1·X·2 + Match Center En Vivo + Pizarra 2D Pronto */}
+          <aside className="pl-studio-side space-y-4 min-w-0" aria-label="Momios rápidos y pulso en directo">
+            {hasForecast && game.x12 ? (
+              <section className="glass-card glass-ring rounded-2xl p-4 space-y-3" data-studio-reg-odds="">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-extrabold">
+                    {hasDraw ? "Tiempo reglamentario" : "Ganador del partido"}
+                  </span>
+                  <span className="text-[11px] font-semibold" style={{ color: "var(--pl-brand)" }}>
+                    Momio justo PitchLab
+                  </span>
+                </div>
+
+                {intelUnlocked || isFinished ? (
+                  <div
+                    className="pl-reg-odds-grid num"
+                    style={{
+                      gridTemplateColumns: hasDraw
+                        ? "repeat(3, minmax(0, 1fr))"
+                        : "repeat(2, minmax(0, 1fr))",
+                    }}
+                  >
+                    <div
+                      className={`pl-reg-odds-cell ${game.x12[0] >= Math.max(game.x12[1], game.x12[2]) ? "is-lead" : ""}`.trim()}
+                    >
+                      <span className="pl-reg-odds-code">1</span>
+                      <strong className="pl-reg-odds-val">
+                        {formatOddsValue(1 / Math.max(game.x12[0], 0.01), oddsFormat)}
+                      </strong>
+                    </div>
+                    {hasDraw ? (
+                      <div
+                        className={`pl-reg-odds-cell ${game.x12[1] >= Math.max(game.x12[0], game.x12[2]) ? "is-lead" : ""}`.trim()}
+                      >
+                        <span className="pl-reg-odds-code">X</span>
+                        <strong className="pl-reg-odds-val">
+                          {formatOddsValue(1 / Math.max(game.x12[1], 0.01), oddsFormat)}
+                        </strong>
+                      </div>
+                    ) : null}
+                    <div
+                      className={`pl-reg-odds-cell ${game.x12[2] >= Math.max(game.x12[0], game.x12[1]) ? "is-lead" : ""}`.trim()}
+                    >
+                      <span className="pl-reg-odds-code">2</span>
+                      <strong className="pl-reg-odds-val">
+                        {formatOddsValue(1 / Math.max(game.x12[2], 0.01), oddsFormat)}
+                      </strong>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Activa tu Pase Ultra para ver los momios justos sin vig y comparar 9 casas.
+                  </p>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("dinero")}
+                  className="pl-btn-glass w-full min-h-10 text-xs font-bold inline-flex items-center justify-center gap-1.5"
+                >
+                  <span>Cuotas adicionales y 9 casas</span>
+                  <MaestroIcon name="chevronDown" size={12} />
+                </button>
+              </section>
+            ) : null}
+
+            <LiveMatchPanel game={game} />
+
+            <section className="glass-card glass-ring rounded-2xl p-4 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <strong className="text-xs font-extrabold">Pizarra táctica 2D y Mapa de calor</strong>
+                <span className="pl-soon-pill">Pronto</span>
+              </div>
+              <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
+                Posicionamiento medio, red de pases y mapa de disparos verificados llegarán próximamente a esta ficha.
+              </p>
+            </section>
+          </aside>
+        </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

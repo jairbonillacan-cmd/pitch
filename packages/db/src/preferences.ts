@@ -14,6 +14,7 @@ export type ResponsiblePauseKind = "24h" | "7d" | "30d";
 export interface FollowedTopicsPref {
   leagues: string[];
   teams: string[];
+  books?: string[];
 }
 
 export function sanitizeFollowedTopics(raw: unknown): FollowedTopicsPref {
@@ -32,7 +33,12 @@ export function sanitizeFollowedTopics(raw: unknown): FollowedTopicsPref {
     return { leagues: [], teams: [] };
   }
   const obj = raw as Record<string, unknown>;
-  return { leagues: cleanList(obj.leagues), teams: cleanList(obj.teams) };
+  const books = cleanList(obj.books);
+  return {
+    leagues: cleanList(obj.leagues),
+    teams: cleanList(obj.teams),
+    ...(books.length > 0 ? { books } : {}),
+  };
 }
 
 export interface UserPreferencesRecord {
@@ -59,8 +65,10 @@ export interface UserPreferencesRecord {
   recordPrivacy: Record<string, unknown>;
   /** Banca inicial en pesos (centavos); siempre privada. */
   bankrollStartMxnCentavos: number | null;
-  /** Ligas y equipos seguidos en Comunidad. */
+  /** Ligas y equipos seguidos en Comunidad (+ casas informativas de referencia). */
   followedTopics: FollowedTopicsPref;
+  /** Casas de referencia informativas seleccionadas por el socio. */
+  preferredBooks: string[];
   /** Insignias destacadas (máximo 3); la app las filtra contra las que el socio ya ganó. */
   featuredBadges: string[];
   updatedAt: Date | null;
@@ -88,6 +96,7 @@ export interface UserPreferencesPatch {
   recordPrivacy?: Record<string, unknown>;
   bankrollStartMxnCentavos?: number | null;
   followedTopics?: FollowedTopicsPref;
+  preferredBooks?: string[];
   featuredBadges?: string[];
 }
 
@@ -98,6 +107,7 @@ const PAUSE_DURATIONS_MS: Record<ResponsiblePauseKind, number> = {
 };
 
 const DEFAULT_LEAGUES = ["premier", "laliga", "champions", "ligamx", "nba", "nfl"];
+const DEFAULT_BOOKS = ["codere", "bet365", "pinnacle"];
 
 export function defaultUserPreferences(publicProfileFallback = true): UserPreferencesRecord {
   return {
@@ -122,7 +132,8 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
     responsiblePauseUntil: null,
     recordPrivacy: {},
     bankrollStartMxnCentavos: null,
-    followedTopics: { leagues: [], teams: [] },
+    followedTopics: { leagues: [], teams: [], books: [...DEFAULT_BOOKS] },
+    preferredBooks: [...DEFAULT_BOOKS],
     featuredBadges: [],
     updatedAt: null,
   };
@@ -176,6 +187,10 @@ export function toUserPreferencesRecord(
       pref.recordPrivacy && typeof pref.recordPrivacy === "object" ? (pref.recordPrivacy as Record<string, unknown>) : {},
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos ?? null,
     followedTopics: sanitizeFollowedTopics((pref as { followedTopics?: unknown }).followedTopics),
+    preferredBooks: (() => {
+      const ft = sanitizeFollowedTopics((pref as { followedTopics?: unknown }).followedTopics);
+      return ft.books && ft.books.length > 0 ? ft.books : [...DEFAULT_BOOKS];
+    })(),
     featuredBadges: pref.featuredBadges ?? [],
     updatedAt: pref.updatedAt,
   };
@@ -224,8 +239,17 @@ export async function upsertUserPreferences(
         : patch.bankrollStartMxnCentavos === null
           ? null
           : Math.min(1_000_000_000, Math.max(0, Math.round(patch.bankrollStartMxnCentavos)));
-    const followedTopics =
+    const baseFollowedTopics =
       patch.followedTopics !== undefined ? sanitizeFollowedTopics(patch.followedTopics) : current.followedTopics;
+    const nextBooks =
+      patch.preferredBooks !== undefined
+        ? Array.from(new Set(patch.preferredBooks.map((b) => b.trim().toLowerCase()).filter(Boolean))).slice(0, 12)
+        : baseFollowedTopics.books ?? current.preferredBooks;
+    const followedTopics: FollowedTopicsPref = {
+      leagues: baseFollowedTopics.leagues,
+      teams: baseFollowedTopics.teams,
+      ...(nextBooks.length > 0 ? { books: nextBooks } : {}),
+    };
     const featuredBadges =
       patch.featuredBadges !== undefined
         ? Array.from(new Set(patch.featuredBadges.map((b) => b.trim()).filter(Boolean))).slice(0, 3)

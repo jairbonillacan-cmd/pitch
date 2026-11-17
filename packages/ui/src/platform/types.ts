@@ -79,6 +79,13 @@ export type PickConflictGroup =
   | "btts_no"
   | "independent";
 
+export interface BookQuoteItem {
+  book: string;
+  bookLabel: string;
+  decimal: number;
+  capturedAtUtc: string;
+}
+
 export interface MatchPick {
   id: string;
   gameId: string;
@@ -103,12 +110,14 @@ export interface MatchPick {
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  /** Momio real de casa (Spacetime v3.0). `null` cuando no hay mercado verificado. */
+  /** Momio real de casa (Spacetime v3.0 / cuotas vigentes). `null` cuando no hay mercado verificado. */
   marketDecimal: number | null;
   marketAmerican: number | null;
   /** Casa y sello UTC de captura del momio real (`null` cuando no hay cuota verificada). */
   marketBookLabel?: string | null;
   marketCapturedAtUtc?: string | null;
+  /** Cuotas vigentes por casa autorizada (< 72 h, informativas sin afiliados). */
+  bookQuotes?: readonly BookQuoteItem[];
   /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
   edgePts: number | null;
   confidenceScore: number | null;
@@ -204,6 +213,8 @@ export interface PlatformMarketRow {
   /** Nombre visible de la casa y momento UTC de captura del momio vigente (`< 72 h`). */
   quoteBookLabel?: string | null;
   quoteCapturedAtUtc?: string | null;
+  /** Cuotas vigentes por casa autorizada (< 72 h, informativas sin afiliados). */
+  bookQuotes?: readonly BookQuoteItem[];
   edgePts: number | null;
   /** `true` cuando la línea se deriva localmente con el motor v3.2. */
   isDerived?: boolean;

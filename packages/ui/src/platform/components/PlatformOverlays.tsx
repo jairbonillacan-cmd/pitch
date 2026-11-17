@@ -128,11 +128,19 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
   const {
     parlaySummary,
     oddsFormat,
+    removePickFromParlay,
     clearParlay,
     sealParlayToJournal,
     openShareTicket,
     navigateTo,
   } = usePlatform();
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+
+  useEffect(() => {
+    if (parlaySummary.legs.length === 0) {
+      setMobileSheetOpen(false);
+    }
+  }, [parlaySummary.legs.length]);
 
   if (parlaySummary.legs.length === 0) {
     return null;
@@ -148,112 +156,226 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
           ? "var(--pl-danger)"
           : "var(--pl-brand)";
 
-  return (
-    <aside
-      className="parlay-dock glass-pill-bar glass-ring"
-      aria-label="Boleto combinado activo"
-      data-parlay-dock=""
-    >
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <span className="pl-pill pl-pill--brand num inline-flex items-center gap-1.5">
-            <MaestroIcon name="layers" size={13} />
-            {parlaySummary.legs.length}{" "}
-            {parlaySummary.legs.length === 1 ? "pick" : "picks"}
-          </span>
-          <span
-            className="pl-pill num text-xs font-extrabold"
-            data-dock-risk={dockRisk.level}
-            style={{ color: dockRiskColor }}
-          >
-            {dockRisk.shortLabel}
-          </span>
-          {parlaySummary.hasSgpCorrelation ? (
-            <span className="pl-pill pl-pill--info">Mismo partido</span>
-          ) : null}
-          <div className="min-w-0">
-            <p className="m-0 text-sm font-bold truncate">
-              Prob. conjunta{" "}
-              <span className="num">
-                {(parlaySummary.combinedProbability * 100).toFixed(1)} %
-              </span>{" "}
-              · Cuota{" "}
-              <span className="num">
-                {formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}
-              </span>
-            </p>
-            <p
-              className="m-0 text-xs"
-              style={{ color: "var(--pl-text-muted)" }}
-            >
-              Momio justo:{" "}
-              <span className="num">
-                {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
-              </span>{" "}
-              · Retorno est.{" "}
-              <span
-                className="num font-semibold"
-                style={{ color: "var(--pl-success)" }}
-              >
-                {parlaySummary.projectedReturnUnits.toFixed(2)}u
-              </span>
-            </p>
-          </div>
-        </div>
+  const openParlayShare = () =>
+    openShareTicket({
+      kind: "parlay",
+      title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
+      subtitle: parlaySummary.hasSgpCorrelation
+        ? "Mismo partido, con ajuste por correlación"
+        : "Multi-liga calibrada con Spacetime Suite v3.0",
+      leagueLabel: "Parlay Inteligente",
+      pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
+      probability: parlaySummary.combinedProbability,
+      fairDecimal: parlaySummary.fairDecimal,
+      marketDecimal: parlaySummary.bookDecimal,
+      units: parlaySummary.stakeUnits,
+      gameStatus: "NS",
+    });
 
-        <div className="flex items-center gap-2">
+  return (
+    <>
+      <aside
+        className="parlay-dock glass-pill-bar glass-ring"
+        aria-label="Boleto combinado activo"
+        data-parlay-dock=""
+      >
+        {/* Móvil (< 768px): píldora flotante compacta de 1 línea arriba del dock inferior */}
+        <div className="flex md:hidden items-center justify-between gap-2 min-h-11">
           <button
             type="button"
-            className="pl-btn-glass text-xs"
-            onClick={() => navigateTo("/app/parlays")}
+            className="flex-1 min-w-0 inline-flex items-center justify-between gap-2 text-left min-h-11 px-2"
+            data-parlay-mobile-trigger=""
+            onClick={() => setMobileSheetOpen(true)}
           >
-            Ver boleto
+            <span className="inline-flex items-center gap-1.5 min-w-0">
+              <span className="pl-pill pl-pill--brand num text-xs shrink-0">
+                {parlaySummary.legs.length}{" "}
+                {parlaySummary.legs.length === 1 ? "selección" : "selecciones"}
+              </span>
+              <span className="text-xs font-bold num truncate">
+                Justo {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
+              </span>
+            </span>
+            <span className="text-xs font-extrabold shrink-0" style={{ color: "var(--pl-brand)" }}>
+              Ver boleto ▲
+            </span>
           </button>
           <button
             type="button"
-            className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
-            onClick={() =>
-              openShareTicket({
-                kind: "parlay",
-                title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
-                subtitle: parlaySummary.hasSgpCorrelation
-                  ? "Mismo partido, con ajuste por correlación"
-                  : "Multi-liga calibrada con Spacetime Suite v3.0",
-                leagueLabel: "Parlay Inteligente",
-                pickLabel: parlaySummary.legs
-                  .map((l) => l.pick.label)
-                  .join(" + "),
-                probability: parlaySummary.combinedProbability,
-                fairDecimal: parlaySummary.fairDecimal,
-                marketDecimal: parlaySummary.bookDecimal,
-                units: parlaySummary.stakeUnits,
-                gameStatus: "NS",
-              })
-            }
-          >
-            <MaestroIcon name="share" size={13} />
-            Compartir
-          </button>
-          <button
-            type="button"
-            className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-            disabled={parlaySummary.legs.length < 2}
-            onClick={() => sealParlayToJournal()}
-          >
-            <MaestroIcon name="check" size={13} />
-            Sellar {parlaySummary.stakeUnits.toFixed(1)}u
-          </button>
-          <button
-            type="button"
-            className="pl-btn-glass px-2.5 text-xs"
+            className="pl-btn-glass min-h-11 min-w-11 inline-flex items-center justify-center rounded-full shrink-0"
             aria-label="Vaciar boleto combinado"
             onClick={clearParlay}
           >
             <MaestroIcon name="x" size={14} />
           </button>
         </div>
-      </div>
-    </aside>
+
+        {/* Escritorio (>= 768px): barra completa */}
+        <div className="hidden md:flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="pl-pill pl-pill--brand num inline-flex items-center gap-1.5">
+              <MaestroIcon name="layers" size={13} />
+              {parlaySummary.legs.length}{" "}
+              {parlaySummary.legs.length === 1 ? "pick" : "picks"}
+            </span>
+            <span
+              className="pl-pill num text-xs font-extrabold"
+              data-dock-risk={dockRisk.level}
+              style={{ color: dockRiskColor }}
+            >
+              {dockRisk.shortLabel}
+            </span>
+            {parlaySummary.hasSgpCorrelation ? (
+              <span className="pl-pill pl-pill--info">Mismo partido</span>
+            ) : null}
+            <div className="min-w-0">
+              <p className="m-0 text-sm font-bold truncate">
+                Prob. conjunta{" "}
+                <span className="num">
+                  {(parlaySummary.combinedProbability * 100).toFixed(1)} %
+                </span>{" "}
+                · Cuota{" "}
+                <span className="num">
+                  {formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}
+                </span>
+              </p>
+              <p
+                className="m-0 text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Momio justo:{" "}
+                <span className="num">
+                  {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
+                </span>{" "}
+                · Retorno est.{" "}
+                <span
+                  className="num font-semibold"
+                  style={{ color: "var(--pl-success)" }}
+                >
+                  {parlaySummary.projectedReturnUnits.toFixed(2)}u
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="pl-btn-glass text-xs"
+              onClick={() => navigateTo("/app/parlays")}
+            >
+              Ver boleto
+            </button>
+            <button
+              type="button"
+              className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
+              onClick={openParlayShare}
+            >
+              <MaestroIcon name="share" size={13} />
+              Compartir
+            </button>
+            <button
+              type="button"
+              className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
+              disabled={parlaySummary.legs.length < 2}
+              onClick={() => sealParlayToJournal()}
+            >
+              <MaestroIcon name="check" size={13} />
+              Sellar {parlaySummary.stakeUnits.toFixed(1)}u
+            </button>
+            <button
+              type="button"
+              className="pl-btn-glass px-2.5 text-xs"
+              aria-label="Vaciar boleto combinado"
+              onClick={clearParlay}
+            >
+              <MaestroIcon name="x" size={14} />
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <TopLayerModalDialog
+        open={mobileSheetOpen}
+        onClose={() => setMobileSheetOpen(false)}
+        ariaLabel="Boleto parlay activo"
+        variant="drawer"
+      >
+        <div className="p-4 space-y-3.5" style={{ background: "var(--pl-surface)" }}>
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <strong className="text-base font-extrabold block">
+                Tu parlay ({parlaySummary.legs.length})
+              </strong>
+              <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                Prob. {(parlaySummary.combinedProbability * 100).toFixed(1)} % · Justo{" "}
+                {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
+              </span>
+            </div>
+            <button
+              type="button"
+              className="pl-btn-glass min-h-11 min-w-11 inline-flex items-center justify-center rounded-xl"
+              aria-label="Cerrar boleto"
+              onClick={() => setMobileSheetOpen(false)}
+            >
+              <MaestroIcon name="x" size={16} />
+            </button>
+          </div>
+
+          <ul className="space-y-2 m-0 p-0 list-none max-h-60 overflow-y-auto">
+            {parlaySummary.legs.map(({ pick }) => (
+              <li
+                key={pick.id}
+                className="flex items-center justify-between gap-2 rounded-xl p-2.5 border"
+                style={{
+                  background: "var(--pl-surface-elevated)",
+                  borderColor: "var(--pl-border)",
+                }}
+              >
+                <div className="min-w-0">
+                  <strong className="text-xs font-bold block truncate">{pick.label}</strong>
+                  <span className="text-[11px] block truncate" style={{ color: "var(--pl-text-muted)" }}>
+                    {pick.matchLabel} · {(pick.p * 100).toFixed(0)} %
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className="pl-btn-glass min-h-9 min-w-9 inline-flex items-center justify-center rounded-lg shrink-0"
+                  aria-label={`Quitar ${pick.label}`}
+                  onClick={() => removePickFromParlay(pick.id)}
+                >
+                  <MaestroIcon name="x" size={13} />
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <button
+              type="button"
+              className="pl-btn-glass text-xs min-h-11 px-3 font-bold"
+              onClick={() => {
+                setMobileSheetOpen(false);
+                navigateTo("/app/parlays");
+              }}
+            >
+              Abrir en Parlays
+            </button>
+            <button
+              type="button"
+              className="pl-btn-primary text-xs min-h-11 px-3 font-bold"
+              disabled={parlaySummary.legs.length < 2}
+              onClick={() => {
+                sealParlayToJournal();
+                setMobileSheetOpen(false);
+              }}
+            >
+              Sellar {parlaySummary.stakeUnits.toFixed(1)}u
+            </button>
+          </div>
+        </div>
+      </TopLayerModalDialog>
+    </>
   );
 }
 
