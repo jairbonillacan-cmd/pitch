@@ -1055,9 +1055,8 @@
 
 .pl-com-podium-card.is-first {
   background:
-    radial-gradient(80% 60% at 50% 0%, color-mix(in srgb, var(--pl-brand) 16%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--pl-fake-sheen), transparent 42%),
-    color-mix(in srgb, var(--pl-glass-lens), var(--pl-stage-bg) 22%);
+    radial-gradient(80% 60% at 50% 0%, color-mix(in srgb, var(--pl-brand) 14%, transparent), transparent 70%),
+    var(--pl-glass-lens);
 }
 
 .pl-com-podium-rank {

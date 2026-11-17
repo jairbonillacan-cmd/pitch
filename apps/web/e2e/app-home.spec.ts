@@ -306,7 +306,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   expect(errors).toEqual([]);
 });
 
-test("Estilo Cristal / Sólido desde el menú de cuenta: se aplica, persiste y pasa Axe AA", async ({ page }, testInfo) => {
+test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real fondo/tarjetas y Axe AA en oscuro y claro", async ({ page }, testInfo) => {
   test.setTimeout(60_000);
   const width = testInfo.project.name === "mobile" ? 390 : 1440;
   await page.setViewportSize({ width, height: 900 });
@@ -318,34 +318,53 @@ test("Estilo Cristal / Sólido desde el menú de cuenta: se aplica, persiste y p
   });
   expect(unlock.ok()).toBe(true);
 
+  await page.addInitScript(() => {
+    window.localStorage.setItem("pl-style", "glass");
+  });
+
   await page.goto("/app");
   const html = page.locator("html");
-  await expect(html).toHaveAttribute("data-style", "glass");
+  await expect(html).toHaveAttribute("data-style", "solid");
+  await expect(page.locator(".pl-atmo")).toBeHidden();
+
+  const surfaceCheck = await page.evaluate(() => {
+    const stage = document.querySelector(".pl-stage");
+    const card = document.querySelector(".pl-home-card, .pl-astro-league-block, .glass-card");
+    const header = document.querySelector(".panel-header");
+    return {
+      stageBg: stage ? getComputedStyle(stage).backgroundColor : null,
+      cardBg: card ? getComputedStyle(card).backgroundColor : null,
+      headerBg: header ? getComputedStyle(header).backgroundColor : null,
+    };
+  });
+  expect(surfaceCheck.stageBg).not.toBe("rgb(0, 0, 0)");
+  expect(surfaceCheck.cardBg).not.toBeNull();
+  expect(surfaceCheck.cardBg).not.toBe(surfaceCheck.stageBg);
+  expect(surfaceCheck.headerBg).not.toBe(surfaceCheck.stageBg);
+
+  await page.screenshot({
+    path: `../../test-results/screenshots/app-home-${testInfo.project.name}-dark.png`,
+    fullPage: false,
+  });
+
+  const darkAxe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  expect(darkAxe.violations.map((v) => v.id)).toEqual([]);
 
   await page.locator("[data-profile-menu-trigger]:visible").first().click();
   const menu = page.locator(".pl-profile-menu:popover-open");
-  const styleGroup = menu.getByRole("group", { name: "Estilo" });
-  await expect(styleGroup).toBeVisible();
-  // «Estilo» va arriba de «Tema».
-  const styleBox = await styleGroup.boundingBox();
-  const themeBox = await menu.getByRole("group", { name: "Tema" }).boundingBox();
-  expect(styleBox && themeBox && styleBox.y < themeBox.y).toBe(true);
-
-  await menu.locator('[data-style-option="solid"]').click();
+  await expect(menu.getByRole("group", { name: "Estilo" })).toHaveCount(0);
+  await expect(menu.getByText("Cristal")).toHaveCount(0);
+  await menu.locator('[data-theme-option="light"]').click();
+  await expect(html).toHaveAttribute("data-theme", "light");
   await expect(html).toHaveAttribute("data-style", "solid");
-  await expect(menu.locator('[data-style-option="solid"]')).toHaveAttribute("aria-pressed", "true");
   await page.keyboard.press("Escape");
-  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(200);
 
-  await expect(page.locator(".pl-atmo")).toBeHidden();
-  const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
-  expect(axe.violations.map((v) => v.id)).toEqual([]);
+  await page.screenshot({
+    path: `../../test-results/screenshots/app-home-${testInfo.project.name}-light.png`,
+    fullPage: false,
+  });
 
-  await page.reload();
-  await expect(html).toHaveAttribute("data-style", "solid");
-
-  await page.locator("[data-profile-menu-trigger]:visible").first().click();
-  await page.locator('.pl-profile-menu:popover-open [data-style-option="glass"]').click();
-  await expect(html).toHaveAttribute("data-style", "glass");
+  const lightAxe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  expect(lightAxe.violations.map((v) => v.id)).toEqual([]);
 });

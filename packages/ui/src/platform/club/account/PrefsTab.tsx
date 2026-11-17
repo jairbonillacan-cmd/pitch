@@ -5,7 +5,7 @@ import { Switch } from "@heroui/react";
 import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
-import { applyVisualStyle, useDocumentStyle, type VisualStyle } from "../../components/ShellChrome";
+import { type VisualStyle } from "../../components/ShellChrome";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { PlSelect } from "../../components/PlSelect";
 import { usePlatform } from "../../platform-provider";
@@ -275,7 +275,6 @@ export function PrefsTab({
   const baseId = useId();
   const oddsLabelId = `${baseId}-odds`;
   const themeLabelId = `${baseId}-theme`;
-  const styleLabelId = `${baseId}-style`;
   const tzSelectId = `${baseId}-tz`;
   const unitInputId = `${baseId}-unit`;
   const unitErrorId = `${baseId}-unit-err`;
@@ -285,9 +284,6 @@ export function PrefsTab({
   const exportDialogTitleId = `${baseId}-export-dlg`;
   const deleteDialogTitleId = `${baseId}-delete-dlg`;
   const deleteReasonId = `${baseId}-delete-reason`;
-
-  const documentStyle = useDocumentStyle();
-  const visualStyle = storyOverride?.visualStyle ?? documentStyle;
 
   const [prefs, setPrefs] = useState<StoredAccountPrefsV1>(() =>
     mergePrefs(DEFAULT_STORED_PREFS_V1, storyOverride?.initialPrefs),
@@ -639,11 +635,6 @@ export function PrefsTab({
     });
   };
 
-  const handleStyleChange = (next: VisualStyle) => {
-    applyVisualStyle(next);
-    notifySaved();
-  };
-
   const timezoneOptions = useMemo(() => {
     const base = TIMEZONE_OPTIONS.map((tz) => {
       const match = /^(.*)\s+\((UTC[^)]+)\)$/.exec(tz.label);
@@ -882,27 +873,6 @@ export function PrefsTab({
                   { value: "dark", label: "Oscuro" },
                   { value: "light", label: "Claro" },
                   { value: "system", label: "Sistema" },
-                ]}
-              />
-            </div>
-
-            <div className="pl-acct-prefs-row">
-              <div className="pl-acct-prefs-row-copy">
-                <b id={styleLabelId} className="pl-acct-prefs-row-title">
-                  Estilo
-                </b>
-                <span className="pl-acct-prefs-row-detail">
-                  Superficies traslúcidas tipo vidrio o paneles en modo sólido.
-                </span>
-              </div>
-              <PrefsSegment
-                labelledBy={styleLabelId}
-                value={visualStyle}
-                onChange={handleStyleChange}
-                dataAttr="data-prefs-style-option"
-                options={[
-                  { value: "glass", label: "Cristal" },
-                  { value: "solid", label: "Sólido" },
                 ]}
               />
             </div>

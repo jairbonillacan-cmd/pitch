@@ -178,32 +178,20 @@ function applyTheme(next: "dark" | "light"): void {
   }
 }
 
-export type VisualStyle = "glass" | "solid";
+export type VisualStyle = "solid" | "glass";
 
-/** Estilo visual del documento (`html[data-style]`): vidrio (por defecto) o sólido. */
+/** Estilo visual del documento (`html[data-style]`): siempre sólido. */
 export function useDocumentStyle(): VisualStyle {
-  const [style, setStyle] = useState<VisualStyle>("glass");
-  useEffect(() => {
-    const root = document.documentElement;
-    const read = () => setStyle(root.dataset.style === "solid" ? "solid" : "glass");
-    read();
-    const obs = new MutationObserver(read);
-    obs.observe(root, { attributes: true, attributeFilter: ["data-style"] });
-    return () => obs.disconnect();
-  }, []);
-  return style;
+  return "solid";
 }
 
-/** Cambia el estilo sin transiciones a medio camino y lo guarda en `pl-style`. */
-export function applyVisualStyle(next: VisualStyle): void {
-  const root = document.documentElement;
-  if ((root.dataset.style === "solid" ? "solid" : "glass") === next) return;
-  root.dataset.themeSwitching = "true";
-  root.dataset.style = next;
-  void root.offsetHeight;
-  delete root.dataset.themeSwitching;
+/** Mantiene el documento en modo sólido. */
+export function applyVisualStyle(_next?: VisualStyle): void {
+  void _next;
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.style = "solid";
   try {
-    window.localStorage.setItem("pl-style", next);
+    window.localStorage.setItem("pl-style", "solid");
   } catch (err) {
     void err;
   }
@@ -884,7 +872,6 @@ function ClubWorkspaceShellImpl({
   }, [viewerRole, ownRecord, journal.length, ownHandle]);
 
   const docTheme = useDocumentTheme();
-  const docStyle = useDocumentStyle();
   // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
   const onProfileMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
@@ -981,12 +968,12 @@ function ClubWorkspaceShellImpl({
 
               <button
                 type="button"
-                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-3.5 inline-flex items-center justify-between gap-3"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3"
                 aria-label="Buscar"
                 onClick={() => setCmdkOpen(true)}
               >
-                <span className="inline-flex items-center gap-2.5 min-w-0 truncate" style={{ color: "var(--pl-text-secondary)" }}>
-                  <MaestroIcon name="search" size={16} />
+                <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0 truncate" style={{ color: "var(--pl-text-secondary)" }}>
+                  <MaestroIcon name="search" size={16} className="shrink-0" />
                   <span className="hidden sm:inline truncate">
                     Buscar partido, liga o @socio
                   </span>
@@ -1218,19 +1205,6 @@ function ClubWorkspaceShellImpl({
 
               <div className="pl-profile-menu-group pl-profile-menu-settings">
                 <div className="pl-profile-menu-setting">
-                  <span id={`${profileMenuId}-style`}>Estilo</span>
-                  <MenuSegment
-                    labelledBy={`${profileMenuId}-style`}
-                    value={docStyle}
-                    onChange={(v) => applyVisualStyle(v as VisualStyle)}
-                    dataAttr="data-style-option"
-                    options={[
-                      { value: "glass", label: "Cristal", icon: "sparkles" },
-                      { value: "solid", label: "Sólido", icon: "layers" },
-                    ]}
-                  />
-                </div>
-                <div className="pl-profile-menu-setting">
                   <span id={`${profileMenuId}-odds`}>Momio</span>
                   <MenuSegment
                     labelledBy={`${profileMenuId}-odds`}
@@ -1351,7 +1325,7 @@ function ClubWorkspaceShellImpl({
                           name={item.icon}
                           size={15}
                           style={{
-                            color: active ? "var(--pl-brand)" : "var(--pl-text-secondary)",
+                            color: active ? "currentColor" : "var(--pl-text-secondary)",
                           }}
                         />
                         <span className="rail-hide-collapsed truncate">{item.label}</span>
@@ -1427,7 +1401,7 @@ function ClubWorkspaceShellImpl({
                       </span>
                       <span
                         className="rail-hide-collapsed text-xs num font-semibold shrink-0"
-                        style={{ color: "var(--pl-text-muted)" }}
+                        style={{ color: active ? "currentColor" : "var(--pl-text-muted)" }}
                       >
                         {lg.upcomingCount || lg.totalGames}
                       </span>
@@ -1466,7 +1440,7 @@ function ClubWorkspaceShellImpl({
                           </span>
                           <span
                             className="rail-hide-collapsed text-xs num font-semibold shrink-0"
-                            style={{ color: "var(--pl-text-muted)" }}
+                            style={{ color: active ? "currentColor" : "var(--pl-text-muted)" }}
                           >
                             {lg.upcomingCount || lg.totalGames}
                           </span>
@@ -1508,7 +1482,7 @@ function ClubWorkspaceShellImpl({
                           name={item.icon}
                           size={15}
                           style={{
-                            color: active ? "var(--pl-brand)" : "var(--pl-text-secondary)",
+                            color: active ? "currentColor" : "var(--pl-text-secondary)",
                           }}
                         />
                         <span className="rail-hide-collapsed truncate">{item.label}</span>

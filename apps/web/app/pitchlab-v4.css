@@ -112,104 +112,13 @@ html[data-theme-switching="true"] *::after {
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* ---------- Atmósfera shows.link (auras saturadas + scrim óptico) ---------- */
-.pl-atmo {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.pl-atmo-canvas {
-  position: absolute;
-  inset: 0;
-  opacity: var(--pl-atmo-opacity);
-}
-
-.pl-aura {
-  position: absolute;
-  border-radius: 50%;
-  transition: background 650ms ease;
-}
-
-.pl-aura--home {
-  width: min(720px, 64vw);
-  height: min(560px, 50vw);
-  top: -8%;
-  left: 4%;
-  /* «closest-side» llega a transparente antes del borde: halo suave sin desenfoque en vivo. */
-  background: radial-gradient(
-    closest-side,
-    var(--home-color) 0%,
-    color-mix(in srgb, var(--home-color) 55%, transparent) 38%,
-    color-mix(in srgb, var(--home-color) 18%, transparent) 70%,
-    transparent 100%
-  );
-}
-
-.pl-aura--away {
-  width: min(680px, 60vw);
-  height: min(540px, 48vw);
-  top: 6%;
-  right: 4%;
-  background: radial-gradient(
-    closest-side,
-    var(--away-color) 0%,
-    color-mix(in srgb, var(--away-color) 55%, transparent) 38%,
-    color-mix(in srgb, var(--away-color) 18%, transparent) 70%,
-    transparent 100%
-  );
-}
-
-.pl-atmo-scrim {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    110% 72% at 50% 0%,
-    var(--pl-glass-scrim-top) 0%,
-    var(--pl-glass-scrim) 64%,
-    var(--pl-stage-bg) 100%
-  );
-}
-
-/* ---------- Orbes de luz internos en tarjetas .glass-lens ---------- */
+/* ---------- Atmósfera y orbes desactivados en modo sólido ---------- */
+.pl-atmo,
 .pl-lens-orbs {
-  z-index: 0;
+  display: none;
 }
 
-.pl-lens-orb {
-  position: absolute;
-  width: 16rem;
-  height: 16rem;
-  border-radius: 999px;
-  pointer-events: none;
-  opacity: var(--pl-orb-opacity);
-  background: radial-gradient(
-    closest-side,
-    var(--orb-color, var(--pl-aura-1)) 0%,
-    color-mix(in srgb, var(--orb-color, var(--pl-aura-1)) 40%, transparent) 45%,
-    transparent 100%
-  );
-}
-
-.pl-lens-orbs[data-subtle="true"] .pl-lens-orb {
-  opacity: var(--pl-orb-opacity-subtle);
-  width: 13rem;
-  height: 13rem;
-}
-
-.pl-lens-orb--primary {
-  top: -3.5rem;
-  left: -3.5rem;
-}
-
-.pl-lens-orb--secondary {
-  right: -3.5rem;
-  bottom: -3.5rem;
-}
-
-/* ---------- Bisel óptico .glass-ring de shows.link ---------- */
+/* ---------- Bordes limpios de 1 px (.glass-ring) ---------- */
 .glass-ring {
   position: relative;
   border: 0;
@@ -223,16 +132,7 @@ html[data-theme-switching="true"] *::after {
   padding: 1px;
   pointer-events: none;
   z-index: 2;
-  background:
-    radial-gradient(44px circle at 0% 0%, var(--pl-ring-corner), transparent 100%),
-    radial-gradient(44px circle at 100% 0%, var(--pl-ring-corner), transparent 100%),
-    linear-gradient(
-      180deg,
-      var(--pl-ring-top) 0%,
-      var(--pl-ring-mid) 26%,
-      var(--pl-ring-mid) 68%,
-      var(--pl-ring-bot) 100%
-    );
+  background: var(--pl-border);
   -webkit-mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
   mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
   -webkit-mask-clip: content-box, border-box;
@@ -245,67 +145,43 @@ html[data-theme-switching="true"] *::after {
 
 .glass-ring--featured::before {
   padding: 1.25px;
-  background:
-    radial-gradient(56px circle at 0% 0%, var(--pl-ring-feat-corner), transparent 100%),
-    radial-gradient(56px circle at 100% 0%, var(--pl-ring-feat-corner), transparent 100%),
-    linear-gradient(
-      180deg,
-      var(--pl-ring-feat-top) 0%,
-      color-mix(in srgb, var(--pl-brand) 34%, transparent) 38%,
-      var(--pl-ring-feat-bot) 100%
-    );
+  background: color-mix(in srgb, var(--pl-brand) 48%, var(--pl-border));
 }
 
-/* ---------- Vidrio falso (sin backdrop-filter) ----------
-   El desenfoque en vivo obligaba a repintar todo lo de atrás en cada cuadro. Aquí el vidrio
-   es un fondo semitransparente un poco más denso, un brillo superior y una luz interior;
-   el borde fino claro lo pone .glass-ring. Se ve casi igual y pinta mucho menos. */
+/* ---------- Superficies mate 100 % sólidas por capas ----------
+   Escenario (--pl-stage-bg) → cromo lateral/superior (--pl-glass-rail / --pl-glass-nav)
+   → tarjeta primaria (--pl-surface) → controles y bloques internos (--pl-surface-elevated). */
 :root {
-  --pl-fake-sheen: color-mix(in srgb, white 5%, transparent);
-  --pl-fake-inner: inset 0 1px 0 color-mix(in srgb, white 7%, transparent);
-  --pl-fake-shadow-lens: 0 10px 24px -14px color-mix(in srgb, black 70%, transparent);
-  --pl-fake-shadow-card: 0 4px 14px -8px color-mix(in srgb, black 60%, transparent);
-}
-html[data-theme="light"] {
-  --pl-fake-sheen: color-mix(in srgb, white 55%, transparent);
-  --pl-fake-inner: inset 0 1px 0 color-mix(in srgb, white 80%, transparent);
-  --pl-fake-shadow-lens:
-    0 1px 2px color-mix(in srgb, black 5%, transparent),
-    0 14px 32px -16px color-mix(in srgb, black 18%, transparent);
-  --pl-fake-shadow-card:
-    0 1px 2px color-mix(in srgb, black 4%, transparent),
-    0 6px 16px -10px color-mix(in srgb, black 14%, transparent);
+  --pl-fake-sheen: transparent;
+  --pl-fake-inner: none;
+  --pl-fake-shadow-lens: var(--pl-lens-shadow);
+  --pl-fake-shadow-card: var(--pl-card-shadow);
 }
 
 .glass-lens {
-  background:
-    linear-gradient(180deg, var(--pl-fake-sheen), transparent 42%),
-    color-mix(in srgb, var(--pl-glass-lens), var(--pl-stage-bg) 22%);
-  box-shadow: var(--pl-fake-inner), var(--pl-fake-shadow-lens);
+  background: var(--pl-glass-lens);
+  box-shadow: var(--pl-lens-shadow);
 }
 
 .glass-card {
-  background:
-    linear-gradient(180deg, var(--pl-fake-sheen), transparent 38%),
-    color-mix(in srgb, var(--pl-glass-card), var(--pl-stage-bg) 18%);
-  box-shadow: var(--pl-fake-inner), var(--pl-fake-shadow-card);
+  background: var(--pl-glass-card);
+  box-shadow: var(--pl-card-shadow);
   transition:
     background-color var(--time-fast) ease,
+    border-color var(--time-fast) ease,
     transform var(--time-fast) var(--ease-out);
 }
 
-/* Modo claro: superficies blancas nítidas sobre el gris frío del escenario,
-   con borde fino y sombra corta (como las tarjetas agrupadas de iOS/macOS). */
 html[data-theme="light"] .glass-lens {
   background: var(--pl-glass-lens);
 }
 
 html[data-theme="light"] .glass-card {
-  background: color-mix(in srgb, var(--pl-glass-card), var(--pl-stage-bg) 6%);
+  background: var(--pl-glass-card);
 }
 
 .glass-action-row {
-  background: var(--pl-glass-card);
+  background: var(--pl-surface-elevated);
   transition:
     background-color var(--time-fast) ease,
     transform 120ms ease;
@@ -337,12 +213,11 @@ html[data-theme="light"] .glass-card {
 }
 
 .glass-nav-surface {
-  /* Sin desenfoque (0 blur), la barra fija debe ser 100 % opaca para que el contenido no se lea detrás. */
-  background: color-mix(in srgb, var(--pl-stage-elevated) 68%, var(--pl-stage-bg));
+  background: var(--pl-glass-nav);
   border-bottom: 1px solid var(--pl-border);
 }
 html[data-theme="light"] .glass-nav-surface {
-  background: color-mix(in srgb, var(--pl-stage-elevated) 86%, var(--pl-stage-bg));
+  background: var(--pl-glass-nav);
 }
 html:has(.panel-header) {
   scroll-padding-top: 120px;
@@ -354,8 +229,8 @@ html:has(.panel-header) {
 }
 
 .glass-pill-bar {
-  background: color-mix(in srgb, var(--pl-glass-pill), var(--pl-stage-bg) 70%);
-  box-shadow: var(--pl-fake-inner), var(--pl-fake-shadow-card);
+  background: var(--pl-glass-pill);
+  box-shadow: var(--pl-card-shadow);
 }
 
 .hairline-t {
@@ -383,196 +258,103 @@ html:has(.panel-header) {
     background-color var(--time-fast) ease;
 }
 .hover-lift:hover {
-  transform: translateY(-2px);
   background: var(--pl-surface-elevated);
 }
 
-/* ---------- Estilo «Sólido» (html[data-style="solid"]) ----------
-   Replica el acabado del menú de cuenta: superficies mate 100 % opacas por capas
-   (escenario negro -> panel sólido -> controles elevados), borde uniforme de 1 px,
-   luz superior sutil y controles activos definidos sin desenfoque ni brillos difusos.
-   Se elige en el menú de cuenta («Estilo») y se guarda en `pl-style`. */
-html[data-style="solid"],
-html[data-style="solid"] .pl-stage {
-  --pl-surface: color-mix(in srgb, var(--pl-stage-bg) 93%, var(--pl-text) 7%);
-  --pl-surface-elevated: color-mix(in srgb, var(--pl-stage-bg) 89%, var(--pl-text) 11%);
-  --pl-surface-hover: color-mix(in srgb, var(--pl-stage-bg) 85%, var(--pl-text) 15%);
-  --pl-surface-active: color-mix(
-    in srgb,
-    var(--pl-brand) 14%,
-    color-mix(in srgb, var(--pl-stage-bg) 82%, var(--pl-text) 18%)
-  );
-  --pl-border: color-mix(in srgb, var(--pl-stage-bg) 85%, var(--pl-text) 15%);
-  --pl-border-strong: color-mix(in srgb, var(--pl-stage-bg) 74%, var(--pl-text) 26%);
-  --pl-row-rule: color-mix(in srgb, var(--pl-stage-bg) 89%, var(--pl-text) 11%);
-  --pl-glass-nav: color-mix(in srgb, var(--pl-stage-bg) 95.5%, var(--pl-text) 4.5%);
-  --pl-glass-rail: color-mix(in srgb, var(--pl-stage-bg) 94%, var(--pl-text) 6%);
-  --pl-glass-lens: var(--pl-surface-elevated);
-  --pl-glass-card: var(--pl-surface);
-  --pl-glass-pill: color-mix(in srgb, var(--pl-stage-bg) 90.5%, var(--pl-text) 9.5%);
-  --pl-glass-modal: var(--pl-surface-elevated);
-  --pl-glass-input: color-mix(in srgb, var(--pl-stage-bg) 96%, var(--pl-text) 4%);
-  --pl-table-head-bg: var(--pl-surface-elevated);
-  --pl-solid-surface: var(--pl-surface);
-  --pl-solid-surface-raised: var(--pl-surface-elevated);
-  --pl-solid-sheen: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--pl-text) 4.5%, transparent),
-    transparent 76px
-  );
-  --pl-solid-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 7%, transparent),
-    0 18px 36px -22px color-mix(in srgb, black 78%, transparent);
+/* ---------- Jerarquía interna del Club (/app) en modo sólido ---------- */
+.app-rail {
+  background: var(--pl-glass-rail);
 }
-html[data-theme="light"][data-style="solid"],
-html[data-theme="light"][data-style="solid"] .pl-stage {
-  --pl-surface: var(--pl-stage-elevated);
-  --pl-surface-elevated: var(--pl-stage-elevated);
-  --pl-surface-hover: color-mix(in srgb, var(--pl-stage-subtle) 65%, var(--pl-stage-elevated));
-  --pl-surface-active: color-mix(in srgb, var(--pl-brand) 12%, var(--pl-stage-elevated));
-  --pl-border: color-mix(in srgb, var(--pl-text) 12%, var(--pl-stage-bg));
-  --pl-border-strong: color-mix(in srgb, var(--pl-text) 22%, var(--pl-stage-bg));
-  --pl-row-rule: color-mix(in srgb, var(--pl-text) 8.5%, var(--pl-stage-bg));
-  --pl-glass-nav: var(--pl-stage-elevated);
-  --pl-glass-rail: var(--pl-stage-elevated);
-  --pl-glass-lens: var(--pl-stage-elevated);
-  --pl-glass-card: var(--pl-stage-elevated);
-  --pl-glass-pill: var(--pl-stage-elevated);
-  --pl-glass-modal: var(--pl-stage-elevated);
-  --pl-glass-input: color-mix(in srgb, var(--pl-stage-bg) 82%, var(--pl-stage-elevated));
-  --pl-table-head-bg: var(--pl-stage-elevated);
-  --pl-solid-surface: var(--pl-stage-elevated);
-  --pl-solid-surface-raised: var(--pl-surface-hover);
-  --pl-solid-sheen: linear-gradient(180deg, transparent, transparent);
-  --pl-solid-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-stage-elevated) 90%, transparent),
-    0 1px 3px color-mix(in srgb, var(--pl-text) 6%, transparent),
-    0 12px 24px -18px color-mix(in srgb, var(--pl-text) 14%, transparent);
-}
-html[data-style="solid"] :is(.pl-atmo, .pl-lens-orbs) {
-  display: none;
-}
-html[data-style="solid"] :is(.glass-card, .glass-lens, .glass-pill-bar) {
-  background: var(--pl-solid-sheen), var(--pl-solid-surface);
-  box-shadow: var(--pl-solid-shadow);
-}
-html[data-style="solid"] .glass-lens {
-  background: var(--pl-solid-sheen), var(--pl-solid-surface-raised);
-}
-html[data-style="solid"] .glass-ring::before {
-  background: var(--pl-border);
-}
-html[data-style="solid"] .glass-ring--featured::before {
-  background: color-mix(in srgb, var(--pl-brand) 44%, var(--pl-border));
-}
-html[data-style="solid"] .hover-lift:hover {
-  transform: none;
-  background: var(--pl-solid-surface-raised);
-}
-html[data-style="solid"] .glass-nav-surface {
-  background: var(--pl-glass-nav);
-  border-bottom: 1px solid var(--pl-border);
-}
-html[data-style="solid"] .app-rail {
-  background: var(--pl-solid-sheen), var(--pl-glass-rail);
-  box-shadow: var(--pl-solid-shadow);
-}
-html[data-style="solid"] :is(.pl-btn-glass, .btn-glass) {
+:is(.pl-btn-glass, .btn-glass) {
   background: var(--pl-surface-elevated);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 6%, transparent),
-    inset 0 0 0 1px var(--pl-border);
 }
-html[data-style="solid"] :is(.pl-btn-glass, .btn-glass):hover {
-  background: var(--pl-surface-hover);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 8%, transparent),
-    inset 0 0 0 1px var(--pl-border-strong);
+.pl-header-search {
+  background: var(--pl-glass-input);
+  box-shadow: inset 0 0 0 1px var(--pl-border-strong);
 }
-html[data-style="solid"] .seg-well {
+.seg-well {
   background: var(--pl-glass-input);
   box-shadow: inset 0 0 0 1px var(--pl-border);
 }
-html[data-style="solid"] .seg-well .seg-btn[aria-selected="true"],
-html[data-style="solid"] .seg-well .seg-btn[aria-pressed="true"],
-html[data-style="solid"] .seg-well .seg-btn[data-active="true"],
-html[data-style="solid"] .pl-menu-seg button[aria-pressed="true"] {
+.seg-well .seg-btn[aria-selected="true"],
+.seg-well .seg-btn[aria-pressed="true"],
+.seg-well .seg-btn[data-active="true"],
+.pl-menu-seg button[aria-pressed="true"] {
   background: var(--pl-surface-active);
   color: var(--pl-text);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 12%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--pl-text) 20%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pl-brand) 40%, var(--pl-border));
 }
-html[data-style="solid"] .pl-astro-league-block {
-  background: var(--pl-solid-surface);
+.pl-astro-league-block {
+  background: var(--pl-surface);
   border-color: var(--pl-border);
-  box-shadow: var(--pl-solid-shadow);
+  box-shadow: var(--pl-card-shadow);
 }
-html[data-style="solid"] .pl-astro-league-head {
-  background: var(--pl-solid-surface-raised);
+.pl-astro-league-head {
+  background: var(--pl-surface-elevated);
 }
-html[data-style="solid"] .pl-astro-rows {
-  background: var(--pl-stage-bg);
+.pl-astro-rows {
+  background: var(--pl-stage-subtle);
 }
-html[data-style="solid"] .pl-astro-row {
-  background: var(--pl-solid-surface);
-  border-color: var(--pl-border-strong);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--pl-text) 5%, transparent);
+.pl-astro-row {
+  background: var(--pl-surface);
+  border-color: var(--pl-border);
+  box-shadow: none;
 }
-html[data-style="solid"] .pl-astro-prob-box,
-html[data-style="solid"] .pl-daily-leg,
-html[data-style="solid"] .pl-rail-top-pick,
-html[data-style="solid"] .pl-league-news-card,
-html[data-style="solid"] .pl-factor-item,
-html[data-style="solid"] .pl-num-card {
-  background: var(--pl-solid-surface-raised);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--pl-text) 5%, transparent);
+:is(
+  .pl-astro-prob-box,
+  .pl-astro-time-badge,
+  .pl-daily-leg,
+  .pl-rail-top-pick,
+  .pl-parlay-auto-box,
+  .pl-league-news-card,
+  .pl-factor-item,
+  .pl-num-card,
+  .pl-home-stat,
+  .pl-home-leg,
+  .pl-home-value,
+  .pl-home-parlay-btn:not(.is-on),
+  .pl-conf-chip,
+  .pl-prematch-card,
+  .pl-poll.pl-poll--embedded,
+  .pl-dinero-side-tile,
+  .pl-ctx-stats > div,
+  .pl-ctx-absence-row,
+  .pl-mkt-card,
+  .pl-so-score,
+  .pl-so-line,
+  .pl-cortex-sec:not(.pl-cortex-sec--watch)
+) {
+  background: var(--pl-surface-elevated);
 }
-html[data-style="solid"] dialog.pl-native-dialog[open],
-html[data-style="solid"] dialog.pl-native-drawer[open],
-html[data-style="solid"] dialog.pl-native-dialog .glass-lens {
+dialog.pl-native-dialog[open],
+dialog.pl-native-drawer[open],
+dialog.pl-native-dialog .glass-lens {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  background: var(--pl-solid-sheen), var(--pl-glass-modal);
+  background: var(--pl-glass-modal);
   border-color: var(--pl-border-strong);
 }
-html[data-style="solid"] .pl-home-card.is-live {
-  background: color-mix(in srgb, var(--pl-danger) 6%, var(--pl-solid-surface));
+:is(.pl-acct-card, .pl-acct-prefs-nav) {
+  background: var(--pl-surface);
+  box-shadow: var(--pl-card-shadow);
 }
-html[data-style="solid"] :is(.pl-acct-card, .pl-acct-prefs-nav) {
-  background: var(--pl-solid-sheen), var(--pl-solid-surface);
-  box-shadow: var(--pl-solid-shadow);
-}
-html[data-style="solid"] .pl-acct-seg {
+.pl-acct-seg {
   background: var(--pl-glass-input);
   box-shadow: inset 0 0 0 1px var(--pl-border);
 }
-html[data-style="solid"] .pl-acct-seg button[aria-pressed="true"] {
+.pl-acct-seg button[aria-pressed="true"] {
   background: var(--pl-surface-active);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 12%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--pl-text) 20%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pl-brand) 40%, var(--pl-border));
 }
-html[data-theme="light"][data-style="solid"] .pl-acct-seg button[aria-pressed="true"] {
-  background: var(--pl-solid-surface-raised);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--pl-text) 6%, transparent),
-    0 1px 3px color-mix(in srgb, var(--pl-text) 12%, transparent);
-}
-html[data-style="solid"] :is(.pl-acct-risk-card, .pl-acct-league-pill, .select__trigger.pl-select-trigger) {
-  background: var(--pl-solid-surface-raised);
+:is(.pl-acct-risk-card, .pl-acct-league-pill, .select__trigger.pl-select-trigger) {
+  background: var(--pl-surface-elevated);
   border-color: var(--pl-border-strong);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--pl-text) 5%, transparent);
 }
-html[data-style="solid"] .select__popover.pl-select-popover {
+.select__popover.pl-select-popover {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  background: var(--pl-solid-sheen), var(--pl-solid-surface);
-  box-shadow: var(--pl-solid-shadow), var(--shadow-overlay);
-}
-html[data-style="solid"] :is(.pl-prematch-card, .pl-poll.pl-poll--embedded, .pl-dinero-side-tile, .pl-ctx-stats > div, .pl-ctx-absence-row, .pl-mkt-card, .pl-so-score, .pl-so-line) {
-  background: var(--pl-solid-surface-raised);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--pl-text) 5%, transparent);
+  background: var(--pl-glass-menu);
+  box-shadow: var(--pl-lens-shadow), var(--shadow-overlay);
 }
 
 /* ---------- Candado Cero-Fuga y Marca de Agua por sesión ---------- */
@@ -1222,8 +1004,15 @@ html[data-style="solid"] :is(.pl-prematch-card, .pl-poll.pl-poll--embedded, .pl-
 }
 .rail-item[aria-current="page"],
 .rail-item[data-active="true"] {
-  background: var(--pl-surface-active);
-  color: var(--pl-text);
+  background: var(--pl-brand);
+  color: var(--pl-on-primary);
+  font-weight: 700;
+}
+.rail-item[aria-current="page"] .pl-pill,
+.rail-item[data-active="true"] .pl-pill {
+  background: color-mix(in srgb, var(--pl-on-primary) 16%, transparent);
+  color: inherit;
+  border-color: transparent;
 }
 /* Plegado: las etiquetas se desvanecen y los íconos se quedan en su lugar (sin saltos). */
 .rail-hide-collapsed {
@@ -9485,6 +9274,12 @@ html[data-theme="light"] .pl-stage.pl-auth,
   border-bottom-color: var(--pl-brand);
 }
 .pl-astro-sport-tab.is-empty {
+  color: var(--pl-text-muted);
+}
+.pl-astro-sport-tab.is-on.is-empty {
+  color: var(--pl-text);
+}
+.pl-astro-sport-tab.is-empty:not(.is-on) .pl-astro-sport-icon {
   opacity: 0.6;
 }
 .pl-astro-sport-tab.is-soon {

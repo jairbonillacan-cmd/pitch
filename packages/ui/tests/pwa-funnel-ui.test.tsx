@@ -68,9 +68,7 @@ describe("Preferencias PWA/Push, embudo Admin y consentimiento local", () => {
       </PlatformProvider>,
     );
 
-    expect(prefsHtml).toContain("Estilo");
-    expect(prefsHtml).toContain("Cristal");
-    expect(prefsHtml).toContain("Sólido");
+    expect(prefsHtml).not.toContain("Cristal");
     expect(prefsHtml).toContain("Madrid · España");
     expect(prefsHtml).not.toContain("Resumen semanal por correo");
     expect(prefsHtml).not.toContain("Corte mensual de Mi récord");
