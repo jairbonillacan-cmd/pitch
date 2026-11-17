@@ -29,7 +29,7 @@ import {
   PRODUCT_LEAGUES,
   type ProductLeague,
 } from "./snapshots";
-import { loadLeagueTeamsDirectory } from "./team-profile";
+import { loadLeaguePlayerProps, loadLeagueTeamsDirectory } from "./team-profile";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -141,9 +141,12 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
     }
   }
 
+  const dataset = buildPlatformDataset(inputs);
+
   return {
-    ...buildPlatformDataset(inputs),
+    ...dataset,
     teams: loadLeagueTeamsDirectory(),
+    playerProps: loadLeaguePlayerProps(dataset.games),
   };
 }
 

@@ -40,6 +40,8 @@ const LEAGUE_ORDER: readonly string[] = [
   "copa-america",
   "eurocopa",
   "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
   "nfl",
   "nba",
   "nhl",

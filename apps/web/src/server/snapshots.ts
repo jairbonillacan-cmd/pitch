@@ -83,6 +83,8 @@ export const PRODUCT_LEAGUES = [
   "copa-america",
   "eurocopa",
   "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
 ] as const;
 
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
@@ -174,6 +176,8 @@ export const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "copa-america": "Copa América",
   eurocopa: "Eurocopa UEFA",
   "copa-oro": "Copa Oro Concacaf",
+  "copa-africana": "Copa Africana de Naciones",
+  "copa-asiatica": "Copa Asiática AFC",
 };
 
 const LEAGUE_SEASONS: Record<ProductLeague, string> = {
@@ -194,6 +198,8 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = {
   "copa-america": "2024",
   eurocopa: "2024",
   "copa-oro": "2025",
+  "copa-africana": "2025–26",
+  "copa-asiatica": "2026/27",
 };
 
 export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {

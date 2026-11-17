@@ -5,8 +5,8 @@
   "season": "eurocopa-2024",
   "seasonLabel": "2024",
   "periodLabel": "Final",
-  "updatedAt": "2026-11-16T20:55:55.962Z",
-  "source": "espn",
+  "updatedAt": "2026-11-17T04:24:25.916Z",
+  "source": "espn+bzzoiro",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -17,10 +17,10 @@
       "code": "ALB",
       "logoUrl": "/brand/official/countries/albania.png",
       "forPerGame": 1,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0457711937872987,
-      "adjustedAgainst": 1.1100781947917917
+      "againstPerGame": 0.8888888888888888,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.17482901884515,
+      "adjustedAgainst": 1.2452251708139468
     },
     "eurocopa.austria": {
       "teamId": "eurocopa.austria",
@@ -28,11 +28,11 @@
       "shortName": "Austria",
       "code": "AUT",
       "logoUrl": "/brand/official/countries/austria.png",
-      "forPerGame": 1.75,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1530482066248962,
-      "adjustedAgainst": 1.1102168984885676
+      "forPerGame": 2.09375,
+      "againstPerGame": 1.03125,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.2586078238777167,
+      "adjustedAgainst": 1.2636307215645215
     },
     "eurocopa.belgica": {
       "teamId": "eurocopa.belgica",
@@ -40,11 +40,11 @@
       "shortName": "Bélgica",
       "code": "BEL",
       "logoUrl": "/brand/official/countries/belgica.png",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9560788911914824,
-      "adjustedAgainst": 0.9610362023822675
+      "forPerGame": 2.2222222222222223,
+      "againstPerGame": 1.0555555555555556,
+      "gamesPlayed": 36,
+      "adjustedFor": 1.086810447381297,
+      "adjustedAgainst": 1.0741090376897713
     },
     "eurocopa.croacia": {
       "teamId": "eurocopa.croacia",
@@ -52,11 +52,11 @@
       "shortName": "Croacia",
       "code": "CRO",
       "logoUrl": "/brand/official/countries/croacia.png",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0390131314928057,
-      "adjustedAgainst": 1.1504677614653227
+      "forPerGame": 1.7058823529411764,
+      "againstPerGame": 1.588235294117647,
+      "gamesPlayed": 34,
+      "adjustedFor": 1.210827011789458,
+      "adjustedAgainst": 1.212919308920273
     },
     "eurocopa.republica-checa": {
       "teamId": "eurocopa.republica-checa",
@@ -64,11 +64,11 @@
       "shortName": "R. Checa",
       "code": "CZE",
       "logoUrl": "/brand/official/countries/republica-checa.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0385862624916127,
-      "adjustedAgainst": 1.114402958883208
+      "forPerGame": 1.4516129032258065,
+      "againstPerGame": 1.5161290322580645,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.1425207963530954,
+      "adjustedAgainst": 1.2858201800118902
     },
     "eurocopa.dinamarca": {
       "teamId": "eurocopa.dinamarca",
@@ -76,11 +76,11 @@
       "shortName": "Dinamarca",
       "code": "DEN",
       "logoUrl": "/brand/official/countries/dinamarca.png",
-      "forPerGame": 0.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9660132179867017,
-      "adjustedAgainst": 1.0325252466377541
+      "forPerGame": 1.6785714285714286,
+      "againstPerGame": 1.0714285714285714,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.0889525196630134,
+      "adjustedAgainst": 1.1235334186897707
     },
     "eurocopa.inglaterra": {
       "teamId": "eurocopa.inglaterra",
@@ -88,11 +88,11 @@
       "shortName": "Inglaterra",
       "code": "ENG",
       "logoUrl": "/brand/official/countries/inglaterra.png",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 0.8571428571428571,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.0756716056321236,
-      "adjustedAgainst": 0.9908254481824955
+      "forPerGame": 2.3076923076923075,
+      "againstPerGame": 0.7435897435897436,
+      "gamesPlayed": 39,
+      "adjustedFor": 1.2359593317087991,
+      "adjustedAgainst": 1.10379875132493
     },
     "eurocopa.francia": {
       "teamId": "eurocopa.francia",
@@ -100,11 +100,11 @@
       "shortName": "Francia",
       "code": "FRA",
       "logoUrl": "/brand/official/countries/francia.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.9648030844178105,
-      "adjustedAgainst": 0.9119035600540947
+      "forPerGame": 1.975,
+      "againstPerGame": 1.025,
+      "gamesPlayed": 40,
+      "adjustedFor": 1.1633361865609868,
+      "adjustedAgainst": 1.0360312525245072
     },
     "eurocopa.georgia": {
       "teamId": "eurocopa.georgia",
@@ -112,11 +112,11 @@
       "shortName": "Georgia",
       "code": "GEO",
       "logoUrl": "/brand/official/countries/georgia.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 2,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0791041609188146,
-      "adjustedAgainst": 1.1809359158097568
+      "forPerGame": 1.2962962962962963,
+      "againstPerGame": 1.3703703703703705,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.2645161050691445,
+      "adjustedAgainst": 1.2641330902872883
     },
     "eurocopa.alemania": {
       "teamId": "eurocopa.alemania",
@@ -124,11 +124,11 @@
       "shortName": "Alemania",
       "code": "GER",
       "logoUrl": "/brand/official/countries/alemania.png",
-      "forPerGame": 2.2,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2535680519402963,
-      "adjustedAgainst": 0.9903897480133916
+      "forPerGame": 2.4285714285714284,
+      "againstPerGame": 0.9142857142857143,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.4244229023394703,
+      "adjustedAgainst": 1.143485698027666
     },
     "eurocopa.hungria": {
       "teamId": "eurocopa.hungria",
@@ -136,11 +136,11 @@
       "shortName": "Hungría",
       "code": "HUN",
       "logoUrl": "/brand/official/countries/hungria.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0028605009643234,
-      "adjustedAgainst": 1.1067059443078584
+      "forPerGame": 1.1153846153846154,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.1413780595820895,
+      "adjustedAgainst": 1.204145342317133
     },
     "eurocopa.italia": {
       "teamId": "eurocopa.italia",
@@ -148,11 +148,11 @@
       "shortName": "Italia",
       "code": "ITA",
       "logoUrl": "/brand/official/countries/italia.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0032767345548335,
-      "adjustedAgainst": 1.0621595569404951
+      "forPerGame": 1.9333333333333333,
+      "againstPerGame": 1.3666666666666667,
+      "gamesPlayed": 30,
+      "adjustedFor": 1.171145891279338,
+      "adjustedAgainst": 1.1969261236436863
     },
     "eurocopa.paises-bajos": {
       "teamId": "eurocopa.paises-bajos",
@@ -160,11 +160,11 @@
       "shortName": "Países Bajos",
       "code": "NED",
       "logoUrl": "/brand/official/countries/paises-bajos.png",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.163833652622791,
-      "adjustedAgainst": 1.065690139214274
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 1.1388888888888888,
+      "gamesPlayed": 36,
+      "adjustedFor": 1.3733323117410399,
+      "adjustedAgainst": 1.2134047032822797
     },
     "eurocopa.polonia": {
       "teamId": "eurocopa.polonia",
@@ -172,11 +172,11 @@
       "shortName": "Polonia",
       "code": "POL",
       "logoUrl": "/brand/official/countries/polonia.png",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0391155263397105,
-      "adjustedAgainst": 1.1535240996666236
+      "forPerGame": 1.5384615384615385,
+      "againstPerGame": 1.6538461538461537,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.1350825092600376,
+      "adjustedAgainst": 1.3013422727394715
     },
     "eurocopa.portugal": {
       "teamId": "eurocopa.portugal",
@@ -184,11 +184,11 @@
       "shortName": "Portugal",
       "code": "POR",
       "logoUrl": "/brand/official/countries/portugal.png",
-      "forPerGame": 1,
-      "againstPerGame": 0.6,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.0253471968074472,
-      "adjustedAgainst": 0.9581729074915878
+      "forPerGame": 1.9714285714285715,
+      "againstPerGame": 0.9714285714285714,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.2626535044194365,
+      "adjustedAgainst": 1.0296406213024443
     },
     "eurocopa.rumania": {
       "teamId": "eurocopa.rumania",
@@ -196,11 +196,11 @@
       "shortName": "Rumanía",
       "code": "ROU",
       "logoUrl": "/brand/official/countries/rumania.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0347308875432575,
-      "adjustedAgainst": 1.1174246827606575
+      "forPerGame": 1.8148148148148149,
+      "againstPerGame": 1.4074074074074074,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.1557648976143238,
+      "adjustedAgainst": 1.2411117081930034
     },
     "eurocopa.escocia": {
       "teamId": "eurocopa.escocia",
@@ -208,11 +208,11 @@
       "shortName": "Escocia",
       "code": "SCO",
       "logoUrl": "/brand/official/countries/escocia.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9979389128592264,
-      "adjustedAgainst": 1.1873041096503816
+      "forPerGame": 1.1935483870967742,
+      "againstPerGame": 1.3870967741935485,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.1600666537734052,
+      "adjustedAgainst": 1.2979502649790133
     },
     "eurocopa.serbia": {
       "teamId": "eurocopa.serbia",
@@ -220,11 +220,11 @@
       "shortName": "Serbia",
       "code": "SRB",
       "logoUrl": "/brand/official/countries/serbia.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9682582031492154,
-      "adjustedAgainst": 1.0002817960470511
+      "forPerGame": 0.7931034482758621,
+      "againstPerGame": 1.4827586206896552,
+      "gamesPlayed": 29,
+      "adjustedFor": 1.2003140227095257,
+      "adjustedAgainst": 1.1668530169330162
     },
     "eurocopa.eslovaquia": {
       "teamId": "eurocopa.eslovaquia",
@@ -232,11 +232,11 @@
       "shortName": "Eslovaquia",
       "code": "SVK",
       "logoUrl": "/brand/official/countries/eslovaquia.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0373748922217565,
-      "adjustedAgainst": 1.080531242187373
+      "forPerGame": 1.5,
+      "againstPerGame": 1.1071428571428572,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.1440180419507238,
+      "adjustedAgainst": 1.1923258328556148
     },
     "eurocopa.eslovenia": {
       "teamId": "eurocopa.eslovenia",
@@ -244,11 +244,11 @@
       "shortName": "Eslovenia",
       "code": "SVN",
       "logoUrl": "/brand/official/countries/eslovenia.png",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9643289651442176,
-      "adjustedAgainst": 0.9604906775500845
+      "forPerGame": 0.8928571428571429,
+      "againstPerGame": 1,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.0973465937300038,
+      "adjustedAgainst": 1.0992041649022528
     },
     "eurocopa.espana": {
       "teamId": "eurocopa.espana",
@@ -256,11 +256,11 @@
       "shortName": "España",
       "code": "ESP",
       "logoUrl": "/brand/official/countries/espana.png",
-      "forPerGame": 2.142857142857143,
-      "againstPerGame": 0.5714285714285714,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2874592568366547,
-      "adjustedAgainst": 0.9220720701965086
+      "forPerGame": 2.380952380952381,
+      "againstPerGame": 0.7619047619047619,
+      "gamesPlayed": 42,
+      "adjustedFor": 1.4114322064335174,
+      "adjustedAgainst": 0.9797858758983273
     },
     "eurocopa.suiza": {
       "teamId": "eurocopa.suiza",
@@ -268,11 +268,11 @@
       "shortName": "Suiza",
       "code": "SUI",
       "logoUrl": "/brand/official/countries/suiza.png",
-      "forPerGame": 1.6,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.146301634955339,
-      "adjustedAgainst": 0.9917992921514276
+      "forPerGame": 1.8484848484848484,
+      "againstPerGame": 1,
+      "gamesPlayed": 33,
+      "adjustedFor": 1.2641350378152085,
+      "adjustedAgainst": 1.164019650906251
     },
     "eurocopa.turquia": {
       "teamId": "eurocopa.turquia",
@@ -280,11 +280,11 @@
       "shortName": "Turquía",
       "code": "TUR",
       "logoUrl": "/brand/official/countries/turquia.png",
-      "forPerGame": 1.6,
-      "againstPerGame": 1.6,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.1427689524895774,
-      "adjustedAgainst": 1.1398106936516594
+      "forPerGame": 1.71875,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.3550068557846073,
+      "adjustedAgainst": 1.2484637633543216
     },
     "eurocopa.ucrania": {
       "teamId": "eurocopa.ucrania",
@@ -292,11 +292,155 @@
       "shortName": "Ucrania",
       "code": "UKR",
       "logoUrl": "/brand/official/countries/ucrania.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0032183829546568,
-      "adjustedAgainst": 1.0815234711041917
+      "forPerGame": 1.1538461538461537,
+      "againstPerGame": 1.4615384615384615,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.168015181881149,
+      "adjustedAgainst": 1.1769779685211221
+    },
+    "eurocopa.bulgaria": {
+      "teamId": "eurocopa.bulgaria",
+      "name": "Bulgaria",
+      "shortName": "Bulgaria",
+      "code": "BUL",
+      "logoUrl": "/brand/official/countries/bulgaria.png",
+      "forPerGame": 1.0416666666666667,
+      "againstPerGame": 1.9166666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.2437669267458344,
+      "adjustedAgainst": 1.1935862766738043
+    },
+    "eurocopa.finlandia": {
+      "teamId": "eurocopa.finlandia",
+      "name": "Finlandia",
+      "shortName": "Finlandia",
+      "code": "FIN",
+      "logoUrl": "/brand/official/countries/finlandia.png",
+      "forPerGame": 1.36,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.2126140108455847,
+      "adjustedAgainst": 1.1703967443125436
+    },
+    "eurocopa.grecia": {
+      "teamId": "eurocopa.grecia",
+      "name": "Grecia",
+      "shortName": "Grecia",
+      "code": "GRE",
+      "logoUrl": "/brand/official/countries/grecia.png",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1.2916666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.235510038011965,
+      "adjustedAgainst": 1.1402517298715917
+    },
+    "eurocopa.islandia": {
+      "teamId": "eurocopa.islandia",
+      "name": "Islandia",
+      "shortName": "Islandia",
+      "code": "ISL",
+      "logoUrl": "/brand/official/countries/islandia.png",
+      "forPerGame": 1.72,
+      "againstPerGame": 1.64,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.2085852466321723,
+      "adjustedAgainst": 1.1887870700992522
+    },
+    "eurocopa.irlanda": {
+      "teamId": "eurocopa.irlanda",
+      "name": "Irlanda",
+      "shortName": "Irlanda",
+      "code": "IRL",
+      "logoUrl": "/brand/official/countries/irlanda.png",
+      "forPerGame": 1.2916666666666667,
+      "againstPerGame": 1.2083333333333333,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.2108307116895909,
+      "adjustedAgainst": 1.1893070302682571
+    },
+    "eurocopa.letonia": {
+      "teamId": "eurocopa.letonia",
+      "name": "Letonia",
+      "shortName": "Letonia",
+      "code": "LVA",
+      "logoUrl": "/brand/official/countries/letonia.png",
+      "forPerGame": 0.6086956521739131,
+      "againstPerGame": 1.4782608695652173,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.2543835314802498,
+      "adjustedAgainst": 1.163975923141841
+    },
+    "eurocopa.irlanda-norte": {
+      "teamId": "eurocopa.irlanda-norte",
+      "name": "Irlanda del Norte",
+      "shortName": "Irlanda N.",
+      "code": "NIR",
+      "logoUrl": "/brand/official/countries/irlanda-norte.png",
+      "forPerGame": 1.2380952380952381,
+      "againstPerGame": 0.7142857142857143,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.2178505812654563,
+      "adjustedAgainst": 1.2202039305555545
+    },
+    "eurocopa.macedonia-norte": {
+      "teamId": "eurocopa.macedonia-norte",
+      "name": "Macedonia del Norte",
+      "shortName": "Macedonia N.",
+      "code": "MKD",
+      "logoUrl": "/brand/official/countries/macedonia-norte.png",
+      "forPerGame": 0.96,
+      "againstPerGame": 1.36,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.18268182110985,
+      "adjustedAgainst": 1.1832443900244827
+    },
+    "eurocopa.noruega": {
+      "teamId": "eurocopa.noruega",
+      "name": "Noruega",
+      "shortName": "Noruega",
+      "code": "NOR",
+      "logoUrl": "/brand/official/countries/noruega.png",
+      "forPerGame": 2.7241379310344827,
+      "againstPerGame": 1.2413793103448276,
+      "gamesPlayed": 29,
+      "adjustedFor": 1.201148343834363,
+      "adjustedAgainst": 1.2027182193307844
+    },
+    "eurocopa.rusia": {
+      "teamId": "eurocopa.rusia",
+      "name": "Rusia",
+      "shortName": "Rusia",
+      "code": "RUS",
+      "logoUrl": "/brand/official/countries/rusia.png",
+      "forPerGame": 2.3,
+      "againstPerGame": 0.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.2062379659464726,
+      "adjustedAgainst": 1.2062379659464726
+    },
+    "eurocopa.suecia": {
+      "teamId": "eurocopa.suecia",
+      "name": "Suecia",
+      "shortName": "Suecia",
+      "code": "SWE",
+      "logoUrl": "/brand/official/countries/suecia.png",
+      "forPerGame": 1.96,
+      "againstPerGame": 1.56,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.1763483977754057,
+      "adjustedAgainst": 1.2432279832873478
+    },
+    "eurocopa.gales": {
+      "teamId": "eurocopa.gales",
+      "name": "Gales",
+      "shortName": "Gales",
+      "code": "WAL",
+      "logoUrl": "/brand/official/countries/gales.png",
+      "forPerGame": 1.608695652173913,
+      "againstPerGame": 1.2173913043478262,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.1532012898816821,
+      "adjustedAgainst": 1.2279258034250542
     }
   },
   "games": [
@@ -328,7 +472,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -360,7 +504,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -392,7 +536,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -424,7 +568,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -456,7 +600,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -488,7 +632,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -520,7 +664,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -552,7 +696,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -584,7 +728,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -616,7 +760,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -648,7 +792,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -680,7 +824,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -712,7 +856,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -744,7 +888,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -776,7 +920,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -808,7 +952,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -840,7 +984,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -872,7 +1016,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -904,7 +1048,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -936,7 +1080,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -968,7 +1112,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1000,7 +1144,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1032,7 +1176,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1064,7 +1208,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1096,7 +1240,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1128,7 +1272,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1160,7 +1304,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1192,7 +1336,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1224,7 +1368,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1256,7 +1400,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1288,7 +1432,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1320,7 +1464,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1352,7 +1496,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1384,7 +1528,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1416,7 +1560,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1448,7 +1592,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     }

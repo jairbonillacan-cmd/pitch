@@ -914,6 +914,212 @@ export function PublicSiteShell({
   );
 }
 
+export function MultiAngleValidationSection({
+  heroCards = [],
+}: {
+  heroCards?: readonly LandingHeroLeagueCard[];
+} = {}): React.JSX.Element {
+  const soccerCard =
+    heroCards.find((card) => card.league === "liga-mx") ??
+    heroCards.find((card) => card.league !== "nfl") ??
+    heroCards[0];
+  const secondaryCard =
+    heroCards.find((card) => card.league === "nfl") ?? heroCards[1];
+
+  const primaryMatchTitle = soccerCard
+    ? `${soccerCard.home.name} vs ${soccerCard.away.name}`
+    : "Querétaro vs Monterrey";
+  const primaryPickLabel = soccerCard?.mostProbable.label ?? "Monterrey gana";
+  const primaryProb = soccerCard ? formatPctEs(soccerCard.mostProbable.p) : "47.0 %";
+  const primaryFair = soccerCard?.mostProbable.fairAmerican ?? "+113";
+  const primaryLeague = soccerCard?.leagueShort ?? "Liga MX";
+
+  const secondaryMatchTitle = secondaryCard
+    ? `${secondaryCard.home.name} vs ${secondaryCard.away.name}`
+    : "Chiefs vs Bills";
+  const secondaryPickLabel = secondaryCard?.mostProbable.label ?? "Kansas City gana";
+  const secondaryProb = secondaryCard ? formatPctEs(secondaryCard.mostProbable.p) : "58.2 %";
+  const secondaryFair = secondaryCard?.mostProbable.fairAmerican ?? "−139";
+  const secondaryLeague = secondaryCard?.leagueShort ?? "NFL";
+
+  const angleMetrics = [
+    { label: "Fuerza ofensiva y localía (Tachyon)", pct: 78, tone: "ok" as const },
+    { label: "Forma reciente ajustada por rival (Singularity)", pct: 71, tone: "ok" as const },
+    { label: "Descanso, altitud y calendario (Minkowski)", pct: 83, tone: "ok" as const },
+    { label: "Cruce contra cierre del mercado (Geodesic)", pct: 64, tone: "brand" as const },
+    { label: "Consenso final sin comisión (Cortex IA)", pct: 74, tone: "ok" as const },
+  ];
+
+  return (
+    <section id="cinco-angulos" className="pl-lp-section pl-lp-angles-section">
+      <div className="pl-lp-wrap pl-lp-stack">
+        <div className="pl-lp-section-head pl-lp-section-head--center">
+          <p className="pl-lp-eyebrow">Nosotros procesamos los datos por ti</p>
+          <h2 className="pl-lp-h2">
+            Cada partido, puesto a prueba desde cinco ángulos.
+          </h2>
+          <p className="pl-lp-lede">
+            Antes de publicar una probabilidad, nuestros modelos cruzan fuerza estructural, forma reciente,
+            descanso, movimiento del mercado y contexto en vivo.
+          </p>
+        </div>
+
+        <div className="pl-lp-angles-stage">
+          <div className="pl-lp-angles-glow" aria-hidden="true" />
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--tl">
+            <span>5 motores probados fuera de muestra</span>
+            <svg
+              className="pl-lp-angle-arrow"
+              width="52"
+              height="36"
+              viewBox="0 0 52 36"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 6C22 6 38 14 46 31"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M40 28L46.5 32L49 24.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--tr">
+            <span>Momio justo sin margen de la casa</span>
+            <svg
+              className="pl-lp-angle-arrow pl-lp-angle-arrow--flip"
+              width="52"
+              height="36"
+              viewBox="0 0 52 36"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 6C22 6 38 14 46 31"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M40 28L46.5 32L49 24.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--bl">
+            <span>Compara por localía, forma y calendario</span>
+            <svg
+              className="pl-lp-angle-arrow"
+              width="48"
+              height="28"
+              viewBox="0 0 48 28"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 22C20 22 34 16 44 5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M36.5 5.5L44.5 4.5L43.5 12.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angles-cards">
+            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--primary glass-lens glass-ring glass-ring--featured">
+              <div className="pl-lp-angle-card-head">
+                <div>
+                  <p className="pl-lp-most-kicker">{primaryLeague} · Desglose multi-ángulo</p>
+                  <h3 className="pl-lp-h3">{primaryMatchTitle}</h3>
+                </div>
+                <span className="pl-lp-pill pl-lp-pill--brand num">Ejemplo</span>
+              </div>
+
+              <div className="pl-lp-angle-summary num">
+                <div>
+                  <span className="pl-lp-fine">Escenario principal</span>
+                  <strong className="pl-lp-angle-pick">{primaryPickLabel}</strong>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <strong className="pl-lp-angle-prob">{primaryProb}</strong>
+                  <span className="pl-lp-fine" style={{ display: "block" }}>
+                    Justo {primaryFair}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pl-lp-angle-bars">
+                {angleMetrics.map((metric) => (
+                  <div key={metric.label} className="pl-lp-angle-bar-row">
+                    <div className="pl-lp-angle-bar-top">
+                      <span>{metric.label}</span>
+                      <span className="num">{metric.pct} %</span>
+                    </div>
+                    <div className="pl-lp-angle-track" aria-hidden="true">
+                      <span
+                        className={`pl-lp-angle-fill pl-lp-angle-fill--${metric.tone}`}
+                        style={{ width: `${metric.pct}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--secondary glass-card glass-ring">
+              <div className="pl-lp-angle-card-head">
+                <div>
+                  <p className="pl-lp-most-kicker">{secondaryLeague} · Validación cruzada</p>
+                  <p style={{ margin: "2px 0 0", fontWeight: 700, fontSize: 16 }}>
+                    {secondaryMatchTitle}
+                  </p>
+                </div>
+                <span className="pl-lp-status pl-lp-status--hit num">5 / 5 motores</span>
+              </div>
+
+              <div className="pl-lp-angle-summary pl-lp-angle-summary--compact num">
+                <span>{secondaryPickLabel}</span>
+                <strong>
+                  {secondaryProb} · justo {secondaryFair}
+                </strong>
+              </div>
+
+              <div className="pl-lp-angle-mini-chips num">
+                <span className="pl-lp-pill">Eficiencia por jugada: +6.4 %</span>
+                <span className="pl-lp-pill">Línea sin margen evaluada</span>
+                <span className="pl-lp-pill">Cero datos posteriores</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function HowItWorksSection({
   variant = "teaser",
 }: {
@@ -1827,82 +2033,80 @@ export function PricingSection({
           <div className="pl-lp-fieldgrid" aria-hidden="true" />
         </>
       ) : null}
-      <div
-        className="pl-lp-wrap pl-lp-pricing-grid"
-        style={isPage ? { position: "relative", zIndex: 1 } : undefined}
-      >
-        <div className="pl-lp-pricing-copy">
-          <p className="pl-lp-eyebrow">Precio</p>
-          {variant === "page" ? (
+
+      {isPage ? (
+        <div
+          className="pl-lp-wrap pl-lp-pricing-grid"
+          style={{ position: "relative", zIndex: 1 }}
+        >
+          <div className="pl-lp-pricing-copy">
+            <p className="pl-lp-eyebrow">Precio</p>
             <h1 className="pl-lp-h1 pl-lp-h1--page">
               Un solo pase. Todo incluido.
             </h1>
-          ) : (
-            <h2 className="pl-lp-h2">Un solo pase. Todo incluido.</h2>
-          )}
-          <p className="pl-lp-lede">
-            Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
-          </p>
-          {isPage ? (
+            <p className="pl-lp-lede">
+              Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
+            </p>
             <UltraPassCardStageIsland />
-          ) : (
-            <>
-              <p
-                style={{
-                  margin: "8px 0 0",
-                  fontSize: 14,
-                  color: "var(--pl-text-secondary)",
-                }}
-              >
-                Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
-                {MEMBERSHIP_SPEC.referralBothRewardDays} días.
-              </p>
-              <a
-                className="pl-lp-more"
-                href="/precio"
-                style={{ alignSelf: "flex-start" }}
-              >
-                Ver todo lo que incluye{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </>
-          )}
-        </div>
+          </div>
 
-        <PricingCardIsland hasSession={hasSession} animated={isPage} />
-      </div>
+          <PricingCardIsland hasSession={hasSession} animated layout="single" />
+        </div>
+      ) : (
+        <div className="pl-lp-wrap pl-lp-stack">
+          <div className="pl-lp-section-head pl-lp-section-head--center">
+            <p className="pl-lp-eyebrow">Precio</p>
+            <h2 className="pl-lp-h2">Elige tu plan.</h2>
+            <p className="pl-lp-lede">
+              Un solo pase desbloquea las 7 ligas, los 5 motores y el armador de parlays. IVA incluido y factura CFDI.
+            </p>
+          </div>
+
+          <PricingCardIsland hasSession={hasSession} layout="compare" />
+
+          <div className="pl-lp-pricing-subfoot">
+            <a className="pl-lp-more" href="/precio">
+              Ver detalles completos del pase y pago SPEI{" "}
+              <span className="pl-lp-arr" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
 
 export function FaqSection(): React.JSX.Element {
   return (
-    <section className="pl-lp-section" aria-labelledby="pl-lp-faq-heading">
-      <div className="pl-lp-wrap pl-lp-wrap--narrow">
-        <h2
-          id="pl-lp-faq-heading"
-          className="pl-lp-h2 pl-lp-h2--faq"
-          style={{ marginBottom: 24 }}
-        >
-          Preguntas frecuentes
-        </h2>
-        {LANDING_FAQS.map((item) => (
-          <details
-            key={item.question}
-            className="pl-lp-faq"
-            open={item.defaultOpen || undefined}
-          >
-            <summary>
-              <span>{item.question}</span>
-              <span className="pl-lp-chev" aria-hidden="true">
-                +
-              </span>
-            </summary>
-            <p className="pl-lp-faq-body">{item.answer}</p>
-          </details>
-        ))}
+    <section id="faq" className="pl-lp-section" aria-labelledby="pl-lp-faq-heading">
+      <div className="pl-lp-wrap pl-lp-wrap--narrow pl-lp-stack" style={{ gap: 28 }}>
+        <div className="pl-lp-section-head pl-lp-section-head--center">
+          <p className="pl-lp-eyebrow">Dudas claras</p>
+          <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq">
+            Preguntas frecuentes
+          </h2>
+        </div>
+
+        <div className="pl-lp-faq-list">
+          {LANDING_FAQS.map((item) => (
+            <details
+              key={item.question}
+              name="pl-lp-faq"
+              className="pl-lp-faq pl-lp-faq--card"
+              open={item.defaultOpen || undefined}
+            >
+              <summary>
+                <span>{item.question}</span>
+                <span className="pl-lp-chev" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <p className="pl-lp-faq-body">{item.answer}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1912,32 +2116,54 @@ export function ClosingCtaSection({ hasSession = false }: { hasSession?: boolean
   return (
     <section className="pl-lp-closing">
       <div className="pl-lp-wrap">
-        <div className="pl-lp-card pl-lp-closing-card glass-card glass-ring">
+        <div className="pl-lp-card pl-lp-closing-card pl-lp-closing-banner glass-ring">
           <div className="pl-lp-closing-copy">
+            <span className="pl-lp-pill pl-lp-pill--brand" style={{ alignSelf: "flex-start" }}>
+              7 días gratis · Cancela cuando quieras
+            </span>
             <h2 className="pl-lp-h2">Lee el juego con datos.</h2>
             <p className="pl-lp-lede">
-              Abre la jornada, mira lo más probable y compáralo con tu momio.
+              Abre la jornada, mira lo más probable con su momio justo y compáralo con tu casa antes de decidir.
             </p>
-            <a
-              className="pl-lp-btn pl-lp-btn-primary"
-              href={hasSession ? "/app" : "/signup"}
-              style={{ alignSelf: "flex-start" }}
-            >
-              Probar 7 días gratis{" "}
-              <span className="pl-lp-arr" aria-hidden="true">
-                →
-              </span>
-            </a>
+            <div className="pl-lp-hero-ctas">
+              <a
+                className="pl-lp-btn pl-lp-btn-primary"
+                href={hasSession ? "/app" : "/signup"}
+              >
+                Probar 7 días gratis{" "}
+                <span className="pl-lp-arr" aria-hidden="true">
+                  →
+                </span>
+              </a>
+              <a className="pl-lp-btn pl-lp-btn-ghost" href="#hoy">
+                Probar comparador
+              </a>
+            </div>
           </div>
 
-          <div className="pl-lp-radar-wrap" aria-hidden="true">
-            <div className="pl-lp-radar-halo" />
-            <Mascot
-              edition="soccer"
-              size={240}
-              className="pl-lp-radar-float"
-              lazy
-            />
+          <div className="pl-lp-closing-visual" aria-hidden="true">
+            <div className="pl-lp-closing-float-stack">
+              <div className="pl-lp-closing-mini-card glass-card glass-ring">
+                <span className="pl-lp-most-kicker">Consenso · 5 motores</span>
+                <strong>Monterrey o empate</strong>
+                <span className="num">72.3 % · Justo −261</span>
+              </div>
+              <div className="pl-lp-closing-mini-card pl-lp-closing-mini-card--back glass-card glass-ring">
+                <span className="pl-lp-most-kicker">Parlay compatible</span>
+                <strong>2 selecciones sin choques</strong>
+                <span className="num">+5.6 pts sobre el momio</span>
+              </div>
+            </div>
+
+            <div className="pl-lp-radar-wrap">
+              <div className="pl-lp-radar-halo" />
+              <Mascot
+                edition="soccer"
+                size={210}
+                className="pl-lp-radar-float"
+                lazy
+              />
+            </div>
           </div>
         </div>
       </div>

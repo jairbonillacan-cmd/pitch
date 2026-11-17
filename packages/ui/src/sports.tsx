@@ -70,6 +70,8 @@ const GENERIC_LEAGUE_CODES: Record<string, string> = {
   "copa-america": "CA",
   eurocopa: "EURO",
   "copa-oro": "GC",
+  "copa-africana": "AFCON",
+  "copa-asiatica": "AFC",
 };
 
 export type EmblemSurface = "public" | "app";

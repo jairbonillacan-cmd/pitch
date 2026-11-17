@@ -5,8 +5,8 @@
   "season": "uefa-nations-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Fase de ligas",
-  "updatedAt": "2026-11-16T20:55:55.962Z",
-  "source": "espn",
+  "updatedAt": "2026-11-17T04:24:25.916Z",
+  "source": "espn+bzzoiro",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -16,11 +16,11 @@
       "shortName": "Albania",
       "code": "ALB",
       "logoUrl": "/brand/official/countries/albania.png",
-      "forPerGame": 2.2,
-      "againstPerGame": 0.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.4699169793622548,
-      "adjustedAgainst": 0.6631720905535905
+      "forPerGame": 1,
+      "againstPerGame": 0.8888888888888888,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.1941291218659473,
+      "adjustedAgainst": 0.8094375078755526
     },
     "uefa-nations.andorra": {
       "teamId": "uefa-nations.andorra",
@@ -28,11 +28,11 @@
       "shortName": "Andorra",
       "code": "AND",
       "logoUrl": "/brand/official/countries/andorra.png",
-      "forPerGame": 1,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.131476367412385,
-      "adjustedAgainst": 1.012931533764937
+      "forPerGame": 0.36,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.744458096774086,
+      "adjustedAgainst": 1.1164272713349397
     },
     "uefa-nations.armenia": {
       "teamId": "uefa-nations.armenia",
@@ -40,11 +40,11 @@
       "shortName": "Armenia",
       "code": "ARM",
       "logoUrl": "/brand/official/countries/armenia.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1927041828395273,
-      "adjustedAgainst": 1.118969273280911
+      "forPerGame": 0.8695652173913043,
+      "againstPerGame": 2.0434782608695654,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8204042593289844,
+      "adjustedAgainst": 1.4429914526037728
     },
     "uefa-nations.austria": {
       "teamId": "uefa-nations.austria",
@@ -52,11 +52,11 @@
       "shortName": "Austria",
       "code": "AUT",
       "logoUrl": "/brand/official/countries/austria.png",
-      "forPerGame": 2.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.7187878368363596,
-      "adjustedAgainst": 1.1506771326519745
+      "forPerGame": 2.09375,
+      "againstPerGame": 1.03125,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.541907250256268,
+      "adjustedAgainst": 1.0900444700412968
     },
     "uefa-nations.azerbaiyan": {
       "teamId": "uefa-nations.azerbaiyan",
@@ -64,11 +64,11 @@
       "shortName": "Azerbaiyán",
       "code": "AZE",
       "logoUrl": "/brand/official/countries/azerbaiyan.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9711808352910005,
-      "adjustedAgainst": 0.8779408681651067
+      "forPerGame": 1.0434782608695652,
+      "againstPerGame": 1.7826086956521738,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.813223939461752,
+      "adjustedAgainst": 1.093349852624933
     },
     "uefa-nations.bielorrusia": {
       "teamId": "uefa-nations.bielorrusia",
@@ -76,11 +76,11 @@
       "shortName": "Bielorrusia",
       "code": "BLR",
       "logoUrl": "/brand/official/countries/bielorrusia.png",
-      "forPerGame": 0.6,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.8464609070351946,
-      "adjustedAgainst": 0.836751683663108
+      "forPerGame": 1.0454545454545454,
+      "againstPerGame": 1.3181818181818181,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.8297909427788681,
+      "adjustedAgainst": 0.8173138884524265
     },
     "uefa-nations.belgica": {
       "teamId": "uefa-nations.belgica",
@@ -88,11 +88,11 @@
       "shortName": "Bélgica",
       "code": "BEL",
       "logoUrl": "/brand/official/countries/belgica.png",
-      "forPerGame": 2,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4291409280852851,
-      "adjustedAgainst": 0.9101896608334474
+      "forPerGame": 2.2222222222222223,
+      "againstPerGame": 1.0555555555555556,
+      "gamesPlayed": 36,
+      "adjustedFor": 1.452855818773819,
+      "adjustedAgainst": 1.0430406220798307
     },
     "uefa-nations.bosnia-y-herzegovina": {
       "teamId": "uefa-nations.bosnia-y-herzegovina",
@@ -100,11 +100,11 @@
       "shortName": "Bosnia",
       "code": "BIH",
       "logoUrl": "/brand/official/countries/bosnia-y-herzegovina.png",
-      "forPerGame": 2,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.4251369698095955,
-      "adjustedAgainst": 1.315739658647393
+      "forPerGame": 1.3703703703703705,
+      "againstPerGame": 1.5185185185185186,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.2187980832174097,
+      "adjustedAgainst": 1.1849552132653043
     },
     "uefa-nations.bulgaria": {
       "teamId": "uefa-nations.bulgaria",
@@ -112,11 +112,11 @@
       "shortName": "Bulgaria",
       "code": "BUL",
       "logoUrl": "/brand/official/countries/bulgaria.png",
-      "forPerGame": 0.8,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.036057344394523,
-      "adjustedAgainst": 1.6009889632336316
+      "forPerGame": 1.0416666666666667,
+      "againstPerGame": 1.9166666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.8655312758374386,
+      "adjustedAgainst": 1.6067145429662748
     },
     "uefa-nations.croacia": {
       "teamId": "uefa-nations.croacia",
@@ -124,11 +124,11 @@
       "shortName": "Croacia",
       "code": "CRO",
       "logoUrl": "/brand/official/countries/croacia.png",
-      "forPerGame": 1.4,
-      "againstPerGame": 2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2118421755707076,
-      "adjustedAgainst": 1.4852286148626055
+      "forPerGame": 1.7058823529411764,
+      "againstPerGame": 1.588235294117647,
+      "gamesPlayed": 34,
+      "adjustedFor": 1.1382513589520113,
+      "adjustedAgainst": 1.5018555455678897
     },
     "uefa-nations.chipre": {
       "teamId": "uefa-nations.chipre",
@@ -136,11 +136,11 @@
       "shortName": "Chipre",
       "code": "CYP",
       "logoUrl": "/brand/official/countries/chipre.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9609532592461177,
-      "adjustedAgainst": 1.307684924084644
+      "forPerGame": 1.2,
+      "againstPerGame": 1.68,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.9431962775554038,
+      "adjustedAgainst": 1.5309485458162577
     },
     "uefa-nations.republica-checa": {
       "teamId": "uefa-nations.republica-checa",
@@ -148,11 +148,11 @@
       "shortName": "R. Checa",
       "code": "CZE",
       "logoUrl": "/brand/official/countries/republica-checa.png",
-      "forPerGame": 0.4,
-      "againstPerGame": 2.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.7148382527319432,
-      "adjustedAgainst": 1.4740189898889788
+      "forPerGame": 1.4516129032258065,
+      "againstPerGame": 1.5161290322580645,
+      "gamesPlayed": 31,
+      "adjustedFor": 0.8046783152578626,
+      "adjustedAgainst": 1.3652959788716768
     },
     "uefa-nations.dinamarca": {
       "teamId": "uefa-nations.dinamarca",
@@ -160,11 +160,11 @@
       "shortName": "Dinamarca",
       "code": "DEN",
       "logoUrl": "/brand/official/countries/dinamarca.png",
-      "forPerGame": 2.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.7047640861523696,
-      "adjustedAgainst": 1.4645600096310312
+      "forPerGame": 1.6785714285714286,
+      "againstPerGame": 1.0714285714285714,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.617270909921002,
+      "adjustedAgainst": 1.1048854928680822
     },
     "uefa-nations.inglaterra": {
       "teamId": "uefa-nations.inglaterra",
@@ -172,11 +172,11 @@
       "shortName": "Inglaterra",
       "code": "ENG",
       "logoUrl": "/brand/official/countries/inglaterra.png",
-      "forPerGame": 2.4,
-      "againstPerGame": 1.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.6655566787280884,
-      "adjustedAgainst": 1.1404384052499148
+      "forPerGame": 2.3076923076923075,
+      "againstPerGame": 0.7435897435897436,
+      "gamesPlayed": 39,
+      "adjustedFor": 2.0620483227412905,
+      "adjustedAgainst": 0.8857616537492368
     },
     "uefa-nations.estonia": {
       "teamId": "uefa-nations.estonia",
@@ -184,11 +184,11 @@
       "shortName": "Estonia",
       "code": "EST",
       "logoUrl": "/brand/official/countries/estonia.png",
-      "forPerGame": 0.8,
-      "againstPerGame": 0.4,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.9472540154921523,
-      "adjustedAgainst": 0.7162345543304964
+      "forPerGame": 0.9130434782608695,
+      "againstPerGame": 1.608695652173913,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8205422224962825,
+      "adjustedAgainst": 0.7263192386219859
     },
     "uefa-nations.islas-feroe": {
       "teamId": "uefa-nations.islas-feroe",
@@ -196,11 +196,11 @@
       "shortName": "I. Feroe",
       "code": "FRO",
       "logoUrl": "/brand/official/countries/islas-feroe.png",
-      "forPerGame": 1.4,
-      "againstPerGame": 1.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2090132301437264,
-      "adjustedAgainst": 1.1575053901911485
+      "forPerGame": 1.2272727272727273,
+      "againstPerGame": 1.0454545454545454,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.0266979930308302,
+      "adjustedAgainst": 1.1497838205921285
     },
     "uefa-nations.finlandia": {
       "teamId": "uefa-nations.finlandia",
@@ -208,11 +208,11 @@
       "shortName": "Finlandia",
       "code": "FIN",
       "logoUrl": "/brand/official/countries/finlandia.png",
-      "forPerGame": 2.8,
-      "againstPerGame": 1,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.8135780767699505,
-      "adjustedAgainst": 1.1607893806282241
+      "forPerGame": 1.36,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.524216943710391,
+      "adjustedAgainst": 1.2125348096282493
     },
     "uefa-nations.francia": {
       "teamId": "uefa-nations.francia",
@@ -220,11 +220,11 @@
       "shortName": "Francia",
       "code": "FRA",
       "logoUrl": "/brand/official/countries/francia.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1003434889598807,
-      "adjustedAgainst": 1.0654483446574712
+      "forPerGame": 1.975,
+      "againstPerGame": 1.025,
+      "gamesPlayed": 40,
+      "adjustedFor": 1.4015937099928522,
+      "adjustedAgainst": 0.9450463044573453
     },
     "uefa-nations.georgia": {
       "teamId": "uefa-nations.georgia",
@@ -232,11 +232,11 @@
       "shortName": "Georgia",
       "code": "GEO",
       "logoUrl": "/brand/official/countries/georgia.png",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.7817527274037125,
-      "adjustedAgainst": 1.180846476638535
+      "forPerGame": 1.2962962962962963,
+      "againstPerGame": 1.3703703703703705,
+      "gamesPlayed": 27,
+      "adjustedFor": 0.8912687345092146,
+      "adjustedAgainst": 0.9681368907964472
     },
     "uefa-nations.alemania": {
       "teamId": "uefa-nations.alemania",
@@ -244,11 +244,11 @@
       "shortName": "Alemania",
       "code": "GER",
       "logoUrl": "/brand/official/countries/alemania.png",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1967475740132054,
-      "adjustedAgainst": 0.9360794489276643
+      "forPerGame": 2.4285714285714284,
+      "againstPerGame": 0.9142857142857143,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.62195592572473,
+      "adjustedAgainst": 0.7433956389578479
     },
     "uefa-nations.gibraltar": {
       "teamId": "uefa-nations.gibraltar",
@@ -256,11 +256,11 @@
       "shortName": "Gibraltar",
       "code": "GIB",
       "logoUrl": "/brand/official/countries/gibraltar.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8577475369327849,
-      "adjustedAgainst": 1.1011047694698601
+      "forPerGame": 0.7916666666666666,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.5881609007690575,
+      "adjustedAgainst": 1.2935685494189666
     },
     "uefa-nations.grecia": {
       "teamId": "uefa-nations.grecia",
@@ -268,11 +268,11 @@
       "shortName": "Grecia",
       "code": "GRE",
       "logoUrl": "/brand/official/countries/grecia.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1929949922331198,
-      "adjustedAgainst": 1.624595921393676
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1.2916666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.1488829886442986,
+      "adjustedAgainst": 1.0617935662527236
     },
     "uefa-nations.hungria": {
       "teamId": "uefa-nations.hungria",
@@ -280,11 +280,11 @@
       "shortName": "Hungría",
       "code": "HUN",
       "logoUrl": "/brand/official/countries/hungria.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0619261972810752,
-      "adjustedAgainst": 0.9103766699871598
+      "forPerGame": 1.1153846153846154,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 26,
+      "adjustedFor": 0.9958159112345639,
+      "adjustedAgainst": 0.9599475751827812
     },
     "uefa-nations.islandia": {
       "teamId": "uefa-nations.islandia",
@@ -292,11 +292,11 @@
       "shortName": "Islandia",
       "code": "ISL",
       "logoUrl": "/brand/official/countries/islandia.png",
-      "forPerGame": 2.4,
-      "againstPerGame": 0.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.8068928082098281,
-      "adjustedAgainst": 0.7335572719621455
+      "forPerGame": 1.72,
+      "againstPerGame": 1.64,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.707895093803143,
+      "adjustedAgainst": 0.9665865792217847
     },
     "uefa-nations.israel": {
       "teamId": "uefa-nations.israel",
@@ -304,11 +304,11 @@
       "shortName": "Israel",
       "code": "ISR",
       "logoUrl": "/brand/official/countries/israel.png",
-      "forPerGame": 0.25,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.7699841763161319,
-      "adjustedAgainst": 1.3180155338744814
+      "forPerGame": 1.3181818181818181,
+      "againstPerGame": 1.9090909090909092,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.7695953303884528,
+      "adjustedAgainst": 1.2733567270749315
     },
     "uefa-nations.italia": {
       "teamId": "uefa-nations.italia",
@@ -316,11 +316,11 @@
       "shortName": "Italia",
       "code": "ITA",
       "logoUrl": "/brand/official/countries/italia.png",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.602505540552152,
-      "adjustedAgainst": 1.526589246629455
+      "forPerGame": 1.9333333333333333,
+      "againstPerGame": 1.3666666666666667,
+      "gamesPlayed": 30,
+      "adjustedFor": 1.675389587469523,
+      "adjustedAgainst": 1.2837028443326637
     },
     "uefa-nations.kazajistan": {
       "teamId": "uefa-nations.kazajistan",
@@ -328,11 +328,11 @@
       "shortName": "Kazajistán",
       "code": "KAZ",
       "logoUrl": "/brand/official/countries/kazajistan.png",
-      "forPerGame": 1.4,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2830812445078705,
-      "adjustedAgainst": 1.3935261659518001
+      "forPerGame": 0.88,
+      "againstPerGame": 1.76,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.0491489831492349,
+      "adjustedAgainst": 1.5575230883068825
     },
     "uefa-nations.kosovo": {
       "teamId": "uefa-nations.kosovo",
@@ -340,11 +340,11 @@
       "shortName": "Kosovo",
       "code": "KOS",
       "logoUrl": "/brand/official/countries/kosovo.png",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.8296709153975821,
-      "adjustedAgainst": 0.9822281206368556
+      "forPerGame": 1.391304347826087,
+      "againstPerGame": 1.0434782608695652,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.9646540372258516,
+      "adjustedAgainst": 0.9333800978585437
     },
     "uefa-nations.letonia": {
       "teamId": "uefa-nations.letonia",
@@ -352,11 +352,11 @@
       "shortName": "Letonia",
       "code": "LVA",
       "logoUrl": "/brand/official/countries/letonia.png",
-      "forPerGame": 0.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.7177677470206282,
-      "adjustedAgainst": 1.0140105726645223
+      "forPerGame": 0.6086956521739131,
+      "againstPerGame": 1.4782608695652173,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.6569195364366996,
+      "adjustedAgainst": 1.28707335744313
     },
     "uefa-nations.liechtenstein": {
       "teamId": "uefa-nations.liechtenstein",
@@ -364,11 +364,11 @@
       "shortName": "Liechtenst.",
       "code": "LIE",
       "logoUrl": "/brand/official/countries/liechtenstein.png",
-      "forPerGame": 0.25,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.7931481803651419,
-      "adjustedAgainst": 1.1936681471572332
+      "forPerGame": 0.2727272727272727,
+      "againstPerGame": 2.4545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.5942921402566116,
+      "adjustedAgainst": 1.3990103094131587
     },
     "uefa-nations.lituania": {
       "teamId": "uefa-nations.lituania",
@@ -376,11 +376,11 @@
       "shortName": "Lituania",
       "code": "LTU",
       "logoUrl": "/brand/official/countries/lituania.png",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.4142437986664143,
-      "adjustedAgainst": 1.0906348054472756
+      "forPerGame": 0.88,
+      "againstPerGame": 1.24,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.9601104291041916,
+      "adjustedAgainst": 1.26603255508494
     },
     "uefa-nations.luxemburgo": {
       "teamId": "uefa-nations.luxemburgo",
@@ -388,11 +388,11 @@
       "shortName": "Luxemburgo",
       "code": "LUX",
       "logoUrl": "/brand/official/countries/luxemburgo.png",
-      "forPerGame": 0.4,
-      "againstPerGame": 2,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.7837918999264015,
-      "adjustedAgainst": 1.491174205786102
+      "forPerGame": 0.5454545454545454,
+      "againstPerGame": 1.4545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.8067379007375287,
+      "adjustedAgainst": 1.3490294502388926
     },
     "uefa-nations.malta": {
       "teamId": "uefa-nations.malta",
@@ -400,11 +400,11 @@
       "shortName": "Malta",
       "code": "MLT",
       "logoUrl": "/brand/official/countries/malta.png",
-      "forPerGame": 1.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3130828915196442,
-      "adjustedAgainst": 1.1736355394347413
+      "forPerGame": 0.7727272727272727,
+      "againstPerGame": 1.4545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.8685898740306307,
+      "adjustedAgainst": 1.3615041091067803
     },
     "uefa-nations.moldavia": {
       "teamId": "uefa-nations.moldavia",
@@ -412,11 +412,11 @@
       "shortName": "Moldavia",
       "code": "MDA",
       "logoUrl": "/brand/official/countries/moldavia.png",
-      "forPerGame": 0.6,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.8584061628791485,
-      "adjustedAgainst": 1.3314434221581617
+      "forPerGame": 0.9090909090909091,
+      "againstPerGame": 2.3181818181818183,
+      "gamesPlayed": 22,
+      "adjustedFor": 0.8940861329309886,
+      "adjustedAgainst": 1.2918293478983882
     },
     "uefa-nations.montenegro": {
       "teamId": "uefa-nations.montenegro",
@@ -424,11 +424,11 @@
       "shortName": "Montenegro",
       "code": "MNE",
       "logoUrl": "/brand/official/countries/montenegro.png",
-      "forPerGame": 2.75,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.9154469255036235,
-      "adjustedAgainst": 1.314726033564936
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1.5416666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.3425169870775617,
+      "adjustedAgainst": 1.221250629205469
     },
     "uefa-nations.paises-bajos": {
       "teamId": "uefa-nations.paises-bajos",
@@ -436,11 +436,11 @@
       "shortName": "Países Bajos",
       "code": "NED",
       "logoUrl": "/brand/official/countries/paises-bajos.png",
-      "forPerGame": 3,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.8661697486123512,
-      "adjustedAgainst": 1.0849169902888502
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 1.1388888888888888,
+      "gamesPlayed": 36,
+      "adjustedFor": 1.9856065288075835,
+      "adjustedAgainst": 1.2938143785904948
     },
     "uefa-nations.macedonia-norte": {
       "teamId": "uefa-nations.macedonia-norte",
@@ -448,11 +448,11 @@
       "shortName": "Macedonia N.",
       "code": "MKD",
       "logoUrl": "/brand/official/countries/macedonia-norte.png",
-      "forPerGame": 0.25,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.8426637474758807,
-      "adjustedAgainst": 1.7014720081673511
+      "forPerGame": 0.96,
+      "againstPerGame": 1.36,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.7106411101120989,
+      "adjustedAgainst": 1.6467578383659365
     },
     "uefa-nations.irlanda-norte": {
       "teamId": "uefa-nations.irlanda-norte",
@@ -460,11 +460,11 @@
       "shortName": "Irlanda N.",
       "code": "NIR",
       "logoUrl": "/brand/official/countries/irlanda-norte.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 0,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0334419588965105,
-      "adjustedAgainst": 0.7627369132935733
+      "forPerGame": 1.2380952380952381,
+      "againstPerGame": 0.7142857142857143,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.1259673083578519,
+      "adjustedAgainst": 0.5897659235279287
     },
     "uefa-nations.noruega": {
       "teamId": "uefa-nations.noruega",
@@ -472,11 +472,11 @@
       "shortName": "Noruega",
       "code": "NOR",
       "logoUrl": "/brand/official/countries/noruega.png",
-      "forPerGame": 2,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4751959173863411,
-      "adjustedAgainst": 1.401688488276089
+      "forPerGame": 2.7241379310344827,
+      "againstPerGame": 1.2413793103448276,
+      "gamesPlayed": 29,
+      "adjustedFor": 1.6121912171024928,
+      "adjustedAgainst": 1.2876064906346558
     },
     "uefa-nations.polonia": {
       "teamId": "uefa-nations.polonia",
@@ -484,11 +484,11 @@
       "shortName": "Polonia",
       "code": "POL",
       "logoUrl": "/brand/official/countries/polonia.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9077987771915444,
-      "adjustedAgainst": 1.238831413635401
+      "forPerGame": 1.5384615384615385,
+      "againstPerGame": 1.6538461538461537,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.2116640178229523,
+      "adjustedAgainst": 1.2385420788976833
     },
     "uefa-nations.portugal": {
       "teamId": "uefa-nations.portugal",
@@ -496,11 +496,11 @@
       "shortName": "Portugal",
       "code": "POR",
       "logoUrl": "/brand/official/countries/portugal.png",
-      "forPerGame": 2,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4151550611543415,
-      "adjustedAgainst": 1.3100739760854239
+      "forPerGame": 1.9714285714285715,
+      "againstPerGame": 0.9714285714285714,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.5721907381972222,
+      "adjustedAgainst": 1.0812759596800787
     },
     "uefa-nations.irlanda": {
       "teamId": "uefa-nations.irlanda",
@@ -508,11 +508,11 @@
       "shortName": "Irlanda",
       "code": "IRL",
       "logoUrl": "/brand/official/countries/irlanda.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.200423918575906,
-      "adjustedAgainst": 1.0397424333283314
+      "forPerGame": 1.2916666666666667,
+      "againstPerGame": 1.2083333333333333,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0587384236962245,
+      "adjustedAgainst": 1.1060461503885852
     },
     "uefa-nations.rumania": {
       "teamId": "uefa-nations.rumania",
@@ -520,11 +520,11 @@
       "shortName": "Rumanía",
       "code": "ROU",
       "logoUrl": "/brand/official/countries/rumania.png",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.3351823318222564,
-      "adjustedAgainst": 1.5373656733558134
+      "forPerGame": 1.8148148148148149,
+      "againstPerGame": 1.4074074074074074,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.2484169559013225,
+      "adjustedAgainst": 1.6013487029206346
     },
     "uefa-nations.san-marino": {
       "teamId": "uefa-nations.san-marino",
@@ -532,11 +532,11 @@
       "shortName": "San Marino",
       "code": "SMR",
       "logoUrl": "/brand/official/countries/san-marino.png",
-      "forPerGame": 0.6,
-      "againstPerGame": 4.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 0.994968770784652,
-      "adjustedAgainst": 2.4215029845593325
+      "forPerGame": 0.5833333333333334,
+      "againstPerGame": 3.1666666666666665,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.8223682666922167,
+      "adjustedAgainst": 2.6923173541301884
     },
     "uefa-nations.escocia": {
       "teamId": "uefa-nations.escocia",
@@ -544,11 +544,11 @@
       "shortName": "Escocia",
       "code": "SCO",
       "logoUrl": "/brand/official/countries/escocia.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0672403501859893,
-      "adjustedAgainst": 1.3490332129252585
+      "forPerGame": 1.1935483870967742,
+      "againstPerGame": 1.3870967741935485,
+      "gamesPlayed": 31,
+      "adjustedFor": 0.9385511525075504,
+      "adjustedAgainst": 1.3625730082911836
     },
     "uefa-nations.serbia": {
       "teamId": "uefa-nations.serbia",
@@ -556,11 +556,11 @@
       "shortName": "Serbia",
       "code": "SRB",
       "logoUrl": "/brand/official/countries/serbia.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 2.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9831027163943693,
-      "adjustedAgainst": 1.557749469570334
+      "forPerGame": 0.7931034482758621,
+      "againstPerGame": 1.4827586206896552,
+      "gamesPlayed": 29,
+      "adjustedFor": 0.8982299714405403,
+      "adjustedAgainst": 1.1229337112771007
     },
     "uefa-nations.eslovaquia": {
       "teamId": "uefa-nations.eslovaquia",
@@ -568,11 +568,11 @@
       "shortName": "Eslovaquia",
       "code": "SVK",
       "logoUrl": "/brand/official/countries/eslovaquia.png",
-      "forPerGame": 2.4,
-      "againstPerGame": 1,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.6955891710143574,
-      "adjustedAgainst": 1.1227714638140873
+      "forPerGame": 1.5,
+      "againstPerGame": 1.1071428571428572,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.4702029090912185,
+      "adjustedAgainst": 1.023816709781097
     },
     "uefa-nations.eslovenia": {
       "teamId": "uefa-nations.eslovenia",
@@ -580,11 +580,11 @@
       "shortName": "Eslovenia",
       "code": "SVN",
       "logoUrl": "/brand/official/countries/eslovenia.png",
-      "forPerGame": 1,
-      "againstPerGame": 0.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.042144464188602,
-      "adjustedAgainst": 0.7369948471596547
+      "forPerGame": 0.8928571428571429,
+      "againstPerGame": 1,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.0409972362085596,
+      "adjustedAgainst": 0.7627591967750885
     },
     "uefa-nations.espana": {
       "teamId": "uefa-nations.espana",
@@ -592,11 +592,11 @@
       "shortName": "España",
       "code": "ESP",
       "logoUrl": "/brand/official/countries/espana.png",
-      "forPerGame": 2.6,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.7682753713911394,
-      "adjustedAgainst": 1.215795493642684
+      "forPerGame": 2.380952380952381,
+      "againstPerGame": 0.7619047619047619,
+      "gamesPlayed": 42,
+      "adjustedFor": 1.9249874902351927,
+      "adjustedAgainst": 1.0795836675798622
     },
     "uefa-nations.suecia": {
       "teamId": "uefa-nations.suecia",
@@ -604,11 +604,11 @@
       "shortName": "Suecia",
       "code": "SWE",
       "logoUrl": "/brand/official/countries/suecia.png",
-      "forPerGame": 2.6666666666666665,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.669609777244636,
-      "adjustedAgainst": 1.2148149601488758
+      "forPerGame": 1.96,
+      "againstPerGame": 1.56,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.596361681739269,
+      "adjustedAgainst": 0.9722372652539801
     },
     "uefa-nations.suiza": {
       "teamId": "uefa-nations.suiza",
@@ -616,11 +616,11 @@
       "shortName": "Suiza",
       "code": "SUI",
       "logoUrl": "/brand/official/countries/suiza.png",
-      "forPerGame": 2.25,
-      "againstPerGame": 0,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.5343840857061661,
-      "adjustedAgainst": 0.6709944346780937
+      "forPerGame": 1.8484848484848484,
+      "againstPerGame": 1,
+      "gamesPlayed": 33,
+      "adjustedFor": 1.6311154965422654,
+      "adjustedAgainst": 0.810311613188927
     },
     "uefa-nations.turquia": {
       "teamId": "uefa-nations.turquia",
@@ -628,11 +628,11 @@
       "shortName": "Turquía",
       "code": "TUR",
       "logoUrl": "/brand/official/countries/turquia.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 2.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9863001477483351,
-      "adjustedAgainst": 1.58263368272019
+      "forPerGame": 1.71875,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.0800082248737812,
+      "adjustedAgainst": 1.428681062739601
     },
     "uefa-nations.ucrania": {
       "teamId": "uefa-nations.ucrania",
@@ -640,11 +640,11 @@
       "shortName": "Ucrania",
       "code": "UKR",
       "logoUrl": "/brand/official/countries/ucrania.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.895567282422842,
-      "adjustedAgainst": 0.9030626876057043
+      "forPerGame": 1.1538461538461537,
+      "againstPerGame": 1.4615384615384615,
+      "gamesPlayed": 26,
+      "adjustedFor": 0.9813229784795983,
+      "adjustedAgainst": 1.2319590483420912
     },
     "uefa-nations.gales": {
       "teamId": "uefa-nations.gales",
@@ -652,11 +652,23 @@
       "shortName": "Gales",
       "code": "WAL",
       "logoUrl": "/brand/official/countries/gales.png",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.888659952226041,
-      "adjustedAgainst": 1.2678694936049653
+      "forPerGame": 1.608695652173913,
+      "againstPerGame": 1.2173913043478262,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8838535006571292,
+      "adjustedAgainst": 1.0200199552662572
+    },
+    "uefa-nations.rusia": {
+      "teamId": "uefa-nations.rusia",
+      "name": "Rusia",
+      "shortName": "Rusia",
+      "code": "RUS",
+      "logoUrl": "/brand/official/countries/rusia.png",
+      "forPerGame": 2.3,
+      "againstPerGame": 0.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1070585797696595,
+      "adjustedAgainst": 1.1070585797696595
     }
   },
   "games": [
@@ -688,7 +700,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -720,7 +732,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -752,7 +764,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -784,7 +796,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -816,7 +828,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -848,7 +860,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -880,7 +892,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -912,7 +924,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -944,7 +956,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -976,7 +988,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1008,7 +1020,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1040,7 +1052,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1072,7 +1084,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1104,7 +1116,7 @@
       "result": {
         "home": 7,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1136,7 +1148,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1168,7 +1180,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1200,7 +1212,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1232,7 +1244,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1264,7 +1276,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1296,7 +1308,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1328,7 +1340,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1360,7 +1372,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1392,7 +1404,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1424,7 +1436,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1456,7 +1468,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1488,7 +1500,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1520,7 +1532,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1552,7 +1564,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1584,7 +1596,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1616,7 +1628,7 @@
       "result": {
         "home": 7,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1648,7 +1660,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1680,7 +1692,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1712,7 +1724,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1744,7 +1756,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1776,7 +1788,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1808,7 +1820,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1840,7 +1852,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1872,7 +1884,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1904,7 +1916,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1914,7 +1926,7 @@
       "season": "uefa-nations-2026-27",
       "round": "Fase de ligas",
       "startTime": "2026-11-16T19:45Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "uefa-nations.alemania",
         "league": "uefa-nations",
@@ -1932,7 +1944,13 @@
         "logoUrl": "/brand/official/countries/paises-bajos.png"
       },
       "venue": "Olympic Stadium Berlin · Berlin",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 5,
+        "away": 0,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "uefa-nations-2026-11-16-gibraltar-malta-401861179",
@@ -1940,7 +1958,7 @@
       "season": "uefa-nations-2026-27",
       "round": "Fase de ligas",
       "startTime": "2026-11-16T19:45Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "uefa-nations.gibraltar",
         "league": "uefa-nations",
@@ -1958,7 +1976,13 @@
         "logoUrl": "/brand/official/countries/malta.png"
       },
       "venue": "Europa Point Stadium · Gibraltar",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "uefa-nations-2026-11-16-grecia-serbia-401861188",
@@ -1966,7 +1990,7 @@
       "season": "uefa-nations-2026-27",
       "round": "Fase de ligas",
       "startTime": "2026-11-16T19:45Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "uefa-nations.grecia",
         "league": "uefa-nations",
@@ -1984,7 +2008,13 @@
         "logoUrl": "/brand/official/countries/serbia.png"
       },
       "venue": "Panthessaliko Stadium · Volos",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "uefa-nations-2026-11-16-macedonia-norte-eslovenia-401861187",
@@ -1992,7 +2022,7 @@
       "season": "uefa-nations-2026-27",
       "round": "Fase de ligas",
       "startTime": "2026-11-16T19:45Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "uefa-nations.macedonia-norte",
         "league": "uefa-nations",
@@ -2010,7 +2040,13 @@
         "logoUrl": "/brand/official/countries/eslovenia.png"
       },
       "venue": "Toše Proeski Arena · Skopje",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 3,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "uefa-nations-2026-11-16-suiza-escocia-401861186",
@@ -2018,7 +2054,7 @@
       "season": "uefa-nations-2026-27",
       "round": "Fase de ligas",
       "startTime": "2026-11-16T19:45Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "uefa-nations.suiza",
         "league": "uefa-nations",
@@ -2036,7 +2072,13 @@
         "logoUrl": "/brand/official/countries/escocia.png"
       },
       "venue": "Kybunpark · St. Gallen",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 0,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "uefa-nations-2026-11-17-bosnia-y-herzegovina-rumania-401861196",
@@ -19123,145 +19165,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1082334748731921,
-        "away": 1.502671770042587,
-        "total": 2.610905244915779,
-        "margin": -0.39443829516939477
+        "home": 2.195345888021644,
+        "away": 1.3333451916419015,
+        "total": 3.5286910796635453,
+        "margin": 0.8620006963797424
       },
       "x12": [
-        0.3694448125614446,
-        0.28042416248333035,
-        0.3501310249552252
+        0.5158198553664272,
+        0.2398129366309625,
+        0.24436720800261033
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Alemania gana",
-          "p": 0.3694448125614446,
-          "fairOdds": 2.706764220254639
+          "p": 0.5158198553664272,
+          "fairOdds": 1.938661316729698
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.28042416248333035,
-          "fairOdds": 3.5660265190573384
+          "p": 0.2398129366309625,
+          "fairOdds": 4.169916827876786
         },
         {
           "market": "h2h",
           "selection": "Países Bajos gana",
-          "p": 0.3501310249552252,
-          "fairOdds": 2.8560736659308614
+          "p": 0.24436720800261033,
+          "fairOdds": 4.092202092800103
         },
         {
           "market": "double_chance",
           "selection": "Alemania o empate",
-          "p": 0.649868975044775,
-          "fairOdds": 1.5387717192240196
+          "p": 0.7556327919973896,
+          "fairOdds": 1.3233941281937571
         },
         {
           "market": "double_chance",
           "selection": "Países Bajos o empate",
-          "p": 0.6305551874385555,
-          "fairOdds": 1.5859040095478478
+          "p": 0.48418014463357284,
+          "fairOdds": 2.0653469810431804
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7195758375166699,
-          "fairOdds": 1.389707585862114
+          "p": 0.7601870633690375,
+          "fairOdds": 1.3154656902054433
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.7549559437627964,
-          "fairOdds": 1.3245806040228956
+          "p": 0.870509760639161,
+          "fairOdds": 1.1487521969492478
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.4903172794477446,
-          "fairOdds": 2.0394957345299405
+          "p": 0.674402301661466,
+          "fairOdds": 1.4827944648711717
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.5096827205522554,
-          "fairOdds": 1.9620049094787286
+          "p": 0.325597698338534,
+          "fairOdds": 3.0712747820479644
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.26371043908383085,
-          "fairOdds": 3.79203797723802
+          "p": 0.46476096089414365,
+          "fairOdds": 2.151643713955926
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.7362895609161692,
-          "fairOdds": 1.3581613173432672
+          "p": 0.5352390391058564,
+          "fairOdds": 1.8683241074316068
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5422419730651663,
-          "fairOdds": 1.8441951189193917
+          "p": 0.6678659909618355,
+          "fairOdds": 1.497306366146654
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4577580269348337,
-          "fairOdds": 2.184560272369314
+          "p": 0.3321340090381645,
+          "fairOdds": 3.0108328951194308
         },
         {
           "market": "team_totals",
           "selection": "Alemania más de 1.5",
           "line": 1.5,
-          "p": 0.37609896723718905,
-          "fairOdds": 2.6588746237352576
+          "p": 0.6164668451714991,
+          "fairOdds": 1.6221472538751103
         },
         {
           "market": "team_totals",
           "selection": "Alemania menos de 1.5",
           "line": 1.5,
-          "p": 0.623901032762811,
-          "fairOdds": 1.6028183116987578
+          "p": 0.3835331548285009,
+          "fairOdds": 2.6073365168316567
         },
         {
           "market": "team_totals",
           "selection": "Países Bajos más de 1.5",
           "line": 1.5,
-          "p": 0.3784925115265483,
-          "fairOdds": 2.64206019814439
+          "p": 0.40562718374164597,
+          "fairOdds": 2.465318006489735
         },
         {
           "market": "team_totals",
           "selection": "Países Bajos menos de 1.5",
           "line": 1.5,
-          "p": 0.6215074884734517,
-          "fairOdds": 1.6089910717829041
+          "p": 0.594372816258354,
+          "fairOdds": 1.682445718657048
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.13435594440951049,
-          "fairOdds": 7.442915937921198
+          "p": 0.10261921096362989,
+          "fairOdds": 9.744764071070652
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.0969505234295014,
-          "fairOdds": 10.314539464319246
+          "p": 0.086191885043308,
+          "fairOdds": 11.602020300374445
         },
         {
           "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.0886735946811204,
-          "fairOdds": 11.27731433011265
+          "selection": "2–2",
+          "p": 0.07018276213156262,
+          "fairOdds": 14.248513019841372
         }
       ],
       "marketGroups": [
@@ -19272,22 +19314,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Alemania gana",
-              "p": 0.3694448125614446,
-              "fairOdds": 2.706764220254639
+              "p": 0.5158198553664272,
+              "fairOdds": 1.938661316729698
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.28042416248333035,
-              "fairOdds": 3.5660265190573384
+              "p": 0.2398129366309625,
+              "fairOdds": 4.169916827876786
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Países Bajos gana",
-              "p": 0.3501310249552252,
-              "fairOdds": 2.8560736659308614
+              "p": 0.24436720800261033,
+              "fairOdds": 4.092202092800103
             }
           ]
         },
@@ -19298,22 +19340,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Alemania o empate",
-              "p": 0.649868975044775,
-              "fairOdds": 1.5387717192240196
+              "p": 0.7556327919973896,
+              "fairOdds": 1.3233941281937571
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Países Bajos o empate",
-              "p": 0.6305551874385555,
-              "fairOdds": 1.5859040095478478
+              "p": 0.48418014463357284,
+              "fairOdds": 2.0653469810431804
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7195758375166699,
-              "fairOdds": 1.389707585862114
+              "p": 0.7601870633690375,
+              "fairOdds": 1.3154656902054433
             }
           ]
         },
@@ -19325,40 +19367,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.7549559437627964,
-              "fairOdds": 1.3245806040228956
+              "p": 0.870509760639161,
+              "fairOdds": 1.1487521969492478
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.4903172794477446,
-              "fairOdds": 2.0394957345299405
+              "p": 0.674402301661466,
+              "fairOdds": 1.4827944648711717
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.5096827205522554,
-              "fairOdds": 1.9620049094787286
+              "p": 0.325597698338534,
+              "fairOdds": 3.0712747820479644
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.26371043908383085,
-              "fairOdds": 3.79203797723802
+              "p": 0.46476096089414365,
+              "fairOdds": 2.151643713955926
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.7362895609161692,
-              "fairOdds": 1.3581613173432672
+              "p": 0.5352390391058564,
+              "fairOdds": 1.8683241074316068
             }
           ]
         },
@@ -19369,15 +19411,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5422419730651663,
-              "fairOdds": 1.8441951189193917
+              "p": 0.6678659909618355,
+              "fairOdds": 1.497306366146654
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4577580269348337,
-              "fairOdds": 2.184560272369314
+              "p": 0.3321340090381645,
+              "fairOdds": 3.0108328951194308
             }
           ]
         },
@@ -19389,32 +19431,32 @@
               "selection": "home_over",
               "label": "Alemania más de 1.5",
               "line": 1.5,
-              "p": 0.37609896723718905,
-              "fairOdds": 2.6588746237352576
+              "p": 0.6164668451714991,
+              "fairOdds": 1.6221472538751103
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Alemania menos de 1.5",
               "line": 1.5,
-              "p": 0.623901032762811,
-              "fairOdds": 1.6028183116987578
+              "p": 0.3835331548285009,
+              "fairOdds": 2.6073365168316567
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Países Bajos más de 1.5",
               "line": 1.5,
-              "p": 0.3784925115265483,
-              "fairOdds": 2.64206019814439
+              "p": 0.40562718374164597,
+              "fairOdds": 2.465318006489735
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Países Bajos menos de 1.5",
               "line": 1.5,
-              "p": 0.6215074884734517,
-              "fairOdds": 1.6089910717829041
+              "p": 0.594372816258354,
+              "fairOdds": 1.682445718657048
             }
           ]
         },
@@ -19425,22 +19467,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.13435594440951049,
-              "fairOdds": 7.442915937921198
+              "p": 0.10261921096362989,
+              "fairOdds": 9.744764071070652
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.0969505234295014,
-              "fairOdds": 10.314539464319246
+              "p": 0.086191885043308,
+              "fairOdds": 11.602020300374445
             },
             {
               "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.0886735946811204,
-              "fairOdds": 11.27731433011265
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07018276213156262,
+              "fairOdds": 14.248513019841372
             }
           ]
         }
@@ -19448,98 +19490,98 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.13435594440951049
+        "p": 0.10261921096362989
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.12 goles/partido",
-          "detail": "3 % más que la media · 4 partidos"
+          "value": "1.90 goles/partido",
+          "detail": "47 % más que la media · 35 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.08 concedidos/partido",
-          "detail": "7 % menos que la media · 4 partidos"
+          "value": "1.29 concedidos/partido",
+          "detail": "17 % más que la media · 36 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.50 goles/partido",
-          "detail": "61 % más que la media · ajustado por rival"
+          "value": "1.33 goles/partido",
+          "detail": "79 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.94 concedidos/partido",
-          "detail": "19 % menos que la media · ajustado por rival"
+          "value": "0.74 concedidos/partido",
+          "detail": "33 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×0.99",
-          "detail": "estimada de 109 partidos"
+          "value": "×1.16",
+          "detail": "estimada de 640 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.5–4.3",
-          "detail": "local 17%–70% · 109 partidos"
+          "value": "goles 2.4–5.5",
+          "detail": "local 23%–79% · 640 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "17.º · 7 pts",
+          "value": "7.º · 36 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "14.º · 8 pts",
+          "value": "4.º · 38 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "E-P-G-G · 7 pts",
+          "value": "E-P-G-E-G · 8 pts",
           "detail": "6 goles a favor · 3 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "E-G-E-G · 8 pts",
-          "detail": "12 goles a favor · 4 en contra"
+          "value": "E-G-E-G-G · 11 pts",
+          "detail": "14 goles a favor · 5 en contra"
         },
         {
           "key": "long_memory",
           "label": "Memoria larga",
-          "value": "+11 pts al local",
-          "detail": "historia 48% / 26% / 26% · temporada 26% / 30% / 44%"
+          "value": "−5 pts al local",
+          "detail": "historia 47% / 26% / 27% · temporada 56% / 21% / 22%"
         }
       ],
       "steps": [
-        "Sincronizando UEFA Nations League · corte 16 nov 2026, 14:55",
-        "Fuerza ajustada por rival · GER 1.03 / 0.81 · NED 1.61 / 0.93",
-        "Ponderando 102.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.11 – 1.50 · total 2.61",
+        "Sincronizando UEFA Nations League · corte 16 nov 2026, 12:45",
+        "Fuerza ajustada por rival · GER 1.47 / 0.67 · NED 1.79 / 1.17",
+        "Ponderando 200.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.20 – 1.33 · total 3.53",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-16T20:55:55.962Z",
-      "publishedAt": "2026-11-16T20:55:55.962Z",
-      "source": "espn",
+      "inputsAsOf": "2026-11-16T18:45:00.000Z",
+      "publishedAt": "2026-11-16T18:45:00.000Z",
+      "source": "espn+bzzoiro",
       "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.08581661217179444
+        "home": 2,
+        "away": 1,
+        "p": 0.086191885043308
       },
       "insights": {
         "why": [
-          "Alemania gana en 37% de los escenarios; el empate, en 28%.",
-          "Países Bajos anota 61 % más que la media.",
-          "Alemania concede 19 % menos que la media.",
-          "La historia larga favorece más a Alemania que esta temporada."
+          "Se esperan 3.5 goles: 2.2 de Alemania y 1.3 de Países Bajos.",
+          "Países Bajos anota 79 % más que la media.",
+          "Alemania concede 33 % menos que la media.",
+          "La historia larga favorece menos a Alemania que esta temporada."
         ],
         "headToHead": [
           {
@@ -19548,6 +19590,20 @@
             "awayTeamId": "uefa-nations.alemania",
             "homeGoals": 1,
             "awayGoals": 1
+          },
+          {
+            "date": "2024-10-14",
+            "homeTeamId": "uefa-nations.alemania",
+            "awayTeamId": "uefa-nations.paises-bajos",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-09-10",
+            "homeTeamId": "uefa-nations.paises-bajos",
+            "awayTeamId": "uefa-nations.alemania",
+            "homeGoals": 2,
+            "awayGoals": 2
           }
         ],
         "restDays": {
@@ -19565,145 +19621,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 0.8592606618263516,
-        "away": 1.243715533510848,
-        "total": 2.1029761953371997,
-        "margin": -0.38445487168449644
+        "home": 0.8377357326850172,
+        "away": 1.0149241999674345,
+        "total": 1.8526599326524518,
+        "margin": -0.17718846728241733
       },
       "x12": [
-        0.33295417624529994,
-        0.30646891351996824,
-        0.36057691023473193
+        0.3153006668980317,
+        0.3196541862429264,
+        0.3650451468590423
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Gibraltar gana",
-          "p": 0.33295417624529994,
-          "fairOdds": 3.0034162997350786
+          "p": 0.3153006668980317,
+          "fairOdds": 3.171575911456604
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.30646891351996824,
-          "fairOdds": 3.262973684718741
+          "p": 0.3196541862429264,
+          "fairOdds": 3.1283807409299302
         },
         {
           "market": "h2h",
           "selection": "Malta gana",
-          "p": 0.36057691023473193,
-          "fairOdds": 2.7733334321074805
+          "p": 0.3650451468590423,
+          "fairOdds": 2.7393871925275524
         },
         {
           "market": "double_chance",
           "selection": "Gibraltar o empate",
-          "p": 0.6394230897652682,
-          "fairOdds": 1.5639097430264826
+          "p": 0.6349548531409581,
+          "fairOdds": 1.5749151220016
         },
         {
           "market": "double_chance",
           "selection": "Malta o empate",
-          "p": 0.6670458237547001,
-          "fairOdds": 1.4991473814664653
+          "p": 0.6846993331019687,
+          "fairOdds": 1.4604950693753271
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.6935310864800319,
-          "fairOdds": 1.4418964333313873
+          "p": 0.680345813757074,
+          "fairOdds": 1.4698407483066582
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.6428852549724791,
-          "fairOdds": 1.555487534152278
+          "p": 0.5626672942425035,
+          "fairOdds": 1.777249202561631
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.3600223975793704,
-          "fairOdds": 2.7776049677007677
+          "p": 0.28901146478679784,
+          "fairOdds": 3.4600703495887073
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.6399776024206296,
-          "fairOdds": 1.5625546835039754
+          "p": 0.7109885352132022,
+          "fairOdds": 1.4064924404162618
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.16054073428838933,
-          "fairOdds": 6.228948711568976
+          "p": 0.11766704356208524,
+          "fairOdds": 8.49855634787293
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.8394592657116107,
-          "fairOdds": 1.1912430308959647
+          "p": 0.8823329564379148,
+          "fairOdds": 1.1333590032011513
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4297564568076887,
-          "fairOdds": 2.3268993034524414
+          "p": 0.3669570116419795,
+          "fairOdds": 2.7251148452659817
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5702435431923113,
-          "fairOdds": 1.7536366907406715
+          "p": 0.6330429883580204,
+          "fairOdds": 1.5796715521544413
         },
         {
           "market": "team_totals",
           "selection": "Gibraltar más de 1.5",
           "line": 1.5,
-          "p": 0.2700863210032427,
-          "fairOdds": 3.7025199805953664
+          "p": 0.22129142335097507,
+          "fairOdds": 4.5189279586944
         },
         {
           "market": "team_totals",
           "selection": "Gibraltar menos de 1.5",
           "line": 1.5,
-          "p": 0.7299136789967573,
-          "fairOdds": 1.3700250163477792
+          "p": 0.7787085766490249,
+          "fairOdds": 1.2841774573785314
         },
         {
           "market": "team_totals",
           "selection": "Malta más de 1.5",
           "line": 1.5,
-          "p": 0.30737636958817505,
-          "fairOdds": 3.2533405262733983
+          "p": 0.26141236328785367,
+          "fairOdds": 3.82537377889374
         },
         {
           "market": "team_totals",
           "selection": "Malta menos de 1.5",
           "line": 1.5,
-          "p": 0.692623630411825,
-          "fairOdds": 1.4437855656258987
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13920481647365265,
-          "fairOdds": 7.183659483429371
+          "p": 0.7385876367121463,
+          "fairOdds": 1.35393547128888
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.1315914919957174,
-          "fairOdds": 7.59927549140141
+          "p": 0.15621649221745887,
+          "fairOdds": 6.401372773163827
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.14476811539430204,
+          "fairOdds": 6.907598384328758
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.11712535231687562,
-          "fairOdds": 8.537861190757061
+          "p": 0.13634809814573562,
+          "fairOdds": 7.334169039388803
         }
       ],
       "marketGroups": [
@@ -19714,22 +19770,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Gibraltar gana",
-              "p": 0.33295417624529994,
-              "fairOdds": 3.0034162997350786
+              "p": 0.3153006668980317,
+              "fairOdds": 3.171575911456604
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.30646891351996824,
-              "fairOdds": 3.262973684718741
+              "p": 0.3196541862429264,
+              "fairOdds": 3.1283807409299302
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Malta gana",
-              "p": 0.36057691023473193,
-              "fairOdds": 2.7733334321074805
+              "p": 0.3650451468590423,
+              "fairOdds": 2.7393871925275524
             }
           ]
         },
@@ -19740,22 +19796,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Gibraltar o empate",
-              "p": 0.6394230897652682,
-              "fairOdds": 1.5639097430264826
+              "p": 0.6349548531409581,
+              "fairOdds": 1.5749151220016
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Malta o empate",
-              "p": 0.6670458237547001,
-              "fairOdds": 1.4991473814664653
+              "p": 0.6846993331019687,
+              "fairOdds": 1.4604950693753271
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.6935310864800319,
-              "fairOdds": 1.4418964333313873
+              "p": 0.680345813757074,
+              "fairOdds": 1.4698407483066582
             }
           ]
         },
@@ -19767,40 +19823,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.6428852549724791,
-              "fairOdds": 1.555487534152278
+              "p": 0.5626672942425035,
+              "fairOdds": 1.777249202561631
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.3600223975793704,
-              "fairOdds": 2.7776049677007677
+              "p": 0.28901146478679784,
+              "fairOdds": 3.4600703495887073
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.6399776024206296,
-              "fairOdds": 1.5625546835039754
+              "p": 0.7109885352132022,
+              "fairOdds": 1.4064924404162618
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.16054073428838933,
-              "fairOdds": 6.228948711568976
+              "p": 0.11766704356208524,
+              "fairOdds": 8.49855634787293
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.8394592657116107,
-              "fairOdds": 1.1912430308959647
+              "p": 0.8823329564379148,
+              "fairOdds": 1.1333590032011513
             }
           ]
         },
@@ -19811,15 +19867,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4297564568076887,
-              "fairOdds": 2.3268993034524414
+              "p": 0.3669570116419795,
+              "fairOdds": 2.7251148452659817
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5702435431923113,
-              "fairOdds": 1.7536366907406715
+              "p": 0.6330429883580204,
+              "fairOdds": 1.5796715521544413
             }
           ]
         },
@@ -19831,32 +19887,32 @@
               "selection": "home_over",
               "label": "Gibraltar más de 1.5",
               "line": 1.5,
-              "p": 0.2700863210032427,
-              "fairOdds": 3.7025199805953664
+              "p": 0.22129142335097507,
+              "fairOdds": 4.5189279586944
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Gibraltar menos de 1.5",
               "line": 1.5,
-              "p": 0.7299136789967573,
-              "fairOdds": 1.3700250163477792
+              "p": 0.7787085766490249,
+              "fairOdds": 1.2841774573785314
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Malta más de 1.5",
               "line": 1.5,
-              "p": 0.30737636958817505,
-              "fairOdds": 3.2533405262733983
+              "p": 0.26141236328785367,
+              "fairOdds": 3.82537377889374
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Malta menos de 1.5",
               "line": 1.5,
-              "p": 0.692623630411825,
-              "fairOdds": 1.4437855656258987
+              "p": 0.7385876367121463,
+              "fairOdds": 1.35393547128888
             }
           ]
         },
@@ -19865,123 +19921,122 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13920481647365265,
-              "fairOdds": 7.183659483429371
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.15621649221745887,
+              "fairOdds": 6.401372773163827
             },
             {
               "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.1315914919957174,
-              "fairOdds": 7.59927549140141
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.14476811539430204,
+              "fairOdds": 6.907598384328758
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.11712535231687562,
-              "fairOdds": 8.537861190757061
+              "p": 0.13634809814573562,
+              "fairOdds": 7.334169039388803
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13920481647365265
+        "home": 0,
+        "away": 0,
+        "p": 0.15621649221745887
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.87 goles/partido",
-          "detail": "26 % menos que la media · 3 partidos"
+          "value": "0.72 goles/partido",
+          "detail": "47 % menos que la media · 24 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.17 concedidos/partido",
-          "detail": "en la media de la liga · 2 partidos"
+          "value": "1.36 concedidos/partido",
+          "detail": "23 % más que la media · 22 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.24 goles/partido",
-          "detail": "13 % más que la media · ajustado por rival"
+          "value": "1.01 goles/partido",
+          "detail": "22 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.10 concedidos/partido",
-          "detail": "5 % menos que la media · ajustado por rival"
+          "value": "1.29 concedidos/partido",
+          "detail": "17 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×0.99",
-          "detail": "estimada de 109 partidos"
+          "value": "×1.16",
+          "detail": "estimada de 640 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.2–4.1",
-          "detail": "local 15%–70% · 109 partidos"
+          "value": "goles 1.2–3.2",
+          "detail": "local 15%–66% · 640 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "43.º · 2 pts",
+          "value": "52.º · 10 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "33.º · 4 pts",
+          "value": "37.º · 21 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "E-E-P · 2 pts",
-          "detail": "1 goles a favor · 3 en contra"
+          "value": "P-P-E-E-P · 2 pts",
+          "detail": "1 goles a favor · 5 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "G-E · 4 pts",
-          "detail": "3 goles a favor · 2 en contra"
+          "value": "P-P-G-E-G · 7 pts",
+          "detail": "4 goles a favor · 7 en contra"
         },
         {
           "key": "long_memory",
           "label": "Memoria larga",
-          "value": "+10 pts al local",
-          "detail": "historia 43% / 28% / 29% · temporada 23% / 34% / 43%"
+          "value": "+3 pts al local",
+          "detail": "historia 35% / 30% / 35% · temporada 28% / 34% / 38%"
         }
       ],
       "steps": [
-        "Sincronizando UEFA Nations League · corte 16 nov 2026, 14:55",
-        "Fuerza ajustada por rival · GIB 0.74 / 0.95 · MLT 1.13 / 1.01",
-        "Ponderando 102.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.86 – 1.24 · total 2.10",
+        "Sincronizando UEFA Nations League · corte 16 nov 2026, 12:45",
+        "Fuerza ajustada por rival · GIB 0.53 / 1.17 · MLT 0.78 / 1.23",
+        "Ponderando 200.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 0.84 – 1.01 · total 1.85",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 0–1"
       ],
-      "inputsAsOf": "2026-11-16T20:55:55.962Z",
-      "publishedAt": "2026-11-16T20:55:55.962Z",
-      "source": "espn",
+      "inputsAsOf": "2026-11-16T18:45:00.000Z",
+      "publishedAt": "2026-11-16T18:45:00.000Z",
+      "source": "espn+bzzoiro",
       "projectedScore": {
         "home": 0,
         "away": 1,
-        "p": 0.1083979007149279
+        "p": 0.14476811539430204
       },
       "insights": {
         "why": [
-          "Malta gana en 36% de los escenarios; el empate, en 31%.",
-          "Gibraltar anota 26 % menos que la media.",
-          "Malta anota 13 % más que la media.",
-          "La historia larga favorece más a Gibraltar que esta temporada."
+          "Malta gana en 37% de los escenarios; el empate, en 32%.",
+          "Gibraltar anota 47 % menos que la media.",
+          "Malta anota 22 % menos que la media."
         ],
         "headToHead": [
           {
@@ -20006,145 +20061,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.5862382956234125,
-        "away": 1.3738664766840056,
-        "total": 2.9601047723074183,
-        "margin": 0.21237181893940682
+        "home": 1.3496521538215294,
+        "away": 0.8615034670427039,
+        "total": 2.211155620864233,
+        "margin": 0.4881486867788255
       },
       "x12": [
-        0.47490110598917523,
-        0.2617345633504776,
-        0.26336433066034687
+        0.5265583892724095,
+        0.2628000160180199,
+        0.21064159470957064
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Grecia gana",
-          "p": 0.47490110598917523,
-          "fairOdds": 2.1057015605745795
+          "p": 0.5265583892724095,
+          "fairOdds": 1.8991246182247423
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2617345633504776,
-          "fairOdds": 3.8206646733963927
+          "p": 0.2628000160180199,
+          "fairOdds": 3.805174806121135
         },
         {
           "market": "h2h",
           "selection": "Serbia gana",
-          "p": 0.26336433066034687,
-          "fairOdds": 3.7970214018453023
+          "p": 0.21064159470957064,
+          "fairOdds": 4.7474004428175
         },
         {
           "market": "double_chance",
           "selection": "Grecia o empate",
-          "p": 0.7366356693396529,
-          "fairOdds": 1.3575231849639273
+          "p": 0.7893584052904294,
+          "fairOdds": 1.2668516523011737
         },
         {
           "market": "double_chance",
           "selection": "Serbia o empate",
-          "p": 0.5250988940108245,
-          "fairOdds": 1.9044031732037616
+          "p": 0.4734416107275905,
+          "fairOdds": 2.112192881532294
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.738265436649522,
-          "fairOdds": 1.3545263672891295
+          "p": 0.7371999839819802,
+          "fairOdds": 1.3564840229628161
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8172007656539829,
-          "fairOdds": 1.223689504499825
+          "p": 0.6621659842610321,
+          "fairOdds": 1.5101953645595159
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.5767715786090915,
-          "fairOdds": 1.733788621158382
+          "p": 0.39318436464807593,
+          "fairOdds": 2.5433361290830097
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.42322842139090855,
-          "fairOdds": 2.3627902793332614
+          "p": 0.6068156353519241,
+          "fairOdds": 1.6479469903903312
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.347037894233975,
-          "fairOdds": 2.8815297021304365
+          "p": 0.18652644389835393,
+          "fairOdds": 5.361170132771854
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.652962105766025,
-          "fairOdds": 1.531482441583415
+          "p": 0.8134735561016461,
+          "fairOdds": 1.2292962598467636
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6086378722041662,
-          "fairOdds": 1.6430131046208578
+          "p": 0.4276697578570561,
+          "fairOdds": 2.3382527794594234
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3913621277958338,
-          "fairOdds": 2.55517825813151
+          "p": 0.5723302421429439,
+          "fairOdds": 1.7472429837985781
         },
         {
           "market": "team_totals",
           "selection": "Grecia más de 1.5",
           "line": 1.5,
-          "p": 0.5158983276901318,
-          "fairOdds": 1.9383664306053696
+          "p": 0.42254306409188525,
+          "fairOdds": 2.3666226829427788
         },
         {
           "market": "team_totals",
           "selection": "Grecia menos de 1.5",
           "line": 1.5,
-          "p": 0.4841016723098682,
-          "fairOdds": 2.065681771410843
+          "p": 0.5774569359081148,
+          "fairOdds": 1.7317308665232147
         },
         {
           "market": "team_totals",
           "selection": "Serbia más de 1.5",
           "line": 1.5,
-          "p": 0.36322596797438544,
-          "fairOdds": 2.753107123856628
+          "p": 0.19929952572641052,
+          "fairOdds": 5.017573405431759
         },
         {
           "market": "team_totals",
           "selection": "Serbia menos de 1.5",
           "line": 1.5,
-          "p": 0.6367740320256146,
-          "fairOdds": 1.5704157985509284
+          "p": 0.8007004742735895,
+          "fairOdds": 1.248906466437676
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.1547843455797781,
+          "fairOdds": 6.46060166003406
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.12275768743989579,
-          "fairOdds": 8.146129345175362
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.10489410910874464,
-          "fairOdds": 9.533423835682624
+          "p": 0.1206258895470032,
+          "fairOdds": 8.29009430525558
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.07634956590681169,
-          "fairOdds": 13.097651415864604
+          "p": 0.11115578956100924,
+          "fairOdds": 8.996382500176813
         }
       ],
       "marketGroups": [
@@ -20155,22 +20210,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Grecia gana",
-              "p": 0.47490110598917523,
-              "fairOdds": 2.1057015605745795
+              "p": 0.5265583892724095,
+              "fairOdds": 1.8991246182247423
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2617345633504776,
-              "fairOdds": 3.8206646733963927
+              "p": 0.2628000160180199,
+              "fairOdds": 3.805174806121135
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Serbia gana",
-              "p": 0.26336433066034687,
-              "fairOdds": 3.7970214018453023
+              "p": 0.21064159470957064,
+              "fairOdds": 4.7474004428175
             }
           ]
         },
@@ -20181,22 +20236,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Grecia o empate",
-              "p": 0.7366356693396529,
-              "fairOdds": 1.3575231849639273
+              "p": 0.7893584052904294,
+              "fairOdds": 1.2668516523011737
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Serbia o empate",
-              "p": 0.5250988940108245,
-              "fairOdds": 1.9044031732037616
+              "p": 0.4734416107275905,
+              "fairOdds": 2.112192881532294
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.738265436649522,
-              "fairOdds": 1.3545263672891295
+              "p": 0.7371999839819802,
+              "fairOdds": 1.3564840229628161
             }
           ]
         },
@@ -20208,40 +20263,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8172007656539829,
-              "fairOdds": 1.223689504499825
+              "p": 0.6621659842610321,
+              "fairOdds": 1.5101953645595159
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.5767715786090915,
-              "fairOdds": 1.733788621158382
+              "p": 0.39318436464807593,
+              "fairOdds": 2.5433361290830097
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.42322842139090855,
-              "fairOdds": 2.3627902793332614
+              "p": 0.6068156353519241,
+              "fairOdds": 1.6479469903903312
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.347037894233975,
-              "fairOdds": 2.8815297021304365
+              "p": 0.18652644389835393,
+              "fairOdds": 5.361170132771854
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.652962105766025,
-              "fairOdds": 1.531482441583415
+              "p": 0.8134735561016461,
+              "fairOdds": 1.2292962598467636
             }
           ]
         },
@@ -20252,15 +20307,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6086378722041662,
-              "fairOdds": 1.6430131046208578
+              "p": 0.4276697578570561,
+              "fairOdds": 2.3382527794594234
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3913621277958338,
-              "fairOdds": 2.55517825813151
+              "p": 0.5723302421429439,
+              "fairOdds": 1.7472429837985781
             }
           ]
         },
@@ -20272,32 +20327,32 @@
               "selection": "home_over",
               "label": "Grecia más de 1.5",
               "line": 1.5,
-              "p": 0.5158983276901318,
-              "fairOdds": 1.9383664306053696
+              "p": 0.42254306409188525,
+              "fairOdds": 2.3666226829427788
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Grecia menos de 1.5",
               "line": 1.5,
-              "p": 0.4841016723098682,
-              "fairOdds": 2.065681771410843
+              "p": 0.5774569359081148,
+              "fairOdds": 1.7317308665232147
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Serbia más de 1.5",
               "line": 1.5,
-              "p": 0.36322596797438544,
-              "fairOdds": 2.753107123856628
+              "p": 0.19929952572641052,
+              "fairOdds": 5.017573405431759
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Serbia menos de 1.5",
               "line": 1.5,
-              "p": 0.6367740320256146,
-              "fairOdds": 1.5704157985509284
+              "p": 0.8007004742735895,
+              "fairOdds": 1.248906466437676
             }
           ]
         },
@@ -20306,122 +20361,121 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12275768743989579,
-              "fairOdds": 8.146129345175362
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.1547843455797781,
+              "fairOdds": 6.46060166003406
             },
             {
               "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.10489410910874464,
-              "fairOdds": 9.533423835682624
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1206258895470032,
+              "fairOdds": 8.29009430525558
             },
             {
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.07634956590681169,
-              "fairOdds": 13.097651415864604
+              "p": 0.11115578956100924,
+              "fairOdds": 8.996382500176813
             }
           ]
         }
       ],
       "mostLikelyScore": {
         "home": 1,
-        "away": 1,
-        "p": 0.12275768743989579
+        "away": 0,
+        "p": 0.1547843455797781
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.60 goles/partido",
-          "detail": "3 % más que la media · 4 partidos"
+          "value": "1.17 goles/partido",
+          "detail": "4 % más que la media · 24 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.56 concedidos/partido",
-          "detail": "34 % más que la media · 4 partidos"
+          "value": "1.12 concedidos/partido",
+          "detail": "en la media de la liga · 29 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.37 goles/partido",
-          "detail": "15 % menos que la media · ajustado por rival"
+          "value": "0.86 goles/partido",
+          "detail": "19 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.62 concedidos/partido",
-          "detail": "40 % más que la media · ajustado por rival"
+          "value": "1.06 concedidos/partido",
+          "detail": "4 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×0.99",
-          "detail": "estimada de 109 partidos"
+          "value": "×1.16",
+          "detail": "estimada de 640 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.8–5.3",
-          "detail": "local 17%–84% · 109 partidos"
+          "value": "goles 1.5–3.4",
+          "detail": "local 28%–80% · 640 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "22.º · 7 pts",
+          "value": "3.º · 41 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "50.º · 0 pts",
+          "value": "33.º · 23 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "G-G-E-P · 7 pts",
+          "value": "G-G-E-E-P · 8 pts",
           "detail": "5 goles a favor · 10 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "P-P-P-P · 0 pts",
-          "detail": "3 goles a favor · 9 en contra"
+          "value": "P-P-P-P-P · 0 pts",
+          "detail": "4 goles a favor · 11 en contra"
         },
         {
           "key": "long_memory",
           "label": "Memoria larga",
-          "value": "+7 pts al local",
-          "detail": "historia 54% / 24% / 22% · temporada 41% / 28% / 31%"
+          "value": "+5 pts al local",
+          "detail": "historia 58% / 23% / 19% · temporada 47% / 30% / 23%"
         }
       ],
       "steps": [
-        "Sincronizando UEFA Nations League · corte 16 nov 2026, 14:55",
-        "Fuerza ajustada por rival · GRE 1.03 / 1.40 · SRB 0.85 / 1.34",
-        "Ponderando 102.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.59 – 1.37 · total 2.96",
+        "Sincronizando UEFA Nations League · corte 16 nov 2026, 12:45",
+        "Fuerza ajustada por rival · GRE 1.04 / 0.96 · SRB 0.81 / 1.01",
+        "Ponderando 200.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.35 – 0.86 · total 2.21",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
+        "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-16T20:55:55.962Z",
-      "publishedAt": "2026-11-16T20:55:55.962Z",
-      "source": "espn",
+      "inputsAsOf": "2026-11-16T18:45:00.000Z",
+      "publishedAt": "2026-11-16T18:45:00.000Z",
+      "source": "espn+bzzoiro",
       "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.10489410910874464
+        "home": 1,
+        "away": 0,
+        "p": 0.1547843455797781
       },
       "insights": {
         "why": [
-          "Se esperan 3.0 goles: 1.6 de Grecia y 1.4 de Serbia.",
-          "Grecia concede 40 % más que la media.",
-          "Serbia concede 34 % más que la media.",
+          "Se esperan 2.2 goles: 1.3 de Grecia y 0.9 de Serbia.",
+          "Serbia anota 19 % menos que la media.",
           "La historia larga favorece más a Grecia que esta temporada."
         ],
         "headToHead": [
@@ -20448,145 +20502,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 0.5300916456207531,
-        "away": 1.5252920493424449,
-        "total": 2.055383694963198,
-        "margin": -0.9952004037216918
+        "home": 0.5670609139963034,
+        "away": 1.5484911004442077,
+        "total": 2.115552014440511,
+        "margin": -0.9814301864479043
       },
       "x12": [
-        0.2335461937054526,
-        0.2941493648579896,
-        0.4723044414365581
+        0.24998081541361522,
+        0.2799961452015248,
+        0.47002303938485995
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Macedonia N. gana",
-          "p": 0.2335461937054526,
-          "fairOdds": 4.281808168799341
+          "p": 0.24998081541361522,
+          "fairOdds": 4.000306976939059
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2941493648579896,
-          "fairOdds": 3.399633381777939
+          "p": 0.2799961452015248,
+          "fairOdds": 3.571477740453386
         },
         {
           "market": "h2h",
           "selection": "Eslovenia gana",
-          "p": 0.4723044414365581,
-          "fairOdds": 2.117278416773737
+          "p": 0.47002303938485995,
+          "fairOdds": 2.127555281776707
         },
         {
           "market": "double_chance",
           "selection": "Macedonia N. o empate",
-          "p": 0.5276955585634422,
-          "fairOdds": 1.8950320573520139
+          "p": 0.5299769606151401,
+          "fairOdds": 1.8868744762778138
         },
         {
           "market": "double_chance",
           "selection": "Eslovenia o empate",
-          "p": 0.7664538062945476,
-          "fairOdds": 1.304710070962451
+          "p": 0.7500191845863848,
+          "fairOdds": 1.3332992282743712
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7058506351420106,
-          "fairOdds": 1.4167303253879049
+          "p": 0.7200038547984752,
+          "fairOdds": 1.3888814529748512
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.6060419353063656,
-          "fairOdds": 1.6500508326944094
+          "p": 0.6064747843650505,
+          "fairOdds": 1.6488731696354881
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.32720956418558145,
-          "fairOdds": 3.0561453864864294
+          "p": 0.33734406127980454,
+          "fairOdds": 2.9643326051338614
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.6727904358144186,
-          "fairOdds": 1.4863469317745153
+          "p": 0.6626559387201955,
+          "fairOdds": 1.5090787565132606
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.1398730925313072,
-          "fairOdds": 7.149337888387463
+          "p": 0.14951358715716245,
+          "fairOdds": 6.688355346252522
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.8601269074686928,
-          "fairOdds": 1.1626191336612712
+          "p": 0.8504864128428375,
+          "fairOdds": 1.1757977375057622
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.35101154430107984,
-          "fairOdds": 2.84890914910266
+          "p": 0.35837685242223893,
+          "fairOdds": 2.7903587891937893
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.6489884556989202,
-          "fairOdds": 1.5408594578513146
+          "p": 0.6416231475777611,
+          "fairOdds": 1.5585472621665442
         },
         {
           "market": "team_totals",
           "selection": "Macedonia N. más de 1.5",
           "line": 1.5,
-          "p": 0.16372054750634724,
-          "fairOdds": 6.107968823896288
+          "p": 0.1719437376297307,
+          "fairOdds": 5.815855894405605
         },
         {
           "market": "team_totals",
           "selection": "Macedonia N. menos de 1.5",
           "line": 1.5,
-          "p": 0.8362794524936528,
-          "fairOdds": 1.1957725339516097
+          "p": 0.8280562623702693,
+          "fairOdds": 1.2076474092926373
         },
         {
           "market": "team_totals",
           "selection": "Eslovenia más de 1.5",
           "line": 1.5,
-          "p": 0.36580573663805027,
-          "fairOdds": 2.7336914100651706
+          "p": 0.36876281998722715,
+          "fairOdds": 2.711770129197507
         },
         {
           "market": "team_totals",
           "selection": "Eslovenia menos de 1.5",
           "line": 1.5,
-          "p": 0.6341942633619497,
-          "fairOdds": 1.576803919194829
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.14788894962069105,
-          "fairOdds": 6.761830431312298
+          "p": 0.6312371800127728,
+          "fairOdds": 1.5841905889950356
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.13939519667223357,
-          "fairOdds": 7.173848338198816
+          "p": 0.13895405452465667,
+          "fairOdds": 7.196623397718525
         },
         {
           "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12308451803932338,
-          "fairOdds": 8.124498644748458
+          "selection": "0–0",
+          "p": 0.134260378198483,
+          "fairOdds": 7.448213787403877
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.12031078291180976,
+          "fairOdds": 8.311806936981037
         }
       ],
       "marketGroups": [
@@ -20597,22 +20651,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Macedonia N. gana",
-              "p": 0.2335461937054526,
-              "fairOdds": 4.281808168799341
+              "p": 0.24998081541361522,
+              "fairOdds": 4.000306976939059
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2941493648579896,
-              "fairOdds": 3.399633381777939
+              "p": 0.2799961452015248,
+              "fairOdds": 3.571477740453386
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Eslovenia gana",
-              "p": 0.4723044414365581,
-              "fairOdds": 2.117278416773737
+              "p": 0.47002303938485995,
+              "fairOdds": 2.127555281776707
             }
           ]
         },
@@ -20623,22 +20677,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Macedonia N. o empate",
-              "p": 0.5276955585634422,
-              "fairOdds": 1.8950320573520139
+              "p": 0.5299769606151401,
+              "fairOdds": 1.8868744762778138
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Eslovenia o empate",
-              "p": 0.7664538062945476,
-              "fairOdds": 1.304710070962451
+              "p": 0.7500191845863848,
+              "fairOdds": 1.3332992282743712
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7058506351420106,
-              "fairOdds": 1.4167303253879049
+              "p": 0.7200038547984752,
+              "fairOdds": 1.3888814529748512
             }
           ]
         },
@@ -20650,40 +20704,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.6060419353063656,
-              "fairOdds": 1.6500508326944094
+              "p": 0.6064747843650505,
+              "fairOdds": 1.6488731696354881
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.32720956418558145,
-              "fairOdds": 3.0561453864864294
+              "p": 0.33734406127980454,
+              "fairOdds": 2.9643326051338614
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.6727904358144186,
-              "fairOdds": 1.4863469317745153
+              "p": 0.6626559387201955,
+              "fairOdds": 1.5090787565132606
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.1398730925313072,
-              "fairOdds": 7.149337888387463
+              "p": 0.14951358715716245,
+              "fairOdds": 6.688355346252522
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.8601269074686928,
-              "fairOdds": 1.1626191336612712
+              "p": 0.8504864128428375,
+              "fairOdds": 1.1757977375057622
             }
           ]
         },
@@ -20694,15 +20748,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.35101154430107984,
-              "fairOdds": 2.84890914910266
+              "p": 0.35837685242223893,
+              "fairOdds": 2.7903587891937893
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.6489884556989202,
-              "fairOdds": 1.5408594578513146
+              "p": 0.6416231475777611,
+              "fairOdds": 1.5585472621665442
             }
           ]
         },
@@ -20714,32 +20768,32 @@
               "selection": "home_over",
               "label": "Macedonia N. más de 1.5",
               "line": 1.5,
-              "p": 0.16372054750634724,
-              "fairOdds": 6.107968823896288
+              "p": 0.1719437376297307,
+              "fairOdds": 5.815855894405605
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Macedonia N. menos de 1.5",
               "line": 1.5,
-              "p": 0.8362794524936528,
-              "fairOdds": 1.1957725339516097
+              "p": 0.8280562623702693,
+              "fairOdds": 1.2076474092926373
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Eslovenia más de 1.5",
               "line": 1.5,
-              "p": 0.36580573663805027,
-              "fairOdds": 2.7336914100651706
+              "p": 0.36876281998722715,
+              "fairOdds": 2.711770129197507
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Eslovenia menos de 1.5",
               "line": 1.5,
-              "p": 0.6341942633619497,
-              "fairOdds": 1.576803919194829
+              "p": 0.6312371800127728,
+              "fairOdds": 1.5841905889950356
             }
           ]
         },
@@ -20748,122 +20802,122 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.14788894962069105,
-              "fairOdds": 6.761830431312298
-            },
-            {
-              "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.13939519667223357,
-              "fairOdds": 7.173848338198816
+              "p": 0.13895405452465667,
+              "fairOdds": 7.196623397718525
             },
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12308451803932338,
-              "fairOdds": 8.124498644748458
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.134260378198483,
+              "fairOdds": 7.448213787403877
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.12031078291180976,
+              "fairOdds": 8.311806936981037
             }
           ]
         }
       ],
       "mostLikelyScore": {
         "home": 0,
-        "away": 0,
-        "p": 0.14788894962069105
+        "away": 1,
+        "p": 0.13895405452465667
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.53 goles/partido",
-          "detail": "28 % menos que la media · 4 partidos"
+          "value": "0.49 goles/partido",
+          "detail": "36 % menos que la media · 25 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.74 concedidos/partido",
-          "detail": "37 % menos que la media · 4 partidos"
+          "value": "0.76 concedidos/partido",
+          "detail": "31 % menos que la media · 28 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.53 goles/partido",
-          "detail": "10 % menos que la media · ajustado por rival"
+          "value": "1.55 goles/partido",
+          "detail": "6 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.70 concedidos/partido",
-          "detail": "46 % más que la media · ajustado por rival"
+          "value": "1.65 concedidos/partido",
+          "detail": "49 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×0.99",
-          "detail": "estimada de 109 partidos"
+          "value": "×1.16",
+          "detail": "estimada de 640 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.2–4.0",
-          "detail": "local 14%–51% · 109 partidos"
+          "value": "goles 1.4–3.7",
+          "detail": "local 16%–48% · 640 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "53.º · 0 pts",
+          "value": "36.º · 22 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "15.º · 8 pts",
+          "value": "23.º · 27 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "P-P-P-P · 0 pts",
-          "detail": "1 goles a favor · 10 en contra"
+          "value": "P-P-P-P-P · 0 pts",
+          "detail": "1 goles a favor · 12 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "E-G-G-E · 8 pts",
-          "detail": "4 goles a favor · 1 en contra"
+          "value": "E-G-P-G-E · 8 pts",
+          "detail": "5 goles a favor · 3 en contra"
         },
         {
           "key": "long_memory",
           "label": "Memoria larga",
           "value": "+12 pts al local",
-          "detail": "historia 36% / 30% / 34% · temporada 11% / 29% / 60%"
+          "detail": "historia 37% / 29% / 33% · temporada 13% / 27% / 61%"
         }
       ],
       "steps": [
-        "Sincronizando UEFA Nations League · corte 16 nov 2026, 14:55",
-        "Fuerza ajustada por rival · MKD 0.72 / 1.46 · SVN 0.90 / 0.63",
-        "Ponderando 102.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.53 – 1.53 · total 2.06",
+        "Sincronizando UEFA Nations League · corte 16 nov 2026, 12:45",
+        "Fuerza ajustada por rival · MKD 0.64 / 1.49 · SVN 0.94 / 0.69",
+        "Ponderando 200.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 0.57 – 1.55 · total 2.12",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 0–1"
       ],
-      "inputsAsOf": "2026-11-16T20:55:55.962Z",
-      "publishedAt": "2026-11-16T20:55:55.962Z",
-      "source": "espn",
+      "inputsAsOf": "2026-11-16T18:45:00.000Z",
+      "publishedAt": "2026-11-16T18:45:00.000Z",
+      "source": "espn+bzzoiro",
       "projectedScore": {
         "home": 0,
         "away": 1,
-        "p": 0.13939519667223357
+        "p": 0.13895405452465667
       },
       "insights": {
         "why": [
-          "Se esperan 2.1 goles: 0.5 de Macedonia N. y 1.5 de Eslovenia.",
-          "Eslovenia concede 37 % menos que la media.",
-          "Macedonia N. concede 46 % más que la media.",
+          "Se esperan 2.1 goles: 0.6 de Macedonia N. y 1.5 de Eslovenia.",
+          "Macedonia N. anota 36 % menos que la media.",
+          "Macedonia N. concede 49 % más que la media.",
           "La historia larga favorece más a Macedonia N. que esta temporada."
         ],
         "headToHead": [
@@ -20890,145 +20944,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.766806243824682,
-        "away": 0.6160010134123162,
-        "total": 2.3828072572369985,
-        "margin": 1.150805230412366
+        "home": 2.325072120609471,
+        "away": 0.6869725887558339,
+        "total": 3.0120447093653047,
+        "margin": 1.638099531853637
       },
       "x12": [
-        0.6157400885174982,
-        0.2408480169213594,
-        0.14341189456114192
+        0.6260208005940504,
+        0.2130617572856151,
+        0.160917442120335
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Suiza gana",
-          "p": 0.6157400885174982,
-          "fairOdds": 1.624061870663115
+          "p": 0.6260208005940504,
+          "fairOdds": 1.5973910116901375
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2408480169213594,
-          "fairOdds": 4.151995988102802
+          "p": 0.2130617572856151,
+          "fairOdds": 4.6934748532064
         },
         {
           "market": "h2h",
           "selection": "Escocia gana",
-          "p": 0.14341189456114192,
-          "fairOdds": 6.97292231624248
+          "p": 0.160917442120335,
+          "fairOdds": 6.214366738766541
         },
         {
           "market": "double_chance",
           "selection": "Suiza o empate",
-          "p": 0.8565881054388575,
-          "fairOdds": 1.167422234386115
+          "p": 0.8390825578796655,
+          "fairOdds": 1.191777841893136
         },
         {
           "market": "double_chance",
           "selection": "Escocia o empate",
-          "p": 0.3842599114825013,
-          "fairOdds": 2.602405221356375
+          "p": 0.37397919940595015,
+          "fairOdds": 2.6739455070989426
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7591519830786401,
-          "fairOdds": 1.317259287059533
+          "p": 0.7869382427143854,
+          "fairOdds": 1.270747748324825
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.703754794866558,
-          "fairOdds": 1.4209494660560207
+          "p": 0.789187376635839,
+          "fairOdds": 1.267126197916161
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.4305857699725748,
-          "fairOdds": 2.3224176685255826
+          "p": 0.5531506354114164,
+          "fairOdds": 1.8078258181087161
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.5694142300274252,
-          "fairOdds": 1.7561907435152018
+          "p": 0.4468493645885836,
+          "fairOdds": 2.2378906164960197
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.21572941737218443,
-          "fairOdds": 4.635436428564412
+          "p": 0.3332385913395487,
+          "fairOdds": 3.00085292036619
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.7842705826278156,
-          "fairOdds": 1.2750701379737472
+          "p": 0.6667614086604513,
+          "fairOdds": 1.4997868608038332
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.398241944320664,
-          "fairOdds": 2.5110363543092813
+          "p": 0.4732837058540881,
+          "fairOdds": 2.112897586861562
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.601758055679336,
-          "fairOdds": 1.661797445937107
+          "p": 0.5267162941459119,
+          "fairOdds": 1.8985552775076637
         },
         {
           "market": "team_totals",
           "selection": "Suiza más de 1.5",
           "line": 1.5,
-          "p": 0.5130099327249741,
-          "fairOdds": 1.9492799967600287
+          "p": 0.5969042681945268,
+          "fairOdds": 1.675310520101872
         },
         {
           "market": "team_totals",
           "selection": "Suiza menos de 1.5",
           "line": 1.5,
-          "p": 0.4869900672750259,
-          "fairOdds": 2.053429971571173
+          "p": 0.4030957318054732,
+          "fairOdds": 2.4808002692585744
         },
         {
           "market": "team_totals",
           "selection": "Escocia más de 1.5",
           "line": 1.5,
-          "p": 0.14743977589335877,
-          "fairOdds": 6.782430276639098
+          "p": 0.20067066589405202,
+          "fairOdds": 4.983289388833589
         },
         {
           "market": "team_totals",
           "selection": "Escocia menos de 1.5",
           "line": 1.5,
-          "p": 0.8525602241066412,
-          "fairOdds": 1.1729376667177431
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.14115471406766456,
-          "fairOdds": 7.084425104787046
+          "p": 0.799329334105948,
+          "fairOdds": 1.2510487946979985
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.1397629902113735,
-          "fairOdds": 7.1549699851701005
+          "p": 0.11303460617390716,
+          "fairOdds": 8.846848180825877
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.10985251596255485,
-          "fairOdds": 9.103114218529756
+          "p": 0.1016025723762979,
+          "fairOdds": 9.84227049189635
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09255539894748924,
+          "fairOdds": 10.804340010109449
         }
       ],
       "marketGroups": [
@@ -21039,22 +21093,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Suiza gana",
-              "p": 0.6157400885174982,
-              "fairOdds": 1.624061870663115
+              "p": 0.6260208005940504,
+              "fairOdds": 1.5973910116901375
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2408480169213594,
-              "fairOdds": 4.151995988102802
+              "p": 0.2130617572856151,
+              "fairOdds": 4.6934748532064
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Escocia gana",
-              "p": 0.14341189456114192,
-              "fairOdds": 6.97292231624248
+              "p": 0.160917442120335,
+              "fairOdds": 6.214366738766541
             }
           ]
         },
@@ -21065,22 +21119,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Suiza o empate",
-              "p": 0.8565881054388575,
-              "fairOdds": 1.167422234386115
+              "p": 0.8390825578796655,
+              "fairOdds": 1.191777841893136
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Escocia o empate",
-              "p": 0.3842599114825013,
-              "fairOdds": 2.602405221356375
+              "p": 0.37397919940595015,
+              "fairOdds": 2.6739455070989426
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7591519830786401,
-              "fairOdds": 1.317259287059533
+              "p": 0.7869382427143854,
+              "fairOdds": 1.270747748324825
             }
           ]
         },
@@ -21092,40 +21146,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.703754794866558,
-              "fairOdds": 1.4209494660560207
+              "p": 0.789187376635839,
+              "fairOdds": 1.267126197916161
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.4305857699725748,
-              "fairOdds": 2.3224176685255826
+              "p": 0.5531506354114164,
+              "fairOdds": 1.8078258181087161
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.5694142300274252,
-              "fairOdds": 1.7561907435152018
+              "p": 0.4468493645885836,
+              "fairOdds": 2.2378906164960197
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.21572941737218443,
-              "fairOdds": 4.635436428564412
+              "p": 0.3332385913395487,
+              "fairOdds": 3.00085292036619
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.7842705826278156,
-              "fairOdds": 1.2750701379737472
+              "p": 0.6667614086604513,
+              "fairOdds": 1.4997868608038332
             }
           ]
         },
@@ -21136,15 +21190,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.398241944320664,
-              "fairOdds": 2.5110363543092813
+              "p": 0.4732837058540881,
+              "fairOdds": 2.112897586861562
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.601758055679336,
-              "fairOdds": 1.661797445937107
+              "p": 0.5267162941459119,
+              "fairOdds": 1.8985552775076637
             }
           ]
         },
@@ -21156,32 +21210,32 @@
               "selection": "home_over",
               "label": "Suiza más de 1.5",
               "line": 1.5,
-              "p": 0.5130099327249741,
-              "fairOdds": 1.9492799967600287
+              "p": 0.5969042681945268,
+              "fairOdds": 1.675310520101872
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Suiza menos de 1.5",
               "line": 1.5,
-              "p": 0.4869900672750259,
-              "fairOdds": 2.053429971571173
+              "p": 0.4030957318054732,
+              "fairOdds": 2.4808002692585744
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Escocia más de 1.5",
               "line": 1.5,
-              "p": 0.14743977589335877,
-              "fairOdds": 6.782430276639098
+              "p": 0.20067066589405202,
+              "fairOdds": 4.983289388833589
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Escocia menos de 1.5",
               "line": 1.5,
-              "p": 0.8525602241066412,
-              "fairOdds": 1.1729376667177431
+              "p": 0.799329334105948,
+              "fairOdds": 1.2510487946979985
             }
           ]
         },
@@ -21190,122 +21244,123 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.14115471406766456,
-              "fairOdds": 7.084425104787046
-            },
-            {
-              "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.1397629902113735,
-              "fairOdds": 7.1549699851701005
+              "p": 0.11303460617390716,
+              "fairOdds": 8.846848180825877
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.10985251596255485,
-              "fairOdds": 9.103114218529756
+              "p": 0.1016025723762979,
+              "fairOdds": 9.84227049189635
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09255539894748924,
+              "fairOdds": 10.804340010109449
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 1,
+        "home": 2,
         "away": 0,
-        "p": 0.14115471406766456
+        "p": 0.11303460617390716
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.78 goles/partido",
-          "detail": "32 % más que la media · 4 partidos"
+          "value": "2.01 goles/partido",
+          "detail": "47 % más que la media · 33 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.35 concedidos/partido",
-          "detail": "16 % más que la media · 4 partidos"
+          "value": "1.36 concedidos/partido",
+          "detail": "23 % más que la media · 31 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.62 goles/partido",
-          "detail": "8 % menos que la media · ajustado por rival"
+          "value": "0.69 goles/partido",
+          "detail": "15 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.67 concedidos/partido",
-          "detail": "42 % menos que la media · ajustado por rival"
+          "value": "0.81 concedidos/partido",
+          "detail": "27 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×0.99",
-          "detail": "estimada de 109 partidos"
+          "value": "×1.16",
+          "detail": "estimada de 640 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.5–4.4",
-          "detail": "local 27%–86% · 109 partidos"
+          "value": "goles 1.9–4.7",
+          "detail": "local 34%–81% · 640 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "7.º · 10 pts",
+          "value": "22.º · 27 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "36.º · 4 pts",
+          "value": "15.º · 30 pts",
           "detail": "de 54 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "G-G-G-E · 10 pts",
-          "detail": "9 goles a favor · 0 en contra"
+          "value": "G-G-G-G-E · 13 pts",
+          "detail": "11 goles a favor · 1 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "E-P-P-G · 4 pts",
-          "detail": "3 goles a favor · 6 en contra"
+          "value": "E-P-G-P-G · 7 pts",
+          "detail": "5 goles a favor · 6 en contra"
         },
         {
           "key": "long_memory",
           "label": "Memoria larga",
-          "value": "coincide con la temporada",
-          "detail": "historia 60% / 22% / 18% · temporada 63% / 26% / 11%"
+          "value": "−11 pts al local",
+          "detail": "historia 52% / 25% / 23% · temporada 74% / 18% / 9%"
         }
       ],
       "steps": [
-        "Sincronizando UEFA Nations League · corte 16 nov 2026, 14:55",
-        "Fuerza ajustada por rival · SUI 1.32 / 0.58 · SCO 0.92 / 1.16",
-        "Ponderando 102.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.77 – 0.62 · total 2.38",
+        "Sincronizando UEFA Nations League · corte 16 nov 2026, 12:45",
+        "Fuerza ajustada por rival · SUI 1.47 / 0.73 · SCO 0.85 / 1.23",
+        "Ponderando 200.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.33 – 0.69 · total 3.01",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
+        "20 mercados listos · marcador proyectado 3–0"
       ],
-      "inputsAsOf": "2026-11-16T20:55:55.962Z",
-      "publishedAt": "2026-11-16T20:55:55.962Z",
-      "source": "espn",
+      "inputsAsOf": "2026-11-16T18:45:00.000Z",
+      "publishedAt": "2026-11-16T18:45:00.000Z",
+      "source": "espn+bzzoiro",
       "projectedScore": {
-        "home": 1,
+        "home": 3,
         "away": 0,
-        "p": 0.14115471406766456
+        "p": 0.08760453715967424
       },
       "insights": {
         "why": [
-          "Suiza gana en 62% de los escenarios; el empate, en 24%.",
-          "Suiza concede 42 % menos que la media.",
-          "Suiza anota 32 % más que la media."
+          "Se esperan 3.0 goles: 2.3 de Suiza y 0.7 de Escocia.",
+          "Suiza anota 47 % más que la media.",
+          "Suiza concede 27 % menos que la media.",
+          "La historia larga favorece menos a Suiza que esta temporada."
         ],
         "headToHead": [
           {
@@ -21314,13 +21369,6 @@
             "awayTeamId": "uefa-nations.suiza",
             "homeGoals": 0,
             "awayGoals": 3
-          },
-          {
-            "date": "2024-06-19",
-            "homeTeamId": "uefa-nations.escocia",
-            "awayTeamId": "uefa-nations.suiza",
-            "homeGoals": 1,
-            "awayGoals": 1
           }
         ],
         "restDays": {
@@ -23254,158 +23302,18 @@
   },
   "standings": [
     {
-      "teamId": "uefa-nations.albania",
-      "name": "Albania",
-      "shortName": "Albania",
-      "code": "ALB",
-      "logoUrl": "/brand/official/countries/albania.png",
-      "played": 5,
-      "won": 5,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 11,
-      "goalsAgainst": 1,
-      "points": 15
-    },
-    {
       "teamId": "uefa-nations.espana",
       "name": "España",
       "shortName": "España",
       "code": "ESP",
       "logoUrl": "/brand/official/countries/espana.png",
-      "played": 5,
-      "won": 4,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 7,
-      "points": 12
-    },
-    {
-      "teamId": "uefa-nations.inglaterra",
-      "name": "Inglaterra",
-      "shortName": "Inglaterra",
-      "code": "ENG",
-      "logoUrl": "/brand/official/countries/inglaterra.png",
-      "played": 5,
-      "won": 4,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 12,
-      "goalsAgainst": 6,
-      "points": 12
-    },
-    {
-      "teamId": "uefa-nations.montenegro",
-      "name": "Montenegro",
-      "shortName": "Montenegro",
-      "code": "MNE",
-      "logoUrl": "/brand/official/countries/montenegro.png",
-      "played": 4,
-      "won": 4,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 11,
-      "goalsAgainst": 5,
-      "points": 12
-    },
-    {
-      "teamId": "uefa-nations.islandia",
-      "name": "Islandia",
-      "shortName": "Islandia",
-      "code": "ISL",
-      "logoUrl": "/brand/official/countries/islandia.png",
-      "played": 5,
-      "won": 3,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 1,
-      "points": 11
-    },
-    {
-      "teamId": "uefa-nations.eslovaquia",
-      "name": "Eslovaquia",
-      "shortName": "Eslovaquia",
-      "code": "SVK",
-      "logoUrl": "/brand/official/countries/eslovaquia.png",
-      "played": 5,
-      "won": 3,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 5,
-      "points": 11
-    },
-    {
-      "teamId": "uefa-nations.suiza",
-      "name": "Suiza",
-      "shortName": "Suiza",
-      "code": "SUI",
-      "logoUrl": "/brand/official/countries/suiza.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 9,
-      "goalsAgainst": 0,
-      "points": 10
-    },
-    {
-      "teamId": "uefa-nations.austria",
-      "name": "Austria",
-      "shortName": "Austria",
-      "code": "AUT",
-      "logoUrl": "/brand/official/countries/austria.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 9,
-      "goalsAgainst": 4,
-      "points": 10
-    },
-    {
-      "teamId": "uefa-nations.belgica",
-      "name": "Bélgica",
-      "shortName": "Bélgica",
-      "code": "BEL",
-      "logoUrl": "/brand/official/countries/belgica.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 8,
-      "goalsAgainst": 3,
-      "points": 9
-    },
-    {
-      "teamId": "uefa-nations.suecia",
-      "name": "Suecia",
-      "shortName": "Suecia",
-      "code": "SWE",
-      "logoUrl": "/brand/official/countries/suecia.png",
-      "played": 3,
-      "won": 3,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 8,
-      "goalsAgainst": 4,
-      "points": 9
-    },
-    {
-      "teamId": "uefa-nations.estonia",
-      "name": "Estonia",
-      "shortName": "Estonia",
-      "code": "EST",
-      "logoUrl": "/brand/official/countries/estonia.png",
-      "played": 5,
-      "won": 2,
-      "drawn": 3,
-      "lost": 0,
-      "goalsFor": 4,
-      "goalsAgainst": 2,
-      "points": 9
+      "played": 23,
+      "won": 15,
+      "drawn": 6,
+      "lost": 2,
+      "goalsFor": 49,
+      "goalsAgainst": 27,
+      "points": 51
     },
     {
       "teamId": "uefa-nations.portugal",
@@ -23413,139 +23321,13 @@
       "shortName": "Portugal",
       "code": "POR",
       "logoUrl": "/brand/official/countries/portugal.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 8,
-      "goalsAgainst": 7,
-      "points": 9
-    },
-    {
-      "teamId": "uefa-nations.francia",
-      "name": "Francia",
-      "shortName": "Francia",
-      "code": "FRA",
-      "logoUrl": "/brand/official/countries/francia.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 4,
-      "points": 9
-    },
-    {
-      "teamId": "uefa-nations.paises-bajos",
-      "name": "Países Bajos",
-      "shortName": "Países Bajos",
-      "code": "NED",
-      "logoUrl": "/brand/official/countries/paises-bajos.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 4,
-      "points": 8
-    },
-    {
-      "teamId": "uefa-nations.eslovenia",
-      "name": "Eslovenia",
-      "shortName": "Eslovenia",
-      "code": "SVN",
-      "logoUrl": "/brand/official/countries/eslovenia.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 4,
-      "goalsAgainst": 1,
-      "points": 8
-    },
-    {
-      "teamId": "uefa-nations.finlandia",
-      "name": "Finlandia",
-      "shortName": "Finlandia",
-      "code": "FIN",
-      "logoUrl": "/brand/official/countries/finlandia.png",
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 14,
-      "goalsAgainst": 5,
-      "points": 7
-    },
-    {
-      "teamId": "uefa-nations.alemania",
-      "name": "Alemania",
-      "shortName": "Alemania",
-      "code": "GER",
-      "logoUrl": "/brand/official/countries/alemania.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 3,
-      "points": 7
-    },
-    {
-      "teamId": "uefa-nations.lituania",
-      "name": "Lituania",
-      "shortName": "Lituania",
-      "code": "LTU",
-      "logoUrl": "/brand/official/countries/lituania.png",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 5,
-      "goalsAgainst": 2,
-      "points": 7
-    },
-    {
-      "teamId": "uefa-nations.irlanda-norte",
-      "name": "Irlanda del Norte",
-      "shortName": "Irlanda N.",
-      "code": "NIR",
-      "logoUrl": "/brand/official/countries/irlanda-norte.png",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 0,
-      "points": 7
-    },
-    {
-      "teamId": "uefa-nations.islas-feroe",
-      "name": "Islas Feroe",
-      "shortName": "I. Feroe",
-      "code": "FRO",
-      "logoUrl": "/brand/official/countries/islas-feroe.png",
-      "played": 5,
-      "won": 1,
-      "drawn": 4,
-      "lost": 0,
-      "goalsFor": 7,
-      "goalsAgainst": 6,
-      "points": 7
-    },
-    {
-      "teamId": "uefa-nations.bielorrusia",
-      "name": "Bielorrusia",
-      "shortName": "Bielorrusia",
-      "code": "BLR",
-      "logoUrl": "/brand/official/countries/bielorrusia.png",
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 4,
-      "points": 7
+      "played": 20,
+      "won": 13,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 40,
+      "goalsAgainst": 21,
+      "points": 42
     },
     {
       "teamId": "uefa-nations.grecia",
@@ -23553,41 +23335,27 @@
       "shortName": "Grecia",
       "code": "GRE",
       "logoUrl": "/brand/official/countries/grecia.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 10,
-      "points": 7
+      "played": 19,
+      "won": 13,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 29,
+      "goalsAgainst": 17,
+      "points": 41
     },
     {
-      "teamId": "uefa-nations.dinamarca",
-      "name": "Dinamarca",
-      "shortName": "Dinamarca",
-      "code": "DEN",
-      "logoUrl": "/brand/official/countries/dinamarca.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
-      "points": 6
-    },
-    {
-      "teamId": "uefa-nations.noruega",
-      "name": "Noruega",
-      "shortName": "Noruega",
-      "code": "NOR",
-      "logoUrl": "/brand/official/countries/noruega.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 8,
-      "goalsAgainst": 7,
-      "points": 6
+      "teamId": "uefa-nations.paises-bajos",
+      "name": "Países Bajos",
+      "shortName": "Países Bajos",
+      "code": "NED",
+      "logoUrl": "/brand/official/countries/paises-bajos.png",
+      "played": 22,
+      "won": 10,
+      "drawn": 8,
+      "lost": 4,
+      "goalsFor": 49,
+      "goalsAgainst": 34,
+      "points": 38
     },
     {
       "teamId": "uefa-nations.italia",
@@ -23595,13 +23363,55 @@
       "shortName": "Italia",
       "code": "ITA",
       "logoUrl": "/brand/official/countries/italia.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 8,
-      "goalsAgainst": 8,
-      "points": 6
+      "played": 22,
+      "won": 11,
+      "drawn": 5,
+      "lost": 6,
+      "goalsFor": 41,
+      "goalsAgainst": 34,
+      "points": 38
+    },
+    {
+      "teamId": "uefa-nations.francia",
+      "name": "Francia",
+      "shortName": "Francia",
+      "code": "FRA",
+      "logoUrl": "/brand/official/countries/francia.png",
+      "played": 22,
+      "won": 11,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 35,
+      "goalsAgainst": 26,
+      "points": 37
+    },
+    {
+      "teamId": "uefa-nations.alemania",
+      "name": "Alemania",
+      "shortName": "Alemania",
+      "code": "GER",
+      "logoUrl": "/brand/official/countries/alemania.png",
+      "played": 22,
+      "won": 9,
+      "drawn": 9,
+      "lost": 4,
+      "goalsFor": 46,
+      "goalsAgainst": 24,
+      "points": 36
+    },
+    {
+      "teamId": "uefa-nations.eslovaquia",
+      "name": "Eslovaquia",
+      "shortName": "Eslovaquia",
+      "code": "SVK",
+      "logoUrl": "/brand/official/countries/eslovaquia.png",
+      "played": 20,
+      "won": 9,
+      "drawn": 7,
+      "lost": 4,
+      "goalsFor": 28,
+      "goalsAgainst": 17,
+      "points": 34
     },
     {
       "teamId": "uefa-nations.croacia",
@@ -23609,349 +23419,55 @@
       "shortName": "Croacia",
       "code": "CRO",
       "logoUrl": "/brand/official/countries/croacia.png",
-      "played": 5,
-      "won": 2,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 7,
-      "goalsAgainst": 10,
-      "points": 6
+      "played": 22,
+      "won": 10,
+      "drawn": 4,
+      "lost": 8,
+      "goalsFor": 29,
+      "goalsAgainst": 35,
+      "points": 34
     },
     {
-      "teamId": "uefa-nations.armenia",
-      "name": "Armenia",
-      "shortName": "Armenia",
-      "code": "ARM",
-      "logoUrl": "/brand/official/countries/armenia.png",
-      "played": 4,
-      "won": 1,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 4,
-      "points": 5
-    },
-    {
-      "teamId": "uefa-nations.azerbaiyan",
-      "name": "Azerbaiyán",
-      "shortName": "Azerbaiyán",
-      "code": "AZE",
-      "logoUrl": "/brand/official/countries/azerbaiyan.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 1,
-      "points": 5
-    },
-    {
-      "teamId": "uefa-nations.kosovo",
-      "name": "Kosovo",
-      "shortName": "Kosovo",
-      "code": "KOS",
-      "logoUrl": "/brand/official/countries/kosovo.png",
-      "played": 4,
-      "won": 1,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 5
-    },
-    {
-      "teamId": "uefa-nations.bosnia-y-herzegovina",
-      "name": "Bosnia y Herzegovina",
-      "shortName": "Bosnia",
-      "code": "BIH",
-      "logoUrl": "/brand/official/countries/bosnia-y-herzegovina.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 5,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.irlanda",
-      "name": "Irlanda",
-      "shortName": "Irlanda",
-      "code": "IRL",
-      "logoUrl": "/brand/official/countries/irlanda.png",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 4,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.andorra",
-      "name": "Andorra",
-      "shortName": "Andorra",
-      "code": "AND",
-      "logoUrl": "/brand/official/countries/andorra.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 3,
-      "goalsAgainst": 2,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.malta",
-      "name": "Malta",
-      "shortName": "Malta",
-      "code": "MLT",
-      "logoUrl": "/brand/official/countries/malta.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 2,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.hungria",
-      "name": "Hungría",
-      "shortName": "Hungría",
-      "code": "HUN",
-      "logoUrl": "/brand/official/countries/hungria.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 1,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.ucrania",
-      "name": "Ucrania",
-      "shortName": "Ucrania",
-      "code": "UKR",
-      "logoUrl": "/brand/official/countries/ucrania.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 1,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.escocia",
-      "name": "Escocia",
-      "shortName": "Escocia",
-      "code": "SCO",
-      "logoUrl": "/brand/official/countries/escocia.png",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 6,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.bulgaria",
-      "name": "Bulgaria",
-      "shortName": "Bulgaria",
-      "code": "BUL",
-      "logoUrl": "/brand/official/countries/bulgaria.png",
-      "played": 5,
-      "won": 1,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 4,
-      "goalsAgainst": 9,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.moldavia",
-      "name": "Moldavia",
-      "shortName": "Moldavia",
-      "code": "MDA",
-      "logoUrl": "/brand/official/countries/moldavia.png",
-      "played": 5,
-      "won": 1,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 3,
-      "goalsAgainst": 9,
-      "points": 4
-    },
-    {
-      "teamId": "uefa-nations.kazajistan",
-      "name": "Kazajistán",
-      "shortName": "Kazajistán",
-      "code": "KAZ",
-      "logoUrl": "/brand/official/countries/kazajistan.png",
-      "played": 5,
-      "won": 0,
+      "teamId": "uefa-nations.inglaterra",
+      "name": "Inglaterra",
+      "shortName": "Inglaterra",
+      "code": "ENG",
+      "logoUrl": "/brand/official/countries/inglaterra.png",
+      "played": 18,
+      "won": 10,
       "drawn": 3,
-      "lost": 2,
-      "goalsFor": 7,
-      "goalsAgainst": 9,
-      "points": 3
+      "lost": 5,
+      "goalsFor": 39,
+      "goalsAgainst": 19,
+      "points": 33
     },
     {
-      "teamId": "uefa-nations.rumania",
-      "name": "Rumanía",
-      "shortName": "Rumanía",
-      "code": "ROU",
-      "logoUrl": "/brand/official/countries/rumania.png",
-      "played": 3,
-      "won": 1,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 7,
-      "points": 3
+      "teamId": "uefa-nations.dinamarca",
+      "name": "Dinamarca",
+      "shortName": "Dinamarca",
+      "code": "DEN",
+      "logoUrl": "/brand/official/countries/dinamarca.png",
+      "played": 19,
+      "won": 10,
+      "drawn": 2,
+      "lost": 7,
+      "goalsFor": 30,
+      "goalsAgainst": 21,
+      "points": 32
     },
     {
-      "teamId": "uefa-nations.gales",
-      "name": "Gales",
-      "shortName": "Gales",
-      "code": "WAL",
-      "logoUrl": "/brand/official/countries/gales.png",
-      "played": 4,
-      "won": 1,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 3,
-      "goalsAgainst": 7,
-      "points": 3
-    },
-    {
-      "teamId": "uefa-nations.luxemburgo",
-      "name": "Luxemburgo",
-      "shortName": "Luxemburgo",
-      "code": "LUX",
-      "logoUrl": "/brand/official/countries/luxemburgo.png",
-      "played": 5,
-      "won": 1,
-      "drawn": 0,
+      "teamId": "uefa-nations.suecia",
+      "name": "Suecia",
+      "shortName": "Suecia",
+      "code": "SWE",
+      "logoUrl": "/brand/official/countries/suecia.png",
+      "played": 16,
+      "won": 9,
+      "drawn": 3,
       "lost": 4,
-      "goalsFor": 2,
-      "goalsAgainst": 10,
-      "points": 3
-    },
-    {
-      "teamId": "uefa-nations.gibraltar",
-      "name": "Gibraltar",
-      "shortName": "Gibraltar",
-      "code": "GIB",
-      "logoUrl": "/brand/official/countries/gibraltar.png",
-      "played": 3,
-      "won": 0,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 3,
-      "points": 2
-    },
-    {
-      "teamId": "uefa-nations.letonia",
-      "name": "Letonia",
-      "shortName": "Letonia",
-      "code": "LVA",
-      "logoUrl": "/brand/official/countries/letonia.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 1,
-      "goalsAgainst": 4,
-      "points": 2
-    },
-    {
-      "teamId": "uefa-nations.chipre",
-      "name": "Chipre",
-      "shortName": "Chipre",
-      "code": "CYP",
-      "logoUrl": "/brand/official/countries/chipre.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 7,
-      "points": 2
-    },
-    {
-      "teamId": "uefa-nations.israel",
-      "name": "Israel",
-      "shortName": "Israel",
-      "code": "ISR",
-      "logoUrl": "/brand/official/countries/israel.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 1,
-      "goalsAgainst": 6,
-      "points": 2
-    },
-    {
-      "teamId": "uefa-nations.polonia",
-      "name": "Polonia",
-      "shortName": "Polonia",
-      "code": "POL",
-      "logoUrl": "/brand/official/countries/polonia.png",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 2,
-      "goalsAgainst": 5,
-      "points": 1
-    },
-    {
-      "teamId": "uefa-nations.georgia",
-      "name": "Georgia",
-      "shortName": "Georgia",
-      "code": "GEO",
-      "logoUrl": "/brand/official/countries/georgia.png",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 0,
-      "goalsAgainst": 3,
-      "points": 1
-    },
-    {
-      "teamId": "uefa-nations.liechtenstein",
-      "name": "Liechtenstein",
-      "shortName": "Liechtenst.",
-      "code": "LIE",
-      "logoUrl": "/brand/official/countries/liechtenstein.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 1,
-      "goalsAgainst": 5,
-      "points": 1
-    },
-    {
-      "teamId": "uefa-nations.serbia",
-      "name": "Serbia",
-      "shortName": "Serbia",
-      "code": "SRB",
-      "logoUrl": "/brand/official/countries/serbia.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 3,
-      "goalsAgainst": 9,
-      "points": 0
+      "goalsFor": 34,
+      "goalsAgainst": 20,
+      "points": 30
     },
     {
       "teamId": "uefa-nations.turquia",
@@ -23959,27 +23475,321 @@
       "shortName": "Turquía",
       "code": "TUR",
       "logoUrl": "/brand/official/countries/turquia.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 3,
-      "goalsAgainst": 9,
-      "points": 0
+      "played": 20,
+      "won": 9,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 37,
+      "goalsAgainst": 27,
+      "points": 30
     },
     {
-      "teamId": "uefa-nations.republica-checa",
-      "name": "República Checa",
-      "shortName": "R. Checa",
-      "code": "CZE",
-      "logoUrl": "/brand/official/countries/republica-checa.png",
-      "played": 5,
-      "won": 0,
-      "drawn": 0,
+      "teamId": "uefa-nations.kosovo",
+      "name": "Kosovo",
+      "shortName": "Kosovo",
+      "code": "KOS",
+      "logoUrl": "/brand/official/countries/kosovo.png",
+      "played": 18,
+      "won": 9,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 27,
+      "goalsAgainst": 21,
+      "points": 30
+    },
+    {
+      "teamId": "uefa-nations.escocia",
+      "name": "Escocia",
+      "shortName": "Escocia",
+      "code": "SCO",
+      "logoUrl": "/brand/official/countries/escocia.png",
+      "played": 20,
+      "won": 9,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 24,
+      "goalsAgainst": 26,
+      "points": 30
+    },
+    {
+      "teamId": "uefa-nations.belgica",
+      "name": "Bélgica",
+      "shortName": "Bélgica",
+      "code": "BEL",
+      "logoUrl": "/brand/official/countries/belgica.png",
+      "played": 20,
+      "won": 9,
+      "drawn": 2,
+      "lost": 9,
+      "goalsFor": 33,
+      "goalsAgainst": 27,
+      "points": 29
+    },
+    {
+      "teamId": "uefa-nations.moldavia",
+      "name": "Moldavia",
+      "shortName": "Moldavia",
+      "code": "MDA",
+      "logoUrl": "/brand/official/countries/moldavia.png",
+      "played": 16,
+      "won": 9,
+      "drawn": 2,
       "lost": 5,
-      "goalsFor": 2,
-      "goalsAgainst": 11,
-      "points": 0
+      "goalsFor": 20,
+      "goalsAgainst": 17,
+      "points": 29
+    },
+    {
+      "teamId": "uefa-nations.georgia",
+      "name": "Georgia",
+      "shortName": "Georgia",
+      "code": "GEO",
+      "logoUrl": "/brand/official/countries/georgia.png",
+      "played": 18,
+      "won": 8,
+      "drawn": 4,
+      "lost": 6,
+      "goalsFor": 28,
+      "goalsAgainst": 14,
+      "points": 28
+    },
+    {
+      "teamId": "uefa-nations.rumania",
+      "name": "Rumanía",
+      "shortName": "Rumanía",
+      "code": "ROU",
+      "logoUrl": "/brand/official/countries/rumania.png",
+      "played": 17,
+      "won": 9,
+      "drawn": 1,
+      "lost": 7,
+      "goalsFor": 29,
+      "goalsAgainst": 25,
+      "points": 28
+    },
+    {
+      "teamId": "uefa-nations.irlanda-norte",
+      "name": "Irlanda del Norte",
+      "shortName": "Irlanda N.",
+      "code": "NIR",
+      "logoUrl": "/brand/official/countries/irlanda-norte.png",
+      "played": 16,
+      "won": 7,
+      "drawn": 6,
+      "lost": 3,
+      "goalsFor": 23,
+      "goalsAgainst": 12,
+      "points": 27
+    },
+    {
+      "teamId": "uefa-nations.austria",
+      "name": "Austria",
+      "shortName": "Austria",
+      "code": "AUT",
+      "logoUrl": "/brand/official/countries/austria.png",
+      "played": 19,
+      "won": 7,
+      "drawn": 6,
+      "lost": 6,
+      "goalsFor": 31,
+      "goalsAgainst": 23,
+      "points": 27
+    },
+    {
+      "teamId": "uefa-nations.suiza",
+      "name": "Suiza",
+      "shortName": "Suiza",
+      "code": "SUI",
+      "logoUrl": "/brand/official/countries/suiza.png",
+      "played": 17,
+      "won": 8,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 26,
+      "goalsAgainst": 22,
+      "points": 27
+    },
+    {
+      "teamId": "uefa-nations.eslovenia",
+      "name": "Eslovenia",
+      "shortName": "Eslovenia",
+      "code": "SVN",
+      "logoUrl": "/brand/official/countries/eslovenia.png",
+      "played": 19,
+      "won": 6,
+      "drawn": 9,
+      "lost": 4,
+      "goalsFor": 21,
+      "goalsAgainst": 20,
+      "points": 27
+    },
+    {
+      "teamId": "uefa-nations.noruega",
+      "name": "Noruega",
+      "shortName": "Noruega",
+      "code": "NOR",
+      "logoUrl": "/brand/official/countries/noruega.png",
+      "played": 16,
+      "won": 8,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 30,
+      "goalsAgainst": 23,
+      "points": 26
+    },
+    {
+      "teamId": "uefa-nations.montenegro",
+      "name": "Montenegro",
+      "shortName": "Montenegro",
+      "code": "MNE",
+      "logoUrl": "/brand/official/countries/montenegro.png",
+      "played": 18,
+      "won": 8,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 23,
+      "goalsAgainst": 21,
+      "points": 26
+    },
+    {
+      "teamId": "uefa-nations.ucrania",
+      "name": "Ucrania",
+      "shortName": "Ucrania",
+      "code": "UKR",
+      "logoUrl": "/brand/official/countries/ucrania.png",
+      "played": 19,
+      "won": 7,
+      "drawn": 5,
+      "lost": 7,
+      "goalsFor": 23,
+      "goalsAgainst": 22,
+      "points": 26
+    },
+    {
+      "teamId": "uefa-nations.hungria",
+      "name": "Hungría",
+      "shortName": "Hungría",
+      "code": "HUN",
+      "logoUrl": "/brand/official/countries/hungria.png",
+      "played": 19,
+      "won": 7,
+      "drawn": 5,
+      "lost": 7,
+      "goalsFor": 18,
+      "goalsAgainst": 24,
+      "points": 26
+    },
+    {
+      "teamId": "uefa-nations.estonia",
+      "name": "Estonia",
+      "shortName": "Estonia",
+      "code": "EST",
+      "logoUrl": "/brand/official/countries/estonia.png",
+      "played": 15,
+      "won": 7,
+      "drawn": 4,
+      "lost": 4,
+      "goalsFor": 16,
+      "goalsAgainst": 13,
+      "points": 25
+    },
+    {
+      "teamId": "uefa-nations.letonia",
+      "name": "Letonia",
+      "shortName": "Letonia",
+      "code": "LVA",
+      "logoUrl": "/brand/official/countries/letonia.png",
+      "played": 20,
+      "won": 7,
+      "drawn": 4,
+      "lost": 9,
+      "goalsFor": 21,
+      "goalsAgainst": 24,
+      "points": 25
+    },
+    {
+      "teamId": "uefa-nations.islandia",
+      "name": "Islandia",
+      "shortName": "Islandia",
+      "code": "ISL",
+      "logoUrl": "/brand/official/countries/islandia.png",
+      "played": 17,
+      "won": 6,
+      "drawn": 6,
+      "lost": 5,
+      "goalsFor": 31,
+      "goalsAgainst": 23,
+      "points": 24
+    },
+    {
+      "teamId": "uefa-nations.albania",
+      "name": "Albania",
+      "shortName": "Albania",
+      "code": "ALB",
+      "logoUrl": "/brand/official/countries/albania.png",
+      "played": 16,
+      "won": 7,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 20,
+      "goalsAgainst": 15,
+      "points": 24
+    },
+    {
+      "teamId": "uefa-nations.irlanda",
+      "name": "Irlanda",
+      "shortName": "Irlanda",
+      "code": "IRL",
+      "logoUrl": "/brand/official/countries/irlanda.png",
+      "played": 19,
+      "won": 7,
+      "drawn": 3,
+      "lost": 9,
+      "goalsFor": 21,
+      "goalsAgainst": 26,
+      "points": 24
+    },
+    {
+      "teamId": "uefa-nations.serbia",
+      "name": "Serbia",
+      "shortName": "Serbia",
+      "code": "SRB",
+      "logoUrl": "/brand/official/countries/serbia.png",
+      "played": 19,
+      "won": 6,
+      "drawn": 5,
+      "lost": 8,
+      "goalsFor": 23,
+      "goalsAgainst": 23,
+      "points": 23
+    },
+    {
+      "teamId": "uefa-nations.luxemburgo",
+      "name": "Luxemburgo",
+      "shortName": "Luxemburgo",
+      "code": "LUX",
+      "logoUrl": "/brand/official/countries/luxemburgo.png",
+      "played": 20,
+      "won": 6,
+      "drawn": 5,
+      "lost": 9,
+      "goalsFor": 19,
+      "goalsAgainst": 25,
+      "points": 23
+    },
+    {
+      "teamId": "uefa-nations.islas-feroe",
+      "name": "Islas Feroe",
+      "shortName": "I. Feroe",
+      "code": "FRO",
+      "logoUrl": "/brand/official/countries/islas-feroe.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 10,
+      "lost": 4,
+      "goalsFor": 20,
+      "goalsAgainst": 23,
+      "points": 22
     },
     {
       "teamId": "uefa-nations.macedonia-norte",
@@ -23987,13 +23797,237 @@
       "shortName": "Macedonia N.",
       "code": "MKD",
       "logoUrl": "/brand/official/countries/macedonia-norte.png",
-      "played": 4,
-      "won": 0,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 1,
-      "goalsAgainst": 10,
-      "points": 0
+      "played": 17,
+      "won": 7,
+      "drawn": 1,
+      "lost": 9,
+      "goalsFor": 17,
+      "goalsAgainst": 22,
+      "points": 22
+    },
+    {
+      "teamId": "uefa-nations.malta",
+      "name": "Malta",
+      "shortName": "Malta",
+      "code": "MLT",
+      "logoUrl": "/brand/official/countries/malta.png",
+      "played": 14,
+      "won": 6,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 12,
+      "goalsAgainst": 14,
+      "points": 21
+    },
+    {
+      "teamId": "uefa-nations.bosnia-y-herzegovina",
+      "name": "Bosnia y Herzegovina",
+      "shortName": "Bosnia",
+      "code": "BIH",
+      "logoUrl": "/brand/official/countries/bosnia-y-herzegovina.png",
+      "played": 17,
+      "won": 5,
+      "drawn": 6,
+      "lost": 6,
+      "goalsFor": 20,
+      "goalsAgainst": 31,
+      "points": 21
+    },
+    {
+      "teamId": "uefa-nations.bulgaria",
+      "name": "Bulgaria",
+      "shortName": "Bulgaria",
+      "code": "BUL",
+      "logoUrl": "/brand/official/countries/bulgaria.png",
+      "played": 19,
+      "won": 5,
+      "drawn": 6,
+      "lost": 8,
+      "goalsFor": 18,
+      "goalsAgainst": 29,
+      "points": 21
+    },
+    {
+      "teamId": "uefa-nations.bielorrusia",
+      "name": "Bielorrusia",
+      "shortName": "Bielorrusia",
+      "code": "BLR",
+      "logoUrl": "/brand/official/countries/bielorrusia.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 8,
+      "lost": 6,
+      "goalsFor": 13,
+      "goalsAgainst": 15,
+      "points": 20
+    },
+    {
+      "teamId": "uefa-nations.azerbaiyan",
+      "name": "Azerbaiyán",
+      "shortName": "Azerbaiyán",
+      "code": "AZE",
+      "logoUrl": "/brand/official/countries/azerbaiyan.png",
+      "played": 16,
+      "won": 5,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 13,
+      "goalsAgainst": 22,
+      "points": 19
+    },
+    {
+      "teamId": "uefa-nations.chipre",
+      "name": "Chipre",
+      "shortName": "Chipre",
+      "code": "CYP",
+      "logoUrl": "/brand/official/countries/chipre.png",
+      "played": 17,
+      "won": 5,
+      "drawn": 4,
+      "lost": 8,
+      "goalsFor": 15,
+      "goalsAgainst": 33,
+      "points": 19
+    },
+    {
+      "teamId": "uefa-nations.finlandia",
+      "name": "Finlandia",
+      "shortName": "Finlandia",
+      "code": "FIN",
+      "logoUrl": "/brand/official/countries/finlandia.png",
+      "played": 18,
+      "won": 5,
+      "drawn": 3,
+      "lost": 10,
+      "goalsFor": 26,
+      "goalsAgainst": 25,
+      "points": 18
+    },
+    {
+      "teamId": "uefa-nations.kazajistan",
+      "name": "Kazajistán",
+      "shortName": "Kazajistán",
+      "code": "KAZ",
+      "logoUrl": "/brand/official/countries/kazajistan.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 5,
+      "lost": 9,
+      "goalsFor": 16,
+      "goalsAgainst": 32,
+      "points": 17
+    },
+    {
+      "teamId": "uefa-nations.gales",
+      "name": "Gales",
+      "shortName": "Gales",
+      "code": "WAL",
+      "logoUrl": "/brand/official/countries/gales.png",
+      "played": 16,
+      "won": 4,
+      "drawn": 4,
+      "lost": 8,
+      "goalsFor": 17,
+      "goalsAgainst": 21,
+      "points": 16
+    },
+    {
+      "teamId": "uefa-nations.armenia",
+      "name": "Armenia",
+      "shortName": "Armenia",
+      "code": "ARM",
+      "logoUrl": "/brand/official/countries/armenia.png",
+      "played": 20,
+      "won": 4,
+      "drawn": 4,
+      "lost": 12,
+      "goalsFor": 18,
+      "goalsAgainst": 41,
+      "points": 16
+    },
+    {
+      "teamId": "uefa-nations.israel",
+      "name": "Israel",
+      "shortName": "Israel",
+      "code": "ISR",
+      "logoUrl": "/brand/official/countries/israel.png",
+      "played": 14,
+      "won": 3,
+      "drawn": 5,
+      "lost": 6,
+      "goalsFor": 13,
+      "goalsAgainst": 24,
+      "points": 14
+    },
+    {
+      "teamId": "uefa-nations.lituania",
+      "name": "Lituania",
+      "shortName": "Lituania",
+      "code": "LTU",
+      "logoUrl": "/brand/official/countries/lituania.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 2,
+      "lost": 12,
+      "goalsFor": 13,
+      "goalsAgainst": 28,
+      "points": 14
+    },
+    {
+      "teamId": "uefa-nations.andorra",
+      "name": "Andorra",
+      "shortName": "Andorra",
+      "code": "AND",
+      "logoUrl": "/brand/official/countries/andorra.png",
+      "played": 14,
+      "won": 3,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 9,
+      "goalsAgainst": 14,
+      "points": 13
+    },
+    {
+      "teamId": "uefa-nations.polonia",
+      "name": "Polonia",
+      "shortName": "Polonia",
+      "code": "POL",
+      "logoUrl": "/brand/official/countries/polonia.png",
+      "played": 16,
+      "won": 3,
+      "drawn": 3,
+      "lost": 10,
+      "goalsFor": 21,
+      "goalsAgainst": 33,
+      "points": 12
+    },
+    {
+      "teamId": "uefa-nations.republica-checa",
+      "name": "República Checa",
+      "shortName": "R. Checa",
+      "code": "CZE",
+      "logoUrl": "/brand/official/countries/republica-checa.png",
+      "played": 17,
+      "won": 3,
+      "drawn": 3,
+      "lost": 11,
+      "goalsFor": 15,
+      "goalsAgainst": 34,
+      "points": 12
+    },
+    {
+      "teamId": "uefa-nations.gibraltar",
+      "name": "Gibraltar",
+      "shortName": "Gibraltar",
+      "code": "GIB",
+      "logoUrl": "/brand/official/countries/gibraltar.png",
+      "played": 17,
+      "won": 1,
+      "drawn": 7,
+      "lost": 9,
+      "goalsFor": 9,
+      "goalsAgainst": 25,
+      "points": 10
     },
     {
       "teamId": "uefa-nations.san-marino",
@@ -24001,13 +24035,27 @@
       "shortName": "San Marino",
       "code": "SMR",
       "logoUrl": "/brand/official/countries/san-marino.png",
-      "played": 5,
+      "played": 13,
+      "won": 2,
+      "drawn": 1,
+      "lost": 10,
+      "goalsFor": 8,
+      "goalsAgainst": 35,
+      "points": 7
+    },
+    {
+      "teamId": "uefa-nations.liechtenstein",
+      "name": "Liechtenstein",
+      "shortName": "Liechtenst.",
+      "code": "LIE",
+      "logoUrl": "/brand/official/countries/liechtenstein.png",
+      "played": 14,
       "won": 0,
-      "drawn": 0,
-      "lost": 5,
-      "goalsFor": 3,
-      "goalsAgainst": 21,
-      "points": 0
+      "drawn": 3,
+      "lost": 11,
+      "goalsFor": 5,
+      "goalsAgainst": 22,
+      "points": 3
     }
   ]
 }

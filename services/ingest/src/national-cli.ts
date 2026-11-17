@@ -4,6 +4,8 @@
  */
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
+import { loadRootEnvFiles } from "./env.js";
+import { readProviderConfigs } from "./providers/config.js";
 import {
   buildFootballSnapshot,
   loadPreviousSnapshot,
@@ -12,8 +14,10 @@ import {
 import { validateLeagueSnapshotCandidate } from "./validation/snapshot-validator.js";
 import {
   NATIONAL_COMPETITION_SPECS,
+  enrichTeamRatesFromHistory,
   fetchNationalCompetition,
   historyRowsForCompetition,
+  priorFootballRowsForCompetition,
   writeInternationalHistoryFile,
   type NormalizedNationalSeason,
 } from "./adapters/espn-national.js";
@@ -24,6 +28,12 @@ const HISTORY_FILE = resolve(ROOT_DIR, "data", "history", "international.jsonl")
 const CACHE_DIR = resolve(ROOT_DIR, "services", "ingest", ".cache");
 
 async function main(): Promise<void> {
+  loadRootEnvFiles(ROOT_DIR);
+  const providers = readProviderConfigs();
+  const bzzoiroSource = providers.bzzoiro.enabled
+    ? { baseUrl: providers.bzzoiro.baseUrl, headers: providers.bzzoiro.headers }
+    : null;
+
   const dateArg = process.argv.find((a) => a.startsWith("--date="))?.split("=")[1];
   const dateStr = dateArg ?? new Date().toISOString().slice(0, 10);
   const updatedAt = new Date().toISOString();
@@ -32,13 +42,16 @@ async function main(): Promise<void> {
   mkdirSync(CACHE_DIR, { recursive: true });
   mkdirSync(SNAPSHOTS_ROOT, { recursive: true });
 
-  console.log(`[national] Descargando y normalizando 8 competencias de selecciones (${dateStr})...`);
+  console.log(
+    `[national] Descargando y normalizando ${NATIONAL_COMPETITION_SPECS.length} competencias de selecciones (${dateStr})${bzzoiroSource ? " + enriquecimiento multi-fuente activo" : ""}...`,
+  );
   const seasons: NormalizedNationalSeason[] = [];
   for (const spec of NATIONAL_COMPETITION_SPECS) {
     const season = await fetchNationalCompetition({
       spec,
       cacheDir: CACHE_DIR,
       referenceDate: dateStr,
+      bzzoiro: bzzoiroSource,
     });
     seasons.push(season);
     console.log(
@@ -52,6 +65,9 @@ async function main(): Promise<void> {
   for (const season of seasons) {
     const previous = loadPreviousSnapshot(SNAPSHOTS_ROOT, season.league);
     const eloHistory = historyRowsForCompetition(historyRows, season.league);
+    const priorMatches = priorFootballRowsForCompetition(historyRows, season.league);
+    const enrichedRates = enrichTeamRatesFromHistory(season.teamRateInputs, historyRows, season.league);
+
     const candidate = buildFootballSnapshot({
       league: season.league,
       leagueName: season.leagueName,
@@ -59,11 +75,12 @@ async function main(): Promise<void> {
       seasonLabel: season.seasonLabel,
       periodLabel: season.periodLabel,
       games: season.activeGames,
-      teamRateInputs: season.teamRateInputs,
+      teamRateInputs: enrichedRates,
       updatedAt,
-      source: "espn",
+      source: bzzoiroSource ? "espn+bzzoiro" : "espn",
       previousSnapshot: previous,
       seasonGames: season.allGames,
+      priorMatches,
       history: eloHistory,
     });
 

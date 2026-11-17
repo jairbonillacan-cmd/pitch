@@ -6,6 +6,8 @@ import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   MEMBERSHIP_SPEC,
+  PRECISION_BUCKETS,
+  SPACETIME_METRICS_HEADLINE,
   ULTRA_LANDING_FEATURES,
 } from "../spacetime-catalog";
 import { LensGlowOrbs } from "../components/MaestroPrimitives";
@@ -20,6 +22,7 @@ import { ReferralCard3D } from "./ReferralCard3D";
 import type {
   LandingFinishedResultItem,
   LandingHeroLeagueCard,
+  LandingParlayDemoData,
   PrecioTransferContext,
   PrecioTransferRequestSummary,
   PublicNavPath,
@@ -363,142 +366,510 @@ export function HeroMatchDemoIsland({
         : "";
 
   return (
-    <div
-      id={containerId}
-      className="pl-lp-card pl-lp-demo-card glass-lens glass-ring glass-ring--featured"
-    >
-      {visibleCards.length > 1 ? (
-        <div role="group" aria-label="Elegir liga" className="pl-lp-league-tabs">
-          {visibleCards.map((card, index) => (
-            <button
-              key={card.league}
-              type="button"
-              className="pl-lp-tab"
-              aria-pressed={index === safeIndex}
-              onClick={() => setSelectedIndex(index)}
-            >
-              <LeagueBadge league={card.league} size={18} />
-              <span>{card.leagueShort}</span>
-            </button>
-          ))}
+    <div id={containerId} className="pl-lp-hero-device-stage">
+      <div className="pl-lp-hero-floating-summary glass-card glass-ring">
+        <div className="pl-lp-hero-floating-head">
+          <span className="pl-lp-live-dot" aria-hidden="true" />
+          <span className="pl-lp-hero-floating-title">
+            Pulso auditado · 5 motores
+          </span>
+          <span className="pl-lp-hero-floating-badge num">Ejemplo</span>
         </div>
-      ) : null}
-
-      <div className="pl-lp-match-meta">
-        <span>{active.roundLabel}</span>
-        <span className="num">{active.whenLabel}</span>
-      </div>
-
-      <div className="pl-lp-teams">
-        <div className="pl-lp-team">
-          <TeamBadge
-            league={active.league}
-            slug={active.home.slug}
-            name={active.home.name}
-            size={teamBadgeSize}
-            decorative
-          />
-          <div style={{ minWidth: 0 }}>
-            <p className="pl-lp-team-name">{active.home.name}</p>
-            <p className="pl-lp-team-note num">{active.home.note}</p>
+        <div className="pl-lp-hero-floating-metrics num">
+          <div>
+            <span className="pl-lp-hero-floating-val pl-lp-hero-floating-val--ok">
+              +12.05 u
+            </span>
+            <span className="pl-lp-hero-floating-sub">Saldo acumulado</span>
+          </div>
+          <div>
+            <span className="pl-lp-hero-floating-val">61.9 %</span>
+            <span className="pl-lp-hero-floating-sub">Aciertos publicados</span>
           </div>
         </div>
-        <span className="pl-lp-vs">vs</span>
-        <div className="pl-lp-team pl-lp-team--away">
-          <div style={{ minWidth: 0 }}>
-            <p className="pl-lp-team-name">{active.away.name}</p>
-            <p className="pl-lp-team-note num">{active.away.note}</p>
-          </div>
-          <TeamBadge
-            league={active.league}
-            slug={active.away.slug}
-            name={active.away.name}
-            size={teamBadgeSize}
-            decorative
-          />
+        <div className="pl-lp-hero-floating-chips num" aria-hidden="true">
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--hit">✓ +1.50 u</span>
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--hit">✓ +0.91 u</span>
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--miss">✕ −1.00 u</span>
         </div>
       </div>
 
-      <div className="pl-lp-most-box">
-        <div style={{ minWidth: 0 }}>
-          <p className="pl-lp-most-kicker">Lo más probable</p>
-          <p className="pl-lp-most-label">{active.mostProbable.label}</p>
-          <p className="pl-lp-most-sub num">
-            Momio justo{" "}
-            <strong style={{ color: "var(--pl-text)" }}>
-              {active.mostProbable.fairAmerican}
-            </strong>{" "}
-            · decimal {active.mostProbable.fairDecimal}
+      <div className="pl-lp-card pl-lp-demo-card glass-lens glass-ring glass-ring--featured">
+        {visibleCards.length > 1 ? (
+          <div role="group" aria-label="Elegir liga" className="pl-lp-league-tabs">
+            {visibleCards.map((card, index) => (
+              <button
+                key={card.league}
+                type="button"
+                className="pl-lp-tab"
+                aria-pressed={index === safeIndex}
+                onClick={() => setSelectedIndex(index)}
+              >
+                <LeagueBadge league={card.league} size={18} />
+                <span>{card.leagueShort}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="pl-lp-match-meta">
+          <span>{active.roundLabel}</span>
+          <span className="num">{active.whenLabel}</span>
+        </div>
+
+        <div className="pl-lp-teams">
+          <div className="pl-lp-team">
+            <TeamBadge
+              league={active.league}
+              slug={active.home.slug}
+              name={active.home.name}
+              size={teamBadgeSize}
+              decorative
+            />
+            <div style={{ minWidth: 0 }}>
+              <p className="pl-lp-team-name">{active.home.name}</p>
+              <p className="pl-lp-team-note num">{active.home.note}</p>
+            </div>
+          </div>
+          <span className="pl-lp-vs">vs</span>
+          <div className="pl-lp-team pl-lp-team--away">
+            <div style={{ minWidth: 0 }}>
+              <p className="pl-lp-team-name">{active.away.name}</p>
+              <p className="pl-lp-team-note num">{active.away.note}</p>
+            </div>
+            <TeamBadge
+              league={active.league}
+              slug={active.away.slug}
+              name={active.away.name}
+              size={teamBadgeSize}
+              decorative
+            />
+          </div>
+        </div>
+
+        <div className="pl-lp-most-box">
+          <div style={{ minWidth: 0 }}>
+            <p className="pl-lp-most-kicker">Lo más probable</p>
+            <p className="pl-lp-most-label">{active.mostProbable.label}</p>
+            <p className="pl-lp-most-sub num">
+              Momio justo{" "}
+              <strong style={{ color: "var(--pl-text)" }}>
+                {active.mostProbable.fairAmerican}
+              </strong>{" "}
+              · decimal {active.mostProbable.fairDecimal}
+            </p>
+          </div>
+          <p className="pl-lp-most-prob num">
+            {formatPctOneDecimal(active.mostProbable.p)}
           </p>
         </div>
-        <p className="pl-lp-most-prob num">
-          {formatPctOneDecimal(active.mostProbable.p)}
-        </p>
-      </div>
 
-      <div>
-        <ProbSplit
-          probabilities={active.splitProbabilities}
-          labels={active.splitLabels}
-          showLabels
-        />
-      </div>
-
-      {active.otherMarkets.length > 0 ? (
-        <div className="pl-lp-markets">
-          <p className="pl-lp-markets-title">Otros mercados de este partido</p>
-          {active.otherMarkets.map((row) => (
-            <div key={row.label} className="pl-lp-market-row">
-              <span style={{ fontWeight: 600, minWidth: 0 }}>{row.label}</span>
-              <span className="pl-lp-market-bar" aria-hidden="true">
-                <span
-                  className="pl-lp-market-fill"
-                  style={{
-                    width: `${Math.min(100, Math.max(4, Math.round(row.p * 100)))}%`,
-                  }}
-                />
-              </span>
-              <span className="num" style={{ textAlign: "right", fontWeight: 700 }}>
-                {formatPctOneDecimal(row.p)}
-              </span>
-              <span
-                className="num"
-                style={{ textAlign: "right", color: "var(--pl-text-muted)" }}
-              >
-                {row.fairAmerican}
-              </span>
-            </div>
-          ))}
+        <div>
+          <ProbSplit
+            probabilities={active.splitProbabilities}
+            labels={active.splitLabels}
+            showLabels
+          />
         </div>
-      ) : null}
 
-      <div className="pl-lp-odds-box">
-        <label htmlFor={inputId} className="pl-lp-odds-label">
-          Tu momio para{" "}
-          <strong style={{ color: "var(--pl-text)" }}>
-            {active.mostProbable.label}
-          </strong>
-        </label>
-        <input
-          id={inputId}
-          className="pl-lp-odds-input num"
-          type="text"
-          inputMode="decimal"
-          value={oddsInput}
-          onChange={(event) => setOddsInput(event.target.value)}
-          placeholder="−200"
-          aria-describedby={resultId}
-        />
-        <p
-          id={resultId}
-          className={`pl-lp-odds-res ${resModifier} num`.trim()}
-          style={{ color: comparison.colorVar }}
-          aria-live="polite"
-        >
-          {comparison.text}
+        {active.otherMarkets.length > 0 ? (
+          <div className="pl-lp-markets">
+            <p className="pl-lp-markets-title">Otros mercados de este partido</p>
+            {active.otherMarkets.map((row) => (
+              <div key={row.label} className="pl-lp-market-row">
+                <span style={{ fontWeight: 600, minWidth: 0 }}>{row.label}</span>
+                <span className="pl-lp-market-bar" aria-hidden="true">
+                  <span
+                    className="pl-lp-market-fill"
+                    style={{
+                      width: `${Math.min(100, Math.max(4, Math.round(row.p * 100)))}%`,
+                    }}
+                  />
+                </span>
+                <span className="num" style={{ textAlign: "right", fontWeight: 700 }}>
+                  {formatPctOneDecimal(row.p)}
+                </span>
+                <span
+                  className="num"
+                  style={{ textAlign: "right", color: "var(--pl-text-muted)" }}
+                >
+                  {row.fairAmerican}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="pl-lp-odds-box">
+          <label htmlFor={inputId} className="pl-lp-odds-label">
+            Tu momio para{" "}
+            <strong style={{ color: "var(--pl-text)" }}>
+              {active.mostProbable.label}
+            </strong>
+          </label>
+          <input
+            id={inputId}
+            className="pl-lp-odds-input num"
+            type="text"
+            inputMode="decimal"
+            value={oddsInput}
+            onChange={(event) => setOddsInput(event.target.value)}
+            placeholder="−200"
+            aria-describedby={resultId}
+          />
+          <p
+            id={resultId}
+            className={`pl-lp-odds-res ${resModifier} num`.trim()}
+            style={{ color: comparison.colorVar }}
+            aria-live="polite"
+          >
+            {comparison.text}
+          </p>
+        </div>
+
+        <p className="pl-lp-demo-engines-foot">
+          Consenso activo: Tachyon · Singularity · Minkowski · Geodesic · Cortex IA
         </p>
       </div>
     </div>
+  );
+}
+
+interface ShowcasePillar {
+  id: string;
+  shortLabel: string;
+  title: string;
+  description: string;
+  icon: "target" | "layers" | "bolt" | "shield";
+}
+
+const SHOWCASE_PILLARS: readonly ShowcasePillar[] = [
+  {
+    id: "momio-justo",
+    shortLabel: "Momio justo",
+    title: "Probabilidad y momio justo en 3 pasos",
+    description:
+      "Ves qué tan probable es cada escenario, cuál es su momio justo sin margen de la casa y si el momio que tienes enfrente paga más o menos.",
+    icon: "target",
+  },
+  {
+    id: "parlays-sin-choques",
+    shortLabel: "Parlays",
+    title: "Armador de parlays sin contradicciones",
+    description:
+      "Combina de 2 a 6 selecciones —incluso del mismo partido— calculando la probabilidad conjunta y bloqueando al instante selecciones que se contradicen.",
+    icon: "layers",
+  },
+  {
+    id: "match-center-vivo",
+    shortLabel: "En vivo",
+    title: "Match Center en vivo y lectura de contexto",
+    description:
+      "Cortex IA traduce los 136 indicadores de los motores en razones claras, bajas reportadas, ritmo de juego y alertas cuando un momio se mueve a tu favor.",
+    icon: "bolt",
+  },
+  {
+    id: "historial-integro",
+    shortLabel: "Historial",
+    title: "Historial íntegro verificable y calibrado",
+    description:
+      "Cada pronóstico se congela antes del silbatazo inicial. Los aciertos y los fallos permanecen publicados para auditar la calibración real.",
+    icon: "shield",
+  },
+];
+
+function ShowcasePillarIcon({ icon }: { icon: ShowcasePillar["icon"] }): React.JSX.Element {
+  switch (icon) {
+    case "target":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      );
+    case "layers":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3l8 4.5-8 4.5-8-4.5L12 3z" />
+          <path d="M4 12l8 4.5 8-4.5" />
+          <path d="M4 16.5L12 21l8-4.5" />
+        </svg>
+      );
+    case "bolt":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
+        </svg>
+      );
+    case "shield":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3l7 3v5c0 4.5-3 8.2-7 9.5-4-1.3-7-5-7-9.5V6l7-3z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      );
+  }
+}
+
+export function FeatureShowcaseIsland({
+  parlayDemo,
+  results = [],
+  heroCard,
+}: {
+  parlayDemo?: LandingParlayDemoData;
+  results?: readonly LandingFinishedResultItem[];
+  heroCard?: LandingHeroLeagueCard;
+} = {}): React.JSX.Element {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sampleCard = heroCard ?? FALLBACK_DEMO_CARD;
+  const activePillar = SHOWCASE_PILLARS[activeIndex] ?? SHOWCASE_PILLARS[0]!;
+  const showcaseResults = results.slice(0, 3);
+
+  return (
+    <section id="que-obtienes" className="pl-lp-section">
+      <div className="pl-lp-wrap pl-lp-stack">
+        <div className="pl-lp-section-head pl-lp-section-head--center">
+          <p className="pl-lp-eyebrow">¿Qué obtienes?</p>
+          <h2 className="pl-lp-h2">Cuatro herramientas en un solo flujo.</h2>
+          <p className="pl-lp-lede">
+            Todo lo que necesitas antes y durante la jornada para leer probabilidades reales sin ruido.
+          </p>
+        </div>
+
+        <div className="pl-lp-showcase-grid">
+          <div className="pl-lp-showcase-stage-wrap">
+            <div
+              className="pl-lp-showcase-stage glass-lens glass-ring"
+              aria-live="polite"
+              aria-label={`Vista previa: ${activePillar.title}`}
+            >
+              <div className="pl-lp-showcase-glow" aria-hidden="true" />
+
+              {activeIndex === 0 ? (
+                <div className="pl-lp-showcase-mock">
+                  <div className="pl-lp-showcase-mock-head">
+                    <span className="pl-lp-pill">Lectura en 3 números</span>
+                    <span className="num pl-lp-fine">{sampleCard.leagueShort} · Ejemplo en vivo</span>
+                  </div>
+                  <div className="pl-lp-showcase-steps-preview">
+                    <div className="pl-lp-showcase-step-tile">
+                      <span className="pl-lp-step-idx num">01 · Probabilidad</span>
+                      <strong className="num pl-lp-showcase-big-num pl-lp-showcase-big-num--ok">
+                        {formatPctOneDecimal(sampleCard.mostProbable.p)}
+                      </strong>
+                      <span>{sampleCard.mostProbable.label}</span>
+                    </div>
+                    <div className="pl-lp-showcase-step-tile">
+                      <span className="pl-lp-step-idx num">02 · Momio justo</span>
+                      <strong className="num pl-lp-showcase-big-num">
+                        {sampleCard.mostProbable.fairAmerican}
+                      </strong>
+                      <span className="num">Decimal {sampleCard.mostProbable.fairDecimal} · 0 % margen</span>
+                    </div>
+                    <div className="pl-lp-showcase-step-tile pl-lp-showcase-step-tile--highlight">
+                      <span className="pl-lp-step-idx num">03 · Tu casa paga</span>
+                      <strong className="num pl-lp-showcase-big-num">
+                        −200 <span className="pl-lp-showcase-delta">+5.6 pts</span>
+                      </strong>
+                      <span>Paga mejor que lo justo: tú decides</span>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
+              {activeIndex === 1 ? (
+                <div className="pl-lp-showcase-mock">
+                  <div className="pl-lp-showcase-mock-head">
+                    <span className="pl-lp-pill">Motor anti-contradicción</span>
+                    <span className="num pl-lp-fine">
+                      {parlayDemo?.isExample ? "Ejemplo ilustrativo" : "Partido próximo"}
+                    </span>
+                  </div>
+                  <div className="pl-lp-showcase-parlay-list">
+                    {(parlayDemo?.legs ?? [
+                      {
+                        league: sampleCard.league,
+                        teamSlug: sampleCard.away.slug,
+                        teamName: sampleCard.away.name,
+                        label: sampleCard.mostProbable.label,
+                        matchLabel: `${sampleCard.home.name} vs ${sampleCard.away.name}`,
+                        p: sampleCard.mostProbable.p,
+                      },
+                      {
+                        league: sampleCard.league,
+                        teamSlug: sampleCard.home.slug,
+                        teamName: sampleCard.home.name,
+                        label: sampleCard.otherMarkets[1]?.label ?? "Más de 1.5 goles",
+                        matchLabel: `${sampleCard.home.name} vs ${sampleCard.away.name}`,
+                        p: sampleCard.otherMarkets[1]?.p ?? 0.78,
+                      },
+                    ]).map((leg) => (
+                      <div key={`${leg.matchLabel}-${leg.label}`} className="pl-lp-showcase-leg-card">
+                        <TeamBadge
+                          league={leg.league}
+                          slug={leg.teamSlug}
+                          name={leg.teamName}
+                          size={28}
+                          decorative
+                        />
+                        <div style={{ minWidth: 0, flex: 1 }}>
+                          <p className="pl-lp-showcase-leg-title">{leg.label}</p>
+                          <p className="pl-lp-showcase-leg-sub">{leg.matchLabel}</p>
+                        </div>
+                        <span className="num pl-lp-showcase-leg-pct">{formatPctOneDecimal(leg.p)}</span>
+                      </div>
+                    ))}
+                    <div className="pl-lp-showcase-leg-card pl-lp-showcase-leg-card--blocked">
+                      <span className="pl-lp-ban-circle" aria-hidden="true">✕</span>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <p className="pl-lp-showcase-leg-title pl-lp-strike">
+                          {parlayDemo?.blockedLeg.label ?? `${sampleCard.home.name} gana`}
+                        </p>
+                        <p className="pl-lp-showcase-leg-sub">
+                          Bloqueada · contradice «{parlayDemo?.blockedLeg.conflictWithLabel ?? sampleCard.mostProbable.label}»
+                        </p>
+                      </div>
+                      <span className="pl-lp-status pl-lp-status--miss">Bloqueada</span>
+                    </div>
+                  </div>
+                  <div className="pl-lp-showcase-parlay-foot num">
+                    <span>
+                      Combinada ajustada:{" "}
+                      <strong style={{ color: "var(--pl-success)" }}>
+                        {formatPctOneDecimal(parlayDemo?.combinedProbability ?? 0.58)}
+                      </strong>
+                    </span>
+                    <span>Momio justo {parlayDemo?.fairAmerican ?? "−138"}</span>
+                  </div>
+                </div>
+              ) : null}
+
+              {activeIndex === 2 ? (
+                <div className="pl-lp-showcase-mock">
+                  <div className="pl-lp-showcase-alert-banner">
+                    <span className="pl-lp-live-pill">
+                      <span className="pl-lp-live-dot" aria-hidden="true" />
+                      En vivo · Min 67&apos;
+                    </span>
+                    <span className="num pl-lp-showcase-alert-edge">+4.6 pts sobre el momio justo</span>
+                  </div>
+                  <div className="pl-lp-showcase-live-card">
+                    <div className="pl-lp-showcase-live-teams">
+                      <div className="pl-lp-showcase-live-side">
+                        <TeamBadge
+                          league={sampleCard.league}
+                          slug={sampleCard.home.slug}
+                          name={sampleCard.home.name}
+                          size={34}
+                          decorative
+                        />
+                        <span>{sampleCard.home.name}</span>
+                      </div>
+                      <strong className="num pl-lp-showcase-live-score">1 — 2</strong>
+                      <div className="pl-lp-showcase-live-side">
+                        <TeamBadge
+                          league={sampleCard.league}
+                          slug={sampleCard.away.slug}
+                          name={sampleCard.away.name}
+                          size={34}
+                          decorative
+                        />
+                        <span>{sampleCard.away.name}</span>
+                      </div>
+                    </div>
+                    <p className="pl-lp-showcase-cortex-note">
+                      <strong>Cortex IA:</strong> Ritmo ofensivo alto tras el minuto 60 y visitante con
+                      mayor volumen en área rival. Solo cita cifras publicadas por los 5 motores.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+
+              {activeIndex === 3 ? (
+                <div className="pl-lp-showcase-mock">
+                  <div className="pl-lp-showcase-mock-head">
+                    <span className="pl-lp-pill">Auditoría pública inmutable</span>
+                    <span className="num pl-lp-fine">Publicación previa al partido</span>
+                  </div>
+                  <div className="pl-lp-showcase-ledger">
+                    {showcaseResults.length > 0 ? (
+                      showcaseResults.map((res) => (
+                        <div key={res.id} className="pl-lp-showcase-ledger-row">
+                          <div style={{ minWidth: 0 }}>
+                            <p className="pl-lp-showcase-leg-title">{res.scoreLabel}</p>
+                            <p className="pl-lp-showcase-leg-sub num">
+                              {res.pickLabel} · {formatPctOneDecimal(res.p)} · justo {res.fairAmerican}
+                            </p>
+                          </div>
+                          <span className={`pl-lp-status ${res.hit ? "pl-lp-status--hit" : "pl-lp-status--miss"}`}>
+                            {res.hit ? "Se cumplió" : "No se cumplió"}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      PRECISION_BUCKETS.map((bucket) => (
+                        <div key={bucket.id} className="pl-lp-showcase-ledger-row">
+                          <div>
+                            <p className="pl-lp-showcase-leg-title">{bucket.label}</p>
+                            <p className="pl-lp-showcase-leg-sub">{bucket.rangeLabel}</p>
+                          </div>
+                          <span className="num pl-lp-showcase-leg-pct">
+                            {Math.round(bucket.promisedMeanP * 100)} %
+                          </span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div className="pl-lp-showcase-parlay-foot num">
+                    <span>{SPACETIME_METRICS_HEADLINE.historicalMatches} partidos en los motores</span>
+                    <span>Aciertos y fallos publicados</span>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="pl-lp-showcase-dots" aria-label="Seleccionar herramienta">
+              {SHOWCASE_PILLARS.map((pillar, idx) => (
+                <button
+                  key={pillar.id}
+                  type="button"
+                  className="pl-lp-showcase-dot-btn"
+                  aria-label={pillar.title}
+                  aria-pressed={idx === activeIndex}
+                  onClick={() => setActiveIndex(idx)}
+                >
+                  <span>{pillar.shortLabel}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="pl-lp-showcase-list" role="group" aria-label="Herramientas incluidas">
+            {SHOWCASE_PILLARS.map((pillar, index) => {
+              const isSelected = index === activeIndex;
+              return (
+                <button
+                  key={pillar.id}
+                  type="button"
+                  className={`pl-lp-showcase-item ${isSelected ? "pl-lp-showcase-item--active" : ""}`.trim()}
+                  aria-pressed={isSelected}
+                  onClick={() => setActiveIndex(index)}
+                >
+                  <span className="pl-lp-showcase-item-icon" aria-hidden="true">
+                    <ShowcasePillarIcon icon={pillar.icon} />
+                  </span>
+                  <span className="pl-lp-showcase-item-copy">
+                    <span className="pl-lp-showcase-item-title">{pillar.title}</span>
+                    <span className="pl-lp-showcase-item-desc">{pillar.description}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -536,10 +907,13 @@ export function UltraPassCardStageIsland(): React.JSX.Element {
 export function PricingCardIsland({
   hasSession = false,
   animated = false,
+  layout = "single",
 }: {
   hasSession?: boolean;
   /** En `/precio`: conteo rodante del precio, color de marca y «Ultra» con espectro animado. */
   animated?: boolean;
+  /** En `/`: comparativa lado a lado estilo ScoutPicks; en `/precio`: tarjeta individual junto al 3D. */
+  layout?: "single" | "compare";
 } = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const selectBilling = (next: "monthly" | "annual") => {
@@ -564,6 +938,160 @@ export function PricingCardIsland({
     ) : (
       MEMBERSHIP_SPEC.name
     );
+
+  if (layout === "compare") {
+    return (
+      <div className="pl-lp-pricing-compare-wrap">
+        <div className="pl-lp-billing-center">
+          <div
+            role="group"
+            aria-label="Periodo de pago"
+            className="pl-lp-billing-toggle pl-lp-billing-toggle--centered"
+          >
+            <button
+              type="button"
+              className="pl-lp-tab"
+              aria-pressed={!isAnnual}
+              onClick={() => selectBilling("monthly")}
+            >
+              Mensual
+            </button>
+            <button
+              type="button"
+              className="pl-lp-tab"
+              aria-pressed={isAnnual}
+              onClick={() => selectBilling("annual")}
+            >
+              Anual · ahorras 4 meses
+            </button>
+          </div>
+        </div>
+
+        <div className="pl-lp-pricing-compare-grid">
+          <article className="pl-lp-card pl-lp-pricing-card pl-lp-pricing-card--free glass-card glass-ring">
+            <div className="pl-lp-pricing-plan-head">
+              <p className="pl-lp-plan-name">Exploración pública</p>
+              <span className="pl-lp-pill">Abierto en portada</span>
+            </div>
+
+            <div>
+              <p className="pl-lp-price-figure num">
+                <span className="pl-lp-price-currency">$</span>
+                <span className="pl-lp-price-amount">0</span>
+              </p>
+              <p className="pl-lp-price-note">
+                Sin registro · para probar el estándar antes de entrar al club
+              </p>
+            </div>
+
+            <ul className="pl-lp-features">
+              {[
+                "Partido destacado por liga en el comparador en vivo",
+                "Calculadora interactiva de «Tu momio» contra el justo",
+                "Metodología completa y métricas de los 5 motores",
+                "Muestra reciente del historial íntegro y calibración",
+              ].map((item) => (
+                <li key={item} className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    style={{ flex: "none", color: "var(--pl-text-muted)", marginTop: 2 }}
+                  >
+                    <path d="M5 12l5 5 9-10" pathLength={1} />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a className="pl-lp-btn pl-lp-btn--full pl-lp-btn-ghost" href="#hoy">
+              Explorar comparador gratis
+            </a>
+            <p className="pl-lp-pricing-foot">
+              Acceso libre a la vista previa pública.
+            </p>
+          </article>
+
+          <article className="pl-lp-card pl-lp-pricing-card pl-lp-pricing-card--featured glass-lens glass-ring glass-ring--featured">
+            <div className="pl-lp-pricing-plan-head">
+              <p className="pl-lp-plan-name">{planTitle}</p>
+              <span className="pl-lp-pill pl-lp-pill--brand">7 días de prueba gratis</span>
+            </div>
+
+            <div>
+              <p className="pl-lp-price-figure num">
+                <span className="pl-lp-price-currency">$</span>
+                <span className="pl-lp-price-amount">{amountLabel}</span>
+              </p>
+              <p className="pl-lp-price-note num">{noteLabel}</p>
+            </div>
+
+            <ul className="pl-lp-features">
+              {ULTRA_LANDING_FEATURES.map((feature) => (
+                <li key={feature} className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    style={{ flex: "none", color: "var(--pl-success)", marginTop: 2 }}
+                  >
+                    <path d="M5 12l5 5 9-10" pathLength={1} />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+              <li className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  style={{ flex: "none", color: "var(--pl-brand)", marginTop: 2 }}
+                >
+                  <path d="M5 12l5 5 9-10" pathLength={1} />
+                </svg>
+                <span>
+                  Programa de referidos: cuando un amigo activa su pase, los dos suman{" "}
+                  {MEMBERSHIP_SPEC.referralBothRewardDays} días sin costo.
+                </span>
+              </li>
+            </ul>
+
+            <a
+              className="pl-lp-btn pl-lp-btn--full pl-lp-btn-primary"
+              href={hasSession ? "/app/account?tab=plan" : "/signup"}
+            >
+              {hasSession ? "Administrar o activar plan" : "Empezar 7 días gratis"}{" "}
+              <span className="pl-lp-arr" aria-hidden="true">
+                →
+              </span>
+            </a>
+            <p className="pl-lp-pricing-foot">
+              Sin tarjeta para la prueba · al terminar no se cobra nada si no eliges pagar
+            </p>
+          </article>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pl-lp-card pl-lp-pricing-card glass-lens glass-ring glass-ring--featured">

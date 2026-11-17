@@ -232,6 +232,7 @@ export function redactDatasetForVisitor(
     generatedAt: dataset.generatedAt,
     leagues: dataset.leagues,
     games,
+    playerProps: [],
     dailyPromoPickId: dataset.dailyPromoPickId,
     tipsterWeeklyPickId: dataset.tipsterWeeklyPickId,
     tipsterWeeklySlug: dataset.tipsterWeeklySlug,

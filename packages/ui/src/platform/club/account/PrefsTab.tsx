@@ -59,6 +59,8 @@ const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string }> = [
   { id: "copa-america" as LeagueId, name: "Copa América" },
   { id: "eurocopa" as LeagueId, name: "Eurocopa UEFA" },
   { id: "copa-oro" as LeagueId, name: "Copa Oro Concacaf" },
+  { id: "copa-africana" as LeagueId, name: "Copa Africana de Naciones" },
+  { id: "copa-asiatica" as LeagueId, name: "Copa Asiática AFC" },
 ];
 
 const TIMEZONE_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [

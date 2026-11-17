@@ -39,6 +39,8 @@ export const NATIONAL_COMPETITION_IDS = [
   "copa-america",
   "eurocopa",
   "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
 ] as const;
 
 export type NationalCompetitionId = (typeof NATIONAL_COMPETITION_IDS)[number];
@@ -339,6 +341,30 @@ export const LEAGUE_CATALOG: League[] = [
     mascot: "soccer",
     defaultSeason: "2025",
     defaultPeriod: "Edición 2025",
+  },
+  {
+    id: asLeagueId("copa-africana"),
+    sport: asSportId("soccer"),
+    name: "Copa Africana de Naciones",
+    shortName: "Copa Africana",
+    country: "CAF · África",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2025/26",
+    defaultPeriod: "Edición 2025–26",
+  },
+  {
+    id: asLeagueId("copa-asiatica"),
+    sport: asSportId("soccer"),
+    name: "Copa Asiática AFC",
+    shortName: "Copa Asiática",
+    country: "AFC · Asia",
+    enabled: true,
+    competitionType: "national",
+    mascot: "soccer",
+    defaultSeason: "2026/27",
+    defaultPeriod: "Clasificación y Fase Final",
   },
   {
     id: asLeagueId("mlb"),

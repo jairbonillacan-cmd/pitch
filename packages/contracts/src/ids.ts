@@ -23,6 +23,8 @@ export const VALID_LEAGUES = [
   "copa-america",
   "eurocopa",
   "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
 ] as const;
 
 export type SportId = Brand<(typeof VALID_SPORTS)[number], "SportId">;

@@ -3,20 +3,29 @@ import path from "node:path";
 import {
   asLeagueId,
   findNationalTeamDef,
+  isNationalCompetition,
+  LeagueSquadsFileSchema,
   sportForLeague,
   sportHasDraw,
   sportScoringUnit,
   type LeagueSnapshot,
+  type LeagueSquadsFile,
+  type TeamSquadEntry,
 } from "@pitchlab/contracts";
+import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui";
 import type {
   PlatformSport,
+  PlayerProfileData,
   TeamInjuryItem,
   TeamLeagueDirectoryItem,
   TeamMatchHistoryRow,
   TeamModelMetric,
+  TeamPlayerPick,
   TeamProfileData,
   TeamRecentAverages,
   TeamSplitRecord,
+  TeamSquadPlayer,
+  TeamSquadSummary,
   TeamStandingSummary,
   TeamUpcomingFixtureRow,
   TeamVenueInfo,
@@ -89,6 +98,8 @@ const HISTORY_FILENAME_OVERRIDES: Readonly<Record<string, string>> = {
   "copa-america": "international.jsonl",
   eurocopa: "international.jsonl",
   "copa-oro": "international.jsonl",
+  "copa-africana": "international.jsonl",
+  "copa-asiatica": "international.jsonl",
 };
 
 /** Equivalencias entre slugs de snapshot y slugs históricos (sin exponer nombres de proveedores). */
@@ -413,6 +424,8 @@ function buildModelMetrics(
   snapshot: LeagueSnapshot,
   team: SnapshotTeamRef,
   fullAccess: boolean,
+  finishedSorted: InternalFinishedGame[] = [],
+  teamCanon = "",
 ): TeamProfileData["modelSection"] {
   const engineLabel = ENGINE_BY_SPORT[sport] ?? "Modelo PitchLab";
   if (!fullAccess) {
@@ -491,6 +504,55 @@ function buildModelMetrics(
         value: master.ppda_avg.toFixed(1),
         detail: "Menor indica presión más alta",
       });
+    }
+    if (isNationalCompetition(league)) {
+      if (rate) {
+        const netAdj = rate.adjustedFor - rate.adjustedAgainst;
+        const intlPower = Math.round(1500 + netAdj * 145);
+        metrics.push({
+          id: "intl-power-index",
+          label: "Índice de fuerza internacional",
+          value: `${intlPower} pts`,
+          detail: "Calibración relativa frente al universo FIFA",
+          tone: intlPower >= 1620 ? "positive" : intlPower >= 1490 ? "brand" : "neutral",
+        });
+      }
+      if (finishedSorted.length > 0 && teamCanon) {
+        let intlWins = 0;
+        let intlDraws = 0;
+        let intlLosses = 0;
+        let intlCleanSheets = 0;
+        let intlGf = 0;
+        let intlGa = 0;
+        for (const r of finishedSorted) {
+          const isHome = r.homeTeamKey === teamCanon;
+          const my = isHome ? r.homeScore : r.awayScore;
+          const opp = isHome ? r.awayScore : r.homeScore;
+          intlGf += my;
+          intlGa += opp;
+          if (opp === 0) intlCleanSheets += 1;
+          if (my > opp) intlWins += 1;
+          else if (my === opp) intlDraws += 1;
+          else intlLosses += 1;
+        }
+        const total = finishedSorted.length;
+        const cleanSheetPct = (intlCleanSheets / total) * 100;
+        const diffPerGame = (intlGf - intlGa) / total;
+        metrics.push({
+          id: "intl-clean-sheets",
+          label: "Arco en cero internacional",
+          value: `${cleanSheetPct.toFixed(0)}%`,
+          detail: `${intlCleanSheets} de ${total} partidos oficiales y amistosos`,
+          tone: cleanSheetPct >= 40 ? "positive" : "neutral",
+        });
+        metrics.push({
+          id: "intl-margin",
+          label: "Diferencial global por juego",
+          value: `${formatSigned(diffPerGame, 2)} goles/p`,
+          detail: `${intlWins}G-${intlDraws}E-${intlLosses}P en muestra internacional`,
+          tone: diffPerGame > 0.25 ? "positive" : diffPerGame < -0.25 ? "warning" : "neutral",
+        });
+      }
     }
   } else if (sport === "american-football") {
     if (rate) {
@@ -658,9 +720,13 @@ function buildModelMetrics(
     }
   }
 
-  const sampleGames = rate?.gamesPlayed ?? null;
+  const isNational = isNationalCompetition(league);
+  const sampleGames =
+    isNational && finishedSorted.length > 0 ? finishedSorted.length : (rate?.gamesPlayed ?? null);
   const sampleNote = sampleGames
-    ? `Calibración con ${sampleGames} partidos registrados en la temporada vigente`
+    ? isNational && finishedSorted.length > 0
+      ? `Calibración con ${sampleGames} partidos internacionales verificados en el ciclo vigente`
+      : `Calibración con ${sampleGames} partidos registrados en la temporada vigente`
     : null;
   const updatedLabel = formatIsoUpdatedEs(master?.as_of_utc ?? snapshot.updatedAt);
 
@@ -977,6 +1043,7 @@ export function loadTeamProfile(
   // 6. Calcular promedios recientes sobre hasta 10 partidos finalizados recientes.
   const recentAverages = buildRecentAverages(finishedSorted, teamCanon, sport);
   const updatedLabel = formatIsoUpdatedEs(snapshot.updatedAt) ?? snapshot.updatedAt.slice(0, 10);
+  const squad = loadTeamSquadSummary(leagueRaw, team, options.fullAccess);
 
   return {
     league: asLeagueId(leagueRaw),
@@ -995,9 +1062,251 @@ export function loadTeamProfile(
     venue,
     injuries: options.fullAccess ? loadTeamInjuries(leagueRaw, team.id) : [],
     recentAverages,
-    modelSection: buildModelMetrics(leagueRaw, sport, snapshot, team, options.fullAccess),
+    modelSection: buildModelMetrics(
+      leagueRaw,
+      sport,
+      snapshot,
+      team,
+      options.fullAccess,
+      finishedSorted,
+      teamCanon,
+    ),
     upcomingFixtures,
     recentMatches,
+    squad,
     relatedTeams,
   };
+}
+
+const squadsCache = new Map<string, { mtimeMs: number; data: LeagueSquadsFile }>();
+
+export function loadRawLeagueSquads(leagueRaw: string): LeagueSquadsFile | null {
+  if (!isProductLeague(leagueRaw)) return null;
+  const filePath = path.join(resolveSnapshotsRoot(), leagueRaw, "squads.json");
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const stat = fs.statSync(filePath);
+    const cached = squadsCache.get(leagueRaw);
+    if (cached && cached.mtimeMs === stat.mtimeMs) return cached.data;
+    const raw = JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
+    const parsed = LeagueSquadsFileSchema.safeParse(raw);
+    if (!parsed.success) return null;
+    squadsCache.set(leagueRaw, { mtimeMs: stat.mtimeMs, data: parsed.data });
+    return parsed.data;
+  } catch {
+    return null;
+  }
+}
+
+function mapSquadEntryToSummary(
+  entry: TeamSquadEntry,
+  fullAccess: boolean,
+): TeamSquadSummary {
+  const players: TeamSquadPlayer[] = entry.players.map((p) => {
+    const candidatePicks: TeamPlayerPick[] = p.candidatePicks.map((pick) =>
+      fullAccess
+        ? {
+            id: pick.id,
+            marketKey: pick.marketKey,
+            marketLabel: pick.marketLabel,
+            selectionLabel: pick.selectionLabel,
+            locked: false,
+            line: pick.line,
+            projectionMean: pick.projectionMean,
+            projectionSd: pick.projectionSd,
+            p: pick.p,
+            fairDecimal: pick.fairDecimal,
+            fairAmerican: pick.fairAmerican,
+            rationale: pick.rationale,
+          }
+        : {
+            id: pick.id,
+            marketKey: pick.marketKey,
+            marketLabel: pick.marketLabel,
+            selectionLabel: "Proyección reservada (Ultra)",
+            locked: true,
+            line: null,
+            projectionMean: null,
+            projectionSd: null,
+            p: null,
+            fairDecimal: null,
+            fairAmerican: null,
+            rationale: null,
+          },
+    );
+
+    return {
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      shortName: p.shortName,
+      jersey: p.jersey,
+      positionGroup: p.positionGroup,
+      positionLabel: p.positionLabel,
+      age: p.age,
+      heightCm: p.heightCm,
+      weightKg: p.weightKg,
+      nationality: p.nationality,
+      nationalityCode: p.nationalityCode,
+      stats: { ...p.stats },
+      candidatePicks,
+    };
+  });
+
+  return {
+    coachName: entry.coachName,
+    updatedAt: formatIsoUpdatedEs(entry.updatedAt) ?? entry.updatedAt.slice(0, 10),
+    players,
+  };
+}
+
+function loadTeamSquadSummary(
+  leagueRaw: string,
+  team: SnapshotTeamRef,
+  fullAccess: boolean,
+): TeamSquadSummary | null {
+  const file = loadRawLeagueSquads(leagueRaw);
+  if (!file) return null;
+  const entry =
+    file.teams.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
+  if (!entry) return null;
+  return mapSquadEntryToSummary(entry, fullAccess);
+}
+
+/** Carga la ficha individual de un jugador con bio, estadísticas de temporada y picks aplicables. */
+export function loadPlayerProfile(
+  leagueRaw: string,
+  teamSlugOrId: string,
+  playerSlugRaw: string,
+  options: { fullAccess: boolean },
+): PlayerProfileData | null {
+  const teamProfile = loadTeamProfile(leagueRaw, teamSlugOrId, options);
+  if (!teamProfile || !teamProfile.squad) return null;
+  const targetSlug = playerSlugRaw.trim().toLowerCase();
+  const player =
+    teamProfile.squad.players.find((p) => p.slug.toLowerCase() === targetSlug) ?? null;
+  if (!player) return null;
+
+  const teammates = teamProfile.squad.players
+    .filter((p) => p.slug !== player.slug)
+    .slice(0, 12)
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      shortName: p.shortName,
+      jersey: p.jersey,
+      positionGroup: p.positionGroup,
+      href: `/app/${teamProfile.league}/teams/${teamProfile.team.slug}/players/${p.slug}`,
+    }));
+
+  return {
+    league: teamProfile.league,
+    leagueLabel: teamProfile.leagueLabel,
+    sport: teamProfile.sport,
+    seasonLabel: teamProfile.seasonLabel,
+    updatedAt: teamProfile.squad.updatedAt || teamProfile.updatedAt,
+    team: { ...teamProfile.team },
+    coachName: teamProfile.squad.coachName,
+    player,
+    picksLocked: !options.fullAccess,
+    nextFixture: teamProfile.upcomingFixtures[0] ?? null,
+    teammates,
+  };
+}
+
+/** Construye props individuales de jugadores de fútbol para próximos partidos a partir de `squads.json`. */
+export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPropItem[] {
+  const items: PlayerPropItem[] = [];
+  const soccerUpcoming = games
+    .filter((g) => g.sport === "football" && g.status !== "FT")
+    .slice(0, 36);
+
+  const seenIds = new Set<string>();
+  const squadsByLeague = new Map<string, LeagueSquadsFile | null>();
+
+  for (const game of soccerUpcoming) {
+    let squadsFile = squadsByLeague.get(game.league);
+    if (squadsFile === undefined) {
+      squadsFile = loadRawLeagueSquads(game.league);
+      squadsByLeague.set(game.league, squadsFile);
+    }
+    if (!squadsFile) continue;
+
+    const sides: Array<{
+      slug: string;
+      name: string;
+      opponent: string;
+    }> = [
+      { slug: game.home.slug, name: game.home.name, opponent: game.away.shortName },
+      { slug: game.away.slug, name: game.away.name, opponent: game.home.shortName },
+    ];
+
+    for (const side of sides) {
+      const teamEntry = squadsFile.teams.find((t) => t.teamSlug === side.slug);
+      if (!teamEntry) continue;
+
+      let pickedForSide = 0;
+      for (const player of teamEntry.players) {
+        if (pickedForSide >= 3) break;
+        const primary =
+          player.candidatePicks.find(
+            (pk) =>
+              pk.line != null &&
+              (pk.marketKey === "player_sot" ||
+                pk.marketKey === "player_shots" ||
+                pk.marketKey === "player_saves" ||
+                pk.marketKey === "player_goal_or_assist"),
+          ) ?? player.candidatePicks.find((pk) => pk.line != null);
+
+        if (!primary || primary.line == null) continue;
+
+        const baseLine = primary.line;
+        const step = 0.5;
+        const minLine = 0.5;
+        const maxLine = Math.max(baseLine + 1.5, Number((baseLine + 2).toFixed(1)));
+        const priorRefProb = 0.52 * primary.p + 0.48 * 0.5;
+        const overRef = Math.min(0.88, Math.max(0.14, priorRefProb));
+        const marketOverDecimal = Math.max(
+          1.12,
+          Math.min(8.5, Math.round((1 / (overRef * 1.03)) * 100) / 100),
+        );
+        const marketUnderDecimal = Math.max(
+          1.12,
+          Math.min(8.5, Math.round((1 / ((1 - overRef) * 1.03)) * 100) / 100),
+        );
+
+        const propId = `prop:${game.id}:${side.slug}:${player.slug}:${primary.marketKey}`;
+        if (seenIds.has(propId)) continue;
+        seenIds.add(propId);
+
+        items.push({
+          id: propId,
+          league: game.league,
+          leagueLabel: LEAGUE_LABELS[game.league as ProductLeague] ?? game.league,
+          gameId: game.id,
+          matchLabel: `${game.away.shortName} @ ${game.home.shortName}`,
+          kickoffLocal: game.kickoffLocal,
+          player: player.name,
+          teamSlug: side.slug,
+          teamName: side.name,
+          position: player.positionGroup,
+          statLabel: primary.marketLabel,
+          baseLine,
+          step,
+          minLine,
+          maxLine,
+          projectionMean: primary.projectionMean,
+          projectionSd: primary.projectionSd,
+          engineName: "Tachyon Player Lab",
+          marketOverDecimal,
+          marketUnderDecimal,
+          last10: [],
+          contextNote: `${primary.rationale} Frente a ${side.opponent}.`,
+        });
+        pickedForSide += 1;
+      }
+    }
+  }
+
+  return items.slice(0, 120);
 }

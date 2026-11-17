@@ -882,8 +882,8 @@ export function PropsLabClubView(): React.JSX.Element {
     navigateTo,
   } = usePlatform();
   const catalog = useMemo(
-    () => buildPlayerPropsCatalog(dataset.games),
-    [dataset.games],
+    () => buildPlayerPropsCatalog(dataset.games, dataset.playerProps),
+    [dataset.games, dataset.playerProps],
   );
   const [lineOffsets, setLineOffsets] = useState<Record<string, number>>({});
   const [propOddsInputs, setPropOddsInputs] = useState<Record<string, string>>(
@@ -1134,48 +1134,64 @@ export function PropsLabClubView(): React.JSX.Element {
                       </div>
                     </div>
 
-                    {/* Barras L10 */}
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs num">
-                        <span style={{ color: "var(--pl-text-muted)" }}>
-                          Últimos 10 juegos vs línea {activeLine.toFixed(1)}
-                        </span>
-                        <strong>
-                          L5: {l5Hits}/5 · L10: {l10Hits}/10
+                    {/* Barras L10 o muestra agregada de temporada */}
+                    {prop.last10.length > 0 ? (
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs num">
+                          <span style={{ color: "var(--pl-text-muted)" }}>
+                            Últimos 10 juegos vs línea {activeLine.toFixed(1)}
+                          </span>
+                          <strong>
+                            L5: {l5Hits}/5 · L10: {l10Hits}/10
+                          </strong>
+                        </div>
+                        <div className="grid grid-cols-10 gap-1.5 items-end h-20 pt-2">
+                          {prop.last10.map((val, idx) => {
+                            const hit = val > activeLine;
+                            const pct = Math.max(
+                              16,
+                              Math.round((val / maxVal) * 100),
+                            );
+                            return (
+                              <div
+                                key={idx}
+                                className="flex flex-col items-center gap-1 h-full justify-end"
+                              >
+                                <div
+                                  className="w-full rounded-t-md transition-all"
+                                  style={{
+                                    height: `${pct}%`,
+                                    background: hit
+                                      ? "var(--pl-success)"
+                                      : "var(--pl-surface-hover)",
+                                  }}
+                                />
+                                <span
+                                  className="text-[10px] num"
+                                  style={{ color: "var(--pl-text-muted)" }}
+                                >
+                                  {val}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className="rounded-xl px-3 py-2 text-xs num flex items-center justify-between"
+                        style={{
+                          background: "var(--pl-surface-soft)",
+                          border: "1px solid var(--pl-border-subtle)",
+                          color: "var(--pl-text-muted)",
+                        }}
+                      >
+                        <span>Media proyectada por aparición</span>
+                        <strong style={{ color: "var(--pl-text-primary)" }}>
+                          {prop.projectionMean.toFixed(2)} ± {prop.projectionSd.toFixed(2)}
                         </strong>
                       </div>
-                      <div className="grid grid-cols-10 gap-1.5 items-end h-20 pt-2">
-                        {prop.last10.map((val, idx) => {
-                          const hit = val > activeLine;
-                          const pct = Math.max(
-                            16,
-                            Math.round((val / maxVal) * 100),
-                          );
-                          return (
-                            <div
-                              key={idx}
-                              className="flex flex-col items-center gap-1 h-full justify-end"
-                            >
-                              <div
-                                className="w-full rounded-t-md transition-all"
-                                style={{
-                                  height: `${pct}%`,
-                                  background: hit
-                                    ? "var(--pl-success)"
-                                    : "var(--pl-surface-hover)",
-                                }}
-                              />
-                              <span
-                                className="text-[10px] num"
-                                style={{ color: "var(--pl-text-muted)" }}
-                              >
-                                {val}
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    )}
 
                     <div className="grid grid-cols-2 gap-2.5 text-xs num">
                       <div

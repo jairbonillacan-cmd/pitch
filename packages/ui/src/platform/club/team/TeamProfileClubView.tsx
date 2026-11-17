@@ -11,6 +11,7 @@ import {
 } from "../../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { usePlatform } from "../../platform-provider";
+import { TeamSquadSection } from "./TeamSquadSection";
 import type {
   TeamMatchHistoryRow,
   TeamModelMetric,
@@ -22,8 +23,10 @@ import type {
 } from "./types";
 
 export * from "./types";
+export * from "./TeamSquadSection";
+export * from "./PlayerProfileClubView";
 
-export type TeamProfileTab = "resumen" | "partidos";
+export type TeamProfileTab = "resumen" | "partidos" | "plantilla";
 
 export interface TeamProfileClubViewProps {
   profile: TeamProfileData;
@@ -672,7 +675,10 @@ export function TeamProfileClubView({
   initialTab = "resumen",
 }: TeamProfileClubViewProps): React.JSX.Element {
   const { viewerRole, hasAccountSession, upgradeHref, navigateTo } = usePlatform();
-  const [activeTab, setActiveTab] = useState<TeamProfileTab>(initialTab);
+  const hasSquad = Boolean(profile.squad && profile.squad.players.length > 0);
+  const [activeTab, setActiveTab] = useState<TeamProfileTab>(
+    initialTab === "plantilla" && !hasSquad ? "resumen" : initialTab,
+  );
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const teamColors = getTeamColors(profile.league, profile.team.slug);
@@ -709,6 +715,15 @@ export function TeamProfileClubView({
       label: "Partidos",
       count: profile.upcomingFixtures.length + profile.recentMatches.length,
     },
+    ...(hasSquad && profile.squad
+      ? [
+          {
+            id: "plantilla" as const,
+            label: "Plantilla",
+            count: profile.squad.players.length,
+          },
+        ]
+      : []),
   ];
 
   const handleTabKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
@@ -1041,6 +1056,28 @@ export function TeamProfileClubView({
             />
           </div>
         </div>
+
+        {/* Panel Plantilla */}
+        {hasSquad && profile.squad ? (
+          <div
+            id="team-panel-plantilla"
+            role="tabpanel"
+            aria-labelledby="team-tab-plantilla"
+            tabIndex={activeTab === "plantilla" ? 0 : undefined}
+            hidden={activeTab !== "plantilla"}
+          >
+            <TeamSquadSection
+              league={profile.league}
+              teamSlug={profile.team.slug}
+              teamName={profile.team.name}
+              seasonLabel={profile.seasonLabel}
+              squad={profile.squad}
+              isVisitorRestricted={isVisitorRestricted}
+              upgradeHref={upgradeHref}
+              onNavigate={navigateTo}
+            />
+          </div>
+        ) : null}
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

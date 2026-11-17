@@ -63,3 +63,6 @@ export * from "./record-stats";
 export * from "./badges";
 export * from "./ranking";
 export * from "./components/PlSelect";
+export * from "./club/team/types";
+export * from "./club/team/PlayerProfileClubView";
+export * from "./club/team/TeamSquadSection";

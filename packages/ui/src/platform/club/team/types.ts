@@ -108,6 +108,61 @@ export interface TeamUpcomingFixtureRow {
   confidenceLabel: string | null;
 }
 
+export interface TeamPlayerPick {
+  id: string;
+  marketKey: string;
+  marketLabel: string;
+  selectionLabel: string;
+  locked: boolean;
+  line: number | null;
+  projectionMean: number | null;
+  projectionSd: number | null;
+  p: number | null;
+  fairDecimal: number | null;
+  fairAmerican: number | null;
+  rationale: string | null;
+}
+
+export interface TeamSquadPlayerStats {
+  appearances: number;
+  subIns: number;
+  goals: number;
+  assists: number;
+  shots: number;
+  shotsOnTarget: number;
+  foulsCommitted: number;
+  foulsSuffered: number;
+  yellowCards: number;
+  redCards: number;
+  offsides: number;
+  saves: number;
+  shotsFaced: number;
+  goalsConceded: number;
+}
+
+export interface TeamSquadPlayer {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  jersey: string | null;
+  positionGroup: "GK" | "DEF" | "MID" | "FWD";
+  positionLabel: string;
+  age: number | null;
+  heightCm: number | null;
+  weightKg: number | null;
+  nationality: string | null;
+  nationalityCode: string | null;
+  stats: TeamSquadPlayerStats;
+  candidatePicks: TeamPlayerPick[];
+}
+
+export interface TeamSquadSummary {
+  coachName: string | null;
+  updatedAt: string;
+  players: TeamSquadPlayer[];
+}
+
 export interface TeamProfileData {
   league: LeagueId;
   leagueLabel: string;
@@ -135,11 +190,39 @@ export interface TeamProfileData {
   };
   upcomingFixtures: TeamUpcomingFixtureRow[];
   recentMatches: TeamMatchHistoryRow[];
+  squad?: TeamSquadSummary | null;
   relatedTeams: Array<{
     slug: string;
     name: string;
     shortName: string;
     rank: number | null;
+    href: string;
+  }>;
+}
+
+export interface PlayerProfileData {
+  league: LeagueId;
+  leagueLabel: string;
+  sport: PlatformSport;
+  seasonLabel: string;
+  updatedAt: string;
+  team: {
+    id: string;
+    slug: string;
+    name: string;
+    shortName: string;
+    code: string;
+  };
+  coachName: string | null;
+  player: TeamSquadPlayer;
+  picksLocked: boolean;
+  nextFixture: TeamUpcomingFixtureRow | null;
+  teammates: Array<{
+    slug: string;
+    name: string;
+    shortName: string;
+    jersey: string | null;
+    positionGroup: "GK" | "DEF" | "MID" | "FWD";
     href: string;
   }>;
 }

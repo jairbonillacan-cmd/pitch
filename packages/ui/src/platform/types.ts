@@ -636,6 +636,8 @@ export interface PlatformDataset {
   games: PlatformGame[];
   /** Directorio ligero de todos los equipos/franquicias activas (búsqueda y navegación). */
   teams?: TeamLeagueDirectoryItem[];
+  /** Props individuales de jugadores calculados con la muestra de temporada. */
+  playerProps?: PlayerPropItem[];
   dailyPromoPickId: string;
   tipsterWeeklyPickId: string;
   tipsterWeeklySlug: string;

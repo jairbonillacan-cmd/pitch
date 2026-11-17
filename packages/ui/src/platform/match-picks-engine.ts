@@ -944,8 +944,11 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
  * Catálogo de Player Props Lab. Spacetime v3.0 todavía no proyecta estadísticas por jugador,
  * así que no hay props: la vista muestra un estado "próximamente" en lugar de líneas inventadas.
  */
-export function buildPlayerPropsCatalog(_games: readonly PlatformGame[]): PlayerPropItem[] {
-  return [];
+export function buildPlayerPropsCatalog(
+  _games: readonly PlatformGame[],
+  playerProps?: readonly PlayerPropItem[],
+): PlayerPropItem[] {
+  return playerProps ? [...playerProps] : [];
 }
 
 export function evaluatePropLineProbability(

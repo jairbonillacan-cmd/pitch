@@ -5,8 +5,8 @@
   "season": "copa-america-2024",
   "seasonLabel": "2024",
   "periodLabel": "Final",
-  "updatedAt": "2026-11-16T20:55:55.962Z",
-  "source": "espn",
+  "updatedAt": "2026-11-17T04:24:25.916Z",
+  "source": "espn+bzzoiro",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -16,11 +16,11 @@
       "shortName": "Argentina",
       "code": "ARG",
       "logoUrl": "/brand/official/countries/argentina.png",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.16666666666666666,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.0250754866071718,
-      "adjustedAgainst": 0.7575834117630483
+      "forPerGame": 2.2857142857142856,
+      "againstPerGame": 0.5714285714285714,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.3174191037998206,
+      "adjustedAgainst": 0.8946161464540057
     },
     "copa-america.bolivia": {
       "teamId": "copa-america.bolivia",
@@ -28,11 +28,11 @@
       "shortName": "Bolivia",
       "code": "BOL",
       "logoUrl": "/brand/official/countries/bolivia.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 3.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8511721895774071,
-      "adjustedAgainst": 1.2146733742794869
+      "forPerGame": 0.6923076923076923,
+      "againstPerGame": 2.1538461538461537,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.0399445616720038,
+      "adjustedAgainst": 1.5819351232036776
     },
     "copa-america.brasil": {
       "teamId": "copa-america.brasil",
@@ -40,11 +40,11 @@
       "shortName": "Brasil",
       "code": "BRA",
       "logoUrl": "/brand/official/countries/brasil.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9747746221948045,
-      "adjustedAgainst": 0.8445916556239181
+      "forPerGame": 1.875,
+      "againstPerGame": 0.9375,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.2784660906923648,
+      "adjustedAgainst": 1.0241560741638471
     },
     "copa-america.canada": {
       "teamId": "copa-america.canada",
@@ -52,11 +52,11 @@
       "shortName": "Canadá",
       "code": "CAN",
       "logoUrl": "/brand/official/countries/canada.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.8901027582084875,
-      "adjustedAgainst": 0.9721258828828085
+      "forPerGame": 1.53125,
+      "againstPerGame": 0.78125,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.2553455339628157,
+      "adjustedAgainst": 1.1433566634657157
     },
     "copa-america.chile": {
       "teamId": "copa-america.chile",
@@ -64,11 +64,11 @@
       "shortName": "Chile",
       "code": "CHI",
       "logoUrl": "/brand/official/countries/chile.png",
-      "forPerGame": 0,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8244568252357182,
-      "adjustedAgainst": 0.8542025042839982
+      "forPerGame": 0.88,
+      "againstPerGame": 1.48,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.9827658108982309,
+      "adjustedAgainst": 1.124873377921198
     },
     "copa-america.colombia": {
       "teamId": "copa-america.colombia",
@@ -76,11 +76,11 @@
       "shortName": "Colombia",
       "code": "COL",
       "logoUrl": "/brand/official/countries/colombia.png",
-      "forPerGame": 2,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1411321857736059,
-      "adjustedAgainst": 0.8183780227654371
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.8484848484848485,
+      "gamesPlayed": 33,
+      "adjustedFor": 1.3261070643265611,
+      "adjustedAgainst": 0.940052770521303
     },
     "copa-america.costa-rica": {
       "teamId": "copa-america.costa-rica",
@@ -88,11 +88,11 @@
       "shortName": "Costa Rica",
       "code": "CRC",
       "logoUrl": "/brand/official/countries/costa-rica.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8997454539604036,
-      "adjustedAgainst": 0.9651297740004765
+      "forPerGame": 2.0285714285714285,
+      "againstPerGame": 1.2571428571428571,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.282553165808732,
+      "adjustedAgainst": 1.2499528879820327
     },
     "copa-america.ecuador": {
       "teamId": "copa-america.ecuador",
@@ -100,11 +100,11 @@
       "shortName": "Ecuador",
       "code": "ECU",
       "logoUrl": "/brand/official/countries/ecuador.png",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9811616648352629,
-      "adjustedAgainst": 0.9347387018734992
+      "forPerGame": 0.967741935483871,
+      "againstPerGame": 0.5806451612903226,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.1707223286055792,
+      "adjustedAgainst": 1.057749750716021
     },
     "copa-america.jamaica": {
       "teamId": "copa-america.jamaica",
@@ -112,11 +112,11 @@
       "shortName": "Jamaica",
       "code": "JAM",
       "logoUrl": "/brand/official/countries/jamaica.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8661350554719244,
-      "adjustedAgainst": 1.0977883227632643
+      "forPerGame": 1.3428571428571427,
+      "againstPerGame": 1.0857142857142856,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.3398840442485296,
+      "adjustedAgainst": 1.2975398325293643
     },
     "copa-america.mexico": {
       "teamId": "copa-america.mexico",
@@ -124,11 +124,11 @@
       "shortName": "México",
       "code": "MEX",
       "logoUrl": "/brand/official/countries/mexico.png",
-      "forPerGame": 0.3333333333333333,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8436295426219156,
-      "adjustedAgainst": 0.847783651784565
+      "forPerGame": 1.4857142857142858,
+      "againstPerGame": 0.7428571428571429,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.1813749586132845,
+      "adjustedAgainst": 0.9267108425402965
     },
     "copa-america.panama": {
       "teamId": "copa-america.panama",
@@ -136,11 +136,11 @@
       "shortName": "Panamá",
       "code": "PAN",
       "logoUrl": "/brand/official/countries/panama.png",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0236661991339888,
-      "adjustedAgainst": 1.1664740432517107
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 1.205128205128205,
+      "gamesPlayed": 39,
+      "adjustedFor": 1.3782032105464983,
+      "adjustedAgainst": 1.1859215407524442
     },
     "copa-america.paraguay": {
       "teamId": "copa-america.paraguay",
@@ -148,11 +148,11 @@
       "shortName": "Paraguay",
       "code": "PAR",
       "logoUrl": "/brand/official/countries/paraguay.png",
-      "forPerGame": 1,
-      "againstPerGame": 2.6666666666666665,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9517762090127257,
-      "adjustedAgainst": 1.1325453122096676
+      "forPerGame": 1.25,
+      "againstPerGame": 0.9642857142857143,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.0368693616521456,
+      "adjustedAgainst": 1.2654406954800856
     },
     "copa-america.peru": {
       "teamId": "copa-america.peru",
@@ -160,11 +160,11 @@
       "shortName": "Perú",
       "code": "PER",
       "logoUrl": "/brand/official/countries/peru.png",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.8161589412173637,
-      "adjustedAgainst": 0.9377391900225254
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 1.4074074074074074,
+      "gamesPlayed": 27,
+      "adjustedFor": 0.9298879881930676,
+      "adjustedAgainst": 1.169040447535571
     },
     "copa-america.estados-unidos": {
       "teamId": "copa-america.estados-unidos",
@@ -172,11 +172,11 @@
       "shortName": "EE. UU.",
       "code": "USA",
       "logoUrl": "/brand/official/countries/estados-unidos.png",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9115867551365533,
-      "adjustedAgainst": 0.9283586874907206
+      "forPerGame": 2.225806451612903,
+      "againstPerGame": 1.2580645161290323,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.4607851333731787,
+      "adjustedAgainst": 0.9926573491916176
     },
     "copa-america.uruguay": {
       "teamId": "copa-america.uruguay",
@@ -184,11 +184,11 @@
       "shortName": "Uruguay",
       "code": "URU",
       "logoUrl": "/brand/official/countries/uruguay.png",
-      "forPerGame": 1.8333333333333333,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.0845693299038097,
-      "adjustedAgainst": 0.8622321013776827
+      "forPerGame": 1.3103448275862069,
+      "againstPerGame": 0.9310344827586207,
+      "gamesPlayed": 29,
+      "adjustedFor": 1.403276541085387,
+      "adjustedAgainst": 0.9858016747471295
     },
     "copa-america.venezuela": {
       "teamId": "copa-america.venezuela",
@@ -196,11 +196,47 @@
       "shortName": "Venezuela",
       "code": "VEN",
       "logoUrl": "/brand/official/countries/venezuela.png",
-      "forPerGame": 1.75,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.0507248363508617,
-      "adjustedAgainst": 0.8630283082226585
+      "forPerGame": 1.12,
+      "againstPerGame": 1.36,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.2500825148212862,
+      "adjustedAgainst": 1.0311361191603121
+    },
+    "copa-america.haiti": {
+      "teamId": "copa-america.haiti",
+      "name": "Haití",
+      "shortName": "Haití",
+      "code": "HAI",
+      "logoUrl": "/brand/official/countries/haiti.png",
+      "forPerGame": 2.193548387096774,
+      "againstPerGame": 1.4516129032258065,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.3907852743906557,
+      "adjustedAgainst": 1.1958849299831031
+    },
+    "copa-america.japon": {
+      "teamId": "copa-america.japon",
+      "name": "Japón",
+      "shortName": "Japón",
+      "code": "JPN",
+      "logoUrl": "/brand/official/countries/japon.png",
+      "forPerGame": 2.46875,
+      "againstPerGame": 0.65625,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.674876411809582,
+      "adjustedAgainst": 1.0237282989920455
+    },
+    "copa-america.catar": {
+      "teamId": "copa-america.catar",
+      "name": "Catar",
+      "shortName": "Catar",
+      "code": "QAT",
+      "logoUrl": "/brand/official/countries/catar.png",
+      "forPerGame": 1.4333333333333333,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 30,
+      "adjustedFor": 1.4605961446482671,
+      "adjustedAgainst": 1.078667233386254
     }
   },
   "games": [
@@ -232,7 +268,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -264,7 +300,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -296,7 +332,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -328,7 +364,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -360,7 +396,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -392,7 +428,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -424,7 +460,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -456,7 +492,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -488,7 +524,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -520,7 +556,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -552,7 +588,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -584,7 +620,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -616,7 +652,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -648,7 +684,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -680,7 +716,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -712,7 +748,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -744,7 +780,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -776,7 +812,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -808,7 +844,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -840,7 +876,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -872,7 +908,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -904,7 +940,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -936,7 +972,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -968,7 +1004,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1000,7 +1036,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1032,7 +1068,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1064,7 +1100,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1096,7 +1132,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1128,7 +1164,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1160,7 +1196,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1192,7 +1228,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1224,7 +1260,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     }

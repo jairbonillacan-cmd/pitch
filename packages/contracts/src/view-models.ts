@@ -404,6 +404,8 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
     "copa-america": "Copa América",
     eurocopa: "Eurocopa UEFA",
     "copa-oro": "Copa Oro Concacaf",
+    "copa-africana": "Copa Africana de Naciones",
+    "copa-asiatica": "Copa Asiática AFC",
   };
   const leagueLabel = LEAGUE_NAMES[snapshot.league] ?? snapshot.league;
 

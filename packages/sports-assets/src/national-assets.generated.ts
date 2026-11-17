@@ -224,7 +224,9 @@ export const NATIONAL_COUNTRY_SLUGS: ReadonlySet<string> = new Set([
 export const NATIONAL_COMPETITION_ASSETS: ReadonlySet<string> = new Set([
   "amistosos",
   "concacaf-nations",
+  "copa-africana",
   "copa-america",
+  "copa-asiatica",
   "copa-del-mundo",
   "copa-oro",
   "eliminatorias",

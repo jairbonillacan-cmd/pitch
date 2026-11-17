@@ -35,6 +35,8 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "copa-america": "Copa América",
   eurocopa: "Eurocopa UEFA",
   "copa-oro": "Copa Oro Concacaf",
+  "copa-africana": "Copa Africana de Naciones",
+  "copa-asiatica": "Copa Asiática AFC",
 };
 
 const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>([
@@ -48,6 +50,8 @@ const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>([
   "copa-america",
   "eurocopa",
   "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
 ]);
 
 const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
@@ -68,6 +72,8 @@ const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   "copa-america": "copa-america",
   eurocopa: "eurocopa",
   "copa-oro": "copa-oro",
+  "copa-africana": "copa-africana",
+  "copa-asiatica": "copa-asiatica",
 };
 
 function resolveRepoRoot(): string {

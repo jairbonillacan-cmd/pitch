@@ -5,8 +5,8 @@
   "season": "concacaf-nations-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Fase de grupos y cuartos",
-  "updatedAt": "2026-11-16T20:55:55.962Z",
-  "source": "espn",
+  "updatedAt": "2026-11-17T04:24:25.916Z",
+  "source": "espn+bzzoiro",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -16,11 +16,11 @@
       "shortName": "Anguila",
       "code": "AIA",
       "logoUrl": "/brand/official/countries/anguila.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 0.5263157894736842,
+      "againstPerGame": 2.8421052631578947,
+      "gamesPlayed": 19,
+      "adjustedFor": 0.8657151125827297,
+      "adjustedAgainst": 2.3887820664685506
     },
     "concacaf-nations.antigua-y-barbuda": {
       "teamId": "concacaf-nations.antigua-y-barbuda",
@@ -28,11 +28,11 @@
       "shortName": "Antigua y B.",
       "code": "ATG",
       "logoUrl": "/brand/official/countries/antigua-y-barbuda.png",
-      "forPerGame": 2.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.047912601501913,
-      "adjustedAgainst": 2.090276463506292
+      "forPerGame": 1.25,
+      "againstPerGame": 2.125,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.4661258200392382,
+      "adjustedAgainst": 1.6773029311043866
     },
     "concacaf-nations.aruba": {
       "teamId": "concacaf-nations.aruba",
@@ -40,11 +40,11 @@
       "shortName": "Aruba",
       "code": "ARU",
       "logoUrl": "/brand/official/countries/aruba.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5981033355786094,
-      "adjustedAgainst": 1.763708983140906
+      "forPerGame": 1.65,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.2732841941629616,
+      "adjustedAgainst": 1.5257846873762575
     },
     "concacaf-nations.bahamas": {
       "teamId": "concacaf-nations.bahamas",
@@ -52,11 +52,11 @@
       "shortName": "Bahamas",
       "code": "BAH",
       "logoUrl": "/brand/official/countries/bahamas.png",
-      "forPerGame": 0,
-      "againstPerGame": 6,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5906359963668812,
-      "adjustedAgainst": 2.58442381289428
+      "forPerGame": 1.1578947368421053,
+      "againstPerGame": 3.4210526315789473,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.1583478892444012,
+      "adjustedAgainst": 3.001732763305196
     },
     "concacaf-nations.barbados": {
       "teamId": "concacaf-nations.barbados",
@@ -64,11 +64,11 @@
       "shortName": "Barbados",
       "code": "BRB",
       "logoUrl": "/brand/official/countries/barbados.png",
-      "forPerGame": 0,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5667983956536369,
-      "adjustedAgainst": 2.006706120135518
+      "forPerGame": 1.7826086956521738,
+      "againstPerGame": 2.391304347826087,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.6813423955180171,
+      "adjustedAgainst": 1.6511608043647463
     },
     "concacaf-nations.belice": {
       "teamId": "concacaf-nations.belice",
@@ -76,11 +76,11 @@
       "shortName": "Belice",
       "code": "BLZ",
       "logoUrl": "/brand/official/countries/belice.png",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.391485806566562,
-      "adjustedAgainst": 1.5462078260977727
+      "forPerGame": 0.9130434782608695,
+      "againstPerGame": 1.0869565217391304,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.9067690454340238,
+      "adjustedAgainst": 1.1032113404066102
     },
     "concacaf-nations.bermudas": {
       "teamId": "concacaf-nations.bermudas",
@@ -88,11 +88,11 @@
       "shortName": "Bermudas",
       "code": "BER",
       "logoUrl": "/brand/official/countries/bermudas.png",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.6559782771108666,
-      "adjustedAgainst": 2.162801184944344
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 2.8846153846153846,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.405903564114293,
+      "adjustedAgainst": 2.234866406910454
     },
     "concacaf-nations.bonaire": {
       "teamId": "concacaf-nations.bonaire",
@@ -100,11 +100,11 @@
       "shortName": "Bonaire",
       "code": "BOE",
       "logoUrl": "/brand/official/countries/bonaire.png",
-      "forPerGame": 1,
-      "againstPerGame": 7,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.7801259973417558,
-      "adjustedAgainst": 2.480837888434067
+      "forPerGame": 1.4285714285714286,
+      "againstPerGame": 1.9047619047619047,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.2906930616611032,
+      "adjustedAgainst": 1.9585418971220943
     },
     "concacaf-nations.islas-virgenes-britanicas": {
       "teamId": "concacaf-nations.islas-virgenes-britanicas",
@@ -112,11 +112,11 @@
       "shortName": "I. V. Brit.",
       "code": "BVI",
       "logoUrl": "/brand/official/countries/islas-virgenes-britanicas.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 0.7894736842105263,
+      "againstPerGame": 1.8421052631578947,
+      "gamesPlayed": 19,
+      "adjustedFor": 0.6964169467784247,
+      "adjustedAgainst": 2.1660395059068227
     },
     "concacaf-nations.canada": {
       "teamId": "concacaf-nations.canada",
@@ -124,11 +124,11 @@
       "shortName": "Canadá",
       "code": "CAN",
       "logoUrl": "/brand/official/countries/canada.png",
-      "forPerGame": 3,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 2.0893420219783327,
-      "adjustedAgainst": 1.9008753538198098
+      "forPerGame": 1.53125,
+      "againstPerGame": 0.78125,
+      "gamesPlayed": 32,
+      "adjustedFor": 2.1317019340422227,
+      "adjustedAgainst": 1.1636684594409579
     },
     "concacaf-nations.islas-caiman": {
       "teamId": "concacaf-nations.islas-caiman",
@@ -136,11 +136,11 @@
       "shortName": "I. Caimán",
       "code": "CAY",
       "logoUrl": "/brand/official/countries/islas-caiman.png",
-      "forPerGame": 0,
-      "againstPerGame": 6,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5495742310328755,
-      "adjustedAgainst": 2.4740694852068255
+      "forPerGame": 0.6842105263157895,
+      "againstPerGame": 2.3157894736842106,
+      "gamesPlayed": 19,
+      "adjustedFor": 0.6614880597848636,
+      "adjustedAgainst": 1.8275316915766613
     },
     "concacaf-nations.costa-rica": {
       "teamId": "concacaf-nations.costa-rica",
@@ -148,11 +148,11 @@
       "shortName": "Costa Rica",
       "code": "CRC",
       "logoUrl": "/brand/official/countries/costa-rica.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 2.0285714285714285,
+      "againstPerGame": 1.2571428571428571,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.7064915141680164,
+      "adjustedAgainst": 1.1885597983599963
     },
     "concacaf-nations.cuba": {
       "teamId": "concacaf-nations.cuba",
@@ -160,11 +160,11 @@
       "shortName": "Cuba",
       "code": "CUB",
       "logoUrl": "/brand/official/countries/cuba.png",
-      "forPerGame": 8,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 3.413185781748026,
-      "adjustedAgainst": 1.4481844332183198
+      "forPerGame": 2.1363636363636362,
+      "againstPerGame": 0.9545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 2.4271029346234942,
+      "adjustedAgainst": 1.1860233941109215
     },
     "concacaf-nations.curazao": {
       "teamId": "concacaf-nations.curazao",
@@ -172,11 +172,11 @@
       "shortName": "Curazao",
       "code": "CUW",
       "logoUrl": "/brand/official/countries/curazao.png",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3783397222368812,
-      "adjustedAgainst": 1.6541173538512592
+      "forPerGame": 2,
+      "againstPerGame": 1.1875,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.9164069511061221,
+      "adjustedAgainst": 1.1904547661842444
     },
     "concacaf-nations.dominica": {
       "teamId": "concacaf-nations.dominica",
@@ -184,11 +184,11 @@
       "shortName": "Dominica",
       "code": "DMA",
       "logoUrl": "/brand/official/countries/dominica.png",
-      "forPerGame": 2,
-      "againstPerGame": 4,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.885687323409557,
-      "adjustedAgainst": 2.215239583223399
+      "forPerGame": 1.0526315789473684,
+      "againstPerGame": 2.3157894736842106,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.0656210549777527,
+      "adjustedAgainst": 2.379120827541758
     },
     "concacaf-nations.republica-dominicana": {
       "teamId": "concacaf-nations.republica-dominicana",
@@ -196,11 +196,11 @@
       "shortName": "R. Dominicana",
       "code": "DOM",
       "logoUrl": "/brand/official/countries/republica-dominicana.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 2.590909090909091,
+      "againstPerGame": 1.1363636363636365,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.9327197982527118,
+      "adjustedAgainst": 1.4401831429570588
     },
     "concacaf-nations.el-salvador": {
       "teamId": "concacaf-nations.el-salvador",
@@ -208,11 +208,11 @@
       "shortName": "El Salvador",
       "code": "SLV",
       "logoUrl": "/brand/official/countries/el-salvador.png",
-      "forPerGame": 2,
-      "againstPerGame": 0,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.9804682264084537,
-      "adjustedAgainst": 1.4735049445113033
+      "forPerGame": 1.0714285714285714,
+      "againstPerGame": 1.2857142857142858,
+      "gamesPlayed": 28,
+      "adjustedFor": 1.4074319440276917,
+      "adjustedAgainst": 1.5335808014213945
     },
     "concacaf-nations.guayana-francesa": {
       "teamId": "concacaf-nations.guayana-francesa",
@@ -220,11 +220,11 @@
       "shortName": "Guayana Fr.",
       "code": "GUF",
       "logoUrl": "/brand/official/countries/guayana-francesa.png",
-      "forPerGame": 3,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.171123413511412,
-      "adjustedAgainst": 1.5469912871268094
+      "forPerGame": 1.5217391304347827,
+      "againstPerGame": 1.2173913043478262,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.604775237289611,
+      "adjustedAgainst": 1.2443256243108842
     },
     "concacaf-nations.granada": {
       "teamId": "concacaf-nations.granada",
@@ -232,11 +232,11 @@
       "shortName": "Granada",
       "code": "GRN",
       "logoUrl": "/brand/official/countries/granada.png",
-      "forPerGame": 1.5,
-      "againstPerGame": 5.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.7661487437065813,
-      "adjustedAgainst": 2.7233441040150885
+      "forPerGame": 1.380952380952381,
+      "againstPerGame": 2.380952380952381,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.2260493341650183,
+      "adjustedAgainst": 2.353640703158376
     },
     "concacaf-nations.guadalupe": {
       "teamId": "concacaf-nations.guadalupe",
@@ -244,11 +244,11 @@
       "shortName": "Guadalupe",
       "code": "GDL",
       "logoUrl": "/brand/official/countries/guadalupe.png",
-      "forPerGame": 3.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.308442213478736,
-      "adjustedAgainst": 1.4928760119034008
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.5243216637749177,
+      "adjustedAgainst": 1.2110456818694146
     },
     "concacaf-nations.guatemala": {
       "teamId": "concacaf-nations.guatemala",
@@ -256,11 +256,11 @@
       "shortName": "Guatemala",
       "code": "GUA",
       "logoUrl": "/brand/official/countries/guatemala.png",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.8821155950678161,
-      "adjustedAgainst": 2.052627741291146
+      "forPerGame": 1.6129032258064515,
+      "againstPerGame": 1.6129032258064515,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.9222330398145586,
+      "adjustedAgainst": 1.4213947669056186
     },
     "concacaf-nations.guyana": {
       "teamId": "concacaf-nations.guyana",
@@ -268,11 +268,11 @@
       "shortName": "Guyana",
       "code": "GUY",
       "logoUrl": "/brand/official/countries/guyana.png",
-      "forPerGame": 5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.6920325837541195,
-      "adjustedAgainst": 1.5854935052782526
+      "forPerGame": 2.9565217391304346,
+      "againstPerGame": 1.7391304347826086,
+      "gamesPlayed": 23,
+      "adjustedFor": 2.6446190980014865,
+      "adjustedAgainst": 1.3773039040220023
     },
     "concacaf-nations.haiti": {
       "teamId": "concacaf-nations.haiti",
@@ -280,11 +280,11 @@
       "shortName": "Haití",
       "code": "HAI",
       "logoUrl": "/brand/official/countries/haiti.png",
-      "forPerGame": 0,
-      "againstPerGame": 6,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5528558695410088,
-      "adjustedAgainst": 2.50900089904429
+      "forPerGame": 2.193548387096774,
+      "againstPerGame": 1.4516129032258065,
+      "gamesPlayed": 31,
+      "adjustedFor": 2.1686370101313917,
+      "adjustedAgainst": 1.5299667663598042
     },
     "concacaf-nations.honduras": {
       "teamId": "concacaf-nations.honduras",
@@ -292,11 +292,11 @@
       "shortName": "Honduras",
       "code": "HON",
       "logoUrl": "/brand/official/countries/honduras.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 1.5483870967741935,
+      "againstPerGame": 1.2903225806451613,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.5107010595106563,
+      "adjustedAgainst": 1.3700274469313478
     },
     "concacaf-nations.jamaica": {
       "teamId": "concacaf-nations.jamaica",
@@ -304,11 +304,11 @@
       "shortName": "Jamaica",
       "code": "JAM",
       "logoUrl": "/brand/official/countries/jamaica.png",
-      "forPerGame": 3,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 2.0390680741501117,
-      "adjustedAgainst": 1.8922016458774178
+      "forPerGame": 1.3428571428571427,
+      "againstPerGame": 1.0857142857142856,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.63879776826802,
+      "adjustedAgainst": 1.185058907699602
     },
     "concacaf-nations.martinica": {
       "teamId": "concacaf-nations.martinica",
@@ -316,11 +316,11 @@
       "shortName": "Martinica",
       "code": "MTQ",
       "logoUrl": "/brand/official/countries/martinica.png",
-      "forPerGame": 0,
-      "againstPerGame": 0,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5489394885687024,
-      "adjustedAgainst": 1.555058559695369
+      "forPerGame": 0.7222222222222222,
+      "againstPerGame": 1.3888888888888888,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.1449366517676185,
+      "adjustedAgainst": 1.3492270692104484
     },
     "concacaf-nations.mexico": {
       "teamId": "concacaf-nations.mexico",
@@ -328,11 +328,11 @@
       "shortName": "México",
       "code": "MEX",
       "logoUrl": "/brand/official/countries/mexico.png",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.9254847439852656,
-      "adjustedAgainst": 2.063645951376143
+      "forPerGame": 1.4857142857142858,
+      "againstPerGame": 0.7428571428571429,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.7642132518360978,
+      "adjustedAgainst": 1.368164872358594
     },
     "concacaf-nations.montserrat": {
       "teamId": "concacaf-nations.montserrat",
@@ -340,11 +340,11 @@
       "shortName": "Montserrat",
       "code": "MSR",
       "logoUrl": "/brand/official/countries/montserrat.png",
-      "forPerGame": 2.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.9846617431262097,
-      "adjustedAgainst": 1.7653352031804146
+      "forPerGame": 1.3636363636363635,
+      "againstPerGame": 1.7272727272727273,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.4326566404342258,
+      "adjustedAgainst": 1.3016861912917244
     },
     "concacaf-nations.nicaragua": {
       "teamId": "concacaf-nations.nicaragua",
@@ -352,11 +352,11 @@
       "shortName": "Nicaragua",
       "code": "NCA",
       "logoUrl": "/brand/official/countries/nicaragua.png",
-      "forPerGame": 2,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.951646040052989,
-      "adjustedAgainst": 1.6857849617184906
+      "forPerGame": 1.0416666666666667,
+      "againstPerGame": 1.875,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.5297926748991602,
+      "adjustedAgainst": 1.7700339206467326
     },
     "concacaf-nations.panama": {
       "teamId": "concacaf-nations.panama",
@@ -364,11 +364,11 @@
       "shortName": "Panamá",
       "code": "PAN",
       "logoUrl": "/brand/official/countries/panama.png",
-      "forPerGame": 1,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.6476887331841223,
-      "adjustedAgainst": 1.3795591576000545
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 1.205128205128205,
+      "gamesPlayed": 39,
+      "adjustedFor": 1.455493984443571,
+      "adjustedAgainst": 0.8616580118340795
     },
     "concacaf-nations.puerto-rico": {
       "teamId": "concacaf-nations.puerto-rico",
@@ -376,11 +376,11 @@
       "shortName": "Puerto Rico",
       "code": "PUR",
       "logoUrl": "/brand/official/countries/puerto-rico.png",
-      "forPerGame": 3,
-      "againstPerGame": 3,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.2176839096218126,
-      "adjustedAgainst": 2.0918010669270073
+      "forPerGame": 2.8181818181818183,
+      "againstPerGame": 1.4090909090909092,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.6348720575911464,
+      "adjustedAgainst": 1.3944037504907052
     },
     "concacaf-nations.sint-maarten": {
       "teamId": "concacaf-nations.sint-maarten",
@@ -388,11 +388,11 @@
       "shortName": "Sint Maarten",
       "code": "SMA",
       "logoUrl": "/brand/official/countries/sint-maarten.png",
-      "forPerGame": 0.5,
-      "againstPerGame": 4.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.546695200777501,
-      "adjustedAgainst": 2.6374922078819973
+      "forPerGame": 1.5217391304347827,
+      "againstPerGame": 2.4782608695652173,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.1494758567024401,
+      "adjustedAgainst": 2.272539954518275
     },
     "concacaf-nations.san-cristobal-y-nieves": {
       "teamId": "concacaf-nations.san-cristobal-y-nieves",
@@ -400,11 +400,11 @@
       "shortName": "S. Cristóbal",
       "code": "SKN",
       "logoUrl": "/brand/official/countries/san-cristobal-y-nieves.png",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.7700740167505904,
-      "adjustedAgainst": 2.123366836316845
+      "forPerGame": 1.7619047619047619,
+      "againstPerGame": 1.5714285714285714,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.6578332715979522,
+      "adjustedAgainst": 1.532271725692739
     },
     "concacaf-nations.santa-lucia": {
       "teamId": "concacaf-nations.santa-lucia",
@@ -412,11 +412,11 @@
       "shortName": "Sta. Lucía",
       "code": "LCA",
       "logoUrl": "/brand/official/countries/santa-lucia.png",
-      "forPerGame": 2,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.8719416839897727,
-      "adjustedAgainst": 1.7461011530749786
+      "forPerGame": 1.7142857142857142,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.5672319557219792,
+      "adjustedAgainst": 1.322526406055819
     },
     "concacaf-nations.san-martin": {
       "teamId": "concacaf-nations.san-martin",
@@ -424,11 +424,11 @@
       "shortName": "San Martín",
       "code": "SMN",
       "logoUrl": "/brand/official/countries/san-martin.png",
-      "forPerGame": 3,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.1027313668269456,
-      "adjustedAgainst": 1.6290583496886284
+      "forPerGame": 2.5789473684210527,
+      "againstPerGame": 1.3157894736842106,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.9814896616545665,
+      "adjustedAgainst": 1.3160326945438607
     },
     "concacaf-nations.san-vicente-y-las-granadinas": {
       "teamId": "concacaf-nations.san-vicente-y-las-granadinas",
@@ -436,11 +436,11 @@
       "shortName": "S. Vicente",
       "code": "VIN",
       "logoUrl": "/brand/official/countries/san-vicente-y-las-granadinas.png",
-      "forPerGame": 2.5,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.9435763816720093,
-      "adjustedAgainst": 1.369779674277604
+      "forPerGame": 1.826086956521739,
+      "againstPerGame": 1.6521739130434783,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.796853109953365,
+      "adjustedAgainst": 1.280257012689851
     },
     "concacaf-nations.surinam": {
       "teamId": "concacaf-nations.surinam",
@@ -448,11 +448,11 @@
       "shortName": "Surinam",
       "code": "SUR",
       "logoUrl": "/brand/official/countries/surinam.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 1.5555555555555556,
+      "againstPerGame": 0.9629629629629629,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.3912663989849776,
+      "adjustedAgainst": 1.1184985421414178
     },
     "concacaf-nations.trinidad-y-tobago": {
       "teamId": "concacaf-nations.trinidad-y-tobago",
@@ -460,11 +460,11 @@
       "shortName": "Trinidad y T.",
       "code": "TRI",
       "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
-      "forPerGame": 3,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 2.0806805636133228,
-      "adjustedAgainst": 1.8681261007649497
+      "forPerGame": 1.5161290322580645,
+      "againstPerGame": 1.8387096774193548,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.4275835485869977,
+      "adjustedAgainst": 1.371877374760862
     },
     "concacaf-nations.islas-turcas-y-caicos": {
       "teamId": "concacaf-nations.islas-turcas-y-caicos",
@@ -472,11 +472,11 @@
       "shortName": "I. Turcas",
       "code": "TCA",
       "logoUrl": "/brand/official/countries/islas-turcas-y-caicos.png",
-      "forPerGame": 1,
-      "againstPerGame": 4,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.7589463824955947,
-      "adjustedAgainst": 2.2475597030310253
+      "forPerGame": 1.2222222222222223,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.2738350620598884,
+      "adjustedAgainst": 1.987759407451703
     },
     "concacaf-nations.islas-virgenes-ee-uu": {
       "teamId": "concacaf-nations.islas-virgenes-ee-uu",
@@ -484,11 +484,11 @@
       "shortName": "I. V. EE. UU.",
       "code": "USVI",
       "logoUrl": "/brand/official/countries/islas-virgenes-ee-uu.png",
-      "forPerGame": 1.8835621082634737,
-      "againstPerGame": 1.8835621082634737,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.8835621082634737,
-      "adjustedAgainst": 1.8835621082634737
+      "forPerGame": 1.2222222222222223,
+      "againstPerGame": 2.388888888888889,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.2416564011586049,
+      "adjustedAgainst": 1.9328008671268215
     },
     "concacaf-nations.estados-unidos": {
       "teamId": "concacaf-nations.estados-unidos",
@@ -496,11 +496,11 @@
       "shortName": "EE. UU.",
       "code": "USA",
       "logoUrl": "/brand/official/countries/estados-unidos.png",
-      "forPerGame": 6,
-      "againstPerGame": 0,
-      "gamesPlayed": 1,
-      "adjustedFor": 2.5560480505358374,
-      "adjustedAgainst": 1.5617433588781742
+      "forPerGame": 2.225806451612903,
+      "againstPerGame": 1.2580645161290323,
+      "gamesPlayed": 31,
+      "adjustedFor": 2.317981858428519,
+      "adjustedAgainst": 0.9843482019205861
     }
   },
   "games": [
@@ -532,7 +532,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -564,7 +564,7 @@
       "result": {
         "home": 1,
         "away": 7,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -596,7 +596,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -628,7 +628,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -660,7 +660,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -692,7 +692,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -724,7 +724,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -756,7 +756,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -788,7 +788,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -820,7 +820,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -852,7 +852,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -884,7 +884,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -916,7 +916,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -948,7 +948,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -980,7 +980,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1012,7 +1012,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1044,7 +1044,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1076,7 +1076,7 @@
       "result": {
         "home": 9,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1108,7 +1108,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1140,7 +1140,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1150,7 +1150,7 @@
       "season": "concacaf-nations-2026-27",
       "round": "Repechaje",
       "startTime": "2026-11-17T00:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "concacaf-nations.martinica",
         "league": "concacaf-nations",
@@ -1168,7 +1168,13 @@
         "logoUrl": "/brand/official/countries/aruba.png"
       },
       "venue": "Stade Pierre-Aliker",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "concacaf-nations-2026-11-17-trinidad-y-tobago-antigua-y-barbuda-401929705",
@@ -1176,7 +1182,7 @@
       "season": "concacaf-nations-2026-27",
       "round": "Repechaje",
       "startTime": "2026-11-17T00:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "concacaf-nations.trinidad-y-tobago",
         "league": "concacaf-nations",
@@ -1194,7 +1200,13 @@
         "logoUrl": "/brand/official/countries/antigua-y-barbuda.png"
       },
       "venue": "Hasely Crawford Stadium · Port of Spain",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "concacaf-nations-2026-11-17-canada-guatemala-401929770",
@@ -1202,7 +1214,7 @@
       "season": "concacaf-nations-2026-27",
       "round": "Cuartos de final",
       "startTime": "2026-11-17T01:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "concacaf-nations.canada",
         "league": "concacaf-nations",
@@ -1220,7 +1232,13 @@
         "logoUrl": "/brand/official/countries/guatemala.png"
       },
       "venue": "BMO Field · Toronto",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 1,
+        "observedAt": "2026-11-17T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "concacaf-nations-2026-11-17-belice-sint-maarten-401929704",
@@ -15693,438 +15711,18 @@
   },
   "standings": [
     {
-      "teamId": "concacaf-nations.cuba",
-      "name": "Cuba",
-      "shortName": "Cuba",
-      "code": "CUB",
-      "logoUrl": "/brand/official/countries/cuba.png",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 16,
-      "goalsAgainst": 1,
-      "points": 6
-    },
-    {
       "teamId": "concacaf-nations.guyana",
       "name": "Guyana",
       "shortName": "Guyana",
       "code": "GUY",
       "logoUrl": "/brand/official/countries/guyana.png",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 10,
-      "goalsAgainst": 2,
-      "points": 6
-    },
-    {
-      "teamId": "concacaf-nations.guadalupe",
-      "name": "Guadalupe",
-      "shortName": "Guadalupe",
-      "code": "GDL",
-      "logoUrl": "/brand/official/countries/guadalupe.png",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 7,
-      "goalsAgainst": 1,
-      "points": 6
-    },
-    {
-      "teamId": "concacaf-nations.guayana-francesa",
-      "name": "Guayana Francesa",
-      "shortName": "Guayana Fr.",
-      "code": "GUF",
-      "logoUrl": "/brand/official/countries/guayana-francesa.png",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 6,
-      "goalsAgainst": 1,
-      "points": 6
-    },
-    {
-      "teamId": "concacaf-nations.san-vicente-y-las-granadinas",
-      "name": "San Vicente y las Granadinas",
-      "shortName": "S. Vicente",
-      "code": "VIN",
-      "logoUrl": "/brand/official/countries/san-vicente-y-las-granadinas.png",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 5,
-      "goalsAgainst": 0,
-      "points": 6
-    },
-    {
-      "teamId": "concacaf-nations.panama",
-      "name": "Panamá",
-      "shortName": "Panamá",
-      "code": "PAN",
-      "logoUrl": "/brand/official/countries/panama.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 0,
-      "points": 4
-    },
-    {
-      "teamId": "concacaf-nations.estados-unidos",
-      "name": "Estados Unidos",
-      "shortName": "EE. UU.",
-      "code": "USA",
-      "logoUrl": "/brand/official/countries/estados-unidos.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 6,
-      "goalsAgainst": 0,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.san-martin",
-      "name": "San Martín",
-      "shortName": "San Martín",
-      "code": "SMN",
-      "logoUrl": "/brand/official/countries/san-martin.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 2,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.montserrat",
-      "name": "Montserrat",
-      "shortName": "Montserrat",
-      "code": "MSR",
-      "logoUrl": "/brand/official/countries/montserrat.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 3,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.el-salvador",
-      "name": "El Salvador",
-      "shortName": "El Salvador",
-      "code": "SLV",
-      "logoUrl": "/brand/official/countries/el-salvador.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 0,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.canada",
-      "name": "Canadá",
-      "shortName": "Canadá",
-      "code": "CAN",
-      "logoUrl": "/brand/official/countries/canada.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 2,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.jamaica",
-      "name": "Jamaica",
-      "shortName": "Jamaica",
-      "code": "JAM",
-      "logoUrl": "/brand/official/countries/jamaica.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 2,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.trinidad-y-tobago",
-      "name": "Trinidad y Tobago",
-      "shortName": "Trinidad y T.",
-      "code": "TRI",
-      "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 2,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.nicaragua",
-      "name": "Nicaragua",
-      "shortName": "Nicaragua",
-      "code": "NCA",
-      "logoUrl": "/brand/official/countries/nicaragua.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 1,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.santa-lucia",
-      "name": "Santa Lucía",
-      "shortName": "Sta. Lucía",
-      "code": "LCA",
-      "logoUrl": "/brand/official/countries/santa-lucia.png",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 1,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.puerto-rico",
-      "name": "Puerto Rico",
-      "shortName": "Puerto Rico",
-      "code": "PUR",
-      "logoUrl": "/brand/official/countries/puerto-rico.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 6,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.antigua-y-barbuda",
-      "name": "Antigua y Barbuda",
-      "shortName": "Antigua y B.",
-      "code": "ATG",
-      "logoUrl": "/brand/official/countries/antigua-y-barbuda.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 5,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.granada",
-      "name": "Granada",
-      "shortName": "Granada",
-      "code": "GRN",
-      "logoUrl": "/brand/official/countries/granada.png",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 3,
-      "goalsAgainst": 11,
-      "points": 3
-    },
-    {
-      "teamId": "concacaf-nations.martinica",
-      "name": "Martinica",
-      "shortName": "Martinica",
-      "code": "MTQ",
-      "logoUrl": "/brand/official/countries/martinica.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 1
-    },
-    {
-      "teamId": "concacaf-nations.aruba",
-      "name": "Aruba",
-      "shortName": "Aruba",
-      "code": "ARU",
-      "logoUrl": "/brand/official/countries/aruba.png",
-      "played": 2,
-      "won": 0,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 1
-    },
-    {
-      "teamId": "concacaf-nations.curazao",
-      "name": "Curazao",
-      "shortName": "Curazao",
-      "code": "CUW",
-      "logoUrl": "/brand/official/countries/curazao.png",
-      "played": 2,
-      "won": 0,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 2,
-      "points": 1
-    },
-    {
-      "teamId": "concacaf-nations.guatemala",
-      "name": "Guatemala",
-      "shortName": "Guatemala",
-      "code": "GUA",
-      "logoUrl": "/brand/official/countries/guatemala.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.mexico",
-      "name": "México",
-      "shortName": "México",
-      "code": "MEX",
-      "logoUrl": "/brand/official/countries/mexico.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.san-cristobal-y-nieves",
-      "name": "San Cristóbal y Nieves",
-      "shortName": "S. Cristóbal",
-      "code": "SKN",
-      "logoUrl": "/brand/official/countries/san-cristobal-y-nieves.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.dominica",
-      "name": "Dominica",
-      "shortName": "Dominica",
-      "code": "DMA",
-      "logoUrl": "/brand/official/countries/dominica.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 4,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.belice",
-      "name": "Belice",
-      "shortName": "Belice",
-      "code": "BLZ",
-      "logoUrl": "/brand/official/countries/belice.png",
-      "played": 2,
-      "won": 0,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 0,
-      "goalsAgainst": 2,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.islas-turcas-y-caicos",
-      "name": "Islas Turcas y Caicos",
-      "shortName": "I. Turcas",
-      "code": "TCA",
-      "logoUrl": "/brand/official/countries/islas-turcas-y-caicos.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 4,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.barbados",
-      "name": "Barbados",
-      "shortName": "Barbados",
-      "code": "BRB",
-      "logoUrl": "/brand/official/countries/barbados.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 3,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.bermudas",
-      "name": "Bermudas",
-      "shortName": "Bermudas",
-      "code": "BER",
-      "logoUrl": "/brand/official/countries/bermudas.png",
-      "played": 2,
-      "won": 0,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 2,
-      "goalsAgainst": 6,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.bonaire",
-      "name": "Bonaire",
-      "shortName": "Bonaire",
-      "code": "BOE",
-      "logoUrl": "/brand/official/countries/bonaire.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 7,
-      "points": 0
-    },
-    {
-      "teamId": "concacaf-nations.bahamas",
-      "name": "Bahamas",
-      "shortName": "Bahamas",
-      "code": "BAH",
-      "logoUrl": "/brand/official/countries/bahamas.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 6,
-      "points": 0
+      "played": 23,
+      "won": 16,
+      "drawn": 2,
+      "lost": 5,
+      "goalsFor": 68,
+      "goalsAgainst": 40,
+      "points": 50
     },
     {
       "teamId": "concacaf-nations.haiti",
@@ -16132,27 +15730,335 @@
       "shortName": "Haití",
       "code": "HAI",
       "logoUrl": "/brand/official/countries/haiti.png",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 6,
-      "points": 0
+      "played": 21,
+      "won": 14,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 65,
+      "goalsAgainst": 27,
+      "points": 46
     },
     {
-      "teamId": "concacaf-nations.islas-caiman",
-      "name": "Islas Caimán",
-      "shortName": "I. Caimán",
-      "code": "CAY",
-      "logoUrl": "/brand/official/countries/islas-caiman.png",
-      "played": 1,
-      "won": 0,
+      "teamId": "concacaf-nations.republica-dominicana",
+      "name": "República Dominicana",
+      "shortName": "R. Dominicana",
+      "code": "DOM",
+      "logoUrl": "/brand/official/countries/republica-dominicana.png",
+      "played": 22,
+      "won": 14,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 57,
+      "goalsAgainst": 25,
+      "points": 45
+    },
+    {
+      "teamId": "concacaf-nations.puerto-rico",
+      "name": "Puerto Rico",
+      "shortName": "Puerto Rico",
+      "code": "PUR",
+      "logoUrl": "/brand/official/countries/puerto-rico.png",
+      "played": 22,
+      "won": 15,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 6,
-      "points": 0
+      "lost": 7,
+      "goalsFor": 62,
+      "goalsAgainst": 31,
+      "points": 45
+    },
+    {
+      "teamId": "concacaf-nations.guadalupe",
+      "name": "Guadalupe",
+      "shortName": "Guadalupe",
+      "code": "GDL",
+      "logoUrl": "/brand/official/countries/guadalupe.png",
+      "played": 24,
+      "won": 14,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 40,
+      "goalsAgainst": 20,
+      "points": 44
+    },
+    {
+      "teamId": "concacaf-nations.santa-lucia",
+      "name": "Santa Lucía",
+      "shortName": "Sta. Lucía",
+      "code": "LCA",
+      "logoUrl": "/brand/official/countries/santa-lucia.png",
+      "played": 21,
+      "won": 14,
+      "drawn": 1,
+      "lost": 6,
+      "goalsFor": 36,
+      "goalsAgainst": 28,
+      "points": 43
+    },
+    {
+      "teamId": "concacaf-nations.cuba",
+      "name": "Cuba",
+      "shortName": "Cuba",
+      "code": "CUB",
+      "logoUrl": "/brand/official/countries/cuba.png",
+      "played": 22,
+      "won": 11,
+      "drawn": 7,
+      "lost": 4,
+      "goalsFor": 47,
+      "goalsAgainst": 21,
+      "points": 40
+    },
+    {
+      "teamId": "concacaf-nations.nicaragua",
+      "name": "Nicaragua",
+      "shortName": "Nicaragua",
+      "code": "NCA",
+      "logoUrl": "/brand/official/countries/nicaragua.png",
+      "played": 21,
+      "won": 12,
+      "drawn": 4,
+      "lost": 5,
+      "goalsFor": 43,
+      "goalsAgainst": 26,
+      "points": 40
+    },
+    {
+      "teamId": "concacaf-nations.jamaica",
+      "name": "Jamaica",
+      "shortName": "Jamaica",
+      "code": "JAM",
+      "logoUrl": "/brand/official/countries/jamaica.png",
+      "played": 23,
+      "won": 11,
+      "drawn": 7,
+      "lost": 5,
+      "goalsFor": 38,
+      "goalsAgainst": 29,
+      "points": 40
+    },
+    {
+      "teamId": "concacaf-nations.san-vicente-y-las-granadinas",
+      "name": "San Vicente y las Granadinas",
+      "shortName": "S. Vicente",
+      "code": "VIN",
+      "logoUrl": "/brand/official/countries/san-vicente-y-las-granadinas.png",
+      "played": 23,
+      "won": 12,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 42,
+      "goalsAgainst": 38,
+      "points": 39
+    },
+    {
+      "teamId": "concacaf-nations.panama",
+      "name": "Panamá",
+      "shortName": "Panamá",
+      "code": "PAN",
+      "logoUrl": "/brand/official/countries/panama.png",
+      "played": 20,
+      "won": 11,
+      "drawn": 4,
+      "lost": 5,
+      "goalsFor": 30,
+      "goalsAgainst": 14,
+      "points": 37
+    },
+    {
+      "teamId": "concacaf-nations.guayana-francesa",
+      "name": "Guayana Francesa",
+      "shortName": "Guayana Fr.",
+      "code": "GUF",
+      "logoUrl": "/brand/official/countries/guayana-francesa.png",
+      "played": 23,
+      "won": 10,
+      "drawn": 5,
+      "lost": 8,
+      "goalsFor": 35,
+      "goalsAgainst": 28,
+      "points": 35
+    },
+    {
+      "teamId": "concacaf-nations.san-cristobal-y-nieves",
+      "name": "San Cristóbal y Nieves",
+      "shortName": "S. Cristóbal",
+      "code": "SKN",
+      "logoUrl": "/brand/official/countries/san-cristobal-y-nieves.png",
+      "played": 21,
+      "won": 10,
+      "drawn": 5,
+      "lost": 6,
+      "goalsFor": 37,
+      "goalsAgainst": 33,
+      "points": 35
+    },
+    {
+      "teamId": "concacaf-nations.trinidad-y-tobago",
+      "name": "Trinidad y Tobago",
+      "shortName": "Trinidad y T.",
+      "code": "TRI",
+      "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
+      "played": 23,
+      "won": 10,
+      "drawn": 5,
+      "lost": 8,
+      "goalsFor": 37,
+      "goalsAgainst": 36,
+      "points": 35
+    },
+    {
+      "teamId": "concacaf-nations.estados-unidos",
+      "name": "Estados Unidos",
+      "shortName": "EE. UU.",
+      "code": "USA",
+      "logoUrl": "/brand/official/countries/estados-unidos.png",
+      "played": 15,
+      "won": 11,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 40,
+      "goalsAgainst": 10,
+      "points": 34
+    },
+    {
+      "teamId": "concacaf-nations.canada",
+      "name": "Canadá",
+      "shortName": "Canadá",
+      "code": "CAN",
+      "logoUrl": "/brand/official/countries/canada.png",
+      "played": 15,
+      "won": 11,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 32,
+      "goalsAgainst": 15,
+      "points": 33
+    },
+    {
+      "teamId": "concacaf-nations.guatemala",
+      "name": "Guatemala",
+      "shortName": "Guatemala",
+      "code": "GUA",
+      "logoUrl": "/brand/official/countries/guatemala.png",
+      "played": 20,
+      "won": 9,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 34,
+      "goalsAgainst": 26,
+      "points": 31
+    },
+    {
+      "teamId": "concacaf-nations.curazao",
+      "name": "Curazao",
+      "shortName": "Curazao",
+      "code": "CUW",
+      "logoUrl": "/brand/official/countries/curazao.png",
+      "played": 20,
+      "won": 9,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 35,
+      "goalsAgainst": 25,
+      "points": 30
+    },
+    {
+      "teamId": "concacaf-nations.honduras",
+      "name": "Honduras",
+      "shortName": "Honduras",
+      "code": "HON",
+      "logoUrl": "/brand/official/countries/honduras.png",
+      "played": 21,
+      "won": 9,
+      "drawn": 3,
+      "lost": 9,
+      "goalsFor": 31,
+      "goalsAgainst": 27,
+      "points": 30
+    },
+    {
+      "teamId": "concacaf-nations.san-martin",
+      "name": "San Martín",
+      "shortName": "San Martín",
+      "code": "SMN",
+      "logoUrl": "/brand/official/countries/san-martin.png",
+      "played": 19,
+      "won": 9,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 49,
+      "goalsAgainst": 25,
+      "points": 29
+    },
+    {
+      "teamId": "concacaf-nations.el-salvador",
+      "name": "El Salvador",
+      "shortName": "El Salvador",
+      "code": "SLV",
+      "logoUrl": "/brand/official/countries/el-salvador.png",
+      "played": 19,
+      "won": 8,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 26,
+      "goalsAgainst": 27,
+      "points": 28
+    },
+    {
+      "teamId": "concacaf-nations.montserrat",
+      "name": "Montserrat",
+      "shortName": "Montserrat",
+      "code": "MSR",
+      "logoUrl": "/brand/official/countries/montserrat.png",
+      "played": 22,
+      "won": 9,
+      "drawn": 1,
+      "lost": 12,
+      "goalsFor": 30,
+      "goalsAgainst": 38,
+      "points": 28
+    },
+    {
+      "teamId": "concacaf-nations.aruba",
+      "name": "Aruba",
+      "shortName": "Aruba",
+      "code": "ARU",
+      "logoUrl": "/brand/official/countries/aruba.png",
+      "played": 20,
+      "won": 8,
+      "drawn": 3,
+      "lost": 9,
+      "goalsFor": 33,
+      "goalsAgainst": 32,
+      "points": 27
+    },
+    {
+      "teamId": "concacaf-nations.belice",
+      "name": "Belice",
+      "shortName": "Belice",
+      "code": "BLZ",
+      "logoUrl": "/brand/official/countries/belice.png",
+      "played": 23,
+      "won": 8,
+      "drawn": 3,
+      "lost": 12,
+      "goalsFor": 21,
+      "goalsAgainst": 25,
+      "points": 27
+    },
+    {
+      "teamId": "concacaf-nations.mexico",
+      "name": "México",
+      "shortName": "México",
+      "code": "MEX",
+      "logoUrl": "/brand/official/countries/mexico.png",
+      "played": 15,
+      "won": 8,
+      "drawn": 2,
+      "lost": 5,
+      "goalsFor": 24,
+      "goalsAgainst": 16,
+      "points": 26
     },
     {
       "teamId": "concacaf-nations.sint-maarten",
@@ -16160,13 +16066,223 @@
       "shortName": "Sint Maarten",
       "code": "SMA",
       "logoUrl": "/brand/official/countries/sint-maarten.png",
-      "played": 2,
-      "won": 0,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 1,
-      "goalsAgainst": 9,
-      "points": 0
+      "played": 23,
+      "won": 8,
+      "drawn": 2,
+      "lost": 13,
+      "goalsFor": 35,
+      "goalsAgainst": 57,
+      "points": 26
+    },
+    {
+      "teamId": "concacaf-nations.barbados",
+      "name": "Barbados",
+      "shortName": "Barbados",
+      "code": "BRB",
+      "logoUrl": "/brand/official/countries/barbados.png",
+      "played": 23,
+      "won": 8,
+      "drawn": 1,
+      "lost": 14,
+      "goalsFor": 41,
+      "goalsAgainst": 55,
+      "points": 25
+    },
+    {
+      "teamId": "concacaf-nations.costa-rica",
+      "name": "Costa Rica",
+      "shortName": "Costa Rica",
+      "code": "CRC",
+      "logoUrl": "/brand/official/countries/costa-rica.png",
+      "played": 17,
+      "won": 7,
+      "drawn": 3,
+      "lost": 7,
+      "goalsFor": 25,
+      "goalsAgainst": 21,
+      "points": 24
+    },
+    {
+      "teamId": "concacaf-nations.antigua-y-barbuda",
+      "name": "Antigua y Barbuda",
+      "shortName": "Antigua y B.",
+      "code": "ATG",
+      "logoUrl": "/brand/official/countries/antigua-y-barbuda.png",
+      "played": 24,
+      "won": 7,
+      "drawn": 3,
+      "lost": 14,
+      "goalsFor": 30,
+      "goalsAgainst": 51,
+      "points": 24
+    },
+    {
+      "teamId": "concacaf-nations.bonaire",
+      "name": "Bonaire",
+      "shortName": "Bonaire",
+      "code": "BOE",
+      "logoUrl": "/brand/official/countries/bonaire.png",
+      "played": 21,
+      "won": 7,
+      "drawn": 2,
+      "lost": 12,
+      "goalsFor": 30,
+      "goalsAgainst": 40,
+      "points": 23
+    },
+    {
+      "teamId": "concacaf-nations.bermudas",
+      "name": "Bermudas",
+      "shortName": "Bermudas",
+      "code": "BER",
+      "logoUrl": "/brand/official/countries/bermudas.png",
+      "played": 23,
+      "won": 6,
+      "drawn": 3,
+      "lost": 14,
+      "goalsFor": 34,
+      "goalsAgainst": 51,
+      "points": 21
+    },
+    {
+      "teamId": "concacaf-nations.surinam",
+      "name": "Surinam",
+      "shortName": "Surinam",
+      "code": "SUR",
+      "logoUrl": "/brand/official/countries/surinam.png",
+      "played": 18,
+      "won": 5,
+      "drawn": 5,
+      "lost": 8,
+      "goalsFor": 22,
+      "goalsAgainst": 24,
+      "points": 20
+    },
+    {
+      "teamId": "concacaf-nations.martinica",
+      "name": "Martinica",
+      "shortName": "Martinica",
+      "code": "MTQ",
+      "logoUrl": "/brand/official/countries/martinica.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 7,
+      "lost": 7,
+      "goalsFor": 13,
+      "goalsAgainst": 25,
+      "points": 19
+    },
+    {
+      "teamId": "concacaf-nations.islas-turcas-y-caicos",
+      "name": "Islas Turcas y Caicos",
+      "shortName": "I. Turcas",
+      "code": "TCA",
+      "logoUrl": "/brand/official/countries/islas-turcas-y-caicos.png",
+      "played": 18,
+      "won": 6,
+      "drawn": 1,
+      "lost": 11,
+      "goalsFor": 22,
+      "goalsAgainst": 42,
+      "points": 19
+    },
+    {
+      "teamId": "concacaf-nations.dominica",
+      "name": "Dominica",
+      "shortName": "Dominica",
+      "code": "DMA",
+      "logoUrl": "/brand/official/countries/dominica.png",
+      "played": 19,
+      "won": 4,
+      "drawn": 5,
+      "lost": 10,
+      "goalsFor": 20,
+      "goalsAgainst": 44,
+      "points": 17
+    },
+    {
+      "teamId": "concacaf-nations.islas-virgenes-ee-uu",
+      "name": "Islas Vírgenes EE. UU.",
+      "shortName": "I. V. EE. UU.",
+      "code": "USVI",
+      "logoUrl": "/brand/official/countries/islas-virgenes-ee-uu.png",
+      "played": 18,
+      "won": 4,
+      "drawn": 3,
+      "lost": 11,
+      "goalsFor": 22,
+      "goalsAgainst": 43,
+      "points": 15
+    },
+    {
+      "teamId": "concacaf-nations.granada",
+      "name": "Granada",
+      "shortName": "Granada",
+      "code": "GRN",
+      "logoUrl": "/brand/official/countries/granada.png",
+      "played": 20,
+      "won": 4,
+      "drawn": 3,
+      "lost": 13,
+      "goalsFor": 20,
+      "goalsAgainst": 59,
+      "points": 15
+    },
+    {
+      "teamId": "concacaf-nations.islas-caiman",
+      "name": "Islas Caimán",
+      "shortName": "I. Caimán",
+      "code": "CAY",
+      "logoUrl": "/brand/official/countries/islas-caiman.png",
+      "played": 19,
+      "won": 3,
+      "drawn": 5,
+      "lost": 11,
+      "goalsFor": 13,
+      "goalsAgainst": 44,
+      "points": 14
+    },
+    {
+      "teamId": "concacaf-nations.bahamas",
+      "name": "Bahamas",
+      "shortName": "Bahamas",
+      "code": "BAH",
+      "logoUrl": "/brand/official/countries/bahamas.png",
+      "played": 19,
+      "won": 2,
+      "drawn": 3,
+      "lost": 14,
+      "goalsFor": 22,
+      "goalsAgainst": 65,
+      "points": 9
+    },
+    {
+      "teamId": "concacaf-nations.islas-virgenes-britanicas",
+      "name": "Islas Vírgenes Británicas",
+      "shortName": "I. V. Brit.",
+      "code": "BVI",
+      "logoUrl": "/brand/official/countries/islas-virgenes-britanicas.png",
+      "played": 16,
+      "won": 1,
+      "drawn": 4,
+      "lost": 11,
+      "goalsFor": 11,
+      "goalsAgainst": 35,
+      "points": 7
+    },
+    {
+      "teamId": "concacaf-nations.anguila",
+      "name": "Anguila",
+      "shortName": "Anguila",
+      "code": "AIA",
+      "logoUrl": "/brand/official/countries/anguila.png",
+      "played": 16,
+      "won": 1,
+      "drawn": 2,
+      "lost": 13,
+      "goalsFor": 7,
+      "goalsAgainst": 41,
+      "points": 5
     }
   ]
 }

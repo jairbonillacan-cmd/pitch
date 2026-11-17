@@ -36,7 +36,8 @@
     "./data-health": "./src/platform/club/AdminDataHealthSection.tsx",
     "./legal": "./src/platform/public/LegalSurfaces.tsx",
     "./sport-outlook": "./src/platform/club/match/sport-outlook/index.ts",
-    "./team-profile": "./src/platform/club/team/TeamProfileClubView.tsx"
+    "./team-profile": "./src/platform/club/team/TeamProfileClubView.tsx",
+    "./player-profile": "./src/platform/club/team/PlayerProfileClubView.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

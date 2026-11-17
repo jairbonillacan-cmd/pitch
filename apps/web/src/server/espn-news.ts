@@ -30,6 +30,8 @@ const ESPN_NEWS_SLUGS: Readonly<
   "copa-america": { sportPath: "soccer", slug: "conmebol.america" },
   eurocopa: { sportPath: "soccer", slug: "uefa.euro" },
   "copa-oro": { sportPath: "soccer", slug: "concacaf.gold" },
+  "copa-africana": { sportPath: "soccer", slug: "caf.nations" },
+  "copa-asiatica": { sportPath: "soccer", slug: "afc.asian.cup" },
 };
 
 const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;

@@ -5,8 +5,8 @@
   "season": "copa-oro-2025",
   "seasonLabel": "2025",
   "periodLabel": "Final",
-  "updatedAt": "2026-11-16T20:55:55.962Z",
-  "source": "espn",
+  "updatedAt": "2026-11-17T04:24:25.916Z",
+  "source": "espn+bzzoiro",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -16,11 +16,11 @@
       "shortName": "Canadá",
       "code": "CAN",
       "logoUrl": "/brand/official/countries/canada.png",
-      "forPerGame": 2.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4693095065536006,
-      "adjustedAgainst": 0.9788837307147727
+      "forPerGame": 1.53125,
+      "againstPerGame": 0.78125,
+      "gamesPlayed": 32,
+      "adjustedFor": 1.4774504689713375,
+      "adjustedAgainst": 0.9936173614812044
     },
     "copa-oro.costa-rica": {
       "teamId": "copa-oro.costa-rica",
@@ -28,11 +28,11 @@
       "shortName": "Costa Rica",
       "code": "CRC",
       "logoUrl": "/brand/official/countries/costa-rica.png",
-      "forPerGame": 2,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.3774117247808444,
-      "adjustedAgainst": 1.2054886127659623
+      "forPerGame": 2.0285714285714285,
+      "againstPerGame": 1.2571428571428571,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.703918627764467,
+      "adjustedAgainst": 1.2230519488524587
     },
     "copa-oro.curazao": {
       "teamId": "copa-oro.curazao",
@@ -40,11 +40,11 @@
       "shortName": "Curazao",
       "code": "CUW",
       "logoUrl": "/brand/official/countries/curazao.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0335411610939427,
-      "adjustedAgainst": 1.097838136624336
+      "forPerGame": 2,
+      "againstPerGame": 1.1875,
+      "gamesPlayed": 32,
+      "adjustedFor": 0.9766100389450096,
+      "adjustedAgainst": 1.1284980436039838
     },
     "copa-oro.republica-dominicana": {
       "teamId": "copa-oro.republica-dominicana",
@@ -52,11 +52,11 @@
       "shortName": "R. Dominicana",
       "code": "DOM",
       "logoUrl": "/brand/official/countries/republica-dominicana.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.1293574642579687,
-      "adjustedAgainst": 1.2212268726224
+      "forPerGame": 2.5714285714285716,
+      "againstPerGame": 1.380952380952381,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.119075149231122,
+      "adjustedAgainst": 1.2062506079082702
     },
     "copa-oro.el-salvador": {
       "teamId": "copa-oro.el-salvador",
@@ -64,11 +64,11 @@
       "shortName": "El Salvador",
       "code": "SLV",
       "logoUrl": "/brand/official/countries/el-salvador.png",
-      "forPerGame": 0,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 0.9298433466078168,
-      "adjustedAgainst": 1.1632300034472551
+      "forPerGame": 1.0714285714285714,
+      "againstPerGame": 1.2857142857142858,
+      "gamesPlayed": 28,
+      "adjustedFor": 0.9038396850828061,
+      "adjustedAgainst": 1.1569077036700213
     },
     "copa-oro.guadalupe": {
       "teamId": "copa-oro.guadalupe",
@@ -76,11 +76,11 @@
       "shortName": "Guadalupe",
       "code": "GDL",
       "logoUrl": "/brand/official/countries/guadalupe.png",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 3.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.279362203618535,
-      "adjustedAgainst": 1.5875971727904947
+      "forPerGame": 1.5294117647058822,
+      "againstPerGame": 1.2941176470588236,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2980159036628205,
+      "adjustedAgainst": 1.3874606676203667
     },
     "copa-oro.guatemala": {
       "teamId": "copa-oro.guatemala",
@@ -88,11 +88,11 @@
       "shortName": "Guatemala",
       "code": "GUA",
       "logoUrl": "/brand/official/countries/guatemala.png",
-      "forPerGame": 1.2,
-      "againstPerGame": 1.2,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.1718011559691588,
-      "adjustedAgainst": 1.0973185214147982
+      "forPerGame": 1.6129032258064515,
+      "againstPerGame": 1.6129032258064515,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.2125987865968302,
+      "adjustedAgainst": 1.0868807623697543
     },
     "copa-oro.haiti": {
       "teamId": "copa-oro.haiti",
@@ -100,11 +100,11 @@
       "shortName": "Haití",
       "code": "HAI",
       "logoUrl": "/brand/official/countries/haiti.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0496262732766535,
-      "adjustedAgainst": 1.1747692128194493
+      "forPerGame": 2.193548387096774,
+      "againstPerGame": 1.4516129032258065,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.1809769092485298,
+      "adjustedAgainst": 1.1832879333771353
     },
     "copa-oro.honduras": {
       "teamId": "copa-oro.honduras",
@@ -112,11 +112,11 @@
       "shortName": "Honduras",
       "code": "HON",
       "logoUrl": "/brand/official/countries/honduras.png",
-      "forPerGame": 1,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.1306024757537083,
-      "adjustedAgainst": 1.314332968244506
+      "forPerGame": 1.5483870967741935,
+      "againstPerGame": 1.2903225806451613,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.2512795573009297,
+      "adjustedAgainst": 1.4014078630614568
     },
     "copa-oro.jamaica": {
       "teamId": "copa-oro.jamaica",
@@ -124,11 +124,11 @@
       "shortName": "Jamaica",
       "code": "JAM",
       "logoUrl": "/brand/official/countries/jamaica.png",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.0747815914899874,
-      "adjustedAgainst": 1.2855535436706196
+      "forPerGame": 1.3428571428571427,
+      "againstPerGame": 1.0857142857142856,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.2166146088833683,
+      "adjustedAgainst": 1.2235063865349836
     },
     "copa-oro.mexico": {
       "teamId": "copa-oro.mexico",
@@ -136,11 +136,11 @@
       "shortName": "México",
       "code": "MEX",
       "logoUrl": "/brand/official/countries/mexico.png",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.2664234056888508,
-      "adjustedAgainst": 0.8899872504394836
+      "forPerGame": 1.4857142857142858,
+      "againstPerGame": 0.7428571428571429,
+      "gamesPlayed": 35,
+      "adjustedFor": 1.282995804258668,
+      "adjustedAgainst": 0.8073756230966984
     },
     "copa-oro.panama": {
       "teamId": "copa-oro.panama",
@@ -148,11 +148,11 @@
       "shortName": "Panamá",
       "code": "PAN",
       "logoUrl": "/brand/official/countries/panama.png",
-      "forPerGame": 2.75,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4707449527816523,
-      "adjustedAgainst": 1.0923188034224491
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 1.205128205128205,
+      "gamesPlayed": 39,
+      "adjustedFor": 1.4539672477340797,
+      "adjustedAgainst": 1.045989835013424
     },
     "copa-oro.arabia-saudita": {
       "teamId": "copa-oro.arabia-saudita",
@@ -160,11 +160,11 @@
       "shortName": "Arabia S.",
       "code": "KSA",
       "logoUrl": "/brand/official/countries/arabia-saudita.png",
-      "forPerGame": 0.5,
+      "forPerGame": 0.9736842105263158,
       "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.962489846639184,
-      "adjustedAgainst": 1.0841662507500873
+      "gamesPlayed": 38,
+      "adjustedFor": 0.9565688607130223,
+      "adjustedAgainst": 1.0766058634345173
     },
     "copa-oro.surinam": {
       "teamId": "copa-oro.surinam",
@@ -172,11 +172,11 @@
       "shortName": "Surinam",
       "code": "SUR",
       "logoUrl": "/brand/official/countries/surinam.png",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.1441653651126413,
-      "adjustedAgainst": 1.2939567692411733
+      "forPerGame": 1.5555555555555556,
+      "againstPerGame": 0.9629629629629629,
+      "gamesPlayed": 27,
+      "adjustedFor": 1.05092091116738,
+      "adjustedAgainst": 1.1684559409192663
     },
     "copa-oro.trinidad-y-tobago": {
       "teamId": "copa-oro.trinidad-y-tobago",
@@ -184,11 +184,11 @@
       "shortName": "Trinidad y T.",
       "code": "TRI",
       "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.061735265316996,
-      "adjustedAgainst": 1.3928982342469416
+      "forPerGame": 1.5161290322580645,
+      "againstPerGame": 1.8387096774193548,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.2471521373078907,
+      "adjustedAgainst": 1.3581149223992133
     },
     "copa-oro.estados-unidos": {
       "teamId": "copa-oro.estados-unidos",
@@ -196,11 +196,227 @@
       "shortName": "EE. UU.",
       "code": "USA",
       "logoUrl": "/brand/official/countries/estados-unidos.png",
-      "forPerGame": 2.1666666666666665,
-      "againstPerGame": 1,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.4406878517790764,
-      "adjustedAgainst": 1.0900887369119117
+      "forPerGame": 2.225806451612903,
+      "againstPerGame": 1.2580645161290323,
+      "gamesPlayed": 31,
+      "adjustedFor": 1.5466860853541127,
+      "adjustedAgainst": 1.0086920675785862
+    },
+    "copa-oro.antigua-y-barbuda": {
+      "teamId": "copa-oro.antigua-y-barbuda",
+      "name": "Antigua y Barbuda",
+      "shortName": "Antigua y B.",
+      "code": "ATG",
+      "logoUrl": "/brand/official/countries/antigua-y-barbuda.png",
+      "forPerGame": 1.0588235294117647,
+      "againstPerGame": 1.8235294117647058,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.0832142757319816,
+      "adjustedAgainst": 1.221438870981272
+    },
+    "copa-oro.bahamas": {
+      "teamId": "copa-oro.bahamas",
+      "name": "Bahamas",
+      "shortName": "Bahamas",
+      "code": "BAH",
+      "logoUrl": "/brand/official/countries/bahamas.png",
+      "forPerGame": 1,
+      "againstPerGame": 4.333333333333333,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.0817721787100822,
+      "adjustedAgainst": 1.205042317791417
+    },
+    "copa-oro.barbados": {
+      "teamId": "copa-oro.barbados",
+      "name": "Barbados",
+      "shortName": "Barbados",
+      "code": "BRB",
+      "logoUrl": "/brand/official/countries/barbados.png",
+      "forPerGame": 2.0526315789473686,
+      "againstPerGame": 2.210526315789474,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.0958529929591834,
+      "adjustedAgainst": 1.166489076111783
+    },
+    "copa-oro.belice": {
+      "teamId": "copa-oro.belice",
+      "name": "Belice",
+      "shortName": "Belice",
+      "code": "BLZ",
+      "logoUrl": "/brand/official/countries/belice.png",
+      "forPerGame": 1.2380952380952381,
+      "againstPerGame": 1.8571428571428572,
+      "gamesPlayed": 21,
+      "adjustedFor": 0.992033148970273,
+      "adjustedAgainst": 1.7610363218827516
+    },
+    "copa-oro.bermudas": {
+      "teamId": "copa-oro.bermudas",
+      "name": "Bermudas",
+      "shortName": "Bermudas",
+      "code": "BER",
+      "logoUrl": "/brand/official/countries/bermudas.png",
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 2.8846153846153846,
+      "gamesPlayed": 26,
+      "adjustedFor": 1.1174930922223767,
+      "adjustedAgainst": 1.4897129335773818
+    },
+    "copa-oro.cuba": {
+      "teamId": "copa-oro.cuba",
+      "name": "Cuba",
+      "shortName": "Cuba",
+      "code": "CUB",
+      "logoUrl": "/brand/official/countries/cuba.png",
+      "forPerGame": 2.238095238095238,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.0464696531237825,
+      "adjustedAgainst": 1.3971436008882356
+    },
+    "copa-oro.guayana-francesa": {
+      "teamId": "copa-oro.guayana-francesa",
+      "name": "Guayana Francesa",
+      "shortName": "Guayana Fr.",
+      "code": "GUF",
+      "logoUrl": "/brand/official/countries/guayana-francesa.png",
+      "forPerGame": 1.5454545454545454,
+      "againstPerGame": 1.2727272727272727,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.1855625198924524,
+      "adjustedAgainst": 1.1702134480484325
+    },
+    "copa-oro.granada": {
+      "teamId": "copa-oro.granada",
+      "name": "Granada",
+      "shortName": "Granada",
+      "code": "GRN",
+      "logoUrl": "/brand/official/countries/granada.png",
+      "forPerGame": 1.380952380952381,
+      "againstPerGame": 2.380952380952381,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.1487417500933808,
+      "adjustedAgainst": 1.3117786910109244
+    },
+    "copa-oro.guyana": {
+      "teamId": "copa-oro.guyana",
+      "name": "Guyana",
+      "shortName": "Guyana",
+      "code": "GUY",
+      "logoUrl": "/brand/official/countries/guyana.png",
+      "forPerGame": 2.727272727272727,
+      "againstPerGame": 1.4545454545454546,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.1476442120737806,
+      "adjustedAgainst": 1.3029534071982116
+    },
+    "copa-oro.martinica": {
+      "teamId": "copa-oro.martinica",
+      "name": "Martinica",
+      "shortName": "Martinica",
+      "code": "MTQ",
+      "logoUrl": "/brand/official/countries/martinica.png",
+      "forPerGame": 0.75,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.067031419768222,
+      "adjustedAgainst": 1.2290449326083601
+    },
+    "copa-oro.montserrat": {
+      "teamId": "copa-oro.montserrat",
+      "name": "Montserrat",
+      "shortName": "Montserrat",
+      "code": "MSR",
+      "logoUrl": "/brand/official/countries/montserrat.png",
+      "forPerGame": 1.2,
+      "againstPerGame": 1.5333333333333334,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.1285045636851572,
+      "adjustedAgainst": 1.2132653496434387
+    },
+    "copa-oro.nicaragua": {
+      "teamId": "copa-oro.nicaragua",
+      "name": "Nicaragua",
+      "shortName": "Nicaragua",
+      "code": "NCA",
+      "logoUrl": "/brand/official/countries/nicaragua.png",
+      "forPerGame": 1.0416666666666667,
+      "againstPerGame": 1.875,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0414160075711485,
+      "adjustedAgainst": 1.0924121470155028
+    },
+    "copa-oro.puerto-rico": {
+      "teamId": "copa-oro.puerto-rico",
+      "name": "Puerto Rico",
+      "shortName": "Puerto Rico",
+      "code": "PUR",
+      "logoUrl": "/brand/official/countries/puerto-rico.png",
+      "forPerGame": 1.95,
+      "againstPerGame": 1.35,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.2758068447794553,
+      "adjustedAgainst": 1.1141783778422034
+    },
+    "copa-oro.catar": {
+      "teamId": "copa-oro.catar",
+      "name": "Catar",
+      "shortName": "Catar",
+      "code": "QAT",
+      "logoUrl": "/brand/official/countries/catar.png",
+      "forPerGame": 1.4333333333333333,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 30,
+      "adjustedFor": 1.0865309893885193,
+      "adjustedAgainst": 1.2308310719214866
+    },
+    "copa-oro.san-cristobal-y-nieves": {
+      "teamId": "copa-oro.san-cristobal-y-nieves",
+      "name": "San Cristóbal y Nieves",
+      "shortName": "S. Cristóbal",
+      "code": "SKN",
+      "logoUrl": "/brand/official/countries/san-cristobal-y-nieves.png",
+      "forPerGame": 1.9444444444444444,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.1296959094303525,
+      "adjustedAgainst": 1.3293512067936901
+    },
+    "copa-oro.santa-lucia": {
+      "teamId": "copa-oro.santa-lucia",
+      "name": "Santa Lucía",
+      "shortName": "Sta. Lucía",
+      "code": "LCA",
+      "logoUrl": "/brand/official/countries/santa-lucia.png",
+      "forPerGame": 1.4705882352941178,
+      "againstPerGame": 2.235294117647059,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2104033382065893,
+      "adjustedAgainst": 1.1576849476060267
+    },
+    "copa-oro.san-vicente-y-las-granadinas": {
+      "teamId": "copa-oro.san-vicente-y-las-granadinas",
+      "name": "San Vicente y las Granadinas",
+      "shortName": "S. Vicente",
+      "code": "VIN",
+      "logoUrl": "/brand/official/countries/san-vicente-y-las-granadinas.png",
+      "forPerGame": 2.05,
+      "againstPerGame": 1.45,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.0215441772684186,
+      "adjustedAgainst": 1.3333882205013032
+    },
+    "copa-oro.sint-maarten": {
+      "teamId": "copa-oro.sint-maarten",
+      "name": "Sint Maarten",
+      "shortName": "Sint Maarten",
+      "code": "SMA",
+      "logoUrl": "/brand/official/countries/sint-maarten.png",
+      "forPerGame": 1.5,
+      "againstPerGame": 2.4375,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.3157081881714179,
+      "adjustedAgainst": 1.2224700992225066
     }
   },
   "games": [
@@ -232,7 +448,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -264,7 +480,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -296,7 +512,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -328,7 +544,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -360,7 +576,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -392,7 +608,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -424,7 +640,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -456,7 +672,7 @@
       "result": {
         "home": 6,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -488,7 +704,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -520,7 +736,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -552,7 +768,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -584,7 +800,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -616,7 +832,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -648,7 +864,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -680,7 +896,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -712,7 +928,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -744,7 +960,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -776,7 +992,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -808,7 +1024,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -840,7 +1056,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -872,7 +1088,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -904,7 +1120,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -936,7 +1152,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -968,7 +1184,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1000,7 +1216,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1032,7 +1248,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1064,7 +1280,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1096,7 +1312,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1128,7 +1344,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1160,7 +1376,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -1192,7 +1408,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-16T12:00:00.000Z",
+        "observedAt": "2026-11-17T12:00:00.000Z",
         "source": "espn"
       }
     }
@@ -14486,13 +14702,13 @@
       "shortName": "México",
       "code": "MEX",
       "logoUrl": "/brand/official/countries/mexico.png",
-      "played": 6,
-      "won": 5,
+      "played": 12,
+      "won": 10,
       "drawn": 1,
-      "lost": 0,
-      "goalsFor": 10,
-      "goalsAgainst": 3,
-      "points": 16
+      "lost": 1,
+      "goalsFor": 23,
+      "goalsAgainst": 5,
+      "points": 31
     },
     {
       "teamId": "copa-oro.estados-unidos",
@@ -14500,13 +14716,13 @@
       "shortName": "EE. UU.",
       "code": "USA",
       "logoUrl": "/brand/official/countries/estados-unidos.png",
-      "played": 6,
-      "won": 4,
-      "drawn": 1,
+      "played": 11,
+      "won": 6,
+      "drawn": 4,
       "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 6,
-      "points": 13
+      "goalsFor": 29,
+      "goalsAgainst": 10,
+      "points": 22
     },
     {
       "teamId": "copa-oro.panama",
@@ -14514,27 +14730,13 @@
       "shortName": "Panamá",
       "code": "PAN",
       "logoUrl": "/brand/official/countries/panama.png",
-      "played": 4,
-      "won": 3,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 11,
-      "goalsAgainst": 4,
-      "points": 10
-    },
-    {
-      "teamId": "copa-oro.canada",
-      "name": "Canadá",
-      "shortName": "Canadá",
-      "code": "CAN",
-      "logoUrl": "/brand/official/countries/canada.png",
-      "played": 4,
-      "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 10,
-      "goalsAgainst": 2,
-      "points": 8
+      "played": 10,
+      "won": 6,
+      "drawn": 3,
+      "lost": 1,
+      "goalsFor": 22,
+      "goalsAgainst": 10,
+      "points": 21
     },
     {
       "teamId": "copa-oro.costa-rica",
@@ -14542,13 +14744,27 @@
       "shortName": "Costa Rica",
       "code": "CRC",
       "logoUrl": "/brand/official/countries/costa-rica.png",
-      "played": 4,
-      "won": 2,
+      "played": 10,
+      "won": 5,
+      "drawn": 3,
+      "lost": 2,
+      "goalsFor": 28,
+      "goalsAgainst": 15,
+      "points": 18
+    },
+    {
+      "teamId": "copa-oro.jamaica",
+      "name": "Jamaica",
+      "shortName": "Jamaica",
+      "code": "JAM",
+      "logoUrl": "/brand/official/countries/jamaica.png",
+      "played": 10,
+      "won": 5,
       "drawn": 2,
-      "lost": 0,
-      "goalsFor": 8,
-      "goalsAgainst": 6,
-      "points": 8
+      "lost": 3,
+      "goalsFor": 18,
+      "goalsAgainst": 12,
+      "points": 17
     },
     {
       "teamId": "copa-oro.guatemala",
@@ -14556,13 +14772,13 @@
       "shortName": "Guatemala",
       "code": "GUA",
       "logoUrl": "/brand/official/countries/guatemala.png",
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 6,
-      "goalsAgainst": 6,
-      "points": 7
+      "played": 11,
+      "won": 5,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 14,
+      "goalsAgainst": 12,
+      "points": 17
     },
     {
       "teamId": "copa-oro.honduras",
@@ -14570,13 +14786,97 @@
       "shortName": "Honduras",
       "code": "HON",
       "logoUrl": "/brand/official/countries/honduras.png",
-      "played": 5,
-      "won": 2,
+      "played": 10,
+      "won": 5,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 18,
+      "points": 17
+    },
+    {
+      "teamId": "copa-oro.guadalupe",
+      "name": "Guadalupe",
+      "shortName": "Guadalupe",
+      "code": "GDL",
+      "logoUrl": "/brand/official/countries/guadalupe.png",
+      "played": 10,
+      "won": 5,
       "drawn": 1,
+      "lost": 4,
+      "goalsFor": 22,
+      "goalsAgainst": 16,
+      "points": 16
+    },
+    {
+      "teamId": "copa-oro.canada",
+      "name": "Canadá",
+      "shortName": "Canadá",
+      "code": "CAN",
+      "logoUrl": "/brand/official/countries/canada.png",
+      "played": 8,
+      "won": 3,
+      "drawn": 5,
+      "lost": 0,
+      "goalsFor": 18,
+      "goalsAgainst": 8,
+      "points": 14
+    },
+    {
+      "teamId": "copa-oro.trinidad-y-tobago",
+      "name": "Trinidad y Tobago",
+      "shortName": "Trinidad y T.",
+      "code": "TRI",
+      "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
+      "played": 8,
+      "won": 3,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 12,
+      "goalsAgainst": 18,
+      "points": 11
+    },
+    {
+      "teamId": "copa-oro.martinica",
+      "name": "Martinica",
+      "shortName": "Martinica",
+      "code": "MTQ",
+      "logoUrl": "/brand/official/countries/martinica.png",
+      "played": 7,
+      "won": 3,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 12,
+      "goalsAgainst": 12,
+      "points": 9
+    },
+    {
+      "teamId": "copa-oro.surinam",
+      "name": "Surinam",
+      "shortName": "Surinam",
+      "code": "SUR",
+      "logoUrl": "/brand/official/countries/surinam.png",
+      "played": 6,
+      "won": 2,
+      "drawn": 2,
       "lost": 2,
       "goalsFor": 5,
-      "goalsAgainst": 9,
-      "points": 7
+      "goalsAgainst": 6,
+      "points": 8
+    },
+    {
+      "teamId": "copa-oro.guayana-francesa",
+      "name": "Guayana Francesa",
+      "shortName": "Guayana Fr.",
+      "code": "GUF",
+      "logoUrl": "/brand/official/countries/guayana-francesa.png",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 5,
+      "goalsAgainst": 2,
+      "points": 4
     },
     {
       "teamId": "copa-oro.arabia-saudita",
@@ -14593,18 +14893,46 @@
       "points": 4
     },
     {
-      "teamId": "copa-oro.jamaica",
-      "name": "Jamaica",
-      "shortName": "Jamaica",
-      "code": "JAM",
-      "logoUrl": "/brand/official/countries/jamaica.png",
-      "played": 3,
+      "teamId": "copa-oro.guyana",
+      "name": "Guyana",
+      "shortName": "Guyana",
+      "code": "GUY",
+      "logoUrl": "/brand/official/countries/guyana.png",
+      "played": 4,
       "won": 1,
-      "drawn": 0,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 4,
+      "goalsAgainst": 7,
+      "points": 4
+    },
+    {
+      "teamId": "copa-oro.haiti",
+      "name": "Haití",
+      "shortName": "Haití",
+      "code": "HAI",
+      "logoUrl": "/brand/official/countries/haiti.png",
+      "played": 6,
+      "won": 1,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 6,
+      "goalsAgainst": 10,
+      "points": 4
+    },
+    {
+      "teamId": "copa-oro.catar",
+      "name": "Catar",
+      "shortName": "Catar",
+      "code": "QAT",
+      "logoUrl": "/brand/official/countries/catar.png",
+      "played": 4,
+      "won": 1,
+      "drawn": 1,
       "lost": 2,
       "goalsFor": 3,
-      "goalsAgainst": 6,
-      "points": 3
+      "goalsAgainst": 7,
+      "points": 4
     },
     {
       "teamId": "copa-oro.curazao",
@@ -14612,27 +14940,55 @@
       "shortName": "Curazao",
       "code": "CUW",
       "logoUrl": "/brand/official/countries/curazao.png",
-      "played": 3,
+      "played": 4,
+      "won": 0,
+      "drawn": 3,
+      "lost": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 4,
+      "points": 3
+    },
+    {
+      "teamId": "copa-oro.el-salvador",
+      "name": "El Salvador",
+      "shortName": "El Salvador",
+      "code": "SLV",
+      "logoUrl": "/brand/official/countries/el-salvador.png",
+      "played": 6,
+      "won": 0,
+      "drawn": 3,
+      "lost": 3,
+      "goalsFor": 3,
+      "goalsAgainst": 8,
+      "points": 3
+    },
+    {
+      "teamId": "copa-oro.san-cristobal-y-nieves",
+      "name": "San Cristóbal y Nieves",
+      "shortName": "S. Cristóbal",
+      "code": "SKN",
+      "logoUrl": "/brand/official/countries/san-cristobal-y-nieves.png",
+      "played": 5,
       "won": 0,
       "drawn": 2,
-      "lost": 1,
+      "lost": 3,
       "goalsFor": 2,
-      "goalsAgainst": 3,
+      "goalsAgainst": 16,
       "points": 2
     },
     {
-      "teamId": "copa-oro.trinidad-y-tobago",
-      "name": "Trinidad y Tobago",
-      "shortName": "Trinidad y T.",
-      "code": "TRI",
-      "logoUrl": "/brand/official/countries/trinidad-y-tobago.png",
-      "played": 3,
+      "teamId": "copa-oro.granada",
+      "name": "Granada",
+      "shortName": "Granada",
+      "code": "GRN",
+      "logoUrl": "/brand/official/countries/granada.png",
+      "played": 1,
       "won": 0,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 7,
-      "points": 2
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "points": 1
     },
     {
       "teamId": "copa-oro.republica-dominicana",
@@ -14649,59 +15005,129 @@
       "points": 1
     },
     {
-      "teamId": "copa-oro.haiti",
-      "name": "Haití",
-      "shortName": "Haití",
-      "code": "HAI",
-      "logoUrl": "/brand/official/countries/haiti.png",
-      "played": 3,
+      "teamId": "copa-oro.puerto-rico",
+      "name": "Puerto Rico",
+      "shortName": "Puerto Rico",
+      "code": "PUR",
+      "logoUrl": "/brand/official/countries/puerto-rico.png",
+      "played": 2,
       "won": 0,
       "drawn": 1,
-      "lost": 2,
-      "goalsFor": 2,
-      "goalsAgainst": 4,
-      "points": 1
-    },
-    {
-      "teamId": "copa-oro.surinam",
-      "name": "Surinam",
-      "shortName": "Surinam",
-      "code": "SUR",
-      "logoUrl": "/brand/official/countries/surinam.png",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 6,
-      "points": 1
-    },
-    {
-      "teamId": "copa-oro.el-salvador",
-      "name": "El Salvador",
-      "shortName": "El Salvador",
-      "code": "SLV",
-      "logoUrl": "/brand/official/countries/el-salvador.png",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
+      "lost": 1,
       "goalsFor": 0,
+      "goalsAgainst": 2,
+      "points": 1
+    },
+    {
+      "teamId": "copa-oro.san-vicente-y-las-granadinas",
+      "name": "San Vicente y las Granadinas",
+      "shortName": "S. Vicente",
+      "code": "VIN",
+      "logoUrl": "/brand/official/countries/san-vicente-y-las-granadinas.png",
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 1,
       "goalsAgainst": 4,
       "points": 1
     },
     {
-      "teamId": "copa-oro.guadalupe",
-      "name": "Guadalupe",
-      "shortName": "Guadalupe",
-      "code": "GDL",
-      "logoUrl": "/brand/official/countries/guadalupe.png",
-      "played": 3,
+      "teamId": "copa-oro.santa-lucia",
+      "name": "Santa Lucía",
+      "shortName": "Sta. Lucía",
+      "code": "LCA",
+      "logoUrl": "/brand/official/countries/santa-lucia.png",
+      "played": 1,
       "won": 0,
       "drawn": 0,
-      "lost": 3,
-      "goalsFor": 5,
-      "goalsAgainst": 10,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 3,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.nicaragua",
+      "name": "Nicaragua",
+      "shortName": "Nicaragua",
+      "code": "NCA",
+      "logoUrl": "/brand/official/countries/nicaragua.png",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 0,
+      "goalsAgainst": 2,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.sint-maarten",
+      "name": "Sint Maarten",
+      "shortName": "Sint Maarten",
+      "code": "SMA",
+      "logoUrl": "/brand/official/countries/sint-maarten.png",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 4,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.bermudas",
+      "name": "Bermudas",
+      "shortName": "Bermudas",
+      "code": "BER",
+      "logoUrl": "/brand/official/countries/bermudas.png",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 7,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.antigua-y-barbuda",
+      "name": "Antigua y Barbuda",
+      "shortName": "Antigua y B.",
+      "code": "ATG",
+      "logoUrl": "/brand/official/countries/antigua-y-barbuda.png",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 5,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.cuba",
+      "name": "Cuba",
+      "shortName": "Cuba",
+      "code": "CUB",
+      "logoUrl": "/brand/official/countries/cuba.png",
+      "played": 5,
+      "won": 0,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 4,
+      "goalsAgainst": 15,
+      "points": 0
+    },
+    {
+      "teamId": "copa-oro.belice",
+      "name": "Belice",
+      "shortName": "Belice",
+      "code": "BLZ",
+      "logoUrl": "/brand/official/countries/belice.png",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 1,
+      "goalsAgainst": 13,
       "points": 0
     }
   ]
