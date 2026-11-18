@@ -1,0 +1,975 @@
+{
+  "schema_version": "hierarchical_props_v5.0.0",
+  "codename": "PitchLab Hierarchical Props v5.0 (Logit-Space Barycentric PAVA Spline + Multi-Threshold 1.5+)",
+  "version": "5.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T19:40:55+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "half_life_days": 120.0,
+  "knockout_stage_config": {
+    "goal_multiplier": 0.88779,
+    "significance": "significativa"
+  },
+  "soccer": {
+    "positions": {
+      "GK": {
+        "mean_starter_minutes": 89.603,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "assists": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.052717,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.53579
+          },
+          "shots": {
+            "prior_rate_per90": 0.02,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.008,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_CB": {
+        "mean_starter_minutes": 87.497,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.046282,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.20394
+          },
+          "assists": {
+            "prior_rate_per90": 0.030389,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.55395
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.076672,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.34267
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.203093,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 0.62,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.2263,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_FB": {
+        "mean_starter_minutes": 86.201,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.035001,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "assists": {
+            "prior_rate_per90": 0.093906,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.128908,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.193536,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 0.88,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.3212,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_DM": {
+        "mean_starter_minutes": 84.241,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.057657,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.5074
+          },
+          "assists": {
+            "prior_rate_per90": 0.061416,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.119073,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.60623
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.246737,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.05,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.38325,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_CM": {
+        "mean_starter_minutes": 82.433,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.104084,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.44388
+          },
+          "assists": {
+            "prior_rate_per90": 0.120141,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.41417
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.224226,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.42796
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.212797,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.42,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.5183,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_AM": {
+        "mean_starter_minutes": 80.3,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.229425,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.15089
+          },
+          "assists": {
+            "prior_rate_per90": 0.206111,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.22493
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.435536,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.18593
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.159552,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.95,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.71175,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_W": {
+        "mean_starter_minutes": 79.194,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.221164,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.2439
+          },
+          "assists": {
+            "prior_rate_per90": 0.195792,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.32478
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.416956,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.28188
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.148848,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 2.35,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.85775,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_CF": {
+        "mean_starter_minutes": 80.777,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.387963,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.27605
+          },
+          "assists": {
+            "prior_rate_per90": 0.14118,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.33069
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.529144,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.29063
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.14982,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 2.85,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 1.04025,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      }
+    },
+    "logit_spline_calibration_0_5": {
+      "goals": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -9.14217041,
+          -8.85477402,
+          -5.49867547,
+          -3.79954779,
+          -3.57132125,
+          -3.38623564,
+          -3.22358119,
+          -3.06440116,
+          -2.85786638,
+          -2.64302186,
+          -2.38038364,
+          -2.13725701,
+          -1.84587033,
+          -1.60062211,
+          -1.40125912,
+          -1.26446855,
+          -1.114059,
+          -0.95457821,
+          -0.73944715,
+          -0.57457626,
+          -0.39572806,
+          -0.06491567,
+          0.20481639,
+          0.40900721,
+          1.65848081
+        ]
+      },
+      "assists": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -5.99000535,
+          -5.99000535,
+          -4.89778116,
+          -3.93053135,
+          -3.65648675,
+          -3.44175601,
+          -3.18655811,
+          -2.92300086,
+          -2.69964773,
+          -2.49660819,
+          -2.28803888,
+          -2.11648221,
+          -1.94772126,
+          -1.85082746,
+          -1.67346519,
+          -1.54531935,
+          -1.41247867,
+          -1.22682681,
+          -1.0877647,
+          -0.8694062,
+          -0.69927892,
+          -0.48939518,
+          -0.22937909,
+          0.1694637,
+          0.99927821
+        ]
+      },
+      "goals_assists": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -6.06311754,
+          -6.06311754,
+          -5.74097627,
+          -4.4828893,
+          -3.18446218,
+          -2.99522746,
+          -2.79804175,
+          -2.68822702,
+          -2.56491111,
+          -2.4431339,
+          -2.25394456,
+          -2.03126906,
+          -1.78090917,
+          -1.52341376,
+          -1.29776601,
+          -1.10978864,
+          -0.93570762,
+          -0.80670488,
+          -0.66470128,
+          -0.51775098,
+          -0.32206604,
+          -0.15266009,
+          0.14443618,
+          0.59145726,
+          1.46429028
+        ]
+      },
+      "yellow_cards": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -5.30309381,
+          -4.58387262,
+          -4.06080266,
+          -3.59547901,
+          -3.54562216,
+          -3.25835893,
+          -3.06324714,
+          -2.84026079,
+          -2.612293,
+          -2.26777978,
+          -2.03615771,
+          -1.83736009,
+          -1.65054866,
+          -1.50041547,
+          -1.36175735,
+          -1.23720169,
+          -1.1014438,
+          -0.9832674,
+          -0.88167663,
+          -0.65134367,
+          -0.42159807,
+          -0.24952195,
+          0.02568137,
+          0.41798384,
+          1.23528065
+        ]
+      },
+      "shots": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ]
+      },
+      "shots_on_target": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ]
+      }
+    },
+    "logit_spline_calibration_1_5_plus": {
+      "goals": {
+        "eta_knots": [
+          -9.5,
+          -8.2,
+          -7.2,
+          -6.4,
+          -5.7,
+          -5.1,
+          -4.55,
+          -4.05,
+          -3.55,
+          -3.1,
+          -2.65,
+          -2.2,
+          -1.75,
+          -1.3,
+          -0.8,
+          -0.2,
+          0.8
+        ],
+        "zeta_knots": [
+          -8.73612712,
+          -7.45221794,
+          -7.02639455,
+          -6.38690671,
+          -5.77474769,
+          -5.12725873,
+          -4.5100265,
+          -4.00178323,
+          -3.65222705,
+          -3.38548331,
+          -3.13705544,
+          -2.74609459,
+          -2.40110432,
+          -2.00893153,
+          -1.58968065,
+          -1.16679127,
+          -0.26054265
+        ]
+      },
+      "assists": {
+        "eta_knots": [
+          -9.5,
+          -8.2,
+          -7.2,
+          -6.4,
+          -5.7,
+          -5.1,
+          -4.55,
+          -4.05,
+          -3.55,
+          -3.1,
+          -2.65,
+          -2.2,
+          -1.75,
+          -1.3,
+          -0.8,
+          -0.2,
+          0.8
+        ],
+        "zeta_knots": [
+          -9.20267562,
+          -7.32044659,
+          -6.50600644,
+          -5.91776327,
+          -5.3967542,
+          -4.92635687,
+          -4.70823809,
+          -4.43037276,
+          -4.13223728,
+          -3.86881969,
+          -3.46482874,
+          -3.26045301,
+          -2.90805386,
+          -2.71670183,
+          -2.30323412,
+          -1.89987834,
+          -1.25355691
+        ]
+      },
+      "goals_assists": {
+        "eta_knots": [
+          -9.5,
+          -8.2,
+          -7.2,
+          -6.4,
+          -5.7,
+          -5.1,
+          -4.55,
+          -4.05,
+          -3.55,
+          -3.1,
+          -2.65,
+          -2.2,
+          -1.75,
+          -1.3,
+          -0.8,
+          -0.2,
+          0.8
+        ],
+        "zeta_knots": [
+          -11.20800481,
+          -6.55716213,
+          -5.98754931,
+          -5.8035863,
+          -5.45093064,
+          -4.90298704,
+          -4.33993814,
+          -3.77133256,
+          -3.34857093,
+          -3.03664293,
+          -2.73880226,
+          -2.51843218,
+          -2.21954074,
+          -1.87577503,
+          -1.55660282,
+          -0.99476641,
+          -0.34516456
+        ]
+      },
+      "yellow_cards": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -5.30309381,
+          -4.58387262,
+          -4.06080266,
+          -3.59547901,
+          -3.54562216,
+          -3.25835893,
+          -3.06324714,
+          -2.84026079,
+          -2.612293,
+          -2.26777978,
+          -2.03615771,
+          -1.83736009,
+          -1.65054866,
+          -1.50041547,
+          -1.36175735,
+          -1.23720169,
+          -1.1014438,
+          -0.9832674,
+          -0.88167663,
+          -0.65134367,
+          -0.42159807,
+          -0.24952195,
+          0.02568137,
+          0.41798384,
+          1.23528065
+        ]
+      },
+      "shots": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ]
+      },
+      "shots_on_target": {
+        "eta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ],
+        "zeta_knots": [
+          -7.5,
+          -6.4,
+          -5.6,
+          -5.0,
+          -4.5,
+          -4.1,
+          -3.75,
+          -3.45,
+          -3.15,
+          -2.85,
+          -2.55,
+          -2.25,
+          -1.98,
+          -1.72,
+          -1.48,
+          -1.24,
+          -1.0,
+          -0.76,
+          -0.52,
+          -0.28,
+          -0.02,
+          0.28,
+          0.65,
+          1.25,
+          2.5
+        ]
+      }
+    }
+  }
+}

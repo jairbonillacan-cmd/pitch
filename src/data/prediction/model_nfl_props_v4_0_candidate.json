@@ -1,0 +1,66 @@
+{
+  "schema_version": "nfl_player_props_v4.0.0",
+  "codename": "PitchLab Minkowski PBP Player Props v4.0",
+  "version": "4.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T18:16:14+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "markets": {
+    "pass_attempts": {
+      "canonical_line": 32.5,
+      "max_k": 58,
+      "dispersion_r": 34.837591,
+      "feature_names": [
+        "log_qb_att_eb",
+        "team_pass_vol_exc",
+        "opp_pass_def_exc",
+        "trailing_script_idx"
+      ],
+      "coef": [
+        0.2985837575009771,
+        0.08822347600760092,
+        0.041096463854075456,
+        -0.0005540775211156232
+      ],
+      "intercept": 2.4706716669747473
+    },
+    "completions": {
+      "canonical_line": 20.5,
+      "max_k": 46,
+      "dispersion_r": 44.065518,
+      "feature_names": [
+        "log_qb_cmp_eb",
+        "team_pass_vol_exc",
+        "qb_cpoe_scaled",
+        "trailing_script_idx"
+      ],
+      "coef": [
+        0.42571245938970864,
+        0.08911478724808854,
+        0.04173163369383611,
+        -0.012347769580636981
+      ],
+      "intercept": 1.7577355361499598
+    },
+    "rush_attempts": {
+      "canonical_line": 13.5,
+      "max_k": 40,
+      "dispersion_r": 9.536295,
+      "feature_names": [
+        "log_rb_carries_eb",
+        "injury_vacated_share",
+        "opp_rush_def_exc",
+        "leading_script_idx"
+      ],
+      "coef": [
+        0.5996772183784954,
+        0.08634235953777243,
+        0.10502652075914903,
+        -4.260189041611674e-05
+      ],
+      "intercept": 1.0948229356239314
+    }
+  }
+}

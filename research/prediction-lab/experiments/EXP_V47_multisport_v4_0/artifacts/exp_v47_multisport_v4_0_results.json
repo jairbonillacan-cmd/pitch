@@ -1,0 +1,33 @@
+{
+  "experiment_id": "EXP_V47_multisport_v4_0",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "n_total_franchises": 226,
+  "counts_by_sport": {
+    "mlb": 30,
+    "nhl": 32,
+    "nba": 30,
+    "ncaaf": 134
+  },
+  "pre_holdout_validation": {
+    "mlb_2024": {
+      "n": 30,
+      "win_pct_rmse_v4": 0.03986,
+      "win_pct_rmse_flat": 0.07585
+    },
+    "nhl_2023_24": {
+      "n": 32,
+      "pts_pct_rmse_v4": 0.07942,
+      "pts_pct_rmse_flat": 0.10586,
+      "max_ot_conservation_residual": 3.8941072588727366e-14
+    },
+    "ncaaf_2024": {
+      "n": 134,
+      "win_pct_rmse_v4": 0.10308,
+      "win_pct_rmse_flat": 0.20551
+    }
+  },
+  "artifacts": {
+    "multisport_v4_0_state_sha256": "b4d6072484647a4ae80ed6ef6e49bfcbe3dc6810fe4174822912fce86848b8b4"
+  }
+}

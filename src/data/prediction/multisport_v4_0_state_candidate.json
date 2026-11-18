@@ -1,0 +1,2851 @@
+{
+  "schema_version": "multisport_v4.0.0",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T18:34:45+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "n_total_teams": 226,
+  "v36_physics_config": {
+    "schema_version": "multisport_v3.6.0",
+    "codename": "PitchLab Spacetime Multi-Sport v3.6 Candidate",
+    "version": "3.6.0-candidate",
+    "status": "candidate",
+    "production_activated": false,
+    "created_at": "2026-11-18T16:27:00+00:00",
+    "holdout_cut_utc": "2025-02-02T17:30:00Z",
+    "holdout_sealed_untouched": true,
+    "mlb": {
+      "league_woba": 0.312,
+      "league_fip": 4.08,
+      "starter_shrink_ip": 45.0,
+      "home_scoring_mult": 1.026,
+      "away_scoring_mult": 0.978,
+      "r_disp_f5": 5.0,
+      "r_disp_late4": 4.0,
+      "manfred_runner_boost_runs": 0.36
+    },
+    "nhl": {
+      "league_sv_pct": 0.905,
+      "shots_per_game": 30.2,
+      "avg_pp_opportunities": 3.05,
+      "confirmed_goalie_weight": 0.92,
+      "unconfirmed_goalie_weight": 0.42,
+      "b2b_sv_pct_penalty": 0.008,
+      "empty_net_leader_goal_prob": 0.145,
+      "empty_net_puller_tie_prob": 0.068
+    },
+    "nba": {
+      "sigma_margin_base": 11.8,
+      "sigma_total_base": 16.6,
+      "home_b2b_penalty_pts": 1.45,
+      "away_b2b_penalty_pts": 2.15,
+      "three_in_four_penalty_pts": 0.75,
+      "ot_scale": 1.62
+    }
+  },
+  "teams": {
+    "mlb::AZ": {
+      "team_key": "AZ",
+      "team_name": "Arizona Diamondbacks",
+      "sport": "mlb",
+      "elevation_m": 346.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.335,
+        "fip": 4.07,
+        "era": 4.62,
+        "runs_pg": 5.469,
+        "runs_allowed_pg": 4.864
+      }
+    },
+    "mlb::ATL": {
+      "team_key": "ATL",
+      "team_name": "Atlanta Braves",
+      "sport": "mlb",
+      "elevation_m": 316.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.314,
+        "fip": 3.42,
+        "era": 3.49,
+        "runs_pg": 4.346,
+        "runs_allowed_pg": 3.747
+      }
+    },
+    "mlb::BAL": {
+      "team_key": "BAL",
+      "team_name": "Baltimore Orioles",
+      "sport": "mlb",
+      "elevation_m": 8.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.323,
+        "fip": 3.92,
+        "era": 3.94,
+        "runs_pg": 4.852,
+        "runs_allowed_pg": 4.315
+      }
+    },
+    "mlb::BOS": {
+      "team_key": "BOS",
+      "team_name": "Boston Red Sox",
+      "sport": "mlb",
+      "elevation_m": 8.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.32,
+        "fip": 4.09,
+        "era": 4.04,
+        "runs_pg": 4.636,
+        "runs_allowed_pg": 4.611
+      }
+    },
+    "mlb::CHC": {
+      "team_key": "CHC",
+      "team_name": "Chicago Cubs",
+      "sport": "mlb",
+      "elevation_m": 187.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.31,
+        "fip": 4.03,
+        "era": 3.78,
+        "runs_pg": 4.543,
+        "runs_allowed_pg": 4.13
+      }
+    },
+    "mlb::CWS": {
+      "team_key": "CWS",
+      "team_name": "Chicago White Sox",
+      "sport": "mlb",
+      "elevation_m": 182.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.271,
+        "fip": 4.54,
+        "era": 4.67,
+        "runs_pg": 3.13,
+        "runs_allowed_pg": 5.019
+      }
+    },
+    "mlb::CIN": {
+      "team_key": "CIN",
+      "team_name": "Cincinnati Reds",
+      "sport": "mlb",
+      "elevation_m": 160.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.302,
+        "fip": 4.23,
+        "era": 4.09,
+        "runs_pg": 4.315,
+        "runs_allowed_pg": 4.284
+      }
+    },
+    "mlb::CLE": {
+      "team_key": "CLE",
+      "team_name": "Cleveland Guardians",
+      "sport": "mlb",
+      "elevation_m": 203.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.305,
+        "fip": 3.96,
+        "era": 3.61,
+        "runs_pg": 4.398,
+        "runs_allowed_pg": 3.857
+      }
+    },
+    "mlb::COL": {
+      "team_key": "COL",
+      "team_name": "Colorado Rockies",
+      "sport": "mlb",
+      "elevation_m": 1580.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.304,
+        "fip": 4.92,
+        "era": 5.47,
+        "runs_pg": 4.21,
+        "runs_allowed_pg": 5.735
+      }
+    },
+    "mlb::DET": {
+      "team_key": "DET",
+      "team_name": "Detroit Tigers",
+      "sport": "mlb",
+      "elevation_m": 177.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.298,
+        "fip": 3.69,
+        "era": 3.61,
+        "runs_pg": 4.21,
+        "runs_allowed_pg": 3.963
+      }
+    },
+    "mlb::HOU": {
+      "team_key": "HOU",
+      "team_name": "Houston Astros",
+      "sport": "mlb",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.32,
+        "fip": 4.01,
+        "era": 3.74,
+        "runs_pg": 4.596,
+        "runs_allowed_pg": 4.031
+      }
+    },
+    "mlb::KC": {
+      "team_key": "KC",
+      "team_name": "Kansas City Royals",
+      "sport": "mlb",
+      "elevation_m": 270.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.306,
+        "fip": 3.74,
+        "era": 3.76,
+        "runs_pg": 4.537,
+        "runs_allowed_pg": 3.975
+      }
+    },
+    "mlb::LAA": {
+      "team_key": "LAA",
+      "team_name": "Los Angeles Angels",
+      "sport": "mlb",
+      "elevation_m": 49.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.295,
+        "fip": 4.67,
+        "era": 4.56,
+        "runs_pg": 3.92,
+        "runs_allowed_pg": 4.92
+      }
+    },
+    "mlb::LAD": {
+      "team_key": "LAD",
+      "team_name": "Los Angeles Dodgers",
+      "sport": "mlb",
+      "elevation_m": 150.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.336,
+        "fip": 4.16,
+        "era": 3.9,
+        "runs_pg": 5.198,
+        "runs_allowed_pg": 4.235
+      }
+    },
+    "mlb::MIA": {
+      "team_key": "MIA",
+      "team_name": "Miami Marlins",
+      "sport": "mlb",
+      "elevation_m": 3.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.295,
+        "fip": 4.43,
+        "era": 4.73,
+        "runs_pg": 3.932,
+        "runs_allowed_pg": 5.191
+      }
+    },
+    "mlb::MIL": {
+      "team_key": "MIL",
+      "team_name": "Milwaukee Brewers",
+      "sport": "mlb",
+      "elevation_m": 183.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.317,
+        "fip": 4.17,
+        "era": 3.65,
+        "runs_pg": 4.796,
+        "runs_allowed_pg": 3.957
+      }
+    },
+    "mlb::MIN": {
+      "team_key": "MIN",
+      "team_name": "Minnesota Twins",
+      "sport": "mlb",
+      "elevation_m": 255.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.315,
+        "fip": 3.83,
+        "era": 4.26,
+        "runs_pg": 4.58,
+        "runs_allowed_pg": 4.537
+      }
+    },
+    "mlb::NYM": {
+      "team_key": "NYM",
+      "team_name": "New York Mets",
+      "sport": "mlb",
+      "elevation_m": 7.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.319,
+        "fip": 4.03,
+        "era": 3.96,
+        "runs_pg": 4.741,
+        "runs_allowed_pg": 4.302
+      }
+    },
+    "mlb::NYY": {
+      "team_key": "NYY",
+      "team_name": "New York Yankees",
+      "sport": "mlb",
+      "elevation_m": 6.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.329,
+        "fip": 4.05,
+        "era": 3.74,
+        "runs_pg": 5.031,
+        "runs_allowed_pg": 4.123
+      }
+    },
+    "mlb::OAK": {
+      "team_key": "OAK",
+      "team_name": "Oakland Athletics",
+      "sport": "mlb",
+      "elevation_m": 140.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.302,
+        "fip": 4.22,
+        "era": 4.37,
+        "runs_pg": 3.969,
+        "runs_allowed_pg": 4.716
+      }
+    },
+    "mlb::PHI": {
+      "team_key": "PHI",
+      "team_name": "Philadelphia Phillies",
+      "sport": "mlb",
+      "elevation_m": 3.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.324,
+        "fip": 3.84,
+        "era": 3.85,
+        "runs_pg": 4.84,
+        "runs_allowed_pg": 4.142
+      }
+    },
+    "mlb::PIT": {
+      "team_key": "PIT",
+      "team_name": "Pittsburgh Pirates",
+      "sport": "mlb",
+      "elevation_m": 229.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.294,
+        "fip": 4.02,
+        "era": 4.15,
+        "runs_pg": 4.105,
+        "runs_allowed_pg": 4.562
+      }
+    },
+    "mlb::SD": {
+      "team_key": "SD",
+      "team_name": "San Diego Padres",
+      "sport": "mlb",
+      "elevation_m": 9.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.322,
+        "fip": 3.76,
+        "era": 3.86,
+        "runs_pg": 4.691,
+        "runs_allowed_pg": 4.13
+      }
+    },
+    "mlb::SF": {
+      "team_key": "SF",
+      "team_name": "San Francisco Giants",
+      "sport": "mlb",
+      "elevation_m": 11.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.304,
+        "fip": 3.78,
+        "era": 4.1,
+        "runs_pg": 4.278,
+        "runs_allowed_pg": 4.315
+      }
+    },
+    "mlb::SEA": {
+      "team_key": "SEA",
+      "team_name": "Seattle Mariners",
+      "sport": "mlb",
+      "elevation_m": 5.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.302,
+        "fip": 3.72,
+        "era": 3.49,
+        "runs_pg": 4.173,
+        "runs_allowed_pg": 3.747
+      }
+    },
+    "mlb::STL": {
+      "team_key": "STL",
+      "team_name": "St. Louis Cardinals",
+      "sport": "mlb",
+      "elevation_m": 146.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.306,
+        "fip": 3.94,
+        "era": 4.04,
+        "runs_pg": 4.148,
+        "runs_allowed_pg": 4.438
+      }
+    },
+    "mlb::TB": {
+      "team_key": "TB",
+      "team_name": "Tampa Bay Rays",
+      "sport": "mlb",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.293,
+        "fip": 4.03,
+        "era": 3.77,
+        "runs_pg": 3.728,
+        "runs_allowed_pg": 4.093
+      }
+    },
+    "mlb::TEX": {
+      "team_key": "TEX",
+      "team_name": "Texas Rangers",
+      "sport": "mlb",
+      "elevation_m": 167.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.299,
+        "fip": 4.3,
+        "era": 4.35,
+        "runs_pg": 4.216,
+        "runs_allowed_pg": 4.556
+      }
+    },
+    "mlb::TOR": {
+      "team_key": "TOR",
+      "team_name": "Toronto Blue Jays",
+      "sport": "mlb",
+      "elevation_m": 76.0,
+      "is_dome": true,
+      "metrics": {
+        "woba": 0.306,
+        "fip": 4.41,
+        "era": 4.29,
+        "runs_pg": 4.142,
+        "runs_allowed_pg": 4.586
+      }
+    },
+    "mlb::WSH": {
+      "team_key": "WSH",
+      "team_name": "Washington Nationals",
+      "sport": "mlb",
+      "elevation_m": 5.0,
+      "is_dome": false,
+      "metrics": {
+        "woba": 0.299,
+        "fip": 3.92,
+        "era": 4.3,
+        "runs_pg": 4.074,
+        "runs_allowed_pg": 4.716
+      }
+    },
+    "nhl::ANA": {
+      "team_key": "ANA",
+      "team_name": "Anaheim Ducks",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.3853,
+        "xga_5v5": 2.7147,
+        "sv_pct": 0.90234
+      }
+    },
+    "nhl::ARI": {
+      "team_key": "ARI",
+      "team_name": "Arizona Coyotes",
+      "sport": "nhl",
+      "elevation_m": 140.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.4694,
+        "xga_5v5": 2.6306,
+        "sv_pct": 0.90356
+      }
+    },
+    "nhl::BOS": {
+      "team_key": "BOS",
+      "team_name": "Boston Bruins",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5469,
+        "xga_5v5": 2.5531,
+        "sv_pct": 0.90787
+      }
+    },
+    "nhl::BUF": {
+      "team_key": "BUF",
+      "team_name": "Buffalo Sabres",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.4536,
+        "xga_5v5": 2.6464,
+        "sv_pct": 0.905
+      }
+    },
+    "nhl::CGY": {
+      "team_key": "CGY",
+      "team_name": "Calgary Flames",
+      "sport": "nhl",
+      "elevation_m": 1045.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5337,
+        "xga_5v5": 2.5663,
+        "sv_pct": 0.90244
+      }
+    },
+    "nhl::CAR": {
+      "team_key": "CAR",
+      "team_name": "Carolina Hurricanes",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.8545,
+        "xga_5v5": 2.2455,
+        "sv_pct": 0.90409
+      }
+    },
+    "nhl::CHI": {
+      "team_key": "CHI",
+      "team_name": "Chicago Blackhawks",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.1711,
+        "xga_5v5": 2.9289,
+        "sv_pct": 0.90234
+      }
+    },
+    "nhl::COL": {
+      "team_key": "COL",
+      "team_name": "Colorado Avalanche",
+      "sport": "nhl",
+      "elevation_m": 1598.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6602,
+        "xga_5v5": 2.4398,
+        "sv_pct": 0.90374
+      }
+    },
+    "nhl::CBJ": {
+      "team_key": "CBJ",
+      "team_name": "Columbus Blue Jackets",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.2991,
+        "xga_5v5": 2.8009,
+        "sv_pct": 0.90279
+      }
+    },
+    "nhl::DAL": {
+      "team_key": "DAL",
+      "team_name": "Dallas Stars",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.7662,
+        "xga_5v5": 2.3338,
+        "sv_pct": 0.9051
+      }
+    },
+    "nhl::DET": {
+      "team_key": "DET",
+      "team_name": "Detroit Red Wings",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.3424,
+        "xga_5v5": 2.7576,
+        "sv_pct": 0.90419
+      }
+    },
+    "nhl::EDM": {
+      "team_key": "EDM",
+      "team_name": "Edmonton Oilers",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.9667,
+        "xga_5v5": 2.1333,
+        "sv_pct": 0.90363
+      }
+    },
+    "nhl::FLA": {
+      "team_key": "FLA",
+      "team_name": "Florida Panthers",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.7535,
+        "xga_5v5": 2.3465,
+        "sv_pct": 0.90773
+      }
+    },
+    "nhl::LAK": {
+      "team_key": "LAK",
+      "team_name": "Los Angeles Kings",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.78,
+        "xga_5v5": 2.32,
+        "sv_pct": 0.90689
+      }
+    },
+    "nhl::MIN": {
+      "team_key": "MIN",
+      "team_name": "Minnesota Wild",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5979,
+        "xga_5v5": 2.5021,
+        "sv_pct": 0.903
+      }
+    },
+    "nhl::MTL": {
+      "team_key": "MTL",
+      "team_name": "Montreal Canadiens",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.372,
+        "xga_5v5": 2.728,
+        "sv_pct": 0.90388
+      }
+    },
+    "nhl::NSH": {
+      "team_key": "NSH",
+      "team_name": "Nashville Predators",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6999,
+        "xga_5v5": 2.4001,
+        "sv_pct": 0.90391
+      }
+    },
+    "nhl::NJD": {
+      "team_key": "NJD",
+      "team_name": "New Jersey Devils",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6428,
+        "xga_5v5": 2.4572,
+        "sv_pct": 0.90097
+      }
+    },
+    "nhl::NYI": {
+      "team_key": "NYI",
+      "team_name": "New York Islanders",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5485,
+        "xga_5v5": 2.5515,
+        "sv_pct": 0.90542
+      }
+    },
+    "nhl::NYR": {
+      "team_key": "NYR",
+      "team_name": "New York Rangers",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5128,
+        "xga_5v5": 2.5872,
+        "sv_pct": 0.9065
+      }
+    },
+    "nhl::OTT": {
+      "team_key": "OTT",
+      "team_name": "Ottawa Senators",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5077,
+        "xga_5v5": 2.5923,
+        "sv_pct": 0.90024
+      }
+    },
+    "nhl::PHI": {
+      "team_key": "PHI",
+      "team_name": "Philadelphia Flyers",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6474,
+        "xga_5v5": 2.4526,
+        "sv_pct": 0.90136
+      }
+    },
+    "nhl::PIT": {
+      "team_key": "PIT",
+      "team_name": "Pittsburgh Penguins",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6265,
+        "xga_5v5": 2.4735,
+        "sv_pct": 0.90545
+      }
+    },
+    "nhl::SJS": {
+      "team_key": "SJS",
+      "team_name": "San Jose Sharks",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.1088,
+        "xga_5v5": 2.9911,
+        "sv_pct": 0.90167
+      }
+    },
+    "nhl::SEA": {
+      "team_key": "SEA",
+      "team_name": "Seattle Kraken",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5995,
+        "xga_5v5": 2.5005,
+        "sv_pct": 0.90598
+      }
+    },
+    "nhl::STL": {
+      "team_key": "STL",
+      "team_name": "St. Louis Blues",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.2593,
+        "xga_5v5": 2.8407,
+        "sv_pct": 0.90608
+      }
+    },
+    "nhl::TBL": {
+      "team_key": "TBL",
+      "team_name": "Tampa Bay Lightning",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.5367,
+        "xga_5v5": 2.5633,
+        "sv_pct": 0.90143
+      }
+    },
+    "nhl::TOR": {
+      "team_key": "TOR",
+      "team_name": "Toronto Maple Leafs",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6076,
+        "xga_5v5": 2.4924,
+        "sv_pct": 0.90374
+      }
+    },
+    "nhl::VAN": {
+      "team_key": "VAN",
+      "team_name": "Vancouver Canucks",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6647,
+        "xga_5v5": 2.4352,
+        "sv_pct": 0.90584
+      }
+    },
+    "nhl::VGK": {
+      "team_key": "VGK",
+      "team_name": "Vegas Golden Knights",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6285,
+        "xga_5v5": 2.4715,
+        "sv_pct": 0.90538
+      }
+    },
+    "nhl::WSH": {
+      "team_key": "WSH",
+      "team_name": "Washington Capitals",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.4189,
+        "xga_5v5": 2.6811,
+        "sv_pct": 0.90514
+      }
+    },
+    "nhl::WPG": {
+      "team_key": "WPG",
+      "team_name": "Winnipeg Jets",
+      "sport": "nhl",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "metrics": {
+        "xgf_5v5": 2.6194,
+        "xga_5v5": 2.4806,
+        "sv_pct": 0.90916
+      }
+    },
+    "nba::ATL": {
+      "team_key": "ATL",
+      "team_name": "Atlanta Hawks",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 114.6,
+        "drtg": 115.7,
+        "net_rtg": -1.1,
+        "pace": 102.6
+      }
+    },
+    "nba::BOS": {
+      "team_key": "BOS",
+      "team_name": "Boston Celtics",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 120.6,
+        "drtg": 111.1,
+        "net_rtg": 9.5,
+        "pace": 95.7
+      }
+    },
+    "nba::BKN": {
+      "team_key": "BKN",
+      "team_name": "Brooklyn Nets",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 108.5,
+        "drtg": 115.8,
+        "net_rtg": -7.3,
+        "pace": 96.4
+      }
+    },
+    "nba::CHA": {
+      "team_key": "CHA",
+      "team_name": "Charlotte Hornets",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 107.3,
+        "drtg": 116.6,
+        "net_rtg": -9.3,
+        "pace": 97.6
+      }
+    },
+    "nba::CHI": {
+      "team_key": "CHI",
+      "team_name": "Chicago Bulls",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 114.1,
+        "drtg": 115.6,
+        "net_rtg": -1.5,
+        "pace": 102.8
+      }
+    },
+    "nba::CLE": {
+      "team_key": "CLE",
+      "team_name": "Cleveland Cavaliers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 121.7,
+        "drtg": 112.2,
+        "net_rtg": 9.5,
+        "pace": 99.8
+      }
+    },
+    "nba::DAL": {
+      "team_key": "DAL",
+      "team_name": "Dallas Mavericks",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 114.8,
+        "drtg": 116.0,
+        "net_rtg": -1.2,
+        "pace": 99.2
+      }
+    },
+    "nba::DEN": {
+      "team_key": "DEN",
+      "team_name": "Denver Nuggets",
+      "sport": "nba",
+      "elevation_m": 1609.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 119.9,
+        "drtg": 116.0,
+        "net_rtg": 3.9,
+        "pace": 99.8
+      }
+    },
+    "nba::DET": {
+      "team_key": "DET",
+      "team_name": "Detroit Pistons",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.0,
+        "drtg": 113.1,
+        "net_rtg": 1.9,
+        "pace": 99.8
+      }
+    },
+    "nba::GSW": {
+      "team_key": "GSW",
+      "team_name": "Golden State Warriors",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.0,
+        "drtg": 111.7,
+        "net_rtg": 3.3,
+        "pace": 98.7
+      }
+    },
+    "nba::HOU": {
+      "team_key": "HOU",
+      "team_name": "Houston Rockets",
+      "sport": "nba",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.3,
+        "drtg": 110.8,
+        "net_rtg": 4.5,
+        "pace": 98.6
+      }
+    },
+    "nba::IND": {
+      "team_key": "IND",
+      "team_name": "Indiana Pacers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 116.5,
+        "drtg": 114.3,
+        "net_rtg": 2.2,
+        "pace": 99.9
+      }
+    },
+    "nba::LAC": {
+      "team_key": "LAC",
+      "team_name": "Los Angeles Clippers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.1,
+        "drtg": 110.3,
+        "net_rtg": 4.8,
+        "pace": 97.5
+      }
+    },
+    "nba::LAL": {
+      "team_key": "LAL",
+      "team_name": "Los Angeles Lakers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.9,
+        "drtg": 114.7,
+        "net_rtg": 1.2,
+        "pace": 97.6
+      }
+    },
+    "nba::MEM": {
+      "team_key": "MEM",
+      "team_name": "Memphis Grizzlies",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 117.7,
+        "drtg": 113.0,
+        "net_rtg": 4.7,
+        "pace": 103.3
+      }
+    },
+    "nba::MIA": {
+      "team_key": "MIA",
+      "team_name": "Miami Heat",
+      "sport": "nba",
+      "elevation_m": 3.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 113.5,
+        "drtg": 112.9,
+        "net_rtg": 0.6,
+        "pace": 96.2
+      }
+    },
+    "nba::MIL": {
+      "team_key": "MIL",
+      "team_name": "Milwaukee Bucks",
+      "sport": "nba",
+      "elevation_m": 183.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 115.9,
+        "drtg": 113.4,
+        "net_rtg": 2.5,
+        "pace": 99.3
+      }
+    },
+    "nba::MIN": {
+      "team_key": "MIN",
+      "team_name": "Minnesota Timberwolves",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 116.6,
+        "drtg": 111.5,
+        "net_rtg": 5.1,
+        "pace": 97.3
+      }
+    },
+    "nba::NOP": {
+      "team_key": "NOP",
+      "team_name": "New Orleans Pelicans",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 110.4,
+        "drtg": 119.9,
+        "net_rtg": -9.5,
+        "pace": 99.1
+      }
+    },
+    "nba::NYK": {
+      "team_key": "NYK",
+      "team_name": "New York Knicks",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 118.5,
+        "drtg": 114.3,
+        "net_rtg": 4.2,
+        "pace": 96.7
+      }
+    },
+    "nba::OKC": {
+      "team_key": "OKC",
+      "team_name": "Oklahoma City Thunder",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 120.3,
+        "drtg": 107.5,
+        "net_rtg": 12.8,
+        "pace": 100.0
+      }
+    },
+    "nba::ORL": {
+      "team_key": "ORL",
+      "team_name": "Orlando Magic",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 109.4,
+        "drtg": 109.6,
+        "net_rtg": -0.2,
+        "pace": 96.1
+      }
+    },
+    "nba::PHI": {
+      "team_key": "PHI",
+      "team_name": "Philadelphia 76ers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 111.9,
+        "drtg": 118.2,
+        "net_rtg": -6.3,
+        "pace": 97.4
+      }
+    },
+    "nba::PHX": {
+      "team_key": "PHX",
+      "team_name": "Phoenix Suns",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 116.2,
+        "drtg": 119.3,
+        "net_rtg": -3.1,
+        "pace": 97.1
+      }
+    },
+    "nba::POR": {
+      "team_key": "POR",
+      "team_name": "Portland Trail Blazers",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 111.7,
+        "drtg": 114.7,
+        "net_rtg": -3.0,
+        "pace": 98.8
+      }
+    },
+    "nba::SAC": {
+      "team_key": "SAC",
+      "team_name": "Sacramento Kings",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 116.7,
+        "drtg": 116.2,
+        "net_rtg": 0.5,
+        "pace": 98.2
+      }
+    },
+    "nba::SAS": {
+      "team_key": "SAS",
+      "team_name": "San Antonio Spurs",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 114.4,
+        "drtg": 117.2,
+        "net_rtg": -2.8,
+        "pace": 99.3
+      }
+    },
+    "nba::TOR": {
+      "team_key": "TOR",
+      "team_name": "Toronto Raptors",
+      "sport": "nba",
+      "elevation_m": 76.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 110.5,
+        "drtg": 114.8,
+        "net_rtg": -4.3,
+        "pace": 99.7
+      }
+    },
+    "nba::UTA": {
+      "team_key": "UTA",
+      "team_name": "Utah Jazz",
+      "sport": "nba",
+      "elevation_m": 1288.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 111.2,
+        "drtg": 120.4,
+        "net_rtg": -9.2,
+        "pace": 100.0
+      }
+    },
+    "nba::WAS": {
+      "team_key": "WAS",
+      "team_name": "Washington Wizards",
+      "sport": "nba",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "metrics": {
+        "ortg": 106.8,
+        "drtg": 119.1,
+        "net_rtg": -12.3,
+        "pace": 100.9
+      }
+    },
+    "ncaaf::AFA": {
+      "team_key": "AFA",
+      "team_name": "Air Force Falcons",
+      "sport": "ncaaf",
+      "elevation_m": 2018.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -10.355,
+        "pts_pg": 18.92,
+        "opp_pts_pg": 23.25
+      }
+    },
+    "ncaaf::AKR": {
+      "team_key": "AKR",
+      "team_name": "Akron Zips",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -15.805,
+        "pts_pg": 20.42,
+        "opp_pts_pg": 32.0
+      }
+    },
+    "ncaaf::ALA": {
+      "team_key": "ALA",
+      "team_name": "Alabama Crimson Tide",
+      "sport": "ncaaf",
+      "elevation_m": 69.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 23.275,
+        "pts_pg": 33.77,
+        "opp_pts_pg": 17.38
+      }
+    },
+    "ncaaf::APP": {
+      "team_key": "APP",
+      "team_name": "App State Mountaineers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -7.55,
+        "pts_pg": 26.64,
+        "opp_pts_pg": 32.91
+      }
+    },
+    "ncaaf::ASU": {
+      "team_key": "ASU",
+      "team_name": "Arizona State Sun Devils",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 12.975,
+        "pts_pg": 32.93,
+        "opp_pts_pg": 22.57
+      }
+    },
+    "ncaaf::ARIZ": {
+      "team_key": "ARIZ",
+      "team_name": "Arizona Wildcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.29,
+        "pts_pg": 21.75,
+        "opp_pts_pg": 31.75
+      }
+    },
+    "ncaaf::ARK": {
+      "team_key": "ARK",
+      "team_name": "Arkansas Razorbacks",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.45,
+        "pts_pg": 30.92,
+        "opp_pts_pg": 25.0
+      }
+    },
+    "ncaaf::ARST": {
+      "team_key": "ARST",
+      "team_name": "Arkansas State Red Wolves",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -11.775,
+        "pts_pg": 25.85,
+        "opp_pts_pg": 32.15
+      }
+    },
+    "ncaaf::ARMY": {
+      "team_key": "ARMY",
+      "team_name": "Army Black Knights",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 4.58,
+        "pts_pg": 31.07,
+        "opp_pts_pg": 15.5
+      }
+    },
+    "ncaaf::AUB": {
+      "team_key": "AUB",
+      "team_name": "Auburn Tigers",
+      "sport": "ncaaf",
+      "elevation_m": 198.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.87,
+        "pts_pg": 27.75,
+        "opp_pts_pg": 21.33
+      }
+    },
+    "ncaaf::BYU": {
+      "team_key": "BYU",
+      "team_name": "BYU Cougars",
+      "sport": "ncaaf",
+      "elevation_m": 1417.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.745,
+        "pts_pg": 31.15,
+        "opp_pts_pg": 19.62
+      }
+    },
+    "ncaaf::BALL": {
+      "team_key": "BALL",
+      "team_name": "Ball State Cardinals",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -18.545,
+        "pts_pg": 25.33,
+        "opp_pts_pg": 40.08
+      }
+    },
+    "ncaaf::BAY": {
+      "team_key": "BAY",
+      "team_name": "Baylor Bears",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.63,
+        "pts_pg": 34.38,
+        "opp_pts_pg": 26.69
+      }
+    },
+    "ncaaf::BOIS": {
+      "team_key": "BOIS",
+      "team_name": "Boise State Broncos",
+      "sport": "ncaaf",
+      "elevation_m": 826.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 10.195,
+        "pts_pg": 37.29,
+        "opp_pts_pg": 22.57
+      }
+    },
+    "ncaaf::BC": {
+      "team_key": "BC",
+      "team_name": "Boston College Eagles",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 4.515,
+        "pts_pg": 28.15,
+        "opp_pts_pg": 23.77
+      }
+    },
+    "ncaaf::BGSU": {
+      "team_key": "BGSU",
+      "team_name": "Bowling Green Falcons",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.59,
+        "pts_pg": 27.08,
+        "opp_pts_pg": 21.62
+      }
+    },
+    "ncaaf::BUFF": {
+      "team_key": "BUFF",
+      "team_name": "Buffalo Bulls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -9.33,
+        "pts_pg": 28.85,
+        "opp_pts_pg": 26.38
+      }
+    },
+    "ncaaf::CAL": {
+      "team_key": "CAL",
+      "team_name": "California Golden Bears",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 2.995,
+        "pts_pg": 25.08,
+        "opp_pts_pg": 22.31
+      }
+    },
+    "ncaaf::CMU": {
+      "team_key": "CMU",
+      "team_name": "Central Michigan Chippewas",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -14.805,
+        "pts_pg": 22.58,
+        "opp_pts_pg": 29.67
+      }
+    },
+    "ncaaf::CLT": {
+      "team_key": "CLT",
+      "team_name": "Charlotte 49ers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -13.175,
+        "pts_pg": 23.67,
+        "opp_pts_pg": 35.08
+      }
+    },
+    "ncaaf::CIN": {
+      "team_key": "CIN",
+      "team_name": "Cincinnati Bearcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 4.085,
+        "pts_pg": 25.17,
+        "opp_pts_pg": 24.58
+      }
+    },
+    "ncaaf::CLEM": {
+      "team_key": "CLEM",
+      "team_name": "Clemson Tigers",
+      "sport": "ncaaf",
+      "elevation_m": 203.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 15.11,
+        "pts_pg": 34.71,
+        "opp_pts_pg": 23.43
+      }
+    },
+    "ncaaf::CCU": {
+      "team_key": "CCU",
+      "team_name": "Coastal Carolina Chanticleers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -9.045,
+        "pts_pg": 28.69,
+        "opp_pts_pg": 31.62
+      }
+    },
+    "ncaaf::COLO": {
+      "team_key": "COLO",
+      "team_name": "Colorado Buffaloes",
+      "sport": "ncaaf",
+      "elevation_m": 1636.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.805,
+        "pts_pg": 32.92,
+        "opp_pts_pg": 23.08
+      }
+    },
+    "ncaaf::CSU": {
+      "team_key": "CSU",
+      "team_name": "Colorado State Rams",
+      "sport": "ncaaf",
+      "elevation_m": 1525.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -9.145,
+        "pts_pg": 24.38,
+        "opp_pts_pg": 25.77
+      }
+    },
+    "ncaaf::DUKE": {
+      "team_key": "DUKE",
+      "team_name": "Duke Blue Devils",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 2.545,
+        "pts_pg": 26.31,
+        "opp_pts_pg": 24.46
+      }
+    },
+    "ncaaf::ECU": {
+      "team_key": "ECU",
+      "team_name": "East Carolina Pirates",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -5.16,
+        "pts_pg": 32.0,
+        "opp_pts_pg": 27.31
+      }
+    },
+    "ncaaf::EMU": {
+      "team_key": "EMU",
+      "team_name": "Eastern Michigan Eagles",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -13.495,
+        "pts_pg": 25.92,
+        "opp_pts_pg": 27.92
+      }
+    },
+    "ncaaf::FAU": {
+      "team_key": "FAU",
+      "team_name": "Florida Atlantic Owls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -13.08,
+        "pts_pg": 25.92,
+        "opp_pts_pg": 30.25
+      }
+    },
+    "ncaaf::FLA": {
+      "team_key": "FLA",
+      "team_name": "Florida Gators",
+      "sport": "ncaaf",
+      "elevation_m": 48.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 14.08,
+        "pts_pg": 28.31,
+        "opp_pts_pg": 23.08
+      }
+    },
+    "ncaaf::FIU": {
+      "team_key": "FIU",
+      "team_name": "Florida International Panthers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -13.035,
+        "pts_pg": 26.33,
+        "opp_pts_pg": 25.75
+      }
+    },
+    "ncaaf::FSU": {
+      "team_key": "FSU",
+      "team_name": "Florida State Seminoles",
+      "sport": "ncaaf",
+      "elevation_m": 20.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.04,
+        "pts_pg": 15.42,
+        "opp_pts_pg": 28.0
+      }
+    },
+    "ncaaf::FRES": {
+      "team_key": "FRES",
+      "team_name": "Fresno State Bulldogs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -4.28,
+        "pts_pg": 26.08,
+        "opp_pts_pg": 24.85
+      }
+    },
+    "ncaaf::UGA": {
+      "team_key": "UGA",
+      "team_name": "Georgia Bulldogs",
+      "sport": "ncaaf",
+      "elevation_m": 190.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 22.615,
+        "pts_pg": 31.5,
+        "opp_pts_pg": 20.57
+      }
+    },
+    "ncaaf::GASO": {
+      "team_key": "GASO",
+      "team_name": "Georgia Southern Eagles",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.9,
+        "pts_pg": 28.0,
+        "opp_pts_pg": 27.62
+      }
+    },
+    "ncaaf::GAST": {
+      "team_key": "GAST",
+      "team_name": "Georgia State Panthers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.2,
+        "pts_pg": 23.83,
+        "opp_pts_pg": 33.83
+      }
+    },
+    "ncaaf::GT": {
+      "team_key": "GT",
+      "team_name": "Georgia Tech Yellow Jackets",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 7.04,
+        "pts_pg": 28.92,
+        "opp_pts_pg": 25.62
+      }
+    },
+    "ncaaf::HAW": {
+      "team_key": "HAW",
+      "team_name": "Hawai'i Rainbow Warriors",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.06,
+        "pts_pg": 22.33,
+        "opp_pts_pg": 26.0
+      }
+    },
+    "ncaaf::HOU": {
+      "team_key": "HOU",
+      "team_name": "Houston Cougars",
+      "sport": "ncaaf",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "metrics": {
+        "power_rating": -2.255,
+        "pts_pg": 14.0,
+        "opp_pts_pg": 22.92
+      }
+    },
+    "ncaaf::ILL": {
+      "team_key": "ILL",
+      "team_name": "Illinois Fighting Illini",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 7.355,
+        "pts_pg": 28.31,
+        "opp_pts_pg": 21.69
+      }
+    },
+    "ncaaf::IU": {
+      "team_key": "IU",
+      "team_name": "Indiana Hoosiers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 20.345,
+        "pts_pg": 41.31,
+        "opp_pts_pg": 15.62
+      }
+    },
+    "ncaaf::IOWA": {
+      "team_key": "IOWA",
+      "team_name": "Iowa Hawkeyes",
+      "sport": "ncaaf",
+      "elevation_m": 218.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 12.4,
+        "pts_pg": 27.69,
+        "opp_pts_pg": 17.85
+      }
+    },
+    "ncaaf::ISU": {
+      "team_key": "ISU",
+      "team_name": "Iowa State Cyclones",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.725,
+        "pts_pg": 31.07,
+        "opp_pts_pg": 22.93
+      }
+    },
+    "ncaaf::JVST": {
+      "team_key": "JVST",
+      "team_name": "Jacksonville State Gamecocks",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -2.11,
+        "pts_pg": 36.0,
+        "opp_pts_pg": 26.14
+      }
+    },
+    "ncaaf::JMU": {
+      "team_key": "JMU",
+      "team_name": "James Madison Dukes",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 1.935,
+        "pts_pg": 33.31,
+        "opp_pts_pg": 20.46
+      }
+    },
+    "ncaaf::KU": {
+      "team_key": "KU",
+      "team_name": "Kansas Jayhawks",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.595,
+        "pts_pg": 29.67,
+        "opp_pts_pg": 26.0
+      }
+    },
+    "ncaaf::KSU": {
+      "team_key": "KSU",
+      "team_name": "Kansas State Wildcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.765,
+        "pts_pg": 30.85,
+        "opp_pts_pg": 23.38
+      }
+    },
+    "ncaaf::KENN": {
+      "team_key": "KENN",
+      "team_name": "Kennesaw State Owls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -23.68,
+        "pts_pg": 16.5,
+        "opp_pts_pg": 31.17
+      }
+    },
+    "ncaaf::KENT": {
+      "team_key": "KENT",
+      "team_name": "Kent State Golden Flashes",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -31.565,
+        "pts_pg": 13.92,
+        "opp_pts_pg": 44.08
+      }
+    },
+    "ncaaf::UK": {
+      "team_key": "UK",
+      "team_name": "Kentucky Wildcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.005,
+        "pts_pg": 20.58,
+        "opp_pts_pg": 22.08
+      }
+    },
+    "ncaaf::LSU": {
+      "team_key": "LSU",
+      "team_name": "LSU Tigers",
+      "sport": "ncaaf",
+      "elevation_m": 9.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 15.215,
+        "pts_pg": 30.46,
+        "opp_pts_pg": 24.31
+      }
+    },
+    "ncaaf::LIB": {
+      "team_key": "LIB",
+      "team_name": "Liberty Flames",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -8.165,
+        "pts_pg": 28.75,
+        "opp_pts_pg": 23.5
+      }
+    },
+    "ncaaf::UL": {
+      "team_key": "UL",
+      "team_name": "Louisiana Ragin' Cajuns",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -1.6,
+        "pts_pg": 30.93,
+        "opp_pts_pg": 24.14
+      }
+    },
+    "ncaaf::LT": {
+      "team_key": "LT",
+      "team_name": "Louisiana Tech Bulldogs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.125,
+        "pts_pg": 20.92,
+        "opp_pts_pg": 21.0
+      }
+    },
+    "ncaaf::LOU": {
+      "team_key": "LOU",
+      "team_name": "Louisville Cardinals",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 15.96,
+        "pts_pg": 36.46,
+        "opp_pts_pg": 24.08
+      }
+    },
+    "ncaaf::MRSH": {
+      "team_key": "MRSH",
+      "team_name": "Marshall Thundering Herd",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 1.755,
+        "pts_pg": 31.85,
+        "opp_pts_pg": 23.08
+      }
+    },
+    "ncaaf::MD": {
+      "team_key": "MD",
+      "team_name": "Maryland Terrapins",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 0.08,
+        "pts_pg": 23.67,
+        "opp_pts_pg": 30.42
+      }
+    },
+    "ncaaf::MASS": {
+      "team_key": "MASS",
+      "team_name": "Massachusetts Minutemen",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -18.08,
+        "pts_pg": 22.5,
+        "opp_pts_pg": 35.5
+      }
+    },
+    "ncaaf::MEM": {
+      "team_key": "MEM",
+      "team_name": "Memphis Tigers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 3.555,
+        "pts_pg": 35.69,
+        "opp_pts_pg": 23.85
+      }
+    },
+    "ncaaf::M-OH": {
+      "team_key": "M-OH",
+      "team_name": "Miami (OH) RedHawks",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -1.63,
+        "pts_pg": 24.07,
+        "opp_pts_pg": 18.79
+      }
+    },
+    "ncaaf::MIA": {
+      "team_key": "MIA",
+      "team_name": "Miami Hurricanes",
+      "sport": "ncaaf",
+      "elevation_m": 3.0,
+      "is_dome": true,
+      "metrics": {
+        "power_rating": 17.8,
+        "pts_pg": 43.92,
+        "opp_pts_pg": 25.31
+      }
+    },
+    "ncaaf::MSU": {
+      "team_key": "MSU",
+      "team_name": "Michigan State Spartans",
+      "sport": "ncaaf",
+      "elevation_m": 256.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -2.58,
+        "pts_pg": 19.33,
+        "opp_pts_pg": 26.08
+      }
+    },
+    "ncaaf::MICH": {
+      "team_key": "MICH",
+      "team_name": "Michigan Wolverines",
+      "sport": "ncaaf",
+      "elevation_m": 257.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.84,
+        "pts_pg": 22.0,
+        "opp_pts_pg": 19.92
+      }
+    },
+    "ncaaf::MTSU": {
+      "team_key": "MTSU",
+      "team_name": "Middle Tennessee Blue Raiders",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -21.245,
+        "pts_pg": 18.08,
+        "opp_pts_pg": 34.25
+      }
+    },
+    "ncaaf::MINN": {
+      "team_key": "MINN",
+      "team_name": "Minnesota Golden Gophers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.03,
+        "pts_pg": 26.15,
+        "opp_pts_pg": 16.92
+      }
+    },
+    "ncaaf::MSST": {
+      "team_key": "MSST",
+      "team_name": "Mississippi State Bulldogs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 0.4,
+        "pts_pg": 25.83,
+        "opp_pts_pg": 34.08
+      }
+    },
+    "ncaaf::MIZ": {
+      "team_key": "MIZ",
+      "team_name": "Missouri Tigers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 12.86,
+        "pts_pg": 28.92,
+        "opp_pts_pg": 20.38
+      }
+    },
+    "ncaaf::NCSU": {
+      "team_key": "NCSU",
+      "team_name": "NC State Wolfpack",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -0.285,
+        "pts_pg": 28.54,
+        "opp_pts_pg": 30.15
+      }
+    },
+    "ncaaf::NAVY": {
+      "team_key": "NAVY",
+      "team_name": "Navy Midshipmen",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 2.72,
+        "pts_pg": 31.31,
+        "opp_pts_pg": 22.15
+      }
+    },
+    "ncaaf::NEB": {
+      "team_key": "NEB",
+      "team_name": "Nebraska Cornhuskers",
+      "sport": "ncaaf",
+      "elevation_m": 356.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 7.575,
+        "pts_pg": 23.54,
+        "opp_pts_pg": 19.46
+      }
+    },
+    "ncaaf::NEV": {
+      "team_key": "NEV",
+      "team_name": "Nevada Wolf Pack",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -10.03,
+        "pts_pg": 23.08,
+        "opp_pts_pg": 28.77
+      }
+    },
+    "ncaaf::UNM": {
+      "team_key": "UNM",
+      "team_name": "New Mexico Lobos",
+      "sport": "ncaaf",
+      "elevation_m": 1555.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.475,
+        "pts_pg": 33.5,
+        "opp_pts_pg": 38.0
+      }
+    },
+    "ncaaf::NMSU": {
+      "team_key": "NMSU",
+      "team_name": "New Mexico State Aggies",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -22.7,
+        "pts_pg": 21.58,
+        "opp_pts_pg": 36.25
+      }
+    },
+    "ncaaf::UNC": {
+      "team_key": "UNC",
+      "team_name": "North Carolina Tar Heels",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 1.38,
+        "pts_pg": 30.92,
+        "opp_pts_pg": 28.08
+      }
+    },
+    "ncaaf::UNT": {
+      "team_key": "UNT",
+      "team_name": "North Texas Mean Green",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -6.88,
+        "pts_pg": 33.54,
+        "opp_pts_pg": 34.15
+      }
+    },
+    "ncaaf::NIU": {
+      "team_key": "NIU",
+      "team_name": "Northern Illinois Huskies",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.52,
+        "pts_pg": 24.54,
+        "opp_pts_pg": 18.54
+      }
+    },
+    "ncaaf::NU": {
+      "team_key": "NU",
+      "team_name": "Northwestern Wildcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.815,
+        "pts_pg": 17.83,
+        "opp_pts_pg": 26.33
+      }
+    },
+    "ncaaf::ND": {
+      "team_key": "ND",
+      "team_name": "Notre Dame Fighting Irish",
+      "sport": "ncaaf",
+      "elevation_m": 230.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 26.19,
+        "pts_pg": 36.12,
+        "opp_pts_pg": 15.5
+      }
+    },
+    "ncaaf::OHIO": {
+      "team_key": "OHIO",
+      "team_name": "Ohio Bobcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -0.31,
+        "pts_pg": 29.29,
+        "opp_pts_pg": 18.14
+      }
+    },
+    "ncaaf::OSU": {
+      "team_key": "OSU",
+      "team_name": "Ohio State Buckeyes",
+      "sport": "ncaaf",
+      "elevation_m": 225.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 29.43,
+        "pts_pg": 35.69,
+        "opp_pts_pg": 12.88
+      }
+    },
+    "ncaaf::OU": {
+      "team_key": "OU",
+      "team_name": "Oklahoma Sooners",
+      "sport": "ncaaf",
+      "elevation_m": 357.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 11.255,
+        "pts_pg": 24.0,
+        "opp_pts_pg": 21.54
+      }
+    },
+    "ncaaf::OKST": {
+      "team_key": "OKST",
+      "team_name": "Oklahoma State Cowboys",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -0.45,
+        "pts_pg": 27.17,
+        "opp_pts_pg": 35.58
+      }
+    },
+    "ncaaf::ODU": {
+      "team_key": "ODU",
+      "team_name": "Old Dominion Monarchs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.23,
+        "pts_pg": 28.0,
+        "opp_pts_pg": 28.0
+      }
+    },
+    "ncaaf::MISS": {
+      "team_key": "MISS",
+      "team_name": "Ole Miss Rebels",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 23.635,
+        "pts_pg": 38.62,
+        "opp_pts_pg": 14.38
+      }
+    },
+    "ncaaf::ORE": {
+      "team_key": "ORE",
+      "team_name": "Oregon Ducks",
+      "sport": "ncaaf",
+      "elevation_m": 129.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 21.53,
+        "pts_pg": 34.86,
+        "opp_pts_pg": 19.43
+      }
+    },
+    "ncaaf::ORST": {
+      "team_key": "ORST",
+      "team_name": "Oregon State Beavers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -7.81,
+        "pts_pg": 24.25,
+        "opp_pts_pg": 29.92
+      }
+    },
+    "ncaaf::PSU": {
+      "team_key": "PSU",
+      "team_name": "Penn State Nittany Lions",
+      "sport": "ncaaf",
+      "elevation_m": 357.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 22.21,
+        "pts_pg": 33.12,
+        "opp_pts_pg": 16.5
+      }
+    },
+    "ncaaf::PITT": {
+      "team_key": "PITT",
+      "team_name": "Pittsburgh Panthers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 3.035,
+        "pts_pg": 32.92,
+        "opp_pts_pg": 28.38
+      }
+    },
+    "ncaaf::PUR": {
+      "team_key": "PUR",
+      "team_name": "Purdue Boilermakers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -13.21,
+        "pts_pg": 15.75,
+        "opp_pts_pg": 39.92
+      }
+    },
+    "ncaaf::RICE": {
+      "team_key": "RICE",
+      "team_name": "Rice Owls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -7.795,
+        "pts_pg": 22.17,
+        "opp_pts_pg": 25.42
+      }
+    },
+    "ncaaf::RUTG": {
+      "team_key": "RUTG",
+      "team_name": "Rutgers Scarlet Knights",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 4.985,
+        "pts_pg": 28.92,
+        "opp_pts_pg": 25.38
+      }
+    },
+    "ncaaf::SMU": {
+      "team_key": "SMU",
+      "team_name": "SMU Mustangs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 15.45,
+        "pts_pg": 36.5,
+        "opp_pts_pg": 22.07
+      }
+    },
+    "ncaaf::SHSU": {
+      "team_key": "SHSU",
+      "team_name": "Sam Houston Bearkats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -7.365,
+        "pts_pg": 23.77,
+        "opp_pts_pg": 20.46
+      }
+    },
+    "ncaaf::SDSU": {
+      "team_key": "SDSU",
+      "team_name": "San Diego State Aztecs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -14.51,
+        "pts_pg": 21.33,
+        "opp_pts_pg": 29.58
+      }
+    },
+    "ncaaf::SJSU": {
+      "team_key": "SJSU",
+      "team_name": "San Jos\u00e9 State Spartans",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -6.495,
+        "pts_pg": 28.38,
+        "opp_pts_pg": 27.54
+      }
+    },
+    "ncaaf::USA": {
+      "team_key": "USA",
+      "team_name": "South Alabama Jaguars",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -0.16,
+        "pts_pg": 34.38,
+        "opp_pts_pg": 25.15
+      }
+    },
+    "ncaaf::SC": {
+      "team_key": "SC",
+      "team_name": "South Carolina Gamecocks",
+      "sport": "ncaaf",
+      "elevation_m": 66.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 15.685,
+        "pts_pg": 30.46,
+        "opp_pts_pg": 18.08
+      }
+    },
+    "ncaaf::USF": {
+      "team_key": "USF",
+      "team_name": "South Florida Bulls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.32,
+        "pts_pg": 32.15,
+        "opp_pts_pg": 29.77
+      }
+    },
+    "ncaaf::USM": {
+      "team_key": "USM",
+      "team_name": "Southern Miss Golden Eagles",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -23.5,
+        "pts_pg": 15.25,
+        "opp_pts_pg": 37.75
+      }
+    },
+    "ncaaf::STAN": {
+      "team_key": "STAN",
+      "team_name": "Stanford Cardinal",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -5.375,
+        "pts_pg": 22.83,
+        "opp_pts_pg": 33.67
+      }
+    },
+    "ncaaf::SYR": {
+      "team_key": "SYR",
+      "team_name": "Syracuse Orange",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 4.86,
+        "pts_pg": 34.08,
+        "opp_pts_pg": 29.15
+      }
+    },
+    "ncaaf::TCU": {
+      "team_key": "TCU",
+      "team_name": "TCU Horned Frogs",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.63,
+        "pts_pg": 33.46,
+        "opp_pts_pg": 24.62
+      }
+    },
+    "ncaaf::TEM": {
+      "team_key": "TEM",
+      "team_name": "Temple Owls",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -19.445,
+        "pts_pg": 19.58,
+        "opp_pts_pg": 35.42
+      }
+    },
+    "ncaaf::TENN": {
+      "team_key": "TENN",
+      "team_name": "Tennessee Volunteers",
+      "sport": "ncaaf",
+      "elevation_m": 277.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 21.045,
+        "pts_pg": 35.69,
+        "opp_pts_pg": 16.08
+      }
+    },
+    "ncaaf::TA&M": {
+      "team_key": "TA&M",
+      "team_name": "Texas A&M Aggies",
+      "sport": "ncaaf",
+      "elevation_m": 110.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 14.785,
+        "pts_pg": 30.38,
+        "opp_pts_pg": 22.23
+      }
+    },
+    "ncaaf::TEX": {
+      "team_key": "TEX",
+      "team_name": "Texas Longhorns",
+      "sport": "ncaaf",
+      "elevation_m": 167.0,
+      "is_dome": true,
+      "metrics": {
+        "power_rating": 26.02,
+        "pts_pg": 33.0,
+        "opp_pts_pg": 15.31
+      }
+    },
+    "ncaaf::TXST": {
+      "team_key": "TXST",
+      "team_name": "Texas State Bobcats",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 2.045,
+        "pts_pg": 36.54,
+        "opp_pts_pg": 24.54
+      }
+    },
+    "ncaaf::TTU": {
+      "team_key": "TTU",
+      "team_name": "Texas Tech Red Raiders",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.005,
+        "pts_pg": 37.62,
+        "opp_pts_pg": 34.85
+      }
+    },
+    "ncaaf::TOL": {
+      "team_key": "TOL",
+      "team_name": "Toledo Rockets",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -4.255,
+        "pts_pg": 28.31,
+        "opp_pts_pg": 23.23
+      }
+    },
+    "ncaaf::TROY": {
+      "team_key": "TROY",
+      "team_name": "Troy Trojans",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -8.21,
+        "pts_pg": 26.0,
+        "opp_pts_pg": 28.42
+      }
+    },
+    "ncaaf::TULN": {
+      "team_key": "TULN",
+      "team_name": "Tulane Green Wave",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.605,
+        "pts_pg": 35.07,
+        "opp_pts_pg": 20.64
+      }
+    },
+    "ncaaf::TLSA": {
+      "team_key": "TLSA",
+      "team_name": "Tulsa Golden Hurricane",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -24.095,
+        "pts_pg": 25.0,
+        "opp_pts_pg": 42.5
+      }
+    },
+    "ncaaf::UAB": {
+      "team_key": "UAB",
+      "team_name": "UAB Blazers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.635,
+        "pts_pg": 26.17,
+        "opp_pts_pg": 34.25
+      }
+    },
+    "ncaaf::UCF": {
+      "team_key": "UCF",
+      "team_name": "UCF Knights",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.58,
+        "pts_pg": 30.42,
+        "opp_pts_pg": 26.92
+      }
+    },
+    "ncaaf::UCLA": {
+      "team_key": "UCLA",
+      "team_name": "UCLA Bruins",
+      "sport": "ncaaf",
+      "elevation_m": 251.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 3.47,
+        "pts_pg": 18.42,
+        "opp_pts_pg": 25.25
+      }
+    },
+    "ncaaf::CONN": {
+      "team_key": "CONN",
+      "team_name": "UConn Huskies",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -2.82,
+        "pts_pg": 31.92,
+        "opp_pts_pg": 23.08
+      }
+    },
+    "ncaaf::ULM": {
+      "team_key": "ULM",
+      "team_name": "UL Monroe Warhawks",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -12.525,
+        "pts_pg": 21.0,
+        "opp_pts_pg": 28.75
+      }
+    },
+    "ncaaf::UNLV": {
+      "team_key": "UNLV",
+      "team_name": "UNLV Rebels",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.915,
+        "pts_pg": 35.36,
+        "opp_pts_pg": 21.29
+      }
+    },
+    "ncaaf::USC": {
+      "team_key": "USC",
+      "team_name": "USC Trojans",
+      "sport": "ncaaf",
+      "elevation_m": 43.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 14.495,
+        "pts_pg": 30.15,
+        "opp_pts_pg": 24.08
+      }
+    },
+    "ncaaf::UTEP": {
+      "team_key": "UTEP",
+      "team_name": "UTEP Miners",
+      "sport": "ncaaf",
+      "elevation_m": 1189.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -21.04,
+        "pts_pg": 19.5,
+        "opp_pts_pg": 32.33
+      }
+    },
+    "ncaaf::UTSA": {
+      "team_key": "UTSA",
+      "team_name": "UTSA Roadrunners",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -3.88,
+        "pts_pg": 33.15,
+        "opp_pts_pg": 30.08
+      }
+    },
+    "ncaaf::USU": {
+      "team_key": "USU",
+      "team_name": "Utah State Aggies",
+      "sport": "ncaaf",
+      "elevation_m": 1456.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -11.295,
+        "pts_pg": 31.92,
+        "opp_pts_pg": 37.75
+      }
+    },
+    "ncaaf::UTAH": {
+      "team_key": "UTAH",
+      "team_name": "Utah Utes",
+      "sport": "ncaaf",
+      "elevation_m": 1420.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.515,
+        "pts_pg": 23.58,
+        "opp_pts_pg": 20.67
+      }
+    },
+    "ncaaf::VAN": {
+      "team_key": "VAN",
+      "team_name": "Vanderbilt Commodores",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.925,
+        "pts_pg": 27.31,
+        "opp_pts_pg": 23.38
+      }
+    },
+    "ncaaf::UVA": {
+      "team_key": "UVA",
+      "team_name": "Virginia Cavaliers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -1.72,
+        "pts_pg": 22.67,
+        "opp_pts_pg": 28.75
+      }
+    },
+    "ncaaf::VT": {
+      "team_key": "VT",
+      "team_name": "Virginia Tech Hokies",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 9.025,
+        "pts_pg": 28.15,
+        "opp_pts_pg": 22.85
+      }
+    },
+    "ncaaf::WAKE": {
+      "team_key": "WAKE",
+      "team_name": "Wake Forest Demon Deacons",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -4.995,
+        "pts_pg": 25.67,
+        "opp_pts_pg": 32.5
+      }
+    },
+    "ncaaf::WASH": {
+      "team_key": "WASH",
+      "team_name": "Washington Huskies",
+      "sport": "ncaaf",
+      "elevation_m": 18.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 6.135,
+        "pts_pg": 23.38,
+        "opp_pts_pg": 23.77
+      }
+    },
+    "ncaaf::WSU": {
+      "team_key": "WSU",
+      "team_name": "Washington State Cougars",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 0.07,
+        "pts_pg": 36.62,
+        "opp_pts_pg": 29.92
+      }
+    },
+    "ncaaf::WVU": {
+      "team_key": "WVU",
+      "team_name": "West Virginia Mountaineers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 2.365,
+        "pts_pg": 29.15,
+        "opp_pts_pg": 31.92
+      }
+    },
+    "ncaaf::WKU": {
+      "team_key": "WKU",
+      "team_name": "Western Kentucky Hilltoppers",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -8.395,
+        "pts_pg": 24.93,
+        "opp_pts_pg": 24.64
+      }
+    },
+    "ncaaf::WMU": {
+      "team_key": "WMU",
+      "team_name": "Western Michigan Broncos",
+      "sport": "ncaaf",
+      "elevation_m": 240.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -10.255,
+        "pts_pg": 28.92,
+        "opp_pts_pg": 31.31
+      }
+    },
+    "ncaaf::WIS": {
+      "team_key": "WIS",
+      "team_name": "Wisconsin Badgers",
+      "sport": "ncaaf",
+      "elevation_m": 271.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": 5.64,
+        "pts_pg": 22.58,
+        "opp_pts_pg": 23.08
+      }
+    },
+    "ncaaf::WYO": {
+      "team_key": "WYO",
+      "team_name": "Wyoming Cowboys",
+      "sport": "ncaaf",
+      "elevation_m": 2199.0,
+      "is_dome": false,
+      "metrics": {
+        "power_rating": -11.84,
+        "pts_pg": 19.33,
+        "opp_pts_pg": 28.33
+      }
+    }
+  }
+}

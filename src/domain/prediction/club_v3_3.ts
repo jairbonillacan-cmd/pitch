@@ -23,6 +23,14 @@ import {
   GLOBAL_HDA_RATES,
   predictWithFallback,
 } from "./engine.js";
+import { evaluateCompactValidationRow, type GbmArtifact } from "./gbm.js";
+import {
+  predictHorizonTotalGoals,
+  solveCoherentDixonColes3Param,
+  solveDixonColes2ParamFrom1X2,
+  type CoherentDixonColes3ParamResult,
+  type HorizonGoalsModelArtifact,
+} from "./horizon_goals.js";
 import type { OddsSnapshotRow } from "./odds.js";
 import {
   buildMatchOutlook,
@@ -421,5 +429,274 @@ export function buildClubV33CandidateOutlook(
   return Object.freeze({
     outlook,
     prediction1X2,
+  });
+}
+
+// ============================================================================
+// PitchLab Tachyon v3.5 Live-Ensemble + Horizon-Goals v3.5 (`EXP_V37`)
+// ============================================================================
+
+export const TACHYON_V35_LIVE_ENSEMBLE_CODENAME =
+  "PitchLab Tachyon v3.5 Live-Ensemble" as const;
+
+export interface ClubFreeOpenTeamStateV35 extends ClubFreeOpenTeamState {
+  readonly sb_xg_for_ewm10: number;
+  readonly sb_xg_against_ewm10: number;
+  readonly goals_for_ewm12: number;
+  readonly goals_against_ewm12: number;
+  readonly btts_rate_ewm15: number;
+  readonly corners_total_ewm10: number;
+}
+
+export interface ClubFreeOpenStateV35Artifact extends Omit<ClubFreeOpenStateArtifact, "clubs"> {
+  readonly v3_5_extra_6_features: readonly string[];
+  readonly horizon_goals_13_features: readonly string[];
+  readonly clubs: Readonly<Record<string, ClubFreeOpenTeamStateV35>>;
+}
+
+export function evaluateClubV35CompactRow(params: {
+  readonly features: readonly (number | null)[];
+  readonly goalsFeatures: readonly (number | null)[];
+  readonly div: string;
+  readonly gbmArtifact: GbmArtifact;
+  readonly goalsArtifact: HorizonGoalsModelArtifact;
+}): {
+  readonly logitProbs: readonly [number, number, number];
+  readonly gbmCalProbs: readonly [number, number, number];
+  readonly ensembleProbs: readonly [number, number, number];
+  readonly tPoisson: number;
+  readonly dc3Param: CoherentDixonColes3ParamResult;
+} {
+  const divIdx = params.gbmArtifact.div_levels.indexOf(params.div);
+  const ev = evaluateCompactValidationRow(params.features, divIdx, params.gbmArtifact);
+
+  const divOnehot = params.goalsArtifact.div_levels.map((lvl) => (lvl === params.div ? 1.0 : 0.0));
+  const tPoisson = predictHorizonTotalGoals(params.goalsFeatures, divOnehot, params.goalsArtifact);
+
+  const twoParam = solveDixonColes2ParamFrom1X2(
+    {
+      pHome: ev.ensemble[0],
+      pDraw: ev.ensemble[1],
+      pAway: ev.ensemble[2],
+    },
+    -0.1,
+    params.goalsArtifact.max_goals_grid,
+  );
+  const wTot = params.goalsArtifact.w_total_poisson;
+  const targetTot = wTot * tPoisson + (1.0 - wTot) * (twoParam.lamHome + twoParam.lamAway);
+  const rhoPrior =
+    params.goalsArtifact.div_rho_map[params.div] ?? params.goalsArtifact.default_rho;
+
+  const dc3Param = solveCoherentDixonColes3Param({
+    pHome: ev.ensemble[0],
+    pDraw: ev.ensemble[1],
+    pAway: ev.ensemble[2],
+    totalGoalsTarget: targetTot,
+    rhoPrior,
+    rhoShrinkage: params.goalsArtifact.rho_shrinkage,
+    maxGoals: params.goalsArtifact.max_goals_grid,
+  });
+
+  return Object.freeze({
+    logitProbs: ev.logit,
+    gbmCalProbs: ev.gbmCalibrated,
+    ensembleProbs: ev.ensemble,
+    tPoisson,
+    dc3Param,
+  });
+}
+
+export function synthesizeClubV35LiveVectors(params: {
+  readonly sourceRow: SnapshotRow;
+  readonly div: string;
+  readonly homeTeam: string;
+  readonly awayTeam: string;
+  readonly hDivChange?: number;
+  readonly aDivChange?: number;
+  readonly seasonProgress?: number;
+  readonly clubStateV35: ClubFreeOpenStateV35Artifact;
+  readonly nFeaturesBase1X2: number;
+}): {
+  readonly features1X2: readonly (number | null)[];
+  readonly goalsFeatures13: readonly number[];
+  readonly coverageRatio: number;
+} {
+  const row52 = synthesizeClubV34LiveCompleteRow({
+    sourceRow: params.sourceRow,
+    div: params.div,
+    homeTeam: params.homeTeam,
+    awayTeam: params.awayTeam,
+    hDivChange: params.hDivChange,
+    aDivChange: params.aDivChange,
+    clubState: params.clubStateV35 as unknown as ClubFreeOpenStateArtifact,
+  });
+
+  const liveNames = params.clubStateV35.live_base_38_features;
+  const getLive38 = (nm: string, fb: number): number => {
+    const idx = liveNames.indexOf(nm);
+    if (idx < 0) return fb;
+    const v = row52.features[idx];
+    return typeof v === "number" && Number.isFinite(v) ? v : fb;
+  };
+
+  const eloDiff = getLive38("elo_diff_no_hfa", 0.0);
+  const dcExpTotal = getLive38("dc_exp_total", 2.62);
+  const eloClose = getLive38("elo_closeness", Math.exp(-Math.pow(eloDiff / 180.0, 2)));
+  const lowScoringTight = getLive38("low_scoring_tight_match", 0.0);
+  const sProg =
+    params.seasonProgress !== undefined
+      ? params.seasonProgress
+      : getLive38("season_progress", 0.5);
+
+  const hk = `${params.div}::${params.homeTeam}`;
+  const ak = `${params.div}::${params.awayTeam}`;
+  const sh = params.clubStateV35.clubs[hk];
+  const sa = params.clubStateV35.clubs[ak];
+
+  const sfH = sh?.sb_xg_for_ewm10 ?? 1.3;
+  const saH = sh?.sb_xg_against_ewm10 ?? 1.25;
+  const sfA = sa?.sb_xg_for_ewm10 ?? 1.25;
+  const saA = sa?.sb_xg_against_ewm10 ?? 1.3;
+  const gfH = sh?.goals_for_ewm12 ?? 1.32;
+  const gaH = sh?.goals_against_ewm12 ?? 1.32;
+  const gfA = sa?.goals_for_ewm12 ?? 1.32;
+  const gaA = sa?.goals_against_ewm12 ?? 1.32;
+  const btH = sh?.btts_rate_ewm15 ?? 0.51;
+  const btA = sa?.btts_rate_ewm15 ?? 0.51;
+  const coH = sh?.corners_total_ewm10 ?? 9.8;
+  const coA = sa?.corners_total_ewm10 ?? 9.8;
+
+  const sbAttDefDiff = 0.5 * (sfH - saA - (sfA - saH));
+  const sbExpTot = 0.5 * (sfH + saA + (sfA + saH));
+  const tempoSum = 0.5 * (gfH + gaH + (gfA + gaA));
+  const bttsSum = 0.5 * (btH + btA);
+  const corSum = 0.5 * (coH + coA);
+
+  const free14Offset = 38;
+  const valDiff = Number(row52.features[free14Offset + 1] ?? 0.0);
+  const promBoostDiff = Number(row52.features[free14Offset + 4] ?? 0.0);
+  const netTrDiff = Number(row52.features[free14Offset + 12] ?? 0.0);
+
+  const earlyW = Math.min(1.0, Math.max(0.0, 1.0 - sProg));
+  const earlyTrShock = earlyW * netTrDiff;
+  const earlyPromVal = earlyW * promBoostDiff;
+
+  const depthH = sh && sh.tm_has_val > 0 ? sh.tm_depth_ratio : 0.26;
+  const depthA = sa && sa.tm_has_val > 0 ? sa.tm_depth_ratio : 0.26;
+  const thinH = Math.min(1.35, Math.max(0.5, 1.35 - depthH));
+  const thinA = Math.min(1.35, Math.max(0.5, 1.35 - depthA));
+  const cupThinAdv =
+    (sa?.midweek_cup_load ?? 0.0) * thinA - (sh?.midweek_cup_load ?? 0.0) * thinH;
+  const absEloMismatch = Math.abs(eloDiff) / 200.0;
+
+  const curDivMed = params.clubStateV35.div_ewm_log_val[params.div] ?? 3.8;
+  const relH = sh && sh.tm_has_val > 0 ? sh.tm_raw_log_val - curDivMed : 0.0;
+  const relA = sa && sa.tm_has_val > 0 ? sa.tm_raw_log_val - curDivMed : 0.0;
+  const tmValSum = relH + relA;
+  const tmValAbs = Math.abs(valDiff);
+  const xiGa90Sum =
+    (sh && sh.has_realized_xi > 0 ? sh.xi_ga90_allcomps : 2.1) +
+    (sa && sa.has_realized_xi > 0 ? sa.xi_ga90_allcomps : 2.1);
+  const games14dSum = (sh?.games_14d_allcomps ?? 1.5) + (sa?.games_14d_allcomps ?? 1.5);
+
+  const extra6 = [
+    sbAttDefDiff,
+    tempoSum,
+    earlyTrShock,
+    earlyPromVal,
+    cupThinAdv,
+    absEloMismatch,
+  ];
+  const features1X2 =
+    params.nFeaturesBase1X2 === 58 ? [...row52.features, ...extra6] : [...row52.features];
+
+  const goalsFeatures13 = [
+    dcExpTotal,
+    sbExpTot,
+    tempoSum,
+    bttsSum,
+    corSum,
+    tmValSum,
+    tmValAbs,
+    xiGa90Sum,
+    absEloMismatch,
+    eloClose,
+    lowScoringTight,
+    sProg,
+    games14dSum,
+  ];
+
+  const validCount = features1X2.filter((v) => v !== null && Number.isFinite(v)).length;
+  return Object.freeze({
+    features1X2: Object.freeze(features1X2),
+    goalsFeatures13: Object.freeze(goalsFeatures13),
+    coverageRatio: validCount / Math.max(1, features1X2.length),
+  });
+}
+
+export function buildClubV35CompleteOutlook(
+  input: BuildClubV33OutlookInput & {
+    readonly hDivChange?: number;
+    readonly aDivChange?: number;
+    readonly seasonProgress?: number;
+  },
+  artifacts: {
+    readonly gbm: GbmArtifact;
+    readonly goals: HorizonGoalsModelArtifact;
+    readonly clubStateV35: ClubFreeOpenStateV35Artifact;
+    readonly calibration?: OutlookCalibrationArtifact;
+  },
+): {
+  readonly outlook: MatchOutlook;
+  readonly ensembleProbs: readonly [number, number, number];
+  readonly dc3Param: CoherentDixonColes3ParamResult;
+  readonly coverageRatio: number;
+} {
+  const synth = synthesizeClubV35LiveVectors({
+    sourceRow: input.row,
+    div: input.row.div ?? input.league,
+    homeTeam: input.homeTeam,
+    awayTeam: input.awayTeam,
+    hDivChange: input.hDivChange,
+    aDivChange: input.aDivChange,
+    seasonProgress: input.seasonProgress,
+    clubStateV35: artifacts.clubStateV35,
+    nFeaturesBase1X2: artifacts.gbm.n_features_base,
+  });
+
+  const eval35 = evaluateClubV35CompactRow({
+    features: synth.features1X2,
+    goalsFeatures: synth.goalsFeatures13,
+    div: input.row.div ?? input.league,
+    gbmArtifact: artifacts.gbm,
+    goalsArtifact: artifacts.goals,
+  });
+
+  const calArt = artifacts.calibration ?? getDefaultClubOutlookCalibration();
+  const outlook = buildMatchOutlook({
+    matchId: input.matchId,
+    sport: "football",
+    league: input.league,
+    homeTeam: input.homeTeam,
+    awayTeam: input.awayTeam,
+    tsDecision: input.tsDecisionUtc,
+    kickoffUtc: input.kickoffUtc ?? null,
+    football: {
+      lamHome: eval35.dc3Param.lamHome,
+      lamAway: eval35.dc3Param.lamAway,
+      rho: eval35.dc3Param.rhoEff,
+      featureCoverageRatio: synth.coverageRatio,
+    },
+    marketQuotes: input.marketQuotes,
+    oddsSnapshots: input.oddsSnapshots,
+    maxQuoteAgeMinutes: input.maxQuoteAgeMinutes,
+    calibrationArtifact: calArt,
+  });
+
+  return Object.freeze({
+    outlook,
+    ensembleProbs: eval35.ensembleProbs,
+    dc3Param: eval35.dc3Param,
+    coverageRatio: synth.coverageRatio,
   });
 }

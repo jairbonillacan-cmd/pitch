@@ -159,15 +159,15 @@ export function solveDixonColes2ParamFrom1X2(
   const pd = pd0 / norm;
   const pa = pa0 / norm;
 
-  const initShare = clamp(ph / Math.max(ph + pa, 1e-6), 0.08, 0.92);
+  const initShare = clamp(ph / Math.max(ph + pa, 1e-6), 0.01, 0.99);
   let u = Math.log(initShare / (1.0 - initShare));
   let v = Math.log(2.55);
   const targetDiff = ph - pa;
   const targetDraw = pd;
 
   const evalRes = (uVal: number, vVal: number): readonly [number, number] => {
-    const tot = clamp(Math.exp(vVal), 0.25, 8.0);
-    const sh = clamp(sigmoid(uVal), 0.04, 0.96);
+    const tot = Math.exp(vVal);
+    const sh = sigmoid(uVal);
     const lh = clamp(tot * sh, 0.05, 10.0);
     const la = clamp(tot * (1.0 - sh), 0.05, 10.0);
     const mat = buildDixonColesScoreMatrix(lh, la, rho, maxGoals);
@@ -192,7 +192,7 @@ export function solveDixonColes2ParamFrom1X2(
   for (let iter = 0; iter < 24; iter += 1) {
     const [f1, f2] = evalRes(u, v);
     const norm0 = f1 * f1 + f2 * f2;
-    if (norm0 < 1e-20) break;
+    if (norm0 < 1e-28) break;
     const [f1u, f2u] = evalRes(u + hStep, v);
     const [f1v, f2v] = evalRes(u, v + hStep);
     const j11 = (f1u - f1) / hStep;
@@ -206,7 +206,7 @@ export function solveDixonColes2ParamFrom1X2(
     let step = 1.0;
     let improved = false;
     for (let ls = 0; ls < 8; ls += 1) {
-      const uTry = clamp(u + step * du, -3.2, 3.2);
+      const uTry = clamp(u + step * du, -5.0, 5.0);
       const vTry = clamp(v + step * dv, vMin, vMax);
       const [r1, r2] = evalRes(uTry, vTry);
       if (r1 * r1 + r2 * r2 < norm0) {
@@ -220,8 +220,8 @@ export function solveDixonColes2ParamFrom1X2(
     if (!improved) break;
   }
 
-  const finalT = clamp(Math.exp(v), 0.25, 8.0);
-  const finalS = clamp(sigmoid(u), 0.04, 0.96);
+  const finalT = Math.exp(v);
+  const finalS = sigmoid(u);
   return {
     lamHome: clamp(finalT * finalS, 0.05, 10.0),
     lamAway: clamp(finalT * (1.0 - finalS), 0.05, 10.0),
@@ -257,12 +257,12 @@ export function solveCoherentDixonColes3Param(params: {
   const targetDraw = pd;
   const totT = clamp(params.totalGoalsTarget, 0.35, 7.5);
 
-  // Etapa 1: Bisección monótona exacta en `u` con `T = totT` fijo
-  let uLo = -3.4;
-  let uHi = 3.4;
-  for (let i = 0; i < 36; i += 1) {
+  // Etapa 1: Bisección monótona exacta en `u` con `T = totT` fijo (54 pasos -> precisión IEEE-754 ~3.8e-16)
+  let uLo = -5.0;
+  let uHi = 5.0;
+  for (let i = 0; i < 54; i += 1) {
     const uMid = 0.5 * (uLo + uHi);
-    const sh = clamp(sigmoid(uMid), 0.03, 0.97);
+    const sh = clamp(sigmoid(uMid), 0.006, 0.994);
     const lh = clamp(totT * sh, 0.05, 10.0);
     const la = clamp(totT * (1.0 - sh), 0.05, 10.0);
     const [ch, , ca] = poisson1X2Summary(lh, la, maxGoals);
@@ -271,7 +271,7 @@ export function solveCoherentDixonColes3Param(params: {
   }
 
   let u = 0.5 * (uLo + uHi);
-  const sh0 = clamp(sigmoid(u), 0.03, 0.97);
+  const sh0 = clamp(sigmoid(u), 0.006, 0.994);
   const lh0 = clamp(totT * sh0, 0.05, 10.0);
   const la0 = clamp(totT * (1.0 - sh0), 0.05, 10.0);
   const [, cdPois, , sPois] = poisson1X2Summary(lh0, la0, maxGoals);
@@ -290,8 +290,8 @@ export function solveCoherentDixonColes3Param(params: {
     rhoLo > rhoHi ? clamp(rhoPrior, RHO_ABS_MIN, RHO_ABS_MAX) : clamp(rhoBlend, rhoLo, rhoHi);
 
   const evalRes = (uVal: number, vVal: number, rVal: number): readonly [number, number] => {
-    const tCur = clamp(Math.exp(vVal), 0.25, 8.0);
-    const sCur = clamp(sigmoid(uVal), 0.03, 0.97);
+    const tCur = Math.exp(vVal);
+    const sCur = sigmoid(uVal);
     const lH = clamp(tCur * sCur, 0.05, 10.0);
     const lA = clamp(tCur * (1.0 - sCur), 0.05, 10.0);
     const mat = buildDixonColesScoreMatrix(lH, lA, rVal, maxGoals);
@@ -312,7 +312,7 @@ export function solveCoherentDixonColes3Param(params: {
 
   let v = Math.log(totT);
   const [f1Init, f2Init] = evalRes(u, v, rhoEff);
-  if (f1Init * f1Init + f2Init * f2Init <= 1e-16) {
+  if (f1Init * f1Init + f2Init * f2Init <= 1e-28) {
     return Object.freeze({
       lamHome: lh0,
       lamAway: la0,
@@ -328,7 +328,7 @@ export function solveCoherentDixonColes3Param(params: {
   for (let iter = 0; iter < 20; iter += 1) {
     const [f1, f2] = evalRes(u, v, rhoEff);
     const norm0 = f1 * f1 + f2 * f2;
-    if (norm0 < 1e-18) break;
+    if (norm0 < 1e-28) break;
     const [f1u, f2u] = evalRes(u + hStep, v, rhoEff);
     const [f1v, f2v] = evalRes(u, v + hStep, rhoEff);
     const j11 = (f1u - f1) / hStep;
@@ -342,7 +342,7 @@ export function solveCoherentDixonColes3Param(params: {
     let step = 1.0;
     let improved = false;
     for (let ls = 0; ls < 8; ls += 1) {
-      const uTry = clamp(u + step * du, -3.4, 3.4);
+      const uTry = clamp(u + step * du, -5.0, 5.0);
       const vTry = clamp(v + step * dv, vMin, vMax);
       const [r1, r2] = evalRes(uTry, vTry, rhoEff);
       if (r1 * r1 + r2 * r2 < norm0) {
@@ -356,8 +356,8 @@ export function solveCoherentDixonColes3Param(params: {
     if (!improved) break;
   }
 
-  const finalT = clamp(Math.exp(v), 0.25, 8.0);
-  const finalS = clamp(sigmoid(u), 0.03, 0.97);
+  const finalT = Math.exp(v);
+  const finalS = sigmoid(u);
   const finalLh = clamp(finalT * finalS, 0.05, 10.0);
   const finalLa = clamp(finalT * (1.0 - finalS), 0.05, 10.0);
   const rLoF = Math.max(RHO_ABS_MIN, -TAU_SAFETY_BOUND / Math.max(finalLh, finalLa, 1e-6));

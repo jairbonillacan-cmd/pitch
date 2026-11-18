@@ -17,12 +17,14 @@
  *     de `stake`, `kelly`, `ev` o `tier`, y `market: null` en ausencia de cuota real fresca.
  */
 
+import defaultGbmIntlV35Json from "../../data/prediction/gbm_intl_soccer_v3_5_candidate.json";
 import defaultIntlCalibrationV1Json from "../../data/prediction/intl_outlook_calibration_v1.json";
 import defaultIntlCalibrationJson from "../../data/prediction/intl_outlook_calibration_v2.json";
 import defaultIntlCalibrationV3Json from "../../data/prediction/intl_outlook_calibration_v3.json";
 import defaultIntlCausalStateV1Json from "../../data/prediction/intl_soccer_causal_state.json";
 import defaultIntlCausalStateJson from "../../data/prediction/intl_soccer_causal_state_v2.json";
 import defaultIntlCausalStateV3Json from "../../data/prediction/intl_soccer_causal_state_v3.json";
+import defaultIntlGoalsV35Json from "../../data/prediction/model_intl_goals_v3_5_candidate.json";
 import defaultIntlModelV1Json from "../../data/prediction/model_intl_soccer_v1.json";
 import defaultIntlModelJson from "../../data/prediction/model_intl_soccer_v2.json";
 import defaultIntlModelV3Json from "../../data/prediction/model_intl_soccer_v3.json";
@@ -32,6 +34,14 @@ import {
   GLOBAL_HDA_RATES,
   predictWithFallback,
 } from "./engine.js";
+import { evaluateCompactValidationRow, type GbmArtifact } from "./gbm.js";
+import {
+  predictHorizonTotalGoals,
+  solveCoherentDixonColes3Param,
+  solveDixonColes2ParamFrom1X2,
+  type CoherentDixonColes3ParamResult,
+  type HorizonGoalsModelArtifact,
+} from "./horizon_goals.js";
 import { buildDixonColesScoreMatrix, DEFAULT_MAX_GOALS } from "./markets_2way.js";
 import { clamp, logit, sigmoid } from "./math.js";
 import type { OddsSnapshotRow } from "./odds.js";
@@ -1770,5 +1780,202 @@ export function buildIntlMatchOutlook(
     synthesized,
     squadAdjustment,
     basePrediction1X2,
+  });
+}
+
+// ============================================================================
+// PitchLab Meridian v3.5 Ensemble + Horizon-Goals v3.5 (`EXP_V38`)
+// ============================================================================
+
+export const MERIDIAN_V35_CODENAME = "PitchLab Meridian v3.5 Ensemble" as const;
+
+export function getDefaultIntlV35GbmArtifact(): GbmArtifact {
+  return defaultGbmIntlV35Json as unknown as GbmArtifact;
+}
+
+export function getDefaultIntlHorizonGoalsV35Artifact(): HorizonGoalsModelArtifact {
+  return defaultIntlGoalsV35Json as unknown as HorizonGoalsModelArtifact;
+}
+
+/**
+ * Extrae las `16` features base del regresor `Meridian Horizon-Goals v3.5` desde un vector `v2` (`49`+)
+ * replicando `extract_intl_goals_features_from_v2_matrix` (`< 1e-13`).
+ */
+export function extractIntlHorizonGoalsFeaturesFromV2(
+  v2Features: readonly (number | null)[],
+  goalsArtifact: HorizonGoalsModelArtifact = getDefaultIntlHorizonGoalsV35Artifact(),
+): readonly number[] {
+  const srcIdx = goalsArtifact.source_v2_feature_indices ?? [];
+  const srcVals = srcIdx.map((idx) => Number(v2Features[idx] ?? 0.0));
+  const idxAbsMm = INTL_V2_49_FEATURES.indexOf("abs_elo_mismatch");
+  const idxAttH = INTL_V2_49_FEATURES.indexOf("att_strength_home");
+  const idxDefH = INTL_V2_49_FEATURES.indexOf("def_strength_home");
+  const idxAttA = INTL_V2_49_FEATURES.indexOf("att_strength_away");
+  const idxDefA = INTL_V2_49_FEATURES.indexOf("def_strength_away");
+
+  const absMm = Number(v2Features[idxAbsMm] ?? 0.0);
+  const attH = Number(v2Features[idxAttH] ?? 1.0);
+  const defH = Number(v2Features[idxDefH] ?? 1.0);
+  const attA = Number(v2Features[idxAttA] ?? 1.0);
+  const defA = Number(v2Features[idxDefA] ?? 1.0);
+
+  const mmSq = Math.min(absMm * absMm, 16.0);
+  const attDefSum = attH + defA + (attA + defH);
+  return Object.freeze([...srcVals, mmSq, attDefSum]);
+}
+
+export function evaluateMeridianV35CompactRow(params: {
+  readonly features: readonly (number | null)[];
+  readonly goalsFeatures: readonly (number | null)[];
+  readonly div: string;
+  readonly gbmArtifact?: GbmArtifact;
+  readonly goalsArtifact?: HorizonGoalsModelArtifact;
+}): {
+  readonly ensembleProbs: readonly [number, number, number];
+  readonly tPoisson: number;
+  readonly dc3Param: CoherentDixonColes3ParamResult;
+} {
+  const gbmArt = params.gbmArtifact ?? getDefaultIntlV35GbmArtifact();
+  const goalsArt = params.goalsArtifact ?? getDefaultIntlHorizonGoalsV35Artifact();
+
+  const divIdx = gbmArt.div_levels.indexOf(params.div);
+  const ev = evaluateCompactValidationRow(params.features, divIdx, gbmArt);
+  const divOnehot = goalsArt.div_levels.map((lvl) => (lvl === params.div ? 1.0 : 0.0));
+  const tPoisson = predictHorizonTotalGoals(params.goalsFeatures, divOnehot, goalsArt);
+
+  const regimeKey = params.div as IntlTournamentRegime;
+  const regRho2p = REGIME_DC_RHO[regimeKey] ?? -0.1;
+  const twoParam = solveDixonColes2ParamFrom1X2(
+    {
+      pHome: ev.ensemble[0],
+      pDraw: ev.ensemble[1],
+      pAway: ev.ensemble[2],
+    },
+    regRho2p,
+    goalsArt.max_goals_grid,
+  );
+  const wTot = goalsArt.w_total_poisson;
+  const targetTot = wTot * tPoisson + (1.0 - wTot) * (twoParam.lamHome + twoParam.lamAway);
+  const rhoPrior = goalsArt.div_rho_map[params.div] ?? goalsArt.default_rho;
+
+  const dc3Param = solveCoherentDixonColes3Param({
+    pHome: ev.ensemble[0],
+    pDraw: ev.ensemble[1],
+    pAway: ev.ensemble[2],
+    totalGoalsTarget: targetTot,
+    rhoPrior,
+    rhoShrinkage: goalsArt.rho_shrinkage,
+    maxGoals: goalsArt.max_goals_grid,
+  });
+
+  return Object.freeze({
+    ensembleProbs: ev.ensemble,
+    tPoisson,
+    dc3Param,
+  });
+}
+
+export function buildMeridianV35MatchOutlook(
+  input: PredictIntlMatchInput,
+  artifacts?: {
+    readonly gbm?: GbmArtifact;
+    readonly goals?: HorizonGoalsModelArtifact;
+    readonly causalState?: IntlCausalStateArtifact;
+    readonly calibration?: OutlookCalibrationArtifact;
+    readonly squadBridgeConfig?: SquadBridgeConfig;
+  },
+): {
+  readonly outlook: MatchOutlook;
+  readonly synthesized: SynthesizedIntlMatchRow;
+  readonly squadAdjustment: SquadClubAdjustmentResult;
+  readonly ensembleProbs: readonly [number, number, number];
+  readonly dc3Param: CoherentDixonColes3ParamResult;
+} {
+  const gbmArt = artifacts?.gbm ?? getDefaultIntlV35GbmArtifact();
+  const goalsArt = artifacts?.goals ?? getDefaultIntlHorizonGoalsV35Artifact();
+  const stateArt =
+    artifacts?.causalState ??
+    ((gbmArt.n_features_base === 53
+      ? defaultIntlCausalStateV3Json
+      : defaultIntlCausalStateJson) as unknown as IntlCausalStateArtifact);
+  const calArt =
+    artifacts?.calibration ??
+    ((gbmArt.n_features_base === 53
+      ? defaultIntlCalibrationV3Json
+      : defaultIntlCalibrationJson) as unknown as OutlookCalibrationArtifact);
+
+  const nBase: 38 | 49 | 53 =
+    gbmArt.n_features_base === 53 ? 53 : gbmArt.n_features_base === 38 ? 38 : 49;
+
+  const synthesized = synthesizeIntlMatchSnapshotRow({
+    homeTeam: input.homeTeam,
+    awayTeam: input.awayTeam,
+    tournament: input.tournament,
+    matchDateUtc: input.matchDateUtc,
+    venue: input.venue,
+    causalState: stateArt,
+    nFeaturesBase: nBase,
+  });
+
+  const goalsFeatures = extractIntlHorizonGoalsFeaturesFromV2(
+    synthesized.row.features.slice(0, 49),
+    goalsArt,
+  );
+  const eval35 = evaluateMeridianV35CompactRow({
+    features: synthesized.row.features,
+    goalsFeatures,
+    div: synthesized.regime,
+    gbmArtifact: gbmArt,
+    goalsArtifact: goalsArt,
+  });
+
+  const squadAdjustment = computeSquadClubAdjustment({
+    squadContext: input.squadContext,
+    tsDecisionUtc: input.tsDecisionUtc,
+    kickoffUtc: input.matchDateUtc.length > 10 ? input.matchDateUtc : null,
+    homeBaselineClubElo: synthesized.homeState.fed_club_elo,
+    awayBaselineClubElo: synthesized.awayState.fed_club_elo,
+    config: artifacts?.squadBridgeConfig,
+  });
+
+  const lamHomeEff = squadAdjustment.applied
+    ? clamp(eval35.dc3Param.lamHome * squadAdjustment.lam_home_multiplier, 0.05, 10.0)
+    : eval35.dc3Param.lamHome;
+  const lamAwayEff = squadAdjustment.applied
+    ? clamp(eval35.dc3Param.lamAway * squadAdjustment.lam_away_multiplier, 0.05, 10.0)
+    : eval35.dc3Param.lamAway;
+
+  const validCount = synthesized.row.features.filter(
+    (v) => v !== null && v !== undefined && Number.isFinite(v),
+  ).length;
+  const coverageRatio = validCount / Math.max(1, gbmArt.n_features_base);
+  const kickoffIso = input.matchDateUtc.trim().length > 10 ? input.matchDateUtc.trim() : null;
+
+  const outlook = buildMatchOutlook({
+    matchId: input.matchId,
+    sport: "football",
+    league: synthesized.regime,
+    homeTeam: synthesized.homeCode,
+    awayTeam: synthesized.awayCode,
+    tsDecision: input.tsDecisionUtc,
+    kickoffUtc: kickoffIso,
+    football: {
+      lamHome: lamHomeEff,
+      lamAway: lamAwayEff,
+      rho: eval35.dc3Param.rhoEff,
+      featureCoverageRatio: coverageRatio,
+    },
+    marketQuotes: input.marketQuotes,
+    oddsSnapshots: input.oddsSnapshots,
+    maxQuoteAgeMinutes: input.maxQuoteAgeMinutes,
+    calibrationArtifact: calArt,
+  });
+
+  return Object.freeze({
+    outlook,
+    synthesized,
+    squadAdjustment,
+    ensembleProbs: eval35.ensembleProbs,
+    dc3Param: eval35.dc3Param,
   });
 }

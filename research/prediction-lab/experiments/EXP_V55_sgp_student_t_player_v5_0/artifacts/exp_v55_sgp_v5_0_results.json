@@ -1,0 +1,69 @@
+{
+  "experiment_id": "EXP_V55_sgp_student_t_player_v5_0",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "selected_soccer_df_nu": 500.0,
+  "soccer_heavy_tail_3leg_student_t_vs_gaussian_oos": {
+    "n": 26649,
+    "log_loss": 0.32691497738313563,
+    "benchmark_log_loss": 0.32691497738313563,
+    "delta_ll": 0.0,
+    "delta_ll_ci95": [
+      0.0,
+      0.0
+    ],
+    "significance": "no significativa",
+    "brier": 0.09235942659934114,
+    "benchmark_brier": 0.09235942659934114,
+    "bss_pct_vs_benchmark": 0.0,
+    "ece": 0.0017032236801838197
+  },
+  "soccer_heavy_tail_3leg_student_t_vs_independence_oos": {
+    "n": 26649,
+    "log_loss": 0.32691497738313563,
+    "benchmark_log_loss": 0.3856913726309938,
+    "delta_ll": -0.058776395247858194,
+    "delta_ll_ci95": [
+      -0.06361067594571256,
+      -0.05410067286713801
+    ],
+    "significance": "significativa",
+    "brier": 0.09235942659934114,
+    "benchmark_brier": 0.0980604553718475,
+    "bss_pct_vs_benchmark": 5.814,
+    "ece": 0.0017032236801838197
+  },
+  "player_linked_2leg_scorer_and_win_oos": {
+    "n": 104632,
+    "log_loss": 0.3948607989361549,
+    "benchmark_log_loss": 0.40465468521102793,
+    "delta_ll": -0.009793886274873162,
+    "delta_ll_ci95": [
+      -0.010885921690403127,
+      -0.008770319040694937
+    ],
+    "significance": "significativa",
+    "brier": 0.11974354532371735,
+    "benchmark_brier": 0.12143257328801996,
+    "bss_pct_vs_benchmark": 1.391,
+    "ece": 0.01074032712503695
+  },
+  "player_linked_3leg_scorer_win_over25_oos": {
+    "n": 104632,
+    "log_loss": 0.3331295588697575,
+    "benchmark_log_loss": 0.35683502310123266,
+    "delta_ll": -0.023705464231475216,
+    "delta_ll_ci95": [
+      -0.02525542787101338,
+      -0.022218038621676567
+    ],
+    "significance": "significativa",
+    "brier": 0.096131020943761,
+    "benchmark_brier": 0.0993678050530744,
+    "bss_pct_vs_benchmark": 3.257,
+    "ece": 0.005844665410538483
+  },
+  "artifacts": {
+    "sgp_copula_v5_0_sha256": "8c592ec16ba1444a0c0da9237bcc1cacd58db62d1ec5bcc78e9c63c28c4e709e"
+  }
+}

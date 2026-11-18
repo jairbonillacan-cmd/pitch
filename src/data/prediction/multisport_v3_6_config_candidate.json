@@ -1,0 +1,38 @@
+{
+  "schema_version": "multisport_v3.6.0",
+  "codename": "PitchLab Spacetime Multi-Sport v3.6 Candidate",
+  "version": "3.6.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T16:27:00+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "mlb": {
+    "league_woba": 0.312,
+    "league_fip": 4.08,
+    "starter_shrink_ip": 45.0,
+    "home_scoring_mult": 1.026,
+    "away_scoring_mult": 0.978,
+    "r_disp_f5": 5.0,
+    "r_disp_late4": 4.0,
+    "manfred_runner_boost_runs": 0.36
+  },
+  "nhl": {
+    "league_sv_pct": 0.905,
+    "shots_per_game": 30.2,
+    "avg_pp_opportunities": 3.05,
+    "confirmed_goalie_weight": 0.92,
+    "unconfirmed_goalie_weight": 0.42,
+    "b2b_sv_pct_penalty": 0.008,
+    "empty_net_leader_goal_prob": 0.145,
+    "empty_net_puller_tie_prob": 0.068
+  },
+  "nba": {
+    "sigma_margin_base": 11.8,
+    "sigma_total_base": 16.6,
+    "home_b2b_penalty_pts": 1.45,
+    "away_b2b_penalty_pts": 2.15,
+    "three_in_four_penalty_pts": 0.75,
+    "ot_scale": 1.62
+  }
+}

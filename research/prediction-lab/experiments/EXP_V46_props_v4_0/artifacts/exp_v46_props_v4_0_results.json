@@ -1,0 +1,116 @@
+{
+  "experiment_id": "EXP_V46_props_v4_0",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "families_evaluated": [
+    "goals",
+    "assists",
+    "goals_assists",
+    "yellow_cards",
+    "shots",
+    "shots_on_target"
+  ],
+  "oos_metrics": {
+    "goals": {
+      "line": 0.5,
+      "vs_v3_6_platt": {
+        "n": 389107,
+        "log_loss": 0.27765921535882065,
+        "benchmark_log_loss": 0.27730262678265727,
+        "delta_ll": 0.0003565885761633651,
+        "delta_ll_ci95": [
+          0.0003056410144324491,
+          0.00040598529189547495
+        ],
+        "significance": "significativa",
+        "brier": 0.0797337349114972,
+        "ece": 0.003917398781953149,
+        "promoted_n_ge_50pct": 1269,
+        "promoted_ece_ge_50pct": 0.05803104063140215
+      },
+      "v3_6_promoted_ece_ge_50pct": 0.05308,
+      "v4_0_promoted_ece_ge_50pct": 0.05803
+    },
+    "assists": {
+      "line": 0.5,
+      "vs_v3_6_platt": {
+        "n": 389107,
+        "log_loss": 0.25668393487931257,
+        "benchmark_log_loss": 0.2565342724286323,
+        "delta_ll": 0.00014966245068032832,
+        "delta_ll_ci95": [
+          0.00010148534727437104,
+          0.00020103522767766065
+        ],
+        "significance": "significativa",
+        "brier": 0.06985229757421131,
+        "ece": 0.005416454720829015,
+        "promoted_n_ge_50pct": 6,
+        "promoted_ece_ge_50pct": 0.0
+      },
+      "v3_6_promoted_ece_ge_50pct": 0.0,
+      "v4_0_promoted_ece_ge_50pct": 0.0
+    },
+    "goals_assists": {
+      "line": 0.5,
+      "vs_v3_6_platt": {
+        "n": 389107,
+        "log_loss": 0.3938856681351384,
+        "benchmark_log_loss": 0.39403626802109665,
+        "delta_ll": -0.00015059988595832064,
+        "delta_ll_ci95": [
+          -0.00023451857579480771,
+          -7.330970682176397e-05
+        ],
+        "significance": "significativa",
+        "brier": 0.12290860527706675,
+        "ece": 0.007253999485963782,
+        "promoted_n_ge_50pct": 4152,
+        "promoted_ece_ge_50pct": 0.020072099305311685
+      },
+      "v3_6_promoted_ece_ge_50pct": 0.04198,
+      "v4_0_promoted_ece_ge_50pct": 0.02007
+    },
+    "yellow_cards": {
+      "line": 0.5,
+      "vs_v3_6_platt": {
+        "n": 389107,
+        "log_loss": 0.4230775780028505,
+        "benchmark_log_loss": 0.42321740369904454,
+        "delta_ll": -0.00013982569619406656,
+        "delta_ll_ci95": [
+          -0.00018484561018924028,
+          -9.724474443279329e-05
+        ],
+        "significance": "significativa",
+        "brier": 0.1292485715473855,
+        "ece": 0.009615510507902238,
+        "promoted_n_ge_50pct": 0,
+        "promoted_ece_ge_50pct": 0.0
+      },
+      "v3_6_promoted_ece_ge_50pct": 0.0,
+      "v4_0_promoted_ece_ge_50pct": 0.0
+    },
+    "shots": {
+      "line": 1.5,
+      "n_player_seasons_oos_2020_2022": 325,
+      "mae_per90_v4_eb": 0.46852,
+      "mae_per90_static_pos_prior": 0.59896
+    },
+    "shots_on_target": {
+      "line": 0.5,
+      "n_player_seasons_oos_2020_2022": 325,
+      "mae_per90_v4_eb": 0.19491,
+      "mae_per90_static_pos_prior": 0.27275
+    }
+  },
+  "sub_cover_real_validation_oos": {
+    "n_substituted_attacker_pairs": 45043,
+    "starter_only_goal_hit_rate": 0.16691,
+    "compound_sub_cover_hit_rate": 0.22097,
+    "empirical_lift_pp": 5.406
+  },
+  "artifacts": {
+    "model_hierarchical_props_v4_0_sha256": "67000c25f9911e6739fdc991c48def344ef93ad2f6d3c4ab6cf9e952a1f08d8b"
+  }
+}

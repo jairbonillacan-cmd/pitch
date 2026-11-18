@@ -1,0 +1,23 @@
+{
+  "experiment_id": "EXP_V42_multisport_v3_6",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "mlb_extra_innings_verification": {
+    "n_cases": 30,
+    "mean_over_correction_pp": 5.2875,
+    "min_over_correction_pp": 1.5653,
+    "max_over_correction_pp": 11.0335,
+    "opener_cases_verified": 7
+  },
+  "nhl_conservation_verification": {
+    "n_cases": 30,
+    "max_ot_conservation_residual": 6.312839140321103e-12
+  },
+  "nba_impact_injuries_verification": {
+    "n_cases": 30
+  },
+  "artifacts": {
+    "config_sha256": "e19d88ec711050908d4c399f2dff7364cab82ceead21e9d9a84180778af9d5e6",
+    "snapshot_sha256": "4ea3fed55a1fefd70a152cfab4ecfaedc10c86e56b5c7ac522fe0f2189e275f5"
+  }
+}

@@ -1,0 +1,1316 @@
+{
+  "schema_version": "sgp_copula_v5.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "student_t_cases": [
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "goal_diff",
+          "marginalProbability": 0.6352,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.5384,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.34199167999999996,
+        "joint_probability": 0.3479690219866617,
+        "correlation_multiplier": 1.0174780333447344,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.5767,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "goal_diff",
+          "marginalProbability": 0.5916,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.1969,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.067177499268,
+        "joint_probability": 0.019747135656384186,
+        "correlation_multiplier": 0.2939546108676113,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6137,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.386,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_corners",
+          "marginalProbability": 0.2563,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_corners",
+          "marginalProbability": 0.4528,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.027491500994847998,
+        "joint_probability": 0.020990115267294707,
+        "correlation_multiplier": 0.7635128860817141,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6166,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.499,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.3076834,
+        "joint_probability": 0.29503448728316517,
+        "correlation_multiplier": 0.9588898435312571,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6559,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "goal_diff",
+          "marginalProbability": 0.587,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.2368,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.09117114944,
+        "joint_probability": 0.08710801818651676,
+        "correlation_multiplier": 0.9554340240477367,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_corners",
+          "marginalProbability": 0.5298,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.5669,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.7005,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_corners",
+          "marginalProbability": 0.3155,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.066378267683055,
+        "joint_probability": 0.03948920348078807,
+        "correlation_multiplier": 0.5949116308569897,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2337,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.198,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.0462726,
+        "joint_probability": 0.04659660806746177,
+        "correlation_multiplier": 1.007002158241849,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.5219,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.3823,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.6196,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.12362406045200001,
+        "joint_probability": 0.10699027171035018,
+        "correlation_multiplier": 0.865448613475139,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.3525,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.293,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "goal_diff",
+          "marginalProbability": 0.5295,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2039,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.011150900276624997,
+        "joint_probability": 0.01823556141714207,
+        "correlation_multiplier": 1.6353443188231402,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.1244,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_corners",
+          "marginalProbability": 0.5922,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.07366967999999999,
+        "joint_probability": 0.07858164696260678,
+        "correlation_multiplier": 1.0666755571981146,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.3953,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.4612,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_corners",
+          "marginalProbability": 0.2039,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.037173490203999994,
+        "joint_probability": 0.04824181573046622,
+        "correlation_multiplier": 1.2977478161379434,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.4591,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.579,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.5008,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "goal_diff",
+          "marginalProbability": 0.4521,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.060184503724752,
+        "joint_probability": 0.09252960211871165,
+        "correlation_multiplier": 1.53743233543782,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "goal_diff",
+          "marginalProbability": 0.1385,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.382,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.052907,
+        "joint_probability": 0.04861151100605551,
+        "correlation_multiplier": 0.9188105733845334,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.632,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.2604,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.155,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.025508784000000003,
+        "joint_probability": 0.005724504330927005,
+        "correlation_multiplier": 0.22441306221915572,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.5903,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.5186,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.3638,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "total_goals",
+          "marginalProbability": 0.6084,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.06775747222851361,
+        "joint_probability": 0.09958860209005597,
+        "correlation_multiplier": 1.469780362440192,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.1336,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.174,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.023246399999999997,
+        "joint_probability": 0.026943133074627063,
+        "correlation_multiplier": 1.159023895081693,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.4206,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.2114,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.5378,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.04781840095199999,
+        "joint_probability": 0.026562512866596368,
+        "correlation_multiplier": 0.5554872671978254,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_goals",
+          "marginalProbability": 0.4982,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.3371,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "goal_diff",
+          "marginalProbability": 0.1726,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.1908,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 500.0,
+        "independent_probability": 0.0055307195564976005,
+        "joint_probability": 0.014700101765962996,
+        "correlation_multiplier": 2.6579004080387736,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.5398,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.2795,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.1508741,
+        "joint_probability": 0.148095186965962,
+        "correlation_multiplier": 0.9815812453294633,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.5501,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.3896,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.2833,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.060716561368,
+        "joint_probability": 0.06522256113099423,
+        "correlation_multiplier": 1.0742136850551136,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.3036,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.4675,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.2261,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_margin",
+          "marginalProbability": 0.634,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.0203457265242,
+        "joint_probability": 0.00818497494128643,
+        "correlation_multiplier": 0.40229455220244414,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.5517,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.3793,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.20925981,
+        "joint_probability": 0.20205223231530683,
+        "correlation_multiplier": 0.9655567990590589,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_margin",
+          "marginalProbability": 0.1707,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.3695,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.145,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.009145679249999998,
+        "joint_probability": 0.0005815991471462801,
+        "correlation_multiplier": 0.06359277766561518,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.182,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.4726,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2224,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_margin",
+          "marginalProbability": 0.6751,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.012914214517567999,
+        "joint_probability": 0.0034427971131255146,
+        "correlation_multiplier": 0.2665897417486806,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.4745,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.1337,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.06344065,
+        "joint_probability": 0.050723621350313816,
+        "correlation_multiplier": 0.799544477402325,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.5896,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.1696,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.412,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.04119841792,
+        "joint_probability": 0.055871616935736584,
+        "correlation_multiplier": 1.3561592836945662,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2802,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.3189,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_points",
+          "marginalProbability": 0.4324,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.3833,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.0148097304729576,
+        "joint_probability": 0.03174419170613424,
+        "correlation_multiplier": 2.14346856373239,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.6158,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.6577,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.40501166,
+        "joint_probability": 0.3813797418436638,
+        "correlation_multiplier": 0.9416512646664636,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.5233,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.2887,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.5157,
+          "direction": -1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.07791025934700001,
+        "joint_probability": 0.11471261457488856,
+        "correlation_multiplier": 1.4723685370366522,
+        "effective_hold_pct": null
+      }
+    },
+    {
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.6696,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.2581,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.1424,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.4529,
+          "direction": 1
+        }
+      ],
+      "expected": {
+        "degrees_of_freedom_nu": 10.0,
+        "independent_probability": 0.0111459158407296,
+        "joint_probability": 0.0009021546445735248,
+        "correlation_multiplier": 0.08094037829326287,
+        "effective_hold_pct": null
+      }
+    }
+  ],
+  "player_linked_cases": [
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.3032,
+        "teamExpectedGoals": 2.4266,
+        "opponentExpectedGoals": 1.9432,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.3032,
+        "p_team_marginal": 0.49249939655234787,
+        "p_total_marginal": null,
+        "independent_probability": 0.14932581703467188,
+        "joint_probability": 0.19962459738917918,
+        "structural_lift_multiplier": 1.3368391437820055
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.2795,
+        "teamExpectedGoals": 2.6605,
+        "opponentExpectedGoals": 1.1155,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.2795,
+        "p_team_marginal": 0.8637169939092735,
+        "p_total_marginal": 0.7272048397731855,
+        "independent_probability": 0.1755537202971652,
+        "joint_probability": 0.22963930573560473,
+        "structural_lift_multiplier": 1.3080856694286351
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.3666,
+        "teamExpectedGoals": 1.3363,
+        "opponentExpectedGoals": 2.1477,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.3666,
+        "p_team_marginal": 0.23397762764830976,
+        "p_total_marginal": 0.6761781531318962,
+        "independent_probability": 0.05799999134637692,
+        "joint_probability": 0.11438981792208254,
+        "structural_lift_multiplier": 1.97223853429468
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.2124,
+        "teamExpectedGoals": 0.9353,
+        "opponentExpectedGoals": 1.3462,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.2124,
+        "p_team_marginal": 0.5376065175649961,
+        "p_total_marginal": null,
+        "independent_probability": 0.11418762433080518,
+        "joint_probability": 0.1625430246723851,
+        "structural_lift_multiplier": 1.423473214588411
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.5766,
+        "teamExpectedGoals": 2.5442,
+        "opponentExpectedGoals": 1.8478,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.5766,
+        "p_team_marginal": 0.5330542704024164,
+        "p_total_marginal": 0.8139041375414223,
+        "independent_probability": 0.25016083694536767,
+        "joint_probability": 0.3490754111414099,
+        "structural_lift_multiplier": 1.3954039145529564
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.5319,
+        "teamExpectedGoals": 2.5475,
+        "opponentExpectedGoals": 1.4802,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.5319,
+        "p_team_marginal": 0.7890218325534276,
+        "p_total_marginal": 0.7659272844450802,
+        "independent_probability": 0.32144490863922315,
+        "joint_probability": 0.4081592440475205,
+        "structural_lift_multiplier": 1.269764221108327
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.279,
+        "teamExpectedGoals": 2.3168,
+        "opponentExpectedGoals": 1.7087,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.279,
+        "p_team_marginal": 0.5164688042566724,
+        "p_total_marginal": null,
+        "independent_probability": 0.1440947963876116,
+        "joint_probability": 0.19276049093591924,
+        "structural_lift_multiplier": 1.3377338791429918
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.3044,
+        "teamExpectedGoals": 1.0295,
+        "opponentExpectedGoals": 1.8449,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.3044,
+        "p_team_marginal": 0.4353623860268847,
+        "p_total_marginal": 0.5480884481623367,
+        "independent_probability": 0.07263504357971944,
+        "joint_probability": 0.1203547999894039,
+        "structural_lift_multiplier": 1.6569798000783247
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.2555,
+        "teamExpectedGoals": 2.6299,
+        "opponentExpectedGoals": 1.0356,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.2555,
+        "p_team_marginal": 0.7141007155084492,
+        "p_total_marginal": 0.7086820115188511,
+        "independent_probability": 0.12930096969660934,
+        "joint_probability": 0.1938260153633735,
+        "structural_lift_multiplier": 1.499029866660437
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.194,
+        "teamExpectedGoals": 2.4291,
+        "opponentExpectedGoals": 0.8953,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.194,
+        "p_team_marginal": 0.8803082124202535,
+        "p_total_marginal": null,
+        "independent_probability": 0.17077979320952918,
+        "joint_probability": 0.18619298722617658,
+        "structural_lift_multiplier": 1.0902518601702311
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.2189,
+        "teamExpectedGoals": 1.9888,
+        "opponentExpectedGoals": 2.0493,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.2189,
+        "p_team_marginal": 0.38546083718504076,
+        "p_total_marginal": 0.7674238814199495,
+        "independent_probability": 0.06475321436075528,
+        "joint_probability": 0.11214745363710193,
+        "structural_lift_multiplier": 1.7319210288512055
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.2264,
+        "teamExpectedGoals": 1.4396,
+        "opponentExpectedGoals": 1.8938,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.2264,
+        "p_team_marginal": 0.517020280560269,
+        "p_total_marginal": 0.6472352857807365,
+        "independent_probability": 0.07576108531130402,
+        "joint_probability": 0.1224138077319002,
+        "structural_lift_multiplier": 1.6157874089171123
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.5676,
+        "teamExpectedGoals": 1.8014,
+        "opponentExpectedGoals": 0.8802,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.5676,
+        "p_team_marginal": 0.5913404314745109,
+        "p_total_marginal": null,
+        "independent_probability": 0.33564482890493236,
+        "joint_probability": 0.43544218749616825,
+        "structural_lift_multiplier": 1.297330243152658
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.1461,
+        "teamExpectedGoals": 1.2863,
+        "opponentExpectedGoals": 0.8609,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.1461,
+        "p_team_marginal": 0.7506005488671281,
+        "p_total_marginal": 0.3630969915260484,
+        "independent_probability": 0.039818211045305564,
+        "joint_probability": 0.07681140762503422,
+        "structural_lift_multiplier": 1.9290522002014963
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.4382,
+        "teamExpectedGoals": 1.0815,
+        "opponentExpectedGoals": 1.4601,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.4382,
+        "p_team_marginal": 0.2801280932423865,
+        "p_total_marginal": 0.46681246784051417,
+        "independent_probability": 0.0573022249521596,
+        "joint_probability": 0.12734850892429353,
+        "structural_lift_multiplier": 2.2224007711849594
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.4455,
+        "teamExpectedGoals": 1.9541,
+        "opponentExpectedGoals": 0.9696,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.4455,
+        "p_team_marginal": 0.8184193541836442,
+        "p_total_marginal": null,
+        "independent_probability": 0.3646058222888135,
+        "joint_probability": 0.41176342191338877,
+        "structural_lift_multiplier": 1.1293385808502547
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.4938,
+        "teamExpectedGoals": 2.2093,
+        "opponentExpectedGoals": 1.8324,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.4938,
+        "p_team_marginal": 0.47066124704591517,
+        "p_total_marginal": 0.7679424607415469,
+        "independent_probability": 0.17847944542742344,
+        "joint_probability": 0.2723033740835508,
+        "structural_lift_multiplier": 1.5256847836535876
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.1977,
+        "teamExpectedGoals": 1.0851,
+        "opponentExpectedGoals": 2.1341,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.1977,
+        "p_team_marginal": 0.3865175594928595,
+        "p_total_marginal": 0.6240832579531864,
+        "independent_probability": 0.047689023539979496,
+        "joint_probability": 0.08180808427638016,
+        "structural_lift_multiplier": 1.7154489273154727
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.3149,
+        "teamExpectedGoals": 1.4218,
+        "opponentExpectedGoals": 1.4317,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.3149,
+        "p_team_marginal": 0.37274281906168183,
+        "p_total_marginal": null,
+        "independent_probability": 0.11737671372252362,
+        "joint_probability": 0.18431550615256537,
+        "structural_lift_multiplier": 1.5702902245864867
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.4317,
+        "teamExpectedGoals": 2.6657,
+        "opponentExpectedGoals": 1.1083,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.4317,
+        "p_team_marginal": 0.8653308470121227,
+        "p_total_marginal": 0.7268779723649861,
+        "independent_probability": 0.2715349534290023,
+        "joint_probability": 0.3484706729270062,
+        "structural_lift_multiplier": 1.283336338568729
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.5469,
+        "teamExpectedGoals": 0.8972,
+        "opponentExpectedGoals": 1.5383,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.5469,
+        "p_team_marginal": 0.21972341941443405,
+        "p_total_marginal": 0.43953780976305123,
+        "independent_probability": 0.05281782486106624,
+        "joint_probability": 0.10524879203689741,
+        "structural_lift_multiplier": 1.992675622552563
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.4189,
+        "teamExpectedGoals": 1.0512,
+        "opponentExpectedGoals": 0.8745,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": null
+      },
+      "expected": {
+        "p_player_scores": 0.4189,
+        "p_team_marginal": 0.703879199283123,
+        "p_total_marginal": null,
+        "independent_probability": 0.2948549965797002,
+        "joint_probability": 0.36804212018093,
+        "structural_lift_multiplier": 1.2482139507561205
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.3244,
+        "teamExpectedGoals": 2.6858,
+        "opponentExpectedGoals": 1.6037,
+        "teamOutcome": "team_win",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.3244,
+        "p_team_marginal": 0.6067322393814885,
+        "p_total_marginal": 0.80132426317974,
+        "independent_probability": 0.15771979745887174,
+        "joint_probability": 0.22784558954126422,
+        "structural_lift_multiplier": 1.4446226359165788
+      }
+    },
+    {
+      "input": {
+        "pPlayerAnytimeGoal": 0.5505,
+        "teamExpectedGoals": 2.3783,
+        "opponentExpectedGoals": 1.3978,
+        "teamOutcome": "team_win_or_draw",
+        "matchTotalOverLine": 2.5
+      },
+      "expected": {
+        "p_player_scores": 0.5505,
+        "p_team_marginal": 0.7837908903889386,
+        "p_total_marginal": 0.7272211081759952,
+        "independent_probability": 0.31377909857773506,
+        "joint_probability": 0.40632110620491835,
+        "structural_lift_multiplier": 1.2949272531110199
+      }
+    }
+  ]
+}

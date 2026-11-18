@@ -1,0 +1,1879 @@
+{
+  "schema_version": "hierarchical_props_v4.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "n": 72,
+  "rows": [
+    {
+      "case_id": "prop_v4_000",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "GK",
+        "weightedSumY": 9.2875,
+        "weightedExposure90": 8.1804,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.4369,
+        "oppDefFactor": 1.1836,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6809011432414256,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 4.3037828472422754,
+        "p_over_raw": 0.2528117150857406,
+        "p_over_calibrated": 0.32105577353295056,
+        "p_over_sub_cover": 0.3212365227179891,
+        "sub_cover_lift": 0.0001807491850385201
+      }
+    },
+    {
+      "case_id": "prop_v4_001",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_DM",
+        "weightedSumY": 1.1301,
+        "weightedExposure90": 17.5734,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.3589,
+        "oppDefFactor": 1.2323,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.06352671413261111,
+        "fresh_legs_sub_rate_per90": 0.1013364,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 1.3264495410997925,
+        "p_over_raw": 0.08389830134224502,
+        "p_over_calibrated": 0.09970255821389958,
+        "p_over_sub_cover": 0.11477433404307208,
+        "sub_cover_lift": 0.015071775829172504
+      }
+    },
+    {
+      "case_id": "prop_v4_002",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "FW_W",
+        "weightedSumY": 1.5374,
+        "weightedExposure90": 8.3818,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.0466,
+        "oppDefFactor": 1.3097,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.27067957972768986,
+        "fresh_legs_sub_rate_per90": 0.53448755728,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 2.442538243401923,
+        "p_over_raw": 0.18841985331920308,
+        "p_over_calibrated": 0.21717628281970916,
+        "p_over_sub_cover": 0.3377124547276643,
+        "sub_cover_lift": 0.12053617190795515
+      }
+    },
+    {
+      "case_id": "prop_v4_003",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "DF_CB",
+        "weightedSumY": 7.7264,
+        "weightedExposure90": 14.8983,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.1047,
+        "oppDefFactor": 0.925,
+        "refereeFactor": 1.0718,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.417751651954718,
+        "fresh_legs_sub_rate_per90": 0.33510344999999997,
+        "expected_minutes": 25.4,
+        "r_effective": 6.461307065408362,
+        "p_over_raw": 0.11685491733924466,
+        "p_over_calibrated": 0.15650392104151953,
+        "p_over_sub_cover": 0.27248463762058606,
+        "sub_cover_lift": 0.11598071657906653
+      }
+    },
+    {
+      "case_id": "prop_v4_004",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "MF_CM",
+        "weightedSumY": 0.7658,
+        "weightedExposure90": 14.9835,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.2553,
+        "oppDefFactor": 1.2169,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.36727487361100414,
+        "fresh_legs_sub_rate_per90": 1.3632,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 3.1097915580208277,
+        "p_over_raw": 0.10054925658353357,
+        "p_over_calibrated": 0.10054925658353357,
+        "p_over_sub_cover": 0.1737754931142739,
+        "sub_cover_lift": 0.07322623653074033
+      }
+    },
+    {
+      "case_id": "prop_v4_005",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "FW_CF",
+        "weightedSumY": 4.2543,
+        "weightedExposure90": 17.4872,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.4645,
+        "oppDefFactor": 1.2281,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.42048587640969076,
+        "fresh_legs_sub_rate_per90": 1.2066899999999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 3.8520185766081387,
+        "p_over_raw": 0.1388882772911517,
+        "p_over_calibrated": 0.1960927898147053,
+        "p_over_sub_cover": 0.3860095867268898,
+        "sub_cover_lift": 0.1899167969121845
+      }
+    },
+    {
+      "case_id": "prop_v4_006",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "DF_FB",
+        "weightedSumY": 2.3357,
+        "weightedExposure90": 8.6676,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.785,
+        "oppDefFactor": 0.8849,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.1784498080126486,
+        "fresh_legs_sub_rate_per90": 0.057751649999999995,
+        "expected_minutes": 57.36442,
+        "r_effective": 1.9210913008869366,
+        "p_over_raw": 0.0736001182606742,
+        "p_over_calibrated": 0.08496797310633908,
+        "p_over_sub_cover": 0.09921713568087412,
+        "sub_cover_lift": 0.01424916257453504
+      }
+    },
+    {
+      "case_id": "prop_v4_007",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_AM",
+        "weightedSumY": 8.1966,
+        "weightedExposure90": 13.5333,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.524,
+        "oppDefFactor": 0.9792,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4760234958793608,
+        "fresh_legs_sub_rate_per90": 0.25247154723,
+        "expected_minutes": 25.4,
+        "r_effective": 4.881329118176111,
+        "p_over_raw": 0.15475638196131755,
+        "p_over_calibrated": 0.14019040598624175,
+        "p_over_sub_cover": 0.2294932557840008,
+        "sub_cover_lift": 0.08930284979775904
+      }
+    },
+    {
+      "case_id": "prop_v4_008",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "GK",
+        "weightedSumY": 4.4455,
+        "weightedExposure90": 8.7172,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.9016,
+        "oppDefFactor": 0.8715,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.3259047035838218,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 2.800948164237083,
+        "p_over_raw": 0.20571781307489928,
+        "p_over_calibrated": 0.231220278391066,
+        "p_over_sub_cover": 0.23134707950982863,
+        "sub_cover_lift": 0.00012680111876264832
+      }
+    },
+    {
+      "case_id": "prop_v4_009",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_DM",
+        "weightedSumY": 5.7085,
+        "weightedExposure90": 4.4709,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.2859,
+        "oppDefFactor": 1.0404,
+        "refereeFactor": 1.1831,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6482193201928358,
+        "fresh_legs_sub_rate_per90": 0.40711605,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 5.5573581009346515,
+        "p_over_raw": 0.5468102278646845,
+        "p_over_calibrated": 0.4481698538508985,
+        "p_over_sub_cover": 0.5901478452418925,
+        "sub_cover_lift": 0.14197799139099393
+      }
+    },
+    {
+      "case_id": "prop_v4_010",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "FW_W",
+        "weightedSumY": 8.4032,
+        "weightedExposure90": 5.9664,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.4158,
+        "oppDefFactor": 1.2426,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.8132500191087673,
+        "fresh_legs_sub_rate_per90": 2.679,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 4.264206518453154,
+        "p_over_raw": 0.48751725514897526,
+        "p_over_calibrated": 0.48751725514897526,
+        "p_over_sub_cover": 0.7968485823321694,
+        "sub_cover_lift": 0.3093313271831941
+      }
+    },
+    {
+      "case_id": "prop_v4_011",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "DF_CB",
+        "weightedSumY": 4.6497,
+        "weightedExposure90": 5.5457,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.296,
+        "oppDefFactor": 0.8769,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.5482044814474146,
+        "fresh_legs_sub_rate_per90": 0.217248,
+        "expected_minutes": 25.4,
+        "r_effective": 3.0597824316842,
+        "p_over_raw": 0.1513702631293465,
+        "p_over_calibrated": 0.1513702631293465,
+        "p_over_sub_cover": 0.2823553885691811,
+        "sub_cover_lift": 0.13098512543983457
+      }
+    },
+    {
+      "case_id": "prop_v4_012",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "MF_CM",
+        "weightedSumY": 2.3989,
+        "weightedExposure90": 0.6288,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.3795,
+        "oppDefFactor": 1.1657,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4848195405299569,
+        "fresh_legs_sub_rate_per90": 0.15028480592,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 2.1666312714866214,
+        "p_over_raw": 0.4468188078341519,
+        "p_over_calibrated": 0.3710362825221009,
+        "p_over_sub_cover": 0.37893976369441473,
+        "sub_cover_lift": 0.00790348117231382
+      }
+    },
+    {
+      "case_id": "prop_v4_013",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "FW_CF",
+        "weightedSumY": 8.462,
+        "weightedExposure90": 14.1628,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.1171,
+        "oppDefFactor": 1.1128,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.45393993069671096,
+        "fresh_legs_sub_rate_per90": 0.18786681419999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 4.839953415099431,
+        "p_over_raw": 0.3528028161497921,
+        "p_over_calibrated": 0.24010958161007823,
+        "p_over_sub_cover": 0.2496068194082086,
+        "sub_cover_lift": 0.009497237798130387
+      }
+    },
+    {
+      "case_id": "prop_v4_014",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "DF_FB",
+        "weightedSumY": 1.6776,
+        "weightedExposure90": 2.5043,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.2847,
+        "oppDefFactor": 1.0591,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.30944125368122277,
+        "fresh_legs_sub_rate_per90": 0.21269819999999998,
+        "expected_minutes": 57.36442,
+        "r_effective": 1.7731421054882133,
+        "p_over_raw": 0.19406758285240575,
+        "p_over_calibrated": 0.2217616032663243,
+        "p_over_sub_cover": 0.2766377418599374,
+        "sub_cover_lift": 0.054876138593613094
+      }
+    },
+    {
+      "case_id": "prop_v4_015",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_AM",
+        "weightedSumY": 6.7828,
+        "weightedExposure90": 13.8875,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.2578,
+        "oppDefFactor": 1.1045,
+        "refereeFactor": 1.0737,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.3782005505685218,
+        "fresh_legs_sub_rate_per90": 0.26326079999999996,
+        "expected_minutes": 25.4,
+        "r_effective": 5.812527124050624,
+        "p_over_raw": 0.016217929063363154,
+        "p_over_calibrated": 0.04035626631370195,
+        "p_over_sub_cover": 0.14906821312623972,
+        "sub_cover_lift": 0.10871194681253776
+      }
+    },
+    {
+      "case_id": "prop_v4_016",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "GK",
+        "weightedSumY": 3.6474,
+        "weightedExposure90": 1.0393,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.0994,
+        "oppDefFactor": 0.918,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6747061903128554,
+        "fresh_legs_sub_rate_per90": 0.0192,
+        "expected_minutes": 84.79266,
+        "r_effective": 2.2252690150908263,
+        "p_over_raw": 0.14831787427651497,
+        "p_over_calibrated": 0.14831787427651497,
+        "p_over_sub_cover": 0.1487007509256797,
+        "sub_cover_lift": 0.0003828766491647262
+      }
+    },
+    {
+      "case_id": "prop_v4_017",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_DM",
+        "weightedSumY": 4.9023,
+        "weightedExposure90": 15.4346,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.9372,
+        "oppDefFactor": 0.8321,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.333676705196089,
+        "fresh_legs_sub_rate_per90": 0.36791999999999997,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 3.3277327486851043,
+        "p_over_raw": 0.1924299367932202,
+        "p_over_calibrated": 0.1924299367932202,
+        "p_over_sub_cover": 0.22439116830282313,
+        "sub_cover_lift": 0.03196123150960292
+      }
+    },
+    {
+      "case_id": "prop_v4_018",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "FW_W",
+        "weightedSumY": 3.3766,
+        "weightedExposure90": 5.6379,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.2795,
+        "oppDefFactor": 1.1064,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.41237594160479085,
+        "fresh_legs_sub_rate_per90": 0.2751058996,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 2.9178122897145577,
+        "p_over_raw": 0.2738538000564253,
+        "p_over_calibrated": 0.25471998841889415,
+        "p_over_sub_cover": 0.3200500684675547,
+        "sub_cover_lift": 0.06533008004866053
+      }
+    },
+    {
+      "case_id": "prop_v4_019",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "DF_CB",
+        "weightedSumY": 9.4068,
+        "weightedExposure90": 12.1255,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.0751,
+        "oppDefFactor": 1.2477,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.5156548012133902,
+        "fresh_legs_sub_rate_per90": 0.04722298655,
+        "expected_minutes": 25.4,
+        "r_effective": 4.899085678961154,
+        "p_over_raw": 0.16765095517512263,
+        "p_over_calibrated": 0.14761523341212615,
+        "p_over_sub_cover": 0.16483675736536177,
+        "sub_cover_lift": 0.017221523953235618
+      }
+    },
+    {
+      "case_id": "prop_v4_020",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "MF_CM",
+        "weightedSumY": 2.0037,
+        "weightedExposure90": 0.8975,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.822,
+        "oppDefFactor": 1.1973,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.529856718948707,
+        "fresh_legs_sub_rate_per90": 0.32018575896,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 2.2057976457035076,
+        "p_over_raw": 0.09267035618659278,
+        "p_over_calibrated": 0.14749433756824118,
+        "p_over_sub_cover": 0.16356806873606122,
+        "sub_cover_lift": 0.016073731167820043
+      }
+    },
+    {
+      "case_id": "prop_v4_021",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "FW_CF",
+        "weightedSumY": 5.5425,
+        "weightedExposure90": 3.3223,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.1508,
+        "oppDefFactor": 0.8838,
+        "refereeFactor": 1.1285,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6385437354078065,
+        "fresh_legs_sub_rate_per90": 0.247203,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 5.071738056831393,
+        "p_over_raw": 0.426921920440525,
+        "p_over_calibrated": 0.3379210042281763,
+        "p_over_sub_cover": 0.3576840353540402,
+        "sub_cover_lift": 0.019763031125863917
+      }
+    },
+    {
+      "case_id": "prop_v4_022",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "DF_FB",
+        "weightedSumY": 5.3539,
+        "weightedExposure90": 7.1679,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.9912,
+        "oppDefFactor": 1.1467,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.7982498992963601,
+        "fresh_legs_sub_rate_per90": 0.8448,
+        "expected_minutes": 57.36442,
+        "r_effective": 3.457998906432472,
+        "p_over_raw": 0.12970153911164745,
+        "p_over_calibrated": 0.12970153911164745,
+        "p_over_sub_cover": 0.23839347513083112,
+        "sub_cover_lift": 0.10869193601918367
+      }
+    },
+    {
+      "case_id": "prop_v4_023",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_AM",
+        "weightedSumY": 4.3418,
+        "weightedExposure90": 2.0339,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 0.8444,
+        "oppDefFactor": 1.329,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.1232104522384452,
+        "fresh_legs_sub_rate_per90": 0.82563,
+        "expected_minutes": 25.4,
+        "r_effective": 3.5660842815031373,
+        "p_over_raw": 0.27100169281597986,
+        "p_over_calibrated": 0.27100169281597986,
+        "p_over_sub_cover": 0.5919321313294709,
+        "sub_cover_lift": 0.320930438513491
+      }
+    },
+    {
+      "case_id": "prop_v4_024",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "GK",
+        "weightedSumY": 10.903,
+        "weightedExposure90": 12.7449,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.9627,
+        "oppDefFactor": 1.333,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.5990989262752878,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 4.61921238213465,
+        "p_over_raw": 0.4852791131876308,
+        "p_over_calibrated": 0.3950726179648471,
+        "p_over_sub_cover": 0.39519583995774726,
+        "sub_cover_lift": 0.00012322199290015767
+      }
+    },
+    {
+      "case_id": "prop_v4_025",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_DM",
+        "weightedSumY": 9.345,
+        "weightedExposure90": 13.0456,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.1095,
+        "oppDefFactor": 0.9497,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4985369597249509,
+        "fresh_legs_sub_rate_per90": 0.1013364,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 4.935222508843609,
+        "p_over_raw": 0.08382988173486984,
+        "p_over_calibrated": 0.11897520722443303,
+        "p_over_sub_cover": 0.12188566830979153,
+        "sub_cover_lift": 0.002910461085358501
+      }
+    },
+    {
+      "case_id": "prop_v4_026",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "FW_W",
+        "weightedSumY": 1.1567,
+        "weightedExposure90": 16.2955,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.1146,
+        "oppDefFactor": 0.9113,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.15221431757883122,
+        "fresh_legs_sub_rate_per90": 0.53448755728,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 2.2632914644909268,
+        "p_over_raw": 0.08650245416147787,
+        "p_over_calibrated": 0.10840311102044034,
+        "p_over_sub_cover": 0.26436387569721104,
+        "sub_cover_lift": 0.1559607646767707
+      }
+    },
+    {
+      "case_id": "prop_v4_027",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "DF_CB",
+        "weightedSumY": 3.6715,
+        "weightedExposure90": 10.6363,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 0.8914,
+        "oppDefFactor": 1.2711,
+        "refereeFactor": 1.1534,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.28878795438952615,
+        "fresh_legs_sub_rate_per90": 0.33510344999999997,
+        "expected_minutes": 25.4,
+        "r_effective": 4.1357065481235455,
+        "p_over_raw": 0.09747347294965811,
+        "p_over_calibrated": 0.14090307240366257,
+        "p_over_sub_cover": 0.27873561496679733,
+        "sub_cover_lift": 0.13783254256313476
+      }
+    },
+    {
+      "case_id": "prop_v4_028",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "MF_CM",
+        "weightedSumY": 8.6336,
+        "weightedExposure90": 8.0616,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.2518,
+        "oppDefFactor": 1.1213,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 1.195994140873774,
+        "fresh_legs_sub_rate_per90": 1.3632,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 4.026087041259817,
+        "p_over_raw": 0.36172741915878404,
+        "p_over_calibrated": 0.36172741915878404,
+        "p_over_sub_cover": 0.4189785130474943,
+        "sub_cover_lift": 0.05725109388871025
+      }
+    },
+    {
+      "case_id": "prop_v4_029",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "FW_CF",
+        "weightedSumY": 7.7982,
+        "weightedExposure90": 1.9778,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.0826,
+        "oppDefFactor": 0.8229,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.8629725701510504,
+        "fresh_legs_sub_rate_per90": 1.2066899999999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 4.333272220498527,
+        "p_over_raw": 0.6782806439663548,
+        "p_over_calibrated": 0.6782806439663548,
+        "p_over_sub_cover": 0.7338093615321538,
+        "sub_cover_lift": 0.055528717565799024
+      }
+    },
+    {
+      "case_id": "prop_v4_030",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "DF_FB",
+        "weightedSumY": 5.9279,
+        "weightedExposure90": 6.2726,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.8656,
+        "oppDefFactor": 0.8569,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.5198856242461308,
+        "fresh_legs_sub_rate_per90": 0.057751649999999995,
+        "expected_minutes": 57.36442,
+        "r_effective": 3.467552259742116,
+        "p_over_raw": 0.034324272801422175,
+        "p_over_calibrated": 0.05514127805837559,
+        "p_over_sub_cover": 0.05831195007558054,
+        "sub_cover_lift": 0.003170672017204952
+      }
+    },
+    {
+      "case_id": "prop_v4_031",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_AM",
+        "weightedSumY": 7.0517,
+        "weightedExposure90": 3.4854,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.4901,
+        "oppDefFactor": 1.1196,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.8403690888697498,
+        "fresh_legs_sub_rate_per90": 0.25247154723,
+        "expected_minutes": 25.4,
+        "r_effective": 4.562682389721751,
+        "p_over_raw": 0.2966750284558536,
+        "p_over_calibrated": 0.2103447839470136,
+        "p_over_sub_cover": 0.30949847425590754,
+        "sub_cover_lift": 0.09915369030889393
+      }
+    },
+    {
+      "case_id": "prop_v4_032",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "GK",
+        "weightedSumY": 4.1624,
+        "weightedExposure90": 10.841,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.7682,
+        "oppDefFactor": 1.3272,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.2643393725143615,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 2.6871245957184664,
+        "p_over_raw": 0.21446432463404688,
+        "p_over_calibrated": 0.2383214609198923,
+        "p_over_sub_cover": 0.2384840569399087,
+        "sub_cover_lift": 0.00016259602001642004
+      }
+    },
+    {
+      "case_id": "prop_v4_033",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_DM",
+        "weightedSumY": 5.7876,
+        "weightedExposure90": 14.1979,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.8162,
+        "oppDefFactor": 1.0677,
+        "refereeFactor": 1.0463,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.3545048802003972,
+        "fresh_legs_sub_rate_per90": 0.40711605,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 5.601424629623438,
+        "p_over_raw": 0.23461525900297478,
+        "p_over_calibrated": 0.23102049282976875,
+        "p_over_sub_cover": 0.2522975637864263,
+        "sub_cover_lift": 0.021277070956657568
+      }
+    },
+    {
+      "case_id": "prop_v4_034",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "FW_W",
+        "weightedSumY": 11.2539,
+        "weightedExposure90": 10.5052,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.1288,
+        "oppDefFactor": 0.9468,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.4547556846959722,
+        "fresh_legs_sub_rate_per90": 2.679,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 4.393113151279415,
+        "p_over_raw": 0.24208127257305356,
+        "p_over_calibrated": 0.24208127257305356,
+        "p_over_sub_cover": 0.5524630898648603,
+        "sub_cover_lift": 0.3103818172918067
+      }
+    },
+    {
+      "case_id": "prop_v4_035",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "DF_CB",
+        "weightedSumY": 3.9788,
+        "weightedExposure90": 9.6118,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.1011,
+        "oppDefFactor": 0.8119,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.34973788308079773,
+        "fresh_legs_sub_rate_per90": 0.217248,
+        "expected_minutes": 25.4,
+        "r_effective": 2.86098981077147,
+        "p_over_raw": 0.0049709172807810564,
+        "p_over_calibrated": 0.006066778596588514,
+        "p_over_sub_cover": 0.026309798245324083,
+        "sub_cover_lift": 0.02024301964873557
+      }
+    },
+    {
+      "case_id": "prop_v4_036",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "MF_CM",
+        "weightedSumY": 9.9155,
+        "weightedExposure90": 16.1828,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.8622,
+        "oppDefFactor": 1.1047,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.48369961444093934,
+        "fresh_legs_sub_rate_per90": 0.15028480592,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 4.538287995183027,
+        "p_over_raw": 0.3216629530144413,
+        "p_over_calibrated": 0.28157479569468646,
+        "p_over_sub_cover": 0.28749900996987815,
+        "sub_cover_lift": 0.005924214275191686
+      }
+    },
+    {
+      "case_id": "prop_v4_037",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "FW_CF",
+        "weightedSumY": 1.3029,
+        "weightedExposure90": 12.2642,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.975,
+        "oppDefFactor": 1.1627,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.11834077658519945,
+        "fresh_legs_sub_rate_per90": 0.18786681419999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 1.8170756355881925,
+        "p_over_raw": 0.10084913758456963,
+        "p_over_calibrated": 0.11289921722376628,
+        "p_over_sub_cover": 0.12822082939941185,
+        "sub_cover_lift": 0.015321612175645566
+      }
+    },
+    {
+      "case_id": "prop_v4_038",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "DF_FB",
+        "weightedSumY": 8.7239,
+        "weightedExposure90": 13.9513,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.8362,
+        "oppDefFactor": 1.3038,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4943428682992723,
+        "fresh_legs_sub_rate_per90": 0.21269819999999998,
+        "expected_minutes": 57.36442,
+        "r_effective": 4.165370360270422,
+        "p_over_raw": 0.2709566611746667,
+        "p_over_calibrated": 0.2843478614061942,
+        "p_over_sub_cover": 0.31512083881539504,
+        "sub_cover_lift": 0.03077297740920082
+      }
+    },
+    {
+      "case_id": "prop_v4_039",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_AM",
+        "weightedSumY": 2.7626,
+        "weightedExposure90": 1.1547,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.1939,
+        "oppDefFactor": 1.004,
+        "refereeFactor": 1.1819,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4757335033784198,
+        "fresh_legs_sub_rate_per90": 0.26326079999999996,
+        "expected_minutes": 25.4,
+        "r_effective": 3.2979125069978266,
+        "p_over_raw": 0.16232304921991972,
+        "p_over_calibrated": 0.1894125949308002,
+        "p_over_sub_cover": 0.2880611411875197,
+        "sub_cover_lift": 0.09864854625671948
+      }
+    },
+    {
+      "case_id": "prop_v4_040",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "GK",
+        "weightedSumY": 9.699,
+        "weightedExposure90": 6.0499,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.5123,
+        "oppDefFactor": 0.96,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.9278760936122616,
+        "fresh_legs_sub_rate_per90": 0.0192,
+        "expected_minutes": 84.79266,
+        "r_effective": 3.5214533324612467,
+        "p_over_raw": 0.34451438543422996,
+        "p_over_calibrated": 0.34451438543422996,
+        "p_over_sub_cover": 0.3451354295958132,
+        "sub_cover_lift": 0.0006210441615832618
+      }
+    },
+    {
+      "case_id": "prop_v4_041",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_DM",
+        "weightedSumY": 6.1807,
+        "weightedExposure90": 4.9794,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.4988,
+        "oppDefFactor": 0.8905,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.8113664148145179,
+        "fresh_legs_sub_rate_per90": 0.36791999999999997,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 3.605559723092838,
+        "p_over_raw": 0.5505864156193189,
+        "p_over_calibrated": 0.5505864156193189,
+        "p_over_sub_cover": 0.5827427329210745,
+        "sub_cover_lift": 0.03215631730175561
+      }
+    },
+    {
+      "case_id": "prop_v4_042",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "FW_W",
+        "weightedSumY": 0.5389,
+        "weightedExposure90": 8.1142,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.5439,
+        "oppDefFactor": 1.2904,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.12893170366235254,
+        "fresh_legs_sub_rate_per90": 0.2751058996,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 1.4394650211751518,
+        "p_over_raw": 0.12106276790159078,
+        "p_over_calibrated": 0.13496504236017026,
+        "p_over_sub_cover": 0.24057783984843384,
+        "sub_cover_lift": 0.10561279748826358
+      }
+    },
+    {
+      "case_id": "prop_v4_043",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "DF_CB",
+        "weightedSumY": 8.9833,
+        "weightedExposure90": 16.0889,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.4648,
+        "oppDefFactor": 1.0854,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4064309683074431,
+        "fresh_legs_sub_rate_per90": 0.04722298655,
+        "expected_minutes": 25.4,
+        "r_effective": 4.786460866380199,
+        "p_over_raw": 0.15799930927098543,
+        "p_over_calibrated": 0.14205771677115345,
+        "p_over_sub_cover": 0.16374781111607253,
+        "sub_cover_lift": 0.021690094344919086
+      }
+    },
+    {
+      "case_id": "prop_v4_044",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "MF_CM",
+        "weightedSumY": 3.7911,
+        "weightedExposure90": 14.0102,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.2793,
+        "oppDefFactor": 1.0055,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.258399701213033,
+        "fresh_legs_sub_rate_per90": 0.32018575896,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 2.968179368252119,
+        "p_over_raw": 0.24371504004645012,
+        "p_over_calibrated": 0.2621236565406148,
+        "p_over_sub_cover": 0.2885015818110204,
+        "sub_cover_lift": 0.02637792527040561
+      }
+    },
+    {
+      "case_id": "prop_v4_045",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "FW_CF",
+        "weightedSumY": 1.1336,
+        "weightedExposure90": 13.5688,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.96,
+        "oppDefFactor": 1.3152,
+        "refereeFactor": 0.9464,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.10609952938431022,
+        "fresh_legs_sub_rate_per90": 0.247203,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 1.9853943001380343,
+        "p_over_raw": 0.0074223915751892395,
+        "p_over_calibrated": 0.032802631453145284,
+        "p_over_sub_cover": 0.03980963329427378,
+        "sub_cover_lift": 0.007007001841128499
+      }
+    },
+    {
+      "case_id": "prop_v4_046",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "DF_FB",
+        "weightedSumY": 1.4731,
+        "weightedExposure90": 15.0445,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.8726,
+        "oppDefFactor": 0.8986,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.27798613420655427,
+        "fresh_legs_sub_rate_per90": 0.8448,
+        "expected_minutes": 57.36442,
+        "r_effective": 2.733172659172604,
+        "p_over_raw": 0.013102787949211936,
+        "p_over_calibrated": 0.013447648551751339,
+        "p_over_sub_cover": 0.06819328319382686,
+        "sub_cover_lift": 0.054745634642075526
+      }
+    },
+    {
+      "case_id": "prop_v4_047",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_AM",
+        "weightedSumY": 7.1926,
+        "weightedExposure90": 15.8048,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 0.9071,
+        "oppDefFactor": 0.9707,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.5167725717142198,
+        "fresh_legs_sub_rate_per90": 0.82563,
+        "expected_minutes": 25.4,
+        "r_effective": 4.05091630510076,
+        "p_over_raw": 0.11547987910973535,
+        "p_over_calibrated": 0.11547987910973535,
+        "p_over_sub_cover": 0.4522071529528887,
+        "sub_cover_lift": 0.3367272738431534
+      }
+    },
+    {
+      "case_id": "prop_v4_048",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "GK",
+        "weightedSumY": 9.3289,
+        "weightedExposure90": 17.507,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.1506,
+        "oppDefFactor": 0.8791,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4066762289737906,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 4.312599386969648,
+        "p_over_raw": 0.30819861383232133,
+        "p_over_calibrated": 0.2744046042213537,
+        "p_over_sub_cover": 0.2745028328565983,
+        "sub_cover_lift": 9.822863524461267e-05
+      }
+    },
+    {
+      "case_id": "prop_v4_049",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_DM",
+        "weightedSumY": 0.1672,
+        "weightedExposure90": 4.519,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.8555,
+        "oppDefFactor": 1.1727,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.05140248661403031,
+        "fresh_legs_sub_rate_per90": 0.1013364,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 0.5360423470463556,
+        "p_over_raw": 0.03698174245786658,
+        "p_over_calibrated": 0.05960018368930115,
+        "p_over_sub_cover": 0.07102992624622656,
+        "sub_cover_lift": 0.011429742556925408
+      }
+    },
+    {
+      "case_id": "prop_v4_050",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "FW_W",
+        "weightedSumY": 1.462,
+        "weightedExposure90": 9.3608,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.3054,
+        "oppDefFactor": 1.1196,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.24697649156035878,
+        "fresh_legs_sub_rate_per90": 0.53448755728,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 2.408018445193984,
+        "p_over_raw": 0.02913636989051541,
+        "p_over_calibrated": 0.06731365103625035,
+        "p_over_sub_cover": 0.17803160507204055,
+        "sub_cover_lift": 0.1107179540357902
+      }
+    },
+    {
+      "case_id": "prop_v4_051",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "DF_CB",
+        "weightedSumY": 2.3973,
+        "weightedExposure90": 14.5722,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.3223,
+        "oppDefFactor": 1.2064,
+        "refereeFactor": 0.9024,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.17703113266148096,
+        "fresh_legs_sub_rate_per90": 0.33510344999999997,
+        "expected_minutes": 25.4,
+        "r_effective": 3.25407960997331,
+        "p_over_raw": 0.06747364717016752,
+        "p_over_calibrated": 0.1081801093215171,
+        "p_over_sub_cover": 0.2761464982705194,
+        "sub_cover_lift": 0.1679663889490023
+      }
+    },
+    {
+      "case_id": "prop_v4_052",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "MF_CM",
+        "weightedSumY": 1.485,
+        "weightedExposure90": 16.7323,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.0681,
+        "oppDefFactor": 0.9655,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.37089717081993,
+        "fresh_legs_sub_rate_per90": 1.3632,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 3.2383177570093458,
+        "p_over_raw": 0.05432616062609259,
+        "p_over_calibrated": 0.05432616062609259,
+        "p_over_sub_cover": 0.100586763490611,
+        "sub_cover_lift": 0.04626060286451841
+      }
+    },
+    {
+      "case_id": "prop_v4_053",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "FW_CF",
+        "weightedSumY": 5.863,
+        "weightedExposure90": 12.1001,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.5145,
+        "oppDefFactor": 0.9575,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6470283799509946,
+        "fresh_legs_sub_rate_per90": 1.2066899999999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 4.094545739214598,
+        "p_over_raw": 0.4971290406986102,
+        "p_over_calibrated": 0.4971290406986102,
+        "p_over_sub_cover": 0.6145017175509311,
+        "sub_cover_lift": 0.11737267685232089
+      }
+    },
+    {
+      "case_id": "prop_v4_054",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "DF_FB",
+        "weightedSumY": 11.0977,
+        "weightedExposure90": 0.935,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.1942,
+        "oppDefFactor": 1.1487,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.754499689199689,
+        "fresh_legs_sub_rate_per90": 0.057751649999999995,
+        "expected_minutes": 57.36442,
+        "r_effective": 4.682254110771396,
+        "p_over_raw": 0.6803332875656669,
+        "p_over_calibrated": 0.5638264923199916,
+        "p_over_sub_cover": 0.5694070384768842,
+        "sub_cover_lift": 0.0055805461568926296
+      }
+    },
+    {
+      "case_id": "prop_v4_055",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "MF_AM",
+        "weightedSumY": 1.2708,
+        "weightedExposure90": 2.9559,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.0853,
+        "oppDefFactor": 1.3314,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.2760732981524762,
+        "fresh_legs_sub_rate_per90": 0.25247154723,
+        "expected_minutes": 25.4,
+        "r_effective": 2.070113833119431,
+        "p_over_raw": 0.010228703045242404,
+        "p_over_calibrated": 0.02374998622175039,
+        "p_over_sub_cover": 0.1011413534832724,
+        "sub_cover_lift": 0.07739136726152201
+      }
+    },
+    {
+      "case_id": "prop_v4_056",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "GK",
+        "weightedSumY": 7.1525,
+        "weightedExposure90": 16.8279,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.3935,
+        "oppDefFactor": 1.0571,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.3288222870729663,
+        "fresh_legs_sub_rate_per90": 0.0032500000000000003,
+        "expected_minutes": 84.79266,
+        "r_effective": 3.667603474706183,
+        "p_over_raw": 0.31707932724269666,
+        "p_over_calibrated": 0.3085793516697168,
+        "p_over_sub_cover": 0.3086856072822814,
+        "sub_cover_lift": 0.00010625561256460969
+      }
+    },
+    {
+      "case_id": "prop_v4_057",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_DM",
+        "weightedSumY": 9.4172,
+        "weightedExposure90": 0.8121,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.8373,
+        "oppDefFactor": 1.2562,
+        "refereeFactor": 1.1687,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.4265509914107601,
+        "fresh_legs_sub_rate_per90": 0.40711605,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 7.3972134443752555,
+        "p_over_raw": 0.726994177624145,
+        "p_over_calibrated": 0.726994177624145,
+        "p_over_sub_cover": 0.7520715802503877,
+        "sub_cover_lift": 0.025077402626242695
+      }
+    },
+    {
+      "case_id": "prop_v4_058",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "FW_W",
+        "weightedSumY": 2.7917,
+        "weightedExposure90": 9.7885,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.2348,
+        "oppDefFactor": 1.2773,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.9354865801168772,
+        "fresh_legs_sub_rate_per90": 2.679,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 3.8966459423216566,
+        "p_over_raw": 0.22692296139274504,
+        "p_over_calibrated": 0.22692296139274504,
+        "p_over_sub_cover": 0.6224067412074624,
+        "sub_cover_lift": 0.3954837798147174
+      }
+    },
+    {
+      "case_id": "prop_v4_059",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "DF_CB",
+        "weightedSumY": 7.2373,
+        "weightedExposure90": 7.72,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.0493,
+        "oppDefFactor": 1.0342,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6579245283018869,
+        "fresh_legs_sub_rate_per90": 0.217248,
+        "expected_minutes": 25.4,
+        "r_effective": 3.6584795006994506,
+        "p_over_raw": 0.17102681098213385,
+        "p_over_calibrated": 0.17102681098213385,
+        "p_over_sub_cover": 0.2949178694726365,
+        "sub_cover_lift": 0.12389105849050264
+      }
+    },
+    {
+      "case_id": "prop_v4_060",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "MF_CM",
+        "weightedSumY": 7.8232,
+        "weightedExposure90": 15.6811,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.1131,
+        "oppDefFactor": 0.9363,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.39637516465150535,
+        "fresh_legs_sub_rate_per90": 0.15028480592,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 4.096528459784057,
+        "p_over_raw": 0.06025569898991502,
+        "p_over_calibrated": 0.09038120231059263,
+        "p_over_sub_cover": 0.09715498213443668,
+        "sub_cover_lift": 0.006773779823844056
+      }
+    },
+    {
+      "case_id": "prop_v4_061",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "FW_CF",
+        "weightedSumY": 2.8399,
+        "weightedExposure90": 13.5552,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.4033,
+        "oppDefFactor": 0.8579,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.18736138258406798,
+        "fresh_legs_sub_rate_per90": 0.18786681419999998,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 2.731274491062012,
+        "p_over_raw": 0.16282756230076023,
+        "p_over_calibrated": 0.14483787435529133,
+        "p_over_sub_cover": 0.16095314200945265,
+        "sub_cover_lift": 0.016115267654161325
+      }
+    },
+    {
+      "case_id": "prop_v4_062",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "DF_FB",
+        "weightedSumY": 0.7987,
+        "weightedExposure90": 10.9026,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 0.8669,
+        "oppDefFactor": 1.2536,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.09075497088526403,
+        "fresh_legs_sub_rate_per90": 0.21269819999999998,
+        "expected_minutes": 57.36442,
+        "r_effective": 1.2103331678452105,
+        "p_over_raw": 0.05875910365317409,
+        "p_over_calibrated": 0.08358443868310694,
+        "p_over_sub_cover": 0.15289909173280722,
+        "sub_cover_lift": 0.06931465304970028
+      }
+    },
+    {
+      "case_id": "prop_v4_063",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "MF_AM",
+        "weightedSumY": 3.724,
+        "weightedExposure90": 3.0178,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.4868,
+        "oppDefFactor": 0.891,
+        "refereeFactor": 0.9639,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 0.4832262572620735,
+        "fresh_legs_sub_rate_per90": 0.26326079999999996,
+        "expected_minutes": 25.4,
+        "r_effective": 3.9677935851841424,
+        "p_over_raw": 0.1511638592110915,
+        "p_over_calibrated": 0.1818102879351834,
+        "p_over_sub_cover": 0.27656335794170767,
+        "sub_cover_lift": 0.09475307000652428
+      }
+    },
+    {
+      "case_id": "prop_v4_064",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "GK",
+        "weightedSumY": 1.8434,
+        "weightedExposure90": 2.5211,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 0.7669,
+        "oppDefFactor": 0.8305,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.2753699562746578,
+        "fresh_legs_sub_rate_per90": 0.0192,
+        "expected_minutes": 84.79266,
+        "r_effective": 1.4305297710334435,
+        "p_over_raw": 0.01844470150383278,
+        "p_over_calibrated": 0.01852246642864114,
+        "p_over_sub_cover": 0.018639318858102473,
+        "sub_cover_lift": 0.0001168524294613317
+      }
+    },
+    {
+      "case_id": "prop_v4_065",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_DM",
+        "weightedSumY": 2.0957,
+        "weightedExposure90": 1.4342,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 1.2229,
+        "oppDefFactor": 1.1744,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.0,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.6235351714276833,
+        "fresh_legs_sub_rate_per90": 0.36791999999999997,
+        "expected_minutes": 76.98172000000001,
+        "r_effective": 2.480764748690776,
+        "p_over_raw": 0.1878964750265695,
+        "p_over_calibrated": 0.2648049246843466,
+        "p_over_sub_cover": 0.3032216027498247,
+        "sub_cover_lift": 0.038416678065478105
+      }
+    },
+    {
+      "case_id": "prop_v4_066",
+      "input": {
+        "propFamily": "goals",
+        "posCluster": "FW_W",
+        "weightedSumY": 4.7236,
+        "weightedExposure90": 6.0648,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.1536,
+        "oppDefFactor": 1.2813,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.513627732429441,
+        "fresh_legs_sub_rate_per90": 0.2751058996,
+        "expected_minutes": 54.421479999999995,
+        "r_effective": 3.408895924118232,
+        "p_over_raw": 0.33606643508247247,
+        "p_over_calibrated": 0.2892451108073392,
+        "p_over_sub_cover": 0.36246380991243,
+        "sub_cover_lift": 0.07321869910509077
+      }
+    },
+    {
+      "case_id": "prop_v4_067",
+      "input": {
+        "propFamily": "assists",
+        "posCluster": "DF_CB",
+        "weightedSumY": 10.2136,
+        "weightedExposure90": 1.2608,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 0.8952,
+        "oppDefFactor": 0.9302,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 1.3415019714462428,
+        "fresh_legs_sub_rate_per90": 0.04722298655,
+        "expected_minutes": 25.4,
+        "r_effective": 5.100711849420771,
+        "p_over_raw": 0.24969284091931654,
+        "p_over_calibrated": 0.18543559979059848,
+        "p_over_sub_cover": 0.1957672164970779,
+        "sub_cover_lift": 0.010331616706479418
+      }
+    },
+    {
+      "case_id": "prop_v4_068",
+      "input": {
+        "propFamily": "goals_assists",
+        "posCluster": "MF_CM",
+        "weightedSumY": 2.9927,
+        "weightedExposure90": 10.4966,
+        "lineupStatus": "confirmed_starter",
+        "teamGoalFactor": 1.083,
+        "oppDefFactor": 0.8271,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.26546661848405456,
+        "fresh_legs_sub_rate_per90": 0.32018575896,
+        "expected_minutes": 79.83568000000001,
+        "r_effective": 2.6566365273126955,
+        "p_over_raw": 0.18292803228831642,
+        "p_over_calibrated": 0.21271754252167727,
+        "p_over_sub_cover": 0.23280908369070769,
+        "sub_cover_lift": 0.02009154116903042
+      }
+    },
+    {
+      "case_id": "prop_v4_069",
+      "input": {
+        "propFamily": "yellow_cards",
+        "posCluster": "FW_CF",
+        "weightedSumY": 4.4834,
+        "weightedExposure90": 9.6657,
+        "lineupStatus": "projected_starter",
+        "teamGoalFactor": 0.8313,
+        "oppDefFactor": 1.2584,
+        "refereeFactor": 0.8708,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.3319476529638719,
+        "fresh_legs_sub_rate_per90": 0.247203,
+        "expected_minutes": 73.79484000000001,
+        "r_effective": 4.4205455878111914,
+        "p_over_raw": 0.21273882726629867,
+        "p_over_calibrated": 0.21919788612495786,
+        "p_over_sub_cover": 0.23588747678292155,
+        "sub_cover_lift": 0.016689590657963688
+      }
+    },
+    {
+      "case_id": "prop_v4_070",
+      "input": {
+        "propFamily": "shots",
+        "posCluster": "DF_FB",
+        "weightedSumY": 11.0981,
+        "weightedExposure90": 2.2345,
+        "lineupStatus": "doubt",
+        "teamGoalFactor": 1.4249,
+        "oppDefFactor": 1.2965,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 1.5,
+        "isLateKnockoutTie": true
+      },
+      "expected": {
+        "lambda_eb_per90": 2.235964065632192,
+        "fresh_legs_sub_rate_per90": 0.8448,
+        "expected_minutes": 57.36442,
+        "r_effective": 4.028560518724979,
+        "p_over_raw": 0.5500163815010499,
+        "p_over_calibrated": 0.5500163815010499,
+        "p_over_sub_cover": 0.6711830045289167,
+        "sub_cover_lift": 0.12116662302786674
+      }
+    },
+    {
+      "case_id": "prop_v4_071",
+      "input": {
+        "propFamily": "shots_on_target",
+        "posCluster": "MF_AM",
+        "weightedSumY": 11.7548,
+        "weightedExposure90": 14.5355,
+        "lineupStatus": "bench",
+        "teamGoalFactor": 1.3736,
+        "oppDefFactor": 1.1534,
+        "refereeFactor": 1.0,
+        "contextWeight": 1.0,
+        "line": 0.5,
+        "isLateKnockoutTie": false
+      },
+      "expected": {
+        "lambda_eb_per90": 0.7838831870185048,
+        "fresh_legs_sub_rate_per90": 0.82563,
+        "expected_minutes": 25.4,
+        "r_effective": 4.563130485409299,
+        "p_over_raw": 0.2704127797073422,
+        "p_over_calibrated": 0.2704127797073422,
+        "p_over_sub_cover": 0.6787517697699266,
+        "sub_cover_lift": 0.4083389900625844
+      }
+    }
+  ]
+}

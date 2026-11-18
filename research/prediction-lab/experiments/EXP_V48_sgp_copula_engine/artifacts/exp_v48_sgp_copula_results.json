@@ -1,0 +1,85 @@
+{
+  "experiment_id": "EXP_V48_sgp_copula_engine",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "oos_benchmarks_vs_naive_independence": {
+    "soccer_2leg_o25_1ho15": {
+      "n": 26649,
+      "log_loss": 0.5949845683458601,
+      "benchmark_log_loss": 0.6438297631794788,
+      "delta_ll": -0.04884519483361877,
+      "delta_ll_ci95": [
+        -0.05236402166141238,
+        -0.045639513716857844
+      ],
+      "significance": "significativa",
+      "brier": 0.20274500524695185,
+      "benchmark_brier": 0.216673799117482,
+      "bss_pct_vs_benchmark": 6.428,
+      "ece": 0.022982627755791823
+    },
+    "soccer_3leg_o25_1ho15_sot85": {
+      "n": 26649,
+      "log_loss": 0.4948532064056299,
+      "benchmark_log_loss": 0.5659005845754224,
+      "delta_ll": -0.07104737816979234,
+      "delta_ll_ci95": [
+        -0.07546159691905446,
+        -0.06666013538040429
+      ],
+      "significance": "significativa",
+      "brier": 0.1586490810141389,
+      "benchmark_brier": 0.17246053501890155,
+      "bss_pct_vs_benchmark": 8.008,
+      "ece": 0.015843366277768375
+    },
+    "soccer_neg_trap_both_corners": {
+      "n": 26649,
+      "log_loss": 0.41224885832087227,
+      "benchmark_log_loss": 0.4239409219825626,
+      "delta_ll": -0.011692063661690386,
+      "delta_ll_ci95": [
+        -0.012607825750626004,
+        -0.010691656590681133
+      ],
+      "significance": "significativa",
+      "brier": 0.1227442653623217,
+      "benchmark_brier": 0.12642287388942497,
+      "bss_pct_vs_benchmark": 2.91,
+      "ece": 0.035144447883302676
+    },
+    "nfl_pos_win_and_rush": {
+      "n": 1343,
+      "log_loss": 0.6205412346783031,
+      "benchmark_log_loss": 0.637397795290057,
+      "delta_ll": -0.016856560611753824,
+      "delta_ll_ci95": [
+        -0.02764167575433762,
+        -0.005132968640787713
+      ],
+      "significance": "significativa",
+      "brier": 0.21537946249645296,
+      "benchmark_brier": 0.22190459815490648,
+      "bss_pct_vs_benchmark": 2.941,
+      "ece": 0.04013368285795445
+    },
+    "nfl_neg_trap_win_and_pass": {
+      "n": 1343,
+      "log_loss": 0.42623573859419667,
+      "benchmark_log_loss": 0.44837146702536207,
+      "delta_ll": -0.022135728431165434,
+      "delta_ll_ci95": [
+        -0.027612174661040597,
+        -0.015531379786447622
+      ],
+      "significance": "significativa",
+      "brier": 0.13013404021633948,
+      "benchmark_brier": 0.13811582693445204,
+      "bss_pct_vs_benchmark": 5.779,
+      "ece": 0.057279908048099085
+    }
+  },
+  "artifacts": {
+    "sgp_copula_priors_v4_0_sha256": "301bb7e0ebc4475dad1a083540e4721a382934f90f796689c197322fedada6f7"
+  }
+}

@@ -187,12 +187,12 @@ def solve_coherent_dc_3param(
     target_draw = pd
     tot_t = _clamp(float(total_goals_target), 0.35, 7.50)
 
-    # Etapa 1: Bisección monótona exacta en `u` (`share = sigmoid(u)`) con `T = tot_t` fijo
-    u_lo = -3.4
-    u_hi = 3.4
-    for _ in range(36):
+    # Etapa 1: Bisección monótona exacta en `u` (`share = sigmoid(u)`) con `T = tot_t` fijo (54 pasos -> ~3.8e-16)
+    u_lo = -5.0
+    u_hi = 5.0
+    for _ in range(54):
         u_mid = 0.5 * (u_lo + u_hi)
-        sh = _clamp(_sigmoid(u_mid), 0.03, 0.97)
+        sh = _clamp(_sigmoid(u_mid), 0.006, 0.994)
         lh = _clamp(tot_t * sh, 0.05, 10.0)
         la = _clamp(tot_t * (1.0 - sh), 0.05, 10.0)
         ch, _, ca, _ = _poisson_1x2_summary(lh, la, max_goals)
@@ -202,7 +202,7 @@ def solve_coherent_dc_3param(
             u_hi = u_mid
 
     u = 0.5 * (u_lo + u_hi)
-    sh0 = _clamp(_sigmoid(u), 0.03, 0.97)
+    sh0 = _clamp(_sigmoid(u), 0.006, 0.994)
     lh0 = _clamp(tot_t * sh0, 0.05, 10.0)
     la0 = _clamp(tot_t * (1.0 - sh0), 0.05, 10.0)
     _, cd_pois, _, s_pois = _poisson_1x2_summary(lh0, la0, max_goals)
@@ -226,8 +226,8 @@ def solve_coherent_dc_3param(
     # Verificar residuo 1X2 sobre la matriz DC exacta; si `rho_eff == rho_req` y `shrink == 0`,
     # el residuo ya es `< 1e-9` y `lh0 + la0 == tot_t` se conserva intacto.
     def _eval_res(u_val: float, v_val: float, r_val: float) -> tuple[float, float]:
-        t_cur = _clamp(math.exp(v_val), 0.25, 8.0)
-        s_cur = _clamp(_sigmoid(u_val), 0.03, 0.97)
+        t_cur = math.exp(v_val)
+        s_cur = _sigmoid(u_val)
         l_h = _clamp(t_cur * s_cur, 0.05, 10.0)
         l_a = _clamp(t_cur * (1.0 - s_cur), 0.05, 10.0)
         mat = build_dc_score_matrix_exact(l_h, l_a, r_val, max_goals)
@@ -248,7 +248,7 @@ def solve_coherent_dc_3param(
 
     v = math.log(tot_t)
     f1_0, f2_0 = _eval_res(u, v, rho_eff)
-    if (f1_0 * f1_0 + f2_0 * f2_0) <= 1e-16:
+    if (f1_0 * f1_0 + f2_0 * f2_0) <= 1e-28:
         return lh0, la0, rho_eff
 
     # Etapa 2: Newton 2D amortiguado con `rho_eff` fijo para preservar `1X2` exacto
@@ -259,7 +259,7 @@ def solve_coherent_dc_3param(
     for _ in range(20):
         f1, f2 = _eval_res(u, v, rho_eff)
         norm0 = f1 * f1 + f2 * f2
-        if norm0 < 1e-18:
+        if norm0 < 1e-28:
             break
         f1u, f2u = _eval_res(u + h_step, v, rho_eff)
         f1v, f2v = _eval_res(u, v + h_step, rho_eff)
@@ -275,7 +275,7 @@ def solve_coherent_dc_3param(
         step = 1.0
         improved = False
         for _ls in range(8):
-            u_try = _clamp(u + step * du, -3.4, 3.4)
+            u_try = _clamp(u + step * du, -5.0, 5.0)
             v_try = _clamp(v + step * dv, v_min, v_max)
             r1, r2 = _eval_res(u_try, v_try, rho_eff)
             if r1 * r1 + r2 * r2 < norm0:
@@ -287,8 +287,8 @@ def solve_coherent_dc_3param(
         if not improved:
             break
 
-    final_t = _clamp(math.exp(v), 0.25, 8.0)
-    final_s = _clamp(_sigmoid(u), 0.03, 0.97)
+    final_t = math.exp(v)
+    final_s = _sigmoid(u)
     final_lh = _clamp(final_t * final_s, 0.05, 10.0)
     final_la = _clamp(final_t * (1.0 - final_s), 0.05, 10.0)
     # Re-verificar seguridad de `tau` tras posible ajuste de `final_lh, final_la`
@@ -315,15 +315,15 @@ def solve_dc_2param_from_1x2(
     pd = pd0 / norm_p
     pa = pa0 / norm_p
 
-    init_share = _clamp(ph / max(ph + pa, 1e-6), 0.08, 0.92)
+    init_share = _clamp(ph / max(ph + pa, 1e-6), 0.01, 0.99)
     u = math.log(init_share / (1.0 - init_share))
     v = math.log(2.55)
     target_diff = ph - pa
     target_draw = pd
 
     def _eval_res(u_val: float, v_val: float) -> tuple[float, float]:
-        tot = _clamp(math.exp(v_val), 0.25, 8.0)
-        sh = _clamp(_sigmoid(u_val), 0.04, 0.96)
+        tot = math.exp(v_val)
+        sh = _sigmoid(u_val)
         lh = _clamp(tot * sh, 0.05, 10.0)
         la = _clamp(tot * (1.0 - sh), 0.05, 10.0)
         mat = build_dc_score_matrix_exact(lh, la, rho, max_goals)
@@ -348,7 +348,7 @@ def solve_dc_2param_from_1x2(
     for _ in range(24):
         f1, f2 = _eval_res(u, v)
         norm0 = f1 * f1 + f2 * f2
-        if norm0 < 1e-20:
+        if norm0 < 1e-28:
             break
         f1u, f2u = _eval_res(u + h_step, v)
         f1v, f2v = _eval_res(u, v + h_step)
@@ -364,7 +364,7 @@ def solve_dc_2param_from_1x2(
         step = 1.0
         improved = False
         for _ls in range(8):
-            u_try = _clamp(u + step * du, -3.2, 3.2)
+            u_try = _clamp(u + step * du, -5.0, 5.0)
             v_try = _clamp(v + step * dv, v_min, v_max)
             r1, r2 = _eval_res(u_try, v_try)
             if r1 * r1 + r2 * r2 < norm0:
@@ -376,8 +376,8 @@ def solve_dc_2param_from_1x2(
         if not improved:
             break
 
-    final_t = _clamp(math.exp(v), 0.25, 8.0)
-    final_s = _clamp(_sigmoid(u), 0.04, 0.96)
+    final_t = math.exp(v)
+    final_s = _sigmoid(u)
     return _clamp(final_t * final_s, 0.05, 10.0), _clamp(final_t * (1.0 - final_s), 0.05, 10.0)
 
 
@@ -499,11 +499,11 @@ def solve_coherent_dc_3param_batch(
         s = ch + cd + ca
         return ch / s, cd / s, ca / s, s
 
-    u_lo = np.full(n, -3.4, dtype=np.float64)
-    u_hi = np.full(n, 3.4, dtype=np.float64)
-    for _ in range(36):
+    u_lo = np.full(n, -5.0, dtype=np.float64)
+    u_hi = np.full(n, 5.0, dtype=np.float64)
+    for _ in range(54):
         u_mid = 0.5 * (u_lo + u_hi)
-        sh = np.clip(1.0 / (1.0 + np.exp(-u_mid)), 0.03, 0.97)
+        sh = np.clip(1.0 / (1.0 + np.exp(-u_mid)), 0.006, 0.994)
         lh = np.clip(tot_t * sh, 0.05, 10.0)
         la = np.clip(tot_t * (1.0 - sh), 0.05, 10.0)
         ch, _, ca, _ = _pois_batch(lh, la)
@@ -512,7 +512,7 @@ def solve_coherent_dc_3param_batch(
         u_hi = np.where(go_right, u_hi, u_mid)
 
     u = 0.5 * (u_lo + u_hi)
-    sh0 = np.clip(1.0 / (1.0 + np.exp(-u)), 0.03, 0.97)
+    sh0 = np.clip(1.0 / (1.0 + np.exp(-u)), 0.006, 0.994)
     lh_out = np.clip(tot_t * sh0, 0.05, 10.0)
     la_out = np.clip(tot_t * (1.0 - sh0), 0.05, 10.0)
     _, cd_pois, _, s_pois = _pois_batch(lh_out, la_out)
@@ -531,7 +531,7 @@ def solve_coherent_dc_3param_batch(
     # garantizando paridad 100% `< 1e-15` con `solve_coherent_dc_3param`.
     check = summarize_dc_markets_batch(lh_out, la_out, rho_eff, max_goals)
     res_sq = ((check["p_home"] - check["p_away"]) - target_diff) ** 2 + (check["p_draw"] - target_draw) ** 2
-    need_stage2 = np.where(res_sq > 1e-16)[0]
+    need_stage2 = np.where(res_sq > 1e-28)[0]
     for idx in need_stage2:
         lh_i, la_i, rh_i = solve_coherent_dc_3param(
             float(ph[idx]),

@@ -1,0 +1,151 @@
+{
+  "experiment_id": "EXP_V45_nfl_v4_0_complete",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "key_number_mass_pre2020": {
+    "abs_3_pct": 15.033,
+    "abs_7_pct": 9.55,
+    "abs_6_pct": 5.755,
+    "abs_10_pct": 5.812,
+    "abs_14_pct": 4.845
+  },
+  "spread_key_numbers_oos_vs_gaussian_v3_5": {
+    "n": 10744,
+    "log_loss": 0.5763877360309613,
+    "benchmark_log_loss": 0.5782470905614037,
+    "delta_ll": -0.001859354530442457,
+    "delta_ll_ci95": [
+      -0.0026548105685270376,
+      -0.0010741242821723502
+    ],
+    "significance": "significativa",
+    "brier": 0.19647534948688258,
+    "benchmark_brier": 0.1972521793632145,
+    "bss_pct_vs_benchmark": 0.394,
+    "ece": 0.023579303978649442
+  },
+  "totals_objective_lines_oos_vs_v3_5": {
+    "n": 8058,
+    "log_loss": 0.6513421750123944,
+    "benchmark_log_loss": 0.6571247753110886,
+    "delta_ll": -0.005782600298694185,
+    "delta_ll_ci95": [
+      -0.008603239949045632,
+      -0.0028574813924887713
+    ],
+    "significance": "significativa",
+    "brier": 0.2298483386844082,
+    "benchmark_brier": 0.2323879431773635,
+    "bss_pct_vs_benchmark": 1.093,
+    "ece": 0.04711891817015253
+  },
+  "totals_objective_lines_oos_vs_const_44_5": {
+    "n": 8058,
+    "log_loss": 0.6513421750123944,
+    "benchmark_log_loss": 0.6629581654347846,
+    "delta_ll": -0.011615990422390206,
+    "delta_ll_ci95": [
+      -0.01628769457592393,
+      -0.006872950419135767
+    ],
+    "significance": "significativa",
+    "brier": 0.2298483386844082,
+    "benchmark_brier": 0.23519848327716844,
+    "bss_pct_vs_benchmark": 2.275,
+    "ece": 0.04711891817015253
+  },
+  "totals_market_posterior_oos_vs_v3_5": {
+    "n": 1327,
+    "log_loss": 0.6946509068071746,
+    "benchmark_log_loss": 0.7025595800094928,
+    "delta_ll": -0.00790867320231827,
+    "delta_ll_ci95": [
+      -0.012003317726759598,
+      -0.0037272435094251313
+    ],
+    "significance": "significativa",
+    "brier": 0.2507511021925357,
+    "benchmark_brier": 0.2546401995713142,
+    "bss_pct_vs_benchmark": 1.527,
+    "ece": 0.02501346555893644
+  },
+  "player_props_pbp_oos": {
+    "pass_attempts": {
+      "n_oos": 2785,
+      "line": 32.5,
+      "dispersion_r": 34.8376,
+      "mae_v4_0": 6.4587,
+      "mae_naive_ewma": 6.7214,
+      "vs_naive_ewma_poisson": {
+        "n": 2785,
+        "log_loss": 0.669466912019157,
+        "benchmark_log_loss": 0.7283465749433485,
+        "delta_ll": -0.05887966292419155,
+        "delta_ll_ci95": [
+          -0.07485480386165014,
+          -0.042280789213165026
+        ],
+        "significance": "significativa",
+        "brier": 0.23833816567952817,
+        "benchmark_brier": 0.2572628569445341,
+        "bss_pct_vs_benchmark": 7.356,
+        "ece": 0.017653719425688497
+      },
+      "vacancy_subset": null
+    },
+    "completions": {
+      "n_oos": 2785,
+      "line": 20.5,
+      "dispersion_r": 44.0655,
+      "mae_v4_0": 4.6114,
+      "mae_naive_ewma": 4.7967,
+      "vs_naive_ewma_poisson": {
+        "n": 2785,
+        "log_loss": 0.6534101235463377,
+        "benchmark_log_loss": 0.6931772455499616,
+        "delta_ll": -0.03976712200362396,
+        "delta_ll_ci95": [
+          -0.05310443686794293,
+          -0.02634141152231375
+        ],
+        "significance": "significativa",
+        "brier": 0.23058015807210225,
+        "benchmark_brier": 0.24194003511413906,
+        "bss_pct_vs_benchmark": 4.695,
+        "ece": 0.02560658593017944
+      },
+      "vacancy_subset": null
+    },
+    "rush_attempts": {
+      "n_oos": 2705,
+      "line": 13.5,
+      "dispersion_r": 9.5363,
+      "mae_v4_0": 4.5827,
+      "mae_naive_ewma": 4.6779,
+      "vs_naive_ewma_poisson": {
+        "n": 2705,
+        "log_loss": 0.652422189508485,
+        "benchmark_log_loss": 0.7610122571564484,
+        "delta_ll": -0.10859006764796339,
+        "delta_ll_ci95": [
+          -0.13778321165481433,
+          -0.08189289812031214
+        ],
+        "significance": "significativa",
+        "brier": 0.22996439046003447,
+        "benchmark_brier": 0.2485943370584628,
+        "bss_pct_vs_benchmark": 7.494,
+        "ece": 0.033932500217090156
+      },
+      "vacancy_subset": {
+        "n_vacancy_games": 567,
+        "mae_v4_with_redistribution": 4.8246,
+        "mae_raw_without_redistribution": 5.0332
+      }
+    }
+  },
+  "artifacts": {
+    "model_nfl_key_numbers_v4_0_sha256": "2702682dd2949431641b7880f4326b1f12d695ab6ac562dc7952fd32ba6ec862",
+    "model_nfl_props_v4_0_sha256": "584956bc6688a3e85eea4be75235220bbe105ec84965d4f6915a14c9c6ccc5f1"
+  }
+}

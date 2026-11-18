@@ -1,0 +1,758 @@
+{
+  "schema_version": "inplay_early_payout_v5.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "soccer_cases": [
+    {
+      "input": {
+        "pregameMuHome": 2.2205,
+        "pregameMuAway": 1.3961,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 2.2204999999999973,
+        "remaining_lambda_away": 1.3961000000000006,
+        "p_home": 0.5541250723162977,
+        "p_draw": 0.217666868902662,
+        "p_away": 0.22820805878104067,
+        "p_home_early_payout": 0.582767244930788,
+        "p_away_early_payout": 0.2616314074552667,
+        "home_ep_lift": 0.028642172614490313,
+        "p_both_trigger_ep": 0.006163422447537106,
+        "expected_final_total": 3.6412599767151517,
+        "p_over_2_5": 0.7040528360642607
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.3813,
+        "pregameMuAway": 1.8355,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 2.3812999999999978,
+        "remaining_lambda_away": 1.8355,
+        "p_home": 0.49550607497181415,
+        "p_draw": 0.21285678046009238,
+        "p_away": 0.29163714456809375,
+        "p_home_early_payout": 0.5379660619320369,
+        "p_away_early_payout": 0.33873038376575465,
+        "home_ep_lift": 0.04245998696022274,
+        "p_both_trigger_ep": 0.011157788967685458,
+        "expected_final_total": 4.252516385168348,
+        "p_over_2_5": 0.7959131871201369
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 0.9289,
+        "pregameMuAway": 2.3086,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.9288999999999996,
+        "remaining_lambda_away": 2.3085999999999993,
+        "p_home": 0.12995597508706888,
+        "p_draw": 0.19259744587528965,
+        "p_away": 0.6774465790376414,
+        "p_home_early_payout": 0.1500008719239808,
+        "p_away_early_payout": 0.6929292140121822,
+        "home_ep_lift": 0.020044896836911907,
+        "p_both_trigger_ep": 0.003301688954438751,
+        "expected_final_total": 3.2435338510188974,
+        "p_over_2_5": 0.6293275266893101
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.1962,
+        "pregameMuAway": 1.9863,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 2.1961999999999993,
+        "remaining_lambda_away": 1.9862999999999982,
+        "p_home": 0.4299042970219289,
+        "p_draw": 0.21951057341016336,
+        "p_away": 0.350585129567908,
+        "p_home_early_payout": 0.4748095172136503,
+        "p_away_early_payout": 0.39730896952967093,
+        "home_ep_lift": 0.044905220191721384,
+        "p_both_trigger_ep": 0.011071307237106724,
+        "expected_final_total": 4.220613932309828,
+        "p_over_2_5": 0.7916539638288762
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 0.9934,
+        "pregameMuAway": 1.4157,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.9933999999999987,
+        "remaining_lambda_away": 1.4156999999999995,
+        "p_home": 0.25726772342806636,
+        "p_draw": 0.28231489979206753,
+        "p_away": 0.46041737677986494,
+        "p_home_early_payout": 0.27155631243923944,
+        "p_away_early_payout": 0.47367500048258493,
+        "home_ep_lift": 0.01428858901117308,
+        "p_both_trigger_ep": 0.0012597670893646328,
+        "expected_final_total": 2.426185565820296,
+        "p_over_2_5": 0.4369271055477277
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.4545,
+        "pregameMuAway": 2.2255,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.4545000000000015,
+        "remaining_lambda_away": 2.2255000000000007,
+        "p_home": 0.23915959323520186,
+        "p_draw": 0.21833582712189542,
+        "p_away": 0.5425045796429032,
+        "p_home_early_payout": 0.27424495227136125,
+        "p_away_early_payout": 0.5728681382621915,
+        "home_ep_lift": 0.03508535903615939,
+        "p_both_trigger_ep": 0.006643158032011485,
+        "expected_final_total": 3.706364733719511,
+        "p_over_2_5": 0.7151456102020216
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.9733,
+        "pregameMuAway": 2.0487,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.9732999999999976,
+        "remaining_lambda_away": 2.0487000000000006,
+        "p_home": 0.37321493399762595,
+        "p_draw": 0.22452023280499775,
+        "p_away": 0.4022648331973752,
+        "p_home_early_payout": 0.4165159308422707,
+        "p_away_early_payout": 0.44495548028355847,
+        "home_ep_lift": 0.043300996844644724,
+        "p_both_trigger_ep": 0.009693985428503775,
+        "expected_final_total": 4.058810111961759,
+        "p_over_2_5": 0.769547167005344
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.5925,
+        "pregameMuAway": 1.0363,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.5925000000000014,
+        "remaining_lambda_away": 1.0363000000000004,
+        "p_home": 0.49583773778224016,
+        "p_draw": 0.2646357335537275,
+        "p_away": 0.2395265286640315,
+        "p_home_early_payout": 0.5113443863747729,
+        "p_away_early_payout": 0.2566612176879886,
+        "home_ep_lift": 0.015506648592532701,
+        "p_both_trigger_ep": 0.0017884086105917033,
+        "expected_final_total": 2.6465716697605717,
+        "p_over_2_5": 0.4929370835744791
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.8037,
+        "pregameMuAway": 0.7585,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.8036999999999985,
+        "remaining_lambda_away": 0.7585000000000006,
+        "p_home": 0.6174087230476649,
+        "p_draw": 0.2361115337654386,
+        "p_away": 0.14647974318689572,
+        "p_home_early_payout": 0.6277115774233318,
+        "p_away_early_payout": 0.15892113341142997,
+        "home_ep_lift": 0.010302854375666914,
+        "p_both_trigger_ep": 0.0013401209018957425,
+        "expected_final_total": 2.568975456961653,
+        "p_over_2_5": 0.47378107303579775
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.3225,
+        "pregameMuAway": 1.7238,
+        "currentMinute": 0,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 2.322499999999997,
+        "remaining_lambda_away": 1.7238000000000007,
+        "p_home": 0.5060518494488907,
+        "p_draw": 0.21535277556739463,
+        "p_away": 0.27859537498371495,
+        "p_home_early_payout": 0.5448466368457108,
+        "p_away_early_payout": 0.3220387203050768,
+        "home_ep_lift": 0.038794787396820074,
+        "p_both_trigger_ep": 0.00960671021379872,
+        "expected_final_total": 4.07946097551277,
+        "p_over_2_5": 0.7726442897550948
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.1904,
+        "pregameMuAway": 1.2527,
+        "currentMinute": 18,
+        "currentHomeGoals": 2,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.8499684700800012,
+        "remaining_lambda_away": 1.0580056165400005,
+        "p_home": 0.7718093578962427,
+        "p_draw": 0.14936267980975257,
+        "p_away": 0.07882796229400528,
+        "p_home_early_payout": 0.8156915586084839,
+        "p_away_early_payout": 0.08261210902950494,
+        "home_ep_lift": 0.04388220071224114,
+        "p_both_trigger_ep": 0.0025667206686031483,
+        "expected_final_total": 5.9183773499806085,
+        "p_over_2_5": 1.0
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.2289,
+        "pregameMuAway": 0.9809,
+        "currentMinute": 78,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.40776388160000004,
+        "remaining_lambda_away": 0.17944976960000003,
+        "p_home": 0.2879021503065426,
+        "p_draw": 0.6005747413741037,
+        "p_away": 0.11152310831935362,
+        "p_home_early_payout": 0.28802890417587984,
+        "p_away_early_payout": 0.11165328626129167,
+        "home_ep_lift": 0.0001267538693372483,
+        "p_both_trigger_ep": 7.283518813108566e-07,
+        "expected_final_total": 2.5885383102038446,
+        "p_over_2_5": 0.4441260122745376
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 0.8332,
+        "pregameMuAway": 0.9123,
+        "currentMinute": 62,
+        "currentHomeGoals": 2,
+        "currentAwayGoals": 2,
+        "redCardsHome": 1,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.20676137621919996,
+        "remaining_lambda_away": 0.4665012380047999,
+        "p_home": 0.12056606086891905,
+        "p_draw": 0.564620208331082,
+        "p_away": 0.31481373079999914,
+        "p_home_early_payout": 0.120796163344287,
+        "p_away_early_payout": 0.3150364383485433,
+        "home_ep_lift": 0.00023010247536794926,
+        "p_both_trigger_ep": 1.8518740300115167e-06,
+        "expected_final_total": 4.675114055451768,
+        "p_over_2_5": 1.0000000000000002
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.5883,
+        "pregameMuAway": 1.2039,
+        "currentMinute": 62,
+        "currentHomeGoals": 2,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.9731747444466666,
+        "remaining_lambda_away": 0.45265428074000014,
+        "p_home": 0.8156516450168687,
+        "p_draw": 0.14887129271622718,
+        "p_away": 0.035477062266904634,
+        "p_home_early_payout": 0.8264801974321443,
+        "p_away_early_payout": 0.0357233151241773,
+        "home_ep_lift": 0.010828552415275583,
+        "p_both_trigger_ep": 0.0001136806553129527,
+        "expected_final_total": 4.4239644566699425,
+        "p_over_2_5": 1.0000000000000009
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.6422,
+        "pregameMuAway": 0.9721,
+        "currentMinute": 45,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 2,
+        "redCardsHome": 0,
+        "redCardsAway": 1
+      },
+      "expected": {
+        "remaining_lambda_home": 1.2568949494080006,
+        "remaining_lambda_away": 0.3610679195639997,
+        "p_home": 0.11684578014487283,
+        "p_draw": 0.20424157038636157,
+        "p_away": 0.6789126494687658,
+        "p_home_early_payout": 0.11697073599950601,
+        "p_away_early_payout": 0.999,
+        "home_ep_lift": 0.0001249558546331797,
+        "p_both_trigger_ep": 0.03445551321407203,
+        "expected_final_total": 3.7006432407235317,
+        "p_over_2_5": 0.8200066472676126
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.1811,
+        "pregameMuAway": 1.7887,
+        "currentMinute": 45,
+        "currentHomeGoals": 2,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.6646923714,
+        "remaining_lambda_away": 1.0066338538000004,
+        "p_home": 0.5416421918513903,
+        "p_draw": 0.2807033457433296,
+        "p_away": 0.17765446240528032,
+        "p_home_early_payout": 0.5759011775609993,
+        "p_away_early_payout": 0.17867772595916134,
+        "home_ep_lift": 0.03425898570960906,
+        "p_both_trigger_ep": 0.0015730991590572718,
+        "expected_final_total": 4.715182424438689,
+        "p_over_2_5": 1.0000000000000004
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.3321,
+        "pregameMuAway": 1.8405,
+        "currentMinute": 18,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 2,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.9696454844200013,
+        "remaining_lambda_away": 1.5544498580999984,
+        "p_home": 0.1335028780327001,
+        "p_draw": 0.16106461900555274,
+        "p_away": 0.705432502961747,
+        "p_home_early_payout": 0.13671392068839097,
+        "p_away_early_payout": 0.999,
+        "home_ep_lift": 0.00321104265569086,
+        "p_both_trigger_ep": 0.06259798944655239,
+        "expected_final_total": 5.583095819800703,
+        "p_over_2_5": 0.972555927296288
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.2791,
+        "pregameMuAway": 1.3087,
+        "currentMinute": 78,
+        "currentHomeGoals": 2,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.4169476704000001,
+        "remaining_lambda_away": 0.23941881280000002,
+        "p_home": 0.9802061716432575,
+        "p_draw": 0.018265472310276,
+        "p_away": 0.0015283560464667083,
+        "p_home_early_payout": 0.999,
+        "p_away_early_payout": 0.0015287995706766925,
+        "home_ep_lift": 0.01879382835674248,
+        "p_both_trigger_ep": 9.090079205823977e-05,
+        "expected_final_total": 2.659050250855187,
+        "p_over_2_5": 0.48270994717538296
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.0467,
+        "pregameMuAway": 0.8876,
+        "currentMinute": 78,
+        "currentHomeGoals": 0,
+        "currentAwayGoals": 2,
+        "redCardsHome": 1,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.24712477996799997,
+        "remaining_lambda_away": 0.220838288384,
+        "p_home": 0.0020073456940721992,
+        "p_draw": 0.02297315152495316,
+        "p_away": 0.9750195027809744,
+        "p_home_early_payout": 0.0020075113106030225,
+        "p_away_early_payout": 0.999,
+        "home_ep_lift": 1.6561653082324337e-07,
+        "p_both_trigger_ep": 0.00011978730678198492,
+        "expected_final_total": 2.4801375958808514,
+        "p_over_2_5": 0.3813815387461698
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.2452,
+        "pregameMuAway": 1.7802,
+        "currentMinute": 18,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 2,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 1.896251465040002,
+        "remaining_lambda_away": 1.5035216720399982,
+        "p_home": 0.2643906052332876,
+        "p_draw": 0.22731590103961966,
+        "p_away": 0.5082934937270929,
+        "p_home_early_payout": 0.274108259040791,
+        "p_away_early_payout": 0.6117103181207373,
+        "home_ep_lift": 0.00971765380750339,
+        "p_both_trigger_ep": 0.014915831604323708,
+        "expected_final_total": 6.444761512928511,
+        "p_over_2_5": 1.0000000000000004
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 2.2334,
+        "pregameMuAway": 1.4302,
+        "currentMinute": 62,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.8397359171066666,
+        "remaining_lambda_away": 0.5377408026533331,
+        "p_home": 0.7603478977724523,
+        "p_draw": 0.18537405742540042,
+        "p_away": 0.054278044802146756,
+        "p_home_early_payout": 0.7743935008153605,
+        "p_away_early_payout": 0.05459524103790386,
+        "home_ep_lift": 0.01404560304290825,
+        "p_both_trigger_ep": 0.0001989668649647473,
+        "expected_final_total": 2.387437375334706,
+        "p_over_2_5": 0.4032967527718533
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 0.9676,
+        "pregameMuAway": 1.7863,
+        "currentMinute": 18,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 1
+      },
+      "expected": {
+        "remaining_lambda_home": 1.1114134900672008,
+        "remaining_lambda_away": 0.9957245834316001,
+        "p_home": 0.37327482974987225,
+        "p_draw": 0.3127914320369799,
+        "p_away": 0.3139337382131481,
+        "p_home_early_payout": 0.3837033549916356,
+        "p_away_early_payout": 0.32456305130849833,
+        "home_ep_lift": 0.010428525241763353,
+        "p_both_trigger_ep": 0.0007324747454260377,
+        "expected_final_total": 4.125525843319234,
+        "p_over_2_5": 0.8784145624362798
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.8239,
+        "pregameMuAway": 1.9505,
+        "currentMinute": 62,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 1,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.6857680394066662,
+        "remaining_lambda_away": 0.7333683649666662,
+        "p_home": 0.2900623069256011,
+        "p_draw": 0.39135153096765773,
+        "p_away": 0.31858616210674146,
+        "p_home_early_payout": 0.293471293988536,
+        "p_away_early_payout": 0.32197327220739663,
+        "home_ep_lift": 0.0034089870629349095,
+        "p_both_trigger_ep": 0.00010727111130631502,
+        "expected_final_total": 3.4312361755528205,
+        "p_over_2_5": 0.7580771497742714
+      }
+    },
+    {
+      "input": {
+        "pregameMuHome": 1.8125,
+        "pregameMuAway": 1.1667,
+        "currentMinute": 62,
+        "currentHomeGoals": 1,
+        "currentAwayGoals": 0,
+        "redCardsHome": 0,
+        "redCardsAway": 0
+      },
+      "expected": {
+        "remaining_lambda_home": 0.6814817541666668,
+        "remaining_lambda_away": 0.43866745522000006,
+        "p_home": 0.7754442227834498,
+        "p_draw": 0.1813981853713484,
+        "p_away": 0.04315759184520132,
+        "p_home_early_payout": 0.7846585191893974,
+        "p_away_early_payout": 0.04329720732336725,
+        "home_ep_lift": 0.00921429640594762,
+        "p_both_trigger_ep": 8.622451231839987e-05,
+        "expected_final_total": 2.1283614913847715,
+        "p_over_2_5": 0.3109020513352023
+      }
+    }
+  ],
+  "points_ep_cases": [
+    {
+      "sport": "nfl",
+      "p_home_win": 0.34,
+      "expected": {
+        "p_home_ep": 0.352700814098546,
+        "p_away_ep": 0.6695414817121854,
+        "home_lift": 0.012700814098545954,
+        "away_lift": 0.009541481712185496
+      }
+    },
+    {
+      "sport": "nfl",
+      "p_home_win": 0.5,
+      "expected": {
+        "p_home_ep": 0.5118836310242711,
+        "p_away_ep": 0.5118836310242711,
+        "home_lift": 0.011883631024271146,
+        "away_lift": 0.011883631024271146
+      }
+    },
+    {
+      "sport": "nfl",
+      "p_home_win": 0.66,
+      "expected": {
+        "p_home_ep": 0.6695414817121856,
+        "p_away_ep": 0.3527008140985459,
+        "home_lift": 0.009541481712185607,
+        "away_lift": 0.012700814098545954
+      }
+    },
+    {
+      "sport": "nfl",
+      "p_home_win": 0.78,
+      "expected": {
+        "p_home_ep": 0.7869369195514196,
+        "p_away_ep": 0.23191599504577715,
+        "home_lift": 0.006936919551419618,
+        "away_lift": 0.011915995045777172
+      }
+    },
+    {
+      "sport": "nba",
+      "p_home_win": 0.34,
+      "expected": {
+        "p_home_ep": 0.34106538128262875,
+        "p_away_ep": 0.6608470084238578,
+        "home_lift": 0.0010653812826287301,
+        "away_lift": 0.0008470084238578757
+      }
+    },
+    {
+      "sport": "nba",
+      "p_home_win": 0.5,
+      "expected": {
+        "p_home_ep": 0.5010282559327022,
+        "p_away_ep": 0.5010282559327022,
+        "home_lift": 0.0010282559327021712,
+        "away_lift": 0.0010282559327021712
+      }
+    },
+    {
+      "sport": "nba",
+      "p_home_win": 0.66,
+      "expected": {
+        "p_home_ep": 0.6608470084238579,
+        "p_away_ep": 0.3410653812826287,
+        "home_lift": 0.0008470084238578757,
+        "away_lift": 0.0010653812826287301
+      }
+    },
+    {
+      "sport": "nba",
+      "p_home_win": 0.78,
+      "expected": {
+        "p_home_ep": 0.7806275257824793,
+        "p_away_ep": 0.22096730377817725,
+        "home_lift": 0.0006275257824792657,
+        "away_lift": 0.0009673037781772753
+      }
+    },
+    {
+      "sport": "mlb",
+      "p_home_win": 0.34,
+      "expected": {
+        "p_home_ep": 0.35733710935645846,
+        "p_away_ep": 0.6728912079588028,
+        "home_lift": 0.017337109356458436,
+        "away_lift": 0.01289120795880283
+      }
+    },
+    {
+      "sport": "mlb",
+      "p_home_win": 0.5,
+      "expected": {
+        "p_home_ep": 0.516129847539912,
+        "p_away_ep": 0.516129847539912,
+        "home_lift": 0.01612984753991198,
+        "away_lift": 0.01612984753991198
+      }
+    },
+    {
+      "sport": "mlb",
+      "p_home_win": 0.66,
+      "expected": {
+        "p_home_ep": 0.6728912079588028,
+        "p_away_ep": 0.35733710935645846,
+        "home_lift": 0.01289120795880272,
+        "away_lift": 0.01733710935645849
+      }
+    },
+    {
+      "sport": "mlb",
+      "p_home_win": 0.78,
+      "expected": {
+        "p_home_ep": 0.7893408795758057,
+        "p_away_ep": 0.23636494432901192,
+        "home_lift": 0.00934087957580565,
+        "away_lift": 0.01636494432901195
+      }
+    }
+  ],
+  "nfl_live_cases": [
+    {
+      "seconds_remaining": 3600.0,
+      "home_score": 0,
+      "away_score": 0,
+      "pregame_exp_margin": 2.5,
+      "pregame_exp_total": 46.5,
+      "possession": "neutral",
+      "expected": {
+        "live_expected_margin": 2.5,
+        "live_expected_total": 46.5,
+        "p_home_win_live": 0.5718787674348531
+      }
+    },
+    {
+      "seconds_remaining": 1800.0,
+      "home_score": 17,
+      "away_score": 7,
+      "pregame_exp_margin": 2.5,
+      "pregame_exp_total": 46.5,
+      "possession": "away",
+      "expected": {
+        "live_expected_margin": 9.442072707204513,
+        "live_expected_total": 47.88277455247842,
+        "p_home_win_live": 0.8333820283674205
+      }
+    },
+    {
+      "seconds_remaining": 900.0,
+      "home_score": 20,
+      "away_score": 24,
+      "pregame_exp_margin": 2.5,
+      "pregame_exp_total": 46.5,
+      "possession": "home",
+      "expected": {
+        "live_expected_margin": -1.8547204204489227,
+        "live_expected_total": 56.157097852842874,
+        "p_home_win_live": 0.39404183526148984
+      }
+    },
+    {
+      "seconds_remaining": 180.0,
+      "home_score": 27,
+      "away_score": 24,
+      "pregame_exp_margin": 2.5,
+      "pregame_exp_total": 46.5,
+      "possession": "away",
+      "expected": {
+        "live_expected_margin": 2.108327770321586,
+        "live_expected_total": 53.68083528038745,
+        "p_home_win_live": 0.7527728432305423
+      }
+    }
+  ]
+}
