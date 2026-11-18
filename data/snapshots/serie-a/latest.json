@@ -4,7 +4,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-17T19:35:17.780Z",
+  "updatedAt": "2026-11-18T19:14:34.616Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 2.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.6449896720489374,
-      "adjustedAgainst": 1.1323197845768036
+      "adjustedFor": 1.6356803940503892,
+      "adjustedAgainst": 1.1313136207280443
     },
     "serie-a.monza": {
       "teamId": "serie-a.monza",
@@ -28,8 +28,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 2.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.1757037380127167,
-      "adjustedAgainst": 1.939720803126103
+      "adjustedFor": 1.1673949979590676,
+      "adjustedAgainst": 1.9179254070367895
     },
     "serie-a.fiorentina": {
       "teamId": "serie-a.fiorentina",
@@ -39,19 +39,19 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.5036472061341584,
-      "adjustedAgainst": 1.5736860483014994
+      "adjustedFor": 1.5043624130388404,
+      "adjustedAgainst": 1.5709541697967782
     },
     "serie-a.roma": {
       "teamId": "serie-a.roma",
       "name": "AS Roma",
       "shortName": "Roma",
       "code": "ROM",
-      "forPerGame": 3.25,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.9687464885488073,
-      "adjustedAgainst": 0.8895351760396989
+      "forPerGame": 3.142857142857143,
+      "againstPerGame": 0.7142857142857143,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.8768592204409504,
+      "adjustedAgainst": 0.8311478789521655
     },
     "serie-a.atalanta-bc": {
       "teamId": "serie-a.atalanta-bc",
@@ -61,8 +61,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2507879791512948,
-      "adjustedAgainst": 1.161072409355065
+      "adjustedFor": 1.2538522300226838,
+      "adjustedAgainst": 1.1577723270773368
     },
     "serie-a.bologna": {
       "teamId": "serie-a.bologna",
@@ -72,30 +72,30 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3321221672645318,
-      "adjustedAgainst": 1.2224011210750039
+      "adjustedFor": 1.3308213896560306,
+      "adjustedAgainst": 1.22224974406644
     },
     "serie-a.cagliari": {
       "teamId": "serie-a.cagliari",
       "name": "Cagliari Calcio",
       "shortName": "Cagliari",
       "code": "CAG",
-      "forPerGame": 1.125,
-      "againstPerGame": 1,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1947352833946974,
-      "adjustedAgainst": 1.203104784290672
+      "forPerGame": 1,
+      "againstPerGame": 0.5714285714285714,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.1297821747106143,
+      "adjustedAgainst": 1.1028478175547856
     },
     "serie-a.como": {
       "teamId": "serie-a.como",
       "name": "Como 1907",
       "shortName": "Como",
       "code": "COM",
-      "forPerGame": 1.625,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.691025351033704,
-      "adjustedAgainst": 1.0156852429373093
+      "forPerGame": 1.4285714285714286,
+      "againstPerGame": 1.1428571428571428,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.627611297158405,
+      "adjustedAgainst": 1.0014210986841172
     },
     "serie-a.internazionale-milano": {
       "teamId": "serie-a.internazionale-milano",
@@ -105,8 +105,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.375,
       "gamesPlayed": 8,
-      "adjustedFor": 2.1322644514619045,
-      "adjustedAgainst": 1.096392220728359
+      "adjustedFor": 2.127944583290999,
+      "adjustedAgainst": 1.0970505176969945
     },
     "serie-a.frosinone": {
       "teamId": "serie-a.frosinone",
@@ -116,8 +116,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.6869261842309289,
-      "adjustedAgainst": 0.9469182738070168
+      "adjustedFor": 1.6753032828704104,
+      "adjustedAgainst": 0.936563937838842
     },
     "serie-a.genoa-cfc": {
       "teamId": "serie-a.genoa-cfc",
@@ -127,8 +127,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2153892506939277,
-      "adjustedAgainst": 1.4029090001196929
+      "adjustedFor": 1.2079696314671837,
+      "adjustedAgainst": 1.4076822495830619
     },
     "serie-a.juventus": {
       "teamId": "serie-a.juventus",
@@ -138,19 +138,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4966441940440802,
-      "adjustedAgainst": 1.0134407605701246
+      "adjustedFor": 1.4927326017415767,
+      "adjustedAgainst": 1.007579397620019
     },
     "serie-a.lazio": {
       "teamId": "serie-a.lazio",
       "name": "SS Lazio",
       "shortName": "Lazio",
       "code": "LAZ",
-      "forPerGame": 2.125,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5364062485890848,
-      "adjustedAgainst": 1.0893928207332195
+      "forPerGame": 1.5714285714285714,
+      "againstPerGame": 0.7142857142857143,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.3383504263432768,
+      "adjustedAgainst": 1.0422835691776784
     },
     "serie-a.lecce": {
       "teamId": "serie-a.lecce",
@@ -160,8 +160,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.25,
       "gamesPlayed": 8,
-      "adjustedFor": 0.9833188434918206,
-      "adjustedAgainst": 1.6215805044924039
+      "adjustedFor": 0.9794128939879225,
+      "adjustedAgainst": 1.6172237475241718
     },
     "serie-a.napoli": {
       "teamId": "serie-a.napoli",
@@ -171,8 +171,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4848216503506722,
-      "adjustedAgainst": 1.0477058143544105
+      "adjustedFor": 1.4760017917872925,
+      "adjustedAgainst": 1.0464063929897314
     },
     "serie-a.parma": {
       "teamId": "serie-a.parma",
@@ -182,30 +182,30 @@
       "forPerGame": 1,
       "againstPerGame": 1.125,
       "gamesPlayed": 8,
-      "adjustedFor": 0.9871672676333977,
-      "adjustedAgainst": 1.1993766923200566
+      "adjustedFor": 0.980489111419249,
+      "adjustedAgainst": 1.195773524755269
     },
     "serie-a.sassuolo": {
       "teamId": "serie-a.sassuolo",
       "name": "US Sassuolo Calcio",
       "shortName": "Sassuolo",
       "code": "SAS",
-      "forPerGame": 1.625,
-      "againstPerGame": 2.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.4033795557074942,
-      "adjustedAgainst": 1.7712352522125372
+      "forPerGame": 1.5714285714285714,
+      "againstPerGame": 2.2857142857142856,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.3553323668462336,
+      "adjustedAgainst": 1.5808238868475128
     },
     "serie-a.torino": {
       "teamId": "serie-a.torino",
       "name": "Torino FC",
       "shortName": "Torino",
       "code": "TOR",
-      "forPerGame": 0.875,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1213047460918584,
-      "adjustedAgainst": 1.5186969177024532
+      "forPerGame": 0.8571428571428571,
+      "againstPerGame": 1.5714285714285714,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.1161451009686623,
+      "adjustedAgainst": 1.4720881714857506
     },
     "serie-a.udinese": {
       "teamId": "serie-a.udinese",
@@ -215,8 +215,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 2.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.243672319294863,
-      "adjustedAgainst": 1.5198490618049048
+      "adjustedFor": 1.243556820900217,
+      "adjustedAgainst": 1.5294656911938924
     },
     "serie-a.venezia": {
       "teamId": "serie-a.venezia",
@@ -226,8 +226,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 2.125,
       "gamesPlayed": 8,
-      "adjustedFor": 0.9313508932580041,
-      "adjustedAgainst": 1.5469539567686392
+      "adjustedFor": 0.9157718526353247,
+      "adjustedAgainst": 1.5443193964126556
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -537,7 +537,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-17T19:35:23.312Z",
+        "observedAt": "2026-11-18T19:14:40.309Z",
         "source": "football-data"
       }
     },
@@ -10456,26 +10456,13 @@
       "name": "AS Roma",
       "shortName": "Roma",
       "code": "ROM",
-      "played": 8,
-      "won": 7,
+      "played": 7,
+      "won": 6,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 26,
-      "goalsAgainst": 7,
-      "points": 22
-    },
-    {
-      "teamId": "serie-a.lazio",
-      "name": "SS Lazio",
-      "shortName": "Lazio",
-      "code": "LAZ",
-      "played": 8,
-      "won": 6,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 17,
-      "goalsAgainst": 7,
-      "points": 20
+      "goalsFor": 22,
+      "goalsAgainst": 5,
+      "points": 19
     },
     {
       "teamId": "serie-a.internazionale-milano",
@@ -10504,6 +10491,19 @@
       "points": 17
     },
     {
+      "teamId": "serie-a.lazio",
+      "name": "SS Lazio",
+      "shortName": "Lazio",
+      "code": "LAZ",
+      "played": 7,
+      "won": 5,
+      "drawn": 2,
+      "lost": 0,
+      "goalsFor": 11,
+      "goalsAgainst": 5,
+      "points": 17
+    },
+    {
       "teamId": "serie-a.frosinone",
       "name": "Frosinone Calcio",
       "shortName": "Frosinone",
@@ -10517,29 +10517,16 @@
       "points": 16
     },
     {
-      "teamId": "serie-a.como",
-      "name": "Como 1907",
-      "shortName": "Como",
-      "code": "COM",
-      "played": 8,
-      "won": 5,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 13,
-      "goalsAgainst": 9,
-      "points": 16
-    },
-    {
       "teamId": "serie-a.cagliari",
       "name": "Cagliari Calcio",
       "shortName": "Cagliari",
       "code": "CAG",
-      "played": 8,
+      "played": 7,
       "won": 5,
       "drawn": 0,
-      "lost": 3,
-      "goalsFor": 9,
-      "goalsAgainst": 8,
+      "lost": 2,
+      "goalsFor": 7,
+      "goalsAgainst": 4,
       "points": 15
     },
     {
@@ -10554,6 +10541,19 @@
       "goalsFor": 12,
       "goalsAgainst": 8,
       "points": 14
+    },
+    {
+      "teamId": "serie-a.como",
+      "name": "Como 1907",
+      "shortName": "Como",
+      "code": "COM",
+      "played": 7,
+      "won": 4,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 10,
+      "goalsAgainst": 8,
+      "points": 13
     },
     {
       "teamId": "serie-a.napoli",
@@ -10621,6 +10621,19 @@
       "points": 8
     },
     {
+      "teamId": "serie-a.sassuolo",
+      "name": "US Sassuolo Calcio",
+      "shortName": "Sassuolo",
+      "code": "SAS",
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 11,
+      "goalsAgainst": 16,
+      "points": 7
+    },
+    {
       "teamId": "serie-a.genoa-cfc",
       "name": "Genoa CFC",
       "shortName": "Genoa",
@@ -10631,19 +10644,6 @@
       "lost": 5,
       "goalsFor": 8,
       "goalsAgainst": 13,
-      "points": 7
-    },
-    {
-      "teamId": "serie-a.sassuolo",
-      "name": "US Sassuolo Calcio",
-      "shortName": "Sassuolo",
-      "code": "SAS",
-      "played": 8,
-      "won": 2,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 13,
-      "goalsAgainst": 22,
       "points": 7
     },
     {
@@ -10660,6 +10660,19 @@
       "points": 7
     },
     {
+      "teamId": "serie-a.torino",
+      "name": "Torino FC",
+      "shortName": "Torino",
+      "code": "TOR",
+      "played": 7,
+      "won": 1,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 6,
+      "goalsAgainst": 11,
+      "points": 5
+    },
+    {
       "teamId": "serie-a.udinese",
       "name": "Udinese Calcio",
       "shortName": "Udinese",
@@ -10670,19 +10683,6 @@
       "lost": 5,
       "goalsFor": 11,
       "goalsAgainst": 18,
-      "points": 5
-    },
-    {
-      "teamId": "serie-a.torino",
-      "name": "Torino FC",
-      "shortName": "Torino",
-      "code": "TOR",
-      "played": 8,
-      "won": 1,
-      "drawn": 2,
-      "lost": 5,
-      "goalsFor": 7,
-      "goalsAgainst": 14,
       "points": 5
     },
     {

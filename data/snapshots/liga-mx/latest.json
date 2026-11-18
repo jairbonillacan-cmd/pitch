@@ -4,7 +4,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-17T19:35:17.780Z",
+  "updatedAt": "2026-11-18T19:14:34.616Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 2.375,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 2.12817219320723,
-      "adjustedAgainst": 1.3611155565412716
+      "adjustedFor": 2.1283688731607984,
+      "adjustedAgainst": 1.361845149131423
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -28,8 +28,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.07313627524813,
-      "adjustedAgainst": 1.527700297684678
+      "adjustedFor": 1.0732486315018297,
+      "adjustedAgainst": 1.5281577686461034
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -39,8 +39,8 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6595303997391193,
-      "adjustedAgainst": 1.7298999183021215
+      "adjustedFor": 1.659552031238338,
+      "adjustedAgainst": 1.730622557830754
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -50,8 +50,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2026750894908294,
-      "adjustedAgainst": 1.3844470776500246
+      "adjustedFor": 1.2071236857668128,
+      "adjustedAgainst": 1.3917208733035
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -61,8 +61,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.496793386710124,
-      "adjustedAgainst": 1.0202281304039307
+      "adjustedFor": 1.4967050801554662,
+      "adjustedAgainst": 1.020735382171768
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -72,8 +72,8 @@
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0758634574136035,
-      "adjustedAgainst": 1.4995001678864577
+      "adjustedFor": 2.075376248387975,
+      "adjustedAgainst": 1.5000405754127535
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -83,8 +83,8 @@
       "forPerGame": 0.8125,
       "againstPerGame": 2.125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9591017048818768,
-      "adjustedAgainst": 1.8211565419097206
+      "adjustedFor": 0.966037285621022,
+      "adjustedAgainst": 1.8257974757484423
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -94,8 +94,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3788591117479265,
-      "adjustedAgainst": 1.298198460937114
+      "adjustedFor": 1.378893906015632,
+      "adjustedAgainst": 1.2987172609077455
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -105,8 +105,8 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6166113036532925,
-      "adjustedAgainst": 1.4492269392754829
+      "adjustedFor": 1.6164217172837556,
+      "adjustedAgainst": 1.449251606198982
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -116,8 +116,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1561182126665341,
-      "adjustedAgainst": 1.5987219776620194
+      "adjustedFor": 1.1562927533478682,
+      "adjustedAgainst": 1.5994636468200807
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -127,8 +127,8 @@
       "forPerGame": 1.8125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7309062527568249,
-      "adjustedAgainst": 1.2762438345995413
+      "adjustedFor": 1.7305952940797191,
+      "adjustedAgainst": 1.2766835753806598
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -138,8 +138,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1655465267142742,
-      "adjustedAgainst": 1.3806159016982231
+      "adjustedFor": 1.1678799737085335,
+      "adjustedAgainst": 1.3706152457286869
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -149,8 +149,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.475279442574953,
-      "adjustedAgainst": 1.532115079229494
+      "adjustedFor": 1.4634527942049937,
+      "adjustedAgainst": 1.533859048767766
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -160,8 +160,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.14594927781419,
-      "adjustedAgainst": 1.416809028567057
+      "adjustedFor": 1.1541713119364,
+      "adjustedAgainst": 1.418454448856569
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -171,8 +171,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3978306311692026,
-      "adjustedAgainst": 1.277070090349059
+      "adjustedFor": 1.397605963700897,
+      "adjustedAgainst": 1.2775940036825744
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -182,8 +182,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1224716444361251,
-      "adjustedAgainst": 1.4401825469399183
+      "adjustedFor": 1.1243961226065744,
+      "adjustedAgainst": 1.4491972167794727
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -193,8 +193,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5437097990346618,
-      "adjustedAgainst": 1.3441265303029117
+      "adjustedFor": 1.5436844330659245,
+      "adjustedAgainst": 1.3446236491909596
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -204,8 +204,8 @@
       "forPerGame": 2.1875,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 2.017572061091141,
-      "adjustedAgainst": 1.3249894405911957
+      "adjustedFor": 2.017170797380689,
+      "adjustedAgainst": 1.3253959346658788
     }
   },
   "games": [
@@ -236,7 +236,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-17T12:00:00.000Z",
+        "observedAt": "2026-11-18T12:00:00.000Z",
         "source": "espn"
       }
     },

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
-  "observedAt": "2026-11-17T19:35:43.544Z",
+  "observedAt": "2026-11-18T19:14:59.607Z",
   "entries": [
     {
       "gameId": "bundesliga-2026-27-md10-augsburg-mainz",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
@@ -30,22 +30,22 @@
       "gameId": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 116.422702,
-          "price": 0.775
+          "volume": 679.471693,
+          "price": 0.765
         },
         {
           "side": "draw",
-          "volume": 6.666667,
+          "volume": 518.9922449999999,
           "price": 0.135
         },
         {
           "side": "away",
-          "volume": 9.442744000000001,
-          "price": 0.095
+          "volume": 5777.433693,
+          "price": 0.105
         }
       ]
     },
@@ -53,22 +53,22 @@
       "gameId": "bundesliga-2026-27-md10-bayern-munchen-koln",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 11141.032185,
-          "price": 0.905
+          "volume": 24546.917684,
+          "price": 0.915
         },
         {
           "side": "draw",
-          "volume": 232.115385,
-          "price": 0.065
+          "volume": 5232.108551,
+          "price": 0.055
         },
         {
           "side": "away",
-          "volume": 23692.587799,
-          "price": 0.0345
+          "volume": 29838.613738,
+          "price": 0.0305
         }
       ]
     },
@@ -76,7 +76,7 @@
       "gameId": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
@@ -86,12 +86,12 @@
         {
           "side": "draw",
           "volume": 0,
-          "price": 0.215
+          "price": 0.205
         },
         {
           "side": "away",
-          "volume": 1794.2983709999996,
-          "price": 0.595
+          "volume": 2252.7201729999997,
+          "price": 0.605
         }
       ]
     },
@@ -99,22 +99,22 @@
       "gameId": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 556.5423579999999,
+          "volume": 559.225285,
           "price": 0.405
         },
         {
           "side": "draw",
-          "volume": 0,
-          "price": 0.24
+          "volume": 2.5974,
+          "price": 0.235
         },
         {
           "side": "away",
           "volume": 7.5,
-          "price": 0.36
+          "price": 0.355
         }
       ]
     },
@@ -122,22 +122,22 @@
       "gameId": "bundesliga-2026-27-md10-elversberg-freiburg",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 6.123288,
-          "price": 0.27
+          "price": 0.265
         },
         {
           "side": "draw",
-          "volume": 0,
-          "price": 0.25
+          "volume": 1713.827388,
+          "price": 0.255
         },
         {
           "side": "away",
-          "volume": 486.57322400000004,
-          "price": 0.475
+          "volume": 6792.723902,
+          "price": 0.485
         }
       ]
     },
@@ -145,22 +145,22 @@
       "gameId": "bundesliga-2026-27-md10-schalke-stuttgart",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 5.881579,
-          "price": 0.24
+          "price": 0.235
         },
         {
           "side": "draw",
-          "volume": 0,
-          "price": 0.23
+          "volume": 8.333334,
+          "price": 0.235
         },
         {
           "side": "away",
-          "volume": 957.906531,
-          "price": 0.525
+          "volume": 969.420494,
+          "price": 0.535
         }
       ]
     },
@@ -168,22 +168,22 @@
       "gameId": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 10.765540999999999,
-          "price": 0.18
+          "volume": 17.685541,
+          "price": 0.165
         },
         {
           "side": "draw",
           "volume": 0,
-          "price": 0.21
+          "price": 0.195
         },
         {
           "side": "away",
-          "volume": 535.17023,
-          "price": 0.615
+          "volume": 557.76023,
+          "price": 0.635
         }
       ]
     },
@@ -191,17 +191,17 @@
       "gameId": "bundesliga-2026-27-md10-werder-bremen-hamburger",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-17T19:35:43.544Z",
+      "observedAt": "2026-11-18T19:14:59.607Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 163.889153,
-          "price": 0.575
+          "price": 0.58
         },
         {
           "side": "draw",
           "volume": 4.347827,
-          "price": 0.22
+          "price": 0.225
         },
         {
           "side": "away",
