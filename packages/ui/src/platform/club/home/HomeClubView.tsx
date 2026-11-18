@@ -1947,7 +1947,7 @@ export function HomeClubView({
         </section>
 
         {/* 2) Cuerpo de 2 columnas: Partidos con barras (principal) + Centro de Parlays y Picks probables (der.) */}
-        <div className="pl-astro-workspace">
+        <div className="pl-astro-workspace !mt-3.5">
           <div className="pl-astro-center">
             <div className="pl-astro-toolbar">
               <div className="pl-astro-toolbar-left">

@@ -844,7 +844,7 @@ dialog.pl-native-dialog .glass-lens {
 }
 .pl-header-leagueband[data-open="true"] {
   grid-template-rows: 1fr;
-  padding-top: 10px;
+  padding-top: 4px;
   pointer-events: auto;
 }
 .pl-header-leagueband-inner {
@@ -1155,11 +1155,11 @@ dialog.pl-native-dialog .glass-lens {
   z-index: 2;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 16px 16px 64px;
+  padding: 12px 16px 64px;
 }
 @media (min-width: 1024px) {
   .app-frame {
-    padding: 20px clamp(16px, 2vw, 28px) 32px;
+    padding: 12px clamp(16px, 2vw, 28px) 32px;
   }
   .app-frame > main {
     width: 100%;
@@ -9944,7 +9944,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 .pl-home-chips {
   flex: 1 1 auto;
@@ -10181,8 +10181,14 @@ html[data-theme="light"] .pl-stage.pl-auth,
 .pl-astro-stripbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   min-width: 0;
+}
+.pl-astro-stripbar .pl-home-chips {
+  gap: 5px;
+}
+.pl-astro-topbar + .pl-astro-workspace {
+  margin-top: 14px;
 }
 .pl-astro-stripbar .pl-home-chip:not(.is-live),
 .pl-astro-stripbar .pl-home-chips-nav {
