@@ -81,6 +81,7 @@ export interface LandingFinishedResultItem {
   p: number;
   fairAmerican: string;
   hit: boolean;
+  kickoffUtc?: string;
 }
 
 export interface LandingParlayDemoData {
@@ -526,6 +527,7 @@ export function buildFinishedResultItems(
       p: fpk.p,
       fairAmerican: formatFairAmericanFromProb(fpk.p),
       hit: fpk.result === "hit",
+      kickoffUtc: game.kickoffUtc,
     };
   });
 

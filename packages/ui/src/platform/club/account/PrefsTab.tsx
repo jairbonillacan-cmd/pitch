@@ -8,6 +8,7 @@ import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { type VisualStyle } from "../../components/ShellChrome";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { PlSelect } from "../../components/PlSelect";
+import { BOOKMAKER_OPTIONS, sanitizePreferredBooks } from "../../bookmakers";
 import { usePlatform } from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
 import { normalizeRecordPrivacy } from "../../record-stats";
@@ -262,6 +263,8 @@ export function PrefsTab({
     setUserTimezone,
     setShowMxnBalance,
     setUnitMxn,
+    preferredBooks,
+    setPreferredBooks,
     journal,
     pushToast,
   } = usePlatform();
@@ -353,6 +356,7 @@ export function PrefsTab({
                 responsiblePauseUntilIso?: string | null;
                 recordPrivacy?: unknown;
                 bankrollStartMxnCentavos?: number | null;
+                preferredBooks?: string[];
               };
             } | null)
           : null,
@@ -382,6 +386,9 @@ export function PrefsTab({
         }
         if (typeof p.showMxnBalance === "boolean") {
           setShowMxnBalance(p.showMxnBalance);
+        }
+        if (Array.isArray(p.preferredBooks)) {
+          setPreferredBooks(sanitizePreferredBooks(p.preferredBooks));
         }
         const unitMxnValue =
           typeof p.unitMxnCentavos === "number" && Number.isFinite(p.unitMxnCentavos)
@@ -466,6 +473,9 @@ export function PrefsTab({
                     Number.isFinite(p.bankrollStartMxnCentavos)
                   ? Math.round(p.bankrollStartMxnCentavos / 100)
                   : prev.bankrollStartMxn,
+            preferredBooks: Array.isArray(p.preferredBooks)
+              ? sanitizePreferredBooks(p.preferredBooks)
+              : prev.preferredBooks,
           };
           writeStoredPrefs(next);
           return next;
@@ -481,6 +491,7 @@ export function PrefsTab({
     canPersistServer,
     setFavoriteLeagues,
     setOddsFormat,
+    setPreferredBooks,
     setRiskPreference,
     setShowMxnBalance,
     setUnitMxn,
@@ -953,6 +964,53 @@ export function PrefsTab({
                   <span className="pl-acct-risk-detail num">{opt.detail}</span>
                 </button>
               ))}
+            </div>
+
+            <div className="pl-acct-pesos-divider space-y-2.5" data-preferred-books-section="">
+              <div>
+                <b className="pl-acct-prefs-row-title">Tus casas de referencia</b>
+                <span className="pl-acct-prefs-row-detail block mt-0.5">
+                  Mostramos primero el mejor momio capturado entre las casas que usas (corte vigente
+                  menor a 72 h). Informativo, sin enlaces de afiliado.
+                </span>
+              </div>
+              <div
+                className="flex flex-wrap gap-2"
+                role="group"
+                aria-label="Tus casas de referencia"
+              >
+                {BOOKMAKER_OPTIONS.map((book) => {
+                  const active = preferredBooks.includes(book.id);
+                  return (
+                    <button
+                      key={book.id}
+                      type="button"
+                      className="pl-acct-league-pill min-h-11 px-3 text-xs"
+                      data-book-toggle={book.id}
+                      aria-pressed={active}
+                      onClick={() => {
+                        const prevBooks = preferredBooks;
+                        const exists = prevBooks.includes(book.id);
+                        if (exists && prevBooks.length <= 1) {
+                          pushToast("Deja al menos una casa de referencia activa.", "default");
+                          return;
+                        }
+                        const nextBooks = exists
+                          ? prevBooks.filter((id) => id !== book.id)
+                          : sanitizePreferredBooks([...prevBooks, book.id]);
+                        setPreferredBooks(nextBooks);
+                        updatePrefs((prev) => ({ ...prev, preferredBooks: nextBooks }));
+                        void persistServerPrefs({ preferredBooks: nextBooks }, () => {
+                          setPreferredBooks(prevBooks);
+                        });
+                      }}
+                    >
+                      <span className="font-bold">{book.label}</span>
+                      <span className="text-[11px] opacity-70">{book.regionHint}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="pl-acct-pesos-divider">

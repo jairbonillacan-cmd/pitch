@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { LeagueBadge } from "../../sports";
+import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { DailyParlaysResultsSection } from "./DailyParlaysResultsSection";
 import { usePlatform } from "../platform-provider";
+import { buildModelDailyCalendar } from "../record-stats";
 import type { PlatformGame } from "../types";
 
 type Outcome = "all" | "hit" | "miss";
@@ -73,9 +75,10 @@ const DAY_FMT = new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeri
  * oficial. Acierto por liga y por tipo de pick, racha reciente y lista por día.
  */
 export function HistorialClubView(): React.JSX.Element {
-  const { dataset, navigateTo, oddsFormat } = usePlatform();
+  const { dataset, navigateTo, oddsFormat, userTimezone } = usePlatform();
   const [outcome, setOutcome] = useState<Outcome>("all");
   const [league, setLeague] = useState("all");
+  const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
   const [shown, setShown] = useState(20);
 
   const graded = useMemo(
@@ -112,6 +115,26 @@ export function HistorialClubView(): React.JSX.Element {
     }
     return Array.from(m.entries());
   }, [listed, shown]);
+
+  const buildModelCalendar = useCallback(
+    (ym: string) =>
+      buildModelDailyCalendar(
+        scoped.map((g) => {
+          const pk = g.picks[0]!;
+          return {
+            id: g.id,
+            kickoffUtc: g.kickoffUtc,
+            label: `${g.home.shortName} ${g.score!.home}–${g.score!.away} ${g.away.shortName}`,
+            subtitle: `${g.leagueLabel} · ${pk.label}`,
+            hit: pk.result === "hit",
+            href: `/app/${g.league}/games/${g.id}`,
+          };
+        }),
+        ym || undefined,
+        { timeZone: userTimezone || "America/Mexico_City" },
+      ),
+    [scoped, userTimezone],
+  );
 
   return (
     <AtmosphereStage>
@@ -184,30 +207,68 @@ export function HistorialClubView(): React.JSX.Element {
         ) : null}
 
         <section className="space-y-3" aria-label="Partidos calificados">
-          <div className="seg-well" role="group" aria-label="Filtrar por resultado">
-            {(
-              [
-                ["all", "Todos"],
-                ["hit", "Cumplidos"],
-                ["miss", "No cumplidos"],
-              ] as const
-            ).map(([id, label]) => (
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            {viewMode === "list" ? (
+              <div className="seg-well" role="group" aria-label="Filtrar por resultado">
+                {(
+                  [
+                    ["all", "Todos"],
+                    ["hit", "Cumplidos"],
+                    ["miss", "No cumplidos"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className="seg-btn text-xs min-h-10"
+                    aria-pressed={outcome === id}
+                    onClick={() => {
+                      setOutcome(id);
+                      setShown(20);
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <h2 className="m-0 text-base font-extrabold">Calendario mensual de resultados</h2>
+            )}
+
+            <div
+              className="seg-well"
+              role="group"
+              aria-label="Modo de vista de resultados"
+              data-historial-view-toggle=""
+            >
               <button
-                key={id}
                 type="button"
-                className="seg-btn text-xs"
-                aria-pressed={outcome === id}
-                onClick={() => {
-                  setOutcome(id);
-                  setShown(20);
-                }}
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "list"}
+                onClick={() => setViewMode("list")}
               >
-                {label}
+                Lista
               </button>
-            ))}
+              <button
+                type="button"
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "calendar"}
+                onClick={() => setViewMode("calendar")}
+              >
+                Calendario
+              </button>
+            </div>
           </div>
 
-          {days.length === 0 ? (
+          {viewMode === "calendar" ? (
+            <div className="glass-card glass-ring rounded-2xl p-4 sm:p-5">
+              <DailyResultsCalendar
+                buildMonth={buildModelCalendar}
+                mode="model"
+                onNavigateItem={navigateTo}
+              />
+            </div>
+          ) : days.length === 0 ? (
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
               Todavía no hay partidos calificados con ese filtro.
             </p>

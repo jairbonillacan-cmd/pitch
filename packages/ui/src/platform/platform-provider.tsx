@@ -219,6 +219,10 @@ import {
   writeStoredPrefs,
   type ServerProfileSummary,
 } from "./club/account/account-helpers";
+import {
+  DEFAULT_PREFERRED_BOOKS,
+  sanitizePreferredBooks,
+} from "./bookmakers";
 import type {
   JournalEntry,
   MatchPick,
@@ -439,6 +443,8 @@ export interface PlatformContextValue {
   setShowMxnBalance: (show: boolean) => void;
   unitMxn: number;
   setUnitMxn: (unit: number) => void;
+  preferredBooks: string[];
+  setPreferredBooks: (books: string[]) => void;
 
   referralPaidFriends: number;
   memberReferralsSnapshot: (ServerProfileSummary & {
@@ -506,6 +512,7 @@ export interface PlatformCoreValue {
   userTimezone: string;
   showMxnBalance: boolean;
   unitMxn: number;
+  preferredBooks: string[];
   month1NoCardMode: boolean;
 }
 
@@ -552,6 +559,7 @@ const ACTION_KEYS = [
   "setUserTimezone",
   "setShowMxnBalance",
   "setUnitMxn",
+  "setPreferredBooks",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
   "setTipsterWeeklyPickOrigin",
@@ -749,6 +757,9 @@ export function PlatformProvider({
   const [unitMxn, setUnitMxnState] = useState<number>(
     DEFAULT_STORED_PREFS_V1.unitMxn,
   );
+  const [preferredBooks, setPreferredBooksState] = useState<string[]>(() => [
+    ...DEFAULT_PREFERRED_BOOKS,
+  ]);
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
   const [memberReferralsSnapshot, setMemberReferralsSnapshot] = useState<
     | (ServerProfileSummary & {
@@ -850,6 +861,7 @@ export function PlatformProvider({
       setUserTimezoneState(storedPrefs.timezone);
       setShowMxnBalanceState(storedPrefs.showMxnBalance);
       setUnitMxnState(storedPrefs.unitMxn);
+      setPreferredBooksState(sanitizePreferredBooks(storedPrefs.preferredBooks));
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
       if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
@@ -915,6 +927,12 @@ export function PlatformProvider({
       }
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
       if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      const prefsRes = await getJson<{ preferences?: { preferredBooks?: string[] } }>("/api/me/preferences");
+      if (active && Array.isArray(prefsRes?.preferences?.preferredBooks)) {
+        const syncedBooks = sanitizePreferredBooks(prefsRes.preferences.preferredBooks);
+        setPreferredBooksState(syncedBooks);
+        writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: syncedBooks });
+      }
       const refs = await getJson<
         ServerProfileSummary & {
           referralCode?: string | null;
@@ -1049,6 +1067,12 @@ export function PlatformProvider({
     const clamped = Math.min(100_000, Math.round(unit));
     setUnitMxnState(clamped);
     writeStoredPrefs({ ...readStoredPrefs(), unitMxn: clamped });
+  }, []);
+
+  const setPreferredBooks = useCallback((books: string[]) => {
+    const clean = sanitizePreferredBooks(books);
+    setPreferredBooksState(clean);
+    writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: clean });
   }, []);
 
   const handleSetMonth1NoCard = useCallback(
@@ -2281,6 +2305,8 @@ export function PlatformProvider({
       setShowMxnBalance,
       unitMxn,
       setUnitMxn,
+      preferredBooks,
+      setPreferredBooks,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2373,6 +2399,8 @@ export function PlatformProvider({
       setShowMxnBalance,
       unitMxn,
       setUnitMxn,
+      preferredBooks,
+      setPreferredBooks,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2427,6 +2455,7 @@ export function PlatformProvider({
       userTimezone,
       showMxnBalance,
       unitMxn,
+      preferredBooks,
       month1NoCardMode,
     }),
     [
@@ -2447,6 +2476,7 @@ export function PlatformProvider({
       userTimezone,
       showMxnBalance,
       unitMxn,
+      preferredBooks,
       month1NoCardMode,
     ],
   );

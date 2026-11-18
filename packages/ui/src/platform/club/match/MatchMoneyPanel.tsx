@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { formatOddsCaptureEs, sportHasDraw } from "@pitchlab/contracts";
 import { PBar, TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
+import {
+  DEFAULT_PREFERRED_BOOKS,
+  parseManualOddsInput,
+  resolvePreferredBookQuote,
+} from "../../bookmakers";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useOptionalPlatformCore } from "../../platform-provider";
 import type {
+  BookQuoteItem,
   MatchPick,
   OddsFormat,
   PlatformGame,
@@ -30,6 +37,8 @@ interface ComparisonRow {
   readonly p: number;
   readonly fairDecimal: number;
   readonly houseDecimal: number | null;
+  readonly houseBookLabel: string | null;
+  readonly bookQuotes?: readonly BookQuoteItem[];
   readonly edgePts: number | null;
   readonly pick?: MatchPick;
 }
@@ -57,6 +66,9 @@ export function MatchMoneyPanel({
   onAddPickToParlay,
   inParlayPickIds,
 }: MatchMoneyPanelProps): React.JSX.Element {
+  const optCore = useOptionalPlatformCore();
+  const preferredBooks = optCore?.preferredBooks ?? DEFAULT_PREFERRED_BOOKS;
+  const [manualByRowId, setManualByRowId] = useState<Record<string, string>>({});
   const hasDraw = sportHasDraw(game.sport);
   const flow = game.preGame.moneyFlow;
   const canReadDetails = unlocked || isFinished;
@@ -100,14 +112,23 @@ export function MatchMoneyPanel({
     for (const pk of game.picks) {
       if (pk.isRedacted) continue;
       seen.add(pk.label.trim().toLowerCase());
+      const prefQuote = resolvePreferredBookQuote(pk.bookQuotes, preferredBooks);
+      const houseDecimal = prefQuote?.decimal ?? pk.marketDecimal;
+      const houseBookLabel = prefQuote?.bookLabel ?? pk.marketBookLabel ?? null;
+      const edgePts =
+        houseDecimal !== null && houseDecimal > 1
+          ? Math.round((pk.p - 1 / houseDecimal) * 1000) / 10
+          : pk.edgePts;
       out.push({
         id: pk.id,
         label: pk.label,
         group: pk.categoryLabel,
         p: pk.p,
         fairDecimal: pk.fairDecimal,
-        houseDecimal: pk.marketDecimal,
-        edgePts: pk.edgePts,
+        houseDecimal,
+        houseBookLabel,
+        bookQuotes: pk.bookQuotes,
+        edgePts,
         pick: pk,
       });
     }
@@ -118,20 +139,29 @@ export function MatchMoneyPanel({
         const norm = m.label.trim().toLowerCase();
         if (seen.has(norm)) continue;
         seen.add(norm);
+        const prefQuote = resolvePreferredBookQuote(m.bookQuotes, preferredBooks);
+        const houseDecimal = prefQuote?.decimal ?? m.currentDecimal;
+        const houseBookLabel = prefQuote?.bookLabel ?? m.quoteBookLabel ?? null;
+        const edgePts =
+          houseDecimal !== null && houseDecimal > 1
+            ? Math.round((m.p - 1 / houseDecimal) * 1000) / 10
+            : m.edgePts;
         out.push({
           id: `${m.market}-${m.selection}`,
           label: m.label,
           group: m.group,
           p: m.p,
           fairDecimal: m.fairDecimal,
-          houseDecimal: m.currentDecimal,
-          edgePts: m.edgePts,
+          houseDecimal,
+          houseBookLabel,
+          bookQuotes: m.bookQuotes,
+          edgePts,
         });
       }
     }
 
     return out;
-  }, [canReadDetails, game.picks, markets]);
+  }, [canReadDetails, game.picks, markets, preferredBooks]);
 
   const modelOutcomes = useMemo(() => {
     if (!game.x12) return [];
@@ -329,6 +359,13 @@ export function MatchMoneyPanel({
               <tbody>
                 {comparisonRows.map((r) => {
                   const inParlay = r.pick ? inParlayPickIds?.has(r.pick.id) : false;
+                  const manualRaw = manualByRowId[r.id] ?? "";
+                  const manualDec = parseManualOddsInput(manualRaw);
+                  const effectiveHouseDec = manualDec ?? r.houseDecimal;
+                  const effectiveEdgePts =
+                    effectiveHouseDec !== null && effectiveHouseDec > 1
+                      ? Math.round((r.p - 1 / effectiveHouseDec) * 1000) / 10
+                      : r.edgePts;
                   return (
                     <tr key={r.id} className="hairline-b">
                       <td className="py-2.5 pr-3">
@@ -339,6 +376,7 @@ export function MatchMoneyPanel({
                             </strong>
                             <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
                               {r.group}
+                              {r.houseBookLabel && manualDec === null ? ` · ${r.houseBookLabel}` : ""}
                             </span>
                           </div>
                           {r.pick && onAddPickToParlay && !isFinished && game.status === "NS" ? (
@@ -360,16 +398,47 @@ export function MatchMoneyPanel({
                         {formatOddsValue(r.fairDecimal, oddsFormat)}
                       </td>
                       <td className="py-2.5 px-2 text-right num" style={{ color: "var(--pl-text-secondary)" }}>
-                        {r.houseDecimal !== null
-                          ? formatOddsValue(r.houseDecimal, oddsFormat)
-                          : "—"}
+                        {isFinished ? (
+                          r.houseDecimal !== null
+                            ? formatOddsValue(r.houseDecimal, oddsFormat)
+                            : "—"
+                        ) : r.houseDecimal !== null && manualRaw === "" ? (
+                          <button
+                            type="button"
+                            className="inline-flex items-center gap-1 underline decoration-dotted underline-offset-2 text-right"
+                            title="Clic para escribir el momio de tu casa"
+                            onClick={() =>
+                              setManualByRowId((prev) => ({
+                                ...prev,
+                                [r.id]: r.houseDecimal!.toFixed(2),
+                              }))
+                            }
+                          >
+                            {formatOddsValue(r.houseDecimal, oddsFormat)}
+                          </button>
+                        ) : (
+                          <input
+                            type="text"
+                            inputMode="decimal"
+                            aria-label={`Tu momio para ${r.label}`}
+                            placeholder={oddsFormat === "american" ? "-110" : "1.91"}
+                            value={manualRaw}
+                            onChange={(e) =>
+                              setManualByRowId((prev) => ({
+                                ...prev,
+                                [r.id]: e.target.value,
+                              }))
+                            }
+                            className="glass-input num text-[11px] text-right px-1.5 py-1 w-16 rounded-md"
+                          />
+                        )}
                       </td>
                       <td className="py-2.5 pl-2 text-right num">
-                        {r.edgePts !== null ? (
+                        {effectiveEdgePts !== null ? (
                           <span
-                            className={`pl-pill text-[11px] ${r.edgePts > 0 ? "pl-pill--success" : ""}`.trim()}
+                            className={`pl-pill text-[11px] ${effectiveEdgePts > 0 ? "pl-pill--success" : ""}`.trim()}
                           >
-                            {r.edgePts > 0 ? `+${r.edgePts.toFixed(1)}` : r.edgePts.toFixed(1)} pts
+                            {effectiveEdgePts > 0 ? `+${effectiveEdgePts.toFixed(1)}` : effectiveEdgePts.toFixed(1)} pts
                           </span>
                         ) : (
                           <span style={{ color: "var(--pl-text-muted)" }}>—</span>

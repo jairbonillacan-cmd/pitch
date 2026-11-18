@@ -975,17 +975,24 @@ export function loadTeamProfile(
     b.sortKey.localeCompare(a.sortKey),
   );
 
-  const recentMatches: TeamMatchHistoryRow[] = finishedSorted.slice(0, 20).map((m) => {
+  const seenRecentKeys = new Set<string>();
+  const recentMatches: TeamMatchHistoryRow[] = [];
+  for (const m of finishedSorted) {
+    if (recentMatches.length >= 20) break;
     const isHome = m.homeTeamKey === teamCanon;
     const oppCanon = isHome ? m.awayTeamKey : m.homeTeamKey;
     const oppRef = byCanonical.get(oppCanon);
     const oppSlug = oppRef?.slug ?? oppCanon;
     const myScore = isHome ? m.homeScore : m.awayScore;
     const oppScore = isHome ? m.awayScore : m.homeScore;
+    const uniqueRowKey = `${m.date}|${oppSlug}|${myScore}-${oppScore}`;
+    if (seenRecentKeys.has(uniqueRowKey)) continue;
+    seenRecentKeys.add(uniqueRowKey);
+
     const outcome: "G" | "E" | "P" =
       myScore > oppScore ? "G" : myScore === oppScore && hasDraw ? "E" : myScore === oppScore ? "E" : "P";
 
-    return {
+    recentMatches.push({
       id: m.id,
       gameHref: m.gameHref,
       date: m.date,
@@ -1003,8 +1010,8 @@ export function loadTeamProfile(
       opponentScore: oppScore,
       outcome,
       resultNote: m.resultNote,
-    };
-  });
+    });
+  }
 
   // 4. Sede y altitud reales (prioriza sede en partido local del snapshot).
   const homeSnapshotVenue =

@@ -14,6 +14,7 @@ import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../../access-guard";
 import { formatKickoffByTimezone } from "../account/account-helpers";
 import { ConfidenceChip } from "../../components/ConfidenceChip";
+import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
 import {
   ParlayPickButton,
   formatCountsHint,
@@ -1658,7 +1659,7 @@ export function HomeClubView({
   liveBoardOverride,
 }: HomeClubViewProps = {}): React.JSX.Element {
   const { dataset, viewerRole, userTimezone } = usePlatformCore();
-  const { parlaySummary } = usePlatform();
+  const { parlaySummary, journal } = usePlatform();
   const { navigateTo } = usePlatformActions();
   const games = dataset.games;
   const today = useMemo(
@@ -1913,6 +1914,8 @@ export function HomeClubView({
   return (
     <AtmosphereStage activePath="/app">
       <ClubWorkspaceShell activePath="/app">
+        <LivePicksTrackerStrip journal={journal} games={games} onNavigate={navigateTo} />
+
         {/* 1) Barra superior limpia estilo Astranalisis: pestañas de Deporte + tira rápida de partidos */}
         <section aria-label="Filtros de la jornada" className="pl-astro-topbar" data-home-filterbar="">
           <div className="pl-astro-sportbar-wrap">

@@ -23,6 +23,7 @@
     "./community-examples": "./src/platform/community-examples.ts",
     "./canjear": "./src/platform/components/CanjearCouponView.tsx",
     "./record-stats": "./src/platform/record-stats.ts",
+    "./bookmakers": "./src/platform/bookmakers.ts",
     "./badges": "./src/platform/badges.ts",
     "./ranking": "./src/platform/ranking.ts",
     "./record": "./src/platform/club/BitacoraClubView.tsx",

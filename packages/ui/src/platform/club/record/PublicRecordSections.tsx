@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useCallback, useId, useState } from "react";
 import { formatOddsValue } from "../../access-guard";
-import type {
-  CurvePoint,
-  PublicRecordView,
-  RateRow,
+import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
+import {
+  buildMonthlyRecordCalendar,
+  type CurvePoint,
+  type PublicRecordView,
+  type RateRow,
 } from "../../record-stats";
 import type { OddsFormat } from "../../types";
 import { PickStatus, outcomeOf } from "../community-ui";
@@ -267,6 +269,29 @@ export function PublicRecordPreviewCard({
   isPreview?: boolean;
   summaryOnly?: boolean;
 }): React.JSX.Element {
+  const [picksViewMode, setPicksViewMode] = useState<"list" | "calendar">("list");
+  const showPublicUnits = Boolean(view && view.netUnits !== null);
+  const buildPublicCalendarMonth = useCallback(
+    (ym: string) =>
+      buildMonthlyRecordCalendar(
+        (view?.settledPicks ?? []).map((p, idx) => ({
+          id: `pub-${idx}`,
+          status: p.status,
+          units: p.units,
+          userDecimal: p.userDecimal,
+          fairDecimal: p.userDecimal,
+          clvPct: 0,
+          leagueLabel: p.leagueLabel,
+          pickLabel: p.pickLabel,
+          origin: "Spacetime Suite",
+          day: p.day,
+        })),
+        ym || undefined,
+        { includeNetUnits: showPublicUnits },
+      ),
+    [showPublicUnits, view?.settledPicks],
+  );
+
   if (hidden || !view) {
     return (
       <div className="pl-rec-card glass-lens glass-ring" data-public-record-state="hidden">
@@ -472,25 +497,59 @@ export function PublicRecordPreviewCard({
       ) : null}
 
       {!summaryOnly && view.settledPicks && view.settledPicks.length > 0 ? (
-        <div className="space-y-2">
-          <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-            Últimos picks cerrados ({view.settledPicks.length})
-          </h4>
-          <ul className="pl-rec-pub-picks num">
-            {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => (
-              <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
-                <div className="min-w-0">
-                  <strong className="block text-xs font-bold truncate">{p.pickLabel}</strong>
-                  <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-                    {p.leagueLabel}
-                    {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u ·{" "}
-                    {formatOddsValue(p.userDecimal, oddsFormat)}
-                  </span>
-                </div>
-                <PickStatus status={outcomeOf(p.status)} />
-              </li>
-            ))}
-          </ul>
+        <div className="space-y-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
+              Últimos picks cerrados ({view.settledPicks.length})
+            </h4>
+            {!isPreview ? (
+              <div
+                className="seg-well"
+                role="group"
+                aria-label="Vista de picks públicos"
+                data-public-record-view-toggle=""
+              >
+                <button
+                  type="button"
+                  className="seg-btn text-xs min-h-9"
+                  aria-pressed={picksViewMode === "list"}
+                  onClick={() => setPicksViewMode("list")}
+                >
+                  Lista
+                </button>
+                <button
+                  type="button"
+                  className="seg-btn text-xs min-h-9"
+                  aria-pressed={picksViewMode === "calendar"}
+                  onClick={() => setPicksViewMode("calendar")}
+                >
+                  Calendario
+                </button>
+              </div>
+            ) : null}
+          </div>
+          {!isPreview && picksViewMode === "calendar" ? (
+            <DailyResultsCalendar
+              buildMonth={buildPublicCalendarMonth}
+              mode={showPublicUnits ? "units" : "counts"}
+            />
+          ) : (
+            <ul className="pl-rec-pub-picks num">
+              {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => (
+                <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
+                  <div className="min-w-0">
+                    <strong className="block text-xs font-bold truncate">{p.pickLabel}</strong>
+                    <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
+                      {p.leagueLabel}
+                      {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u ·{" "}
+                      {formatOddsValue(p.userDecimal, oddsFormat)}
+                    </span>
+                  </div>
+                  <PickStatus status={outcomeOf(p.status)} />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       ) : null}
     </div>

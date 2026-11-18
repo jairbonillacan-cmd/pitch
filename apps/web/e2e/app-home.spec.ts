@@ -268,9 +268,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }).toPass({ timeout: 10_000 });
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
-  // 6) Resultados: Parlays oficiales del día calificados
+  // 6) Resultados: Parlays oficiales del día calificados + Calendario mensual de resultados diarios
   await page.goto("/app/historial");
   await expect(page.locator("[data-hist-daily-parlays]")).toBeVisible();
+  const histCalBtn = page.locator("[data-historial-view-toggle] button", { hasText: "Calendario" });
+  await histCalBtn.click();
+  await expect(page.locator("[data-daily-results-calendar]")).toBeVisible();
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflowHist375 = await page.evaluate(
@@ -279,6 +282,11 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     expect(overflowHist375).toBe(false);
     await page.setViewportSize({ width, height: 900 });
   }
+
+  // 6b) Explorar picks: chips de 1 toque y comparador manual
+  await page.goto("/app/picks");
+  await expect(page.locator('[data-finder-chip="probables"]')).toBeVisible();
+  await page.locator('[data-finder-chip="probables"]').click();
 
   // 7) Ficha de partido: pestañas accesibles, números esperados y mercados derivados v3.2
   if (firstMatchHref) {
