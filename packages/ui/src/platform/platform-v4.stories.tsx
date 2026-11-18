@@ -1044,7 +1044,7 @@ function CabeceraClubLigaStory(): React.JSX.Element {
         <div className="panel-card p-6 space-y-2">
           <h1 className="m-0 text-lg font-bold">Liga MX activa en cabecera</h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Vista de ruta secundaria donde la tira rápida móvil permanece disponible y la liga activa queda resaltada.
+            Vista de ruta secundaria con cabecera limpia (sin tira inferior de ligas en móvil) y liga activa resaltada en el menú de navegación.
           </p>
         </div>
       </ClubLayoutShell>

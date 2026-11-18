@@ -1210,6 +1210,7 @@ function ClubWorkspaceShellImpl({
                               key={lg.league}
                               href={href}
                               data-league={lg.league}
+                              data-active={active ? "true" : undefined}
                               aria-current={active ? "page" : undefined}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -1242,6 +1243,7 @@ function ClubWorkspaceShellImpl({
                                   key={lg.league}
                                   href={href}
                                   data-league={lg.league}
+                                  data-active={active ? "true" : undefined}
                                   aria-current={active ? "page" : undefined}
                                   onClick={(e) => {
                                     e.preventDefault();
@@ -1591,36 +1593,6 @@ function ClubWorkspaceShellImpl({
           </div>
         </div>
         </div>
-
-        {/* Tira móvil/tablet de ligas rápidas (solo fuera de /app para no duplicar la barra de ligas del header) */}
-        {!isHomeRoute ? (
-          <nav
-            aria-label="Ligas rápidas móvil"
-            className="lg:hidden pl-mobile-league-strip flex items-center gap-1 px-4 pb-2.5 overflow-x-auto"
-          >
-            {dataset.leagues.map((lg) => {
-              const href = `/app/${lg.league}`;
-              const isCurrent = activePath === href || activePath.startsWith(`${href}/`);
-              return (
-                <a
-                  key={lg.league}
-                  href={href}
-                  data-league={lg.league}
-                  aria-current={isCurrent ? "page" : undefined}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo(href);
-                  }}
-                  className="league-tab seg-btn text-xs shrink-0"
-                  data-active={isCurrent ? "true" : undefined}
-                >
-                  <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
-                  <span>{lg.label}</span>
-                </a>
-              );
-            })}
-          </nav>
-        ) : null}
 
         {/* Tiras integradas en la base del header: deportes y sus ligas, visibles únicamente en /app */}
         {isHomeRoute && homeNav ? (

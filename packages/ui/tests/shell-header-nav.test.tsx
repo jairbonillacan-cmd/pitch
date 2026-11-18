@@ -83,7 +83,8 @@ describe("ClubLayoutShell header navigation", () => {
       );
       expect(subHtml).not.toContain("pl-header-sportband");
       expect(subHtml).not.toContain("pl-astro-sports");
-      expect(subHtml).toContain('aria-label="Ligas rápidas móvil"');
+      expect(subHtml).not.toContain('aria-label="Ligas rápidas móvil"');
+      expect(subHtml).not.toContain("pl-mobile-league-strip");
     }
   });
 
