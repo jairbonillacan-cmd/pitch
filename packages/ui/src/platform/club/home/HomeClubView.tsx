@@ -24,6 +24,7 @@ import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrom
 import { useLiveScoreboard } from "../../live/live-store";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
+  useHomeNavFilter,
   useIsPickInParlay,
   useJournalEntries,
   usePlatform,
@@ -38,6 +39,7 @@ import {
 } from "../../parlay-engine";
 import { profileRecord } from "../../profile-stats";
 import type { MatchPick, PlatformGame, RiskBand } from "../../types";
+import { HomeSportStrip } from "./HomeSportStrip";
 import {
   ALL,
   UPCOMING,
@@ -52,6 +54,7 @@ import {
   longDayLabel,
   matchesSportFilter,
   mostLikelyOutcome,
+  resolveHomeDay,
   shortDateLabel,
   shortWeekday,
   sportOf,
@@ -72,33 +75,6 @@ const RISKS: ReadonlyArray<{ id: RiskBand; label: string; hint: string }> = [
 function countLabel(n: number, one: string, many: string): string {
   return `${n} ${n === 1 ? one : many}`;
 }
-
-type HomeSportKey = SportFilter | "mlb";
-type SportAssetKey =
-  | "football"
-  | "national"
-  | "american-football"
-  | "basketball"
-  | "hockey"
-  | "baseball";
-
-interface HomeSportDef {
-  id: HomeSportKey;
-  label: string;
-  a11yName: string;
-  iconKey?: SportAssetKey;
-  soon?: boolean;
-}
-
-const HOME_SPORTS: readonly HomeSportDef[] = [
-  { id: ALL, label: "Todos", a11yName: "Todos los deportes" },
-  { id: "futbol", label: "Fútbol", a11yName: "Fútbol", iconKey: "football" },
-  { id: "selecciones", label: "Selecciones", a11yName: "Selecciones nacionales", iconKey: "national" },
-  { id: "nfl", label: "NFL", a11yName: "NFL · Fútbol americano", iconKey: "american-football" },
-  { id: "nba", label: "NBA", a11yName: "NBA · Basquetbol", iconKey: "basketball" },
-  { id: "nhl", label: "NHL", a11yName: "NHL · Hockey", iconKey: "hockey" },
-  { id: "mlb", label: "MLB", a11yName: "MLB · Béisbol", iconKey: "baseball", soon: true },
-];
 
 const LONG_WEEKDAYS_LOWER = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"] as const;
 
@@ -134,29 +110,6 @@ function formatJumpDayLabel(dayId: string, today: string): string {
   const d = new Date(`${dayId}T12:00:00Z`);
   const wd = LONG_WEEKDAYS_LOWER[d.getUTCDay()] ?? shortWeekday(dayId).toLowerCase();
   return `Ir al ${wd} ${dayNumber(dayId)}`;
-}
-
-function SportThumb({ def }: { def: HomeSportDef }): React.JSX.Element {
-  if (!def.iconKey) {
-    return (
-      <span className="pl-home-sport-gridbox">
-        <MaestroIcon name="grid" size={16} />
-      </span>
-    );
-  }
-  if (def.iconKey === "national") {
-    return (
-      <span className="pl-home-sport-gridbox">
-        <MaestroIcon name="globe" size={16} />
-      </span>
-    );
-  }
-  return (
-    <picture>
-      <source srcSet={`/sports/${def.iconKey}.webp`} type="image/webp" />
-      <img src={`/sports/${def.iconKey}.png`} alt="" width={32} height={32} decoding="async" />
-    </picture>
-  );
 }
 
 function leagueLabelOf(games: readonly PlatformGame[], league: LeagueId): string {
@@ -298,6 +251,11 @@ export function HomeFilterHeader({
 
   useEffect(() => {
     const el = chipsRef.current;
+    if (el) el.scrollLeft = 0;
+  }, [sport, league, day]);
+
+  useEffect(() => {
+    const el = chipsRef.current;
     const frame = typeof requestAnimationFrame === "function" ? requestAnimationFrame(syncChipsScroll) : 0;
     syncChipsScroll();
     if (!el || typeof ResizeObserver === "undefined") {
@@ -320,7 +278,7 @@ export function HomeFilterHeader({
       observer.disconnect();
       window.removeEventListener("resize", syncChipsScroll);
     };
-  }, [syncChipsScroll, orderedChips, day]);
+  }, [syncChipsScroll, orderedChips, day, league, sport]);
 
   const scrollChipsBy = useCallback((dir: -1 | 1) => {
     const el = chipsRef.current;
@@ -335,44 +293,12 @@ export function HomeFilterHeader({
 
   return (
     <section aria-label="Filtros de la jornada" className="pl-home-filterbar" data-home-filterbar="">
-      <div className="pl-home-row">
-        <div role="group" aria-label="Elegir deporte" className="pl-home-sports">
-          {HOME_SPORTS.map((def) => {
-            const count = def.soon
-              ? 0
-              : def.id === ALL
-                ? dayGames.length
-                : dayGames.filter((g) => matchesSportFilter(g, def.id as SportFilter)).length;
-            const on = !def.soon && sport === def.id;
-            const isEmpty = !def.soon && count === 0;
-            const badgeText = def.soon ? "Pronto" : String(count);
-            const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
-            const aria = `${def.a11yName}, ${subtext}`;
-            return (
-              <button
-                key={def.id}
-                type="button"
-                disabled={def.soon}
-                className={`pl-home-sport ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""} ${def.soon ? "is-soon" : ""}`.trim()}
-                aria-pressed={def.soon ? undefined : on}
-                aria-label={aria}
-                data-sport-filter={def.id}
-                onClick={(e) => {
-                  if (def.soon) return;
-                  onSportChange(def.id as SportFilter);
-                  e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
-                }}
-              >
-                <span className="pl-home-sport-icon" aria-hidden="true">
-                  <SportThumb def={def} />
-                </span>
-                <strong className="pl-home-sport-name">{def.label}</strong>
-                <span className="pl-home-sport-badge num">{badgeText}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <HomeSportStrip
+        dayGames={dayGames}
+        sport={sport}
+        onSelectSport={onSportChange}
+        variant="filterbar"
+      />
 
       <div className="pl-home-row">
         <div role="group" aria-label="Elegir liga" className="pl-home-leagues">
@@ -1297,7 +1223,7 @@ function ParlayHubRail({
               <div
                 className="rounded-2xl p-3 flex flex-col gap-2"
                 style={{
-                  background: "var(--pl-surface)",
+                  background: "var(--pl-surface-elevated)",
                   boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${riskToneColor(activeRiskInfo.tone)} 38%, var(--pl-border))`,
                 }}
                 data-parlay-risk-meter={activeRiskInfo.level}
@@ -1644,11 +1570,10 @@ const STATUS_FILTERS: ReadonlyArray<{ id: MatchStatusFilter; label: string }> = 
 
 /**
  * Inicio del Club con arquitectura limpia estilo Astranalisis + inteligencia completa PitchLab:
- * 1) Barra superior: pestañas de Deporte + tira rápida de partidos en vivo/del día.
- * 2) Columna izquierda: «Mis competiciones» (ligas + favoritas) y «Mis equipos».
- * 3) Columna central: «Partidos» agrupados por liga con barras 1·X·2 (`ProbSplit`), `PBar` de pick principal,
+ * 1) Barra superior: tendencias y tira rápida de partidos en vivo/del día (deportes y ligas en cabecera).
+ * 2) Columna principal: «Partidos» agrupados por liga con barras 1·X·2 (`ProbSplit`), `PBar` de pick principal,
  *    resultado más probable, pick alternativo, líneas clave y acciones.
- * 4) Columna derecha: Centro unificado de Parlay («Tu parlay» + «Parlay del día» en pestañas),
+ * 3) Columna derecha: Centro unificado de Parlay («Tu parlay» + «Parlay del día» en pestañas),
  *    seguido de «Picks con mayor probabilidad», «Donde la casa paga más» y «Mi récord».
  */
 export function HomeClubView({
@@ -1659,42 +1584,26 @@ export function HomeClubView({
   liveBoardOverride,
 }: HomeClubViewProps = {}): React.JSX.Element {
   const { dataset, viewerRole, userTimezone } = usePlatformCore();
-  const { parlaySummary, journal } = usePlatform();
+  const { journal } = usePlatform();
   const { navigateTo } = usePlatformActions();
+  const homeNav = useHomeNavFilter();
+  const { setTodayOverride } = homeNav;
   const games = dataset.games;
   const today = useMemo(
     () => initialToday ?? todayId(userTimezone || "America/Mexico_City"),
     [initialToday, userTimezone],
   );
-  const [chosenDay, setDay] = useState<DaySelection | null>(initialDay ?? null);
-  const [sport, setSport] = useState<SportFilter>(initialSport);
-  const [league, setLeague] = useState<LeagueFilter>(initialLeague);
-  const [statusFilter, setStatusFilter] = useState<MatchStatusFilter>("all");
-  const [favLeagues, setFavLeagues] = useState<LeagueId[]>([]);
-
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem("pl-fav-leagues");
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) setFavLeagues(parsed as LeagueId[]);
-      }
-    } catch (err) {
-      void err;
-    }
-  }, []);
+    setTodayOverride(initialToday ?? null);
+    return () => setTodayOverride(null);
+  }, [initialToday, setTodayOverride]);
 
-  const toggleFavLeague = useCallback((lg: LeagueId) => {
-    setFavLeagues((prev) => {
-      const next = prev.includes(lg) ? prev.filter((x) => x !== lg) : [...prev, lg];
-      try {
-        window.localStorage.setItem("pl-fav-leagues", JSON.stringify(next));
-      } catch (err) {
-        void err;
-      }
-      return next;
-    });
-  }, []);
+  const chosenDay = homeNav.chosenDay ?? initialDay ?? null;
+  const sport = homeNav.hasExplicitSport ? homeNav.sport : initialSport;
+  const league = homeNav.hasExplicitSport || homeNav.league !== ALL ? homeNav.league : initialLeague;
+  const setDay = homeNav.setChosenDay;
+  const setLeague = homeNav.setLeague;
+  const [statusFilter, setStatusFilter] = useState<MatchStatusFilter>("all");
 
   const liveSnap = useLiveScoreboard(liveBoardOverride === undefined);
   const liveBoard = liveBoardOverride !== undefined ? liveBoardOverride : liveSnap.data;
@@ -1708,12 +1617,7 @@ export function HomeClubView({
     return map;
   }, [liveBoard]);
 
-  const day = useMemo<string>(() => {
-    if (chosenDay && chosenDay !== UPCOMING) return chosenDay;
-    if (games.some((g) => g.dayId >= today)) return today;
-    const last = games.reduce<string>((acc, g) => (g.dayId > acc ? g.dayId : acc), "");
-    return last || today;
-  }, [chosenDay, games, today]);
+  const day = useMemo<string>(() => resolveHomeDay(games, chosenDay, today), [chosenDay, games, today]);
 
   const dayOptions = useMemo(
     () => buildDayOptions(games, today).filter((opt) => !opt.isUpcoming),
@@ -1729,21 +1633,6 @@ export function HomeClubView({
   );
 
   const dayGames = useMemo(() => gamesForSelection(games, day, today), [games, day, today]);
-  const sportGames = useMemo(
-    () =>
-      sport === ALL
-        ? dayGames
-        : dayGames.filter((g) => matchesSportFilter(g, sport)),
-    [dayGames, sport],
-  );
-  const leagues = useMemo(() => {
-    const base = leaguesIn(sportGames);
-    return [...base].sort((a, b) => {
-      const aFav = favLeagues.includes(a) ? 0 : 1;
-      const bFav = favLeagues.includes(b) ? 0 : 1;
-      return aFav - bFav;
-    });
-  }, [sportGames, favLeagues]);
 
   const visible = useMemo(() => filterGames(dayGames, sport, league), [dayGames, sport, league]);
 
@@ -1777,8 +1666,16 @@ export function HomeClubView({
     [statusFilteredGames],
   );
 
+  const trendGames = useMemo(() => {
+    if (visible.length > 0) return visible;
+    if (league === ALL) return visible;
+    const upcoming = games.filter((g) => g.league === league && g.dayId >= today);
+    if (upcoming.length > 0) return upcoming;
+    return games.filter((g) => g.league === league);
+  }, [visible, league, games, today]);
+
   const orderedChips = useMemo(() => {
-    return visible
+    return trendGames
       .map((game) => {
         const entry = liveByGameId.get(game.id);
         const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
@@ -1789,7 +1686,7 @@ export function HomeClubView({
         if (a.live !== b.live) return a.live ? -1 : 1;
         return a.game.kickoffUtc.localeCompare(b.game.kickoffUtc) || a.game.id.localeCompare(b.game.id);
       });
-  }, [visible, liveByGameId]);
+  }, [trendGames, liveByGameId]);
 
   const emptyJumpTarget = useMemo<{ dayId: string; resetFilters: boolean } | null>(() => {
     if (orderedChips.length > 0) return null;
@@ -1833,6 +1730,11 @@ export function HomeClubView({
 
   useEffect(() => {
     const el = chipsRef.current;
+    if (el) el.scrollLeft = 0;
+  }, [sport, league, day]);
+
+  useEffect(() => {
+    const el = chipsRef.current;
     const frame = typeof requestAnimationFrame === "function" ? requestAnimationFrame(syncChipsScroll) : 0;
     syncChipsScroll();
     if (!el || typeof ResizeObserver === "undefined") {
@@ -1855,7 +1757,7 @@ export function HomeClubView({
       observer.disconnect();
       window.removeEventListener("resize", syncChipsScroll);
     };
-  }, [syncChipsScroll, orderedChips, day]);
+  }, [syncChipsScroll, orderedChips, day, league, sport]);
 
   const scrollChipsBy = useCallback((dir: -1 | 1) => {
     const el = chipsRef.current;
@@ -1868,95 +1770,40 @@ export function HomeClubView({
     el.scrollBy({ left: dir * step, behavior: reduced ? "auto" : "smooth" });
   }, []);
 
-  const followedTeams = useMemo(() => {
-    const seen = new Set<string>();
-    const list: Array<{ league: LeagueId; slug: string; name: string; logoUrl?: string }> = [];
-    for (const { pick } of parlaySummary.legs) {
-      const g = games.find((gm) => gm.id === pick.gameId);
-      if (!g) continue;
-      for (const side of [g.home, g.away]) {
-        const key = `${g.league}.${side.slug}`;
-        if (!seen.has(key)) {
-          seen.add(key);
-          list.push({ league: g.league, slug: side.slug, name: side.name, logoUrl: side.logoUrl });
-        }
-      }
-    }
-    return list.slice(0, 6);
-  }, [parlaySummary.legs, games]);
-
   const isPast = day < today;
   const centerParts = formatCenterDayParts(day, today);
   const centerAria = day === today ? "Hoy, día actual" : `${centerParts.top}, volver a hoy`;
 
   const pickDay = (d: DaySelection) => {
     setDay(d);
-    setLeague((prev) =>
-      prev !== ALL && gamesForSelection(games, d, today).some((g) => g.league === prev) ? prev : ALL,
+    setLeague(
+      league !== ALL && gamesForSelection(games, d, today).some((g) => g.league === league) ? league : ALL,
     );
   };
-  const pickSport = (s: SportFilter) => {
-    setSport(s);
-    setLeague(ALL);
-  };
   const jumpDay = (targetDay: string, resetFilters: boolean) => {
-    setDay(targetDay);
     if (resetFilters) {
-      setSport(ALL);
-      setLeague(ALL);
+      homeNav.resetFilters(targetDay);
       return;
     }
-    setLeague((prev) =>
-      prev !== ALL && gamesForSelection(games, targetDay, today).some((g) => g.league === prev) ? prev : ALL,
+    setDay(targetDay);
+    setLeague(
+      league !== ALL && gamesForSelection(games, targetDay, today).some((g) => g.league === league) ? league : ALL,
     );
   };
 
   return (
     <AtmosphereStage activePath="/app">
-      <ClubWorkspaceShell activePath="/app">
+      <ClubWorkspaceShell
+        activePath="/app"
+        initialHomeDay={initialDay}
+        initialHomeToday={initialToday}
+        initialHomeSport={initialSport}
+        initialHomeLeague={initialLeague}
+      >
         <LivePicksTrackerStrip journal={journal} games={games} onNavigate={navigateTo} />
 
-        {/* 1) Barra superior limpia estilo Astranalisis: pestañas de Deporte + tira rápida de partidos */}
+        {/* 1) Barra rápida de tendencias y chips del día (deportes y ligas viven en la cabecera de /app) */}
         <section aria-label="Filtros de la jornada" className="pl-astro-topbar" data-home-filterbar="">
-          <div className="pl-astro-sportbar-wrap">
-            <div role="group" aria-label="Elegir deporte" className="pl-astro-sports">
-              {HOME_SPORTS.map((def) => {
-                const count = def.soon
-                  ? 0
-                  : def.id === ALL
-                    ? dayGames.length
-                    : dayGames.filter((g) => matchesSportFilter(g, def.id as SportFilter)).length;
-                const on = !def.soon && sport === def.id;
-                const isEmpty = !def.soon && count === 0;
-                const badgeText = def.soon ? "Pronto" : String(count);
-                const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
-                const aria = `${def.a11yName}, ${subtext}`;
-                return (
-                  <button
-                    key={def.id}
-                    type="button"
-                    disabled={def.soon}
-                    className={`pl-astro-sport-tab ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""} ${def.soon ? "is-soon" : ""}`.trim()}
-                    aria-pressed={def.soon ? undefined : on}
-                    aria-label={aria}
-                    data-sport-filter={def.id}
-                    onClick={(e) => {
-                      if (def.soon) return;
-                      pickSport(def.id as SportFilter);
-                      e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
-                    }}
-                  >
-                    <span className="pl-astro-sport-icon" aria-hidden="true">
-                      <SportThumb def={def} />
-                    </span>
-                    <strong className="pl-astro-sport-label">{def.label}</strong>
-                    <span className="pl-astro-sport-count num">{badgeText}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
           <div className="pl-astro-stripbar">
             <span className="pl-astro-trend-pill">
               <MaestroIcon name="bolt" size={13} />
@@ -1999,7 +1846,16 @@ export function HomeClubView({
                         data-chip-league={game.league}
                         data-chip-live={live ? "true" : undefined}
                         aria-label={`${live ? "En vivo" : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
-                        onClick={() => scrollToMatchCard(game.id)}
+                        onClick={() => {
+                          if (game.dayId !== day) {
+                            pickDay(game.dayId);
+                            if (typeof window !== "undefined") {
+                              window.setTimeout(() => scrollToMatchCard(game.id), 60);
+                            }
+                            return;
+                          }
+                          scrollToMatchCard(game.id);
+                        }}
                       >
                         {live ? (
                           <>
@@ -2090,83 +1946,8 @@ export function HomeClubView({
           </div>
         </section>
 
-        {/* 2) Cuerpo de 3 columnas: Mis competiciones (izq.) + Partidos con barras (centro) + Centro de Parlays y Picks probables (der.) */}
+        {/* 2) Cuerpo de 2 columnas: Partidos con barras (principal) + Centro de Parlays y Picks probables (der.) */}
         <div className="pl-astro-workspace">
-          <aside aria-label="Mis competiciones y equipos" className="pl-astro-left">
-            <div className="pl-astro-sideblock">
-              <span className="pl-astro-sidehead">Mis competiciones</span>
-              <div role="group" aria-label="Elegir liga" className="pl-astro-comp-list">
-                <button
-                  type="button"
-                  className={`pl-astro-comp-item ${league === ALL ? "is-on" : ""}`.trim()}
-                  aria-pressed={league === ALL}
-                  data-league-filter={ALL}
-                  onClick={() => setLeague(ALL)}
-                >
-                  <span className="truncate font-bold">Todas las ligas</span>
-                  <span className="pl-astro-comp-count num">{sportGames.length}</span>
-                </button>
-                {leagues.map((l) => {
-                  const on = league === l;
-                  const n = sportGames.filter((g) => g.league === l).length;
-                  const label = leagueLabelOf(dayGames, l);
-                  const isFav = favLeagues.includes(l);
-                  return (
-                    <div key={l} className={`pl-astro-comp-row ${on ? "is-on" : ""}`.trim()}>
-                      <button
-                        type="button"
-                        className={`pl-astro-comp-item ${on ? "is-on" : ""}`.trim()}
-                        aria-pressed={on}
-                        data-league-filter={l}
-                        onClick={() => setLeague(l)}
-                      >
-                        <LeagueBadge league={l} label={label} logoUrl={leagueLogoOf(dayGames, l)} size={22} />
-                        <span className="truncate font-semibold flex-1 text-left">{label}</span>
-                        <span className="pl-astro-comp-count num">{n}</span>
-                      </button>
-                      <button
-                        type="button"
-                        className={`pl-astro-fav-btn ${isFav ? "is-fav" : ""}`.trim()}
-                        aria-label={isFav ? `Quitar ${label} de favoritas` : `Fijar ${label} en favoritas`}
-                        aria-pressed={isFav}
-                        onClick={() => toggleFavLeague(l)}
-                      >
-                        <span aria-hidden="true">{isFav ? "★" : "☆"}</span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="pl-astro-sideblock">
-              <span className="pl-astro-sidehead">Mis equipos</span>
-              {followedTeams.length === 0 ? (
-                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
-                  Los equipos de tus partidos en el parlay aparecerán aquí.
-                </p>
-              ) : (
-                <ul className="m-0 p-0 list-none flex flex-col gap-1.5">
-                  {followedTeams.map((tm) => (
-                    <li key={`${tm.league}.${tm.slug}`}>
-                      <a
-                        href={`/app/${tm.league}/teams/${tm.slug}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          navigateTo(`/app/${tm.league}/teams/${tm.slug}`);
-                        }}
-                        className="pl-astro-comp-item no-underline"
-                      >
-                        <TeamBadge league={tm.league} slug={tm.slug} name={tm.name} logoUrl={tm.logoUrl} size={20} />
-                        <span className="truncate text-xs font-semibold">{tm.name}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </aside>
-
           <div className="pl-astro-center">
             <div className="pl-astro-toolbar">
               <div className="pl-astro-toolbar-left">

@@ -52,7 +52,9 @@ export type MaestroIconName =
   | "dots"
   | "flag"
   | "pin"
-  | "globe";
+  | "globe"
+  | "command"
+  | "whistle";
 
 function renderIconGeometry(name: MaestroIconName): React.ReactNode {
   switch (name) {
@@ -309,6 +311,18 @@ function renderIconGeometry(name: MaestroIconName): React.ReactNode {
         <>
           <path d="M5 3v18" />
           <path d="M5 4h11l-2.2 4 2.2 4H5" />
+        </>
+      );
+    case "command":
+      return (
+        <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3Z" />
+      );
+    case "whistle":
+      return (
+        <>
+          <path d="M4.5 13.5a5.5 5.5 0 0 0 10.6 2.1l4.4-1.3A1.5 1.5 0 0 0 20.5 12.8V11a1.5 1.5 0 0 0-1.5-1.5H10a5.5 5.5 0 0 0-5.5 4Z" />
+          <path d="M10 9.5V12" />
+          <circle cx="9.2" cy="14" r="1.4" />
         </>
       );
   }

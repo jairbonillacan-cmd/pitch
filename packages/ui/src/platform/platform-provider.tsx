@@ -19,6 +19,11 @@ import {
   redactDatasetForVisitor,
 } from "./access-guard";
 import { sanitizeCsvCell } from "./club/account/account-helpers";
+import type {
+  DaySelection,
+  LeagueFilter,
+  SportFilter,
+} from "./club/home/home-model";
 
 /** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
@@ -589,6 +594,20 @@ const AuraContext = createContext<readonly [string, string]>([
 ]);
 const JournalContext = createContext<JournalEntry[]>([]);
 
+export interface HomeNavFilterValue {
+  sport: SportFilter;
+  hasExplicitSport: boolean;
+  league: LeagueFilter;
+  chosenDay: DaySelection | null;
+  todayOverride: string | null;
+  pickSport: (next: SportFilter) => void;
+  setLeague: (next: LeagueFilter) => void;
+  setChosenDay: (next: DaySelection | null) => void;
+  setTodayOverride: (next: string | null) => void;
+  resetFilters: (targetDay?: string) => void;
+}
+const HomeNavFilterContext = createContext<HomeNavFilterValue | null>(null);
+
 /** Almacén externo con los ids de los picks del parlay. */
 function createParlayIdStore() {
   let ids = new Set<string>();
@@ -631,6 +650,12 @@ export function useAuraColors(): readonly [string, string] {
 export function useJournalEntries(): JournalEntry[] {
   return useContext(JournalContext);
 }
+export function useHomeNavFilter(): HomeNavFilterValue {
+  return required(useContext(HomeNavFilterContext), "useHomeNavFilter");
+}
+export function useOptionalHomeNavFilter(): HomeNavFilterValue | null {
+  return useContext(HomeNavFilterContext);
+}
 /** true si el pick está en el parlay. Solo redibuja este componente cuando eso cambia. */
 export function useIsPickInParlay(pickId: string | undefined): boolean {
   const store = required(useContext(ParlayIdStoreContext), "useIsPickInParlay");
@@ -652,6 +677,7 @@ export function PlatformProvider({
   serverMonth1NoCardMode,
   initialWatchlistGameIds,
   initialShareTicket = null,
+  initialCmdkOpen = false,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -670,6 +696,8 @@ export function PlatformProvider({
   initialWatchlistGameIds?: readonly string[];
   /** Boleto inicial abierto en ShareTicketModal (pruebas y Storybook). */
   initialShareTicket?: ShareTicketPayload | null;
+  /** Estado inicial de CommandPaletteModal (pruebas y Storybook). */
+  initialCmdkOpen?: boolean;
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -782,10 +810,15 @@ export function PlatformProvider({
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
   const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(initialShareTicket);
-  const [cmdkOpen, setCmdkOpen] = useState<boolean>(false);
+  const [cmdkOpen, setCmdkOpen] = useState<boolean>(initialCmdkOpen);
   const [betaPinOpen, setBetaPinOpen] = useState<boolean>(false);
   const [betaPinNextPath, setBetaPinNextPath] = useState<string>("/app");
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [homeSport, setHomeSportState] = useState<SportFilter>("all");
+  const [hasExplicitHomeSport, setHasExplicitHomeSport] = useState<boolean>(false);
+  const [homeLeague, setHomeLeagueState] = useState<LeagueFilter>("all");
+  const [homeChosenDay, setHomeChosenDayState] = useState<DaySelection | null>(null);
+  const [homeTodayOverride, setHomeTodayOverride] = useState<string | null>(null);
 
   const defaultGame = useMemo(
     () => rawDataset.games.find((g) => g.status !== "FT") ?? rawDataset.games[0],
@@ -2481,6 +2514,41 @@ export function PlatformProvider({
     ],
   );
 
+  const pickHomeSport = useCallback((next: SportFilter) => {
+    setHasExplicitHomeSport(true);
+    setHomeSportState(next);
+    setHomeLeagueState("all");
+  }, []);
+  const resetHomeFilters = useCallback((targetDay?: string) => {
+    if (targetDay !== undefined) setHomeChosenDayState(targetDay);
+    setHasExplicitHomeSport(true);
+    setHomeSportState("all");
+    setHomeLeagueState("all");
+  }, []);
+  const homeNavFilter = useMemo<HomeNavFilterValue>(
+    () => ({
+      sport: homeSport,
+      hasExplicitSport: hasExplicitHomeSport,
+      league: homeLeague,
+      chosenDay: homeChosenDay,
+      todayOverride: homeTodayOverride,
+      pickSport: pickHomeSport,
+      setLeague: setHomeLeagueState,
+      setChosenDay: setHomeChosenDayState,
+      setTodayOverride: setHomeTodayOverride,
+      resetFilters: resetHomeFilters,
+    }),
+    [
+      homeSport,
+      hasExplicitHomeSport,
+      homeLeague,
+      homeChosenDay,
+      homeTodayOverride,
+      pickHomeSport,
+      resetHomeFilters,
+    ],
+  );
+
   const [parlayIdStore] = useState(createParlayIdStore);
   useLayoutEffect(() => {
     parlayIdStore.set(new Set(parlayLegs.map((l) => l.pick.id)));
@@ -2492,7 +2560,9 @@ export function PlatformProvider({
         <ParlayIdStoreContext.Provider value={parlayIdStore}>
           <JournalContext.Provider value={journal}>
             <AuraContext.Provider value={auraColors}>
-              <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+              <HomeNavFilterContext.Provider value={homeNavFilter}>
+                <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+              </HomeNavFilterContext.Provider>
             </AuraContext.Provider>
           </JournalContext.Provider>
         </ParlayIdStoreContext.Provider>

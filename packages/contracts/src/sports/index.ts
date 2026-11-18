@@ -89,6 +89,7 @@ export interface GameDTO {
   home: Team;
   away: Team;
   venue?: string;
+  referee?: string;
   neutralSite: boolean;
   result?: GameResult;
 }
@@ -138,6 +139,7 @@ export const GameDTOSchema = z.object({
   home: TeamSchema,
   away: TeamSchema,
   venue: z.string().optional(),
+  referee: z.string().optional(),
   neutralSite: z.boolean(),
   result: GameResultSchema.optional(),
 });

@@ -99,7 +99,7 @@ const ICONS = [
   "arrowLeft", "calendar", "flame", "trophy", "sliders", "eye", "copy", "download",
   "plus", "minus", "sun", "moon", "star", "ticket", "cpu", "activity", "crown",
   "message", "heart", "link", "users-plus", "user", "receipt", "logout",
-  "chevronDown", "dots", "flag", "pin",
+  "chevronDown", "dots", "flag", "pin", "whistle", "command",
 ] as const satisfies readonly MaestroIconName[];
 
 function Primitives(): React.JSX.Element {
@@ -263,6 +263,29 @@ export const PaletaDeBusqueda = {
   ),
 };
 export const PaletaDeBusquedaClaro = { ...PaletaDeBusqueda, ...light };
+
+export const PaletaDeBusquedaFiltrada = {
+  render: () => (
+    <Member>
+      <OnMount run={openPalette} />
+      <CommandPaletteModal initialQuery="Monterrey" />
+    </Member>
+  ),
+};
+export const PaletaDeBusquedaFiltradaClaro = { ...PaletaDeBusquedaFiltrada, ...light };
+
+export const PaletaDeBusquedaSinResultados = {
+  render: () => (
+    <Member>
+      <OnMount run={openPalette} />
+      <CommandPaletteModal initialQuery="ClubInexistenteXYZ" />
+    </Member>
+  ),
+};
+export const PaletaDeBusquedaSinResultadosClaro = {
+  ...PaletaDeBusquedaSinResultados,
+  ...light,
+};
 
 export const RegistrarPick = {
   render: () => (

@@ -3,14 +3,12 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   isNationalCompetition,
-  sportHasDraw,
-  sportScoringUnit,
   type LeagueId,
+  type LiveMatchDetail,
 } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   LeagueBadge,
-  ProbSplit,
   TeamBadge,
   parseUserOdds,
 } from "../../sports";
@@ -28,10 +26,14 @@ import {
 import { MatchList } from "../components/MatchList";
 import { PlLeagueSelect } from "../components/PlSelect";
 import { MultiPickRow } from "../components/MatchTicketCard";
-import { ConfidenceChip } from "../components/ConfidenceChip";
 import { groupMatchesByDayAndLeague } from "./home/home-model";
 import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
 import { MatchContextPanel } from "./match/MatchContextPanel";
+import {
+  MatchBreadcrumb,
+  MatchHeroScoreboard,
+  MatchLeftRail,
+} from "./match/MatchHeroAndRail";
 import { MatchMoneyPanel } from "./match/MatchMoneyPanel";
 import { MatchNumbersPanel } from "./match/MatchNumbersPanel";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
@@ -40,7 +42,8 @@ import {
   SportOutlookCard,
   platformGameToSportOutlook,
 } from "./match/sport-outlook";
-import { FollowControl, LiveMatchPanel } from "../live/LiveMatchCenter";
+import { LiveMatchPanelView } from "../live/LiveMatchCenter";
+import { useLiveMatch } from "../live/live-store";
 import { PicksFinderClubView } from "./PicksFinderView";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
@@ -1106,6 +1109,7 @@ export function MatchStudioClubView({
   cortexSections,
   cortexHeadline,
   detail,
+  liveDetailOverride,
   initialTab = "resumen",
 }: {
   leagueId: LeagueId;
@@ -1118,6 +1122,8 @@ export function MatchStudioClubView({
   cortexHeadline?: string | null;
   /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
+  /** Snapshot en vivo inyectado para stories o pruebas deterministas. */
+  liveDetailOverride?: LiveMatchDetail | null;
   /** Pestaña inicial resuelta en servidor desde `?tab=` para compartir enlaces. */
   initialTab?: MatchTabKey;
 }): React.JSX.Element {
@@ -1178,13 +1184,15 @@ export function MatchStudioClubView({
     void loadMatchSocialPosts(game.id);
   }, [game.id, loadMatchSocialPosts]);
 
-  const hasDraw = sportHasDraw(game.sport);
-  const unit = sportScoringUnit(game.sport);
-  const hasForecast =
-    game.hasForecast !== false && Boolean(game.x12 && game.projection);
-  const overtimeFactor = game.factors.find((f) => /tiempo extra/i.test(f.label));
-  const flow = game.preGame.moneyFlow;
+  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSnap = useLiveMatch(game.id, liveSupported && !liveDetailOverride);
+  const liveDetail = liveDetailOverride ?? liveSnap.data;
+  const hasLiveMomentum = Boolean(
+    liveDetail && (liveDetail.momentum.length > 0 || liveDetail.incidents.length > 0),
+  );
+  const hasLiveIncidents = Boolean(liveDetail && liveDetail.incidents.length > 0);
   const isFinished = game.status === "FT" && game.score !== undefined;
+  const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
 
   const homePrimary =
@@ -1303,395 +1311,182 @@ export function MatchStudioClubView({
     openComposer(syntheticPick);
   };
 
+  const cortexSummaryText =
+    cortexHeadline?.trim() ||
+    cortexSections?.find((sec) => sec.key === "lectura")?.text ||
+    cortexSynthesisOverride ||
+    game.preGame.cortexSynthesis;
+
   return (
     <AtmosphereStage activePath={studioPath}>
       <ClubWorkspaceShell activePath={studioPath}>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <a
-            href={`/app/${game.league}`}
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo(`/app/${game.league}`);
-            }}
-            className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
-          >
-            <MaestroIcon name="arrowLeft" size={13} />
-            <span>Volver a {game.leagueLabel}</span>
-          </a>
+        <MatchBreadcrumb game={game} onNavigate={navigateTo} />
 
-          {isFinished ? null : <FollowControl gameId={game.id} />}
-        </div>
-
-        {/* Cabecera Estelar de Radiografía del Partido */}
-        <section
-          className="glass-lens glass-ring glass-ring--featured rounded-3xl p-6 space-y-5 relative overflow-hidden"
-          data-match-studio={game.id}
-        >
-          <LensGlowOrbs primaryColor={homePrimary} secondaryColor={awayPrimary} />
-
-          <div className="flex flex-wrap items-center justify-between gap-2 relative z-10">
-            <div className="flex items-center gap-2">
-              <LeagueBadge
-                league={game.league}
-                label={game.leagueLabel}
-                logoUrl={game.leagueLogoUrl}
-                size={22}
-              />
-              <span
-                id="modal-league"
-                className="text-xs font-semibold"
-              >
-                {[game.leagueLabel, game.round, game.venue].filter(Boolean).join(" · ")}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-1.5">
-              {isFinished ? null : <ConfidenceChip game={game} size="lg" />}
-              <span className="pl-pill pl-pill--brand num text-xs">
-                {isFinished
-                  ? "Finalizado FT"
-                  : `${game.dayLabel} · ${game.kickoffLocal}`}
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center relative z-10">
-            <div className="flex items-center gap-3.5 min-w-0">
-              <CrestPedestal size="lg" glowColor={homePrimary}>
-                <TeamBadge
-                  league={game.league}
-                  slug={game.home.slug}
-                  name={game.home.name}
-                  logoUrl={game.home.logoUrl}
-                  size={44}
-                />
-              </CrestPedestal>
-              <div className="min-w-0">
-                <h1 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
-                  <a
-                    href={`/app/${game.league}/teams/${game.home.slug}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo(`/app/${game.league}/teams/${game.home.slug}`);
-                    }}
-                    className="pl-team-link"
-                    title={`Ver perfil de ${game.home.name}`}
-                  >
-                    {game.home.name}
-                  </a>
-                </h1>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  {game.home.record}
-                </span>
-              </div>
-            </div>
-
-            <div className="text-center space-y-1">
-              {isFinished ? (
-                <strong className="num text-3xl font-extrabold block">
-                  {game.score?.home} – {game.score?.away}
-                </strong>
-              ) : !hasForecast || !game.projection ? (
-                <strong
-                  className="text-lg font-extrabold block"
-                  style={{ color: "var(--pl-text-secondary)" }}
-                >
-                  Sin pronóstico
-                </strong>
-              ) : intelUnlocked ? (
-                <strong
-                  className="num text-2xl font-extrabold block"
-                  style={{ color: "var(--pl-brand)" }}
-                >
-                  Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
-                  {game.projection.away.toFixed(unit.decimals)}
-                </strong>
-              ) : (
-                <span className="pl-pill inline-flex items-center gap-1.5">
-                  <MaestroIcon name="lock" size={12} />
-                  <span>Marcador proyectado Pase PitchLab Ultra</span>
-                </span>
-              )}
-              <span
-                className="text-xs num block"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                {!hasForecast || !game.projection
-                  ? "Sin pronóstico ni confianza publicados"
-                  : intelUnlocked || isFinished
-                    ? `${unit.plural === "puntos" ? "Puntos" : "Goles"} esperados: ${game.projection.total.toFixed(unit.decimals)}`
-                    : "Disponible con Pase PitchLab Ultra"}
-              </span>
-              {overtimeFactor && hasForecast ? (
-                <span
-                  className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 mt-1 max-w-full"
-                  data-overtime-pill=""
-                  title={overtimeFactor.sub ?? undefined}
-                >
-                  <span>
-                    {overtimeFactor.label}: {overtimeFactor.value}
-                    {overtimeFactor.sub ? ` · ${overtimeFactor.sub}` : ""}
-                  </span>
-                </span>
-              ) : null}
-            </div>
-
-            <div className="flex items-center gap-3.5 md:justify-end min-w-0">
-              <div className="md:text-right min-w-0">
-                <h2 className="m-0 text-xl sm:text-2xl font-extrabold truncate">
-                  <a
-                    href={`/app/${game.league}/teams/${game.away.slug}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo(`/app/${game.league}/teams/${game.away.slug}`);
-                    }}
-                    className="pl-team-link"
-                    title={`Ver perfil de ${game.away.name}`}
-                  >
-                    {game.away.name}
-                  </a>
-                </h2>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  {game.away.record}
-                </span>
-              </div>
-              <CrestPedestal size="lg" glowColor={awayPrimary}>
-                <TeamBadge
-                  league={game.league}
-                  slug={game.away.slug}
-                  name={game.away.name}
-                  logoUrl={game.away.logoUrl}
-                  size={44}
-                />
-              </CrestPedestal>
-            </div>
-          </div>
-
-          {hasForecast && game.x12 ? (
-            <div className="relative z-10">
-              <ProbSplit
-                probabilities={hasDraw ? game.x12 : [game.x12[0], game.x12[2]]}
-                labels={
-                  hasDraw
-                    ? [game.home.shortName, "Empate", game.away.shortName]
-                    : [game.home.shortName, game.away.shortName]
-                }
-                showLabels
-              />
-            </div>
-          ) : (
-            <div
-              className="relative z-10 rounded-2xl px-4 py-3 text-xs"
-              style={{
-                background: "var(--pl-surface-elevated)",
-                color: "var(--pl-text-muted)",
-              }}
-              data-empty-forecast=""
-            >
-              Este snapshot aún no incluye pronóstico ni confianza publicados para este partido.
-            </div>
-          )}
-        </section>
-
-        {/* Match Center en vivo: marcador, minuto a minuto, momentum y estadísticas (EN-VIVO-1) */}
-        <LiveMatchPanel game={game} />
-
-        {/* Navegación accesible en 5 pestañas sincronizada con ?tab= */}
-        <MatchTabs
-          idPrefix="pl-match"
-          active={activeTab}
-          onSelect={setActiveTab}
-          tabs={[
-            { key: "resumen", label: "Resumen", count: game.picks.length },
-            { key: "ia", label: "Análisis IA" },
-            {
-              key: "numeros",
-              label: "Números",
-              count: activeMarkets.length > 0 ? activeMarkets.length : undefined,
-            },
-            { key: "dinero", label: "¿Dónde está el dinero?" },
-            { key: "contexto", label: "Contexto" },
-          ]}
+        {/* Hero principal del encuentro */}
+        <MatchHeroScoreboard
+          game={game}
+          homePrimary={homePrimary}
+          awayPrimary={awayPrimary}
+          intelUnlocked={intelUnlocked}
+          liveDetail={liveDetail}
+          onNavigate={navigateTo}
         />
 
-        {/* Pestaña 1: Resumen (Picks, pulso de mercado, puente a Análisis IA, Pre-Match, panorama y factores) */}
-        <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
-          <div className="pl-resumen-top">
-            {/* Izquierda: Pronóstico / Picks del partido */}
-            <section className="pl-resumen-picks-col space-y-3.5 min-w-0" data-picks="">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
-                {viewerRole === "tipster" || viewerRole === "admin" ? (
-                  <span
-                    className="text-xs font-semibold inline-flex items-center gap-1"
-                    style={{ color: "var(--pl-brand)" }}
-                  >
-                    <MaestroIcon name="crown" size={13} />
-                    <span>Elige cualquiera como tu Pick abierto semanal</span>
-                  </span>
-                ) : null}
-              </div>
+        {/* Área de estudio en 2 columnas: Riel persistente + Espacio principal con pestañas */}
+        <div className="pl-match-layout">
+          <MatchLeftRail
+            game={game}
+            markets={activeMarkets}
+            oddsFormat={oddsFormat}
+            intelUnlocked={intelUnlocked}
+            liveDetail={liveDetail}
+            mainEngineName={mainEngineName}
+            cortexSummaryText={cortexSummaryText}
+            onSelectTab={setActiveTab}
+          />
 
-              {game.picks.length === 0 ? (
-                <div
-                  className="glass-card glass-ring rounded-2xl p-4 text-sm"
-                  style={{ color: "var(--pl-text-muted)" }}
-                  data-empty-forecast=""
-                >
-                  Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
-                </div>
-              ) : (
-                <div
-                  className="pl-resumen-picks-grid"
-                  data-odd-picks={game.picks.length > 1 && game.picks.length % 2 === 1 ? "true" : undefined}
-                >
-                  {game.picks.map((pk) => (
-                    <div key={pk.id} className="pl-resumen-pick-cell space-y-1.5 min-w-0">
-                      <MultiPickRow pick={pk} gameStatus={game.status} />
-                      {(viewerRole === "tipster" || viewerRole === "admin") &&
-                      game.status !== "FT" ? (
-                        <div className="flex justify-end">
-                          <button
-                            type="button"
-                            className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
-                            onClick={() => {
-                              setSelectedTipsterPickId(pk.id);
-                              pushToast(
-                                `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
-                                "success",
-                              );
-                            }}
-                          >
-                            <MaestroIcon name="crown" size={12} />
-                            <span>Usar como mi Pick abierto semanal</span>
-                          </button>
-                        </div>
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
+          <section className="pl-match-workspace" aria-label="Análisis del partido">
+            <MatchTabs
+              idPrefix="pl-match"
+              active={activeTab}
+              onSelect={setActiveTab}
+              tabs={[
+                { key: "resumen", label: "Resumen", count: game.picks.length },
+                { key: "ia", label: "Análisis IA" },
+                {
+                  key: "numeros",
+                  label: "Números",
+                  count: activeMarkets.length > 0 ? activeMarkets.length : undefined,
+                },
+                { key: "dinero", label: "¿Dónde está el dinero?" },
+                { key: "contexto", label: "Contexto" },
+              ]}
+            />
 
-            {/* Derecha: Lectura rápida de Cortex IA + Acceso directo a ¿Dónde está el dinero? y Números */}
-            <aside className="pl-resumen-side-col" aria-label="Lectura rápida de IA y pulso de mercado">
-              <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-extrabold">
-                    <MaestroIcon name="sparkles" size={14} style={{ color: "var(--pl-brand)" }} />
-                    <span>Cortex IA</span>
-                  </span>
-                  <span className="pl-pill pl-pill--brand text-[11px]">{mainEngineName}</span>
-                </div>
-                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-                  {!intelUnlocked
-                    ? "Consulta el pronóstico estructurado de Cortex IA, proyección exacta y claves tácticas con Pase PitchLab Ultra."
-                    : cortexHeadline?.trim() ||
-                      cortexSections?.find((sec) => sec.key === "lectura")?.text ||
-                      cortexSynthesisOverride ||
-                      game.preGame.cortexSynthesis}
-                </p>
-                <button
-                  type="button"
-                  className="pl-btn-glass text-xs min-h-10 px-3 w-full justify-between"
-                  onClick={() => setActiveTab("ia")}
-                >
-                  <span>Abrir Análisis IA completo</span>
-                  <MaestroIcon name="arrowRight" size={13} />
-                </button>
-              </div>
-
-              <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 min-w-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-extrabold">
-                    <MaestroIcon name="activity" size={14} style={{ color: "var(--pl-brand)" }} />
-                    <span>Mercado y líneas</span>
-                  </span>
-                  <span className="pl-pill text-[11px] num">
-                    {flow ? `${flow.homeShare} % / ${flow.awayShare} %` : "Modelo"}
-                  </span>
-                </div>
-                <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
-                  {flow
-                    ? flow.sharpNote
-                    : "Contrasta los momios justos del modelo con las cuotas capturadas y explora el flujo del mercado."}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-0.5">
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-10 px-3 justify-between"
-                    onClick={() => setActiveTab("dinero")}
-                  >
-                    <span>¿Dónde está el dinero?</span>
-                    <MaestroIcon name="arrowRight" size={12} />
-                  </button>
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-10 px-3 justify-between"
-                    onClick={() => setActiveTab("numeros")}
-                  >
-                    <span>Ver números</span>
-                    <MaestroIcon name="arrowRight" size={12} />
-                  </button>
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
-          {sportOutlook ? (
-            <SportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
-          ) : null}
-
-          {/* Factores clave del análisis */}
-          <section
-            className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
-            aria-labelledby="resumen-factors-heading"
-            data-summary-factors=""
-          >
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <div>
-                <h2 id="resumen-factors-heading" className="m-0 text-base font-extrabold">
-                  Factores del partido
-                </h2>
-                <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-                  Señales cuantitativas que explican la probabilidad y confianza del modelo.
-                </p>
-              </div>
-              {intelUnlocked && game.confidenceDetail?.reasons.length ? (
-                <div className="flex flex-wrap gap-1.5">
-                  {game.confidenceDetail.reasons.map((reason) => (
-                    <span key={reason} className="pl-pill text-[11px]">
-                      {reason}
-                    </span>
-                  ))}
-                </div>
+            {/* Pestaña 1: Resumen (En vivo, picks, Pre-Match, panorama y factores) */}
+            <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
+              {liveSupported || liveDetailOverride ? (
+                <LiveMatchPanelView
+                  game={game}
+                  detail={liveDetail}
+                  loading={liveDetailOverride ? false : liveSnap.loading}
+                  error={liveDetailOverride ? false : liveSnap.error}
+                  showFollow={false}
+                  hideMomentum={hasLiveMomentum}
+                  hideTimeline={hasLiveIncidents}
+                  hideScoreboard
+                />
               ) : null}
-            </div>
 
-            {!intelUnlocked && !isFinished ? (
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Los factores cuantitativos del encuentro están reservados para socios con Pase PitchLab Ultra.
-              </p>
-            ) : game.factors.length > 0 ? (
-              <div className="pl-factors-grid" data-factor-count={game.factors.length}>
-                {game.factors.map((factor) => (
-                  <article key={`${factor.label}-${factor.value}`} className="pl-factor-item">
-                    <span className="pl-factor-label">{factor.label}</span>
-                    <strong className="pl-factor-value num">{factor.value}</strong>
-                    {factor.sub ? (
-                      <span className="pl-factor-sub">{factor.sub}</span>
-                    ) : null}
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Los factores detallados aparecerán cuando el partido acumule señales adicionales.
-              </p>
-            )}
-          </section>
-        </MatchTabPanel>
+              <section className="pl-resumen-picks-col space-y-3.5 min-w-0" data-picks="">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
+                  {viewerRole === "tipster" || viewerRole === "admin" ? (
+                    <span
+                      className="text-xs font-semibold inline-flex items-center gap-1"
+                      style={{ color: "var(--pl-brand)" }}
+                    >
+                      <MaestroIcon name="crown" size={13} />
+                      <span>Elige cualquiera como tu Pick abierto semanal</span>
+                    </span>
+                  ) : null}
+                </div>
+
+                {game.picks.length === 0 ? (
+                  <div
+                    className="glass-card glass-ring rounded-2xl p-4 text-sm"
+                    style={{ color: "var(--pl-text-muted)" }}
+                    data-empty-forecast=""
+                  >
+                    Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
+                  </div>
+                ) : (
+                  <div
+                    className="pl-resumen-picks-grid"
+                    data-odd-picks={game.picks.length > 1 && game.picks.length % 2 === 1 ? "true" : undefined}
+                  >
+                    {game.picks.map((pk) => (
+                      <div key={pk.id} className="pl-resumen-pick-cell space-y-1.5 min-w-0">
+                        <MultiPickRow pick={pk} gameStatus={game.status} />
+                        {(viewerRole === "tipster" || viewerRole === "admin") &&
+                        game.status !== "FT" ? (
+                          <div className="flex justify-end">
+                            <button
+                              type="button"
+                              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
+                              onClick={() => {
+                                setSelectedTipsterPickId(pk.id);
+                                pushToast(
+                                  `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
+                                  "success",
+                                );
+                              }}
+                            >
+                              <MaestroIcon name="crown" size={12} />
+                              <span>Usar como mi Pick abierto semanal</span>
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
+              {sportOutlook ? (
+                <SportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
+              ) : null}
+
+              {/* Factores clave del análisis */}
+              <section
+                className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
+                aria-labelledby="resumen-factors-heading"
+                data-summary-factors=""
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div>
+                    <h2 id="resumen-factors-heading" className="m-0 text-base font-extrabold">
+                      Factores del partido
+                    </h2>
+                    <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                      Señales cuantitativas que explican la probabilidad y confianza del modelo.
+                    </p>
+                  </div>
+                  {intelUnlocked && game.confidenceDetail?.reasons.length ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      {game.confidenceDetail.reasons.map((reason) => (
+                        <span key={reason} className="pl-pill text-[11px]">
+                          {reason}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+
+                {!intelUnlocked && !isFinished ? (
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Los factores cuantitativos del encuentro están reservados para socios con Pase PitchLab Ultra.
+                  </p>
+                ) : game.factors.length > 0 ? (
+                  <div className="pl-factors-grid" data-factor-count={game.factors.length}>
+                    {game.factors.map((factor) => (
+                      <article key={`${factor.label}-${factor.value}`} className="pl-factor-item">
+                        <span className="pl-factor-label">{factor.label}</span>
+                        <strong className="pl-factor-value num">{factor.value}</strong>
+                        {factor.sub ? (
+                          <span className="pl-factor-sub">{factor.sub}</span>
+                        ) : null}
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Los factores detallados aparecerán cuando el partido acumule señales adicionales.
+                  </p>
+                )}
+              </section>
+            </MatchTabPanel>
 
         {/* Pestaña 2: Análisis IA (Pronóstico estructurado de Cortex IA + Análisis editorial + Señales) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="ia" active={activeTab}>
@@ -1980,6 +1775,8 @@ export function MatchStudioClubView({
             }
           />
         </MatchTabPanel>
+          </section>
+        </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

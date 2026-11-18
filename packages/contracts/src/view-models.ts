@@ -88,6 +88,7 @@ export interface MatchAnalysis {
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  referee?: string;
   /** Sede neutral: ningún equipo juega en casa. */
   neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
@@ -534,6 +535,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
           : sport === "basketball" || sport === "ice-hockey"
             ? "Arena"
             : "Estadio"),
+      ...(g.referee ? { referee: g.referee } : {}),
       neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
       scheduleStatus: g.status,

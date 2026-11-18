@@ -192,9 +192,24 @@ export interface LiveMatchPanelViewProps {
   error?: boolean;
   /** Oculta el control «Siguiendo» (Storybook sin proveedor). */
   showFollow?: boolean;
+  /** Oculta la gráfica de momentum cuando ya vive en la columna lateral de la ficha. */
+  hideMomentum?: boolean;
+  /** Oculta el marcador duplicado cuando el hero principal ya lo muestra arriba. */
+  hideScoreboard?: boolean;
+  /** Oculta la línea de tiempo duplicada cuando ya vive por tiempos en el riel lateral. */
+  hideTimeline?: boolean;
 }
 
-export function LiveMatchPanelView({ game, detail, loading, error, showFollow = true }: LiveMatchPanelViewProps): React.JSX.Element | null {
+export function LiveMatchPanelView({
+  game,
+  detail,
+  loading,
+  error,
+  showFollow = true,
+  hideMomentum = false,
+  hideScoreboard = false,
+  hideTimeline = false,
+}: LiveMatchPanelViewProps): React.JSX.Element | null {
   const home = game.home.shortName;
   const away = game.away.shortName;
   if (!detail) {
@@ -220,39 +235,41 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
         {showFollow && !(entry.phase === "final") ? <FollowControl gameId={game.id} /> : null}
       </header>
 
-      <div className="pl-live-score" aria-live={live ? "polite" : "off"} aria-atomic="true">
-        <span className="pl-live-score-team">
-          <TeamBadge
-            league={game.league}
-            slug={game.home.slug}
-            name={game.home.name}
-            logoUrl={game.home.logoUrl}
-            size={28}
-          />
-          <span>{home}</span>
-        </span>
-        <strong className="pl-live-score-value num">
-          {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
-          <span className="sr-only">
-            {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+      {hideScoreboard ? null : (
+        <div className="pl-live-score" aria-live={live ? "polite" : "off"} aria-atomic="true">
+          <span className="pl-live-score-team">
+            <TeamBadge
+              league={game.league}
+              slug={game.home.slug}
+              name={game.home.name}
+              logoUrl={game.home.logoUrl}
+              size={28}
+            />
+            <span>{home}</span>
           </span>
-        </strong>
-        <span className="pl-live-score-team pl-live-score-team--away">
-          <span>{away}</span>
-          <TeamBadge
-            league={game.league}
-            slug={game.away.slug}
-            name={game.away.name}
-            logoUrl={game.away.logoUrl}
-            size={28}
-          />
-        </span>
-        {entry.htScore && entry.phase !== "live" ? (
-          <span className="pl-live-ht num">
-            Medio tiempo {entry.htScore.home}–{entry.htScore.away}
+          <strong className="pl-live-score-value num">
+            {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
+            <span className="sr-only">
+              {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+            </span>
+          </strong>
+          <span className="pl-live-score-team pl-live-score-team--away">
+            <span>{away}</span>
+            <TeamBadge
+              league={game.league}
+              slug={game.away.slug}
+              name={game.away.name}
+              logoUrl={game.away.logoUrl}
+              size={28}
+            />
           </span>
-        ) : null}
-      </div>
+          {entry.htScore && entry.phase !== "live" ? (
+            <span className="pl-live-ht num">
+              Medio tiempo {entry.htScore.home}–{entry.htScore.away}
+            </span>
+          ) : null}
+        </div>
+      )}
 
       {detail.notice || error ? (
         <p className="pl-live-notice" role="status">
@@ -260,16 +277,20 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
         </p>
       ) : null}
 
-      <div className="pl-live-grid-layout">
+      <div className={`pl-live-grid-layout${hideTimeline ? " pl-live-grid-layout--single" : ""}`}>
         <div className="pl-live-col">
-          <MomentumChart momentum={detail.momentum} goals={goals} homeLabel={home} awayLabel={away} />
+          {hideMomentum ? null : (
+            <MomentumChart momentum={detail.momentum} goals={goals} homeLabel={home} awayLabel={away} />
+          )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
-        <div className="pl-live-col">
-          <h3 className="pl-live-subtitle">Minuto a minuto</h3>
-          <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
-        </div>
+        {hideTimeline ? null : (
+          <div className="pl-live-col">
+            <h3 className="pl-live-subtitle">Minuto a minuto</h3>
+            <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
+          </div>
+        )}
       </div>
 
       <footer className="pl-live-foot">
@@ -286,12 +307,30 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
 }
 
 /** Contenedor de la ficha: se conecta al sondeo solo cerca del inicio, en juego o ya jugado. */
-export function LiveMatchPanel({ game }: { game: PlatformGame }): React.JSX.Element | null {
+export function LiveMatchPanel({
+  game,
+  hideMomentum = false,
+  hideScoreboard = false,
+}: {
+  game: PlatformGame;
+  hideMomentum?: boolean;
+  hideScoreboard?: boolean;
+}): React.JSX.Element | null {
   const supported = game.sport !== "american-football" && game.league !== "nfl";
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
   // En la ficha, «Siguiendo» ya está en la barra superior: aquí no se repite.
-  return <LiveMatchPanelView game={game} detail={snap.data} loading={snap.loading} error={snap.error} showFollow={false} />;
+  return (
+    <LiveMatchPanelView
+      game={game}
+      detail={snap.data}
+      loading={snap.loading}
+      error={snap.error}
+      showFollow={false}
+      hideMomentum={hideMomentum}
+      hideScoreboard={hideScoreboard}
+    />
+  );
 }
 
 // ---------- Marcador del día ----------

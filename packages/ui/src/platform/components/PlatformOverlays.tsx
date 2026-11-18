@@ -24,6 +24,33 @@ import {
   type MaestroIconName,
 } from "./MaestroPrimitives";
 
+let cachedDisplayTransitionSupport: boolean | undefined;
+
+function canTransitionDialogDisplay(): boolean {
+  if (cachedDisplayTransitionSupport !== undefined) return cachedDisplayTransitionSupport;
+  if (
+    typeof window === "undefined" ||
+    typeof document === "undefined" ||
+    !window.CSS?.supports?.("transition-behavior", "allow-discrete") ||
+    !document.body
+  ) {
+    return false;
+  }
+  const probe = document.createElement("div");
+  probe.style.cssText = "transition: display 1s allow-discrete !important; display: block;";
+  document.body.appendChild(probe);
+  window.getComputedStyle(probe).display;
+  probe.style.display = "none";
+  cachedDisplayTransitionSupport = window.getComputedStyle(probe).display === "block";
+  probe.remove();
+  return cachedDisplayTransitionSupport;
+}
+
+function supportsTopLayerExit(): boolean {
+  if (typeof window === "undefined") return false;
+  return Boolean(window.CSS?.supports?.("overlay", "auto")) && canTransitionDialogDisplay();
+}
+
 export function TopLayerModalDialog({
   open,
   onClose,
@@ -31,6 +58,8 @@ export function TopLayerModalDialog({
   ariaLabelledBy,
   variant = "modal",
   maxWidth = "32rem",
+  dialogClassName,
+  keepMounted = false,
   children,
 }: {
   open: boolean;
@@ -39,6 +68,8 @@ export function TopLayerModalDialog({
   ariaLabelledBy?: string;
   variant?: "modal" | "drawer";
   maxWidth?: string;
+  dialogClassName?: string;
+  keepMounted?: boolean;
   children: React.ReactNode;
 }): React.JSX.Element | null {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -46,21 +77,59 @@ export function TopLayerModalDialog({
   onCloseRef.current = onClose;
 
   useEffect(() => {
-    if (!open) return;
     const dialog = dialogRef.current;
     if (!dialog) return;
 
+    let cancelled = false;
+
+    const closeWithExitFallback = async () => {
+      if (!dialog.open) return;
+      if (supportsTopLayerExit() || typeof dialog.getAnimations !== "function") {
+        dialog.close();
+        return;
+      }
+      dialog.setAttribute("data-closing", "");
+      const animations = dialog.getAnimations({ subtree: true });
+      if (animations.length > 0) {
+        await Promise.race([
+          Promise.allSettled(animations.map((a) => a.finished)),
+          new Promise<void>((resolve) => setTimeout(resolve, 400)),
+        ]);
+      }
+      if (cancelled || !dialog.hasAttribute("data-closing")) return;
+      dialog.removeAttribute("data-closing");
+      if (dialog.open) dialog.close();
+    };
+
+    if (!open) {
+      if (dialog.open) {
+        void closeWithExitFallback();
+      }
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    dialog.removeAttribute("data-closing");
     if (!dialog.open) {
       dialog.showModal();
     }
+
+    const handleCancel = (event: Event) => {
+      if (!keepMounted || supportsTopLayerExit()) return;
+      event.preventDefault();
+      onCloseRef.current();
+    };
 
     const handleClose = () => {
       // En desarrollo (StrictMode) el efecto se monta dos veces: el «close» del
       // primer desmontaje llega cuando el diálogo ya se volvió a abrir.
       if (dialog.open) return;
+      dialog.removeAttribute("data-closing");
       dialog.returnValue = "";
       onCloseRef.current();
     };
+    dialog.addEventListener("cancel", handleCancel);
     dialog.addEventListener("close", handleClose);
 
     let cleanupLightDismiss: (() => void) | undefined;
@@ -84,7 +153,11 @@ export function TopLayerModalDialog({
       };
       const onPointerUp = (e: PointerEvent) => {
         if (pressedOutside && isOutside(e)) {
-          dialog.close();
+          if (!keepMounted || supportsTopLayerExit()) {
+            dialog.close();
+          } else {
+            onCloseRef.current();
+          }
         }
       };
       dialog.addEventListener("pointerdown", onPointerDown);
@@ -96,23 +169,26 @@ export function TopLayerModalDialog({
     }
 
     return () => {
+      cancelled = true;
+      dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
       cleanupLightDismiss?.();
-      if (dialog.open) {
+      if (!keepMounted && dialog.open) {
         dialog.close();
       }
     };
-  }, [open]);
+  }, [open, keepMounted]);
 
-  if (!open) return null;
+  if (!keepMounted && !open) return null;
 
+  const baseClass = variant === "drawer" ? "pl-native-drawer" : "pl-native-dialog";
   return (
     <dialog
       ref={dialogRef}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
-      className={variant === "drawer" ? "pl-native-drawer" : "pl-native-dialog"}
+      className={dialogClassName ? `${baseClass} ${dialogClassName}` : baseClass}
       style={
         variant === "modal"
           ? ({ "--pl-dialog-max-w": maxWidth } as React.CSSProperties)
@@ -1161,12 +1237,36 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   },
 ];
 
-export function CommandPaletteModal(): React.JSX.Element | null {
+export function CommandPaletteModal({
+  initialQuery = "",
+}: {
+  initialQuery?: string;
+} = {}): React.JSX.Element | null {
   const { cmdkOpen, setCmdkOpen, dataset, navigateTo, viewerRole, allowRoleSimulation } =
     usePlatform();
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(initialQuery);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [rendered, setRendered] = useState<boolean>(cmdkOpen);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const resultsRef = useRef<HTMLDivElement | null>(null);
 
-  if (!cmdkOpen) return null;
+  useEffect(() => {
+    if (!cmdkOpen) return;
+    setRendered(true);
+    setQuery(initialQuery);
+    setActiveIndex(0);
+    const frame =
+      typeof window !== "undefined"
+        ? window.requestAnimationFrame(() => inputRef.current?.focus())
+        : null;
+    return () => {
+      if (frame !== null && typeof window !== "undefined") {
+        window.cancelAnimationFrame(frame);
+      }
+    };
+  }, [cmdkOpen, initialQuery]);
+
+  if (!rendered && !cmdkOpen) return null;
 
   const q = query.trim().toLowerCase();
 
@@ -1312,77 +1412,142 @@ export function CommandPaletteModal(): React.JSX.Element | null {
     })
     .slice(0, 8);
 
-  const hasResults =
-    matchingTeams.length > 0 ||
-    matchingGames.length > 0 ||
-    matchingLeagues.length > 0 ||
-    matchingTipsters.length > 0 ||
-    quickRoutes.length > 0;
+  const orderedTargets: string[] = [
+    ...matchingTeams.map((t) => t.href),
+    ...matchingGames.map((g) => `/app/${g.league}/games/${g.id}`),
+    ...matchingLeagues.map((lg) => `/app/${lg.league}`),
+    ...matchingTipsters.map((c) => `/app/u/${c.handle}`),
+    ...quickRoutes.map((r) => r.href),
+  ];
+
+  const hasResults = orderedTargets.length > 0;
+  const clampedActive =
+    orderedTargets.length > 0
+      ? Math.min(Math.max(activeIndex, 0), orderedTargets.length - 1)
+      : -1;
+
+  const teamsOffset = 0;
+  const gamesOffset = teamsOffset + matchingTeams.length;
+  const leaguesOffset = gamesOffset + matchingGames.length;
+  const tipstersOffset = leaguesOffset + matchingLeagues.length;
+  const routesOffset = tipstersOffset + matchingTipsters.length;
+
+  const selectHref = (href: string) => {
+    setCmdkOpen(false);
+    navigateTo(href);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (orderedTargets.length === 0) return;
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      const next = (clampedActive + 1) % orderedTargets.length;
+      setActiveIndex(next);
+      resultsRef.current
+        ?.querySelector<HTMLElement>(`[data-cmd-idx="${next}"]`)
+        ?.scrollIntoView({ block: "nearest" });
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      const next = (clampedActive - 1 + orderedTargets.length) % orderedTargets.length;
+      setActiveIndex(next);
+      resultsRef.current
+        ?.querySelector<HTMLElement>(`[data-cmd-idx="${next}"]`)
+        ?.scrollIntoView({ block: "nearest" });
+    } else if (event.key === "Enter" && clampedActive >= 0) {
+      const target = orderedTargets[clampedActive];
+      if (target) {
+        event.preventDefault();
+        selectHref(target);
+      }
+    }
+  };
 
   return (
     <TopLayerModalDialog
       open={cmdkOpen}
       onClose={() => setCmdkOpen(false)}
       ariaLabel="Buscar en PitchLab"
-      maxWidth="38rem"
+      maxWidth="40rem"
+      dialogClassName="pl-cmd-dialog"
+      keepMounted
     >
-      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-4">
-        <LensGlowOrbs subtle />
-        <div className="relative z-10 space-y-3">
-          <div className="flex items-center gap-2">
-            <MaestroIcon
-              name="search"
-              size={18}
-              style={{ color: "var(--pl-brand)" }}
-            />
+      <div className="pl-cmd-shell" onKeyDown={handleKeyDown}>
+        <div className="pl-cmd-head">
+          <div className="pl-cmd-searchbox">
+            <MaestroIcon name="search" size={16} className="pl-cmd-search-icon shrink-0" />
             <input
+              ref={inputRef}
               type="search"
               autoFocus
-              aria-label="Buscar equipo, liga, partido o módulo"
+              aria-label="Buscar partido, liga, @socio o módulo"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar partido, liga, @tipster o módulo (⌘K)..."
-              className="glass-input w-full px-3 py-2.5 text-sm"
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActiveIndex(0);
+              }}
+              placeholder="Buscar partido, liga, @socio o módulo..."
+              className="pl-cmd-input"
             />
-            <button
-              type="button"
-              className="pl-btn-glass px-3 text-xs shrink-0"
-              onClick={() => setCmdkOpen(false)}
-            >
-              Cerrar
-            </button>
-          </div>
-
-          <div className="max-h-96 overflow-y-auto space-y-4 pr-1">
-            {!hasResults ? (
-              <div
-                className="rounded-xl p-6 text-center text-sm"
-                style={{ color: "var(--pl-text-muted)" }}
+            {query.length > 0 ? (
+              <button
+                type="button"
+                className="pl-cmd-clear"
+                aria-label="Limpiar búsqueda"
+                onClick={() => {
+                  setQuery("");
+                  setActiveIndex(0);
+                  inputRef.current?.focus();
+                }}
               >
-                Sin coincidencias para «{query}». Prueba con NFL, Liga MX,
-                @sofia_nfl o Parlays.
-              </div>
+                <MaestroIcon name="x" size={13} />
+              </button>
             ) : null}
+          </div>
+          <button
+            type="button"
+            className="pl-cmd-close"
+            aria-label="Cerrar buscador"
+            onClick={() => setCmdkOpen(false)}
+          >
+            <MaestroIcon name="x" size={14} className="sm:hidden" />
+            <span className="hidden sm:inline">Esc</span>
+          </button>
+        </div>
 
-            {matchingTeams.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Equipos y selecciones
-                </p>
-                <div className="space-y-1">
-                  {matchingTeams.map((teamItem) => (
+        <div ref={resultsRef} className="pl-cmd-results">
+          {!hasResults ? (
+            <div className="pl-cmd-empty">
+              <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
+                Sin coincidencias para «{query}»
+              </p>
+              <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Prueba con NFL, Liga MX, un equipo o un @socio del club.
+              </p>
+            </div>
+          ) : null}
+
+          {matchingTeams.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Equipos y selecciones">
+              <div className="pl-cmd-group-head">
+                <span>Equipos y selecciones</span>
+                <span className="pl-cmd-group-count num">{matchingTeams.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingTeams.map((teamItem, i) => {
+                  const idx = teamsOffset + i;
+                  const active = idx === clampedActive;
+                  return (
                     <a
                       key={teamItem.id}
                       href={teamItem.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(teamItem.href);
+                        selectHref(teamItem.href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover min-h-11"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
                         <TeamBadge
@@ -1393,127 +1558,146 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         />
                         <span className="truncate font-semibold">{teamItem.name}</span>
                       </span>
-                      <span
-                        className="flex items-center gap-2 text-xs shrink-0"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
+                      <span className="pl-cmd-row-meta num">
                         <span>
                           {teamItem.leagueLabel}
                           {teamItem.rank !== null ? ` · #${teamItem.rank}` : ""}
                         </span>
-                        <MaestroIcon name="chevronRight" size={14} />
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {matchingGames.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Partidos y Match Studio
-                </p>
-                <div className="space-y-1">
-                  {matchingGames.map((g) => (
+          {matchingGames.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Partidos y Match Studio">
+              <div className="pl-cmd-group-head">
+                <span>Partidos y Match Studio</span>
+                <span className="pl-cmd-group-count num">{matchingGames.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingGames.map((g, i) => {
+                  const idx = gamesOffset + i;
+                  const active = idx === clampedActive;
+                  const href = `/app/${g.league}/games/${g.id}`;
+                  return (
                     <a
                       key={g.id}
-                      href={`/app/${g.league}/games/${g.id}`}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/${g.league}/games/${g.id}`);
+                        selectHref(href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
-                      <span className="flex items-center gap-2 font-semibold min-w-0">
-                        <LeagueBadge
-                          league={g.league}
-                          label={g.leagueLabel}
-                          size={18}
-                        />
-                        <span className="truncate">
+                      <span className="flex items-center gap-2 min-w-0">
+                        <span className="inline-flex items-center gap-1 shrink-0">
+                          <TeamBadge
+                            league={g.league}
+                            slug={g.home.slug}
+                            name={g.home.name}
+                            size={18}
+                          />
+                          <TeamBadge
+                            league={g.league}
+                            slug={g.away.slug}
+                            name={g.away.name}
+                            size={18}
+                          />
+                        </span>
+                        <span className="truncate font-semibold">
                           {g.home.shortName} vs {g.away.shortName}
                         </span>
                       </span>
-                      <span
-                        className="text-xs num shrink-0 inline-flex items-center gap-1.5"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        <span>
-                          {g.leagueLabel} · {shortDateLabel(g.dayId)} ·{" "}
-                          {g.status === "FT" ? "Final" : g.kickoffLocal}
+                      <span className="pl-cmd-row-meta num">
+                        <span className="inline-flex items-center gap-1.5">
+                          <LeagueBadge league={g.league} label={g.leagueLabel} size={14} />
+                          <span>
+                            {g.leagueLabel} · {shortDateLabel(g.dayId)} ·{" "}
+                            {g.status === "FT" ? "Final" : g.kickoffLocal}
+                          </span>
                         </span>
-                        <MaestroIcon name="chevronRight" size={14} />
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {matchingLeagues.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Ligas oficiales ({matchingLeagues.length})
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                  {matchingLeagues.map((lg) => (
+          {matchingLeagues.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Ligas oficiales">
+              <div className="pl-cmd-group-head">
+                <span>Ligas oficiales</span>
+                <span className="pl-cmd-group-count num">{matchingLeagues.length}</span>
+              </div>
+              <div className="pl-cmd-league-grid">
+                {matchingLeagues.map((lg, i) => {
+                  const idx = leaguesOffset + i;
+                  const active = idx === clampedActive;
+                  const href = `/app/${lg.league}`;
+                  return (
                     <a
                       key={lg.league}
-                      href={`/app/${lg.league}`}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/${lg.league}`);
+                        selectHref(href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold no-underline row-hover"
+                      className={
+                        active ? "pl-cmd-league-tile is-active" : "pl-cmd-league-tile"
+                      }
                     >
                       <span className="flex items-center gap-2 min-w-0">
-                        <LeagueBadge
-                          league={lg.league}
-                          label={lg.label}
-                          size={18}
-                        />
-                        <span className="truncate">{lg.label}</span>
+                        <LeagueBadge league={lg.league} label={lg.label} size={18} />
+                        <span className="truncate font-semibold">{lg.label}</span>
                       </span>
                       <span
-                        className="num shrink-0"
+                        className="text-[11px] font-medium num shrink-0"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        {lg.totalGames} juegos
+                        {lg.totalGames} {lg.totalGames === 1 ? "juego" : "juegos"}
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {matchingTipsters.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Tipsters verificados
-                </p>
-                <div className="space-y-1">
-                  {matchingTipsters.map((creator) => (
+          {matchingTipsters.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Tipsters verificados">
+              <div className="pl-cmd-group-head">
+                <span>Tipsters verificados</span>
+                <span className="pl-cmd-group-count num">{matchingTipsters.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingTipsters.map((creator, i) => {
+                  const idx = tipstersOffset + i;
+                  const active = idx === clampedActive;
+                  const href = `/app/u/${creator.handle}`;
+                  return (
                     <a
                       key={creator.handle}
-                      href={`/app/u/${creator.handle}`}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/u/${creator.handle}`);
+                        selectHref(href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
                         <span
@@ -1526,9 +1710,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                           {creator.avatarInitials}
                         </span>
                         <span className="min-w-0 truncate">
-                          <strong className="font-semibold">
-                            {creator.name}
-                          </strong>{" "}
+                          <strong className="font-semibold">{creator.name}</strong>{" "}
                           {creator.isExample ? <ExampleBadge /> : null}{" "}
                           <span
                             className="text-xs"
@@ -1542,37 +1724,43 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         {creator.verifiedUnits} · Ventaja {creator.clvAvg}
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {quickRoutes.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Vistas y Herramientas del Club
-                </p>
-                <div className="space-y-1">
-                  {quickRoutes.map((item) => (
+          {quickRoutes.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Vistas y herramientas del club">
+              <div className="pl-cmd-group-head">
+                <span>Vistas y Herramientas del Club</span>
+                <span className="pl-cmd-group-count num">{quickRoutes.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {quickRoutes.map((item, i) => {
+                  const idx = routesOffset + i;
+                  const active = idx === clampedActive;
+                  return (
                     <a
                       key={item.href}
                       href={item.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(item.href);
+                        selectHref(item.href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
-                        <MaestroIcon
-                          name={item.icon}
-                          size={15}
-                          style={{ color: "var(--pl-brand)" }}
-                        />
+                        <span className="pl-cmd-icon-well" aria-hidden="true">
+                          <MaestroIcon
+                            name={item.icon}
+                            size={14}
+                            style={{ color: "var(--pl-brand)" }}
+                          />
+                        </span>
                         <span className="min-w-0">
                           <span className="block font-semibold truncate">
                             {item.label}
@@ -1585,19 +1773,33 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                           </span>
                         </span>
                       </span>
-                      <span
-                        className="text-xs font-semibold shrink-0 inline-flex items-center gap-1"
-                        style={{ color: "var(--pl-brand)" }}
-                      >
+                      <span className="pl-cmd-row-go">
                         <span>Ir</span>
-                        <MaestroIcon name="chevronRight" size={13} />
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
+        </div>
+
+        <div className="pl-cmd-foot">
+          <div className="hidden sm:flex items-center gap-3 text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pl-header-kbd">↑</kbd>
+              <kbd className="pl-header-kbd">↓</kbd>
+              <span>Navegar</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pl-header-kbd">↵</kbd>
+              <span>Abrir</span>
+            </span>
           </div>
+          <span className="text-[11px] font-medium num" style={{ color: "var(--pl-text-muted)" }}>
+            {orderedTargets.length} resultados
+          </span>
         </div>
       </div>
     </TopLayerModalDialog>

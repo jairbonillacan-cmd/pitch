@@ -98,7 +98,7 @@
   padding-block: 8px;
   border-radius: 14px;
   border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   color: var(--pl-text);
   font-size: 0.8125rem;
   font-weight: 700;
@@ -168,7 +168,7 @@
   border-radius: 18px;
   padding: 16px;
   border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -182,11 +182,7 @@
 
 .pl-prematch-pick.is-frozen {
   border-color: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-border));
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface)) 0%,
-    var(--pl-surface) 100%
-  );
+  background: color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface-elevated));
 }
 
 .pl-prematch-card-head {
@@ -351,7 +347,7 @@
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid var(--pl-border);
-  background: color-mix(in oklab, var(--pl-surface-hover) 45%, transparent);
+  background: var(--pl-surface-elevated);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -393,7 +389,7 @@
 
 .pl-prematch-lineup.is-off {
   border-style: dashed;
-  background: color-mix(in oklab, var(--pl-surface) 75%, transparent);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-prematch-slot-chip {

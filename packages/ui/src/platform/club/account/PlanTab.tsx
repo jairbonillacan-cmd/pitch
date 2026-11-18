@@ -1448,7 +1448,7 @@ export function PlanTab({
             role="status"
             aria-live="polite"
             className="glass-ring rounded-xl p-3.5 text-xs space-y-1"
-            style={{ background: "var(--pl-surface)" }}
+            style={{ background: "var(--pl-surface-elevated)" }}
             data-plan-awaiting-redemption=""
           >
             <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-success)" }}>
@@ -1471,7 +1471,7 @@ export function PlanTab({
             aria-live="polite"
             className="glass-ring rounded-xl p-3 text-xs font-semibold"
             style={{
-              background: "var(--pl-surface)",
+              background: "var(--pl-surface-elevated)",
               color:
                 transferFeedback.kind === "error" ? "var(--pl-danger)" : "var(--pl-success)",
             }}
@@ -1486,7 +1486,7 @@ export function PlanTab({
               {/* Paso 1: Datos bancarios y referencia */}
               <div
                 className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface)" }}
+                style={{ background: "var(--pl-surface-elevated)" }}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="pl-pill pl-pill--brand">Paso 1 · Haz tu transferencia SPEI</span>
@@ -1585,7 +1585,7 @@ export function PlanTab({
                 onSubmit={handleSubmitReceipt}
                 noValidate
                 className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface)" }}
+                style={{ background: "var(--pl-surface-elevated)" }}
                 data-transfer-receipt-form=""
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1710,7 +1710,7 @@ export function PlanTab({
           ) : (
             <div
               className="glass-ring rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-              style={{ background: "var(--pl-surface)" }}
+              style={{ background: "var(--pl-surface-elevated)" }}
             >
               <div className="space-y-1 text-xs">
                 <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-text)" }}>

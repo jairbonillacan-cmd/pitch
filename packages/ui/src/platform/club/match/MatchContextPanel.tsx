@@ -281,6 +281,15 @@ export function MatchContextPanel({
               <dt>Inicio</dt>
               <dd className="text-sm font-bold num">{game.kickoffLocal}</dd>
             </div>
+            {game.referee ? (
+              <div>
+                <dt>Árbitro</dt>
+                <dd className="text-sm font-bold inline-flex items-center gap-1.5">
+                  <MaestroIcon name="whistle" size={14} />
+                  <span>{game.referee}</span>
+                </dd>
+              </div>
+            ) : null}
             {stadium?.elevationM ? (
               <div>
                 <dt>Altitud</dt>

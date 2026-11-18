@@ -24,8 +24,10 @@ import {
   TipsterPortalClubView,
 } from "./club/SocialAndTipsterViews";
 import { HomeClubView, HomeFilterHeader } from "./club/home/HomeClubView";
+import { HomeLeagueStrip, HomeSportStrip } from "./club/home/HomeSportStrip";
 import {
   ALL,
+  buildHomeSportLeagues,
   filterGames,
   gamesForSelection,
   type DaySelection,
@@ -175,9 +177,17 @@ export const ClubInicioClaro = {
 export const ClubInicioVisitante = {
   render: () => (
     <StoryShell role="visitor" redacted>
-      <HomeClubView />
+      <ClubLayoutShell activePath="/app">
+        <HomeClubView />
+      </ClubLayoutShell>
     </StoryShell>
   ),
+  globals: { theme: "dark" },
+};
+
+export const ClubInicioVisitanteClaro = {
+  ...ClubInicioVisitante,
+  globals: { theme: "light" },
 };
 
 function FirstGameCard(): React.JSX.Element {
@@ -999,5 +1009,117 @@ export const EncabezadoInicioDiaVacioOscuro = {
 
 export const EncabezadoInicioDiaVacioClaro = {
   ...EncabezadoInicioDiaVacioOscuro,
+  globals: { theme: "light" },
+};
+
+function CabeceraClubStory(): React.JSX.Element {
+  return (
+    <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+      <ClubLayoutShell activePath="/app">
+        <div className="panel-card p-6 space-y-2">
+          <h1 className="m-0 text-lg font-bold">Navegación en cabecera</h1>
+          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+            Pasa el cursor o haz clic en la barra de navegación del encabezado para desplegar el panel sobre el contenido.
+          </p>
+        </div>
+      </ClubLayoutShell>
+    </PlatformProvider>
+  );
+}
+
+export const CabeceraClubOscuro = {
+  globals: { theme: "dark" },
+  render: () => <CabeceraClubStory />,
+};
+
+export const CabeceraClubClaro = {
+  ...CabeceraClubOscuro,
+  globals: { theme: "light" },
+};
+
+function CabeceraClubLigaStory(): React.JSX.Element {
+  return (
+    <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+      <ClubLayoutShell activePath="/app/liga-mx">
+        <div className="panel-card p-6 space-y-2">
+          <h1 className="m-0 text-lg font-bold">Liga MX activa en cabecera</h1>
+          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+            Vista de ruta secundaria donde la tira rápida móvil permanece disponible y la liga activa queda resaltada.
+          </p>
+        </div>
+      </ClubLayoutShell>
+    </PlatformProvider>
+  );
+}
+
+export const CabeceraClubLigaActivaOscuro = {
+  globals: { theme: "dark" },
+  render: () => <CabeceraClubLigaStory />,
+};
+
+export const CabeceraClubLigaActivaClaro = {
+  ...CabeceraClubLigaActivaOscuro,
+  globals: { theme: "light" },
+};
+
+function TiraDeportesYLigasStory(): React.JSX.Element {
+  const [sport, setSport] = useState<SportFilter>("futbol");
+  const [league, setLeague] = useState<LeagueFilter>(ALL);
+  const dayGames = STORY_DATASET.games;
+  const sportLeagues = useMemo(
+    () => buildHomeSportLeagues(STORY_DATASET.leagues, STORY_DATASET.games, dayGames, sport),
+    [dayGames, sport],
+  );
+  return (
+    <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+      <div className="pl-stage p-6 space-y-6">
+        <div className="panel-card p-4 space-y-3">
+          <p className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+            Variante de cabecera (ancho completo)
+          </p>
+          <HomeSportStrip
+            dayGames={dayGames}
+            sport={sport}
+            onSelectSport={(next) => {
+              setSport(next);
+              setLeague(ALL);
+            }}
+            variant="header"
+          />
+          {sportLeagues.length > 0 ? (
+            <HomeLeagueStrip
+              leagues={sportLeagues}
+              sportDayGamesCount={dayGames.length}
+              league={league}
+              onSelectLeague={setLeague}
+            />
+          ) : null}
+        </div>
+        <div className="panel-card p-4 space-y-3" style={{ maxWidth: 420 }}>
+          <p className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+            Contenedor angosto (420 px · flechas de desplazamiento activas)
+          </p>
+          <HomeSportStrip
+            dayGames={dayGames}
+            sport={sport}
+            onSelectSport={(next) => {
+              setSport(next);
+              setLeague(ALL);
+            }}
+            variant="header"
+          />
+        </div>
+      </div>
+    </PlatformProvider>
+  );
+}
+
+export const TiraDeportesYLigasOscuro = {
+  globals: { theme: "dark" },
+  render: () => <TiraDeportesYLigasStory />,
+};
+
+export const TiraDeportesYLigasClaro = {
+  ...TiraDeportesYLigasOscuro,
   globals: { theme: "light" },
 };

@@ -281,6 +281,7 @@ export interface PlatformGame {
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  referee?: string;
   neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   score?: { home: number; away: number };

@@ -148,7 +148,7 @@ export function TeamSquadSection({
             placeholder="Buscar jugador, dorsal o país…"
             className="w-full rounded-xl px-3 py-2 text-xs outline-none transition-colors"
             style={{
-              background: "var(--pl-surface)",
+              background: "var(--pl-glass-input)",
               border: "1px solid var(--pl-border)",
               color: "var(--pl-text)",
             }}

@@ -3,7 +3,7 @@
  * Sin React ni estado, para probarla aparte de la vista.
  */
 import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
-import type { MatchPick, PlatformGame } from "../../types";
+import type { MatchPick, PlatformGame, PlatformLeagueSummary } from "../../types";
 
 export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl";
 export const ALL = "all" as const;
@@ -153,6 +153,43 @@ export function isInUpcomingWindow(dayId: string, today: string, windowDays = UP
   return dayId >= today && dayId <= addDays(today, windowDays - 1);
 }
 
+/** Ligas disponibles para un deporte dado con conteo de partidos en el día seleccionado. */
+export interface HomeSportLeagueItem {
+  league: LeagueId;
+  label: string;
+  logoUrl?: string;
+  dayCount: number;
+  totalCount: number;
+}
+
+export function buildHomeSportLeagues(
+  leagues: readonly PlatformLeagueSummary[],
+  games: readonly PlatformGame[],
+  dayGames: readonly PlatformGame[],
+  sport: SportFilter,
+): HomeSportLeagueItem[] {
+  if (sport === ALL) return [];
+  const dayCountByLeague = new Map<LeagueId, number>();
+  for (const g of dayGames) {
+    dayCountByLeague.set(g.league, (dayCountByLeague.get(g.league) ?? 0) + 1);
+  }
+  const totalCountByLeague = new Map<LeagueId, number>();
+  for (const g of games) {
+    totalCountByLeague.set(g.league, (totalCountByLeague.get(g.league) ?? 0) + 1);
+  }
+  return leagues
+    .filter((lg) => matchesSportFilter({ sport: lg.sport, league: lg.league }, sport))
+    .map((lg) => ({
+      league: lg.league,
+      label: lg.label,
+      logoUrl: lg.logoUrl,
+      dayCount: dayCountByLeague.get(lg.league) ?? 0,
+      totalCount: totalCountByLeague.get(lg.league) ?? lg.totalGames,
+    }))
+    .filter((lg) => lg.totalCount > 0 || lg.dayCount > 0)
+    .sort((a, b) => leagueRank(a.league) - leagueRank(b.league));
+}
+
 export function gamesForSelection(
   games: readonly PlatformGame[],
   selection: DaySelection,
@@ -163,6 +200,18 @@ export function gamesForSelection(
     return games.filter((g) => isInUpcomingWindow(g.dayId, today, windowDays));
   }
   return games.filter((g) => g.dayId === selection);
+}
+
+/** Resuelve el día activo en /app a partir de una selección explícita o del calendario disponible. */
+export function resolveHomeDay(
+  games: readonly PlatformGame[],
+  chosenDay: DaySelection | null,
+  today: string,
+): string {
+  if (chosenDay && chosenDay !== UPCOMING) return chosenDay;
+  if (games.some((g) => g.dayId >= today)) return today;
+  const last = games.reduce<string>((acc, g) => (g.dayId > acc ? g.dayId : acc), "");
+  return last || today;
 }
 
 export function leaguesIn(games: readonly PlatformGame[]): LeagueId[] {

@@ -25,7 +25,7 @@ export const decorators = [
     document.documentElement.setAttribute("data-theme", theme);
     document.documentElement.setAttribute("data-style", "solid");
     document.documentElement.style.colorScheme = theme;
-    document.body.style.background = "var(--background-primary)";
+    document.body.style.background = "var(--pl-stage-bg, var(--background-primary))";
     return Story();
   },
 ];

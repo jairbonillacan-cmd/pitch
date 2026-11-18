@@ -91,6 +91,7 @@ export interface LiveScoreboardEntry {
   score: LiveScore | null;
   htScore: LiveScore | null;
   redCards: { home: number; away: number } | null;
+  referee?: string | null;
   kickoffUtc: string;
 }
 

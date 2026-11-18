@@ -815,6 +815,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         kickoffUtc: m.kickoffUtc,
         kickoffLocal: m.kickoffLocal,
         venue: m.venue,
+        ...(m.referee ? { referee: m.referee } : {}),
         neutralSite: m.neutralSite,
         status: m.status,
         score: m.score,

@@ -159,7 +159,7 @@ function PlayerInteractivePickCard({
     <article
       className="rounded-2xl p-4 space-y-3"
       style={{
-        background: "var(--pl-surface)",
+        background: "var(--pl-surface-elevated)",
         border: "1px solid var(--pl-border)",
       }}
       data-player-pick={pick.id}
@@ -488,7 +488,7 @@ export function PlayerProfileClubView({
                   key={tile.label}
                   className="rounded-xl p-3 space-y-1"
                   style={{
-                    background: "var(--pl-surface)",
+                    background: "var(--pl-surface-elevated)",
                     border: "1px solid var(--pl-border)",
                   }}
                 >
@@ -600,7 +600,7 @@ export function PlayerProfileClubView({
                     onClick={(e) => navigateOnPlainClick(e, mate.href)}
                     className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
                     style={{
-                      background: "var(--pl-surface)",
+                      background: "var(--pl-surface-elevated)",
                       border: "1px solid var(--pl-border)",
                       color: "var(--pl-text)",
                     }}

@@ -13,6 +13,7 @@ import { redactDatasetForVisitor } from "./access-guard";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import { EmblemSurfaceProvider } from "../sports";
+import { STORY_INCIDENTS, STORY_STATS } from "./live/live-story-data";
 import type { JournalEntry } from "./types";
 
 /* Partido de ejemplo para las stories (cifras ilustrativas, no son datos de la jornada). */
@@ -36,6 +37,7 @@ const MATCH: MatchAnalysis = {
   kickoffUtc: "2030-11-14T23:00:00Z",
   kickoffLocal: "17:00",
   venue: "Estadio Corregidora",
+  referee: "Hector Martinez",
   status: "NS",
   home: { slug: "queretaro", name: "Querétaro", shortName: "Querétaro", code: "QRO", record: "15 PJ · 1.2 goles/p" },
   away: { slug: "monterrey", name: "Rayados de Monterrey", shortName: "Monterrey", code: "MTY", record: "15 PJ · 1.7 goles/p" },
@@ -92,6 +94,37 @@ const MATCH: MatchAnalysis = {
   },
 };
 
+const MATCH_NO_REF: MatchAnalysis = {
+  ...MATCH,
+  id: "story-qro-mty-noref",
+  referee: undefined,
+};
+
+const MATCH_FT: MatchAnalysis = {
+  ...MATCH,
+  id: "story-qro-mty-ft",
+  status: "FT",
+  referee: undefined,
+  score: { home: 2, away: 1 },
+};
+
+const MATCH_KNOCKOUT: MatchAnalysis = {
+  ...MATCH,
+  id: "story-qro-mty-vuelta",
+  round: "Cuartos de final · Vuelta",
+  score: { home: 1, away: 1 },
+  headToHead: [
+    { date: "2030-11-07", home: "Monterrey", away: "Querétaro", homeGoals: 2, awayGoals: 1 },
+    ...(MATCH.headToHead ?? []),
+  ],
+};
+
+const STANDINGS = [
+  { teamId: "liga-mx.america", name: "América", shortName: "América", code: "AME", played: 15, won: 10, drawn: 3, lost: 2, goalsFor: 29, goalsAgainst: 14, points: 33 },
+  { teamId: "liga-mx.monterrey", name: "Rayados de Monterrey", shortName: "Monterrey", code: "MTY", played: 15, won: 6, drawn: 3, lost: 6, goalsFor: 24, goalsAgainst: 21, points: 21 },
+  { teamId: "liga-mx.queretaro", name: "Querétaro", shortName: "Querétaro", code: "QRO", played: 15, won: 5, drawn: 5, lost: 5, goalsFor: 18, goalsAgainst: 19, points: 20 },
+];
+
 const DATASET = buildPlatformDataset([
   {
     league: asLeagueId("liga-mx"),
@@ -100,16 +133,32 @@ const DATASET = buildPlatformDataset([
     season: "Apertura",
     roundLabel: "Jornada 16",
     generatedAt: "2030-11-12T00:00:00Z",
-    games: [MATCH],
-    standings: [
-      { teamId: "liga-mx.america", name: "América", shortName: "América", code: "AME", played: 15, won: 10, drawn: 3, lost: 2, goalsFor: 29, goalsAgainst: 14, points: 33 },
-      { teamId: "liga-mx.monterrey", name: "Rayados de Monterrey", shortName: "Monterrey", code: "MTY", played: 15, won: 6, drawn: 3, lost: 6, goalsFor: 24, goalsAgainst: 21, points: 21 },
-      { teamId: "liga-mx.queretaro", name: "Querétaro", shortName: "Querétaro", code: "QRO", played: 15, won: 5, drawn: 5, lost: 5, goalsFor: 18, goalsAgainst: 19, points: 20 },
-    ],
+    games: [MATCH, MATCH_NO_REF, MATCH_FT, MATCH_KNOCKOUT],
+    standings: STANDINGS,
   },
 ]);
 const GAME = DATASET.games[0]!;
-const REDACTED_DATASET = redactDatasetForVisitor(DATASET);
+const GAME_NO_REF = DATASET.games[1]!;
+const GAME_FT = DATASET.games[2]!;
+const GAME_KNOCKOUT = DATASET.games[3]!;
+const REDACTED_DATASET = redactDatasetForVisitor(
+  buildPlatformDataset([
+    {
+      league: asLeagueId("liga-mx"),
+      leagueLabel: "Liga MX",
+      sport: "football",
+      season: "Apertura",
+      roundLabel: "Jornada 16",
+      generatedAt: "2030-11-12T00:00:00Z",
+      games: [
+        { ...MATCH, id: "story-open-promo-1" },
+        { ...MATCH, id: "story-weekly-open-2" },
+        MATCH,
+      ],
+      standings: STANDINGS,
+    },
+  ]),
+);
 
 const SYNTHESIS =
   "Querétaro llega con mejor forma en casa y una semana completa de descanso; Monterrey viaja con tres días menos y produce más goles por partido. El modelo ve un partido abierto: 40 % para el local, 35 % para la visita y 56 % de que haya más de 2.5 goles.";
@@ -228,6 +277,15 @@ export const VotacionYSimuladorClaro = { ...VotacionYSimulador, ...light };
 
 export const Contexto = { render: () => <Provider><MatchContextPanel game={GAME} /></Provider> };
 export const ContextoClaro = { ...Contexto, ...light };
+
+export const ContextoSinArbitro = {
+  render: () => (
+    <Provider>
+      <MatchContextPanel game={GAME_NO_REF} />
+    </Provider>
+  ),
+};
+export const ContextoSinArbitroClaro = { ...ContextoSinArbitro, ...light };
 
 export const BoletoGanador = { render: () => <Provider><WinningStory /></Provider> };
 export const BoletoGanadorClaro = { ...BoletoGanador, ...light };
@@ -504,4 +562,107 @@ export const FichaVisitanteBloqueado = {
       />
     </PlatformProvider>
   ),
+};
+export const FichaVisitanteBloqueadoClaro = { ...FichaVisitanteBloqueado, ...light };
+
+export const FichaSinArbitroOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME_NO_REF.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaSinArbitroClaro = { ...FichaSinArbitroOscuro, ...light };
+
+export const FichaFinalizadoOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME_FT.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaFinalizadoClaro = { ...FichaFinalizadoOscuro, ...light };
+
+const STORY_LIVE_DETAIL_VIEW = {
+  gameId: GAME.id,
+  generatedAt: "2030-11-14T20:14:00Z",
+  sourceFetchedAt: "2030-11-14T20:14:00Z",
+  entry: {
+    gameId: GAME.id,
+    league: "liga-mx",
+    phase: "live" as const,
+    clock: "84",
+    minute: 84,
+    score: { home: 2, away: 2 },
+    htScore: { home: 1, away: 0 },
+    redCards: { home: 0, away: 1 },
+    referee: "Hector Martinez",
+    kickoffUtc: "2030-11-14T23:00:00Z",
+  },
+  incidents: STORY_INCIDENTS,
+  ...STORY_STATS,
+  nextPollSeconds: null,
+  notice: null,
+  attribution: "Datos en vivo PitchLab",
+};
+
+const STORY_KNOCKOUT_LIVE_DETAIL = {
+  ...STORY_LIVE_DETAIL_VIEW,
+  gameId: GAME_KNOCKOUT.id,
+  entry: {
+    ...STORY_LIVE_DETAIL_VIEW.entry,
+    gameId: GAME_KNOCKOUT.id,
+    score: { home: 1, away: 1 },
+  },
+};
+
+const mobile = { parameters: { viewport: { defaultViewport: "mobile1" } } };
+
+export const FichaEnVivoOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+        liveDetailOverride={STORY_LIVE_DETAIL_VIEW}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaEnVivoClaro = { ...FichaEnVivoOscuro, ...light };
+export const FichaEnVivoMovilOscuro = { ...FichaEnVivoOscuro, ...mobile };
+export const FichaEnVivoMovilClaro = { ...FichaEnVivoOscuro, ...light, ...mobile };
+
+export const FichaEliminatoriaVueltaOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME_KNOCKOUT.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+        liveDetailOverride={STORY_KNOCKOUT_LIVE_DETAIL}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaEliminatoriaVueltaClaro = {
+  ...FichaEliminatoriaVueltaOscuro,
+  ...light,
 };

@@ -504,3 +504,182 @@ describe("Lista de partidos agrupada por día y liga", () => {
     expect(html).not.toContain("Córners");
   });
 });
+
+describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", () => {
+  it("muestra ruta del encuentro, estadio, árbitro asignado y ordena el riel lateral (momento -> eventos -> picks -> cuotas)", () => {
+    const withRef = buildRichMatch({ id: "mx-con-ref", referee: "Hector Martinez" });
+    const ds = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura",
+        roundLabel: "Jornada 16",
+        generatedAt: "2030-11-13T18:00:00Z",
+        games: [withRef],
+        standings: [],
+      },
+    ]);
+    const targetGame = ds.games[0]!;
+    targetGame.picks = [
+      { ...targetGame.picks[0]!, label: "Ambos anotan: Sí" },
+      ...targetGame.picks.slice(0, 2),
+    ];
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={ds} initialRole="member">
+        <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId="mx-con-ref" />
+      </PlatformProvider>,
+    );
+    expect(html).toContain('aria-label="Ruta del partido"');
+    expect(html).toContain("Estadio Corregidora");
+    expect(html).toContain("data-match-referee");
+    expect(html).toContain("Hector Martinez");
+    expect(html).toContain("pl-match-layout");
+    expect(html).toContain("pl-match-rail");
+    expect(html).toContain("Tiempo reglamentario");
+    expect(html).toContain("pl-match-workspace");
+
+    const idxMomentum = html.indexOf("data-rail-momentum");
+    const idxEvents = html.indexOf("data-rail-events");
+    const idxPicks = html.indexOf("data-rail-picks");
+    const idxOdds = html.indexOf('id="rail-odds-heading"');
+    expect(idxMomentum).toBeGreaterThan(-1);
+    expect(idxEvents).toBeGreaterThan(idxMomentum);
+    expect(idxPicks).toBeGreaterThan(idxEvents);
+    expect(idxOdds).toBeGreaterThan(idxPicks);
+
+    const picksSlice = html.slice(idxPicks, idxOdds);
+    expect(picksSlice).toContain("Ambos anotan: Sí");
+    expect(picksSlice).not.toContain("pl-match-rail-pick-label truncate");
+  });
+
+  it("muestra periodos en eventos del riel en vivo sin duplicar timeline en Resumen", async () => {
+    const { STORY_INCIDENTS, STORY_STATS } = await import(
+      "../src/platform/live/live-story-data"
+    );
+    const liveMatch = buildRichMatch({ id: "mx-en-vivo", referee: "Hector Martinez" });
+    const ds = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura",
+        roundLabel: "Jornada 16",
+        generatedAt: "2030-11-13T18:00:00Z",
+        games: [liveMatch],
+        standings: [],
+      },
+    ]);
+    const liveDetailOverride = {
+      gameId: "mx-en-vivo",
+      generatedAt: "2030-11-14T20:14:00Z",
+      sourceFetchedAt: "2030-11-14T20:14:00Z",
+      entry: {
+        gameId: "mx-en-vivo",
+        league: "liga-mx",
+        phase: "live" as const,
+        clock: "84",
+        minute: 84,
+        score: { home: 2, away: 2 },
+        htScore: { home: 1, away: 0 },
+        redCards: { home: 0, away: 1 },
+        referee: "Hector Martinez",
+        kickoffUtc: "2030-11-14T23:00:00Z",
+      },
+      incidents: STORY_INCIDENTS,
+      ...STORY_STATS,
+      nextPollSeconds: null,
+      notice: null,
+      attribution: "Datos en vivo PitchLab",
+    };
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={ds} initialRole="member">
+        <MatchStudioClubView
+          leagueId={asLeagueId("liga-mx")}
+          gameId="mx-en-vivo"
+          initialTab="resumen"
+          liveDetailOverride={liveDetailOverride}
+        />
+      </PlatformProvider>,
+    );
+    expect(html).toContain("1.º tiempo");
+    expect(html).toContain("1 – 0");
+    expect(html).toContain("2.º tiempo");
+    expect(html).toContain("pl-rail-event-score");
+    expect(html).toContain("Jugador 9");
+    expect(html).toContain("pl-rail-card-mark--yellow");
+    expect(html).not.toContain("pl-live-timeline");
+  });
+
+  it("muestra estado honesto cuando no hay árbitro confirmado y respeta candado de visitante en el riel", () => {
+    const lockedMatch = buildRichMatch({ id: "test-ficha-locked-3" });
+    const threeGames = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura",
+        roundLabel: "Jornada 16",
+        generatedAt: "2030-11-13T18:00:00Z",
+        games: [
+          buildRichMatch({ id: "test-ficha-hero-1" }),
+          buildRichMatch({ id: "test-ficha-weekly-2" }),
+          lockedMatch,
+        ],
+        standings: [],
+      },
+    ]);
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={redactDatasetForVisitor(threeGames)} initialRole="visitor">
+        <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId="test-ficha-locked-3" />
+      </PlatformProvider>,
+    );
+    expect(html).toContain("Árbitro por confirmar");
+    expect(html).toContain("Cuotas justas y probabilidades de mercado reservadas para Pase PitchLab Ultra.");
+  });
+
+  it("muestra estado finalizado (FT) con Árbitro no reportado y cruce Ida/Agregado en eliminatoria real", () => {
+    const ftMatch = buildRichMatch({
+      id: "test-ficha-ft",
+      status: "FT",
+      score: { home: 2, away: 1 },
+    });
+    const knockoutMatch = buildRichMatch({
+      id: "test-ficha-vuelta",
+      round: "Cuartos de final · Vuelta",
+      score: { home: 1, away: 1 },
+      headToHead: [
+        { date: "2030-11-08", home: "Monterrey", away: "Querétaro", homeGoals: 2, awayGoals: 1 },
+      ],
+    });
+    const ds = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura",
+        roundLabel: "Cuartos de final · Vuelta",
+        generatedAt: "2030-11-13T18:00:00Z",
+        games: [ftMatch, knockoutMatch],
+        standings: [],
+      },
+    ]);
+    const ftHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={ds} initialRole="member">
+        <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId="test-ficha-ft" />
+      </PlatformProvider>,
+    );
+    expect(ftHtml).toContain("Finalizado · FT");
+    expect(ftHtml).toContain("Marcador final");
+    expect(ftHtml).toContain("Árbitro no reportado");
+
+    const koHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={ds} initialRole="member">
+        <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId="test-ficha-vuelta" />
+      </PlatformProvider>,
+    );
+    expect(koHtml).toContain("pl-rail-leg");
+    expect(koHtml).toContain("Ida");
+    expect(koHtml).toContain("Agregado");
+  });
+});

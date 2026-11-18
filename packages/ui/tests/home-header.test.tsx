@@ -317,4 +317,52 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(html).toContain("data-card-open");
     expect(html).not.toContain("pl-club-watermark");
   });
+
+  it("omite Selecciones del strip de deportes, integra las ligas al header con formato de deportes y filtra Tendencias", () => {
+    const allHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={DATASET} initialRole="member">
+        <HomeClubView initialDay="2026-11-15" initialToday="2026-11-15" liveBoardOverride={null} />
+      </PlatformProvider>,
+    );
+    expect(allHtml).not.toContain('data-home-leaguebar=""');
+    expect(allHtml).not.toContain('data-sport-filter="selecciones"');
+
+    const futbolHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={DATASET} initialRole="member">
+        <HomeClubView
+          initialDay="2026-11-15"
+          initialToday="2026-11-15"
+          initialSport="futbol"
+          liveBoardOverride={null}
+        />
+      </PlatformProvider>,
+    );
+    expect(futbolHtml).not.toContain('data-sport-filter="selecciones"');
+    expect(futbolHtml).not.toContain("pl-astro-left");
+    expect(futbolHtml).not.toContain("Mis competiciones");
+    expect(futbolHtml).toContain("pl-header-leagueband");
+    expect(futbolHtml).toContain("pl-astro-sport-tab--league");
+    expect(futbolHtml).toContain('data-home-leaguebar=""');
+    expect(futbolHtml).toContain('data-league-chip="all"');
+    expect(futbolHtml).toContain('data-league-chip="liga-mx"');
+    expect(futbolHtml.indexOf('data-home-leaguebar=""')).toBeLessThan(
+      futbolHtml.indexOf("</header>"),
+    );
+
+    const ligaMxHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={DATASET} initialRole="member">
+        <HomeClubView
+          initialDay="2026-11-15"
+          initialToday="2026-11-15"
+          initialSport="futbol"
+          initialLeague={asLeagueId("liga-mx")}
+          liveBoardOverride={null}
+        />
+      </PlatformProvider>,
+    );
+    expect(ligaMxHtml).toContain('data-match-chip="lmx-fri"');
+    expect(ligaMxHtml).toContain('data-chip-league="liga-mx"');
+    expect(ligaMxHtml).not.toContain('data-match-chip="nfl-live"');
+    expect(ligaMxHtml).not.toContain('data-match-chip="nba-bos-mia"');
+  });
 });

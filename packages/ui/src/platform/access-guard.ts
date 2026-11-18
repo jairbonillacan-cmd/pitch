@@ -134,6 +134,7 @@ export function redactDatasetForVisitor(
       kickoffUtc: game.kickoffUtc,
       kickoffLocal: game.kickoffLocal,
       venue: game.venue,
+      ...(game.referee ? { referee: game.referee } : {}),
       status: game.status,
       ...(game.score ? { score: game.score } : {}),
       home: game.home,

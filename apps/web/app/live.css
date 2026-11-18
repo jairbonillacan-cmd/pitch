@@ -354,6 +354,7 @@
 
 @container (min-width: 820px) {
   .pl-live-grid-layout { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  .pl-live-grid-layout.pl-live-grid-layout--single { grid-template-columns: minmax(0, 1fr); }
 }
 
 .pl-live-col {

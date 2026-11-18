@@ -52,6 +52,8 @@ export interface BzLiveEvent {
   penalty_shootout?: { home?: number | null; away?: number | null } | null;
   home_red_cards?: number | null;
   away_red_cards?: number | null;
+  referee?: string | { name?: string | null } | null;
+  referee_name?: string | null;
 }
 
 export interface BzLiveIncident {
@@ -185,6 +187,8 @@ export function toScoreboardEntry(e: BzLiveEvent, gameId: string, league: string
   // `home_score` es solo tiempo regular; el tiempo extra suma aparte.
   const et = e.extra_time_score ? score(e.extra_time_score.home, e.extra_time_score.away) : null;
   const total = ft && et ? { home: ft.home + et.home, away: ft.away + et.away } : ft;
+  const refereeName =
+    nameOf(e.referee) ?? (typeof e.referee_name === "string" ? e.referee_name.trim() || null : null);
   return {
     gameId,
     league,
@@ -197,6 +201,7 @@ export function toScoreboardEntry(e: BzLiveEvent, gameId: string, league: string
       num(e.home_red_cards) !== null || num(e.away_red_cards) !== null
         ? { home: num(e.home_red_cards) ?? 0, away: num(e.away_red_cards) ?? 0 }
         : null,
+    ...(refereeName ? { referee: refereeName } : {}),
     // La hora de inicio es la nuestra (snapshot), no la del proveedor.
     kickoffUtc,
   };

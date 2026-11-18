@@ -240,7 +240,7 @@ const BadgesRow = () => (
     <EmblemSurfaceProvider surface="app">
       <div style={{ display: "grid", gap: "10px" }}>
         <strong style={{ fontSize: "13px", opacity: 0.78 }}>
-          En /app · Con escudo externo (Bzzoiro) + NFL local
+          En /app · Con escudo externo verificado + NFL local
         </strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
           <LeagueBadge
@@ -310,7 +310,7 @@ const BadgesRow = () => (
     <EmblemSurfaceProvider surface="public">
       <div style={{ display: "grid", gap: "10px" }}>
         <strong style={{ fontSize: "13px", opacity: 0.78 }}>
-          Landing y público · Cero Bzzoiro (solo SVG / iniciales locales)
+          Landing y público · Solo emblemas e iniciales locales
         </strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
           <LeagueBadge league="liga-mx" label="Liga MX" size={44} />

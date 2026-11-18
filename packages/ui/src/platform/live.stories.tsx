@@ -66,7 +66,7 @@ const LIVE_DETAIL: LiveMatchDetail = {
     : STORY_STATS.stats,
   nextPollSeconds: 20,
   notice: null,
-  attribution: "Datos en vivo: Bzzoiro Sports Data",
+  attribution: "Datos en vivo PitchLab",
 };
 
 const FINAL_DETAIL: LiveMatchDetail = {
@@ -156,6 +156,7 @@ export const FichaCargando = {
     </Stage>
   ),
 };
+export const FichaCargandoClaro = { ...FichaCargando, ...light };
 
 export const MarcadorDelDia = {
   render: () => (

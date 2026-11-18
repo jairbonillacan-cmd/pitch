@@ -342,7 +342,7 @@ export function RecordPicksTab({
                 <div
                   key={g.id}
                   className="glass-ring rounded-xl p-3 flex items-center justify-between gap-2"
-                  style={{ background: "var(--pl-surface)" }}
+                  style={{ background: "var(--pl-surface-elevated)" }}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <TeamBadge

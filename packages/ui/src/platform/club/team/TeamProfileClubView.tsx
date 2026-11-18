@@ -108,7 +108,7 @@ function TeamModelSection({
       {section.locked ? (
         <div
           className="rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3"
-          style={{ background: "var(--pl-surface)" }}
+          style={{ background: "var(--pl-surface-elevated)" }}
           data-team-model-locked=""
         >
           <div className="space-y-1 min-w-0">
@@ -138,7 +138,7 @@ function TeamModelSection({
       ) : section.unavailableReason || section.metrics.length === 0 ? (
         <div
           className="rounded-2xl p-4 text-xs"
-          style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
+          style={{ background: "var(--pl-surface-elevated)", color: "var(--pl-text-muted)" }}
           data-team-model-empty=""
         >
           {section.unavailableReason ??
@@ -150,7 +150,7 @@ function TeamModelSection({
             <article
               key={m.id}
               className="rounded-2xl p-3.5 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
+              style={{ background: "var(--pl-surface-elevated)" }}
             >
               <span className="block text-[11px] font-semibold" style={{ color: "var(--pl-text-muted)" }}>
                 {m.label}
@@ -272,7 +272,7 @@ function TeamAveragesCard({
           </dl>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-            <div className="rounded-xl p-3 space-y-1" style={{ background: "var(--pl-surface)" }}>
+            <div className="rounded-xl p-3 space-y-1" style={{ background: "var(--pl-surface-elevated)" }}>
               <div className="flex items-center justify-between gap-2">
                 <span className="font-bold">En casa</span>
                 <span className="num" style={{ color: "var(--pl-text-muted)" }}>
@@ -286,7 +286,7 @@ function TeamAveragesCard({
               </p>
             </div>
 
-            <div className="rounded-xl p-3 space-y-1" style={{ background: "var(--pl-surface)" }}>
+            <div className="rounded-xl p-3 space-y-1" style={{ background: "var(--pl-surface-elevated)" }}>
               <div className="flex items-center justify-between gap-2">
                 <span className="font-bold">De visita</span>
                 <span className="num" style={{ color: "var(--pl-text-muted)" }}>
@@ -332,7 +332,7 @@ function TeamContextCard({
       </h2>
 
       {standing ? (
-        <div className="rounded-2xl p-3.5 space-y-2.5" style={{ background: "var(--pl-surface)" }}>
+        <div className="rounded-2xl p-3.5 space-y-2.5" style={{ background: "var(--pl-surface-elevated)" }}>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold">
               Posición en {leagueLabel}:{" "}
@@ -378,7 +378,7 @@ function TeamContextCard({
       ) : null}
 
       <div className="space-y-2 text-xs">
-        <div className="flex items-start gap-2.5 rounded-xl p-3" style={{ background: "var(--pl-surface)" }}>
+        <div className="flex items-start gap-2.5 rounded-xl p-3" style={{ background: "var(--pl-surface-elevated)" }}>
           <MaestroIcon name="pin" size={15} className="mt-0.5 shrink-0" />
           <div className="space-y-0.5 min-w-0">
             <span className="block font-bold">
@@ -418,7 +418,7 @@ function TeamContextCard({
               <li
                 key={`${inj.player}-${idx}`}
                 className="flex flex-wrap items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs"
-                style={{ background: "var(--pl-surface)" }}
+                style={{ background: "var(--pl-surface-elevated)" }}
               >
                 <div className="min-w-0">
                   <strong className="font-bold">{inj.player}</strong>
@@ -460,7 +460,7 @@ function UpcomingFixtureCard({
   const redacted = forceRedacted || fixture.isRedacted;
 
   return (
-    <li className="rounded-2xl p-4 space-y-3" style={{ background: "var(--pl-surface)" }}>
+    <li className="rounded-2xl p-4 space-y-3" style={{ background: "var(--pl-surface-elevated)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
         <span className="font-bold num">
           {fixture.dateLabel} · {fixture.kickoffLocal} h
