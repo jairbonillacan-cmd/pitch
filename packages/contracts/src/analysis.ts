@@ -143,6 +143,8 @@ export interface TeamSeasonRate {
   adjustedAgainst: number;
 }
 
+export type StandingFormToken = "W" | "D" | "L";
+
 /** Fila de la tabla de posiciones calculada con los partidos ya jugados. */
 export interface StandingRow {
   teamId: string;
@@ -157,6 +159,8 @@ export interface StandingRow {
   goalsFor: number;
   goalsAgainst: number;
   points: number;
+  /** Últimos hasta 5 resultados en orden cronológico (más reciente al final). */
+  form?: StandingFormToken[];
 }
 
 export interface LeagueSnapshot {
@@ -378,6 +382,7 @@ export const StandingRowSchema = z.object({
   goalsFor: z.number().int().nonnegative(),
   goalsAgainst: z.number().int().nonnegative(),
   points: z.number().int().nonnegative(),
+  form: z.array(z.enum(["W", "D", "L"])).max(5).optional(),
 });
 
 export const LeagueSnapshotSchema = z.object({

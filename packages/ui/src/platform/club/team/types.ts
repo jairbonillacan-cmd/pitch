@@ -243,6 +243,7 @@ export interface PlayerProfileData {
   coach?: TeamCoachInfo | null;
   player: TeamSquadPlayer;
   picksLocked: boolean;
+  lastMatch?: TeamMatchHistoryRow | null;
   nextFixture: TeamUpcomingFixtureRow | null;
   teammates: Array<{
     slug: string;

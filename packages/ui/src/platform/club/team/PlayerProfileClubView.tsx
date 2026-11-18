@@ -184,7 +184,7 @@ function PlayerInteractivePickCard({
       className="rounded-2xl p-4 space-y-3"
       style={{
         background: "var(--pl-surface-elevated)",
-        border: "1px solid var(--pl-border)",
+        border: "1px solid var(--pl-row-rule)",
       }}
       data-player-pick={pick.id}
     >
@@ -335,11 +335,103 @@ const PREFERRED_FOOT_ES: Readonly<Record<"R" | "L" | "B", string>> = {
   B: "Ambidiestro",
 };
 
-function formatBirthDateEs(iso?: string | null): string | null {
+const MONTHS_ES_LONG = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+] as const;
+
+function formatBirthDateLongEs(iso?: string | null): string | null {
   if (!iso) return null;
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso.trim());
   if (!m) return null;
-  return `${Number(m[3])}/${Number(m[2])}/${m[1]}`;
+  const monthIdx = Number(m[2]) - 1;
+  const monthName = MONTHS_ES_LONG[monthIdx];
+  if (!monthName) return null;
+  return `${Number(m[3])} de ${monthName} de ${m[1]}`;
+}
+
+function formatCompactSlashDate(iso?: string | null): string | null {
+  if (!iso) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso.trim());
+  if (!m) return null;
+  return `${Number(m[3])}/${Number(m[2])}/${m[1].slice(2)}`;
+}
+
+function BioGlyph({
+  kind,
+}: {
+  kind: "cake" | "position" | "height" | "weight" | "foot" | "jersey";
+}): React.JSX.Element {
+  const common = {
+    width: 15,
+    height: 15,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.85,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true as const,
+    className: "pl-player-bio-icon",
+  };
+  switch (kind) {
+    case "cake":
+      return (
+        <svg {...common}>
+          <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
+          <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1" />
+          <path d="M2 21h20" />
+          <path d="M12 11V7" />
+          <path d="M12 4.5c.8 0 1.3-.6 1.3-1.3 0-.8-.8-1.5-1.3-2-.5.5-1.3 1.2-1.3 2 0 .7.5 1.3 1.3 1.3Z" />
+        </svg>
+      );
+    case "position":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="7" />
+          <circle cx="12" cy="12" r="2.2" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </svg>
+      );
+    case "height":
+      return (
+        <svg {...common}>
+          <circle cx="9" cy="5.5" r="2" />
+          <path d="M9 10v10M6.5 13.5 9 10l2.5 3.5" />
+          <path d="M17 4v16M15 6l2-2 2 2M15 18l2 2 2-2" />
+        </svg>
+      );
+    case "weight":
+      return (
+        <svg {...common}>
+          <path d="M6.5 8h11l1.5 12H5L6.5 8Z" />
+          <path d="M9 8a3 3 0 0 1 6 0" />
+        </svg>
+      );
+    case "foot":
+      return (
+        <svg {...common}>
+          <path d="M5 18h14a2 2 0 0 0 2-2v-1c0-1.4-1-2.5-2.4-2.7l-3.4-.5-2.6-4.2A1.5 1.5 0 0 0 11.3 7H8a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2Z" />
+          <path d="M8 18v2M12 18v2M16 18v2" />
+        </svg>
+      );
+    case "jersey":
+      return (
+        <svg {...common}>
+          <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23Z" />
+        </svg>
+      );
+  }
 }
 
 export function PlayerProfileClubView({
@@ -363,12 +455,112 @@ export function PlayerProfileClubView({
   const isVisitorRestricted = viewerRole === "visitor" || profile.picksLocked;
 
   const statTiles = buildPlayerStatTiles(profile.player, profile.sport);
-  const birthDateLabel = formatBirthDateEs(profile.player.birthDate);
+  const birthDateLong = formatBirthDateLongEs(profile.player.birthDate);
+  const birthAndAgeLabel =
+    birthDateLong && profile.player.age != null
+      ? `${birthDateLong} (${profile.player.age})`
+      : birthDateLong
+        ? birthDateLong
+        : profile.player.age != null
+          ? `${profile.player.age} años`
+          : null;
   const footLabel = profile.player.preferredFoot
     ? PREFERRED_FOOT_ES[profile.player.preferredFoot]
     : null;
+  const positionDisplay =
+    profile.sport === "football"
+      ? POSITION_TITLE_ES[profile.player.positionGroup]
+      : profile.player.positionLabel || POSITION_TITLE_ES[profile.player.positionGroup];
   const activeCoach =
     profile.coach ?? (profile.coachName ? { name: profile.coachName } : null);
+  const countryFlag = resolveCircularCountryFlag(
+    profile.player.nationality,
+    profile.player.nationalityCode,
+  );
+  const countryLabel = profile.player.nationality ?? profile.player.nationalityCode ?? null;
+
+  const lastMatch = profile.lastMatch ?? null;
+  const lastMatchSides = lastMatch
+    ? (() => {
+        const home = lastMatch.isHome
+          ? {
+              slug: profile.team.slug,
+              name: profile.team.name,
+              shortName: profile.team.shortName || profile.team.name,
+              score: lastMatch.teamScore,
+            }
+          : {
+              slug: lastMatch.opponent.slug,
+              name: lastMatch.opponent.name,
+              shortName: lastMatch.opponent.shortName || lastMatch.opponent.name,
+              score: lastMatch.opponentScore,
+            };
+        const away = lastMatch.isHome
+          ? {
+              slug: lastMatch.opponent.slug,
+              name: lastMatch.opponent.name,
+              shortName: lastMatch.opponent.shortName || lastMatch.opponent.name,
+              score: lastMatch.opponentScore,
+            }
+          : {
+              slug: profile.team.slug,
+              name: profile.team.name,
+              shortName: profile.team.shortName || profile.team.name,
+              score: lastMatch.teamScore,
+            };
+        return {
+          home,
+          away,
+          homeWon: home.score > away.score,
+          awayWon: away.score > home.score,
+          whenTop: formatCompactSlashDate(lastMatch.date) ?? lastMatch.dateLabel,
+          whenSub: lastMatch.resultNote ? "TE" : "FT",
+        };
+      })()
+    : null;
+
+  const nextUpcoming = profile.nextFixture ?? null;
+  const nextMatchSides = nextUpcoming
+    ? (() => {
+        const canShowWinProb =
+          !isVisitorRestricted &&
+          !nextUpcoming.isRedacted &&
+          nextUpcoming.hasForecast &&
+          nextUpcoming.winProbability !== null;
+        const teamWinPct = canShowWinProb
+          ? `${Math.round(nextUpcoming.winProbability! * 100)}%`
+          : null;
+        const home = nextUpcoming.isHome
+          ? {
+              slug: profile.team.slug,
+              name: profile.team.name,
+              shortName: profile.team.shortName || profile.team.name,
+              probLabel: teamWinPct,
+            }
+          : {
+              slug: nextUpcoming.opponent.slug,
+              name: nextUpcoming.opponent.name,
+              shortName: nextUpcoming.opponent.shortName || nextUpcoming.opponent.name,
+              probLabel: null,
+            };
+        const away = nextUpcoming.isHome
+          ? {
+              slug: nextUpcoming.opponent.slug,
+              name: nextUpcoming.opponent.name,
+              shortName: nextUpcoming.opponent.shortName || nextUpcoming.opponent.name,
+              probLabel: null,
+            }
+          : {
+              slug: profile.team.slug,
+              name: profile.team.name,
+              shortName: profile.team.shortName || profile.team.name,
+              probLabel: teamWinPct,
+            };
+        return { home, away };
+      })()
+    : null;
+
+  const hasHeroMatches = Boolean(lastMatchSides || nextMatchSides);
 
   const navigateOnPlainClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
@@ -425,82 +617,53 @@ export function PlayerProfileClubView({
         </nav>
 
         <div className="space-y-4">
-          {/* Hero plano del jugador con retrato real, escudo del club y bio completa */}
+          {/* Hero editorial del jugador: retrato limpio + club + partido anterior/siguiente + tira bio inferior */}
           <section
-            className="glass-card glass-ring rounded-3xl p-5 sm:p-6"
+            className="pl-player-hero glass-card glass-ring rounded-3xl p-5 sm:p-6"
             data-team-hero="player"
           >
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-              <div className="flex items-center gap-4 min-w-0">
-                <div className="relative shrink-0">
-                  <PersonAvatar
-                    photoKey={profile.player.photoKey}
-                    fallbackPhotoKey={profile.player.fallbackPhotoKey}
-                    role="player"
-                    size={80}
-                    priority
-                  />
-                  <span
-                    className="absolute -bottom-1 -right-1 rounded-full p-1"
-                    style={{
-                      background: "var(--pl-surface)",
-                      border: "1px solid var(--pl-border)",
-                    }}
-                  >
-                    <TeamBadge
-                      league={profile.league}
-                      slug={profile.team.slug}
-                      name={profile.team.name}
-                      size={22}
-                    />
-                  </span>
-                </div>
+            <div className={`pl-player-hero-top ${hasHeroMatches ? "has-matches" : ""}`.trim()}>
+              <div className="pl-player-hero-identity">
+                <PersonAvatar
+                  photoKey={profile.player.photoKey}
+                  fallbackPhotoKey={profile.player.fallbackPhotoKey}
+                  role="player"
+                  size={84}
+                  priority
+                  className="pl-player-hero-avatar"
+                />
 
-                <div className="space-y-1.5 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 text-xs">
-                    <a
-                      href={teamHref}
-                      onClick={(e) => navigateOnPlainClick(e, teamHref)}
-                      className="pl-team-link inline-flex items-center gap-1.5 font-semibold"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      <LeagueBadge league={profile.league} size={15} />
-                      <span>{profile.team.name}</span>
-                    </a>
-                    <span className="pl-pill text-[11px] font-bold">
-                      {profile.player.positionLabel || POSITION_TITLE_ES[profile.player.positionGroup]}
-                    </span>
-                    {profile.player.jersey ? (
-                      <span className="pl-pill num text-[11px] font-bold">
-                        #{profile.player.jersey}
-                      </span>
-                    ) : null}
-                  </div>
-
-                  <h1 className="m-0 text-2xl sm:text-3xl font-black tracking-tight">
+                <div className="pl-player-hero-copy">
+                  <h1 className="pl-player-hero-title">
                     {profile.player.name}
                   </h1>
 
-                  <div
-                    className="flex flex-wrap items-center gap-2.5 text-xs"
-                    style={{ color: "var(--pl-text-muted)" }}
-                  >
-                    <span>
-                      {profile.leagueLabel} · {profile.seasonLabel}
-                    </span>
-                    {activeCoach ? (
-                      <span className="inline-flex items-center gap-1.5">
-                        <span aria-hidden="true">·</span>
-                        <PersonAvatar photoKey={activeCoach.photoKey} role="coach" size={20} />
-                        <span>
-                          {profile.sport === "football" ? "DT" : "Entrenador"}: {activeCoach.name}
-                        </span>
+                  <div className="pl-player-hero-club">
+                    <a
+                      href={teamHref}
+                      onClick={(e) => navigateOnPlainClick(e, teamHref)}
+                      className="pl-player-hero-club-link"
+                    >
+                      <TeamBadge
+                        league={profile.league}
+                        slug={profile.team.slug}
+                        name={profile.team.name}
+                        size={28}
+                      />
+                      <span className="pl-player-hero-club-copy">
+                        <strong>{profile.team.name}</strong>
+                        <small>
+                          {profile.leagueLabel} · {profile.seasonLabel}
+                          {activeCoach
+                            ? ` · ${profile.sport === "football" ? "DT" : "Entrenador"}: ${activeCoach.name}`
+                            : ""}
+                        </small>
                       </span>
-                    ) : null}
+                    </a>
                   </div>
 
                   {profile.player.availability && profile.player.availability !== "available" ? (
-                    <div className="pl-sq-injury pt-0.5">
+                    <div className="pl-sq-injury">
                       <strong className="pl-sq-injury-status">
                         {profile.player.availability === "suspended"
                           ? "Suspendido"
@@ -521,89 +684,238 @@ export function PlayerProfileClubView({
                 </div>
               </div>
 
-              {/* Bio física */}
-              <dl className="pl-ctx-stats grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 m-0 shrink-0">
-                <div>
-                  <dt>País</dt>
-                  <dd className="m-0 text-sm font-extrabold inline-flex items-center gap-1.5 max-w-[140px]">
-                    {(() => {
-                      const flag = resolveCircularCountryFlag(
-                        profile.player.nationality,
-                        profile.player.nationalityCode,
-                      );
-                      return flag ? (
-                        <img
-                          src={resolveThemedPackUrl(flag.src, iconBase)}
-                          srcSet={resolveThemedPackSrcSet(flag.srcSet, iconBase)}
-                          alt=""
-                          aria-hidden="true"
-                          width={17}
-                          height={17}
-                          loading="lazy"
-                          decoding="async"
-                          draggable={false}
-                          className="pl-team-country-flag shrink-0"
-                          style={{ width: 17, height: 17 }}
-                        />
-                      ) : null;
-                    })()}
-                    <span className="truncate">
-                      {profile.player.nationality ?? profile.player.nationalityCode ?? "—"}
-                    </span>
-                  </dd>
-                </div>
-                <div>
-                  <dt>Edad</dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.age != null ? `${profile.player.age} años` : "—"}
-                    {birthDateLabel ? <small>{birthDateLabel}</small> : null}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Estatura</dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.heightCm != null ? `${profile.player.heightCm} cm` : "—"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Peso</dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.weightKg != null ? `${profile.player.weightKg} kg` : "—"}
-                  </dd>
-                </div>
-                {footLabel ? (
-                  <div>
-                    <dt>Pie hábil</dt>
-                    <dd className="m-0 text-sm font-extrabold">{footLabel}</dd>
+              {hasHeroMatches ? (
+                <div className="pl-team-hero-matches">
+                  <div className="pl-team-mini-col">
+                    <span className="pl-team-mini-heading">Partido anterior</span>
+                    {lastMatch && lastMatchSides ? (
+                      lastMatch.gameHref ? (
+                        <a
+                          href={lastMatch.gameHref}
+                          onClick={(e) => navigateOnPlainClick(e, lastMatch.gameHref!)}
+                          className="pl-team-mini-card is-link"
+                          aria-label={`Partido anterior: ${lastMatchSides.home.shortName} ${lastMatchSides.home.score} - ${lastMatchSides.away.score} ${lastMatchSides.away.shortName}`}
+                        >
+                          <div className="pl-team-mini-head">
+                            <LeagueBadge league={profile.league} label={profile.leagueLabel} size={15} />
+                            <span className="truncate">{profile.leagueLabel}</span>
+                          </div>
+                          <div className="pl-team-mini-body">
+                            <div className="pl-team-mini-when num">
+                              <span>{lastMatchSides.whenTop}</span>
+                              <strong>{lastMatchSides.whenSub}</strong>
+                            </div>
+                            <div className="pl-team-mini-teams">
+                              <div className="pl-team-mini-team">
+                                <TeamBadge
+                                  league={profile.league}
+                                  slug={lastMatchSides.home.slug}
+                                  name={lastMatchSides.home.name}
+                                  size={18}
+                                />
+                                <span className={`truncate ${lastMatchSides.homeWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.home.shortName}
+                                </span>
+                                <strong className={`num ${lastMatchSides.homeWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.home.score}
+                                </strong>
+                              </div>
+                              <div className="pl-team-mini-team">
+                                <TeamBadge
+                                  league={profile.league}
+                                  slug={lastMatchSides.away.slug}
+                                  name={lastMatchSides.away.name}
+                                  size={18}
+                                />
+                                <span className={`truncate ${lastMatchSides.awayWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.away.shortName}
+                                </span>
+                                <strong className={`num ${lastMatchSides.awayWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.away.score}
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      ) : (
+                        <div className="pl-team-mini-card">
+                          <div className="pl-team-mini-head">
+                            <LeagueBadge league={profile.league} label={profile.leagueLabel} size={15} />
+                            <span className="truncate">{profile.leagueLabel}</span>
+                          </div>
+                          <div className="pl-team-mini-body">
+                            <div className="pl-team-mini-when num">
+                              <span>{lastMatchSides.whenTop}</span>
+                              <strong>{lastMatchSides.whenSub}</strong>
+                            </div>
+                            <div className="pl-team-mini-teams">
+                              <div className="pl-team-mini-team">
+                                <TeamBadge
+                                  league={profile.league}
+                                  slug={lastMatchSides.home.slug}
+                                  name={lastMatchSides.home.name}
+                                  size={18}
+                                />
+                                <span className={`truncate ${lastMatchSides.homeWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.home.shortName}
+                                </span>
+                                <strong className={`num ${lastMatchSides.homeWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.home.score}
+                                </strong>
+                              </div>
+                              <div className="pl-team-mini-team">
+                                <TeamBadge
+                                  league={profile.league}
+                                  slug={lastMatchSides.away.slug}
+                                  name={lastMatchSides.away.name}
+                                  size={18}
+                                />
+                                <span className={`truncate ${lastMatchSides.awayWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.away.shortName}
+                                </span>
+                                <strong className={`num ${lastMatchSides.awayWon ? "is-strong" : "is-dim"}`}>
+                                  {lastMatchSides.away.score}
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    ) : (
+                      <div className="pl-team-mini-card is-empty">
+                        <span>Sin resultado reciente</span>
+                      </div>
+                    )}
                   </div>
-                ) : null}
-              </dl>
-            </div>
-          </section>
 
-          {/* Próximo compromiso si existe */}
-          {profile.nextFixture ? (
-            <section className="glass-card glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
-                  Próximo partido aplicable
-                </span>
-                <p className="m-0 text-sm font-bold">
-                  {profile.nextFixture.isHome ? "Local" : "Visita"} vs {profile.nextFixture.opponent.name} ·{" "}
-                  <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                    {profile.nextFixture.dateLabel}
-                  </span>
-                </p>
-              </div>
-              <a
-                href={profile.nextFixture.gameHref}
-                onClick={(e) => navigateOnPlainClick(e, profile.nextFixture!.gameHref)}
-                className="pl-btn pl-btn--ghost px-3 py-1.5 text-xs font-semibold no-underline"
-              >
-                Abrir estudio del partido →
-              </a>
-            </section>
-          ) : null}
+                  <div className="pl-team-mini-col">
+                    <span className="pl-team-mini-heading">Partido siguiente</span>
+                    {nextUpcoming && nextMatchSides ? (
+                      <a
+                        href={nextUpcoming.gameHref}
+                        onClick={(e) => navigateOnPlainClick(e, nextUpcoming.gameHref)}
+                        className="pl-team-mini-card is-link"
+                        aria-label={`Partido siguiente: ${nextMatchSides.home.shortName} contra ${nextMatchSides.away.shortName}, ${nextUpcoming.dateLabel} ${nextUpcoming.kickoffLocal}`}
+                      >
+                        <div className="pl-team-mini-head">
+                          <LeagueBadge league={profile.league} label={profile.leagueLabel} size={15} />
+                          <span className="truncate">{profile.leagueLabel}</span>
+                        </div>
+                        <div className="pl-team-mini-body">
+                          <div className="pl-team-mini-when num">
+                            <span>{nextUpcoming.dateLabel}</span>
+                            <strong>{nextUpcoming.kickoffLocal}</strong>
+                          </div>
+                          <div className="pl-team-mini-teams">
+                            <div className="pl-team-mini-team">
+                              <TeamBadge
+                                league={profile.league}
+                                slug={nextMatchSides.home.slug}
+                                name={nextMatchSides.home.name}
+                                size={18}
+                              />
+                              <span className="truncate is-strong">
+                                {nextMatchSides.home.shortName}
+                              </span>
+                              {nextMatchSides.home.probLabel ? (
+                                <span className="pl-team-mini-prob num">{nextMatchSides.home.probLabel}</span>
+                              ) : null}
+                            </div>
+                            <div className="pl-team-mini-team">
+                              <TeamBadge
+                                league={profile.league}
+                                slug={nextMatchSides.away.slug}
+                                name={nextMatchSides.away.name}
+                                size={18}
+                              />
+                              <span className="truncate is-strong">
+                                {nextMatchSides.away.shortName}
+                              </span>
+                              {nextMatchSides.away.probLabel ? (
+                                <span className="pl-team-mini-prob num">{nextMatchSides.away.probLabel}</span>
+                              ) : null}
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    ) : (
+                      <div className="pl-team-mini-card is-empty">
+                        <span>Sin próximo partido</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Tira bio horizontal limpia (país, fecha + edad, posición, estatura, peso, pie hábil y dorsal) */}
+            <ul className="pl-player-bio-strip" aria-label="Datos biográficos del jugador">
+              {countryLabel ? (
+                <li className="pl-player-bio-item">
+                  {countryFlag ? (
+                    <img
+                      src={resolveThemedPackUrl(countryFlag.src, iconBase)}
+                      srcSet={resolveThemedPackSrcSet(countryFlag.srcSet, iconBase)}
+                      alt=""
+                      aria-hidden="true"
+                      width={17}
+                      height={17}
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                      className="pl-team-country-flag shrink-0"
+                      style={{ width: 17, height: 17 }}
+                    />
+                  ) : (
+                    <MaestroIcon name="globe" size={15} className="pl-player-bio-icon" />
+                  )}
+                  <span>{countryLabel}</span>
+                </li>
+              ) : null}
+
+              {birthAndAgeLabel ? (
+                <li className="pl-player-bio-item num">
+                  <BioGlyph kind="cake" />
+                  <span>{birthAndAgeLabel}</span>
+                </li>
+              ) : null}
+
+              {positionDisplay ? (
+                <li className="pl-player-bio-item">
+                  <BioGlyph kind="position" />
+                  <span>{positionDisplay}</span>
+                </li>
+              ) : null}
+
+              {profile.player.heightCm != null ? (
+                <li className="pl-player-bio-item num">
+                  <BioGlyph kind="height" />
+                  <span>{profile.player.heightCm} cm</span>
+                </li>
+              ) : null}
+
+              {profile.player.weightKg != null ? (
+                <li className="pl-player-bio-item num">
+                  <BioGlyph kind="weight" />
+                  <span>{profile.player.weightKg} kg</span>
+                </li>
+              ) : null}
+
+              {footLabel ? (
+                <li className="pl-player-bio-item">
+                  <BioGlyph kind="foot" />
+                  <span>{footLabel}</span>
+                </li>
+              ) : null}
+
+              {profile.player.jersey ? (
+                <li className="pl-player-bio-item num">
+                  <BioGlyph kind="jersey" />
+                  <span>Número {profile.player.jersey}</span>
+                </li>
+              ) : null}
+            </ul>
+          </section>
 
           {/* Estadísticas de temporada */}
           <section
@@ -624,7 +936,7 @@ export function PlayerProfileClubView({
                   className="rounded-xl p-3 space-y-1"
                   style={{
                     background: "var(--pl-surface-elevated)",
-                    border: "1px solid var(--pl-border)",
+                    border: "1px solid var(--pl-row-rule)",
                   }}
                 >
                   <div className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
@@ -736,7 +1048,7 @@ export function PlayerProfileClubView({
                     className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
                     style={{
                       background: "var(--pl-surface-elevated)",
-                      border: "1px solid var(--pl-border)",
+                      border: "1px solid var(--pl-row-rule)",
                       color: "var(--pl-text)",
                     }}
                   >

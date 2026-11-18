@@ -45,6 +45,7 @@ import {
   buildFootballSnapshot,
   buildNflSnapshot,
   loadPreviousSnapshot,
+  writeSeasonResultsFile,
   writeSnapshotFiles,
 } from "./pipeline.js";
 import {
@@ -360,6 +361,12 @@ async function main() {
                 )
               ).season;
           const priorPl = loadPriorMatches("premier-league", dateStr);
+          writeSeasonResultsFile(SNAPSHOTS_ROOT, {
+            league: "premier-league",
+            season: normPl.seasonId,
+            updatedAt,
+            games: normPl.allGames,
+          });
           return buildFootballSnapshot({
             league: "premier-league",
             countFeed: loadCountFeed("premier-league"),
@@ -404,6 +411,12 @@ async function main() {
             CACHE_DIR,
           );
           const priorLl = loadPriorMatches("laliga", dateStr);
+          writeSeasonResultsFile(SNAPSHOTS_ROOT, {
+            league: "laliga",
+            season: normLl.seasonId,
+            updatedAt,
+            games: normLl.allGames,
+          });
           return buildFootballSnapshot({
             league: "laliga",
             countFeed: loadCountFeed("laliga"),
@@ -466,6 +479,12 @@ async function main() {
             dateStr,
             CACHE_DIR,
           );
+          writeSeasonResultsFile(SNAPSHOTS_ROOT, {
+            league: entry.league,
+            season: normalized.seasonId,
+            updatedAt,
+            games: normalized.allGames,
+          });
           return buildFootballSnapshot({
             league: entry.league,
             countFeed: loadCountFeed(entry.league),
@@ -505,6 +524,12 @@ async function main() {
             referenceDate: dateStr,
           });
           const normMx = normalizeEspnLigaMx(espnSeason, { referenceDate: dateStr });
+          writeSeasonResultsFile(SNAPSHOTS_ROOT, {
+            league: "liga-mx",
+            season: normMx.seasonId,
+            updatedAt,
+            games: normMx.allGames,
+          });
           const priorMx = loadPriorMatches("liga-mx", dateStr);
           return buildFootballSnapshot({
             league: "liga-mx",

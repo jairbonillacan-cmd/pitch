@@ -117,7 +117,7 @@
 .pl-badge-tile {
   position: relative;
   border-radius: 14px;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
   padding: 12px 13px;
   display: flex;

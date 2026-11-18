@@ -669,6 +669,7 @@ export const PerfilJugadorOscuro = {
           coach: SQUAD_PROFILE.squad?.coach ?? null,
           player: SQUAD_PROFILE.squad!.players[0]!,
           picksLocked: false,
+          lastMatch: SQUAD_PROFILE.recentMatches[0] ?? null,
           nextFixture: SQUAD_PROFILE.upcomingFixtures[0] ?? null,
           teammates: [
             {

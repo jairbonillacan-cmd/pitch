@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import { PRODUCT_LEAGUES } from "../src/server/snapshots";
 import {
   isProductLeague,
+  loadLeagueStandingsMeta,
   loadLeagueTeamsDirectory,
+  loadPlayerProfile,
   loadTeamProfile,
   teamExistsInSnapshots,
 } from "../src/server/team-profile";
@@ -81,5 +83,37 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
       expect(restricted!.venue.elevationM).toBeNull();
       expect(restricted!.venue.roofType).toBeNull();
     }
+  });
+
+  it("calcula racha real de últimos 5 partidos en Liga MX (18/18) y ligas europeas, e incluye lastMatch en perfil de jugador", () => {
+    const mxMeta = loadLeagueStandingsMeta("liga-mx");
+    expect(mxMeta).not.toBeNull();
+    const mxSlugs = Object.keys(mxMeta!.formBySlug);
+    expect(mxSlugs.length).toBe(18);
+    for (const slug of mxSlugs) {
+      expect(mxMeta!.formBySlug[slug]!.length).toBe(5);
+    }
+
+    for (const lg of ["premier-league", "laliga", "bundesliga", "serie-a", "ligue-1"] as const) {
+      const meta = loadLeagueStandingsMeta(lg);
+      expect(meta).not.toBeNull();
+      const entries = Object.values(meta!.formBySlug);
+      expect(entries.length).toBeGreaterThanOrEqual(18);
+      for (const form of entries) {
+        expect(form.length).toBeGreaterThanOrEqual(4);
+      }
+    }
+
+    const america = loadTeamProfile("liga-mx", "america", { fullAccess: true });
+    expect(america).not.toBeNull();
+    expect(america!.recentMatches[0]?.date.startsWith("2026-")).toBe(true);
+    const firstPlayer = america!.squad?.players[0];
+    expect(firstPlayer).toBeDefined();
+    const playerProfile = loadPlayerProfile("liga-mx", "america", firstPlayer!.slug, {
+      fullAccess: true,
+    });
+    expect(playerProfile).not.toBeNull();
+    expect(playerProfile!.lastMatch).not.toBeNull();
+    expect(playerProfile!.lastMatch!.date.startsWith("2026-")).toBe(true);
   });
 });

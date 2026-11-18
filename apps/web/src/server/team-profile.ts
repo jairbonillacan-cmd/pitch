@@ -179,6 +179,55 @@ function resolveHistoryRoot(): string {
   return path.resolve(resolveSnapshotsRoot(), "..", "history");
 }
 
+interface SeasonResultEntry {
+  id: string;
+  date: string;
+  startTime: string;
+  round: string | null;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  neutralSite?: boolean;
+}
+
+const seasonResultsCache = new Map<string, { mtimeMs: number; entries: SeasonResultEntry[] }>();
+
+function loadSeasonResultsEntries(league: ProductLeague): SeasonResultEntry[] {
+  const fullPath = path.join(resolveSnapshotsRoot(), league, "season-results.json");
+  if (!fs.existsSync(fullPath)) return [];
+
+  let mtimeMs = 0;
+  try {
+    mtimeMs = fs.statSync(fullPath).mtimeMs;
+  } catch {
+    return [];
+  }
+
+  const cached = seasonResultsCache.get(fullPath);
+  if (cached && cached.mtimeMs === mtimeMs) return cached.entries;
+
+  try {
+    const raw = JSON.parse(fs.readFileSync(fullPath, "utf8")) as {
+      matches?: SeasonResultEntry[];
+    };
+    const entries = Array.isArray(raw.matches)
+      ? raw.matches.filter(
+          (m) =>
+            m &&
+            typeof m.date === "string" &&
+            typeof m.homeScore === "number" &&
+            typeof m.awayScore === "number",
+        )
+      : [];
+    seasonResultsCache.set(fullPath, { mtimeMs, entries });
+    return entries;
+  } catch (err) {
+    console.warn(`[team-profile] no se pudo leer season-results de ${league}:`, err);
+    return [];
+  }
+}
+
 function loadRecentHistoryEntries(league: ProductLeague): HistoryJsonlEntry[] {
   const filename = HISTORY_FILENAME_OVERRIDES[league] ?? `${league}.jsonl`;
   const fullPath = path.join(resolveHistoryRoot(), filename);
@@ -810,7 +859,7 @@ export function loadTeamProfile(
   if (!team) return null;
 
   const teamCanon = canonicalSlug(team.slug);
-  const latestGameIds = new Set(snapshot.games.map((g) => g.id));
+  const latestGameIds = new Set<string>(snapshot.games.map((g) => String(g.id)));
   const snapshots = loadLeagueDatedSnapshots(leagueRaw, snapshot);
 
   // 1. Standing row (cuando la liga incluye clasificación tabular).
@@ -928,6 +977,34 @@ export function loadTeamProfile(
         fromSnapshot: true,
       });
     }
+  }
+
+  for (const s of loadSeasonResultsEntries(leagueRaw)) {
+    const hKey = canonicalSlug(s.homeTeam);
+    const aKey = canonicalSlug(s.awayTeam);
+    if (hKey !== teamCanon && aKey !== teamCanon) continue;
+
+    const dedupeKey = `${s.date}|${hKey}|${aKey}`;
+    if (finishedMap.has(dedupeKey)) continue;
+
+    const homeRef = byCanonical.get(hKey);
+    const awayRef = byCanonical.get(aKey);
+    finishedMap.set(dedupeKey, {
+      id: s.id,
+      gameHref: latestGameIds.has(s.id) ? `/app/${leagueRaw}/games/${s.id}` : null,
+      date: s.date,
+      sortKey: s.startTime || `${s.date}T12:00:00Z`,
+      round: s.round,
+      homeTeamKey: hKey,
+      awayTeamKey: aKey,
+      homeName: homeRef?.shortName ?? slugFromTeamId(s.homeTeam).replace(/-/g, " "),
+      awayName: awayRef?.shortName ?? slugFromTeamId(s.awayTeam).replace(/-/g, " "),
+      homeScore: s.homeScore,
+      awayScore: s.awayScore,
+      neutralSite: Boolean(s.neutralSite),
+      resultNote: null,
+      fromSnapshot: true,
+    });
   }
 
   for (const h of loadRecentHistoryEntries(leagueRaw)) {
@@ -1298,6 +1375,7 @@ export function loadPlayerProfile(
     coach: teamProfile.squad.coach ?? null,
     player,
     picksLocked: !options.fullAccess,
+    lastMatch: teamProfile.recentMatches[0] ?? null,
     nextFixture: teamProfile.upcomingFixtures[0] ?? null,
     teammates,
   };
@@ -1446,11 +1524,15 @@ export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStanding
   const homeBySlug: Record<string, ServerStandingsSplitRow> = {};
   const awayBySlug: Record<string, ServerStandingsSplitRow> = {};
 
+  const snapshotFormBySlug: Record<string, Array<"G" | "E" | "P">> = {};
   for (const row of snapshot.standings) {
     const slug = slugFromTeamId(row.teamId);
     formBySlug[slug] = [];
     homeBySlug[slug] = emptySplit();
     awayBySlug[slug] = emptySplit();
+    if (Array.isArray(row.form) && row.form.length > 0) {
+      snapshotFormBySlug[slug] = row.form.map((t) => (t === "W" ? "G" : t === "L" ? "P" : "E"));
+    }
   }
 
   const refDateMs = Date.parse(snapshot.updatedAt) || Date.now();
@@ -1463,7 +1545,10 @@ export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStanding
   for (const h of loadRecentHistoryEntries(leagueRaw)) {
     const matchesSeason = h.season && snapshot.season ? h.season === snapshot.season : false;
     const dateMs = Date.parse(`${h.date}T12:00:00Z`);
-    const withinWindow = Number.isFinite(dateMs) && refDateMs - dateMs <= seasonWindowMs && refDateMs - dateMs >= -7 * 86_400_000;
+    const withinWindow =
+      Number.isFinite(dateMs) &&
+      refDateMs - dateMs <= seasonWindowMs &&
+      refDateMs - dateMs >= -7 * 86_400_000;
     if (!matchesSeason && !withinWindow) continue;
 
     const hCanon = canonicalSlug(h.homeTeam);
@@ -1482,21 +1567,40 @@ export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStanding
     });
   }
 
-  for (const g of snapshot.games) {
-    if (g.status !== "final" || !g.result) continue;
-    const hCanon = canonicalSlug(g.home.id);
-    const aCanon = canonicalSlug(g.away.id);
+  for (const s of loadSeasonResultsEntries(leagueRaw)) {
+    const hCanon = canonicalSlug(s.homeTeam);
+    const aCanon = canonicalSlug(s.awayTeam);
     const hRef = byCanonical.get(hCanon);
     const aRef = byCanonical.get(aCanon);
-    const date = g.startTime.slice(0, 10);
-    const key = `${date}|${hCanon}|${aCanon}`;
+    if (!hRef && !aRef) continue;
+
+    const key = `${s.date}|${hCanon}|${aCanon}`;
     deduped.set(key, {
-      sortKey: g.startTime,
-      homeSlug: hRef?.slug ?? slugFromTeamId(g.home.id),
-      awaySlug: aRef?.slug ?? slugFromTeamId(g.away.id),
-      hs: g.result.home,
-      as: g.result.away,
+      sortKey: s.startTime || `${s.date}T12:00:00Z`,
+      homeSlug: hRef?.slug ?? hCanon,
+      awaySlug: aRef?.slug ?? aCanon,
+      hs: s.homeScore,
+      as: s.awayScore,
     });
+  }
+
+  for (const snap of loadLeagueDatedSnapshots(leagueRaw, snapshot)) {
+    for (const g of snap.games) {
+      if (g.status !== "final" || !g.result) continue;
+      const hCanon = canonicalSlug(g.home.id);
+      const aCanon = canonicalSlug(g.away.id);
+      const hRef = byCanonical.get(hCanon);
+      const aRef = byCanonical.get(aCanon);
+      const date = g.startTime.slice(0, 10);
+      const key = `${date}|${hCanon}|${aCanon}`;
+      deduped.set(key, {
+        sortKey: g.startTime,
+        homeSlug: hRef?.slug ?? slugFromTeamId(g.home.id),
+        awaySlug: aRef?.slug ?? slugFromTeamId(g.away.id),
+        hs: g.result.home,
+        as: g.result.away,
+      });
+    }
   }
 
   const chronological = [...deduped.values()].sort((a, b) => a.sortKey.localeCompare(b.sortKey));
@@ -1544,6 +1648,12 @@ export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStanding
         aSplit.lost += 1;
       }
       aSplit.form = [...aSplit.form, aRes].slice(-5);
+    }
+  }
+
+  for (const [slug, snapForm] of Object.entries(snapshotFormBySlug)) {
+    if (snapForm.length > (formBySlug[slug]?.length ?? 0)) {
+      formBySlug[slug] = snapForm.slice(-5);
     }
   }
 

@@ -522,6 +522,7 @@ export function computeStandings(
   teamInputs: readonly FootballTeamRateInput[],
 ): StandingRow[] {
   const table = new Map<string, StandingRow>();
+  const formByTeam = new Map<string, Array<"W" | "D" | "L">>();
   for (const team of teamInputs) {
     table.set(team.teamId, {
       teamId: team.teamId,
@@ -536,9 +537,12 @@ export function computeStandings(
       goalsAgainst: 0,
       points: 0,
     });
+    formByTeam.set(team.teamId, []);
   }
 
-  for (const match of matches) {
+  const chronological = [...matches].sort((a, b) => a.date.localeCompare(b.date));
+
+  for (const match of chronological) {
     const home = table.get(match.home);
     const away = table.get(match.away);
     if (!home || !away) continue;
@@ -552,20 +556,30 @@ export function computeStandings(
       home.won += 1;
       home.points += 3;
       away.lost += 1;
+      formByTeam.get(match.home)?.push("W");
+      formByTeam.get(match.away)?.push("L");
     } else if (match.homeGoals < match.awayGoals) {
       away.won += 1;
       away.points += 3;
       home.lost += 1;
+      formByTeam.get(match.home)?.push("L");
+      formByTeam.get(match.away)?.push("W");
     } else {
       home.drawn += 1;
       away.drawn += 1;
       home.points += 1;
       away.points += 1;
+      formByTeam.get(match.home)?.push("D");
+      formByTeam.get(match.away)?.push("D");
     }
   }
 
   return [...table.values()]
     .filter((row) => row.played > 0)
+    .map((row) => {
+      const form = (formByTeam.get(row.teamId) ?? []).slice(-5);
+      return form.length > 0 ? { ...row, form } : row;
+    })
     .sort(
       (a, b) =>
         b.points - a.points ||
@@ -602,6 +616,67 @@ function writeFileAtomic(path: string, contents: string): void {
   // Último recurso: escritura directa (deja constancia del error si también falla).
   writeFileSync(path, contents, "utf8");
   void lastError;
+}
+
+export interface SeasonResultEntry {
+  id: string;
+  date: string;
+  startTime: string;
+  round: string | null;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  neutralSite: boolean;
+}
+
+export interface SeasonResultsFile {
+  schemaVersion: 1;
+  league: string;
+  season: string;
+  updatedAt: string;
+  matches: SeasonResultEntry[];
+}
+
+export function writeSeasonResultsFile(
+  snapshotsRoot: string,
+  params: {
+    league: string;
+    season: string;
+    updatedAt: string;
+    games: readonly GameDTO[];
+  },
+): string {
+  const dir = join(snapshotsRoot, params.league);
+  mkdirSync(dir, { recursive: true });
+  const deduped = new Map<string, SeasonResultEntry>();
+  for (const g of params.games) {
+    if (g.status !== "final" || !g.result) continue;
+    const date = g.startTime.slice(0, 10);
+    const key = `${date}|${g.home.id}|${g.away.id}`;
+    deduped.set(key, {
+      id: String(g.id),
+      date,
+      startTime: g.startTime,
+      round: g.round ?? (g.week ? `Jornada ${g.week}` : null),
+      homeTeam: String(g.home.id),
+      awayTeam: String(g.away.id),
+      homeScore: g.result.home,
+      awayScore: g.result.away,
+      neutralSite: Boolean(g.neutralSite),
+    });
+  }
+  const matches = [...deduped.values()].sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const payload: SeasonResultsFile = {
+    schemaVersion: 1,
+    league: params.league,
+    season: params.season,
+    updatedAt: params.updatedAt,
+    matches,
+  };
+  const outPath = join(dir, "season-results.json");
+  writeFileAtomic(outPath, JSON.stringify(payload, null, 2) + "\n");
+  return outPath;
 }
 
 export function writeSnapshotFiles(

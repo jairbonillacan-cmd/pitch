@@ -6,6 +6,7 @@ import { badgeFactsFromEntries, computeBadges } from "../src/platform/badges";
 import { ProfileBadgesSection } from "../src/platform/club/badges/ProfileBadges";
 import { buildPlatformDataset } from "../src/platform/match-picks-engine";
 import { PlatformProvider } from "../src/platform/platform-provider";
+import { resolveLeagueStandingsZones } from "../src/platform/club/CoreMatchViews";
 import { PlayerProfileClubView } from "../src/platform/club/team/PlayerProfileClubView";
 import { TeamProfileClubView, type TeamProfileData } from "../src/platform/club/team/TeamProfileClubView";
 
@@ -529,7 +530,8 @@ describe("TeamProfileClubView", () => {
             coach: withPhotos.squad?.coach ?? null,
             player: withPhotos.squad!.players[0]!,
             picksLocked: false,
-            nextFixture: null,
+            lastMatch: BASE_SOCCER.recentMatches[0] ?? null,
+            nextFixture: BASE_SOCCER.upcomingFixtures[0] ?? null,
             teammates: [
               {
                 slug: "jamal-musiala",
@@ -548,9 +550,70 @@ describe("TeamProfileClubView", () => {
 
     expect(playerHtml).toContain("Harry Kane");
     expect(playerHtml).toMatch(/fetchpriority="high"/i);
-    expect(playerHtml).toContain("28/7/1993");
+    expect(playerHtml).toContain("28 de julio de 1993 (33)");
+    expect(playerHtml).toContain("Delantero");
+    expect(playerHtml).toContain("188 cm");
     expect(playerHtml).toContain("Derecho");
+    expect(playerHtml).toContain("Número 9");
+    expect(playerHtml).toContain("Partido anterior");
+    expect(playerHtml).toContain("Partido siguiente");
     expect(playerHtml).toContain("DT: Vincent Kompany");
+    expect(playerHtml).not.toContain("seguidores");
+    expect(playerHtml).not.toContain("Contrato hasta");
+    expect(playerHtml).not.toContain("Sofascore Player ID");
     expect(playerHtml).toContain("https://sports.bzzoiro.com/img/player/2465/");
+  });
+
+  it("resuelve zonas de clasificación reales por liga sin Play-In en Liga MX ni zonas falsas en selecciones", () => {
+    const ligaMx = resolveLeagueStandingsZones("liga-mx", "football", 18);
+    expect(ligaMx).toEqual([
+      { id: "liguilla", label: "Liguilla (Cuartos de final)", tone: "ucl", startRank: 1, endRank: 8 },
+    ]);
+
+    const premier = resolveLeagueStandingsZones("premier-league", "football", 20);
+    expect(premier.map((z) => [z.id, z.startRank, z.endRank])).toEqual([
+      ["ucl", 1, 4],
+      ["uel", 5, 5],
+      ["rel", 18, 20],
+    ]);
+
+    const bundesliga = resolveLeagueStandingsZones("bundesliga", "football", 18);
+    expect(bundesliga.map((z) => [z.id, z.startRank, z.endRank])).toEqual([
+      ["ucl", 1, 4],
+      ["uel", 5, 5],
+      ["uecl", 6, 6],
+      ["playoff-rel", 16, 16],
+      ["rel", 17, 18],
+    ]);
+
+    const ligue1 = resolveLeagueStandingsZones("ligue-1", "football", 18);
+    expect(ligue1.map((z) => [z.id, z.startRank, z.endRank])).toEqual([
+      ["ucl", 1, 3],
+      ["ucl-q", 4, 4],
+      ["uel", 5, 5],
+      ["uecl", 6, 6],
+      ["playoff-rel", 16, 16],
+      ["rel", 17, 18],
+    ]);
+
+    const ucl = resolveLeagueStandingsZones("champions-league", "football", 36);
+    expect(ucl.map((z) => [z.id, z.startRank, z.endRank])).toEqual([
+      ["r16", 1, 8],
+      ["ko", 9, 24],
+      ["out", 25, 36],
+    ]);
+
+    expect(resolveLeagueStandingsZones("nhl", "ice-hockey", 16)).toEqual([
+      { id: "po", label: "Clasificación a Playoffs", tone: "ucl", startRank: 1, endRank: 8 },
+    ]);
+    expect(resolveLeagueStandingsZones("nhl", "ice-hockey", 32)).toEqual([]);
+    expect(resolveLeagueStandingsZones("nba", "basketball", 15).map((z) => z.id)).toEqual(["po", "pi"]);
+    expect(resolveLeagueStandingsZones("nba", "basketball", 30)).toEqual([]);
+    expect(resolveLeagueStandingsZones("nfl", "american-football", 32)).toEqual([]);
+    expect(resolveLeagueStandingsZones("amistosos", "football", 201)).toEqual([]);
+    expect(resolveLeagueStandingsZones("copa-del-mundo", "football", 54)).toEqual([]);
+    expect(resolveLeagueStandingsZones("copa-del-mundo", "football", 4)).toEqual([
+      { id: "qual", label: "Clasificación a fase final", tone: "ucl", startRank: 1, endRank: 2 },
+    ]);
   });
 });

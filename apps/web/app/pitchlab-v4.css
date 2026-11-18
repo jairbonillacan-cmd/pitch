@@ -136,7 +136,7 @@ html[data-theme-switching="true"] *::after {
   padding: 1px;
   pointer-events: none;
   z-index: 2;
-  background: var(--pl-border);
+  background: var(--pl-card-border);
   -webkit-mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
   mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
   -webkit-mask-clip: content-box, border-box;
@@ -149,7 +149,7 @@ html[data-theme-switching="true"] *::after {
 
 .glass-ring--featured::before {
   padding: 1.25px;
-  background: color-mix(in srgb, var(--pl-brand) 48%, var(--pl-border));
+  background: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-card-border));
 }
 
 /* ---------- Superficies 100 % sólidas por capas ----------
@@ -290,7 +290,7 @@ html:has(.panel-header) {
 }
 .pl-astro-league-block {
   background: var(--pl-surface);
-  border-color: var(--pl-border);
+  border-color: var(--pl-card-border);
   box-shadow: var(--pl-card-shadow);
 }
 .pl-astro-league-head {
@@ -301,7 +301,7 @@ html:has(.panel-header) {
 }
 .pl-astro-row {
   background: var(--pl-surface);
-  border-color: var(--pl-border);
+  border-color: var(--pl-card-border);
   box-shadow: none;
 }
 :is(
@@ -610,6 +610,10 @@ dialog.pl-native-dialog .glass-lens {
 .pl-btn-glass:not(.glass-ring),
 .btn-glass:not(.glass-ring) {
   box-shadow: inset 0 0 0 1px var(--pl-border);
+}
+.pl-btn-glass.glass-ring::before,
+.btn-glass.glass-ring::before {
+  background: var(--pl-border);
 }
 .pl-btn-glass:hover,
 .btn-glass:hover {
@@ -1376,7 +1380,7 @@ dialog.pl-native-dialog .glass-lens {
   background: var(--pl-surface);
   border-top: 1px solid var(--pl-row-rule);
   border-bottom: 1px solid var(--pl-border-strong);
-  box-shadow: var(--pl-lens-shadow);
+  box-shadow: var(--pl-overlay-shadow);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -8963,7 +8967,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   border-radius: 28px;
   background: var(--pl-glass-modal);
   border: 1px solid var(--pl-border-strong);
-  box-shadow: var(--pl-lens-shadow);
+  box-shadow: var(--pl-overlay-shadow);
 }
 
 .pin-dialog #beta-pin-modal-title {
@@ -9587,7 +9591,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   background: var(--pl-stage-elevated);
   color: var(--pl-text);
   border: 1px solid var(--pl-border);
-  box-shadow: var(--pl-lens-shadow);
+  box-shadow: var(--pl-overlay-shadow);
   padding: 1.5rem;
   overscroll-behavior: contain;
 }
@@ -10369,8 +10373,11 @@ dialog::backdrop {
   border-radius: 18px;
   padding: 0;
   overflow: visible;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
+}
+.pl-home-board-bar.glass-ring {
+  border: 0;
 }
 
 .pl-home-board-top {
@@ -12164,13 +12171,16 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   transition:
     border-color var(--time-fast) var(--ease-out),
     box-shadow var(--time-fast) var(--ease-out);
 }
+.pl-home-card.glass-ring {
+  border: 0;
+}
 .pl-home-card:hover {
-  border-color: var(--pl-border-strong);
+  border-color: var(--pl-border);
 }
 .pl-home-card:focus-within {
   border-color: color-mix(in srgb, var(--pl-brand) 60%, var(--pl-border));
@@ -16853,12 +16863,16 @@ dialog::backdrop {
 
 .pl-team-main-sheet {
   border-radius: 18px;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   min-width: 0;
+}
+
+.pl-team-main-sheet.glass-ring {
+  border: 0;
 }
 
 .pl-team-main-tabs {
@@ -16869,7 +16883,7 @@ dialog::backdrop {
   gap: 0;
   padding: 0;
   border-radius: 18px 18px 0 0;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
   overflow-x: auto;
   scrollbar-width: none;
@@ -17030,11 +17044,15 @@ dialog::backdrop {
 /* Tarjeta derecha compacta «Partidos» */
 .pl-tmr {
   border-radius: 18px;
-  border: 1px solid var(--pl-border);
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
   overflow: clip;
   display: flex;
   flex-direction: column;
+}
+
+.pl-tmr.glass-ring {
+  border: 0;
 }
 
 .pl-tmr-top {
@@ -17688,7 +17706,7 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
   border-color: var(--pl-clean-edge);
   border-radius: 999px;
   background: var(--pl-glass-nav);
-  box-shadow: var(--pl-lens-shadow);
+  box-shadow: var(--pl-overlay-shadow);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
@@ -18985,59 +19003,16 @@ html[data-theme="light"] .pl-clean-hero-light img {
   color: var(--pl-text-muted);
 }
 
-.pl-st-context-row {
+/* ---------- Tabla de Posiciones limpia con corchetes de zona + Últimas 5 + Reglas y Leyenda ---------- */
+.pl-st-sheet,
+.pl-team-main-sheet .standings-block {
+  margin-top: 0;
+  padding: 10px 18px 16px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.pl-league-standings-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 14px;
-}
-
-.pl-league-split-pills {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px;
-  border-radius: 999px;
-  background: var(--pl-surface-elevated);
-  border: 1px solid var(--pl-border);
-}
-
-.pl-league-split-btn {
-  min-height: 32px;
-  padding: 0 18px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--pl-text-secondary);
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 750;
-  cursor: pointer;
-  transition: background-color 150ms ease, color 150ms ease;
-}
-
-.pl-league-split-btn:hover:not(.is-on) {
-  color: var(--pl-text);
-}
-
-.pl-league-split-btn.is-on {
-  background: var(--pl-text);
-  color: var(--pl-stage-bg);
-}
-
-.pl-league-split-btn:focus-visible {
-  outline: 2px solid var(--pl-brand);
-  outline-offset: 2px;
-}
-
-/* ---------- Tabla de Posiciones con Corchetes de Zona + Últimas 5 + Reglas y Leyenda ---------- */
 [data-zone-tone="ucl"] {
   --st-zone-color: var(--pl-success);
 }
@@ -19045,7 +19020,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
   --st-zone-color: var(--pl-info);
 }
 [data-zone-tone="uecl"] {
-  --st-zone-color: color-mix(in srgb, var(--pl-info) 52%, var(--pl-success));
+  --st-zone-color: color-mix(in oklab, var(--pl-info) 46%, var(--pl-success));
 }
 [data-zone-tone="warn"] {
   --st-zone-color: var(--pl-warning);
@@ -19057,12 +19032,12 @@ html[data-theme="light"] .pl-clean-hero-light img {
 .pl-st-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8125rem;
+  font-size: 0.84rem;
 }
 
 .pl-st-head-row th {
-  padding: 9px 8px;
-  font-size: 0.74rem;
+  padding: 8px 8px 10px;
+  font-size: 0.72rem;
   font-weight: 550;
   color: var(--pl-text-muted);
   white-space: nowrap;
@@ -19080,11 +19055,11 @@ html[data-theme="light"] .pl-clean-hero-light img {
   content: "";
   position: absolute;
   left: 3px;
-  top: 52%;
+  top: 50%;
   bottom: 0;
-  width: 7px;
-  border-left: 2.5px solid var(--st-zone-color);
-  border-top: 2.5px solid var(--st-zone-color);
+  width: 6px;
+  border-left: 2px solid var(--st-zone-color);
+  border-top: 2px solid var(--st-zone-color);
   pointer-events: none;
 }
 
@@ -19102,33 +19077,34 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
 .pl-st-zone-row th {
   position: relative;
-  padding: 12px 8px 6px 16px;
+  padding: 14px 8px 6px 16px;
   text-align: left;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 550;
   color: var(--pl-text-muted);
 }
 
 .pl-st-row td {
-  padding: 8px 8px;
+  padding: 7px 8px;
   vertical-align: middle;
   white-space: nowrap;
 }
 
 .pl-st-row.is-leader {
-  background: color-mix(in srgb, var(--pl-text) 2.6%, transparent);
+  background: color-mix(in oklab, var(--pl-text) 3.4%, transparent);
 }
 
 .pl-st-row:hover {
-  background: color-mix(in srgb, var(--pl-text) 3.4%, transparent);
+  background: color-mix(in oklab, var(--pl-text) 4.2%, transparent);
 }
 
 .pl-st-rank-cell {
   position: relative;
   width: 34px;
-  padding-inline-start: 15px !important;
+  padding-inline-start: 16px !important;
   padding-inline-end: 4px !important;
-  font-weight: 750;
+  font-size: 0.8125rem;
+  font-weight: 700;
   color: var(--pl-text);
 }
 
@@ -19138,18 +19114,18 @@ html[data-theme="light"] .pl-clean-hero-light img {
   left: 3px;
   top: 0;
   bottom: 0;
-  width: 7px;
-  border-left: 2.5px solid var(--st-zone-color);
+  width: 6px;
+  border-left: 2px solid var(--st-zone-color);
   pointer-events: none;
 }
 
 .pl-st-row[data-zone-tone][data-zone-end="true"] .pl-st-rank-cell::before {
-  bottom: 6px;
-  border-bottom: 2.5px solid var(--st-zone-color);
+  bottom: 5px;
+  border-bottom: 2px solid var(--st-zone-color);
 }
 
 .pl-st-team-cell {
-  min-width: 150px;
+  min-width: 152px;
 }
 
 .pl-st-team-link {
@@ -19157,7 +19133,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
   align-items: center;
   gap: 10px;
   min-height: 36px;
-  font-weight: 600;
+  font-weight: 550;
   color: var(--pl-text);
   text-decoration: none;
   max-width: 100%;
@@ -19166,12 +19142,12 @@ html[data-theme="light"] .pl-clean-hero-light img {
 .pl-st-num-cell {
   text-align: right;
   color: var(--pl-text);
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .pl-st-pts-cell {
   text-align: right;
-  font-weight: 800;
+  font-weight: 750;
   color: var(--pl-text);
 }
 
@@ -19184,9 +19160,9 @@ html[data-theme="light"] .pl-clean-hero-light img {
   align-items: center;
   gap: 1px;
   height: 20px;
-  padding-right: 11px;
+  padding-right: 12px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--pl-text) 8%, var(--pl-surface-elevated));
+  background: color-mix(in oklab, var(--pl-text) 6%, var(--pl-surface-elevated));
   overflow: hidden;
   vertical-align: middle;
 }
@@ -19208,19 +19184,20 @@ html[data-theme="light"] .pl-clean-hero-light img {
 }
 
 .pl-st-form-seg.is-E {
-  background: color-mix(in srgb, var(--pl-text-muted) 72%, var(--pl-surface));
+  background: color-mix(in oklab, var(--pl-text-muted) 72%, var(--pl-surface));
 }
 
 .pl-st-form-seg.is-P {
   background: var(--pl-danger);
 }
 
-/* Bloque colapsable «Reglas y leyenda» debajo de la tabla */
+/* Bloque editorial plano «Reglas y leyenda» (sin caja anidada) */
 .pl-st-legend {
-  margin-top: 10px;
-  border-radius: 14px;
-  background: var(--pl-surface-elevated);
-  border: 1px solid var(--pl-row-rule);
+  margin-top: 8px;
+  border: 0;
+  border-top: 1px solid var(--pl-row-rule);
+  border-radius: 0;
+  background: transparent;
   overflow: hidden;
 }
 
@@ -19230,9 +19207,9 @@ html[data-theme="light"] .pl-clean-hero-light img {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 13px 16px;
+  padding: 14px 2px 10px;
   font-size: 0.875rem;
-  font-weight: 800;
+  font-weight: 750;
   color: var(--pl-text);
   cursor: pointer;
   user-select: none;
@@ -19243,6 +19220,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
 }
 
 .pl-st-legend-chev {
+  color: var(--pl-text-muted);
   transition: transform 170ms ease;
 }
 
@@ -19251,11 +19229,11 @@ html[data-theme="light"] .pl-clean-hero-light img {
 }
 
 .pl-st-legend-body {
-  padding: 2px 16px 16px;
+  padding: 2px 2px 8px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-size: 0.76rem;
+  font-size: 0.77rem;
 }
 
 .pl-st-legend-zones {
@@ -19263,16 +19241,16 @@ html[data-theme="light"] .pl-clean-hero-light img {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 7px;
-  color: var(--pl-text-muted);
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: var(--pl-text-secondary);
   font-weight: 550;
 }
 
 .pl-st-legend-zones li {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
 }
 
 .pl-st-legend-zones li i {
@@ -19287,8 +19265,8 @@ html[data-theme="light"] .pl-clean-hero-light img {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  color: var(--pl-text);
-  line-height: 1.45;
+  color: var(--pl-text-secondary);
+  line-height: 1.48;
 }
 
 .pl-st-legend-rules p,
@@ -19325,7 +19303,140 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
 .pl-st-legend-glossary dd {
   margin: 0;
+  color: var(--pl-text-secondary);
+}
+
+/* ---------- Hero editorial de Perfil de Jugador ---------- */
+.pl-player-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.pl-player-hero-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-width: 0;
+}
+
+@media (min-width: 1040px) {
+  .pl-player-hero-top.has-matches {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    gap: 24px;
+  }
+}
+
+.pl-player-hero-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+@media (max-width: 479px) {
+  .pl-player-hero-identity {
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+.pl-player-hero-avatar {
+  flex-shrink: 0;
+}
+
+.pl-player-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.pl-player-hero-title {
+  margin: 0;
+  font-size: clamp(1.375rem, 1.15rem + 1vw, 1.9rem);
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
   color: var(--pl-text);
+}
+
+.pl-player-hero-club {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.pl-player-hero-club-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+  transition: opacity var(--time-fast) ease;
+}
+
+.pl-player-hero-club-link:hover strong {
+  color: var(--pl-brand);
+}
+
+.pl-player-hero-club-link:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.pl-player-hero-club-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pl-player-hero-club-copy strong {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--pl-text);
+  transition: color var(--time-fast) ease;
+}
+
+.pl-player-hero-club-copy small {
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--pl-text-muted);
+}
+
+.pl-player-bio-strip {
+  list-style: none;
+  margin: 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--pl-row-rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+}
+
+.pl-player-bio-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.83rem;
+  font-weight: 550;
+  color: var(--pl-text-secondary);
+  line-height: 1.3;
+}
+
+.pl-player-bio-icon {
+  color: var(--pl-text-muted);
+  flex-shrink: 0;
 }
 
 /* Tarjeta derecha compacta «Destacado» en Hub de Liga */
@@ -19950,8 +20061,9 @@ html[data-theme="dark"] .pl-sq-jersey {
 }
 
 @media (max-width: 639px) {
-  .standings-block {
-    padding: 14px 12px !important;
+  .pl-st-sheet,
+  .pl-team-main-sheet .standings-block {
+    padding: 8px 12px 14px;
   }
 
   .pl-st-team-cell {
@@ -19961,7 +20073,11 @@ html[data-theme="dark"] .pl-sq-jersey {
 
   .pl-st-head-row th,
   .pl-st-row td {
-    padding: 8px 6px;
+    padding: 7px 6px;
+  }
+
+  .pl-player-bio-strip {
+    gap: 8px 16px;
   }
 
   .pl-sq-sheet,
@@ -19971,7 +20087,6 @@ html[data-theme="dark"] .pl-sq-jersey {
 }
 
 @media (max-width: 639px), (pointer: coarse) {
-  .pl-league-split-btn,
   .pl-league-featured-cta,
   .pl-st-team-link,
   .pl-tmr-seg-btn,

@@ -75,20 +75,18 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     await page.goto("/app/liga-mx");
     await assertNoHorizontalOverflow(page);
 
-    // Verificar tabla de Clasificaciones renovada con corchetes de zona, filtros >= 44px en móvil y leyenda
+    // Verificar tabla de Clasificación limpia (sin Local/Visitante ni Play-In en Liga MX) y leyenda
     const tabTabla = page.locator("#pl-league-tab-tabla");
     if ((await tabTabla.count()) > 0) {
       await tabTabla.click();
       await expect(tabTabla).toHaveAttribute("aria-selected", "true");
-      const splitBtns = page.locator(".pl-league-split-btn:visible");
-      expect(await splitBtns.count()).toBe(3);
-      if (vp === "375px") {
-        const splitHeights = await splitBtns.evaluateAll((els) =>
-          els.map((el) => Math.round(el.getBoundingClientRect().height)),
-        );
-        for (const h of splitHeights) {
-          expect(h).toBeGreaterThanOrEqual(44);
-        }
+      await expect(page.locator(".pl-league-split-btn")).toHaveCount(0);
+      const stTable = page.locator(".pl-st-table");
+      await expect(stTable).toBeVisible();
+      await expect(stTable).toContainText("Liguilla");
+      await expect(stTable).not.toContainText("Play-In");
+      if (vp === "desktop") {
+        await expect(stTable.locator(".pl-st-form-pill")).toHaveCount(18);
       }
       await expect(page.locator(".pl-st-legend")).toBeVisible();
       await assertNoHorizontalOverflow(page);

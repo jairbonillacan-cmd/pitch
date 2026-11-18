@@ -293,7 +293,7 @@ interface StandingsZoneDef {
   endRank: number;
 }
 
-function resolveLeagueStandingsZones(
+export function resolveLeagueStandingsZones(
   league: string,
   sport: string,
   totalTeams: number,
@@ -337,7 +337,25 @@ function resolveLeagueStandingsZones(
     ]);
   }
 
-  if (league === "premier-league" || league === "laliga" || league === "la-liga" || league === "serie-a") {
+  if (league === "premier-league") {
+    return clamp([
+      { id: "ucl", label: "Liga de Campeones", tone: "ucl", startRank: 1, endRank: 4 },
+      { id: "uel", label: "UEFA Europa League", tone: "uel", startRank: 5, endRank: 5 },
+      ...(totalTeams >= 18
+        ? [
+            {
+              id: "rel",
+              label: "Descenso",
+              tone: "rel" as const,
+              startRank: totalTeams - 2,
+              endRank: totalTeams,
+            },
+          ]
+        : []),
+    ]);
+  }
+
+  if (league === "laliga" || league === "la-liga" || league === "serie-a") {
     return clamp([
       { id: "ucl", label: "Liga de Campeones", tone: "ucl", startRank: 1, endRank: 4 },
       { id: "uel", label: "UEFA Europa League", tone: "uel", startRank: 5, endRank: 5 },
@@ -402,13 +420,13 @@ function resolveLeagueStandingsZones(
   }
 
   if (league === "liga-mx") {
+    // Desde Apertura 2026 se eliminó el Play-In: los 8 primeros pasan directo a Liguilla (Cuartos de final).
     return clamp([
-      { id: "liguilla", label: "Liguilla directa", tone: "ucl", startRank: 1, endRank: 6 },
-      { id: "playin", label: "Play-In", tone: "warn", startRank: 7, endRank: 10 },
+      { id: "liguilla", label: "Liguilla (Cuartos de final)", tone: "ucl", startRank: 1, endRank: 8 },
     ]);
   }
 
-  if (league === "champions-league") {
+  if (league === "champions-league" || league === "europa-league") {
     return clamp([
       { id: "r16", label: "Octavos de final", tone: "ucl", startRank: 1, endRank: 8 },
       { id: "ko", label: "Playoffs eliminatorios", tone: "uel", startRank: 9, endRank: 24 },
@@ -418,24 +436,126 @@ function resolveLeagueStandingsZones(
     ]);
   }
 
-  if (sport === "basketball" || sport === "ice-hockey") {
+  if (sport === "basketball") {
+    if (totalTeams > 16) return [];
     return clamp([
       { id: "po", label: "Playoffs directos", tone: "ucl", startRank: 1, endRank: 6 },
       ...(totalTeams >= 10
-        ? [{ id: "pi", label: "Play-In / Comodín", tone: "warn" as const, startRank: 7, endRank: 10 }]
+        ? [{ id: "pi", label: "Torneo Play-In", tone: "warn" as const, startRank: 7, endRank: 10 }]
         : []),
     ]);
   }
 
+  if (sport === "ice-hockey") {
+    if (totalTeams > 16) return [];
+    return clamp([
+      { id: "po", label: "Clasificación a Playoffs", tone: "ucl", startRank: 1, endRank: 8 },
+    ]);
+  }
+
   if (sport === "american-football") {
+    if (totalTeams > 16) return [];
     return clamp([
       { id: "po", label: "Clasificación a Playoffs", tone: "ucl", startRank: 1, endRank: Math.min(7, totalTeams) },
     ]);
   }
 
-  return clamp([
-    { id: "qual", label: "Fase final", tone: "ucl", startRank: 1, endRank: Math.min(2, totalTeams) },
-  ]);
+  if (league === "amistosos" || isNationalCompetition(league)) {
+    // En torneos de selecciones con tabla general combinada (> 6 equipos) o amistosos no se asigna zona de grupo único.
+    if (league === "amistosos" || totalTeams > 6) return [];
+    return clamp([
+      { id: "qual", label: "Clasificación a fase final", tone: "ucl", startRank: 1, endRank: Math.min(2, totalTeams) },
+    ]);
+  }
+
+  return [];
+}
+
+function resolveLeagueTieBreakers(
+  league: string,
+  sport: string,
+  scoringPlural: string,
+): { intro: string; items: string[] } {
+  const unitCap = scoringPlural.charAt(0).toUpperCase() + scoringPlural.slice(1);
+  if (league === "amistosos") {
+    return {
+      intro: "Tabla acumulada de resultados en encuentros internacionales amistosos (sin plazas eliminatorias):",
+      items: [`Diferencia de ${scoringPlural}`, `${unitCap} a favor`],
+    };
+  }
+  if (league === "liga-mx") {
+    return {
+      intro: "Los 8 mejores clasifican directo a Cuartos de final de la Liguilla (sin Play-In ni descenso). Criterios de desempate:",
+      items: [
+        "Diferencia de goles",
+        "Goles a favor",
+        "Goles anotados como visitante",
+        "Enfrentamiento directo",
+      ],
+    };
+  }
+  if (league === "laliga" || league === "la-liga") {
+    return {
+      intro: "Si dos o más clubes empatan en puntos al final de la temporada, los criterios de desempate son:",
+      items: [
+        "Enfrentamiento directo (puntos y diferencia de goles entre los implicados)",
+        "Diferencia de goles general",
+        "Goles a favor",
+      ],
+    };
+  }
+  if (league === "serie-a") {
+    return {
+      intro: "En caso de empate en puntos (el título y el descenso se definen por partido de desempate cuando hay igualdad entre dos equipos):",
+      items: [
+        "Enfrentamiento directo (puntos y diferencia de goles)",
+        "Diferencia de goles general",
+        "Goles a favor",
+      ],
+    };
+  }
+  if (league === "premier-league") {
+    return {
+      intro: "En caso de empate en puntos (las plazas europeas adicionales dependen de las copas nacionales):",
+      items: ["Diferencia de goles", "Goles a favor", "Enfrentamiento directo"],
+    };
+  }
+  if (league === "bundesliga" || league === "ligue-1") {
+    return {
+      intro: "Si dos equipos terminan igualados en puntos, los criterios de desempate son:",
+      items: ["Diferencia de goles", "Goles a favor", "Enfrentamiento directo"],
+    };
+  }
+  if (league === "champions-league" || league === "europa-league") {
+    return {
+      intro: "En la fase de liga (36 clubes, 8 jornadas), el desempate sigue el reglamento UEFA:",
+      items: ["Diferencia de goles", "Goles a favor", "Goles como visitante", "Número de victorias"],
+    };
+  }
+  if (sport === "ice-hockey") {
+    return {
+      intro: "Criterios de desempate en temporada regular NHL:",
+      items: [
+        "Victorias en tiempo reglamentario (RW)",
+        "Victorias en tiempo reglamentario y tiempo extra (ROW)",
+        "Diferencia de goles",
+      ],
+    };
+  }
+  if (sport === "basketball" || sport === "american-football") {
+    return {
+      intro: "Criterios principales de desempate en clasificación:",
+      items: [
+        "Porcentaje de victorias",
+        "Enfrentamiento directo",
+        `Diferencia de ${scoringPlural}`,
+      ],
+    };
+  }
+  return {
+    intro: "Si dos selecciones o equipos están empatados en la clasificación, se utilizan los siguientes criterios de desempate:",
+    items: [`Diferencia de ${scoringPlural}`, `${unitCap} a favor`, "Enfrentamiento directo"],
+  };
 }
 
 export function LeagueHubClubView({
@@ -469,7 +589,6 @@ export function LeagueHubClubView({
 
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [section, setSection] = useState<LeagueHubSectionKey>(defaultSection);
-  const [standingsSplit, setStandingsSplit] = useState<"all" | "home" | "away">("all");
   const [teamQuery, setTeamQuery] = useState<string>("");
   const [newsCategory, setNewsCategory] = useState<LeagueNewsCategory | "all">("all");
   const [selectedNewsItem, setSelectedNewsItem] = useState<LeagueNewsItem | null>(null);
@@ -712,14 +831,19 @@ export function LeagueHubClubView({
       const avgPlayed =
         leagueSummary.standings.reduce((acc, s) => acc + s.played, 0) /
         leagueSummary.standings.length;
+      const leagueKey = String(leagueSummary.league);
       const targetRounds =
         leagueSport === "american-football"
           ? 17
           : leagueSport === "basketball" || leagueSport === "ice-hockey"
             ? 82
-            : leagueSummary.league === "liga-mx"
+            : leagueKey === "liga-mx"
               ? 17
-              : Math.max(10, (leagueSummary.standings.length - 1) * 2);
+              : leagueKey === "champions-league" || leagueKey === "europa-league"
+                ? 8
+                : isNational
+                  ? Math.max(6, Math.ceil(avgPlayed))
+                  : Math.max(10, (leagueSummary.standings.length - 1) * 2);
       pct = Math.max(6, Math.min(100, Math.round((avgPlayed / targetRounds) * 100)));
     } else if (leagueSummary.totalGames > 0) {
       pct = Math.max(
@@ -728,9 +852,9 @@ export function LeagueHubClubView({
       );
     }
     return { startLabel, endLabel, pct };
-  }, [leagueGames, leagueSport, leagueSummary]);
+  }, [isNational, leagueGames, leagueSport, leagueSummary]);
 
-  // Tabla filtrada por Todos / Local / Visitante + racha reciente por club
+  // Racha reciente por club para la columna Últimas 5
   const recentFormBySlug = useMemo(() => {
     const map = new Map<string, Array<"G" | "E" | "P">>();
     const ftSorted = [...leagueGames]
@@ -751,125 +875,33 @@ export function LeagueHubClubView({
     const slugOf = (teamId: string) =>
       teamId.includes(".") ? teamId.split(".").slice(1).join(".") : teamId;
 
-    if (standingsSplit === "all") {
-      return leagueSummary.standings.map((row) => {
-        const slug = slugOf(row.teamId);
-        const serverForm = standingsMeta?.formBySlug[slug];
-        return {
-          ...row,
-          slug,
-          form:
-            serverForm && serverForm.length > 0
-              ? [...serverForm]
-              : (recentFormBySlug.get(slug) ?? []),
-        };
-      });
-    }
-
-    const serverSplitMap =
-      standingsSplit === "home" ? standingsMeta?.homeBySlug : standingsMeta?.awayBySlug;
-
-    if (serverSplitMap && Object.keys(serverSplitMap).length > 0) {
-      return leagueSummary.standings
-        .map((row) => {
-          const slug = slugOf(row.teamId);
-          const sp = serverSplitMap[slug];
-          return {
-            teamId: row.teamId,
-            slug,
-            name: row.name,
-            shortName: row.shortName,
-            logoUrl: row.logoUrl,
-            played: sp?.played ?? 0,
-            won: sp?.won ?? 0,
-            drawn: sp?.drawn ?? 0,
-            lost: sp?.lost ?? 0,
-            goalsFor: sp?.goalsFor ?? 0,
-            goalsAgainst: sp?.goalsAgainst ?? 0,
-            points: sp?.points ?? 0,
-            form: sp?.form ? [...sp.form] : (recentFormBySlug.get(slug) ?? []),
-          };
-        })
-        .sort(
-          (a, b) =>
-            b.points - a.points ||
-            b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst) ||
-            b.goalsFor - a.goalsFor ||
-            a.name.localeCompare(b.name, "es"),
-        );
-    }
-
-    const acc = new Map<
-      string,
-      {
-        teamId: string;
-        slug: string;
-        name: string;
-        shortName?: string;
-        logoUrl?: string;
-        played: number;
-        won: number;
-        drawn: number;
-        lost: number;
-        goalsFor: number;
-        goalsAgainst: number;
-        points: number;
-      }
-    >();
-    for (const row of leagueSummary.standings) {
+    return leagueSummary.standings.map((row) => {
       const slug = slugOf(row.teamId);
-      acc.set(slug, {
-        teamId: row.teamId,
+      const serverForm = standingsMeta?.formBySlug[slug];
+      const rowForm: Array<"G" | "E" | "P"> = Array.isArray(row.form)
+        ? row.form.map((t) => (t === "W" ? "G" : t === "L" ? "P" : "E"))
+        : [];
+      return {
+        ...row,
         slug,
-        name: row.name,
-        shortName: row.shortName,
-        logoUrl: row.logoUrl,
-        played: 0,
-        won: 0,
-        drawn: 0,
-        lost: 0,
-        goalsFor: 0,
-        goalsAgainst: 0,
-        points: 0,
-      });
-    }
-    for (const g of leagueGames) {
-      if (g.status !== "FT" || !g.score) continue;
-      const side = standingsSplit === "home" ? g.home : g.away;
-      const gf = standingsSplit === "home" ? g.score.home : g.score.away;
-      const ga = standingsSplit === "home" ? g.score.away : g.score.home;
-      const item = acc.get(side.slug);
-      if (!item) continue;
-      item.played += 1;
-      item.goalsFor += gf;
-      item.goalsAgainst += ga;
-      if (gf > ga) {
-        item.won += 1;
-        item.points += hasDraw ? 3 : 2;
-      } else if (gf === ga) {
-        item.drawn += 1;
-        item.points += 1;
-      } else {
-        item.lost += 1;
-      }
-    }
-    return [...acc.values()]
-      .sort(
-        (a, b) =>
-          b.points - a.points ||
-          b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst) ||
-          b.goalsFor - a.goalsFor ||
-          a.name.localeCompare(b.name, "es"),
-      )
-      .map((r) => ({ ...r, form: recentFormBySlug.get(r.slug) ?? [] }));
-  }, [hasDraw, leagueGames, leagueSummary.standings, recentFormBySlug, standingsMeta, standingsSplit]);
+        form:
+          serverForm && serverForm.length > 0
+            ? [...serverForm]
+            : rowForm.length > 0
+              ? rowForm
+              : (recentFormBySlug.get(slug) ?? []),
+      };
+    });
+  }, [leagueSummary.standings, recentFormBySlug, standingsMeta]);
 
   const standingsZones = useMemo(
-    () =>
-      standingsSplit === "all"
-        ? resolveLeagueStandingsZones(leagueSummary.league, leagueSport, displayedStandings.length)
-        : [],
-    [displayedStandings.length, leagueSport, leagueSummary.league, standingsSplit],
+    () => resolveLeagueStandingsZones(leagueSummary.league, leagueSport, displayedStandings.length),
+    [displayedStandings.length, leagueSport, leagueSummary.league],
+  );
+
+  const standingsTieBreakers = useMemo(
+    () => resolveLeagueTieBreakers(leagueSummary.league, leagueSport, scoringUnit.plural),
+    [leagueSport, leagueSummary.league, scoringUnit.plural],
   );
 
   // Partido destacado para la columna derecha compacta (en vivo primero, luego próximo estelar, luego FT)
@@ -1128,49 +1160,7 @@ export function LeagueHubClubView({
             >
               <div className="pl-match-panel-body">
                 {leagueSummary.standings.length > 0 ? (
-                  <section className="standings-block glass-card glass-ring rounded-2xl p-5 space-y-4">
-                    {dataset.leagues.length > 1 ? (
-                      <div className="pl-st-context-row">
-                        <PlLeagueSelect
-                          leagues={dataset.leagues}
-                          value={leagueSummary.league}
-                          onChange={(next) => {
-                            navigateTo(next === "all" ? "/app" : `/app/${next}`);
-                          }}
-                          allLabel="Todas las ligas (Hoy)"
-                          ariaLabel="Cambiar competición"
-                          size="sm"
-                        />
-                        {leagueSummary.season ? (
-                          <span className="pl-league-season-chip num">{leagueSummary.season}</span>
-                        ) : null}
-                      </div>
-                    ) : null}
-
-                    <div className="pl-league-standings-toolbar">
-                      <div
-                        className="pl-league-split-pills"
-                        role="group"
-                        aria-label="Filtrar clasificación por condición"
-                      >
-                        {([
-                          { id: "all", label: "Todos" },
-                          { id: "home", label: "Local" },
-                          { id: "away", label: "Visitante" },
-                        ] as const).map((opt) => (
-                          <button
-                            key={opt.id}
-                            type="button"
-                            className={`pl-league-split-btn ${standingsSplit === opt.id ? "is-on" : ""}`.trim()}
-                            aria-pressed={standingsSplit === opt.id}
-                            onClick={() => setStandingsSplit(opt.id)}
-                          >
-                            {opt.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
+                  <section className="standings-block pl-st-sheet">
                     {(() => {
                       const firstZone = standingsZones.find((z) => z.startRank === 1) ?? null;
                       const goalsColCode =
@@ -1344,13 +1334,13 @@ export function LeagueHubClubView({
                               ) : null}
 
                               <div className="pl-st-legend-rules">
-                                <p>
-                                  Si dos equipos están empatados en la clasificación, se utilizan los
-                                  siguientes criterios de desempate:
-                                </p>
+                                <p>{standingsTieBreakers.intro}</p>
                                 <ol>
-                                  <li>1. Diferencia de {scoringUnit.plural}</li>
-                                  <li>2. {scoringUnit.plural.charAt(0).toUpperCase() + scoringUnit.plural.slice(1)} a favor</li>
+                                  {standingsTieBreakers.items.map((item, idx) => (
+                                    <li key={item}>
+                                      {idx + 1}. {item}
+                                    </li>
+                                  ))}
                                 </ol>
                               </div>
 
