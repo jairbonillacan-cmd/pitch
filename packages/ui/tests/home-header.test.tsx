@@ -195,11 +195,11 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(leagueIdx).toBeGreaterThan(sportIdx);
     expect(dayIdx).toBeGreaterThan(leagueIdx);
 
-    // Iconos WebP + PNG de 32 px y MLB deshabilitado con «Pronto»
-    expect(html).toContain("/sports/american-football.webp");
-    expect(html).toContain("/sports/basketball.png");
-    expect(html).toContain("/sports/hockey.webp");
-    expect(html).toContain("/sports/baseball.png");
+    // Iconos WebP 1x/2x del paquete oficial de deportes y MLB deshabilitado con «Pronto»
+    expect(html).toContain("/icons/32/deportes/american-football.webp");
+    expect(html).toContain("/icons/64/deportes/basketball.webp");
+    expect(html).toContain("/icons/32/deportes/hockey.webp");
+    expect(html).toContain("/icons/32/deportes/baseball.webp");
     expect(html).toContain("Pronto");
     expect(html).toContain('data-sport-filter="mlb"');
     expect(html).toMatch(/disabled=""[^>]*data-sport-filter="mlb"|data-sport-filter="mlb"[^>]*disabled=""/);
@@ -219,8 +219,9 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     const earlyChipIdx = html.indexOf('data-match-chip="nfl-early"');
     expect(liveChipIdx).toBeGreaterThan(-1);
     expect(earlyChipIdx).toBeGreaterThan(liveChipIdx);
-    expect(html).toContain("Vivo");
-    expect(html).toContain("28–3");
+    expect(html).toContain("pl-home-live-sport");
+    expect(html).toContain("Q3&#x27;");
+    expect(html).toContain("28 - 3");
     expect(html).not.toContain("tipstar");
   });
 
@@ -310,6 +311,16 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     );
 
     expect(html).toContain("pl-astro-league-block");
+    expect(html).toContain('data-home-board-bar=""');
+    expect(html).toContain("Favoritos");
+    expect(html).toContain("Competiciones");
+    expect(html).toContain("En Vivo (1)");
+    expect(html).toContain("Finalizado");
+    expect(html).toContain("Próximo");
+    expect(html).toContain("Filtros");
+    expect(html).toContain("Momios");
+    expect(html).toContain("pl-league-link");
+    expect(html).toContain("pl-team-link");
     expect(html).toContain('data-game-card="nfl-live"');
     expect(html).toContain("pl-home-card-live");
     expect(html).toContain("Q3&#x27;");

@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 function resolveTab(raw: string | string[] | undefined): TeamProfileTab {
   const val = Array.isArray(raw) ? raw[0] : raw;
+  if (val === "estadisticas") return "estadisticas";
   if (val === "partidos") return "partidos";
   if (val === "plantilla") return "plantilla";
   return "resumen";

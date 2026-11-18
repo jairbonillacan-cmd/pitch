@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   formatOddsCaptureEs,
   isLivePhaseActive,
@@ -10,6 +10,7 @@ import {
   type LiveScoreboard,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
+import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../../access-guard";
 import { formatKickoffByTimezone } from "../account/account-helpers";
@@ -23,6 +24,8 @@ import {
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { useLiveScoreboard } from "../../live/live-store";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { teamTopicKey, useFollowedTopics } from "../community-ui";
 import {
   useHomeNavFilter,
   useIsPickInParlay,
@@ -95,7 +98,82 @@ function teamCode(team: PlatformGame["home"]): string {
   return team.shortName.slice(0, 3).toUpperCase();
 }
 
+function formatLiveChipPhase(entry?: LiveScoreboardEntry): string {
+  if (!entry) return "En vivo";
+  if (entry.phase === "halftime") return "Descanso";
+  if (entry.phase === "penalties") return "Penales";
+  const clk = entry.clock?.trim();
+  if (clk) {
+    return clk.endsWith("'") ? clk : `${clk}'`;
+  }
+  return "En vivo";
+}
+
+function LiveSportBallIcon({ sport }: { sport: PlatformGame["sport"] }): React.JSX.Element {
+  const iconBase = usePackIconBase();
+  const key =
+    sport === "basketball"
+      ? "basketball"
+      : sport === "american-football"
+        ? "american-football"
+        : sport === "ice-hockey"
+          ? "hockey"
+          : "football";
+  return (
+    <img
+      src={`${iconBase}/32/deportes/${key}.webp`}
+      srcSet={`${iconBase}/32/deportes/${key}.webp 1x, ${iconBase}/64/deportes/${key}.webp 2x`}
+      width={16}
+      height={16}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+      draggable={false}
+      className="pl-maestro-icon inline-block shrink-0"
+    />
+  );
+}
+
 const SHORT_MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"] as const;
+const FULL_MONTHS_ES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+] as const;
+const CAL_WEEKDAYS_ES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"] as const;
+
+function parseIsoYearMonth(isoDay: string): { year: number; monthIndex: number } {
+  const m = /^(\d{4})-(\d{2})/.exec(isoDay);
+  if (!m) return { year: 2026, monthIndex: 10 };
+  return {
+    year: Number(m[1]),
+    monthIndex: Math.max(0, Math.min(11, Number(m[2]) - 1)),
+  };
+}
+
+function buildCalendarMonthCells(year: number, monthIndex: number): Array<{ dayNum: number; iso: string } | null> {
+  const firstDow = new Date(Date.UTC(year, monthIndex, 1)).getUTCDay();
+  const daysInMonth = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+  const mm = String(monthIndex + 1).padStart(2, "0");
+  const cells: Array<{ dayNum: number; iso: string } | null> = [];
+  for (let i = 0; i < firstDow; i += 1) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d += 1) {
+    cells.push({
+      dayNum: d,
+      iso: `${year}-${mm}-${String(d).padStart(2, "0")}`,
+    });
+  }
+  return cells;
+}
 
 function formatCenterDayParts(day: string, today: string): { top: string; sub: string } {
   const shortLabel = `${shortWeekday(day).toLowerCase()} ${dayNumber(day)}`;
@@ -198,7 +276,7 @@ export function HomeFilterHeader({
         const entry = liveByGameId.get(game.id);
         const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
         const score = entry?.score ?? game.score ?? null;
-        return { game, live, score };
+        return { game, live, score, entry };
       })
       .sort((a, b) => {
         if (a.live !== b.live) return a.live ? -1 : 1;
@@ -212,13 +290,15 @@ export function HomeFilterHeader({
       (opt) => opt.key > day && filterGames(gamesForSelection(allGames, opt.key, today), sport, league).length > 0,
     );
     if (futureFiltered) return { dayId: futureFiltered.key, resetFilters: false };
+    const anyFiltered = [...dayOptions]
+      .reverse()
+      .find(
+        (opt) => opt.key !== day && filterGames(gamesForSelection(allGames, opt.key, today), sport, league).length > 0,
+      );
+    if (anyFiltered) return { dayId: anyFiltered.key, resetFilters: false };
     const futureAny = dayOptions.find((opt) => opt.key > day && opt.count > 0);
     if (futureAny) return { dayId: futureAny.key, resetFilters: true };
-    const anyFiltered = dayOptions.find(
-      (opt) => opt.key !== day && filterGames(gamesForSelection(allGames, opt.key, today), sport, league).length > 0,
-    );
-    if (anyFiltered) return { dayId: anyFiltered.key, resetFilters: false };
-    const anyDay = dayOptions.find((opt) => opt.key !== day && opt.count > 0);
+    const anyDay = [...dayOptions].reverse().find((opt) => opt.key !== day && opt.count > 0);
     return anyDay ? { dayId: anyDay.key, resetFilters: true } : null;
   }, [orderedChips.length, dayOptions, day, allGames, today, sport, league]);
 
@@ -399,11 +479,12 @@ export function HomeFilterHeader({
                 data-day-chips=""
                 onScroll={syncChipsScroll}
               >
-                {orderedChips.map(({ game, live, score }) => {
+                {orderedChips.map(({ game, live, score, entry }) => {
                   const homeCode = teamCode(game.home);
                   const awayCode = teamCode(game.away);
                   const time = formatGameKickoffTime(game, userTimezone);
-                  const scoreText = score ? `${score.home}–${score.away}` : null;
+                  const scoreText = score ? `${score.home} - ${score.away}` : null;
+                  const livePhaseLabel = formatLiveChipPhase(entry);
                   return (
                     <button
                       key={game.id}
@@ -412,34 +493,35 @@ export function HomeFilterHeader({
                       data-match-chip={game.id}
                       data-chip-league={game.league}
                       data-chip-live={live ? "true" : undefined}
-                      aria-label={`${live ? "En vivo" : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
+                      aria-label={`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
                       onClick={() => scrollToMatchCard(game.id)}
                     >
                       {live ? (
                         <>
+                          <span className="pl-home-live-sport" aria-hidden="true">
+                            <LiveSportBallIcon sport={game.sport} />
+                          </span>
                           <span className="pl-home-live-tag">
                             <span className="pl-home-live-dot" aria-hidden="true" />
-                            <span>Vivo</span>
+                            <span>{livePhaseLabel}</span>
                           </span>
-                          <span className="pl-home-chip-team">
+                          <span className="pl-home-live-matchup">
                             <TeamBadge
                               league={game.league}
                               slug={game.home.slug}
                               name={game.home.name}
                               logoUrl={game.home.logoUrl}
-                              size={18}
+                              size={20}
                             />
-                            <span>{homeCode}</span>
-                          </span>
-                          <span className="pl-home-chip-score num">{scoreText ?? "vs"}</span>
-                          <span className="pl-home-chip-team">
-                            <span>{awayCode}</span>
+                            <span className="pl-home-chip-score is-live num">
+                              {scoreText ?? "0 - 0"}
+                            </span>
                             <TeamBadge
                               league={game.league}
                               slug={game.away.slug}
                               name={game.away.name}
                               logoUrl={game.away.logoUrl}
-                              size={18}
+                              size={20}
                             />
                           </span>
                         </>
@@ -522,22 +604,58 @@ const LEAGUE_REGION_LABELS: Readonly<Record<string, string>> = {
   "serie-a": "Italia",
   "ligue-1": "Francia",
   "champions-league": "Europa",
+  "fifa-world-cup": "Internacional",
+  "world-cup-qualifiers": "Internacional",
+  "fifa-friendlies": "Internacional",
+  "copa-america": "Sudamérica",
+  "uefa-euro": "Europa",
+  "uefa-nations-league": "Europa",
+  "concacaf-nations-league": "Norte y Centroamérica",
+  "concacaf-gold-cup": "Norte y Centroamérica",
+  afcon: "África",
+  "afc-asian-cup": "Asia",
 };
 
-type MatchStatusFilter = "all" | "live" | "upcoming" | "finished" | "ai";
+const ALL_KNOWN_COUNTRIES: readonly string[] = [
+  "México",
+  "Inglaterra",
+  "España",
+  "Alemania",
+  "Italia",
+  "Francia",
+  "Estados Unidos",
+  "Estados Unidos y Canadá",
+  "Europa",
+  "Sudamérica",
+  "Norte y Centroamérica",
+  "África",
+  "Asia",
+  "Internacional",
+];
+
+type MatchStatusFilter = "all" | "live" | "upcoming" | "finished";
+type ModelSignalFilter = "all" | "high_confidence" | "value";
+type HomeBoardView = "all" | "favorites" | "competitions";
+
+function leagueRegionOf(league: string): string {
+  return LEAGUE_REGION_LABELS[league] ?? "Internacional";
+}
 
 /**
  * Fila enriquecida de partido dentro del bloque de su competición:
- * conserva la limpieza de agrupación por liga (Astranalisis) pero incluye
+ * conserva la limpieza de agrupación por liga pero incluye
  * las barras visuales (`ProbSplit` 1·X·2 / Ganador + `PBar` del pick principal),
+ * enlaces directos a los perfiles de equipo, conmutador opcional de momios,
  * récords, resultado más probable, pick alternativo, líneas clave y acciones.
  */
 const AstroMatchRow = React.memo(function AstroMatchRow({
   game,
   liveEntry,
+  showOdds = false,
 }: {
   readonly game: PlatformGame;
   readonly liveEntry?: LiveScoreboardEntry;
+  readonly showOdds?: boolean;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
   const { setAuraFromGame, navigateTo } = usePlatformActions();
@@ -563,6 +681,8 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
   const countsHint = hasForecast ? formatCountsHint(game, intelUnlocked) : null;
   const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
   const studioHref = `/app/${game.league}/games/${game.id}`;
+  const homeHref = `/app/${game.league}/teams/${game.home.slug}`;
+  const awayHref = `/app/${game.league}/teams/${game.away.slug}`;
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
   const time = formatGameKickoffTime(game, userTimezone);
 
@@ -599,6 +719,13 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
     navigateTo(studioHref);
   };
 
+  const openTeam = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAuraFromGame(game);
+    navigateTo(href);
+  };
+
   return (
     <article
       className={`pl-astro-row ${live ? "is-live" : ""} ${isFinished ? "is-finished" : ""}`.trim()}
@@ -607,11 +734,20 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
     >
       {/* Cabecera compacta de la fila: hora/estado, sede/ronda y chip de confianza */}
       <div className="pl-astro-row-top">
-        <div className="pl-astro-row-meta num">
+        <a
+          href={studioHref}
+          onClick={openStudio}
+          data-card-open=""
+          aria-label={`Ver partido ${matchLabel}`}
+          className="pl-astro-row-meta num no-underline"
+        >
           {live ? (
             <span className="pl-astro-live-pill pl-home-card-live">
+              <span className="pl-home-live-sport" aria-hidden="true">
+                <LiveSportBallIcon sport={game.sport} />
+              </span>
               <span className="pl-home-live-dot" aria-hidden="true" />
-              <span>Vivo{liveEntry?.clock ? ` · ${liveEntry.clock}'` : ""} · {shortDateLabel(game.dayId)}</span>
+              <span>{formatLiveChipPhase(liveEntry)}</span>
             </span>
           ) : (
             <span className="pl-astro-time-badge">
@@ -623,7 +759,7 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
             {game.round}
             {game.venue ? ` · ${game.venue}` : ""}
           </span>
-        </div>
+        </a>
 
         {!isFinished ? <ConfidenceChip game={game} /> : null}
       </div>
@@ -631,13 +767,7 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
       {/* Cuerpo principal: Equipos + Récord + Proyección a la izquierda | Barra 1·X·2 y resultado más probable a la derecha */}
       <div className="pl-astro-row-body">
         <div className="pl-astro-matchup-box">
-          <a
-            href={studioHref}
-            onClick={openStudio}
-            data-card-open=""
-            className="pl-astro-col-teams"
-            aria-label={`Ver partido ${matchLabel}`}
-          >
+          <div className="pl-astro-col-teams">
             <div className="pl-astro-team-line">
               <TeamBadge
                 league={game.league}
@@ -647,17 +777,27 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
                 size={24}
               />
               <div className="pl-astro-team-info">
-                <span className={`pl-astro-team-name ${homeStrong ? "is-strong" : ""}`.trim()}>
+                <a
+                  href={homeHref}
+                  onClick={openTeam(homeHref)}
+                  className={`pl-team-link pl-astro-team-name ${homeStrong ? "is-strong" : ""}`.trim()}
+                >
                   {game.home.name}
-                </span>
+                </a>
                 <div className="pl-astro-team-sub">
                   {!game.neutralSite ? <span className="pl-side-tag is-home">Local</span> : null}
                   {game.home.record ? <span className="pl-astro-team-rec">{game.home.record}</span> : null}
                 </div>
               </div>
-              <span className={`pl-astro-team-score num ${homeStrong ? "is-strong" : ""}`.trim()}>
+              <a
+                href={studioHref}
+                onClick={openStudio}
+                tabIndex={-1}
+                aria-hidden="true"
+                className={`pl-astro-team-score num no-underline ${homeStrong ? "is-strong" : ""}`.trim()}
+              >
                 {homeVal}
-              </span>
+              </a>
             </div>
 
             <div className="pl-astro-team-line">
@@ -669,19 +809,29 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
                 size={24}
               />
               <div className="pl-astro-team-info">
-                <span className={`pl-astro-team-name ${awayStrong ? "is-strong" : ""}`.trim()}>
+                <a
+                  href={awayHref}
+                  onClick={openTeam(awayHref)}
+                  className={`pl-team-link pl-astro-team-name ${awayStrong ? "is-strong" : ""}`.trim()}
+                >
                   {game.away.name}
-                </span>
+                </a>
                 <div className="pl-astro-team-sub">
                   {!game.neutralSite ? <span className="pl-side-tag">Visita</span> : null}
                   {game.away.record ? <span className="pl-astro-team-rec">{game.away.record}</span> : null}
                 </div>
               </div>
-              <span className={`pl-astro-team-score num ${awayStrong ? "is-strong" : ""}`.trim()}>
+              <a
+                href={studioHref}
+                onClick={openStudio}
+                tabIndex={-1}
+                aria-hidden="true"
+                className={`pl-astro-team-score num no-underline ${awayStrong ? "is-strong" : ""}`.trim()}
+              >
                 {awayVal}
-              </span>
+              </a>
             </div>
-          </a>
+          </div>
 
           {scoreCaption ? (
             <div className="pl-astro-score-caption num">
@@ -701,6 +851,26 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
               }
               showLabels
             />
+
+            {showOdds && unlocked ? (
+              <div className="pl-astro-odds-strip num" aria-label="Momios justos por resultado">
+                <span className={`pl-astro-odd-pill ${outcome.side === "home" ? "is-best" : ""}`.trim()}>
+                  <small>1</small>
+                  <strong>{ph > 0.01 ? formatOddsValue(1 / ph, oddsFormat) : "—"}</strong>
+                </span>
+                {hasDraw ? (
+                  <span className={`pl-astro-odd-pill ${outcome.side === "draw" ? "is-best" : ""}`.trim()}>
+                    <small>X</small>
+                    <strong>{pd > 0.01 ? formatOddsValue(1 / pd, oddsFormat) : "—"}</strong>
+                  </span>
+                ) : null}
+                <span className={`pl-astro-odd-pill ${outcome.side === "away" ? "is-best" : ""}`.trim()}>
+                  <small>2</small>
+                  <strong>{pa > 0.01 ? formatOddsValue(1 / pa, oddsFormat) : "—"}</strong>
+                </span>
+              </div>
+            ) : null}
+
             <div className="pl-astro-outcome-strip num">
               <div className="min-w-0">
                 <span className="pl-astro-outcome-eyebrow">Resultado más probable</span>
@@ -782,6 +952,14 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
                     {formatOddsValue(mainPick.fairDecimal, oddsFormat)}
                   </strong>
                 </span>
+                {showOdds && mainPick.marketDecimal ? (
+                  <span>
+                    Casa{" "}
+                    <strong style={{ color: "var(--pl-brand)" }}>
+                      {formatOddsValue(mainPick.marketDecimal, oddsFormat)}
+                    </strong>
+                  </span>
+                ) : null}
                 {alt ? (
                   <span className="truncate">
                     También: <strong style={{ color: "var(--pl-text)" }}>{alt.label}</strong> · {(alt.p * 100).toFixed(0)} %
@@ -843,21 +1021,59 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
 function HomeMatchCardsSection({
   groups,
   liveByGameId,
+  showOdds = false,
+  boardView = "all",
+  favoriteLeagueSet,
+  onToggleFavoriteLeague,
+  onResetFilters,
+  hasActiveFilters = false,
 }: {
   readonly groups: ReturnType<typeof groupMatchesByDayAndLeague>;
   readonly today: string;
   readonly liveByGameId: ReadonlyMap<string, LiveScoreboardEntry>;
+  readonly showOdds?: boolean;
+  readonly boardView?: HomeBoardView;
+  readonly favoriteLeagueSet: ReadonlySet<string>;
+  readonly onToggleFavoriteLeague: (lg: LeagueId) => void;
+  readonly onResetFilters?: () => void;
+  readonly hasActiveFilters?: boolean;
 }): React.JSX.Element {
+  const { navigateTo } = usePlatformActions();
   const totalGames = groups.reduce((sum, d) => sum + d.count, 0);
   const [limit, setLimit] = useState<number>(INITIAL_HOME_CARDS_LIMIT);
+  const [collapsedLeagues, setCollapsedLeagues] = useState<ReadonlySet<string>>(() => new Set());
+
+  const toggleCollapseLeague = useCallback((lg: string) => {
+    setCollapsedLeagues((prev) => {
+      const next = new Set(prev);
+      if (next.has(lg)) next.delete(lg);
+      else next.add(lg);
+      return next;
+    });
+  }, []);
 
   if (groups.length === 0) {
     return (
       <div
-        className="glass-card glass-ring rounded-2xl p-7 text-center text-sm"
+        className="glass-card glass-ring rounded-2xl p-7 text-center text-sm space-y-3"
         style={{ color: "var(--pl-text-muted)" }}
       >
-        No hay partidos con este filtro. Prueba otro día o «Todas las competiciones».
+        <p className="m-0">
+          {boardView === "favorites"
+            ? "Hoy no hay partidos en tus ligas o equipos favoritos con este filtro."
+            : "No hay partidos con este filtro. Prueba otro día o limpia los filtros activos."}
+        </p>
+        {hasActiveFilters && onResetFilters ? (
+          <div>
+            <button
+              type="button"
+              className="pl-btn-glass text-xs min-h-10 px-4"
+              onClick={onResetFilters}
+            >
+              Restablecer filtros
+            </button>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -878,7 +1094,16 @@ function HomeMatchCardsSection({
   return (
     <div className="pl-home-cards pl-astro-leagues">
       {visibleLeagues.map((leagueGroup) => {
-        const region = LEAGUE_REGION_LABELS[leagueGroup.league] ?? "Internacional";
+        const region = leagueRegionOf(leagueGroup.league);
+        const leagueHref = `/app/${leagueGroup.league}`;
+        const isFav = favoriteLeagueSet.has(leagueGroup.league);
+        const isCollapsed = boardView === "competitions" && collapsedLeagues.has(leagueGroup.league);
+        const liveInLeague = leagueGroup.games.reduce((acc, g) => {
+          const entry = liveByGameId.get(g.id);
+          const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
+          return acc + (isLive ? 1 : 0);
+        }, 0);
+
         return (
           <section
             key={leagueGroup.league}
@@ -886,29 +1111,77 @@ function HomeMatchCardsSection({
             className="pl-astro-league-block glass-card glass-ring"
             data-league-group={leagueGroup.league}
           >
-            <header className="pl-astro-league-head">
-              <LeagueBadge
-                league={leagueGroup.league}
-                label={leagueGroup.label}
-                logoUrl={leagueGroup.logoUrl}
-                size={26}
-              />
-              <div className="min-w-0 flex-1">
-                <h2 className="pl-astro-league-title">{leagueGroup.label}</h2>
-                <span className="pl-astro-league-sub">
-                  {region} · {leagueGroup.round}
+            <header className={`pl-astro-league-head ${isCollapsed ? "is-collapsed" : ""}`.trim()}>
+              <a
+                href={leagueHref}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(leagueHref);
+                }}
+                className="pl-league-link pl-astro-league-link"
+              >
+                <LeagueBadge
+                  league={leagueGroup.league}
+                  label={leagueGroup.label}
+                  logoUrl={leagueGroup.logoUrl}
+                  size={26}
+                />
+                <div className="min-w-0 flex-1">
+                  <h2 className="pl-astro-league-title">{leagueGroup.label}</h2>
+                  <span className="pl-astro-league-sub">
+                    {region}
+                    {leagueGroup.round ? ` · ${leagueGroup.round}` : ""}
+                  </span>
+                </div>
+              </a>
+
+              <div className="pl-astro-league-head-actions">
+                {liveInLeague > 0 ? (
+                  <span className="pl-astro-league-live num">{liveInLeague} en vivo</span>
+                ) : null}
+                <span className="pl-astro-league-count num">
+                  {countLabel(leagueGroup.count, "partido", "partidos")}
                 </span>
+                <button
+                  type="button"
+                  className={`pl-astro-fav-btn ${isFav ? "is-fav" : ""}`.trim()}
+                  aria-pressed={isFav}
+                  aria-label={
+                    isFav
+                      ? `Quitar ${leagueGroup.label} de favoritos`
+                      : `Agregar ${leagueGroup.label} a favoritos`
+                  }
+                  title={isFav ? "En favoritos" : "Agregar a favoritos"}
+                  onClick={() => onToggleFavoriteLeague(leagueGroup.league)}
+                >
+                  <MaestroIcon name="star" size={14} />
+                </button>
+                {boardView === "competitions" ? (
+                  <button
+                    type="button"
+                    className={`pl-astro-collapse-btn ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+                    aria-expanded={!isCollapsed}
+                    aria-label={isCollapsed ? `Mostrar partidos de ${leagueGroup.label}` : `Contraer ${leagueGroup.label}`}
+                    onClick={() => toggleCollapseLeague(leagueGroup.league)}
+                  >
+                    <MaestroIcon name="chevronDown" size={15} />
+                  </button>
+                ) : null}
               </div>
-              <span className="pl-astro-league-count num">
-                {countLabel(leagueGroup.count, "partido", "partidos")}
-              </span>
             </header>
 
-            <div className="pl-astro-rows">
-              {leagueGroup.games.map((g) => (
-                <AstroMatchRow key={g.id} game={g} liveEntry={liveByGameId.get(g.id)} />
-              ))}
-            </div>
+            {!isCollapsed ? (
+              <div className="pl-astro-rows">
+                {leagueGroup.games.map((g) => (
+                  <AstroMatchRow
+                    key={g.id}
+                    game={g}
+                    liveEntry={liveByGameId.get(g.id)}
+                    showOdds={showOdds}
+                  />
+                ))}
+              </div>
+            ) : null}
           </section>
         );
       })}
@@ -925,6 +1198,274 @@ function HomeMatchCardsSection({
         </div>
       ) : null}
     </div>
+  );
+}
+
+interface HomeFilterModalOptionLeague {
+  readonly id: LeagueId;
+  readonly label: string;
+  readonly region: string;
+  readonly logoUrl?: string;
+  readonly count: number;
+}
+
+function HomeFiltersDialog({
+  open,
+  onClose,
+  statusFilter,
+  signalFilter,
+  selectedCountries,
+  selectedLeagues,
+  countryOptions,
+  leagueOptions,
+  onApply,
+}: {
+  readonly open: boolean;
+  readonly onClose: () => void;
+  readonly statusFilter: MatchStatusFilter;
+  readonly signalFilter: ModelSignalFilter;
+  readonly selectedCountries: readonly string[];
+  readonly selectedLeagues: readonly LeagueId[];
+  readonly countryOptions: ReadonlyArray<{ name: string; count: number }>;
+  readonly leagueOptions: readonly HomeFilterModalOptionLeague[];
+  readonly onApply: (next: {
+    status: MatchStatusFilter;
+    signal: ModelSignalFilter;
+    countries: string[];
+    leagues: LeagueId[];
+  }) => void;
+}): React.JSX.Element | null {
+  const titleId = useId();
+  const [draftStatus, setDraftStatus] = useState<MatchStatusFilter>(statusFilter);
+  const [draftSignal, setDraftSignal] = useState<ModelSignalFilter>(signalFilter);
+  const [draftCountries, setDraftCountries] = useState<string[]>([...selectedCountries]);
+  const [draftLeagues, setDraftLeagues] = useState<LeagueId[]>([...selectedLeagues]);
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    if (!open) return;
+    setDraftStatus(statusFilter);
+    setDraftSignal(signalFilter);
+    setDraftCountries([...selectedCountries]);
+    setDraftLeagues([...selectedLeagues]);
+    setSearch("");
+  }, [open, statusFilter, signalFilter, selectedCountries, selectedLeagues]);
+
+  const q = search.trim().toLowerCase();
+  const filteredCountries = useMemo(
+    () => (q ? countryOptions.filter((c) => c.name.toLowerCase().includes(q)) : countryOptions),
+    [countryOptions, q],
+  );
+  const filteredLeagues = useMemo(
+    () =>
+      q
+        ? leagueOptions.filter(
+            (l) => l.label.toLowerCase().includes(q) || l.region.toLowerCase().includes(q),
+          )
+        : leagueOptions,
+    [leagueOptions, q],
+  );
+
+  const draftCount =
+    (draftStatus !== "all" ? 1 : 0) +
+    (draftSignal !== "all" ? 1 : 0) +
+    draftCountries.length +
+    draftLeagues.length;
+
+  const toggleCountry = (name: string) => {
+    setDraftCountries((prev) =>
+      prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name],
+    );
+  };
+
+  const toggleLeague = (id: LeagueId) => {
+    setDraftLeagues((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
+  };
+
+  const clearDraft = () => {
+    setDraftStatus("all");
+    setDraftSignal("all");
+    setDraftCountries([]);
+    setDraftLeagues([]);
+  };
+
+  const applyAndClose = () => {
+    onApply({
+      status: draftStatus,
+      signal: draftSignal,
+      countries: draftCountries,
+      leagues: draftLeagues,
+    });
+    onClose();
+  };
+
+  return (
+    <TopLayerModalDialog
+      open={open}
+      onClose={onClose}
+      ariaLabelledBy={titleId}
+      maxWidth="28rem"
+      dialogClassName="pl-home-fmodal-dialog"
+    >
+      <div className="pl-home-fmodal">
+        <header className="pl-home-fmodal-head">
+          <div>
+            <h2 id={titleId} className="pl-home-fmodal-title">
+              Filtros
+            </h2>
+            <p className="pl-home-fmodal-sub">Filtra los partidos de este día.</p>
+          </div>
+          <button
+            type="button"
+            className="pl-home-fmodal-close"
+            aria-label="Cerrar filtros"
+            onClick={onClose}
+          >
+            <MaestroIcon name="x" size={16} />
+          </button>
+        </header>
+
+        <div className="pl-home-fmodal-body">
+          <section className="pl-home-fmodal-section" aria-label="Estado del partido">
+            <h3 className="pl-home-fmodal-h3">Estado del partido</h3>
+            <div className="pl-home-fmodal-pills" role="group" aria-label="Elegir estado">
+              {([
+                { id: "all", label: "Todos" },
+                { id: "live", label: "En vivo" },
+                { id: "upcoming", label: "Próximos" },
+                { id: "finished", label: "Finalizados" },
+              ] as const).map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  className={`pl-home-fmodal-pill ${draftStatus === opt.id ? "is-on" : ""}`.trim()}
+                  aria-pressed={draftStatus === opt.id}
+                  onClick={() => setDraftStatus(opt.id)}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="pl-home-fmodal-section" aria-label="Señal de inteligencia">
+            <h3 className="pl-home-fmodal-h3">Señal del modelo</h3>
+            <div className="pl-home-fmodal-pills" role="group" aria-label="Elegir señal del modelo">
+              {([
+                { id: "all", label: "Todos" },
+                { id: "high_confidence", label: "Alta probabilidad" },
+                { id: "value", label: "Ventaja vs casa" },
+              ] as const).map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  className={`pl-home-fmodal-pill ${draftSignal === opt.id ? "is-on" : ""}`.trim()}
+                  aria-pressed={draftSignal === opt.id}
+                  onClick={() => setDraftSignal(opt.id)}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="pl-home-fmodal-section" aria-label="Países y competiciones">
+            <h3 className="pl-home-fmodal-h3">Países y competiciones</h3>
+            <label className="pl-home-fmodal-search">
+              <MaestroIcon name="search" size={15} />
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Buscar países o ligas..."
+                aria-label="Buscar países o ligas"
+              />
+            </label>
+
+            <div className="pl-home-fmodal-checklist">
+              {filteredCountries.length === 0 && filteredLeagues.length === 0 ? (
+                <p className="pl-home-fmodal-empty">Sin coincidencias para «{search.trim()}».</p>
+              ) : (
+                <>
+                  {filteredCountries.length > 0 ? (
+                    <div className="pl-home-fmodal-group">
+                      <span className="pl-home-fmodal-eyebrow">Países</span>
+                      {filteredCountries.map((country) => {
+                        const checked = draftCountries.includes(country.name);
+                        return (
+                          <label key={country.name} className="pl-home-fmodal-checkrow">
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={() => toggleCountry(country.name)}
+                            />
+                            <span className="pl-home-fmodal-box" aria-hidden="true">
+                              {checked ? <MaestroIcon name="check" size={12} /> : null}
+                            </span>
+                            <span className="pl-home-fmodal-checkname">{country.name}</span>
+                            {country.count > 0 ? (
+                              <span className="pl-home-fmodal-checkcount num">{country.count}</span>
+                            ) : null}
+                          </label>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+
+                  {filteredLeagues.length > 0 ? (
+                    <div className="pl-home-fmodal-group">
+                      <span className="pl-home-fmodal-eyebrow">Competiciones del día</span>
+                      {filteredLeagues.map((lg) => {
+                        const checked = draftLeagues.includes(lg.id);
+                        return (
+                          <label key={lg.id} className="pl-home-fmodal-checkrow">
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={() => toggleLeague(lg.id)}
+                            />
+                            <span className="pl-home-fmodal-box" aria-hidden="true">
+                              {checked ? <MaestroIcon name="check" size={12} /> : null}
+                            </span>
+                            <LeagueBadge league={lg.id} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                            <span className="pl-home-fmodal-checkname">{lg.label}</span>
+                            <span className="pl-home-fmodal-checkcount num">{lg.count}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </>
+              )}
+            </div>
+          </section>
+        </div>
+
+        <footer className="pl-home-fmodal-foot">
+          <p className="pl-home-fmodal-selected num">
+            {draftCount} {draftCount === 1 ? "filtro seleccionado" : "filtros seleccionados"}
+          </p>
+          <div className="pl-home-fmodal-actions">
+            <button
+              type="button"
+              className="pl-home-fmodal-clear"
+              onClick={clearDraft}
+            >
+              Borrar todo
+            </button>
+            <button
+              type="button"
+              className="pl-home-fmodal-apply"
+              onClick={applyAndClose}
+            >
+              Aplicar filtros
+            </button>
+          </div>
+        </footer>
+      </div>
+    </TopLayerModalDialog>
   );
 }
 
@@ -1561,15 +2102,8 @@ export interface HomeClubViewProps {
   readonly liveBoardOverride?: LiveScoreboard | null;
 }
 
-const STATUS_FILTERS: ReadonlyArray<{ id: MatchStatusFilter; label: string }> = [
-  { id: "all", label: "Todos" },
-  { id: "live", label: "En vivo" },
-  { id: "upcoming", label: "Próximos" },
-  { id: "finished", label: "Finalizados" },
-];
-
 /**
- * Inicio del Club con arquitectura limpia estilo Astranalisis + inteligencia completa PitchLab:
+ * Inicio del Club con arquitectura limpia + inteligencia completa PitchLab:
  * 1) Barra superior: tendencias y tira rápida de partidos en vivo/del día (deportes y ligas en cabecera).
  * 2) Columna principal: «Partidos» agrupados por liga con barras 1·X·2 (`ProbSplit`), `PBar` de pick principal,
  *    resultado más probable, pick alternativo, líneas clave y acciones.
@@ -1584,7 +2118,8 @@ export function HomeClubView({
   liveBoardOverride,
 }: HomeClubViewProps = {}): React.JSX.Element {
   const { dataset, viewerRole, userTimezone } = usePlatformCore();
-  const { journal } = usePlatform();
+  const { journal, favoriteLeagues, setFavoriteLeagues, watchlistGameIds } = usePlatform();
+  const { topics, toggleLeague: toggleTopicLeague } = useFollowedTopics();
   const { navigateTo } = usePlatformActions();
   const homeNav = useHomeNavFilter();
   const { setTodayOverride } = homeNav;
@@ -1603,7 +2138,47 @@ export function HomeClubView({
   const league = homeNav.hasExplicitSport || homeNav.league !== ALL ? homeNav.league : initialLeague;
   const setDay = homeNav.setChosenDay;
   const setLeague = homeNav.setLeague;
+  const [boardView, setBoardView] = useState<HomeBoardView>("all");
   const [statusFilter, setStatusFilter] = useState<MatchStatusFilter>("all");
+  const [signalFilter, setSignalFilter] = useState<ModelSignalFilter>("all");
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>([]);
+  const [showOdds, setShowOdds] = useState<boolean>(false);
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(false);
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
+  const [calMonth, setCalMonth] = useState<{ year: number; monthIndex: number }>(() =>
+    parseIsoYearMonth(initialDay && initialDay !== UPCOMING ? initialDay : (initialToday ?? "2026-11-18")),
+  );
+  const datePickerWrapRef = useRef<HTMLDivElement | null>(null);
+  const calendarPopoverId = useId();
+  const oddsSwitchId = useId();
+
+  const favoriteLeagueSet = useMemo(() => {
+    const s = new Set<string>(favoriteLeagues);
+    for (const lg of topics.leagues) s.add(lg);
+    return s;
+  }, [favoriteLeagues, topics.leagues]);
+
+  const favoriteTeamSet = useMemo(() => new Set<string>(topics.teams), [topics.teams]);
+  const watchlistSet = useMemo(() => new Set<string>(watchlistGameIds), [watchlistGameIds]);
+
+  const onToggleFavoriteLeague = useCallback(
+    (lg: LeagueId) => {
+      const inFavs = favoriteLeagues.includes(lg);
+      const inTopics = topics.leagues.includes(lg);
+      if (inFavs || inTopics) {
+        if (inFavs && favoriteLeagues.length > 1) {
+          setFavoriteLeagues(favoriteLeagues.filter((item) => item !== lg));
+        }
+        if (inTopics) {
+          toggleTopicLeague(lg);
+        }
+      } else {
+        setFavoriteLeagues([...favoriteLeagues, lg]);
+      }
+    },
+    [favoriteLeagues, setFavoriteLeagues, toggleTopicLeague, topics.leagues],
+  );
 
   const liveSnap = useLiveScoreboard(liveBoardOverride === undefined);
   const liveBoard = liveBoardOverride !== undefined ? liveBoardOverride : liveSnap.data;
@@ -1643,23 +2218,126 @@ export function HomeClubView({
   const top = useMemo(() => topPrincipalPicks(visible, 4, isUnlocked), [visible, isUnlocked]);
   const value = useMemo(() => valuePicks(visible, isUnlocked), [visible, isUnlocked]);
 
+  const liveVisibleCount = useMemo(() => {
+    let count = 0;
+    for (const g of visible) {
+      const entry = liveByGameId.get(g.id);
+      if ((entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE") {
+        count += 1;
+      }
+    }
+    return count;
+  }, [visible, liveByGameId]);
+
+  const countryOptions = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const g of visible) {
+      const reg = leagueRegionOf(g.league);
+      counts.set(reg, (counts.get(reg) ?? 0) + 1);
+    }
+    const seen = new Set<string>();
+    const list: Array<{ name: string; count: number }> = [];
+    for (const [name, count] of counts.entries()) {
+      seen.add(name);
+      list.push({ name, count });
+    }
+    list.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "es"));
+    for (const known of ALL_KNOWN_COUNTRIES) {
+      if (!seen.has(known)) {
+        list.push({ name: known, count: 0 });
+      }
+    }
+    return list;
+  }, [visible]);
+
+  const modalLeagueOptions = useMemo<readonly HomeFilterModalOptionLeague[]>(() => {
+    const map = new Map<LeagueId, HomeFilterModalOptionLeague>();
+    for (const g of visible) {
+      const prev = map.get(g.league);
+      if (prev) {
+        map.set(g.league, { ...prev, count: prev.count + 1 });
+      } else {
+        map.set(g.league, {
+          id: g.league,
+          label: g.leagueLabel,
+          region: leagueRegionOf(g.league),
+          logoUrl: g.leagueLogoUrl,
+          count: 1,
+        });
+      }
+    }
+    return [...map.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "es"));
+  }, [visible]);
+
+  const activeModalFilterCount =
+    (statusFilter !== "all" ? 1 : 0) +
+    (signalFilter !== "all" ? 1 : 0) +
+    selectedCountries.length +
+    selectedLeagues.length;
+
+  const resetModalFilters = useCallback(() => {
+    setStatusFilter("all");
+    setSignalFilter("all");
+    setSelectedCountries([]);
+    setSelectedLeagues([]);
+  }, []);
+
   const statusFilteredGames = useMemo(() => {
-    if (statusFilter === "all") return visible;
-    if (statusFilter === "ai") {
-      return visible
+    let list = visible;
+
+    if (boardView === "favorites") {
+      list = list.filter(
+        (g) =>
+          watchlistSet.has(g.id) ||
+          favoriteLeagueSet.has(g.league) ||
+          favoriteTeamSet.has(teamTopicKey(g.league, g.home.slug)) ||
+          favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug)),
+      );
+    }
+
+    if (selectedCountries.length > 0) {
+      const cSet = new Set(selectedCountries);
+      list = list.filter((g) => cSet.has(leagueRegionOf(g.league)));
+    }
+
+    if (selectedLeagues.length > 0) {
+      const lSet = new Set(selectedLeagues);
+      list = list.filter((g) => lSet.has(g.league));
+    }
+
+    if (statusFilter !== "all") {
+      list = list.filter((g) => {
+        const entry = liveByGameId.get(g.id);
+        const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
+        const isFt = !isLive && (g.status === "FT" || entry?.phase === "final");
+        if (statusFilter === "live") return isLive;
+        if (statusFilter === "finished") return isFt;
+        return !isLive && !isFt;
+      });
+    }
+
+    if (signalFilter === "high_confidence") {
+      list = list
         .filter((g) => (g.picks[0]?.p ?? 0) >= 0.58)
         .slice()
         .sort((a, b) => (b.picks[0]?.p ?? 0) - (a.picks[0]?.p ?? 0));
+    } else if (signalFilter === "value") {
+      list = list.filter((g) => (g.picks[0]?.edgePts ?? 0) > 0);
     }
-    return visible.filter((g) => {
-      const entry = liveByGameId.get(g.id);
-      const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
-      const isFt = !isLive && (g.status === "FT" || entry?.phase === "final");
-      if (statusFilter === "live") return isLive;
-      if (statusFilter === "finished") return isFt;
-      return !isLive && !isFt;
-    });
-  }, [visible, statusFilter, liveByGameId]);
+
+    return list;
+  }, [
+    visible,
+    boardView,
+    watchlistSet,
+    favoriteLeagueSet,
+    favoriteTeamSet,
+    selectedCountries,
+    selectedLeagues,
+    statusFilter,
+    signalFilter,
+    liveByGameId,
+  ]);
 
   const dayGroups = useMemo(
     () => groupMatchesByDayAndLeague(statusFilteredGames),
@@ -1680,7 +2358,7 @@ export function HomeClubView({
         const entry = liveByGameId.get(game.id);
         const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
         const score = entry?.score ?? game.score ?? null;
-        return { game, live, score };
+        return { game, live, score, entry };
       })
       .sort((a, b) => {
         if (a.live !== b.live) return a.live ? -1 : 1;
@@ -1694,13 +2372,15 @@ export function HomeClubView({
       (opt) => opt.key > day && filterGames(gamesForSelection(games, opt.key, today), sport, league).length > 0,
     );
     if (futureFiltered) return { dayId: futureFiltered.key, resetFilters: false };
+    const anyFiltered = [...dayOptions]
+      .reverse()
+      .find(
+        (opt) => opt.key !== day && filterGames(gamesForSelection(games, opt.key, today), sport, league).length > 0,
+      );
+    if (anyFiltered) return { dayId: anyFiltered.key, resetFilters: false };
     const futureAny = dayOptions.find((opt) => opt.key > day && opt.count > 0);
     if (futureAny) return { dayId: futureAny.key, resetFilters: true };
-    const anyFiltered = dayOptions.find(
-      (opt) => opt.key !== day && filterGames(gamesForSelection(games, opt.key, today), sport, league).length > 0,
-    );
-    if (anyFiltered) return { dayId: anyFiltered.key, resetFilters: false };
-    const anyDay = dayOptions.find((opt) => opt.key !== day && opt.count > 0);
+    const anyDay = [...dayOptions].reverse().find((opt) => opt.key !== day && opt.count > 0);
     return anyDay ? { dayId: anyDay.key, resetFilters: true } : null;
   }, [orderedChips.length, dayOptions, day, games, today, sport, league]);
 
@@ -1772,7 +2452,68 @@ export function HomeClubView({
 
   const isPast = day < today;
   const centerParts = formatCenterDayParts(day, today);
-  const centerAria = day === today ? "Hoy, día actual" : `${centerParts.top}, volver a hoy`;
+  const centerAria = day === today ? "Hoy, abrir calendario" : `${centerParts.top}, abrir calendario`;
+
+  useEffect(() => {
+    if (!calendarOpen) return;
+    const onPointerDown = (ev: MouseEvent) => {
+      if (datePickerWrapRef.current && !datePickerWrapRef.current.contains(ev.target as Node)) {
+        setCalendarOpen(false);
+      }
+    };
+    const onKeyDown = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") {
+        setCalendarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [calendarOpen]);
+
+  const calendarEventDays = useMemo(() => {
+    const favDays = new Set<string>();
+    const sportDays = new Set<string>();
+    const scopedGames = filterGames(games, sport, league);
+    for (const g of scopedGames) {
+      sportDays.add(g.dayId);
+      const isFav =
+        watchlistSet.has(g.id) ||
+        favoriteLeagueSet.has(g.league) ||
+        favoriteTeamSet.has(teamTopicKey(g.league, g.home.slug)) ||
+        favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug));
+      if (isFav) favDays.add(g.dayId);
+    }
+    const useFavs = boardView === "favorites" || favDays.size > 0;
+    return {
+      days: boardView === "favorites" ? favDays : sportDays,
+      favDays,
+      legendLabel:
+        boardView === "favorites"
+          ? "Días con los eventos para tus favoritos"
+          : useFavs
+            ? "Días con partidos programados"
+            : "Días con partidos en calendario",
+    };
+  }, [boardView, favoriteLeagueSet, favoriteTeamSet, games, league, sport, watchlistSet]);
+
+  const calendarCells = useMemo(
+    () => buildCalendarMonthCells(calMonth.year, calMonth.monthIndex),
+    [calMonth.monthIndex, calMonth.year],
+  );
+
+  const stepCalendarMonth = (delta: -1 | 1) => {
+    setCalMonth((prev) => {
+      const nextDate = new Date(Date.UTC(prev.year, prev.monthIndex + delta, 1));
+      return {
+        year: nextDate.getUTCFullYear(),
+        monthIndex: nextDate.getUTCMonth(),
+      };
+    });
+  };
 
   const pickDay = (d: DaySelection) => {
     setDay(d);
@@ -1832,11 +2573,12 @@ export function HomeClubView({
                   data-day-chips=""
                   onScroll={syncChipsScroll}
                 >
-                  {orderedChips.map(({ game, live, score }) => {
+                  {orderedChips.map(({ game, live, score, entry }) => {
                     const homeCode = teamCode(game.home);
                     const awayCode = teamCode(game.away);
                     const time = formatGameKickoffTime(game, userTimezone);
-                    const scoreText = score ? `${score.home}–${score.away}` : null;
+                    const scoreText = score ? `${score.home} - ${score.away}` : null;
+                    const livePhaseLabel = formatLiveChipPhase(entry);
                     return (
                       <button
                         key={game.id}
@@ -1845,7 +2587,7 @@ export function HomeClubView({
                         data-match-chip={game.id}
                         data-chip-league={game.league}
                         data-chip-live={live ? "true" : undefined}
-                        aria-label={`${live ? "En vivo" : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
+                        aria-label={`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
                         onClick={() => {
                           if (game.dayId !== day) {
                             pickDay(game.dayId);
@@ -1859,29 +2601,30 @@ export function HomeClubView({
                       >
                         {live ? (
                           <>
+                            <span className="pl-home-live-sport" aria-hidden="true">
+                              <LiveSportBallIcon sport={game.sport} />
+                            </span>
                             <span className="pl-home-live-tag">
                               <span className="pl-home-live-dot" aria-hidden="true" />
-                              <span>Vivo</span>
+                              <span>{livePhaseLabel}</span>
                             </span>
-                            <span className="pl-home-chip-team">
+                            <span className="pl-home-live-matchup">
                               <TeamBadge
                                 league={game.league}
                                 slug={game.home.slug}
                                 name={game.home.name}
                                 logoUrl={game.home.logoUrl}
-                                size={18}
+                                size={20}
                               />
-                              <span>{homeCode}</span>
-                            </span>
-                            <span className="pl-home-chip-score num">{scoreText ?? "vs"}</span>
-                            <span className="pl-home-chip-team">
-                              <span>{awayCode}</span>
+                              <span className="pl-home-chip-score is-live num">
+                                {scoreText ?? "0 - 0"}
+                              </span>
                               <TeamBadge
                                 league={game.league}
                                 slug={game.away.slug}
                                 name={game.away.name}
                                 logoUrl={game.away.logoUrl}
-                                size={18}
+                                size={20}
                               />
                             </span>
                           </>
@@ -1949,76 +2692,269 @@ export function HomeClubView({
         {/* 2) Cuerpo de 2 columnas: Partidos con barras (principal) + Centro de Parlays y Picks probables (der.) */}
         <div className="pl-astro-workspace !mt-3.5">
           <div className="pl-astro-center">
-            <div className="pl-astro-toolbar">
-              <div className="pl-astro-toolbar-left">
-                <div className="flex items-center gap-2.5">
-                  <h1 className="pl-astro-h1">Partidos</h1>
-                  <span className="pl-astro-total-pill num">
-                    {countLabel(statusFilteredGames.length, "partido", "partidos")}
-                  </span>
+            <h1 className="sr-only">Partidos</h1>
+
+            <section
+              className="pl-home-board-bar glass-card glass-ring"
+              aria-label="Controles del tablero de partidos"
+              data-home-board-bar=""
+            >
+              <div className="pl-home-board-top">
+                <div className="pl-home-board-tabs" role="tablist" aria-label="Vista de partidos">
+                  {([
+                    { id: "all", label: "Todos" },
+                    { id: "favorites", label: "Favoritos" },
+                    { id: "competitions", label: "Competiciones" },
+                  ] as const).map((tabItem) => {
+                    const selected = boardView === tabItem.id;
+                    return (
+                      <button
+                        key={tabItem.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={selected}
+                        className={`pl-home-board-tab ${selected ? "is-active" : ""}`.trim()}
+                        onClick={() => setBoardView(tabItem.id)}
+                      >
+                        {tabItem.label}
+                      </button>
+                    );
+                  })}
                 </div>
 
-                <div className="pl-astro-status-pills" role="group" aria-label="Estado de los partidos">
-                  {STATUS_FILTERS.map((sf) => (
+                <div ref={datePickerWrapRef} role="group" aria-label="Elegir día" className="pl-astro-datebar">
+                  <div className="pl-home-date-capsule" role="group" aria-label="Control del día">
                     <button
-                      key={sf.id}
                       type="button"
-                      className={`pl-astro-status-btn ${statusFilter === sf.id ? "is-on" : ""}`.trim()}
-                      aria-pressed={statusFilter === sf.id}
-                      onClick={() => setStatusFilter(sf.id)}
+                      className="pl-home-date-arrow"
+                      aria-label="Día anterior"
+                      disabled={!prevDayOption}
+                      data-day-prev=""
+                      onClick={() => prevDayOption && pickDay(prevDayOption.key)}
                     >
-                      {sf.label}
+                      <MaestroIcon name="chevronLeft" size={15} />
                     </button>
-                  ))}
-                  <button
-                    type="button"
-                    className={`pl-astro-status-btn is-ai ${statusFilter === "ai" ? "is-on" : ""}`.trim()}
-                    aria-pressed={statusFilter === "ai"}
-                    onClick={() => setStatusFilter((prev) => (prev === "ai" ? "all" : "ai"))}
-                  >
-                    <MaestroIcon name="sparkles" size={12} />
-                    <span>Con IA</span>
-                  </button>
+                    <button
+                      type="button"
+                      className={`pl-home-date-center ${day === today ? "is-today" : ""}`.trim()}
+                      aria-label={centerAria}
+                      aria-expanded={calendarOpen}
+                      aria-controls={calendarPopoverId}
+                      data-day-center=""
+                      onClick={() => {
+                        setCalendarOpen((prev) => {
+                          if (!prev) {
+                            setCalMonth(parseIsoYearMonth(day));
+                          }
+                          return !prev;
+                        });
+                      }}
+                    >
+                      {day === today ? (
+                        <span className="pl-home-date-label">Hoy</span>
+                      ) : (
+                        <span className="pl-home-date-label num">
+                          {centerParts.top}
+                          {centerParts.sub ? ` ${centerParts.sub}` : ""}
+                        </span>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      className="pl-home-date-arrow"
+                      aria-label="Día siguiente"
+                      disabled={!nextDayOption}
+                      data-day-next=""
+                      onClick={() => nextDayOption && pickDay(nextDayOption.key)}
+                    >
+                      <MaestroIcon name="chevronRight" size={15} />
+                    </button>
+                  </div>
+
+                  {calendarOpen ? (
+                    <div
+                      id={calendarPopoverId}
+                      role="dialog"
+                      aria-label="Calendario de partidos"
+                      data-home-calendar-popover=""
+                      className="pl-home-cal-popover glass-card glass-ring"
+                    >
+                      <div className="pl-home-cal-close-row">
+                        <button
+                          type="button"
+                          className="pl-home-cal-close"
+                          aria-label="Cerrar calendario"
+                          onClick={() => setCalendarOpen(false)}
+                        >
+                          <MaestroIcon name="x" size={14} />
+                        </button>
+                      </div>
+
+                      <div className="pl-home-cal-head">
+                        <button
+                          type="button"
+                          className="pl-home-cal-nav"
+                          aria-label="Mes anterior"
+                          onClick={() => stepCalendarMonth(-1)}
+                        >
+                          <MaestroIcon name="chevronLeft" size={16} />
+                        </button>
+                        <strong className="pl-home-cal-title">
+                          {FULL_MONTHS_ES[calMonth.monthIndex]} de {calMonth.year}
+                        </strong>
+                        <button
+                          type="button"
+                          className="pl-home-cal-nav"
+                          aria-label="Mes siguiente"
+                          onClick={() => stepCalendarMonth(1)}
+                        >
+                          <MaestroIcon name="chevronRight" size={16} />
+                        </button>
+                      </div>
+
+                      <div className="pl-home-cal-weekdays" aria-hidden="true">
+                        {CAL_WEEKDAYS_ES.map((wd) => (
+                          <span key={wd}>{wd}</span>
+                        ))}
+                      </div>
+
+                      <div className="pl-home-cal-grid" role="grid" aria-label={`${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}`}>
+                        {calendarCells.map((cell, idx) => {
+                          if (!cell) {
+                            return <span key={`empty-${idx}`} className="pl-home-cal-empty" aria-hidden="true" />;
+                          }
+                          const isSelected = cell.iso === day;
+                          const isTodayCell = cell.iso === today;
+                          const hasGames = calendarEventDays.days.has(cell.iso);
+                          return (
+                            <button
+                              key={cell.iso}
+                              type="button"
+                              aria-pressed={isSelected}
+                              aria-current={isTodayCell ? "date" : undefined}
+                              aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${hasGames ? ", con partidos" : ""}`}
+                              className={`pl-home-cal-day num ${isSelected ? "is-selected" : ""} ${isTodayCell ? "is-today" : ""} ${hasGames ? "has-games" : ""}`.trim()}
+                              onClick={() => {
+                                pickDay(cell.iso);
+                                setCalendarOpen(false);
+                              }}
+                            >
+                              <span>{cell.dayNum}</span>
+                              <i className="pl-home-cal-dot" aria-hidden="true" />
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="pl-home-cal-legend">
+                        <i className="pl-home-cal-legend-pill" aria-hidden="true" />
+                        <span>{calendarEventDays.legendLabel}</span>
+                      </div>
+
+                      <div className="pl-home-cal-foot">
+                        <button
+                          type="button"
+                          className="pl-home-cal-today-btn"
+                          onClick={() => {
+                            pickDay(today);
+                            setCalMonth(parseIsoYearMonth(today));
+                            setCalendarOpen(false);
+                          }}
+                        >
+                          HOY
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
 
-              <div role="group" aria-label="Elegir día" className="pl-astro-datebar">
-                <div className="pl-home-dayseg" role="group" aria-label="Control del día">
+              <div className="pl-home-board-sub">
+                <div className="pl-home-board-pills" role="group" aria-label="Estado de los partidos">
                   <button
                     type="button"
-                    className="pl-home-dayseg-arrow"
-                    aria-label="Día anterior"
-                    disabled={!prevDayOption}
-                    data-day-prev=""
-                    onClick={() => prevDayOption && pickDay(prevDayOption.key)}
+                    className={`pl-home-status-pill is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
+                    aria-pressed={statusFilter === "live"}
+                    onClick={() => setStatusFilter((prev) => (prev === "live" ? "all" : "live"))}
                   >
-                    <span aria-hidden="true">‹</span>
+                    <span className="num">En Vivo ({liveVisibleCount})</span>
                   </button>
                   <button
                     type="button"
-                    className={`pl-home-dayseg-center ${day === today ? "is-today" : ""}`.trim()}
-                    aria-label={centerAria}
-                    data-day-center=""
-                    onClick={() => pickDay(today)}
+                    className={`pl-home-status-pill ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
+                    aria-pressed={statusFilter === "finished"}
+                    onClick={() => setStatusFilter((prev) => (prev === "finished" ? "all" : "finished"))}
                   >
-                    <span className="pl-home-dayseg-top">{centerParts.top}</span>
-                    <span className="pl-home-dayseg-sub num">{centerParts.sub}</span>
+                    Finalizado
                   </button>
                   <button
                     type="button"
-                    className="pl-home-dayseg-arrow"
-                    aria-label="Día siguiente"
-                    disabled={!nextDayOption}
-                    data-day-next=""
-                    onClick={() => nextDayOption && pickDay(nextDayOption.key)}
+                    className={`pl-home-status-pill ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
+                    aria-pressed={statusFilter === "upcoming"}
+                    onClick={() => setStatusFilter((prev) => (prev === "upcoming" ? "all" : "upcoming"))}
                   >
-                    <span aria-hidden="true">›</span>
+                    Próximo
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`pl-home-filter-btn ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
+                    aria-haspopup="dialog"
+                    aria-expanded={filtersOpen}
+                    data-home-filters-trigger=""
+                    onClick={() => setFiltersOpen(true)}
+                  >
+                    <MaestroIcon name="filter" size={14} />
+                    <span>Filtros</span>
+                    {activeModalFilterCount > 0 ? (
+                      <span className="pl-home-filter-count num">{activeModalFilterCount}</span>
+                    ) : null}
                   </button>
                 </div>
-              </div>
-            </div>
 
-            <HomeMatchCardsSection groups={dayGroups} today={today} liveByGameId={liveByGameId} />
+                <label htmlFor={oddsSwitchId} className="pl-home-odds-toggle">
+                  <span className="pl-home-odds-label">Momios</span>
+                  <input
+                    id={oddsSwitchId}
+                    type="checkbox"
+                    {...({ switch: "" } as React.InputHTMLAttributes<HTMLInputElement>)}
+                    role="switch"
+                    checked={showOdds}
+                    onChange={(e) => setShowOdds(e.target.checked)}
+                    className="pl-home-switch"
+                  />
+                </label>
+              </div>
+            </section>
+
+            <HomeMatchCardsSection
+              groups={dayGroups}
+              today={today}
+              liveByGameId={liveByGameId}
+              showOdds={showOdds}
+              boardView={boardView}
+              favoriteLeagueSet={favoriteLeagueSet}
+              onToggleFavoriteLeague={onToggleFavoriteLeague}
+              onResetFilters={resetModalFilters}
+              hasActiveFilters={activeModalFilterCount > 0}
+            />
+
+            <HomeFiltersDialog
+              open={filtersOpen}
+              onClose={() => setFiltersOpen(false)}
+              statusFilter={statusFilter}
+              signalFilter={signalFilter}
+              selectedCountries={selectedCountries}
+              selectedLeagues={selectedLeagues}
+              countryOptions={countryOptions}
+              leagueOptions={modalLeagueOptions}
+              onApply={({ status, signal, countries, leagues }) => {
+                setStatusFilter(status);
+                setSignalFilter(signal);
+                setSelectedCountries(countries);
+                setSelectedLeagues(leagues);
+              }}
+            />
           </div>
 
           <aside aria-label="Centro de parlays, picks con mayor probabilidad y récord" className="pl-home-rail">

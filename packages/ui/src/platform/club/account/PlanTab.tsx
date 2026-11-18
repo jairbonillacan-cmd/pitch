@@ -150,22 +150,7 @@ function addDaysIso(baseIso: string, days: number): string {
 }
 
 function CheckIcon(): React.JSX.Element {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="pl-acct-plan-feat-icon"
-    >
-      <path d="m5 12 5 5 9-10" />
-    </svg>
-  );
+  return <MaestroIcon name="check" size={18} className="pl-acct-plan-feat-icon" />;
 }
 
 export function PlanTab({
@@ -1180,7 +1165,6 @@ export function PlanTab({
               flipped={flipped}
               onFlipChange={setFlipped}
               asDecorativeChild
-              themeOverride="dark"
             />
           </button>
 

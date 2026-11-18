@@ -279,6 +279,7 @@ export function MatchList({
   readonly hideLeagueHeader?: boolean;
   readonly initialLimit?: number;
 }): React.JSX.Element {
+  const { navigateTo } = usePlatformActions();
   const totalGames = groups.reduce((sum, d) => sum + d.count, 0);
   const [limit, setLimit] = useState<number>(initialLimit);
 
@@ -342,15 +343,24 @@ export function MatchList({
               >
                 {hideLeagueHeader ? null : (
                   <header className="pl-mlist-league-head">
-                    <LeagueBadge
-                      league={leagueGroup.league}
-                      label={leagueGroup.label}
-                      logoUrl={leagueGroup.logoUrl}
-                      size={22}
-                    />
-                    <h3 className="pl-mlist-league-title">
-                      {leagueGroup.label}
-                    </h3>
+                    <a
+                      href={`/app/${leagueGroup.league}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigateTo(`/app/${leagueGroup.league}`);
+                      }}
+                      className="pl-league-link inline-flex items-center gap-2.5 min-w-0 flex-1"
+                    >
+                      <LeagueBadge
+                        league={leagueGroup.league}
+                        label={leagueGroup.label}
+                        logoUrl={leagueGroup.logoUrl}
+                        size={22}
+                      />
+                      <h3 className="pl-mlist-league-title">
+                        {leagueGroup.label}
+                      </h3>
+                    </a>
                     <span className="pl-mlist-league-meta num">
                       {leagueGroup.round} ·{" "}
                       {countText(leagueGroup.count, "partido", "partidos")}

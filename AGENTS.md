@@ -15,3 +15,16 @@ Toda pantalla, componente, estilo, landing o demo visual de PitchLab sigue estas
   - `stageshow`: UI simulada del producto para la landing, heroes, tarjetas de features y demos animadas.
   - `prototype`: explorar una pantalla o flujo antes de construirlo.
   - `modern-web-guidance`: guía obligatoria para HTML/CSS, modales, tablas, accesibilidad y web APIs en cliente.
+
+## Servidor en vivo y ciclo de validación
+
+- **Servidor de desarrollo siempre en puerto libre `> 6000` (prohibido `localhost:3000` y `pnpm dev` directo):**
+  - Elige un puerto libre arriba de `6000` (evita `6006` de Storybook; p. ej. `6400`, `7200` o `9990`).
+  - Levanta el servidor en segundo plano (`IsDaemon: true`) con su directorio aislado en `.gitignore` (`.next-*/`) y URL de auth alineada al puerto:
+    `BETTER_AUTH_URL=http://localhost:<puerto> PITCHLAB_DIST_DIR=.next-<puerto>-dev pnpm --filter @pitchlab/web exec next dev --port <puerto>`
+  - Comparte al usuario el enlace exacto (`http://localhost:<puerto>`) y el PIN beta vigente (`PITCHLAB_BETA_CODE`, `2026` en desarrollo) y mantén ese proceso vivo sin reiniciarlo ni pisar su `distDir` mientras iteran.
+- **Iteración rápida entre cambios (cero suites pesadas a mitad de la jornada):**
+  - Valida cada ajuste en segundos únicamente con `pnpm --filter <paquete> typecheck`, guardrails rápidos (`node scripts/lint-codebase.mjs`, `node scripts/check-no-demo-prod.mjs`) o un archivo puntual de `vitest` si cambiaste lógica de cálculo.
+  - No ejecutes `pnpm e2e`, `pnpm build`, `pnpm build-storybook` ni `pnpm test` completo mientras se itera.
+- **Cierre de jornada (solo por petición explícita del usuario):**
+  - Corre la batería completa (`pnpm test`, `pnpm build`, `pnpm build-storybook` y `pnpm e2e`, en secuencia sin contención de archivos) únicamente cuando el usuario pida cerrar o validar la jornada final.

@@ -1033,9 +1033,24 @@ export function PlatformProvider({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const lastToastRef = useRef<{ text: string; tone: string; at: number }>({
+    text: "",
+    tone: "",
+    at: 0,
+  });
+
   const pushToast = useCallback(
     (text: string, tone: ToastMessage["tone"] = "default") => {
-      const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const now = Date.now();
+      if (
+        lastToastRef.current.text === text &&
+        lastToastRef.current.tone === tone &&
+        now - lastToastRef.current.at < 200
+      ) {
+        return;
+      }
+      lastToastRef.current = { text, tone, at: now };
+      const id = `${now}-${Math.random().toString(36).slice(2, 7)}`;
       setToasts((prev) => [...prev.slice(-3), { id, tone, text }]);
       window.setTimeout(() => {
         setToasts((prev) => prev.filter((item) => item.id !== id));
@@ -2149,19 +2164,19 @@ export function PlatformProvider({
 
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
-      setWatchlistGameIds((prev) => {
-        const exists = prev.includes(gameId);
-        pushToast(
-          exists
-            ? "Dejaste de seguir este partido."
-            : "Siguiendo: te avisamos del inicio, los goles y el final.",
-          "default",
-        );
-        if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
-        return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];
-      });
+      const exists = watchlistGameIds.includes(gameId);
+      setWatchlistGameIds((prev) =>
+        prev.includes(gameId) ? prev.filter((id) => id !== gameId) : [...prev, gameId],
+      );
+      pushToast(
+        exists
+          ? "Dejaste de seguir este partido."
+          : "Siguiendo: te avisamos del inicio, los goles y el final.",
+        "default",
+      );
+      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
     },
-    [pushToast, hasAccountSessionAuth],
+    [watchlistGameIds, pushToast, hasAccountSessionAuth],
   );
 
   const setFollowAlerts = useCallback(

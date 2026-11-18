@@ -82,6 +82,7 @@ export {
   getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
   isValidBzzoiroImageUrl,
+  resolvePersonPhotoUrl,
   type ResolvedTeamEmblem,
 } from "./bzzoiro";
 

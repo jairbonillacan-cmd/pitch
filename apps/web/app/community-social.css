@@ -23,12 +23,25 @@
   outline-offset: 3px;
 }
 
+.pl-com-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .pl-com-title {
   margin: 0;
   font-size: 32px;
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 700;
+}
+
+.pl-com-subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
 }
 
 .pl-com-tabs {
@@ -963,18 +976,59 @@
   color: var(--pl-text-muted);
 }
 
-/* Página 404 */
+/* Página 404 y pantallas de error: fondo plano, centradas en el alto visible y sin scroll */
 .pl-notfound {
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: clip;
   display: grid;
   place-items: center;
-  padding: 24px 16px;
-  background:
-    radial-gradient(40% 36% at 80% 10%, color-mix(in srgb, var(--pl-orb-violet) 22%, transparent), transparent 70%),
-    radial-gradient(36% 30% at 10% 90%, color-mix(in srgb, var(--pl-orb-emerald) 14%, transparent), transparent 70%),
-    var(--pl-stage-bg);
+  padding: 16px;
+  background: var(--pl-stage-bg);
   color: var(--pl-text);
+}
+
+.pl-stage:has(.pl-notfound) {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: clip;
+  background: var(--pl-stage-bg);
+}
+
+.pl-stage:has(.pl-notfound) .pl-atmo {
+  display: none;
+}
+
+.pl-stage:has(.pl-notfound) > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
+.pl-stage:has(.pl-notfound) .app-frame,
+.pl-stage:has(.pl-notfound) #main,
+.pl-stage:has(.pl-notfound) #main > .pl-page-enter {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.pl-stage:has(.pl-notfound) #main > footer {
+  display: none;
+}
+
+.pl-stage:has(.pl-notfound) .pl-notfound {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
 }
 
 .pl-notfound-card {
@@ -2043,10 +2097,58 @@
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
+.pl-com-filter-controls,
 .pl-com-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pl-com-league-select {
+  min-width: 184px;
+  max-width: 248px;
+}
+
+.pl-com-inline-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pl-brand) 16%, transparent);
+  color: var(--pl-brand);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.pl-com-reset-btn {
+  border: 0;
+  background: transparent;
+  color: var(--pl-brand);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 0 8px;
+  min-height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.pl-com-reset-btn:hover {
+  background: color-mix(in srgb, var(--pl-brand) 10%, transparent);
+}
+
+.pl-com-topics-toolbar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2069,6 +2171,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
@@ -2085,6 +2188,7 @@
 }
 
 .pl-prof-pill:focus-visible,
+.pl-com-reset-btn:focus-visible,
 .pl-com-pick--link:focus-visible,
 .pl-com-match-chip:focus-visible,
 .pl-com-comment-avatar-link:focus-visible,
@@ -2105,6 +2209,9 @@
   min-height: 30px;
   padding: 0 11px;
   font-size: 12.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ---------- Composer: contador, pick propio y Bitácora ---------- */
@@ -2447,6 +2554,15 @@
 }
 
 @media (max-width: 720px) {
+  .pl-com-filter-controls {
+    width: 100%;
+  }
+
+  .pl-com-league-select {
+    flex: 1 1 168px;
+    max-width: none;
+  }
+
   .pl-com-attached {
     align-items: flex-start;
   }
@@ -2477,6 +2593,8 @@
 
 @media (pointer: coarse) {
   .pl-prof-pill,
+  .pl-prof-chip,
+  .pl-com-reset-btn,
   .pl-com-comment-act,
   .pl-com-reply--inline button,
   .pl-com-attached-field select,

@@ -13,6 +13,7 @@ import {
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
 import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui";
+import { resolveTeamVenueGeo } from "@pitchlab/ui/team-venues";
 import type {
   PlatformSport,
   PlayerProfileData,
@@ -1013,11 +1014,17 @@ export function loadTeamProfile(
     });
   }
 
-  // 4. Sede y altitud reales (prioriza sede en partido local del snapshot).
+  // 4. Sede y altitud reales (prioriza el directorio canónico del club y descarta nombres genéricos de país).
   const homeSnapshotVenue =
     snapshot.games.find((g) => g.home.id === team.id && !g.neutralSite && g.venue)?.venue ?? null;
   const master = findSpacetimeTeamRecord(leagueRaw, team.name, team.slug);
-  const venueName = homeSnapshotVenue ?? master?.stadium_name ?? null;
+  const resolvedGeo = resolveTeamVenueGeo(
+    leagueRaw,
+    team.slug,
+    team.name,
+    homeSnapshotVenue ?? master?.stadium_name ?? null,
+  );
+  const venueName = resolvedGeo?.stadium ?? master?.stadium_name ?? homeSnapshotVenue ?? null;
   const venue: TeamVenueInfo | null =
     venueName || master?.stadium_elevation_m != null || master?.roof_type
       ? {
@@ -1052,6 +1059,36 @@ export function loadTeamProfile(
   const updatedLabel = formatIsoUpdatedEs(snapshot.updatedAt) ?? snapshot.updatedAt.slice(0, 10);
   const squad = loadTeamSquadSummary(leagueRaw, team, options.fullAccess);
 
+  const mergedInjuries: TeamInjuryItem[] = options.fullAccess
+    ? (() => {
+        const base = loadTeamInjuries(leagueRaw, team.id);
+        const seen = new Set(base.map((i) => i.player.trim().toLowerCase()));
+        for (const p of squad?.players ?? []) {
+          if (
+            (p.availability === "injured" ||
+              p.availability === "doubtful" ||
+              p.availability === "suspended") &&
+            !seen.has(p.name.trim().toLowerCase())
+          ) {
+            seen.add(p.name.trim().toLowerCase());
+            base.push({
+              player: p.name,
+              position: p.positionLabel,
+              status:
+                p.availability === "suspended"
+                  ? "Suspendido"
+                  : p.availability === "doubtful"
+                    ? "En duda"
+                    : "Lesionado",
+              detail: p.injuryDetail ?? null,
+              reportedAt: p.expectedReturn ? `Regreso est.: ${p.expectedReturn}` : null,
+            });
+          }
+        }
+        return base;
+      })()
+    : [];
+
   return {
     league: asLeagueId(leagueRaw),
     leagueLabel,
@@ -1067,7 +1104,7 @@ export function loadTeamProfile(
     },
     standing,
     venue,
-    injuries: options.fullAccess ? loadTeamInjuries(leagueRaw, team.id) : [],
+    injuries: mergedInjuries,
     recentAverages,
     modelSection: buildModelMetrics(
       leagueRaw,
@@ -1151,21 +1188,54 @@ function mapSquadEntryToSummary(
       positionGroup: p.positionGroup,
       positionLabel: p.positionLabel,
       age: p.age,
+      birthDate: p.birthDate ?? null,
       heightCm: p.heightCm,
       weightKg: p.weightKg,
+      preferredFoot: p.preferredFoot ?? null,
       nationality: p.nationality,
       nationalityCode: p.nationalityCode,
+      photoKey: p.photoKey ?? null,
+      fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+      availability: fullAccess ? (p.availability ?? null) : null,
+      injuryDetail: fullAccess ? (p.injuryDetail ?? null) : null,
+      expectedReturn: fullAccess ? (p.expectedReturn ?? null) : null,
       stats: { ...p.stats },
       candidatePicks,
     };
   });
 
   return {
-    coachName: entry.coachName,
+    coachName: entry.coach?.name ?? entry.coachName,
+    coach: entry.coach
+      ? {
+          name: entry.coach.name,
+          shortName: entry.coach.shortName ?? null,
+          photoKey: entry.coach.photoKey ?? null,
+          nationality: entry.coach.nationality ?? null,
+          nationalityCode: entry.coach.nationalityCode ?? null,
+          birthDate: entry.coach.birthDate ?? null,
+          preferredFormation: entry.coach.preferredFormation ?? null,
+          styleLabel: entry.coach.styleLabel ?? null,
+          careerRecord: entry.coach.careerRecord ?? null,
+        }
+      : entry.coachName
+        ? { name: entry.coachName }
+        : null,
     updatedAt: formatIsoUpdatedEs(entry.updatedAt) ?? entry.updatedAt.slice(0, 10),
     players,
   };
 }
+
+const NATIONAL_SQUAD_POOL_LEAGUES: readonly ProductLeague[] = [
+  "copa-del-mundo",
+  "uefa-nations",
+  "concacaf-nations",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
+];
 
 function loadTeamSquadSummary(
   leagueRaw: string,
@@ -1173,11 +1243,20 @@ function loadTeamSquadSummary(
   fullAccess: boolean,
 ): TeamSquadSummary | null {
   const file = loadRawLeagueSquads(leagueRaw);
-  if (!file) return null;
-  const entry =
-    file.teams.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
-  if (!entry) return null;
-  return mapSquadEntryToSummary(entry, fullAccess);
+  const directEntry =
+    file?.teams.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
+  if (directEntry) return mapSquadEntryToSummary(directEntry, fullAccess);
+
+  if (isNationalCompetition(leagueRaw)) {
+    for (const poolLeague of NATIONAL_SQUAD_POOL_LEAGUES) {
+      if (poolLeague === leagueRaw) continue;
+      const poolFile = loadRawLeagueSquads(poolLeague);
+      const match = poolFile?.teams.find((t) => t.teamSlug === team.slug) ?? null;
+      if (match) return mapSquadEntryToSummary(match, fullAccess);
+    }
+  }
+
+  return null;
 }
 
 /** Carga la ficha individual de un jugador con bio, estadísticas de temporada y picks aplicables. */
@@ -1203,6 +1282,8 @@ export function loadPlayerProfile(
       shortName: p.shortName,
       jersey: p.jersey,
       positionGroup: p.positionGroup,
+      photoKey: p.photoKey ?? null,
+      fallbackPhotoKey: p.fallbackPhotoKey ?? null,
       href: `/app/${teamProfile.league}/teams/${teamProfile.team.slug}/players/${p.slug}`,
     }));
 
@@ -1214,6 +1295,7 @@ export function loadPlayerProfile(
     updatedAt: teamProfile.squad.updatedAt || teamProfile.updatedAt,
     team: { ...teamProfile.team },
     coachName: teamProfile.squad.coachName,
+    coach: teamProfile.squad.coach ?? null,
     player,
     picksLocked: !options.fullAccess,
     nextFixture: teamProfile.upcomingFixtures[0] ?? null,
@@ -1316,4 +1398,154 @@ export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPro
   }
 
   return items.slice(0, 120);
+}
+
+export interface ServerStandingsSplitRow {
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+  form: Array<"G" | "E" | "P">;
+}
+
+export interface ServerLeagueStandingsMeta {
+  formBySlug: Record<string, Array<"G" | "E" | "P">>;
+  homeBySlug: Record<string, ServerStandingsSplitRow>;
+  awayBySlug: Record<string, ServerStandingsSplitRow>;
+}
+
+/**
+ * Calcula la racha reciente real (últimos 5 partidos) y las tablas Local / Visitante
+ * de la temporada vigente combinando el histórico cerrado y el snapshot activo.
+ */
+export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStandingsMeta | null {
+  if (!isProductLeague(leagueRaw)) return null;
+  const snapshot = loadRawLeagueSnapshot(leagueRaw);
+  if (!snapshot || !snapshot.standings || snapshot.standings.length === 0) return null;
+
+  const sport = toDisplaySport(sportForLeague(asLeagueId(leagueRaw)));
+  const hasDraw = sportHasDraw(sport);
+  const winPoints = hasDraw ? 3 : 2;
+  const { byCanonical } = buildTeamMap(snapshot);
+
+  const emptySplit = (): ServerStandingsSplitRow => ({
+    played: 0,
+    won: 0,
+    drawn: 0,
+    lost: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    points: 0,
+    form: [],
+  });
+
+  const formBySlug: Record<string, Array<"G" | "E" | "P">> = {};
+  const homeBySlug: Record<string, ServerStandingsSplitRow> = {};
+  const awayBySlug: Record<string, ServerStandingsSplitRow> = {};
+
+  for (const row of snapshot.standings) {
+    const slug = slugFromTeamId(row.teamId);
+    formBySlug[slug] = [];
+    homeBySlug[slug] = emptySplit();
+    awayBySlug[slug] = emptySplit();
+  }
+
+  const refDateMs = Date.parse(snapshot.updatedAt) || Date.now();
+  const seasonWindowMs = 240 * 86_400_000;
+  const deduped = new Map<
+    string,
+    { sortKey: string; homeSlug: string; awaySlug: string; hs: number; as: number }
+  >();
+
+  for (const h of loadRecentHistoryEntries(leagueRaw)) {
+    const matchesSeason = h.season && snapshot.season ? h.season === snapshot.season : false;
+    const dateMs = Date.parse(`${h.date}T12:00:00Z`);
+    const withinWindow = Number.isFinite(dateMs) && refDateMs - dateMs <= seasonWindowMs && refDateMs - dateMs >= -7 * 86_400_000;
+    if (!matchesSeason && !withinWindow) continue;
+
+    const hCanon = canonicalSlug(h.homeTeam);
+    const aCanon = canonicalSlug(h.awayTeam);
+    const hRef = byCanonical.get(hCanon);
+    const aRef = byCanonical.get(aCanon);
+    if (!hRef && !aRef) continue;
+
+    const key = `${h.date}|${hCanon}|${aCanon}`;
+    deduped.set(key, {
+      sortKey: `${h.date}T12:00:00Z`,
+      homeSlug: hRef?.slug ?? hCanon,
+      awaySlug: aRef?.slug ?? aCanon,
+      hs: h.homeScore,
+      as: h.awayScore,
+    });
+  }
+
+  for (const g of snapshot.games) {
+    if (g.status !== "final" || !g.result) continue;
+    const hCanon = canonicalSlug(g.home.id);
+    const aCanon = canonicalSlug(g.away.id);
+    const hRef = byCanonical.get(hCanon);
+    const aRef = byCanonical.get(aCanon);
+    const date = g.startTime.slice(0, 10);
+    const key = `${date}|${hCanon}|${aCanon}`;
+    deduped.set(key, {
+      sortKey: g.startTime,
+      homeSlug: hRef?.slug ?? slugFromTeamId(g.home.id),
+      awaySlug: aRef?.slug ?? slugFromTeamId(g.away.id),
+      hs: g.result.home,
+      as: g.result.away,
+    });
+  }
+
+  const chronological = [...deduped.values()].sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+
+  for (const m of chronological) {
+    const hRes: "G" | "E" | "P" = m.hs > m.as ? "G" : m.hs < m.as ? "P" : "E";
+    const aRes: "G" | "E" | "P" = m.as > m.hs ? "G" : m.as < m.hs ? "P" : "E";
+
+    if (formBySlug[m.homeSlug]) {
+      formBySlug[m.homeSlug] = [...formBySlug[m.homeSlug]!, hRes].slice(-5);
+    }
+    if (formBySlug[m.awaySlug]) {
+      formBySlug[m.awaySlug] = [...formBySlug[m.awaySlug]!, aRes].slice(-5);
+    }
+
+    const hSplit = homeBySlug[m.homeSlug];
+    if (hSplit) {
+      hSplit.played += 1;
+      hSplit.goalsFor += m.hs;
+      hSplit.goalsAgainst += m.as;
+      if (hRes === "G") {
+        hSplit.won += 1;
+        hSplit.points += winPoints;
+      } else if (hRes === "E") {
+        hSplit.drawn += 1;
+        if (hasDraw) hSplit.points += 1;
+      } else {
+        hSplit.lost += 1;
+      }
+      hSplit.form = [...hSplit.form, hRes].slice(-5);
+    }
+
+    const aSplit = awayBySlug[m.awaySlug];
+    if (aSplit) {
+      aSplit.played += 1;
+      aSplit.goalsFor += m.as;
+      aSplit.goalsAgainst += m.hs;
+      if (aRes === "G") {
+        aSplit.won += 1;
+        aSplit.points += winPoints;
+      } else if (aRes === "E") {
+        aSplit.drawn += 1;
+        if (hasDraw) aSplit.points += 1;
+      } else {
+        aSplit.lost += 1;
+      }
+      aSplit.form = [...aSplit.form, aRes].slice(-5);
+    }
+  }
+
+  return { formBySlug, homeBySlug, awayBySlug };
 }

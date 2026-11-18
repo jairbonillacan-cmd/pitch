@@ -4,6 +4,7 @@ import {
   TeamProfileClubView,
   type TeamProfileData,
 } from "./club/team/TeamProfileClubView";
+import { PlayerProfileClubView } from "./club/team/PlayerProfileClubView";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import type { ViewerRole } from "./types";
@@ -510,3 +511,179 @@ export const EstadoVacioHonestoOscuro = {
   ),
 };
 export const EstadoVacioHonestoClaro = { ...EstadoVacioHonestoOscuro, ...light };
+
+const SQUAD_PROFILE: TeamProfileData = {
+  ...SOCCER_PROFILE,
+  squad: {
+    coachName: "Martín Demichelis",
+    coach: {
+      name: "Martín Demichelis",
+      shortName: "M. Demichelis",
+      photoKey: "pl-m:423",
+      nationality: "Argentina",
+      nationalityCode: "ARG",
+      preferredFormation: "4-2-3-1",
+      styleLabel: "Posesión ofensiva · Presión alta",
+      careerRecord: {
+        matches: 142,
+        wins: 82,
+        draws: 31,
+        losses: 29,
+        winPct: 57.7,
+      },
+    },
+    updatedAt: "18 nov 2026",
+    players: [
+      {
+        id: "p-berterame",
+        slug: "german-berterame",
+        name: "Germán Berterame",
+        shortName: "G. Berterame",
+        jersey: "7",
+        positionGroup: "FWD",
+        positionLabel: "ST",
+        age: 28,
+        birthDate: "1998-11-13",
+        heightCm: 179,
+        weightKg: 75,
+        preferredFoot: "R",
+        nationality: "Argentina",
+        nationalityCode: "ARG",
+        photoKey: "pl-p:8296",
+        availability: "available",
+        stats: {
+          appearances: 16,
+          subIns: 1,
+          goals: 9,
+          assists: 3,
+          shots: 42,
+          shotsOnTarget: 19,
+          foulsCommitted: 9,
+          foulsSuffered: 16,
+          yellowCards: 2,
+          redCards: 0,
+          offsides: 5,
+          saves: 0,
+          shotsFaced: 0,
+          goalsConceded: 0,
+        },
+        candidatePicks: [],
+      },
+      {
+        id: "p-canales",
+        slug: "sergio-canales",
+        name: "Sergio Canales",
+        shortName: "S. Canales",
+        jersey: "10",
+        positionGroup: "MID",
+        positionLabel: "AM",
+        age: 35,
+        birthDate: "1991-02-16",
+        heightCm: 176,
+        weightKg: 68,
+        preferredFoot: "L",
+        nationality: "España",
+        nationalityCode: "ESP",
+        photoKey: "pl-p:2461",
+        availability: "available",
+        stats: {
+          appearances: 16,
+          subIns: 0,
+          goals: 8,
+          assists: 6,
+          shots: 38,
+          shotsOnTarget: 17,
+          foulsCommitted: 7,
+          foulsSuffered: 28,
+          yellowCards: 1,
+          redCards: 0,
+          offsides: 1,
+          saves: 0,
+          shotsFaced: 0,
+          goalsConceded: 0,
+        },
+        candidatePicks: [],
+      },
+      {
+        id: "p-andrada",
+        slug: "esteban-andrada",
+        name: "Esteban Andrada",
+        shortName: "E. Andrada",
+        jersey: "1",
+        positionGroup: "GK",
+        positionLabel: "GK",
+        age: 35,
+        birthDate: "1991-01-26",
+        heightCm: 194,
+        weightKg: 88,
+        preferredFoot: "R",
+        nationality: "Argentina",
+        nationalityCode: "ARG",
+        photoKey: null,
+        availability: "available",
+        stats: {
+          appearances: 16,
+          subIns: 0,
+          goals: 0,
+          assists: 0,
+          shots: 0,
+          shotsOnTarget: 0,
+          foulsCommitted: 1,
+          foulsSuffered: 2,
+          yellowCards: 1,
+          redCards: 0,
+          offsides: 0,
+          saves: 49,
+          shotsFaced: 66,
+          goalsConceded: 17,
+        },
+        candidatePicks: [],
+      },
+    ],
+  },
+};
+
+export const FutbolPlantillaOscuro = {
+  ...dark,
+  render: () => (
+    <Shell>
+      <TeamProfileClubView profile={SQUAD_PROFILE} initialTab="plantilla" />
+    </Shell>
+  ),
+};
+export const FutbolPlantillaClaro = { ...FutbolPlantillaOscuro, ...light };
+
+export const PerfilJugadorOscuro = {
+  ...dark,
+  render: () => (
+    <Shell>
+      <PlayerProfileClubView
+        profile={{
+          league: SQUAD_PROFILE.league,
+          leagueLabel: SQUAD_PROFILE.leagueLabel,
+          sport: "football",
+          seasonLabel: SQUAD_PROFILE.seasonLabel,
+          updatedAt: "18 nov 2026",
+          team: SQUAD_PROFILE.team,
+          coachName: "Martín Demichelis",
+          coach: SQUAD_PROFILE.squad?.coach ?? null,
+          player: SQUAD_PROFILE.squad!.players[0]!,
+          picksLocked: false,
+          nextFixture: SQUAD_PROFILE.upcomingFixtures[0] ?? null,
+          teammates: [
+            {
+              slug: "sergio-canales",
+              name: "Sergio Canales",
+              shortName: "S. Canales",
+              jersey: "10",
+              positionGroup: "MID",
+              photoKey: "pl-p:2461",
+              href: "/app/liga-mx/teams/monterrey/players/sergio-canales",
+            },
+          ],
+        }}
+      />
+    </Shell>
+  ),
+};
+export const PerfilJugadorClaro = { ...PerfilJugadorOscuro, ...light };

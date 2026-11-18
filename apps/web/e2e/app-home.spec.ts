@@ -34,7 +34,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(page.getByRole("group", { name: "Elegir día" })).toBeVisible();
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
   await expect(sportGroup).toBeVisible();
-  await expect(page.getByRole("group", { name: "Elegir liga" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
   const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
   await expect(dailyParlayTab).toBeVisible();
@@ -45,10 +44,15 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.locator('[data-daily-risk="medio"]').click();
   await page.getByRole("tab", { name: /Tu parlay/i }).click();
 
-  // Encabezado del Inicio: elegir NBA deja solo sus chips; avanzar con › hasta viernes; volver con Hoy; día vacío muestra «Ir al …».
+  // Encabezado del Inicio: elegir NBA despliega la tira de ligas del deporte y deja solo sus chips.
   const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
   await nbaBtn.click();
   await expect(nbaBtn).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("group", { name: "Ligas del deporte" })).toBeVisible();
+  const nbaDayJump = page.locator("[data-day-empty] [data-day-jump]");
+  if ((await nbaDayJump.count()) > 0) {
+    await nbaDayJump.click();
+  }
   const nbaChips = page.locator("[data-match-chip]");
   const nbaChipCount = await nbaChips.count();
   expect(nbaChipCount).toBeGreaterThan(0);
@@ -83,6 +87,14 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }
   await expect(dayCenter).toContainText(/^vie \d+/i);
   await dayCenter.click();
+  const calPopover = page.locator("[data-home-calendar-popover]");
+  await expect(calPopover).toBeVisible();
+  const calBox = await calPopover.boundingBox();
+  expect(calBox).not.toBeNull();
+  expect(calBox!.x).toBeGreaterThanOrEqual(0);
+  expect(Math.round(calBox!.x + calBox!.width)).toBeLessThanOrEqual(width + 1);
+  await calPopover.locator(".pl-home-cal-today-btn").click();
+  await expect(calPopover).toHaveCount(0);
   await expect(dayCenter).toContainText("Hoy");
 
   let firstMatchHref: string | null = null;
@@ -119,7 +131,10 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     if ((await scheduledFootballLink.count()) > 0) {
       firstMatchHref = await scheduledFootballLink.getAttribute("href");
     }
-    await dayCenter.click();
+    if (!(await dayCenter.innerText()).includes("Hoy")) {
+      await dayCenter.click();
+      await page.locator("[data-home-calendar-popover] .pl-home-cal-today-btn").click();
+    }
     await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
   }
   if (!firstMatchHref) {
@@ -169,7 +184,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // Buscador global (⌘K / botón Buscar)
   await page.getByRole("button", { name: "Buscar" }).click();
   const searchInput = page.getByRole("searchbox", {
-    name: /Buscar equipo, liga, partido o módulo/i,
+    name: /Buscar partido, liga, @socio o módulo/i,
   });
   await expect(searchInput).toBeVisible();
   await searchInput.fill("NFL");

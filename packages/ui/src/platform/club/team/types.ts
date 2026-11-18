@@ -140,6 +140,24 @@ export interface TeamSquadPlayerStats {
   goalsConceded: number;
 }
 
+export interface TeamCoachInfo {
+  name: string;
+  shortName?: string | null;
+  photoKey?: string | null;
+  nationality?: string | null;
+  nationalityCode?: string | null;
+  birthDate?: string | null;
+  preferredFormation?: string | null;
+  styleLabel?: string | null;
+  careerRecord?: {
+    matches: number;
+    wins: number;
+    draws: number;
+    losses: number;
+    winPct?: number | null;
+  } | null;
+}
+
 export interface TeamSquadPlayer {
   id: string;
   slug: string;
@@ -149,16 +167,24 @@ export interface TeamSquadPlayer {
   positionGroup: "GK" | "DEF" | "MID" | "FWD";
   positionLabel: string;
   age: number | null;
+  birthDate?: string | null;
   heightCm: number | null;
   weightKg: number | null;
+  preferredFoot?: "R" | "L" | "B" | null;
   nationality: string | null;
   nationalityCode: string | null;
+  photoKey?: string | null;
+  fallbackPhotoKey?: string | null;
+  availability?: "available" | "injured" | "doubtful" | "suspended" | null;
+  injuryDetail?: string | null;
+  expectedReturn?: string | null;
   stats: TeamSquadPlayerStats;
   candidatePicks: TeamPlayerPick[];
 }
 
 export interface TeamSquadSummary {
   coachName: string | null;
+  coach?: TeamCoachInfo | null;
   updatedAt: string;
   players: TeamSquadPlayer[];
 }
@@ -214,6 +240,7 @@ export interface PlayerProfileData {
     code: string;
   };
   coachName: string | null;
+  coach?: TeamCoachInfo | null;
   player: TeamSquadPlayer;
   picksLocked: boolean;
   nextFixture: TeamUpcomingFixtureRow | null;
@@ -223,6 +250,8 @@ export interface PlayerProfileData {
     shortName: string;
     jersey: string | null;
     positionGroup: "GK" | "DEF" | "MID" | "FWD";
+    photoKey?: string | null;
+    fallbackPhotoKey?: string | null;
     href: string;
   }>;
 }

@@ -287,16 +287,46 @@ function CommunityContent(): React.JSX.Element {
     refreshSocialFeed(forYouScope);
   }, [forYouScope, refreshSocialFeed]);
 
-  const forYouLeagues = useMemo(() => {
-    const fromLeagues = dataset.leagues.map((l) => ({ league: l.league, label: l.label }));
-    const seen = new Set(fromLeagues.map((l) => l.label));
+  const postCountByLeague = useMemo(() => {
+    const counts = new Map<string, number>();
     for (const p of socialPosts) {
-      if (p.leagueLabel && p.leagueLabel !== "Comunidad" && !seen.has(p.leagueLabel)) {
-        seen.add(p.leagueLabel);
+      if (p.leagueLabel && p.leagueLabel !== "Comunidad") {
+        counts.set(p.leagueLabel, (counts.get(p.leagueLabel) ?? 0) + 1);
       }
     }
-    return fromLeagues;
-  }, [dataset.leagues, socialPosts]);
+    return counts;
+  }, [socialPosts]);
+
+  const openPostsCount = useMemo(
+    () => socialPosts.filter((p) => p.pick?.status === "open").length,
+    [socialPosts],
+  );
+
+  const forYouLeagueOptions = useMemo(() => {
+    const ordered = [...dataset.leagues].sort((a, b) => {
+      const ca = postCountByLeague.get(a.label) ?? 0;
+      const cb = postCountByLeague.get(b.label) ?? 0;
+      if (cb !== ca) return cb - ca;
+      return 0;
+    });
+    return [
+      {
+        value: "all",
+        label: "Todas las ligas",
+        triggerLabel: "Todas las ligas",
+        icon: <MaestroIcon name="layers" size={14} />,
+      },
+      ...ordered.map((l) => {
+        const count = postCountByLeague.get(l.label) ?? 0;
+        return {
+          value: l.label,
+          label: count > 0 ? `${l.label} (${count})` : l.label,
+          triggerLabel: l.label,
+          icon: <LeagueBadge league={l.league} label={l.label} logoUrl={l.logoUrl} size={16} />,
+        };
+      }),
+    ];
+  }, [dataset.leagues, postCountByLeague]);
 
   const filteredForYouPosts = useMemo(() => {
     const filtered = socialPosts.filter((p) => {
@@ -338,7 +368,12 @@ function CommunityContent(): React.JSX.Element {
 
   return (
     <div className="pl-com">
-      <h1 className="pl-com-title">Comunidad</h1>
+      <header className="pl-com-header">
+        <h1 className="pl-com-title">Comunidad</h1>
+        <p className="pl-com-subtitle">
+          Lecturas de socios, picks sellados antes del partido y consenso frente al modelo.
+        </p>
+      </header>
       <UnderlineTabs
         tabs={TABS}
         active={tab}
@@ -360,39 +395,51 @@ function CommunityContent(): React.JSX.Element {
               />
               <MobileTop ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
               <div className="pl-com-filter-bar" role="region" aria-label="Filtros de Para ti">
-                <div className="pl-com-filter-chips">
-                  <button
-                    type="button"
-                    className={`pl-prof-pill ${forYouLeague === "all" && !forYouOpenOnly ? "is-on" : ""}`}
-                    aria-pressed={forYouLeague === "all" && !forYouOpenOnly}
-                    onClick={() => {
-                      setForYouLeague("all");
-                      setForYouOpenOnly(false);
-                    }}
-                  >
-                    Todas
-                  </button>
-                  <button
-                    type="button"
-                    className={`pl-prof-pill ${forYouOpenOnly ? "is-on" : ""}`}
-                    aria-pressed={forYouOpenOnly}
-                    onClick={() => setForYouOpenOnly((v) => !v)}
-                  >
-                    Con pick abierto
-                  </button>
-                  {forYouLeagues.map((l) => (
+                <div className="pl-com-filter-controls">
+                  <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Tipo de publicaciones">
                     <button
-                      key={l.label}
                       type="button"
-                      className={`pl-prof-pill ${forYouLeague === l.label ? "is-on" : ""}`}
-                      aria-pressed={forYouLeague === l.label}
-                      onClick={() => setForYouLeague((prev) => (prev === l.label ? "all" : l.label))}
+                      aria-pressed={!forYouOpenOnly}
+                      onClick={() => setForYouOpenOnly(false)}
                     >
-                      <LeagueBadge league={l.league} size={13} />
-                      <span>{l.label}</span>
+                      Todo
                     </button>
-                  ))}
+                    <button
+                      type="button"
+                      aria-pressed={forYouOpenOnly}
+                      onClick={() => setForYouOpenOnly(true)}
+                    >
+                      <span>Con pick abierto</span>
+                      {openPostsCount > 0 ? (
+                        <span className="pl-com-inline-count num">{openPostsCount}</span>
+                      ) : null}
+                    </button>
+                  </div>
+
+                  <PlSelect
+                    variant="glass"
+                    size="sm"
+                    ariaLabel="Filtrar publicaciones por liga"
+                    value={forYouLeague}
+                    onChange={(next) => setForYouLeague(next)}
+                    options={forYouLeagueOptions}
+                    className="pl-com-league-select"
+                  />
+
+                  {forYouLeague !== "all" || forYouOpenOnly ? (
+                    <button
+                      type="button"
+                      className="pl-com-reset-btn"
+                      onClick={() => {
+                        setForYouLeague("all");
+                        setForYouOpenOnly(false);
+                      }}
+                    >
+                      Limpiar
+                    </button>
+                  ) : null}
                 </div>
+
                 <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Ordenar publicaciones">
                   <button
                     type="button"
@@ -674,17 +721,19 @@ function Composer({
       <div className="pl-com-composer-bar">
         <div className="pl-com-composer-tools">
           <button type="button" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm" onClick={() => setPickerOpen(true)}>
-            <MaestroIcon name="layers" size={14} />
+            <MaestroIcon name="plus" size={14} />
             {attached ? "Cambiar pick" : "Adjuntar pick"}
           </button>
-          <div className="pl-com-seg" role="group" aria-label="Origen del pick">
-            <button type="button" aria-pressed={origin === "Spacetime Suite"} onClick={() => setOrigin("Spacetime Suite")}>
-              Del modelo
-            </button>
-            <button type="button" aria-pressed={origin === "Bitácora Propia"} onClick={() => setOrigin("Bitácora Propia")}>
-              Propio
-            </button>
-          </div>
+          {attached ? (
+            <div className="pl-com-seg" role="group" aria-label="Origen del pick">
+              <button type="button" aria-pressed={origin === "Spacetime Suite"} onClick={() => setOrigin("Spacetime Suite")}>
+                Del modelo
+              </button>
+              <button type="button" aria-pressed={origin === "Bitácora Propia"} onClick={() => setOrigin("Bitácora Propia")}>
+                Propio
+              </button>
+            </div>
+          ) : null}
         </div>
         <div className="pl-com-composer-submit">
           {nearLimit ? (
@@ -1472,6 +1521,7 @@ function TopicsPicker({
   defaultOpen: boolean;
 }): React.JSX.Element | null {
   const uid = useId();
+  const [query, setQuery] = useState("");
   const leagues = useMemo(() => {
     const map = new Map<
       string,
@@ -1488,41 +1538,151 @@ function TopicsPicker({
       teams: [...l.teams.values()].sort((a, b) => a.name.localeCompare(b.name, "es")),
     }));
   }, [games]);
+
+  const [selectedLeagueKey, setSelectedLeagueKey] = useState<string>("");
+  const activeLeagueKey =
+    selectedLeagueKey && leagues.some((l) => l.league === selectedLeagueKey)
+      ? selectedLeagueKey
+      : (leagues[0]?.league ?? "");
+  const activeLeague = leagues.find((l) => l.league === activeLeagueKey) ?? leagues[0];
+
+  const normalizedQuery = query
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+  const matchingTeams = useMemo(() => {
+    if (!normalizedQuery) {
+      return activeLeague
+        ? activeLeague.teams.map((t) => ({ ...t, league: activeLeague.league, leagueLabel: activeLeague.label }))
+        : [];
+    }
+    const hits: Array<{ slug: string; name: string; league: PlatformGame["league"]; leagueLabel: string }> = [];
+    for (const l of leagues) {
+      for (const t of l.teams) {
+        const hay = `${t.name} ${l.label}`
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        if (hay.includes(normalizedQuery)) {
+          hits.push({ ...t, league: l.league, leagueLabel: l.label });
+        }
+      }
+    }
+    return hits.slice(0, 24);
+  }, [activeLeague, leagues, normalizedQuery]);
+
   const count = topics.leagues.length + topics.teams.length;
   if (leagues.length === 0) return null;
+
+  const isFollowingActiveLeague = activeLeague ? topics.leagues.includes(activeLeague.league) : false;
+
   return (
     <details className="pl-com-topics glass-lens glass-ring" open={defaultOpen}>
       <summary className="pl-com-topics-summary">
         <span>Ligas y equipos que sigues</span>
-        <span className="pl-prof-muted num">{count === 0 ? "Ninguno" : count}</span>
+        <span className="pl-prof-muted num">{count === 0 ? "Elegir" : `${count} activos`}</span>
       </summary>
       <div className="pl-com-topics-body">
         <p className="pl-com-card-note">
-          Lo que se publique sobre sus partidos aparece en «Siguiendo», aunque no sigas a quien lo escribe. Se
-          guarda en este navegador.
+          Sigue una liga o tus equipos favoritos para ver sus publicaciones en «Siguiendo».
         </p>
-        <div className="pl-com-filters" role="group" aria-label="Ligas que sigues">
-          {leagues.map((l) => (
+
+        {count > 0 ? (
+          <div className="pl-com-filters" role="group" aria-label="Temas seguidos actualmente">
+            {topics.leagues.map((lgId) => {
+              const lgObj = leagues.find((item) => item.league === lgId);
+              return (
+                <button
+                  key={`followed-lg-${lgId}`}
+                  type="button"
+                  className="pl-prof-chip"
+                  aria-pressed={true}
+                  onClick={() => onToggleLeague(lgId)}
+                >
+                  <LeagueBadge league={lgId} size={15} />
+                  <span>{lgObj?.label ?? lgId}</span>
+                  <MaestroIcon name="x" size={12} />
+                </button>
+              );
+            })}
+            {topics.teams.map((key) => {
+              const [lgId, slug] = key.split(":");
+              const lgObj = leagues.find((item) => item.league === lgId);
+              const teamObj = lgObj?.teams.find((t) => t.slug === slug);
+              if (!lgId || !slug) return null;
+              return (
+                <button
+                  key={`followed-tm-${key}`}
+                  type="button"
+                  className="pl-prof-chip"
+                  aria-pressed={true}
+                  onClick={() => onToggleTeam(key)}
+                >
+                  <TeamBadge league={lgId} slug={slug} name={teamObj?.name ?? slug} size={15} decorative />
+                  <span>{teamObj?.name ?? slug}</span>
+                  <MaestroIcon name="x" size={12} />
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div className="pl-com-topics-toolbar">
+          <PlSelect
+            variant="glass"
+            size="sm"
+            ariaLabel="Elegir liga para explorar equipos"
+            value={activeLeagueKey}
+            onChange={(next) => {
+              setSelectedLeagueKey(next);
+              setQuery("");
+            }}
+            options={leagues.map((l) => ({
+              value: l.league,
+              label: l.label,
+              icon: <LeagueBadge league={l.league} size={16} />,
+            }))}
+            className="pl-com-league-select"
+          />
+
+          {activeLeague && !normalizedQuery ? (
             <button
-              key={l.league}
               type="button"
               className="pl-prof-chip"
-              aria-pressed={topics.leagues.includes(l.league)}
-              onClick={() => onToggleLeague(l.league)}
+              aria-pressed={isFollowingActiveLeague}
+              onClick={() => onToggleLeague(activeLeague.league)}
             >
-              <LeagueBadge league={l.league} size={16} />
-              {l.label}
+              <LeagueBadge league={activeLeague.league} size={15} />
+              <span>{isFollowingActiveLeague ? `Siguiendo ${activeLeague.label}` : `Seguir toda ${activeLeague.label}`}</span>
             </button>
-          ))}
+          ) : null}
+
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar equipo..."
+            aria-label="Buscar equipo para seguir"
+            className="glass-input text-base sm:text-xs px-3 min-h-11 sm:min-h-9 rounded-xl flex-1 min-w-[160px]"
+          />
         </div>
-        {leagues.map((l) => (
-          <div key={l.league} className="pl-com-topics-league">
-            <p className="pl-com-topics-label" id={`${uid}-${l.league}`}>
-              Equipos de {l.label}
-            </p>
-            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-${l.league}`}>
-              {l.teams.map((t) => {
-                const key = teamTopicKey(l.league, t.slug);
+
+        <div className="pl-com-topics-league">
+          <p className="pl-com-topics-label" id={`${uid}-teams`}>
+            {normalizedQuery
+              ? `Resultados para «${query.trim()}»`
+              : activeLeague
+                ? `Equipos de ${activeLeague.label}`
+                : "Equipos"}
+          </p>
+          {matchingTeams.length === 0 ? (
+            <p className="pl-com-card-note">Sin equipos que coincidan con esa búsqueda.</p>
+          ) : (
+            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-teams`}>
+              {matchingTeams.map((t) => {
+                const key = teamTopicKey(t.league, t.slug);
                 return (
                   <button
                     key={key}
@@ -1531,14 +1691,14 @@ function TopicsPicker({
                     aria-pressed={topics.teams.includes(key)}
                     onClick={() => onToggleTeam(key)}
                   >
-                    <TeamBadge league={l.league} slug={t.slug} name={t.name} size={16} decorative />
-                    {t.name}
+                    <TeamBadge league={t.league} slug={t.slug} name={t.name} size={16} decorative />
+                    <span>{t.name}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
-        ))}
+          )}
+        </div>
       </div>
     </details>
   );

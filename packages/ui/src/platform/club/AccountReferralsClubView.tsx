@@ -51,7 +51,8 @@ function isAccountTabKey(value: unknown): value is AccountTabKey {
 }
 
 /** Pestaña pedida (URL o prop) → pestaña visible; Facturación apagada cae en «Mi plan». */
-function resolveAccountTab(value: unknown): AccountTabKey | null {
+export function resolveAccountTab(value: unknown): AccountTabKey | null {
+  if (value === "preferencias") return "prefs";
   if (isAccountTabKey(value)) return value;
   return value === "cfdi" ? "plan" : null;
 }
@@ -161,6 +162,14 @@ export function AccountReferralsClubView({
       inline: "nearest",
       container: "nearest",
     } as ScrollIntoViewOptions);
+
+    if (typeof window !== "undefined" && accountTab === "prefs") {
+      const hash = window.location.hash.slice(1);
+      if (hash.startsWith("pl-prefs-")) {
+        const target = document.getElementById(hash);
+        target?.scrollIntoView?.({ block: "start", behavior: "smooth" });
+      }
+    }
   }, [accountTab]);
 
   const identity = useMemo(

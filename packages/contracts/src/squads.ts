@@ -46,6 +46,28 @@ export const PlayerApplicablePickSchema = z.object({
 });
 export type PlayerApplicablePick = z.infer<typeof PlayerApplicablePickSchema>;
 
+export const SquadCoachProfileSchema = z.object({
+  name: z.string().min(1),
+  shortName: z.string().nullable().optional(),
+  photoKey: z.string().nullable().optional(),
+  nationality: z.string().nullable().optional(),
+  nationalityCode: z.string().nullable().optional(),
+  birthDate: z.string().nullable().optional(),
+  preferredFormation: z.string().nullable().optional(),
+  styleLabel: z.string().nullable().optional(),
+  careerRecord: z
+    .object({
+      matches: z.number().int().nonnegative(),
+      wins: z.number().int().nonnegative(),
+      draws: z.number().int().nonnegative(),
+      losses: z.number().int().nonnegative(),
+      winPct: z.number().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+});
+export type SquadCoachProfile = z.infer<typeof SquadCoachProfileSchema>;
+
 export const SquadPlayerEntrySchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -55,10 +77,17 @@ export const SquadPlayerEntrySchema = z.object({
   positionGroup: PlayerPositionGroupSchema,
   positionLabel: z.string().min(1),
   age: z.number().int().positive().nullable(),
+  birthDate: z.string().nullable().optional(),
   heightCm: z.number().int().positive().nullable(),
   weightKg: z.number().int().positive().nullable(),
+  preferredFoot: z.enum(["R", "L", "B"]).nullable().optional(),
   nationality: z.string().nullable(),
   nationalityCode: z.string().nullable(),
+  photoKey: z.string().nullable().optional(),
+  fallbackPhotoKey: z.string().nullable().optional(),
+  availability: z.enum(["available", "injured", "doubtful", "suspended"]).nullable().optional(),
+  injuryDetail: z.string().nullable().optional(),
+  expectedReturn: z.string().nullable().optional(),
   stats: SquadPlayerStatsSchema,
   candidatePicks: z.array(PlayerApplicablePickSchema),
 });
@@ -69,6 +98,7 @@ export const TeamSquadEntrySchema = z.object({
   teamSlug: z.string().min(1),
   teamName: z.string().min(1),
   coachName: z.string().nullable(),
+  coach: SquadCoachProfileSchema.nullable().optional(),
   updatedAt: z.string().min(10),
   players: z.array(SquadPlayerEntrySchema),
 });

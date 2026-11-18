@@ -80,15 +80,16 @@ export function LaunchScreen({
 
       <div className="pl-launch-body">
         <div className="pl-launch-mark" aria-hidden="true">
-          <span className="pl-launch-halo" />
-          <span className="pl-launch-tile glass-ring glass-ring--featured">
-            <svg className="pl-launch-iso" viewBox="0 0 64 64" width="56" height="56">
-              <path d={ISOTYPE_PATH} pathLength={1} />
-            </svg>
-          </span>
+          <svg className="pl-launch-ring" viewBox="0 0 64 64" width="56" height="56">
+            <circle className="pl-launch-ring-track" cx="32" cy="32" r="28" />
+            <circle className="pl-launch-ring-arc" cx="32" cy="32" r="28" pathLength={100} />
+          </svg>
+          <svg className="pl-launch-iso" viewBox="0 0 64 64" width="24" height="24">
+            <path d={ISOTYPE_PATH} />
+          </svg>
           {confirmed && (
             <span className="pl-launch-check">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none">
                 <path
                   d="m5 12.5 4.5 4.5L19 7.5"
                   stroke="currentColor"
@@ -102,7 +103,7 @@ export function LaunchScreen({
         </div>
 
         {variant === "full" && (
-          <svg className="pl-launch-wordmark" viewBox="0 0 249 46" height="26" width="141" aria-hidden="true">
+          <svg className="pl-launch-wordmark" viewBox="0 0 249 46" height="22" width="120" aria-hidden="true">
             {WORDMARK_GLYPHS.map(([x, d]) => (
               <path key={x} transform={`translate(${x} 0)`} d={d} />
             ))}
@@ -114,10 +115,6 @@ export function LaunchScreen({
             {status}
           </span>
         </p>
-
-        <div className="pl-launch-bar" aria-hidden="true">
-          <i />
-        </div>
 
         <p className="pl-launch-slow" data-visible={slow || undefined} aria-hidden={!slow}>
           Está tardando más de lo normal.

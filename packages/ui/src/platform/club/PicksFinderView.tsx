@@ -267,11 +267,11 @@ export function PicksFinderClubView(): React.JSX.Element {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">Explorar picks</h1>
             <a
-              href="/app/account?tab=preferencias#pl-prefs-picks"
-              className="pl-btn-glass text-xs min-h-10 px-3 inline-flex items-center gap-1.5"
+              href="/app/account?tab=prefs#pl-prefs-picks"
+              className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-1.5"
               onClick={(e) => {
                 e.preventDefault();
-                navigateTo("/app/account?tab=preferencias#pl-prefs-picks");
+                navigateTo("/app/account?tab=prefs#pl-prefs-picks");
               }}
             >
               <MaestroIcon name="sliders" size={13} />
@@ -325,7 +325,7 @@ export function PicksFinderClubView(): React.JSX.Element {
               <button
                 key={b.id}
                 type="button"
-                className="seg-btn text-xs min-h-10"
+                className="seg-btn text-xs min-h-11 sm:min-h-10"
                 aria-pressed={band === b.id}
                 title={b.hint || undefined}
                 onClick={() => {
@@ -465,7 +465,7 @@ export function PicksFinderClubView(): React.JSX.Element {
                                 }))
                               }
                               data-manual-odds-input={pick.id}
-                              className="glass-input num text-xs px-2.5 min-h-11 w-24 rounded-lg"
+                              className="glass-input num text-base sm:text-xs px-2.5 min-h-11 w-24 rounded-lg"
                             />
                           </label>
                         ) : (

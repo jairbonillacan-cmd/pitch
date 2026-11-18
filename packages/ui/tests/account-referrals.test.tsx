@@ -10,6 +10,9 @@ import {
 } from "@pitchlab/contracts";
 import {
   AccountReferralsClubView,
+  resolveAccountTab,
+} from "../src/platform/club/AccountReferralsClubView";
+import {
   annualSavingsMxn,
   buildInviteShareMessage,
   buildPlatformDataset,
@@ -372,6 +375,10 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(prefsNoAccountsHtml).not.toContain("Autoexclusión");
     expect(prefsNoAccountsHtml).not.toContain("Modo Pausa Social");
     expect(prefsNoAccountsHtml.toLowerCase()).not.toContain("sobrepaga");
+
+    expect(resolveAccountTab("prefs")).toBe("prefs");
+    expect(resolveAccountTab("preferencias")).toBe("prefs");
+    expect(resolveAccountTab("cfdi")).toBe("plan");
 
     const prefsWithAccountsPausedHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>

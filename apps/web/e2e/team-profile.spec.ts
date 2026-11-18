@@ -73,9 +73,33 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     const vp = testInfo.project.name === "mobile" ? "375px" : "desktop";
 
     await page.goto("/app/liga-mx");
+    await assertNoHorizontalOverflow(page);
+
+    // Verificar tabla de Clasificaciones renovada con corchetes de zona, filtros >= 44px en móvil y leyenda
+    const tabTabla = page.locator("#pl-league-tab-tabla");
+    if ((await tabTabla.count()) > 0) {
+      await tabTabla.click();
+      await expect(tabTabla).toHaveAttribute("aria-selected", "true");
+      const splitBtns = page.locator(".pl-league-split-btn:visible");
+      expect(await splitBtns.count()).toBe(3);
+      if (vp === "375px") {
+        const splitHeights = await splitBtns.evaluateAll((els) =>
+          els.map((el) => Math.round(el.getBoundingClientRect().height)),
+        );
+        for (const h of splitHeights) {
+          expect(h).toBeGreaterThanOrEqual(44);
+        }
+      }
+      await expect(page.locator(".pl-st-legend")).toBeVisible();
+      await assertNoHorizontalOverflow(page);
+    }
+
     await page.locator("#pl-league-tab-equipos").click();
     await expect(page.locator("#pl-league-tab-equipos")).toHaveAttribute("aria-selected", "true");
     await expect(page.locator("[data-league-teams-directory]")).toBeVisible();
+
+    // Desplazar hacia abajo antes de navegar para comprobar que el cambio de ruta sube hasta arriba (scrollY === 0)
+    await page.evaluate(() => window.scrollTo(0, 420));
 
     const mtyLink = page
       .locator('[data-league-teams-directory] a[href="/app/liga-mx/teams/monterrey"]')
@@ -87,14 +111,17 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     const hero = page.locator('[data-team-hero="monterrey"]');
     await expect(hero).toBeVisible();
     await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Monterrey/i);
+    await expect.poll(() => page.evaluate(() => Math.round(window.scrollY))).toBeLessThanOrEqual(4);
 
     const modelSection = page.locator("[data-team-model-section]");
     await expect(modelSection).toBeVisible();
     await expect(modelSection).toContainText(/Tachyon v3\.0/i);
+    await expect(page.locator("[data-team-coach-card]")).toBeVisible();
 
     const main = page.locator("#main");
     const tabResumen = main.getByRole("tab", { name: /Resumen/i });
-    const tabPartidos = main.getByRole("tab", { name: /Partidos/i });
+    const tabEstadisticas = main.getByRole("tab", { name: /Estadísticas/i });
+    const tabPlantilla = main.getByRole("tab", { name: /Plantilla/i });
     await expect(tabResumen).toHaveAttribute("aria-selected", "true");
 
     if (vp === "375px") {
@@ -110,27 +137,47 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     await assertAxeClean(page);
     await saveShot(page, `equipo-ligamx-resumen-dark-${vp}.png`);
 
-    // Navegación accesible por teclado y persistencia ?tab=partidos
+    // Navegación accesible por teclado hacia Estadísticas (tabla única sin solapamiento) + columna lateral de Partidos
     await tabResumen.focus();
     await page.keyboard.press("ArrowRight");
-    await expect(tabPartidos).toHaveAttribute("aria-selected", "true");
-    await expect(page).toHaveURL(/tab=partidos/);
+    await expect(tabEstadisticas).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/tab=estadisticas/);
+    await expect(page.locator(".pl-team-stats-table")).toBeVisible();
+    await assertNoHorizontalOverflow(page);
+
+    // Pestaña Plantilla agrupada con retratos reales y navegación a ficha individual de jugador
+    await tabPlantilla.click();
+    await expect(tabPlantilla).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/tab=plantilla/);
+    const squadSection = page.locator("[data-team-squad-section]");
+    await expect(squadSection).toBeVisible();
+    await expect(squadSection).toContainText("Porteros");
+    await assertNoHorizontalOverflow(page);
+    await assertAxeClean(page);
 
     const matchesSection = page.locator("[data-team-matches-section]");
     await expect(matchesSection).toBeVisible();
+    await matchesSection.getByRole("button", { name: "Finalizados" }).click();
     await expect(matchesSection.locator("[data-team-history-list] li").first()).toBeVisible();
-
-    await matchesSection.getByRole("button", { name: "En casa" }).click();
-    await expect(matchesSection.getByRole("button", { name: "En casa" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
 
     const nextTheme = await toggleTheme(page);
     expect(nextTheme).toBe("light");
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);
-    await saveShot(page, `equipo-ligamx-partidos-light-${vp}.png`);
+    await saveShot(page, `equipo-ligamx-partilla-light-${vp}.png`);
+
+    // Entrar al perfil individual del primer jugador de la plantilla y verificar retrato + scroll arriba + Axe AA
+    await page.evaluate(() => window.scrollTo(0, 380));
+    const firstPlayerLink = squadSection.locator('a[href*="/players/"]').first();
+    await expect(firstPlayerLink).toBeVisible();
+    await firstPlayerLink.click();
+    await expect(page).toHaveURL(/\/app\/liga-mx\/teams\/monterrey\/players\//);
+    await expect.poll(() => page.evaluate(() => Math.round(window.scrollY))).toBeLessThanOrEqual(4);
+    const playerHero = page.locator('[data-team-hero="player"]');
+    await expect(playerHero).toBeVisible();
+    await expect(playerHero.locator(".pl-person-avatar").first()).toBeVisible();
+    await assertNoHorizontalOverflow(page);
+    await assertAxeClean(page);
   });
 
   test("renderiza NBA sin empates, carga NFL y permite buscar equipos desde el buscador", async ({
@@ -154,6 +201,13 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);
     await saveShot(page, `equipo-nba-light-${vp}.png`);
+
+    // Verificar también la nueva nómina NBA con retratos y cero desborde horizontal
+    const nbaPlantillaTab = page.locator("#main").getByRole("tab", { name: /Plantilla/i });
+    await nbaPlantillaTab.click();
+    await expect(page.locator("[data-team-squad-section]")).toBeVisible();
+    await assertNoHorizontalOverflow(page);
+    await assertAxeClean(page);
 
     // Probar buscador global hacia otro equipo
     await page.getByRole("button", { name: "Buscar" }).click();

@@ -36,7 +36,15 @@ export function PlatformClientBridge({
 
   const handleNavigate = useCallback(
     (href: string) => {
-      router.push(href);
+      if (typeof window !== "undefined" && !href.includes("#")) {
+        const nextPath = href.split("?")[0] || "/";
+        if (nextPath !== window.location.pathname) {
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }
+      }
+      router.push(href, { scroll: !href.includes("#") });
     },
     [router],
   );

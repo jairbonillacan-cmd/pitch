@@ -229,3 +229,44 @@ export function getResolvedTeamEmblem(
     isExternal: false,
   };
 }
+
+/**
+ * Convierte una llave neutral de retrato (`pl-p:<id>`, `pl-m:<id>` o URL HTTPS autorizada)
+ * en la URL pública de imagen de jugador o entrenador sin exponer nombres de proveedores en datos.
+ */
+export function resolvePersonPhotoUrl(photoKey?: string | null): string | null {
+  const raw = photoKey?.trim();
+  if (!raw) return null;
+
+  const playerMatch = /^pl-p:(\d{1,12})$/.exec(raw);
+  if (playerMatch) {
+    return `${BZZOIRO_IMAGE_BASE_URL}/player/${playerMatch[1]}/`;
+  }
+
+  const managerMatch = /^pl-m:(\d{1,12})$/.exec(raw);
+  if (managerMatch) {
+    return `${BZZOIRO_IMAGE_BASE_URL}/manager/${managerMatch[1]}/`;
+  }
+
+  try {
+    const parsed = new URL(raw);
+    if (
+      parsed.protocol === "https:" &&
+      parsed.hostname === "a.espncdn.com" &&
+      parsed.pathname.startsWith("/i/headshots/")
+    ) {
+      return raw;
+    }
+    if (
+      parsed.protocol === "https:" &&
+      parsed.hostname === "sports.bzzoiro.com" &&
+      parsed.pathname.startsWith("/img/")
+    ) {
+      return raw;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}

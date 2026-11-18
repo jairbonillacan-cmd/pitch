@@ -15,13 +15,13 @@ export default function ClubErrorPage({
   }, [error]);
 
   return (
-    <main className="pl-notfound">
+    <section className="pl-notfound" aria-labelledby="club-error-title">
       <div className="pl-notfound-card glass-lens glass-ring">
         <a href="/app" aria-label="PitchLab, partidos de hoy" className="pl-notfound-logo">
           <BrandLogo variant="horizontal" width={123} height={24} alt="" />
         </a>
         <p className="pl-notfound-code num">Error</p>
-        <h1 className="pl-notfound-title">No pudimos cargar esta pantalla</h1>
+        <h1 id="club-error-title" className="pl-notfound-title">No pudimos cargar esta pantalla</h1>
         <p className="pl-notfound-copy">
           Vuelve a intentarlo o regresa a los partidos de hoy.
         </p>
@@ -38,6 +38,6 @@ export default function ClubErrorPage({
           </a>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

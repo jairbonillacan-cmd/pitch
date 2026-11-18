@@ -2044,17 +2044,58 @@ export function RoleSimulatorBar({
 
 export function ToastViewport(): React.JSX.Element | null {
   const { toasts } = usePlatform();
-  if (toasts.length === 0) return null;
+  const [rendered, setRendered] = useState<Array<{ id: string; tone: string; text: string; closing?: boolean }>>(
+    () => toasts.map((t) => ({ ...t })),
+  );
+
+  useEffect(() => {
+    const activeIds = new Set(toasts.map((t) => t.id));
+    let hasNewlyClosing = false;
+
+    setRendered((prev) => {
+      const prevMap = new Map(prev.map((item) => [item.id, item]));
+      const next: Array<{ id: string; tone: string; text: string; closing?: boolean }> = [];
+
+      for (const item of prev) {
+        if (activeIds.has(item.id)) {
+          const fresh = toasts.find((t) => t.id === item.id)!;
+          next.push({ ...fresh, closing: false });
+        } else if (!item.closing) {
+          hasNewlyClosing = true;
+          next.push({ ...item, closing: true });
+        } else {
+          next.push(item);
+        }
+      }
+
+      for (const t of toasts) {
+        if (!prevMap.has(t.id)) {
+          next.push({ ...t, closing: false });
+        }
+      }
+
+      return next;
+    });
+
+    if (!hasNewlyClosing) return;
+    const timer = window.setTimeout(() => {
+      setRendered((prev) => prev.filter((item) => !item.closing));
+    }, 260);
+    return () => window.clearTimeout(timer);
+  }, [toasts]);
+
+  if (rendered.length === 0) return null;
 
   return (
     <div
       className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none max-w-sm"
       aria-live="polite"
     >
-      {toasts.map((t) => (
+      {rendered.map((t) => (
         <div
           key={t.id}
-          className="glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
+          data-closing={t.closing ? "" : undefined}
+          className="pl-toast-item glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
         >
           <span
             className="dot"

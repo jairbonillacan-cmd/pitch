@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ExampleBadge, ExampleNotice } from "../../components/MaestroPrimitives";
+import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
 import { usePlatform } from "../../platform-provider";
 import { MEMBERSHIP_SPEC, referralEarnedDays } from "../../spacetime-catalog";
 import {
@@ -109,16 +109,12 @@ function XBrandIcon(): React.JSX.Element {
 }
 
 function ShareSheetIcon(): React.JSX.Element {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />
-    </svg>
-  );
+  return <MaestroIcon name="share" size={15} />;
 }
 
 function CheckMarkIcon(): React.JSX.Element {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="m5 12 5 5L20 7" />
     </svg>
   );
@@ -428,7 +424,6 @@ export function InviteTab({
               flipped={flipped}
               onFlipChange={setFlipped}
               asDecorativeChild
-              themeOverride="dark"
             />
           </button>
 
@@ -513,7 +508,7 @@ export function InviteTab({
       {/* Avance hacia embajador + Tus invitaciones */}
       <div className="pl-acct-bottom-grid">
         <section
-          className="pl-acct-card glass-card glass-ring"
+          className="pl-acct-card glass-card glass-ring pl-acct-ambassador-card"
           aria-labelledby="pl-acct-avance-h"
         >
           <div className="pl-acct-row-between">
@@ -523,39 +518,60 @@ export function InviteTab({
             {!accountsEnabled ? <ExampleBadge /> : null}
           </div>
 
-          <div
-            className="pl-acct-slots"
-            role="img"
-            aria-label={`${paidCount} de ${threshold} amigos pagaron`}
-          >
-            {Array.from({ length: threshold }, (_, idx) => {
-              const filled = idx < paidCount;
-              return (
-                <span
-                  key={idx}
-                  aria-hidden="true"
-                  className={`pl-acct-slot num ${filled ? "pl-acct-slot--filled" : "pl-acct-slot--empty"}`}
-                >
-                  {filled ? <CheckMarkIcon /> : idx + 1}
-                </span>
-              );
-            })}
-          </div>
+          <div className="pl-acct-ambassador-track">
+            <div
+              className="pl-acct-slots"
+              role="img"
+              aria-label={`${paidCount} de ${threshold} amigos pagaron`}
+            >
+              {Array.from({ length: threshold }, (_, idx) => {
+                const filled = idx < paidCount;
+                const isGoal = idx === threshold - 1;
+                return (
+                  <div
+                    key={idx}
+                    aria-hidden="true"
+                    className={`pl-acct-milestone ${filled ? "is-filled" : ""} ${isGoal ? "is-goal" : ""}`.trim()}
+                  >
+                    <span
+                      className={`pl-acct-slot num ${filled ? "pl-acct-slot--filled" : "pl-acct-slot--empty"}`}
+                    >
+                      {filled ? <CheckMarkIcon /> : idx + 1}
+                    </span>
+                    <span className="pl-acct-milestone-label num">
+                      {isGoal ? `+${bonusDays} d` : `+${bothDays} d`}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
 
-          <p className="pl-acct-progress-copy num" data-referral-friends="">
-            {isAmbassador
-              ? `Eres embajador · +${bonusDays} días`
-              : `${paidCount} de ${threshold} · ${
-                  remainingForAmbassador === 1
-                    ? "te falta 1"
-                    : `te faltan ${remainingForAmbassador}`
-                } para +${bonusDays} días`}
-          </p>
+            <div className="pl-acct-progress-bar" aria-hidden="true">
+              <span
+                className="pl-acct-progress-fill"
+                style={{ width: `${Math.min(100, Math.round((paidCount / threshold) * 100))}%` }}
+              />
+            </div>
+
+            <p className="pl-acct-progress-copy num" data-referral-friends="">
+              {isAmbassador
+                ? `Eres embajador · desbloqueaste +${bonusDays} días extra`
+                : `${paidCount} de ${threshold} · ${
+                    remainingForAmbassador === 1
+                      ? "te falta 1 amigo"
+                      : `te faltan ${remainingForAmbassador} amigos`
+                  } para el bono de +${bonusDays} días`}
+            </p>
+          </div>
 
           <dl className="pl-acct-earned-row num">
             <div>
               <dt>Días ganados</dt>
               <dd data-referral-days="">+{earnedDays} días</dd>
+            </div>
+            <div>
+              <dt>Meta embajador ({threshold}/5)</dt>
+              <dd className="pl-acct-earned-bonus">+{bonusDays} días extra</dd>
             </div>
           </dl>
         </section>

@@ -3,16 +3,19 @@
 import React, { useState } from "react";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../../sports";
-import {
-  CrestPedestal,
-  LensGlowOrbs,
-  MaestroIcon,
-} from "../../components/MaestroPrimitives";
+import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { decimalToAmericanInt, formatOddsValue } from "../../access-guard";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
 import { usePlatform } from "../../platform-provider";
+import {
+  resolveThemedPackSrcSet,
+  resolveThemedPackUrl,
+  usePackIconBase,
+} from "../../../pack-icon-theme";
+import { resolveCircularCountryFlag } from "../../country-flags";
 import type { MatchPick } from "../../types";
+import { PersonAvatar } from "./PersonAvatar";
 import type { PlayerProfileData, TeamPlayerPick, TeamSquadPlayer } from "./types";
 
 export interface PlayerProfileClubViewProps {
@@ -32,8 +35,29 @@ interface StatCardTile {
   detail?: string;
 }
 
-function buildPlayerStatTiles(player: TeamSquadPlayer): StatCardTile[] {
+function buildPlayerStatTiles(
+  player: TeamSquadPlayer,
+  sport: PlayerProfileData["sport"],
+): StatCardTile[] {
   const { stats, positionGroup } = player;
+  if (sport !== "football" && stats.appearances === 0) {
+    const statusText =
+      player.availability === "injured"
+        ? "Lesionado"
+        : player.availability === "doubtful"
+          ? "En duda"
+          : player.availability === "suspended"
+            ? "Suspendido"
+            : "Activo";
+    return [
+      { label: "Dorsal", value: player.jersey ? `#${player.jersey}` : "—" },
+      { label: "Demarcación", value: player.positionLabel || POSITION_TITLE_ES[positionGroup] },
+      { label: "Estatura", value: player.heightCm != null ? `${player.heightCm} cm` : "—" },
+      { label: "Peso", value: player.weightKg != null ? `${player.weightKg} kg` : "—" },
+      { label: "Edad", value: player.age != null ? `${player.age} años` : "—" },
+      { label: "Estado en nómina", value: statusText, detail: player.injuryDetail ?? undefined },
+    ];
+  }
   const starts = Math.max(0, stats.appearances - stats.subIns);
   if (positionGroup === "GK") {
     const savePct =
@@ -305,6 +329,19 @@ function PlayerInteractivePickCard({
   );
 }
 
+const PREFERRED_FOOT_ES: Readonly<Record<"R" | "L" | "B", string>> = {
+  R: "Derecho",
+  L: "Izquierdo",
+  B: "Ambidiestro",
+};
+
+function formatBirthDateEs(iso?: string | null): string | null {
+  if (!iso) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso.trim());
+  if (!m) return null;
+  return `${Number(m[3])}/${Number(m[2])}/${m[1]}`;
+}
+
 export function PlayerProfileClubView({
   profile,
 }: PlayerProfileClubViewProps): React.JSX.Element {
@@ -317,17 +354,21 @@ export function PlayerProfileClubView({
     sealPickToJournal,
     navigateTo,
   } = usePlatform();
-
-  const teamColors = getTeamColors(profile.league, profile.team.slug);
-  const primaryColor = teamColors?.[0] ?? "var(--pl-aura-default-home)";
-  const secondaryColor = teamColors?.[1] ?? "var(--pl-aura-default-away)";
+  const iconBase = usePackIconBase();
+  void getTeamColors;
 
   const leagueHref = `/app/${profile.league}`;
   const squadHref = `/app/${profile.league}/teams/${profile.team.slug}?tab=plantilla`;
   const teamHref = `/app/${profile.league}/teams/${profile.team.slug}`;
   const isVisitorRestricted = viewerRole === "visitor" || profile.picksLocked;
 
-  const statTiles = buildPlayerStatTiles(profile.player);
+  const statTiles = buildPlayerStatTiles(profile.player, profile.sport);
+  const birthDateLabel = formatBirthDateEs(profile.player.birthDate);
+  const footLabel = profile.player.preferredFoot
+    ? PREFERRED_FOOT_ES[profile.player.preferredFoot]
+    : null;
+  const activeCoach =
+    profile.coach ?? (profile.coachName ? { name: profile.coachName } : null);
 
   const navigateOnPlainClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
@@ -338,59 +379,100 @@ export function PlayerProfileClubView({
   return (
     <AtmosphereStage activePath={leagueHref}>
       <ClubWorkspaceShell activePath={leagueHref}>
-        <div className="space-y-4">
-          {/* Breadcrumb */}
-          <nav aria-label="Ruta del jugador" className="flex flex-wrap items-center gap-2 text-xs">
-            <a
-              href={squadHref}
-              onClick={(e) => navigateOnPlainClick(e, squadHref)}
-              className="pl-team-link inline-flex items-center gap-1 font-semibold"
-              style={{ color: "var(--pl-text-muted)" }}
-            >
-              <span>← Plantilla de {profile.team.shortName}</span>
-            </a>
-            <span aria-hidden="true" style={{ color: "var(--pl-text-muted)" }}>
-              /
-            </span>
-            <a
-              href={teamHref}
-              onClick={(e) => navigateOnPlainClick(e, teamHref)}
-              className="pl-team-link font-semibold"
-              style={{ color: "var(--pl-text-muted)" }}
-            >
-              Resumen del club
-            </a>
-          </nav>
+        {/* Ruta superior del jugador */}
+        <nav aria-label="Ruta del jugador" className="pl-team-crumb">
+          <ol className="pl-team-crumb-list">
+            <li>
+              <a
+                href={leagueHref}
+                onClick={(e) => navigateOnPlainClick(e, leagueHref)}
+                className="pl-team-crumb-link"
+              >
+                {profile.leagueLabel}
+              </a>
+            </li>
+            <li aria-hidden="true" className="pl-team-crumb-sep">
+              ▸
+            </li>
+            <li>
+              <a
+                href={teamHref}
+                onClick={(e) => navigateOnPlainClick(e, teamHref)}
+                className="pl-team-crumb-link"
+              >
+                {profile.team.name}
+              </a>
+            </li>
+            <li aria-hidden="true" className="pl-team-crumb-sep">
+              ▸
+            </li>
+            <li>
+              <a
+                href={squadHref}
+                onClick={(e) => navigateOnPlainClick(e, squadHref)}
+                className="pl-team-crumb-link"
+              >
+                Plantilla
+              </a>
+            </li>
+            <li aria-hidden="true" className="pl-team-crumb-sep hidden sm:inline">
+              ▸
+            </li>
+            <li aria-current="page" className="pl-team-crumb-current hidden sm:inline truncate">
+              {profile.player.name}
+            </li>
+          </ol>
+        </nav>
 
-          {/* Hero del jugador */}
+        <div className="space-y-4">
+          {/* Hero plano del jugador con retrato real, escudo del club y bio completa */}
           <section
-            className="glass-lens glass-ring rounded-3xl p-5 sm:p-6 relative overflow-hidden"
+            className="glass-card glass-ring rounded-3xl p-5 sm:p-6"
             data-team-hero="player"
           >
-            <LensGlowOrbs primaryColor={primaryColor} secondaryColor={secondaryColor} />
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
               <div className="flex items-center gap-4 min-w-0">
-                <CrestPedestal size="lg" glowColor={primaryColor}>
-                  <TeamBadge
-                    league={profile.league}
-                    slug={profile.team.slug}
-                    name={profile.team.name}
-                    size={54}
+                <div className="relative shrink-0">
+                  <PersonAvatar
+                    photoKey={profile.player.photoKey}
+                    fallbackPhotoKey={profile.player.fallbackPhotoKey}
+                    role="player"
+                    size={80}
+                    priority
                   />
-                </CrestPedestal>
+                  <span
+                    className="absolute -bottom-1 -right-1 rounded-full p-1"
+                    style={{
+                      background: "var(--pl-surface)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                  >
+                    <TeamBadge
+                      league={profile.league}
+                      slug={profile.team.slug}
+                      name={profile.team.name}
+                      size={22}
+                    />
+                  </span>
+                </div>
 
                 <div className="space-y-1.5 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 text-xs">
-                    <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: "var(--pl-brand)" }}>
+                    <a
+                      href={teamHref}
+                      onClick={(e) => navigateOnPlainClick(e, teamHref)}
+                      className="pl-team-link inline-flex items-center gap-1.5 font-semibold"
+                      style={{ color: "var(--pl-brand)" }}
+                    >
                       <LeagueBadge league={profile.league} size={15} />
-                      <span>{profile.leagueLabel}</span>
-                    </span>
+                      <span>{profile.team.name}</span>
+                    </a>
                     <span className="pl-pill text-[11px] font-bold">
-                      {POSITION_TITLE_ES[profile.player.positionGroup]}
+                      {profile.player.positionLabel || POSITION_TITLE_ES[profile.player.positionGroup]}
                     </span>
                     {profile.player.jersey ? (
                       <span className="pl-pill num text-[11px] font-bold">
-                        Dorsal {profile.player.jersey}
+                        #{profile.player.jersey}
                       </span>
                     ) : null}
                   </div>
@@ -399,47 +481,102 @@ export function PlayerProfileClubView({
                     {profile.player.name}
                   </h1>
 
-                  <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-muted)" }}>
-                    {profile.team.name} · Temporada {profile.seasonLabel}
-                    {profile.coachName ? ` · DT: ${profile.coachName}` : ""}
-                  </p>
+                  <div
+                    className="flex flex-wrap items-center gap-2.5 text-xs"
+                    style={{ color: "var(--pl-text-muted)" }}
+                  >
+                    <span>
+                      {profile.leagueLabel} · {profile.seasonLabel}
+                    </span>
+                    {activeCoach ? (
+                      <span className="inline-flex items-center gap-1.5">
+                        <span aria-hidden="true">·</span>
+                        <PersonAvatar photoKey={activeCoach.photoKey} role="coach" size={20} />
+                        <span>
+                          {profile.sport === "football" ? "DT" : "Entrenador"}: {activeCoach.name}
+                        </span>
+                      </span>
+                    ) : null}
+                  </div>
+
+                  {profile.player.availability && profile.player.availability !== "available" ? (
+                    <div className="pl-sq-injury pt-0.5">
+                      <strong className="pl-sq-injury-status">
+                        {profile.player.availability === "suspended"
+                          ? "Suspendido"
+                          : profile.player.availability === "doubtful"
+                            ? "En duda"
+                            : "Lesionado"}
+                      </strong>
+                      {profile.player.injuryDetail ? (
+                        <span className="pl-sq-injury-detail">· {profile.player.injuryDetail}</span>
+                      ) : null}
+                      {profile.player.expectedReturn ? (
+                        <span className="pl-sq-injury-detail num">
+                          (regreso est. {profile.player.expectedReturn})
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
               </div>
 
               {/* Bio física */}
-              <dl className="pl-ctx-stats grid grid-cols-2 sm:grid-cols-4 gap-2 m-0 shrink-0">
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Edad
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold num">
-                    {profile.player.age != null ? `${profile.player.age} años` : "—"}
+              <dl className="pl-ctx-stats grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 m-0 shrink-0">
+                <div>
+                  <dt>País</dt>
+                  <dd className="m-0 text-sm font-extrabold inline-flex items-center gap-1.5 max-w-[140px]">
+                    {(() => {
+                      const flag = resolveCircularCountryFlag(
+                        profile.player.nationality,
+                        profile.player.nationalityCode,
+                      );
+                      return flag ? (
+                        <img
+                          src={resolveThemedPackUrl(flag.src, iconBase)}
+                          srcSet={resolveThemedPackSrcSet(flag.srcSet, iconBase)}
+                          alt=""
+                          aria-hidden="true"
+                          width={17}
+                          height={17}
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                          className="pl-team-country-flag shrink-0"
+                          style={{ width: 17, height: 17 }}
+                        />
+                      ) : null;
+                    })()}
+                    <span className="truncate">
+                      {profile.player.nationality ?? profile.player.nationalityCode ?? "—"}
+                    </span>
                   </dd>
                 </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Estatura
-                  </dt>
+                <div>
+                  <dt>Edad</dt>
+                  <dd className="m-0 text-sm font-extrabold num">
+                    {profile.player.age != null ? `${profile.player.age} años` : "—"}
+                    {birthDateLabel ? <small>{birthDateLabel}</small> : null}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Estatura</dt>
                   <dd className="m-0 text-sm font-extrabold num">
                     {profile.player.heightCm != null ? `${profile.player.heightCm} cm` : "—"}
                   </dd>
                 </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    Peso
-                  </dt>
+                <div>
+                  <dt>Peso</dt>
                   <dd className="m-0 text-sm font-extrabold num">
                     {profile.player.weightKg != null ? `${profile.player.weightKg} kg` : "—"}
                   </dd>
                 </div>
-                <div className="rounded-xl px-3 py-2 text-center">
-                  <dt className="text-[10px] uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                    País
-                  </dt>
-                  <dd className="m-0 text-sm font-extrabold truncate max-w-[110px]">
-                    {profile.player.nationality ?? profile.player.nationalityCode ?? "—"}
-                  </dd>
-                </div>
+                {footLabel ? (
+                  <div>
+                    <dt>Pie hábil</dt>
+                    <dd className="m-0 text-sm font-extrabold">{footLabel}</dd>
+                  </div>
+                ) : null}
               </dl>
             </div>
           </section>
@@ -459,10 +596,8 @@ export function PlayerProfileClubView({
                 </p>
               </div>
               <a
-                href={`/app/partido/${encodeURIComponent(profile.nextFixture.id)}`}
-                onClick={(e) =>
-                  navigateOnPlainClick(e, `/app/partido/${encodeURIComponent(profile.nextFixture!.id)}`)
-                }
+                href={profile.nextFixture.gameHref}
+                onClick={(e) => navigateOnPlainClick(e, profile.nextFixture!.gameHref)}
                 className="pl-btn pl-btn--ghost px-3 py-1.5 text-xs font-semibold no-underline"
               >
                 Abrir estudio del partido →
@@ -605,7 +740,15 @@ export function PlayerProfileClubView({
                       color: "var(--pl-text)",
                     }}
                   >
-                    <span className="truncate font-semibold">{mate.shortName}</span>
+                    <span className="inline-flex items-center gap-2 min-w-0">
+                      <PersonAvatar
+                        photoKey={mate.photoKey}
+                        fallbackPhotoKey={mate.fallbackPhotoKey}
+                        role="player"
+                        size={26}
+                      />
+                      <span className="truncate font-semibold">{mate.shortName}</span>
+                    </span>
                     <span className="pl-pill num text-[10px] px-1.5 py-0 shrink-0">
                       {mate.jersey ?? mate.positionGroup}
                     </span>

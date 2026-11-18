@@ -4,6 +4,7 @@ import { asLeagueId } from "@pitchlab/contracts";
 import { LeagueHubClubView, PlatformGamesSupplement } from "@pitchlab/ui";
 import { loadLeagueNews } from "../../../src/server/league-news";
 import { loadFinishedGames } from "../../../src/server/platform-data";
+import { loadLeagueStandingsMeta } from "../../../src/server/team-profile";
 import {
   PRODUCT_LEAGUES,
   type ProductLeague,
@@ -30,10 +31,15 @@ export default async function ClubLeaguePage({
     loadFinishedGames(league),
     loadLeagueNews(league, access.fullAccess),
   ]);
+  const standingsMeta = loadLeagueStandingsMeta(league);
 
   return (
     <PlatformGamesSupplement games={finished}>
-      <LeagueHubClubView leagueId={asLeagueId(league)} initialNews={news} />
+      <LeagueHubClubView
+        leagueId={asLeagueId(league)}
+        initialNews={news}
+        standingsMeta={standingsMeta}
+      />
     </PlatformGamesSupplement>
   );
 }

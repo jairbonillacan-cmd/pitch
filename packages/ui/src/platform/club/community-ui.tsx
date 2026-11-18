@@ -316,44 +316,23 @@ export function PickStatus({
 }
 
 export function HeartIcon({ filled = false, size = 16 }: { filled?: boolean; size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z" />
-    </svg>
-  );
+  return <MaestroIcon name="heart" size={size} className={filled ? "pl-heart-filled" : undefined} />;
 }
 
 export function CommentIcon({ size = 16 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
-    </svg>
-  );
+  return <MaestroIcon name="message" size={size} />;
 }
 
 export function ShareIcon({ size = 18 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" />
-    </svg>
-  );
+  return <MaestroIcon name="share" size={size} />;
 }
 
 export function ChevronRightIcon({ size = 18 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M9 18l6-6-6-6" />
-    </svg>
-  );
+  return <MaestroIcon name="chevronRight" size={size} />;
 }
 
 export function GiftIcon({ size = 20 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <rect x="3" y="8" width="18" height="13" rx="2" />
-      <path d="M12 8v13M3 12h18M12 8c-2-3-6-3-6 0 0 1.5 2 2 6 0zM12 8c2-3 6-3 6 0 0 1.5-2 2-6 0z" />
-    </svg>
-  );
+  return <MaestroIcon name="gift" size={size} />;
 }
 
 /** Comparte una URL con la hoja nativa o la copia al portapapeles. */

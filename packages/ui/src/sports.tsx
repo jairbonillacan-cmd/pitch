@@ -64,13 +64,13 @@ const GENERIC_LEAGUE_CODES: Record<string, string> = {
   mlb: "MLB",
   "concacaf-nations": "CNL",
   "uefa-nations": "UNL",
-  amistosos: "FIFA",
+  amistosos: "INT",
   "copa-del-mundo": "WC",
   eliminatorias: "WCQ",
   "copa-america": "CA",
-  eurocopa: "EURO",
+  eurocopa: "EUR",
   "copa-oro": "GC",
-  "copa-africana": "AFCON",
+  "copa-africana": "CAN",
   "copa-asiatica": "AFC",
 };
 
@@ -195,6 +195,7 @@ function resolveBadgeEmblem(params: {
 
 function EmblemGraphic({
   resolved,
+  kind,
   league,
   initials,
   title,
@@ -203,6 +204,7 @@ function EmblemGraphic({
   decorative,
 }: {
   resolved: EmblemSourceResolution;
+  kind: "team" | "league";
   league: string;
   initials: string;
   title?: string;
@@ -264,11 +266,16 @@ function EmblemGraphic({
   ]);
 
   if (!currentSrc) {
+    const fallbackFontSize =
+      initials.length >= 3
+        ? Math.max(7, Math.round(size * 0.31))
+        : Math.max(8, Math.round(size * 0.38));
     return (
       <span
         className="badge badge-fallback"
+        data-emblem-kind={kind}
         data-emblem-league={league}
-        style={{ width: size, height: size, fontSize: Math.max(8, size * 0.36), fontWeight: 700 }}
+        style={{ width: size, height: size, fontSize: fallbackFontSize, fontWeight: 700 }}
         aria-hidden="true"
         title={title}
       >
@@ -280,6 +287,7 @@ function EmblemGraphic({
   return (
     <span
       className="badge"
+      data-emblem-kind={kind}
       data-emblem-source={
         currentSrc.startsWith("/brand/official/")
           ? "official"
@@ -349,6 +357,7 @@ export function TeamBadge({
   return (
     <EmblemGraphic
       resolved={resolved}
+      kind="team"
       league={league}
       initials={initialsFromName(name, slug)}
       title={name}
@@ -385,6 +394,7 @@ export function LeagueBadge({
   return (
     <EmblemGraphic
       resolved={resolved}
+      kind="league"
       league={league}
       initials={GENERIC_LEAGUE_CODES[league] ?? initialsFromName(label, league)}
       title={label}

@@ -506,15 +506,25 @@ html[data-theme="light"] .only-light {
   object-fit: contain;
 }
 /* Escudos PNG con tinta oscura sobre fondo transparente mantienen contorno nítido en tema oscuro. */
-:where(html:not([data-theme="light"])) .badge[data-emblem-source="bzzoiro"] img,
-[data-theme="dark"] .badge[data-emblem-source="bzzoiro"] img {
+:where(html:not([data-theme="light"])) .badge[data-emblem-source="external"] img,
+[data-theme="dark"] .badge[data-emblem-source="external"] img {
   filter: drop-shadow(0 0 0.85px color-mix(in srgb, var(--canvas-light) 88%, transparent))
     drop-shadow(0 1px 4px color-mix(in srgb, var(--canvas-light) 18%, transparent));
 }
-[data-theme="light"] .badge[data-emblem-source="bzzoiro"] img {
+/* El monograma oficial de Ligue 1 viene en tinta negra pura: se invierte a blanco nítido en modo oscuro. */
+:where(html:not([data-theme="light"])) .badge[data-emblem-kind="league"][data-emblem-league="ligue-1"][data-emblem-source="external"] img,
+[data-theme="dark"] .badge[data-emblem-kind="league"][data-emblem-league="ligue-1"][data-emblem-source="external"] img {
+  filter: brightness(0) invert(1);
+}
+[data-theme="light"] .badge[data-emblem-source="external"] img {
   filter: none;
 }
 .badge-fallback {
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+  line-height: 1;
   border-radius: 6px;
   background: var(--surface-hover);
   color: var(--text-muted);
@@ -2514,91 +2524,83 @@ fieldset[disabled] button {
 }
 .pl-launch-mark {
   position: relative;
+  width: 52px;
+  height: 52px;
   display: grid;
   place-items: center;
 }
-.pl-launch-halo {
+.pl-launch[data-variant="inline"] .pl-launch-mark {
+  width: 46px;
+  height: 46px;
+}
+.pl-launch-ring {
   position: absolute;
-  inset: -56px;
-  border-radius: 999px;
-  background: radial-gradient(closest-side, var(--pl-glow), transparent 72%);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  transform: rotate(-90deg);
 }
-.pl-launch-tile {
-  display: grid;
-  place-items: center;
-  width: 104px;
-  height: 104px;
-  border-radius: 30px;
-  background: var(--pl-glass-lens);
-  border: 1px solid var(--pl-border);
-  box-shadow: var(--pl-lens-shadow);
+.pl-launch-ring-track {
+  stroke: color-mix(in srgb, var(--pl-text) 10%, transparent);
+  stroke-width: 2.2;
 }
-.pl-launch[data-variant="inline"] .pl-launch-tile {
-  width: 76px;
-  height: 76px;
-  border-radius: 22px;
+.pl-launch-ring-arc {
+  stroke: var(--pl-brand);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 28 72;
+  stroke-dashoffset: 0;
+}
+.pl-launch[data-confirmed] .pl-launch-ring-arc {
+  stroke: var(--pl-success);
+  stroke-dasharray: 100 0;
+}
+.pl-launch-iso {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
 }
 .pl-launch[data-variant="inline"] .pl-launch-iso {
-  width: 40px;
-  height: 40px;
-}
-.pl-launch[data-variant="inline"] .pl-launch-halo {
-  inset: -40px;
+  width: 20px;
+  height: 20px;
 }
 .pl-launch-iso path {
   fill: var(--pl-brand);
-  stroke: var(--pl-brand);
-  stroke-width: 1.4;
-  stroke-linejoin: round;
-  stroke-opacity: 0;
 }
 .pl-launch-check {
   position: absolute;
-  right: -6px;
-  bottom: -6px;
+  right: -2px;
+  bottom: -2px;
   z-index: 3;
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   border-radius: 999px;
   background: var(--pl-success);
   color: var(--pl-stage-bg);
-  box-shadow: 0 0 0 4px var(--pl-stage-bg);
+  box-shadow: 0 0 0 3px var(--pl-stage-bg);
 }
 .pl-launch-wordmark {
-  margin-top: 28px;
+  margin-top: 20px;
   fill: var(--pl-text);
 }
 .pl-launch-status {
   margin: 14px 0 0;
-  min-height: 22px;
-  font-size: 15px;
-  line-height: 22px;
+  min-height: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 20px;
   color: var(--pl-text-muted);
 }
 .pl-launch[data-variant="inline"] .pl-launch-status {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 .pl-launch-status-text {
   display: inline-block;
-}
-.pl-launch-bar {
-  position: relative;
-  width: 168px;
-  height: 2px;
-  margin-top: 20px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--pl-text) 10%, transparent);
-}
-.pl-launch-bar i {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 62%;
-  border-radius: inherit;
-  background: var(--pl-brand);
 }
 .pl-launch-slow {
   display: flex;
@@ -2606,9 +2608,9 @@ fieldset[disabled] button {
   justify-content: center;
   align-items: center;
   gap: 4px 10px;
-  margin: 26px 0 0;
-  min-height: 44px;
-  font-size: 14px;
+  margin: 20px 0 0;
+  min-height: 40px;
+  font-size: 13px;
   color: var(--pl-text-secondary);
   visibility: hidden;
   opacity: 0;
@@ -2618,13 +2620,14 @@ fieldset[disabled] button {
   opacity: 1;
 }
 .pl-launch-slow button {
-  min-height: 44px;
-  padding: 0 18px;
+  min-height: 36px;
+  padding: 0 14px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 9px;
   background: var(--pl-btn-primary-bg);
   color: var(--pl-btn-primary-fg);
   font: inherit;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -2641,69 +2644,47 @@ fieldset[disabled] button {
   .pl-launch-orb--sky { display: none; }
 }
 @media (min-width: 768px) {
-  .pl-launch[data-variant="full"] .pl-launch-tile { width: 120px; height: 120px; border-radius: 34px; }
-  .pl-launch[data-variant="full"] .pl-launch-iso { width: 64px; height: 64px; }
-  .pl-launch[data-variant="full"] .pl-launch-wordmark { height: 32px; width: 173px; margin-top: 32px; }
-  .pl-launch[data-variant="full"] .pl-launch-status { font-size: 16px; }
-  .pl-launch[data-variant="full"] .pl-launch-bar { width: 200px; }
-}@media (prefers-reduced-motion: no-preference) {
-  /* Nada parpadea: si la ruta responde en menos de 140 ms, no se llega a ver. */
+  .pl-launch[data-variant="full"] .pl-launch-mark { width: 58px; height: 58px; }
+  .pl-launch[data-variant="full"] .pl-launch-iso { width: 25px; height: 25px; }
+  .pl-launch[data-variant="full"] .pl-launch-wordmark { height: 24px; width: 130px; margin-top: 22px; }
+  .pl-launch[data-variant="full"] .pl-launch-status { font-size: 13.5px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Nada parpadea: si la ruta responde en menos de 120 ms, no se llega a ver. */
   .pl-launch-body {
-    animation: pl-launch-in 360ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+    animation: pl-launch-in 280ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
   }
-  .pl-launch-iso path {
-    fill-opacity: 0;
-    stroke-opacity: 1;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation:
-      pl-launch-draw 1000ms cubic-bezier(0.65, 0, 0.35, 1) 220ms forwards,
-      pl-launch-fill 480ms ease-out 1060ms forwards;
+  .pl-launch:not([data-confirmed]) .pl-launch-ring {
+    animation: pl-launch-spin 1.15s cubic-bezier(0.42, 0.14, 0.58, 0.86) infinite;
   }
-  .pl-launch-halo {
-    animation: pl-launch-breathe 2.4s ease-in-out infinite;
-  }
-  .pl-launch-wordmark {
-    animation: pl-launch-lift 640ms cubic-bezier(0.16, 1, 0.3, 1) 900ms both;
+  .pl-launch:not([data-confirmed]) .pl-launch-iso {
+    animation: pl-launch-pulse 1.8s ease-in-out infinite;
   }
   .pl-launch-status-text {
-    animation: pl-launch-lift 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  .pl-launch-bar i {
-    width: 0;
-    animation: pl-launch-creep 8s cubic-bezier(0.08, 0.8, 0.2, 1) 300ms forwards;
+    animation: pl-launch-fade-up 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .pl-launch-slow {
-    transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 320ms;
+    transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 280ms;
   }
   .pl-launch-slow[data-visible] {
-    transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .pl-launch-check {
-    animation: pl-launch-pop 360ms cubic-bezier(0.34, 1.56, 0.64, 1) 160ms both;
+    animation: pl-launch-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms both;
   }
 }
 @keyframes pl-launch-in {
   from { opacity: 0; }
 }
-@keyframes pl-launch-draw {
-  to { stroke-dashoffset: 0; }
+@keyframes pl-launch-spin {
+  to { transform: rotate(270deg); }
 }
-@keyframes pl-launch-fill {
-  to { fill-opacity: 1; stroke-opacity: 0; }
+@keyframes pl-launch-pulse {
+  0%, 100% { opacity: 0.92; scale: 1; }
+  50% { opacity: 0.62; scale: 0.95; }
 }
-@keyframes pl-launch-breathe {
-  0%, 100% { opacity: 0.55; scale: 0.92; }
-  50% { opacity: 1; scale: 1.06; }
-}
-@keyframes pl-launch-lift {
-  from { opacity: 0; translate: 0 10px; filter: blur(4px); }
-}
-@keyframes pl-launch-creep {
-  0% { width: 0; }
-  12% { width: 38%; }
-  45% { width: 68%; }
-  100% { width: 90%; }
+@keyframes pl-launch-fade-up {
+  from { opacity: 0; translate: 0 4px; }
 }
 @keyframes pl-launch-pop {
   from { scale: 0.3; opacity: 0; }

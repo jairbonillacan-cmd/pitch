@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
@@ -42,18 +43,25 @@ function countLabel(n: number, one: string, many: string): string {
 }
 
 export function SportThumb({ def }: { def: HomeSportDef }): React.JSX.Element {
+  const iconBase = usePackIconBase();
   if (!def.iconKey) {
     return (
       <span className="pl-home-sport-gridbox">
-        <MaestroIcon name="grid" size={14} />
+        <MaestroIcon name="grid" size={16} />
       </span>
     );
   }
   return (
-    <picture>
-      <source srcSet={`/sports/${def.iconKey}.webp`} type="image/webp" />
-      <img src={`/sports/${def.iconKey}.png`} alt="" width={32} height={32} decoding="async" />
-    </picture>
+    <img
+      src={`${iconBase}/32/deportes/${def.iconKey}.webp`}
+      srcSet={`${iconBase}/32/deportes/${def.iconKey}.webp 1x, ${iconBase}/64/deportes/${def.iconKey}.webp 2x`}
+      alt=""
+      aria-hidden="true"
+      width={24}
+      height={24}
+      decoding="async"
+      draggable={false}
+    />
   );
 }
 

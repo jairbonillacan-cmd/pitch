@@ -384,6 +384,8 @@ export function MatchHeroScoreboard({
                   {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
                   {game.projection.total.toFixed(unit.decimals)}
                 </span>
+              ) : isFinished && !hasForecast ? (
+                <span className="pl-match-hero-sub">Sin pronóstico previo publicado</span>
               ) : null}
             </>
           ) : !hasForecast || !game.projection ? (
@@ -618,7 +620,12 @@ export function MatchLeftRail({
   return (
     <aside className="pl-match-rail" aria-label="Panel rápido del partido">
       {/* 1. Hasta arriba: Momento del partido */}
-      <section className="pl-match-rail-card" aria-labelledby="rail-momentum-heading" data-rail-momentum="">
+      <section
+        className="pl-match-rail-card"
+        aria-labelledby="rail-momentum-heading"
+        data-rail-momentum=""
+        data-rail-empty={!hasMomentumCurve ? "true" : undefined}
+      >
         <div className="pl-match-rail-head">
           <h2 id="rail-momentum-heading" className="pl-match-rail-title">
             Momento del partido
@@ -650,7 +657,12 @@ export function MatchLeftRail({
       </section>
 
       {/* 2. Eventos por periodo (1.º tiempo, 2.º tiempo, goles/tarjetas) y cruce de eliminatoria */}
-      <section className="pl-match-rail-card" aria-labelledby="rail-events-heading" data-rail-events="">
+      <section
+        className="pl-match-rail-card"
+        aria-labelledby="rail-events-heading"
+        data-rail-events=""
+        data-rail-empty={periodGroups.length === 0 && !firstLeg ? "true" : undefined}
+      >
         <div className="pl-match-rail-head">
           <h2 id="rail-events-heading" className="pl-match-rail-title">
             Eventos por tiempo
@@ -784,12 +796,18 @@ export function MatchLeftRail({
         </div>
 
         <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-          {!canReadIntel
-            ? "Consulta los picks seleccionados, la proyección exacta de Cortex IA y claves tácticas con Pase PitchLab Ultra."
-            : cortexSummaryText}
+          {!hasForecast && cortexSummaryText.trim().length === 0
+            ? "Sin lectura publicada para este encuentro."
+            : !canReadIntel
+              ? "Consulta los picks seleccionados, la proyección exacta de Cortex IA y claves tácticas con Pase PitchLab Ultra."
+              : cortexSummaryText}
         </p>
 
-        {!canReadIntel ? (
+        {!hasForecast ? (
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            Aún no hay picks publicados para este encuentro.
+          </p>
+        ) : !canReadIntel ? (
           <div className="pl-match-rail-locked">
             <MaestroIcon name="lock" size={14} />
             <span>Picks y probabilidades reservadas para Pase PitchLab Ultra.</span>

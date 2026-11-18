@@ -289,8 +289,9 @@ export function NotificationInboxPanel({
           Notificaciones
         </h2>
         {items.length > 0 ? (
-          <button type="button" className="pl-notif-link" onClick={onMarkAllRead} disabled={allRead}>
-            Marcar todo leído
+          <button type="button" className="pl-notif-link inline-flex items-center gap-1.5" onClick={onMarkAllRead} disabled={allRead}>
+            <MaestroIcon name="mark-read" size={14} />
+            <span>Marcar todo leído</span>
           </button>
         ) : null}
       </div>
@@ -525,7 +526,7 @@ export function NotificationBell(): React.JSX.Element {
           }
         }}
       >
-        <MaestroIcon name="bell" size={16} />
+        <MaestroIcon name={count > 0 ? "notifications-unread" : "bell"} size={16} />
         {count > 0 ? (
           <span className="pl-bell-count num" aria-hidden="true">
             {formatBadgeCount(count)}

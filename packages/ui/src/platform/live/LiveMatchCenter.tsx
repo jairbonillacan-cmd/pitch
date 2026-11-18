@@ -145,39 +145,76 @@ export function LiveTimeline({
 export function FollowControl({ gameId, compact = false }: { gameId: string; compact?: boolean }): React.JSX.Element {
   const { watchlistGameIds, toggleWatchlistGame, followAlerts, setFollowAlerts } = usePlatform();
   const following = watchlistGameIds.includes(gameId);
+  const [closingAlerts, setClosingAlerts] = React.useState(false);
+  const [pulseSeq, setPulseSeq] = React.useState(0);
+  const prevFollowingRef = React.useRef(following);
+
+  React.useEffect(() => {
+    if (prevFollowingRef.current && !following && !compact) {
+      setClosingAlerts(true);
+      const t = window.setTimeout(() => setClosingAlerts(false), 230);
+      prevFollowingRef.current = following;
+      return () => window.clearTimeout(t);
+    }
+    if (following) {
+      setClosingAlerts(false);
+    }
+    prevFollowingRef.current = following;
+    return undefined;
+  }, [following, compact]);
+
   const alerts = followAlerts[gameId] ?? DEFAULT_FOLLOW_ALERTS;
   const toggleAlert = (key: keyof FollowAlerts) => setFollowAlerts(gameId, { ...alerts, [key]: !alerts[key] });
+  const showAlerts = !compact && (following || closingAlerts);
+
   return (
     <div className="pl-live-follow">
       <button
         type="button"
-        className={`pl-live-follow-btn${following ? " is-on" : ""}`}
+        className={`pl-live-follow-btn${following ? " is-on" : ""}${pulseSeq > 0 ? " is-pulsing" : ""}`}
+        data-pulse-seq={pulseSeq > 0 ? pulseSeq : undefined}
         aria-pressed={following}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          setPulseSeq((n) => n + 1);
           toggleWatchlistGame(gameId);
         }}
+        onAnimationEnd={() => setPulseSeq(0)}
       >
-        <MaestroIcon name={following ? "check" : "bell"} size={14} />
+        <span key={following ? "on" : "off"} className="pl-live-follow-ico">
+          <MaestroIcon name={following ? "check" : "bell"} size={14} />
+        </span>
         <span className={compact ? "sr-only" : undefined}>{following ? "Siguiendo" : "Seguir"}</span>
       </button>
-      {following && !compact ? (
-        <fieldset className="pl-live-alerts">
-          <legend className="sr-only">Avisos de este partido</legend>
-          {(
-            [
-              ["kickoff", "Inicio"],
-              ["goals", "Goles"],
-              ["final", "Final"],
-            ] as const
-          ).map(([key, label]) => (
-            <label key={key} className="pl-live-chip">
-              <input type="checkbox" checked={alerts[key]} onChange={() => toggleAlert(key)} />
-              <span>{label}</span>
-            </label>
-          ))}
-        </fieldset>
+      {showAlerts ? (
+        <div
+          className="pl-live-alerts-shell"
+          data-closing={!following && closingAlerts ? "" : undefined}
+          aria-hidden={!following || undefined}
+        >
+          <div className="pl-live-alerts-inner">
+            <fieldset className="pl-live-alerts">
+              <legend className="sr-only">Avisos de este partido</legend>
+              {(
+                [
+                  ["kickoff", "Inicio"],
+                  ["goals", "Goles"],
+                  ["final", "Final"],
+                ] as const
+              ).map(([key, label], idx) => (
+                <label
+                  key={key}
+                  className="pl-live-chip"
+                  style={{ "--chip-idx": idx } as React.CSSProperties}
+                >
+                  <input type="checkbox" checked={alerts[key]} onChange={() => toggleAlert(key)} />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+        </div>
       ) : null}
     </div>
   );

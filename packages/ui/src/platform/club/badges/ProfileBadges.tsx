@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePackIconBase } from "../../../pack-icon-theme";
 import {
   BADGE_FAMILY_LABELS,
   BADGE_RULES,
@@ -9,66 +10,70 @@ import {
   type BadgeView,
 } from "../../badges";
 
-/** Glifo por familia: trazo simple, hereda el color del texto. */
-export function BadgeGlyph({ family, size = 16 }: { family: BadgeFamily | string; size?: number }): React.JSX.Element {
-  const common = {
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.9,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-    focusable: false,
-  };
+const VALID_BADGE_SLUGS = new Set([
+  "ojo-fino",
+  "contra-el-cierre",
+  "especialista",
+  "racha-5",
+  "bitacora-al-dia",
+  "voz-util",
+  "lectura-del-partido",
+  "embajador",
+  "fundador-beta",
+  "tipster-verificado",
+  "socio-30-dias",
+  "socio-90-dias",
+  "socio-1-ano",
+  "top-10-semanal",
+  "top-10-mensual",
+]);
+
+function resolveBadgePackSlug(badgeId: string | undefined, family: BadgeFamily | string): string {
+  if (badgeId) {
+    if (badgeId.startsWith("especialista")) return "especialista";
+    if (VALID_BADGE_SLUGS.has(badgeId)) return badgeId;
+  }
   switch (family) {
     case "precision":
-      return (
-        <svg {...common}>
-          <circle cx="12" cy="12" r="8" />
-          <circle cx="12" cy="12" r="3.5" />
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-        </svg>
-      );
+      return "ojo-fino";
     case "constancy":
-      return (
-        <svg {...common}>
-          <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
-          <path d="M3.5 10h17M8 3v4M16 3v4M8.5 15l2.2 2 4.8-4.5" />
-        </svg>
-      );
+      return "bitacora-al-dia";
     case "community":
-      return (
-        <svg {...common}>
-          <circle cx="9" cy="9" r="3.2" />
-          <path d="M3.5 19c.8-3 3-4.6 5.5-4.6s4.7 1.6 5.5 4.6" />
-          <circle cx="17" cy="8" r="2.5" />
-          <path d="M16 13.6c2.2.1 3.8 1.5 4.5 4" />
-        </svg>
-      );
+      return "voz-util";
     case "origin":
-      return (
-        <svg {...common}>
-          <path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.4 7.2 17.9l.9-5.4L4.2 8.7l5.4-.8L12 3Z" />
-        </svg>
-      );
+      return "fundador-beta";
     case "seniority":
-      return (
-        <svg {...common}>
-          <circle cx="12" cy="12" r="8.5" />
-          <path d="M12 7.5V12l3 2" />
-        </svg>
-      );
+      return "socio-30-dias";
     default:
-      return (
-        <svg {...common}>
-          <path d="M8 4h8v5a4 4 0 0 1-8 0V4Z" />
-          <path d="M8 6H4.5a3 3 0 0 0 3.5 4M16 6h3.5a3 3 0 0 1-3.5 4M12 13v4M8.5 20h7" />
-        </svg>
-      );
+      return "top-10-mensual";
   }
+}
+
+/** Glifo por insignia o familia del paquete oficial de iconos PitchLab. */
+export function BadgeGlyph({
+  family,
+  badgeId,
+  size = 16,
+}: {
+  family: BadgeFamily | string;
+  badgeId?: string;
+  size?: number;
+}): React.JSX.Element {
+  const slug = resolveBadgePackSlug(badgeId, family);
+  const iconBase = usePackIconBase();
+  return (
+    <img
+      src={`${iconBase}/32/insignias/${slug}.webp`}
+      srcSet={`${iconBase}/32/insignias/${slug}.webp 1x, ${iconBase}/64/insignias/${slug}.webp 2x`}
+      width={size}
+      height={size}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+      draggable={false}
+      className="pl-maestro-icon inline-block shrink-0"
+    />
+  );
 }
 
 /** Píldora corta junto al nombre (perfil y publicaciones). */
@@ -77,13 +82,13 @@ export function BadgeChip({
   size = "md",
   className,
 }: {
-  badge: { family: string; label: string; criterion: string };
+  badge: { id?: string; family: string; label: string; criterion: string };
   size?: "sm" | "md";
   className?: string;
 }): React.JSX.Element {
   return (
     <span className={`pl-badge-chip pl-badge-chip--${size}${className ? ` ${className}` : ""}`} title={badge.criterion}>
-      <BadgeGlyph family={badge.family} size={size === "sm" ? 13 : 15} />
+      <BadgeGlyph family={badge.family} badgeId={badge.id} size={size === "sm" ? 14 : 16} />
       <span>
         <span className="sr-only">Insignia: </span>
         {badge.label}
@@ -137,22 +142,84 @@ export function ProfileBadgesSection({
 }): React.JSX.Element | null {
   const titleId = React.useId();
   const hintId = React.useId();
+  const sectionScopeId = React.useId();
+  const sectionRef = React.useRef<HTMLElement | null>(null);
+  const [openTipId, setOpenTipId] = React.useState<string | null>(null);
+  const [dismissedTipId, setDismissedTipId] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenTipId(null);
+        const hoveredOrFocused = sectionRef.current?.querySelector<HTMLElement>(
+          ".pl-badge-tile:hover, .pl-badge-tile:focus-within",
+        );
+        const activeBadgeId = hoveredOrFocused?.dataset.badgeKey ?? null;
+        if (activeBadgeId) {
+          setDismissedTipId(activeBadgeId);
+        }
+      }
+    };
+    const handlePointerDown = (e: MouseEvent) => {
+      if (!openTipId) return;
+      const target = e.target as Node | null;
+      if (target && sectionRef.current && !sectionRef.current.contains(target)) {
+        setOpenTipId(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, [openTipId]);
+
+  const toggleBadgeTip = (id: string) => {
+    setDismissedTipId(null);
+    setOpenTipId((prev) => (prev === id ? null : id));
+  };
+
+  const clearDismissed = (id: string) => {
+    setDismissedTipId((prev) => (prev === id ? null : prev));
+  };
 
   if (!isOwn || !own) {
     if (publicBadges.length === 0) return null;
     return (
-      <section className="pl-badges glass-lens glass-ring" aria-labelledby={titleId}>
+      <section ref={sectionRef} className="pl-badges glass-lens glass-ring" aria-labelledby={titleId}>
         <header className="pl-badges-head">
           <h2 id={titleId} className="pl-badges-title">
             Insignias <span className="pl-badges-count num">{publicBadges.length}</span>
           </h2>
         </header>
         <ul className="pl-badges-grid">
-          {publicBadges.map((b) => (
-            <li key={b.id} className="pl-badge-tile">
-              <BadgeTileBody badge={b} />
-            </li>
-          ))}
+          {publicBadges.map((b) => {
+            const tipId = `${sectionScopeId}-pub-${b.id}`;
+            return (
+              <li
+                key={b.id}
+                className="pl-badge-tile"
+                data-badge-key={b.id}
+                data-tip-open={openTipId === b.id ? "true" : undefined}
+                data-dismissed={dismissedTipId === b.id ? "true" : undefined}
+                onMouseLeave={() => clearDismissed(b.id)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                    clearDismissed(b.id);
+                    if (openTipId === b.id) setOpenTipId(null);
+                  }
+                }}
+              >
+                <BadgeTileBody
+                  badge={b}
+                  tooltipId={tipId}
+                  isTipOpen={openTipId === b.id}
+                  onToggleTip={() => toggleBadgeTip(b.id)}
+                />
+              </li>
+            );
+          })}
         </ul>
       </section>
     );
@@ -166,7 +233,12 @@ export function ProfileBadgesSection({
   const full = own.featuredIds.length >= BADGE_RULES.maxFeatured;
 
   return (
-    <section className="pl-badges glass-lens glass-ring" aria-labelledby={titleId} aria-describedby={hintId}>
+    <section
+      ref={sectionRef}
+      className="pl-badges glass-lens glass-ring"
+      aria-labelledby={titleId}
+      aria-describedby={hintId}
+    >
       <header className="pl-badges-head">
         <h2 id={titleId} className="pl-badges-title">
           Insignias <span className="pl-badges-count num">{earned.length}</span>
@@ -174,7 +246,7 @@ export function ProfileBadgesSection({
         <p id={hintId} className="pl-badges-hint">
           {own.canFeature
             ? `Destaca hasta ${BADGE_RULES.maxFeatured}: aparecen junto a tu nombre y la primera en tus publicaciones.`
-            : "Con tu cuenta podrás destacar hasta 3 junto a tu nombre."}
+            : "Pasa el cursor o toca una insignia para consultar cómo se desbloquea."}
         </p>
       </header>
 
@@ -184,15 +256,35 @@ export function ProfileBadgesSection({
             const isPublic = publicSet.has(b.id);
             const isFeatured = featuredSet.has(b.id);
             const blocked = !isFeatured && (full || !isPublic);
+            const tipId = `${sectionScopeId}-earned-${b.id}`;
             return (
-              <li key={b.id} className="pl-badge-tile" data-featured={isFeatured ? "true" : undefined}>
-                <BadgeTileBody badge={b} />
+              <li
+                key={b.id}
+                className="pl-badge-tile"
+                data-badge-key={b.id}
+                data-featured={isFeatured ? "true" : undefined}
+                data-tip-open={openTipId === b.id ? "true" : undefined}
+                data-dismissed={dismissedTipId === b.id ? "true" : undefined}
+                onMouseLeave={() => clearDismissed(b.id)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                    clearDismissed(b.id);
+                    if (openTipId === b.id) setOpenTipId(null);
+                  }
+                }}
+              >
+                <BadgeTileBody
+                  badge={b}
+                  tooltipId={tipId}
+                  isTipOpen={openTipId === b.id}
+                  onToggleTip={() => toggleBadgeTip(b.id)}
+                />
                 <div className="pl-badge-tile-foot">
                   {isPublic ? (
                     <span className="pl-badge-state">Pública</span>
                   ) : (
                     <a className="pl-badge-state pl-badge-state--private" href={privacyHref} onClick={onNavigate}>
-                      Privada · cambiar en Privacidad
+                      Privada
                     </a>
                   )}
                   {own.canFeature ? (
@@ -216,7 +308,7 @@ export function ProfileBadgesSection({
           })}
         </ul>
       ) : (
-        <p className="pl-badges-empty">Todavía no ganas insignias. Abajo ves lo que falta para cada una.</p>
+        <p className="pl-badges-empty">Todavía no tienes insignias desbloqueadas.</p>
       )}
       {own.canFeature && full ? (
         <p className="pl-badges-note" role="status">
@@ -228,46 +320,96 @@ export function ProfileBadgesSection({
         <>
           <h3 className="pl-badges-subtitle">Por ganar</h3>
           <ul className="pl-badges-grid pl-badges-grid--pending">
-            {pending.map((b) => (
-              <li key={b.id} className="pl-badge-tile pl-badge-tile--locked">
-                <BadgeTileBody badge={b} />
-                {b.progress ? (
-                  <div className="pl-badge-progress">
-                    <progress max={b.progress.target} value={b.progress.current} aria-label={`Avance de ${b.label}`} />
-                    <span className="num">
-                      {b.progress.current} de {b.progress.target}
-                    </span>
-                  </div>
-                ) : null}
-              </li>
-            ))}
+            {pending.map((b) => {
+              const tipId = `${sectionScopeId}-pending-${b.id}`;
+              return (
+                <li
+                  key={b.id}
+                  className="pl-badge-tile pl-badge-tile--locked"
+                  data-badge-key={b.id}
+                  data-tip-open={openTipId === b.id ? "true" : undefined}
+                  data-dismissed={dismissedTipId === b.id ? "true" : undefined}
+                  onMouseLeave={() => clearDismissed(b.id)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                      clearDismissed(b.id);
+                      if (openTipId === b.id) setOpenTipId(null);
+                    }
+                  }}
+                >
+                  <BadgeTileBody
+                    badge={b}
+                    tooltipId={tipId}
+                    isTipOpen={openTipId === b.id}
+                    progress={b.progress ?? null}
+                    onToggleTip={() => toggleBadgeTip(b.id)}
+                  />
+                  {b.progress ? (
+                    <div className="pl-badge-progress">
+                      <progress max={b.progress.target} value={b.progress.current} aria-label={`Avance de ${b.label}`} />
+                      <span className="num">
+                        {b.progress.current}/{b.progress.target}
+                      </span>
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
         </>
       ) : null}
 
       {soon.length > 0 ? (
         <p className="pl-badges-note">
-          Con tu cuenta también cuentan: {soon.map((b) => b.label).join(", ")}. Salen del ranking semanal y
-          mensual y de tus votos de «¿Quién gana?».
+          Con tu cuenta también cuentan: {soon.map((b) => b.label).join(", ")}.
         </p>
       ) : null}
-      <p className="pl-badges-foot">Nunca damos insignias por apostar más, por entrar cada día ni con premios.</p>
+      <p className="pl-badges-foot">Nunca damos insignias por volumen de apuesta ni por rachas de conexión.</p>
     </section>
   );
 }
 
-function BadgeTileBody({ badge }: { badge: Pick<BadgeView, "family" | "label" | "criterion"> }): React.JSX.Element {
+function BadgeTileBody({
+  badge,
+  tooltipId,
+  isTipOpen,
+  progress,
+  onToggleTip,
+}: {
+  badge: Pick<BadgeView, "family" | "label" | "criterion"> & { id?: string };
+  tooltipId: string;
+  isTipOpen: boolean;
+  progress?: { current: number; target: number } | null;
+  onToggleTip: () => void;
+}): React.JSX.Element {
+  const familyLabel = BADGE_FAMILY_LABELS[badge.family as BadgeFamily] ?? "";
   return (
-    <div className="pl-badge-tile-body">
-      <span className="pl-badge-tile-icon">
-        <BadgeGlyph family={badge.family} size={20} />
-      </span>
-      <span className="pl-badge-tile-copy">
-        <span className="pl-badge-tile-label">{badge.label}</span>
-        <span className="pl-badge-tile-family">{BADGE_FAMILY_LABELS[badge.family as BadgeFamily] ?? ""}</span>
-        <span className="pl-badge-tile-criterion">{badge.criterion}</span>
-      </span>
-    </div>
+    <>
+      <button
+        type="button"
+        className="pl-badge-tile-trigger"
+        aria-describedby={tooltipId}
+        aria-expanded={isTipOpen}
+        onClick={onToggleTip}
+      >
+        <span className="pl-badge-tile-icon">
+          <BadgeGlyph family={badge.family} badgeId={badge.id} size={28} />
+        </span>
+        <span className="pl-badge-tile-copy">
+          <span className="pl-badge-tile-label">{badge.label}</span>
+          <span className="pl-badge-tile-family">{familyLabel}</span>
+        </span>
+      </button>
+      <div id={tooltipId} role="tooltip" className="pl-badge-tooltip">
+        <strong className="pl-badge-tooltip-title">{badge.label}</strong>
+        <span className="pl-badge-tooltip-desc">{badge.criterion}</span>
+        {progress ? (
+          <span className="pl-badge-tooltip-meta num">
+            Avance: {progress.current} de {progress.target}
+          </span>
+        ) : null}
+      </div>
+    </>
   );
 }
 

@@ -11,6 +11,7 @@ import { profileIdForAuthUser } from "../../../src/server/member-data";
 import { loadMemberPlanSummary, type MemberPlanSummary } from "../../../src/server/member-plan";
 
 function parseAccountTab(value: unknown): AccountTabKey {
+  if (value === "preferencias") return "prefs";
   return value === "plan" || value === "prefs" || value === "cfdi"
     ? value
     : "referrals";

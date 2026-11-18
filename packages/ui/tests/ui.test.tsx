@@ -238,12 +238,15 @@ describe("@pitchlab/ui components", () => {
             logoUrl="https://sports.bzzoiro.com/img/league/154/?bg=transparent"
             size={28}
           />
+          <LeagueBadge league="ligue-1" label="Ligue 1" size={20} />
           <TeamBadge league="nba" slug="los-angeles-lakers" name="Lakers" size={36} />
         </div>
       </EmblemSurfaceProvider>,
     );
     expect(appHtml).toContain('data-emblem-source="external"');
     expect(appHtml).not.toContain('data-emblem-source="bzzoiro"');
+    expect(appHtml).toContain('data-emblem-kind="league" data-emblem-source="external" data-emblem-league="ligue-1"');
+    expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/league/6/?bg=transparent"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/18/?bg=transparent"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/team/7777/?bg=transparent"');
     expect(appHtml).toContain('src="https://sports.bzzoiro.com/img/league/154/?bg=transparent"');

@@ -861,7 +861,7 @@ function ClubWorkspaceShellImpl({
           label: "Ayuda",
           items: [
             { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
-            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "shield" },
+            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
           ],
         },
       ] satisfies ProfileMenuGroup[];
@@ -1585,9 +1585,13 @@ function ClubWorkspaceShellImpl({
                     <MaestroIcon name="logout" size={17} />
                     <span>Salir</span>
                   </button>
-                  <span className="pl-profile-menu-version">Beta</span>
+                  <span className="pl-profile-menu-version num">v0.0.1-alpha</span>
                 </div>
-              ) : null}
+              ) : (
+                <div className="pl-profile-menu-group pl-profile-menu-foot pl-profile-menu-foot--visitor">
+                  <span className="pl-profile-menu-version num">v0.0.1-alpha</span>
+                </div>
+              )}
             </div>
             </div>
           </div>
@@ -1678,6 +1682,7 @@ function ClubWorkspaceShellImpl({
         })}
         <button
           type="button"
+          data-mobile-more-trigger=""
           aria-expanded={mobileMoreOpen}
           onClick={() => setMobileMoreOpen(true)}
           className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
@@ -1701,7 +1706,7 @@ function ClubWorkspaceShellImpl({
             <button
               type="button"
               autoFocus
-              className="pl-btn-glass px-2.5 min-h-8 inline-flex items-center justify-center"
+              className="pl-btn-glass px-2.5 min-h-11 min-w-11 inline-flex items-center justify-center"
               aria-label="Cerrar menú móvil"
               onClick={() => setMobileMoreOpen(false)}
             >
@@ -1714,12 +1719,13 @@ function ClubWorkspaceShellImpl({
               <a
                 key={m.href}
                 href={m.href}
+                aria-current={activePath === m.href ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileMoreOpen(false);
                   navigateTo(m.href);
                 }}
-                className="pl-btn-glass text-xs justify-start gap-2"
+                className="pl-btn-glass min-h-11 text-xs justify-start gap-2"
               >
                 <MaestroIcon name={m.icon} size={14} />
                 <span className="truncate">{m.label}</span>
@@ -1729,23 +1735,63 @@ function ClubWorkspaceShellImpl({
 
           <div className="ticket-perf" />
 
-          <div className="grid grid-cols-2 gap-2">
-            {dataset.leagues.map((lg) => (
-              <a
-                key={lg.league}
-                href={`/app/${lg.league}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMoreOpen(false);
-                  navigateTo(`/app/${lg.league}`);
-                }}
-                className="pl-btn-glass text-xs justify-start gap-2"
-              >
-                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
-                <span className="truncate">{lg.label}</span>
-              </a>
-            ))}
+          <div className="space-y-2">
+            <span className="pl-header-overlay-subheading block">Ligas</span>
+            <div className="grid grid-cols-2 gap-2">
+              {clubLeagues.map((lg) => {
+                const href = `/app/${lg.league}`;
+                const active = activePath === href || activePath.startsWith(`${href}/`);
+                return (
+                  <a
+                    key={lg.league}
+                    href={href}
+                    data-league={lg.league}
+                    data-active={active ? "true" : undefined}
+                    aria-current={active ? "page" : undefined}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileMoreOpen(false);
+                      navigateTo(href);
+                    }}
+                    className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
+                  >
+                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                    <span className="truncate">{lg.label}</span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
+
+          {nationalLeagues.length > 0 ? (
+            <div className="space-y-2 pt-1">
+              <span className="pl-header-overlay-subheading block">Selecciones</span>
+              <div className="grid grid-cols-2 gap-2">
+                {nationalLeagues.map((lg) => {
+                  const href = `/app/${lg.league}`;
+                  const active = activePath === href || activePath.startsWith(`${href}/`);
+                  return (
+                    <a
+                      key={lg.league}
+                      href={href}
+                      data-league={lg.league}
+                      data-active={active ? "true" : undefined}
+                      aria-current={active ? "page" : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileMoreOpen(false);
+                        navigateTo(href);
+                      }}
+                      className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
+                    >
+                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                      <span className="truncate">{lg.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
 
           <div className="pt-2 flex items-center justify-between text-xs">
             <a href="/legal/juego-responsable" className="underline">

@@ -1,6 +1,6 @@
 {
   "name": "@pitchlab/ui",
-  "version": "0.1.0",
+  "version": "0.0.1-alpha",
   "private": true,
   "type": "module",
   "sideEffects": false,
@@ -37,6 +37,7 @@
     "./data-health": "./src/platform/club/AdminDataHealthSection.tsx",
     "./legal": "./src/platform/public/LegalSurfaces.tsx",
     "./sport-outlook": "./src/platform/club/match/sport-outlook/index.ts",
+    "./team-venues": "./src/platform/club/team/team-venues.ts",
     "./team-profile": "./src/platform/club/team/TeamProfileClubView.tsx",
     "./player-profile": "./src/platform/club/team/PlayerProfileClubView.tsx"
   },

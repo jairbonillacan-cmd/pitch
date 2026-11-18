@@ -548,7 +548,9 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await toggleClubTheme(page);
     await page.waitForTimeout(200);
 
-    // Filtro por día
+    // Cambiar a la pestaña Partidos (cuando hay clasificación, el hub abre en Clasificaciones) y probar filtro por día
+    await page.locator("#pl-league-tab-partidos").click();
+    await expect(page.locator("#pl-league-tab-partidos")).toHaveAttribute("aria-selected", "true");
     const dayChips = page.locator("#day-chips .day-chip");
     expect(await dayChips.count()).toBeGreaterThanOrEqual(2);
     await dayChips.nth(1).click();
@@ -601,9 +603,14 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     });
 
     // Cambiar a Bundesliga y verificar emblema + tabla de posiciones + cero desborde horizontal
-    // En escritorio, el grupo Ligas del sidebar empieza plegado: se abre antes de elegir.
+    // En escritorio se despliega el overlay de Ligas; en móvil se abre «Más» desde el dock inferior.
     const ligasToggle = page.locator('.rail-group-toggle[aria-expanded="false"]');
-    if (await ligasToggle.isVisible()) await ligasToggle.click();
+    if (await ligasToggle.isVisible()) {
+      await ligasToggle.click();
+    } else {
+      const mobileMoreBtn = page.locator("[data-mobile-more-trigger]:visible");
+      if (await mobileMoreBtn.isVisible()) await mobileMoreBtn.click();
+    }
     await page.locator(".league-tab[data-league='bundesliga']:visible").first().click();
     await page.waitForURL("**/app/bundesliga");
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
@@ -637,7 +644,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.locator("#pl-league-tab-tabla").click();
     await expect(page.locator("#pl-league-tab-tabla")).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".standings-block")).toBeVisible();
-    await expect(page.locator(".standings")).toContainText("Pts");
+    await expect(page.locator(".standings")).toContainText(/pts/i);
 
     // Respaldo automático si un escudo de Bzzoiro falla (404 -> iniciales, sin ícono roto)
     await page.route("https://sports.bzzoiro.com/img/league/**", (route) =>
@@ -689,11 +696,14 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     // CUENTA-2: Mi cuenta (/app/account), copiar enlace corto, voltear tarjeta por teclado,
     // pestañas con flechas, Axe AA en las 4 pestañas en oscuro y claro, y redirección /i/JAIR-2611
     await page.goto("/app/account");
+    await page.waitForLoadState("networkidle");
     await expect(page.getByRole("heading", { level: 1, name: "Mi cuenta" })).toBeVisible();
 
-    const copyBtn = page.locator("[data-copy-short-link]");
-    await copyBtn.click();
-    await expect(copyBtn).toHaveText("Copiado");
+    const copyBtn = page.locator("[data-copy-short-link]:visible");
+    await expect(async () => {
+      await copyBtn.click();
+      await expect(copyBtn).toHaveText("Copiado", { timeout: 1_500 });
+    }).toPass({ timeout: 10_000 });
 
     const flipBackBtn = page.getByRole("button", { name: "Reverso" });
     await expect(flipBackBtn).toHaveAttribute("aria-pressed", "false");

@@ -382,7 +382,7 @@ export function MatchMoneyPanel({
                           {r.pick && onAddPickToParlay && !isFinished && game.status === "NS" ? (
                             <button
                               type="button"
-                              className="pl-btn-glass text-[11px] min-h-7 px-2 shrink-0"
+                              className="pl-btn-glass text-[11px] min-h-11 sm:min-h-8 px-2.5 shrink-0"
                               aria-pressed={Boolean(inParlay)}
                               onClick={() => onAddPickToParlay(r.pick!)}
                             >
@@ -405,7 +405,7 @@ export function MatchMoneyPanel({
                         ) : r.houseDecimal !== null && manualRaw === "" ? (
                           <button
                             type="button"
-                            className="inline-flex items-center gap-1 underline decoration-dotted underline-offset-2 text-right"
+                            className="inline-flex items-center justify-end min-h-11 sm:min-h-8 px-1 gap-1 underline decoration-dotted underline-offset-2 text-right"
                             title="Clic para escribir el momio de tu casa"
                             onClick={() =>
                               setManualByRowId((prev) => ({
@@ -429,7 +429,7 @@ export function MatchMoneyPanel({
                                 [r.id]: e.target.value,
                               }))
                             }
-                            className="glass-input num text-[11px] text-right px-1.5 py-1 w-16 rounded-md"
+                            className="glass-input num text-base sm:text-xs text-right px-2 py-1 min-h-11 sm:min-h-8 w-20 sm:w-16 rounded-md"
                           />
                         )}
                       </td>
@@ -452,13 +452,13 @@ export function MatchMoneyPanel({
           </div>
         )}
 
-        <div className="flex items-center justify-between gap-2 pt-1">
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
           <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
             ¿Quieres comparar otro momio o sellar en bitácora?
           </span>
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-9 px-3 shrink-0"
+            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 shrink-0"
             onClick={onOpenNumbers}
           >
             Abrir calculadora en Números

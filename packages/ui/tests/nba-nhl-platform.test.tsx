@@ -232,5 +232,27 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(emptyStudioHtml).toContain("Sin lectura publicada");
     expect(emptyStudioHtml).toContain("Aún no hay picks publicados");
     expect(emptyStudioHtml).not.toContain("Simulador del partido");
+
+    const finishedEmpty = {
+      ...noForecastScheduled,
+      id: "nba-empty-forecast-ft",
+      status: "FT" as const,
+      score: { home: 108, away: 116 },
+    };
+    const finishedEmptyDs = {
+      ...dataset,
+      games: [finishedEmpty],
+    };
+    const finishedEmptyStudioHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={finishedEmptyDs} initialRole="visitor">
+        <MatchStudioClubView leagueId={finishedEmpty.league} gameId={finishedEmpty.id} />
+      </PlatformProvider>,
+    );
+    expect(finishedEmptyStudioHtml).toContain("108");
+    expect(finishedEmptyStudioHtml).toContain("116");
+    expect(finishedEmptyStudioHtml).toContain("Sin pronóstico");
+    expect(finishedEmptyStudioHtml).toContain("Sin lectura publicada");
+    expect(finishedEmptyStudioHtml).toContain("Aún no hay picks publicados");
+    expect(finishedEmptyStudioHtml).not.toContain("Simulador del partido");
   });
 });
