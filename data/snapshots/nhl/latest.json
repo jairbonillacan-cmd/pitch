@@ -4,7 +4,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "18 nov – 22 nov",
-  "updatedAt": "2026-11-19T19:21:07.541Z",
+  "updatedAt": "2026-11-19T23:45:20.417Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -387,7 +387,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-19T19:21:07.541Z",
+        "observedAt": "2026-11-19T23:45:20.417Z",
         "source": "bzzoiro"
       }
     },
@@ -415,7 +415,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-19T19:21:07.541Z",
+        "observedAt": "2026-11-19T23:45:20.417Z",
         "source": "bzzoiro"
       }
     },
@@ -443,7 +443,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-19T19:21:07.541Z",
+        "observedAt": "2026-11-19T23:45:20.417Z",
         "source": "bzzoiro"
       }
     },
@@ -1038,6 +1038,28 @@
         "name": "Carolina Hurricanes",
         "shortName": "Hurricanes",
         "code": "CAR"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-22-buf-tbl",
+      "league": "nhl",
+      "season": "nhl-2026-27",
+      "startTime": "2026-11-22T22:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nhl.tampa-bay-lightning",
+        "league": "nhl",
+        "name": "Tampa Bay Lightning",
+        "shortName": "Lightning",
+        "code": "TBL"
+      },
+      "away": {
+        "id": "nhl.buffalo-sabres",
+        "league": "nhl",
+        "name": "Buffalo Sabres",
+        "shortName": "Sabres",
+        "code": "BUF"
       },
       "neutralSite": false
     }
@@ -8966,6 +8988,266 @@
         "why": [
           "Hurricanes gana en 66 % de los escenarios.",
           "Se esperan 6.04 goles: 2.50 de Rangers y 3.54 de Hurricanes."
+        ]
+      }
+    },
+    "nhl-2026-11-22-buf-tbl": {
+      "game": "nhl-2026-11-22-buf-tbl",
+      "model": {
+        "id": "pitchlab-ratings-nhl",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 3.5455468959792196,
+        "away": 2.7850081377249367,
+        "total": 6.330555033704156,
+        "margin": 0.7605387582542829
+      },
+      "x12": [
+        0.6165313316895206,
+        0,
+        0.38346866831047943
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Lightning gana",
+          "p": 0.6165313316895206,
+          "fairOdds": 1.6219775842691329
+        },
+        {
+          "market": "h2h",
+          "selection": "Sabres gana",
+          "p": 0.38346866831047943,
+          "fairOdds": 2.607774983040699
+        },
+        {
+          "market": "spreads",
+          "selection": "TBL cubre",
+          "line": -1.5,
+          "p": 0.3781817800884233,
+          "fairOdds": 2.6442310355781506
+        },
+        {
+          "market": "spreads",
+          "selection": "BUF cubre",
+          "line": 1.5,
+          "p": 0.6218182199115767,
+          "fairOdds": 1.6081870359832833
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 6.5,
+          "p": 0.4941741681605682,
+          "fairOdds": 2.023578050876746
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 6.5,
+          "p": 0.5058258318394317,
+          "fairOdds": 1.9769650679236916
+        },
+        {
+          "market": "team_totals",
+          "selection": "TBL más de 3.5",
+          "line": 3.5,
+          "p": 0.4968893573398872,
+          "fairOdds": 2.012520464019458
+        },
+        {
+          "market": "team_totals",
+          "selection": "TBL menos de 3.5",
+          "line": 3.5,
+          "p": 0.5031106426601129,
+          "fairOdds": 1.987634359537036
+        },
+        {
+          "market": "team_totals",
+          "selection": "BUF más de 2.5",
+          "line": 2.5,
+          "p": 0.5486193124761576,
+          "fairOdds": 1.8227575611339037
+        },
+        {
+          "market": "team_totals",
+          "selection": "BUF menos de 2.5",
+          "line": 2.5,
+          "p": 0.4513806875238424,
+          "fairOdds": 2.215424867833272
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador (incluye tiempo extra)",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Lightning gana",
+              "p": 0.6165313316895206,
+              "fairOdds": 1.6219775842691329
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Sabres gana",
+              "p": 0.38346866831047943,
+              "fairOdds": 2.607774983040699
+            }
+          ]
+        },
+        {
+          "group": "Puck line TBL -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "TBL cubre",
+              "line": -1.5,
+              "p": 0.3781817800884233,
+              "fairOdds": 2.6442310355781506
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "BUF cubre",
+              "line": 1.5,
+              "p": 0.6218182199115767,
+              "fairOdds": 1.6081870359832833
+            }
+          ]
+        },
+        {
+          "group": "Total 6.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 6.5,
+              "p": 0.4941741681605682,
+              "fairOdds": 2.023578050876746
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 6.5,
+              "p": 0.5058258318394317,
+              "fairOdds": 1.9769650679236916
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "TBL más de 3.5",
+              "line": 3.5,
+              "p": 0.4968893573398872,
+              "fairOdds": 2.012520464019458
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "TBL menos de 3.5",
+              "line": 3.5,
+              "p": 0.5031106426601129,
+              "fairOdds": 1.987634359537036
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "BUF más de 2.5",
+              "line": 2.5,
+              "p": 0.5486193124761576,
+              "fairOdds": 1.8227575611339037
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "BUF menos de 2.5",
+              "line": 2.5,
+              "p": 0.4513806875238424,
+              "fairOdds": 2.215424867833272
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "3.55 goles proyectados",
+          "detail": "21 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "2.79 goles proyectados",
+          "detail": "21 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "TBL: 3 días de descanso",
+          "detail": "BUF: 3 días de descanso"
+        },
+        {
+          "key": "overtime",
+          "label": "Tiempo extra",
+          "value": "16 % de llegar empatados al final",
+          "detail": "se define en tiempo extra o penales"
+        }
+      ],
+      "steps": [
+        "Sincronizando NHL · corte 19 nov 2026, 23:45",
+        "Ataque y defensa actualizados partido a partido (1740 partidos)",
+        "Goles de tiempo regular separados del tiempo extra",
+        "Proyección 3.55 – 2.79 · margen +0.76",
+        "Simulando marcadores y tiempo extra",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-19T23:45:20.417Z",
+      "publishedAt": "2026-11-19T23:45:20.417Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "spreads",
+          "selection": "away",
+          "label": "BUF cubre",
+          "line": 1.5,
+          "p": 0.6218182199115767,
+          "fairOdds": 1.6081870359832833
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under",
+          "label": "Menos de 6.5 puntos",
+          "line": 6.5,
+          "p": 0.5058258318394317,
+          "fairOdds": 1.9769650679236916
+        }
+      ],
+      "confidence": {
+        "score": 52,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Lightning gana en 62 % de los escenarios.",
+          "Se esperan 6.33 goles: 3.55 de Lightning y 2.79 de Sabres."
         ]
       }
     }
