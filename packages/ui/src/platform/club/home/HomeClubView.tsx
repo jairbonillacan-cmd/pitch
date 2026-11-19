@@ -2150,6 +2150,8 @@ export function HomeClubView({
     parseIsoYearMonth(initialDay && initialDay !== UPCOMING ? initialDay : (initialToday ?? "2026-11-18")),
   );
   const datePickerWrapRef = useRef<HTMLDivElement | null>(null);
+  const dateCenterBtnRef = useRef<HTMLButtonElement | null>(null);
+  const calendarGridRef = useRef<HTMLDivElement | null>(null);
   const calendarPopoverId = useId();
   const oddsSwitchId = useId();
 
@@ -2464,6 +2466,7 @@ export function HomeClubView({
     const onKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
         setCalendarOpen(false);
+        dateCenterBtnRef.current?.focus();
       }
     };
     document.addEventListener("mousedown", onPointerDown);
@@ -2475,30 +2478,47 @@ export function HomeClubView({
   }, [calendarOpen]);
 
   const calendarEventDays = useMemo(() => {
-    const favDays = new Set<string>();
-    const sportDays = new Set<string>();
+    const countsByDay = new Map<string, { total: number; live: number; fav: number }>();
     const scopedGames = filterGames(games, sport, league);
+    let anyLive = false;
     for (const g of scopedGames) {
-      sportDays.add(g.dayId);
+      const entry = liveByGameId.get(g.id);
+      const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
       const isFav =
         watchlistSet.has(g.id) ||
         favoriteLeagueSet.has(g.league) ||
         favoriteTeamSet.has(teamTopicKey(g.league, g.home.slug)) ||
         favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug));
-      if (isFav) favDays.add(g.dayId);
+      if (boardView === "favorites" && !isFav) continue;
+      const cur = countsByDay.get(g.dayId) ?? { total: 0, live: 0, fav: 0 };
+      cur.total += 1;
+      if (isLive) {
+        cur.live += 1;
+        anyLive = true;
+      }
+      if (isFav) cur.fav += 1;
+      countsByDay.set(g.dayId, cur);
     }
-    const useFavs = boardView === "favorites" || favDays.size > 0;
+
+    const sortedDays = [...countsByDay.keys()].sort();
+    const nextActionDay =
+      sortedDays.find((d) => d > day) ??
+      sortedDays.find((d) => d >= today && d !== day) ??
+      sortedDays.find((d) => d !== day) ??
+      null;
+    const selectedStats = countsByDay.get(day) ?? null;
+
     return {
-      days: boardView === "favorites" ? favDays : sportDays,
-      favDays,
+      countsByDay,
+      anyLive,
+      nextActionDay,
+      selectedStats,
       legendLabel:
         boardView === "favorites"
-          ? "Días con los eventos para tus favoritos"
-          : useFavs
-            ? "Días con partidos programados"
-            : "Días con partidos en calendario",
+          ? "Días con tus favoritos"
+          : "Días con partidos",
     };
-  }, [boardView, favoriteLeagueSet, favoriteTeamSet, games, league, sport, watchlistSet]);
+  }, [boardView, day, favoriteLeagueSet, favoriteTeamSet, games, league, liveByGameId, sport, today, watchlistSet]);
 
   const calendarCells = useMemo(
     () => buildCalendarMonthCells(calMonth.year, calMonth.monthIndex),
@@ -2513,6 +2533,35 @@ export function HomeClubView({
         monthIndex: nextDate.getUTCMonth(),
       };
     });
+  };
+
+  const handleCalendarGridKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const gridEl = calendarGridRef.current;
+    if (!gridEl) return;
+    const buttons = [...gridEl.querySelectorAll<HTMLButtonElement>("button[data-cal-iso]")];
+    if (buttons.length === 0) return;
+    const currentIdx = buttons.findIndex((b) => b === document.activeElement);
+    if (currentIdx < 0) return;
+    let nextIdx = -1;
+    if (e.key === "ArrowRight") nextIdx = Math.min(buttons.length - 1, currentIdx + 1);
+    else if (e.key === "ArrowLeft") nextIdx = Math.max(0, currentIdx - 1);
+    else if (e.key === "ArrowDown") nextIdx = Math.min(buttons.length - 1, currentIdx + 7);
+    else if (e.key === "ArrowUp") nextIdx = Math.max(0, currentIdx - 7);
+    else if (e.key === "Home") nextIdx = 0;
+    else if (e.key === "End") nextIdx = buttons.length - 1;
+    else if (e.key === "PageUp") {
+      e.preventDefault();
+      stepCalendarMonth(-1);
+      return;
+    } else if (e.key === "PageDown") {
+      e.preventDefault();
+      stepCalendarMonth(1);
+      return;
+    }
+    if (nextIdx >= 0 && buttons[nextIdx]) {
+      e.preventDefault();
+      buttons[nextIdx]!.focus();
+    }
   };
 
   const pickDay = (d: DaySelection) => {
@@ -2735,6 +2784,7 @@ export function HomeClubView({
                       <MaestroIcon name="chevronLeft" size={15} />
                     </button>
                     <button
+                      ref={dateCenterBtnRef}
                       type="button"
                       className={`pl-home-date-center ${day === today ? "is-today" : ""}`.trim()}
                       aria-label={centerAria}
@@ -2750,6 +2800,7 @@ export function HomeClubView({
                         });
                       }}
                     >
+                      <MaestroIcon name="calendar" size={14} className="pl-home-date-calicon" />
                       {day === today ? (
                         <span className="pl-home-date-label">Hoy</span>
                       ) : (
@@ -2758,6 +2809,11 @@ export function HomeClubView({
                           {centerParts.sub ? ` ${centerParts.sub}` : ""}
                         </span>
                       )}
+                      <MaestroIcon
+                        name="chevronDown"
+                        size={12}
+                        className={`pl-home-date-caret ${calendarOpen ? "is-open" : ""}`.trim()}
+                      />
                     </button>
                     <button
                       type="button"
@@ -2777,38 +2833,42 @@ export function HomeClubView({
                       role="dialog"
                       aria-label="Calendario de partidos"
                       data-home-calendar-popover=""
-                      className="pl-home-cal-popover glass-card glass-ring"
+                      className="pl-home-cal-popover glass-ring"
                     >
-                      <div className="pl-home-cal-close-row">
+                      <div className="pl-home-cal-head">
+                        <div className="pl-home-cal-month-nav">
+                          <button
+                            type="button"
+                            className="pl-home-cal-nav"
+                            aria-label="Mes anterior"
+                            onClick={() => stepCalendarMonth(-1)}
+                          >
+                            <MaestroIcon name="chevronLeft" size={16} />
+                          </button>
+                          <strong className="pl-home-cal-title">
+                            {FULL_MONTHS_ES[calMonth.monthIndex]!.charAt(0).toUpperCase() +
+                              FULL_MONTHS_ES[calMonth.monthIndex]!.slice(1)}{" "}
+                            {calMonth.year}
+                          </strong>
+                          <button
+                            type="button"
+                            className="pl-home-cal-nav"
+                            aria-label="Mes siguiente"
+                            onClick={() => stepCalendarMonth(1)}
+                          >
+                            <MaestroIcon name="chevronRight" size={16} />
+                          </button>
+                        </div>
                         <button
                           type="button"
                           className="pl-home-cal-close"
                           aria-label="Cerrar calendario"
-                          onClick={() => setCalendarOpen(false)}
+                          onClick={() => {
+                            setCalendarOpen(false);
+                            dateCenterBtnRef.current?.focus();
+                          }}
                         >
                           <MaestroIcon name="x" size={14} />
-                        </button>
-                      </div>
-
-                      <div className="pl-home-cal-head">
-                        <button
-                          type="button"
-                          className="pl-home-cal-nav"
-                          aria-label="Mes anterior"
-                          onClick={() => stepCalendarMonth(-1)}
-                        >
-                          <MaestroIcon name="chevronLeft" size={16} />
-                        </button>
-                        <strong className="pl-home-cal-title">
-                          {FULL_MONTHS_ES[calMonth.monthIndex]} de {calMonth.year}
-                        </strong>
-                        <button
-                          type="button"
-                          className="pl-home-cal-nav"
-                          aria-label="Mes siguiente"
-                          onClick={() => stepCalendarMonth(1)}
-                        >
-                          <MaestroIcon name="chevronRight" size={16} />
                         </button>
                       </div>
 
@@ -2818,51 +2878,110 @@ export function HomeClubView({
                         ))}
                       </div>
 
-                      <div className="pl-home-cal-grid" role="grid" aria-label={`${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}`}>
+                      <div
+                        ref={calendarGridRef}
+                        className="pl-home-cal-grid"
+                        role="grid"
+                        aria-label={`${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}`}
+                        onKeyDown={handleCalendarGridKeyDown}
+                      >
                         {calendarCells.map((cell, idx) => {
                           if (!cell) {
                             return <span key={`empty-${idx}`} className="pl-home-cal-empty" aria-hidden="true" />;
                           }
                           const isSelected = cell.iso === day;
                           const isTodayCell = cell.iso === today;
-                          const hasGames = calendarEventDays.days.has(cell.iso);
+                          const dayMeta = calendarEventDays.countsByDay.get(cell.iso);
+                          const hasGames = Boolean(dayMeta && dayMeta.total > 0);
+                          const hasLive = Boolean(dayMeta && dayMeta.live > 0);
+                          const isBusy = Boolean(dayMeta && dayMeta.total >= 6);
+                          const countText = dayMeta
+                            ? `, ${dayMeta.total} ${dayMeta.total === 1 ? "partido" : "partidos"}${dayMeta.live > 0 ? `, ${dayMeta.live} en vivo` : ""}`
+                            : "";
                           return (
                             <button
                               key={cell.iso}
                               type="button"
+                              data-cal-iso={cell.iso}
                               aria-pressed={isSelected}
                               aria-current={isTodayCell ? "date" : undefined}
-                              aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${hasGames ? ", con partidos" : ""}`}
-                              className={`pl-home-cal-day num ${isSelected ? "is-selected" : ""} ${isTodayCell ? "is-today" : ""} ${hasGames ? "has-games" : ""}`.trim()}
+                              aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${countText}`}
+                              title={hasGames ? `${dayMeta!.total} ${dayMeta!.total === 1 ? "partido" : "partidos"}` : undefined}
+                              className={[
+                                "pl-home-cal-day num",
+                                isSelected ? "is-selected" : "",
+                                isTodayCell ? "is-today" : "",
+                                hasGames ? "has-games" : "",
+                                hasLive ? "has-live" : "",
+                                isBusy ? "is-busy" : "",
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
                               onClick={() => {
                                 pickDay(cell.iso);
                                 setCalendarOpen(false);
+                                dateCenterBtnRef.current?.focus();
                               }}
                             >
-                              <span>{cell.dayNum}</span>
+                              <span className="pl-home-cal-num">{cell.dayNum}</span>
                               <i className="pl-home-cal-dot" aria-hidden="true" />
                             </button>
                           );
                         })}
                       </div>
 
-                      <div className="pl-home-cal-legend">
-                        <i className="pl-home-cal-legend-pill" aria-hidden="true" />
-                        <span>{calendarEventDays.legendLabel}</span>
+                      <div className="pl-home-cal-summary">
+                        <div className="pl-home-cal-summary-day num">
+                          <span className="pl-home-cal-summary-date">
+                            {day === today ? "Hoy" : `${centerParts.top}${centerParts.sub ? ` ${centerParts.sub}` : ""}`}
+                          </span>
+                          <span className="pl-home-cal-summary-count">
+                            {calendarEventDays.selectedStats
+                              ? `${calendarEventDays.selectedStats.total} ${calendarEventDays.selectedStats.total === 1 ? "partido" : "partidos"}${calendarEventDays.selectedStats.live > 0 ? ` · ${calendarEventDays.selectedStats.live} en vivo` : ""}`
+                              : "Sin partidos"}
+                          </span>
+                        </div>
+                        <div className="pl-home-cal-legend">
+                          <span className="pl-home-cal-legend-item">
+                            <i className="pl-home-cal-legend-pill" aria-hidden="true" />
+                            <span>{calendarEventDays.legendLabel}</span>
+                          </span>
+                          {calendarEventDays.anyLive ? (
+                            <span className="pl-home-cal-legend-item is-live">
+                              <i className="pl-home-cal-legend-dot" aria-hidden="true" />
+                              <span>En vivo</span>
+                            </span>
+                          ) : null}
+                        </div>
                       </div>
 
                       <div className="pl-home-cal-foot">
                         <button
                           type="button"
-                          className="pl-home-cal-today-btn"
+                          className={`pl-home-cal-today-btn ${day === today ? "is-current" : ""}`.trim()}
                           onClick={() => {
                             pickDay(today);
                             setCalMonth(parseIsoYearMonth(today));
                             setCalendarOpen(false);
                           }}
                         >
-                          HOY
+                          Hoy
                         </button>
+                        {calendarEventDays.nextActionDay ? (
+                          <button
+                            type="button"
+                            className="pl-home-cal-next-btn num"
+                            onClick={() => {
+                              const target = calendarEventDays.nextActionDay!;
+                              pickDay(target);
+                              setCalMonth(parseIsoYearMonth(target));
+                              setCalendarOpen(false);
+                            }}
+                          >
+                            <span>Ir a {shortDateLabel(calendarEventDays.nextActionDay)}</span>
+                            <MaestroIcon name="arrowRight" size={12} />
+                          </button>
+                        ) : null}
                       </div>
                     </div>
                   ) : null}

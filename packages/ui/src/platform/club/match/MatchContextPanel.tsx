@@ -156,6 +156,9 @@ export function MatchContextPanel({
     }
   }
 
+  const preContext = game.preGame?.matchContext;
+  const effectiveReferee = game.referee ?? preContext?.referee;
+
   return (
     <div className="pl-ctx">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -281,12 +284,12 @@ export function MatchContextPanel({
               <dt>Inicio</dt>
               <dd className="text-sm font-bold num">{game.kickoffLocal}</dd>
             </div>
-            {game.referee ? (
+            {effectiveReferee ? (
               <div>
                 <dt>Árbitro</dt>
                 <dd className="text-sm font-bold inline-flex items-center gap-1.5">
                   <MaestroIcon name="whistle" size={14} />
-                  <span>{game.referee}</span>
+                  <span>{effectiveReferee}</span>
                 </dd>
               </div>
             ) : null}
@@ -296,6 +299,51 @@ export function MatchContextPanel({
                 <dd className="text-sm font-bold num">
                   {Math.round(stadium.elevationM).toLocaleString("es-MX")} m
                 </dd>
+              </div>
+            ) : null}
+            {preContext?.weather &&
+            (preContext.weather.description ||
+              preContext.weather.temperatureC != null ||
+              preContext.weather.windSpeedKmh != null) ? (
+              <div>
+                <dt>Clima previsto</dt>
+                <dd className="text-sm font-bold">
+                  {[
+                    preContext.weather.description,
+                    preContext.weather.temperatureC != null
+                      ? `${Math.round(preContext.weather.temperatureC)} °C`
+                      : null,
+                    preContext.weather.windSpeedKmh != null
+                      ? `Viento ${Math.round(preContext.weather.windSpeedKmh)} km/h`
+                      : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.pitchCondition ? (
+              <div>
+                <dt>Terreno</dt>
+                <dd className="text-sm font-bold">{preContext.pitchCondition}</dd>
+              </div>
+            ) : null}
+            {preContext?.travelDistanceKm != null ? (
+              <div>
+                <dt>Viaje visita</dt>
+                <dd className="text-sm font-bold num">{Math.round(preContext.travelDistanceKm)} km</dd>
+              </div>
+            ) : null}
+            {preContext?.isLocalDerby ? (
+              <div>
+                <dt>Rivalidad</dt>
+                <dd className="text-sm font-bold">Clásico local</dd>
+              </div>
+            ) : null}
+            {preContext?.broadcastsMx && preContext.broadcastsMx.length > 0 ? (
+              <div>
+                <dt>TV México</dt>
+                <dd className="text-sm font-bold">{preContext.broadcastsMx.join(" · ")}</dd>
               </div>
             ) : null}
           </dl>
@@ -400,6 +448,8 @@ export function MatchContextPanel({
                       <strong className="block text-sm truncate">{item.player}</strong>
                       <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                         {item.role}
+                        {item.injuryType ? ` · ${item.injuryType}` : ""}
+                        {item.returnDate ? ` · Regreso est.: ${item.returnDate}` : ""}
                         {item.impactNote ? ` · ${item.impactNote}` : ""}
                       </span>
                     </div>

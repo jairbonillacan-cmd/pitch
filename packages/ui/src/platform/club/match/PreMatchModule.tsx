@@ -23,6 +23,7 @@ import {
   resolveConfirmedLineupSlotState,
   resolvePreMatchAbsencesState,
   resolvePreMatchFreezeState,
+  resolveProbableLineupSlotState,
   saveClientFrozenPick,
 } from "./pre-match-logic";
 
@@ -166,6 +167,10 @@ export function PreMatchModule({
   );
   const lineupSlot = useMemo(
     () => resolveConfirmedLineupSlotState(game.preGame, intelUnlocked),
+    [game.preGame, intelUnlocked],
+  );
+  const probableSlot = useMemo(
+    () => resolveProbableLineupSlotState(game.preGame, intelUnlocked),
     [game.preGame, intelUnlocked],
   );
 
@@ -378,7 +383,11 @@ export function PreMatchModule({
                         {item.status}
                       </span>
                     </div>
-                    <p className="pl-prematch-absence-impact">{item.impactNote}</p>
+                    <p className="pl-prematch-absence-impact">
+                      {item.injuryType ? `${item.injuryType} · ` : ""}
+                      {item.returnDate ? `Regreso est. ${item.returnDate} · ` : ""}
+                      {item.impactNote}
+                    </p>
                   </li>
                 );
               })}
@@ -394,52 +403,65 @@ export function PreMatchModule({
           )}
         </article>
 
-        {/* 4) Ranura «Alineación confirmada» — franja compacta horizontal cuando es ancho completo o par 50/50 */}
+        {/* 4) Ranura «Alineación confirmada» / «Once estimado» — franja compacta horizontal */}
         <article
-          className={`pl-prematch-card pl-prematch-lineup ${lineupSlot.enabled ? "is-enabled" : "is-off"} ${hasManyAbsences ? "is-wide" : ""}`.trim()}
-          data-lineup-slot={lineupSlot.enabled ? "on" : "off"}
+          className={`pl-prematch-card pl-prematch-lineup ${lineupSlot.enabled || probableSlot?.available ? "is-enabled" : "is-off"} ${hasManyAbsences ? "is-wide" : ""}`.trim()}
+          data-lineup-slot={lineupSlot.enabled ? "on" : probableSlot?.available ? "estimated" : "off"}
         >
           <div className="pl-prematch-card-head">
-            <h3 className="pl-prematch-card-title">Alineación confirmada</h3>
+            <h3 className="pl-prematch-card-title">
+              {lineupSlot.enabled || !probableSlot?.available ? "Alineación confirmada" : "Once estimado"}
+            </h3>
             <span
-              className={`pl-prematch-slot-chip ${lineupSlot.enabled ? "is-on" : "is-off"}`.trim()}
-              data-lineup-status={lineupSlot.enabled ? "on" : "off"}
+              className={`pl-prematch-slot-chip ${lineupSlot.enabled || probableSlot?.available ? "is-on" : "is-off"}`.trim()}
+              data-lineup-status={lineupSlot.enabled ? "on" : probableSlot?.available ? "estimated" : "off"}
             >
-              {lineupSlot.statusBadge}
+              {lineupSlot.enabled ? lineupSlot.statusBadge : probableSlot?.available ? probableSlot.statusBadge : lineupSlot.statusBadge}
             </span>
           </div>
 
-          {lineupSlot.enabled && lineupSlot.lineups ? (
-            <div className="pl-prematch-lineup-grid">
-              <div className="pl-prematch-lineup-col">
-                <strong className="pl-prematch-lineup-team">
-                  {game.home.shortName}
-                  {lineupSlot.lineups.homeFormation ? ` · ${lineupSlot.lineups.homeFormation}` : ""}
-                </strong>
-                <ul role="list" className="pl-prematch-starters">
-                  {lineupSlot.lineups.homeStarters.map((p, idx) => (
-                    <li key={`h-${p.name}-${idx}`}>
-                      {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                      <span>{p.name}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="pl-prematch-lineup-col">
-                <strong className="pl-prematch-lineup-team">
-                  {game.away.shortName}
-                  {lineupSlot.lineups.awayFormation ? ` · ${lineupSlot.lineups.awayFormation}` : ""}
-                </strong>
-                <ul role="list" className="pl-prematch-starters">
-                  {lineupSlot.lineups.awayStarters.map((p, idx) => (
-                    <li key={`a-${p.name}-${idx}`}>
-                      {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                      <span>{p.name}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          {(lineupSlot.enabled && lineupSlot.lineups) || (probableSlot?.available && probableSlot.lineups) ? (
+            (() => {
+              const active = lineupSlot.enabled ? lineupSlot.lineups! : probableSlot!.lineups!;
+              const helper = lineupSlot.enabled ? lineupSlot.helperText : probableSlot!.helperText;
+              return (
+                <div className="space-y-2.5">
+                  <div className="pl-prematch-lineup-grid">
+                    <div className="pl-prematch-lineup-col">
+                      <strong className="pl-prematch-lineup-team">
+                        {game.home.shortName}
+                        {active.homeFormation ? ` · ${active.homeFormation}` : ""}
+                      </strong>
+                      <ul role="list" className="pl-prematch-starters">
+                        {active.homeStarters.map((p, idx) => (
+                          <li key={`h-${p.name}-${idx}`}>
+                            {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                            <span>{p.name}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="pl-prematch-lineup-col">
+                      <strong className="pl-prematch-lineup-team">
+                        {game.away.shortName}
+                        {active.awayFormation ? ` · ${active.awayFormation}` : ""}
+                      </strong>
+                      <ul role="list" className="pl-prematch-starters">
+                        {active.awayStarters.map((p, idx) => (
+                          <li key={`a-${p.name}-${idx}`}>
+                            {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                            <span>{p.name}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  {probableSlot?.available && !lineupSlot.enabled ? (
+                    <p className="pl-prematch-note">{helper}</p>
+                  ) : null}
+                </div>
+              );
+            })()
           ) : (
             <p className="pl-prematch-note">{lineupSlot.helperText}</p>
           )}

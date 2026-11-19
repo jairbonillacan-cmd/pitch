@@ -374,9 +374,9 @@ export const LEAGUE_CATALOG: League[] = [
     name: "MLB",
     shortName: "MLB",
     country: "EE. UU.",
-    enabled: false,
+    enabled: true,
     mascot: "mlb",
-    defaultSeason: "2027",
-    defaultPeriod: "",
+    defaultSeason: "2026",
+    defaultPeriod: "Temporada 2026",
   },
 ];

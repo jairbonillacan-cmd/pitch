@@ -54,6 +54,7 @@ import {
 import type { XgLookup } from "./xg-feed.js";
 import { withCountProjections, type CountFeed } from "./counts-feed.js";
 import { mapBzzoiroLeagueLogoUrl, mapBzzoiroTeamLogoUrl } from "./providers/bzzoiro.js";
+import { computeNflStandings } from "./us-divisions.js";
 import {
   addMatchContext,
   enrichPreservedAnalysis,
@@ -252,9 +253,19 @@ export function buildNflSnapshot(params: {
     );
   }
 
+  const nflStandings = seasonGames
+    ? computeNflStandings(
+        seasonGames,
+        teamRateInputs,
+        (teamId) => getOfficialEspnTeamLogoUrl("nfl", teamId) ?? undefined,
+      )
+    : [];
+
+  const leagueLogoUrl = getOfficialEspnLeagueLogoUrl("nfl") ?? undefined;
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
     league: asLeagueId("nfl"),
+    ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(seasonId),
     seasonLabel,
     periodLabel,
@@ -265,6 +276,7 @@ export function buildNflSnapshot(params: {
     teamRates: rates,
     games,
     analyses,
+    ...(nflStandings.length > 0 ? { standings: nflStandings } : {}),
   };
 
   return LeagueSnapshotSchema.parse(snapshot);

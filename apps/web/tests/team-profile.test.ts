@@ -2,10 +2,12 @@ import { describe, expect, it } from "vitest";
 import { PRODUCT_LEAGUES } from "../src/server/snapshots";
 import {
   isProductLeague,
+  loadLeaguePlayerProps,
   loadLeagueStandingsMeta,
   loadLeagueTeamsDirectory,
   loadPlayerProfile,
   loadTeamProfile,
+  playerExistsInSnapshots,
   teamExistsInSnapshots,
 } from "../src/server/team-profile";
 
@@ -17,13 +19,14 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
     expect(isProductLeague("liga-mx")).toBe(true);
     expect(isProductLeague("nba")).toBe(true);
     expect(isProductLeague("nhl")).toBe(true);
-    expect(isProductLeague("mlb")).toBe(false);
+    expect(isProductLeague("mlb")).toBe(true);
+    expect(isProductLeague("liga-fantasma")).toBe(false);
 
     expect(teamExistsInSnapshots("liga-mx", "monterrey")).toBe(true);
+    expect(teamExistsInSnapshots("mlb", "los-angeles-dodgers")).toBe(true);
     expect(teamExistsInSnapshots("liga-mx", "equipo-inexistente")).toBe(false);
-    expect(teamExistsInSnapshots("mlb", "dodgers")).toBe(false);
 
-    expect(loadTeamProfile("mlb", "dodgers", { fullAccess: true })).toBeNull();
+    expect(loadTeamProfile("mlb", "los-angeles-dodgers", { fullAccess: true })).not.toBeNull();
     expect(loadTeamProfile("liga-mx", "inexistente", { fullAccess: true })).toBeNull();
   });
 
@@ -109,11 +112,45 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
     expect(america!.recentMatches[0]?.date.startsWith("2026-")).toBe(true);
     const firstPlayer = america!.squad?.players[0];
     expect(firstPlayer).toBeDefined();
+    expect(playerExistsInSnapshots("liga-mx", "america", firstPlayer!.slug)).toBe(true);
+    expect(playerExistsInSnapshots("liga-mx", "america", "jugador-inexistente")).toBe(false);
     const playerProfile = loadPlayerProfile("liga-mx", "america", firstPlayer!.slug, {
       fullAccess: true,
     });
     expect(playerProfile).not.toBeNull();
     expect(playerProfile!.lastMatch).not.toBeNull();
     expect(playerProfile!.lastMatch!.date.startsWith("2026-")).toBe(true);
+  });
+
+  it("carga props de jugadores sin romper si falta player-props.json de NBA", () => {
+    const emptyNba = loadLeaguePlayerProps([
+      {
+        id: "nba-test-game",
+        league: "nba" as never,
+        leagueLabel: "NBA",
+        sport: "basketball",
+        round: "Temporada",
+        day: "2026-11-20",
+        dayLabel: "2026-11-20",
+        kickoffUtc: "2026-11-21T01:00:00Z",
+        kickoffLocal: "19:00",
+        venue: "TD Garden",
+        status: "NS",
+        home: { slug: "boston-celtics", name: "Boston Celtics", shortName: "Boston", code: "BOS", record: "10-2" },
+        away: { slug: "new-york-knicks", name: "New York Knicks", shortName: "Knicks", code: "NYK", record: "8-4" },
+        hasForecast: true,
+        outcomes: [],
+        factors: [],
+        trace: [],
+        marketGroups: [],
+        picks: [],
+        markets: [],
+        scorelines: [],
+        quality: { flag: "ok", coveragePct: 90 },
+        hasRecentQuote: false,
+      } as never,
+    ]);
+    expect(Array.isArray(emptyNba)).toBe(true);
+    expect(JSON.stringify(emptyNba)).not.toMatch(/\bbzzoiro\b/i);
   });
 });

@@ -55,6 +55,39 @@ export interface LiveTeamStats {
   redCards: number | null;
   offsides: number | null;
   bigChances: number | null;
+  /** Goles evitados respecto al xGOT/calidad de remates recibidos. */
+  goalsPrevented?: number | null;
+  /** Toques dentro del área rival. */
+  touchesInBox?: number | null;
+  /** Porcentaje de precisión de pase. */
+  passAccuracyPct?: number | null;
+}
+
+export interface LiveCommentaryItem {
+  id: string;
+  order: number;
+  minute: number | null;
+  addedTime: number | null;
+  text: string;
+  isImportant?: boolean;
+  side?: LiveSide | null;
+}
+
+export interface LivePlayerStatRow {
+  player: string;
+  side: LiveSide;
+  position?: string | null;
+  minutes?: number | null;
+  rating?: number | null;
+  goals?: number;
+  assists?: number;
+  shots?: number;
+  shotsOnTarget?: number;
+  keyPasses?: number;
+  xg?: number | null;
+  xa?: number | null;
+  tackles?: number;
+  saves?: number;
 }
 
 export interface LiveMomentumPoint {
@@ -120,6 +153,12 @@ export interface LiveMatchDetail {
   momentum: LiveMomentumPoint[];
   xgTimeline: LiveXgPoint[];
   shots: LiveShot[];
+  /** Narración minuto a minuto incremental (`?since=`). */
+  commentary?: LiveCommentaryItem[];
+  /** Estadísticas individuales por jugador en vivo y al cierre. */
+  playerStats?: LivePlayerStatRow[];
+  /** Canales de transmisión para México (`country_code=MX`). */
+  broadcastsMx?: string[];
   nextPollSeconds: number | null;
   notice: string | null;
   /** Atribución exigida por la licencia de la fuente. */

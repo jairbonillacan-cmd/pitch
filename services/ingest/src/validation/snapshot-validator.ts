@@ -19,6 +19,7 @@ import {
   UnmappedTeamError,
   resolveCanonicalTeam,
   type CanonicalLeague,
+  type TeamLeague,
 } from "../mappings.js";
 import { slugifyTeamName } from "../team-slug.js";
 
@@ -71,6 +72,7 @@ export const PERMITTED_BOOK_IDS = new Set<string>([
   "fanduel",
   "betmgm",
   "betrivers",
+  "betcris",
   "bwin",
   "william_hill",
   "codere",
@@ -160,7 +162,7 @@ export function parseStrictIsoMs(
   return Number.isFinite(ms) ? ms : null;
 }
 
-function isHistoricTeamSlug(league: CanonicalLeague, teamName: string, slug: string): boolean {
+function isHistoricTeamSlug(league: TeamLeague, teamName: string, slug: string): boolean {
   const historicTable = HISTORIC_TEAMS[league];
   if (!historicTable) return false;
   if (historicTable[teamName.trim()]) return true;
@@ -176,7 +178,7 @@ function isHistoricTeamSlug(league: CanonicalLeague, teamName: string, slug: str
  * como el caso real P0-03 (West Ham -> Coventry City, Mazatlán -> Atlante).
  */
 export function validateTeamIdentity(
-  league: CanonicalLeague,
+  league: TeamLeague,
   team: Team,
   options: { allowHistoric?: boolean; path?: string } = {},
 ): ValidationIssue[] {
@@ -318,7 +320,7 @@ export function validateLeagueSnapshotCandidate(
 
   const snapshot = parsed.data;
   const issues: ValidationIssue[] = [];
-  const league = snapshot.league as CanonicalLeague;
+  const league = snapshot.league as TeamLeague;
 
   // 1. Fecha de actualización plausible y no futura
   const updatedMs = parseStrictIsoMs(snapshot.updatedAt, { requireTimezone: true });
@@ -526,7 +528,7 @@ export function validateLeagueInjuriesCandidate(
 
   const file = parsed.data;
   const issues: ValidationIssue[] = [];
-  const league = file.league as CanonicalLeague;
+  const league = file.league as TeamLeague;
 
   const obsMs = parseStrictIsoMs(file.observedAt, { requireTimezone: true });
   if (obsMs === null) {
@@ -609,8 +611,16 @@ function expectedMarketSides(market: string): readonly string[] | null {
   const m = market.trim().toLowerCase();
   if (m === "1x2") return ["home", "draw", "away"];
   if (m === "double_chance") return ["1X", "12", "X2"];
-  if (m === "totals") return ["over", "under"];
-  if (m === "btts") return ["yes", "no"];
+  if (m === "totals" || m === "corners_total") return ["over", "under"];
+  if (
+    m === "btts" ||
+    m === "clean_sheet_home" ||
+    m === "clean_sheet_away" ||
+    m === "win_to_nil_home" ||
+    m === "win_to_nil_away"
+  ) {
+    return ["yes", "no"];
+  }
   if (m === "moneyline" || m === "dnb" || m === "ah" || m === "spread") return ["home", "away"];
   return null;
 }

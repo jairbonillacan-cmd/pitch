@@ -5,7 +5,7 @@
 import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
 import type { MatchPick, PlatformGame, PlatformLeagueSummary } from "../../types";
 
-export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl";
+export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl" | "mlb";
 export const ALL = "all" as const;
 export type SportFilter = SportId | typeof ALL;
 export type LeagueFilter = LeagueId | typeof ALL;
@@ -22,6 +22,7 @@ export const SPORTS: ReadonlyArray<{ id: SportId; label: string; shortLabel: str
   { id: "nfl", label: "Fútbol americano", shortLabel: "NFL" },
   { id: "nba", label: "Basquetbol", shortLabel: "NBA" },
   { id: "nhl", label: "Hockey", shortLabel: "NHL" },
+  { id: "mlb", label: "Béisbol", shortLabel: "MLB" },
 ];
 
 /** Orden fijo de ligas y competencias: México y clubes top primero, luego selecciones y EE. UU. / Canadá. */
@@ -45,12 +46,14 @@ const LEAGUE_ORDER: readonly string[] = [
   "nfl",
   "nba",
   "nhl",
+  "mlb",
 ];
 
 export function sportOf(game: Pick<PlatformGame, "sport">): SportId {
   if (game.sport === "american-football") return "nfl";
   if (game.sport === "basketball") return "nba";
   if (game.sport === "ice-hockey") return "nhl";
+  if (game.sport === "baseball") return "mlb";
   return "futbol";
 }
 

@@ -16,6 +16,8 @@ export const TeamInjuryEntrySchema = z.object({
   position: z.string().max(40).optional(),
   status: InjuryStatusSchema,
   detail: z.string().min(1).max(240),
+  injuryType: z.string().max(120).optional(),
+  returnDate: z.string().max(80).optional(),
   reportedAt: z.string().min(10),
   gameId: GameIdSchema.optional(),
 });
@@ -78,3 +80,41 @@ export interface MatchTeamInjuries {
   readonly teamId: TeamId;
   readonly entries: readonly TeamInjuryEntry[];
 }
+
+export const MatchLineupPlayerSchema = z.object({
+  name: z.string().min(1).max(120),
+  number: z.number().int().positive().max(99).optional(),
+  position: z.string().max(24).optional(),
+});
+export type MatchLineupPlayer = z.infer<typeof MatchLineupPlayerSchema>;
+
+export const MatchLineupSideSchema = z.object({
+  formation: z.string().max(24).optional(),
+  starters: z.array(MatchLineupPlayerSchema),
+});
+
+export const MatchLineupsProjectionSchema = z.object({
+  status: z.enum(["confirmed", "predicted"]),
+  sourceLabel: z.string().min(1).max(80),
+  updatedAtUtc: z.string().min(10),
+  confidence: z.number().min(0).max(1).optional(),
+  home: MatchLineupSideSchema,
+  away: MatchLineupSideSchema,
+});
+export type MatchLineupsProjection = z.infer<typeof MatchLineupsProjectionSchema>;
+
+export const MatchPreGameContextSchema = z.object({
+  referee: z.string().max(120).optional(),
+  weather: z
+    .object({
+      description: z.string().max(120).optional(),
+      temperatureC: z.number().optional(),
+      windSpeedKmh: z.number().optional(),
+    })
+    .optional(),
+  pitchCondition: z.string().max(80).optional(),
+  travelDistanceKm: z.number().nonnegative().optional(),
+  isLocalDerby: z.boolean().optional(),
+  broadcastsMx: z.array(z.string().min(1).max(80)).max(12).optional(),
+});
+export type MatchPreGameContext = z.infer<typeof MatchPreGameContextSchema>;

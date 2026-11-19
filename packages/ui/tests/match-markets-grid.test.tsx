@@ -235,4 +235,42 @@ describe("MatchMarketsGrid (Punto 5)", () => {
     expect(emptyUnlockedHtml).toContain("data-empty-markets");
     expect(emptyUnlockedHtml).not.toContain("Pase PitchLab Ultra");
   });
+
+  it("muestra apertura, dirección de movimiento, comparador de casas y mercados clean_sheet/win_to_nil", () => {
+    const richMarkets: readonly PlatformMarketRow[] = [
+      {
+        group: "Portería a cero",
+        market: "clean_sheet_home",
+        selection: "yes",
+        label: "América mantiene portería a cero",
+        p: 0.44,
+        fairDecimal: 2.27,
+        fairAmerican: 127,
+        openDecimal: 2.1,
+        currentDecimal: 1.9,
+        movementDirection: "shortening",
+        quoteBookLabel: "Betcris",
+        quoteCapturedAtUtc: "2030-11-14T22:00:00Z",
+        bookQuotes: [
+          { book: "betcris", bookLabel: "Betcris", decimal: 1.9, capturedAtUtc: "2030-11-14T22:00:00Z", openingDecimal: 2.1, movementDirection: "shortening", isBest: true },
+          { book: "codere", bookLabel: "Codere", decimal: 1.85, capturedAtUtc: "2030-11-14T22:00:00Z" },
+        ],
+        edgePts: -8.6,
+      },
+    ];
+    const html = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={richMarkets}
+        oddsFormat="decimal"
+        watermark="@socio"
+      />,
+    );
+    expect(html).toContain("Casa 1.90");
+    expect(html).toContain("Ap. 2.10");
+    expect(html).toContain("↓");
+    expect(html).toContain("Betcris 1.90");
+    expect(html).toContain("Codere 1.85");
+    expect(html).toContain("pl-pill--brand");
+  });
 });

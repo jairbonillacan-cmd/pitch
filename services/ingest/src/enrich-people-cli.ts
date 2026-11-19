@@ -1114,7 +1114,7 @@ interface EspnUsRosterPayload {
 }
 
 function mapUsPosGroup(
-  league: "nba" | "nfl" | "nhl",
+  league: "nba" | "nfl" | "nhl" | "mlb",
   abbr?: string,
   groupHint?: string,
 ): { group: PlayerPositionGroup; label: string } {
@@ -1134,6 +1134,19 @@ function mapUsPosGroup(
     return { group: "FWD", label: a || "RW" };
   }
 
+  if (league === "mlb") {
+    if (["P", "SP", "RP", "CL", "MR", "LHP", "RHP"].includes(a) || g.includes("pitch")) {
+      return { group: "GK", label: a || "P" };
+    }
+    if (a === "C" || g.includes("catch")) {
+      return { group: "DEF", label: a || "C" };
+    }
+    if (["1B", "2B", "3B", "SS", "IF", "MI", "CI"].includes(a) || g.includes("infield")) {
+      return { group: "MID", label: a || "IF" };
+    }
+    return { group: "FWD", label: a || "OF" };
+  }
+
   // NFL
   if (g.includes("special") || ["K", "PK", "P", "LS"].includes(a)) {
     return { group: "GK", label: a || "ESP" };
@@ -1150,16 +1163,20 @@ function mapUsPosGroup(
   return { group: "FWD", label: a || "QB" };
 }
 
-async function ingestUsProSquads(): Promise<void> {
-  const configs: ReadonlyArray<{
-    league: "nba" | "nfl" | "nhl";
+async function ingestUsProSquads(onlyLeagues?: ReadonlySet<string>): Promise<void> {
+  const allConfigs: ReadonlyArray<{
+    league: "nba" | "nfl" | "nhl" | "mlb";
     sportPath: string;
     headshotSeg: string;
   }> = [
     { league: "nba", sportPath: "basketball/nba", headshotSeg: "nba" },
     { league: "nfl", sportPath: "football/nfl", headshotSeg: "nfl" },
     { league: "nhl", sportPath: "hockey/nhl", headshotSeg: "nhl" },
+    { league: "mlb", sportPath: "baseball/mlb", headshotSeg: "mlb" },
   ];
+  const configs = onlyLeagues
+    ? allConfigs.filter((c) => onlyLeagues.has(c.league))
+    : allConfigs;
 
   for (const cfg of configs) {
     const snapPath = path.join(SNAPSHOTS_ROOT, cfg.league, "latest.json");
@@ -1199,12 +1216,13 @@ async function ingestUsProSquads(): Promise<void> {
       if (!eid || !dName) continue;
 
       const normDisp = normalizeNameKey(dName);
-      const found = [...snapTeams.values()].find(
-        (t) =>
-          normalizeNameKey(t.name) === normDisp ||
-          (abbr && t.code.toUpperCase() === abbr) ||
+      const allTargets = [...snapTeams.values()];
+      const found =
+        allTargets.find((t) => normalizeNameKey(t.name) === normDisp) ??
+        allTargets.find((t) => abbr && t.code.toUpperCase() === abbr) ??
+        allTargets.find((t) =>
           normDisp.endsWith(` ${normalizeNameKey(t.name).split(" ").pop() ?? "---"}`),
-      );
+        );
       if (found && !matchedTargets.some((m) => m.target.id === found.id)) {
         matchedTargets.push({ espnId: eid, target: found });
       }
@@ -1357,8 +1375,15 @@ async function ingestUsProSquads(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  await enrichClubAndNationalSoccer();
-  await ingestUsProSquads();
+  const leaguesArg = process.argv.find((a) => a.startsWith("--leagues="))?.slice(10);
+  const filterSet = leaguesArg
+    ? new Set(leaguesArg.split(",").map((s) => s.trim()).filter(Boolean))
+    : undefined;
+  const runUsOnly = process.argv.includes("--us-only") || (filterSet && [...filterSet].every((l) => ["nba", "nfl", "nhl", "mlb"].includes(l)));
+  if (!runUsOnly) {
+    await enrichClubAndNationalSoccer();
+  }
+  await ingestUsProSquads(filterSet);
 }
 
 main().catch((err) => {

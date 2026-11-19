@@ -311,6 +311,12 @@ async function main() {
           // La temporada anterior en NFL empeoró el backtest (0.6515 vs 0.6468): apagada por defecto.
           const priorNfl =
             process.env.MODEL_NFL_PRIOR === "1" ? extractNflSeasonRows(nflCsv, 2025) : [];
+          writeSeasonResultsFile(SNAPSHOTS_ROOT, {
+            league: "nfl",
+            season: normNfl.seasonId,
+            updatedAt,
+            games: normNfl.allGames,
+          });
           return buildNflSnapshot({
             seasonId: normNfl.seasonId,
             seasonLabel: normNfl.seasonLabel,

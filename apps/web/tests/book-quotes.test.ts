@@ -160,4 +160,90 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
     expect(enrichedRows[0]!.quoteBookLabel).toBe("Pinnacle");
     expect(enrichedRows[0]!.bookQuotes).toHaveLength(2);
   });
+
+  it("soporta Betcris, BetMGM, corners_total con línea, clean_sheet/win_to_nil y movimiento de apertura", () => {
+    const byLeague = parseQuotesLedgerTicks(
+      [
+        {
+          event_id: "ws:football:MEX:20261120:america:chivas",
+          sport: "football",
+          league: "MEX",
+          market: "total_corners",
+          line: 9.5,
+          selection: "over",
+          book: "betcris",
+          price_decimal: 1.9,
+          opening_price: 2.05,
+          movement_direction: "shortening",
+          ts_captured: "2026-11-17T10:00:00Z",
+        },
+        {
+          event_id: "ws:football:MEX:20261120:america:chivas",
+          sport: "football",
+          league: "MEX",
+          market: "total_corners",
+          line: 9.5,
+          selection: "over",
+          book: "betmgm",
+          price_decimal: 1.85,
+          opening_price: 1.85,
+          ts_captured: "2026-11-17T10:00:00Z",
+        },
+        {
+          event_id: "ws:football:MEX:20261120:america:chivas",
+          sport: "football",
+          league: "MEX",
+          market: "clean_sheet_home",
+          line: null,
+          selection: "yes",
+          book: "codere",
+          price_decimal: 2.4,
+          ts_captured: "2026-11-17T10:00:00Z",
+        },
+      ],
+      nowMs,
+    );
+
+    const mxEvents = byLeague.get("liga-mx") ?? [];
+    expect(mxEvents).toHaveLength(1);
+    const cornerQuotes = mxEvents[0]!.bySelectionKey.get("corners_total|9.5|over") ?? [];
+    expect(cornerQuotes.map((q) => q.book)).toEqual(["betcris", "betmgm"]);
+    expect(cornerQuotes[0]).toMatchObject({
+      bookLabel: "Betcris",
+      openingDecimal: 2.05,
+      movementDirection: "shortening",
+      isBest: true,
+    });
+    expect(mxEvents[0]!.bySelectionKey.get("clean_sheet_home|null|yes")?.[0]?.book).toBe("codere");
+
+    const enrichedRows = enrichMarketRowsWithBookQuotes(
+      {
+        league: asLeagueId("liga-mx"),
+        home: { slug: "america", name: "Club América", shortName: "América", code: "AME", record: "7G" },
+        away: { slug: "chivas", name: "Guadalajara", shortName: "Chivas", code: "GDL", record: "5G" },
+        status: "NS",
+      },
+      [
+        {
+          group: "Tiros de esquina",
+          market: "corners_total",
+          selection: "over",
+          line: 9.5,
+          label: "Más de 9.5 corners",
+          p: 0.56,
+          fairDecimal: 1.79,
+          fairAmerican: -127,
+          openDecimal: null,
+          currentDecimal: null,
+          edgePts: null,
+        },
+      ],
+      nowMs,
+      byLeague,
+    );
+    expect(enrichedRows[0]!.openDecimal).toBe(2.05);
+    expect(enrichedRows[0]!.currentDecimal).toBe(1.9);
+    expect(enrichedRows[0]!.movementDirection).toBe("shortening");
+    expect(enrichedRows[0]!.quoteBookLabel).toBe("Betcris");
+  });
 });

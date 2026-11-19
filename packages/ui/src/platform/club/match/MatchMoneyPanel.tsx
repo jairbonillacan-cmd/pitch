@@ -36,6 +36,8 @@ interface ComparisonRow {
   readonly group: string;
   readonly p: number;
   readonly fairDecimal: number;
+  readonly openDecimal?: number | null;
+  readonly movementDirection?: "shortening" | "drifting" | "stable" | null;
   readonly houseDecimal: number | null;
   readonly houseBookLabel: string | null;
   readonly bookQuotes?: readonly BookQuoteItem[];
@@ -125,6 +127,8 @@ export function MatchMoneyPanel({
         group: pk.categoryLabel,
         p: pk.p,
         fairDecimal: pk.fairDecimal,
+        openDecimal: prefQuote?.openingDecimal ?? null,
+        movementDirection: prefQuote?.movementDirection ?? null,
         houseDecimal,
         houseBookLabel,
         bookQuotes: pk.bookQuotes,
@@ -152,6 +156,8 @@ export function MatchMoneyPanel({
           group: m.group,
           p: m.p,
           fairDecimal: m.fairDecimal,
+          openDecimal: m.openDecimal ?? prefQuote?.openingDecimal ?? null,
+          movementDirection: m.movementDirection ?? prefQuote?.movementDirection ?? null,
           houseDecimal,
           houseBookLabel,
           bookQuotes: m.bookQuotes,
@@ -378,6 +384,18 @@ export function MatchMoneyPanel({
                               {r.group}
                               {r.houseBookLabel && manualDec === null ? ` · ${r.houseBookLabel}` : ""}
                             </span>
+                            {r.bookQuotes && r.bookQuotes.length > 1 && manualDec === null ? (
+                              <div className="mt-1 flex flex-wrap gap-1">
+                                {r.bookQuotes.slice(0, 3).map((q) => (
+                                  <span
+                                    key={q.book}
+                                    className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
+                                  >
+                                    {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
+                                  </span>
+                                ))}
+                              </div>
+                            ) : null}
                           </div>
                           {r.pick && onAddPickToParlay && !isFinished && game.status === "NS" ? (
                             <button
@@ -403,19 +421,34 @@ export function MatchMoneyPanel({
                             ? formatOddsValue(r.houseDecimal, oddsFormat)
                             : "—"
                         ) : r.houseDecimal !== null && manualRaw === "" ? (
-                          <button
-                            type="button"
-                            className="inline-flex items-center justify-end min-h-11 sm:min-h-8 px-1 gap-1 underline decoration-dotted underline-offset-2 text-right"
-                            title="Clic para escribir el momio de tu casa"
-                            onClick={() =>
-                              setManualByRowId((prev) => ({
-                                ...prev,
-                                [r.id]: r.houseDecimal!.toFixed(2),
-                              }))
-                            }
-                          >
-                            {formatOddsValue(r.houseDecimal, oddsFormat)}
-                          </button>
+                          <div className="inline-flex flex-col items-end">
+                            <button
+                              type="button"
+                              className="inline-flex items-center justify-end min-h-11 sm:min-h-8 px-1 gap-1 underline decoration-dotted underline-offset-2 text-right"
+                              title="Clic para escribir el momio de tu casa"
+                              onClick={() =>
+                                setManualByRowId((prev) => ({
+                                  ...prev,
+                                  [r.id]: r.houseDecimal!.toFixed(2),
+                                }))
+                              }
+                            >
+                              {formatOddsValue(r.houseDecimal, oddsFormat)}
+                            </button>
+                            {r.openDecimal != null && Math.abs(r.openDecimal - r.houseDecimal) >= 0.01 ? (
+                              <span
+                                className="text-[10px] num px-1"
+                                style={{ color: "var(--pl-text-muted)" }}
+                              >
+                                Ap. {formatOddsValue(r.openDecimal, oddsFormat)}{" "}
+                                {r.movementDirection === "shortening"
+                                  ? "↓"
+                                  : r.movementDirection === "drifting"
+                                    ? "↑"
+                                    : "→"}
+                              </span>
+                            ) : null}
+                          </div>
                         ) : (
                           <input
                             type="text"

@@ -605,6 +605,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
         role: item.position ? `${item.position} · ${match.home.shortName}` : match.home.shortName,
         status: item.status,
         impactNote: item.detail,
+        ...(item.injuryType ? { injuryType: item.injuryType } : {}),
+        ...(item.returnDate ? { returnDate: item.returnDate } : {}),
       });
     }
     for (const item of realAwayInjuries) {
@@ -614,6 +616,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
         role: item.position ? `${item.position} · ${match.away.shortName}` : match.away.shortName,
         status: item.status,
         impactNote: item.detail,
+        ...(item.injuryType ? { injuryType: item.injuryType } : {}),
+        ...(item.returnDate ? { returnDate: item.returnDate } : {}),
       });
     }
   } else {
@@ -662,13 +666,65 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     };
   }
 
+  const rawLineups = match.lineups;
+  const hasFullLineup =
+    Boolean(rawLineups) &&
+    rawLineups!.home.starters.length >= 11 &&
+    rawLineups!.away.starters.length >= 11;
+  const confirmedLineups =
+    hasFullLineup && rawLineups!.status === "confirmed"
+      ? {
+          sourceLabel: rawLineups!.sourceLabel,
+          verifiedAtUtc: rawLineups!.updatedAtUtc,
+          homeFormation: rawLineups!.home.formation,
+          awayFormation: rawLineups!.away.formation,
+          homeStarters: rawLineups!.home.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+          awayStarters: rawLineups!.away.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+        }
+      : null;
+  const probableLineups =
+    !confirmedLineups && hasFullLineup && rawLineups!.status === "predicted"
+      ? {
+          sourceLabel: rawLineups!.sourceLabel,
+          verifiedAtUtc: rawLineups!.updatedAtUtc,
+          confidence: rawLineups!.confidence,
+          homeFormation: rawLineups!.home.formation,
+          awayFormation: rawLineups!.away.formation,
+          homeStarters: rawLineups!.home.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+          awayStarters: rawLineups!.away.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+        }
+      : null;
+
   return {
     cortexSynthesis: synthesisParts.join(" "),
     tacticalKeys,
-    lineupStatusLabel:
-      match.status === "FT" ? "Partido finalizado" : "Alineaciones oficiales pendientes",
-    lineupsConfirmed60m: false,
-    confirmedLineups: null,
+    lineupStatusLabel: confirmedLineups
+      ? `Verificada · ${confirmedLineups.sourceLabel}`
+      : probableLineups
+        ? "Once estimado"
+        : match.status === "FT"
+          ? "Partido finalizado"
+          : "Alineaciones oficiales pendientes",
+    lineupsConfirmed60m: Boolean(confirmedLineups),
+    confirmedLineups,
+    probableLineups,
+    matchContext: match.matchContext ?? null,
     absences,
     moneyFlow,
   };

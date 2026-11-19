@@ -23,6 +23,9 @@ interface RawQuoteTick {
   readonly selection?: string;
   readonly book?: string;
   readonly price_decimal?: number;
+  readonly opening_price?: number | null;
+  readonly movement_direction?: "shortening" | "drifting" | "stable" | null;
+  readonly is_best_odds?: boolean;
   readonly ts_captured?: string;
   readonly ts_event_start?: string;
 }
@@ -54,6 +57,8 @@ const QUOTE_LEAGUE_TO_APP: Readonly<Record<string, string>> = {
   nba: "nba",
   NHL: "nhl",
   nhl: "nhl",
+  MLB: "mlb",
+  mlb: "mlb",
 };
 
 interface ParsedEventQuotes {
@@ -81,9 +86,15 @@ function normalizeMarketKey(rawMarket: string | undefined): string {
   if (m === "totals" || m === "total" || m === "ou" || m === "over_under" || m.startsWith("totals_")) {
     return "totals";
   }
+  if (m === "corners_total" || m === "total_corners" || m === "corners_over_under" || m.startsWith("corners_")) {
+    return "corners_total";
+  }
   if (m === "spread" || m === "handicap" || m.startsWith("ah_")) return "spread";
   if (m === "double_chance") return "double_chance";
   if (m === "dnb" || m === "draw_no_bet") return "dnb";
+  if (m === "clean_sheet_home" || m === "clean_sheet_away" || m === "win_to_nil_home" || m === "win_to_nil_away") {
+    return m;
+  }
   return m;
 }
 
@@ -94,11 +105,17 @@ function normalizeSelectionToken(market: string, rawSelection: string | undefine
     if (s === "x" || s === "draw" || s === "empate") return "draw";
     if (s === "2" || s === "away" || s === "visita") return "away";
   }
-  if (market === "btts") {
+  if (
+    market === "btts" ||
+    market === "clean_sheet_home" ||
+    market === "clean_sheet_away" ||
+    market === "win_to_nil_home" ||
+    market === "win_to_nil_away"
+  ) {
     if (s === "yes" || s === "si" || s === "sí" || s === "btts_yes") return "yes";
     if (s === "no" || s === "btts_no") return "no";
   }
-  if (market === "totals") {
+  if (market === "totals" || market === "corners_total") {
     if (s === "over" || s.startsWith("over_") || s === "mas") return "over";
     if (s === "under" || s.startsWith("under_") || s === "menos") return "under";
   }
@@ -115,7 +132,7 @@ function normalizeLineValue(
   line: number | null | undefined,
   labelFallback?: string,
 ): string {
-  if (market !== "totals" && market !== "spread") return "null";
+  if (market !== "totals" && market !== "corners_total" && market !== "spread") return "null";
   if (typeof line === "number" && Number.isFinite(line)) {
     return String(Math.round(line * 100) / 100);
   }
@@ -211,11 +228,32 @@ export function parseQuotesLedgerTicks(
       continue;
     }
 
+    const roundedDec = Math.round(price * 1000) / 1000;
+    const openingDecimal =
+      typeof tick.opening_price === "number" && Number.isFinite(tick.opening_price) && tick.opening_price > 1.01
+        ? Math.round(tick.opening_price * 1000) / 1000
+        : undefined;
+    const movementDirection =
+      tick.movement_direction === "shortening" ||
+      tick.movement_direction === "drifting" ||
+      tick.movement_direction === "stable"
+        ? tick.movement_direction
+        : openingDecimal !== undefined
+          ? roundedDec < openingDecimal - 0.01
+            ? "shortening"
+            : roundedDec > openingDecimal + 0.01
+              ? "drifting"
+              : "stable"
+          : undefined;
+
     bookMap.set(book, {
       book,
       bookLabel: formatCanonicalBookLabel(book),
-      decimal: Math.round(price * 1000) / 1000,
+      decimal: roundedDec,
       capturedAtUtc,
+      ...(openingDecimal !== undefined ? { openingDecimal } : {}),
+      ...(movementDirection ? { movementDirection } : {}),
+      ...(tick.is_best_odds === true ? { isBest: true } : {}),
     });
   }
 
@@ -223,8 +261,16 @@ export function parseQuotesLedgerTicks(
   for (const ev of eventsMap.values()) {
     const finalizedMap = new Map<string, readonly BookQuoteItem[]>();
     for (const [k, bookMap] of ev.quotesByKey.entries()) {
-      const sorted = [...bookMap.values()].sort((a, b) => b.decimal - a.decimal);
-      if (sorted.length > 0) {
+      const rawSorted = [...bookMap.values()].sort((a, b) => b.decimal - a.decimal);
+      if (rawSorted.length > 0) {
+        const bestPrice = rawSorted[0]!.decimal;
+        const hasExplicitBest = rawSorted.some((q) => q.isBest === true);
+        const sorted = rawSorted.map((q) => ({
+          ...q,
+          ...(q.isBest === true || (!hasExplicitBest && Math.abs(q.decimal - bestPrice) < 1e-6)
+            ? { isBest: true }
+            : {}),
+        }));
         finalizedMap.set(k, sorted);
       }
     }
@@ -374,9 +420,17 @@ export function enrichMarketRowsWithBookQuotes(
     if (!quotes || quotes.length === 0) return row;
 
     const top = quotes[0]!;
+    const refQuote = quotes.find((q) => q.openingDecimal != null || q.movementDirection != null) ?? top;
+    const derivedOpen =
+      row.openDecimal ??
+      (refQuote.openingDecimal != null ? Math.round(refQuote.openingDecimal * 100) / 100 : null);
+    const derivedMovement = row.movementDirection ?? refQuote.movementDirection ?? null;
+
     if (row.currentDecimal !== null) {
       return {
         ...row,
+        openDecimal: derivedOpen,
+        ...(derivedMovement ? { movementDirection: derivedMovement } : {}),
         bookQuotes: quotes,
       };
     }
@@ -384,6 +438,8 @@ export function enrichMarketRowsWithBookQuotes(
     const roundedDec = Math.round(top.decimal * 100) / 100;
     return {
       ...row,
+      openDecimal: derivedOpen,
+      ...(derivedMovement ? { movementDirection: derivedMovement } : {}),
       currentDecimal: roundedDec,
       quoteBookLabel: top.bookLabel,
       quoteCapturedAtUtc: top.capturedAtUtc,

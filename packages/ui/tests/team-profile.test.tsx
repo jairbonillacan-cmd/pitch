@@ -610,6 +610,11 @@ describe("TeamProfileClubView", () => {
     expect(resolveLeagueStandingsZones("nba", "basketball", 15).map((z) => z.id)).toEqual(["po", "pi"]);
     expect(resolveLeagueStandingsZones("nba", "basketball", 30)).toEqual([]);
     expect(resolveLeagueStandingsZones("nfl", "american-football", 32)).toEqual([]);
+    expect(resolveLeagueStandingsZones("mlb", "baseball", 15).map((z) => z.id)).toEqual([
+      "div",
+      "wc",
+    ]);
+    expect(resolveLeagueStandingsZones("mlb", "baseball", 30)).toEqual([]);
     expect(resolveLeagueStandingsZones("amistosos", "football", 201)).toEqual([]);
     expect(resolveLeagueStandingsZones("copa-del-mundo", "football", 54)).toEqual([]);
     expect(resolveLeagueStandingsZones("copa-del-mundo", "football", 4)).toEqual([

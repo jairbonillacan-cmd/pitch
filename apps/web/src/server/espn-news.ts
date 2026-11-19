@@ -22,6 +22,7 @@ const ESPN_NEWS_SLUGS: Readonly<
   nfl: { sportPath: "football", slug: "nfl" },
   nba: { sportPath: "basketball", slug: "nba" },
   nhl: { sportPath: "hockey", slug: "nhl" },
+  mlb: { sportPath: "baseball", slug: "mlb" },
   "concacaf-nations": { sportPath: "soccer", slug: "concacaf.nations.league" },
   "uefa-nations": { sportPath: "soccer", slug: "uefa.nations" },
   amistosos: { sportPath: "soccer", slug: "fifa.friendly" },

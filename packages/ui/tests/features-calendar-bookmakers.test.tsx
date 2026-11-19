@@ -264,11 +264,13 @@ describe("Nuevas funciones en gemini-dos (sin simplificación de UX/UI)", () => 
     expect(stripHtml).toContain('max="3"');
   });
 
-  it("normaliza las 9 casas autorizadas de Bzzoiro y convierte momios manuales americanos y decimales", () => {
-    expect(BOOKMAKER_OPTIONS).toHaveLength(9);
-    expect(sanitizePreferredBooks(["BET365", "williamhill", "casa_falsa"])).toEqual([
+  it("normaliza las 11 casas autorizadas de Bzzoiro y convierte momios manuales americanos y decimales", () => {
+    expect(BOOKMAKER_OPTIONS).toHaveLength(11);
+    expect(sanitizePreferredBooks(["BET365", "williamhill", "betcris", "BetMGM", "casa_falsa"])).toEqual([
       "bet365",
       "william_hill",
+      "betcris",
+      "betmgm",
     ]);
 
     const best = resolvePreferredBookQuote(

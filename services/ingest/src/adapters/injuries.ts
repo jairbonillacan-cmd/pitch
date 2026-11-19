@@ -18,7 +18,7 @@ import {
   type LeagueSnapshot,
   type TeamInjuryEntry,
 } from "@pitchlab/contracts";
-import { resolveCanonicalTeam, type CanonicalLeague } from "../mappings.js";
+import { resolveCanonicalTeam, type TeamLeague } from "../mappings.js";
 import { parseCsv } from "./nflverse.js";
 import {
   parseStrictIsoMs,
@@ -28,6 +28,9 @@ import {
 
 const ESPN_INJURIES_SLUGS: Readonly<Record<string, { sportPath: string; slug: string }>> = {
   nfl: { sportPath: "football", slug: "nfl" },
+  nba: { sportPath: "basketball", slug: "nba" },
+  nhl: { sportPath: "hockey", slug: "nhl" },
+  mlb: { sportPath: "baseball", slug: "mlb" },
   "premier-league": { sportPath: "soccer", slug: "eng.1" },
   laliga: { sportPath: "soccer", slug: "esp.1" },
   bundesliga: { sportPath: "soccer", slug: "ger.1" },
@@ -179,7 +182,7 @@ export function parseNflverseInjuriesCsv(params: {
 
 export function parseEspnInjuriesPayload(params: {
   readonly payload: unknown;
-  readonly league: CanonicalLeague;
+  readonly league: TeamLeague;
   readonly observedAtIso: string;
 }): TeamInjuryEntry[] {
   if (!params.payload || typeof params.payload !== "object") return [];
@@ -234,6 +237,13 @@ export function parseEspnInjuriesPayload(params: {
       const rawDetail = String(
         detailsObj?.type ?? detailsObj?.detail ?? inj.shortComment ?? "",
       ).trim();
+      const rawReturn =
+        typeof detailsObj?.returnDate === "string" ? detailsObj.returnDate.trim() : "";
+      const returnDate = rawReturn
+        ? /^\d{4}-\d{2}-\d{2}/.test(rawReturn)
+          ? rawReturn.slice(0, 10)
+          : rawReturn.slice(0, 80)
+        : undefined;
       const reportedAt = normalizeIsoTimestamp(
         typeof inj.date === "string" ? inj.date : undefined,
         params.observedAtIso,
@@ -245,6 +255,8 @@ export function parseEspnInjuriesPayload(params: {
         ...(position ? { position: position.slice(0, 40) } : {}),
         status: mappedStatus,
         detail: translateInjuryDetailEs(rawDetail, statusRaw),
+        ...(rawDetail ? { injuryType: rawDetail.slice(0, 120) } : {}),
+        ...(returnDate ? { returnDate } : {}),
         reportedAt,
       };
       dedup.set(`${teamIdStr}::${player.toLowerCase()}`, entry);
@@ -254,9 +266,34 @@ export function parseEspnInjuriesPayload(params: {
   return [...dedup.values()].slice(0, 400);
 }
 
+/**
+ * Fusiona entradas primarias (p. ej. Bzzoiro squad availability con fecha de regreso) y
+ * secundarias (p. ej. ESPN) sin duplicar jugadores por equipo, conservando `returnDate` e `injuryType`.
+ */
+export function mergeLeagueInjuryEntries(
+  primary: readonly TeamInjuryEntry[],
+  secondary: readonly TeamInjuryEntry[],
+): TeamInjuryEntry[] {
+  const byKey = new Map<string, TeamInjuryEntry>();
+  for (const item of secondary) {
+    byKey.set(`${item.teamId}::${item.player.toLowerCase()}`, item);
+  }
+  for (const item of primary) {
+    const k = `${item.teamId}::${item.player.toLowerCase()}`;
+    const prev = byKey.get(k);
+    byKey.set(k, {
+      ...(prev ?? item),
+      ...item,
+      returnDate: item.returnDate ?? prev?.returnDate,
+      injuryType: item.injuryType ?? prev?.injuryType,
+    });
+  }
+  return [...byKey.values()].slice(0, 500);
+}
+
 export function loadPreviousLeagueInjuries(
   snapshotsRoot: string,
-  league: CanonicalLeague,
+  league: TeamLeague,
 ): LeagueInjuriesFile | null {
   const filePath = resolve(snapshotsRoot, league, "injuries.json");
   if (!existsSync(filePath)) return null;
@@ -306,7 +343,7 @@ function writeJsonAtomicPreservingEol(filePath: string, payload: unknown): void 
 }
 
 export interface CollectLeagueInjuriesResult {
-  readonly league: CanonicalLeague;
+  readonly league: TeamLeague;
   readonly ok: boolean;
   readonly wroteFile: boolean;
   readonly entriesCount: number;
@@ -318,9 +355,10 @@ export interface CollectLeagueInjuriesResult {
 
 export async function collectAndWriteLeagueInjuries(params: {
   readonly snapshotsRoot: string;
-  readonly league: CanonicalLeague;
+  readonly league: TeamLeague;
   readonly observedAtIso?: string;
   readonly fetcher?: FetchTextOrJson;
+  readonly extraEntries?: readonly TeamInjuryEntry[];
   readonly dryRun?: boolean;
 }): Promise<CollectLeagueInjuriesResult> {
   const fetcher = params.fetcher ?? defaultHttpFetcher;
@@ -408,6 +446,15 @@ export async function collectAndWriteLeagueInjuries(params: {
       issues: [],
       errorMessage: msg,
     };
+  }
+
+  // Fusión con bajas enriquecidas externas (p. ej. Bzzoiro `/teams/{id}/squad/` con fecha de regreso).
+  if (params.extraEntries && params.extraEntries.length > 0) {
+    entries = mergeLeagueInjuryEntries(params.extraEntries, entries);
+    coverageStatus = entries.length > 0 ? "ok" : coverageStatus;
+    if (!source.includes("bzzoiro")) {
+      source = entries.length > 0 ? `${source}+bzzoiro` : source;
+    }
   }
 
   // Si la fuente pública viene vacía temporalmente pero el archivo previo tenía bajas frescas (< 18 h),

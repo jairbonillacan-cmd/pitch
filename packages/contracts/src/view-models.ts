@@ -1,5 +1,9 @@
 import type { MarketPulseView } from "./market-pulse";
-import type { TeamInjuryEntry } from "./injuries-lineups";
+import type {
+  MatchLineupsProjection,
+  MatchPreGameContext,
+  TeamInjuryEntry,
+} from "./injuries-lineups";
 import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
@@ -49,12 +53,14 @@ export type PlatformSport =
   | "football"
   | "american-football"
   | "basketball"
-  | "ice-hockey";
+  | "ice-hockey"
+  | "baseball";
 
 export function sportForLeague(league: string): PlatformSport {
   if (league === "nfl") return "american-football";
   if (league === "nba") return "basketball";
   if (league === "nhl") return "ice-hockey";
+  if (league === "mlb") return "baseball";
   return "football";
 }
 
@@ -70,6 +76,9 @@ export function sportScoringUnit(sport: PlatformSport): {
 } {
   if (sport === "basketball" || sport === "american-football") {
     return { singular: "punto", plural: "puntos", short: "pts", decimals: 1 };
+  }
+  if (sport === "baseball") {
+    return { singular: "carrera", plural: "carreras", short: "car", decimals: 1 };
   }
   return { singular: "gol", plural: "goles", short: "goles", decimals: 2 };
 }
@@ -147,6 +156,10 @@ export interface MatchAnalysis {
     fouls?: CountProjection;
     yellow?: CountProjection;
   };
+  /** Alineaciones confirmadas o proyectadas de fuentes verificadas. */
+  lineups?: MatchLineupsProjection;
+  /** Contexto del encuentro (clima, estado del campo, clásico, viaje, canales TV MX). */
+  matchContext?: MatchPreGameContext;
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {
@@ -532,9 +545,11 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         g.venue ??
         (sport === "american-football"
           ? "Estadio NFL"
-          : sport === "basketball" || sport === "ice-hockey"
-            ? "Arena"
-            : "Estadio"),
+          : sport === "baseball"
+            ? "Estadio MLB"
+            : sport === "basketball" || sport === "ice-hockey"
+              ? "Arena"
+              : "Estadio"),
       ...(g.referee ? { referee: g.referee } : {}),
       neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
@@ -581,6 +596,8 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       })),
       restDays: analysis?.insights?.restDays,
       ...(analysis?.counts ? { counts: analysis.counts } : {}),
+      ...(analysis?.lineups ? { lineups: analysis.lineups } : {}),
+      ...(analysis?.matchContext ? { matchContext: analysis.matchContext } : {}),
     };
   });
 

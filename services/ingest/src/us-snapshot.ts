@@ -16,6 +16,8 @@ import {
   type GameAnalysis,
   type GameDTO,
   type LeagueSnapshot,
+  type StandingFormToken,
+  type StandingRow,
   type Team,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
@@ -32,6 +34,7 @@ import { shouldPreservePublishedAnalysis } from "./pipeline.js";
 import { mapBzzoiroLeagueLogoUrl, mapBzzoiroTeamLogoUrl } from "./providers/bzzoiro.js";
 import type { UsGameRow, UsSport } from "./providers/bzzoiro-us.js";
 import { slugifyTeamName } from "./team-slug.js";
+import { divisionMetaForTeam, finalizeConferenceStandings } from "./us-divisions.js";
 
 /** Parámetros elegidos por `backtest:us` (tramo de ajuste) — NBA sin descanso: no mejoró fuera de muestra. */
 export const US_MODEL_PARAMS: { nba: Partial<NbaOptions>; nhl: Partial<NhlOptions> } = {
@@ -110,8 +113,13 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
 
   const tracker = sport === "nba" ? createNbaTracker(US_MODEL_PARAMS.nba) : createNhlTracker(US_MODEL_PARAMS.nhl);
   const played = new Map<string, number>();
+  const won = new Map<string, number>();
+  const lost = new Map<string, number>();
+  const otLost = new Map<string, number>();
   const pointsFor = new Map<string, number>();
   const pointsAgainst = new Map<string, number>();
+  const formByTeam = new Map<string, StandingFormToken[]>();
+  const teamsSeen = new Map<string, Team>();
   let seen = 0;
 
   const games: GameDTO[] = [];
@@ -121,6 +129,10 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
     const startMs = Date.parse(r.kickoffUtc);
     const home = usTeam(sport, r.home);
     const away = usTeam(sport, r.away);
+    if (r.season === currentSeason) {
+      if (!teamsSeen.has(home.id)) teamsSeen.set(home.id, home);
+      if (!teamsSeen.has(away.id)) teamsSeen.set(away.id, away);
+    }
     const usGame: UsGame = {
       date: r.kickoffUtc.slice(0, 10),
       season: r.season,
@@ -176,13 +188,31 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
       tracker.update(usGame);
       seen++;
       if (r.season === currentSeason) {
-        for (const [team, f, a] of [
-          [home.id, r.homeScore, r.awayScore],
-          [away.id, r.awayScore, r.homeScore],
+        const homeWon = r.homeScore > r.awayScore;
+        const awayWon = r.awayScore > r.homeScore;
+        const isOtOrSo = sport === "nhl" && (r.overtime || r.shootout);
+        for (const [team, f, a, isWinner, isLoser] of [
+          [home.id, r.homeScore, r.awayScore, homeWon, awayWon],
+          [away.id, r.awayScore, r.homeScore, awayWon, homeWon],
         ] as const) {
           played.set(team, (played.get(team) ?? 0) + 1);
           pointsFor.set(team, (pointsFor.get(team) ?? 0) + f);
           pointsAgainst.set(team, (pointsAgainst.get(team) ?? 0) + a);
+          if (isWinner) {
+            won.set(team, (won.get(team) ?? 0) + 1);
+            const list = formByTeam.get(team) ?? [];
+            list.push("W");
+            formByTeam.set(team, list);
+          } else if (isLoser) {
+            if (isOtOrSo) {
+              otLost.set(team, (otLost.get(team) ?? 0) + 1);
+            } else {
+              lost.set(team, (lost.get(team) ?? 0) + 1);
+            }
+            const list = formByTeam.get(team) ?? [];
+            list.push("L");
+            formByTeam.set(team, list);
+          }
         }
       }
     }
@@ -214,6 +244,44 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
   const periodLabel = days.length === 0 ? "Sin partidos" : days.length === 1 ? days[0]! : `${days[0]} – ${days.at(-1)}`;
   const leagueLogoUrl = mapBzzoiroLeagueLogoUrl(sport);
 
+  const rawStandings: StandingRow[] = [...teamsSeen.values()]
+    .map((t): StandingRow | null => {
+      const gp = played.get(t.id) ?? 0;
+      if (gp === 0) return null;
+      const w = won.get(t.id) ?? 0;
+      const l = lost.get(t.id) ?? 0;
+      const otl = otLost.get(t.id) ?? 0;
+      const gf = pointsFor.get(t.id) ?? 0;
+      const ga = pointsAgainst.get(t.id) ?? 0;
+      const meta = divisionMetaForTeam(sport, t.id);
+      const pts = sport === "nhl" ? w * 2 + otl : w * 2;
+      const winPct = Math.round((w / gp) * 1000) / 1000;
+      const form = (formByTeam.get(t.id) ?? []).slice(-5);
+      return {
+        teamId: t.id,
+        name: t.name,
+        shortName: t.shortName,
+        code: t.code,
+        ...(t.logoUrl ? { logoUrl: t.logoUrl } : {}),
+        played: gp,
+        won: w,
+        drawn: 0,
+        lost: l,
+        goalsFor: gf,
+        goalsAgainst: ga,
+        points: pts,
+        winPct,
+        ...(sport === "nhl" ? { otLosses: otl } : {}),
+        ...(meta ? { conference: meta.conference, division: meta.division } : {}),
+        ...(form.length > 0 ? { form } : {}),
+      };
+    })
+    .filter((row): row is StandingRow => row !== null);
+
+  const standings = finalizeConferenceStandings(sport, rawStandings, {
+    computeGamesBehind: sport === "nba",
+  });
+
   return LeagueSnapshotSchema.parse({
     schemaVersion: 1,
     league: asLeagueId(sport),
@@ -228,5 +296,6 @@ export function buildUsLeagueSnapshot(params: BuildUsSnapshotParams): LeagueSnap
     teamRates,
     games,
     analyses,
+    ...(standings.length > 0 ? { standings } : {}),
   });
 }

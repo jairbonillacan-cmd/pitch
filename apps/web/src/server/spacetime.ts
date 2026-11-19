@@ -104,6 +104,7 @@ const BOOK_LABELS: Record<string, string> = {
   betmgm: "BetMGM",
   betonline: "BetOnline",
   betonlineag: "BetOnline",
+  betcris: "Betcris",
   codere: "Codere",
   williamhill: "William Hill",
   william_hill: "William Hill",

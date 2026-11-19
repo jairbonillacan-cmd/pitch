@@ -84,6 +84,7 @@ const SPORT_CRUMB_LABEL: Readonly<Record<PlatformSport, string>> = {
   "american-football": "Fútbol americano",
   basketball: "Basquetbol",
   "ice-hockey": "Hockey",
+  baseball: "Béisbol",
 };
 
 function formatCompactSlashDate(isoDate: string): string | null {
@@ -243,6 +244,63 @@ function formatRecordSummary(
     : `${rec.wins}G - ${rec.losses}P`;
 }
 
+/**
+ * Resume métricas y encabezados de tabla según la lógica real del deporte
+ * (puntos 3/2 en fútbol y hockey vs. porcentaje de victorias %V en NFL/NBA/MLB).
+ */
+function standingDisplayMeta(standing: TeamStandingSummary, sport: PlatformSport) {
+  const usesPoints = sport === "football" || sport === "ice-hockey";
+  const maxPtsPerGame = sport === "football" ? 3 : 2;
+  const effRatio =
+    standing.played > 0
+      ? usesPoints
+        ? standing.points / (standing.played * maxPtsPerGame)
+        : (standing.won + 0.5 * standing.drawn) / standing.played
+      : 0;
+  const pctFormatted =
+    standing.played > 0
+      ? effRatio >= 1
+        ? "1.000"
+        : effRatio.toFixed(3).replace(/^0/, "")
+      : "—";
+  const effPctLabel =
+    standing.played > 0
+      ? usesPoints
+        ? `${Math.round(effRatio * 100)} %`
+        : `${(effRatio * 100).toFixed(1)} %`
+      : "—";
+  const otLosses = sport === "ice-hockey" ? Math.max(0, standing.points - standing.won * 2) : 0;
+  const recordLabel = formatRecordSummary(
+    { wins: standing.won, draws: standing.drawn, losses: standing.lost },
+    sport === "football" || sport === "american-football",
+  );
+  const inlineSummary = usesPoints ? `${standing.points} pts` : `${recordLabel} (${pctFormatted})`;
+  const effDetail =
+    standing.played > 0
+      ? usesPoints
+        ? `${(standing.points / standing.played).toFixed(2)} pts/PJ`
+        : `${pctFormatted} · ${recordLabel}`
+      : null;
+  const balanceLabel =
+    sport === "baseball"
+      ? "Balance de carreras"
+      : sport === "basketball" || sport === "american-football"
+        ? "Balance de puntos"
+        : "Balance goleador";
+  return {
+    usesPoints,
+    maxPtsPerGame,
+    effRatio,
+    pctFormatted,
+    effPctLabel,
+    otLosses,
+    recordLabel,
+    inlineSummary,
+    effDetail,
+    balanceLabel,
+  };
+}
+
 function TeamAveragesCard({
   averages,
   sport,
@@ -371,6 +429,7 @@ function TeamAveragesCard({
 
 function TeamContextCard({
   leagueLabel,
+  sport,
   backHref,
   standing,
   coach,
@@ -380,6 +439,7 @@ function TeamContextCard({
   onNavigate,
 }: {
   leagueLabel: string;
+  sport: PlatformSport;
   backHref: string;
   standing: TeamStandingSummary | null;
   coach: TeamCoachInfo | null;
@@ -394,6 +454,47 @@ function TeamContextCard({
   const coachFlag = coach
     ? resolveCircularCountryFlag(coach.nationality, coach.nationalityCode)
     : null;
+  const standingCells = useMemo(() => {
+    if (!standing) return [];
+    const meta = standingDisplayMeta(standing, sport);
+    const diffStr = standing.goalDiff > 0 ? `+${standing.goalDiff}` : standing.goalDiff;
+    if (sport === "football") {
+      return [
+        { k: "PJ", v: standing.played },
+        { k: "G", v: standing.won },
+        { k: "E", v: standing.drawn },
+        { k: "P", v: standing.lost },
+        { k: "GF", v: standing.goalsFor },
+        { k: "GC", v: standing.goalsAgainst },
+        { k: "DG", v: diffStr },
+        { k: "Pts", v: standing.points, bold: true },
+      ];
+    }
+    if (sport === "ice-hockey") {
+      return [
+        { k: "PJ", v: standing.played },
+        { k: "G", v: standing.won },
+        { k: "P", v: standing.lost },
+        { k: "TE", v: meta.otLosses },
+        { k: "GF", v: standing.goalsFor },
+        { k: "GC", v: standing.goalsAgainst },
+        { k: "DG", v: diffStr },
+        { k: "Pts", v: standing.points, bold: true },
+      ];
+    }
+    const forKey = sport === "baseball" ? "CA" : "PF";
+    const againstKey = sport === "baseball" ? "CC" : "PC";
+    return [
+      { k: "JJ", v: standing.played },
+      { k: "G", v: standing.won },
+      ...(sport === "american-football" ? [{ k: "E", v: standing.drawn }] : []),
+      { k: "P", v: standing.lost },
+      { k: forKey, v: standing.goalsFor },
+      { k: againstKey, v: standing.goalsAgainst },
+      { k: "Dif", v: diffStr },
+      { k: "%V", v: meta.pctFormatted, bold: true },
+    ];
+  }, [standing, sport]);
   return (
     <section
       className="glass-card glass-ring rounded-2xl p-5 space-y-4"
@@ -489,16 +590,7 @@ function TeamContextCard({
             </a>
           </div>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2 text-center num text-xs">
-            {[
-              { k: "PJ", v: standing.played },
-              { k: "G", v: standing.won },
-              { k: "E", v: standing.drawn },
-              { k: "P", v: standing.lost },
-              { k: "GF", v: standing.goalsFor },
-              { k: "GC", v: standing.goalsAgainst },
-              { k: "DG", v: standing.goalDiff > 0 ? `+${standing.goalDiff}` : standing.goalDiff },
-              { k: "Pts", v: standing.points, bold: true },
-            ].map((cell) => (
+            {standingCells.map((cell) => (
               <div key={cell.k} className="py-1 px-1">
                 <span className="block text-[10px]" style={{ color: "var(--pl-text-muted)" }}>
                   {cell.k}
@@ -641,13 +733,13 @@ function TeamStatsSection({
   if (standing && standing.played > 0) {
     const gfAvg = standing.goalsFor / standing.played;
     const gaAvg = standing.goalsAgainst / standing.played;
-    const eff = hasDraw
-      ? Math.round((standing.points / (standing.played * maxPtsPerGame)) * 100)
-      : Math.round((standing.won / standing.played) * 100);
+    const stMeta = standingDisplayMeta(standing, sport);
     rows.push({
       id: "season",
       label: "Temporada completa",
-      sublabel: `${standing.goalsFor}:${standing.goalsAgainst} ${unit.short} · ${standing.points} pts`,
+      sublabel: stMeta.usesPoints
+        ? `${standing.goalsFor}:${standing.goalsAgainst} ${unit.short} · ${standing.points} pts`
+        : `${standing.goalsFor}:${standing.goalsAgainst} ${unit.short} · ${stMeta.pctFormatted}`,
       games: standing.played,
       wins: standing.won,
       draws: standing.drawn,
@@ -655,11 +747,16 @@ function TeamStatsSection({
       scoredAvg: gfAvg,
       concededAvg: gaAvg,
       diffAvg: gfAvg - gaAvg,
-      effPct: eff,
+      effPct: Math.round(stMeta.effRatio * 100),
     });
   }
 
-  const recentPts = averages.wins * maxPtsPerGame + (hasDraw ? averages.draws : 0);
+  const ratioForSample = (wins: number, draws: number, games: number): number | null => {
+    if (games <= 0) return null;
+    if (sport === "football") return Math.round(((wins * 3 + draws) / (games * 3)) * 100);
+    return Math.round(((wins + 0.5 * draws) / games) * 100);
+  };
+
   rows.push({
     id: "recent",
     label: averages.sampleGames > 0 ? `Últimos ${averages.sampleGames} partidos` : "Ventana reciente",
@@ -674,19 +771,13 @@ function TeamStatsSection({
     scoredAvg: averages.scoredAvg,
     concededAvg: averages.concededAvg,
     diffAvg: averages.marginAvg,
-    effPct:
-      averages.sampleGames > 0
-        ? hasDraw
-          ? Math.round((recentPts / (averages.sampleGames * maxPtsPerGame)) * 100)
-          : Math.round((averages.wins / averages.sampleGames) * 100)
-        : null,
+    effPct: ratioForSample(averages.wins, averages.draws, averages.sampleGames),
   });
 
   for (const item of [
     { id: "home", label: "En casa", rec: averages.homeRecord },
     { id: "away", label: "De visita", rec: averages.awayRecord },
   ]) {
-    const pts = item.rec.wins * maxPtsPerGame + (hasDraw ? item.rec.draws : 0);
     const diff =
       item.rec.scoredAvg !== null && item.rec.concededAvg !== null
         ? item.rec.scoredAvg - item.rec.concededAvg
@@ -701,12 +792,7 @@ function TeamStatsSection({
       scoredAvg: item.rec.scoredAvg,
       concededAvg: item.rec.concededAvg,
       diffAvg: diff,
-      effPct:
-        item.rec.games > 0
-          ? hasDraw
-            ? Math.round((pts / (item.rec.games * maxPtsPerGame)) * 100)
-            : Math.round((item.rec.wins / item.rec.games) * 100)
-          : null,
+      effPct: ratioForSample(item.rec.wins, item.rec.draws, item.rec.games),
     });
   }
 
@@ -1548,7 +1634,8 @@ export function TeamProfileClubView({
                       <span className="pl-team-standing-inline num">
                         <MaestroIcon name="standings" size={15} />
                         <span>
-                          <strong>#{profile.standing.rank}</strong> de {profile.standing.totalTeams} · {profile.standing.points} pts
+                          <strong>#{profile.standing.rank}</strong> de {profile.standing.totalTeams} ·{" "}
+                          {standingDisplayMeta(profile.standing, profile.sport).inlineSummary}
                         </span>
                       </span>
                     ) : profile.recentAverages.sampleGames > 0 ? (
@@ -1907,59 +1994,55 @@ export function TeamProfileClubView({
 
           <dl className="pl-ctx-stats pl-team-hero-kpis">
             {profile.standing ? (
-              <>
-                <div>
-                  <dt>Récord en torneo</dt>
-                  <dd className="num">
-                    {formatRecordSummary(
-                      {
-                        wins: profile.standing.won,
-                        draws: profile.standing.drawn,
-                        losses: profile.standing.lost,
-                      },
-                      hasDraw,
-                    )}{" "}
-                    <small>{profile.standing.played} PJ</small>
-                  </dd>
-                </div>
+              (() => {
+                const stMeta = standingDisplayMeta(profile.standing, profile.sport);
+                return (
+                  <>
+                    <div>
+                      <dt>Récord en torneo</dt>
+                      <dd className="num">
+                        {stMeta.recordLabel}{" "}
+                        <small>
+                          {profile.standing.played} {stMeta.usesPoints ? "PJ" : "JJ"}
+                        </small>
+                      </dd>
+                    </div>
 
-                <div>
-                  <dt>Efectividad</dt>
-                  <dd className="num">
-                    {profile.standing.played > 0
-                      ? `${Math.round((profile.standing.points / (profile.standing.played * 3)) * 100)} %`
-                      : "—"}{" "}
-                    {profile.standing.played > 0 ? (
-                      <small>{(profile.standing.points / profile.standing.played).toFixed(2)} pts/PJ</small>
-                    ) : null}
-                  </dd>
-                </div>
+                    <div>
+                      <dt>{stMeta.usesPoints ? "Efectividad" : "Porcentaje de victorias"}</dt>
+                      <dd className="num">
+                        {stMeta.effPctLabel}{" "}
+                        {stMeta.effDetail ? <small>{stMeta.effDetail}</small> : null}
+                      </dd>
+                    </div>
 
-                <div>
-                  <dt>Balance goleador</dt>
-                  <dd className="num">
-                    {profile.standing.goalsFor}:{profile.standing.goalsAgainst}{" "}
-                    <small>
-                      ({profile.standing.goalDiff > 0 ? `+${profile.standing.goalDiff}` : profile.standing.goalDiff}{" "}
-                      {unit.short})
-                    </small>
-                  </dd>
-                </div>
+                    <div>
+                      <dt>{stMeta.balanceLabel}</dt>
+                      <dd className="num">
+                        {profile.standing.goalsFor}:{profile.standing.goalsAgainst}{" "}
+                        <small>
+                          ({profile.standing.goalDiff > 0 ? `+${profile.standing.goalDiff}` : profile.standing.goalDiff}{" "}
+                          {unit.short})
+                        </small>
+                      </dd>
+                    </div>
 
-                <div>
-                  <dt>Rendimiento local</dt>
-                  <dd className="num">
-                    {profile.recentAverages.homeRecord.games > 0
-                      ? formatRecordSummary(profile.recentAverages.homeRecord, hasDraw)
-                      : "—"}{" "}
-                    <small>
-                      {profile.recentAverages.homeRecord.scoredAvg !== null
-                        ? `${profile.recentAverages.homeRecord.scoredAvg.toFixed(dec)} ${unit.short}/p`
-                        : "en casa"}
-                    </small>
-                  </dd>
-                </div>
-              </>
+                    <div>
+                      <dt>Rendimiento local reciente</dt>
+                      <dd className="num">
+                        {profile.recentAverages.homeRecord.games > 0
+                          ? formatRecordSummary(profile.recentAverages.homeRecord, hasDraw)
+                          : "—"}{" "}
+                        <small>
+                          {profile.recentAverages.homeRecord.scoredAvg !== null
+                            ? `${profile.recentAverages.homeRecord.scoredAvg.toFixed(dec)} ${unit.short}/p`
+                            : "en casa"}
+                        </small>
+                      </dd>
+                    </div>
+                  </>
+                );
+              })()
             ) : (
               <>
                 <div>
@@ -2083,6 +2166,7 @@ export function TeamProfileClubView({
                     <TeamAveragesCard averages={profile.recentAverages} sport={profile.sport} />
                     <TeamContextCard
                       leagueLabel={profile.leagueLabel}
+                      sport={profile.sport}
                       backHref={leagueHref}
                       standing={profile.standing}
                       coach={coachInfo}

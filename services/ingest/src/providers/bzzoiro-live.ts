@@ -12,10 +12,12 @@
  * Licencia: se muestran resultados derivados; el JSON crudo no se reenvía al navegador.
  */
 import type {
+  LiveCommentaryItem,
   LiveIncident,
   LiveMatchDetail,
   LiveMomentumPoint,
   LivePhase,
+  LivePlayerStatRow,
   LiveScore,
   LiveScoreboardEntry,
   LiveShot,
@@ -384,7 +386,157 @@ export function parseLiveTeamStats(raw: BzTeamStatsRaw | null | undefined): Live
     redCards: ratio(raw, "red_cards"),
     offsides: ratio(raw, "offsides"),
     bigChances: ratio(raw, "big_chances"),
+    goalsPrevented: ratio(raw, "goals_prevented"),
+    touchesInBox: ratio(raw, "touches_in_penalty_area") ?? ratio(raw, "touches_in_box"),
+    passAccuracyPct: ratio(raw, "accurate_passes_pct") ?? ratio(raw, "pass_accuracy"),
   };
+}
+
+export interface BzLiveCommentaryRaw {
+  id?: string | number | null;
+  minute?: number | string | null;
+  added_time?: number | null;
+  text?: string | null;
+  commentary?: string | null;
+  is_important?: boolean | null;
+  is_home?: boolean | null;
+  team?: string | null;
+  period_second?: number | null;
+}
+
+export interface BzLivePlayerStatRaw {
+  player?: string | { name?: string | null } | null;
+  player_name?: string | null;
+  is_home?: boolean | null;
+  side?: string | null;
+  team?: string | { name?: string | null } | null;
+  position?: string | null;
+  minutes_played?: number | null;
+  minutes?: number | null;
+  rating?: number | null;
+  goals?: number | null;
+  assists?: number | null;
+  total_shots?: number | null;
+  shots?: number | null;
+  shots_on_target?: number | null;
+  key_passes?: number | null;
+  xg?: number | null;
+  expected_goals?: number | null;
+  xa?: number | null;
+  expected_assists?: number | null;
+  tackles?: number | null;
+  saves?: number | null;
+}
+
+export interface BzBroadcastRaw {
+  channel?: string | null;
+  name?: string | null;
+  broadcaster?: string | null;
+  country_code?: string | null;
+}
+
+/** Convierte comentarios de `/events/{id}/commentary/?since=` manteniendo orden cronológico. */
+export function parseCommentary(raw: BzList<BzLiveCommentaryRaw> | null): LiveCommentaryItem[] {
+  const out: LiveCommentaryItem[] = [];
+  list<BzLiveCommentaryRaw>(raw).forEach((r, idx) => {
+    const text = (r.text ?? r.commentary ?? "").trim();
+    if (!text) return;
+    const minute = num(r.minute);
+    const added = num(r.added_time);
+    const order =
+      num(r.period_second) ??
+      (minute !== null ? minute * 100 + Math.min(added ?? 0, 30) : idx);
+    const side =
+      typeof r.is_home === "boolean"
+        ? r.is_home
+          ? "home"
+          : "away"
+        : r.team === "home" || r.team === "away"
+          ? r.team
+          : null;
+    out.push({
+      id: r.id != null ? String(r.id) : `c-${order}-${idx}`,
+      order,
+      minute,
+      addedTime: added && added > 0 ? added : null,
+      text,
+      ...(r.is_important === true ? { isImportant: true } : {}),
+      ...(side ? { side } : {}),
+    });
+  });
+  return out.sort((a, b) => a.order - b.order);
+}
+
+/** Fusiona comentarios incrementales de `?since=` sin duplicar entradas existentes. */
+export function mergeCommentary(
+  prev: readonly LiveCommentaryItem[],
+  incoming: readonly LiveCommentaryItem[],
+): LiveCommentaryItem[] {
+  const map = new Map<string, LiveCommentaryItem>();
+  for (const item of prev) map.set(item.id, item);
+  for (const item of incoming) map.set(item.id, item);
+  return [...map.values()].sort((a, b) => a.order - b.order);
+}
+
+/** Convierte actuaciones individuales de `/events/{id}/player-stats/`. */
+export function parsePlayerStats(
+  raw: BzList<BzLivePlayerStatRaw> | { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] } | null,
+): LivePlayerStatRow[] {
+  if (!raw) return [];
+  const tagged: Array<{ raw: BzLivePlayerStatRaw; forcedSide?: "home" | "away" }> = [];
+  if (typeof raw === "object" && !Array.isArray(raw) && ("home" in raw || "away" in raw)) {
+    const grouped = raw as { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] };
+    for (const r of grouped.home ?? []) tagged.push({ raw: r, forcedSide: "home" });
+    for (const r of grouped.away ?? []) tagged.push({ raw: r, forcedSide: "away" });
+  } else {
+    for (const r of list<BzLivePlayerStatRaw>(raw as BzList<BzLivePlayerStatRaw>)) {
+      tagged.push({ raw: r });
+    }
+  }
+
+  const rows: LivePlayerStatRow[] = [];
+  for (const { raw: r, forcedSide } of tagged) {
+    const player = nameOf(r.player) ?? (typeof r.player_name === "string" ? r.player_name.trim() || null : null);
+    if (!player) continue;
+    const side: "home" | "away" =
+      forcedSide ??
+      (typeof r.is_home === "boolean"
+        ? r.is_home
+          ? "home"
+          : "away"
+        : r.side === "away" || r.team === "away"
+          ? "away"
+          : "home");
+    rows.push({
+      player,
+      side,
+      position: typeof r.position === "string" ? r.position.trim() || null : null,
+      minutes: num(r.minutes_played) ?? num(r.minutes),
+      rating: num(r.rating),
+      goals: num(r.goals) ?? 0,
+      assists: num(r.assists) ?? 0,
+      shots: num(r.total_shots) ?? num(r.shots) ?? 0,
+      shotsOnTarget: num(r.shots_on_target) ?? 0,
+      keyPasses: num(r.key_passes) ?? 0,
+      xg: num(r.xg) ?? num(r.expected_goals),
+      xa: num(r.xa) ?? num(r.expected_assists),
+      tackles: num(r.tackles) ?? 0,
+      saves: num(r.saves) ?? 0,
+    });
+  }
+  return rows.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.goals ?? 0) - (a.goals ?? 0));
+}
+
+/** Extrae canales únicos de `/events/{id}/broadcasts/?country_code=MX`. */
+export function parseBroadcastsMx(raw: BzList<BzBroadcastRaw> | null): string[] {
+  const seen = new Set<string>();
+  for (const r of list<BzBroadcastRaw>(raw)) {
+    const name = (r.channel ?? r.broadcaster ?? r.name ?? "").trim();
+    if (name && !seen.has(name.toLowerCase())) {
+      seen.add(name);
+    }
+  }
+  return [...seen].slice(0, 8);
 }
 
 const SHOT_OUTCOMES = new Set(["goal", "save", "miss", "block", "post"]);

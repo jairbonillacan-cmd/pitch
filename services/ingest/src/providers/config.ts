@@ -31,6 +31,8 @@ export interface ProviderConfig {
   readonly headers: Readonly<Record<string, string>>;
   readonly keyEnvVar: string | null;
   readonly commercialStatus: CommercialStatus;
+  /** `true` cuando la cuenta comercial no tiene límite diario (`BZZOIRO_UNLIMITED=1`). */
+  readonly unlimitedQuota?: boolean;
   /** Ruta barata para comprobar que la clave y el servicio responden. */
   readonly healthPath: string;
 }
@@ -54,6 +56,8 @@ export function readProviderConfigs(env: ProviderEnv = process.env): Record<Prov
   const fivedollarKey = read(env, "FIVEDOLLAR_FOOTBALL_API_KEY");
   const fivedollarPaid = read(env, "FIVEDOLLAR_FOOTBALL_PLAN").toLowerCase();
   const bzzoiroKey = read(env, "BZZOIRO_API_KEY");
+  const bzzoiroUnlimitedRaw = read(env, "BZZOIRO_UNLIMITED").toLowerCase();
+  const bzzoiroUnlimited = bzzoiroUnlimitedRaw === "1" || bzzoiroUnlimitedRaw === "true";
 
   return {
     fivedollar: {
@@ -77,6 +81,7 @@ export function readProviderConfigs(env: ProviderEnv = process.env): Record<Prov
       headers: bzzoiroKey ? { ...common, Authorization: `Token ${bzzoiroKey}` } : common,
       keyEnvVar: "BZZOIRO_API_KEY",
       commercialStatus: "commercial_allowed",
+      unlimitedQuota: bzzoiroUnlimited,
       healthPath: "/leagues/?limit=1",
     },
     mlb_statsapi: {

@@ -131,10 +131,11 @@ describe("dataset del Club sobre el panorama v3.2", () => {
     const { findOutlook: find } = await import("../src/server/outlook");
     const { loadLeagueSnapshotEnvelope } = await import("../src/server/snapshots");
     const snapGames = loadLeagueSnapshotEnvelope("nfl").data?.games ?? [];
-    const nfl = buildServerRawPlatformDataset().games.filter((g) => g.league === "nfl" && g.status !== "FT" && find(g));
-    expect(nfl.length).toBeGreaterThan(0);
+    const nflDataset = buildServerRawPlatformDataset().games.filter((g) => g.league === "nfl" && g.status !== "FT");
+    expect(nflDataset.length).toBeGreaterThan(0);
 
-    for (const g of nfl) {
+    const nflWithOutlook = nflDataset.filter((g) => Boolean(find(g)));
+    for (const g of nflWithOutlook) {
       const o = find(g)!;
       const snap = snapGames.find((s) => s.id === g.id);
       const ml = o.marketsByKey.moneyline!.selections;
@@ -152,22 +153,46 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       }
     }
 
-    // Caso específico: Kansas City @ Atlanta mantiene el 65.2 % v2 con low_coverage y v3.2 sí pisa cuando flag === "ok".
-    const kcSnap = snapGames.find((s) => s.id.includes("chiefs"));
-    const kcOut = kcSnap ? find(kcSnap) : null;
-    if (kcSnap && kcOut) {
-      const preserved = applyOutlookWithMatchOutlook(kcSnap, null, kcOut);
-      expect(preserved.match.x12![2]).toBeCloseTo(kcSnap.x12![2], 3);
+    // Verificación determinista independiente de la rotación semanal entre snapshots v2 y v3.2.
+    const nflSample = snapGames.find((g) => g.status !== "FT" && g.x12 && g.x12[0] > 0 && g.x12[2] > 0);
+    const baseOutlook = find({
+      league: "nfl",
+      home: { name: "Buffalo Bills" },
+      away: { name: "Minnesota Vikings" },
+    });
+    expect(nflSample).toBeDefined();
+    expect(baseOutlook?.marketsByKey.moneyline).toBeDefined();
 
-      const sharpOutlook = {
-        ...kcOut,
-        dataQuality: { ...kcOut.dataQuality, flag: "ok" as const, coverageRatio: 0.9 },
+    if (nflSample && baseOutlook?.marketsByKey.moneyline) {
+      const lowCovOutlook = {
+        ...baseOutlook,
+        dataQuality: { ...baseOutlook.dataQuality, flag: "low_coverage" as const },
+        marketsByKey: {
+          ...baseOutlook.marketsByKey,
+          moneyline: {
+            ...baseOutlook.marketsByKey.moneyline,
+            market: null,
+            selections: baseOutlook.marketsByKey.moneyline.selections.map((s) => ({
+              ...s,
+              dataQuality: { ...(s.dataQuality ?? baseOutlook.dataQuality), sharpMarketAvailable: false },
+            })),
+          },
+        },
       };
-      const overridden = applyOutlookWithMatchOutlook(kcSnap, null, sharpOutlook);
-      const oml = sharpOutlook.marketsByKey.moneyline!.selections;
+      const preserved = applyOutlookWithMatchOutlook(nflSample, null, lowCovOutlook, Date.parse("2030-01-01T00:00:00Z"));
+      expect(preserved.match.x12![0]).toBeCloseTo(nflSample.x12![0], 3);
+      expect(preserved.match.x12![2]).toBeCloseTo(nflSample.x12![2], 3);
+
+      const okOutlook = {
+        ...lowCovOutlook,
+        dataQuality: { ...baseOutlook.dataQuality, flag: "ok" as const, coverageRatio: 0.9 },
+      };
+      const overridden = applyOutlookWithMatchOutlook(nflSample, null, okOutlook, Date.parse("2030-01-01T00:00:00Z"));
+      const oml = okOutlook.marketsByKey.moneyline.selections;
       const oh = oml.find((s) => s.selection === "home")!.p;
       const oa = oml.find((s) => s.selection === "away")!.p;
       expect(overridden.match.x12![0]).toBeCloseTo(oh / (oh + oa), 3);
+      expect(overridden.match.x12![2]).toBeCloseTo(oa / (oh + oa), 3);
     }
   }, 120_000);
 });

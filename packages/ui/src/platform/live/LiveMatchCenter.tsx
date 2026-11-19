@@ -237,6 +237,175 @@ export interface LiveMatchPanelViewProps {
   hideTimeline?: boolean;
 }
 
+type LiveRightTabKey = "timeline" | "commentary" | "players";
+
+function LiveDetailRightColumn({
+  detail,
+  home,
+  away,
+}: {
+  detail: LiveMatchDetail;
+  home: string;
+  away: string;
+}): React.JSX.Element {
+  const commentary = detail.commentary ?? [];
+  const players = detail.playerStats ?? [];
+  const hasCommentary = commentary.length > 0;
+  const hasPlayers = players.length > 0;
+  const uid = React.useId().replace(/:/g, "");
+
+  const tabs: Array<{ key: LiveRightTabKey; label: string }> = [
+    { key: "timeline", label: "Minuto a minuto" },
+    ...(hasCommentary ? [{ key: "commentary" as const, label: "Narración" }] : []),
+    ...(hasPlayers ? [{ key: "players" as const, label: "Jugadores" }] : []),
+  ];
+  const [activeTab, setActiveTab] = React.useState<LiveRightTabKey>("timeline");
+  const currentTab: LiveRightTabKey = tabs.some((t) => t.key === activeTab) ? activeTab : "timeline";
+
+  if (!hasCommentary && !hasPlayers) {
+    return (
+      <div className="pl-live-col">
+        <h3 className="pl-live-subtitle">Minuto a minuto</h3>
+        <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
+      </div>
+    );
+  }
+
+  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const idx = tabs.findIndex((t) => t.key === currentTab);
+    if (idx < 0) return;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setActiveTab(tabs[(idx + 1) % tabs.length]!.key);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setActiveTab(tabs[(idx - 1 + tabs.length) % tabs.length]!.key);
+    }
+  };
+
+  return (
+    <div className="pl-live-col">
+      <div
+        role="tablist"
+        aria-label="Detalle del partido en vivo"
+        className="pl-live-tabs"
+        onKeyDown={handleTabKeyDown}
+      >
+        {tabs.map((t) => {
+          const selected = currentTab === t.key;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              id={`${uid}-tab-${t.key}`}
+              aria-selected={selected}
+              aria-controls={`${uid}-panel-${t.key}`}
+              tabIndex={selected ? 0 : -1}
+              className="pl-live-tab"
+              onClick={() => setActiveTab(t.key)}
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id={`${uid}-panel-timeline`}
+        aria-labelledby={`${uid}-tab-timeline`}
+        hidden={currentTab !== "timeline"}
+        className="pl-live-tabpanel"
+      >
+        <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
+      </div>
+
+      {hasCommentary ? (
+        <div
+          role="tabpanel"
+          id={`${uid}-panel-commentary`}
+          aria-labelledby={`${uid}-tab-commentary`}
+          hidden={currentTab !== "commentary"}
+          className="pl-live-tabpanel"
+        >
+          <ol className="pl-live-commentary">
+            {[...commentary].reverse().map((item) => (
+              <li key={item.id} className={item.isImportant ? "is-important" : undefined}>
+                <span className="pl-live-event-min num">
+                  {item.minute != null
+                    ? `${item.minute}${item.addedTime ? `+${item.addedTime}` : ""}'`
+                    : "·"}
+                </span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+
+      {hasPlayers ? (
+        <div
+          role="tabpanel"
+          id={`${uid}-panel-players`}
+          aria-labelledby={`${uid}-tab-players`}
+          hidden={currentTab !== "players"}
+          className="pl-live-tabpanel"
+        >
+          <div
+            className="pl-live-players-region"
+            role="region"
+            tabIndex={0}
+            aria-label="Actuaciones individuales del partido"
+          >
+            <table className="pl-live-players-table">
+              <thead>
+                <tr>
+                  <th scope="col">Jugador</th>
+                  <th scope="col" className="num">Nota</th>
+                  <th scope="col" className="num">Min</th>
+                  <th scope="col" className="num">G / A</th>
+                  <th scope="col" className="num">Tiros</th>
+                  <th scope="col" className="num">xG</th>
+                </tr>
+              </thead>
+              <tbody>
+                {players.slice(0, 18).map((p, idx) => (
+                  <tr key={`${p.side}-${p.player}-${idx}`}>
+                    <td>
+                      <strong>{p.player}</strong>{" "}
+                      <small style={{ color: "var(--pl-text-muted)" }}>
+                        {p.side === "home" ? home : away}
+                        {p.position ? ` · ${p.position}` : ""}
+                      </small>
+                    </td>
+                    <td className="num" data-label="Nota">
+                      {p.rating != null ? p.rating.toFixed(1) : "—"}
+                    </td>
+                    <td className="num" data-label="Min">
+                      {p.minutes != null ? `${Math.round(p.minutes)}'` : "—"}
+                    </td>
+                    <td className="num" data-label="G / A">
+                      {p.goals ?? 0} / {p.assists ?? 0}
+                    </td>
+                    <td className="num" data-label="Tiros">
+                      {p.shots ?? 0}
+                      {p.shotsOnTarget ? ` (${p.shotsOnTarget})` : ""}
+                    </td>
+                    <td className="num" data-label="xG">
+                      {p.xg != null ? p.xg.toFixed(2) : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function LiveMatchPanelView({
   game,
   detail,
@@ -323,12 +492,15 @@ export function LiveMatchPanelView({
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
         {hideTimeline ? null : (
-          <div className="pl-live-col">
-            <h3 className="pl-live-subtitle">Minuto a minuto</h3>
-            <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
-          </div>
+          <LiveDetailRightColumn detail={detail} home={home} away={away} />
         )}
       </div>
+
+      {detail.broadcastsMx && detail.broadcastsMx.length > 0 ? (
+        <div className="pl-live-broadcasts" aria-label="Canales de televisión en México">
+          <span className="pl-pill">TV México: {detail.broadcastsMx.join(" · ")}</span>
+        </div>
+      ) : null}
 
       <footer className="pl-live-foot">
         <span>{detail.attribution}</span>

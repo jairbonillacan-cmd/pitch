@@ -35,7 +35,7 @@ export const HOME_SPORTS: readonly HomeSportDef[] = [
   { id: "nfl", label: "NFL", a11yName: "NFL · Fútbol americano", iconKey: "american-football" },
   { id: "nba", label: "NBA", a11yName: "NBA · Basquetbol", iconKey: "basketball" },
   { id: "nhl", label: "NHL", a11yName: "NHL · Hockey", iconKey: "hockey" },
-  { id: "mlb", label: "MLB", a11yName: "MLB · Béisbol", iconKey: "baseball", soon: true },
+  { id: "mlb", label: "MLB", a11yName: "MLB · Béisbol", iconKey: "baseball" },
 ];
 
 function countLabel(n: number, one: string, many: string): string {

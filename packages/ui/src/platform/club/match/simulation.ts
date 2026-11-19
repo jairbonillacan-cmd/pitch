@@ -51,7 +51,7 @@ export function simulateScore(input: SimInput, rng: Rng): { home: number; away: 
   if (input.sport === "football") {
     return { home: poisson(input.homeExpected, rng), away: poisson(input.awayExpected, rng) };
   }
-  if (input.sport === "ice-hockey") {
+  if (input.sport === "ice-hockey" || input.sport === "baseball") {
     let home = poisson(input.homeExpected, rng);
     let away = poisson(input.awayExpected, rng);
     if (home === away) {
@@ -87,6 +87,10 @@ export interface SimSummary {
 function bucketForTotal(sport: PlatformSport, total: number): number {
   if (sport === "football") return Math.min(total, 6);
   if (sport === "ice-hockey") return Math.min(total, 8);
+  if (sport === "baseball") {
+    if (total < 4) return 0;
+    return Math.min(6, 1 + Math.floor((total - 4) / 2));
+  }
   if (sport === "basketball") {
     if (total < 180) return 0;
     return Math.min(9, 1 + Math.floor((total - 180) / 10));
@@ -100,6 +104,9 @@ function totalLabels(sport: PlatformSport): string[] {
   }
   if (sport === "ice-hockey") {
     return Array.from({ length: 9 }, (_, i) => (i === 8 ? "8+" : String(i)));
+  }
+  if (sport === "baseball") {
+    return ["<4", "4–5", "6–7", "8–9", "10–11", "12–13", "14+"];
   }
   if (sport === "basketball") {
     return Array.from({ length: 10 }, (_, i) =>
@@ -167,12 +174,13 @@ export function playMatch(input: SimInput, rng: Rng): PlayedMatch {
     events.sort((a, b) => a.at - b.at);
     return { final, events, length: 90 };
   }
-  if (input.sport === "ice-hockey") {
+  if (input.sport === "ice-hockey" || input.sport === "baseball") {
+    const length = input.sport === "baseball" ? 9 : 3;
     const events: PlayedMatch["events"] = [];
-    for (let i = 0; i < final.home; i++) events.push({ at: 1 + Math.floor(rng() * 3), side: "home", points: 1 });
-    for (let i = 0; i < final.away; i++) events.push({ at: 1 + Math.floor(rng() * 3), side: "away", points: 1 });
+    for (let i = 0; i < final.home; i++) events.push({ at: 1 + Math.floor(rng() * length), side: "home", points: 1 });
+    for (let i = 0; i < final.away; i++) events.push({ at: 1 + Math.floor(rng() * length), side: "away", points: 1 });
     events.sort((a, b) => a.at - b.at);
-    return { final, events, length: 3 };
+    return { final, events, length };
   }
   const events: PlayedMatch["events"] = [];
   const split = (pts: number, side: "home" | "away") => {

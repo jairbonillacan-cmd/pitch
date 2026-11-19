@@ -2,6 +2,7 @@ import type {
   CountProjection,
   HeadToHeadView,
   LeagueId,
+  MatchPreGameContext,
   PlatformSport,
   StandingRow,
 } from "@pitchlab/contracts";
@@ -84,6 +85,9 @@ export interface BookQuoteItem {
   bookLabel: string;
   decimal: number;
   capturedAtUtc: string;
+  openingDecimal?: number | null;
+  movementDirection?: "shortening" | "drifting" | "stable" | null;
+  isBest?: boolean;
 }
 
 export interface MatchPick {
@@ -135,6 +139,8 @@ export interface LineupAbsenceItem {
   role: string;
   status: "Confirmado XI" | "Baja" | "Duda";
   impactNote: string;
+  injuryType?: string;
+  returnDate?: string;
 }
 
 export interface ConfirmedLineupPlayer {
@@ -148,6 +154,8 @@ export interface VerifiedMatchLineups {
   sourceLabel: string;
   /** Momento ISO UTC de verificación de la alineación oficial. */
   verifiedAtUtc: string;
+  /** Porcentaje de confianza cuando es alineación probable/proyectada (0-100). */
+  confidence?: number;
   homeFormation?: string;
   awayFormation?: string;
   homeStarters: ConfirmedLineupPlayer[];
@@ -175,6 +183,10 @@ export interface PreGameIntel {
   lineupsConfirmed60m: boolean;
   /** Alineación oficial verificada; `null` o ausente mientras no exista fuente real activa. */
   confirmedLineups?: VerifiedMatchLineups | null;
+  /** XI probable estimada cuando aún no sale el once oficial 60 min antes. */
+  probableLineups?: VerifiedMatchLineups | null;
+  /** Metadatos reales prepartido (clima, campo, árbitro, viaje, TV MX). */
+  matchContext?: MatchPreGameContext | null;
   /** Solo bajas reportadas por fuentes reales; vacío si no hay reporte. */
   absences: LineupAbsenceItem[];
   /** Reparto real del mercado; `null` si no hay datos de mercado. */
@@ -206,10 +218,12 @@ export interface PlatformMarketRow {
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  /** Momio de apertura: hoy no hay histórico de líneas, siempre `null`. */
+  /** Momio de apertura: historial prepartido cuando la fuente lo reporta, si no `null`. */
   openDecimal: number | null;
   /** Momio real de casa; `null` sin mercado verificado. */
   currentDecimal: number | null;
+  /** Dirección de movimiento respecto a la apertura (`shortening` bajando, `drifting` subiendo). */
+  movementDirection?: "shortening" | "drifting" | "stable" | null;
   /** Nombre visible de la casa y momento UTC de captura del momio vigente (`< 72 h`). */
   quoteBookLabel?: string | null;
   quoteCapturedAtUtc?: string | null;

@@ -56,6 +56,14 @@ function positionSectionsForSport(sport: PlatformSport): readonly PositionSectio
       { group: "GK", title: "Porteros", fallbackCode: "G", isGoalkeeper: true },
     ];
   }
+  if (sport === "baseball") {
+    return [
+      { group: "GK", title: "Lanzadores", fallbackCode: "P", isGoalkeeper: false },
+      { group: "DEF", title: "Receptores", fallbackCode: "C", isGoalkeeper: false },
+      { group: "MID", title: "Cuadro", fallbackCode: "IF", isGoalkeeper: false },
+      { group: "FWD", title: "Jardineros y bateo", fallbackCode: "OF", isGoalkeeper: false },
+    ];
+  }
   return [
     { group: "FWD", title: "Delanteros", fallbackCode: "DEL", isGoalkeeper: false },
     { group: "MID", title: "Centrocampistas", fallbackCode: "MC", isGoalkeeper: false },

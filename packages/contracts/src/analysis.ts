@@ -9,6 +9,12 @@ import {
   type MarketKey,
   type SeasonId,
 } from "./ids";
+import {
+  MatchLineupsProjectionSchema,
+  MatchPreGameContextSchema,
+  type MatchLineupsProjection,
+  type MatchPreGameContext,
+} from "./injuries-lineups";
 import { GameDTOSchema, LogoUrlSchema, type GameDTO } from "./sports/index";
 
 export interface MarketProbability {
@@ -128,6 +134,10 @@ export interface GameAnalysis {
   insights?: AnalysisInsights;
   /** Hora en que se calcularon los picks (si fue después de publicar el análisis). */
   picksAt?: string;
+  /** Alineaciones confirmadas o proyectadas (con nivel de confianza). */
+  lineups?: MatchLineupsProjection;
+  /** Contexto prepartido (árbitro, clima, campo, distancia de viaje, clásico, TV en MX). */
+  matchContext?: MatchPreGameContext;
 }
 
 export interface TeamSeasonRate {
@@ -159,6 +169,18 @@ export interface StandingRow {
   goalsFor: number;
   goalsAgainst: number;
   points: number;
+  /** Conferencia (p. ej. AFC/NFC en NFL, Este/Oeste en NBA y NHL, Americana/Nacional en MLB). */
+  conference?: string;
+  /** División dentro de la conferencia. */
+  division?: string;
+  /** Derrotas en tiempo extra / penales (NHL, 1 pt en tabla). */
+  otLosses?: number;
+  /** Porcentaje de victorias (0..1; NFL, NBA, MLB). */
+  winPct?: number;
+  /** Juegos detrás del líder de conferencia o división (`"-"` para el líder). */
+  gamesBehind?: string;
+  /** Sembrado oficial o calculado dentro de su conferencia. */
+  seed?: number;
   /** Últimos hasta 5 resultados en orden cronológico (más reciente al final). */
   form?: StandingFormToken[];
 }
@@ -178,7 +200,7 @@ export interface LeagueSnapshot {
   teamRates: Record<string, TeamSeasonRate>;
   games: GameDTO[];
   analyses: Record<string, GameAnalysis>;
-  /** Tabla de posiciones (solo fútbol; se omite si no hay partidos jugados). */
+  /** Tabla de posiciones (se omite si la competición no tiene clasificación vigente). */
   standings?: StandingRow[];
 }
 
@@ -354,6 +376,8 @@ export const GameAnalysisSchema = z.object({
     })
     .optional(),
   picksAt: z.string().min(10).optional(),
+  lineups: MatchLineupsProjectionSchema.optional(),
+  matchContext: MatchPreGameContextSchema.optional(),
 });
 
 export const TeamSeasonRateSchema = z.object({
@@ -382,6 +406,12 @@ export const StandingRowSchema = z.object({
   goalsFor: z.number().int().nonnegative(),
   goalsAgainst: z.number().int().nonnegative(),
   points: z.number().int().nonnegative(),
+  conference: z.string().min(1).optional(),
+  division: z.string().min(1).optional(),
+  otLosses: z.number().int().nonnegative().optional(),
+  winPct: z.number().min(0).max(1).optional(),
+  gamesBehind: z.string().min(1).optional(),
+  seed: z.number().int().positive().optional(),
   form: z.array(z.enum(["W", "D", "L"])).max(5).optional(),
 });
 

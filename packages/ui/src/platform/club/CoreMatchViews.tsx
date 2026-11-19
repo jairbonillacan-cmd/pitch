@@ -129,6 +129,7 @@ const LEAGUE_SPORT_CRUMB: Readonly<Record<string, string>> = {
   "american-football": "Fútbol americano",
   basketball: "Basquetbol",
   "ice-hockey": "Hockey",
+  baseball: "Béisbol",
 };
 
 function formatSlashDateFull(isoDay: string): string {
@@ -460,6 +461,14 @@ export function resolveLeagueStandingsZones(
     ]);
   }
 
+  if (sport === "baseball") {
+    if (totalTeams > 16) return [];
+    return clamp([
+      { id: "div", label: "Líderes divisionales", tone: "ucl", startRank: 1, endRank: 3 },
+      { id: "wc", label: "Comodín (Wild Card)", tone: "uel", startRank: 4, endRank: 6 },
+    ]);
+  }
+
   if (league === "amistosos" || isNationalCompetition(league)) {
     // En torneos de selecciones con tabla general combinada (> 6 equipos) o amistosos no se asigna zona de grupo único.
     if (league === "amistosos" || totalTeams > 6) return [];
@@ -542,7 +551,7 @@ function resolveLeagueTieBreakers(
       ],
     };
   }
-  if (sport === "basketball" || sport === "american-football") {
+  if (sport === "basketball" || sport === "american-football" || sport === "baseball") {
     return {
       intro: "Criterios principales de desempate en clasificación:",
       items: [
@@ -589,6 +598,7 @@ export function LeagueHubClubView({
 
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [section, setSection] = useState<LeagueHubSectionKey>(defaultSection);
+  const [standingsConference, setStandingsConference] = useState<string>("auto");
   const [teamQuery, setTeamQuery] = useState<string>("");
   const [newsCategory, setNewsCategory] = useState<LeagueNewsCategory | "all">("all");
   const [selectedNewsItem, setSelectedNewsItem] = useState<LeagueNewsItem | null>(null);
@@ -613,6 +623,10 @@ export function LeagueHubClubView({
       setSection(leagueSummary.standings.length > 0 ? "tabla" : "partidos");
     }
   }, [leagueId, initialSection, leagueSummary.standings.length]);
+
+  useEffect(() => {
+    setStandingsConference("auto");
+  }, [leagueId]);
 
   useEffect(() => {
     const map: Array<[React.RefObject<HTMLDivElement | null>, LeagueHubSectionKey]> = [
@@ -837,7 +851,9 @@ export function LeagueHubClubView({
           ? 17
           : leagueSport === "basketball" || leagueSport === "ice-hockey"
             ? 82
-            : leagueKey === "liga-mx"
+            : leagueSport === "baseball"
+              ? 162
+              : leagueKey === "liga-mx"
               ? 17
               : leagueKey === "champions-league" || leagueKey === "europa-league"
                 ? 8
@@ -894,9 +910,41 @@ export function LeagueHubClubView({
     });
   }, [leagueSummary.standings, recentFormBySlug, standingsMeta]);
 
+  const conferenceTabs = useMemo(() => {
+    const seen: string[] = [];
+    for (const row of displayedStandings) {
+      const c = row.conference?.trim();
+      if (c && !seen.includes(c)) seen.push(c);
+    }
+    if (seen.length < 2) return [] as string[];
+    const preferredOrder = ["AFC", "NFC", "Este", "Oeste", "Liga Americana", "Liga Nacional"];
+    return seen.sort((a, b) => {
+      const ia = preferredOrder.indexOf(a);
+      const ib = preferredOrder.indexOf(b);
+      if (ia !== -1 && ib !== -1) return ia - ib;
+      if (ia !== -1) return -1;
+      if (ib !== -1) return 1;
+      return a.localeCompare(b, "es");
+    });
+  }, [displayedStandings]);
+
+  const activeConference = useMemo(() => {
+    if (conferenceTabs.length < 2) return "all";
+    if (standingsConference === "all") return "all";
+    if (standingsConference !== "auto" && conferenceTabs.includes(standingsConference)) {
+      return standingsConference;
+    }
+    return conferenceTabs[0]!;
+  }, [conferenceTabs, standingsConference]);
+
+  const scopedStandings = useMemo(() => {
+    if (activeConference === "all") return displayedStandings;
+    return displayedStandings.filter((r) => r.conference === activeConference);
+  }, [activeConference, displayedStandings]);
+
   const standingsZones = useMemo(
-    () => resolveLeagueStandingsZones(leagueSummary.league, leagueSport, displayedStandings.length),
-    [displayedStandings.length, leagueSport, leagueSummary.league],
+    () => resolveLeagueStandingsZones(leagueSummary.league, leagueSport, scopedStandings.length),
+    [scopedStandings.length, leagueSport, leagueSummary.league],
   );
 
   const standingsTieBreakers = useMemo(
@@ -1161,11 +1209,71 @@ export function LeagueHubClubView({
               <div className="pl-match-panel-body">
                 {leagueSummary.standings.length > 0 ? (
                   <section className="standings-block pl-st-sheet">
+                    {conferenceTabs.length >= 2 ? (
+                      <div className="pl-st-conf-bar">
+                        <div className="seg-well" role="radiogroup" aria-label="Filtrar clasificación por conferencia">
+                          {conferenceTabs.map((conf) => {
+                            const checked = activeConference === conf;
+                            return (
+                              <button
+                                key={conf}
+                                type="button"
+                                role="radio"
+                                aria-checked={checked}
+                                className={`seg-btn ${checked ? "is-active" : ""}`.trim()}
+                                onClick={() => setStandingsConference(conf)}
+                              >
+                                {conf}
+                              </button>
+                            );
+                          })}
+                          <button
+                            type="button"
+                            role="radio"
+                            aria-checked={activeConference === "all"}
+                            className={`seg-btn ${activeConference === "all" ? "is-active" : ""}`.trim()}
+                            onClick={() => setStandingsConference("all")}
+                          >
+                            General
+                          </button>
+                        </div>
+                      </div>
+                    ) : null}
+
                     {(() => {
                       const firstZone = standingsZones.find((z) => z.startRank === 1) ?? null;
+                      const isNfl = leagueSport === "american-football";
+                      const isNba = leagueSport === "basketball";
+                      const isNhl = leagueSport === "ice-hockey";
+                      const isMlb = leagueSport === "baseball";
+                      const showDrawCol = hasDraw || isNfl;
+                      const showOtCol = isNhl;
+                      const showPctCol = isNfl || isNba || isMlb;
+                      const showGbCol = isNba || isMlb;
+                      const showPtsCol = leagueSport === "football" || isNhl;
+                      const playedColLabel = isMlb ? "JJ" : "PJ";
                       const goalsColCode =
-                        leagueSport === "football" ? "GLS" : scoringUnit.short.toUpperCase();
-                      const colCount = hasDraw ? 9 : 8;
+                        leagueSport === "football"
+                          ? "GLS"
+                          : isMlb
+                            ? "C:CA"
+                            : isNfl || isNba
+                              ? "PF:PC"
+                              : scoringUnit.short.toUpperCase();
+                      const colCount =
+                        6 +
+                        (showDrawCol ? 1 : 0) +
+                        (showOtCol ? 1 : 0) +
+                        (showPctCol ? 1 : 0) +
+                        (showGbCol ? 1 : 0) +
+                        (showPtsCol ? 1 : 0);
+
+                      const formatWinPctCell = (row: (typeof scopedStandings)[number]) => {
+                        const pct =
+                          row.winPct ??
+                          (row.played > 0 ? (row.won + 0.5 * row.drawn) / row.played : 0);
+                        return pct >= 1 ? "1.000" : pct.toFixed(3).replace(/^0/, "");
+                      };
 
                       return (
                         <>
@@ -1184,15 +1292,21 @@ export function LeagueHubClubView({
                                     className="pl-st-head-lead"
                                     data-zone-tone={firstZone?.tone}
                                   >
-                                    {firstZone ? firstZone.label : isNational ? "Selección" : "Club"}
+                                    {firstZone
+                                      ? firstZone.label
+                                      : isNational
+                                        ? "Selección"
+                                        : activeConference !== "all"
+                                          ? activeConference
+                                          : "Club"}
                                   </th>
                                   <th scope="col" className="pl-st-head-cell is-num">
-                                    PJ
+                                    {playedColLabel}
                                   </th>
                                   <th scope="col" className="pl-st-head-cell is-num">
                                     G
                                   </th>
-                                  {hasDraw ? (
+                                  {showDrawCol ? (
                                     <th scope="col" className="pl-st-head-cell is-num">
                                       E
                                     </th>
@@ -1200,6 +1314,21 @@ export function LeagueHubClubView({
                                   <th scope="col" className="pl-st-head-cell is-num">
                                     P
                                   </th>
+                                  {showOtCol ? (
+                                    <th scope="col" className="pl-st-head-cell is-num">
+                                      TE
+                                    </th>
+                                  ) : null}
+                                  {showPctCol ? (
+                                    <th scope="col" className="pl-st-head-cell is-num">
+                                      %V
+                                    </th>
+                                  ) : null}
+                                  {showGbCol ? (
+                                    <th scope="col" className="pl-st-head-cell is-num">
+                                      JD
+                                    </th>
+                                  ) : null}
                                   <th scope="col" className="pl-st-head-cell is-num">
                                     DIF
                                   </th>
@@ -1209,13 +1338,15 @@ export function LeagueHubClubView({
                                   <th scope="col" className="pl-st-head-cell is-center hidden md:table-cell">
                                     Últimas 5
                                   </th>
-                                  <th scope="col" className="pl-st-head-cell is-num">
-                                    PTS
-                                  </th>
+                                  {showPtsCol ? (
+                                    <th scope="col" className="pl-st-head-cell is-num">
+                                      PTS
+                                    </th>
+                                  ) : null}
                                 </tr>
                               </thead>
                               <tbody>
-                                {displayedStandings.map((row, idx) => {
+                                {scopedStandings.map((row, idx) => {
                                   const rank = idx + 1;
                                   const dg = row.goalsFor - row.goalsAgainst;
                                   const activeZone =
@@ -1275,10 +1406,21 @@ export function LeagueHubClubView({
                                         </td>
                                         <td className="pl-st-num-cell num">{row.played}</td>
                                         <td className="pl-st-num-cell num">{row.won}</td>
-                                        {hasDraw ? (
+                                        {showDrawCol ? (
                                           <td className="pl-st-num-cell num">{row.drawn}</td>
                                         ) : null}
                                         <td className="pl-st-num-cell num">{row.lost}</td>
+                                        {showOtCol ? (
+                                          <td className="pl-st-num-cell num">{row.otLosses ?? 0}</td>
+                                        ) : null}
+                                        {showPctCol ? (
+                                          <td className={`num ${showPtsCol ? "pl-st-num-cell" : "pl-st-pts-cell"}`}>
+                                            {formatWinPctCell(row)}
+                                          </td>
+                                        ) : null}
+                                        {showGbCol ? (
+                                          <td className="pl-st-num-cell num">{row.gamesBehind ?? "—"}</td>
+                                        ) : null}
                                         <td className="pl-st-num-cell num">
                                           {dg > 0 ? `+${dg}` : dg}
                                         </td>
@@ -1306,7 +1448,9 @@ export function LeagueHubClubView({
                                             <span className="pl-sq-muted text-xs">—</span>
                                           )}
                                         </td>
-                                        <td className="pl-st-pts-cell num">{row.points}</td>
+                                        {showPtsCol ? (
+                                          <td className="pl-st-pts-cell num">{row.points}</td>
+                                        ) : null}
                                       </tr>
                                     </React.Fragment>
                                   );
@@ -1346,14 +1490,14 @@ export function LeagueHubClubView({
 
                               <dl className="pl-st-legend-glossary">
                                 <div>
-                                  <dt>PJ</dt>
-                                  <dd>Partidos jugados</dd>
+                                  <dt>{playedColLabel}</dt>
+                                  <dd>{isMlb ? "Juegos jugados" : "Partidos jugados"}</dd>
                                 </div>
                                 <div>
                                   <dt>G</dt>
                                   <dd>Victorias</dd>
                                 </div>
-                                {hasDraw ? (
+                                {showDrawCol ? (
                                   <div>
                                     <dt>E</dt>
                                     <dd>Empates</dd>
@@ -1363,6 +1507,24 @@ export function LeagueHubClubView({
                                   <dt>P</dt>
                                   <dd>Derrotas</dd>
                                 </div>
+                                {showOtCol ? (
+                                  <div>
+                                    <dt>TE</dt>
+                                    <dd>Derrotas en tiempo extra o penales (1 punto)</dd>
+                                  </div>
+                                ) : null}
+                                {showPctCol ? (
+                                  <div>
+                                    <dt>%V</dt>
+                                    <dd>Porcentaje de victorias</dd>
+                                  </div>
+                                ) : null}
+                                {showGbCol ? (
+                                  <div>
+                                    <dt>JD</dt>
+                                    <dd>Juegos detrás del líder</dd>
+                                  </div>
+                                ) : null}
                                 <div>
                                   <dt>DIF</dt>
                                   <dd>Diferencia de {scoringUnit.plural}</dd>
@@ -1377,10 +1539,12 @@ export function LeagueHubClubView({
                                   <dt>Últimas 5</dt>
                                   <dd>Racha de los últimos 5 encuentros (más reciente a la derecha)</dd>
                                 </div>
-                                <div>
-                                  <dt>PTS</dt>
-                                  <dd>Puntos</dd>
-                                </div>
+                                {showPtsCol ? (
+                                  <div>
+                                    <dt>PTS</dt>
+                                    <dd>Puntos</dd>
+                                  </div>
+                                ) : null}
                               </dl>
                             </div>
                           </details>
@@ -1869,7 +2033,13 @@ export function LeagueHubClubView({
                         size={16}
                       />
                       <span>{leader.shortName || leader.name}</span>
-                      <span style={{ color: "var(--pl-brand)" }}>({leader.points} pts)</span>
+                      <span style={{ color: "var(--pl-brand)" }}>
+                        {leagueSummary.sport === "football" || leagueSummary.sport === "ice-hockey"
+                          ? `(${leader.points} pts)`
+                          : leader.drawn > 0
+                            ? `(${leader.won}-${leader.lost}-${leader.drawn})`
+                            : `(${leader.won}G-${leader.lost}P)`}
+                      </span>
                     </dd>
                   </div>
                 ) : null}

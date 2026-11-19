@@ -3,14 +3,22 @@ import { resolveClubRoute } from "../src/server/club-route-guard";
 
 const opts = {
   isLeague: (seg: string) =>
-    seg === "nfl" || seg === "nba" || seg === "nhl" || seg === "liga-mx" || seg === "premier-league",
+    seg === "nfl" ||
+    seg === "nba" ||
+    seg === "nhl" ||
+    seg === "mlb" ||
+    seg === "liga-mx" ||
+    seg === "premier-league",
   gameExists: (league: string, id: string) =>
     (league === "nfl" && id === "nfl-buf-kc") ||
     (league === "nba" && id === "nba-2026-11-15-ind-phi"),
   teamExists: (league: string, id: string) =>
     (league === "nfl" && id === "kansas-city-chiefs") ||
     (league === "liga-mx" && id === "monterrey") ||
-    (league === "nba" && id === "denver-nuggets"),
+    (league === "nba" && id === "denver-nuggets") ||
+    (league === "mlb" && id === "los-angeles-dodgers"),
+  playerExists: (league: string, teamId: string, playerSlug: string) =>
+    league === "liga-mx" && teamId === "monterrey" && playerSlug === "sergio-canales",
 };
 
 describe("resolveClubRoute", () => {
@@ -46,6 +54,11 @@ describe("resolveClubRoute", () => {
     expect(resolveClubRoute("/app/nfl", opts)).toEqual({ kind: "ok", pathname: "/app/nfl" });
     expect(resolveClubRoute("/app/nba", opts)).toEqual({ kind: "ok", pathname: "/app/nba" });
     expect(resolveClubRoute("/app/nhl", opts)).toEqual({ kind: "ok", pathname: "/app/nhl" });
+    expect(resolveClubRoute("/app/mlb", opts)).toEqual({ kind: "ok", pathname: "/app/mlb" });
+    expect(resolveClubRoute("/app/mlb/teams/los-angeles-dodgers", opts)).toEqual({
+      kind: "ok",
+      pathname: "/app/mlb/teams/los-angeles-dodgers",
+    });
     expect(resolveClubRoute("/app/nfl/games/nfl-buf-kc", opts)).toEqual({
       kind: "ok",
       pathname: "/app/nfl/games/nfl-buf-kc",
@@ -66,15 +79,27 @@ describe("resolveClubRoute", () => {
       kind: "ok",
       pathname: "/app/liga-mx/teams/monterrey",
     });
+    expect(
+      resolveClubRoute("/app/liga-mx/teams/monterrey/players/sergio-canales", opts),
+    ).toEqual({
+      kind: "ok",
+      pathname: "/app/liga-mx/teams/monterrey/players/sergio-canales",
+    });
   });
 
-  it("marca 404 para rutas fantasma, ligas inexistentes, partidos o equipos faltantes", () => {
+  it("marca 404 para rutas fantasma, ligas inexistentes, partidos, equipos o jugadores faltantes", () => {
     expect(resolveClubRoute("/app/ruta-fantasma", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/explore", opts).kind).toBe("not_found");
-    expect(resolveClubRoute("/app/mlb", opts).kind).toBe("not_found");
+    expect(resolveClubRoute("/app/liga-inexistente", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/games/inexistente", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/teams/inexistente", opts).kind).toBe("not_found");
-    expect(resolveClubRoute("/app/mlb/teams/dodgers", opts).kind).toBe("not_found");
+    expect(
+      resolveClubRoute("/app/liga-mx/teams/monterrey/players/jugador-inexistente", opts).kind,
+    ).toBe("not_found");
+    expect(
+      resolveClubRoute("/app/liga-mx/teams/monterrey/otro/sergio-canales", opts).kind,
+    ).toBe("not_found");
+    expect(resolveClubRoute("/app/mlb/teams/equipo-inexistente", opts).kind).toBe("not_found");
     expect(resolveClubRoute("/app/nfl/otra/cosa", opts).kind).toBe("not_found");
   });
 });

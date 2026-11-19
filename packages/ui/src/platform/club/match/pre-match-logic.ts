@@ -355,6 +355,43 @@ export function resolveConfirmedLineupSlotState(
   };
 }
 
+export interface ProbableLineupSlotResolution {
+  readonly available: boolean;
+  readonly statusBadge: string;
+  readonly helperText: string;
+  readonly lineups: VerifiedMatchLineups | null;
+}
+
+/**
+ * Once estimado cuando aún falta la confirmación oficial 60 min antes.
+ * Se oculta automáticamente en cuanto entra la alineación oficial o si el acceso está bloqueado.
+ */
+export function resolveProbableLineupSlotState(
+  preGame: PreGameIntel,
+  intelUnlocked: boolean,
+): ProbableLineupSlotResolution | null {
+  const confirmed = resolveConfirmedLineupSlotState(preGame, intelUnlocked);
+  if (confirmed.enabled) return null;
+  const probable = preGame.probableLineups ?? null;
+  const hasProbable =
+    intelUnlocked &&
+    !preGame.isRedacted &&
+    probable !== null &&
+    Boolean(probable.sourceLabel.trim()) &&
+    probable.homeStarters.length >= 11 &&
+    probable.awayStarters.length >= 11;
+
+  if (!hasProbable || !probable) return null;
+  const confText =
+    probable.confidence != null ? ` · Confianza ${Math.round(probable.confidence)} %` : "";
+  return {
+    available: true,
+    statusBadge: `Once estimado${confText}`,
+    helperText: `${probable.sourceLabel.trim()} · Sujeto a confirmación oficial 60 min antes.`,
+    lineups: probable,
+  };
+}
+
 /** Lee un pick congelado guardado localmente en el navegador para este partido (respaldo cliente). */
 export function readClientFrozenPick(gameId: string): FrozenMainPickSnapshot | null {
   try {

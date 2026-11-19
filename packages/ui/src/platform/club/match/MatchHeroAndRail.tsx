@@ -28,6 +28,7 @@ const SPORT_CRUMB_LABEL: Record<PlatformSport, string> = {
   "american-football": "Fútbol americano",
   basketball: "Basquetbol",
   "ice-hockey": "Hockey",
+  baseball: "Béisbol",
 };
 
 function resolveSelectionOdds(

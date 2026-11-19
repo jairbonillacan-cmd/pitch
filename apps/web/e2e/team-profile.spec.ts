@@ -176,6 +176,10 @@ test.describe("Perfiles de equipo multi-deporte y descubrimiento", () => {
     await expect(playerHero.locator(".pl-person-avatar").first()).toBeVisible();
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);
+
+    // Recarga directa SSR del perfil de jugador (club-route-guard.ts)
+    await page.reload();
+    await expect(page.locator('[data-team-hero="player"]')).toBeVisible();
   });
 
   test("renderiza NBA sin empates, carga NFL y permite buscar equipos desde el buscador", async ({

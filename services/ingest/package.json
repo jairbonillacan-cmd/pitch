@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./providers/config": "./src/providers/config.ts",
-    "./providers/bzzoiro-live": "./src/providers/bzzoiro-live.ts"
+    "./providers/bzzoiro-live": "./src/providers/bzzoiro-live.ts",
+    "./providers/bzzoiro-enrichment": "./src/providers/bzzoiro-enrichment.ts",
+    "./providers/bzzoiro-nba-rich": "./src/providers/bzzoiro-nba-rich.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",
@@ -20,6 +22,7 @@
     "injuries": "tsx src/cli.ts --mode=injuries",
     "health:check": "tsx src/health-check-cli.ts",
     "providers:check": "tsx src/providers/check-cli.ts",
+    "benchmark:bzzoiro": "tsx src/providers/bzzoiro-benchmark-cli.ts",
     "history:providers": "tsx src/providers/collect-cli.ts",
     "history:link": "tsx src/providers/link-cli.ts",
     "history:us": "tsx src/providers/us-collect-cli.ts",
@@ -27,6 +30,8 @@
     "backtest:counts": "tsx src/counts-backtest-cli.ts",
     "cortex:write": "tsx src/cortex-cli.ts",
     "snapshot:us": "tsx src/us-snapshot-cli.ts",
+    "snapshot:us-standings": "tsx src/us-standings-cli.ts",
+    "snapshot:mlb": "tsx src/us-standings-cli.ts --leagues=mlb",
     "history": "tsx src/history/cli.ts",
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",

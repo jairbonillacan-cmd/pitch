@@ -363,26 +363,52 @@ export function MatchMarketsGrid({
                                   Justo {fairText}
                                 </span>
                                 {!effectiveRaw && row.currentDecimal !== null ? (
-                                  <span
-                                    className="pl-mkt-row-fair num"
-                                    data-market-house-quote=""
-                                  >
-                                    Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
-                                    {row.quoteCapturedAtUtc ? (
-                                      <>
-                                        {" · "}
-                                        <time
-                                          dateTime={row.quoteCapturedAtUtc}
-                                          data-quote-captured=""
-                                        >
-                                          {row.quoteBookLabel
-                                            ? `${row.quoteBookLabel} · `
-                                            : ""}
-                                          {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
-                                        </time>
-                                      </>
+                                  <>
+                                    <span
+                                      className="pl-mkt-row-fair num"
+                                      data-market-house-quote=""
+                                    >
+                                      Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
+                                      {row.openDecimal != null &&
+                                      Math.abs(row.openDecimal - row.currentDecimal) >= 0.01 ? (
+                                        <>
+                                          {" · Ap. "}
+                                          {formatOddsValue(row.openDecimal, oddsFormat)}{" "}
+                                          {row.movementDirection === "shortening"
+                                            ? "↓"
+                                            : row.movementDirection === "drifting"
+                                              ? "↑"
+                                              : "→"}
+                                        </>
+                                      ) : null}
+                                      {row.quoteCapturedAtUtc ? (
+                                        <>
+                                          {" · "}
+                                          <time
+                                            dateTime={row.quoteCapturedAtUtc}
+                                            data-quote-captured=""
+                                          >
+                                            {row.quoteBookLabel
+                                              ? `${row.quoteBookLabel} · `
+                                              : ""}
+                                            {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
+                                          </time>
+                                        </>
+                                      ) : null}
+                                    </span>
+                                    {row.bookQuotes && row.bookQuotes.length > 1 ? (
+                                      <span className="inline-flex flex-wrap gap-1">
+                                        {row.bookQuotes.slice(0, 3).map((q) => (
+                                          <span
+                                            key={q.book}
+                                            className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
+                                          >
+                                            {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
+                                          </span>
+                                        ))}
+                                      </span>
                                     ) : null}
-                                  </span>
+                                  </>
                                 ) : null}
                               </div>
                             </div>

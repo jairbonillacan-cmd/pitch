@@ -12,4 +12,6 @@ export * from "./nfl/analyze.js";
 export * from "./backtest/metrics.js";
 export * from "./us-sports/ratings.js";
 export * from "./us-sports/analyze.js";
+export * from "./mlb/ratings.js";
+export * from "./mlb/analyze.js";
 export * from "./football/counts.js";

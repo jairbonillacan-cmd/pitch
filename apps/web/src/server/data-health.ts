@@ -27,6 +27,7 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
   nfl: "NFL",
   nba: "NBA",
   nhl: "NHL",
+  mlb: "MLB",
   "concacaf-nations": "Concacaf Nations League",
   "uefa-nations": "UEFA Nations League",
   amistosos: "Amistosos FIFA",
@@ -42,6 +43,7 @@ const LEAGUE_LABELS: Record<ProductLeague, string> = {
 const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>([
   "nba",
   "nhl",
+  "mlb",
   "concacaf-nations",
   "uefa-nations",
   "amistosos",
@@ -64,6 +66,7 @@ const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
   "liga-mx": "liga-mx",
   nba: "nba",
   nhl: "nhl",
+  mlb: "mlb",
   "concacaf-nations": "concacaf-nations",
   "uefa-nations": "uefa-nations",
   amistosos: "amistosos",

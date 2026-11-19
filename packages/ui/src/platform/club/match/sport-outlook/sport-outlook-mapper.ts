@@ -15,6 +15,7 @@ import { isValidOutlook } from "./sport-outlook-logic";
 const OUTLOOK_LEAGUE_TO_SPORT: Record<string, OutlookSport | undefined> = {
   nba: "nba",
   nhl: "nhl",
+  mlb: "mlb",
 };
 
 function mapRestSide(days: number | undefined): SportRestInfo | undefined {

@@ -1,13 +1,13 @@
 # Mapa de rutas (`pitchlab.mx`)
 
 > **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
-> **Actualizado:** 2026-11-15 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
+> **Actualizado:** 2026-11-18 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
 
 - Un solo origen `https://pitchlab.mx`. Las páginas públicas de marketing y legales son indexables (`/sitemap.ts` y `Allow: /` en `/robots.txt`).
 - Rutas privadas, flujos de autenticación, referidos, boletos compartidos, onboarding y área interna llevan `noindex` y/o exclusión en `robots.ts` (`/app/`, `/api/`, `/i/`, `/onboarding`, `/p/`, `/baja`, `/canjear`).
-- **`[league]`** acepta exactamente las ligas activas del producto (`PRODUCT_LEAGUES` en `apps/web/src/server/snapshots.ts`):
+- **`[league]`** acepta exactamente las ligas y competencias activas del producto (`PRODUCT_LEAGUES` en `apps/web/src/server/snapshots.ts`):
 
   | league | Deporte |
   |---|---|
@@ -20,6 +20,17 @@
   | `nfl` | american-football |
   | `nba` | basketball |
   | `nhl` | hockey (`ice-hockey`) |
+  | `mlb` | baseball |
+  | `concacaf-nations` | soccer (selecciones) |
+  | `uefa-nations` | soccer (selecciones) |
+  | `amistosos` | soccer (selecciones) |
+  | `copa-del-mundo` | soccer (selecciones) |
+  | `eliminatorias` | soccer (selecciones) |
+  | `copa-america` | soccer (selecciones) |
+  | `eurocopa` | soccer (selecciones) |
+  | `copa-oro` | soccer (selecciones) |
+  | `copa-africana` | soccer (selecciones) |
+  | `copa-asiatica` | soccer (selecciones) |
 
 - Las rutas inexistentes bajo `/` o bajo `/app/*` devuelven `HTTP 404` real (validado antes del streaming por `resolveClubRoute` en `apps/web/app/app/layout.tsx`).
 
@@ -77,9 +88,10 @@
 | `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
 | `/app/tipster` | Portal de Tipsters Oficiales | En Beta 1.0 lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
-| `/app/[league]` | Hub por liga o competencia (`liga-mx`, …, `nfl`, `nba`, `nhl`, `concacaf-nations`, …, `copa-del-mundo`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
+| `/app/[league]` | Hub por liga o competencia (`liga-mx`, …, `nfl`, `nba`, `nhl`, `concacaf-nations`, …, `copa-asiatica`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
 | `/app/[league]/games/[gameId]` | Match Studio (clubes y selecciones) | Analizador 360°, `?tab=resumen\|ia\|numeros\|dinero\|contexto` (con redirección interna desde alias legados `picks`, `mercados`) |
-| `/app/[league]/teams/[teamId]` | Perfil del club o selección | `?league` y `teamId` validados contra snapshots activos (`404` si faltan), `?tab=resumen\|partidos` |
+| `/app/[league]/teams/[teamId]` | Perfil del club o selección | `?league` y `teamId` validados contra snapshots activos (`404` si faltan), `?tab=resumen\|estadisticas\|plantilla\|partidos` |
+| `/app/[league]/teams/[teamId]/players/[playerSlug]` | Perfil individual del jugador | `?league`, `teamId` y `playerSlug` validados contra snapshots/plantillas activas (`404` si faltan) |
 | `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)

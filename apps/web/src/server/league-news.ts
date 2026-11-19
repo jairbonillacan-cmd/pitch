@@ -75,6 +75,18 @@ function loadStandingNews(
   const leagueLabel = LEAGUE_LABELS[league] ?? league;
   const leader = standings[0]!;
   const runnerUp = standings[1]!;
+  const isNfl = league === "nfl";
+  const isNba = league === "nba";
+  const isNhl = league === "nhl";
+  const isMlb = league === "mlb";
+  const usesWinPct = isNfl || isNba || isMlb;
+  const unitPlural = isNfl || isNba ? "puntos" : isMlb ? "carreras" : "goles";
+  const unitCode = isNfl || isNba ? "PF" : isMlb ? "C" : "GF";
+  const againstCode = isNfl || isNba ? "PC" : isMlb ? "CA" : "GC";
+  const leaderWinPct =
+    leader.winPct ??
+    (leader.played > 0 ? (leader.won + 0.5 * leader.drawn) / leader.played : 0);
+  const pctStr = leaderWinPct >= 1 ? "1.000" : leaderWinPct.toFixed(3).replace(/^0/, "");
   const gap = leader.points - runnerUp.points;
   const leaderSlug = teamSlugFromId(leader.teamId);
   const topScorer = standings
@@ -82,19 +94,29 @@ function loadStandingNews(
     .sort((a, b) => b.goalsFor - a.goalsFor)[0];
   const updatedLabel = formatTimestampEs(snapshot.updatedAt);
 
+  const leaderRecord = isNfl
+    ? `${leader.won}–${leader.lost}${leader.drawn > 0 ? `–${leader.drawn}` : ""}`
+    : isNhl
+      ? `${leader.won}–${leader.lost}–${leader.otLosses ?? 0}`
+      : `${leader.won}–${leader.lost}`;
+
   const items: LeagueNewsItem[] = [
     {
       id: `${league}-news-leader`,
       category: "jornada",
       categoryLabel: "Tabla y liderato",
-      title: `${leader.name} lidera ${leagueLabel} con ${leader.points} puntos`,
+      title: usesWinPct
+        ? `${leader.name} lidera ${leagueLabel} con marca ${leaderRecord} (${pctStr})`
+        : `${leader.name} lidera ${leagueLabel} con ${leader.points} puntos`,
       summary: sanitizeCopy(
-        gap > 0
-          ? `Suma ${leader.won} victorias, ${leader.drawn} empates y ${leader.lost} derrotas en ${leader.played} partidos (${leader.goalsFor} GF / ${leader.goalsAgainst} GC), con +${gap} ${gap === 1 ? "punto" : "puntos"} de ventaja sobre ${runnerUp.name}.`
-          : `Comparte la cima en puntos (${leader.points}) junto a ${runnerUp.name} tras ${leader.played} partidos disputados en ${leagueLabel}.`,
+        usesWinPct
+          ? `Registra ${leader.won} victorias y ${leader.lost} derrotas en ${leader.played} ${isMlb ? "juegos" : "partidos"} (${leader.goalsFor} ${unitCode} / ${leader.goalsAgainst} ${againstCode}), por delante de ${runnerUp.name}.`
+          : gap > 0
+            ? `Suma ${leader.won} victorias${isNhl ? `, ${leader.otLosses ?? 0} en tiempo extra` : ` y ${leader.drawn} empates`} y ${leader.lost} derrotas en ${leader.played} partidos (${leader.goalsFor} ${unitCode} / ${leader.goalsAgainst} ${againstCode}), con +${gap} ${gap === 1 ? "punto" : "puntos"} sobre ${runnerUp.name}.`
+            : `Comparte la cima en puntos (${leader.points}) junto a ${runnerUp.name} tras ${leader.played} partidos disputados en ${leagueLabel}.`,
       ),
       publishedAtLabel: updatedLabel,
-      badge: `1.º · ${leader.points} pts`,
+      badge: usesWinPct ? `1.º · ${leaderRecord}` : `1.º · ${leader.points} pts`,
       team: {
         slug: leaderSlug,
         name: leader.name,
@@ -111,12 +133,12 @@ function loadStandingNews(
       id: `${league}-news-attack`,
       category: "jornada",
       categoryLabel: "Producción ofensiva",
-      title: `${topScorer.name} registra el mejor ataque (${topScorer.goalsFor} goles)`,
+      title: `${topScorer.name} registra la mejor ofensiva (${topScorer.goalsFor} ${unitPlural})`,
       summary: sanitizeCopy(
-        `Promedia ${(topScorer.goalsFor / Math.max(1, topScorer.played)).toFixed(2)} goles por partido tras ${topScorer.played} fechas de ${leagueLabel}.`,
+        `Promedia ${(topScorer.goalsFor / Math.max(1, topScorer.played)).toFixed(2)} ${unitPlural} por ${isMlb ? "juego" : "partido"} tras ${topScorer.played} encuentros en ${leagueLabel}.`,
       ),
       publishedAtLabel: updatedLabel,
-      badge: `${topScorer.goalsFor} GF`,
+      badge: `${topScorer.goalsFor} ${unitCode}`,
       team: {
         slug: atkSlug,
         name: topScorer.name,

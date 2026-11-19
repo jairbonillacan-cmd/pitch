@@ -75,6 +75,7 @@ export const PRODUCT_LEAGUES = [
   "nfl",
   "nba",
   "nhl",
+  "mlb",
   "concacaf-nations",
   "uefa-nations",
   "amistosos",
@@ -168,6 +169,7 @@ export const LEAGUE_LABELS: Record<ProductLeague, string> = {
   nfl: "NFL",
   nba: "NBA",
   nhl: "NHL",
+  mlb: "MLB",
   "concacaf-nations": "Concacaf Nations League",
   "uefa-nations": "UEFA Nations League",
   amistosos: "Amistosos FIFA",
@@ -190,6 +192,7 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = {
   nfl: "2026",
   nba: "2026-27",
   nhl: "2026-27",
+  mlb: "2026",
   "concacaf-nations": "2026/27",
   "uefa-nations": "2026/27",
   amistosos: "2026",
@@ -215,7 +218,12 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       leagueLabel: LEAGUE_LABELS[leagueKey],
       sport: sportForLeague(leagueKey),
       season: LEAGUE_SEASONS[leagueKey],
-      roundLabel: leagueKey === "nfl" ? "Semana 9" : leagueKey === "nba" || leagueKey === "nhl" ? "" : "Jornada 16",
+      roundLabel:
+        leagueKey === "nfl"
+          ? "Semana 9"
+          : leagueKey === "nba" || leagueKey === "nhl" || leagueKey === "mlb"
+            ? ""
+            : "Jornada 16",
       generatedAt: new Date().toISOString(),
       days: [{ id: "all", label: `Toda la ${leagueKey === "nfl" ? "semana" : "jornada"}` }],
       games: [],

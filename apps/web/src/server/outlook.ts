@@ -73,7 +73,7 @@ function outlooksByLeague(): Map<string, MatchOutlook[]> {
 
 /** Panorama del partido, emparejado por liga y nombres de equipo; `null` si no está. */
 export function findOutlook(game: TeamNames): MatchOutlook | null {
-  if (game.league === "nba" || game.league === "nhl") return null;
+  if (game.league === "nba" || game.league === "nhl" || game.league === "mlb") return null;
   const league = LEAGUE_TO_V3[game.league] ?? game.league;
   let top: MatchOutlook | null = null;
   let topScore = 0;

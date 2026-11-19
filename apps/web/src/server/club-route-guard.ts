@@ -39,6 +39,15 @@ export type ClubRouteResolution =
   | { kind: "redirect"; to: string }
   | { kind: "not_found"; pathname: string };
 
+function safeDecodeSegment(raw: string): string | null {
+  try {
+    return decodeURIComponent(raw);
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
 /**
  * Resuelve alias legados dentro de `/app/*` y detecta rutas inexistentes antes de que
  * `app/app/loading.tsx` confirme un HTTP 200 en streaming.
@@ -49,6 +58,7 @@ export function resolveClubRoute(
     isLeague: (segment: string) => boolean;
     gameExists: (league: string, gameId: string) => boolean;
     teamExists?: (league: string, teamId: string) => boolean;
+    playerExists?: (league: string, teamId: string, playerSlug: string) => boolean;
   },
 ): ClubRouteResolution {
   if (!rawPath || typeof rawPath !== "string") {
@@ -112,17 +122,30 @@ export function resolveClubRoute(
 
   if (segments.length === 3 && (segments[1] === "games" || segments[1] === "teams")) {
     const league = segments[0]!;
-    let entityId = segments[2]!;
-    try {
-      entityId = decodeURIComponent(entityId);
-    } catch (err) {
-      void err;
+    const entityId = safeDecodeSegment(segments[2]!);
+    if (!entityId) {
       return { kind: "not_found", pathname };
     }
     const exists =
       segments[1] === "games"
         ? options.gameExists(league, entityId)
         : (options.teamExists?.(league, entityId) ?? false);
+    if (options.isLeague(league) && exists) {
+      return { kind: "ok", pathname };
+    }
+    return { kind: "not_found", pathname };
+  }
+
+  if (segments.length === 5 && segments[1] === "teams" && segments[3] === "players") {
+    const league = segments[0]!;
+    const teamId = safeDecodeSegment(segments[2]!);
+    const playerSlug = safeDecodeSegment(segments[4]!);
+    if (!teamId || !playerSlug) {
+      return { kind: "not_found", pathname };
+    }
+    const exists = options.playerExists
+      ? options.playerExists(league, teamId, playerSlug)
+      : (options.teamExists?.(league, teamId) ?? false);
     if (options.isLeague(league) && exists) {
       return { kind: "ok", pathname };
     }

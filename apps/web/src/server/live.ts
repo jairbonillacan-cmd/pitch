@@ -41,13 +41,20 @@ import {
   detectMoments,
   linkLiveEvents,
   list,
+  mergeCommentary,
   nextPollSeconds,
+  parseBroadcastsMx,
+  parseCommentary,
   parseIncidents,
   parseLiveStats,
+  parsePlayerStats,
   toScoreboardEntry,
+  type BzBroadcastRaw,
   type BzList,
+  type BzLiveCommentaryRaw,
   type BzLiveEvent,
   type BzLiveIncident,
+  type BzLivePlayerStatRaw,
   type BzLiveStats,
   type LinkCandidate,
 } from "@pitchlab/ingest/providers/bzzoiro-live";
@@ -70,6 +77,9 @@ const TTL = {
   leagueDay: 6 * 3_600_000,
   incidentsLive: 30_000,
   statsLive: 60_000,
+  commentaryLive: 30_000,
+  playerStatsLive: 60_000,
+  broadcasts: 6 * 3_600_000,
   /** Un partido terminado no cambia: se guarda una semana. */
   finished: 7 * 24 * 3_600_000,
   lease: 8_000,
@@ -230,11 +240,23 @@ export interface LiveBudget {
   dailyMax: number;
   /** Peticiones que se dejan siempre a la ingesta (según el `RateLimit` del proveedor). */
   reserve: number;
+  /** Omite el tope artificial cuando la cuenta es comercial/ilimitada (`BZZOIRO_UNLIMITED=1`). */
+  unlimited?: boolean;
+}
+
+function isUnlimitedEnv(): boolean {
+  const raw = process.env.BZZOIRO_UNLIMITED?.trim().toLowerCase();
+  return raw === "1" || raw === "true" || raw === "yes";
 }
 
 function readBudget(): LiveBudget {
+  const unlimited = isUnlimitedEnv();
   const n = (v: string | undefined, d: number) => (v && Number.isFinite(Number(v)) ? Math.max(0, Number(v)) : d);
-  return { dailyMax: n(process.env.BZZOIRO_LIVE_DAILY_MAX, 2500), reserve: n(process.env.BZZOIRO_LIVE_RESERVE, 300) };
+  return {
+    dailyMax: n(process.env.BZZOIRO_LIVE_DAILY_MAX, unlimited ? 0 : 2500),
+    reserve: n(process.env.BZZOIRO_LIVE_RESERVE, unlimited ? 0 : 300),
+    unlimited,
+  };
 }
 
 export interface LiveDeps {
@@ -243,6 +265,8 @@ export interface LiveDeps {
   budget: LiveBudget;
   now: () => Date;
   candidates: (now: Date) => LinkCandidate[];
+  /** Activa narración incremental, player-stats y canales TV MX (por defecto en modo ilimitado). */
+  includeRich?: boolean;
   log?: (msg: string) => void;
 }
 
@@ -263,8 +287,12 @@ async function providerGet<T>(deps: LiveDeps, pathWithQuery: string): Promise<T 
   if (!deps.fetch) throw new QuotaGuardError("Sin clave de Bzzoiro");
   const now = deps.now();
   const q = await deps.store.quota(now);
-  if (q.requests >= deps.budget.dailyMax) throw new QuotaGuardError("Tope diario del lector en vivo");
-  if (q.remaining !== null && q.remaining <= deps.budget.reserve) throw new QuotaGuardError("Reserva de la ingesta");
+  if (!deps.budget.unlimited && deps.budget.dailyMax > 0 && q.requests >= deps.budget.dailyMax) {
+    throw new QuotaGuardError("Tope diario del lector en vivo");
+  }
+  if (!deps.budget.unlimited && q.remaining !== null && deps.budget.reserve > 0 && q.remaining <= deps.budget.reserve) {
+    throw new QuotaGuardError("Reserva de la ingesta");
+  }
   const res = await deps.fetch(pathWithQuery);
   await deps.store.countRequest(now, res.remaining);
   if (res.status === 404) return null;
@@ -575,13 +603,45 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
   }
 
   const finished = entry.phase === "final";
-  const [inc, st] = await Promise.all([
+  const wantRich = deps.includeRich ?? Boolean(deps.budget.unlimited);
+  const commentaryKey = `live:commentary:${gameId}`;
+  const [inc, st, comm, pstats, bcasts] = await Promise.all([
     cached(deps, `live:incidents:${gameId}`, finished ? TTL.finished : TTL.incidentsLive, async () =>
       parseIncidents(await providerGet<BzList<BzLiveIncident>>(deps, `/events/${eventId}/incidents/`)),
     ),
     cached(deps, `live:stats:${gameId}`, finished ? TTL.finished : TTL.statsLive, async () =>
       parseLiveStats(await providerGet<BzLiveStats>(deps, `/events/${eventId}/stats/`)),
     ),
+    wantRich
+      ? cached(deps, commentaryKey, finished ? TTL.finished : TTL.commentaryLive, async () => {
+          const prev = await deps.store.read<NonNullable<LiveMatchDetail["commentary"]>>(commentaryKey, now);
+          const sinceParam =
+            prev?.payload?.length && prev.fetchedAt
+              ? `?since=${encodeURIComponent(prev.fetchedAt.toISOString())}`
+              : "";
+          const raw = await providerGet<BzList<BzLiveCommentaryRaw>>(
+            deps,
+            `/events/${eventId}/commentary/${sinceParam}`,
+          );
+          return mergeCommentary(prev?.payload ?? [], parseCommentary(raw));
+        })
+      : Promise.resolve(null),
+    wantRich
+      ? cached(deps, `live:player-stats:${gameId}`, finished ? TTL.finished : TTL.playerStatsLive, async () =>
+          parsePlayerStats(
+            await providerGet<
+              BzList<BzLivePlayerStatRaw> | { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] }
+            >(deps, `/events/${eventId}/player-stats/`),
+          ),
+        )
+      : Promise.resolve(null),
+    wantRich
+      ? cached(deps, `live:broadcasts-mx:${gameId}`, TTL.broadcasts, async () =>
+          parseBroadcastsMx(
+            await providerGet<BzList<BzBroadcastRaw>>(deps, `/events/${eventId}/broadcasts/?country_code=MX`),
+          ),
+        )
+      : Promise.resolve(null),
   ]);
 
   return {
@@ -589,8 +649,11 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
     entry,
     incidents: inc.value ?? [],
     ...(st.value ?? {}),
+    ...(comm?.value && comm.value.length > 0 ? { commentary: comm.value } : {}),
+    ...(pstats?.value && pstats.value.length > 0 ? { playerStats: pstats.value } : {}),
+    ...(bcasts?.value && bcasts.value.length > 0 ? { broadcastsMx: bcasts.value } : {}),
     sourceFetchedAt: sourceFetchedAt ?? inc.fetchedAt?.toISOString() ?? null,
-    notice: notice ?? inc.notice ?? st.notice,
+    notice: notice ?? inc.notice ?? st.notice ?? comm?.notice ?? pstats?.notice ?? bcasts?.notice ?? null,
     nextPollSeconds: finished ? null : livePoll(entry, now),
   };
 }

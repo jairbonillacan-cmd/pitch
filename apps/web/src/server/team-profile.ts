@@ -12,6 +12,7 @@ import {
   type LeagueSquadsFile,
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
+import type { NbaPlayerPropSeed } from "@pitchlab/ingest/providers/bzzoiro-nba-rich";
 import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui";
 import { resolveTeamVenueGeo } from "@pitchlab/ui/team-venues";
 import type {
@@ -151,6 +152,7 @@ const ENGINE_BY_SPORT: Readonly<Record<PlatformSport, string>> = {
   "american-football": "Minkowski v3.0 · Eficiencia por jugada",
   basketball: "Motor NBA · Ritmo y eficiencia",
   "ice-hockey": "Motor NHL · Peligro y posesión",
+  baseball: "Motor MLB · Pitcheo y carreras",
 };
 
 const historyCache = new Map<string, { mtimeMs: number; entries: HistoryJsonlEntry[] }>();
@@ -768,6 +770,61 @@ function buildModelMetrics(
         detail: `En contra: ${rate.againstPerGame.toFixed(2)} (${rate.gamesPlayed} JJ)`,
       });
     }
+  } else if (sport === "baseball") {
+    if (master?.mlb_pythag_183 != null) {
+      metrics.push({
+        id: "pythag",
+        label: "Expectativa pitagórica",
+        value: formatPctValue(master.mlb_pythag_183),
+        detail: "Base carreras anotadas vs permitidas",
+        tone: master.mlb_pythag_183 >= 0.5 ? "positive" : "warning",
+      });
+    }
+    if (master?.mlb_ops_plus != null) {
+      metrics.push({
+        id: "ops-plus",
+        label: "Producción ofensiva (OPS+)",
+        value: `${Math.round(master.mlb_ops_plus)}`,
+        detail: "100 = media de la liga ajustada por estadio",
+        tone: master.mlb_ops_plus >= 100 ? "positive" : "neutral",
+      });
+    }
+    if (master?.mlb_woba_est != null) {
+      metrics.push({
+        id: "woba",
+        label: "Valor ofensivo (wOBA)",
+        value: master.mlb_woba_est.toFixed(3),
+        detail: "Peso ponderado por aparición al plato",
+      });
+    }
+    if (master?.mlb_fip != null) {
+      metrics.push({
+        id: "fip",
+        label: "Pitcheo independiente (FIP)",
+        value: master.mlb_fip.toFixed(2),
+        detail:
+          master.mlb_era != null
+            ? `Efectividad ERA: ${master.mlb_era.toFixed(2)}`
+            : "Control de cuadrangulares, boletos y ponches",
+        tone: "brand",
+      });
+    }
+    if (master?.mlb_whip != null) {
+      metrics.push({
+        id: "whip",
+        label: "Corredores por entrada (WHIP)",
+        value: master.mlb_whip.toFixed(2),
+        detail: "Hits más bases por bola por inning lanzado",
+      });
+    }
+    if (rate) {
+      metrics.push({
+        id: "rate-mlb",
+        label: "Carreras por juego",
+        value: `${rate.forPerGame.toFixed(2)} a favor`,
+        detail: `En contra: ${rate.againstPerGame.toFixed(2)} (${rate.gamesPlayed} JJ)`,
+      });
+    }
   }
 
   const isNational = isNationalCompetition(league);
@@ -793,14 +850,18 @@ function buildModelMetrics(
   };
 }
 
-/** Comprueba si existe un equipo dentro de los snapshots activos de una liga. */
-export function teamExistsInSnapshots(leagueRaw: string, teamSlugOrId: string): boolean {
-  if (!isProductLeague(leagueRaw)) return false;
+function findTeamRefInSnapshots(leagueRaw: string, teamSlugOrId: string): SnapshotTeamRef | null {
+  if (!isProductLeague(leagueRaw)) return null;
   const snapshot = loadRawLeagueSnapshot(leagueRaw);
-  if (!snapshot) return false;
+  if (!snapshot) return null;
   const target = slugFromTeamId(teamSlugOrId);
   const { bySlug } = buildTeamMap(snapshot);
-  return bySlug.has(target);
+  return bySlug.get(target) ?? null;
+}
+
+/** Comprueba si existe un equipo dentro de los snapshots activos de una liga. */
+export function teamExistsInSnapshots(leagueRaw: string, teamSlugOrId: string): boolean {
+  return findTeamRefInSnapshots(leagueRaw, teamSlugOrId) !== null;
 }
 
 /** Devuelve el directorio ordenado de todos los clubes/franquicias de una o todas las ligas activas. */
@@ -959,7 +1020,11 @@ export function loadTeamProfile(
       const inLatest = latestGameIds.has(g.id);
       if (existing && (!inLatest || existing.gameHref)) continue;
 
-      const hasOtInfo = Boolean(g.result.periods && g.result.periods.length > (sport === "basketball" ? 4 : sport === "ice-hockey" ? 3 : 2));
+      const hasOtInfo = Boolean(
+        g.result.periods &&
+          g.result.periods.length >
+            (sport === "basketball" ? 4 : sport === "ice-hockey" ? 3 : sport === "baseball" ? 9 : 2),
+      );
       finishedMap.set(dedupeKey, {
         id: g.id,
         gameHref: inLatest ? `/app/${leagueRaw}/games/${g.id}` : null,
@@ -973,7 +1038,12 @@ export function loadTeamProfile(
         homeScore: g.result.home,
         awayScore: g.result.away,
         neutralSite: g.neutralSite,
-        resultNote: hasOtInfo && sport !== "football" ? "En prórroga" : null,
+        resultNote:
+          hasOtInfo && sport !== "football"
+            ? sport === "baseball"
+              ? "Entradas extra"
+              : "En prórroga"
+            : null,
         fromSnapshot: true,
       });
     }
@@ -1314,26 +1384,49 @@ const NATIONAL_SQUAD_POOL_LEAGUES: readonly ProductLeague[] = [
   "copa-asiatica",
 ];
 
-function loadTeamSquadSummary(
+function findRawSquadEntry(
   leagueRaw: string,
   team: SnapshotTeamRef,
-  fullAccess: boolean,
-): TeamSquadSummary | null {
+): TeamSquadEntry | null {
   const file = loadRawLeagueSquads(leagueRaw);
   const directEntry =
     file?.teams.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
-  if (directEntry) return mapSquadEntryToSummary(directEntry, fullAccess);
+  if (directEntry) return directEntry;
 
   if (isNationalCompetition(leagueRaw)) {
     for (const poolLeague of NATIONAL_SQUAD_POOL_LEAGUES) {
       if (poolLeague === leagueRaw) continue;
       const poolFile = loadRawLeagueSquads(poolLeague);
       const match = poolFile?.teams.find((t) => t.teamSlug === team.slug) ?? null;
-      if (match) return mapSquadEntryToSummary(match, fullAccess);
+      if (match) return match;
     }
   }
 
   return null;
+}
+
+function loadTeamSquadSummary(
+  leagueRaw: string,
+  team: SnapshotTeamRef,
+  fullAccess: boolean,
+): TeamSquadSummary | null {
+  const entry = findRawSquadEntry(leagueRaw, team);
+  return entry ? mapSquadEntryToSummary(entry, fullAccess) : null;
+}
+
+/** Comprueba si existe un jugador dentro de la plantilla del equipo en los snapshots activos. */
+export function playerExistsInSnapshots(
+  leagueRaw: string,
+  teamSlugOrId: string,
+  playerSlugRaw: string,
+): boolean {
+  const team = findTeamRefInSnapshots(leagueRaw, teamSlugOrId);
+  if (!team) return false;
+  const entry = findRawSquadEntry(leagueRaw, team);
+  if (!entry) return false;
+  const targetSlug = playerSlugRaw.trim().toLowerCase();
+  if (!targetSlug) return false;
+  return entry.players.some((p) => p.slug.toLowerCase() === targetSlug);
 }
 
 /** Carga la ficha individual de un jugador con bio, estadísticas de temporada y picks aplicables. */
@@ -1475,7 +1568,81 @@ export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPro
     }
   }
 
-  return items.slice(0, 120);
+  const nbaUpcoming = games
+    .filter((g) => g.sport === "basketball" && g.league === "nba" && g.status !== "FT")
+    .slice(0, 24);
+  if (nbaUpcoming.length > 0) {
+    const nbaFile = path.join(resolveSnapshotsRoot(), "nba", "player-props.json");
+    if (fs.existsSync(nbaFile)) {
+      try {
+        const raw = JSON.parse(fs.readFileSync(nbaFile, "utf8")) as
+          | NbaPlayerPropSeed[]
+          | { seeds?: NbaPlayerPropSeed[] };
+        const seeds = Array.isArray(raw) ? raw : Array.isArray(raw.seeds) ? raw.seeds : [];
+        const byTeamSlug = new Map<string, NbaPlayerPropSeed[]>();
+        for (const s of seeds) {
+          if (!s || typeof s.player !== "string" || typeof s.teamSlug !== "string") continue;
+          const k = s.teamSlug.trim().toLowerCase();
+          const bucket = byTeamSlug.get(k) ?? [];
+          bucket.push(s);
+          byTeamSlug.set(k, bucket);
+        }
+
+        for (const game of nbaUpcoming) {
+          const sides = [
+            { slug: game.home.slug, name: game.home.name, opponent: game.away.shortName },
+            { slug: game.away.slug, name: game.away.name, opponent: game.home.shortName },
+          ];
+          for (const side of sides) {
+            const teamSeeds = byTeamSlug.get(side.slug.toLowerCase()) ?? [];
+            let picked = 0;
+            for (const seed of teamSeeds) {
+              if (picked >= 3) break;
+              if (!Number.isFinite(seed.baseLine) || !Number.isFinite(seed.projectionMean)) continue;
+              const playerSlug = seed.player
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "");
+              const propId = `prop:${game.id}:${side.slug}:${playerSlug}:${seed.statKey}`;
+              if (seenIds.has(propId)) continue;
+              seenIds.add(propId);
+              const wideStat = seed.statKey === "pts" || seed.statKey === "pra";
+              const range = wideStat ? 4 : 2;
+              items.push({
+                id: propId,
+                league: game.league,
+                leagueLabel: LEAGUE_LABELS[game.league as ProductLeague] ?? "NBA",
+                gameId: game.id,
+                matchLabel: `${game.away.shortName} @ ${game.home.shortName}`,
+                kickoffLocal: game.kickoffLocal,
+                player: seed.player,
+                teamSlug: side.slug,
+                teamName: side.name,
+                position: seed.position || "NBA",
+                statLabel: seed.statLabel,
+                baseLine: seed.baseLine,
+                step: wideStat ? 1 : 0.5,
+                minLine: Math.max(0.5, Number((seed.baseLine - range).toFixed(1))),
+                maxLine: Number((seed.baseLine + range).toFixed(1)),
+                projectionMean: seed.projectionMean,
+                projectionSd: Math.max(0.6, seed.projectionSd),
+                engineName: "Tachyon NBA Lab",
+                marketOverDecimal: 1.91,
+                marketUnderDecimal: 1.91,
+                last10: Array.isArray(seed.last10) ? seed.last10.slice(0, 10) : [],
+                contextNote: `Registro real últimos ${Math.min(10, seed.last10?.length ?? 0)} juegos frente a ${side.opponent}.`,
+              });
+              picked += 1;
+            }
+          }
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+  }
+
+  return items.slice(0, 140);
 }
 
 export interface ServerStandingsSplitRow {

@@ -195,14 +195,14 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(leagueIdx).toBeGreaterThan(sportIdx);
     expect(dayIdx).toBeGreaterThan(leagueIdx);
 
-    // Iconos WebP 1x/2x del paquete oficial de deportes y MLB deshabilitado con «Pronto»
+    // Iconos WebP 1x/2x del paquete oficial de deportes con MLB habilitada y activa
     expect(html).toContain("/icons/32/deportes/american-football.webp");
     expect(html).toContain("/icons/64/deportes/basketball.webp");
     expect(html).toContain("/icons/32/deportes/hockey.webp");
     expect(html).toContain("/icons/32/deportes/baseball.webp");
-    expect(html).toContain("Pronto");
+    expect(html).not.toContain(">Pronto<");
     expect(html).toContain('data-sport-filter="mlb"');
-    expect(html).toMatch(/disabled=""[^>]*data-sport-filter="mlb"|data-sport-filter="mlb"[^>]*disabled=""/);
+    expect(html).toContain('aria-label="MLB · Béisbol, 0 partidos"');
 
     // Deportes sin partidos ese día siguen siendo clicables (no disabled) con «0 partidos» en aria-label
     expect(html).toContain('aria-label="Fútbol, 0 partidos"');

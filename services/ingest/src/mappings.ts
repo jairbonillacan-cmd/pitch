@@ -330,8 +330,90 @@ export const HISTORIC_TEAMS: Record<string, Record<string, string>> = {
   },
 };
 
+export const MLB_TEAM_MAP: Record<string, string> = {
+  AZ: "arizona-diamondbacks",
+  ARI: "arizona-diamondbacks",
+  "Arizona Diamondbacks": "arizona-diamondbacks",
+  "Arizona D-backs": "arizona-diamondbacks",
+  "D-backs": "arizona-diamondbacks",
+  ATH: "athletics",
+  OAK: "athletics",
+  Athletics: "athletics",
+  "Oakland Athletics": "athletics",
+  "Sacramento Athletics": "athletics",
+  ATL: "atlanta-braves",
+  "Atlanta Braves": "atlanta-braves",
+  BAL: "baltimore-orioles",
+  "Baltimore Orioles": "baltimore-orioles",
+  BOS: "boston-red-sox",
+  "Boston Red Sox": "boston-red-sox",
+  CHC: "chicago-cubs",
+  "Chicago Cubs": "chicago-cubs",
+  CWS: "chicago-white-sox",
+  CHW: "chicago-white-sox",
+  "Chicago White Sox": "chicago-white-sox",
+  CIN: "cincinnati-reds",
+  "Cincinnati Reds": "cincinnati-reds",
+  CLE: "cleveland-guardians",
+  "Cleveland Guardians": "cleveland-guardians",
+  "Cleveland Indians": "cleveland-guardians",
+  COL: "colorado-rockies",
+  "Colorado Rockies": "colorado-rockies",
+  DET: "detroit-tigers",
+  "Detroit Tigers": "detroit-tigers",
+  HOU: "houston-astros",
+  "Houston Astros": "houston-astros",
+  KC: "kansas-city-royals",
+  KCR: "kansas-city-royals",
+  "Kansas City Royals": "kansas-city-royals",
+  LAA: "los-angeles-angels",
+  ANA: "los-angeles-angels",
+  "Los Angeles Angels": "los-angeles-angels",
+  LAD: "los-angeles-dodgers",
+  "Los Angeles Dodgers": "los-angeles-dodgers",
+  "LA Dodgers": "los-angeles-dodgers",
+  MIA: "miami-marlins",
+  "Miami Marlins": "miami-marlins",
+  MIL: "milwaukee-brewers",
+  "Milwaukee Brewers": "milwaukee-brewers",
+  MIN: "minnesota-twins",
+  "Minnesota Twins": "minnesota-twins",
+  NYM: "new-york-mets",
+  "New York Mets": "new-york-mets",
+  "NY Mets": "new-york-mets",
+  NYY: "new-york-yankees",
+  "New York Yankees": "new-york-yankees",
+  "NY Yankees": "new-york-yankees",
+  PHI: "philadelphia-phillies",
+  "Philadelphia Phillies": "philadelphia-phillies",
+  PIT: "pittsburgh-pirates",
+  "Pittsburgh Pirates": "pittsburgh-pirates",
+  SD: "san-diego-padres",
+  SDP: "san-diego-padres",
+  "San Diego Padres": "san-diego-padres",
+  SF: "san-francisco-giants",
+  SFG: "san-francisco-giants",
+  "San Francisco Giants": "san-francisco-giants",
+  SEA: "seattle-mariners",
+  "Seattle Mariners": "seattle-mariners",
+  STL: "st-louis-cardinals",
+  "St. Louis Cardinals": "st-louis-cardinals",
+  "Saint Louis Cardinals": "st-louis-cardinals",
+  TB: "tampa-bay-rays",
+  TBR: "tampa-bay-rays",
+  "Tampa Bay Rays": "tampa-bay-rays",
+  TEX: "texas-rangers",
+  "Texas Rangers": "texas-rangers",
+  TOR: "toronto-blue-jays",
+  "Toronto Blue Jays": "toronto-blue-jays",
+  WSH: "washington-nationals",
+  WAS: "washington-nationals",
+  "Washington Nationals": "washington-nationals",
+};
+
 const LEAGUE_MAPS: Record<string, Record<string, string>> = {
   nfl: NFL_TEAM_MAP,
+  mlb: MLB_TEAM_MAP,
   "premier-league": PREMIER_LEAGUE_TEAM_MAP,
   "liga-mx": LIGA_MX_TEAM_MAP,
   laliga: LALIGA_TEAM_MAP,
@@ -350,8 +432,8 @@ export type CanonicalLeague =
 
 export type NationalLeague = (typeof NATIONAL_COMPETITION_IDS)[number];
 
-/** Ligas cuyos equipos se resuelven y validan (las de momios + selecciones + NHL y NBA). */
-export type TeamLeague = CanonicalLeague | NationalLeague | "nhl" | "nba";
+/** Ligas cuyos equipos se resuelven y validan (las de momios + selecciones + NHL, NBA y MLB). */
+export type TeamLeague = CanonicalLeague | NationalLeague | "nhl" | "nba" | "mlb";
 
 /**
  * Ligas sin manifiesto de emblemas propio: el nombre de la fuente se confía y se
@@ -454,7 +536,7 @@ export function resolveCanonicalTeam(
   };
 }
 
-export function listAllTeamsForLeague(league: CanonicalLeague): Team[] {
+export function listAllTeamsForLeague(league: TeamLeague): Team[] {
   return Object.values(TEAM_ASSETS)
     .filter((a) => a.league === league)
     .map((a) => ({
