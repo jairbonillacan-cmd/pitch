@@ -24,12 +24,14 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
 
     const nba = report.leagues.find((l) => l.league === "nba");
     const nhl = report.leagues.find((l) => l.league === "nhl");
+    const mlb = report.leagues.find((l) => l.league === "mlb");
     expect(nba?.cells.calendario.recordsCount).toBeGreaterThan(0);
     expect(nhl?.cells.calendario.recordsCount).toBeGreaterThan(0);
-    expect(nba?.cells.bajas.status).toBe("pending_source");
-    expect(nba?.cells.bajas.sourceLabel).toContain("latest.json");
+    expect(mlb?.cells.calendario.recordsCount).toBeGreaterThan(0);
+    expect(nba?.cells.bajas.recordsCount).toBeGreaterThan(0);
+    expect(nhl?.cells.bajas.recordsCount).toBeGreaterThan(0);
+    expect(mlb?.cells.bajas.recordsCount).toBeGreaterThan(0);
     expect(nba?.cells.momios.status).toBe("pending_source");
-    expect(nhl?.cells.bajas.status).toBe("pending_source");
     expect(nhl?.cells.momios.status).toBe("pending_source");
 
     for (const lg of report.leagues) {

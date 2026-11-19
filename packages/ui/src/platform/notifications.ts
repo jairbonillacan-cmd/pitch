@@ -168,15 +168,16 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       });
     }
 
-    // Cuotas: la casa paga más que la cuota justa (Geodesic contra momio vigente).
+    // Cuotas: la casa paga más que la cuota justa (Geodesic contra momio vigente) y movimientos de línea.
     if (g.status === "NS") {
+      const market = g.spacetime?.market ?? null;
+      const asOf = market?.asOfUtc ?? input.generatedAtIso ?? g.kickoffUtc;
+      const asOfMs = Date.parse(asOf);
+
       const pick = g.picks.find(
         (p) => p.category === "valor" && p.marketDecimal !== null && (p.edgePts ?? 0) > 0,
       );
       if (pick && pick.marketDecimal !== null) {
-        const market = g.spacetime?.market ?? null;
-        const asOf = market?.asOfUtc ?? input.generatedAtIso ?? g.kickoffUtc;
-        const asOfMs = Date.parse(asOf);
         const label = pick.isRedacted ? `Selección para socios en ${matchTitle(g)}` : pick.label;
         out.push({
           id: `value:${pick.id}`,
@@ -192,6 +193,43 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
           actionLabel: "Ver cuotas",
           href: gameHref(g),
         });
+      }
+
+      // Alerta de movimiento de línea significativo (apertura -> cuota actual) en partidos vigilados.
+      for (const pk of g.picks) {
+        const quote = pk.bookQuotes?.find(
+          (q) =>
+            q.openingDecimal != null &&
+            q.openingDecimal > 1.01 &&
+            Math.abs(q.decimal - q.openingDecimal) >= 0.08,
+        );
+        if (!quote || quote.openingDecimal == null) continue;
+        const delta = quote.decimal - quote.openingDecimal;
+        const drifting = delta > 0;
+        const label = pk.isRedacted ? `Línea seguida en ${matchTitle(g)}` : pk.label;
+        const beatsFair = !pk.isRedacted && quote.decimal > pk.fairDecimal;
+        out.push({
+          id: `line-move:${pk.id}`,
+          kind: "cuotas",
+          priority: drifting && beatsFair ? "urgent" : "normal",
+          title: drifting
+            ? `Línea al alza en ${label}: ${formatOddsValue(quote.openingDecimal, fmt)} → ${formatOddsValue(quote.decimal, fmt)}`
+            : `Línea a la baja en ${label}: ${formatOddsValue(quote.openingDecimal, fmt)} → ${formatOddsValue(quote.decimal, fmt)}`,
+          context: beatsFair
+            ? {
+                lead: `${quote.bookLabel} superó la cuota justa`,
+                text: ` (${formatOddsValue(pk.fairDecimal, fmt)}).`,
+              }
+            : {
+                lead: drifting ? "Mejoró el pago en casas" : "Dinero concentrado en esta selección",
+                text: ` · corte ${quote.bookLabel}.`,
+              },
+          atIso: clampToNow(Number.isNaN(asOfMs) ? now : asOfMs, now),
+          source: quote.bookLabel,
+          actionLabel: "Ver movimiento",
+          href: `${gameHref(g)}?tab=dinero`,
+        });
+        break;
       }
     }
   }

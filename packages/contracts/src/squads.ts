@@ -68,6 +68,30 @@ export const SquadCoachProfileSchema = z.object({
 });
 export type SquadCoachProfile = z.infer<typeof SquadCoachProfileSchema>;
 
+export const PlayerSeasonMetricSchema = z.object({
+  key: z.string().min(1),
+  label: z.string().min(1),
+  value: z.string().min(1),
+  detail: z.string().nullable().optional(),
+});
+export type PlayerSeasonMetric = z.infer<typeof PlayerSeasonMetricSchema>;
+
+export const PlayerRecentGameLogSchema = z.object({
+  dateIso: z.string().min(8),
+  opponent: z.string().min(1),
+  opponentAbbr: z.string().nullable().optional(),
+  isHome: z.boolean().nullable().optional(),
+  score: z.string().nullable().optional(),
+  result: z.enum(["W", "D", "L"]).nullable().optional(),
+  stats: z.array(
+    z.object({
+      label: z.string().min(1),
+      value: z.string().min(1),
+    }),
+  ),
+});
+export type PlayerRecentGameLog = z.infer<typeof PlayerRecentGameLogSchema>;
+
 export const SquadPlayerEntrySchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -89,6 +113,8 @@ export const SquadPlayerEntrySchema = z.object({
   injuryDetail: z.string().nullable().optional(),
   expectedReturn: z.string().nullable().optional(),
   stats: SquadPlayerStatsSchema,
+  seasonMetrics: z.array(PlayerSeasonMetricSchema).optional(),
+  recentGames: z.array(PlayerRecentGameLogSchema).max(10).optional(),
   candidatePicks: z.array(PlayerApplicablePickSchema),
 });
 export type SquadPlayerEntry = z.infer<typeof SquadPlayerEntrySchema>;

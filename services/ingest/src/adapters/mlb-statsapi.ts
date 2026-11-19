@@ -19,7 +19,7 @@ import {
   type StandingRow,
   type Team,
 } from "@pitchlab/contracts";
-import { getEmblemPath } from "@pitchlab/sports-assets";
+import { getEmblemPath, getOfficialEspnTeamLogoUrl } from "@pitchlab/sports-assets";
 import { resolveCanonicalTeam, UnmappedTeamError } from "../mappings.js";
 import { readProviderConfigs } from "../providers/config.js";
 import { divisionMetaForTeam, finalizeConferenceStandings } from "../us-divisions.js";
@@ -106,7 +106,7 @@ function withMlbLocalLogo(team: Team): Team {
   const slug = team.id.includes(".") ? team.id.split(".").slice(1).join(".") : team.id;
   return {
     ...team,
-    logoUrl: getEmblemPath("mlb", slug),
+    logoUrl: getOfficialEspnTeamLogoUrl("mlb", slug) ?? getEmblemPath("mlb", slug),
   };
 }
 

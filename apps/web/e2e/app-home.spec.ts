@@ -75,17 +75,15 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await chipsPrev.click();
   }
 
-  // Volver a Todos los deportes, avanzar con › hasta viernes 20 y regresar con Hoy.
+  // Volver a Todos los deportes, avanzar al siguiente día con › y regresar con Hoy.
   await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
   const dayCenter = page.locator("[data-day-center]");
   const nextBtn = page.locator("[data-day-next]");
-  for (let steps = 0; steps < 6; steps += 1) {
-    const label = (await dayCenter.innerText()).trim().toLowerCase();
-    if (label.startsWith("vie ")) break;
-    if (await nextBtn.isDisabled()) break;
+  const initialDayLabel = (await dayCenter.innerText()).trim();
+  if (!(await nextBtn.isDisabled())) {
     await nextBtn.click();
   }
-  await expect(dayCenter).toContainText(/^vie \d+/i);
+  await expect(dayCenter).not.toHaveText(initialDayLabel);
   await dayCenter.click();
   const calPopover = page.locator("[data-home-calendar-popover]");
   await expect(calPopover).toBeVisible();
@@ -184,7 +182,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // Buscador global (⌘K / botón Buscar)
   await page.getByRole("button", { name: "Buscar" }).click();
   const searchInput = page.getByRole("searchbox", {
-    name: /Buscar partido, liga, @socio o módulo/i,
+    name: /Buscar partido,.*liga/i,
   });
   await expect(searchInput).toBeVisible();
   await searchInput.fill("NFL");

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "logoUrl": "/brand/sports/mlb/r1/svg/mlb.svg",
+  "logoUrl": "/brand/official/mlb/mlb.png",
   "season": "mlb-2026",
   "seasonLabel": "Temporada 2026",
   "periodLabel": "Serie Mundial 2026",
-  "updatedAt": "2026-11-19T01:44:47.629Z",
+  "updatedAt": "2026-11-19T14:16:45.965Z",
   "source": "mlb_statsapi",
   "provenance": "derived",
   "isDemo": false,
@@ -15,360 +15,360 @@
       "name": "Milwaukee Brewers",
       "shortName": "Brewers",
       "code": "MIL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg",
+      "logoUrl": "/brand/official/mlb/milwaukee-brewers.png",
       "forPerGame": 5.135802469135802,
       "againstPerGame": 3.814814814814815,
       "gamesPlayed": 162,
-      "adjustedFor": 4.972399774938996,
-      "adjustedAgainst": 3.5156045613867413
+      "adjustedFor": 5.269845807598456,
+      "adjustedAgainst": 3.028622402133448
     },
     "mlb.los-angeles-dodgers": {
       "teamId": "mlb.los-angeles-dodgers",
       "name": "Los Angeles Dodgers",
       "shortName": "Dodgers",
       "code": "LAD",
-      "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg",
+      "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png",
       "forPerGame": 4.944444444444445,
       "againstPerGame": 3.7037037037037037,
       "gamesPlayed": 162,
-      "adjustedFor": 4.331012862548929,
-      "adjustedAgainst": 3.6693792868429402
+      "adjustedFor": 4.2830967116137355,
+      "adjustedAgainst": 3.2651989028352926
     },
     "mlb.tampa-bay-rays": {
       "teamId": "mlb.tampa-bay-rays",
       "name": "Tampa Bay Rays",
       "shortName": "Rays",
       "code": "TB",
-      "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg",
+      "logoUrl": "/brand/official/mlb/tampa-bay-rays.png",
       "forPerGame": 4.54320987654321,
       "againstPerGame": 4.012345679012346,
       "gamesPlayed": 162,
-      "adjustedFor": 4.406558613587931,
-      "adjustedAgainst": 3.738236204432516
+      "adjustedFor": 4.399320943981432,
+      "adjustedAgainst": 3.3711326222038704
     },
     "mlb.atlanta-braves": {
       "teamId": "mlb.atlanta-braves",
       "name": "Atlanta Braves",
       "shortName": "Braves",
       "code": "ATL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/atlanta-braves.svg",
+      "logoUrl": "/brand/official/mlb/atlanta-braves.png",
       "forPerGame": 4.580246913580247,
       "againstPerGame": 3.8641975308641974,
       "gamesPlayed": 162,
-      "adjustedFor": 4.0753492804934375,
-      "adjustedAgainst": 3.941094387333832
+      "adjustedFor": 3.889768123836058,
+      "adjustedAgainst": 3.683222134359742
     },
     "mlb.new-york-yankees": {
       "teamId": "mlb.new-york-yankees",
       "name": "New York Yankees",
       "shortName": "Yankees",
       "code": "NYY",
-      "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg",
+      "logoUrl": "/brand/official/mlb/new-york-yankees.png",
       "forPerGame": 4.590062111801243,
       "againstPerGame": 3.732919254658385,
       "gamesPlayed": 161,
-      "adjustedFor": 4.6612964834691635,
-      "adjustedAgainst": 3.8314380790753653
+      "adjustedFor": 4.791225359183328,
+      "adjustedAgainst": 3.514520121654408
     },
     "mlb.san-diego-padres": {
       "teamId": "mlb.san-diego-padres",
       "name": "San Diego Padres",
       "shortName": "Padres",
       "code": "SD",
-      "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg",
+      "logoUrl": "/brand/official/mlb/san-diego-padres.png",
       "forPerGame": 4.45679012345679,
       "againstPerGame": 4.203703703703703,
       "gamesPlayed": 162,
-      "adjustedFor": 4.784016976124615,
-      "adjustedAgainst": 3.8861262144476703
+      "adjustedFor": 4.980026117114792,
+      "adjustedAgainst": 3.5986557145348774
     },
     "mlb.chicago-cubs": {
       "teamId": "mlb.chicago-cubs",
       "name": "Chicago Cubs",
       "shortName": "Cubs",
       "code": "CHC",
-      "logoUrl": "/brand/sports/mlb/r1/svg/chicago-cubs.svg",
+      "logoUrl": "/brand/official/mlb/chicago-cubs.png",
       "forPerGame": 5.246913580246914,
       "againstPerGame": 4.339506172839506,
       "gamesPlayed": 162,
-      "adjustedFor": 4.528037207999823,
-      "adjustedAgainst": 4.276311080284764
+      "adjustedFor": 4.586211089230497,
+      "adjustedAgainst": 4.198940123515022
     },
     "mlb.philadelphia-phillies": {
       "teamId": "mlb.philadelphia-phillies",
       "name": "Philadelphia Phillies",
       "shortName": "Phillies",
       "code": "PHI",
-      "logoUrl": "/brand/sports/mlb/r1/svg/philadelphia-phillies.svg",
+      "logoUrl": "/brand/official/mlb/philadelphia-phillies.png",
       "forPerGame": 4.401234567901234,
       "againstPerGame": 4.308641975308642,
       "gamesPlayed": 162,
-      "adjustedFor": 4.285409897723935,
-      "adjustedAgainst": 4.312964989033007
+      "adjustedFor": 4.212938304190669,
+      "adjustedAgainst": 4.255330752358472
     },
     "mlb.boston-red-sox": {
       "teamId": "mlb.boston-red-sox",
       "name": "Boston Red Sox",
       "shortName": "Red Sox",
       "code": "BOS",
-      "logoUrl": "/brand/sports/mlb/r1/svg/boston-red-sox.svg",
+      "logoUrl": "/brand/official/mlb/boston-red-sox.png",
       "forPerGame": 4.253086419753086,
       "againstPerGame": 3.771604938271605,
       "gamesPlayed": 162,
-      "adjustedFor": 3.7931498390324654,
-      "adjustedAgainst": 4.059557545269939
+      "adjustedFor": 3.455615136973024,
+      "adjustedAgainst": 3.865473146569138
     },
     "mlb.arizona-diamondbacks": {
       "teamId": "mlb.arizona-diamondbacks",
       "name": "Arizona Diamondbacks",
       "shortName": "Diamondbacks",
       "code": "AZ",
-      "logoUrl": "/brand/sports/mlb/r1/svg/arizona-diamondbacks.svg",
+      "logoUrl": "/brand/official/mlb/arizona-diamondbacks.png",
       "forPerGame": 4.561728395061729,
       "againstPerGame": 4.506172839506172,
       "gamesPlayed": 162,
-      "adjustedFor": 4.738502390657562,
-      "adjustedAgainst": 4.525217191877114
+      "adjustedFor": 4.910003677934711,
+      "adjustedAgainst": 4.581872602887867
     },
     "mlb.cleveland-guardians": {
       "teamId": "mlb.cleveland-guardians",
       "name": "Cleveland Guardians",
       "shortName": "Guardians",
       "code": "CLE",
-      "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg",
+      "logoUrl": "/brand/official/mlb/cleveland-guardians.png",
       "forPerGame": 4.185185185185185,
       "againstPerGame": 4.117283950617284,
       "gamesPlayed": 162,
-      "adjustedFor": 4.460259297257153,
-      "adjustedAgainst": 4.074893640161284
+      "adjustedFor": 4.48193738039562,
+      "adjustedAgainst": 3.8890671387096685
     },
     "mlb.chicago-white-sox": {
       "teamId": "mlb.chicago-white-sox",
       "name": "Chicago White Sox",
       "shortName": "White Sox",
       "code": "CWS",
-      "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg",
+      "logoUrl": "/brand/official/mlb/chicago-white-sox.png",
       "forPerGame": 4.790123456790123,
       "againstPerGame": 4.444444444444445,
       "gamesPlayed": 162,
-      "adjustedFor": 4.504413895501935,
-      "adjustedAgainst": 4.297674854693746
+      "adjustedFor": 4.549867531541439,
+      "adjustedAgainst": 4.231807468759609
     },
     "mlb.pittsburgh-pirates": {
       "teamId": "mlb.pittsburgh-pirates",
       "name": "Pittsburgh Pirates",
       "shortName": "Pirates",
       "code": "PIT",
-      "logoUrl": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg",
+      "logoUrl": "/brand/official/mlb/pittsburgh-pirates.png",
       "forPerGame": 4.734567901234568,
       "againstPerGame": 4.561728395061729,
       "gamesPlayed": 162,
-      "adjustedFor": 4.152693215361253,
-      "adjustedAgainst": 4.01739312573698
+      "adjustedFor": 4.008758792863466,
+      "adjustedAgainst": 3.800604808826123
     },
     "mlb.houston-astros": {
       "teamId": "mlb.houston-astros",
       "name": "Houston Astros",
       "shortName": "Astros",
       "code": "HOU",
-      "logoUrl": "/brand/sports/mlb/r1/svg/houston-astros.svg",
+      "logoUrl": "/brand/official/mlb/houston-astros.png",
       "forPerGame": 4.530864197530864,
       "againstPerGame": 4.728395061728395,
       "gamesPlayed": 162,
-      "adjustedFor": 4.402322259701693,
-      "adjustedAgainst": 4.3640512836497765
+      "adjustedFor": 4.3928034764641435,
+      "adjustedAgainst": 4.333925051768888
     },
     "mlb.miami-marlins": {
       "teamId": "mlb.miami-marlins",
       "name": "Miami Marlins",
       "shortName": "Marlins",
       "code": "MIA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/miami-marlins.svg",
+      "logoUrl": "/brand/official/mlb/miami-marlins.png",
       "forPerGame": 4.41358024691358,
       "againstPerGame": 4.395061728395062,
       "gamesPlayed": 162,
-      "adjustedFor": 4.49173203746856,
-      "adjustedAgainst": 4.37384389028081
+      "adjustedFor": 4.53035698072086,
+      "adjustedAgainst": 4.348990600432016
     },
     "mlb.texas-rangers": {
       "teamId": "mlb.texas-rangers",
       "name": "Texas Rangers",
       "shortName": "Rangers",
       "code": "TEX",
-      "logoUrl": "/brand/sports/mlb/r1/svg/texas-rangers.svg",
+      "logoUrl": "/brand/official/mlb/texas-rangers.png",
       "forPerGame": 4.154320987654321,
       "againstPerGame": 4.438271604938271,
       "gamesPlayed": 162,
-      "adjustedFor": 4.280783655116592,
-      "adjustedAgainst": 4.606236307921966
+      "adjustedFor": 4.2058210078716805,
+      "adjustedAgainst": 4.706517396803025
     },
     "mlb.baltimore-orioles": {
       "teamId": "mlb.baltimore-orioles",
       "name": "Baltimore Orioles",
       "shortName": "Orioles",
       "code": "BAL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg",
+      "logoUrl": "/brand/official/mlb/baltimore-orioles.png",
       "forPerGame": 4.459627329192546,
       "againstPerGame": 4.590062111801243,
       "gamesPlayed": 161,
-      "adjustedFor": 4.328969437858882,
-      "adjustedAgainst": 4.0785040598925
+      "adjustedFor": 4.279952981321358,
+      "adjustedAgainst": 3.8946216306038473
     },
     "mlb.toronto-blue-jays": {
       "teamId": "mlb.toronto-blue-jays",
       "name": "Toronto Blue Jays",
       "shortName": "Blue Jays",
       "code": "TOR",
-      "logoUrl": "/brand/sports/mlb/r1/svg/toronto-blue-jays.svg",
+      "logoUrl": "/brand/official/mlb/toronto-blue-jays.png",
       "forPerGame": 4,
       "againstPerGame": 4.283950617283951,
       "gamesPlayed": 162,
-      "adjustedFor": 4.110894584265148,
-      "adjustedAgainst": 4.149842194274766
+      "adjustedFor": 3.9444532065617675,
+      "adjustedAgainst": 4.004372606576562
     },
     "mlb.washington-nationals": {
       "teamId": "mlb.washington-nationals",
       "name": "Washington Nationals",
       "shortName": "Nationals",
       "code": "WSH",
-      "logoUrl": "/brand/sports/mlb/r1/svg/washington-nationals.svg",
+      "logoUrl": "/brand/official/mlb/washington-nationals.png",
       "forPerGame": 5.067901234567901,
       "againstPerGame": 5.030864197530864,
       "gamesPlayed": 162,
-      "adjustedFor": 4.45613054679326,
-      "adjustedAgainst": 4.56291363732525
+      "adjustedFor": 4.475585456605016,
+      "adjustedAgainst": 4.639867134346538
     },
     "mlb.st-louis-cardinals": {
       "teamId": "mlb.st-louis-cardinals",
       "name": "St. Louis Cardinals",
       "shortName": "Cardinals",
       "code": "STL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/st-louis-cardinals.svg",
+      "logoUrl": "/brand/official/mlb/st-louis-cardinals.png",
       "forPerGame": 4.444444444444445,
       "againstPerGame": 4.6234567901234565,
       "gamesPlayed": 162,
-      "adjustedFor": 4.288351204196099,
-      "adjustedAgainst": 4.660282615754968
+      "adjustedFor": 4.217463391070921,
+      "adjustedAgainst": 4.789665562699951
     },
     "mlb.minnesota-twins": {
       "teamId": "mlb.minnesota-twins",
       "name": "Minnesota Twins",
       "shortName": "Twins",
       "code": "MIN",
-      "logoUrl": "/brand/sports/mlb/r1/svg/minnesota-twins.svg",
+      "logoUrl": "/brand/official/mlb/minnesota-twins.png",
       "forPerGame": 4.561728395061729,
       "againstPerGame": 4.919753086419753,
       "gamesPlayed": 162,
-      "adjustedFor": 4.310609273746207,
-      "adjustedAgainst": 4.605242250855398
+      "adjustedFor": 4.251706574994166,
+      "adjustedAgainst": 4.704988078239075
     },
     "mlb.detroit-tigers": {
       "teamId": "mlb.detroit-tigers",
       "name": "Detroit Tigers",
       "shortName": "Tigers",
       "code": "DET",
-      "logoUrl": "/brand/sports/mlb/r1/svg/detroit-tigers.svg",
+      "logoUrl": "/brand/official/mlb/detroit-tigers.png",
       "forPerGame": 4.462962962962963,
       "againstPerGame": 4.0246913580246915,
       "gamesPlayed": 162,
-      "adjustedFor": 4.387020622168946,
-      "adjustedAgainst": 4.246103027570723
+      "adjustedFor": 4.3692624956445325,
+      "adjustedAgainst": 4.152466196262651
     },
     "mlb.seattle-mariners": {
       "teamId": "mlb.seattle-mariners",
       "name": "Seattle Mariners",
       "shortName": "Mariners",
       "code": "SEA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/seattle-mariners.svg",
+      "logoUrl": "/brand/official/mlb/seattle-mariners.png",
       "forPerGame": 4.098765432098766,
       "againstPerGame": 4.45679012345679,
       "gamesPlayed": 162,
-      "adjustedFor": 4.224516797330783,
-      "adjustedAgainst": 4.782658706349139
+      "adjustedFor": 4.119256611278127,
+      "adjustedAgainst": 4.977936471306368
     },
     "mlb.cincinnati-reds": {
       "teamId": "mlb.cincinnati-reds",
       "name": "Cincinnati Reds",
       "shortName": "Reds",
       "code": "CIN",
-      "logoUrl": "/brand/sports/mlb/r1/svg/cincinnati-reds.svg",
+      "logoUrl": "/brand/official/mlb/cincinnati-reds.png",
       "forPerGame": 4.111111111111111,
       "againstPerGame": 5.098765432098766,
       "gamesPlayed": 162,
-      "adjustedFor": 4.274522536570855,
-      "adjustedAgainst": 4.914594650012638
+      "adjustedFor": 4.196188517801314,
+      "adjustedAgainst": 5.180914846173289
     },
     "mlb.new-york-mets": {
       "teamId": "mlb.new-york-mets",
       "name": "New York Mets",
       "shortName": "Mets",
       "code": "NYM",
-      "logoUrl": "/brand/sports/mlb/r1/svg/new-york-mets.svg",
+      "logoUrl": "/brand/official/mlb/new-york-mets.png",
       "forPerGame": 4.314814814814815,
       "againstPerGame": 4.512345679012346,
       "gamesPlayed": 162,
-      "adjustedFor": 4.627581625430676,
-      "adjustedAgainst": 4.290197513164086
+      "adjustedFor": 4.739356346816424,
+      "adjustedAgainst": 4.220303866406286
     },
     "mlb.kansas-city-royals": {
       "teamId": "mlb.kansas-city-royals",
       "name": "Kansas City Royals",
       "shortName": "Royals",
       "code": "KC",
-      "logoUrl": "/brand/sports/mlb/r1/svg/kansas-city-royals.svg",
+      "logoUrl": "/brand/official/mlb/kansas-city-royals.png",
       "forPerGame": 4.2592592592592595,
       "againstPerGame": 5,
       "gamesPlayed": 162,
-      "adjustedFor": 4.434477272535259,
-      "adjustedAgainst": 4.923971174936083
+      "adjustedFor": 4.442272726977321,
+      "adjustedAgainst": 5.195340269132435
     },
     "mlb.san-francisco-giants": {
       "teamId": "mlb.san-francisco-giants",
       "name": "San Francisco Giants",
       "shortName": "Giants",
       "code": "SF",
-      "logoUrl": "/brand/sports/mlb/r1/svg/san-francisco-giants.svg",
+      "logoUrl": "/brand/official/mlb/san-francisco-giants.png",
       "forPerGame": 4.12962962962963,
       "againstPerGame": 4.691358024691358,
       "gamesPlayed": 162,
-      "adjustedFor": 4.138380612685395,
-      "adjustedAgainst": 4.494871784246142
+      "adjustedFor": 3.986739404131377,
+      "adjustedAgainst": 4.535187360378679
     },
     "mlb.athletics": {
       "teamId": "mlb.athletics",
       "name": "Athletics",
       "shortName": "Athletics",
       "code": "ATH",
-      "logoUrl": "/brand/sports/mlb/r1/svg/athletics.svg",
+      "logoUrl": "/brand/official/mlb/athletics.png",
       "forPerGame": 4.314814814814815,
       "againstPerGame": 5.783950617283951,
       "gamesPlayed": 162,
-      "adjustedFor": 4.157235622792157,
-      "adjustedAgainst": 5.4449654727363
+      "adjustedFor": 4.015747111987934,
+      "adjustedAgainst": 5.996869958055846
     },
     "mlb.los-angeles-angels": {
       "teamId": "mlb.los-angeles-angels",
       "name": "Los Angeles Angels",
       "shortName": "Angels",
       "code": "LAA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-angels.svg",
+      "logoUrl": "/brand/official/mlb/los-angeles-angels.png",
       "forPerGame": 4.04320987654321,
       "againstPerGame": 4.6419753086419755,
       "gamesPlayed": 162,
-      "adjustedFor": 3.788985743014604,
-      "adjustedAgainst": 4.65253545346087
+      "adjustedFor": 3.449208835407083,
+      "adjustedAgainst": 4.777746851478262
     },
     "mlb.colorado-rockies": {
       "teamId": "mlb.colorado-rockies",
       "name": "Colorado Rockies",
       "shortName": "Rockies",
       "code": "COL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/colorado-rockies.svg",
+      "logoUrl": "/brand/official/mlb/colorado-rockies.png",
       "forPerGame": 4.6419753086419755,
       "againstPerGame": 5.827160493827161,
       "gamesPlayed": 162,
-      "adjustedFor": 4.405953879641878,
-      "adjustedAgainst": 5.504862263006878
+      "adjustedFor": 4.398390584064428,
+      "adjustedAgainst": 6.0890188661644284
     }
   },
   "games": [
@@ -385,7 +385,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.new-york-yankees",
@@ -393,14 +393,14 @@
         "name": "New York Yankees",
         "shortName": "Yankees",
         "code": "NYY",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg"
+        "logoUrl": "/brand/official/mlb/new-york-yankees.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -417,7 +417,7 @@
         "name": "Atlanta Braves",
         "shortName": "Braves",
         "code": "ATL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/atlanta-braves.svg"
+        "logoUrl": "/brand/official/mlb/atlanta-braves.png"
       },
       "away": {
         "id": "mlb.los-angeles-dodgers",
@@ -425,14 +425,14 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "venue": "Truist Park",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -449,7 +449,7 @@
         "name": "San Diego Padres",
         "shortName": "Padres",
         "code": "SD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg"
+        "logoUrl": "/brand/official/mlb/san-diego-padres.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -457,14 +457,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "Petco Park",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -481,7 +481,7 @@
         "name": "Chicago White Sox",
         "shortName": "White Sox",
         "code": "CWS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg"
+        "logoUrl": "/brand/official/mlb/chicago-white-sox.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -489,14 +489,14 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Rate Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 9,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -513,7 +513,7 @@
         "name": "Atlanta Braves",
         "shortName": "Braves",
         "code": "ATL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/atlanta-braves.svg"
+        "logoUrl": "/brand/official/mlb/atlanta-braves.png"
       },
       "away": {
         "id": "mlb.los-angeles-dodgers",
@@ -521,14 +521,14 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "venue": "Truist Park",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -545,7 +545,7 @@
         "name": "New York Yankees",
         "shortName": "Yankees",
         "code": "NYY",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg"
+        "logoUrl": "/brand/official/mlb/new-york-yankees.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -553,14 +553,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "Yankee Stadium",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -577,7 +577,7 @@
         "name": "San Diego Padres",
         "shortName": "Padres",
         "code": "SD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg"
+        "logoUrl": "/brand/official/mlb/san-diego-padres.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -585,14 +585,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "Petco Park",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -609,7 +609,7 @@
         "name": "Chicago White Sox",
         "shortName": "White Sox",
         "code": "CWS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg"
+        "logoUrl": "/brand/official/mlb/chicago-white-sox.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -617,14 +617,14 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Rate Field",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 9,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -641,7 +641,7 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "away": {
         "id": "mlb.chicago-white-sox",
@@ -649,14 +649,14 @@
         "name": "Chicago White Sox",
         "shortName": "White Sox",
         "code": "CWS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg"
+        "logoUrl": "/brand/official/mlb/chicago-white-sox.png"
       },
       "venue": "Progressive Field",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -673,7 +673,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.los-angeles-dodgers",
@@ -681,14 +681,14 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "venue": "American Family Field",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -705,7 +705,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.los-angeles-dodgers",
@@ -713,14 +713,14 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "venue": "American Family Field",
       "neutralSite": false,
       "result": {
         "home": 7,
         "away": 4,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -737,7 +737,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -745,14 +745,14 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 7,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -769,7 +769,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -777,14 +777,14 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -801,7 +801,7 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -809,14 +809,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "UNIQLO Field at Dodger Stadium",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -833,7 +833,7 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -841,14 +841,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "Progressive Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -865,7 +865,7 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -873,14 +873,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "UNIQLO Field at Dodger Stadium",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 6,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -897,7 +897,7 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -905,14 +905,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "Progressive Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 7,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -929,7 +929,7 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -937,14 +937,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "Progressive Field",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -961,7 +961,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -969,14 +969,14 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 7,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -993,7 +993,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -1001,14 +1001,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "American Family Field",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1025,7 +1025,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.tampa-bay-rays",
@@ -1033,14 +1033,14 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "venue": "American Family Field",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1057,7 +1057,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -1065,14 +1065,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 10,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1089,7 +1089,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -1097,14 +1097,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1121,7 +1121,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.milwaukee-brewers",
@@ -1129,14 +1129,14 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-19T01:44:47.629Z",
+        "observedAt": "2026-11-19T14:16:45.965Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1153,7 +1153,7 @@
         "name": "Detroit Tigers",
         "shortName": "Tigers",
         "code": "DET",
-        "logoUrl": "/brand/sports/mlb/r1/svg/detroit-tigers.svg"
+        "logoUrl": "/brand/official/mlb/detroit-tigers.png"
       },
       "away": {
         "id": "mlb.chicago-white-sox",
@@ -1161,7 +1161,7 @@
         "name": "Chicago White Sox",
         "shortName": "White Sox",
         "code": "CWS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg"
+        "logoUrl": "/brand/official/mlb/chicago-white-sox.png"
       },
       "venue": "Comerica Park",
       "neutralSite": false
@@ -1179,7 +1179,7 @@
         "name": "Miami Marlins",
         "shortName": "Marlins",
         "code": "MIA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/miami-marlins.svg"
+        "logoUrl": "/brand/official/mlb/miami-marlins.png"
       },
       "away": {
         "id": "mlb.new-york-mets",
@@ -1187,7 +1187,7 @@
         "name": "New York Mets",
         "shortName": "Mets",
         "code": "NYM",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-mets.svg"
+        "logoUrl": "/brand/official/mlb/new-york-mets.png"
       },
       "venue": "loanDepot park",
       "neutralSite": false
@@ -1205,7 +1205,7 @@
         "name": "Chicago Cubs",
         "shortName": "Cubs",
         "code": "CHC",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-cubs.svg"
+        "logoUrl": "/brand/official/mlb/chicago-cubs.png"
       },
       "away": {
         "id": "mlb.cleveland-guardians",
@@ -1213,7 +1213,7 @@
         "name": "Cleveland Guardians",
         "shortName": "Guardians",
         "code": "CLE",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg"
+        "logoUrl": "/brand/official/mlb/cleveland-guardians.png"
       },
       "venue": "Wrigley Field",
       "neutralSite": false
@@ -1231,7 +1231,7 @@
         "name": "San Francisco Giants",
         "shortName": "Giants",
         "code": "SF",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-francisco-giants.svg"
+        "logoUrl": "/brand/official/mlb/san-francisco-giants.png"
       },
       "away": {
         "id": "mlb.colorado-rockies",
@@ -1239,7 +1239,7 @@
         "name": "Colorado Rockies",
         "shortName": "Rockies",
         "code": "COL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/colorado-rockies.svg"
+        "logoUrl": "/brand/official/mlb/colorado-rockies.png"
       },
       "venue": "Oracle Park",
       "neutralSite": false
@@ -1257,7 +1257,7 @@
         "name": "Los Angeles Dodgers",
         "shortName": "Dodgers",
         "code": "LAD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "away": {
         "id": "mlb.atlanta-braves",
@@ -1265,7 +1265,7 @@
         "name": "Atlanta Braves",
         "shortName": "Braves",
         "code": "ATL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/atlanta-braves.svg"
+        "logoUrl": "/brand/official/mlb/atlanta-braves.png"
       },
       "venue": "UNIQLO Field at Dodger Stadium",
       "neutralSite": false
@@ -1283,7 +1283,7 @@
         "name": "New York Yankees",
         "shortName": "Yankees",
         "code": "NYY",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg"
+        "logoUrl": "/brand/official/mlb/new-york-yankees.png"
       },
       "away": {
         "id": "mlb.toronto-blue-jays",
@@ -1291,7 +1291,7 @@
         "name": "Toronto Blue Jays",
         "shortName": "Blue Jays",
         "code": "TOR",
-        "logoUrl": "/brand/sports/mlb/r1/svg/toronto-blue-jays.svg"
+        "logoUrl": "/brand/official/mlb/toronto-blue-jays.png"
       },
       "venue": "Yankee Stadium",
       "neutralSite": false
@@ -1309,7 +1309,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.los-angeles-angels",
@@ -1317,7 +1317,7 @@
         "name": "Los Angeles Angels",
         "shortName": "Angels",
         "code": "LAA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-angels.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-angels.png"
       },
       "venue": "American Family Field",
       "neutralSite": false
@@ -1335,7 +1335,7 @@
         "name": "Washington Nationals",
         "shortName": "Nationals",
         "code": "WSH",
-        "logoUrl": "/brand/sports/mlb/r1/svg/washington-nationals.svg"
+        "logoUrl": "/brand/official/mlb/washington-nationals.png"
       },
       "away": {
         "id": "mlb.philadelphia-phillies",
@@ -1343,7 +1343,7 @@
         "name": "Philadelphia Phillies",
         "shortName": "Phillies",
         "code": "PHI",
-        "logoUrl": "/brand/sports/mlb/r1/svg/philadelphia-phillies.svg"
+        "logoUrl": "/brand/official/mlb/philadelphia-phillies.png"
       },
       "venue": "Nationals Park",
       "neutralSite": false
@@ -1361,7 +1361,7 @@
         "name": "San Diego Padres",
         "shortName": "Padres",
         "code": "SD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg"
+        "logoUrl": "/brand/official/mlb/san-diego-padres.png"
       },
       "away": {
         "id": "mlb.arizona-diamondbacks",
@@ -1369,7 +1369,7 @@
         "name": "Arizona Diamondbacks",
         "shortName": "Diamondbacks",
         "code": "AZ",
-        "logoUrl": "/brand/sports/mlb/r1/svg/arizona-diamondbacks.svg"
+        "logoUrl": "/brand/official/mlb/arizona-diamondbacks.png"
       },
       "venue": "Petco Park",
       "neutralSite": false
@@ -1387,7 +1387,7 @@
         "name": "Cincinnati Reds",
         "shortName": "Reds",
         "code": "CIN",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cincinnati-reds.svg"
+        "logoUrl": "/brand/official/mlb/cincinnati-reds.png"
       },
       "away": {
         "id": "mlb.st-louis-cardinals",
@@ -1395,7 +1395,7 @@
         "name": "St. Louis Cardinals",
         "shortName": "Cardinals",
         "code": "STL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/st-louis-cardinals.svg"
+        "logoUrl": "/brand/official/mlb/st-louis-cardinals.png"
       },
       "venue": "Great American Ball Park",
       "neutralSite": false
@@ -1413,7 +1413,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.baltimore-orioles",
@@ -1421,7 +1421,7 @@
         "name": "Baltimore Orioles",
         "shortName": "Orioles",
         "code": "BAL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg"
+        "logoUrl": "/brand/official/mlb/baltimore-orioles.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false
@@ -1439,7 +1439,7 @@
         "name": "Houston Astros",
         "shortName": "Astros",
         "code": "HOU",
-        "logoUrl": "/brand/sports/mlb/r1/svg/houston-astros.svg"
+        "logoUrl": "/brand/official/mlb/houston-astros.png"
       },
       "away": {
         "id": "mlb.texas-rangers",
@@ -1447,7 +1447,7 @@
         "name": "Texas Rangers",
         "shortName": "Rangers",
         "code": "TEX",
-        "logoUrl": "/brand/sports/mlb/r1/svg/texas-rangers.svg"
+        "logoUrl": "/brand/official/mlb/texas-rangers.png"
       },
       "venue": "Daikin Park",
       "neutralSite": false
@@ -1465,7 +1465,7 @@
         "name": "Kansas City Royals",
         "shortName": "Royals",
         "code": "KC",
-        "logoUrl": "/brand/sports/mlb/r1/svg/kansas-city-royals.svg"
+        "logoUrl": "/brand/official/mlb/kansas-city-royals.png"
       },
       "away": {
         "id": "mlb.minnesota-twins",
@@ -1473,7 +1473,7 @@
         "name": "Minnesota Twins",
         "shortName": "Twins",
         "code": "MIN",
-        "logoUrl": "/brand/sports/mlb/r1/svg/minnesota-twins.svg"
+        "logoUrl": "/brand/official/mlb/minnesota-twins.png"
       },
       "venue": "Kauffman Stadium",
       "neutralSite": false
@@ -1491,7 +1491,7 @@
         "name": "Pittsburgh Pirates",
         "shortName": "Pirates",
         "code": "PIT",
-        "logoUrl": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg"
+        "logoUrl": "/brand/official/mlb/pittsburgh-pirates.png"
       },
       "away": {
         "id": "mlb.athletics",
@@ -1499,7 +1499,7 @@
         "name": "Athletics",
         "shortName": "Athletics",
         "code": "ATH",
-        "logoUrl": "/brand/sports/mlb/r1/svg/athletics.svg"
+        "logoUrl": "/brand/official/mlb/athletics.png"
       },
       "venue": "PNC Park",
       "neutralSite": false
@@ -1517,7 +1517,7 @@
         "name": "Seattle Mariners",
         "shortName": "Mariners",
         "code": "SEA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/seattle-mariners.svg"
+        "logoUrl": "/brand/official/mlb/seattle-mariners.png"
       },
       "away": {
         "id": "mlb.boston-red-sox",
@@ -1525,7 +1525,7 @@
         "name": "Boston Red Sox",
         "shortName": "Red Sox",
         "code": "BOS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/boston-red-sox.svg"
+        "logoUrl": "/brand/official/mlb/boston-red-sox.png"
       },
       "venue": "T-Mobile Park",
       "neutralSite": false
@@ -1543,7 +1543,7 @@
         "name": "Pittsburgh Pirates",
         "shortName": "Pirates",
         "code": "PIT",
-        "logoUrl": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg"
+        "logoUrl": "/brand/official/mlb/pittsburgh-pirates.png"
       },
       "away": {
         "id": "mlb.athletics",
@@ -1551,7 +1551,7 @@
         "name": "Athletics",
         "shortName": "Athletics",
         "code": "ATH",
-        "logoUrl": "/brand/sports/mlb/r1/svg/athletics.svg"
+        "logoUrl": "/brand/official/mlb/athletics.png"
       },
       "venue": "PNC Park",
       "neutralSite": false
@@ -1569,7 +1569,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.baltimore-orioles",
@@ -1577,7 +1577,7 @@
         "name": "Baltimore Orioles",
         "shortName": "Orioles",
         "code": "BAL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg"
+        "logoUrl": "/brand/official/mlb/baltimore-orioles.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false
@@ -1595,7 +1595,7 @@
         "name": "Houston Astros",
         "shortName": "Astros",
         "code": "HOU",
-        "logoUrl": "/brand/sports/mlb/r1/svg/houston-astros.svg"
+        "logoUrl": "/brand/official/mlb/houston-astros.png"
       },
       "away": {
         "id": "mlb.texas-rangers",
@@ -1603,7 +1603,7 @@
         "name": "Texas Rangers",
         "shortName": "Rangers",
         "code": "TEX",
-        "logoUrl": "/brand/sports/mlb/r1/svg/texas-rangers.svg"
+        "logoUrl": "/brand/official/mlb/texas-rangers.png"
       },
       "venue": "Daikin Park",
       "neutralSite": false
@@ -1621,7 +1621,7 @@
         "name": "San Diego Padres",
         "shortName": "Padres",
         "code": "SD",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg"
+        "logoUrl": "/brand/official/mlb/san-diego-padres.png"
       },
       "away": {
         "id": "mlb.arizona-diamondbacks",
@@ -1629,7 +1629,7 @@
         "name": "Arizona Diamondbacks",
         "shortName": "Diamondbacks",
         "code": "AZ",
-        "logoUrl": "/brand/sports/mlb/r1/svg/arizona-diamondbacks.svg"
+        "logoUrl": "/brand/official/mlb/arizona-diamondbacks.png"
       },
       "venue": "Petco Park",
       "neutralSite": false
@@ -1647,7 +1647,7 @@
         "name": "Seattle Mariners",
         "shortName": "Mariners",
         "code": "SEA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/seattle-mariners.svg"
+        "logoUrl": "/brand/official/mlb/seattle-mariners.png"
       },
       "away": {
         "id": "mlb.boston-red-sox",
@@ -1655,7 +1655,7 @@
         "name": "Boston Red Sox",
         "shortName": "Red Sox",
         "code": "BOS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/boston-red-sox.svg"
+        "logoUrl": "/brand/official/mlb/boston-red-sox.png"
       },
       "venue": "T-Mobile Park",
       "neutralSite": false
@@ -1673,7 +1673,7 @@
         "name": "Detroit Tigers",
         "shortName": "Tigers",
         "code": "DET",
-        "logoUrl": "/brand/sports/mlb/r1/svg/detroit-tigers.svg"
+        "logoUrl": "/brand/official/mlb/detroit-tigers.png"
       },
       "away": {
         "id": "mlb.chicago-white-sox",
@@ -1681,7 +1681,7 @@
         "name": "Chicago White Sox",
         "shortName": "White Sox",
         "code": "CWS",
-        "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg"
+        "logoUrl": "/brand/official/mlb/chicago-white-sox.png"
       },
       "venue": "Comerica Park",
       "neutralSite": false
@@ -1699,7 +1699,7 @@
         "name": "Miami Marlins",
         "shortName": "Marlins",
         "code": "MIA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/miami-marlins.svg"
+        "logoUrl": "/brand/official/mlb/miami-marlins.png"
       },
       "away": {
         "id": "mlb.new-york-mets",
@@ -1707,7 +1707,7 @@
         "name": "New York Mets",
         "shortName": "Mets",
         "code": "NYM",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-mets.svg"
+        "logoUrl": "/brand/official/mlb/new-york-mets.png"
       },
       "venue": "loanDepot park",
       "neutralSite": false
@@ -1725,7 +1725,7 @@
         "name": "San Francisco Giants",
         "shortName": "Giants",
         "code": "SF",
-        "logoUrl": "/brand/sports/mlb/r1/svg/san-francisco-giants.svg"
+        "logoUrl": "/brand/official/mlb/san-francisco-giants.png"
       },
       "away": {
         "id": "mlb.colorado-rockies",
@@ -1733,7 +1733,7 @@
         "name": "Colorado Rockies",
         "shortName": "Rockies",
         "code": "COL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/colorado-rockies.svg"
+        "logoUrl": "/brand/official/mlb/colorado-rockies.png"
       },
       "venue": "Oracle Park",
       "neutralSite": false
@@ -1751,7 +1751,7 @@
         "name": "Pittsburgh Pirates",
         "shortName": "Pirates",
         "code": "PIT",
-        "logoUrl": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg"
+        "logoUrl": "/brand/official/mlb/pittsburgh-pirates.png"
       },
       "away": {
         "id": "mlb.athletics",
@@ -1759,7 +1759,7 @@
         "name": "Athletics",
         "shortName": "Athletics",
         "code": "ATH",
-        "logoUrl": "/brand/sports/mlb/r1/svg/athletics.svg"
+        "logoUrl": "/brand/official/mlb/athletics.png"
       },
       "venue": "PNC Park",
       "neutralSite": false
@@ -1777,7 +1777,7 @@
         "name": "New York Yankees",
         "shortName": "Yankees",
         "code": "NYY",
-        "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg"
+        "logoUrl": "/brand/official/mlb/new-york-yankees.png"
       },
       "away": {
         "id": "mlb.toronto-blue-jays",
@@ -1785,7 +1785,7 @@
         "name": "Toronto Blue Jays",
         "shortName": "Blue Jays",
         "code": "TOR",
-        "logoUrl": "/brand/sports/mlb/r1/svg/toronto-blue-jays.svg"
+        "logoUrl": "/brand/official/mlb/toronto-blue-jays.png"
       },
       "venue": "Yankee Stadium",
       "neutralSite": false
@@ -1803,7 +1803,7 @@
         "name": "Kansas City Royals",
         "shortName": "Royals",
         "code": "KC",
-        "logoUrl": "/brand/sports/mlb/r1/svg/kansas-city-royals.svg"
+        "logoUrl": "/brand/official/mlb/kansas-city-royals.png"
       },
       "away": {
         "id": "mlb.minnesota-twins",
@@ -1811,7 +1811,7 @@
         "name": "Minnesota Twins",
         "shortName": "Twins",
         "code": "MIN",
-        "logoUrl": "/brand/sports/mlb/r1/svg/minnesota-twins.svg"
+        "logoUrl": "/brand/official/mlb/minnesota-twins.png"
       },
       "venue": "Kauffman Stadium",
       "neutralSite": false
@@ -1829,7 +1829,7 @@
         "name": "Washington Nationals",
         "shortName": "Nationals",
         "code": "WSH",
-        "logoUrl": "/brand/sports/mlb/r1/svg/washington-nationals.svg"
+        "logoUrl": "/brand/official/mlb/washington-nationals.png"
       },
       "away": {
         "id": "mlb.philadelphia-phillies",
@@ -1837,7 +1837,7 @@
         "name": "Philadelphia Phillies",
         "shortName": "Phillies",
         "code": "PHI",
-        "logoUrl": "/brand/sports/mlb/r1/svg/philadelphia-phillies.svg"
+        "logoUrl": "/brand/official/mlb/philadelphia-phillies.png"
       },
       "venue": "Nationals Park",
       "neutralSite": false
@@ -1855,7 +1855,7 @@
         "name": "Cincinnati Reds",
         "shortName": "Reds",
         "code": "CIN",
-        "logoUrl": "/brand/sports/mlb/r1/svg/cincinnati-reds.svg"
+        "logoUrl": "/brand/official/mlb/cincinnati-reds.png"
       },
       "away": {
         "id": "mlb.st-louis-cardinals",
@@ -1863,7 +1863,7 @@
         "name": "St. Louis Cardinals",
         "shortName": "Cardinals",
         "code": "STL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/st-louis-cardinals.svg"
+        "logoUrl": "/brand/official/mlb/st-louis-cardinals.png"
       },
       "venue": "Great American Ball Park",
       "neutralSite": false
@@ -1881,7 +1881,7 @@
         "name": "Tampa Bay Rays",
         "shortName": "Rays",
         "code": "TB",
-        "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg"
+        "logoUrl": "/brand/official/mlb/tampa-bay-rays.png"
       },
       "away": {
         "id": "mlb.baltimore-orioles",
@@ -1889,7 +1889,7 @@
         "name": "Baltimore Orioles",
         "shortName": "Orioles",
         "code": "BAL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg"
+        "logoUrl": "/brand/official/mlb/baltimore-orioles.png"
       },
       "venue": "Tropicana Field",
       "neutralSite": false
@@ -1907,7 +1907,7 @@
         "name": "Milwaukee Brewers",
         "shortName": "Brewers",
         "code": "MIL",
-        "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg"
+        "logoUrl": "/brand/official/mlb/milwaukee-brewers.png"
       },
       "away": {
         "id": "mlb.los-angeles-angels",
@@ -1915,7 +1915,7 @@
         "name": "Los Angeles Angels",
         "shortName": "Angels",
         "code": "LAA",
-        "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-angels.svg"
+        "logoUrl": "/brand/official/mlb/los-angeles-angels.png"
       },
       "venue": "American Family Field",
       "neutralSite": false
@@ -15842,7 +15842,7 @@
       "name": "Milwaukee Brewers",
       "shortName": "Brewers",
       "code": "MIL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg",
+      "logoUrl": "/brand/official/mlb/milwaukee-brewers.png",
       "played": 162,
       "won": 103,
       "drawn": 0,
@@ -15868,7 +15868,7 @@
       "name": "Los Angeles Dodgers",
       "shortName": "Dodgers",
       "code": "LAD",
-      "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg",
+      "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png",
       "played": 162,
       "won": 100,
       "drawn": 0,
@@ -15894,7 +15894,7 @@
       "name": "Tampa Bay Rays",
       "shortName": "Rays",
       "code": "TB",
-      "logoUrl": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg",
+      "logoUrl": "/brand/official/mlb/tampa-bay-rays.png",
       "played": 162,
       "won": 98,
       "drawn": 0,
@@ -15920,7 +15920,7 @@
       "name": "Atlanta Braves",
       "shortName": "Braves",
       "code": "ATL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/atlanta-braves.svg",
+      "logoUrl": "/brand/official/mlb/atlanta-braves.png",
       "played": 162,
       "won": 94,
       "drawn": 0,
@@ -15946,7 +15946,7 @@
       "name": "New York Yankees",
       "shortName": "Yankees",
       "code": "NYY",
-      "logoUrl": "/brand/sports/mlb/r1/svg/new-york-yankees.svg",
+      "logoUrl": "/brand/official/mlb/new-york-yankees.png",
       "played": 161,
       "won": 93,
       "drawn": 0,
@@ -15972,7 +15972,7 @@
       "name": "San Diego Padres",
       "shortName": "Padres",
       "code": "SD",
-      "logoUrl": "/brand/sports/mlb/r1/svg/san-diego-padres.svg",
+      "logoUrl": "/brand/official/mlb/san-diego-padres.png",
       "played": 162,
       "won": 91,
       "drawn": 0,
@@ -15998,7 +15998,7 @@
       "name": "Chicago Cubs",
       "shortName": "Cubs",
       "code": "CHC",
-      "logoUrl": "/brand/sports/mlb/r1/svg/chicago-cubs.svg",
+      "logoUrl": "/brand/official/mlb/chicago-cubs.png",
       "played": 162,
       "won": 89,
       "drawn": 0,
@@ -16024,7 +16024,7 @@
       "name": "Philadelphia Phillies",
       "shortName": "Phillies",
       "code": "PHI",
-      "logoUrl": "/brand/sports/mlb/r1/svg/philadelphia-phillies.svg",
+      "logoUrl": "/brand/official/mlb/philadelphia-phillies.png",
       "played": 162,
       "won": 88,
       "drawn": 0,
@@ -16050,7 +16050,7 @@
       "name": "Boston Red Sox",
       "shortName": "Red Sox",
       "code": "BOS",
-      "logoUrl": "/brand/sports/mlb/r1/svg/boston-red-sox.svg",
+      "logoUrl": "/brand/official/mlb/boston-red-sox.png",
       "played": 162,
       "won": 87,
       "drawn": 0,
@@ -16076,7 +16076,7 @@
       "name": "Arizona Diamondbacks",
       "shortName": "Diamondbacks",
       "code": "AZ",
-      "logoUrl": "/brand/sports/mlb/r1/svg/arizona-diamondbacks.svg",
+      "logoUrl": "/brand/official/mlb/arizona-diamondbacks.png",
       "played": 162,
       "won": 86,
       "drawn": 0,
@@ -16102,7 +16102,7 @@
       "name": "Cleveland Guardians",
       "shortName": "Guardians",
       "code": "CLE",
-      "logoUrl": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg",
+      "logoUrl": "/brand/official/mlb/cleveland-guardians.png",
       "played": 162,
       "won": 85,
       "drawn": 0,
@@ -16128,7 +16128,7 @@
       "name": "Chicago White Sox",
       "shortName": "White Sox",
       "code": "CWS",
-      "logoUrl": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg",
+      "logoUrl": "/brand/official/mlb/chicago-white-sox.png",
       "played": 162,
       "won": 84,
       "drawn": 0,
@@ -16154,7 +16154,7 @@
       "name": "Pittsburgh Pirates",
       "shortName": "Pirates",
       "code": "PIT",
-      "logoUrl": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg",
+      "logoUrl": "/brand/official/mlb/pittsburgh-pirates.png",
       "played": 162,
       "won": 82,
       "drawn": 0,
@@ -16180,7 +16180,7 @@
       "name": "Houston Astros",
       "shortName": "Astros",
       "code": "HOU",
-      "logoUrl": "/brand/sports/mlb/r1/svg/houston-astros.svg",
+      "logoUrl": "/brand/official/mlb/houston-astros.png",
       "played": 162,
       "won": 81,
       "drawn": 0,
@@ -16206,7 +16206,7 @@
       "name": "Miami Marlins",
       "shortName": "Marlins",
       "code": "MIA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/miami-marlins.svg",
+      "logoUrl": "/brand/official/mlb/miami-marlins.png",
       "played": 162,
       "won": 80,
       "drawn": 0,
@@ -16232,7 +16232,7 @@
       "name": "Texas Rangers",
       "shortName": "Rangers",
       "code": "TEX",
-      "logoUrl": "/brand/sports/mlb/r1/svg/texas-rangers.svg",
+      "logoUrl": "/brand/official/mlb/texas-rangers.png",
       "played": 162,
       "won": 80,
       "drawn": 0,
@@ -16258,7 +16258,7 @@
       "name": "Baltimore Orioles",
       "shortName": "Orioles",
       "code": "BAL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg",
+      "logoUrl": "/brand/official/mlb/baltimore-orioles.png",
       "played": 161,
       "won": 79,
       "drawn": 0,
@@ -16284,7 +16284,7 @@
       "name": "Toronto Blue Jays",
       "shortName": "Blue Jays",
       "code": "TOR",
-      "logoUrl": "/brand/sports/mlb/r1/svg/toronto-blue-jays.svg",
+      "logoUrl": "/brand/official/mlb/toronto-blue-jays.png",
       "played": 162,
       "won": 79,
       "drawn": 0,
@@ -16310,7 +16310,7 @@
       "name": "Washington Nationals",
       "shortName": "Nationals",
       "code": "WSH",
-      "logoUrl": "/brand/sports/mlb/r1/svg/washington-nationals.svg",
+      "logoUrl": "/brand/official/mlb/washington-nationals.png",
       "played": 162,
       "won": 77,
       "drawn": 0,
@@ -16336,7 +16336,7 @@
       "name": "St. Louis Cardinals",
       "shortName": "Cardinals",
       "code": "STL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/st-louis-cardinals.svg",
+      "logoUrl": "/brand/official/mlb/st-louis-cardinals.png",
       "played": 162,
       "won": 77,
       "drawn": 0,
@@ -16362,7 +16362,7 @@
       "name": "Minnesota Twins",
       "shortName": "Twins",
       "code": "MIN",
-      "logoUrl": "/brand/sports/mlb/r1/svg/minnesota-twins.svg",
+      "logoUrl": "/brand/official/mlb/minnesota-twins.png",
       "played": 162,
       "won": 77,
       "drawn": 0,
@@ -16388,7 +16388,7 @@
       "name": "Detroit Tigers",
       "shortName": "Tigers",
       "code": "DET",
-      "logoUrl": "/brand/sports/mlb/r1/svg/detroit-tigers.svg",
+      "logoUrl": "/brand/official/mlb/detroit-tigers.png",
       "played": 162,
       "won": 76,
       "drawn": 0,
@@ -16414,7 +16414,7 @@
       "name": "Seattle Mariners",
       "shortName": "Mariners",
       "code": "SEA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/seattle-mariners.svg",
+      "logoUrl": "/brand/official/mlb/seattle-mariners.png",
       "played": 162,
       "won": 76,
       "drawn": 0,
@@ -16440,7 +16440,7 @@
       "name": "Cincinnati Reds",
       "shortName": "Reds",
       "code": "CIN",
-      "logoUrl": "/brand/sports/mlb/r1/svg/cincinnati-reds.svg",
+      "logoUrl": "/brand/official/mlb/cincinnati-reds.png",
       "played": 162,
       "won": 75,
       "drawn": 0,
@@ -16466,7 +16466,7 @@
       "name": "New York Mets",
       "shortName": "Mets",
       "code": "NYM",
-      "logoUrl": "/brand/sports/mlb/r1/svg/new-york-mets.svg",
+      "logoUrl": "/brand/official/mlb/new-york-mets.png",
       "played": 162,
       "won": 74,
       "drawn": 0,
@@ -16492,7 +16492,7 @@
       "name": "Kansas City Royals",
       "shortName": "Royals",
       "code": "KC",
-      "logoUrl": "/brand/sports/mlb/r1/svg/kansas-city-royals.svg",
+      "logoUrl": "/brand/official/mlb/kansas-city-royals.png",
       "played": 162,
       "won": 69,
       "drawn": 0,
@@ -16518,7 +16518,7 @@
       "name": "San Francisco Giants",
       "shortName": "Giants",
       "code": "SF",
-      "logoUrl": "/brand/sports/mlb/r1/svg/san-francisco-giants.svg",
+      "logoUrl": "/brand/official/mlb/san-francisco-giants.png",
       "played": 162,
       "won": 65,
       "drawn": 0,
@@ -16544,7 +16544,7 @@
       "name": "Athletics",
       "shortName": "Athletics",
       "code": "ATH",
-      "logoUrl": "/brand/sports/mlb/r1/svg/athletics.svg",
+      "logoUrl": "/brand/official/mlb/athletics.png",
       "played": 162,
       "won": 64,
       "drawn": 0,
@@ -16570,7 +16570,7 @@
       "name": "Los Angeles Angels",
       "shortName": "Angels",
       "code": "LAA",
-      "logoUrl": "/brand/sports/mlb/r1/svg/los-angeles-angels.svg",
+      "logoUrl": "/brand/official/mlb/los-angeles-angels.png",
       "played": 162,
       "won": 62,
       "drawn": 0,
@@ -16596,7 +16596,7 @@
       "name": "Colorado Rockies",
       "shortName": "Rockies",
       "code": "COL",
-      "logoUrl": "/brand/sports/mlb/r1/svg/colorado-rockies.svg",
+      "logoUrl": "/brand/official/mlb/colorado-rockies.png",
       "played": 162,
       "won": 58,
       "drawn": 0,

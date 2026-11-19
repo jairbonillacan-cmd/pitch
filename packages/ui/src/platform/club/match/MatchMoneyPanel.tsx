@@ -53,6 +53,199 @@ function deltaLabel(moneyPct: number, modelPct: number): { text: string; lead: b
     : { text: `${diff} pts vs modelo`, lead: false };
 }
 
+function OddsMovementSparkline({
+  rows,
+  oddsFormat,
+  showFairReference,
+}: {
+  rows: readonly ComparisonRow[];
+  oddsFormat: OddsFormat;
+  showFairReference: boolean;
+}): React.JSX.Element | null {
+  const trackable = useMemo(
+    () =>
+      rows.filter(
+        (r) =>
+          r.houseDecimal !== null &&
+          ((r.openDecimal != null && r.openDecimal > 1.01) ||
+            (r.bookQuotes && r.bookQuotes.length >= 2)),
+      ),
+    [rows],
+  );
+  const [selectedId, setSelectedId] = useState<string>("");
+
+  if (trackable.length === 0) return null;
+
+  const active = trackable.find((r) => r.id === selectedId) ?? trackable[0]!;
+  const currentDec = active.houseDecimal!;
+  const openDec = active.openDecimal ?? active.bookQuotes?.[0]?.decimal ?? currentDec;
+  const bookPoints = (active.bookQuotes ?? [])
+    .filter((q) => q.decimal > 1.01)
+    .slice(0, 4);
+
+  const series: Array<{ label: string; dec: number; highlight?: boolean }> = [
+    { label: "Apertura", dec: openDec },
+  ];
+  for (const q of bookPoints) {
+    if (Math.abs(q.decimal - openDec) > 0.005 || series.length === 1) {
+      series.push({ label: q.bookLabel, dec: q.decimal, highlight: q.isBest });
+    }
+  }
+  if (series.length < 2 || Math.abs(series.at(-1)!.dec - currentDec) > 0.005) {
+    series.push({
+      label: active.houseBookLabel ?? "Actual",
+      dec: currentDec,
+      highlight: true,
+    });
+  }
+
+  const allVals = [
+    ...series.map((s) => s.dec),
+    ...(showFairReference ? [active.fairDecimal] : []),
+  ];
+  const minVal = Math.min(...allVals) * 0.96;
+  const maxVal = Math.max(...allVals) * 1.04;
+  const span = Math.max(0.08, maxVal - minVal);
+
+  const W = 320;
+  const H = 88;
+  const padX = 16;
+  const padY = 14;
+  const plotW = W - padX * 2;
+  const plotH = H - padY * 2;
+
+  const toX = (i: number) =>
+    series.length === 1 ? W / 2 : padX + (i / (series.length - 1)) * plotW;
+  const toY = (v: number) => padY + ((maxVal - v) / span) * plotH;
+
+  const pointsAttr = series.map((pt, i) => `${toX(i).toFixed(1)},${toY(pt.dec).toFixed(1)}`).join(" ");
+  const fairY = showFairReference ? toY(active.fairDecimal) : null;
+  const deltaDec = currentDec - openDec;
+  const direction =
+    active.movementDirection ??
+    (deltaDec <= -0.02 ? "shortening" : deltaDec >= 0.02 ? "drifting" : "stable");
+  const directionLabel =
+    direction === "shortening"
+      ? `Bajó ${deltaDec.toFixed(2)}`
+      : direction === "drifting"
+        ? `Subió +${deltaDec.toFixed(2)}`
+        : "Línea estable";
+  const directionToneClass =
+    direction === "drifting"
+      ? "pl-pill--success"
+      : direction === "shortening"
+        ? "pl-pill--brand"
+        : "";
+  const strokeColor =
+    direction === "drifting"
+      ? "var(--pl-success)"
+      : direction === "shortening"
+        ? "var(--pl-brand)"
+        : "var(--pl-text-secondary)";
+
+  const summaryText =
+    `Movimiento de línea para ${active.label}: apertura en ${formatOddsValue(openDec, oddsFormat)}, ` +
+    `cuota actual ${formatOddsValue(currentDec, oddsFormat)} (${directionLabel})` +
+    (showFairReference
+      ? `, momio justo del modelo ${formatOddsValue(active.fairDecimal, oddsFormat)}.`
+      : ".");
+
+  return (
+    <div
+      className="pl-odds-move-card rounded-xl p-3.5 space-y-2.5"
+      data-odds-movement-chart=""
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="min-w-0">
+          <h3 className="m-0 text-xs font-extrabold uppercase tracking-wide" style={{ color: "var(--pl-text-muted)" }}>
+            Movimiento de línea
+          </h3>
+          <p className="m-0 text-sm font-bold truncate" style={{ color: "var(--pl-text)" }}>
+            {active.label}
+          </p>
+        </div>
+        <span className={`pl-pill text-[11px] num ${directionToneClass}`.trim()}>
+          {directionLabel}
+        </span>
+      </div>
+
+      {trackable.length > 1 ? (
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label="Seleccionar línea a graficar">
+          {trackable.slice(0, 4).map((r) => (
+            <button
+              key={r.id}
+              type="button"
+              aria-pressed={r.id === active.id}
+              onClick={() => setSelectedId(r.id)}
+              className={`pl-pill text-[11px] min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      <figure className="m-0 space-y-1.5">
+        <svg
+          role="img"
+          aria-label={summaryText}
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full h-[88px] block overflow-visible"
+        >
+          <title>{summaryText}</title>
+          {fairY !== null ? (
+            <g>
+              <line
+                x1={padX}
+                x2={W - padX}
+                y1={fairY}
+                y2={fairY}
+                stroke="var(--pl-brand)"
+                strokeOpacity="0.55"
+                strokeWidth="1.25"
+                strokeDasharray="4 4"
+              />
+            </g>
+          ) : null}
+          <polyline
+            fill="none"
+            stroke={strokeColor}
+            strokeWidth="2.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points={pointsAttr}
+          />
+          {series.map((pt, i) => (
+            <circle
+              key={`${pt.label}-${i}`}
+              cx={toX(i)}
+              cy={toY(pt.dec)}
+              r={pt.highlight || i === series.length - 1 ? 4 : 3}
+              fill={pt.highlight || i === series.length - 1 ? strokeColor : "var(--pl-surface)"}
+              stroke={strokeColor}
+              strokeWidth="2"
+            />
+          ))}
+        </svg>
+        <figcaption className="flex flex-wrap items-center justify-between gap-2 text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+          <span>
+            Apertura: <strong style={{ color: "var(--pl-text)" }}>{formatOddsValue(openDec, oddsFormat)}</strong>
+          </span>
+          <span>
+            Actual ({active.houseBookLabel ?? "Mercado"}):{" "}
+            <strong style={{ color: "var(--pl-text)" }}>{formatOddsValue(currentDec, oddsFormat)}</strong>
+          </span>
+          {showFairReference ? (
+            <span>
+              Justo: <strong style={{ color: "var(--pl-brand)" }}>{formatOddsValue(active.fairDecimal, oddsFormat)}</strong>
+            </span>
+          ) : null}
+        </figcaption>
+      </figure>
+    </div>
+  );
+}
+
 /**
  * Pestaña «¿Dónde está el dinero?» en la ficha del partido:
  * muestra la comparativa entre flujo de dinero en casas (cuando existe corte verificado)
@@ -346,12 +539,18 @@ export function MatchMoneyPanel({
             </div>
           </div>
         ) : (
-          <div
-            className="pl-table-region pl-dinero-table-wrap"
-            tabIndex={0}
-            role="region"
-            aria-label="Tabla comparativa de probabilidades y momios"
-          >
+          <div className="space-y-3.5">
+            <OddsMovementSparkline
+              rows={comparisonRows}
+              oddsFormat={oddsFormat}
+              showFairReference={canReadDetails}
+            />
+            <div
+              className="pl-table-region pl-dinero-table-wrap"
+              tabIndex={0}
+              role="region"
+              aria-label="Tabla comparativa de probabilidades y momios"
+            >
             <table className="pl-dinero-table w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="hairline-b" style={{ color: "var(--pl-text-muted)" }}>
@@ -482,6 +681,7 @@ export function MatchMoneyPanel({
                 })}
               </tbody>
             </table>
+          </div>
           </div>
         )}
 

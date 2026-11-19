@@ -19,6 +19,8 @@ import {
   slugifyPlayerName,
   type LeagueSquadsFile,
   type PlayerPositionGroup,
+  type PlayerRecentGameLog,
+  type PlayerSeasonMetric,
   type SquadCoachProfile,
   type SquadPlayerEntry,
   type SquadPlayerStats,
@@ -1109,8 +1111,205 @@ interface EspnUsAthlete {
 }
 
 interface EspnUsRosterPayload {
-  coach?: Array<{ firstName?: string; lastName?: string; experience?: number }>;
+  coach?: Array<{ id?: string; firstName?: string; lastName?: string; experience?: number }>;
   athletes?: Array<EspnUsAthlete & { position?: unknown; items?: EspnUsAthlete[] }>;
+}
+
+interface CoachPortraitManifestEntry {
+  publicPath: string;
+  coachName?: string;
+}
+
+function loadLocalCoachPortraitManifest(): Record<string, CoachPortraitManifestEntry> {
+  const manifestPath = path.join(
+    ROOT_DIR,
+    "apps",
+    "web",
+    "public",
+    "brand",
+    "official",
+    "coaches",
+    "manifest.json",
+  );
+  if (!fs.existsSync(manifestPath)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(manifestPath, "utf8")) as Record<
+      string,
+      CoachPortraitManifestEntry
+    >;
+  } catch (err) {
+    void err;
+    return {};
+  }
+}
+
+interface EspnAthleteOverviewPayload {
+  statistics?: {
+    displayName?: string;
+    labels?: string[];
+    splits?: Array<{ displayName?: string; stats?: string[] }>;
+  };
+  gameLog?: {
+    statistics?: Array<{
+      labels?: string[];
+      events?: Array<{ eventId?: string; stats?: string[] }>;
+    }>;
+    events?: Record<
+      string,
+      {
+        gameDate?: string;
+        atVs?: string;
+        score?: string;
+        gameResult?: string;
+        opponent?: { displayName?: string; abbreviation?: string };
+      }
+    >;
+  };
+}
+
+const STAT_LABEL_ES: Readonly<Record<string, string>> = {
+  GP: "JJ",
+  AB: "AB",
+  R: "C",
+  H: "H",
+  HR: "HR",
+  RBI: "CI",
+  BB: "BB",
+  SO: "K",
+  AVG: "AVG",
+  OBP: "OBP",
+  SLG: "SLG",
+  OPS: "OPS",
+  IP: "IP",
+  ERA: "ERA",
+  WHIP: "WHIP",
+  W: "G",
+  L: "P",
+  SV: "SV",
+  MIN: "MIN",
+  PTS: "PTS",
+  REB: "REB",
+  AST: "AST",
+  STL: "ROB",
+  BLK: "TAP",
+  "FG%": "%TC",
+  "3P%": "%3P",
+  "FT%": "%TL",
+  G: "G",
+  A: "A",
+  "+/-": "+/-",
+  S: "Tiros",
+  PPG: "GPP",
+  YDS: "YDS",
+  TD: "TD",
+  INT: "INT",
+  CMP: "CMP",
+  ATT: "INT.",
+  "CMP%": "%CMP",
+  REC: "REC",
+  CAR: "ACAR",
+};
+
+function translateStatLabel(raw: string): string {
+  const key = raw.trim().toUpperCase();
+  return STAT_LABEL_ES[key] ?? raw.trim();
+}
+
+function buildUsOverviewPerformance(
+  league: "nba" | "nfl" | "nhl" | "mlb",
+  overview: EspnAthleteOverviewPayload | null,
+): {
+  appearances: number;
+  seasonMetrics: PlayerSeasonMetric[];
+  recentGames: PlayerRecentGameLog[];
+} {
+  if (!overview) return { appearances: 0, seasonMetrics: [], recentGames: [] };
+  const labels = overview.statistics?.labels ?? [];
+  const regSplit =
+    overview.statistics?.splits?.find((s) =>
+      (s.displayName ?? "").toLowerCase().includes("regular"),
+    ) ?? overview.statistics?.splits?.[0];
+  const rawVals = regSplit?.stats ?? [];
+
+  const byLabel = new Map<string, string>();
+  labels.forEach((lbl, idx) => {
+    const val = rawVals[idx]?.trim();
+    if (val && val !== "--") byLabel.set(lbl.trim().toUpperCase(), val);
+  });
+
+  const gpRaw = Number((byLabel.get("GP") ?? byLabel.get("G") ?? "0").replace(/,/g, ""));
+  const appearances = Number.isFinite(gpRaw) && gpRaw > 0 ? Math.round(gpRaw) : 0;
+
+  const preferredOrder =
+    league === "mlb"
+      ? byLabel.has("ERA") || byLabel.has("IP")
+        ? ["GP", "W", "L", "ERA", "IP", "SO", "WHIP", "SV"]
+        : ["GP", "AB", "H", "HR", "RBI", "R", "BB", "SO"]
+      : league === "nba"
+        ? ["GP", "MIN", "PTS", "REB", "AST", "FG%", "3P%", "STL"]
+        : league === "nhl"
+          ? ["GP", "G", "A", "PTS", "+/-", "S"]
+          : ["CMP", "ATT", "CMP%", "YDS", "TD", "INT", "REC", "CAR"];
+
+  const seasonMetrics: PlayerSeasonMetric[] = [];
+  for (const key of preferredOrder) {
+    const val = byLabel.get(key);
+    if (!val) continue;
+    seasonMetrics.push({
+      key: key.toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+      label: translateStatLabel(key),
+      value: val,
+    });
+    if (seasonMetrics.length >= 6) break;
+  }
+  // Para bateadores MLB, calcular AVG si hay H y AB
+  if (league === "mlb" && !byLabel.has("ERA") && byLabel.has("H") && byLabel.has("AB")) {
+    const hits = Number(byLabel.get("H"));
+    const ab = Number(byLabel.get("AB"));
+    if (Number.isFinite(hits) && Number.isFinite(ab) && ab > 0) {
+      const avgStr = (hits / ab).toFixed(3).replace(/^0/, "");
+      seasonMetrics.splice(1, 0, {
+        key: "avg",
+        label: "AVG",
+        value: avgStr,
+        detail: `${hits} H en ${ab} AB`,
+      });
+      if (seasonMetrics.length > 6) seasonMetrics.pop();
+    }
+  }
+
+  const glStatBlock = overview.gameLog?.statistics?.[0];
+  const glLabels = glStatBlock?.labels ?? [];
+  const glEventsMap = overview.gameLog?.events ?? {};
+  const recentGames: PlayerRecentGameLog[] = [];
+
+  for (const row of (glStatBlock?.events ?? []).slice(0, 5)) {
+    const evId = row.eventId;
+    const meta = evId ? glEventsMap[evId] : undefined;
+    if (!meta?.gameDate) continue;
+    const opponent = meta.opponent?.displayName?.trim() || meta.opponent?.abbreviation?.trim() || "Rival";
+    const resRaw = (meta.gameResult ?? "").toUpperCase();
+    const result: "W" | "D" | "L" | null =
+      resRaw === "W" ? "W" : resRaw === "L" ? "L" : resRaw === "T" || resRaw === "D" ? "D" : null;
+    const isHome = meta.atVs === "vs" ? true : meta.atVs === "@" ? false : null;
+    const statsList: Array<{ label: string; value: string }> = [];
+    glLabels.forEach((lbl, idx) => {
+      const v = row.stats?.[idx]?.trim();
+      if (!v || statsList.length >= 5) return;
+      statsList.push({ label: translateStatLabel(lbl), value: v });
+    });
+    recentGames.push({
+      dateIso: meta.gameDate.slice(0, 10),
+      opponent,
+      opponentAbbr: meta.opponent?.abbreviation?.trim() ?? null,
+      isHome,
+      score: meta.score?.trim() ?? null,
+      result,
+      stats: statsList,
+    });
+  }
+
+  return { appearances, seasonMetrics, recentGames };
 }
 
 function mapUsPosGroup(
@@ -1163,7 +1362,11 @@ function mapUsPosGroup(
   return { group: "FWD", label: a || "QB" };
 }
 
-async function ingestUsProSquads(onlyLeagues?: ReadonlySet<string>): Promise<void> {
+async function ingestUsProSquads(
+  onlyLeagues?: ReadonlySet<string>,
+  withStats = false,
+): Promise<void> {
+  const coachPortraitManifest = loadLocalCoachPortraitManifest();
   const allConfigs: ReadonlyArray<{
     league: "nba" | "nfl" | "nhl" | "mlb";
     sportPath: string;
@@ -1242,9 +1445,22 @@ async function ingestUsProSquads(onlyLeagues?: ReadonlySet<string>): Promise<voi
         c0 && (c0.firstName || c0.lastName)
           ? `${c0.firstName ?? ""} ${c0.lastName ?? ""}`.trim()
           : null;
+      const manifestCoachKey = `${cfg.league}.${target.slug}`;
+      const localCoachPhoto = coachPortraitManifest[manifestCoachKey]?.publicPath ?? null;
+      let coachBirthDate: string | null = null;
+      if (cfg.league === "mlb" && c0?.id) {
+        const coreCoach = await fetchJsonSafe<{ dateOfBirth?: string }>(
+          `https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/coaches/${encodeURIComponent(c0.id)}`,
+        );
+        if (coreCoach?.dateOfBirth) {
+          coachBirthDate = coreCoach.dateOfBirth.slice(0, 10);
+        }
+      }
       const coach: SquadCoachProfile | null = coachName
         ? {
             name: coachName,
+            ...(localCoachPhoto ? { photoKey: localCoachPhoto } : {}),
+            ...(coachBirthDate ? { birthDate: coachBirthDate } : {}),
             styleLabel:
               typeof c0?.experience === "number" && c0.experience > 0
                 ? `${c0.experience} temp. de experiencia`
@@ -1297,9 +1513,7 @@ async function ingestUsProSquads(onlyLeagues?: ReadonlySet<string>): Promise<voi
           athlete.headshot?.href &&
           athlete.headshot.href.startsWith("https://a.espncdn.com/i/headshots/")
             ? athlete.headshot.href
-            : /^\d+$/.test(pid)
-              ? `https://a.espncdn.com/i/headshots/${cfg.headshotSeg}/players/full/${pid}.png`
-              : null;
+            : null;
 
         const inj0 = athlete.injuries?.[0];
         const injStatusRaw = (inj0?.status ?? "").toLowerCase();
@@ -1346,6 +1560,21 @@ async function ingestUsProSquads(onlyLeagues?: ReadonlySet<string>): Promise<voi
 
       if (players.length === 0) return;
 
+      if (withStats) {
+        const keyPlayers = players
+          .filter((p) => /^\d+$/.test(p.id) && p.photoKey)
+          .slice(0, 5);
+        await runPool(keyPlayers, 3, async (p) => {
+          const ov = await fetchJsonSafe<EspnAthleteOverviewPayload>(
+            `https://site.web.api.espn.com/apis/common/v3/sports/${cfg.sportPath}/athletes/${encodeURIComponent(p.id)}/overview`,
+          );
+          const perf = buildUsOverviewPerformance(cfg.league, ov);
+          if (perf.appearances > 0) p.stats.appearances = perf.appearances;
+          if (perf.seasonMetrics.length > 0) p.seasonMetrics = perf.seasonMetrics;
+          if (perf.recentGames.length > 0) p.recentGames = perf.recentGames;
+        });
+      }
+
       teamSquads.push({
         teamId: asTeamId(target.id),
         teamSlug: target.slug,
@@ -1383,7 +1612,8 @@ async function main(): Promise<void> {
   if (!runUsOnly) {
     await enrichClubAndNationalSoccer();
   }
-  await ingestUsProSquads(filterSet);
+  const withStats = process.argv.includes("--with-stats");
+  await ingestUsProSquads(filterSet, withStats);
 }
 
 main().catch((err) => {

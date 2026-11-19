@@ -11,10 +11,13 @@ import {
   getBzzoiroTeamId,
   getEmblemPath,
   getMascotPath,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
   getLeagueAsset,
   getTeamAsset,
   isValidBzzoiroImageUrl,
+  resolvePersonPhotoUrl,
   TEAM_ASSETS,
 } from "../src/index";
 
@@ -241,5 +244,25 @@ describe("@pitchlab/sports-assets", () => {
     );
     expect(isValidBzzoiroImageUrl("http://sports.bzzoiro.com/img/team/309/")).toBe(false);
     expect(isValidBzzoiroImageUrl("https://evil.example.com/img/team/309/")).toBe(false);
+  });
+
+  it("resuelve los 30 escudos oficiales de MLB y retratos locales seguros de entrenadores", () => {
+    const webPublic = resolve(import.meta.dirname, "../../../apps/web/public");
+    expect(getOfficialEspnLeagueLogoUrl("mlb")).toBe("/brand/official/mlb/mlb.png");
+    expect(existsSync(resolve(webPublic, "brand/official/mlb/mlb.png"))).toBe(true);
+
+    const mlbTeams = Object.values(TEAM_ASSETS).filter((a) => a.league === "mlb");
+    expect(mlbTeams).toHaveLength(30);
+    for (const team of mlbTeams) {
+      const url = getOfficialEspnTeamLogoUrl("mlb", team.slug);
+      expect(url).toBe(`/brand/official/mlb/${team.slug}.png`);
+      expect(existsSync(resolve(webPublic, `.${url}`))).toBe(true);
+    }
+
+    expect(resolvePersonPhotoUrl("/brand/official/coaches/mlb/los-angeles-dodgers.webp")).toBe(
+      "/brand/official/coaches/mlb/los-angeles-dodgers.webp",
+    );
+    expect(resolvePersonPhotoUrl("/brand/official/coaches/../secrets.webp")).toBeNull();
+    expect(resolvePersonPhotoUrl("https://img.mlbstatic.com/foo.png")).toBeNull();
   });
 });

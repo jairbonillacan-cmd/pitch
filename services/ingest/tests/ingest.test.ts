@@ -59,8 +59,8 @@ describe("@pitchlab/ingest", () => {
     const validated = LeagueSnapshotSchema.parse(snap);
     expect(validated.games).toHaveLength(15);
     expect(Object.keys(validated.analyses)).toHaveLength(15);
-    expect(validated.logoUrl).toBeUndefined();
-    expect(validated.games[0]?.home.logoUrl).toBeUndefined();
+    expect(validated.logoUrl).toBe("/brand/official/nfl/nfl.png");
+    expect(validated.games[0]?.home.logoUrl).toMatch(/^\/brand\/official\/nfl\/[a-z0-9-]+\.png$/);
   });
 
   it("normaliza y analiza el fixture grabado de openfootball (Premier League 2026/27)", () => {

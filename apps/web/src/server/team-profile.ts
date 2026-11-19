@@ -1347,6 +1347,8 @@ function mapSquadEntryToSummary(
       injuryDetail: fullAccess ? (p.injuryDetail ?? null) : null,
       expectedReturn: fullAccess ? (p.expectedReturn ?? null) : null,
       stats: { ...p.stats },
+      ...(p.seasonMetrics && p.seasonMetrics.length > 0 ? { seasonMetrics: p.seasonMetrics } : {}),
+      ...(p.recentGames && p.recentGames.length > 0 ? { recentGames: p.recentGames } : {}),
       candidatePicks,
     };
   });
@@ -1470,6 +1472,7 @@ export function loadPlayerProfile(
     picksLocked: !options.fullAccess,
     lastMatch: teamProfile.recentMatches[0] ?? null,
     nextFixture: teamProfile.upcomingFixtures[0] ?? null,
+    teamRecentMatches: teamProfile.recentMatches.slice(0, 5),
     teammates,
   };
 }

@@ -80,6 +80,7 @@
 | `/app/parlays` | Armador de parlays y SGP | De 2 a 6 selecciones + guardado en bitácora |
 | `/app/props` | Props de jugadores | Estado honesto "próximamente" si el catálogo está vacío |
 | `/app/momios` | Comparador de momios | Movimientos y líneas del corte |
+| `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara con historial real y jugadores lado a lado |
 | `/app/historial` | Resultados cerrados (`FT`) | Historial completo de partidos finalizados |
 | `/app/lab` | Mi Bitácora | Picks y parlays sellados con CLV y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
@@ -108,10 +109,12 @@
 | `/app/precio` | `/app/account?tab=plan` |
 | `/app/epl` | `/app/premier-league` |
 | `/app/la-liga` | `/app/laliga` |
+| `/app/h2h`, `/app/compare` | `/app/comparar` |
 
 ## 5. Endpoints HTTP reales (`apps/web/app/api/*`)
 
 - Autenticación y onboarding: `/api/auth/[...all]`, `/api/handles/check`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`.
+- Búsqueda, comparación y utilidades del Club: `/api/search/players`, `/api/compare`, `/api/me/push`.
 - Cuenta, plan, cupones, preferencias y privacidad: `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
 - Comunidad, perfiles, tipsters, pagos y tareas programadas: `/api/u/[handle]`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/like`, `/api/social/follows`, `/api/social/reports`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
 - Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.

@@ -16,6 +16,7 @@ import { shortDateLabel } from "../club/home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
+import { PersonAvatar } from "../club/team/PersonAvatar";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
@@ -1188,6 +1189,12 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "layers",
   },
   {
+    label: "Comparar H2H",
+    subtitle: "Equipos cara a cara y jugadores lado a lado",
+    href: "/app/comparar",
+    icon: "sliders",
+  },
+  {
     label: "Compara tu momio",
     subtitle: "Comparativa de probabilidad estimada vs momio justo",
     href: "/app/momios",
@@ -1237,6 +1244,22 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   },
 ];
 
+interface CommandPlayerHit {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  jersey: string | null;
+  positionLabel: string;
+  teamSlug: string;
+  teamName: string;
+  league: string;
+  leagueLabel: string;
+  photoKey: string | null;
+  fallbackPhotoKey: string | null;
+  href: string;
+}
+
 export function CommandPaletteModal({
   initialQuery = "",
 }: {
@@ -1247,6 +1270,8 @@ export function CommandPaletteModal({
   const [query, setQuery] = useState<string>(initialQuery);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [rendered, setRendered] = useState<boolean>(cmdkOpen);
+  const [matchingPlayers, setMatchingPlayers] = useState<CommandPlayerHit[]>([]);
+  const [playersLoading, setPlayersLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
@@ -1265,6 +1290,40 @@ export function CommandPaletteModal({
       }
     };
   }, [cmdkOpen, initialQuery]);
+
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (!cmdkOpen || trimmed.length < 2 || typeof fetch !== "function") {
+      setMatchingPlayers([]);
+      setPlayersLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    setPlayersLoading(true);
+    const timer = window.setTimeout(() => {
+      fetch(`/api/search/players?q=${encodeURIComponent(trimmed)}&limit=6`, {
+        signal: controller.signal,
+        headers: { accept: "application/json" },
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((payload: { items?: CommandPlayerHit[] } | null) => {
+          if (controller.signal.aborted) return;
+          setMatchingPlayers(Array.isArray(payload?.items) ? payload.items : []);
+          setPlayersLoading(false);
+        })
+        .catch((err) => {
+          void err;
+          if (!controller.signal.aborted) {
+            setMatchingPlayers([]);
+            setPlayersLoading(false);
+          }
+        });
+    }, 150);
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [cmdkOpen, query]);
 
   if (!rendered && !cmdkOpen) return null;
 
@@ -1414,6 +1473,7 @@ export function CommandPaletteModal({
 
   const orderedTargets: string[] = [
     ...matchingTeams.map((t) => t.href),
+    ...matchingPlayers.map((p) => p.href),
     ...matchingGames.map((g) => `/app/${g.league}/games/${g.id}`),
     ...matchingLeagues.map((lg) => `/app/${lg.league}`),
     ...matchingTipsters.map((c) => `/app/u/${c.handle}`),
@@ -1427,7 +1487,8 @@ export function CommandPaletteModal({
       : -1;
 
   const teamsOffset = 0;
-  const gamesOffset = teamsOffset + matchingTeams.length;
+  const playersOffset = teamsOffset + matchingTeams.length;
+  const gamesOffset = playersOffset + matchingPlayers.length;
   const leaguesOffset = gamesOffset + matchingGames.length;
   const tipstersOffset = leaguesOffset + matchingLeagues.length;
   const routesOffset = tipstersOffset + matchingTipsters.length;
@@ -1454,6 +1515,10 @@ export function CommandPaletteModal({
         ?.querySelector<HTMLElement>(`[data-cmd-idx="${next}"]`)
         ?.scrollIntoView({ block: "nearest" });
     } else if (event.key === "Enter" && clampedActive >= 0) {
+      // IME-safe enter-to-submit: bloquear navegación mientras el usuario confirma caracteres IME
+      if (event.nativeEvent.isComposing || event.keyCode === 229) {
+        return;
+      }
       const target = orderedTargets[clampedActive];
       if (target) {
         event.preventDefault();
@@ -1479,13 +1544,13 @@ export function CommandPaletteModal({
               ref={inputRef}
               type="search"
               autoFocus
-              aria-label="Buscar partido, liga, @socio o módulo"
+              aria-label="Buscar partido, equipo, jugador, liga o @socio"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
                 setActiveIndex(0);
               }}
-              placeholder="Buscar partido, liga, @socio o módulo..."
+              placeholder="Buscar partido, equipo, jugador, liga o @socio..."
               className="pl-cmd-input"
             />
             {query.length > 0 ? (
@@ -1514,14 +1579,20 @@ export function CommandPaletteModal({
           </button>
         </div>
 
+        <p className="sr-only" aria-live="polite">
+          {q.length >= 2 && !playersLoading
+            ? `${orderedTargets.length} resultados para ${query}`
+            : ""}
+        </p>
+
         <div ref={resultsRef} className="pl-cmd-results">
-          {!hasResults ? (
+          {!hasResults && !playersLoading ? (
             <div className="pl-cmd-empty">
               <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
                 Sin coincidencias para «{query}»
               </p>
               <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Prueba con NFL, Liga MX, un equipo o un @socio del club.
+                Prueba con MLB, Liga MX, un equipo, un jugador o un @socio del club.
               </p>
             </div>
           ) : null}
@@ -1562,6 +1633,60 @@ export function CommandPaletteModal({
                         <span>
                           {teamItem.leagueLabel}
                           {teamItem.rank !== null ? ` · #${teamItem.rank}` : ""}
+                        </span>
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {matchingPlayers.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Jugadores" data-cmd-players-group="">
+              <div className="pl-cmd-group-head">
+                <span>Jugadores</span>
+                <span className="pl-cmd-group-count num">{matchingPlayers.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingPlayers.map((playerItem, i) => {
+                  const idx = playersOffset + i;
+                  const active = idx === clampedActive;
+                  return (
+                    <a
+                      key={playerItem.id}
+                      href={playerItem.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        selectHref(playerItem.href);
+                      }}
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <PersonAvatar
+                          photoKey={playerItem.photoKey}
+                          fallbackPhotoKey={playerItem.fallbackPhotoKey}
+                          role="player"
+                          size={26}
+                        />
+                        <span className="min-w-0">
+                          <span className="block truncate font-semibold">{playerItem.name}</span>
+                          <span
+                            className="block truncate text-[11px]"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {playerItem.teamName} · {playerItem.leagueLabel}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="pl-cmd-row-meta num">
+                        <span className="pl-pill text-[10px] px-1.5 py-0">
+                          {playerItem.positionLabel}
+                          {playerItem.jersey ? ` #${playerItem.jersey}` : ""}
                         </span>
                         <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>

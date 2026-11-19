@@ -158,6 +158,23 @@ export interface TeamCoachInfo {
   } | null;
 }
 
+export interface TeamSquadPlayerSeasonMetric {
+  key: string;
+  label: string;
+  value: string;
+  detail?: string | null;
+}
+
+export interface TeamSquadPlayerRecentGame {
+  dateIso: string;
+  opponent: string;
+  opponentAbbr?: string | null;
+  isHome?: boolean | null;
+  score?: string | null;
+  result?: "W" | "D" | "L" | null;
+  stats: Array<{ label: string; value: string }>;
+}
+
 export interface TeamSquadPlayer {
   id: string;
   slug: string;
@@ -179,6 +196,8 @@ export interface TeamSquadPlayer {
   injuryDetail?: string | null;
   expectedReturn?: string | null;
   stats: TeamSquadPlayerStats;
+  seasonMetrics?: TeamSquadPlayerSeasonMetric[];
+  recentGames?: TeamSquadPlayerRecentGame[];
   candidatePicks: TeamPlayerPick[];
 }
 
@@ -245,6 +264,7 @@ export interface PlayerProfileData {
   picksLocked: boolean;
   lastMatch?: TeamMatchHistoryRow | null;
   nextFixture: TeamUpcomingFixtureRow | null;
+  teamRecentMatches?: TeamMatchHistoryRow[];
   teammates: Array<{
     slug: string;
     name: string;

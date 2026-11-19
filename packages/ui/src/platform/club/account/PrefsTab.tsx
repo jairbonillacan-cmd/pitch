@@ -23,6 +23,7 @@ import {
   type StoredAccountPrefsV1,
   type ThemePreference,
 } from "./account-helpers";
+import { PwaAndPushSection } from "./PwaAndPushSection";
 
 export interface PrefsTabStoryOverride {
   accountsEnabled?: boolean;
@@ -47,6 +48,7 @@ const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string }> = [
   { id: "nfl" as LeagueId, name: "NFL" },
   { id: "nba" as LeagueId, name: "NBA" },
   { id: "nhl" as LeagueId, name: "NHL" },
+  { id: "mlb" as LeagueId, name: "MLB" },
   { id: "premier-league" as LeagueId, name: "Premier League" },
   { id: "laliga" as LeagueId, name: "LaLiga" },
   { id: "bundesliga" as LeagueId, name: "Bundesliga" },
@@ -1173,6 +1175,12 @@ export function PrefsTab({
                 </div>
               );
             })}
+
+            <PwaAndPushSection
+              accountsEnabled={accountsEnabled}
+              canPersistServer={canPersistServer}
+              onNotifyToast={(msg, tone) => pushToast(msg, tone)}
+            />
           </section>
 
           {/* 5. Privacidad */}

@@ -356,6 +356,8 @@ export function PreMatchModule({
           {absencesState.state === "with_absences" ? (
             <ul
               role="list"
+              tabIndex={0}
+              aria-label="Lista de bajas y dudas"
               className={`pl-prematch-absence-list ${hasManyAbsences ? "is-grid" : ""}`.trim()}
             >
               {absencesState.items.map((item, idx) => {

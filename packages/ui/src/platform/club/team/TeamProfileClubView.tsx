@@ -1762,6 +1762,19 @@ export function TeamProfileClubView({
                   <MaestroIcon name="sliders" size={13} />
                   <span>{profile.standing ? "Tabla y liga" : `Ver ${profile.leagueLabel}`}</span>
                 </a>
+                <a
+                  href={`/app/comparar?modo=equipos&liga=${profile.league}&a=${profile.team.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(
+                      `/app/comparar?modo=equipos&liga=${profile.league}&a=${profile.team.slug}`,
+                    );
+                  }}
+                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                >
+                  <MaestroIcon name="chart" size={13} />
+                  <span>Comparar</span>
+                </a>
               </div>
 
               <div className="pl-team-hero-matches">

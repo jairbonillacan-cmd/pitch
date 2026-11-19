@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PlayerProfileClubView } from "@pitchlab/ui/player-profile";
+import { hydratePlayerLivePerformance } from "../../../../../../../src/server/player-live-stats";
 import { loadPlayerProfile } from "../../../../../../../src/server/team-profile";
 import { getViewerAccess } from "../../../../../../../src/server/viewer-access";
 
@@ -37,5 +38,7 @@ export default async function PlayerProfilePage({
     notFound();
   }
 
-  return <PlayerProfileClubView profile={profile} />;
+  const enrichedProfile = await hydratePlayerLivePerformance(profile);
+
+  return <PlayerProfileClubView profile={enrichedProfile} />;
 }

@@ -44,3 +44,4 @@
 | [ADR-038](ADR-038-tarjeta-invitacion-3d-webgl-sdf-y-enlaces-cortos-referido.md) | Tarjeta de invitación 3D en WebGL 1.0 por raymarching SDF (`ReferralCard3D`) y embudo de enlaces cortos `/i/[code]` con OpenGraph estático | Aceptada (en implementación para `/i/[code]` y `Mi cuenta`) |
 | [ADR-039](ADR-039-perfiles-equipo-jugador-retratos-y-resultados-temporada.md) | Perfiles multi-deporte de equipo/jugador, retratos opacos con respaldo (`<PersonAvatar>`) y resultados de temporada separados del corpus canónico | Aceptada |
 | [ADR-040](ADR-040-bordes-planos-iconos-tematicos-webp-y-microinteracciones.md) | Bordes planos por token dedicado (`--pl-card-border`), paquete dual de iconos WebP y micro-interacciones CSS sin `backdrop-filter` | Aceptada |
+| [ADR-041](ADR-041-bzzoiro-fase1-mlb-standings-us-perfiles-y-pwa.md) | Bzzoiro Fase 1, MLB y standings US por conferencia, retratos/estadísticas de jugadores, búsqueda global, comparador H2H y PWA/Push | Aceptada |

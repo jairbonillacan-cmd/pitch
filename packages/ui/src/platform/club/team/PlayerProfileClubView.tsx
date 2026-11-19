@@ -39,6 +39,14 @@ function buildPlayerStatTiles(
   player: TeamSquadPlayer,
   sport: PlayerProfileData["sport"],
 ): StatCardTile[] {
+  if (player.seasonMetrics && player.seasonMetrics.length > 0) {
+    return player.seasonMetrics.slice(0, 6).map((m) => ({
+      label: m.label,
+      value: m.value,
+      ...(m.detail ? { detail: m.detail } : {}),
+    }));
+  }
+
   const { stats, positionGroup } = player;
   if (sport !== "football" && stats.appearances === 0) {
     const statusText =
@@ -78,22 +86,33 @@ function buildPlayerStatTiles(
 
   const accuracyPct =
     stats.shots > 0 ? `${((stats.shotsOnTarget / stats.shots) * 100).toFixed(0)}% al arco` : "Sin remates";
+  const gaTotal = stats.goals + stats.assists;
+  const gaPerGame =
+    stats.appearances > 0 ? `${(gaTotal / stats.appearances).toFixed(2)} por partido` : undefined;
   return [
     {
       label: "Apariciones",
       value: `${stats.appearances}`,
       detail: `${starts} titular · ${stats.subIns} sup.`,
     },
-    { label: "Goles", value: `${stats.goals}` },
-    { label: "Asistencias", value: `${stats.assists}` },
+    { label: "Goles / Asist.", value: `${stats.goals} / ${stats.assists}`, detail: gaPerGame ? `G+A: ${gaTotal} (${gaPerGame})` : undefined },
     { label: "Tiros totales", value: `${stats.shots}`, detail: `${stats.shotsOnTarget} a puerta` },
     { label: "Precisión de tiro", value: accuracyPct },
+    { label: "Faltas com. / suf.", value: `${stats.foulsCommitted} / ${stats.foulsSuffered}` },
     {
       label: "Disciplina",
       value: `${stats.yellowCards} TA · ${stats.redCards} TR`,
-      detail: `Faltas ${stats.foulsCommitted}/${stats.foulsSuffered} · Off. ${stats.offsides}`,
+      detail: `Fuera de juego: ${stats.offsides}`,
     },
   ];
+}
+
+function formatGameLogDateShortEs(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+  const idx = Number(m[2]) - 1;
+  return `${Number(m[3])} ${months[idx] ?? m[2]}`;
 }
 
 function PlayerInteractivePickCard({
@@ -922,11 +941,26 @@ export function PlayerProfileClubView({
             className="glass-card glass-ring rounded-2xl p-5 space-y-3"
             aria-labelledby="player-stats-heading"
           >
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 id="player-stats-heading" className="m-0 text-base sm:text-lg font-extrabold">
                 Estadísticas de temporada
               </h2>
-              <span className="pl-pill text-xs">Actualizado: {profile.updatedAt}</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href={`/app/comparar?modo=jugadores&liga=${profile.league}&a=${profile.team.slug}:${profile.player.slug}`}
+                  onClick={(e) =>
+                    navigateOnPlainClick(
+                      e,
+                      `/app/comparar?modo=jugadores&liga=${profile.league}&a=${profile.team.slug}:${profile.player.slug}`,
+                    )
+                  }
+                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                >
+                  <MaestroIcon name="sliders" size={13} />
+                  <span>Comparar jugador</span>
+                </a>
+                <span className="pl-pill text-xs">Actualizado: {profile.updatedAt}</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
@@ -952,6 +986,155 @@ export function PlayerProfileClubView({
               ))}
             </div>
           </section>
+
+          {/* Últimos 5 partidos del jugador (o contexto reciente del equipo si no hay box-score individual) */}
+          {(profile.player.recentGames && profile.player.recentGames.length > 0) ||
+          (profile.teamRecentMatches && profile.teamRecentMatches.length > 0) ? (
+            <section
+              className="glass-card glass-ring rounded-2xl p-5 space-y-3"
+              aria-labelledby="player-last5-heading"
+              data-player-recent-games=""
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h2 id="player-last5-heading" className="m-0 text-base sm:text-lg font-extrabold">
+                    Últimos 5 partidos
+                  </h2>
+                  <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                    {profile.player.recentGames && profile.player.recentGames.length > 0
+                      ? `Actuaciones recientes registradas de ${profile.player.shortName} en ${profile.seasonLabel}.`
+                      : `Contexto reciente de ${profile.team.shortName} (${profile.seasonLabel}).`}
+                  </p>
+                </div>
+                <span className="pl-pill text-xs num">
+                  {profile.player.recentGames && profile.player.recentGames.length > 0
+                    ? `${profile.player.recentGames.length} juegos`
+                    : `${profile.teamRecentMatches?.length ?? 0} partidos`}
+                </span>
+              </div>
+
+              {profile.player.recentGames && profile.player.recentGames.length > 0 ? (
+                (() => {
+                  const statHeaders = profile.player.recentGames[0]?.stats.map((s) => s.label) ?? [];
+                  return (
+                    <div
+                      tabIndex={0}
+                      role="region"
+                      aria-labelledby="player-last5-heading"
+                      className="pl-player-gamelog-wrap"
+                    >
+                      <table className="pl-player-gamelog-table w-full text-left text-xs">
+                        <caption className="sr-only">
+                          Últimos 5 partidos de {profile.player.name}
+                        </caption>
+                        <thead>
+                          <tr className="hairline-b" style={{ color: "var(--pl-text-muted)" }}>
+                            <th scope="col" className="py-2 pr-3">Fecha</th>
+                            <th scope="col" className="py-2 px-2">Rival</th>
+                            <th scope="col" className="py-2 px-2 text-center">Res.</th>
+                            {statHeaders.map((lbl) => (
+                              <th key={lbl} scope="col" className="py-2 px-2 text-right">
+                                {lbl}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {profile.player.recentGames.map((row, idx) => {
+                            const resEs =
+                              row.result === "W" ? "G" : row.result === "L" ? "P" : row.result === "D" ? "E" : "—";
+                            const resTone =
+                              row.result === "W"
+                                ? "is-win"
+                                : row.result === "L"
+                                  ? "is-loss"
+                                  : "is-draw";
+                            return (
+                              <tr key={`${row.dateIso}-${idx}`} className="hairline-b">
+                                <th scope="row" className="py-2.5 pr-3 font-semibold num whitespace-nowrap">
+                                  {formatGameLogDateShortEs(row.dateIso)}
+                                </th>
+                                <td className="py-2.5 px-2 whitespace-nowrap" data-col-label="Rival">
+                                  <span style={{ color: "var(--pl-text-muted)" }}>
+                                    {row.isHome === true ? "vs " : row.isHome === false ? "@ " : ""}
+                                  </span>
+                                  <strong>{row.opponentAbbr ?? row.opponent}</strong>
+                                </td>
+                                <td className="py-2.5 px-2 text-center num whitespace-nowrap" data-col-label="Resultado">
+                                  <span className={`pl-st-form-pill ${resTone}`} style={{ display: "inline-flex", marginInlineEnd: 6 }}>
+                                    {resEs}
+                                  </span>
+                                  <span>{row.score ?? ""}</span>
+                                </td>
+                                {statHeaders.map((lbl, cIdx) => {
+                                  const cell = row.stats[cIdx];
+                                  return (
+                                    <td
+                                      key={lbl}
+                                      className="py-2.5 px-2 text-right num font-bold"
+                                      data-col-label={lbl}
+                                    >
+                                      {cell?.value ?? "—"}
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })()
+              ) : (
+                <div
+                  tabIndex={0}
+                  role="region"
+                  aria-labelledby="player-last5-heading"
+                  className="pl-player-gamelog-wrap"
+                >
+                  <table className="pl-player-gamelog-table w-full text-left text-xs">
+                    <caption className="sr-only">
+                      Últimos 5 partidos recientes de {profile.team.name}
+                    </caption>
+                    <thead>
+                      <tr className="hairline-b" style={{ color: "var(--pl-text-muted)" }}>
+                        <th scope="col" className="py-2 pr-3">Fecha</th>
+                        <th scope="col" className="py-2 px-2">Rival</th>
+                        <th scope="col" className="py-2 px-2">Sede</th>
+                        <th scope="col" className="py-2 pl-2 text-right">Marcador</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(profile.teamRecentMatches ?? []).map((m) => {
+                        const resTone =
+                          m.outcome === "G" ? "is-win" : m.outcome === "P" ? "is-loss" : "is-draw";
+                        return (
+                          <tr key={m.id} className="hairline-b">
+                            <th scope="row" className="py-2.5 pr-3 font-semibold num whitespace-nowrap">
+                              {m.dateLabel}
+                            </th>
+                            <td className="py-2.5 px-2 whitespace-nowrap" data-col-label="Rival">
+                              <strong>{m.opponent.shortName || m.opponent.name}</strong>
+                            </td>
+                            <td className="py-2.5 px-2 whitespace-nowrap" data-col-label="Sede" style={{ color: "var(--pl-text-muted)" }}>
+                              {m.neutralSite ? "Neutral" : m.isHome ? "Local" : "Visita"}
+                            </td>
+                            <td className="py-2.5 pl-2 text-right num font-bold whitespace-nowrap" data-col-label="Marcador">
+                              <span className={`pl-st-form-pill ${resTone}`} style={{ display: "inline-flex", marginInlineEnd: 6 }}>
+                                {m.outcome}
+                              </span>
+                              <span>{m.teamScore}–{m.opponentScore}</span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
+          ) : null}
 
           {/* Picks aplicables al jugador */}
           <section

@@ -11,6 +11,11 @@
 import { resolve } from "node:path";
 import {
   LeagueSnapshotSchema,
+  asGameId,
+  asLeagueId,
+  asSeasonId,
+  asTeamId,
+  type GameDTO,
   type LeagueSnapshot,
   type StandingFormToken,
   type StandingRow,
@@ -97,12 +102,232 @@ function nhlStreakForm(item: NhlStandingsItem): StandingFormToken[] {
   return Array.from({ length: 5 }, () => tok);
 }
 
+interface NhlClubScheduleGame {
+  id?: number;
+  gameType?: number;
+  gameDate?: string;
+  startTimeUTC?: string;
+  gameState?: string;
+  awayTeam?: { abbrev?: string; placeName?: { default?: string }; commonName?: { default?: string }; score?: number };
+  homeTeam?: { abbrev?: string; placeName?: { default?: string }; commonName?: { default?: string }; score?: number };
+  venue?: { default?: string };
+}
+
+async function runPool<T>(items: readonly T[], concurrency: number, fn: (item: T) => Promise<void>): Promise<void> {
+  let idx = 0;
+  async function worker() {
+    while (idx < items.length) {
+      const i = idx++;
+      await fn(items[i]!);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+}
+
+function computeFormFromGames(games: readonly GameDTO[]): Map<string, StandingFormToken[]> {
+  const sorted = [...games]
+    .filter((g) => g.status === "final" && g.result)
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const map = new Map<string, StandingFormToken[]>();
+  for (const g of sorted) {
+    if (!g.result) continue;
+    const hTok: StandingFormToken = g.result.home > g.result.away ? "W" : g.result.home < g.result.away ? "L" : "D";
+    const aTok: StandingFormToken = g.result.away > g.result.home ? "W" : g.result.away < g.result.home ? "L" : "D";
+    const hList = map.get(g.home.id) ?? [];
+    hList.push(hTok);
+    map.set(g.home.id, hList.slice(-5));
+    const aList = map.get(g.away.id) ?? [];
+    aList.push(aTok);
+    map.set(g.away.id, aList.slice(-5));
+  }
+  return map;
+}
+
+async function fetchNhlSeasonGames(
+  prev: LeagueSnapshot,
+  abbrevs: readonly string[],
+  observedAtIso: string,
+): Promise<GameDTO[]> {
+  const cfg = readProviderConfigs().nhl_web;
+  const dedup = new Map<string, GameDTO>();
+  await runPool(abbrevs, 6, async (abbrev) => {
+    try {
+      const res = await fetch(`${cfg.baseUrl}/club-schedule-season/${encodeURIComponent(abbrev)}/now`, {
+        headers: cfg.headers,
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!res.ok) return;
+      const payload = (await res.json()) as { games?: NhlClubScheduleGame[] };
+      for (const g of payload.games ?? []) {
+        if (g.gameType !== 2) continue;
+        const st = (g.gameState ?? "").toUpperCase();
+        if (st !== "OFF" && st !== "FINAL") continue;
+        const hs = g.homeTeam?.score;
+        const as = g.awayTeam?.score;
+        if (typeof hs !== "number" || typeof as !== "number") continue;
+        const hAbbr = g.homeTeam?.abbrev?.trim();
+        const aAbbr = g.awayTeam?.abbrev?.trim();
+        const hName = `${g.homeTeam?.placeName?.default ?? ""} ${g.homeTeam?.commonName?.default ?? ""}`.trim();
+        const aName = `${g.awayTeam?.placeName?.default ?? ""} ${g.awayTeam?.commonName?.default ?? ""}`.trim();
+        const home = resolveSnapshotTeamByRaw(prev, hName, hAbbr);
+        const away = resolveSnapshotTeamByRaw(prev, aName, aAbbr);
+        if (!home || !away || home.teamId === away.teamId) continue;
+        const startIso = g.startTimeUTC ?? (g.gameDate ? `${g.gameDate}T23:00:00Z` : "");
+        if (!startIso || Number.isNaN(Date.parse(startIso))) continue;
+        const datePart = startIso.slice(0, 10);
+        const hSlug = home.teamId.split(".")[1] ?? home.teamId;
+        const aSlug = away.teamId.split(".")[1] ?? away.teamId;
+        const key = g.id ? `nhl-${datePart}-${aSlug}-${hSlug}` : `nhl-${datePart}-${aSlug}-${hSlug}`;
+        if (dedup.has(key)) continue;
+        dedup.set(key, {
+          id: asGameId(key),
+          league: asLeagueId("nhl"),
+          season: prev.season,
+          round: "Temporada regular",
+          startTime: new Date(startIso).toISOString(),
+          status: "final",
+          home: {
+            id: asTeamId(home.teamId),
+            league: asLeagueId("nhl"),
+            name: home.name,
+            shortName: home.shortName,
+            code: home.code,
+            ...(home.logoUrl ? { logoUrl: home.logoUrl } : {}),
+          },
+          away: {
+            id: asTeamId(away.teamId),
+            league: asLeagueId("nhl"),
+            name: away.name,
+            shortName: away.shortName,
+            code: away.code,
+            ...(away.logoUrl ? { logoUrl: away.logoUrl } : {}),
+          },
+          ...(g.venue?.default ? { venue: g.venue.default } : {}),
+          neutralSite: false,
+          result: {
+            home: hs,
+            away: as,
+            observedAt: observedAtIso,
+            source: "nhl_web",
+          },
+        });
+      }
+    } catch (err) {
+      void err;
+    }
+  });
+  return [...dedup.values()].sort((a, b) => a.startTime.localeCompare(b.startTime));
+}
+
+interface EspnTeamSchedulePayload {
+  events?: Array<{
+    id?: string;
+    date?: string;
+    seasonType?: { type?: number; name?: string };
+    competitions?: Array<{
+      venue?: { fullName?: string };
+      status?: { type?: { completed?: boolean } };
+      competitors?: Array<{
+        homeAway?: string;
+        score?: { value?: number; displayValue?: string } | string;
+        team?: { displayName?: string; abbreviation?: string };
+      }>;
+    }>;
+  }>;
+}
+
+async function fetchNbaSeasonGames(
+  prev: LeagueSnapshot,
+  observedAtIso: string,
+): Promise<GameDTO[]> {
+  const teamsRes = await fetch(
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams?limit=40",
+    { signal: AbortSignal.timeout(15_000) },
+  );
+  if (!teamsRes.ok) return [];
+  const teamsPayload = (await teamsRes.json()) as {
+    sports?: Array<{ leagues?: Array<{ teams?: Array<{ team?: { id?: string } }> }> }>;
+  };
+  const teamIds = (teamsPayload.sports?.[0]?.leagues?.[0]?.teams ?? [])
+    .map((t) => t.team?.id)
+    .filter((id): id is string => Boolean(id));
+
+  const dedup = new Map<string, GameDTO>();
+  await runPool(teamIds, 6, async (eid) => {
+    try {
+      const res = await fetch(
+        `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${encodeURIComponent(eid)}/schedule?season=2027`,
+        { signal: AbortSignal.timeout(15_000) },
+      );
+      if (!res.ok) return;
+      const payload = (await res.json()) as EspnTeamSchedulePayload;
+      for (const ev of payload.events ?? []) {
+        if (ev.seasonType?.type === 1) continue; // omitir pretemporada
+        const comp = ev.competitions?.[0];
+        if (!comp?.status?.type?.completed) continue;
+        const hComp = comp.competitors?.find((c) => c.homeAway === "home");
+        const aComp = comp.competitors?.find((c) => c.homeAway === "away");
+        if (!hComp || !aComp) continue;
+        const rawH = typeof hComp.score === "object" ? (hComp.score?.value ?? Number(hComp.score?.displayValue)) : Number(hComp.score);
+        const rawA = typeof aComp.score === "object" ? (aComp.score?.value ?? Number(aComp.score?.displayValue)) : Number(aComp.score);
+        if (!Number.isFinite(rawH) || !Number.isFinite(rawA)) continue;
+        const home = resolveSnapshotTeamByRaw(prev, hComp.team?.displayName ?? "", hComp.team?.abbreviation);
+        const away = resolveSnapshotTeamByRaw(prev, aComp.team?.displayName ?? "", aComp.team?.abbreviation);
+        if (!home || !away || home.teamId === away.teamId) continue;
+        const startIso = ev.date ?? "";
+        if (!startIso || Number.isNaN(Date.parse(startIso))) continue;
+        const datePart = startIso.slice(0, 10);
+        const hSlug = home.teamId.split(".")[1] ?? home.teamId;
+        const aSlug = away.teamId.split(".")[1] ?? away.teamId;
+        const key = `nba-${datePart}-${aSlug}-${hSlug}`;
+        if (dedup.has(key)) continue;
+        dedup.set(key, {
+          id: asGameId(key),
+          league: asLeagueId("nba"),
+          season: prev.season,
+          round: ev.seasonType?.name === "Postseason" ? "Playoffs" : "Temporada regular",
+          startTime: new Date(startIso).toISOString(),
+          status: "final",
+          home: {
+            id: asTeamId(home.teamId),
+            league: asLeagueId("nba"),
+            name: home.name,
+            shortName: home.shortName,
+            code: home.code,
+            ...(home.logoUrl ? { logoUrl: home.logoUrl } : {}),
+          },
+          away: {
+            id: asTeamId(away.teamId),
+            league: asLeagueId("nba"),
+            name: away.name,
+            shortName: away.shortName,
+            code: away.code,
+            ...(away.logoUrl ? { logoUrl: away.logoUrl } : {}),
+          },
+          ...(comp.venue?.fullName ? { venue: comp.venue.fullName } : {}),
+          neutralSite: false,
+          result: {
+            home: Math.round(rawH),
+            away: Math.round(rawA),
+            observedAt: observedAtIso,
+            source: "espn_public",
+          },
+        });
+      }
+    } catch (err) {
+      void err;
+    }
+  });
+  return [...dedup.values()].sort((a, b) => a.startTime.localeCompare(b.startTime));
+}
+
 async function hydrateNhlStandings(now: Date): Promise<void> {
   const prev = loadPreviousSnapshot(SNAPSHOTS, "nhl");
   if (!prev) {
     console.warn("[standings:nhl] No existe latest.json previo; omitido.");
     return;
   }
+  const updatedAt = now.toISOString();
   const cfg = readProviderConfigs().nhl_web;
   const res = await fetch(`${cfg.baseUrl}/standings/now`, {
     headers: cfg.headers,
@@ -110,6 +335,22 @@ async function hydrateNhlStandings(now: Date): Promise<void> {
   });
   if (!res.ok) throw new Error(`NHL Web API respondió HTTP ${res.status}`);
   const payload = (await res.json()) as { standings?: NhlStandingsItem[] };
+
+  const abbrevs = [...new Set(
+    (payload.standings ?? [])
+      .map((item) => item.teamAbbrev?.default?.trim())
+      .filter((a): a is string => Boolean(a)),
+  )];
+  const seasonGames = await fetchNhlSeasonGames(prev, abbrevs, updatedAt);
+  const realFormByTeam = computeFormFromGames(seasonGames);
+  if (seasonGames.length > 0) {
+    writeSeasonResultsFile(SNAPSHOTS, {
+      league: "nhl",
+      season: String(prev.season),
+      updatedAt,
+      games: seasonGames,
+    });
+  }
 
   const rows: StandingRow[] = [];
   for (const item of payload.standings ?? []) {
@@ -125,7 +366,8 @@ async function hydrateNhlStandings(now: Date): Promise<void> {
     const otLosses = item.otLosses ?? 0;
     const played = item.gamesPlayed ?? won + lost + otLosses;
     const points = item.points ?? won * 2 + otLosses;
-    const form = nhlStreakForm(item);
+    const realForm = realFormByTeam.get(matched.teamId) ?? [];
+    const form = realForm.length > 0 ? realForm : nhlStreakForm(item);
     const logoUrl = matched.logoUrl ?? getOfficialEspnTeamLogoUrl("nhl", slug) ?? undefined;
 
     rows.push({
@@ -155,7 +397,7 @@ async function hydrateNhlStandings(now: Date): Promise<void> {
   const candidate = LeagueSnapshotSchema.parse({
     ...prev,
     logoUrl: prev.logoUrl ?? "/brand/official/nhl/nhl.png",
-    updatedAt: now.toISOString(),
+    updatedAt,
     standings,
   });
 
@@ -164,7 +406,14 @@ async function hydrateNhlStandings(now: Date): Promise<void> {
     throw new Error(validation.issues.map((i) => `${i.code}: ${i.message}`).join(" | "));
   }
   const { latestPath } = writeSnapshotFiles(SNAPSHOTS, validation.value ?? candidate, now.toISOString().slice(0, 10));
-  console.log(`[standings:nhl] ${standings.length} equipos publicados en ${latestPath}`);
+  const injRes = await collectAndWriteLeagueInjuries({
+    snapshotsRoot: SNAPSHOTS,
+    league: "nhl",
+    observedAtIso: updatedAt,
+  });
+  console.log(
+    `[standings:nhl] ${standings.length} equipos · ${seasonGames.length} resultados · ${injRes.entriesCount} bajas → ${latestPath}`,
+  );
 }
 
 interface EspnStandingsResponse {
@@ -202,12 +451,24 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
     console.warn("[standings:nba] No existe latest.json previo; omitido.");
     return;
   }
+  const updatedAt = now.toISOString();
   const res = await fetch(
     "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=2027",
     { signal: AbortSignal.timeout(15_000) },
   );
   if (!res.ok) throw new Error(`Standings NBA respondió HTTP ${res.status}`);
   const payload = (await res.json()) as EspnStandingsResponse;
+
+  const seasonGames = await fetchNbaSeasonGames(prev, updatedAt);
+  const realFormByTeam = computeFormFromGames(seasonGames);
+  if (seasonGames.length > 0) {
+    writeSeasonResultsFile(SNAPSHOTS, {
+      league: "nba",
+      season: String(prev.season),
+      updatedAt,
+      games: seasonGames,
+    });
+  }
 
   const rows: StandingRow[] = [];
   for (const child of payload.children ?? []) {
@@ -229,10 +490,13 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
       const gb = statStr(entry.stats, "gamesBehind");
       const seedRaw = statNum(entry.stats, "playoffSeed");
       const streakRaw = statStr(entry.stats, "streak");
+      const realForm = realFormByTeam.get(matched.teamId) ?? [];
       const form: StandingFormToken[] =
-        streakRaw && /^[WL](\d+)$/i.test(streakRaw) && Number(streakRaw.slice(1)) >= 5
-          ? Array.from({ length: 5 }, () => (streakRaw[0]!.toUpperCase() === "W" ? "W" : "L"))
-          : [];
+        realForm.length > 0
+          ? realForm
+          : streakRaw && /^[WL](\d+)$/i.test(streakRaw) && Number(streakRaw.slice(1)) >= 5
+            ? Array.from({ length: 5 }, () => (streakRaw[0]!.toUpperCase() === "W" ? "W" : "L"))
+            : [];
       const logoUrl = matched.logoUrl ?? getBzzoiroTeamEmblemUrl("nba", slug) ?? undefined;
 
       rows.push({
@@ -261,7 +525,7 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
   const standings = finalizeConferenceStandings("nba", rows, { computeGamesBehind: true });
   const candidate = LeagueSnapshotSchema.parse({
     ...prev,
-    updatedAt: now.toISOString(),
+    updatedAt,
     standings,
   });
   const validation = validateLeagueSnapshotCandidate(candidate, prev, { nowMs: now.getTime() });
@@ -269,7 +533,14 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
     throw new Error(validation.issues.map((i) => `${i.code}: ${i.message}`).join(" | "));
   }
   const { latestPath } = writeSnapshotFiles(SNAPSHOTS, validation.value ?? candidate, now.toISOString().slice(0, 10));
-  console.log(`[standings:nba] ${standings.length} equipos publicados en ${latestPath}`);
+  const injRes = await collectAndWriteLeagueInjuries({
+    snapshotsRoot: SNAPSHOTS,
+    league: "nba",
+    observedAtIso: updatedAt,
+  });
+  console.log(
+    `[standings:nba] ${standings.length} equipos · ${seasonGames.length} resultados · ${injRes.entriesCount} bajas → ${latestPath}`,
+  );
 }
 
 async function updateNflWithStandings(now: Date): Promise<void> {

@@ -20251,3 +20251,178 @@ html[data-theme="dark"] .pl-sq-jersey {
     min-height: 44px;
   }
 }
+
+/* ==========================================================================
+   Últimos 5 partidos en perfil de jugador (`responsive-table` @container)
+   ========================================================================== */
+.pl-player-gamelog-wrap {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pl-player-gamelog-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.pl-player-gamelog-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--pl-surface);
+}
+
+.pl-player-gamelog-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  background: var(--pl-surface);
+  color: var(--pl-text);
+}
+
+@container (width < 520px) {
+  .pl-player-gamelog-table,
+  .pl-player-gamelog-table thead,
+  .pl-player-gamelog-table tbody,
+  .pl-player-gamelog-table tr,
+  .pl-player-gamelog-table th,
+  .pl-player-gamelog-table td {
+    display: block;
+  }
+
+  .pl-player-gamelog-table thead {
+    display: none;
+  }
+
+  .pl-player-gamelog-table tbody tr {
+    border: 1px solid var(--pl-card-border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-block-end: 10px;
+    background: var(--pl-surface-elevated);
+  }
+
+  .pl-player-gamelog-table tbody th {
+    position: static;
+    background: transparent;
+    padding: 0 0 6px;
+    border-bottom: 1px solid var(--pl-row-rule);
+    margin-bottom: 6px;
+  }
+
+  .pl-player-gamelog-table tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 0;
+    text-align: right;
+  }
+
+  .pl-player-gamelog-table tbody td::before {
+    content: attr(data-col-label);
+    color: var(--pl-text-muted);
+    font-weight: 500;
+    text-align: left;
+  }
+}
+
+/* ==========================================================================
+   Gráfica compacta de movimiento de línea (`MatchMoneyPanel`)
+   ========================================================================== */
+.pl-odds-move-card {
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-card-border);
+}
+
+/* ==========================================================================
+   Comparador rápido H2H (`/app/comparar`)
+   ========================================================================== */
+.pl-cmp-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto minmax(0, 1.2fr);
+  gap: 10px;
+  align-items: end;
+}
+
+.pl-cmp-duel-head {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pl-cmp-side-card {
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-card-border);
+  min-width: 0;
+}
+
+.pl-cmp-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pl-cmp-row-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.pl-cmp-val {
+  font-weight: 700;
+  color: var(--pl-text-secondary);
+}
+
+.pl-cmp-val.is-lead {
+  color: var(--pl-text);
+  font-weight: 800;
+}
+
+.pl-cmp-label {
+  font-size: 12px;
+  color: var(--pl-text-muted);
+  text-align: center;
+}
+
+.pl-cmp-track {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 7px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--pl-surface-soft);
+}
+
+.pl-cmp-bar-a,
+.pl-cmp-bar-b {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--pl-text-muted) 32%, transparent);
+  transition: width 220ms ease;
+}
+
+.pl-cmp-bar-a.is-lead {
+  background: var(--pl-brand);
+}
+
+.pl-cmp-bar-b.is-lead {
+  background: var(--pl-success);
+}
+
+@media (max-width: 820px) {
+  .pl-cmp-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pl-cmp-duel-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

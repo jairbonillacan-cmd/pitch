@@ -69,6 +69,7 @@ jobs:
         id: refresh
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
           BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}

@@ -2,6 +2,7 @@ const STATIC_CLUB_SEGMENTS = new Set([
   "account",
   "admin",
   "canjear",
+  "comparar",
   "historial",
   "lab",
   "momios",
@@ -32,6 +33,8 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/epl": { pathname: "/app/premier-league" },
   "/app/la-liga": { pathname: "/app/laliga" },
   "/app/tipstar": { pathname: "/app/tipster" },
+  "/app/h2h": { pathname: "/app/comparar" },
+  "/app/compare": { pathname: "/app/comparar" },
 };
 
 export type ClubRouteResolution =

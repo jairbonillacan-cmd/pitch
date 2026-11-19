@@ -18,7 +18,12 @@ import {
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
 import { analyzeMlbGame, createMlbTracker } from "@pitchlab/models";
-import { getEmblemPath, getLeagueEmblemPath } from "@pitchlab/sports-assets";
+import {
+  getEmblemPath,
+  getLeagueEmblemPath,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
+} from "@pitchlab/sports-assets";
 import type { MlbFetchedGame } from "./adapters/mlb-statsapi.js";
 import { shouldPreservePublishedAnalysis } from "./pipeline.js";
 
@@ -228,7 +233,11 @@ export function buildMlbLeagueSnapshot(params: BuildMlbSnapshotParams): {
       name: row.name,
       shortName: row.shortName,
       code: row.code,
-      logoUrl: meta?.logoUrl ?? row.logoUrl ?? getEmblemPath("mlb", slug),
+      logoUrl:
+        meta?.logoUrl ??
+        row.logoUrl ??
+        getOfficialEspnTeamLogoUrl("mlb", slug) ??
+        getEmblemPath("mlb", slug),
       forPerGame: rf,
       againstPerGame: ra,
       gamesPlayed: n,
@@ -248,7 +257,7 @@ export function buildMlbLeagueSnapshot(params: BuildMlbSnapshotParams): {
   const snapshot = LeagueSnapshotSchema.parse({
     schemaVersion: 1,
     league: asLeagueId("mlb"),
-    logoUrl: getLeagueEmblemPath("mlb"),
+    logoUrl: getOfficialEspnLeagueLogoUrl("mlb") ?? getLeagueEmblemPath("mlb"),
     season: asSeasonId(`mlb-${seasonYear}`),
     seasonLabel: `Temporada ${seasonYear}`,
     periodLabel,

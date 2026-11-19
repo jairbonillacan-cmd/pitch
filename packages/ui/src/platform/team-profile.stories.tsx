@@ -688,3 +688,110 @@ export const PerfilJugadorOscuro = {
   ),
 };
 export const PerfilJugadorClaro = { ...PerfilJugadorOscuro, ...light };
+
+export const PerfilJugadorMlbOscuro = {
+  ...dark,
+  render: () => (
+    <Shell>
+      <PlayerProfileClubView
+        profile={{
+          league: asLeagueId("mlb"),
+          leagueLabel: "MLB",
+          sport: "baseball",
+          seasonLabel: "Temporada 2026",
+          updatedAt: "19 nov 2026",
+          team: {
+            id: "mlb.los-angeles-dodgers",
+            slug: "los-angeles-dodgers",
+            name: "Los Angeles Dodgers",
+            shortName: "Dodgers",
+            code: "LAD",
+          },
+          coachName: "Dave Roberts",
+          coach: {
+            name: "Dave Roberts",
+            photoKey: "/brand/official/coaches/mlb/los-angeles-dodgers.webp",
+            styleLabel: "11 temp. de experiencia",
+          },
+          player: {
+            id: "39832",
+            slug: "shohei-ohtani",
+            name: "Shohei Ohtani",
+            shortName: "S. Ohtani",
+            jersey: "17",
+            positionGroup: "FWD",
+            positionLabel: "DH",
+            age: 32,
+            birthDate: "1994-07-05",
+            heightCm: 193,
+            weightKg: 95,
+            nationality: "Japón",
+            nationalityCode: "JPN",
+            photoKey: null,
+            availability: "available",
+            stats: {
+              appearances: 135,
+              subIns: 0,
+              goals: 0,
+              assists: 0,
+              shots: 0,
+              shotsOnTarget: 0,
+              foulsCommitted: 0,
+              foulsSuffered: 0,
+              yellowCards: 0,
+              redCards: 0,
+              offsides: 0,
+              saves: 0,
+              shotsFaced: 0,
+              goalsConceded: 0,
+            },
+            seasonMetrics: [
+              { key: "gp", label: "JJ", value: "135" },
+              { key: "avg", label: "AVG", value: ".275", detail: "144 H en 523 AB" },
+              { key: "hr", label: "HR", value: "30" },
+              { key: "rbi", label: "CI", value: "81" },
+              { key: "r", label: "C", value: "89" },
+              { key: "bb", label: "BB", value: "81" },
+            ],
+            recentGames: [
+              {
+                dateIso: "2026-10-07",
+                opponent: "Atlanta Braves",
+                opponentAbbr: "ATL",
+                isHome: false,
+                score: "4-1",
+                result: "W",
+                stats: [
+                  { label: "AB", value: "4" },
+                  { label: "H", value: "1" },
+                  { label: "HR", value: "1" },
+                  { label: "CI", value: "3" },
+                ],
+              },
+              {
+                dateIso: "2026-10-05",
+                opponent: "Atlanta Braves",
+                opponentAbbr: "ATL",
+                isHome: true,
+                score: "6-3",
+                result: "W",
+                stats: [
+                  { label: "AB", value: "4" },
+                  { label: "H", value: "2" },
+                  { label: "HR", value: "0" },
+                  { label: "CI", value: "1" },
+                ],
+              },
+            ],
+            candidatePicks: [],
+          },
+          picksLocked: false,
+          lastMatch: null,
+          nextFixture: null,
+          teammates: [],
+        }}
+      />
+    </Shell>
+  ),
+};
+export const PerfilJugadorMlbClaro = { ...PerfilJugadorMlbOscuro, ...light };

@@ -12,7 +12,7 @@ export const BZZOIRO_IMAGE_BASE_URL = "https://sports.bzzoiro.com/img";
 export const ESPN_IMAGE_BASE_URL = "/brand/official";
 
 /**
- * Ruta pública del escudo oficial en `/brand/official/{nfl|nhl|countries}/<slug>.png` (128×128 PNG transparente).
+ * Ruta pública del escudo oficial en `/brand/official/{nfl|nhl|mlb|countries}/<slug>.png` (128×128 PNG transparente).
  * Devuelve `null` si la liga o selección no tiene recurso oficial registrado.
  */
 export function getOfficialEspnTeamLogoUrl(league: string, slug?: string): string | null {
@@ -35,17 +35,17 @@ export function getOfficialEspnTeamLogoUrl(league: string, slug?: string): strin
   for (const key of target.keys) {
     const asset = TEAM_ASSETS[key];
     if (!asset) continue;
-    if (asset.league !== "nfl" && asset.league !== "nhl") return null;
+    if (asset.league !== "nfl" && asset.league !== "nhl" && asset.league !== "mlb") return null;
     return `${ESPN_IMAGE_BASE_URL}/${asset.league}/${asset.slug}.png`;
   }
   return null;
 }
 
 /**
- * Ruta pública del escudo oficial de liga/competencia en `/brand/official/{nfl|nhl|competitions}/<league>.png`.
+ * Ruta pública del escudo oficial de liga/competencia en `/brand/official/{nfl|nhl|mlb|competitions}/<league>.png`.
  */
 export function getOfficialEspnLeagueLogoUrl(league: string): string | null {
-  if (league === "nfl" || league === "nhl") {
+  if (league === "nfl" || league === "nhl" || league === "mlb") {
     return `${ESPN_IMAGE_BASE_URL}/${league}/${league}.png`;
   }
   if (NATIONAL_COMPETITION_ASSETS.has(league)) {
@@ -246,6 +246,11 @@ export function resolvePersonPhotoUrl(photoKey?: string | null): string | null {
   const managerMatch = /^pl-m:(\d{1,12})$/.exec(raw);
   if (managerMatch) {
     return `${BZZOIRO_IMAGE_BASE_URL}/manager/${managerMatch[1]}/`;
+  }
+
+  // Retratos locales verificados (p. ej. entrenadores MLB/NBA/NFL/NHL en `/brand/official/coaches/...`)
+  if (/^\/brand\/official\/coaches\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|png|jpg)$/.test(raw)) {
+    return raw;
   }
 
   try {

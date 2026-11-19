@@ -114,6 +114,10 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
 
     await page.goto("/app/nba");
     await expect(page.getByRole("heading", { name: /NBA/i }).first()).toBeVisible();
+    const nbaGamesTab = page.getByRole("tab", { name: /^Partidos/i });
+    if ((await nbaGamesTab.count()) > 0) {
+      await nbaGamesTab.click();
+    }
     const firstNbaCard = page.locator("[data-game-card]").first();
     await expect(firstNbaCard).toBeVisible();
     await expect(firstNbaCard.getByLabel("Empate")).toHaveCount(0);
@@ -173,6 +177,10 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
 
     await page.goto("/app/nhl");
     await expect(page.getByRole("heading", { name: /NHL/i }).first()).toBeVisible();
+    const nhlGamesTab = page.getByRole("tab", { name: /^Partidos/i });
+    if ((await nhlGamesTab.count()) > 0) {
+      await nhlGamesTab.click();
+    }
     const firstNhlCard = page.locator("[data-game-card]").first();
     await expect(firstNhlCard).toBeVisible();
     await expect(firstNhlCard.getByLabel("Empate")).toHaveCount(0);

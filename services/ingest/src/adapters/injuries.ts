@@ -45,11 +45,14 @@ export interface FetchTextOrJson {
 
 const defaultHttpFetcher: FetchTextOrJson = {
   async fetchText(url: string) {
+    const isEspn = url.includes("espn.com/");
     const res = await fetch(url, {
-      headers: {
-        accept: "application/json, text/csv, text/plain, */*",
-        "user-agent": "PitchLab-Bot/1.0 (+https://pitchlab.mx; data-research)",
-      },
+      headers: isEspn
+        ? { accept: "application/json, text/plain, */*" }
+        : {
+            accept: "application/json, text/csv, text/plain, */*",
+            "user-agent": "PitchLab-Bot/1.0 (+https://pitchlab.mx; data-research)",
+          },
       signal: AbortSignal.timeout(15_000),
     });
     const body = await res.text();
@@ -65,11 +68,18 @@ function mapRawStatusToInjuryStatus(raw: string | undefined): InjuryStatus | nul
     s === "out" ||
     s === "injured reserve" ||
     s === "ir" ||
+    s === "ltir" ||
     s === "suspended" ||
     s === "suspension" ||
     s === "pup" ||
     s === "non-football injury" ||
-    s === "baja"
+    s === "baja" ||
+    s.includes("-day il") ||
+    s.includes("injured list") ||
+    s.startsWith("il-") ||
+    s === "bereavement" ||
+    s === "paternity" ||
+    s === "restricted"
   ) {
     return "Baja";
   }

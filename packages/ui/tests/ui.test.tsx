@@ -276,7 +276,7 @@ describe("@pitchlab/ui components", () => {
     expect(localHtml).toContain('src="/brand/official/nfl/nfl.png"');
     expect(localHtml).toContain('src="/brand/official/nhl/boston-bruins.png"');
     expect(localHtml).toContain('src="/brand/official/nhl/nhl.png"');
-    expect(localHtml).toContain('src="/brand/sports/mlb/r1/svg/new-york-yankees.svg"');
+    expect(localHtml).toContain('src="/brand/official/mlb/new-york-yankees.png"');
     expect(localHtml).not.toContain("sports.bzzoiro.com");
 
     // Sin escudo (logoUrl null / vacío o sin coincidencia) cae automáticamente a iniciales.

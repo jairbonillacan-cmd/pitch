@@ -106,7 +106,7 @@ describe("ClubLayoutShell header navigation", () => {
     expect(openHtml).toContain("pl-cmd-searchbox");
     expect(openHtml).toContain("pl-cmd-results");
     expect(openHtml).toContain("pl-cmd-league-tile");
-    expect(openHtml).toContain("Buscar partido, liga, @socio o módulo...");
+    expect(openHtml).toContain("Buscar partido, equipo, jugador, liga o @socio...");
     expect(openHtml).not.toContain("glass-ring--featured");
     expect(openHtml).not.toContain("@tipster");
     expect(openHtml).toContain('aria-label="Cerrar buscador"');

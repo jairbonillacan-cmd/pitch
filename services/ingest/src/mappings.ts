@@ -411,14 +411,23 @@ export const MLB_TEAM_MAP: Record<string, string> = {
   "Washington Nationals": "washington-nationals",
 };
 
+export const NHL_TEAM_MAP: Record<string, string> = {
+  "Montreal Canadiens": "montreal-canadiens",
+  "Montréal Canadiens": "montreal-canadiens",
+  "St. Louis Blues": "st-louis-blues",
+  "St Louis Blues": "st-louis-blues",
+  "Utah Mammoth": "utah-mammoth",
+  "Utah Hockey Club": "utah-mammoth",
+};
+
 const LEAGUE_MAPS: Record<string, Record<string, string>> = {
   nfl: NFL_TEAM_MAP,
   mlb: MLB_TEAM_MAP,
   "premier-league": PREMIER_LEAGUE_TEAM_MAP,
   "liga-mx": LIGA_MX_TEAM_MAP,
   laliga: LALIGA_TEAM_MAP,
-  // NHL: los nombres de la fuente coinciden con el manifiesto de emblemas (32/32).
-  nhl: {},
+  // NHL: los nombres de la fuente coinciden con el manifiesto de emblemas (32/32) + alias sin acento/renombre.
+  nhl: NHL_TEAM_MAP,
 };
 
 export type CanonicalLeague =
@@ -475,14 +484,16 @@ export function resolveCanonicalTeam(
         };
       }
     }
-    const slug = slugifyTeamName(trimmed);
+    const normalizedRaw =
+      league === "nba" && trimmed === "LA Clippers" ? "Los Angeles Clippers" : trimmed;
+    const slug = slugifyTeamName(normalizedRaw);
     const logoUrl =
       getBzzoiroTeamEmblemUrl(league, slug) ?? getOfficialEspnTeamLogoUrl(league, slug);
     return {
       id: asTeamId(`${league}.${slug}`),
       league: asLeagueId(league as LeagueId),
-      name: trimmed,
-      shortName: trimmed,
+      name: normalizedRaw,
+      shortName: normalizedRaw,
       code: teamCodeFromSlug(slug),
       ...(logoUrl ? { logoUrl } : {}),
     };
@@ -524,7 +535,8 @@ export function resolveCanonicalTeam(
     league === "nfl"
       ? (NFL_SHORT_NAMES[slug] ?? asset.shortName)
       : asset.shortName;
-  const logoUrl = getBzzoiroTeamEmblemUrl(league, slug);
+  const logoUrl =
+    getBzzoiroTeamEmblemUrl(league, slug) ?? getOfficialEspnTeamLogoUrl(league, slug);
 
   return {
     id: asTeamId(canonicalId),
