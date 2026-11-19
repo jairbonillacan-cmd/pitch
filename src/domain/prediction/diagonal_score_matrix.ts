@@ -28,6 +28,8 @@ export interface DiagonalScoreSolverInput {
   readonly rhoPrior?: number;
   readonly dispersionR?: number;
   readonly maxGoals?: number;
+  /** Peso del blend `w * rhoReq + (1 - w) * rhoPrior` (default `0.7` retrocompatible v4.0; `0.0` elimina doble inflación `(0-0, 1-1)` en v5.1). */
+  readonly rhoDrawBlendWeight?: number;
 }
 
 export interface DiagonalScoreMatrixResult {
@@ -151,6 +153,7 @@ function solveShareAndDiagAtScale(
   dispersionR: number,
   maxGoals: number,
   buf: Float64Array,
+  rhoDrawBlendWeight: number = 0.7,
 ): {
   readonly muHome: number;
   readonly muAway: number;
@@ -191,7 +194,8 @@ function solveShareAndDiagAtScale(
   const p11 = buf[size + 1]!;
   const denomRho = mh0 * ma0 * p00 + p11;
   const rhoReq = denomRho > 1e-9 ? (cd0 - pDrawTarget) / denomRho : rhoPrior;
-  const rhoBlend = 0.7 * rhoReq + 0.3 * rhoPrior;
+  const wRb = clamp(rhoDrawBlendWeight, 0.0, 1.0);
+  const rhoBlend = wRb * rhoReq + (1.0 - wRb) * rhoPrior;
 
   const rLo = Math.max(SAFE_RHO_MIN, -SAFE_TAU_BOUND / Math.max(mh0, ma0, 1e-6));
   const rHi = Math.min(
@@ -257,6 +261,7 @@ export function solveDiagonalInflatedScoreMatrix4Param(
   const maxGoals = input.maxGoals ?? DEFAULT_V4_MAX_GOALS;
   const rhoPrior = input.rhoPrior ?? -0.105;
   const dispersionR = clamp(input.dispersionR ?? 28.0, 2.5, 500.0);
+  const rhoDrawBlendWeight = clamp(input.rhoDrawBlendWeight ?? 0.7, 0.0, 1.0);
 
   const ph0 = Math.max(input.pHome, 1e-9);
   const pd0 = clamp(input.pDraw, 1e-6, 0.96);
@@ -285,6 +290,7 @@ export function solveDiagonalInflatedScoreMatrix4Param(
       dispersionR,
       maxGoals,
       buf,
+      rhoDrawBlendWeight,
     );
     if (st.impliedTotal < totTarget) tauLo = tauMid;
     else tauHi = tauMid;
@@ -300,6 +306,7 @@ export function solveDiagonalInflatedScoreMatrix4Param(
     dispersionR,
     maxGoals,
     buf,
+    rhoDrawBlendWeight,
   );
 
   const rows: (readonly number[])[] = [];

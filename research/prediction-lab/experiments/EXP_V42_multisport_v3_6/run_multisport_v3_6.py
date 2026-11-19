@@ -145,9 +145,22 @@ def project_mlb_v36_exact(inp: dict[str, Any], cfg: dict[str, Any]) -> dict[str,
 
     hca_h = 1.0 if neutral else float(c["home_scoring_mult"])
     hca_a = 1.0 if neutral else float(c["away_scoring_mult"])
+    w_floor = float(c.get("woba_zero_floor", 0.0))
+    unearned_mult = float(c.get("unearned_runs_mult", 1.0))
 
-    h_off_mult = (h_woba / lg_woba) * h_platoon * pf * hca_h
-    a_off_mult = (a_woba / lg_woba) * a_platoon * pf * hca_a
+    h_woba_ratio = (
+        clamp((h_woba - w_floor) / max(lg_woba - w_floor, 0.04), 0.45, 1.85)
+        if w_floor > 0.0
+        else (h_woba / lg_woba)
+    )
+    a_woba_ratio = (
+        clamp((a_woba - w_floor) / max(lg_woba - w_floor, 0.04), 0.45, 1.85)
+        if w_floor > 0.0
+        else (a_woba / lg_woba)
+    )
+
+    h_off_mult = h_woba_ratio * h_platoon * pf * hca_h * unearned_mult
+    a_off_mult = a_woba_ratio * a_platoon * pf * hca_a * unearned_mult
 
     # En F5 (5 entradas), el visitante lanza `min(5, a_ip_exp)` con abridor y el resto con bullpen
     a_sp_f5 = min(5.0, a_ip_exp)
@@ -380,6 +393,10 @@ def project_nhl_v36_exact(inp: dict[str, Any], cfg: dict[str, Any]) -> dict[str,
     pmf57_a = poisson_pmf_exact(0.95 * lam60_a, max_g)
     p_en_goal_for_leader = float(c["empty_net_leader_goal_prob"])
     p_en_tie_goal = float(c["empty_net_puller_tie_prob"])
+    has_diff2_split = ("empty_net_diff2_leader_prob" in c) or ("empty_net_diff2_puller_prob" in c)
+    p_en_leader2 = float(c.get("empty_net_diff2_leader_prob", p_en_goal_for_leader))
+    p_en_tie2 = float(c.get("empty_net_diff2_puller_prob", p_en_tie_goal))
+    p_en_two_goals = float(c.get("empty_net_two_goal_prob", 0.0))
 
     M_reg = np.zeros((max_g + 2, max_g + 2), dtype=np.float64)
     # En los últimos 3 min: si margen == 0 juego normal 5% lambda; si margen == 1 o 2 el que pierde saca al portero!
@@ -393,15 +410,26 @@ def project_nhl_v36_exact(inp: dict[str, Any], cfg: dict[str, Any]) -> dict[str,
                 continue
             diff = ih - ia
             if diff in (1, 2):
-                # Away saca portero: líder (Home) anota ENG con p_en_goal_for_leader; Away anota con p_en_tie_goal
-                p_stay = max(0.0, 1.0 - p_en_goal_for_leader - p_en_tie_goal)
-                M_reg[min(ih + 1, max_g + 1), ia] += p57 * p_en_goal_for_leader
-                M_reg[ih, min(ia + 1, max_g + 1)] += p57 * p_en_tie_goal
+                p_l = p_en_leader2 if (diff == 2 and has_diff2_split) else p_en_goal_for_leader
+                p_t = p_en_tie2 if (diff == 2 and has_diff2_split) else p_en_tie_goal
+                p_2g = p_en_two_goals if has_diff2_split else 0.0
+                p_stay = max(0.0, 1.0 - p_l - p_t - p_2g)
+                M_reg[min(ih + 1, max_g + 1), ia] += p57 * p_l
+                M_reg[ih, min(ia + 1, max_g + 1)] += p57 * p_t
+                if p_2g > 0.0:
+                    M_reg[min(ih + 2, max_g + 1), ia] += p57 * (0.65 * p_2g)
+                    M_reg[min(ih + 1, max_g + 1), min(ia + 1, max_g + 1)] += p57 * (0.35 * p_2g)
                 M_reg[ih, ia] += p57 * p_stay
             elif diff in (-1, -2):
-                p_stay = max(0.0, 1.0 - p_en_goal_for_leader - p_en_tie_goal)
-                M_reg[ih, min(ia + 1, max_g + 1)] += p57 * p_en_goal_for_leader
-                M_reg[min(ih + 1, max_g + 1), ia] += p57 * p_en_tie_goal
+                p_l = p_en_leader2 if (diff == -2 and has_diff2_split) else p_en_goal_for_leader
+                p_t = p_en_tie2 if (diff == -2 and has_diff2_split) else p_en_tie_goal
+                p_2g = p_en_two_goals if has_diff2_split else 0.0
+                p_stay = max(0.0, 1.0 - p_l - p_t - p_2g)
+                M_reg[ih, min(ia + 1, max_g + 1)] += p57 * p_l
+                M_reg[min(ih + 1, max_g + 1), ia] += p57 * p_t
+                if p_2g > 0.0:
+                    M_reg[ih, min(ia + 2, max_g + 1)] += p57 * (0.65 * p_2g)
+                    M_reg[min(ih + 1, max_g + 1), min(ia + 1, max_g + 1)] += p57 * (0.35 * p_2g)
                 M_reg[ih, ia] += p57 * p_stay
             else:
                 for dh in range(4):

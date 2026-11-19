@@ -42,6 +42,10 @@ export interface MultiSportV36ConfigArtifact {
     readonly r_disp_f5: number;
     readonly r_disp_late4: number;
     readonly manfred_runner_boost_runs: number;
+    /** Piso lineal wRAA de wOBA (`0.195` en v5.1; `0.0` retrocompatible v3.6). */
+    readonly woba_zero_floor?: number;
+    /** Multiplicador de carreras sucias / RA-sobre-FIP (`~1.032` en v5.1; `1.0` retrocompatible v3.6). */
+    readonly unearned_runs_mult?: number;
   };
   readonly nhl: {
     readonly league_sv_pct: number;
@@ -52,6 +56,10 @@ export interface MultiSportV36ConfigArtifact {
     readonly b2b_sv_pct_penalty: number;
     readonly empty_net_leader_goal_prob: number;
     readonly empty_net_puller_tie_prob: number;
+    /** Diferenciación física Empty-Net `diff == ±2` vs `±1` (`v5.1`). */
+    readonly empty_net_diff2_leader_prob?: number;
+    readonly empty_net_diff2_puller_prob?: number;
+    readonly empty_net_two_goal_prob?: number;
   };
   readonly nba: {
     readonly sigma_margin_base: number;
@@ -228,9 +236,20 @@ export function projectMlbV36Outlook(
 
   const hcaH = neutral ? 1.0 : c.home_scoring_mult;
   const hcaA = neutral ? 1.0 : c.away_scoring_mult;
+  const wFloor = c.woba_zero_floor ?? 0.0;
+  const unearnedMult = c.unearned_runs_mult ?? 1.0;
 
-  const hOffMult = (hWoba / lgWoba) * hPlatoon * pf * hcaH;
-  const aOffMult = (aWoba / lgWoba) * aPlatoon * pf * hcaA;
+  const hWobaRatio =
+    wFloor > 0.0
+      ? clamp((hWoba - wFloor) / Math.max(lgWoba - wFloor, 0.04), 0.45, 1.85)
+      : hWoba / lgWoba;
+  const aWobaRatio =
+    wFloor > 0.0
+      ? clamp((aWoba - wFloor) / Math.max(lgWoba - wFloor, 0.04), 0.45, 1.85)
+      : aWoba / lgWoba;
+
+  const hOffMult = hWobaRatio * hPlatoon * pf * hcaH * unearnedMult;
+  const aOffMult = aWobaRatio * aPlatoon * pf * hcaA * unearnedMult;
 
   const aSpF5 = Math.min(5.0, aIpExp);
   const aBpF5 = 5.0 - aSpF5;
@@ -524,6 +543,11 @@ export function projectNhlV36Outlook(
   const pmf57A = poissonPmfExact(0.95 * lam60A, maxG);
   const pEnLeader = c.empty_net_leader_goal_prob;
   const pEnTie = c.empty_net_puller_tie_prob;
+  const hasDiff2Split =
+    c.empty_net_diff2_leader_prob !== undefined || c.empty_net_diff2_puller_prob !== undefined;
+  const pEnLeader2 = c.empty_net_diff2_leader_prob ?? pEnLeader;
+  const pEnTie2 = c.empty_net_diff2_puller_prob ?? pEnTie;
+  const pEnTwoGoals = c.empty_net_two_goal_prob ?? 0.0;
 
   const nGrid = maxG + 2;
   const mReg = new Float64Array(nGrid * nGrid);
@@ -536,18 +560,34 @@ export function projectNhlV36Outlook(
       if (p57 <= 0.0) continue;
       const diff = ih - ia;
       if (diff === 1 || diff === 2) {
-        const pStay = Math.max(0.0, 1.0 - pEnLeader - pEnTie);
+        const pL = diff === 2 && hasDiff2Split ? pEnLeader2 : pEnLeader;
+        const pT = diff === 2 && hasDiff2Split ? pEnTie2 : pEnTie;
+        const p2g = hasDiff2Split ? pEnTwoGoals : 0.0;
+        const pStay = Math.max(0.0, 1.0 - pL - pT - p2g);
         const h1 = Math.min(ih + 1, maxG + 1);
+        const h2 = Math.min(ih + 2, maxG + 1);
         const a1 = Math.min(ia + 1, maxG + 1);
-        mReg[h1 * nGrid + ia] = mReg[h1 * nGrid + ia]! + p57 * pEnLeader;
-        mReg[ih * nGrid + a1] = mReg[ih * nGrid + a1]! + p57 * pEnTie;
+        mReg[h1 * nGrid + ia] = mReg[h1 * nGrid + ia]! + p57 * pL;
+        mReg[ih * nGrid + a1] = mReg[ih * nGrid + a1]! + p57 * pT;
+        if (p2g > 0.0) {
+          mReg[h2 * nGrid + ia] = mReg[h2 * nGrid + ia]! + p57 * (0.65 * p2g);
+          mReg[h1 * nGrid + a1] = mReg[h1 * nGrid + a1]! + p57 * (0.35 * p2g);
+        }
         mReg[ih * nGrid + ia] = mReg[ih * nGrid + ia]! + p57 * pStay;
       } else if (diff === -1 || diff === -2) {
-        const pStay = Math.max(0.0, 1.0 - pEnLeader - pEnTie);
+        const pL = diff === -2 && hasDiff2Split ? pEnLeader2 : pEnLeader;
+        const pT = diff === -2 && hasDiff2Split ? pEnTie2 : pEnTie;
+        const p2g = hasDiff2Split ? pEnTwoGoals : 0.0;
+        const pStay = Math.max(0.0, 1.0 - pL - pT - p2g);
         const h1 = Math.min(ih + 1, maxG + 1);
         const a1 = Math.min(ia + 1, maxG + 1);
-        mReg[ih * nGrid + a1] = mReg[ih * nGrid + a1]! + p57 * pEnLeader;
-        mReg[h1 * nGrid + ia] = mReg[h1 * nGrid + ia]! + p57 * pEnTie;
+        const a2 = Math.min(ia + 2, maxG + 1);
+        mReg[ih * nGrid + a1] = mReg[ih * nGrid + a1]! + p57 * pL;
+        mReg[h1 * nGrid + ia] = mReg[h1 * nGrid + ia]! + p57 * pT;
+        if (p2g > 0.0) {
+          mReg[ih * nGrid + a2] = mReg[ih * nGrid + a2]! + p57 * (0.65 * p2g);
+          mReg[h1 * nGrid + a1] = mReg[h1 * nGrid + a1]! + p57 * (0.35 * p2g);
+        }
         mReg[ih * nGrid + ia] = mReg[ih * nGrid + ia]! + p57 * pStay;
       } else {
         for (let dh = 0; dh <= 3; dh += 1) {
@@ -968,6 +1008,8 @@ export function predictLiveMultiSportV40Matchup(params: {
   readonly neutralSite?: boolean;
   readonly totalLine?: number;
   readonly spreadLineHome?: number;
+  readonly homeGoalieConfirmed?: boolean;
+  readonly awayGoalieConfirmed?: boolean;
 }): MLBV36Outlook | NHLV36Outlook | NBAV36Outlook | NCAAFV40Outlook {
   const st = params.stateArtifact;
   const h = st.teams[`${params.sport}::${params.homeKey}`];
@@ -1009,8 +1051,8 @@ export function predictLiveMultiSportV40Matchup(params: {
         base_goals_60_away: base60A,
         home_goalie_sv_pct: h.metrics["sv_pct"],
         away_goalie_sv_pct: a.metrics["sv_pct"],
-        home_goalie_confirmed: true,
-        away_goalie_confirmed: true,
+        home_goalie_confirmed: params.homeGoalieConfirmed ?? false,
+        away_goalie_confirmed: params.awayGoalieConfirmed ?? false,
         total_line: params.totalLine,
       },
       st.v36_physics_config,

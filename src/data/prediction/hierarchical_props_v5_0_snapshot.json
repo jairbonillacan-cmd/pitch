@@ -1,5 +1,5 @@
 {
-  "schema_version": "hierarchical_props_v5.0_parity_snapshot",
+  "schema_version": "hierarchical_props_v5.1_parity_snapshot",
   "holdout_sealed_untouched": true,
   "n": 72,
   "rows": [
@@ -16,14 +16,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.7940484196368527,
         "expected_minutes": 84.79266,
-        "p_over_raw": 0.3050723776882836,
-        "p_over_calibrated": 0.1667020649228154,
-        "p_over_sub_cover": 0.16676247922198043
+        "p_over_raw": 0.34933423147984705,
+        "p_over_calibrated": 0.18740052861454626,
+        "p_over_sub_cover": 0.18746928617347516
       }
     },
     {
@@ -39,14 +40,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.07135277941628519,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.09365727000341757,
-        "p_over_calibrated": 0.1064248894280953,
-        "p_over_sub_cover": 0.12032859406644365
+        "p_over_raw": 0.09096291415592758,
+        "p_over_calibrated": 0.09739252319361277,
+        "p_over_sub_cover": 0.11020749425962027
       }
     },
     {
@@ -62,14 +64,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.28982498617525293,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.19986641700034086,
-        "p_over_calibrated": 0.22705314590119444,
-        "p_over_sub_cover": 0.34377482235673634
+        "p_over_raw": 0.2093951731245865,
+        "p_over_calibrated": 0.21711984010514673,
+        "p_over_sub_cover": 0.32865164447616224
       }
     },
     {
@@ -85,14 +88,15 @@
         "refereeFactor": 1.0718,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.4765553033797144,
         "expected_minutes": 25.4,
         "p_over_raw": 0.01389978509662625,
-        "p_over_calibrated": 0.03309821185591427,
-        "p_over_sub_cover": 0.11128383041199988
+        "p_over_calibrated": 0.03341951238444635,
+        "p_over_sub_cover": 0.10742361528787316
       }
     },
     {
@@ -108,7 +112,8 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.3738240049272461,
@@ -131,14 +136,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.452019371019958,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.45264879779551725,
-        "p_over_calibrated": 0.45264879779551725,
-        "p_over_sub_cover": 0.5992123187651653
+        "p_over_raw": 0.4431842588384964,
+        "p_over_calibrated": 0.44318425883849644,
+        "p_over_sub_cover": 0.5889876522234767
       }
     },
     {
@@ -154,14 +160,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.20592093932635028,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.006398746463968329,
-        "p_over_calibrated": 0.006269322285747632,
-        "p_over_sub_cover": 0.007660171510045401
+        "p_over_raw": 0.0071014820060959424,
+        "p_over_calibrated": 0.006236472218177346,
+        "p_over_sub_cover": 0.007535902226684515
       }
     },
     {
@@ -177,14 +184,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.5442149570964344,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1739544796382918,
-        "p_over_calibrated": 0.15045949890647847,
-        "p_over_sub_cover": 0.23911607183565925
+        "p_over_raw": 0.19640119447765578,
+        "p_over_calibrated": 0.15273314377610625,
+        "p_over_sub_cover": 0.2455512215511332
       }
     },
     {
@@ -200,14 +208,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.37991718426501037,
         "expected_minutes": 84.79266,
         "p_over_raw": 0.23481765063344098,
-        "p_over_calibrated": 0.25593309636650535,
-        "p_over_sub_cover": 0.25605008727082795
+        "p_over_calibrated": 0.23725200011045033,
+        "p_over_sub_cover": 0.2373694528460221
       }
     },
     {
@@ -223,14 +232,15 @@
         "refereeFactor": 1.1831,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.7311596300203123,
         "expected_minutes": 76.98172000000001,
         "p_over_raw": 0.2610686521640754,
-        "p_over_calibrated": 0.24521295698524972,
-        "p_over_sub_cover": 0.25985386350803297
+        "p_over_calibrated": 0.23459286684935593,
+        "p_over_sub_cover": 0.24891236529205438
       }
     },
     {
@@ -246,14 +256,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 1.947059160742949,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.327359753943197,
-        "p_over_calibrated": 0.327359753943197,
-        "p_over_sub_cover": 0.6517122363801954
+        "p_over_raw": 0.349163176734872,
+        "p_over_calibrated": 0.349163176734872,
+        "p_over_sub_cover": 0.6782518459140854
       }
     },
     {
@@ -269,14 +280,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.6216941502223655,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1689333663346086,
-        "p_over_calibrated": 0.16893336633460856,
-        "p_over_sub_cover": 0.29744214373074884
+        "p_over_raw": 0.17244282971960245,
+        "p_over_calibrated": 0.17244282971960248,
+        "p_over_sub_cover": 0.3031286805650836
       }
     },
     {
@@ -292,14 +304,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.5500525388330505,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.19332863955832746,
-        "p_over_calibrated": 0.10707813548837547,
-        "p_over_sub_cover": 0.11152555068748476
+        "p_over_calibrated": 0.1051510047322214,
+        "p_over_sub_cover": 0.10944999105579024
       }
     },
     {
@@ -315,14 +328,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.5221930232107942,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.3921506676476022,
-        "p_over_calibrated": 0.26631216572469024,
-        "p_over_sub_cover": 0.2858043552705095
+        "p_over_raw": 0.38320103664508665,
+        "p_over_calibrated": 0.2446456840490057,
+        "p_over_sub_cover": 0.26309164911959426
       }
     },
     {
@@ -338,14 +352,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.3466998920618845,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.2138422744210992,
-        "p_over_calibrated": 0.23897890208315484,
-        "p_over_sub_cover": 0.28801040372934567
+        "p_over_raw": 0.2454594589313688,
+        "p_over_calibrated": 0.24543500513871344,
+        "p_over_sub_cover": 0.2885975625028026
       }
     },
     {
@@ -361,14 +376,15 @@
         "refereeFactor": 1.0737,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.43232383004189107,
         "expected_minutes": 25.4,
         "p_over_raw": 0.02032339600037857,
-        "p_over_calibrated": 0.04175914621603471,
-        "p_over_sub_cover": 0.12760869696465973
+        "p_over_calibrated": 0.04155125334326825,
+        "p_over_sub_cover": 0.12181901928855435
       }
     },
     {
@@ -384,7 +400,8 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.7844492986478436,
@@ -407,14 +424,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.3736628071995537,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.21232451626587312,
-        "p_over_calibrated": 0.21232451626587312,
-        "p_over_sub_cover": 0.2437157289787038
+        "p_over_raw": 0.2066567209690584,
+        "p_over_calibrated": 0.20665672096905843,
+        "p_over_sub_cover": 0.23732095765615083
       }
     },
     {
@@ -430,14 +448,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.4629061133606873,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.07440320355782784,
-        "p_over_calibrated": 0.046312346548543534,
-        "p_over_sub_cover": 0.06812345865889549
+        "p_over_raw": 0.08111379086461326,
+        "p_over_calibrated": 0.0474186708778559,
+        "p_over_sub_cover": 0.0708349849070571
       }
     },
     {
@@ -453,14 +472,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.5998297226920083,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1909935297502045,
-        "p_over_calibrated": 0.16056741130898405,
-        "p_over_sub_cover": 0.17677040154093968
+        "p_over_raw": 0.19492594128100627,
+        "p_over_calibrated": 0.15213370609046803,
+        "p_over_sub_cover": 0.16685516469208717
       }
     },
     {
@@ -476,14 +496,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.5864739296311997,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.36784196083729476,
-        "p_over_calibrated": 0.3368386767704138,
-        "p_over_sub_cover": 0.3488001037485175
+        "p_over_calibrated": 0.315020613991009,
+        "p_over_sub_cover": 0.32537522362921545
       }
     },
     {
@@ -499,14 +520,15 @@
         "refereeFactor": 1.1285,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.728039293568294,
         "expected_minutes": 73.79484000000001,
         "p_over_raw": 0.15860431476197692,
-        "p_over_calibrated": 0.18682892737312626,
-        "p_over_sub_cover": 0.1968205354628621
+        "p_over_calibrated": 0.17852253156491207,
+        "p_over_sub_cover": 0.1879555507903965
       }
     },
     {
@@ -522,14 +544,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.8747246719632495,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.04792486305498174,
-        "p_over_calibrated": 0.047924863054981746,
-        "p_over_sub_cover": 0.09706453970435042
+        "p_over_raw": 0.053802404720441024,
+        "p_over_calibrated": 0.05380240472044103,
+        "p_over_sub_cover": 0.1083539674822476
       }
     },
     {
@@ -545,14 +568,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 1.2260836804617639,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.29013805283940486,
-        "p_over_calibrated": 0.29013805283940486,
-        "p_over_sub_cover": 0.6033456038365123
+        "p_over_raw": 0.2954628861283484,
+        "p_over_calibrated": 0.2954628861283484,
+        "p_over_sub_cover": 0.6111907270185878
       }
     },
     {
@@ -568,14 +592,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.6986938815778656,
         "expected_minutes": 84.79266,
         "p_over_raw": 0.21167485768627728,
-        "p_over_calibrated": 0.11692460438084137,
-        "p_over_sub_cover": 0.1169723496970322
+        "p_over_calibrated": 0.11466638992139733,
+        "p_over_sub_cover": 0.11471250863078503
       }
     },
     {
@@ -591,14 +616,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.5782224132285526,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.3864482957898823,
-        "p_over_calibrated": 0.2620700326635498,
-        "p_over_sub_cover": 0.26975726501813996
+        "p_over_raw": 0.3775678560130717,
+        "p_over_calibrated": 0.2406158271550247,
+        "p_over_sub_cover": 0.24786268492712984
       }
     },
     {
@@ -614,14 +640,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.16126787349440022,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.09132369273081462,
-        "p_over_calibrated": 0.11238731462481123,
-        "p_over_sub_cover": 0.26820928854870285
+        "p_over_raw": 0.09618338248342352,
+        "p_over_calibrated": 0.10904686167226245,
+        "p_over_sub_cover": 0.2583279299201237
       }
     },
     {
@@ -637,14 +664,15 @@
         "refereeFactor": 1.1534,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.32348344040416643,
         "expected_minutes": 25.4,
         "p_over_raw": 0.009958929562140202,
-        "p_over_calibrated": 0.027773096395357227,
-        "p_over_sub_cover": 0.12052406345543513
+        "p_over_calibrated": 0.027870507749078566,
+        "p_over_sub_cover": 0.11569758227947274
       }
     },
     {
@@ -660,14 +688,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 1.310541650745128,
         "expected_minutes": 79.83568000000001,
-        "p_over_raw": 0.19742952713849019,
-        "p_over_calibrated": 0.19742952713849019,
-        "p_over_sub_cover": 0.23873283648921134
+        "p_over_raw": 0.23854658209405483,
+        "p_over_calibrated": 0.23854658209405485,
+        "p_over_sub_cover": 0.28585156082141894
       }
     },
     {
@@ -683,14 +712,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 2.049234715813007,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.7083664765956676,
-        "p_over_calibrated": 0.7083664765956676,
-        "p_over_sub_cover": 0.7597276826507962
+        "p_over_raw": 0.6988600532640183,
+        "p_over_calibrated": 0.6988600532640183,
+        "p_over_sub_cover": 0.7503695096886129
       }
     },
     {
@@ -706,14 +736,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.6038093114520157,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.043721870372527234,
-        "p_over_calibrated": 0.03301206266304497,
-        "p_over_sub_cover": 0.03411674202910943
+        "p_over_raw": 0.04798652646116155,
+        "p_over_calibrated": 0.031425023962984695,
+        "p_over_sub_cover": 0.03274685657228357
       }
     },
     {
@@ -729,14 +760,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.958070933563002,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.3278067170514374,
-        "p_over_calibrated": 0.2310198543097861,
-        "p_over_sub_cover": 0.331923042002453
+        "p_over_raw": 0.33364397607931406,
+        "p_over_calibrated": 0.2177100655842635,
+        "p_over_sub_cover": 0.3176024112867125
       }
     },
     {
@@ -752,14 +784,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.30813711255602555,
         "expected_minutes": 84.79266,
         "p_over_raw": 0.24456225051382544,
-        "p_over_calibrated": 0.2633894266609662,
-        "p_over_sub_cover": 0.26353789290330787
+        "p_over_calibrated": 0.24474733622624642,
+        "p_over_sub_cover": 0.24489677463320195
       }
     },
     {
@@ -775,14 +808,15 @@
         "refereeFactor": 1.0463,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.4000093877223687,
         "expected_minutes": 76.98172000000001,
         "p_over_raw": 0.04495016598216061,
-        "p_over_calibrated": 0.07553733608299439,
-        "p_over_sub_cover": 0.09680064813811351
+        "p_over_calibrated": 0.07376992810983278,
+        "p_over_sub_cover": 0.09393046249953999
       }
     },
     {
@@ -798,14 +832,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 1.5797590168741502,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.11480103510241638,
-        "p_over_calibrated": 0.11480103510241636,
-        "p_over_sub_cover": 0.35183379337317594
+        "p_over_raw": 0.1268143597247893,
+        "p_over_calibrated": 0.12681435972478927,
+        "p_over_sub_cover": 0.37813038077241906
       }
     },
     {
@@ -821,14 +856,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.39512585718391985,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.08178781537825117,
-        "p_over_calibrated": 0.08178781537825117,
-        "p_over_sub_cover": 0.1852306979482907
+        "p_over_raw": 0.09330726503944325,
+        "p_over_calibrated": 0.09330726503944327,
+        "p_over_sub_cover": 0.2095540419860585
       }
     },
     {
@@ -844,14 +880,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.559916708174221,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.09014646625630292,
-        "p_over_calibrated": 0.05503033524530308,
-        "p_over_sub_cover": 0.05734494242936778
+        "p_over_calibrated": 0.05224132710991882,
+        "p_over_sub_cover": 0.054481696718488785
       }
     },
     {
@@ -867,14 +904,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.12991601027488514,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.11006315080937545,
-        "p_over_calibrated": 0.11747766642815247,
-        "p_over_sub_cover": 0.13228337788054992
+        "p_over_raw": 0.10691476704429934,
+        "p_over_calibrated": 0.10759147200127153,
+        "p_over_sub_cover": 0.12275148681476533
       }
     },
     {
@@ -890,14 +928,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.57106583717212,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.3035241696300373,
-        "p_over_calibrated": 0.30055885637105006,
-        "p_over_sub_cover": 0.33359003715890834
+        "p_over_raw": 0.3166779747675835,
+        "p_over_calibrated": 0.286833684916507,
+        "p_over_sub_cover": 0.32003562626289384
       }
     },
     {
@@ -913,14 +952,15 @@
         "refereeFactor": 1.1819,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.5321917421854881,
         "expected_minutes": 25.4,
         "p_over_raw": 0.02791547861595535,
-        "p_over_calibrated": 0.05142756248951707,
-        "p_over_sub_cover": 0.13555547543364987
+        "p_over_calibrated": 0.05094727647767251,
+        "p_over_sub_cover": 0.128654868378068
       }
     },
     {
@@ -936,7 +976,8 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 1.081100294789524,
@@ -959,14 +1000,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.9145890534501073,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.590056480791506,
-        "p_over_calibrated": 0.590056480791506,
-        "p_over_sub_cover": 0.6201897871445696
+        "p_over_raw": 0.5800767149702507,
+        "p_over_calibrated": 0.5800767149702507,
+        "p_over_sub_cover": 0.6099517710087652
       }
     },
     {
@@ -982,14 +1024,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.13552775778231552,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.015895528649011413,
-        "p_over_calibrated": 0.016647208979095645,
-        "p_over_sub_cover": 0.03935348414317155
+        "p_over_raw": 0.0215076200596776,
+        "p_over_calibrated": 0.01792151312324153,
+        "p_over_sub_cover": 0.04583688508123775
       }
     },
     {
@@ -1005,14 +1048,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.472711309536985,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1801904335902173,
-        "p_over_calibrated": 0.1545471397765192,
-        "p_over_sub_cover": 0.17501400904798653
+        "p_over_raw": 0.1839379568064802,
+        "p_over_calibrated": 0.14735064108673193,
+        "p_over_sub_cover": 0.1651331772417936
       }
     },
     {
@@ -1028,14 +1072,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.291639751291412,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.26971444326233307,
-        "p_over_calibrated": 0.28219569454836346,
-        "p_over_sub_cover": 0.29930135699728305
+        "p_over_calibrated": 0.2636922549983006,
+        "p_over_sub_cover": 0.27929788096011227
       }
     },
     {
@@ -1051,14 +1096,15 @@
         "refereeFactor": 0.9464,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.11528334176033606,
         "expected_minutes": 73.79484000000001,
         "p_over_raw": 0.008492525186873379,
-        "p_over_calibrated": 0.02734351135156102,
-        "p_over_sub_cover": 0.037662378191823276
+        "p_over_calibrated": 0.02702602493174119,
+        "p_over_sub_cover": 0.03787874903275027
       }
     },
     {
@@ -1074,14 +1120,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.2905472127708562,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.0014451232392974833,
-        "p_over_calibrated": 0.0014451232392974835,
-        "p_over_sub_cover": 0.015037570384557226
+        "p_over_raw": 0.0016826585466544874,
+        "p_over_calibrated": 0.0016826585466544872,
+        "p_over_sub_cover": 0.017178659876994098
       }
     },
     {
@@ -1097,14 +1144,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.5743938898715681,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.12704036307183622,
-        "p_over_calibrated": 0.12704036307183622,
-        "p_over_sub_cover": 0.46004602391502075
+        "p_over_raw": 0.12980994450807803,
+        "p_over_calibrated": 0.12980994450807803,
+        "p_over_sub_cover": 0.4675645048782535
       }
     },
     {
@@ -1120,14 +1168,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.4742556613204676,
         "expected_minutes": 84.79266,
         "p_over_raw": 0.0839699374538741,
-        "p_over_calibrated": 0.051621715391226376,
-        "p_over_sub_cover": 0.05165114530932182
+        "p_over_calibrated": 0.048945692388157644,
+        "p_over_sub_cover": 0.04897412759388946
       }
     },
     {
@@ -1143,14 +1192,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.05393447681277792,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.03876200604007685,
-        "p_over_calibrated": 0.060375315665948996,
-        "p_over_sub_cover": 0.07200212994589783
+        "p_over_raw": 0.042078189655395615,
+        "p_over_calibrated": 0.059546537126572416,
+        "p_over_sub_cover": 0.06994727759991544
       }
     },
     {
@@ -1166,14 +1216,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.2639462982563645,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.1949100296092028,
-        "p_over_calibrated": 0.22278133665654493,
-        "p_over_sub_cover": 0.3466774098671568
+        "p_over_raw": 0.20424605623659167,
+        "p_over_calibrated": 0.21294774330241759,
+        "p_over_sub_cover": 0.33108795285792014
       }
     },
     {
@@ -1189,14 +1240,15 @@
         "refereeFactor": 0.9024,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.19555497353074788,
         "expected_minutes": 25.4,
         "p_over_raw": 0.0049070664472554044,
-        "p_over_calibrated": 0.021091433794000098,
-        "p_over_sub_cover": 0.1200106472506601
+        "p_over_calibrated": 0.02064623788942345,
+        "p_over_sub_cover": 0.11525289610198652
       }
     },
     {
@@ -1212,7 +1264,8 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.382558648851043,
@@ -1235,14 +1288,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.7041742445950611,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.5244256422050656,
-        "p_over_calibrated": 0.5244256422050656,
-        "p_over_sub_cover": 0.6364501181991609
+        "p_over_raw": 0.5144421169960292,
+        "p_over_calibrated": 0.5144421169960292,
+        "p_over_sub_cover": 0.6260822259695128
       }
     },
     {
@@ -1258,14 +1312,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 2.0419278166278163,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.45901748051810715,
-        "p_over_calibrated": 0.2433431994990719,
-        "p_over_sub_cover": 0.2492962987821655
+        "p_over_raw": 0.4800049300196582,
+        "p_over_calibrated": 0.26505581941589185,
+        "p_over_sub_cover": 0.27108958049264564
       }
     },
     {
@@ -1281,14 +1336,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.29847201218286995,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1084494767175663,
-        "p_over_calibrated": 0.11640740331077344,
-        "p_over_sub_cover": 0.21373763421001393
+        "p_over_raw": 0.11081954318757221,
+        "p_over_calibrated": 0.10999969278290493,
+        "p_over_sub_cover": 0.2019191715784541
       }
     },
     {
@@ -1304,14 +1360,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.383435877936036,
         "expected_minutes": 84.79266,
-        "p_over_raw": 0.35750532810592284,
-        "p_over_calibrated": 0.33095354202322447,
-        "p_over_sub_cover": 0.33108141661434515
+        "p_over_raw": 0.3900655143415003,
+        "p_over_calibrated": 0.3261885684590076,
+        "p_over_sub_cover": 0.32630702436661546
       }
     },
     {
@@ -1327,14 +1384,15 @@
         "refereeFactor": 1.1687,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 1.6274572778126242,
         "expected_minutes": 76.98172000000001,
         "p_over_raw": 0.4813126570736379,
-        "p_over_calibrated": 0.3846144880769891,
-        "p_over_sub_cover": 0.4007923480102965
+        "p_over_calibrated": 0.368624146034223,
+        "p_over_sub_cover": 0.3800379845037277
       }
     },
     {
@@ -1350,14 +1408,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.968051230010148,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.09679513394695483,
-        "p_over_calibrated": 0.09679513394695483,
-        "p_over_sub_cover": 0.42770782763496307
+        "p_over_raw": 0.1072461960952882,
+        "p_over_calibrated": 0.10724619609528821,
+        "p_over_sub_cover": 0.4537741205233845
       }
     },
     {
@@ -1373,14 +1432,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.752751572327044,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.1919042531642447,
-        "p_over_calibrated": 0.19190425316424473,
-        "p_over_sub_cover": 0.3128284520406819
+        "p_over_raw": 0.19581945266472284,
+        "p_over_calibrated": 0.1958194526647228,
+        "p_over_sub_cover": 0.31874830559993983
       }
     },
     {
@@ -1396,14 +1456,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.45793004140483734,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.07592295748556264,
-        "p_over_calibrated": 0.04715857308231418,
-        "p_over_sub_cover": 0.049611308549861746
+        "p_over_calibrated": 0.044637441188072474,
+        "p_over_sub_cover": 0.047004050974617885
       }
     },
     {
@@ -1419,14 +1480,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.210966233196378,
         "expected_minutes": 73.79484000000001,
-        "p_over_raw": 0.18106767891117798,
-        "p_over_calibrated": 0.1551203460470093,
-        "p_over_sub_cover": 0.17048649467384802
+        "p_over_raw": 0.17613008483353595,
+        "p_over_calibrated": 0.1426842991711171,
+        "p_over_sub_cover": 0.15698012867260222
       }
     },
     {
@@ -1442,14 +1504,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.09912467143737502,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.06393611410625363,
-        "p_over_calibrated": 0.08799844089430565,
-        "p_over_sub_cover": 0.1580455735950141
+        "p_over_raw": 0.06737658594867288,
+        "p_over_calibrated": 0.08520539083516634,
+        "p_over_sub_cover": 0.1507567516583374
       }
     },
     {
@@ -1465,14 +1528,15 @@
         "refereeFactor": 0.9639,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.5451859689752241,
         "expected_minutes": 25.4,
         "p_over_raw": 0.023954551459198736,
-        "p_over_calibrated": 0.046020882860992124,
-        "p_over_sub_cover": 0.12239695051744845
+        "p_over_calibrated": 0.04550053049553486,
+        "p_over_sub_cover": 0.11731849126967936
       }
     },
     {
@@ -1488,7 +1552,8 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.31912378402244657,
@@ -1511,14 +1576,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.6778231948027728,
         "expected_minutes": 76.98172000000001,
-        "p_over_raw": 0.5049976435856248,
-        "p_over_calibrated": 0.5049976435856248,
-        "p_over_sub_cover": 0.5400093170341806
+        "p_over_raw": 0.4955929795374937,
+        "p_over_calibrated": 0.4955929795374937,
+        "p_over_sub_cover": 0.5302303525251623
       }
     },
     {
@@ -1534,14 +1600,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.5816963544548976,
         "expected_minutes": 54.421479999999995,
-        "p_over_raw": 0.11072945668959536,
-        "p_over_calibrated": 0.06558117828296853,
-        "p_over_sub_cover": 0.0880141264850683
+        "p_over_raw": 0.12009338912518361,
+        "p_over_calibrated": 0.06773117039249896,
+        "p_over_sub_cover": 0.09331895221919337
       }
     },
     {
@@ -1557,14 +1624,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 1.5608350298938256,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.2816848132688251,
-        "p_over_calibrated": 0.20374275821539048,
-        "p_over_sub_cover": 0.2160266832098309
+        "p_over_raw": 0.28697927643612503,
+        "p_over_calibrated": 0.1929746652380678,
+        "p_over_sub_cover": 0.2039421844926559
       }
     },
     {
@@ -1580,14 +1648,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": false,
+        "knockoutLegType": "none"
       },
       "expected": {
         "lambda_eb_per90": 0.2976478711459287,
         "expected_minutes": 79.83568000000001,
         "p_over_raw": 0.2023229546966201,
-        "p_over_calibrated": 0.22916187207574332,
-        "p_over_sub_cover": 0.24959971858852437
+        "p_over_calibrated": 0.2113848523633417,
+        "p_over_sub_cover": 0.23090089913638234
       }
     },
     {
@@ -1603,14 +1672,15 @@
         "refereeFactor": 0.8708,
         "contextWeight": 1.0,
         "line": 1.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "first_leg"
       },
       "expected": {
         "lambda_eb_per90": 0.37678225337069543,
         "expected_minutes": 73.79484000000001,
         "p_over_raw": 0.038333470785078094,
-        "p_over_calibrated": 0.06493271451670155,
-        "p_over_sub_cover": 0.07910196455567169
+        "p_over_calibrated": 0.06376931251429692,
+        "p_over_sub_cover": 0.07716377705684728
       }
     },
     {
@@ -1626,14 +1696,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 2.5,
-        "isLateKnockoutTie": true
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "second_leg"
       },
       "expected": {
         "lambda_eb_per90": 2.510624396762937,
         "expected_minutes": 57.36442,
-        "p_over_raw": 0.41602601224738833,
-        "p_over_calibrated": 0.41602601224738833,
-        "p_over_sub_cover": 0.5192942248480283
+        "p_over_raw": 0.4856918114178917,
+        "p_over_calibrated": 0.48569181141789175,
+        "p_over_sub_cover": 0.6017704302415507
       }
     },
     {
@@ -1649,14 +1720,15 @@
         "refereeFactor": 1.0,
         "contextWeight": 1.0,
         "line": 0.5,
-        "isLateKnockoutTie": false
+        "isLateKnockoutTie": true,
+        "knockoutLegType": "single_final"
       },
       "expected": {
         "lambda_eb_per90": 0.8841724040848713,
         "expected_minutes": 25.4,
-        "p_over_raw": 0.29684347450313686,
-        "p_over_calibrated": 0.29684347450313686,
-        "p_over_sub_cover": 0.6911846673265538
+        "p_over_raw": 0.3023056299999546,
+        "p_over_calibrated": 0.3023056299999546,
+        "p_over_sub_cover": 0.6989438159863476
       }
     }
   ]

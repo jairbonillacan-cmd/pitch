@@ -19,6 +19,7 @@ import {
 } from "./diagonal_score_matrix.js";
 import {
   buildMatchEpistemicSummaryV5,
+  type EpistemicConformalArtifactV51,
   type MatchEpistemicSummaryV5,
 } from "./epistemic_conformal.js";
 import {
@@ -40,12 +41,14 @@ import {
 import {
   buildVerifiedMatchFactSheet,
   compileDeterministicVerifiedSummaryEs,
+  validateMatchMathematicalInvariants,
   validateNarrativeAgainstFactSheet,
   type GuardrailAuditResult,
   type VerifiedMatchFactSheet,
 } from "./narrative_guardrail.js";
 import {
   projectNflDiscreteKeyTotalPmfV5,
+  projectNflMarketSpreadPosteriorV5,
   projectNflOvertimeProbabilityV5,
   projectNflSpreadFromMarginPmfExact,
   solveNflKeyNumberMarginPmfExact,
@@ -101,6 +104,7 @@ export interface UnifiedMatchIntelligenceV5 {
     readonly pOvertime: number;
     readonly fairOddsOvertimeYes: FairOdds;
     readonly keySpreads: readonly NflSpreadProjectionV4[];
+    readonly marketSpreadPosterior?: (NflSpreadProjectionV4 & { readonly posteriorExpectedMargin: number }) | null;
     readonly discreteKeyTotals: readonly NflTotalLineProjectionV4[];
     readonly marketTotalPosterior: NflTotalLineProjectionV4 | null;
   };
@@ -111,8 +115,10 @@ export interface UnifiedMatchIntelligenceV5 {
   readonly verifiedSummaryEs: string;
   readonly guardrailAudit: GuardrailAuditResult;
   readonly dataQuality: {
-    readonly flag: "ok";
-    readonly coverageScore: 1.0;
+    readonly flag: "ok" | "partial_coverage" | "fallback_prior";
+    readonly coverageScore: number;
+    readonly sourceEngine?: string;
+    readonly validationStatus?: string;
   };
 }
 
@@ -128,9 +134,18 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
   readonly totalGoalsTarget: number;
   readonly rhoPrior?: number;
   readonly dispersionR?: number;
+  readonly rhoDrawBlendWeight?: number;
   readonly leadStrikerAnytimeGoalProb?: number;
   readonly effectiveSampleGames?: number;
+  readonly pLogitHome?: number | null;
+  readonly pGbmHome?: number | null;
+  readonly pLogitDraw?: number | null;
+  readonly pGbmDraw?: number | null;
+  readonly pLogitAway?: number | null;
+  readonly pGbmAway?: number | null;
   readonly seasonProgress?: number;
+  readonly epistemicArtifactV51?: EpistemicConformalArtifactV51 | null;
+  readonly dataQualityOverride?: UnifiedMatchIntelligenceV5["dataQuality"];
   readonly microArtifactV5: SoccerMicroModelArtifactV5;
   readonly inplayArtifactV5: InPlayEarlyPayoutArtifactV5;
   readonly sgpArtifactV5: SgpCopulaArtifactV5;
@@ -141,8 +156,9 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     pDraw: params.pDraw,
     pAway: params.pAway,
     totalGoalsTarget: params.totalGoalsTarget,
-    rhoPrior: params.rhoPrior ?? -0.105,
-    dispersionR: params.dispersionR ?? 500.0,
+    rhoPrior: params.rhoPrior ?? 0.0,
+    dispersionR: params.dispersionR ?? 45.0,
+    rhoDrawBlendWeight: params.rhoDrawBlendWeight ?? 0.0,
   });
   const socMarkets = summarizeSoccerMarketsFromMatrixV4(sol4.matrix);
 
@@ -195,6 +211,9 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     currentAwayGoals: 0,
     redCardsHome: 0,
     redCardsAway: 0,
+    corePHome: socMarkets.pHome,
+    corePDraw: socMarkets.pDraw,
+    corePAway: socMarkets.pAway,
     artifact: params.inplayArtifactV5,
   });
 
@@ -229,6 +248,7 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     opponentExpectedGoals: la,
     teamOutcome: "team_win",
     matchTotalOverLine: 2.5,
+    dixonColesRho: sol4.rhoEff,
   });
 
   const epistemic = buildMatchEpistemicSummaryV5({
@@ -236,7 +256,15 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     pDraw: socMarkets.pDraw,
     pAway: socMarkets.pAway,
     effectiveSampleGames: params.effectiveSampleGames ?? 24,
+    pLogitHome: params.pLogitHome,
+    pGbmHome: params.pGbmHome,
+    pLogitDraw: params.pLogitDraw,
+    pGbmDraw: params.pGbmDraw,
+    pLogitAway: params.pLogitAway,
+    pGbmAway: params.pGbmAway,
     seasonProgress: sProg,
+    sport: "soccer",
+    calibrationArtifact: params.epistemicArtifactV51,
   });
 
   const facts = buildVerifiedMatchFactSheet({
@@ -252,7 +280,22 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     pOverCanonical: socMarkets.pOver25,
   });
   const summaryEs = compileDeterministicVerifiedSummaryEs(facts);
-  const audit = validateNarrativeAgainstFactSheet(summaryEs, facts);
+  const textAudit = validateNarrativeAgainstFactSheet(summaryEs, facts);
+  const mathAudit = validateMatchMathematicalInvariants({
+    pHome: socMarkets.pHome,
+    pDraw: socMarkets.pDraw,
+    pAway: socMarkets.pAway,
+    pHomeEarlyPayoutWin: epAndInPlay.earlyPayout2Goals.pHomeEarlyPayoutWin,
+    pAwayEarlyPayoutWin: epAndInPlay.earlyPayout2Goals.pAwayEarlyPayoutWin,
+    epistemicBands: [
+      { label: "home", ...epistemic.homeBand90 },
+      { label: "away", ...epistemic.awayBand90 },
+    ],
+  });
+  const audit: GuardrailAuditResult = Object.freeze({
+    passed: textAudit.passed && mathAudit.passed,
+    violations: Object.freeze([...textAudit.violations, ...mathAudit.violations]),
+  });
 
   return Object.freeze({
     schemaVersion: UNIFIED_OUTLOOK_V5_SCHEMA_VERSION,
@@ -280,7 +323,14 @@ export function buildUnifiedSoccerMatchIntelligenceV5(params: {
     factSheet: facts,
     verifiedSummaryEs: summaryEs,
     guardrailAudit: audit,
-    dataQuality: Object.freeze({ flag: "ok" as const, coverageScore: 1.0 as const }),
+    dataQuality: Object.freeze(
+      params.dataQualityOverride ?? {
+        flag: "ok" as const,
+        coverageScore: 1.0,
+        sourceEngine: "tachyon_v5_1_global",
+        validationStatus: "oos_validated_pre_holdout",
+      },
+    ),
   });
 }
 
@@ -293,9 +343,14 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
   readonly pAway: number;
   readonly modelExpectedTotal: number;
   readonly marketTotalLine?: number | null;
+  readonly marketSpreadHome?: number | null;
   readonly isIndoor?: boolean;
   readonly isTurf?: boolean;
   readonly effectiveSampleGames?: number;
+  readonly pLogitHome?: number | null;
+  readonly pGbmHome?: number | null;
+  readonly epistemicArtifactV51?: EpistemicConformalArtifactV51 | null;
+  readonly dataQualityOverride?: UnifiedMatchIntelligenceV5["dataQuality"];
   readonly nflArtifactV5: NflModelArtifactV5;
   readonly inplayArtifactV5: InPlayEarlyPayoutArtifactV5;
   readonly sgpArtifactV5: SgpCopulaArtifactV5;
@@ -315,6 +370,7 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
       holdout_sealed_untouched: params.nflArtifactV5.holdout_sealed_untouched,
       max_abs_margin: params.nflArtifactV5.max_abs_margin,
       positive_margin_kernel_1_to_45: params.nflArtifactV5.positive_margin_kernel_1_to_45,
+      margin_quad_concentration: params.nflArtifactV5.margin_quad_concentration,
       totals_calibration: {
         sigma_game_physical: 13.4,
         market_posterior_w_model: params.nflArtifactV5.discrete_totals_v5.market_posterior_w_model,
@@ -326,6 +382,15 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
   const keySpreads = [-7.0, -3.5, -3.0, -2.5, 3.0, 7.0].map((ln) =>
     projectNflSpreadFromMarginPmfExact(sol, ln),
   );
+  const marketSpreadPosterior =
+    typeof params.marketSpreadHome === "number" && Number.isFinite(params.marketSpreadHome)
+      ? projectNflMarketSpreadPosteriorV5({
+          modelExpectedMargin: sol.expectedMargin,
+          marketSpreadHome: params.marketSpreadHome,
+          pTie: params.pTie,
+          artifact: params.nflArtifactV5,
+        })
+      : null;
   const totOut = projectNflDiscreteKeyTotalPmfV5({
     modelExpectedTotal: params.modelExpectedTotal,
     artifact: params.nflArtifactV5,
@@ -372,6 +437,10 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
     pDraw: null,
     pAway: 1.0 - pWin2Way,
     effectiveSampleGames: params.effectiveSampleGames ?? 16,
+    pLogitHome: params.pLogitHome,
+    pGbmHome: params.pGbmHome,
+    sport: "nfl",
+    calibrationArtifact: params.epistemicArtifactV51,
   });
 
   const facts = buildVerifiedMatchFactSheet({
@@ -387,7 +456,22 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
     pOverCanonical: pOver445,
   });
   const summaryEs = compileDeterministicVerifiedSummaryEs(facts);
-  const audit = validateNarrativeAgainstFactSheet(summaryEs, facts);
+  const textAudit = validateNarrativeAgainstFactSheet(summaryEs, facts);
+  const mathAudit = validateMatchMathematicalInvariants({
+    pHome: pWin2Way,
+    pDraw: null,
+    pAway: 1.0 - pWin2Way,
+    pHomeEarlyPayoutWin: nflEp17.pHomeEarlyPayoutWin,
+    pAwayEarlyPayoutWin: nflEp17.pAwayEarlyPayoutWin,
+    epistemicBands: [
+      { label: "home", ...epistemic.homeBand90 },
+      { label: "away", ...epistemic.awayBand90 },
+    ],
+  });
+  const audit: GuardrailAuditResult = Object.freeze({
+    passed: textAudit.passed && mathAudit.passed,
+    violations: Object.freeze([...textAudit.violations, ...mathAudit.violations]),
+  });
 
   return Object.freeze({
     schemaVersion: UNIFIED_OUTLOOK_V5_SCHEMA_VERSION,
@@ -415,6 +499,7 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
       pOvertime: otOut.pOvertime,
       fairOddsOvertimeYes: otOut.fairOddsOvertimeYes,
       keySpreads: Object.freeze(keySpreads),
+      marketSpreadPosterior,
       discreteKeyTotals: totOut.objectiveProjections,
       marketTotalPosterior: totOut.marketPosteriorProjection,
     }),
@@ -423,7 +508,14 @@ export function buildUnifiedNflMatchIntelligenceV5(params: {
     factSheet: facts,
     verifiedSummaryEs: summaryEs,
     guardrailAudit: audit,
-    dataQuality: Object.freeze({ flag: "ok" as const, coverageScore: 1.0 as const }),
+    dataQuality: Object.freeze(
+      params.dataQualityOverride ?? {
+        flag: "ok" as const,
+        coverageScore: 1.0,
+        sourceEngine: "minkowski_v5_1_epa",
+        validationStatus: "oos_validated_pre_holdout",
+      },
+    ),
   });
 }
 
@@ -522,6 +614,11 @@ export function buildUnifiedMultiSportMatchIntelligenceV5(params: {
     factSheet: facts,
     verifiedSummaryEs: summaryEs,
     guardrailAudit: audit,
-    dataQuality: Object.freeze({ flag: "ok" as const, coverageScore: 1.0 as const }),
+    dataQuality: Object.freeze({
+      flag: "ok" as const,
+      coverageScore: 1.0,
+      sourceEngine: `multisport_${params.sport}_v5_1_structural`,
+      validationStatus: "structural_prior_no_game_oos",
+    }),
   });
 }

@@ -114,6 +114,7 @@ describe("EXP_V50 · Global 22-League Tachyon v5.0 & Meridian v5.0 4-Param", () 
         totalGoalsTarget: tHat,
         rhoPrior: goalsArt.default_rho,
         dispersionR: goalsArt.dispersion_r,
+        rhoDrawBlendWeight: (goalsArt as { rho_draw_blend_weight?: number }).rho_draw_blend_weight,
       });
       const mk4 = summarizeSoccerMarketsFromMatrixV4(sol4.matrix);
       expect(Math.abs(mk4.pOver25 - row.python_p_over_2_5)).toBeLessThan(1e-12);
@@ -330,12 +331,21 @@ describe("EXP_V55 · Student-t Heavy-Tail Copula & Structural Player-Linked SGP 
     }
 
     for (const pc of sgpSnapV50Json.player_linked_cases) {
+      const inpP = pc.input as {
+        pPlayerAnytimeGoal: number;
+        teamExpectedGoals: number;
+        opponentExpectedGoals: number;
+        teamOutcome: "team_win" | "team_win_or_draw" | "any";
+        matchTotalOverLine: number | null;
+        dixonColesRho?: number;
+      };
       const out = evaluatePlayerLinkedSgpV5({
-        pPlayerAnytimeGoal: pc.input.pPlayerAnytimeGoal,
-        teamExpectedGoals: pc.input.teamExpectedGoals,
-        opponentExpectedGoals: pc.input.opponentExpectedGoals,
-        teamOutcome: pc.input.teamOutcome as "team_win" | "team_win_or_draw" | "any",
-        matchTotalOverLine: pc.input.matchTotalOverLine,
+        pPlayerAnytimeGoal: inpP.pPlayerAnytimeGoal,
+        teamExpectedGoals: inpP.teamExpectedGoals,
+        opponentExpectedGoals: inpP.opponentExpectedGoals,
+        teamOutcome: inpP.teamOutcome,
+        matchTotalOverLine: inpP.matchTotalOverLine,
+        dixonColesRho: inpP.dixonColesRho,
       });
       expect(Math.abs(out.independentProbability - pc.expected.independent_probability)).toBeLessThan(1e-12);
       expect(Math.abs(out.jointProbability - pc.expected.joint_probability)).toBeLessThan(1e-12);
@@ -344,13 +354,16 @@ describe("EXP_V55 · Student-t Heavy-Tail Copula & Structural Player-Linked SGP 
   });
 });
 
-describe("EXP_V56 · Conformal Epistemic Intervals & UnifiedMatchIntelligenceV5 (242/242 'ok')", () => {
-  it("verifica cobertura 242/242 'ok', intervalos [pLower90, pUpper90] válidos y 0 campos prohibidos", () => {
+describe("EXP_V56 · Conformal Epistemic Intervals & UnifiedMatchIntelligenceV5 (242 duelos con cobertura honesta)", () => {
+  it("verifica cobertura honesta sobre 242 duelos, intervalos [pLower90, pUpper90] válidos y 0 campos prohibidos", () => {
     expect(liveMatchdayV5Json.status).toBe("candidate");
     expect(liveMatchdayV5Json.production_activated).toBe(false);
     expect(liveMatchdayV5Json.n_matchups).toBe(242);
-    expect(liveMatchdayV5Json.n_coverage_ok).toBe(242);
-    expect(liveMatchdayV5Json.n_low_coverage).toBe(0);
+    const nPartial = (liveMatchdayV5Json as { n_partial_coverage?: number }).n_partial_coverage ?? 0;
+    const nFallback = (liveMatchdayV5Json as { n_fallback_prior?: number }).n_fallback_prior ?? 0;
+    expect(liveMatchdayV5Json.n_coverage_ok + nPartial + nFallback).toBe(242);
+    expect(liveMatchdayV5Json.n_coverage_ok).toBeGreaterThanOrEqual(225);
+    expect(liveMatchdayV5Json.n_low_coverage).toBe(nFallback);
 
     const raw = JSON.stringify(liveMatchdayV5Json);
     expect(raw).not.toContain('"stake"');

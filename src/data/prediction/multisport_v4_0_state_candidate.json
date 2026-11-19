@@ -1,11 +1,13 @@
 {
   "schema_version": "multisport_v4.0.0",
+  "version": "5.1.0-candidate",
   "status": "candidate",
   "production_activated": false,
-  "created_at": "2026-11-18T18:34:45+00:00",
+  "validation_status": "structural_prior_no_game_oos",
+  "created_at": "2026-11-19T16:48:25+00:00",
   "holdout_cut_utc": "2025-02-02T17:30:00Z",
   "holdout_sealed_untouched": true,
-  "n_total_teams": 226,
+  "n_total_teams": 228,
   "v36_physics_config": {
     "schema_version": "multisport_v3.6.0",
     "codename": "PitchLab Spacetime Multi-Sport v3.6 Candidate",
@@ -23,7 +25,9 @@
       "away_scoring_mult": 0.978,
       "r_disp_f5": 5.0,
       "r_disp_late4": 4.0,
-      "manfred_runner_boost_runs": 0.36
+      "manfred_runner_boost_runs": 0.36,
+      "woba_zero_floor": 0.195,
+      "unearned_runs_mult": 1.032
     },
     "nhl": {
       "league_sv_pct": 0.905,
@@ -32,8 +36,11 @@
       "confirmed_goalie_weight": 0.92,
       "unconfirmed_goalie_weight": 0.42,
       "b2b_sv_pct_penalty": 0.008,
-      "empty_net_leader_goal_prob": 0.145,
-      "empty_net_puller_tie_prob": 0.068
+      "empty_net_leader_goal_prob": 0.165,
+      "empty_net_puller_tie_prob": 0.072,
+      "empty_net_diff2_leader_prob": 0.115,
+      "empty_net_diff2_puller_prob": 0.052,
+      "empty_net_two_goal_prob": 0.024
     },
     "nba": {
       "sigma_margin_base": 11.8,
@@ -2845,6 +2852,32 @@
         "power_rating": -11.84,
         "pts_pg": 19.33,
         "opp_pts_pg": 28.33
+      }
+    },
+    "ncaaf::SACST": {
+      "team_key": "SACST",
+      "team_name": "Sacramento State Hornets",
+      "sport": "ncaaf",
+      "elevation_m": 9.0,
+      "is_dome": false,
+      "prior_source": "fcs_to_fbs_transition_prior",
+      "metrics": {
+        "power_rating": -14.5,
+        "pts_pg": 25.5,
+        "opp_pts_pg": 31.5
+      }
+    },
+    "ncaaf::MOST": {
+      "team_key": "MOST",
+      "team_name": "Missouri State Bears",
+      "sport": "ncaaf",
+      "elevation_m": 396.0,
+      "is_dome": false,
+      "prior_source": "fcs_to_fbs_transition_prior",
+      "metrics": {
+        "power_rating": -13.0,
+        "pts_pg": 26.5,
+        "opp_pts_pg": 30.5
       }
     }
   }

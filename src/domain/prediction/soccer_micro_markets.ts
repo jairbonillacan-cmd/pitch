@@ -885,8 +885,8 @@ export interface SerializedPoissonGbmRegressor {
 export interface SoccerMicroMetricModelSpecV5 extends SoccerMicroMetricModelSpecV4 {
   readonly w_hgb_home: number;
   readonly w_hgb_away: number;
-  readonly home_hgb: SerializedPoissonGbmRegressor;
-  readonly away_hgb: SerializedPoissonGbmRegressor;
+  readonly home_hgb: SerializedPoissonGbmRegressor | null;
+  readonly away_hgb: SerializedPoissonGbmRegressor | null;
 }
 
 export interface SoccerRedCardsModelSpecV5 {
@@ -897,6 +897,8 @@ export interface SoccerRedCardsModelSpecV5 {
   readonly max_k_side: number;
   readonly copula_omega: number;
   readonly booking_points_omega_yr: number;
+  /** Coeficiente condicional `mu_Y(r) = mu_Y * exp(gamma_R * r) / Z` (`v5.1`: conserva exactamente E[Y] y Var[Y]). */
+  readonly booking_points_gamma_red?: number;
   readonly booking_points_lines: readonly number[];
   readonly feature_names: readonly string[];
   readonly home_coef: readonly number[];
@@ -905,8 +907,8 @@ export interface SoccerRedCardsModelSpecV5 {
   readonly away_intercept: number;
   readonly w_hgb_home: number;
   readonly w_hgb_away: number;
-  readonly home_hgb: SerializedPoissonGbmRegressor;
-  readonly away_hgb: SerializedPoissonGbmRegressor;
+  readonly home_hgb: SerializedPoissonGbmRegressor | null;
+  readonly away_hgb: SerializedPoissonGbmRegressor | null;
 }
 
 export interface SoccerMicroModelArtifactV5 {
@@ -948,6 +950,7 @@ export interface BookingPointsOutlookV5 {
   readonly formula: "10_per_yellow_plus_25_per_red";
   readonly expectedBookingPoints: number;
   readonly copulaOmegaYellowRed: number;
+  readonly conditionalGammaRed?: number;
   readonly lines: readonly MicroLineProjection[];
 }
 
@@ -1031,33 +1034,76 @@ export function buildBookingPointsOutlookV5(params: {
   readonly muRedTotal: number;
   readonly rRedEff: number;
   readonly omegaYellowRed: number;
+  readonly gammaRed?: number;
   readonly lines: readonly number[];
 }): BookingPointsOutlookV5 {
   const ny = params.pmfYellowTotal.length;
   const nr = params.pmfRedTotal.length;
-  const phiY = buildCenteredSarmanovBasis(
-    params.pmfYellowTotal,
-    params.muYellowTotal,
-    params.rYellowEff,
-  );
-  const phiR = buildCenteredSarmanovBasis(params.pmfRedTotal, params.muRedTotal, params.rRedEff);
   const om = clamp(params.omegaYellowRed, -0.85, 0.85);
+  const gammaR = clamp(params.gammaRed ?? 0.0, 0.0, 0.85);
 
   const maxUnits5 = 2 * (ny - 1) + 5 * (nr - 1);
   const pmfUnits5 = new Float64Array(maxUnits5 + 1);
   let totMass = 0.0;
 
-  for (let y = 0; y < ny; y += 1) {
-    const py = params.pmfYellowTotal[y]!;
-    if (py <= 0.0) continue;
-    const fy = phiY[y]!;
+  if (gammaR > 1e-12) {
+    // Factorización condicional exacta `P(Y=y, R=r) = P(R=r) * P_NB(Y=y | mu_Y(r), r_cond)`:
+    // conserva exactamente E[Y] = mu_Y y la varianza marginal de `pmfYellowTotal`.
+    let muY = 0.0;
+    for (let y = 0; y < ny; y += 1) muY += y * params.pmfYellowTotal[y]!;
+    let varY = 0.0;
+    for (let y = 0; y < ny; y += 1) {
+      const d = y - muY;
+      varY += d * d * params.pmfYellowTotal[y]!;
+    }
+    let zNorm = 0.0;
+    for (let r = 0; r < nr; r += 1) {
+      zNorm += params.pmfRedTotal[r]! * Math.exp(gammaR * r);
+    }
+    const invZ = zNorm > 1e-15 ? 1.0 / zNorm : 1.0;
+    let varBetween = 0.0;
+    const muByR = new Float64Array(nr);
+    for (let r = 0; r < nr; r += 1) {
+      const mr = muY * Math.exp(gammaR * r) * invZ;
+      muByR[r] = mr;
+      const d = mr - muY;
+      varBetween += params.pmfRedTotal[r]! * d * d;
+    }
+    const excessVar = Math.max(varY - muY - varBetween, 1e-6);
+    const rCond = clamp((muY * muY + varBetween) / excessVar, 1.5, 250.0);
+
     for (let r = 0; r < nr; r += 1) {
       const pr = params.pmfRedTotal[r]!;
       if (pr <= 0.0) continue;
-      const w = Math.max(0.0, 1.0 + om * fy * phiR[r]!);
-      const pJoint = py * pr * w;
-      totMass += pJoint;
-      pmfUnits5[2 * y + 5 * r] = pmfUnits5[2 * y + 5 * r]! + pJoint;
+      const pmfYCond = computeNegativeBinomialPmfExact(muByR[r]!, rCond, ny - 1);
+      for (let y = 0; y < ny; y += 1) {
+        const py = pmfYCond[y]!;
+        if (py <= 0.0) continue;
+        const pJoint = pr * py;
+        totMass += pJoint;
+        pmfUnits5[2 * y + 5 * r] = pmfUnits5[2 * y + 5 * r]! + pJoint;
+      }
+    }
+  } else {
+    const phiY = buildCenteredSarmanovBasis(
+      params.pmfYellowTotal,
+      params.muYellowTotal,
+      params.rYellowEff,
+    );
+    const phiR = buildCenteredSarmanovBasis(params.pmfRedTotal, params.muRedTotal, params.rRedEff);
+
+    for (let y = 0; y < ny; y += 1) {
+      const py = params.pmfYellowTotal[y]!;
+      if (py <= 0.0) continue;
+      const fy = phiY[y]!;
+      for (let r = 0; r < nr; r += 1) {
+        const pr = params.pmfRedTotal[r]!;
+        if (pr <= 0.0) continue;
+        const w = Math.max(0.0, 1.0 + om * fy * phiR[r]!);
+        const pJoint = py * pr * w;
+        totMass += pJoint;
+        pmfUnits5[2 * y + 5 * r] = pmfUnits5[2 * y + 5 * r]! + pJoint;
+      }
     }
   }
 
@@ -1072,6 +1118,7 @@ export function buildBookingPointsOutlookV5(params: {
     formula: "10_per_yellow_plus_25_per_red",
     expectedBookingPoints: expectedBp,
     copulaOmegaYellowRed: om,
+    conditionalGammaRed: gammaR,
     lines: Object.freeze(params.lines.map((ln) => projectBookingPointsLineFromUnits5Pmf(pmfUnits5, ln))),
   });
 }
@@ -1116,9 +1163,13 @@ export function buildSoccerMicroMatchOutlookV5(params: {
       etaGlmA += spec.away_coef[i]! * fv.awayFeatures8[i]!;
     }
     const etaHgbH =
-      spec.w_hgb_home > 0.0 ? evaluateMicroPoissonGbmExact(fv.homeFeatures8, spec.home_hgb) : etaGlmH;
+      spec.w_hgb_home > 0.0 && spec.home_hgb !== null
+        ? evaluateMicroPoissonGbmExact(fv.homeFeatures8, spec.home_hgb)
+        : etaGlmH;
     const etaHgbA =
-      spec.w_hgb_away > 0.0 ? evaluateMicroPoissonGbmExact(fv.awayFeatures8, spec.away_hgb) : etaGlmA;
+      spec.w_hgb_away > 0.0 && spec.away_hgb !== null
+        ? evaluateMicroPoissonGbmExact(fv.awayFeatures8, spec.away_hgb)
+        : etaGlmA;
 
     const etaH = (1.0 - spec.w_hgb_home) * etaGlmH + spec.w_hgb_home * etaHgbH;
     const etaA = (1.0 - spec.w_hgb_away) * etaGlmA + spec.w_hgb_away * etaHgbA;
@@ -1198,9 +1249,13 @@ export function buildSoccerMicroMatchOutlookV5(params: {
     etaRedGlmA += rSpec.away_coef[i]! * rfVec.awayFeatures6[i]!;
   }
   const etaRedHgbH =
-    rSpec.w_hgb_home > 0.0 ? evaluateMicroPoissonGbmExact(rfVec.homeFeatures6, rSpec.home_hgb) : etaRedGlmH;
+    rSpec.w_hgb_home > 0.0 && rSpec.home_hgb !== null
+      ? evaluateMicroPoissonGbmExact(rfVec.homeFeatures6, rSpec.home_hgb)
+      : etaRedGlmH;
   const etaRedHgbA =
-    rSpec.w_hgb_away > 0.0 ? evaluateMicroPoissonGbmExact(rfVec.awayFeatures6, rSpec.away_hgb) : etaRedGlmA;
+    rSpec.w_hgb_away > 0.0 && rSpec.away_hgb !== null
+      ? evaluateMicroPoissonGbmExact(rfVec.awayFeatures6, rSpec.away_hgb)
+      : etaRedGlmA;
 
   const muRedH = clamp(
     Math.exp((1.0 - rSpec.w_hgb_home) * etaRedGlmH + rSpec.w_hgb_home * etaRedHgbH),
@@ -1252,6 +1307,7 @@ export function buildSoccerMicroMatchOutlookV5(params: {
     muRedTotal: muRedH + muRedA,
     rRedEff: rRedEff,
     omegaYellowRed: rSpec.booking_points_omega_yr,
+    gammaRed: rSpec.booking_points_gamma_red ?? 0.0,
     lines: rSpec.booking_points_lines,
   });
 

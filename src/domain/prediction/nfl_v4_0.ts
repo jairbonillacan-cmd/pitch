@@ -26,6 +26,8 @@ export interface NflKeyNumbersModelArtifactV4 {
   readonly holdout_sealed_untouched: boolean;
   readonly max_abs_margin: number;
   readonly positive_margin_kernel_1_to_45: readonly number[];
+  /** Deconvolución cuadrática `-c_m * m^2` para igualar `Std(M | spread) ≈ 13.31` (default `0.0` retrocompatible v4.0). */
+  readonly margin_quad_concentration?: number;
   readonly totals_calibration: {
     readonly sigma_game_physical: number;
     readonly market_posterior_w_model: number;
@@ -97,6 +99,7 @@ export function solveNflKeyNumberMarginPmfExact(params: {
 }): NflKeyNumberMarginSolutionV4 {
   const maxM = params.artifact.max_abs_margin;
   const kernel = params.artifact.positive_margin_kernel_1_to_45;
+  const cQuad = params.artifact.margin_quad_concentration ?? 0.0;
 
   let ph = Math.max(params.pHome, 1e-9);
   let pt = Math.max(params.pTie, 1e-9);
@@ -109,6 +112,13 @@ export function solveNflKeyNumberMarginPmfExact(params: {
   const nonTie = ph + pa;
   const targetCond = clamp(ph / Math.max(nonTie, 1e-12), 1e-6, 1.0 - 1e-6);
 
+  // Precomputar kernel deconvolucionado `km_eff = km * exp(-cQuad * m^2)` (cuando cQuad === 0 es idéntico a v4.0)
+  const effK = new Float64Array(maxM);
+  for (let idx = 0; idx < maxM; idx += 1) {
+    const m = idx + 1;
+    effK[idx] = cQuad !== 0.0 ? kernel[idx]! * Math.exp(-cQuad * m * m) : kernel[idx]!;
+  }
+
   let lo = -0.65;
   let hi = 0.65;
   for (let it = 0; it < 56; it += 1) {
@@ -117,7 +127,7 @@ export function solveNflKeyNumberMarginPmfExact(params: {
     let negS = 0.0;
     for (let idx = 0; idx < maxM; idx += 1) {
       const m = idx + 1;
-      const km = kernel[idx]!;
+      const km = effK[idx]!;
       posS += km * Math.exp(mid * m);
       negS += km * Math.exp(-mid * m);
     }
@@ -135,7 +145,7 @@ export function solveNflKeyNumberMarginPmfExact(params: {
   let negS = 0.0;
   for (let idx = 0; idx < maxM; idx += 1) {
     const m = idx + 1;
-    const km = kernel[idx]!;
+    const km = effK[idx]!;
     posS += km * Math.exp(theta * m);
     negS += km * Math.exp(-theta * m);
   }
@@ -144,7 +154,7 @@ export function solveNflKeyNumberMarginPmfExact(params: {
   let expectedMargin = 0.0;
   for (let idx = 0; idx < maxM; idx += 1) {
     const mInt = idx + 1;
-    const km = kernel[idx]!;
+    const km = effK[idx]!;
     const pPos = km * Math.exp(theta * mInt) * invDen;
     const pNeg = km * Math.exp(-theta * mInt) * invDen;
     pmf[center + mInt] = pPos;
@@ -353,6 +363,8 @@ export interface NflModelArtifactV5 {
   readonly holdout_sealed_untouched: boolean;
   readonly max_abs_margin: number;
   readonly positive_margin_kernel_1_to_45: readonly number[];
+  readonly margin_quad_concentration?: number;
+  readonly spread_market_posterior_w_model?: number;
   readonly discrete_totals_v5: {
     readonly max_total_points: number;
     readonly base_kernel_0_to_95: readonly number[];
@@ -366,6 +378,102 @@ export interface NflModelArtifactV5 {
     readonly intercept: number;
   };
   readonly prop_markets: Readonly<Record<NflPropMarketKeyV5, NflPropMarketSpecV4>>;
+}
+
+/**
+ * Resuelve la PMF discreta de margen NFL anclada a una esperanza posterior `expectedMarginTarget`
+ * (`mu_post = w_sp * mu_model + (1 - w_sp) * (-spreadHome)`) preservando números clave (`±3, ±7`)
+ * y la varianza condicional real (`Std ≈ 13.31`).
+ */
+export function solveNflKeyNumberMarginByExpectedMeanV5(params: {
+  readonly expectedMarginTarget: number;
+  readonly pTie?: number;
+  readonly artifact: NflModelArtifactV5;
+}): NflKeyNumberMarginSolutionV4 {
+  const maxM = params.artifact.max_abs_margin;
+  const kernel = params.artifact.positive_margin_kernel_1_to_45;
+  const cQuad = params.artifact.margin_quad_concentration ?? 0.0;
+  const pt = clamp(params.pTie ?? 0.004, 1e-6, 0.05);
+  const nonTie = 1.0 - pt;
+  const target = clamp(params.expectedMarginTarget, -30.0, 30.0);
+
+  const effK = new Float64Array(maxM);
+  for (let idx = 0; idx < maxM; idx += 1) {
+    const m = idx + 1;
+    effK[idx] = cQuad !== 0.0 ? kernel[idx]! * Math.exp(-cQuad * m * m) : kernel[idx]!;
+  }
+
+  let lo = -0.65;
+  let hi = 0.65;
+  for (let it = 0; it < 56; it += 1) {
+    const mid = 0.5 * (lo + hi);
+    let posS = 0.0;
+    let negS = 0.0;
+    let num = 0.0;
+    for (let idx = 0; idx < maxM; idx += 1) {
+      const m = idx + 1;
+      const km = effK[idx]!;
+      const ep = km * Math.exp(mid * m);
+      const en = km * Math.exp(-mid * m);
+      posS += ep;
+      negS += en;
+      num += m * (ep - en);
+    }
+    const meanMid = (nonTie * num) / Math.max(posS + negS, 1e-30);
+    if (meanMid < target) lo = mid;
+    else hi = mid;
+  }
+
+  const theta = 0.5 * (lo + hi);
+  const pmf = new Float64Array(2 * maxM + 1);
+  const center = maxM;
+  pmf[center] = pt;
+
+  let posS = 0.0;
+  let negS = 0.0;
+  for (let idx = 0; idx < maxM; idx += 1) {
+    const m = idx + 1;
+    const km = effK[idx]!;
+    posS += km * Math.exp(theta * m);
+    negS += km * Math.exp(-theta * m);
+  }
+  const invDen = nonTie / Math.max(posS + negS, 1e-30);
+  let expectedMargin = 0.0;
+  for (let idx = 0; idx < maxM; idx += 1) {
+    const mInt = idx + 1;
+    const km = effK[idx]!;
+    const pPos = km * Math.exp(theta * mInt) * invDen;
+    const pNeg = km * Math.exp(-theta * mInt) * invDen;
+    pmf[center + mInt] = pPos;
+    pmf[center - mInt] = pNeg;
+    expectedMargin += mInt * (pPos - pNeg);
+  }
+  return { theta, expectedMargin, maxAbsMargin: maxM, pmf };
+}
+
+/**
+ * Proyección posterior Bayesiana `Real ATS` sobre `spreadHome` (hándicap local, p.ej. `-3.5`):
+ * combina `modelExpectedMargin` con el spread implícito del mercado `-spreadHome` usando `w_sp` calibrado en VAL.
+ */
+export function projectNflMarketSpreadPosteriorV5(params: {
+  readonly modelExpectedMargin: number;
+  readonly marketSpreadHome: number;
+  readonly pTie?: number;
+  readonly artifact: NflModelArtifactV5;
+}): NflSpreadProjectionV4 & { readonly posteriorExpectedMargin: number } {
+  const wSp = clamp(params.artifact.spread_market_posterior_w_model ?? 0.16, 0.0, 1.0);
+  const marketImpliedMargin = -params.marketSpreadHome;
+  const muPost = wSp * params.modelExpectedMargin + (1.0 - wSp) * marketImpliedMargin;
+  const solPost = solveNflKeyNumberMarginByExpectedMeanV5({
+    expectedMarginTarget: muPost,
+    pTie: params.pTie,
+    artifact: params.artifact,
+  });
+  const proj = projectNflSpreadFromMarginPmfExact(solPost, params.marketSpreadHome);
+  return Object.freeze({
+    ...proj,
+    posteriorExpectedMargin: solPost.expectedMargin,
+  });
 }
 
 export interface NflDiscreteTotalSolutionV5 {

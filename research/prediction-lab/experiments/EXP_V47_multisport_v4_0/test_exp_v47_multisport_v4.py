@@ -54,7 +54,11 @@ def test_exp_v47_governance_and_rmse_lifts() -> None:
     assert st["n_total_teams"] >= 220
 
     res = json.loads(RESULTS_OUT.read_text(encoding="utf-8"))
-    assert res["pre_holdout_validation"]["mlb_2024"]["win_pct_rmse_v4"] < res["pre_holdout_validation"]["mlb_2024"]["win_pct_rmse_flat"]
-    assert res["pre_holdout_validation"]["nhl_2023_24"]["pts_pct_rmse_v4"] < res["pre_holdout_validation"]["nhl_2023_24"]["pts_pct_rmse_flat"]
-    assert res["pre_holdout_validation"]["ncaaf_2024"]["win_pct_rmse_v4"] < res["pre_holdout_validation"]["ncaaf_2024"]["win_pct_rmse_flat"]
-    assert res["pre_holdout_validation"]["nhl_2023_24"]["max_ot_conservation_residual"] < 1e-12
+    assert res["validation_status"] == "structural_prior_no_game_oos"
+    fit = res["in_season_structural_fit_not_oos"]
+    assert fit["mlb_2024"]["win_pct_rmse_v4"] < fit["mlb_2024"]["win_pct_rmse_flat"]
+    assert fit["nhl_2023_24"]["pts_pct_rmse_v4"] < fit["nhl_2023_24"]["pts_pct_rmse_flat"]
+    assert fit["ncaaf_2024"]["win_pct_rmse_v4"] < fit["ncaaf_2024"]["win_pct_rmse_flat"]
+    assert fit["nhl_2023_24"]["max_ot_conservation_residual"] < 1e-12
+    assert res["mlb_physics_audit_v5_1"]["elite_345_vs_weak_285_run_ratio"] >= 1.38
+    assert 8.65 <= res["mlb_physics_audit_v5_1"]["league_avg_expected_total_runs"] <= 8.95

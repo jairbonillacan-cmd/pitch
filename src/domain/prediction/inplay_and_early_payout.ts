@@ -38,17 +38,24 @@ export interface InPlayEarlyPayoutArtifactV5 {
     readonly own_red_card_rate_mult: number;
     readonly opp_red_card_rate_mult: number;
     readonly second_half_trailing_push: number;
+    /** Empírico `v5.1`: freno ligero empatado al 2H (`|h-a| == 0`). */
+    readonly second_half_tied_damping?: number;
+    /** Empírico `v5.1`: apertura táctica bilateral cuando `|h-a| >= 1` en 2H. */
+    readonly second_half_lead_openness?: number;
+    /** Empírico `v5.1`: peso de prior Gamma-Poisson para tempo residual en vivo (`curMin > 0`). */
+    readonly tempo_gamma_prior_weight?: number;
     readonly max_goals_dp: number;
   };
   readonly points_sports_early_payout: {
-    readonly nfl: { readonly trigger_lead: 17; readonly sigma_margin: number; readonly effective_barrier: number };
-    readonly nba: { readonly trigger_lead: 20; readonly sigma_margin: number; readonly effective_barrier: number };
-    readonly mlb: { readonly trigger_lead: 5; readonly sigma_margin: number; readonly effective_barrier: number };
+    readonly nfl: { readonly trigger_lead: 17; readonly sigma_margin: number; readonly effective_barrier: number; readonly validation_status?: string };
+    readonly nba: { readonly trigger_lead: 20; readonly sigma_margin: number; readonly effective_barrier: number; readonly validation_status?: string };
+    readonly mlb: { readonly trigger_lead: 5; readonly sigma_margin: number; readonly effective_barrier: number; readonly validation_status?: string };
   };
   readonly nfl_inplay: {
     readonly sigma_full_game: number;
     readonly sigma_total_full_game: number;
     readonly possession_value_points: number;
+    readonly validation_status?: string;
   };
 }
 
@@ -62,6 +69,10 @@ export interface SoccerEarlyPayoutAndInPlayInput {
   readonly redCardsAway?: number;
   readonly homeAlreadyHit2GoalLead?: boolean;
   readonly awayAlreadyHit2GoalLead?: boolean;
+  /** Ancla opcional pre-partido (`curMin === 0`) a la matriz 4-Param para garantizar `P_EP >= P_win` algebraicamente (`A1`). */
+  readonly corePHome?: number;
+  readonly corePDraw?: number;
+  readonly corePAway?: number;
   readonly artifact: InPlayEarlyPayoutArtifactV5;
 }
 
@@ -135,12 +146,28 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
   let remLamA = 0.0;
   const wBuckets = cfg.minute_bucket_weights_6;
   const trailPush = cfg.second_half_trailing_push;
+  const useV51Physics =
+    cfg.second_half_tied_damping !== undefined || cfg.second_half_lead_openness !== undefined;
+  const tiedDamp = cfg.second_half_tied_damping ?? 0.0;
+  const leadOpen = cfg.second_half_lead_openness ?? 0.0;
+  const tempoPriorW = cfg.tempo_gamma_prior_weight ?? 0.0;
+
+  // Actualización suave Gamma-Poisson de tempo observado en vivo (`curMin > 0`, `D4`)
+  let liveTempoMult = 1.0;
+  if (curMin > 0 && tempoPriorW > 0.0) {
+    let elapsedShare = 0.0;
+    for (let mm = 0; mm < curMin; mm += 1) {
+      elapsedShare += wBuckets[Math.min(5, Math.floor(mm / 15))]! / 15.0;
+    }
+    const expElapsed = (muH0 + muA0) * elapsedShare;
+    liveTempoMult = clamp((tempoPriorW + (h0 + a0)) / Math.max(tempoPriorW + expElapsed, 1e-6), 0.78, 1.28);
+  }
 
   for (let m = curMin; m < 90; m += 1) {
     const bIdx = Math.min(5, Math.floor(m / 15));
     const uMin = wBuckets[bIdx]! / 15.0;
-    const baseDh = muH0 * uMin * redMultH;
-    const baseDa = muA0 * uMin * redMultA;
+    const baseDh = muH0 * uMin * redMultH * liveTempoMult;
+    const baseDa = muA0 * uMin * redMultA * liveTempoMult;
     remLamH += baseDh;
     remLamA += baseDa;
 
@@ -155,13 +182,31 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
 
         let dh = baseDh;
         let da = baseDa;
-        if (isSecondHalf && h !== a) {
-          if (h < a) {
-            dh *= 1.0 + trailPush;
-            da *= Math.max(0.5, 1.0 - 0.5 * trailPush);
-          } else {
-            da *= 1.0 + trailPush;
-            dh *= Math.max(0.5, 1.0 - 0.5 * trailPush);
+        if (isSecondHalf) {
+          if (useV51Physics) {
+            const absDiff = Math.abs(h - a);
+            if (absDiff === 0) {
+              const dm = Math.max(0.65, 1.0 + tiedDamp);
+              dh *= dm;
+              da *= dm;
+            } else {
+              const openScale = 1.0 + leadOpen * Math.min(absDiff, 2);
+              if (h < a) {
+                dh *= openScale * (1.0 + trailPush);
+                da *= openScale;
+              } else {
+                da *= openScale * (1.0 + trailPush);
+                dh *= openScale;
+              }
+            }
+          } else if (h !== a) {
+            if (h < a) {
+              dh *= 1.0 + trailPush;
+              da *= Math.max(0.5, 1.0 - 0.5 * trailPush);
+            } else {
+              da *= 1.0 + trailPush;
+              dh *= Math.max(0.5, 1.0 - 0.5 * trailPush);
+            }
           }
         }
 
@@ -208,6 +253,8 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
   let pAway = 0.0;
   let pHomeEp = 0.0;
   let pAwayEp = 0.0;
+  let pHomeLiftOnly = 0.0;
+  let pAwayLiftOnly = 0.0;
   let pBothEp = 0.0;
   let expTot = 0.0;
   let pOver25 = 0.0;
@@ -226,6 +273,8 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
 
         if ((mask & 1) !== 0 || h > a) pHomeEp += p;
         if ((mask & 2) !== 0 || a > h) pAwayEp += p;
+        if ((mask & 1) !== 0 && h <= a) pHomeLiftOnly += p;
+        if ((mask & 2) !== 0 && a <= h) pAwayLiftOnly += p;
         if ((mask & 3) === 3) pBothEp += p;
 
         const tot = h + a;
@@ -237,25 +286,49 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
     }
   }
 
+  // Invariante algebraico `A1`: si estamos pre-partido y existe ancla 4-Param `(corePHome, corePDraw, corePAway)`,
+  // sumamos el lift estricto no negativo `P_DP(hit +2 & not win FT)` sobre `corePWin` (`P(A U B) >= P(A)` exacto!).
+  let outPHome = pHome;
+  let outPDraw = pDraw;
+  let outPAway = pAway;
+  let outPHomeEp = Math.max(pHome, pHomeEp);
+  let outPAwayEp = Math.max(pAway, pAwayEp);
+  if (
+    curMin === 0 &&
+    typeof input.corePHome === "number" &&
+    Number.isFinite(input.corePHome) &&
+    typeof input.corePAway === "number" &&
+    Number.isFinite(input.corePAway)
+  ) {
+    outPHome = clamp(input.corePHome, 0.001, 0.999);
+    outPAway = clamp(input.corePAway, 0.001, 0.999);
+    outPDraw =
+      typeof input.corePDraw === "number" && Number.isFinite(input.corePDraw)
+        ? clamp(input.corePDraw, 0.001, 0.999)
+        : Math.max(0.0, 1.0 - outPHome - outPAway);
+    outPHomeEp = clamp(outPHome + Math.max(0.0, pHomeLiftOnly), outPHome, 0.999);
+    outPAwayEp = clamp(outPAway + Math.max(0.0, pAwayLiftOnly), outPAway, 0.999);
+  }
+
   const remSum = remLamH + remLamA;
   const pNoMore = Math.exp(-remSum);
   const pNextH = remSum > 1e-12 ? (1.0 - pNoMore) * (remLamH / remSum) : 0.0;
   const pNextA = remSum > 1e-12 ? (1.0 - pNoMore) * (remLamA / remSum) : 0.0;
 
-  const phC = clamp(pHome, 0.001, 0.999);
-  const pdC = clamp(pDraw, 0.001, 0.999);
-  const paC = clamp(pAway, 0.001, 0.999);
-  const phEpC = clamp(Math.max(pHome, pHomeEp), 0.001, 0.999);
-  const paEpC = clamp(Math.max(pAway, pAwayEp), 0.001, 0.999);
+  const phC = clamp(outPHome, 0.001, 0.999);
+  const pdC = clamp(outPDraw, 0.001, 0.999);
+  const paC = clamp(outPAway, 0.001, 0.999);
+  const phEpC = clamp(Math.max(outPHome, outPHomeEp), 0.001, 0.999);
+  const paEpC = clamp(Math.max(outPAway, outPAwayEp), 0.001, 0.999);
 
   return Object.freeze({
     currentMinute: curMin,
     remainingLambdaHome: remLamH,
     remainingLambdaAway: remLamA,
     regularFullTime: Object.freeze({
-      pHome,
-      pDraw,
-      pAway,
+      pHome: outPHome,
+      pDraw: outPDraw,
+      pAway: outPAway,
       fairOddsHome: probabilityToFairOdds(phC),
       fairOddsDraw: probabilityToFairOdds(pdC),
       fairOddsAway: probabilityToFairOdds(paC),
@@ -263,8 +336,8 @@ export function evaluateSoccerEarlyPayoutAndInPlay(
     earlyPayout2Goals: Object.freeze({
       pHomeEarlyPayoutWin: phEpC,
       pAwayEarlyPayoutWin: paEpC,
-      homeEarlyPayoutLift: Math.max(0.0, phEpC - pHome),
-      awayEarlyPayoutLift: Math.max(0.0, paEpC - pAway),
+      homeEarlyPayoutLift: Math.max(0.0, phEpC - outPHome),
+      awayEarlyPayoutLift: Math.max(0.0, paEpC - outPAway),
       pBothSidesTriggerEarlyPayout: pBothEp,
       fairOddsHomeEarlyPayout: probabilityToFairOdds(phEpC),
       fairOddsAwayEarlyPayout: probabilityToFairOdds(paEpC),

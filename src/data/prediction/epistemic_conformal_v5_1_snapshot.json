@@ -1,0 +1,835 @@
+{
+  "schema_version": "epistemic_venn_abers_v5.1_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "n": 36,
+  "rows": [
+    {
+      "input": {
+        "pPoint": 0.69916,
+        "effectiveSampleGames": 43.66,
+        "pSubModelA": 0.69183,
+        "pSubModelB": 0.74219,
+        "seasonProgress": 0.135,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.69916,
+        "pLower90": 0.5701109323137444,
+        "pUpper90": 0.8028650840867548,
+        "halfWidth90": 0.1163770758865052,
+        "logitStdError": 0.34106213258664814,
+        "vennAbersP0": 0.69916,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.8605,
+        "effectiveSampleGames": 12.92,
+        "pSubModelA": 0.89184,
+        "pSubModelB": 0.89483,
+        "seasonProgress": 0.455,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.8605,
+        "pLower90": 0.704775,
+        "pUpper90": 0.9200723639913552,
+        "halfWidth90": 0.10764868199567756,
+        "logitStdError": 0.3792931014770362,
+        "vennAbersP0": 0.704775,
+        "vennAbersP1": 0.8605,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.37664,
+        "effectiveSampleGames": 50.43,
+        "pSubModelA": 0.42785,
+        "pSubModelB": 0.3939,
+        "seasonProgress": 0.449,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.37664,
+        "pLower90": 0.27826717963189745,
+        "pUpper90": 0.4863545221314497,
+        "halfWidth90": 0.10404367124977612,
+        "logitStdError": 0.27311786364879576,
+        "vennAbersP0": 0.372034,
+        "vennAbersP1": 0.38279,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.26179,
+        "effectiveSampleGames": 50.69,
+        "pSubModelA": 0.26834,
+        "pSubModelB": 0.20945,
+        "seasonProgress": 0.618,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.26179,
+        "pLower90": 0.17933865377128075,
+        "pUpper90": 0.3652760602681443,
+        "halfWidth90": 0.09296870324843177,
+        "logitStdError": 0.2943416403816763,
+        "vennAbersP0": 0.257727,
+        "vennAbersP1": 0.264015,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "moderate_uncertainty"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.68647,
+        "effectiveSampleGames": 54.23,
+        "pSubModelA": 0.66901,
+        "pSubModelB": 0.74295,
+        "seasonProgress": 0.751,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.68647,
+        "pLower90": 0.568036028191225,
+        "pUpper90": 0.7847377088464591,
+        "halfWidth90": 0.10835084032761705,
+        "logitStdError": 0.3099514791161879,
+        "vennAbersP0": 0.68647,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.23571,
+        "effectiveSampleGames": 14.33,
+        "pSubModelA": 0.23172,
+        "pSubModelB": 0.18097,
+        "seasonProgress": 0.665,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.23571,
+        "pLower90": 0.13741896214730087,
+        "pUpper90": 0.3738359340897479,
+        "halfWidth90": 0.11820848597122352,
+        "logitStdError": 0.4015856797217197,
+        "vennAbersP0": 0.223084,
+        "vennAbersP1": 0.23571,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.67581,
+        "effectiveSampleGames": 26.0,
+        "pSubModelA": 0.73191,
+        "pSubModelB": 0.65491,
+        "seasonProgress": 0.473,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.67581,
+        "pLower90": 0.542925731889363,
+        "pUpper90": 0.7853360222440526,
+        "halfWidth90": 0.12120514517734482,
+        "logitStdError": 0.34194870086670315,
+        "vennAbersP0": 0.67581,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.23158,
+        "effectiveSampleGames": 18.25,
+        "pSubModelA": 0.18717,
+        "pSubModelB": 0.22866,
+        "seasonProgress": 0.653,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 1,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.23158,
+        "pLower90": 0.13464838505866586,
+        "pUpper90": 0.36857078676492955,
+        "halfWidth90": 0.11696120085313184,
+        "logitStdError": 0.4018947380618425,
+        "vennAbersP0": 0.223084,
+        "vennAbersP1": 0.234769,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.42972,
+        "effectiveSampleGames": 22.87,
+        "pSubModelA": 0.46964,
+        "pSubModelB": 0.45375,
+        "seasonProgress": 0.799,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.42972,
+        "pLower90": 0.3089318793192894,
+        "pUpper90": 0.5594993229730498,
+        "halfWidth90": 0.12528372182688022,
+        "logitStdError": 0.3174288345785032,
+        "vennAbersP0": 0.404887,
+        "vennAbersP1": 0.42972,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.72381,
+        "effectiveSampleGames": 42.85,
+        "pSubModelA": 0.71031,
+        "pSubModelB": 0.69841,
+        "seasonProgress": 0.176,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.72381,
+        "pLower90": 0.6293428560590872,
+        "pUpper90": 0.8017838713599476,
+        "halfWidth90": 0.08622050765043016,
+        "logitStdError": 0.2638783116349816,
+        "vennAbersP0": 0.704775,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "moderate_uncertainty"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.23993,
+        "effectiveSampleGames": 41.9,
+        "pSubModelA": 0.18081,
+        "pSubModelB": 0.27436,
+        "seasonProgress": 0.685,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.23993,
+        "pLower90": 0.14087262439861328,
+        "pUpper90": 0.37799537817768974,
+        "halfWidth90": 0.11856137688953823,
+        "logitStdError": 0.39821036634813123,
+        "vennAbersP0": 0.223084,
+        "vennAbersP1": 0.23993,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.70458,
+        "effectiveSampleGames": 13.55,
+        "pSubModelA": 0.69965,
+        "pSubModelB": 0.71283,
+        "seasonProgress": 0.153,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.70458,
+        "pLower90": 0.5630822986027108,
+        "pUpper90": 0.8152854551284722,
+        "halfWidth90": 0.1261015782628807,
+        "logitStdError": 0.37421132968791815,
+        "vennAbersP0": 0.70458,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.61472,
+        "effectiveSampleGames": 47.31,
+        "pSubModelA": 0.61125,
+        "pSubModelB": 0.62255,
+        "seasonProgress": 0.621,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.61472,
+        "pLower90": 0.5228099541808785,
+        "pUpper90": 0.74269,
+        "halfWidth90": 0.10994002290956073,
+        "logitStdError": 0.2285269275567826,
+        "vennAbersP0": 0.61472,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.52286,
+        "effectiveSampleGames": 7.66,
+        "pSubModelA": 0.52996,
+        "pSubModelB": 0.49933,
+        "seasonProgress": 0.443,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.52286,
+        "pLower90": 0.371760573974412,
+        "pUpper90": 0.6698880794286233,
+        "halfWidth90": 0.14906375272710565,
+        "logitStdError": 0.37460786757315817,
+        "vennAbersP0": 0.494537,
+        "vennAbersP1": 0.52286,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.25167,
+        "effectiveSampleGames": 18.63,
+        "pSubModelA": 0.24069,
+        "pSubModelB": 0.29408,
+        "seasonProgress": 0.102,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 2,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.25167,
+        "pLower90": 0.14234706464243224,
+        "pUpper90": 0.40527834597966245,
+        "halfWidth90": 0.1314656406686151,
+        "logitStdError": 0.4293427435751069,
+        "vennAbersP0": 0.25167,
+        "vennAbersP1": 0.264015,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.30511,
+        "effectiveSampleGames": 36.08,
+        "pSubModelA": 0.28034,
+        "pSubModelB": 0.32454,
+        "seasonProgress": 0.756,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "soccer"
+      },
+      "expected": {
+        "pPoint": 0.30511,
+        "pLower90": 0.21655997919638992,
+        "pUpper90": 0.41087837072147365,
+        "halfWidth90": 0.09715919576254187,
+        "logitStdError": 0.2813294489004487,
+        "vennAbersP0": 0.290438,
+        "vennAbersP1": 0.30511,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.61145,
+        "effectiveSampleGames": 15.02,
+        "pSubModelA": 0.60022,
+        "pSubModelB": 0.64913,
+        "seasonProgress": 0.07,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.61145,
+        "pLower90": 0.4433703740691566,
+        "pUpper90": 0.7566347506649621,
+        "halfWidth90": 0.15663218829790276,
+        "logitStdError": 0.41396140514790203,
+        "vennAbersP0": 0.576382,
+        "vennAbersP1": 0.619551,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.15204,
+        "effectiveSampleGames": 14.71,
+        "pSubModelA": 0.17872,
+        "pSubModelB": 0.14747,
+        "seasonProgress": 0.501,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.15204,
+        "pLower90": 0.07928959790244365,
+        "pUpper90": 0.27421,
+        "halfWidth90": 0.09746020104877817,
+        "logitStdError": 0.44584440186859375,
+        "vennAbersP0": 0.15204,
+        "vennAbersP1": 0.27421,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.20185,
+        "effectiveSampleGames": 26.58,
+        "pSubModelA": 0.22541,
+        "pSubModelB": 0.19539,
+        "seasonProgress": 0.321,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.20185,
+        "pLower90": 0.12378410610525636,
+        "pUpper90": 0.31163858910733383,
+        "halfWidth90": 0.09392724150103873,
+        "logitStdError": 0.3540143843007229,
+        "vennAbersP0": 0.20185,
+        "vennAbersP1": 0.27421,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "moderate_uncertainty"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.58423,
+        "effectiveSampleGames": 12.37,
+        "pSubModelA": 0.56765,
+        "pSubModelB": 0.53475,
+        "seasonProgress": 0.916,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.58423,
+        "pLower90": 0.42557054053452875,
+        "pUpper90": 0.7271621089868271,
+        "halfWidth90": 0.15079578422614917,
+        "logitStdError": 0.38915870354712695,
+        "vennAbersP0": 0.576382,
+        "vennAbersP1": 0.619551,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.80686,
+        "effectiveSampleGames": 58.34,
+        "pSubModelA": 0.83082,
+        "pSubModelB": 0.77876,
+        "seasonProgress": 0.751,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.80686,
+        "pLower90": 0.6947210073129195,
+        "pUpper90": 0.8846463634286897,
+        "halfWidth90": 0.09496267805788511,
+        "logitStdError": 0.3693037475615673,
+        "vennAbersP0": 0.80686,
+        "vennAbersP1": 0.864659,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "moderate_uncertainty"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.65351,
+        "effectiveSampleGames": 11.21,
+        "pSubModelA": 0.64743,
+        "pSubModelB": 0.62618,
+        "seasonProgress": 0.862,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 0,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.65351,
+        "pLower90": 0.48366787573753256,
+        "pUpper90": 0.7915608329162983,
+        "halfWidth90": 0.15394647858938287,
+        "logitStdError": 0.4254820073940016,
+        "vennAbersP0": 0.63587,
+        "vennAbersP1": 0.693463,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.44462,
+        "effectiveSampleGames": 37.28,
+        "pSubModelA": 0.4089,
+        "pSubModelB": 0.42133,
+        "seasonProgress": 0.209,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.44462,
+        "pLower90": 0.3280140713751204,
+        "pUpper90": 0.56766132572319,
+        "halfWidth90": 0.11982362717403477,
+        "logitStdError": 0.3007856172035562,
+        "vennAbersP0": 0.431809,
+        "vennAbersP1": 0.484127,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.76529,
+        "effectiveSampleGames": 29.33,
+        "pSubModelA": 0.79631,
+        "pSubModelB": 0.79163,
+        "seasonProgress": 0.615,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.76529,
+        "pLower90": 0.6448586301479712,
+        "pUpper90": 0.8541207179487222,
+        "halfWidth90": 0.10463104390037553,
+        "logitStdError": 0.35589121625576575,
+        "vennAbersP0": 0.758875,
+        "vennAbersP1": 0.795513,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.54728,
+        "effectiveSampleGames": 28.45,
+        "pSubModelA": 0.56526,
+        "pSubModelB": 0.49741,
+        "seasonProgress": 0.087,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.54728,
+        "pLower90": 0.4000046805563415,
+        "pUpper90": 0.6867177988150234,
+        "halfWidth90": 0.14335655912934095,
+        "logitStdError": 0.36181476436270193,
+        "vennAbersP0": 0.506579,
+        "vennAbersP1": 0.6,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.47519,
+        "effectiveSampleGames": 11.58,
+        "pSubModelA": 0.45477,
+        "pSubModelB": 0.43253,
+        "seasonProgress": 0.579,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.47519,
+        "pLower90": 0.3237055501074053,
+        "pUpper90": 0.6313822151984153,
+        "halfWidth90": 0.153838332545505,
+        "logitStdError": 0.3875558728347642,
+        "vennAbersP0": 0.431809,
+        "vennAbersP1": 0.484127,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.21647,
+        "effectiveSampleGames": 24.73,
+        "pSubModelA": 0.26748,
+        "pSubModelB": 0.2262,
+        "seasonProgress": 0.582,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.21647,
+        "pLower90": 0.1260087479512684,
+        "pUpper90": 0.34615227051536646,
+        "halfWidth90": 0.11007176128204903,
+        "logitStdError": 0.395391809975368,
+        "vennAbersP0": 0.21647,
+        "vennAbersP1": 0.27421,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.09824,
+        "effectiveSampleGames": 48.27,
+        "pSubModelA": 0.15327,
+        "pSubModelB": 0.09612,
+        "seasonProgress": 0.124,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "nfl"
+      },
+      "expected": {
+        "pPoint": 0.09824,
+        "pLower90": 0.047391381709084884,
+        "pUpper90": 0.27421,
+        "halfWidth90": 0.11340930914545756,
+        "logitStdError": 0.4765340733360661,
+        "vennAbersP0": 0.09824,
+        "vennAbersP1": 0.27421,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.46933,
+        "effectiveSampleGames": 36.87,
+        "pSubModelA": 0.46821,
+        "pSubModelB": 0.52187,
+        "seasonProgress": 0.476,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 1,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.46933,
+        "pLower90": 0.32471380178051495,
+        "pUpper90": 0.6192872313658245,
+        "halfWidth90": 0.1472867147926548,
+        "logitStdError": 0.3704634811014001,
+        "vennAbersP0": 0.448181,
+        "vennAbersP1": 0.46933,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.29358,
+        "effectiveSampleGames": 29.7,
+        "pSubModelA": 0.27337,
+        "pSubModelB": 0.29606,
+        "seasonProgress": 0.069,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.29358,
+        "pLower90": 0.1825996758933298,
+        "pUpper90": 0.43603078957230434,
+        "halfWidth90": 0.12671555683948726,
+        "logitStdError": 0.3774031788192131,
+        "vennAbersP0": 0.290438,
+        "vennAbersP1": 0.298609,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.74103,
+        "effectiveSampleGames": 35.92,
+        "pSubModelA": 0.78857,
+        "pSubModelB": 0.69786,
+        "seasonProgress": 0.148,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.74103,
+        "pLower90": 0.5876640492760775,
+        "pUpper90": 0.8517434013880868,
+        "halfWidth90": 0.13203967605600464,
+        "logitStdError": 0.42375313256980385,
+        "vennAbersP0": 0.704775,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.61779,
+        "effectiveSampleGames": 45.26,
+        "pSubModelA": 0.59154,
+        "pSubModelB": 0.63692,
+        "seasonProgress": 0.742,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.61779,
+        "pLower90": 0.49619788215208416,
+        "pUpper90": 0.74269,
+        "halfWidth90": 0.1232460589239579,
+        "logitStdError": 0.3011740099754731,
+        "vennAbersP0": 0.61779,
+        "vennAbersP1": 0.74269,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.16619,
+        "effectiveSampleGames": 8.02,
+        "pSubModelA": 0.21611,
+        "pSubModelB": 0.13382,
+        "seasonProgress": 0.549,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 2,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.16619,
+        "pLower90": 0.07291504991633957,
+        "pUpper90": 0.33559260794327017,
+        "halfWidth90": 0.1313387790134653,
+        "logitStdError": 0.5653246438783747,
+        "vennAbersP0": 0.16619,
+        "vennAbersP1": 0.186205,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.37674,
+        "effectiveSampleGames": 23.13,
+        "pSubModelA": 0.41631,
+        "pSubModelB": 0.41373,
+        "seasonProgress": 0.908,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 0,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.37674,
+        "pLower90": 0.2639650480978859,
+        "pUpper90": 0.5046608550155453,
+        "halfWidth90": 0.12034790345882967,
+        "logitStdError": 0.3173853432215347,
+        "vennAbersP0": 0.372034,
+        "vennAbersP1": 0.38279,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.31273,
+        "effectiveSampleGames": 56.55,
+        "pSubModelA": 0.31454,
+        "pSubModelB": 0.28345,
+        "seasonProgress": 0.198,
+        "hasRecentCoachOrQbChange": false,
+        "missingKeyStarters": 1,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.31273,
+        "pLower90": 0.2195015642508917,
+        "pUpper90": 0.42404237904738157,
+        "halfWidth90": 0.10227040739824493,
+        "logitStdError": 0.29254052721425633,
+        "vennAbersP0": 0.290438,
+        "vennAbersP1": 0.31273,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "elevated_roster_or_early_season_variance"
+      }
+    },
+    {
+      "input": {
+        "pPoint": 0.11593,
+        "effectiveSampleGames": 54.15,
+        "pSubModelA": 0.10814,
+        "pSubModelB": 0.17502,
+        "seasonProgress": 0.724,
+        "hasRecentCoachOrQbChange": true,
+        "missingKeyStarters": 2,
+        "sport": "multisport"
+      },
+      "expected": {
+        "pPoint": 0.11593,
+        "pLower90": 0.05291424777942809,
+        "pUpper90": 0.23534317596996618,
+        "halfWidth90": 0.09121446409526904,
+        "logitStdError": 0.5186889005858674,
+        "vennAbersP0": 0.092251,
+        "vennAbersP1": 0.11593,
+        "calibrationMethod": "inductive_venn_abers_plus_logit_envelope",
+        "confidenceGrade": "moderate_uncertainty"
+      }
+    }
+  ]
+}

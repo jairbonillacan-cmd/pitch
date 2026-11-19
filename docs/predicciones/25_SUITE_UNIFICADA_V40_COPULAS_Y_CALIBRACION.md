@@ -1,6 +1,7 @@
 # 25 · Suite Unificada `PitchLab Spacetime & Copula v4.0 Candidate` (`EXP_V43`–`EXP_V49`)
 
 > **Estado:** `status = "candidate"` · `production_activated = false` · **Fecha:** 2026-11-18 · **Rama:** `prediction-lab`
+> **Nota de Rectificación (`v5.1`, 2026-11-19):** Tras la auditoría adversarial de 3 pasadas documentada en [`27_AUDITORIA_REMEDIACION_V51.md`](27_AUDITORIA_REMEDIACION_V51.md), quedan rectificados en `v5.1`: (1) las métricas de `EXP_V47` (`MLB/NHL/NCAAF`) corresponden a un **ajuste estructural intra-temporada (`"in_season_structural_fit_not_oos"`)**, no a backtest partido-a-partido OOS (`B3`); (2) la sensibilidad ofensiva MLB (`A5`/`D1`), el `goalie_confirmed = False` en NHL (`C5`) y los priors FCS→FBS (`228` franquicias) quedaron remediados en `EXP_V47 v5.1`; y (3) las matrices `SGP` y los filtros de titulares migraron a `100%` residualización y causalidad pre-partido en `EXP_V53`/`EXP_V55 v5.1` (`A6`, `B2`).
 > **Gobernanza y Anti-Fuga (`OBSERVADO`):** `0` bytes alterados en los `10` artefactos congelados `v3.0`/`v3.1`/`v3.2` (`SHA-256` intacto), `0` accesos a `holdout_sealed` (`match_date < 2025-02-02T17:30:00Z`), `1,000` remuestreos deterministas `mulberry32` (`seed = 20261111`), paridad IEEE-754 `< 1e-12` Python ↔ TypeScript (`24/24` suites Vitest, `218/218` tests) y `0` campos de `stake`, `kelly`, `ev` o `tier` en salidas públicas.
 
 ---

@@ -212,8 +212,8 @@ def predict_live_multisport_v40_matchup_exact(
             "base_goals_60_away": b60_a,
             "home_goalie_sv_pct": h["metrics"]["sv_pct"],
             "away_goalie_sv_pct": a["metrics"]["sv_pct"],
-            "home_goalie_confirmed": True,
-            "away_goalie_confirmed": True,
+            "home_goalie_confirmed": False,
+            "away_goalie_confirmed": False,
         }
         if total_line is not None:
             inp_h["total_line"] = total_line
@@ -264,6 +264,20 @@ def main() -> None:
     ms_df = pd.read_parquet(ws_dir / "ws_multisport_team_seasons.parquet")
     st_df = pd.read_parquet(ws_dir / "ws_stadium_physics.parquet")
     v36_cfg = json.loads((REPO_ROOT / "src" / "data" / "prediction" / "multisport_v3_6_config_candidate.json").read_text(encoding="utf-8"))
+    # Habilitar física remediada `v5.1` (`A5`: ley lineal wRAA en MLB + Empty-Net diferenciado diff ±1 vs ±2 en NHL)
+    v36_cfg["mlb"] = {
+        **v36_cfg["mlb"],
+        "woba_zero_floor": 0.195,
+        "unearned_runs_mult": 1.032,
+    }
+    v36_cfg["nhl"] = {
+        **v36_cfg["nhl"],
+        "empty_net_leader_goal_prob": 0.165,
+        "empty_net_puller_tie_prob": 0.072,
+        "empty_net_diff2_leader_prob": 0.115,
+        "empty_net_diff2_puller_prob": 0.052,
+        "empty_net_two_goal_prob": 0.024,
+    }
 
     # Mapa de altitud y domo por equipo desde `ws_stadium_physics.parquet`
     elev_map: dict[str, tuple[float, bool]] = {}
@@ -402,8 +416,8 @@ def main() -> None:
                 "base_goals_60_away": 0.5 * (2.55 + xga) + 0.15,
                 "home_goalie_sv_pct": sv_adj,
                 "away_goalie_sv_pct": 0.904,
-                "home_goalie_confirmed": True,
-                "away_goalie_confirmed": True,
+                "home_goalie_confirmed": False,
+                "away_goalie_confirmed": False,
             },
             v36_cfg,
         )
@@ -485,20 +499,52 @@ def main() -> None:
             ncaaf_pred_wp.append(float(out_c["p_home"]))
             ncaaf_obs_wp.append(float(r.win_pct))
 
+    # Priors explícitos de transición FCS->FBS (`REM_01`) para equipos recién ascendidos presentes en la jornada viva
+    fcs_to_fbs_priors = [
+        ("SACST", "Sacramento State Hornets", 9.0, False, -14.5, 25.5, 31.5),
+        ("MOST", "Missouri State Bears", 396.0, False, -13.0, 26.5, 30.5),
+    ]
+    existing_ncaaf_names = {str(v["team_name"]).strip().lower() for k_f, v in teams_state.items() if k_f.startswith("ncaaf::")}
+    for fk, fnm, fel, fdm, fpwr, fpts, fopp in fcs_to_fbs_priors:
+        if fnm.lower() not in existing_ncaaf_names and f"ncaaf::{fk}" not in teams_state:
+            teams_state[f"ncaaf::{fk}"] = {
+                "team_key": fk,
+                "team_name": fnm,
+                "sport": "ncaaf",
+                "elevation_m": fel,
+                "is_dome": fdm,
+                "prior_source": "fcs_to_fbs_transition_prior",
+                "metrics": {
+                    "power_rating": fpwr,
+                    "pts_pg": fpts,
+                    "opp_pts_pg": fopp,
+                },
+            }
+
     ncaaf_rmse_v4 = float(math.sqrt(np.mean((np.array(ncaaf_pred_wp) - np.array(ncaaf_obs_wp)) ** 2)))
     ncaaf_rmse_flat = float(math.sqrt(np.mean((0.5 - np.array(ncaaf_obs_wp)) ** 2)))
 
+    # Auditar física MLB remediada (`A5`, Axioma 8): ratio wRAA Elite .345 vs Débil .285 y carreras totales promedio
+    mlb_elite = project_mlb_v36_exact({"home_woba": 0.345, "away_woba": 0.285, "neutral_site": True}, v36_cfg)
+    mlb_avg = project_mlb_v36_exact({"home_woba": 0.312, "away_woba": 0.312, "home_sp_fip": 4.08, "away_sp_fip": 4.08, "home_bp_fip": 4.08, "away_bp_fip": 4.08, "neutral_site": False}, v36_cfg)
+    mlb_elite_vs_weak_ratio = float(mlb_elite["full_game"]["mu_9inn_home"]) / max(float(mlb_elite["full_game"]["mu_9inn_away"]), 1e-9)
+    mlb_avg_total_runs = float(mlb_avg["full_game"]["expected_total_runs"])
+
     print(
-        f"=== EXP_V47 MULTI-SPORT v4.0 UNIFIED (< 2025-02-02, n_franchises={len(teams_state)}) ===\n"
-        f"  MLB Kepler v4.0 (2024 n={len(mlb_obs_wp)}): WinPct RMSE Flat= {mlb_rmse_flat:.4f} -> v4.0= {mlb_rmse_v4:.4f}\n"
-        f"  NHL Curvature v4.0 (2023-24 n={len(nhl_obs_wp)}): PtsPct RMSE Flat= {nhl_rmse_flat:.4f} -> v4.0= {nhl_rmse_v4:.4f} | Max OT Residual={max_nhl_ot_resid:.2e}\n"
-        f"  NCAAF Horizon v4.0 (2024 n={len(ncaaf_obs_wp)}): WinPct RMSE Flat= {ncaaf_rmse_flat:.4f} -> v4.0= {ncaaf_rmse_v4:.4f}"
+        f"=== EXP_V47 MULTI-SPORT v4.0/v5.1 UNIFIED (< 2025-02-02, n_franchises={len(teams_state)}) ===\n"
+        f"  [WARNING: In-Season Structural Fit, NOT Game-by-Game OOS (B3)]\n"
+        f"  MLB Kepler v5.1 (2024 n={len(mlb_obs_wp)}): WinPct RMSE Flat= {mlb_rmse_flat:.4f} -> v5.1= {mlb_rmse_v4:.4f} | "
+        f"Elite(.345)/Weak(.285)={mlb_elite_vs_weak_ratio:.3f}x | Avg Total Runs={mlb_avg_total_runs:.3f}\n"
+        f"  NHL Curvature v5.1 (2023-24 n={len(nhl_obs_wp)}, goalie_confirmed=False): PtsPct RMSE Flat= {nhl_rmse_flat:.4f} -> v5.1= {nhl_rmse_v4:.4f} | Max OT Residual={max_nhl_ot_resid:.2e}\n"
+        f"  NCAAF Horizon v5.1 (2024 n={len(ncaaf_obs_wp)}): WinPct RMSE Flat= {ncaaf_rmse_flat:.4f} -> v5.1= {ncaaf_rmse_v4:.4f}"
     )
 
     state_art = {
         "schema_version": "multisport_v4.0.0",
+        "version": "5.1.0-candidate",
         "status": "candidate",
         "production_activated": False,
+        "validation_status": "structural_prior_no_game_oos",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "holdout_cut_utc": HOLDOUT_CUT_ISO,
         "holdout_sealed_untouched": True,
@@ -574,23 +620,32 @@ def main() -> None:
     )
 
     results_payload = {
-        "experiment_id": "EXP_V47_multisport_v4_0",
+        "experiment_id": "EXP_V47_multisport_v4_0_remediated_v5_1",
         "holdout_cut_utc": HOLDOUT_CUT_ISO,
         "holdout_sealed_untouched": True,
+        "validation_status": "structural_prior_no_game_oos",
         "n_total_franchises": len(teams_state),
         "counts_by_sport": {
             "mlb": len(mlb_24),
             "nhl": len(nhl_2324),
             "nba": len(nba_base),
-            "ncaaf": len(ncaaf_24),
+            "ncaaf": sum(1 for k_f in teams_state if k_f.startswith("ncaaf::")),
         },
-        "pre_holdout_validation": {
+        "mlb_physics_audit_v5_1": {
+            "woba_zero_floor": v36_cfg["mlb"]["woba_zero_floor"],
+            "unearned_runs_mult": v36_cfg["mlb"]["unearned_runs_mult"],
+            "elite_345_vs_weak_285_run_ratio": round(mlb_elite_vs_weak_ratio, 5),
+            "league_avg_expected_total_runs": round(mlb_avg_total_runs, 5),
+        },
+        "in_season_structural_fit_not_oos": {
+            "validation_status": "structural_prior_no_game_oos",
             "mlb_2024": {"n": len(mlb_obs_wp), "win_pct_rmse_v4": round(mlb_rmse_v4, 5), "win_pct_rmse_flat": round(mlb_rmse_flat, 5)},
             "nhl_2023_24": {
                 "n": len(nhl_obs_wp),
                 "pts_pct_rmse_v4": round(nhl_rmse_v4, 5),
                 "pts_pct_rmse_flat": round(nhl_rmse_flat, 5),
                 "max_ot_conservation_residual": max_nhl_ot_resid,
+                "goalie_confirmed_default": False,
             },
             "ncaaf_2024": {"n": len(ncaaf_obs_wp), "win_pct_rmse_v4": round(ncaaf_rmse_v4, 5), "win_pct_rmse_flat": round(ncaaf_rmse_flat, 5)},
         },

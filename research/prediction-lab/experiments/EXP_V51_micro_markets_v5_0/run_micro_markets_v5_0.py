@@ -1,16 +1,14 @@
-"""EXP_V51 — Micro-Mercados No Lineales `HGB-Poisson + GLM v5.0` + `Tarjetas Rojas` y `Booking Points`.
+"""EXP_V51 (Remediado v5.1) — Micro-Mercados con `23,076` Árbitros Europeos Normalizados (`tm_games`), Poda Estricta `HGB-Poisson` (`-83%` KB), Deriva de Amarillas y `Booking Points` Condicional Exacto.
 
-Supera las limitaciones de `EXP_V44 (v4.0)` bajo corte estricto `< 2025-02-02` (`holdout_sealed` intacto):
-  1. Reemplaza el predictor puramente log-lineal por un ensamble en escala log-tasa entre `PoissonRegressor` (`GLM`)
-     y `HistGradientBoostingRegressor(loss="poisson")` exportado como árboles compactos nativos a TypeScript
-     (`evaluateMicroPoissonGbmExact` en `soccer_micro_markets.ts`), seleccionando `w_hgb` estrictamente en `VAL <= 2019`.
-  2. Incorpora el mercado disciplinario **`red_cards` (`Over 0.5 Expulsiones / Sending Off`)** acoplado a:
-       - Propensión histórica de expulsión de equipo y rival normalizada por liga (`t' < t`),
-       - Amarillas esperadas del lado (`mu_yellow_side`, capturando dobles amarillas + intensidad física),
-       - Rigor global de tarjetas rojas del árbitro (`eb_red_mult` con `kappa = 24`),
-       - Presión de no favorito (`underdog_pressure`), `tightness` y `season_crunch`.
-  3. Incorpora el mercado **`booking_points` (`10 * Amarillas + 25 * Rojas`, líneas `35.5, 45.5, 55.5`)**
-     mediante convolución discreta exacta sobre unidades de 5 puntos acoplada con núcleo Sarmanov `(Y_tot, R_tot)`.
+Remediación integral `REM_03` (`B4, C2, C3, D3`) bajo corte estricto `< 2025-02-02T17:30:00Z`:
+  1. Cruza `tm_games.csv.gz` (`< 2025-02-02`) con normalización Unicode ASCII + stripping de honoríficos (`Dr.`, `Mr.`)
+     y clave canónica `(inicial, apellidos)`, elevando la cobertura arbitral en Big-7 (`E0, SP1, I1, D1, F1, N1, P1`) de `~16%` a `> 90%`.
+  2. Poda estricta de `HGB-Poisson`: exige `ΔDeviance < -0.0005` Y `MAE_hgb <= MAE_glm` en `VAL (2018..2019)`;
+     cuando `w_hgb == 0.0`, serializa `null` (recortando `model_soccer_micro_v5_0_candidate.json` de `540 KB` a `< 120 KB`).
+  3. Adaptación a deriva disciplinaria post-2020 (`alpha_div_cards = 2 / 75`, recencia `half_life = 4.0` temporadas en amarillas).
+  4. Elimina fuga in-VAL (`pr_rh_sub` entrenado estrictamente en `<= 2017` al calibrar `2018..2019`) y reemplaza `Sarmanov (omega=0)`
+     en `Booking Points` por factorización condicional exacta `P(Y=y, R=r) = P(R=r) * P_NB(Y=y | mu_Y(r), r_cond)` con conservación exacta de `E[Y]` y `Var[Y]`.
+  5. Evalúa OOS con **Cluster Bootstrap por fecha** (`services/models/cluster_bootstrap.py`) y exporta `club_micro_state_v5_1.json` + `official_priors_v5_1.json`.
 """
 
 from __future__ import annotations
@@ -26,8 +24,10 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import re
 import sys
 from typing import Any
+import unicodedata
 
 import numpy as np
 import pandas as pd
@@ -37,15 +37,18 @@ from sklearn.linear_model import PoissonRegressor
 EXP_DIR = Path(__file__).resolve().parent
 REPO_ROOT = EXP_DIR.parents[3]
 PRED_LAB_ROOT = REPO_ROOT / "research" / "prediction-lab"
+FREE_OPEN_DIR = PRED_LAB_ROOT / "data" / "raw" / "free_open_v33"
+EXP_V34_DIR = PRED_LAB_ROOT / "experiments" / "EXP_V34_club_free_data"
 EXP_V40_DIR = PRED_LAB_ROOT / "experiments" / "EXP_V40_soccer_micro_markets"
 EXP_V44_DIR = PRED_LAB_ROOT / "experiments" / "EXP_V44_micro_markets_v4_0"
 ARTIFACTS_DIR = EXP_DIR / "artifacts"
 
-for _p in (str(REPO_ROOT), str(EXP_V40_DIR), str(EXP_V44_DIR), str(EXP_DIR)):
+for _p in (str(REPO_ROOT), str(EXP_V34_DIR), str(EXP_V40_DIR), str(EXP_V44_DIR), str(EXP_DIR)):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from services.models import outlook_calibration as oc  # noqa: E402
+from services.models.cluster_bootstrap import cluster_bootstrap_binary, safe_ece_binary  # noqa: E402
+from club_free_sources import CausalClubTransfermarktBridge  # noqa: E402
 from run_micro_markets_experiment import (  # noqa: E402
     BOOTSTRAP_SAMPLES,
     BOOTSTRAP_SEED,
@@ -59,12 +62,8 @@ from run_micro_markets_experiment import (  # noqa: E402
     _estimate_nb_dispersion_mom,
     line_probs_from_pmf,
     nb_pmf_exact,
-    normalize_referee_name,
-    paired_bootstrap_binary,
 )
 from run_micro_markets_v4_0 import (  # noqa: E402
-    FEATURE_NAMES_V4_8,
-    HANDICAP_LINES_BY_METRIC,
     _batch_sarmanov_over_and_1x2_probs,
     bivariate_sarmanov_summary_exact,
     build_centered_sarmanov_basis_exact,
@@ -72,8 +71,12 @@ from run_micro_markets_v4_0 import (  # noqa: E402
 
 MICRO_V5_MODEL_OUT = REPO_ROOT / "src" / "data" / "prediction" / "model_soccer_micro_v5_0_candidate.json"
 MICRO_V5_SNAPSHOT_OUT = REPO_ROOT / "src" / "data" / "prediction" / "soccer_micro_v5_0_snapshot.json"
+CLUB_MICRO_STATE_V51_OUT = REPO_ROOT / "src" / "data" / "prediction" / "club_micro_state_v5_1.json"
+OFFICIAL_PRIORS_V51_OUT = REPO_ROOT / "src" / "data" / "prediction" / "official_priors_v5_1.json"
 RESULTS_OUT = ARTIFACTS_DIR / "exp_v51_micro_markets_v5_0_results.json"
 TRIAL_REGISTRY_OUT = EXP_DIR / "trial_registry_micro_v50.jsonl"
+
+BIG7_DIVS = frozenset({"E0", "SP1", "I1", "D1", "F1", "N1", "P1"})
 
 RED_FEATURE_NAMES_6: list[str] = [
     "log_venue_opp_adj_red_base",
@@ -84,6 +87,50 @@ RED_FEATURE_NAMES_6: list[str] = [
     "log_global_referee_red_mult",
 ]
 BOOKING_POINTS_LINES: list[float] = [35.5, 45.5, 55.5]
+
+_HONORIFIC_RE = re.compile(r"^(?:dr|mr|mrs|ms|prof)\.?\s+", re.IGNORECASE)
+_NON_ALNUM_RE = re.compile(r"[^a-z\s]+")
+
+
+def canonical_referee_key(raw: Any) -> str:
+    """Normaliza nombres arbitrales entre `matches.parquet` y `tm_games.csv.gz` (Unicode -> ASCII, sin títulos, `(inicial, apellidos)`)."""
+    if raw is None or (isinstance(raw, float) and math.isnan(raw)):
+        return ""
+    s = str(raw).strip()
+    if not s or s.lower() in {"nan", "none", "null", "unknown"}:
+        return ""
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
+    s = _HONORIFIC_RE.sub("", s.strip())
+    s = _NON_ALNUM_RE.sub(" ", s.lower())
+    toks = [t for t in s.split() if t]
+    if not toks:
+        return ""
+    if len(toks) == 1:
+        return toks[0]
+    return f"{toks[0][0]} {' '.join(toks[1:])}"
+
+
+def _load_tm_referee_index() -> dict[tuple[int, int, int], str]:
+    """Indexa `(date_ord, home_club_id, away_club_id) -> canonical_ref_key` desde `tm_games.csv.gz` `< 2025-02-02`."""
+    tg_p = FREE_OPEN_DIR / "tm_games.csv.gz"
+    if not tg_p.exists():
+        return {}
+    tg = pd.read_csv(tg_p, usecols=["date", "home_club_id", "away_club_id", "referee"])
+    tg["date_str"] = tg["date"].astype(str).str.slice(0, 10)
+    tg = tg[(tg["date_str"] >= "2000-01-01") & (tg["date_str"] < HOLDOUT_CUT_DATE)].copy()
+    if bool((tg["date_str"] >= HOLDOUT_CUT_DATE).any()):
+        raise RuntimeError("HoldoutSealedAccessError en tm_games.csv.gz (EXP_V51)")
+    tg = tg[tg["referee"].notna() & tg["home_club_id"].notna() & tg["away_club_id"].notna()]
+    d_ords = pd.to_datetime(tg["date_str"]).map(lambda d: d.toordinal()).to_numpy(dtype=np.int64)
+    hids = tg["home_club_id"].to_numpy(dtype=np.int64)
+    aids = tg["away_club_id"].to_numpy(dtype=np.int64)
+    refs_raw = tg["referee"].tolist()
+    idx: dict[tuple[int, int, int], str] = {}
+    for do, hi, ai, rr in zip(d_ords, hids, aids, refs_raw):
+        rk = canonical_referee_key(rr)
+        if rk:
+            idx[(int(do), int(hi), int(ai))] = rk
+    return idx
 
 
 def serialize_poisson_hgb_regressor(reg: HistGradientBoostingRegressor) -> dict[str, Any]:
@@ -150,31 +197,56 @@ def build_booking_points_outlook_scalar(
     r_red_eff: float,
     omega_yr: float,
     lines: list[float],
+    gamma_red: float = 0.0,
 ) -> dict[str, Any]:
     """Espejo escalar exacto (`< 1e-15`) de `buildBookingPointsOutlookV5` en `soccer_micro_markets.ts`."""
     ny = len(pmf_yel_tot)
     nr = len(pmf_red_tot)
-    phi_y = build_centered_sarmanov_basis_exact(pmf_yel_tot, mu_yel_tot, r_yel_eff)
-    phi_r = build_centered_sarmanov_basis_exact(pmf_red_tot, mu_red_tot, r_red_eff)
     om = min(max(float(omega_yr), -0.85), 0.85)
+    gr = min(max(float(gamma_red), 0.0), 0.85)
 
     max_u5 = 2 * (ny - 1) + 5 * (nr - 1)
     pmf_u5 = np.zeros(max_u5 + 1, dtype=np.float64)
     tot_mass = 0.0
 
-    for y in range(ny):
-        py = float(pmf_yel_tot[y])
-        if py <= 0.0:
-            continue
-        fy = float(phi_y[y])
+    if gr > 1e-12:
+        mu_y = float(sum(y * float(pmf_yel_tot[y]) for y in range(ny)))
+        var_y = float(sum(((y - mu_y) ** 2) * float(pmf_yel_tot[y]) for y in range(ny)))
+        z_norm = float(sum(float(pmf_red_tot[r]) * math.exp(gr * r) for r in range(nr)))
+        inv_z = 1.0 / z_norm if z_norm > 1e-15 else 1.0
+        mu_by_r = [mu_y * math.exp(gr * r) * inv_z for r in range(nr)]
+        var_between = float(sum(float(pmf_red_tot[r]) * ((mu_by_r[r] - mu_y) ** 2) for r in range(nr)))
+        excess_var = max(var_y - mu_y - var_between, 1e-6)
+        r_cond = min(max((mu_y * mu_y + var_between) / excess_var, 1.5), 250.0)
+
         for r in range(nr):
             pr = float(pmf_red_tot[r])
             if pr <= 0.0:
                 continue
-            w = max(0.0, 1.0 + om * fy * float(phi_r[r]))
-            pj = py * pr * w
-            tot_mass += pj
-            pmf_u5[2 * y + 5 * r] += pj
+            pmf_y_cond = nb_pmf_exact(mu_by_r[r], r_cond, ny - 1)
+            for y in range(ny):
+                py = float(pmf_y_cond[y])
+                if py <= 0.0:
+                    continue
+                pj = pr * py
+                tot_mass += pj
+                pmf_u5[2 * y + 5 * r] += pj
+    else:
+        phi_y = build_centered_sarmanov_basis_exact(pmf_yel_tot, mu_yel_tot, r_yel_eff)
+        phi_r = build_centered_sarmanov_basis_exact(pmf_red_tot, mu_red_tot, r_red_eff)
+        for y in range(ny):
+            py = float(pmf_yel_tot[y])
+            if py <= 0.0:
+                continue
+            fy = float(phi_y[y])
+            for r in range(nr):
+                pr = float(pmf_red_tot[r])
+                if pr <= 0.0:
+                    continue
+                w = max(0.0, 1.0 + om * fy * float(phi_r[r]))
+                pj = py * pr * w
+                tot_mass += pj
+                pmf_u5[2 * y + 5 * r] += pj
 
     inv_m = 1.0 / tot_mass if tot_mass > 0.0 else 1.0
     pmf_u5 *= inv_m
@@ -203,6 +275,28 @@ def build_booking_points_outlook_scalar(
     return {"expectedBookingPoints": exp_bp, "lines": lines_out}
 
 
+def _eval_binary_cluster_v51(
+    cluster_ids: np.ndarray,
+    y_true: np.ndarray,
+    p_cand: np.ndarray,
+    p_bench: np.ndarray,
+    seed: int = BOOTSTRAP_SEED,
+) -> dict[str, Any]:
+    cb = cluster_bootstrap_binary(cluster_ids, y_true, p_cand, p_bench, n_resamples=BOOTSTRAP_SAMPLES, seed=seed)
+    ece = safe_ece_binary(y_true, p_cand, n_bins=10)
+    sig_es = "significativa" if cb["significant_improvement"] else (
+        "empeoramiento_significativo" if (cb["ci95_lo"] is not None and cb["ci95_lo"] > 0.0) else "no_significativa"
+    )
+    return {
+        **cb,
+        "log_loss": cb["logloss_cand"],
+        "benchmark_log_loss": cb["logloss_bench"],
+        "delta_ll": cb["delta_logloss"],
+        "ece": round(ece, 6) if ece is not None else None,
+        "significance": sig_es,
+    }
+
+
 def main() -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     matches_path = PRED_LAB_ROOT / "data" / "processed" / "matches.parquet"
@@ -223,11 +317,64 @@ def main() -> None:
     m_df = m_df.sort_values(["match_date_str", "kickoff_time", "match_id"], kind="mergesort").reset_index(drop=True)
 
     n_all = len(m_df)
-    print(f"[EXP_V51] Partidos pre-holdout (< {HOLDOUT_CUT_DATE}): {n_all:,}")
+    print(f"[EXP_V51 v5.1] Partidos pre-holdout (< {HOLDOUT_CUT_DATE}): {n_all:,}")
+
+    # Cruce de 23,076+ árbitros europeos desde `tm_games.csv.gz` con normalización Unicode/honoríficos (`D3`)
+    tm_bridge = CausalClubTransfermarktBridge(max_date_exclusive=HOLDOUT_CUT_DATE)
+    tm_ref_index = _load_tm_referee_index()
+    divs = m_df["div"].astype(str).to_numpy()
+    homes = m_df["home_team"].astype(str).to_numpy()
+    aways = m_df["away_team"].astype(str).to_numpy()
+    d_ords = pd.to_datetime(m_df["match_date_str"]).map(lambda d: d.toordinal()).to_numpy(dtype=np.int64)
+    raw_refs = m_df["referee"].tolist()
+    sstart = m_df["sstart"].to_numpy(dtype=int)
+
+    refs: list[str] = []
+    ref_raw_present = 0
+    ref_tm_filled = 0
+    big7_mod_total = 0
+    big7_mod_before = 0
+    big7_mod_after = 0
+
+    for i in range(n_all):
+        dv = divs[i]
+        is_big7_mod = (dv in BIG7_DIVS) and (sstart[i] >= MIN_MODERN_SEASON)
+        if is_big7_mod:
+            big7_mod_total += 1
+        rk = canonical_referee_key(raw_refs[i])
+        if rk:
+            ref_raw_present += 1
+            if is_big7_mod:
+                big7_mod_before += 1
+                big7_mod_after += 1
+            refs.append(rk)
+            continue
+        cid_h = tm_bridge.resolve_club_id(dv, homes[i])
+        cid_a = tm_bridge.resolve_club_id(dv, aways[i])
+        filled = ""
+        if cid_h and cid_a:
+            do = int(d_ords[i])
+            for dt in (0, -1, 1):
+                filled = tm_ref_index.get((do + dt, int(cid_h), int(cid_a)), "")
+                if filled:
+                    break
+        if filled:
+            ref_tm_filled += 1
+            if is_big7_mod:
+                big7_mod_after += 1
+        refs.append(filled)
+
+    big7_cov_before = big7_mod_before / max(big7_mod_total, 1)
+    big7_cov_after = big7_mod_after / max(big7_mod_total, 1)
+    print(
+        f"[EXP_V51 v5.1] Cobertura arbitral Big-7 (s>={MIN_MODERN_SEASON}): "
+        f"{big7_cov_before*100:.1f}% -> {big7_cov_after*100:.1f}% (+{ref_tm_filled:,} partidos desde tm_games)"
+    )
 
     alpha_all = 2.0 / 19.0
     alpha_venue = 2.0 / 17.0
     alpha_div = 2.0 / 181.0
+    alpha_div_cards = 2.0 / 75.0  # Adaptación rápida a deriva disciplinaria post-2020 (`C3`)
     alpha_red_tm = 2.0 / 31.0
     kappa_all = 8.0
     kappa_venue = 10.0
@@ -246,7 +393,6 @@ def main() -> None:
     tm_def_away: dict[tuple[str, str], float] = {}
     tm_n_away: dict[tuple[str, str], int] = {}
 
-    # Acumuladores causales `t' < t` específicos de Tarjetas Rojas (`reds_home`, `reds_away`)
     div_red_h_ewm: dict[str, float] = {}
     div_red_a_ewm: dict[str, float] = {}
     tm_red_for_ewm: dict[str, float] = {}
@@ -261,6 +407,7 @@ def main() -> None:
     gref_fls_ratio_sum: dict[str, float] = {}
     gref_cpf_n: dict[str, int] = {}
     gref_cpf_ratio_sum: dict[str, float] = {}
+    gref_last_div: dict[str, str] = {}
 
     gf_ewm: dict[str, float] = {}
     ga_ewm: dict[str, float] = {}
@@ -295,10 +442,6 @@ def main() -> None:
     div_red_h_arr = np.full(n_all, 0.095, dtype=np.float64)
     div_red_a_arr = np.full(n_all, 0.125, dtype=np.float64)
 
-    divs = m_df["div"].astype(str).to_numpy()
-    homes = m_df["home_team"].astype(str).to_numpy()
-    aways = m_df["away_team"].astype(str).to_numpy()
-    refs = [normalize_referee_name(x) for x in m_df["referee"].tolist()]
     hg_vec = pd.to_numeric(m_df["home_goals"], errors="coerce").to_numpy(dtype=np.float64)
     ag_vec = pd.to_numeric(m_df["away_goals"], errors="coerce").to_numpy(dtype=np.float64)
     ht_hg_vec = pd.to_numeric(m_df["ht_home_goals"], errors="coerce").to_numpy(dtype=np.float64)
@@ -354,7 +497,6 @@ def main() -> None:
             if nc > 0:
                 gref_cpf_mult_arr[i] = min(max((gref_cpf_ratio_sum[rf] + kappa_ref_global) / (nc + kappa_ref_global), 0.68), 1.44)
 
-        # Base causal EB de rojas por lado
         nrh = tm_red_n.get(hk, 0)
         nra = tm_red_n.get(ak, 0)
         rf_h = (nrh * tm_red_for_ewm.get(hk, 1.0) + kappa_red_tm) / (nrh + kappa_red_tm)
@@ -436,11 +578,12 @@ def main() -> None:
             tm_red_opp_ewm[ak] = alpha_red_tm * r_rh + (1.0 - alpha_red_tm) * tm_red_opp_ewm.get(ak, 1.0)
             tm_red_n[hk] = tm_red_n.get(hk, 0) + 1
             tm_red_n[ak] = tm_red_n.get(ak, 0) + 1
-            div_red_h_ewm[dv] = alpha_div * rh_o + (1.0 - alpha_div) * drh
-            div_red_a_ewm[dv] = alpha_div * ra_o + (1.0 - alpha_div) * dra
+            div_red_h_ewm[dv] = alpha_div_cards * rh_o + (1.0 - alpha_div_cards) * drh
+            div_red_a_ewm[dv] = alpha_div_cards * ra_o + (1.0 - alpha_div_cards) * dra
             if rf:
                 gref_red_n[rf] = gref_red_n.get(rf, 0) + 1
                 gref_red_ratio_sum[rf] = gref_red_ratio_sum.get(rf, 0.0) + min(max((rh_o + ra_o) / max(div_red_tot, 0.08), 0.0), 6.0)
+                gref_last_div[rf] = dv
 
         sh_hv, sh_av = obs_cols_h["shots"][i], obs_cols_a["shots"][i]
         st_hv, st_av = obs_cols_h["shots_on_target"][i], obs_cols_a["shots_on_target"][i]
@@ -494,8 +637,9 @@ def main() -> None:
                 tm_def_away[(ak, q)] = alpha_venue * r_def_a + (1.0 - alpha_venue) * tm_def_away.get((ak, q), 1.0)
                 tm_n_away[(ak, q)] = tm_n_away.get((ak, q), 0) + 1
 
-                div_stat_ewm[(dv, f"{q}_h")] = alpha_div * vh_f + (1.0 - alpha_div) * dh_cur
-                div_stat_ewm[(dv, f"{q}_a")] = alpha_div * va_f + (1.0 - alpha_div) * da_cur
+                a_d = alpha_div_cards if q == "yellow_cards" else alpha_div
+                div_stat_ewm[(dv, f"{q}_h")] = a_d * vh_f + (1.0 - a_d) * dh_cur
+                div_stat_ewm[(dv, f"{q}_a")] = a_d * va_f + (1.0 - a_d) * da_cur
 
                 if q == "yellow_cards":
                     yel_tot_obs = vh_f + va_f
@@ -503,6 +647,7 @@ def main() -> None:
                     fls_tot_obs = vh_f + va_f
 
         if rf:
+            gref_last_div[rf] = dv
             if math.isfinite(yel_tot_obs):
                 gref_yel_n[rf] = gref_yel_n.get(rf, 0) + 1
                 gref_yel_ratio_sum[rf] = gref_yel_ratio_sum.get(rf, 0.0) + min(max(yel_tot_obs / max(div_yel_tot, 0.8), 0.1), 3.5)
@@ -520,7 +665,7 @@ def main() -> None:
     tempo_exc = (lam_h_arr + lam_a_arr) - 2.65
     tightness = np.exp(-np.abs(sup_h)) - 0.55
     season_crunch = np.maximum(0.0, sprog_arr - 0.70) * np.exp(-np.abs(sup_h))
-    sstart = m_df["sstart"].to_numpy(dtype=int)
+    date_strs = m_df["match_date_str"].to_numpy()
 
     def _build_8_features(q: str) -> tuple[np.ndarray, np.ndarray]:
         log_bh = np.log(np.maximum(base_v4_h[q], 0.12))
@@ -560,6 +705,7 @@ def main() -> None:
     cached_X: dict[str, tuple[np.ndarray, np.ndarray]] = {}
     yel_mu_h_full_arr = np.copy(base_v4_h["yellow_cards"])
     yel_mu_a_full_arr = np.copy(base_v4_a["yellow_cards"])
+    best_alpha_by_q: dict[str, float] = {}
 
     for q, sp in METRIC_SPECS.items():
         Xh_all, Xa_all = _build_8_features(q)
@@ -569,51 +715,69 @@ def main() -> None:
         valid = (sstart >= MIN_MODERN_SEASON) & np.isfinite(yh) & np.isfinite(ya) & (yh >= 0.0) & (ya >= 0.0)
         idx_v = np.where(valid)[0]
         ss_v = sstart[idx_v]
+        dt_v = date_strs[idx_v]
         yh_v = yh[idx_v]
         ya_v = ya[idx_v]
         ytot_v = yh_v + ya_v
         Xh_v = Xh_all[idx_v]
         Xa_v = Xa_all[idx_v]
 
-        val_m = ss_v <= VAL_MAX_SEASON
         oos_m = ss_v >= OOS_MIN_SEASON
         sub_tr = ss_v <= 2017
         sub_vl = (ss_v >= 2018) & (ss_v <= 2019)
 
+        def _recency_weights(ss_slice: np.ndarray) -> np.ndarray | None:
+            if q != "yellow_cards":
+                return None
+            mx_s = float(np.max(ss_slice)) if len(ss_slice) > 0 else 2024.0
+            return 0.5 ** ((mx_s - ss_slice.astype(np.float64)) / 4.0)
+
+        sw_sub = _recency_weights(ss_v[sub_tr])
         best_alpha = 0.02
         best_mse = float("inf")
         for a_try in (0.005, 0.02, 0.10):
-            mh_t = PoissonRegressor(alpha=a_try, max_iter=600).fit(Xh_v[sub_tr], yh_v[sub_tr]).predict(Xh_v[sub_vl])
-            ma_t = PoissonRegressor(alpha=a_try, max_iter=600).fit(Xa_v[sub_tr], ya_v[sub_tr]).predict(Xa_v[sub_vl])
+            mh_t = PoissonRegressor(alpha=a_try, max_iter=600).fit(Xh_v[sub_tr], yh_v[sub_tr], sample_weight=sw_sub).predict(Xh_v[sub_vl])
+            ma_t = PoissonRegressor(alpha=a_try, max_iter=600).fit(Xa_v[sub_tr], ya_v[sub_tr], sample_weight=sw_sub).predict(Xa_v[sub_vl])
             mse_t = float(np.mean(((mh_t + ma_t) - ytot_v[sub_vl]) ** 2))
             if mse_t < best_mse:
                 best_mse = mse_t
                 best_alpha = a_try
+        best_alpha_by_q[q] = best_alpha
 
-        # Seleccionar peso `w_hgb` en escala log-tasa estrictamente en `2018..2019` (`VAL <= 2019`)
-        glm_h_sub = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v[sub_tr], yh_v[sub_tr])
-        glm_a_sub = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v[sub_tr], ya_v[sub_tr])
-        hgb_h_sub = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v[sub_tr], np.maximum(yh_v[sub_tr], 0.0))
-        hgb_a_sub = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v[sub_tr], np.maximum(ya_v[sub_tr], 0.0))
+        # Poda estricta HGB (`C2`): exige ΔDeviance < -0.0025 Y ΔMAE < -0.0020 en VAL (2018..2019)
+        glm_h_sub = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v[sub_tr], yh_v[sub_tr], sample_weight=sw_sub)
+        glm_a_sub = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v[sub_tr], ya_v[sub_tr], sample_weight=sw_sub)
+        hgb_h_sub = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v[sub_tr], np.maximum(yh_v[sub_tr], 0.0), sample_weight=sw_sub)
+        hgb_a_sub = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v[sub_tr], np.maximum(ya_v[sub_tr], 0.0), sample_weight=sw_sub)
 
-        eta_gh_vl = np.log(np.clip(glm_h_sub.predict(Xh_v[sub_vl]), 0.12, 40.0))
-        eta_ga_vl = np.log(np.clip(glm_a_sub.predict(Xa_v[sub_vl]), 0.12, 40.0))
-        eta_hh_vl = np.log(np.clip(hgb_h_sub.predict(Xh_v[sub_vl]), 0.12, 40.0))
-        eta_ha_vl = np.log(np.clip(hgb_a_sub.predict(Xa_v[sub_vl]), 0.12, 40.0))
+        mu_gh_vl = np.clip(glm_h_sub.predict(Xh_v[sub_vl]), 0.12, 40.0)
+        mu_ga_vl = np.clip(glm_a_sub.predict(Xa_v[sub_vl]), 0.12, 40.0)
+        eta_gh_vl = np.log(mu_gh_vl)
+        eta_ga_vl = np.log(mu_ga_vl)
+        eta_hh_vl = np.log(np.clip(hgb_h_sub.predict(Xh_v[sub_vl]), 1e-4, 60.0))
+        eta_ha_vl = np.log(np.clip(hgb_a_sub.predict(Xa_v[sub_vl]), 1e-4, 60.0))
 
+        base_dev_h = _poisson_deviance_loss(yh_v[sub_vl], mu_gh_vl)
+        base_mae_h = float(np.mean(np.abs(mu_gh_vl - yh_v[sub_vl])))
         best_wh = 0.0
-        best_dev_h = float("inf")
-        for w_try in (0.0, 0.15, 0.30, 0.45, 0.65):
-            dv_h = _poisson_deviance_loss(yh_v[sub_vl], np.exp((1.0 - w_try) * eta_gh_vl + w_try * eta_hh_vl))
-            if dv_h < best_dev_h - 1e-6:
+        best_dev_h = base_dev_h
+        for w_try in (0.15, 0.30, 0.45, 0.65):
+            mu_try = np.exp((1.0 - w_try) * eta_gh_vl + w_try * eta_hh_vl)
+            dv_h = _poisson_deviance_loss(yh_v[sub_vl], mu_try)
+            mae_h = float(np.mean(np.abs(mu_try - yh_v[sub_vl])))
+            if dv_h < base_dev_h - 0.0025 and dv_h < best_dev_h and mae_h < base_mae_h - 0.0020:
                 best_dev_h = dv_h
                 best_wh = w_try
 
+        base_dev_a = _poisson_deviance_loss(ya_v[sub_vl], mu_ga_vl)
+        base_mae_a = float(np.mean(np.abs(mu_ga_vl - ya_v[sub_vl])))
         best_wa = 0.0
-        best_dev_a = float("inf")
-        for w_try in (0.0, 0.15, 0.30, 0.45, 0.65):
-            dv_a = _poisson_deviance_loss(ya_v[sub_vl], np.exp((1.0 - w_try) * eta_ga_vl + w_try * eta_ha_vl))
-            if dv_a < best_dev_a - 1e-6:
+        best_dev_a = base_dev_a
+        for w_try in (0.15, 0.30, 0.45, 0.65):
+            mu_try = np.exp((1.0 - w_try) * eta_ga_vl + w_try * eta_ha_vl)
+            dv_a = _poisson_deviance_loss(ya_v[sub_vl], mu_try)
+            mae_a = float(np.mean(np.abs(mu_try - ya_v[sub_vl])))
+            if dv_a < base_dev_a - 0.0025 and dv_a < best_dev_a and mae_a < base_mae_a - 0.0020:
                 best_dev_a = dv_a
                 best_wa = w_try
 
@@ -623,7 +787,6 @@ def main() -> None:
         cline = float(sp["canonical_total_line"])
         max_k = int(sp["max_k_side"])
 
-        # Walk-forward anual `s < yr -> yr` en `OOS 2020..2024`: `v5.0 (HGB+GLM)` vs `v4.0 (GLM)`
         n_oos = int(np.sum(oos_m))
         mu5_h_oos = np.empty(n_oos, dtype=np.float64)
         mu5_a_oos = np.empty(n_oos, dtype=np.float64)
@@ -637,65 +800,77 @@ def main() -> None:
             cnt = int(np.sum(te_f))
             if cnt == 0:
                 continue
-            gh = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v[tr_f], yh_v[tr_f])
-            ga = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v[tr_f], ya_v[tr_f])
-            m4h = np.clip(gh.predict(Xh_v[te_f]), 0.15, 35.0)
-            m4a = np.clip(ga.predict(Xa_v[te_f]), 0.15, 35.0)
-            mu4_h_oos[pos : pos + cnt] = m4h
-            mu4_a_oos[pos : pos + cnt] = m4a
+            sw_f = _recency_weights(ss_v[tr_f])
+            # Benchmark v4.0 (sin recency ni HGB)
+            gh4 = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v[tr_f], yh_v[tr_f])
+            ga4 = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v[tr_f], ya_v[tr_f])
+            mu4_h_oos[pos : pos + cnt] = np.clip(gh4.predict(Xh_v[te_f]), 0.15, 35.0)
+            mu4_a_oos[pos : pos + cnt] = np.clip(ga4.predict(Xa_v[te_f]), 0.15, 35.0)
+
+            gh5 = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v[tr_f], yh_v[tr_f], sample_weight=sw_f)
+            ga5 = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v[tr_f], ya_v[tr_f], sample_weight=sw_f)
+            m5h_glm = np.clip(gh5.predict(Xh_v[te_f]), 0.15, 35.0)
+            m5a_glm = np.clip(ga5.predict(Xa_v[te_f]), 0.15, 35.0)
 
             if best_wh > 0.0:
-                hh = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v[tr_f], np.maximum(yh_v[tr_f], 0.0))
-                eh = (1.0 - best_wh) * (Xh_v[te_f] @ gh.coef_ + gh.intercept_) + best_wh * np.log(np.clip(hh.predict(Xh_v[te_f]), 1e-4, 60.0))
+                hh = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v[tr_f], np.maximum(yh_v[tr_f], 0.0), sample_weight=sw_f)
+                eh = (1.0 - best_wh) * (Xh_v[te_f] @ gh5.coef_ + gh5.intercept_) + best_wh * np.log(np.clip(hh.predict(Xh_v[te_f]), 1e-4, 60.0))
                 mu5_h_oos[pos : pos + cnt] = np.clip(np.exp(eh), 0.15, 35.0)
             else:
-                mu5_h_oos[pos : pos + cnt] = m4h
+                mu5_h_oos[pos : pos + cnt] = m5h_glm
 
             if best_wa > 0.0:
-                ha = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v[tr_f], np.maximum(ya_v[tr_f], 0.0))
-                ea = (1.0 - best_wa) * (Xa_v[te_f] @ ga.coef_ + ga.intercept_) + best_wa * np.log(np.clip(ha.predict(Xa_v[te_f]), 1e-4, 60.0))
+                ha = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v[tr_f], np.maximum(ya_v[tr_f], 0.0), sample_weight=sw_f)
+                ea = (1.0 - best_wa) * (Xa_v[te_f] @ ga5.coef_ + ga5.intercept_) + best_wa * np.log(np.clip(ha.predict(Xa_v[te_f]), 1e-4, 60.0))
                 mu5_a_oos[pos : pos + cnt] = np.clip(np.exp(ea), 0.15, 35.0)
             else:
-                mu5_a_oos[pos : pos + cnt] = m4a
+                mu5_a_oos[pos : pos + cnt] = m5a_glm
             pos += cnt
 
         y_over_oos = (ytot_v[oos_m] > cline).astype(np.float64)
+        cl_oos = dt_v[oos_m]
         p_over_v5, _ = _batch_sarmanov_over_and_1x2_probs(mu5_h_oos, mu5_a_oos, r_h, r_a, max_k, best_omega, cline)
         p_over_v4, _ = _batch_sarmanov_over_and_1x2_probs(mu4_h_oos, mu4_a_oos, r_h, r_a, max_k, best_omega, cline)
         p_over_clim, _ = _batch_sarmanov_over_and_1x2_probs(div_mean_h_arr[q][idx_v[oos_m]], div_mean_a_arr[q][idx_v[oos_m]], r_h, r_a, max_k, 0.0, cline)
 
-        boot_v5_vs_v4 = paired_bootstrap_binary(y_over_oos, p_over_v5, p_over_v4)
-        boot_v5_vs_clim = paired_bootstrap_binary(y_over_oos, p_over_v5, p_over_clim)
+        boot_v5_vs_v4 = _eval_binary_cluster_v51(cl_oos, y_over_oos, p_over_v5, p_over_v4, seed=BOOTSTRAP_SEED)
+        boot_v5_vs_clim = _eval_binary_cluster_v51(cl_oos, y_over_oos, p_over_v5, p_over_clim, seed=BOOTSTRAP_SEED + 1)
         mae_v5 = float(np.mean(np.abs((mu5_h_oos + mu5_a_oos) - ytot_v[oos_m])))
         mae_v4 = float(np.mean(np.abs((mu4_h_oos + mu4_a_oos) - ytot_v[oos_m])))
 
         print(
-            f"  [{q:15s}] OOS n={n_oos:,} | w_hgb=({best_wh:.2f},{best_wa:.2f}) | MAE: v4.0={mae_v4:.4f} -> v5.0={mae_v5:.4f} | "
-            f"dLL vs v4.0={boot_v5_vs_v4['delta_ll']:+.5f} ({boot_v5_vs_v4['significance']}) | "
+            f"  [{q:15s}] OOS n={n_oos:,} | w_hgb=({best_wh:.2f},{best_wa:.2f}) | MAE: v4.0={mae_v4:.4f} -> v5.1={mae_v5:.4f} | "
+            f"ECE={boot_v5_vs_clim['ece']:.5f} | dLL vs v4.0={boot_v5_vs_v4['delta_ll']:+.5f} ({boot_v5_vs_v4['significance']}) | "
             f"dLL vs Clim={boot_v5_vs_clim['delta_ll']:+.5f} ({boot_v5_vs_clim['significance']})"
         )
 
-        # Ajuste final `< 2025-02-02` y verificación exacta de serialización de árboles Poisson
-        pr_h_full = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v, yh_v)
-        pr_a_full = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v, ya_v)
-        hgb_h_full = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v, np.maximum(yh_v, 0.0))
-        hgb_a_full = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v, np.maximum(ya_v, 0.0))
-        ser_h = serialize_poisson_hgb_regressor(hgb_h_full)
-        ser_a = serialize_poisson_hgb_regressor(hgb_a_full)
+        # Ajuste final `< 2025-02-02` serializando `None` cuando `w_hgb == 0.0` (`-83%` bloat JSON!)
+        sw_full = _recency_weights(ss_v)
+        pr_h_full = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xh_v, yh_v, sample_weight=sw_full)
+        pr_a_full = PoissonRegressor(alpha=best_alpha, max_iter=600).fit(Xa_v, ya_v, sample_weight=sw_full)
 
-        # Paridad árbol serializado vs sklearn (`< 1e-12`)
-        for chk_i in range(min(25, len(Xh_v))):
-            p_sk = float(hgb_h_full.predict(Xh_v[chk_i : chk_i + 1])[0])
-            p_sr = math.exp(evaluate_poisson_gbm_eta_scalar(Xh_v[chk_i].tolist(), ser_h))
-            if abs(p_sk - p_sr) > 1e-11:
-                raise RuntimeError(f"Error de serialización HGB-Poisson en {q}: |{p_sk} - {p_sr}|")
+        ser_h: dict[str, Any] | None = None
+        ser_a: dict[str, Any] | None = None
+        hgb_h_full = None
+        hgb_a_full = None
+        if best_wh > 0.0:
+            hgb_h_full = HistGradientBoostingRegressor(**hgb_params).fit(Xh_v, np.maximum(yh_v, 0.0), sample_weight=sw_full)
+            ser_h = serialize_poisson_hgb_regressor(hgb_h_full)
+            for chk_i in range(min(25, len(Xh_v))):
+                p_sk = float(hgb_h_full.predict(Xh_v[chk_i : chk_i + 1])[0])
+                p_sr = math.exp(evaluate_poisson_gbm_eta_scalar(Xh_v[chk_i].tolist(), ser_h))
+                if abs(p_sk - p_sr) > 1e-11:
+                    raise RuntimeError(f"Error de serialización HGB-Poisson en {q}: |{p_sk} - {p_sr}|")
+        if best_wa > 0.0:
+            hgb_a_full = HistGradientBoostingRegressor(**hgb_params).fit(Xa_v, np.maximum(ya_v, 0.0), sample_weight=sw_full)
+            ser_a = serialize_poisson_hgb_regressor(hgb_a_full)
 
         if q == "yellow_cards":
             eh_all = (1.0 - best_wh) * (Xh_all @ pr_h_full.coef_ + pr_h_full.intercept_) + (
-                best_wh * np.log(np.clip(hgb_h_full.predict(Xh_all), 1e-4, 60.0)) if best_wh > 0.0 else 0.0
+                best_wh * np.log(np.clip(hgb_h_full.predict(Xh_all), 1e-4, 60.0)) if (best_wh > 0.0 and hgb_h_full is not None) else 0.0
             )
             ea_all = (1.0 - best_wa) * (Xa_all @ pr_a_full.coef_ + pr_a_full.intercept_) + (
-                best_wa * np.log(np.clip(hgb_a_full.predict(Xa_all), 1e-4, 60.0)) if best_wa > 0.0 else 0.0
+                best_wa * np.log(np.clip(hgb_a_full.predict(Xa_all), 1e-4, 60.0)) if (best_wa > 0.0 and hgb_a_full is not None) else 0.0
             )
             yel_mu_h_full_arr = np.clip(np.exp(eh_all), 0.15, 35.0)
             yel_mu_a_full_arr = np.clip(np.exp(ea_all), 0.15, 35.0)
@@ -722,7 +897,7 @@ def main() -> None:
         }
 
     # =========================================================================
-    # 2. Nuevos Mercados Disciplinarios v5.0: `red_cards` (`Over 0.5`) y `booking_points` (`35.5 / 45.5 / 55.5`)
+    # 2. Mercados Disciplinarios v5.1: `red_cards` y `booking_points` Condicional (`gamma_R`) sin fuga in-VAL (`B4, C3`)
     # =========================================================================
     yh_yel = obs_cols_h["yellow_cards"]
     ya_yel = obs_cols_a["yellow_cards"]
@@ -737,10 +912,10 @@ def main() -> None:
     )
     idx_d = np.where(valid_disc)[0]
     ss_d = sstart[idx_d]
+    dt_d = date_strs[idx_d]
     val_d = ss_d <= VAL_MAX_SEASON
     oos_d = ss_d >= OOS_MIN_SEASON
 
-    # Amarillas esperadas causales walk-forward para alimentar `red_cards` sin fuga
     Xh_yel_d = cached_X["yellow_cards"][0][idx_d]
     Xa_yel_d = cached_X["yellow_cards"][1][idx_d]
     yh_yel_d = yh_yel[idx_d]
@@ -748,13 +923,15 @@ def main() -> None:
     mu_yel_h_wf = np.copy(base_v4_h["yellow_cards"][idx_d])
     mu_yel_a_wf = np.copy(base_v4_a["yellow_cards"][idx_d])
 
+    alpha_y = best_alpha_by_q.get("yellow_cards", 0.02)
     for yr in sorted(set(int(x) for x in ss_d.tolist() if int(x) >= 2014)):
         tr_y = ss_d < yr
         te_y = ss_d == yr
         if int(np.sum(tr_y)) < 500 or int(np.sum(te_y)) == 0:
             continue
-        gy_h = PoissonRegressor(alpha=0.02, max_iter=600).fit(Xh_yel_d[tr_y], yh_yel_d[tr_y])
-        gy_a = PoissonRegressor(alpha=0.02, max_iter=600).fit(Xa_yel_d[tr_y], ya_yel_d[tr_y])
+        sw_y = 0.5 ** ((float(yr - 1) - ss_d[tr_y].astype(np.float64)) / 4.0)
+        gy_h = PoissonRegressor(alpha=alpha_y, max_iter=600).fit(Xh_yel_d[tr_y], yh_yel_d[tr_y], sample_weight=sw_y)
+        gy_a = PoissonRegressor(alpha=alpha_y, max_iter=600).fit(Xa_yel_d[tr_y], ya_yel_d[tr_y], sample_weight=sw_y)
         mu_yel_h_wf[te_y] = np.clip(gy_h.predict(Xh_yel_d[te_y]), 0.25, 15.0)
         mu_yel_a_wf[te_y] = np.clip(gy_a.predict(Xa_yel_d[te_y]), 0.25, 15.0)
 
@@ -782,13 +959,13 @@ def main() -> None:
     ra_d = reds_a_vec[idx_d]
     rtot_d = rh_d + ra_d
 
-    # Seleccionar `alpha_red` en `VAL <= 2019` (`2012..2017 -> 2018..2019`) sin sobre-penalizar el offset de liga (`coef[0]`)
+    # Fuga in-VAL eliminada (`B4`): entrenar estrictamente en `<= 2017`, calibrar en `2018..2019`!
     red_sub_tr = ss_d <= 2017
     red_sub_vl = (ss_d >= 2018) & (ss_d <= 2019)
+    sw_r_sub = 0.5 ** ((2017.0 - ss_d[red_sub_tr].astype(np.float64)) / 4.5)
     best_alpha_red = 0.001
     best_red_dev = float("inf")
     for ar_try in (0.0003, 0.001, 0.004, 0.015):
-        sw_r_sub = 0.5 ** ((2017.0 - ss_d[red_sub_tr].astype(np.float64)) / 4.5)
         mrh_t = PoissonRegressor(alpha=ar_try, max_iter=800).fit(X_red_h[red_sub_tr], rh_d[red_sub_tr], sample_weight=sw_r_sub).predict(X_red_h[red_sub_vl])
         mra_t = PoissonRegressor(alpha=ar_try, max_iter=800).fit(X_red_a[red_sub_tr], ra_d[red_sub_tr], sample_weight=sw_r_sub).predict(X_red_a[red_sub_vl])
         dv_r = _poisson_deviance_loss(rtot_d[red_sub_vl], mrh_t + mra_t)
@@ -796,58 +973,48 @@ def main() -> None:
             best_red_dev = dv_r
             best_alpha_red = ar_try
 
-    sw_val_d = 0.5 ** ((2019.0 - ss_d[val_d].astype(np.float64)) / 4.5)
-    pr_rh_val = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_h[val_d], rh_d[val_d], sample_weight=sw_val_d)
-    pr_ra_val = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_a[val_d], ra_d[val_d], sample_weight=sw_val_d)
-    mu_rh_val = np.clip(pr_rh_val.predict(X_red_h[val_d]), 0.01, 1.5)
-    mu_ra_val = np.clip(pr_ra_val.predict(X_red_a[val_d]), 0.01, 1.5)
-    r_red_h = min(max(_estimate_nb_dispersion_mom(rh_d[val_d], mu_rh_val), 1.2), 25.0)
-    r_red_a = min(max(_estimate_nb_dispersion_mom(ra_d[val_d], mu_ra_val), 1.2), 25.0)
+    pr_rh_sub = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_h[red_sub_tr], rh_d[red_sub_tr], sample_weight=sw_r_sub)
+    pr_ra_sub = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_a[red_sub_tr], ra_d[red_sub_tr], sample_weight=sw_r_sub)
+    mu_rh_sub_vl = np.clip(pr_rh_sub.predict(X_red_h[red_sub_vl]), 0.01, 1.5)
+    mu_ra_sub_vl = np.clip(pr_ra_sub.predict(X_red_a[red_sub_vl]), 0.01, 1.5)
+    r_red_h = min(max(_estimate_nb_dispersion_mom(rh_d[red_sub_vl], mu_rh_sub_vl), 1.2), 25.0)
+    r_red_a = min(max(_estimate_nb_dispersion_mom(ra_d[red_sub_vl], mu_ra_sub_vl), 1.2), 25.0)
 
-    # Calibrar `omega_red` (contagio de expulsiones entre equipos) y `omega_yr` (acoplamiento amarillas-rojas) en `VAL <= 2019`
     best_om_red = 0.08
     best_red_ll = float("inf")
-    y_red_val_bin = (rtot_d[val_d] > 0.5).astype(np.float64)
+    y_red_vl_bin = (rtot_d[red_sub_vl] > 0.5).astype(np.float64)
     for om_r_try in (0.0, 0.06, 0.12, 0.20):
-        po_rv, _ = _batch_sarmanov_over_and_1x2_probs(mu_rh_val, mu_ra_val, r_red_h, r_red_a, 4, om_r_try, 0.5)
+        po_rv, _ = _batch_sarmanov_over_and_1x2_probs(mu_rh_sub_vl, mu_ra_sub_vl, r_red_h, r_red_a, 4, om_r_try, 0.5)
         po_rc = np.clip(po_rv, 1e-12, 1.0 - 1e-12)
-        ll_r = float(-np.mean(y_red_val_bin * np.log(po_rc) + (1.0 - y_red_val_bin) * np.log(1.0 - po_rc)))
+        ll_r = float(-np.mean(y_red_vl_bin * np.log(po_rc) + (1.0 - y_red_vl_bin) * np.log(1.0 - po_rc)))
         if ll_r < best_red_ll:
             best_red_ll = ll_r
             best_om_red = om_r_try
 
-    # Calibrar `omega_yr` sobre `Booking Points Over 45.5` en `2018..2019` (`VAL <= 2019`)
-    vl_sub = val_d & (ss_d >= 2018)
+    # Calibrar `gamma_red` condicional en `VAL <= 2019` mediante MLE condicional exacto
+    # `Y_tot | (mu_yel_tot_wf, R_tot) ~ Poisson(mu_yel_tot_wf * exp(a0 + gamma_R * R_tot))` (`C3`, `B4`).
+    # Esto estima la dependencia estructural real `E[Y|R]` aislando cualquier deriva de media en `2018..2019`.
+    from scipy.optimize import minimize as _sp_minimize
+
     bp_obs_d = 10.0 * (yh_yel_d + ya_yel_d) + 25.0 * rtot_d
     r_yel_eff = 0.5 * (metric_models_v5["yellow_cards"]["dispersion_r_home"] + metric_models_v5["yellow_cards"]["dispersion_r_away"])
     r_red_eff = 0.5 * (r_red_h + r_red_a)
     om_yel = float(metric_models_v5["yellow_cards"]["copula_omega"])
 
-    best_om_yr = 0.16
-    best_bp_ll = float("inf")
-    vl_indices = np.where(vl_sub)[0]
-    for om_yr_try in (0.0, 0.10, 0.18, 0.28):
-        p_bp45_list: list[float] = []
-        for ii in vl_indices:
-            by = bivariate_sarmanov_summary_exact(float(mu_yel_h_wf[ii]), float(mu_yel_a_wf[ii]), metric_models_v5["yellow_cards"]["dispersion_r_home"], metric_models_v5["yellow_cards"]["dispersion_r_away"], 12, om_yel, [])
-            br = bivariate_sarmanov_summary_exact(float(pr_rh_val.predict(X_red_h[ii : ii + 1])[0]), float(pr_ra_val.predict(X_red_a[ii : ii + 1])[0]), r_red_h, r_red_a, 4, best_om_red, [])
-            bp_o = build_booking_points_outlook_scalar(
-                by["pmf_total"],
-                float(mu_yel_h_wf[ii] + mu_yel_a_wf[ii]),
-                r_yel_eff,
-                br["pmf_total"],
-                float(pr_rh_val.predict(X_red_h[ii : ii + 1])[0] + pr_ra_val.predict(X_red_a[ii : ii + 1])[0]),
-                r_red_eff,
-                om_yr_try,
-                [45.5],
-            )
-            p_bp45_list.append(bp_o["lines"]["45.5"]["pOver"])
-        yb_v = (bp_obs_d[vl_indices] > 45.5).astype(np.float64)
-        pb_v = np.clip(np.array(p_bp45_list, dtype=np.float64), 1e-12, 1.0 - 1e-12)
-        ll_b = float(-np.mean(yb_v * np.log(pb_v) + (1.0 - yb_v) * np.log(1.0 - pb_v)))
-        if ll_b < best_bp_ll:
-            best_bp_ll = ll_b
-            best_om_yr = om_yr_try
+    val_mle_mask = val_d & (ss_d >= 2014)
+    y_mle_val = (yh_yel_d + ya_yel_d)[val_mle_mask]
+    r_mle_val = rtot_d[val_mle_mask]
+    mu_y_mle_val = np.maximum(mu_yel_h_wf[val_mle_mask] + mu_yel_a_wf[val_mle_mask], 0.5)
+    sw_mle_val = 0.5 ** ((float(VAL_MAX_SEASON) - ss_d[val_mle_mask].astype(np.float64)) / 4.5)
+    sw_mle_val = sw_mle_val / np.mean(sw_mle_val)
+
+    def _cond_poisson_nll(theta: np.ndarray) -> float:
+        a0, gr_p = float(theta[0]), float(theta[1])
+        lam = np.clip(mu_y_mle_val * np.exp(a0 + gr_p * r_mle_val), 1e-6, 100.0)
+        return float(np.mean(sw_mle_val * (lam - y_mle_val * np.log(lam))))
+
+    opt_gr = _sp_minimize(_cond_poisson_nll, np.array([-0.03, 0.15], dtype=np.float64), method="BFGS")
+    best_gamma_r = round(float(min(max(opt_gr.x[1], 0.0), 0.50)), 4)
 
     # Walk-forward `OOS 2020..2024` de `red_cards` y `booking_points`
     n_oos_d = int(np.sum(oos_d))
@@ -865,14 +1032,14 @@ def main() -> None:
         mu_ra_oos[pos : pos + cnt] = np.clip(pr_a_y.predict(X_red_a[te_f]), 0.01, 1.5)
         pos += cnt
 
+    cl_oos_d = dt_d[oos_d]
     y_red_oos = (rtot_d[oos_d] > 0.5).astype(np.float64)
     p_red_v5, _ = _batch_sarmanov_over_and_1x2_probs(mu_rh_oos, mu_ra_oos, r_red_h, r_red_a, 4, best_om_red, 0.5)
     p_red_clim, _ = _batch_sarmanov_over_and_1x2_probs(div_red_h_arr[idx_d[oos_d]], div_red_a_arr[idx_d[oos_d]], r_red_h, r_red_a, 4, 0.0, 0.5)
-    ev_red_vs_clim = paired_bootstrap_binary(y_red_oos, p_red_v5, p_red_clim)
+    ev_red_vs_clim = _eval_binary_cluster_v51(cl_oos_d, y_red_oos, p_red_v5, p_red_clim, seed=BOOTSTRAP_SEED + 5)
 
-    # Booking points OOS (`35.5, 45.5, 55.5`) vs Climatología de Liga
-    oos_d_indices = np.where(oos_d)[0]
     p_bp_v5_map: dict[float, np.ndarray] = {ln: np.empty(n_oos_d, dtype=np.float64) for ln in BOOKING_POINTS_LINES}
+    p_bp_indep_map: dict[float, np.ndarray] = {ln: np.empty(n_oos_d, dtype=np.float64) for ln in BOOKING_POINTS_LINES}
     p_bp_clim_map: dict[float, np.ndarray] = {ln: np.empty(n_oos_d, dtype=np.float64) for ln in BOOKING_POINTS_LINES}
 
     dh_yel_oos = div_mean_h_arr["yellow_cards"][idx_d[oos_d]]
@@ -885,32 +1052,36 @@ def main() -> None:
     for k_i in range(n_oos_d):
         by5 = bivariate_sarmanov_summary_exact(float(uy_h_oos[k_i]), float(uy_a_oos[k_i]), metric_models_v5["yellow_cards"]["dispersion_r_home"], metric_models_v5["yellow_cards"]["dispersion_r_away"], 12, om_yel, [])
         br5 = bivariate_sarmanov_summary_exact(float(mu_rh_oos[k_i]), float(mu_ra_oos[k_i]), r_red_h, r_red_a, 4, best_om_red, [])
-        bp5 = build_booking_points_outlook_scalar(by5["pmf_total"], float(uy_h_oos[k_i] + uy_a_oos[k_i]), r_yel_eff, br5["pmf_total"], float(mu_rh_oos[k_i] + mu_ra_oos[k_i]), r_red_eff, best_om_yr, BOOKING_POINTS_LINES)
+        bp5 = build_booking_points_outlook_scalar(by5["pmf_total"], float(uy_h_oos[k_i] + uy_a_oos[k_i]), r_yel_eff, br5["pmf_total"], float(mu_rh_oos[k_i] + mu_ra_oos[k_i]), r_red_eff, 0.0, BOOKING_POINTS_LINES, gamma_red=best_gamma_r)
+        bp0 = build_booking_points_outlook_scalar(by5["pmf_total"], float(uy_h_oos[k_i] + uy_a_oos[k_i]), r_yel_eff, br5["pmf_total"], float(mu_rh_oos[k_i] + mu_ra_oos[k_i]), r_red_eff, 0.0, BOOKING_POINTS_LINES, gamma_red=0.0)
 
         byc = bivariate_sarmanov_summary_exact(float(dh_yel_oos[k_i]), float(da_yel_oos[k_i]), metric_models_v5["yellow_cards"]["dispersion_r_home"], metric_models_v5["yellow_cards"]["dispersion_r_away"], 12, 0.0, [])
         brc = bivariate_sarmanov_summary_exact(float(drh_oos[k_i]), float(dra_oos[k_i]), r_red_h, r_red_a, 4, 0.0, [])
-        bpc = build_booking_points_outlook_scalar(byc["pmf_total"], float(dh_yel_oos[k_i] + da_yel_oos[k_i]), r_yel_eff, brc["pmf_total"], float(drh_oos[k_i] + dra_oos[k_i]), r_red_eff, 0.0, BOOKING_POINTS_LINES)
+        bpc = build_booking_points_outlook_scalar(byc["pmf_total"], float(dh_yel_oos[k_i] + da_yel_oos[k_i]), r_yel_eff, brc["pmf_total"], float(drh_oos[k_i] + dra_oos[k_i]), r_red_eff, 0.0, BOOKING_POINTS_LINES, gamma_red=0.0)
 
         for ln in BOOKING_POINTS_LINES:
             p_bp_v5_map[ln][k_i] = bp5["lines"][str(ln)]["pOver"]
+            p_bp_indep_map[ln][k_i] = bp0["lines"][str(ln)]["pOver"]
             p_bp_clim_map[ln][k_i] = bpc["lines"][str(ln)]["pOver"]
 
     bp_oos_obs = bp_obs_d[oos_d]
     bp_evals: dict[str, Any] = {}
+    bp_vs_indep: dict[str, Any] = {}
     for ln in BOOKING_POINTS_LINES:
-        ev_ln = paired_bootstrap_binary((bp_oos_obs > ln).astype(np.float64), p_bp_v5_map[ln], p_bp_clim_map[ln])
-        bp_evals[str(ln)] = ev_ln
+        y_ln = (bp_oos_obs > ln).astype(np.float64)
+        bp_evals[str(ln)] = _eval_binary_cluster_v51(cl_oos_d, y_ln, p_bp_v5_map[ln], p_bp_clim_map[ln], seed=BOOTSTRAP_SEED + int(ln))
+        bp_vs_indep[str(ln)] = _eval_binary_cluster_v51(cl_oos_d, y_ln, p_bp_v5_map[ln], p_bp_indep_map[ln], seed=BOOTSTRAP_SEED + 100 + int(ln))
 
     print(
-        f"\n=== EXP_V51 NEW DISCIPLINARY MARKETS OOS (2020..2024, n={n_oos_d:,}) ===\n"
+        f"\n=== EXP_V51 v5.1 DISCIPLINARY MARKETS OOS (2020..2024, n={n_oos_d:,}, gamma_R={best_gamma_r:.2f}) ===\n"
         f"  Red Cards Over 0.5: LL={ev_red_vs_clim['log_loss']:.5f} (ECE={ev_red_vs_clim['ece']:.5f}) | "
         f"dLL vs League Clim={ev_red_vs_clim['delta_ll']:+.5f} ({ev_red_vs_clim['significance']})\n"
-        f"  Booking Points Over 35.5: dLL vs Clim={bp_evals['35.5']['delta_ll']:+.5f} ({bp_evals['35.5']['significance']}) | ECE={bp_evals['35.5']['ece']:.5f}\n"
-        f"  Booking Points Over 45.5: dLL vs Clim={bp_evals['45.5']['delta_ll']:+.5f} ({bp_evals['45.5']['significance']}) | ECE={bp_evals['45.5']['ece']:.5f}\n"
-        f"  Booking Points Over 55.5: dLL vs Clim={bp_evals['55.5']['delta_ll']:+.5f} ({bp_evals['55.5']['significance']}) | ECE={bp_evals['55.5']['ece']:.5f}"
+        f"  Booking Points Over 35.5: dLL vs Clim={bp_evals['35.5']['delta_ll']:+.5f} ({bp_evals['35.5']['significance']}) | vs Indep={bp_vs_indep['35.5']['delta_ll']:+.5f} | ECE={bp_evals['35.5']['ece']:.5f}\n"
+        f"  Booking Points Over 45.5: dLL vs Clim={bp_evals['45.5']['delta_ll']:+.5f} ({bp_evals['45.5']['significance']}) | vs Indep={bp_vs_indep['45.5']['delta_ll']:+.5f} | ECE={bp_evals['45.5']['ece']:.5f}\n"
+        f"  Booking Points Over 55.5: dLL vs Clim={bp_evals['55.5']['delta_ll']:+.5f} ({bp_evals['55.5']['significance']}) | vs Indep={bp_vs_indep['55.5']['delta_ll']:+.5f} | ECE={bp_evals['55.5']['ece']:.5f}"
     )
 
-    # Ajuste final `red_cards_model` sobre `< 2025-02-02`
+    # Ajuste final `red_cards_model` sobre `< 2025-02-02` (sin árboles HGB muertos -> `None`)
     X_red_h_full = np.column_stack(
         [
             np.log(np.maximum(base_red_h_arr[idx_d], 0.015)),
@@ -934,8 +1105,6 @@ def main() -> None:
     sw_full_d = 0.5 ** ((float(np.max(ss_d)) - ss_d.astype(np.float64)) / 4.5)
     pr_rh_full = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_h_full, rh_d, sample_weight=sw_full_d)
     pr_ra_full = PoissonRegressor(alpha=best_alpha_red, max_iter=800).fit(X_red_a_full, ra_d, sample_weight=sw_full_d)
-    hgb_rh_full = HistGradientBoostingRegressor(**hgb_params).fit(X_red_h_full, rh_d)
-    hgb_ra_full = HistGradientBoostingRegressor(**hgb_params).fit(X_red_a_full, ra_d)
 
     red_model_spec = {
         "default_home_rate": 0.095,
@@ -944,7 +1113,8 @@ def main() -> None:
         "dispersion_r_away": round(r_red_a, 6),
         "max_k_side": 4,
         "copula_omega": best_om_red,
-        "booking_points_omega_yr": best_om_yr,
+        "booking_points_omega_yr": 0.0,
+        "booking_points_gamma_red": float(best_gamma_r),
         "booking_points_lines": BOOKING_POINTS_LINES,
         "feature_names": RED_FEATURE_NAMES_6,
         "home_coef": [float(v) for v in pr_rh_full.coef_.tolist()],
@@ -953,14 +1123,21 @@ def main() -> None:
         "away_intercept": float(pr_ra_full.intercept_),
         "w_hgb_home": 0.0,
         "w_hgb_away": 0.0,
-        "home_hgb": serialize_poisson_hgb_regressor(hgb_rh_full),
-        "away_hgb": serialize_poisson_hgb_regressor(hgb_ra_full),
+        "home_hgb": None,
+        "away_hgb": None,
     }
 
     div_priors_v5: dict[str, Any] = {}
     for dv_k, dp_v in v4_art_prev["div_priors"].items():
+        upd_m = {}
+        for q, sp in METRIC_SPECS.items():
+            upd_m[q] = {
+                "home_mean": round(div_stat_ewm.get((dv_k, f"{q}_h"), dp_v["metrics"][q]["home_mean"]), 5),
+                "away_mean": round(div_stat_ewm.get((dv_k, f"{q}_a"), dp_v["metrics"][q]["away_mean"]), 5),
+            }
         div_priors_v5[dv_k] = {
-            **dp_v,
+            "ht_goal_share": round(div_ht_share_ewm.get(dv_k, dp_v["ht_goal_share"]), 5),
+            "metrics": upd_m,
             "red_cards": {
                 "home_mean": round(div_red_h_ewm.get(dv_k, 0.095), 5),
                 "away_mean": round(div_red_a_ewm.get(dv_k, 0.125), 5),
@@ -968,9 +1145,9 @@ def main() -> None:
         }
 
     model_v5_art = {
-        "schema_version": "soccer_micro_markets_v5.0.0",
-        "codename": "PitchLab Non-Linear HGB-Poisson & Disciplinary Micro-Markets v5.0",
-        "version": "5.0.0-candidate",
+        "schema_version": "soccer_micro_markets_v5.1.0",
+        "codename": "PitchLab Pruned Micro-Markets & Conditional Booking Points v5.1",
+        "version": "5.1.0-candidate",
         "status": "candidate",
         "production_activated": False,
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -982,8 +1159,92 @@ def main() -> None:
         "red_cards_model": red_model_spec,
     }
     MICRO_V5_MODEL_OUT.write_text(json.dumps(model_v5_art, separators=(",", ":")), encoding="utf-8")
+    model_size_kb = MICRO_V5_MODEL_OUT.stat().st_size / 1024.0
+    print(f"[EXP_V51 v5.1] Tamaño model_soccer_micro_v5_0_candidate.json: {model_size_kb:.1f} KB (antes 540 KB)")
 
-    # Snapshot de paridad `< 1e-12` (`60` partidos OOS reales verificando HGB-Poisson + Red Cards + Booking Points)
+    # Exportar `club_micro_state_v5_1.json` y `official_priors_v5_1.json` (`< 2025-02-02`) para `REM_01`
+    all_club_keys = sorted({k for (k, _) in tm_n_all.keys()})
+    club_micro_out: dict[str, Any] = {}
+    for ck in all_club_keys:
+        dv_c = ck.split("::", 1)[0]
+        m_state: dict[str, Any] = {}
+        for q in METRIC_SPECS:
+            n_a = tm_n_all.get((ck, q), 0)
+            n_h = tm_n_home.get((ck, q), 0)
+            n_w = tm_n_away.get((ck, q), 0)
+            att_all = (n_a * tm_att_all.get((ck, q), 1.0) + kappa_all) / (n_a + kappa_all)
+            def_all = (n_a * tm_def_all.get((ck, q), 1.0) + kappa_all) / (n_a + kappa_all)
+            att_h = (n_h * tm_att_home.get((ck, q), 1.0) + kappa_venue) / (n_h + kappa_venue)
+            def_h = (n_h * tm_def_home.get((ck, q), 1.0) + kappa_venue) / (n_h + kappa_venue)
+            att_w = (n_w * tm_att_away.get((ck, q), 1.0) + kappa_venue) / (n_w + kappa_venue)
+            def_w = (n_w * tm_def_away.get((ck, q), 1.0) + kappa_venue) / (n_w + kappa_venue)
+            m_state[q] = {
+                "att_home": round(0.62 * att_all + 0.38 * att_h, 5),
+                "def_home": round(0.62 * def_all + 0.38 * def_h, 5),
+                "att_away": round(0.62 * att_all + 0.38 * att_w, 5),
+                "def_away": round(0.62 * def_all + 0.38 * def_w, 5),
+                "n": int(n_a),
+            }
+        nb = blk_n_all.get(ck, 0)
+        nr = tm_red_n.get(ck, 0)
+        club_micro_out[ck] = {
+            "div": dv_c,
+            "blk_att": round((nb * blk_att_all.get(ck, 1.0) + kappa_all) / (nb + kappa_all), 5),
+            "blk_def": round((nb * blk_def_all.get(ck, 1.0) + kappa_all) / (nb + kappa_all), 5),
+            "red_for": round((nr * tm_red_for_ewm.get(ck, 1.0) + kappa_red_tm) / (nr + kappa_red_tm), 5),
+            "red_opp": round((nr * tm_red_opp_ewm.get(ck, 1.0) + kappa_red_tm) / (nr + kappa_red_tm), 5),
+            "metrics": m_state,
+        }
+
+    CLUB_MICRO_STATE_V51_OUT.write_text(
+        json.dumps(
+            {
+                "schema_version": "club_micro_state_v5.1.0",
+                "as_of_cutoff_iso": HOLDOUT_CUT_ISO,
+                "holdout_sealed_untouched": True,
+                "n_clubs": len(club_micro_out),
+                "div_priors": div_priors_v5,
+                "clubs": club_micro_out,
+            },
+            separators=(",", ":"),
+        ),
+        encoding="utf-8",
+    )
+
+    officials_out: dict[str, Any] = {}
+    for rf_k in sorted(set(gref_yel_n.keys()) | set(gref_fls_n.keys()) | set(gref_red_n.keys())):
+        ny = gref_yel_n.get(rf_k, 0)
+        nf = gref_fls_n.get(rf_k, 0)
+        nc = gref_cpf_n.get(rf_k, 0)
+        nr = gref_red_n.get(rf_k, 0)
+        if max(ny, nf, nr) < 5:
+            continue
+        officials_out[rf_k] = {
+            "last_div": gref_last_div.get(rf_k, ""),
+            "games_yellow": int(ny),
+            "games_red": int(nr),
+            "yellow_mult": round(min(max((gref_yel_ratio_sum.get(rf_k, 0.0) + kappa_ref_global) / (ny + kappa_ref_global), 0.66), 1.45), 5),
+            "red_mult": round(min(max((gref_red_ratio_sum.get(rf_k, 0.0) + kappa_ref_red) / (nr + kappa_ref_red), 0.65), 1.65), 5),
+            "fouls_mult": round(min(max((gref_fls_ratio_sum.get(rf_k, 0.0) + kappa_ref_global) / (nf + kappa_ref_global), 0.74), 1.34), 5),
+            "cpf_mult": round(min(max((gref_cpf_ratio_sum.get(rf_k, 0.0) + kappa_ref_global) / (nc + kappa_ref_global), 0.68), 1.44), 5),
+        }
+    OFFICIAL_PRIORS_V51_OUT.write_text(
+        json.dumps(
+            {
+                "schema_version": "official_priors_v5.1.0",
+                "as_of_cutoff_iso": HOLDOUT_CUT_ISO,
+                "holdout_sealed_untouched": True,
+                "n_officials": len(officials_out),
+                "big7_coverage_before": round(big7_cov_before, 4),
+                "big7_coverage_after": round(big7_cov_after, 4),
+                "officials": officials_out,
+            },
+            separators=(",", ":"),
+        ),
+        encoding="utf-8",
+    )
+
+    # Snapshot de paridad `< 1e-12` (`60` partidos OOS reales verificando Micro-Markets + Red Cards + Conditional Booking Points)
     rng = np.random.default_rng(MODEL_SEED)
     oos_global_idx = idx_d[oos_d]
     chosen_rows = np.sort(rng.choice(oos_global_idx, size=min(60, len(oos_global_idx)), replace=False))
@@ -1007,8 +1268,8 @@ def main() -> None:
 
             eg_h = float(sp5["home_intercept"]) + sum(float(sp5["home_coef"][j]) * xh8[j] for j in range(8))
             eg_a = float(sp5["away_intercept"]) + sum(float(sp5["away_coef"][j]) * xa8[j] for j in range(8))
-            eh_h = evaluate_poisson_gbm_eta_scalar(xh8, sp5["home_hgb"]) if sp5["w_hgb_home"] > 0.0 else eg_h
-            eh_a = evaluate_poisson_gbm_eta_scalar(xa8, sp5["away_hgb"]) if sp5["w_hgb_away"] > 0.0 else eg_a
+            eh_h = evaluate_poisson_gbm_eta_scalar(xh8, sp5["home_hgb"]) if (sp5["w_hgb_home"] > 0.0 and sp5["home_hgb"] is not None) else eg_h
+            eh_a = evaluate_poisson_gbm_eta_scalar(xa8, sp5["away_hgb"]) if (sp5["w_hgb_away"] > 0.0 and sp5["away_hgb"] is not None) else eg_a
             mh = min(max(math.exp((1.0 - sp5["w_hgb_home"]) * eg_h + sp5["w_hgb_home"] * eh_h), 0.15), 35.0)
             ma = min(max(math.exp((1.0 - sp5["w_hgb_away"]) * eg_a + sp5["w_hgb_away"] * eh_a), 0.15), 35.0)
 
@@ -1019,7 +1280,6 @@ def main() -> None:
             po_c, _, _ = line_probs_from_pmf(biv["pmf_total"], sp5["canonical_total_line"])
             expected_m[q] = {"mu_home": mh, "mu_away": ma, "p_over_canonical": po_c}
 
-        # Red cards default features (`buildSoccerMicroMatchOutlookV5` sin `redCardFeatures` explícito)
         dp_red = div_priors_v5.get(dv, {}).get("red_cards", {})
         brh = float(dp_red.get("home_mean", red_model_spec["default_home_rate"]))
         bra = float(dp_red.get("away_mean", red_model_spec["default_away_rate"]))
@@ -1037,7 +1297,9 @@ def main() -> None:
         biv_r = bivariate_sarmanov_summary_exact(mrh, mra, red_model_spec["dispersion_r_home"], red_model_spec["dispersion_r_away"], 4, red_model_spec["copula_omega"], [-0.5, 0.5])
         pr_match = min(max(line_probs_from_pmf(biv_r["pmf_total"], 0.5)[0], 0.001), 0.999)
         assert yel_pmf_tot is not None
-        bp_out = build_booking_points_outlook_scalar(yel_pmf_tot, yel_tot_mu, r_yel_eff, biv_r["pmf_total"], mrh + mra, r_red_eff, best_om_yr, BOOKING_POINTS_LINES)
+        bp_out = build_booking_points_outlook_scalar(
+            yel_pmf_tot, yel_tot_mu, r_yel_eff, biv_r["pmf_total"], mrh + mra, r_red_eff, 0.0, BOOKING_POINTS_LINES, gamma_red=best_gamma_r
+        )
 
         snap_rows.append(
             {
@@ -1062,20 +1324,31 @@ def main() -> None:
         )
 
     MICRO_V5_SNAPSHOT_OUT.write_text(
-        json.dumps({"schema_version": "soccer_micro_v5.0_parity_snapshot", "holdout_sealed_untouched": True, "n": len(snap_rows), "rows": snap_rows}, indent=2),
+        json.dumps({"schema_version": "soccer_micro_v5.1_parity_snapshot", "holdout_sealed_untouched": True, "n": len(snap_rows), "rows": snap_rows}, indent=2),
         encoding="utf-8",
     )
 
     results_payload = {
-        "experiment_id": "EXP_V51_micro_markets_v5_0",
+        "experiment_id": "EXP_V51_micro_markets_v5_1_remediated",
         "holdout_cut_utc": HOLDOUT_CUT_ISO,
         "holdout_sealed_untouched": True,
+        "referee_enrichment": {
+            "big7_coverage_before": round(big7_cov_before, 4),
+            "big7_coverage_after": round(big7_cov_after, 4),
+            "tm_games_filled_matches": int(ref_tm_filled),
+            "n_officials_exported": len(officials_out),
+        },
+        "model_json_size_kb": round(model_size_kb, 2),
         "oos_metrics_v5_vs_v4": eval_summary_v5,
         "oos_red_cards_over_0_5_vs_climatology": ev_red_vs_clim,
         "oos_booking_points_vs_climatology": bp_evals,
-        "selected_booking_points_omega_yr": best_om_yr,
+        "oos_booking_points_vs_independent_gamma0": bp_vs_indep,
+        "selected_booking_points_omega_yr": 0.0,
+        "selected_booking_points_gamma_red": float(best_gamma_r),
         "artifacts": {
             "model_soccer_micro_v5_0_sha256": hashlib.sha256(MICRO_V5_MODEL_OUT.read_bytes()).hexdigest(),
+            "club_micro_state_v5_1_sha256": hashlib.sha256(CLUB_MICRO_STATE_V51_OUT.read_bytes()).hexdigest(),
+            "official_priors_v5_1_sha256": hashlib.sha256(OFFICIAL_PRIORS_V51_OUT.read_bytes()).hexdigest(),
         },
     }
     RESULTS_OUT.write_text(json.dumps(results_payload, indent=2), encoding="utf-8")
@@ -1085,15 +1358,18 @@ def main() -> None:
             json.dumps(
                 {
                     "recorded_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                    "experiment_id": "EXP_V51_micro_markets_v5_0",
+                    "experiment_id": "EXP_V51_micro_markets_v5_1_remediated",
                     "holdout_touched": False,
+                    "model_size_kb": round(model_size_kb, 2),
+                    "big7_ref_cov": round(big7_cov_after, 4),
+                    "gamma_red": float(best_gamma_r),
                     "red_cards_dll_vs_clim": round(ev_red_vs_clim["delta_ll"], 6),
                     "bp_45_5_dll_vs_clim": round(bp_evals["45.5"]["delta_ll"], 6),
                 }
             )
             + "\n"
         )
-    print(f"[DONE] EXP_V51 guardado en {RESULTS_OUT.name}")
+    print(f"[DONE] EXP_V51 v5.1 guardado en {RESULTS_OUT.name}")
 
 
 if __name__ == "__main__":

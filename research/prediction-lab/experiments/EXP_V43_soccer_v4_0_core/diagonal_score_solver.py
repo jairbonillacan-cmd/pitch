@@ -114,6 +114,7 @@ def _solve_share_and_diag_at_scale(
     dispersion_r: float,
     max_goals: int,
     buf: list[float],
+    rho_draw_blend_weight: float = 0.7,
 ) -> tuple[float, float, float, float, float, float]:
     size = max_goals + 1
     target_2way_home = _clamp(p_home_target / max(p_home_target + p_away_target, 1e-15), 1e-6, 1.0 - 1e-6)
@@ -142,7 +143,8 @@ def _solve_share_and_diag_at_scale(
     p11 = buf[size + 1]
     denom_rho = mh0 * ma0 * p00 + p11
     rho_req = (cd0 - p_draw_target) / denom_rho if denom_rho > 1e-9 else rho_prior
-    rho_blend = 0.7 * rho_req + 0.3 * rho_prior
+    w_rb = _clamp(float(rho_draw_blend_weight), 0.0, 1.0)
+    rho_blend = w_rb * rho_req + (1.0 - w_rb) * rho_prior
 
     r_lo = max(SAFE_RHO_MIN, -SAFE_TAU_BOUND / max(mh0, ma0, 1e-6))
     r_hi = min(SAFE_RHO_MAX, SAFE_TAU_BOUND / max(mh0 * ma0, 1e-6), SAFE_TAU_BOUND)
@@ -192,8 +194,10 @@ def solve_diagonal_inflated_score_matrix_4param(
     rho_prior: float = -0.105,
     dispersion_r: float = 28.0,
     max_goals: int = DEFAULT_V4_MAX_GOALS,
+    rho_draw_blend_weight: float = 0.7,
 ) -> dict[str, Any]:
     r_disp = _clamp(float(dispersion_r), 2.5, 500.0)
+    w_rb = _clamp(float(rho_draw_blend_weight), 0.0, 1.0)
     ph0 = max(float(p_home), 1e-9)
     pd0 = _clamp(float(p_draw), 1e-6, 0.96)
     pa0 = max(float(p_away), 1e-9)
@@ -212,7 +216,7 @@ def solve_diagonal_inflated_score_matrix_4param(
     for _ in range(28):
         tau_mid = 0.5 * (tau_lo + tau_hi)
         _, _, _, _, _, imp_t = _solve_share_and_diag_at_scale(
-            tau_mid, p_h, p_d, p_a, float(rho_prior), r_disp, max_goals, buf
+            tau_mid, p_h, p_d, p_a, float(rho_prior), r_disp, max_goals, buf, w_rb
         )
         if imp_t < tot_target:
             tau_lo = tau_mid
@@ -221,7 +225,7 @@ def solve_diagonal_inflated_score_matrix_4param(
 
     final_tau = 0.5 * (tau_lo + tau_hi)
     mh_f, ma_f, rho_eff, w_diag, w_off, imp_tot = _solve_share_and_diag_at_scale(
-        final_tau, p_h, p_d, p_a, float(rho_prior), r_disp, max_goals, buf
+        final_tau, p_h, p_d, p_a, float(rho_prior), r_disp, max_goals, buf, w_rb
     )
 
     mat = [buf[h * size : (h + 1) * size] for h in range(size)]
@@ -279,6 +283,7 @@ def solve_diagonal_inflated_batch_fast(
     rho_prior: np.ndarray,
     dispersion_r: float = 28.0,
     max_goals: int = DEFAULT_V4_MAX_GOALS,
+    rho_draw_blend_weight: float = 0.7,
 ) -> dict[str, np.ndarray]:
     """Versión vectorizada NumPy (`N x 13 x 13`) para evaluar 68k+ partidos en ~1.5 segundos."""
     P = np.maximum(np.asarray(probs_1x2, dtype=np.float64), 1e-6)
@@ -290,6 +295,7 @@ def solve_diagonal_inflated_batch_fast(
     n = len(p_h)
     size = int(max_goals) + 1
     r_c = _clamp(float(dispersion_r), 2.5, 500.0)
+    w_rb = _clamp(float(rho_draw_blend_weight), 0.0, 1.0)
 
     idx_h, idx_a = np.meshgrid(np.arange(size), np.arange(size), indexing="ij")
     mask_h = idx_h > idx_a
@@ -353,7 +359,7 @@ def solve_diagonal_inflated_batch_fast(
         cd0 = mat_b[:, mask_d].sum(axis=1)
         denom = mh0 * ma0 * mat_b[:, 0, 0] + mat_b[:, 1, 1]
         r_req = np.where(denom > 1e-9, (cd0 - p_d) / np.maximum(denom, 1e-12), rp_v)
-        r_bl = 0.7 * r_req + 0.3 * rp_v
+        r_bl = w_rb * r_req + (1.0 - w_rb) * rp_v
         r_lo = np.maximum(SAFE_RHO_MIN, -SAFE_TAU_BOUND / np.maximum(np.maximum(mh0, ma0), 1e-6))
         r_hi = np.minimum(SAFE_RHO_MAX, np.minimum(SAFE_TAU_BOUND / np.maximum(mh0 * ma0, 1e-6), SAFE_TAU_BOUND))
         rh_e = np.where(r_lo <= r_hi, np.clip(r_bl, r_lo, r_hi), 0.0)
@@ -387,7 +393,7 @@ def solve_diagonal_inflated_batch_fast(
     cd0 = mat_b[:, mask_d].sum(axis=1)
     denom = mh0 * ma0 * mat_b[:, 0, 0] + mat_b[:, 1, 1]
     r_req = np.where(denom > 1e-9, (cd0 - p_d) / np.maximum(denom, 1e-12), rp_v)
-    r_bl = 0.7 * r_req + 0.3 * rp_v
+    r_bl = w_rb * r_req + (1.0 - w_rb) * rp_v
     r_lo = np.maximum(SAFE_RHO_MIN, -SAFE_TAU_BOUND / np.maximum(np.maximum(mh0, ma0), 1e-6))
     r_hi = np.minimum(SAFE_RHO_MAX, np.minimum(SAFE_TAU_BOUND / np.maximum(mh0 * ma0, 1e-6), SAFE_TAU_BOUND))
     rh_e = np.where(r_lo <= r_hi, np.clip(r_bl, r_lo, r_hi), 0.0)
@@ -402,7 +408,7 @@ def solve_diagonal_inflated_batch_fast(
         ca = mat_r[:, mask_a].sum(axis=1)
         go_r = (ch / np.maximum(ch + ca, 1e-15)) < t2w
         u2_lo = np.where(go_r, u_m, u2_lo)
-        u2_hi = np.where(go_r, u_hi, u_m)
+        u2_hi = np.where(go_r, u2_hi, u_m)
     sh_f = 1.0 / (1.0 + np.exp(-0.5 * (u2_lo + u2_hi)))
     mh_f = np.clip(tau_f * sh_f, 0.002, 11.5)
     ma_f = np.clip(tau_f * (1.0 - sh_f), 0.002, 11.5)

@@ -1,0 +1,32 @@
+{
+  "experiment_id": "EXP_V56_epistemic_conformal_v5_1",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "soccer": {
+    "sport": "soccer",
+    "val_n_rows": 77454,
+    "oos_n_rows": 75526,
+    "calibrated_logit_scale_90": 0.9,
+    "val_slice_coverage_90": 0.92029,
+    "val_n_slices": 138,
+    "oos_slice_coverage_90": 0.92464,
+    "oos_n_slices": 345,
+    "oos_mean_half_width_pp": 6.314,
+    "oos_decile_coverage": "10/10"
+  },
+  "nfl": {
+    "sport": "nfl",
+    "val_n_rows": 1536,
+    "oos_n_rows": 1343,
+    "calibrated_logit_scale_90": 1.0,
+    "val_slice_coverage_90": 1.0,
+    "val_n_slices": 9,
+    "oos_slice_coverage_90": 1.0,
+    "oos_n_slices": 15,
+    "oos_mean_half_width_pp": 13.433,
+    "oos_decile_coverage": "10/10"
+  },
+  "artifacts": {
+    "model_epistemic_conformal_v5_1_sha256": "657843b8af2961d9b3fde7f6e4c796be8206caa2b0bbdebaf11187d26459c5ba"
+  }
+}

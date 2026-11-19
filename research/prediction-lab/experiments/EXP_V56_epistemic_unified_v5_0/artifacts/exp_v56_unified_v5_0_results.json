@@ -1,10 +1,18 @@
 {
-  "experiment_id": "EXP_V56_epistemic_unified_v5_0",
+  "experiment_id": "EXP_V56_epistemic_unified_v5_1_remediated",
   "holdout_sealed_untouched": true,
   "n_matchups": 242,
-  "n_coverage_ok": 242,
-  "python_total_latency_ms": 84782.716,
-  "python_avg_latency_ms": 350.3418,
+  "n_coverage_ok": 237,
+  "n_partial_coverage": 5,
+  "n_fallback_prior": 0,
+  "live_inference_audit": {
+    "soccer_both_clubs_resolved": 82,
+    "nfl_real_minkowski_inference": 46,
+    "exact_v3_copy_bypass_count": 0,
+    "early_payout_monotonicity_violations": 0
+  },
+  "python_total_latency_ms": 33608.629,
+  "python_avg_latency_ms": 138.8786,
   "frozen_v3_snapshot_sha256_verified": "1dace760d68442e73c4b365f85cd16509093716b1bcac72aa1da67b61ec29699",
-  "candidate_v5_snapshot_sha256": "24d210cae25bf6ded6125752cf3fcf13649270bc92e529d5128d20f8cdbbd58d"
+  "candidate_v5_snapshot_sha256": "02d17fc10ace231ed60fa8563c5888319e6aa8f8a5f26ae3439b88c1df30e834"
 }

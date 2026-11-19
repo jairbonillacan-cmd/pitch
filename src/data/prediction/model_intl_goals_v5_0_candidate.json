@@ -1,11 +1,11 @@
 {
-  "schema_version": "diagonal_goals_v5.0.0",
+  "schema_version": "diagonal_goals_v5.1.0",
   "type": "poisson_log_link_4param_diagonal_nb_dc",
-  "codename": "PitchLab Meridian Horizon-Goals v5.0 Diagonal-NB",
-  "version": "5.0.0-candidate",
+  "codename": "PitchLab Meridian Horizon-Goals v5.1 Diagonal-NB (No-Double-Inflation)",
+  "version": "5.1.0-candidate",
   "status": "candidate",
   "production_activated": false,
-  "created_at": "2026-11-18T20:03:59+00:00",
+  "created_at": "2026-11-19T15:04:08+00:00",
   "seed": 20261109,
   "alpha": 0.01,
   "w_total_poisson": 0.9,
@@ -192,5 +192,7 @@
     "n_matches": 22914,
     "holdout_sealed_untouched": true
   },
-  "dispersion_r": 45.0
+  "dispersion_r": 24.0,
+  "rho_draw_blend_weight": 0.0,
+  "rho_prior_shift": 0.0
 }

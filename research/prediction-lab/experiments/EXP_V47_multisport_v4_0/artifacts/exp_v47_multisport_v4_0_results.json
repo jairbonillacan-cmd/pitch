@@ -1,25 +1,34 @@
 {
-  "experiment_id": "EXP_V47_multisport_v4_0",
+  "experiment_id": "EXP_V47_multisport_v4_0_remediated_v5_1",
   "holdout_cut_utc": "2025-02-02T17:30:00Z",
   "holdout_sealed_untouched": true,
-  "n_total_franchises": 226,
+  "validation_status": "structural_prior_no_game_oos",
+  "n_total_franchises": 228,
   "counts_by_sport": {
     "mlb": 30,
     "nhl": 32,
     "nba": 30,
-    "ncaaf": 134
+    "ncaaf": 136
   },
-  "pre_holdout_validation": {
+  "mlb_physics_audit_v5_1": {
+    "woba_zero_floor": 0.195,
+    "unearned_runs_mult": 1.032,
+    "elite_345_vs_weak_285_run_ratio": 1.66667,
+    "league_avg_expected_total_runs": 8.74595
+  },
+  "in_season_structural_fit_not_oos": {
+    "validation_status": "structural_prior_no_game_oos",
     "mlb_2024": {
       "n": 30,
-      "win_pct_rmse_v4": 0.03986,
+      "win_pct_rmse_v4": 0.03096,
       "win_pct_rmse_flat": 0.07585
     },
     "nhl_2023_24": {
       "n": 32,
-      "pts_pct_rmse_v4": 0.07942,
+      "pts_pct_rmse_v4": 0.08263,
       "pts_pct_rmse_flat": 0.10586,
-      "max_ot_conservation_residual": 3.8941072588727366e-14
+      "max_ot_conservation_residual": 2.656208586415687e-14,
+      "goalie_confirmed_default": false
     },
     "ncaaf_2024": {
       "n": 134,
@@ -28,6 +37,6 @@
     }
   },
   "artifacts": {
-    "multisport_v4_0_state_sha256": "b4d6072484647a4ae80ed6ef6e49bfcbe3dc6810fe4174822912fce86848b8b4"
+    "multisport_v4_0_state_sha256": "79f04770695eca43c3eb823317b1c81adceae2adfab058fd50ee44859c4da4c7"
   }
 }

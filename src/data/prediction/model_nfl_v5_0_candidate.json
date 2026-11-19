@@ -1,10 +1,10 @@
 {
-  "schema_version": "nfl_minkowski_v5.0.0",
-  "codename": "PitchLab Minkowski v5.0 Drift-Free Discrete Key-Totals, Real ATS, Overtime & Sacks/QB-Rush Props",
-  "version": "5.0.0-candidate",
+  "schema_version": "nfl_minkowski_v5.1.0",
+  "codename": "PitchLab Minkowski v5.1 Deconvolved Key-Margin, Posterior ATS, Pruned OT & Unbiased Props",
+  "version": "5.1.0-candidate",
   "status": "candidate",
   "production_activated": false,
-  "created_at": "2026-11-18T19:54:26+00:00",
+  "created_at": "2026-11-19T16:18:11+00:00",
   "holdout_cut_utc": "2025-02-02T17:30:00Z",
   "holdout_sealed_untouched": true,
   "max_abs_margin": 45,
@@ -55,6 +55,8 @@
     0.00044586,
     0.00348148
   ],
+  "margin_quad_concentration": 0.00052472,
+  "spread_market_posterior_w_model": 0.16,
   "discrete_totals_v5": {
     "max_total_points": 95,
     "base_kernel_0_to_95": [
@@ -157,7 +159,7 @@
     ],
     "quad_concentration": -0.0008,
     "market_posterior_w_model": 0.22,
-    "latest_league_scoring_env": 46.273
+    "latest_league_scoring_env": 46.2734
   },
   "overtime_calibration": {
     "feature_names": [
@@ -167,12 +169,13 @@
       "is_turf"
     ],
     "coef": [
-      -0.020729089831224318,
-      0.07793323618155178,
-      0.187240473289549,
-      -0.04082785712256893
+      0.22141710932485645,
+      0.0,
+      0.0,
+      0.0
     ],
-    "intercept": -2.8092277093192473
+    "intercept": -2.8809085144867104,
+    "pruned_to_base_rate": false
   },
   "prop_markets": {
     "pass_attempts": {
@@ -232,7 +235,7 @@
     "qb_sacks_taken": {
       "canonical_line": 2.5,
       "max_k": 16,
-      "dispersion_r": 9.687461,
+      "dispersion_r": 12.0,
       "feature_names": [
         "log_qb_sacks_eb",
         "ol_sacks_allowed_exc",
@@ -240,30 +243,30 @@
         "trailing_script_idx"
       ],
       "coef": [
-        0.20907500414847108,
-        0.08922565766062315,
-        0.07136031918622593,
-        0.06789683976929063
+        0.18736978139139007,
+        0.10095440715817496,
+        0.06477357546004088,
+        0.08448241645551943
       ],
-      "intercept": 0.6660440946445205
+      "intercept": 0.6792218552620022
     },
     "qb_rush_attempts": {
       "canonical_line": 4.5,
       "max_k": 24,
-      "dispersion_r": 8.050178,
+      "dispersion_r": 12.0,
       "feature_names": [
         "log_qb_carries_eb",
         "opp_qb_rush_allowed_exc",
         "leading_script_idx",
-        "abs_script_volatility"
+        "qb_rush_share_of_dropbacks"
       ],
       "coef": [
-        0.9280640803917337,
-        0.02894935382261918,
-        -0.0006778524242298951,
-        -0.022189051387729662
+        0.9556684461568602,
+        0.04440877180376871,
+        -0.024073490885153495,
+        0.10514267753787007
       ],
-      "intercept": 0.11997649747785322
+      "intercept": 0.05319254842994389
     }
   }
 }

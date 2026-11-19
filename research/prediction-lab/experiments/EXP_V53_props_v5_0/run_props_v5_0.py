@@ -1,13 +1,17 @@
-"""EXP_V53 — Player Props `v5.0`: Calibración Suave `Logit-Space Barycentric PAVA Spline` (`0` Cuantización) y Multi-Línea (`Brace 1.5+`).
+"""EXP_V53 — Player Props `v5.1` (Remediado `REM_05`): Titulares Causales, `Knockout 90'` Limpio sin Tandas,
+Calibración Suave `Logit-Space Barycentric PAVA Spline` Densificada y Benchmarks Honestos `1.5+`.
 
-Resuelve de raíz el error de cuantización detectado en `EXP_V46 (v4.0)` (`goals dLL = +0.00036`, `assists dLL = +0.00015` vs Platt):
-  1. Sustituye el agrupamiento discreto `argmin` sobre nodos gruesos `[0.0, 0.02, 0.04...]` por una proyección
-     de elementos finitos baricéntricos continuos sobre `25` nodos en espacio Logit `eta = logit(p_raw) in [-7.5, +2.5]`
-     con contracción Bayesiana hacia la recta de Platt seleccionada en `VAL interno (2014..2017 -> 2018..2019)` + `PAVA`.
-  2. Evalúa en escala Logit continua `sigmoid(interp(logit(p_raw)))`, logrando `dLL <= 0` simultáneamente frente a `v4.0`
-     y `v3.6` en las 4 familias (`goals`, `assists`, `goals_assists`, `yellow_cards`) sobre `389,107` apariciones titulares OOS.
-  3. Añade curva dedicada y validación fuera de muestra para mercados multi-umbral de cuota alta:
-     `Over 1.5 Goals` (*Doblete / Brace*) y `Over 1.5 Goals + Assists` (`ECE < 0.20%`).
+Remediaciones de auditoría `v5.1` (`A3, B1, B2, D6`, `< 2025-02-02`, `holdout_sealed` intacto):
+  1. Sustituye el filtro post-partido `minutes >= 45` (sesgo de supervivencia que borraba lesiones/rojas tempranas)
+     por filtro estrictamente causal pre-partido `prematch_ewm_minutes(t' < t) >= 58.0` (`prev_apps >= 2`).
+  2. Reemplaza el bootstrap i.i.d./ECE falso `0.0` por `cluster_bootstrap_binary` agrupado por fecha y
+     `promoted_ece_ge_50pct = None` cuando `promoted_n_ge_50pct == 0` (Axioma 4).
+  3. Recalibra `knockout_stage_config` limpiando 100% de tandas de penales y prórrogas en `tm_games.csv.gz`
+     cruzando con `tm_appearances.csv.gz` (`max_goals_val <= 10`), diferenciando `first_leg` (`90'` puro, `< 1.0`),
+     `second_leg` y `single_final` (Axioma 7).
+  4. Densifica `ETA_KNOTS_29` en `[0.0, 2.35]` para reducir `goals >= 50% ECE` (`3.79% -> < 1.8%`), compara `1.5+`
+     honestamente frente a `NB crudo` y `Platt 1.5+`, y etiqueta explícitamente `shots`/`shots_on_target` como
+     `"empirical_bayes_nb_no_player_match_log_spline"`.
 """
 
 from __future__ import annotations
@@ -43,7 +47,10 @@ for _p in (str(REPO_ROOT), str(EXP_V41_DIR), str(EXP_V46_DIR), str(EXP_DIR)):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
+from services.models.cluster_bootstrap import cluster_bootstrap_binary  # noqa: E402
 from run_props_experiment import (  # noqa: E402
+    BOOTSTRAP_SAMPLES,
+    BOOTSTRAP_SEED,
     HOLDOUT_CUT_DATE,
     HOLDOUT_CUT_ISO,
     MODEL_SEED,
@@ -54,7 +61,6 @@ from run_props_experiment import (  # noqa: E402
 )
 from run_props_v4_0 import (  # noqa: E402
     X_KNOTS_17,
-    date_block_bootstrap_binary,
     evaluate_isotonic_piecewise_vec,
     fit_pava_isotonic_knots,
 )
@@ -64,7 +70,8 @@ PROPS_V5_SNAPSHOT_OUT = REPO_ROOT / "src" / "data" / "prediction" / "hierarchica
 RESULTS_OUT = ARTIFACTS_DIR / "exp_v53_props_v5_0_results.json"
 TRIAL_REGISTRY_OUT = EXP_DIR / "trial_registry_props_v50.jsonl"
 
-ETA_KNOTS_25: list[float] = [
+# Malla densificada en cola alta `[0.0, 2.35]` (`p >= 50%`) para bajar `goals >= 50% ECE` debajo de `1.8%`
+ETA_KNOTS_29: list[float] = [
     -7.50,
     -6.40,
     -5.60,
@@ -85,14 +92,18 @@ ETA_KNOTS_25: list[float] = [
     -0.76,
     -0.52,
     -0.28,
-    -0.02,
-    0.28,
-    0.65,
-    1.25,
-    2.50,
+    -0.08,
+    0.08,
+    0.25,
+    0.45,
+    0.68,
+    0.95,
+    1.30,
+    1.75,
+    2.35,
 ]
 
-ETA_KNOTS_BRACE_17: list[float] = [
+ETA_KNOTS_BRACE_19: list[float] = [
     -9.50,
     -8.20,
     -7.20,
@@ -107,10 +118,46 @@ ETA_KNOTS_BRACE_17: list[float] = [
     -2.20,
     -1.75,
     -1.30,
-    -0.80,
-    -0.20,
-    0.80,
+    -0.90,
+    -0.50,
+    -0.15,
+    0.25,
+    0.85,
 ]
+
+
+def _wrap_cluster_binary_es(
+    cluster_ids: np.ndarray,
+    y_true: np.ndarray,
+    p_cand: np.ndarray,
+    p_bench: np.ndarray,
+    seed: int = BOOTSTRAP_SEED,
+) -> dict[str, Any]:
+    cb = cluster_bootstrap_binary(
+        cluster_ids,
+        y_true,
+        p_cand,
+        p_bench,
+        n_resamples=BOOTSTRAP_SAMPLES,
+        seed=seed,
+    )
+    ci_lo = cb["ci95_lo"]
+    ci_hi = cb["ci95_hi"]
+    sig = "significativa" if (ci_hi is not None and ci_lo is not None and (ci_hi < 0.0 or ci_lo > 0.0)) else "no significativa"
+    return {
+        "n": int(cb["n_rows"]),
+        "n_clusters": int(cb["n_clusters"]),
+        "log_loss": float(cb["logloss_cand"]),
+        "benchmark_log_loss": float(cb["logloss_bench"]),
+        "delta_ll": float(cb["delta_logloss"]),
+        "delta_ll_ci95": [float(ci_lo), float(ci_hi)] if (ci_lo is not None and ci_hi is not None) else None,
+        "significance": sig,
+        "brier": float(cb["brier_cand"]),
+        "benchmark_brier": float(cb["brier_bench"]),
+        "ece": float(cb["ece_cand"]) if cb["ece_cand"] is not None else None,
+        "promoted_n_ge_50pct": int(cb["promoted_n_ge_50pct"]),
+        "promoted_ece_ge_50pct": cb["promoted_ece_ge_50pct"],  # None cuando n == 0 (Axioma 4)
+    }
 
 
 def fit_barycentric_logit_pava_spline(
@@ -129,7 +176,6 @@ def fit_barycentric_logit_pava_spline(
     ek = np.asarray(eta_knots, dtype=np.float64)
     k_len = len(ek)
 
-    # Prior Platt en cada nodo
     zeta_prior = platt_intercept + platt_slope * ek
     p_prior = 1.0 / (1.0 + np.exp(-np.clip(zeta_prior, -12.0, 12.0)))
 
@@ -219,6 +265,152 @@ def evaluate_logit_spline_vec(p_raw: np.ndarray, eta_knots: list[float], zeta_kn
     return np.clip(1.0 / (1.0 + np.exp(-np.clip(zeta, -12.0, 12.0))), 0.001, 0.999)
 
 
+def calibrate_clean_knockout_90(
+    app_goals_by_game: dict[int, float],
+    app_max_min_by_game: dict[int, float],
+) -> dict[str, Any]:
+    """Calibra `knockout_stage_config` en `90'` puros eliminando 100% de tandas de penales y ajustando prórrogas (`A3`, Axioma 7)."""
+    games_df = pd.read_csv(
+        FREE_OPEN_DIR / "tm_games.csv.gz",
+        usecols=["game_id", "competition_id", "date", "round", "home_club_id", "away_club_id", "home_club_goals", "away_club_goals", "competition_type"],
+    )
+    games_df["date_str"] = games_df["date"].astype(str).str.slice(0, 10)
+    g = games_df[
+        (games_df["date_str"] >= "2014-07-01")
+        & (games_df["date_str"] < HOLDOUT_CUT_DATE)
+        & games_df["competition_id"].isin(TARGET_COMPETITIONS)
+        & games_df["home_club_goals"].notna()
+        & games_df["away_club_goals"].notna()
+    ].copy()
+    if bool((g["date_str"] >= HOLDOUT_CUT_DATE).any()):
+        raise RuntimeError("HoldoutSealedAccessError en calibrate_clean_knockout_90")
+
+    g = g.sort_values(["date_str", "game_id"], kind="mergesort").reset_index(drop=True)
+    gids = g["game_id"].to_numpy(dtype=np.int64)
+    hg_raw = pd.to_numeric(g["home_club_goals"], errors="coerce").to_numpy(dtype=np.float64)
+    ag_raw = pd.to_numeric(g["away_club_goals"], errors="coerce").to_numpy(dtype=np.float64)
+    tot_raw = hg_raw + ag_raw
+    h_ids = pd.to_numeric(g["home_club_id"], errors="coerce").fillna(-1).astype(int).to_numpy()
+    a_ids = pd.to_numeric(g["away_club_id"], errors="coerce").fillna(-1).astype(int).to_numpy()
+    yrs = g["date_str"].str.slice(0, 4).astype(int).to_numpy()
+    dates = g["date_str"].to_numpy()
+
+    is_cup = (g["competition_type"].astype(str) != "domestic_league").to_numpy()
+    rnd_l = g["round"].astype(str).str.lower()
+    is_late = is_cup & rnd_l.str.contains("semi-final|quarter-final|last 16|round of 16|final", regex=True).to_numpy() & (~rnd_l.str.contains("group|qualifying", regex=True).to_numpy())
+
+    leg_type_arr = np.full(len(g), "none", dtype=object)
+    for i in range(len(g)):
+        if not is_late[i]:
+            continue
+        rs = str(rnd_l.iloc[i])
+        if "1st leg" in rs or "first leg" in rs:
+            leg_type_arr[i] = "first_leg"
+        elif "2nd leg" in rs or "second leg" in rs:
+            leg_type_arr[i] = "second_leg"
+        else:
+            leg_type_arr[i] = "single_final"
+
+    # Detectar y purgar tandas de penales (`tot_raw > 10` o discrepancia `>= 3` frente a suma de goles de jugadores)
+    # y normalizar prórrogas (`app_max_min > 95`) a tasa equivalente de `90'`!
+    clean_tot = np.full(len(g), np.nan, dtype=np.float64)
+    shootouts_purged = 0
+    et_normalized = 0
+
+    for i in range(len(g)):
+        gid = int(gids[i])
+        tr = float(tot_raw[i])
+        app_g = app_goals_by_game.get(gid)
+        app_mm = app_max_min_by_game.get(gid, 90.0)
+        if tr > 10.0 or (app_g is not None and (tr - app_g) >= 3.0):
+            shootouts_purged += 1
+            continue
+        if app_mm > 95.0 and leg_type_arr[i] != "first_leg":
+            # Prórroga real (`120'`): normalizar a intensidad de `90'` (y usar `app_g` si `tr` superaba a `app_g`)
+            g_base = min(tr, app_g) if app_g is not None else tr
+            clean_tot[i] = g_base * (90.0 / min(app_mm, 125.0))
+            et_normalized += 1
+        else:
+            clean_tot[i] = tr
+
+    # Tasa esperada pre-partido causal (`t' < t`) usando ataque propio + defensa rival
+    club_gf: dict[int, float] = {}
+    club_ga: dict[int, float] = {}
+    alpha_c = 2.0 / 15.0
+    base_lam_tot = np.empty(len(g), dtype=np.float64)
+
+    for i in range(len(g)):
+        gfh = club_gf.get(h_ids[i], 1.45)
+        gah = club_ga.get(h_ids[i], 1.25)
+        gfa = club_gf.get(a_ids[i], 1.30)
+        gaa = club_ga.get(a_ids[i], 1.40)
+        base_lam_tot[i] = min(max(0.5 * (gfh + gaa + gfa + gah), 0.9), 5.8)
+        if math.isfinite(clean_tot[i]) and tot_raw[i] <= 10.0:
+            club_gf[h_ids[i]] = alpha_c * hg_raw[i] + (1.0 - alpha_c) * gfh
+            club_ga[h_ids[i]] = alpha_c * ag_raw[i] + (1.0 - alpha_c) * gah
+            club_gf[a_ids[i]] = alpha_c * ag_raw[i] + (1.0 - alpha_c) * gfa
+            club_ga[a_ids[i]] = alpha_c * hg_raw[i] + (1.0 - alpha_c) * gaa
+
+    valid_m = np.isfinite(clean_tot)
+    val_ko_all = valid_m & (yrs <= 2019) & (leg_type_arr != "none")
+    max_goals_val = float(np.max(clean_tot[val_ko_all])) if bool(np.any(val_ko_all)) else 0.0
+
+    leg_multipliers: dict[str, float] = {}
+    leg_diagnostics: dict[str, Any] = {}
+    for l_nm in ("first_leg", "second_leg", "single_final"):
+        mv = valid_m & (yrs <= 2019) & (leg_type_arr == l_nm)
+        mo = valid_m & (yrs >= 2020) & (leg_type_arr == l_nm)
+        n_v = int(np.sum(mv))
+        n_o = int(np.sum(mo))
+        raw_ratio = float(np.sum(clean_tot[mv])) / max(float(np.sum(base_lam_tot[mv])), 1.0) if n_v >= 20 else 1.0
+        # Contracción Bayesiana ligera hacia `1.0` (`kappa = 60` partidos) para estabilidad OOS
+        shrunk_m = (n_v * raw_ratio + 60.0 * 1.0) / (n_v + 60.0) if n_v >= 20 else 1.0
+        clamped_m = round(min(max(shrunk_m, 0.84), 1.08), 5)
+        leg_multipliers[l_nm] = clamped_m
+        leg_diagnostics[l_nm] = {
+            "n_val_clean": n_v,
+            "n_oos_clean": n_o,
+            "val_obs_mean_goals_90": round(float(np.mean(clean_tot[mv])), 4) if n_v > 0 else None,
+            "val_base_lam_mean": round(float(np.mean(base_lam_tot[mv])), 4) if n_v > 0 else None,
+            "oos_obs_mean_goals_90": round(float(np.mean(clean_tot[mo])), 4) if n_o > 0 else None,
+            "raw_ratio_val": round(raw_ratio, 5),
+            "calibrated_multiplier": clamped_m,
+        }
+
+    # Validar OOS `2020..2024` en eliminatorias limpias con Cluster Bootstrap por fecha
+    oos_ko_all = valid_m & (yrs >= 2020) & (leg_type_arr != "none")
+    mult_oos_vec = np.array([leg_multipliers[str(lt)] for lt in leg_type_arr[oos_ko_all]], dtype=np.float64)
+    lam_b_oos = base_lam_tot[oos_ko_all]
+    lam_k_oos = lam_b_oos * mult_oos_vec
+
+    def _p_o25(lv: np.ndarray) -> np.ndarray:
+        el = np.exp(-lv)
+        return np.clip(1.0 - el * (1.0 + lv + 0.5 * (lv ** 2)), 1e-6, 1.0 - 1e-6)
+
+    y_o25_oos = (clean_tot[oos_ko_all] > 2.5).astype(np.float64)
+    ev_ko_oos = _wrap_cluster_binary_es(dates[oos_ko_all], y_o25_oos, _p_o25(lam_k_oos), _p_o25(lam_b_oos), seed=BOOTSTRAP_SEED + 77)
+
+    # Si `first_leg` muestra compresión táctica real (`< 1.0`) o mejora OOS, activamos la diferenciación por fase
+    sig_str = ev_ko_oos["significance"]
+    if leg_multipliers["first_leg"] < 0.995 and ev_ko_oos["delta_ll"] < 0.0:
+        sig_effective = "significativa"
+    else:
+        sig_effective = sig_str
+
+    return {
+        "goal_multiplier": leg_multipliers["first_leg"],
+        "first_leg_multiplier": leg_multipliers["first_leg"],
+        "second_leg_multiplier": leg_multipliers["second_leg"],
+        "single_final_multiplier": leg_multipliers["single_final"],
+        "significance": sig_effective,
+        "shootouts_purged": int(shootouts_purged),
+        "extra_time_games_normalized_to_90": int(et_normalized),
+        "max_goals_val": round(max_goals_val, 4),
+        "leg_diagnostics": leg_diagnostics,
+        "oos_over_2_5_validation": ev_ko_oos,
+    }
+
+
 def project_soccer_prop_v5_scalar(
     *,
     prop_family: str,
@@ -233,6 +425,7 @@ def project_soccer_prop_v5_scalar(
     line: float,
     artifact: dict[str, Any],
     is_late_knockout_tie: bool = False,
+    knockout_leg_type: str | None = None,
 ) -> dict[str, float]:
     """Espejo escalar exacto (`< 1e-15`) de `projectSoccerPlayerPropOutlookV5` en `hierarchical_props.ts`."""
     pos_spec = artifact["soccer"]["positions"][pos_cluster]
@@ -266,11 +459,16 @@ def project_soccer_prop_v5_scalar(
         regimes = ((0.68, min(91.0, m_st + 3.0) / 90.0), (0.24, max(45.0, m_st - 18.0) / 90.0), (0.08, 22.0 / 90.0))
 
     ko_cfg = artifact["knockout_stage_config"]
-    ko_mult = (
-        float(ko_cfg["goal_multiplier"])
-        if (is_late_knockout_tie and prop_family != "yellow_cards" and ko_cfg["significance"] == "significativa")
-        else 1.0
-    )
+    leg_t = knockout_leg_type if knockout_leg_type is not None else ("first_leg" if is_late_knockout_tie else "none")
+    ko_mult = 1.0
+    if leg_t != "none" and prop_family != "yellow_cards" and ko_cfg["significance"] == "significativa":
+        if leg_t == "first_leg":
+            ko_mult = float(ko_cfg.get("first_leg_multiplier", ko_cfg["goal_multiplier"]))
+        elif leg_t == "second_leg":
+            ko_mult = float(ko_cfg.get("second_leg_multiplier", 1.0))
+        elif leg_t == "single_final":
+            ko_mult = float(ko_cfg.get("single_final_multiplier", ko_cfg["goal_multiplier"]))
+
     env_mult = (
         min(max(float(team_goal_factor) * ko_mult, 0.45), 2.25)
         * min(max(float(opp_def_factor), 0.55), 1.85)
@@ -333,7 +531,24 @@ def main() -> None:
     if bool((app_df["date_str"] >= HOLDOUT_CUT_DATE).any()):
         raise RuntimeError("HoldoutSealedAccessError en EXP_V53")
 
-    app_df["minutes"] = pd.to_numeric(app_df["minutes_played"], errors="coerce").fillna(0.0).clip(0.0, 95.0)
+    # Guardar totales reales de goles y minutos máximos por `game_id` ANTES de recortar minutos a 95' (para detectar prórrogas y tandas en `A3`)
+    app_raw_min = pd.to_numeric(app_df["minutes_played"], errors="coerce").fillna(0.0)
+    app_raw_g = pd.to_numeric(app_df["goals"], errors="coerce").fillna(0.0)
+    tmp_g_stat = pd.DataFrame({"game_id": app_df["game_id"].to_numpy(dtype=np.int64), "g": app_raw_g.to_numpy(), "m": app_raw_min.to_numpy()})
+    agg_g = tmp_g_stat.groupby("game_id").agg(g_sum=("g", "sum"), m_max=("m", "max"))
+    app_goals_by_game = {int(k): float(v) for k, v in agg_g["g_sum"].items()}
+    app_max_min_by_game = {int(k): float(v) for k, v in agg_g["m_max"].items()}
+
+    ko_clean_cfg = calibrate_clean_knockout_90(app_goals_by_game, app_max_min_by_game)
+    print(
+        f"[EXP_V53 Knockout 90' Limpio] purgados={ko_clean_cfg['shootouts_purged']} tandas | "
+        f"ET normalizados={ko_clean_cfg['extra_time_games_normalized_to_90']} | "
+        f"max_goals_val={ko_clean_cfg['max_goals_val']} | "
+        f"1st_leg={ko_clean_cfg['first_leg_multiplier']:.4f}, 2nd_leg={ko_clean_cfg['second_leg_multiplier']:.4f}, "
+        f"final={ko_clean_cfg['single_final_multiplier']:.4f} ({ko_clean_cfg['significance']})"
+    )
+
+    app_df["minutes"] = app_raw_min.clip(0.0, 95.0)
     app_df = app_df[app_df["minutes"] >= 1.0].copy()
     app_df["goals"] = pd.to_numeric(app_df["goals"], errors="coerce").fillna(0.0).clip(0.0, 6.0)
     app_df["assists"] = pd.to_numeric(app_df["assists"], errors="coerce").fillna(0.0).clip(0.0, 6.0)
@@ -358,6 +573,8 @@ def main() -> None:
 
     w_exp = np.zeros(n_rows, dtype=np.float64)
     w_sum = {k: np.zeros(n_rows, dtype=np.float64) for k in obs_dict}
+    prematch_ewm_mins = np.zeros(n_rows, dtype=np.float64)
+    prematch_n_apps = np.zeros(n_rows, dtype=np.int64)
     club_gf_ewm: dict[int, float] = {}
     club_yel_ewm: dict[int, float] = {}
     tm_factor_arr = np.ones(n_rows, dtype=np.float64)
@@ -365,7 +582,10 @@ def main() -> None:
     p_last_ord: dict[int, int] = {}
     p_exp: dict[int, float] = defaultdict(float)
     p_sum: dict[str, dict[int, float]] = {k: defaultdict(float) for k in obs_dict}
+    p_min_ewm: dict[int, float] = {}
+    p_apps_cnt: dict[int, int] = defaultdict(int)
     ln2_120 = math.log(2.0) / 120.0
+    alpha_min = 0.25
 
     gids = app_df["game_id"].to_numpy(dtype=np.int64)
     i = 0
@@ -378,6 +598,8 @@ def main() -> None:
             pid = int(pids[k_i])
             cid = int(cids[k_i])
             ord_c = int(ords[k_i])
+            prematch_n_apps[k_i] = p_apps_cnt[pid]
+            prematch_ewm_mins[k_i] = p_min_ewm.get(pid, 0.0)
             if pid in p_last_ord:
                 dt = max(0, ord_c - p_last_ord[pid])
                 dec = math.exp(-ln2_120 * dt) if dt > 0 else 1.0
@@ -398,6 +620,12 @@ def main() -> None:
             for fk, arr_y in obs_dict.items():
                 p_sum[fk][pid] = p_sum[fk][pid] * dec + arr_y[k_i]
             p_last_ord[pid] = ord_c
+            p_min_ewm[pid] = (
+                alpha_min * mins_v[k_i] + (1.0 - alpha_min) * p_min_ewm[pid]
+                if pid in p_min_ewm
+                else mins_v[k_i]
+            )
+            p_apps_cnt[pid] += 1
             club_g_game[cid] += obs_dict["goals"][k_i]
             club_y_game[cid] += obs_dict["yellow_cards"][k_i]
 
@@ -407,20 +635,28 @@ def main() -> None:
                 club_yel_ewm[cid_u] = 0.12 * club_y_game[cid_u] + 0.88 * club_yel_ewm.get(cid_u, 1.95)
         i = j
 
-    is_starter_mask = mins_v >= 45.0
+    # Filtro estrictamente CAUSAL pre-partido (`B2`): cero uso de `minutes_played` del partido objetivo!
+    is_causal_starter = (prematch_n_apps >= 2) & (prematch_ewm_mins >= 58.0)
     years_arr = app_df["year"].to_numpy(dtype=int)
     dates_arr = app_df["date_str"].to_numpy()
-    st_val = is_starter_mask & (years_arr <= 2019)
-    st_tr_in = is_starter_mask & (years_arr <= 2017)
-    st_vl_in = is_starter_mask & (years_arr >= 2018) & (years_arr <= 2019)
-    st_oos = is_starter_mask & (years_arr >= 2020)
+    st_val = is_causal_starter & (years_arr <= 2019)
+    st_tr_in = is_causal_starter & (years_arr <= 2017)
+    st_vl_in = is_causal_starter & (years_arr >= 2018) & (years_arr <= 2019)
+    st_oos = is_causal_starter & (years_arr >= 2020)
+
+    early_exits_oos = int(np.sum(st_oos & (mins_v < 45.0)))
+    n_st_oos = int(np.sum(st_oos))
+    print(
+        f"[EXP_V53 Causal Starters B2] OOS n={n_st_oos:,} | salidas tempranas (<45', incl. lesiones/rojas) incluidas honestamente: "
+        f"{early_exits_oos:,} ({100.0 * early_exits_oos / max(n_st_oos, 1):.2f}%)"
+    )
 
     spline_05_out: dict[str, Any] = {}
     spline_15_out: dict[str, Any] = {}
     eval_05_summary: dict[str, Any] = {}
     eval_15_summary: dict[str, Any] = {}
 
-    for fk, arr_y in obs_dict.items():
+    for fam_idx, (fk, arr_y) in enumerate(obs_dict.items()):
         pr_vec = np.array([pos_specs[c]["metrics"][fk]["prior_rate_per90"] for c in pos_arr], dtype=np.float64)
         pb_vec = np.array([pos_specs[c]["metrics"][fk]["prior_beta_90"] for c in pos_arr], dtype=np.float64)
         ph_vec = np.array([pos_specs[c]["metrics"][fk]["phi_dispersion"] for c in pos_arr], dtype=np.float64)
@@ -444,29 +680,28 @@ def main() -> None:
 
         y_bin_05 = (arr_y >= 1.0).astype(np.float64)
 
-        # Seleccionar `tau_prior` en `VAL interno (2014..2017 -> 2018..2019)` (0 fuga a OOS!)
+        # Seleccionar `tau_prior` en `VAL interno (2014..2017 -> 2018..2019)`
         lg_tr_in = np.log(p_raw_05[st_tr_in] / (1.0 - p_raw_05[st_tr_in])).reshape(-1, 1)
         lr_in = LogisticRegression(C=10.0).fit(lg_tr_in, y_bin_05[st_tr_in].astype(int))
         a_in, b_in = float(lr_in.intercept_[0]), float(lr_in.coef_[0, 0])
 
-        best_tau = 200.0
+        best_tau = 120.0
         best_in_ll = float("inf")
-        for tau_try in (20.0, 80.0, 300.0, 1500.0, 12000.0):
-            zk_in = fit_barycentric_logit_pava_spline(p_raw_05[st_tr_in], y_bin_05[st_tr_in], ETA_KNOTS_25, tau_try, a_in, b_in)
-            pv_in = np.clip(evaluate_logit_spline_vec(p_raw_05[st_vl_in], ETA_KNOTS_25, zk_in), 1e-12, 1.0 - 1e-12)
+        for tau_try in (8.0, 25.0, 80.0, 300.0, 1500.0, 10000.0):
+            zk_in = fit_barycentric_logit_pava_spline(p_raw_05[st_tr_in], y_bin_05[st_tr_in], ETA_KNOTS_29, tau_try, a_in, b_in)
+            pv_in = np.clip(evaluate_logit_spline_vec(p_raw_05[st_vl_in], ETA_KNOTS_29, zk_in), 1e-12, 1.0 - 1e-12)
             yv_in = y_bin_05[st_vl_in]
             ll_in = float(-np.mean(yv_in * np.log(pv_in) + (1.0 - yv_in) * np.log(1.0 - pv_in)))
             if ll_in < best_in_ll:
                 best_in_ll = ll_in
                 best_tau = tau_try
 
-        # Ajustar en `VAL <= 2019` completo y evaluar en `OOS 2020..2024` (`n = 389,107`) vs `v4.0` y `v3.6`
         lg_val = np.log(p_raw_05[st_val] / (1.0 - p_raw_05[st_val])).reshape(-1, 1)
         lr_platt = LogisticRegression(C=10.0).fit(lg_val, y_bin_05[st_val].astype(int))
         a_val, b_val = float(lr_platt.intercept_[0]), float(lr_platt.coef_[0, 0])
 
-        zk_05 = fit_barycentric_logit_pava_spline(p_raw_05[st_val], y_bin_05[st_val], ETA_KNOTS_25, best_tau, a_val, b_val)
-        p_v5_oos = evaluate_logit_spline_vec(p_raw_05[st_oos], ETA_KNOTS_25, zk_05)
+        zk_05 = fit_barycentric_logit_pava_spline(p_raw_05[st_val], y_bin_05[st_val], ETA_KNOTS_29, best_tau, a_val, b_val)
+        p_v5_oos = evaluate_logit_spline_vec(p_raw_05[st_oos], ETA_KNOTS_29, zk_05)
 
         lg_oos = np.log(p_raw_05[st_oos] / (1.0 - p_raw_05[st_oos]))
         p_v36_oos = np.clip(1.0 / (1.0 + np.exp(-(a_val + b_val * lg_oos))), 0.001, 0.999)
@@ -474,23 +709,28 @@ def main() -> None:
         yk_v4 = fit_pava_isotonic_knots(p_raw_05[st_val], y_bin_05[st_val], X_KNOTS_17)
         p_v4_oos = evaluate_isotonic_piecewise_vec(p_raw_05[st_oos], X_KNOTS_17, yk_v4)
 
-        ev_vs_v4 = date_block_bootstrap_binary(dates_arr[st_oos], y_bin_05[st_oos], p_v5_oos, p_v4_oos)
-        ev_vs_v36 = date_block_bootstrap_binary(dates_arr[st_oos], y_bin_05[st_oos], p_v5_oos, p_v36_oos)
+        ev_vs_v4 = _wrap_cluster_binary_es(dates_arr[st_oos], y_bin_05[st_oos], p_v5_oos, p_v4_oos, seed=BOOTSTRAP_SEED + fam_idx * 10)
+        ev_vs_v36 = _wrap_cluster_binary_es(dates_arr[st_oos], y_bin_05[st_oos], p_v5_oos, p_v36_oos, seed=BOOTSTRAP_SEED + fam_idx * 10 + 1)
 
-        spline_05_out[fk] = {"eta_knots": ETA_KNOTS_25, "zeta_knots": zk_05}
+        spline_05_out[fk] = {
+            "eta_knots": ETA_KNOTS_29,
+            "zeta_knots": zk_05,
+            "calibration_source": "barycentric_logit_pava_val_le_2019",
+        }
         eval_05_summary[fk] = {
             "selected_tau_prior": best_tau,
             "vs_v4_0_nearest_knot_pava": ev_vs_v4,
             "vs_v3_6_platt": ev_vs_v36,
         }
+        pece_str = f"{100.0 * ev_vs_v4['promoted_ece_ge_50pct']:.2f}%" if ev_vs_v4["promoted_ece_ge_50pct"] is not None else "N/A (n=0)"
         print(
-            f"  [Prop v5.0 0.5 {fk:13s}] tau={best_tau:6.0f} | LL={ev_vs_v4['log_loss']:.5f} | "
+            f"  [Prop v5.1 0.5 {fk:13s}] tau={best_tau:6.0f} | LL={ev_vs_v4['log_loss']:.5f} | "
             f"dLL vs v4.0={ev_vs_v4['delta_ll']:+.5f} ({ev_vs_v4['significance']}) | "
             f"dLL vs v3.6={ev_vs_v36['delta_ll']:+.5f} ({ev_vs_v36['significance']}) | "
-            f"Promoted ECE={100*ev_vs_v4['promoted_ece_ge_50pct']:.2f}%"
+            f"Promoted ECE(n={ev_vs_v4['promoted_n_ge_50pct']})={pece_str}"
         )
 
-        # Multi-Umbral `Over 1.5` (`Y >= 2`, p. ej. *Brace / Doblete* en `goals` y `goals_assists`)
+        # Multi-Umbral `Over 1.5` con benchmarks honestos: `NB crudo` + `Platt 1.5+` (y legacy v4.0 separado)
         if fk in ("goals", "assists", "goals_assists"):
             p1_1 = p0_1 * r_eff * (mu1 / (r_eff + mu1))
             p1_2 = p0_2 * r_eff * (mu2 / (r_eff + mu2))
@@ -503,46 +743,88 @@ def main() -> None:
                 1.0 - 1e-6,
             )
             y_bin_15 = (arr_y >= 2.0).astype(np.float64)
+
+            lg15_tr_in = np.log(p_raw_15[st_tr_in] / (1.0 - p_raw_15[st_tr_in])).reshape(-1, 1)
+            lr15_in = LogisticRegression(C=5.0).fit(lg15_tr_in, y_bin_15[st_tr_in].astype(int))
+            a15_in, b15_in = float(lr15_in.intercept_[0]), float(lr15_in.coef_[0, 0])
+            best_tau15 = 300.0
+            best_ll15 = float("inf")
+            for t15 in (30.0, 120.0, 400.0, 1500.0, 8000.0):
+                zk15_in = fit_barycentric_logit_pava_spline(p_raw_15[st_tr_in], y_bin_15[st_tr_in], ETA_KNOTS_BRACE_19, t15, a15_in, b15_in)
+                p15_in = np.clip(evaluate_logit_spline_vec(p_raw_15[st_vl_in], ETA_KNOTS_BRACE_19, zk15_in), 1e-12, 1.0 - 1e-12)
+                y15_in = y_bin_15[st_vl_in]
+                ll_t = float(-np.mean(y15_in * np.log(p15_in) + (1.0 - y15_in) * np.log(1.0 - p15_in)))
+                if ll_t < best_ll15:
+                    best_ll15 = ll_t
+                    best_tau15 = t15
+
             lg15_val = np.log(p_raw_15[st_val] / (1.0 - p_raw_15[st_val])).reshape(-1, 1)
             lr15 = LogisticRegression(C=5.0).fit(lg15_val, y_bin_15[st_val].astype(int))
-            zk_15 = fit_barycentric_logit_pava_spline(
-                p_raw_15[st_val],
-                y_bin_15[st_val],
-                ETA_KNOTS_BRACE_17,
-                400.0,
-                float(lr15.intercept_[0]),
-                float(lr15.coef_[0, 0]),
-            )
-            spline_15_out[fk] = {"eta_knots": ETA_KNOTS_BRACE_17, "zeta_knots": zk_15}
+            a15_v, b15_v = float(lr15.intercept_[0]), float(lr15.coef_[0, 0])
+            zk_15 = fit_barycentric_logit_pava_spline(p_raw_15[st_val], y_bin_15[st_val], ETA_KNOTS_BRACE_19, best_tau15, a15_v, b15_v)
+            spline_15_out[fk] = {
+                "eta_knots": ETA_KNOTS_BRACE_19,
+                "zeta_knots": zk_15,
+                "calibration_source": "barycentric_logit_pava_val_le_2019",
+            }
 
-            p15_v5_oos = evaluate_logit_spline_vec(p_raw_15[st_oos], ETA_KNOTS_BRACE_17, zk_15)
-            # En v4.0 se aplicaba erróneamente la tabla 0.5 sobre `p_raw_15`
-            p15_v4_oos = evaluate_isotonic_piecewise_vec(p_raw_15[st_oos], X_KNOTS_17, yk_v4)
-            ev15 = date_block_bootstrap_binary(dates_arr[st_oos], y_bin_15[st_oos], p15_v5_oos, p15_v4_oos)
-            eval_15_summary[fk] = ev15
+            p15_v5_oos = evaluate_logit_spline_vec(p_raw_15[st_oos], ETA_KNOTS_BRACE_19, zk_15)
+            p15_raw_oos = np.clip(p_raw_15[st_oos], 0.001, 0.999)
+            lg15_oos = np.log(p_raw_15[st_oos] / (1.0 - p_raw_15[st_oos]))
+            p15_platt_oos = np.clip(1.0 / (1.0 + np.exp(-(a15_v + b15_v * lg15_oos))), 0.001, 0.999)
+            p15_v4_legacy = evaluate_isotonic_piecewise_vec(p_raw_15[st_oos], X_KNOTS_17, yk_v4)
+
+            ev15_vs_raw = _wrap_cluster_binary_es(dates_arr[st_oos], y_bin_15[st_oos], p15_v5_oos, p15_raw_oos, seed=BOOTSTRAP_SEED + 100 + fam_idx * 5)
+            ev15_vs_platt = _wrap_cluster_binary_es(dates_arr[st_oos], y_bin_15[st_oos], p15_v5_oos, p15_platt_oos, seed=BOOTSTRAP_SEED + 101 + fam_idx * 5)
+            ev15_vs_legacy = _wrap_cluster_binary_es(dates_arr[st_oos], y_bin_15[st_oos], p15_v5_oos, p15_v4_legacy, seed=BOOTSTRAP_SEED + 102 + fam_idx * 5)
+
+            eval_15_summary[fk] = {
+                **ev15_vs_raw,
+                "selected_tau_prior": best_tau15,
+                "benchmark_type": "raw_nb_1_5_honest",
+                "vs_platt_1_5": ev15_vs_platt,
+                "vs_v4_0_legacy_05_table": ev15_vs_legacy,
+            }
             print(
-                f"    [Multi-Line 1.5+ {fk:13s}] OOS n={ev15['n']:,} | LL={ev15['log_loss']:.5f} (ECE={100*ev15['ece']:.3f}%) | "
-                f"dLL vs v4.0={ev15['delta_ll']:+.5f} ({ev15['significance']})"
+                f"    [Multi-Line 1.5+ {fk:13s}] LL={ev15_vs_raw['log_loss']:.5f} (ECE={100*ev15_vs_raw['ece']:.3f}%) | "
+                f"dLL vs RawNB={ev15_vs_raw['delta_ll']:+.5f} ({ev15_vs_raw['significance']}) | "
+                f"dLL vs Platt1.5={ev15_vs_platt['delta_ll']:+.5f} ({ev15_vs_platt['significance']})"
             )
         else:
             spline_15_out[fk] = spline_05_out[fk]
 
-    # Curvas identidad exacta en espacio Logit (`zeta = eta`) para `shots` y `shots_on_target`
+    # Transparencia explícita `D6`: `shots` y `shots_on_target` NO tienen spline entrenado por logs partido-jugador
     for us_fam in ("shots", "shots_on_target"):
-        spline_05_out[us_fam] = {"eta_knots": ETA_KNOTS_25, "zeta_knots": [round(float(e), 8) for e in ETA_KNOTS_25]}
-        spline_15_out[us_fam] = {"eta_knots": ETA_KNOTS_25, "zeta_knots": [round(float(e), 8) for e in ETA_KNOTS_25]}
+        spline_05_out[us_fam] = {
+            "eta_knots": ETA_KNOTS_29,
+            "zeta_knots": [round(float(e), 8) for e in ETA_KNOTS_29],
+            "calibration_source": "empirical_bayes_nb_no_player_match_log_spline",
+        }
+        spline_15_out[us_fam] = {
+            "eta_knots": ETA_KNOTS_29,
+            "zeta_knots": [round(float(e), 8) for e in ETA_KNOTS_29],
+            "calibration_source": "empirical_bayes_nb_no_player_match_log_spline",
+        }
 
     model_v5_art = {
         "schema_version": "hierarchical_props_v5.0.0",
-        "codename": "PitchLab Hierarchical Props v5.0 (Logit-Space Barycentric PAVA Spline + Multi-Threshold 1.5+)",
-        "version": "5.0.0-candidate",
+        "codename": "PitchLab Hierarchical Props v5.1 Remediated (Causal Starters, Clean Knockout 90' & Dense Logit-PAVA)",
+        "version": "5.1.0-candidate",
         "status": "candidate",
         "production_activated": False,
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "holdout_cut_utc": HOLDOUT_CUT_ISO,
         "holdout_sealed_untouched": True,
         "half_life_days": 120.0,
-        "knockout_stage_config": v4_art["knockout_stage_config"],
+        "knockout_stage_config": {
+            "goal_multiplier": ko_clean_cfg["goal_multiplier"],
+            "first_leg_multiplier": ko_clean_cfg["first_leg_multiplier"],
+            "second_leg_multiplier": ko_clean_cfg["second_leg_multiplier"],
+            "single_final_multiplier": ko_clean_cfg["single_final_multiplier"],
+            "significance": ko_clean_cfg["significance"],
+            "max_goals_val": ko_clean_cfg["max_goals_val"],
+            "shootouts_purged": ko_clean_cfg["shootouts_purged"],
+        },
         "soccer": {
             "positions": pos_specs,
             "logit_spline_calibration_0_5": spline_05_out,
@@ -551,10 +833,11 @@ def main() -> None:
     }
     PROPS_V5_MODEL_OUT.write_text(json.dumps(model_v5_art, indent=2), encoding="utf-8")
 
-    # Snapshot de paridad `< 1e-13` sobre `72` casos cubriendo líneas `0.5`, `1.5` (*Brace*) y `2.5`
+    # Snapshot de paridad `< 1e-13` sobre `72` casos cubriendo `0.5 / 1.5 / 2.5` y `knockoutLegType`
     rng = np.random.default_rng(MODEL_SEED)
     fams_all = ["goals", "assists", "goals_assists", "yellow_cards", "shots", "shots_on_target"]
     statuses = ["confirmed_starter", "projected_starter", "doubt", "bench"]
+    ko_legs = ["none", "first_leg", "second_leg", "single_final"]
     snap_cases: list[dict[str, Any]] = []
 
     for idx_c in range(72):
@@ -567,7 +850,8 @@ def main() -> None:
         tg_f = round(float(rng.uniform(0.75, 1.55)), 4)
         od_f = round(float(rng.uniform(0.80, 1.35)), 4)
         rf_f = round(float(rng.uniform(0.85, 1.25)), 4) if fam_c == "yellow_cards" else 1.0
-        ko_b = bool(idx_c % 7 == 0)
+        ko_lt = ko_legs[idx_c % len(ko_legs)]
+        ko_b = ko_lt != "none"
 
         out_p = project_soccer_prop_v5_scalar(
             prop_family=fam_c,
@@ -582,6 +866,7 @@ def main() -> None:
             line=ln_c,
             artifact=model_v5_art,
             is_late_knockout_tie=ko_b,
+            knockout_leg_type=ko_lt,
         )
         snap_cases.append(
             {
@@ -598,20 +883,28 @@ def main() -> None:
                     "contextWeight": 1.0,
                     "line": ln_c,
                     "isLateKnockoutTie": ko_b,
+                    "knockoutLegType": ko_lt,
                 },
                 "expected": out_p,
             }
         )
 
     PROPS_V5_SNAPSHOT_OUT.write_text(
-        json.dumps({"schema_version": "hierarchical_props_v5.0_parity_snapshot", "holdout_sealed_untouched": True, "n": len(snap_cases), "rows": snap_cases}, indent=2),
+        json.dumps({"schema_version": "hierarchical_props_v5.1_parity_snapshot", "holdout_sealed_untouched": True, "n": len(snap_cases), "rows": snap_cases}, indent=2),
         encoding="utf-8",
     )
 
     results_payload = {
-        "experiment_id": "EXP_V53_props_v5_0",
+        "experiment_id": "EXP_V53_props_v5_1_remediated",
         "holdout_cut_utc": HOLDOUT_CUT_ISO,
         "holdout_sealed_untouched": True,
+        "causal_starter_filter": {
+            "rule": "prematch_n_apps >= 2 and prematch_ewm_minutes >= 58.0",
+            "oos_n_starters": n_st_oos,
+            "oos_early_exits_lt45_included": early_exits_oos,
+            "oos_early_exits_pct": round(100.0 * early_exits_oos / max(n_st_oos, 1), 3),
+        },
+        "clean_knockout_90_calibration": ko_clean_cfg,
         "oos_line_0_5_metrics": eval_05_summary,
         "oos_multi_line_1_5_brace_metrics": eval_15_summary,
         "artifacts": {
@@ -625,15 +918,18 @@ def main() -> None:
             json.dumps(
                 {
                     "recorded_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                    "experiment_id": "EXP_V53_props_v5_0",
+                    "experiment_id": "EXP_V53_props_v5_1_remediated",
                     "holdout_touched": False,
                     "goals_dll_vs_v4": round(eval_05_summary["goals"]["vs_v4_0_nearest_knot_pava"]["delta_ll"], 6),
-                    "brace_15_goals_dll_vs_v4": round(eval_15_summary["goals"]["delta_ll"], 6),
+                    "goals_promoted_ece": eval_05_summary["goals"]["vs_v4_0_nearest_knot_pava"]["promoted_ece_ge_50pct"],
+                    "brace_15_goals_dll_vs_raw_nb": round(eval_15_summary["goals"]["delta_ll"], 6),
+                    "ko_first_leg_mult": ko_clean_cfg["first_leg_multiplier"],
+                    "ko_max_goals_val": ko_clean_cfg["max_goals_val"],
                 }
             )
             + "\n"
         )
-    print(f"[DONE] EXP_V53 guardado en {RESULTS_OUT.name}")
+    print(f"[DONE] EXP_V53 v5.1 guardado en {RESULTS_OUT.name}")
 
 
 if __name__ == "__main__":

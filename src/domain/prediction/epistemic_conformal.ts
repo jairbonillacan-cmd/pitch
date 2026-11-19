@@ -14,7 +14,7 @@
 import { clamp, sigmoid } from "./math.js";
 import { probabilityToFairOdds, type FairOdds } from "./outlook.js";
 
-export const EPISTEMIC_CONFORMAL_SCHEMA_VERSION = "epistemic_conformal_v5.0.0" as const;
+export const EPISTEMIC_CONFORMAL_SCHEMA_VERSION = "epistemic_venn_abers_v5.1.0" as const;
 const Z_90_TWO_SIDED = 1.6448536269514722;
 
 export type EpistemicConfidenceGrade =
@@ -22,12 +22,42 @@ export type EpistemicConfidenceGrade =
   | "moderate_uncertainty"
   | "elevated_roster_or_early_season_variance";
 
+export interface VennAbersBinSpecV51 {
+  readonly p_lo: number;
+  readonly p_hi: number;
+  readonly p0_lower: number;
+  readonly p1_upper: number;
+  readonly n_cal: number;
+}
+
+export interface EpistemicConformalArtifactV51 {
+  readonly schema_version: string;
+  readonly status: "candidate" | "production";
+  readonly production_activated: boolean;
+  readonly holdout_cut_utc: string;
+  readonly holdout_sealed_untouched: boolean;
+  readonly sports: Readonly<
+    Record<
+      string,
+      {
+        readonly calibrated_logit_scale_90: number;
+        readonly oos_empirical_coverage_90: number;
+        readonly oos_n_slices: number;
+        readonly venn_abers_bins: readonly VennAbersBinSpecV51[];
+      }
+    >
+  >;
+}
+
 export interface EpistemicProbabilityBandV5 {
   readonly pPoint: number;
   readonly pLower90: number;
   readonly pUpper90: number;
   readonly halfWidth90: number;
   readonly logitStdError: number;
+  readonly vennAbersP0?: number;
+  readonly vennAbersP1?: number;
+  readonly calibrationMethod?: "inductive_venn_abers_plus_logit_envelope" | "analytic_logit_envelope";
   readonly conservativeFairOddsFromLower90: FairOdds;
   readonly confidenceGrade: EpistemicConfidenceGrade;
 }
@@ -41,11 +71,16 @@ export interface EpistemicUncertaintyInputV5 {
   readonly hasRecentCoachOrQbChange?: boolean;
   readonly missingKeyStarters?: number;
   readonly conformalScale90?: number;
+  readonly sport?: string;
+  readonly calibrationArtifact?: EpistemicConformalArtifactV51 | null;
 }
 
 /**
- * Calcula la banda epistémica conformal al 90% en espacio Logit garantizando
- * invariancia de soporte `0.001 <= pLower90 <= pPoint <= pUpper90 <= 0.999`.
+ * Calcula la banda epistémica calibrada al 90% combinando:
+ *  1. **Inductive Venn-Abers (`[p0, p1]`)** aprendido en `VAL <= 2019` (cuando se aporta `calibrationArtifact`),
+ *  2. **Envolvente Calibrada en Espacio Logit** alimentada por `(effectiveSampleGames, pSubModelA, pSubModelB)` reales
+ *     y `calibrated_logit_scale_90` calibrado fuera de muestra (`OOS empirical coverage >= 88%-92%`),
+ * garantizando `0.001 <= pLower90 <= pPoint <= pUpper90 <= 0.999`.
  */
 export function computeConformalEpistemicBandV5(
   input: EpistemicUncertaintyInputV5,
@@ -76,12 +111,31 @@ export function computeConformalEpistemicBandV5(
   const missingCount = clamp(input.missingKeyStarters ?? 0, 0, 6);
   const missingTerm = 0.012 * missingCount;
 
-  const confScale = clamp(input.conformalScale90 ?? 1.04, 0.65, 2.25);
+  const spCal =
+    input.calibrationArtifact && input.sport
+      ? input.calibrationArtifact.sports[input.sport]
+      : undefined;
+  const baseScale = spCal?.calibrated_logit_scale_90 ?? 1.04;
+  const confScale = clamp(input.conformalScale90 ?? baseScale, 0.55, 2.5);
   const sigmaEta =
     confScale * Math.sqrt(sampleVar + ensembleVar + earlySeasonTerm + changeTerm + missingTerm);
 
-  const pLo = clamp(sigmoid(eta - Z_90_TWO_SIDED * sigmaEta), 0.001, p);
-  const pHi = clamp(sigmoid(eta + Z_90_TWO_SIDED * sigmaEta), p, 0.999);
+  let pLo = clamp(sigmoid(eta - Z_90_TWO_SIDED * sigmaEta), 0.001, p);
+  let pHi = clamp(sigmoid(eta + Z_90_TWO_SIDED * sigmaEta), p, 0.999);
+
+  let vaP0: number | undefined;
+  let vaP1: number | undefined;
+  if (spCal && spCal.venn_abers_bins.length > 0) {
+    const bin =
+      spCal.venn_abers_bins.find((b) => p >= b.p_lo && p <= b.p_hi) ??
+      spCal.venn_abers_bins[spCal.venn_abers_bins.length - 1]!;
+    vaP0 = clamp(bin.p0_lower, 0.001, p);
+    vaP1 = clamp(bin.p1_upper, p, 0.999);
+    // Combinar envoltura Venn-Abers + envolvente logística calibrada manteniendo pLo <= p <= pHi
+    pLo = clamp(Math.min(pLo, vaP0), 0.001, p);
+    pHi = clamp(Math.max(pHi, vaP1), p, 0.999);
+  }
+
   const halfWidth = 0.5 * (pHi - pLo);
 
   const grade: EpistemicConfidenceGrade =
@@ -97,6 +151,9 @@ export function computeConformalEpistemicBandV5(
     pUpper90: pHi,
     halfWidth90: halfWidth,
     logitStdError: sigmaEta,
+    vennAbersP0: vaP0,
+    vennAbersP1: vaP1,
+    calibrationMethod: spCal ? "inductive_venn_abers_plus_logit_envelope" : "analytic_logit_envelope",
     conservativeFairOddsFromLower90: probabilityToFairOdds(clamp(pLo, 0.001, 0.999)),
     confidenceGrade: grade,
   });
@@ -114,36 +171,56 @@ export function buildMatchEpistemicSummaryV5(params: {
   readonly pDraw: number | null;
   readonly pAway: number;
   readonly effectiveSampleGames?: number;
+  readonly pLogitHome?: number | null;
+  readonly pGbmHome?: number | null;
+  readonly pLogitDraw?: number | null;
+  readonly pGbmDraw?: number | null;
+  readonly pLogitAway?: number | null;
+  readonly pGbmAway?: number | null;
   readonly seasonProgress?: number;
   readonly hasRecentCoachOrQbChange?: boolean;
   readonly missingKeyStarters?: number;
   readonly conformalScale90?: number;
+  readonly sport?: string;
+  readonly calibrationArtifact?: EpistemicConformalArtifactV51 | null;
 }): MatchEpistemicSummaryV5 {
   const homeBand = computeConformalEpistemicBandV5({
     pPoint: params.pHome,
     effectiveSampleGames: params.effectiveSampleGames,
+    pSubModelA: params.pLogitHome,
+    pSubModelB: params.pGbmHome,
     seasonProgress: params.seasonProgress,
     hasRecentCoachOrQbChange: params.hasRecentCoachOrQbChange,
     missingKeyStarters: params.missingKeyStarters,
     conformalScale90: params.conformalScale90,
+    sport: params.sport,
+    calibrationArtifact: params.calibrationArtifact,
   });
   const awayBand = computeConformalEpistemicBandV5({
     pPoint: params.pAway,
     effectiveSampleGames: params.effectiveSampleGames,
+    pSubModelA: params.pLogitAway,
+    pSubModelB: params.pGbmAway,
     seasonProgress: params.seasonProgress,
     hasRecentCoachOrQbChange: params.hasRecentCoachOrQbChange,
     missingKeyStarters: params.missingKeyStarters,
     conformalScale90: params.conformalScale90,
+    sport: params.sport,
+    calibrationArtifact: params.calibrationArtifact,
   });
   const drawBand =
     params.pDraw !== null
       ? computeConformalEpistemicBandV5({
           pPoint: params.pDraw,
           effectiveSampleGames: params.effectiveSampleGames,
+          pSubModelA: params.pLogitDraw,
+          pSubModelB: params.pGbmDraw,
           seasonProgress: params.seasonProgress,
           hasRecentCoachOrQbChange: params.hasRecentCoachOrQbChange,
           missingKeyStarters: params.missingKeyStarters,
           conformalScale90: params.conformalScale90,
+          sport: params.sport,
+          calibrationArtifact: params.calibrationArtifact,
         })
       : null;
 

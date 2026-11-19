@@ -70,6 +70,8 @@ export interface SoccerPositionPriorSpec {
   readonly metrics: Readonly<Record<SoccerPropFamily, SoccerPropMetricPriorSpec>>;
 }
 
+export type KnockoutLegTypeV5 = "none" | "first_leg" | "second_leg" | "single_final";
+
 export interface HierarchicalPropsModelArtifact {
   readonly schema_version: string;
   readonly codename: string;
@@ -84,6 +86,9 @@ export interface HierarchicalPropsModelArtifact {
   readonly knockout_stage_config: {
     readonly goal_multiplier: number;
     readonly significance: string;
+    readonly first_leg_multiplier?: number;
+    readonly second_leg_multiplier?: number;
+    readonly single_final_multiplier?: number;
   };
   readonly soccer: {
     readonly positions: Readonly<Record<SoccerPositionCluster, SoccerPositionPriorSpec>>;
@@ -129,6 +134,7 @@ export interface SoccerPlayerPropInput {
   readonly line?: number;
   readonly replacementRatePer90?: number | null;
   readonly isLateKnockoutTie?: boolean;
+  readonly knockoutLegType?: KnockoutLegTypeV5;
 }
 
 export interface SoccerPlayerPropOutlook {
@@ -245,12 +251,23 @@ export function projectSoccerPlayerPropOutlook(
     ];
   }
 
-  const koMult =
-    input.isLateKnockoutTie &&
+  const koCfg = artifact.knockout_stage_config;
+  const legType: KnockoutLegTypeV5 =
+    input.knockoutLegType ?? (input.isLateKnockoutTie ? "first_leg" : "none");
+  let koMult = 1.0;
+  if (
+    legType !== "none" &&
     input.propFamily !== "yellow_cards" &&
-    artifact.knockout_stage_config.significance === "significativa"
-      ? artifact.knockout_stage_config.goal_multiplier
-      : 1.0;
+    koCfg.significance === "significativa"
+  ) {
+    if (legType === "first_leg") {
+      koMult = koCfg.first_leg_multiplier ?? koCfg.goal_multiplier;
+    } else if (legType === "second_leg") {
+      koMult = koCfg.second_leg_multiplier ?? 1.0;
+    } else if (legType === "single_final") {
+      koMult = koCfg.single_final_multiplier ?? koCfg.goal_multiplier;
+    }
+  }
 
   const envMult =
     clamp((input.teamGoalFactor ?? 1.0) * koMult, 0.45, 2.25) *
@@ -540,6 +557,9 @@ export interface HierarchicalPropsModelArtifactV4 {
   readonly knockout_stage_config: {
     readonly goal_multiplier: number;
     readonly significance: string;
+    readonly first_leg_multiplier?: number;
+    readonly second_leg_multiplier?: number;
+    readonly single_final_multiplier?: number;
   };
   readonly soccer: {
     readonly positions: Readonly<Record<SoccerPositionCluster, SoccerPositionPriorSpecV4>>;
@@ -589,6 +609,8 @@ export interface SoccerPlayerPropInputV4 {
   readonly line?: number;
   readonly replacementRatePer90?: number | null;
   readonly isLateKnockoutTie?: boolean;
+  /** Tipo explícito de eliminatoria `90'` limpio de tandas de penales (`v5.1`). */
+  readonly knockoutLegType?: KnockoutLegTypeV5;
 }
 
 export interface SoccerPlayerPropOutlookV4 {
@@ -664,12 +686,23 @@ export function projectSoccerPlayerPropOutlookV4(
     ];
   }
 
-  const koMult =
-    input.isLateKnockoutTie &&
+  const koCfg = artifact.knockout_stage_config;
+  const legType: KnockoutLegTypeV5 =
+    input.knockoutLegType ?? (input.isLateKnockoutTie ? "first_leg" : "none");
+  let koMult = 1.0;
+  if (
+    legType !== "none" &&
     input.propFamily !== "yellow_cards" &&
-    artifact.knockout_stage_config.significance === "significativa"
-      ? artifact.knockout_stage_config.goal_multiplier
-      : 1.0;
+    koCfg.significance === "significativa"
+  ) {
+    if (legType === "first_leg") {
+      koMult = koCfg.first_leg_multiplier ?? koCfg.goal_multiplier;
+    } else if (legType === "second_leg") {
+      koMult = koCfg.second_leg_multiplier ?? 1.0;
+    } else if (legType === "single_final") {
+      koMult = koCfg.single_final_multiplier ?? koCfg.goal_multiplier;
+    }
+  }
 
   const envMult =
     clamp((input.teamGoalFactor ?? 1.0) * koMult, 0.45, 2.25) *
@@ -744,6 +777,7 @@ export const HIERARCHICAL_PROPS_V5_SCHEMA_VERSION = "hierarchical_props_v5.0.0" 
 export interface LogitSpaceMonotoneSplineSpecV5 {
   readonly eta_knots: readonly number[];
   readonly zeta_knots: readonly number[];
+  readonly calibration_source?: string;
 }
 
 export interface HierarchicalPropsModelArtifactV5 {
@@ -759,6 +793,9 @@ export interface HierarchicalPropsModelArtifactV5 {
   readonly knockout_stage_config: {
     readonly goal_multiplier: number;
     readonly significance: string;
+    readonly first_leg_multiplier?: number;
+    readonly second_leg_multiplier?: number;
+    readonly single_final_multiplier?: number;
   };
   readonly soccer: {
     readonly positions: Readonly<Record<SoccerPositionCluster, SoccerPositionPriorSpecV4>>;
@@ -868,12 +905,23 @@ export function projectSoccerPlayerPropOutlookV5(
     ];
   }
 
-  const koMult =
-    input.isLateKnockoutTie &&
+  const koCfg = artifact.knockout_stage_config;
+  const legType: KnockoutLegTypeV5 =
+    input.knockoutLegType ?? (input.isLateKnockoutTie ? "first_leg" : "none");
+  let koMult = 1.0;
+  if (
+    legType !== "none" &&
     input.propFamily !== "yellow_cards" &&
-    artifact.knockout_stage_config.significance === "significativa"
-      ? artifact.knockout_stage_config.goal_multiplier
-      : 1.0;
+    koCfg.significance === "significativa"
+  ) {
+    if (legType === "first_leg") {
+      koMult = koCfg.first_leg_multiplier ?? koCfg.goal_multiplier;
+    } else if (legType === "second_leg") {
+      koMult = koCfg.second_leg_multiplier ?? 1.0;
+    } else if (legType === "single_final") {
+      koMult = koCfg.single_final_multiplier ?? koCfg.goal_multiplier;
+    }
+  }
 
   const envMult =
     clamp((input.teamGoalFactor ?? 1.0) * koMult, 0.45, 2.25) *
