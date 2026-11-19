@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
   "league": "premier-league",
-  "observedAt": "2026-11-18T19:14:59.607Z",
+  "observedAt": "2026-11-19T19:21:48.620Z",
   "entries": [
     {
       "gameId": "pl-2026-27-md11-afc-bournemouth-nottingham-forest",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 30417.723595,
-          "price": 0.505
+          "volume": 38898.668307,
+          "price": 0.495
         },
         {
           "side": "draw",
-          "volume": 1011.542428,
+          "volume": 1274.65354,
           "price": 0.265
         },
         {
           "side": "away",
-          "volume": 1174.2947360000003,
+          "volume": 1250.190835,
           "price": 0.235
         }
       ]
@@ -30,22 +30,22 @@
       "gameId": "pl-2026-27-md11-aston-villa-sunderland",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 9407.819969,
-          "price": 0.525
+          "volume": 18208.597351999997,
+          "price": 0.545
         },
         {
           "side": "draw",
-          "volume": 5462.050395,
+          "volume": 5487.127318999999,
           "price": 0.255
         },
         {
           "side": "away",
-          "volume": 134.908531,
-          "price": 0.215
+          "volume": 2278.1949409999997,
+          "price": 0.205
         }
       ]
     },
@@ -53,22 +53,22 @@
       "gameId": "pl-2026-27-md11-brentford-everton",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 282.153748,
-          "price": 0.455
+          "volume": 682.949507,
+          "price": 0.445
         },
         {
           "side": "draw",
-          "volume": 217.11772699999997,
-          "price": 0.265
+          "volume": 708.4920139999999,
+          "price": 0.275
         },
         {
           "side": "away",
-          "volume": 210.28571699999998,
-          "price": 0.275
+          "volume": 491.56158000000005,
+          "price": 0.285
         }
       ]
     },
@@ -76,21 +76,21 @@
       "gameId": "pl-2026-27-md11-chelsea-leeds-united",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 6070.013251,
+          "volume": 8199.491285,
           "price": 0.515
         },
         {
           "side": "draw",
-          "volume": 577.3272989999999,
+          "volume": 588.8657609999999,
           "price": 0.255
         },
         {
           "side": "away",
-          "volume": 1091.157436,
+          "volume": 1448.8740129999999,
           "price": 0.235
         }
       ]
@@ -99,21 +99,21 @@
       "gameId": "pl-2026-27-md11-coventry-city-crystal-palace",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 5300.254232000001,
+          "volume": 6956.829232000001,
           "price": 0.395
         },
         {
           "side": "draw",
-          "volume": 1795.8221979999998,
+          "volume": 3330.76349,
           "price": 0.275
         },
         {
           "side": "away",
-          "volume": 1129.015618,
+          "volume": 1384.6814200000001,
           "price": 0.345
         }
       ]
@@ -122,21 +122,21 @@
       "gameId": "pl-2026-27-md11-hull-city-brighton-hove-albion",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 546.760623,
+          "volume": 635.5838709999999,
           "price": 0.145
         },
         {
           "side": "draw",
-          "volume": 246.29132399999997,
+          "volume": 259.927689,
           "price": 0.215
         },
         {
           "side": "away",
-          "volume": 890.2631640000002,
+          "volume": 931.709318,
           "price": 0.645
         }
       ]
@@ -145,21 +145,21 @@
       "gameId": "pl-2026-27-md11-liverpool-manchester-united",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 7493.938943,
+          "volume": 11727.722604999999,
           "price": 0.555
         },
         {
           "side": "draw",
-          "volume": 205.91727,
+          "volume": 218.96074999999996,
           "price": 0.225
         },
         {
           "side": "away",
-          "volume": 1802.302364,
+          "volume": 2241.346203,
           "price": 0.225
         }
       ]
@@ -168,21 +168,21 @@
       "gameId": "pl-2026-27-md11-manchester-city-fulham",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 14474.846865,
+          "volume": 25774.142497,
           "price": 0.695
         },
         {
           "side": "draw",
-          "volume": 139.296068,
+          "volume": 173.094527,
           "price": 0.185
         },
         {
           "side": "away",
-          "volume": 1061.0785309999999,
+          "volume": 1120.12755,
           "price": 0.125
         }
       ]
@@ -191,22 +191,22 @@
       "gameId": "pl-2026-27-md11-newcastle-united-arsenal",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 1342.473591,
+          "volume": 1935.4513769999999,
           "price": 0.155
         },
         {
           "side": "draw",
-          "volume": 50.253626,
+          "volume": 176.33275899999995,
           "price": 0.225
         },
         {
           "side": "away",
-          "volume": 23899.147281999994,
-          "price": 0.615
+          "volume": 34070.524413,
+          "price": 0.625
         }
       ]
     },
@@ -214,22 +214,22 @@
       "gameId": "pl-2026-27-md11-tottenham-hotspur-ipswich-town",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-18T19:14:59.607Z",
+      "observedAt": "2026-11-19T19:21:48.620Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 1165.036996,
+          "volume": 2573.1757460000003,
           "price": 0.635
         },
         {
           "side": "draw",
-          "volume": 731.069195,
+          "volume": 1194.7055599999999,
           "price": 0.215
         },
         {
           "side": "away",
-          "volume": 1346.136141,
-          "price": 0.165
+          "volume": 1788.284573,
+          "price": 0.155
         }
       ]
     }

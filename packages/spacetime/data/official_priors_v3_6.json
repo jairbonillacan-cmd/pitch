@@ -1,0 +1,5390 @@
+{
+  "schema_version": "official_priors_v3.6.0",
+  "as_of_cutoff_iso": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "kappa_ref_cards": 15.0,
+  "kappa_ref_fouls": 15.0,
+  "n_officials": 538,
+  "officials": {
+    "D1::Alfons Berg": {
+      "div": "D1",
+      "referee": "Alfons Berg",
+      "games": 23,
+      "raw_yellows_pg": 3.3913,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.651,
+      "cards_multiplier": 0.90167,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Berg, A": {
+      "div": "D1",
+      "referee": "Berg, A",
+      "games": 9,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 4.0307,
+      "cards_multiplier": 0.995451,
+      "fouls_multiplier": 1.206077
+    },
+    "D1::Bernd Heynemann": {
+      "div": "D1",
+      "referee": "Bernd Heynemann",
+      "games": 19,
+      "raw_yellows_pg": 4.2632,
+      "raw_reds_pg": 0.3158,
+      "eb_yellows_pg": 4.1687,
+      "cards_multiplier": 1.02954,
+      "fouls_multiplier": 1.300649
+    },
+    "D1::Edgar Steinborn": {
+      "div": "D1",
+      "referee": "Edgar Steinborn",
+      "games": 23,
+      "raw_yellows_pg": 3.087,
+      "raw_reds_pg": 0.0435,
+      "eb_yellows_pg": 3.4668,
+      "cards_multiplier": 0.856176,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Fandel, H": {
+      "div": "D1",
+      "referee": "Fandel, H",
+      "games": 9,
+      "raw_yellows_pg": 4.8889,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 4.364,
+      "cards_multiplier": 1.077773,
+      "fouls_multiplier": 1.267243
+    },
+    "D1::Florian Meyer": {
+      "div": "D1",
+      "referee": "Florian Meyer",
+      "games": 19,
+      "raw_yellows_pg": 4.2632,
+      "raw_reds_pg": 0.2632,
+      "eb_yellows_pg": 4.1687,
+      "cards_multiplier": 1.02954,
+      "fouls_multiplier": 1.265568
+    },
+    "D1::Franz-Xaver Wack": {
+      "div": "D1",
+      "referee": "Franz-Xaver Wack",
+      "games": 21,
+      "raw_yellows_pg": 4.4286,
+      "raw_reds_pg": 0.2857,
+      "eb_yellows_pg": 4.2705,
+      "cards_multiplier": 1.054665,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Fr\u00f6hlich, L.-M.": {
+      "div": "D1",
+      "referee": "Fr\u00f6hlich, L.-M.",
+      "games": 9,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 4.0307,
+      "cards_multiplier": 0.995451,
+      "fouls_multiplier": 1.2099
+    },
+    "D1::Hartmut Strampe": {
+      "div": "D1",
+      "referee": "Hartmut Strampe",
+      "games": 23,
+      "raw_yellows_pg": 4.6957,
+      "raw_reds_pg": 0.5652,
+      "eb_yellows_pg": 4.4404,
+      "cards_multiplier": 1.096644,
+      "fouls_multiplier": 1.298947
+    },
+    "D1::Hellmut Krug": {
+      "div": "D1",
+      "referee": "Hellmut Krug",
+      "games": 11,
+      "raw_yellows_pg": 4.6364,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 4.2976,
+      "cards_multiplier": 1.061359,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Helmut Fleischer": {
+      "div": "D1",
+      "referee": "Helmut Fleischer",
+      "games": 24,
+      "raw_yellows_pg": 3.4167,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.6599,
+      "cards_multiplier": 0.90388,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Helmut Krug": {
+      "div": "D1",
+      "referee": "Helmut Krug",
+      "games": 21,
+      "raw_yellows_pg": 4.0952,
+      "raw_reds_pg": 0.2857,
+      "eb_yellows_pg": 4.076,
+      "cards_multiplier": 1.006644,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Herbert Fandel": {
+      "div": "D1",
+      "referee": "Herbert Fandel",
+      "games": 31,
+      "raw_yellows_pg": 4.3548,
+      "raw_reds_pg": 0.2903,
+      "eb_yellows_pg": 4.2551,
+      "cards_multiplier": 1.050882,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Hermann Albrecht": {
+      "div": "D1",
+      "referee": "Hermann Albrecht",
+      "games": 22,
+      "raw_yellows_pg": 5.0,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 4.6145,
+      "cards_multiplier": 1.139632,
+      "fouls_multiplier": 1.32
+    },
+    "D1::J\u00f6rg Kessler": {
+      "div": "D1",
+      "referee": "J\u00f6rg Kessler",
+      "games": 17,
+      "raw_yellows_pg": 5.7647,
+      "raw_reds_pg": 0.5294,
+      "eb_yellows_pg": 4.9605,
+      "cards_multiplier": 1.225087,
+      "fouls_multiplier": 1.278722
+    },
+    "D1::J\u00fcrgen Aust": {
+      "div": "D1",
+      "referee": "J\u00fcrgen Aust",
+      "games": 24,
+      "raw_yellows_pg": 5.125,
+      "raw_reds_pg": 0.2917,
+      "eb_yellows_pg": 4.7112,
+      "cards_multiplier": 1.163512,
+      "fouls_multiplier": 1.32
+    },
+    "D1::J\u00fcrgen Jansen": {
+      "div": "D1",
+      "referee": "J\u00fcrgen Jansen",
+      "games": 20,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.6782,
+      "cards_multiplier": 0.908393,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Krug, H": {
+      "div": "D1",
+      "referee": "Krug, H",
+      "games": 12,
+      "raw_yellows_pg": 4.0833,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 4.0643,
+      "cards_multiplier": 1.003755,
+      "fouls_multiplier": 1.243673
+    },
+    "D1::Lutz Michael Fr\u00f6hlich": {
+      "div": "D1",
+      "referee": "Lutz Michael Fr\u00f6hlich",
+      "games": 23,
+      "raw_yellows_pg": 3.6522,
+      "raw_reds_pg": 0.3043,
+      "eb_yellows_pg": 3.8089,
+      "cards_multiplier": 0.940664,
+      "fouls_multiplier": 1.308605
+    },
+    "D1::Lutz Wagner": {
+      "div": "D1",
+      "referee": "Lutz Wagner",
+      "games": 21,
+      "raw_yellows_pg": 4.0476,
+      "raw_reds_pg": 0.4286,
+      "eb_yellows_pg": 4.0482,
+      "cards_multiplier": 0.999784,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Markus Merk": {
+      "div": "D1",
+      "referee": "Markus Merk",
+      "games": 30,
+      "raw_yellows_pg": 4.1333,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 4.1053,
+      "cards_multiplier": 1.013865,
+      "fouls_multiplier": 1.32
+    },
+    "D1::Michael Weiner": {
+      "div": "D1",
+      "referee": "Michael Weiner",
+      "games": 17,
+      "raw_yellows_pg": 4.8235,
+      "raw_reds_pg": 0.1765,
+      "eb_yellows_pg": 4.4605,
+      "cards_multiplier": 1.101604,
+      "fouls_multiplier": 1.287323
+    },
+    "D1::Peter Gagelmann": {
+      "div": "D1",
+      "referee": "Peter Gagelmann",
+      "games": 14,
+      "raw_yellows_pg": 4.5,
+      "raw_reds_pg": 0.2143,
+      "eb_yellows_pg": 4.2668,
+      "cards_multiplier": 1.053756,
+      "fouls_multiplier": 1.225923
+    },
+    "D1::Peter Sippel": {
+      "div": "D1",
+      "referee": "Peter Sippel",
+      "games": 14,
+      "raw_yellows_pg": 4.2143,
+      "raw_reds_pg": 0.3571,
+      "eb_yellows_pg": 4.1289,
+      "cards_multiplier": 1.019692,
+      "fouls_multiplier": 1.319254
+    },
+    "D1::Uwe Kemmling": {
+      "div": "D1",
+      "referee": "Uwe Kemmling",
+      "games": 19,
+      "raw_yellows_pg": 5.7368,
+      "raw_reds_pg": 0.5789,
+      "eb_yellows_pg": 4.9923,
+      "cards_multiplier": 1.232924,
+      "fouls_multiplier": 1.252076
+    },
+    "D1::Wolfgang Stark": {
+      "div": "D1",
+      "referee": "Wolfgang Stark",
+      "games": 18,
+      "raw_yellows_pg": 4.3889,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.2344,
+      "cards_multiplier": 1.04577,
+      "fouls_multiplier": 1.274726
+    },
+    "D2::Alfons Berg": {
+      "div": "D2",
+      "referee": "Alfons Berg",
+      "games": 9,
+      "raw_yellows_pg": 1.7778,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.6594,
+      "cards_multiplier": 0.764226,
+      "fouls_multiplier": 1.078427
+    },
+    "D2::Babak Rafati": {
+      "div": "D2",
+      "referee": "Babak Rafati",
+      "games": 13,
+      "raw_yellows_pg": 4.2308,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 4.5295,
+      "cards_multiplier": 0.945934,
+      "fouls_multiplier": 1.084771
+    },
+    "D2::Christian Sch\u00fcssling": {
+      "div": "D2",
+      "referee": "Christian Sch\u00fcssling",
+      "games": 11,
+      "raw_yellows_pg": 5.1818,
+      "raw_reds_pg": 0.5455,
+      "eb_yellows_pg": 4.9548,
+      "cards_multiplier": 1.034763,
+      "fouls_multiplier": 1.07222
+    },
+    "D2::Detlef Scheppe": {
+      "div": "D2",
+      "referee": "Detlef Scheppe",
+      "games": 12,
+      "raw_yellows_pg": 4.1667,
+      "raw_reds_pg": 0.4167,
+      "eb_yellows_pg": 4.5121,
+      "cards_multiplier": 0.942295,
+      "fouls_multiplier": 1.113797
+    },
+    "D2::Dirk Margenberg": {
+      "div": "D2",
+      "referee": "Dirk Margenberg",
+      "games": 14,
+      "raw_yellows_pg": 3.8571,
+      "raw_reds_pg": 0.1429,
+      "eb_yellows_pg": 4.3388,
+      "cards_multiplier": 0.906114,
+      "fouls_multiplier": 1.160867
+    },
+    "D2::Edgar Steinborn": {
+      "div": "D2",
+      "referee": "Edgar Steinborn",
+      "games": 9,
+      "raw_yellows_pg": 3.2222,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.2011,
+      "cards_multiplier": 0.877347,
+      "fouls_multiplier": 1.063944
+    },
+    "D2::Florian Meyer": {
+      "div": "D2",
+      "referee": "Florian Meyer",
+      "games": 13,
+      "raw_yellows_pg": 4.7692,
+      "raw_reds_pg": 0.3077,
+      "eb_yellows_pg": 4.7795,
+      "cards_multiplier": 0.998144,
+      "fouls_multiplier": 1.059486
+    },
+    "D2::Frank Minskowski": {
+      "div": "D2",
+      "referee": "Frank Minskowski",
+      "games": 11,
+      "raw_yellows_pg": 2.5455,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.8394,
+      "cards_multiplier": 0.801827,
+      "fouls_multiplier": 1.117141
+    },
+    "D2::G\u00fcnter Perl": {
+      "div": "D2",
+      "referee": "G\u00fcnter Perl",
+      "games": 14,
+      "raw_yellows_pg": 3.8571,
+      "raw_reds_pg": 0.4286,
+      "eb_yellows_pg": 4.3388,
+      "cards_multiplier": 0.906114,
+      "fouls_multiplier": 0.977094
+    },
+    "D2::Helmut Fleischer": {
+      "div": "D2",
+      "referee": "Helmut Fleischer",
+      "games": 9,
+      "raw_yellows_pg": 2.7778,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.0344,
+      "cards_multiplier": 0.842541,
+      "fouls_multiplier": 1.123944
+    },
+    "D2::J\u00f6rg Kessler": {
+      "div": "D2",
+      "referee": "J\u00f6rg Kessler",
+      "games": 11,
+      "raw_yellows_pg": 3.7273,
+      "raw_reds_pg": 0.3636,
+      "eb_yellows_pg": 4.3394,
+      "cards_multiplier": 0.906246,
+      "fouls_multiplier": 1.09063
+    },
+    "D2::J\u00fcrgen Aust": {
+      "div": "D2",
+      "referee": "J\u00fcrgen Aust",
+      "games": 9,
+      "raw_yellows_pg": 3.5556,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.3261,
+      "cards_multiplier": 0.903452,
+      "fouls_multiplier": 1.066013
+    },
+    "D2::J\u00fcrgen Jansen": {
+      "div": "D2",
+      "referee": "J\u00fcrgen Jansen",
+      "games": 10,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 4.233,
+      "cards_multiplier": 0.884021,
+      "fouls_multiplier": 1.096555
+    },
+    "D2::Kai Voss": {
+      "div": "D2",
+      "referee": "Kai Voss",
+      "games": 12,
+      "raw_yellows_pg": 5.3333,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 5.0306,
+      "cards_multiplier": 1.050582,
+      "fouls_multiplier": 1.200005
+    },
+    "D2::Knut Kircher": {
+      "div": "D2",
+      "referee": "Knut Kircher",
+      "games": 14,
+      "raw_yellows_pg": 2.7857,
+      "raw_reds_pg": 0.0714,
+      "eb_yellows_pg": 3.8216,
+      "cards_multiplier": 0.798094,
+      "fouls_multiplier": 1.065881
+    },
+    "D2::Lutz Wagner": {
+      "div": "D2",
+      "referee": "Lutz Wagner",
+      "games": 11,
+      "raw_yellows_pg": 4.8182,
+      "raw_reds_pg": 0.5455,
+      "eb_yellows_pg": 4.801,
+      "cards_multiplier": 1.002634,
+      "fouls_multiplier": 1.200005
+    },
+    "D2::Markus Schmidt": {
+      "div": "D2",
+      "referee": "Markus Schmidt",
+      "games": 14,
+      "raw_yellows_pg": 4.2143,
+      "raw_reds_pg": 0.4286,
+      "eb_yellows_pg": 4.5112,
+      "cards_multiplier": 0.942121,
+      "fouls_multiplier": 1.058324
+    },
+    "D2::Matthias Anklam": {
+      "div": "D2",
+      "referee": "Matthias Anklam",
+      "games": 15,
+      "raw_yellows_pg": 3.9333,
+      "raw_reds_pg": 0.4667,
+      "eb_yellows_pg": 4.3609,
+      "cards_multiplier": 0.910717,
+      "fouls_multiplier": 1.016038
+    },
+    "D2::Michael Weiner": {
+      "div": "D2",
+      "referee": "Michael Weiner",
+      "games": 13,
+      "raw_yellows_pg": 5.3846,
+      "raw_reds_pg": 0.4615,
+      "eb_yellows_pg": 5.0652,
+      "cards_multiplier": 1.057812,
+      "fouls_multiplier": 1.11617
+    },
+    "D2::Mike Pickel": {
+      "div": "D2",
+      "referee": "Mike Pickel",
+      "games": 11,
+      "raw_yellows_pg": 4.6364,
+      "raw_reds_pg": 0.4545,
+      "eb_yellows_pg": 4.7241,
+      "cards_multiplier": 0.986569,
+      "fouls_multiplier": 1.065881
+    },
+    "D2::Peter Gagelmann": {
+      "div": "D2",
+      "referee": "Peter Gagelmann",
+      "games": 13,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.0769,
+      "eb_yellows_pg": 3.9581,
+      "cards_multiplier": 0.826597,
+      "fouls_multiplier": 1.111218
+    },
+    "D2::Peter Lange": {
+      "div": "D2",
+      "referee": "Peter Lange",
+      "games": 13,
+      "raw_yellows_pg": 3.8462,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 4.3509,
+      "cards_multiplier": 0.908641,
+      "fouls_multiplier": 1.079104
+    },
+    "D2::Peter Sippel": {
+      "div": "D2",
+      "referee": "Peter Sippel",
+      "games": 12,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 4.2898,
+      "cards_multiplier": 0.895886,
+      "fouls_multiplier": 1.114996
+    },
+    "D2::Ralf Sp\u00e4ker": {
+      "div": "D2",
+      "referee": "Ralf Sp\u00e4ker",
+      "games": 14,
+      "raw_yellows_pg": 2.9286,
+      "raw_reds_pg": 0.2143,
+      "eb_yellows_pg": 3.8905,
+      "cards_multiplier": 0.812497,
+      "fouls_multiplier": 1.061297
+    },
+    "D2::Stefan Kammerer": {
+      "div": "D2",
+      "referee": "Stefan Kammerer",
+      "games": 9,
+      "raw_yellows_pg": 3.7778,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 4.4094,
+      "cards_multiplier": 0.920855,
+      "fouls_multiplier": 1.098188
+    },
+    "D2::Stefan Weber": {
+      "div": "D2",
+      "referee": "Stefan Weber",
+      "games": 15,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.2667,
+      "eb_yellows_pg": 4.2275,
+      "cards_multiplier": 0.882872,
+      "fouls_multiplier": 1.036224
+    },
+    "D2::Thomas Frank": {
+      "div": "D2",
+      "referee": "Thomas Frank",
+      "games": 14,
+      "raw_yellows_pg": 3.7857,
+      "raw_reds_pg": 0.2143,
+      "eb_yellows_pg": 4.3043,
+      "cards_multiplier": 0.898913,
+      "fouls_multiplier": 1.090263
+    },
+    "D2::Thorsten Kinh\u00f6fer": {
+      "div": "D2",
+      "referee": "Thorsten Kinh\u00f6fer",
+      "games": 12,
+      "raw_yellows_pg": 4.6667,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 4.7343,
+      "cards_multiplier": 0.988703,
+      "fouls_multiplier": 1.184892
+    },
+    "D2::Torsten Koop": {
+      "div": "D2",
+      "referee": "Torsten Koop",
+      "games": 9,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.4927,
+      "cards_multiplier": 0.938259,
+      "fouls_multiplier": 1.084634
+    },
+    "D2::Uwe Kemmling": {
+      "div": "D2",
+      "referee": "Uwe Kemmling",
+      "games": 11,
+      "raw_yellows_pg": 4.1818,
+      "raw_reds_pg": 0.5455,
+      "eb_yellows_pg": 4.5318,
+      "cards_multiplier": 0.946408,
+      "fouls_multiplier": 1.132104
+    },
+    "D2::Volker Wezel": {
+      "div": "D2",
+      "referee": "Volker Wezel",
+      "games": 14,
+      "raw_yellows_pg": 4.6429,
+      "raw_reds_pg": 0.2857,
+      "eb_yellows_pg": 4.7181,
+      "cards_multiplier": 0.985329,
+      "fouls_multiplier": 1.253195
+    },
+    "D2::Wolfgang Stark": {
+      "div": "D2",
+      "referee": "Wolfgang Stark",
+      "games": 8,
+      "raw_yellows_pg": 4.5,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 4.6881,
+      "cards_multiplier": 0.979053,
+      "fouls_multiplier": 1.068082
+    },
+    "E0::A D'Urso": {
+      "div": "E0",
+      "referee": "A D'Urso",
+      "games": 57,
+      "raw_yellows_pg": 3.0351,
+      "raw_reds_pg": 0.1754,
+      "eb_yellows_pg": 3.244,
+      "cards_multiplier": 0.803409,
+      "fouls_multiplier": 1.119277
+    },
+    "E0::A Madley": {
+      "div": "E0",
+      "referee": "A Madley",
+      "games": 104,
+      "raw_yellows_pg": 3.3558,
+      "raw_reds_pg": 0.0962,
+      "eb_yellows_pg": 3.4417,
+      "cards_multiplier": 0.852386,
+      "fouls_multiplier": 1.042367
+    },
+    "E0::A Marriner": {
+      "div": "E0",
+      "referee": "A Marriner",
+      "games": 392,
+      "raw_yellows_pg": 3.1276,
+      "raw_reds_pg": 0.1556,
+      "eb_yellows_pg": 3.1611,
+      "cards_multiplier": 0.782882,
+      "fouls_multiplier": 0.943809
+    },
+    "E0::A Taylor": {
+      "div": "E0",
+      "referee": "A Taylor",
+      "games": 392,
+      "raw_yellows_pg": 3.5153,
+      "raw_reds_pg": 0.1352,
+      "eb_yellows_pg": 3.5346,
+      "cards_multiplier": 0.875375,
+      "fouls_multiplier": 0.955487
+    },
+    "E0::A Wiley": {
+      "div": "E0",
+      "referee": "A Wiley",
+      "games": 207,
+      "raw_yellows_pg": 3.0821,
+      "raw_reds_pg": 0.1353,
+      "eb_yellows_pg": 3.1467,
+      "cards_multiplier": 0.779316,
+      "fouls_multiplier": 1.163494
+    },
+    "E0::A. G. Wiley": {
+      "div": "E0",
+      "referee": "A. G. Wiley",
+      "games": 10,
+      "raw_yellows_pg": 2.9,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.5827,
+      "cards_multiplier": 0.887287,
+      "fouls_multiplier": 1.155846
+    },
+    "E0::A. P. D'Urso": {
+      "div": "E0",
+      "referee": "A. P. D'Urso",
+      "games": 12,
+      "raw_yellows_pg": 4.0833,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 4.058,
+      "cards_multiplier": 1.005015,
+      "fouls_multiplier": 1.076933
+    },
+    "E0::Alan Wiley": {
+      "div": "E0",
+      "referee": "Alan Wiley",
+      "games": 23,
+      "raw_yellows_pg": 2.6522,
+      "raw_reds_pg": 0.087,
+      "eb_yellows_pg": 3.1991,
+      "cards_multiplier": 0.792299,
+      "fouls_multiplier": 1.109436
+    },
+    "E0::Andy D'Urso": {
+      "div": "E0",
+      "referee": "Andy D'Urso",
+      "games": 19,
+      "raw_yellows_pg": 3.2632,
+      "raw_reds_pg": 0.3158,
+      "eb_yellows_pg": 3.6049,
+      "cards_multiplier": 0.892795,
+      "fouls_multiplier": 1.110822
+    },
+    "E0::B Knight": {
+      "div": "E0",
+      "referee": "B Knight",
+      "games": 36,
+      "raw_yellows_pg": 2.5833,
+      "raw_reds_pg": 0.3056,
+      "eb_yellows_pg": 3.0111,
+      "cards_multiplier": 0.745736,
+      "fouls_multiplier": 1.163015
+    },
+    "E0::Barber, G. P.": {
+      "div": "E0",
+      "referee": "Barber, G. P.",
+      "games": 12,
+      "raw_yellows_pg": 3.8333,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.9469,
+      "cards_multiplier": 0.977498,
+      "fouls_multiplier": 1.187579
+    },
+    "E0::Barry Knight": {
+      "div": "E0",
+      "referee": "Barry Knight",
+      "games": 16,
+      "raw_yellows_pg": 3.875,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 3.9538,
+      "cards_multiplier": 0.979194,
+      "fouls_multiplier": 1.126332
+    },
+    "E0::Barry, N. S.": {
+      "div": "E0",
+      "referee": "Barry, N. S.",
+      "games": 9,
+      "raw_yellows_pg": 2.4444,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.4403,
+      "cards_multiplier": 0.852023,
+      "fouls_multiplier": 1.053125
+    },
+    "E0::Bennett, S. G.": {
+      "div": "E0",
+      "referee": "Bennett, S. G.",
+      "games": 11,
+      "raw_yellows_pg": 2.6364,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 3.4449,
+      "cards_multiplier": 0.853161,
+      "fouls_multiplier": 0.998229
+    },
+    "E0::C Foy": {
+      "div": "E0",
+      "referee": "C Foy",
+      "games": 257,
+      "raw_yellows_pg": 2.7082,
+      "raw_reds_pg": 0.144,
+      "eb_yellows_pg": 2.7815,
+      "cards_multiplier": 0.688869,
+      "fouls_multiplier": 1.020675
+    },
+    "E0::C Kavanagh": {
+      "div": "E0",
+      "referee": "C Kavanagh",
+      "games": 154,
+      "raw_yellows_pg": 3.4675,
+      "raw_reds_pg": 0.1169,
+      "eb_yellows_pg": 3.5181,
+      "cards_multiplier": 0.871309,
+      "fouls_multiplier": 0.956011
+    },
+    "E0::C Pawson": {
+      "div": "E0",
+      "referee": "C Pawson",
+      "games": 260,
+      "raw_yellows_pg": 3.6346,
+      "raw_reds_pg": 0.1423,
+      "eb_yellows_pg": 3.6566,
+      "cards_multiplier": 0.905601,
+      "fouls_multiplier": 1.028633
+    },
+    "E0::C Wilkes": {
+      "div": "E0",
+      "referee": "C Wilkes",
+      "games": 8,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.8507,
+      "cards_multiplier": 0.953675,
+      "fouls_multiplier": 1.081201
+    },
+    "E0::Clive Wilkes": {
+      "div": "E0",
+      "referee": "Clive Wilkes",
+      "games": 9,
+      "raw_yellows_pg": 3.4444,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.8153,
+      "cards_multiplier": 0.944896,
+      "fouls_multiplier": 1.075757
+    },
+    "E0::D Bond": {
+      "div": "E0",
+      "referee": "D Bond",
+      "games": 19,
+      "raw_yellows_pg": 4.2632,
+      "raw_reds_pg": 0.2105,
+      "eb_yellows_pg": 4.1637,
+      "cards_multiplier": 1.031194,
+      "fouls_multiplier": 0.99633
+    },
+    "E0::D Coote": {
+      "div": "E0",
+      "referee": "D Coote",
+      "games": 112,
+      "raw_yellows_pg": 3.8571,
+      "raw_reds_pg": 0.1161,
+      "eb_yellows_pg": 3.8785,
+      "cards_multiplier": 0.96055,
+      "fouls_multiplier": 1.055473
+    },
+    "E0::D Elleray": {
+      "div": "E0",
+      "referee": "D Elleray",
+      "games": 17,
+      "raw_yellows_pg": 2.5882,
+      "raw_reds_pg": 0.1765,
+      "eb_yellows_pg": 3.2677,
+      "cards_multiplier": 0.809285,
+      "fouls_multiplier": 1.037383
+    },
+    "E0::D England": {
+      "div": "E0",
+      "referee": "D England",
+      "games": 68,
+      "raw_yellows_pg": 3.8382,
+      "raw_reds_pg": 0.0882,
+      "eb_yellows_pg": 3.8743,
+      "cards_multiplier": 0.959514,
+      "fouls_multiplier": 0.990027
+    },
+    "E0::D Gallagher": {
+      "div": "E0",
+      "referee": "D Gallagher",
+      "games": 89,
+      "raw_yellows_pg": 2.4719,
+      "raw_reds_pg": 0.2247,
+      "eb_yellows_pg": 2.6978,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.080418
+    },
+    "E0::D'Urso, A. P.": {
+      "div": "E0",
+      "referee": "D'Urso, A. P.",
+      "games": 11,
+      "raw_yellows_pg": 2.4545,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 3.3679,
+      "cards_multiplier": 0.83411,
+      "fouls_multiplier": 1.020861
+    },
+    "E0::D. J. Gallagher": {
+      "div": "E0",
+      "referee": "D. J. Gallagher",
+      "games": 8,
+      "raw_yellows_pg": 2.25,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.4159,
+      "cards_multiplier": 0.845996,
+      "fouls_multiplier": 1.010352
+    },
+    "E0::David Ellaray": {
+      "div": "E0",
+      "referee": "David Ellaray",
+      "games": 21,
+      "raw_yellows_pg": 3.1429,
+      "raw_reds_pg": 0.1905,
+      "eb_yellows_pg": 3.5157,
+      "cards_multiplier": 0.870713,
+      "fouls_multiplier": 1.135866
+    },
+    "E0::Dermot Gallagher": {
+      "div": "E0",
+      "referee": "Dermot Gallagher",
+      "games": 20,
+      "raw_yellows_pg": 2.95,
+      "raw_reds_pg": 0.15,
+      "eb_yellows_pg": 3.4162,
+      "cards_multiplier": 0.846058,
+      "fouls_multiplier": 1.114002
+    },
+    "E0::Dunn, S. W.": {
+      "div": "E0",
+      "referee": "Dunn, S. W.",
+      "games": 11,
+      "raw_yellows_pg": 2.0909,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.2141,
+      "cards_multiplier": 0.796008,
+      "fouls_multiplier": 1.048716
+    },
+    "E0::Durkin, P. A.": {
+      "div": "E0",
+      "referee": "Durkin, P. A.",
+      "games": 10,
+      "raw_yellows_pg": 2.7,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.5027,
+      "cards_multiplier": 0.867475,
+      "fouls_multiplier": 1.07437
+    },
+    "E0::E Wolstenholme": {
+      "div": "E0",
+      "referee": "E Wolstenholme",
+      "games": 9,
+      "raw_yellows_pg": 2.7778,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.5653,
+      "cards_multiplier": 0.882981,
+      "fouls_multiplier": 1.071985
+    },
+    "E0::Elleray, D. R.": {
+      "div": "E0",
+      "referee": "Elleray, D. R.",
+      "games": 10,
+      "raw_yellows_pg": 1.4,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 2.9827,
+      "cards_multiplier": 0.73869,
+      "fouls_multiplier": 0.960304
+    },
+    "E0::G Barber": {
+      "div": "E0",
+      "referee": "G Barber",
+      "games": 38,
+      "raw_yellows_pg": 2.5789,
+      "raw_reds_pg": 0.2368,
+      "eb_yellows_pg": 2.9918,
+      "cards_multiplier": 0.740959,
+      "fouls_multiplier": 1.109733
+    },
+    "E0::G Poll": {
+      "div": "E0",
+      "referee": "G Poll",
+      "games": 139,
+      "raw_yellows_pg": 3.1223,
+      "raw_reds_pg": 0.1079,
+      "eb_yellows_pg": 3.2115,
+      "cards_multiplier": 0.795358,
+      "fouls_multiplier": 1.226953
+    },
+    "E0::G Scott": {
+      "div": "E0",
+      "referee": "G Scott",
+      "games": 105,
+      "raw_yellows_pg": 2.6762,
+      "raw_reds_pg": 0.1714,
+      "eb_yellows_pg": 2.8464,
+      "cards_multiplier": 0.704941,
+      "fouls_multiplier": 0.922406
+    },
+    "E0::G. P. Barber": {
+      "div": "E0",
+      "referee": "G. P. Barber",
+      "games": 10,
+      "raw_yellows_pg": 3.7,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.9027,
+      "cards_multiplier": 0.966539,
+      "fouls_multiplier": 1.134119
+    },
+    "E0::G. Poll": {
+      "div": "E0",
+      "referee": "G. Poll",
+      "games": 11,
+      "raw_yellows_pg": 2.7273,
+      "raw_reds_pg": 0.3636,
+      "eb_yellows_pg": 3.4833,
+      "cards_multiplier": 0.862686,
+      "fouls_multiplier": 1.095722
+    },
+    "E0::Gallagher, D. J.": {
+      "div": "E0",
+      "referee": "Gallagher, D. J.",
+      "games": 8,
+      "raw_yellows_pg": 2.75,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.5898,
+      "cards_multiplier": 0.889068,
+      "fouls_multiplier": 1.026096
+    },
+    "E0::Graham Barber": {
+      "div": "E0",
+      "referee": "Graham Barber",
+      "games": 20,
+      "raw_yellows_pg": 4.55,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 4.3305,
+      "cards_multiplier": 1.072492,
+      "fouls_multiplier": 1.271781
+    },
+    "E0::Graham Poll": {
+      "div": "E0",
+      "referee": "Graham Poll",
+      "games": 23,
+      "raw_yellows_pg": 3.3043,
+      "raw_reds_pg": 0.4348,
+      "eb_yellows_pg": 3.5939,
+      "cards_multiplier": 0.89006,
+      "fouls_multiplier": 1.194009
+    },
+    "E0::H Webb": {
+      "div": "E0",
+      "referee": "H Webb",
+      "games": 297,
+      "raw_yellows_pg": 3.3064,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.3416,
+      "cards_multiplier": 0.827576,
+      "fouls_multiplier": 1.079146
+    },
+    "E0::Halsey, M. R.": {
+      "div": "E0",
+      "referee": "Halsey, M. R.",
+      "games": 12,
+      "raw_yellows_pg": 2.6667,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.4284,
+      "cards_multiplier": 0.84908,
+      "fouls_multiplier": 1.090345
+    },
+    "E0::J Brooks": {
+      "div": "E0",
+      "referee": "J Brooks",
+      "games": 56,
+      "raw_yellows_pg": 4.4821,
+      "raw_reds_pg": 0.0893,
+      "eb_yellows_pg": 4.3883,
+      "cards_multiplier": 1.086804,
+      "fouls_multiplier": 0.996061
+    },
+    "E0::J Gillett": {
+      "div": "E0",
+      "referee": "J Gillett",
+      "games": 52,
+      "raw_yellows_pg": 3.7692,
+      "raw_reds_pg": 0.0577,
+      "eb_yellows_pg": 3.8294,
+      "cards_multiplier": 0.948383,
+      "fouls_multiplier": 0.922437
+    },
+    "E0::J Moss": {
+      "div": "E0",
+      "referee": "J Moss",
+      "games": 274,
+      "raw_yellows_pg": 3.2336,
+      "raw_reds_pg": 0.1387,
+      "eb_yellows_pg": 3.2753,
+      "cards_multiplier": 0.81117,
+      "fouls_multiplier": 0.965803
+    },
+    "E0::J Smith": {
+      "div": "E0",
+      "referee": "J Smith",
+      "games": 8,
+      "raw_yellows_pg": 3.875,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.9812,
+      "cards_multiplier": 0.985979,
+      "fouls_multiplier": 1.000512
+    },
+    "E0::J Winter": {
+      "div": "E0",
+      "referee": "J Winter",
+      "games": 41,
+      "raw_yellows_pg": 1.9268,
+      "raw_reds_pg": 0.0244,
+      "eb_yellows_pg": 2.4923,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.049475
+    },
+    "E0::J. T. Winter": {
+      "div": "E0",
+      "referee": "J. T. Winter",
+      "games": 9,
+      "raw_yellows_pg": 3.7778,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.9403,
+      "cards_multiplier": 0.975854,
+      "fouls_multiplier": 1.149312
+    },
+    "E0::Jeff Winter": {
+      "div": "E0",
+      "referee": "Jeff Winter",
+      "games": 23,
+      "raw_yellows_pg": 2.8261,
+      "raw_reds_pg": 0.1304,
+      "eb_yellows_pg": 3.3044,
+      "cards_multiplier": 0.818369,
+      "fouls_multiplier": 1.049878
+    },
+    "E0::K Friend": {
+      "div": "E0",
+      "referee": "K Friend",
+      "games": 272,
+      "raw_yellows_pg": 3.3824,
+      "raw_reds_pg": 0.114,
+      "eb_yellows_pg": 3.4166,
+      "cards_multiplier": 0.846163,
+      "fouls_multiplier": 0.98042
+    },
+    "E0::K Stroud": {
+      "div": "E0",
+      "referee": "K Stroud",
+      "games": 17,
+      "raw_yellows_pg": 2.9412,
+      "raw_reds_pg": 0.0588,
+      "eb_yellows_pg": 3.4552,
+      "cards_multiplier": 0.855721,
+      "fouls_multiplier": 1.1463
+    },
+    "E0::Knight, B.": {
+      "div": "E0",
+      "referee": "Knight, B.",
+      "games": 8,
+      "raw_yellows_pg": 3.375,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.8072,
+      "cards_multiplier": 0.942907,
+      "fouls_multiplier": 1.049713
+    },
+    "E0::L Mason": {
+      "div": "E0",
+      "referee": "L Mason",
+      "games": 287,
+      "raw_yellows_pg": 3.0732,
+      "raw_reds_pg": 0.1394,
+      "eb_yellows_pg": 3.1211,
+      "cards_multiplier": 0.772972,
+      "fouls_multiplier": 1.009812
+    },
+    "E0::L Probert": {
+      "div": "E0",
+      "referee": "L Probert",
+      "games": 182,
+      "raw_yellows_pg": 2.5165,
+      "raw_reds_pg": 0.1703,
+      "eb_yellows_pg": 2.6323,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 0.9596
+    },
+    "E0::M Atkinson": {
+      "div": "E0",
+      "referee": "M Atkinson",
+      "games": 460,
+      "raw_yellows_pg": 3.237,
+      "raw_reds_pg": 0.1457,
+      "eb_yellows_pg": 3.2622,
+      "cards_multiplier": 0.807933,
+      "fouls_multiplier": 0.995947
+    },
+    "E0::M Clattenburg": {
+      "div": "E0",
+      "referee": "M Clattenburg",
+      "games": 293,
+      "raw_yellows_pg": 3.2526,
+      "raw_reds_pg": 0.1604,
+      "eb_yellows_pg": 3.2908,
+      "cards_multiplier": 0.815005,
+      "fouls_multiplier": 1.018945
+    },
+    "E0::M Dean": {
+      "div": "E0",
+      "referee": "M Dean",
+      "games": 529,
+      "raw_yellows_pg": 3.6805,
+      "raw_reds_pg": 0.2042,
+      "eb_yellows_pg": 3.6904,
+      "cards_multiplier": 0.913965,
+      "fouls_multiplier": 1.018562
+    },
+    "E0::M Halsey": {
+      "div": "E0",
+      "referee": "M Halsey",
+      "games": 228,
+      "raw_yellows_pg": 2.0614,
+      "raw_reds_pg": 0.114,
+      "eb_yellows_pg": 2.1834,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 0.987132
+    },
+    "E0::M Jones": {
+      "div": "E0",
+      "referee": "M Jones",
+      "games": 202,
+      "raw_yellows_pg": 3.1683,
+      "raw_reds_pg": 0.1337,
+      "eb_yellows_pg": 3.2284,
+      "cards_multiplier": 0.799555,
+      "fouls_multiplier": 1.055135
+    },
+    "E0::M Messias": {
+      "div": "E0",
+      "referee": "M Messias",
+      "games": 37,
+      "raw_yellows_pg": 3.4324,
+      "raw_reds_pg": 0.1622,
+      "eb_yellows_pg": 3.607,
+      "cards_multiplier": 0.893327,
+      "fouls_multiplier": 1.139779
+    },
+    "E0::M Oliver": {
+      "div": "E0",
+      "referee": "M Oliver",
+      "games": 392,
+      "raw_yellows_pg": 3.227,
+      "raw_reds_pg": 0.1378,
+      "eb_yellows_pg": 3.2569,
+      "cards_multiplier": 0.806614,
+      "fouls_multiplier": 0.989296
+    },
+    "E0::M Riley": {
+      "div": "E0",
+      "referee": "M Riley",
+      "games": 169,
+      "raw_yellows_pg": 3.6036,
+      "raw_reds_pg": 0.213,
+      "eb_yellows_pg": 3.6389,
+      "cards_multiplier": 0.901228,
+      "fouls_multiplier": 1.27832
+    },
+    "E0::M Salisbury": {
+      "div": "E0",
+      "referee": "M Salisbury",
+      "games": 40,
+      "raw_yellows_pg": 3.925,
+      "raw_reds_pg": 0.15,
+      "eb_yellows_pg": 3.9558,
+      "cards_multiplier": 0.979689,
+      "fouls_multiplier": 1.035637
+    },
+    "E0::M. A. Riley": {
+      "div": "E0",
+      "referee": "M. A. Riley",
+      "games": 8,
+      "raw_yellows_pg": 4.875,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 4.329,
+      "cards_multiplier": 1.072122,
+      "fouls_multiplier": 1.167793
+    },
+    "E0::M. R. Halsey": {
+      "div": "E0",
+      "referee": "M. R. Halsey",
+      "games": 9,
+      "raw_yellows_pg": 3.5556,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.8569,
+      "cards_multiplier": 0.955215,
+      "fouls_multiplier": 1.028607
+    },
+    "E0::Mark Halsey": {
+      "div": "E0",
+      "referee": "Mark Halsey",
+      "games": 16,
+      "raw_yellows_pg": 2.625,
+      "raw_reds_pg": 0.0625,
+      "eb_yellows_pg": 3.3086,
+      "cards_multiplier": 0.819412,
+      "fouls_multiplier": 1.10735
+    },
+    "E0::Mike Dean": {
+      "div": "E0",
+      "referee": "Mike Dean",
+      "games": 18,
+      "raw_yellows_pg": 3.1667,
+      "raw_reds_pg": 0.0556,
+      "eb_yellows_pg": 3.5626,
+      "cards_multiplier": 0.882325,
+      "fouls_multiplier": 1.034752
+    },
+    "E0::Mike Riley": {
+      "div": "E0",
+      "referee": "Mike Riley",
+      "games": 19,
+      "raw_yellows_pg": 4.3684,
+      "raw_reds_pg": 0.0526,
+      "eb_yellows_pg": 4.2225,
+      "cards_multiplier": 1.045762,
+      "fouls_multiplier": 1.173393
+    },
+    "E0::N Barry": {
+      "div": "E0",
+      "referee": "N Barry",
+      "games": 61,
+      "raw_yellows_pg": 2.8525,
+      "raw_reds_pg": 0.1148,
+      "eb_yellows_pg": 3.0864,
+      "cards_multiplier": 0.764383,
+      "fouls_multiplier": 1.136007
+    },
+    "E0::N Swarbrick": {
+      "div": "E0",
+      "referee": "N Swarbrick",
+      "games": 132,
+      "raw_yellows_pg": 3.3333,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.4052,
+      "cards_multiplier": 0.843341,
+      "fouls_multiplier": 0.952517
+    },
+    "E0::N. S. Barry": {
+      "div": "E0",
+      "referee": "N. S. Barry",
+      "games": 8,
+      "raw_yellows_pg": 2.5,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.5029,
+      "cards_multiplier": 0.867532,
+      "fouls_multiplier": 1.124497
+    },
+    "E0::Neale Barry": {
+      "div": "E0",
+      "referee": "Neale Barry",
+      "games": 17,
+      "raw_yellows_pg": 2.4706,
+      "raw_reds_pg": 0.1176,
+      "eb_yellows_pg": 3.2052,
+      "cards_multiplier": 0.793806,
+      "fouls_multiplier": 1.072746
+    },
+    "E0::P Bankes": {
+      "div": "E0",
+      "referee": "P Bankes",
+      "games": 84,
+      "raw_yellows_pg": 4.0476,
+      "raw_reds_pg": 0.1071,
+      "eb_yellows_pg": 4.0461,
+      "cards_multiplier": 1.00207,
+      "fouls_multiplier": 0.976331
+    },
+    "E0::P Dowd": {
+      "div": "E0",
+      "referee": "P Dowd",
+      "games": 301,
+      "raw_yellows_pg": 3.5382,
+      "raw_reds_pg": 0.2159,
+      "eb_yellows_pg": 3.5619,
+      "cards_multiplier": 0.882151,
+      "fouls_multiplier": 1.140257
+    },
+    "E0::P Durkin": {
+      "div": "E0",
+      "referee": "P Durkin",
+      "games": 45,
+      "raw_yellows_pg": 2.1556,
+      "raw_reds_pg": 0.0889,
+      "eb_yellows_pg": 2.6261,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.053441
+    },
+    "E0::P Tierney": {
+      "div": "E0",
+      "referee": "P Tierney",
+      "games": 183,
+      "raw_yellows_pg": 3.4044,
+      "raw_reds_pg": 0.1038,
+      "eb_yellows_pg": 3.4524,
+      "cards_multiplier": 0.855016,
+      "fouls_multiplier": 1.00299
+    },
+    "E0::P Walton": {
+      "div": "E0",
+      "referee": "P Walton",
+      "games": 169,
+      "raw_yellows_pg": 2.8462,
+      "raw_reds_pg": 0.1183,
+      "eb_yellows_pg": 2.9433,
+      "cards_multiplier": 0.728941,
+      "fouls_multiplier": 0.971064
+    },
+    "E0::P. A. Durkin": {
+      "div": "E0",
+      "referee": "P. A. Durkin",
+      "games": 9,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.6486,
+      "cards_multiplier": 0.903619,
+      "fouls_multiplier": 1.073871
+    },
+    "E0::Paul Durkin": {
+      "div": "E0",
+      "referee": "Paul Durkin",
+      "games": 22,
+      "raw_yellows_pg": 1.8182,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 2.718,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.11006
+    },
+    "E0::Paul Taylor": {
+      "div": "E0",
+      "referee": "Paul Taylor",
+      "games": 11,
+      "raw_yellows_pg": 2.1818,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.2526,
+      "cards_multiplier": 0.805534,
+      "fouls_multiplier": 1.158395
+    },
+    "E0::Peter Jones": {
+      "div": "E0",
+      "referee": "Peter Jones",
+      "games": 15,
+      "raw_yellows_pg": 3.7333,
+      "raw_reds_pg": 0.1333,
+      "eb_yellows_pg": 3.8856,
+      "cards_multiplier": 0.962302,
+      "fouls_multiplier": 1.191035
+    },
+    "E0::Poll, G.": {
+      "div": "E0",
+      "referee": "Poll, G.",
+      "games": 13,
+      "raw_yellows_pg": 2.3077,
+      "raw_reds_pg": 0.0769,
+      "eb_yellows_pg": 3.2345,
+      "cards_multiplier": 0.801066,
+      "fouls_multiplier": 1.043321
+    },
+    "E0::R East": {
+      "div": "E0",
+      "referee": "R East",
+      "games": 91,
+      "raw_yellows_pg": 3.1429,
+      "raw_reds_pg": 0.1209,
+      "eb_yellows_pg": 3.2695,
+      "cards_multiplier": 0.809728,
+      "fouls_multiplier": 1.019893
+    },
+    "E0::R Jones": {
+      "div": "E0",
+      "referee": "R Jones",
+      "games": 84,
+      "raw_yellows_pg": 3.8571,
+      "raw_reds_pg": 0.119,
+      "eb_yellows_pg": 3.8845,
+      "cards_multiplier": 0.962044,
+      "fouls_multiplier": 1.031654
+    },
+    "E0::R Madley": {
+      "div": "E0",
+      "referee": "R Madley",
+      "games": 93,
+      "raw_yellows_pg": 3.2473,
+      "raw_reds_pg": 0.1505,
+      "eb_yellows_pg": 3.3571,
+      "cards_multiplier": 0.831424,
+      "fouls_multiplier": 1.00394
+    },
+    "E0::R Styles": {
+      "div": "E0",
+      "referee": "R Styles",
+      "games": 176,
+      "raw_yellows_pg": 3.2386,
+      "raw_reds_pg": 0.2841,
+      "eb_yellows_pg": 3.3014,
+      "cards_multiplier": 0.817629,
+      "fouls_multiplier": 1.009178
+    },
+    "E0::R. Styles": {
+      "div": "E0",
+      "referee": "R. Styles",
+      "games": 9,
+      "raw_yellows_pg": 4.4444,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 4.1903,
+      "cards_multiplier": 1.037769,
+      "fouls_multiplier": 1.066327
+    },
+    "E0::Rennie, U. D.": {
+      "div": "E0",
+      "referee": "Rennie, U. D.",
+      "games": 11,
+      "raw_yellows_pg": 2.3636,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.3295,
+      "cards_multiplier": 0.824585,
+      "fouls_multiplier": 1.100944
+    },
+    "E0::Riley, M. A.": {
+      "div": "E0",
+      "referee": "Riley, M. A.",
+      "games": 9,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.5556,
+      "eb_yellows_pg": 4.0236,
+      "cards_multiplier": 0.996492,
+      "fouls_multiplier": 1.075757
+    },
+    "E0::Rob Harris": {
+      "div": "E0",
+      "referee": "Rob Harris",
+      "games": 11,
+      "raw_yellows_pg": 3.8182,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 3.9449,
+      "cards_multiplier": 0.976992,
+      "fouls_multiplier": 1.151432
+    },
+    "E0::Rob Styles": {
+      "div": "E0",
+      "referee": "Rob Styles",
+      "games": 17,
+      "raw_yellows_pg": 3.8824,
+      "raw_reds_pg": 0.2353,
+      "eb_yellows_pg": 3.9552,
+      "cards_multiplier": 0.979552,
+      "fouls_multiplier": 1.072746
+    },
+    "E0::S Attwell": {
+      "div": "E0",
+      "referee": "S Attwell",
+      "games": 212,
+      "raw_yellows_pg": 3.5991,
+      "raw_reds_pg": 0.1368,
+      "eb_yellows_pg": 3.628,
+      "cards_multiplier": 0.898528,
+      "fouls_multiplier": 0.930687
+    },
+    "E0::S Barrott": {
+      "div": "E0",
+      "referee": "S Barrott",
+      "games": 30,
+      "raw_yellows_pg": 3.7667,
+      "raw_reds_pg": 0.0333,
+      "eb_yellows_pg": 3.857,
+      "cards_multiplier": 0.955239,
+      "fouls_multiplier": 0.954963
+    },
+    "E0::S Bennett": {
+      "div": "E0",
+      "referee": "S Bennett",
+      "games": 205,
+      "raw_yellows_pg": 3.5073,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.5435,
+      "cards_multiplier": 0.877585,
+      "fouls_multiplier": 1.111318
+    },
+    "E0::S Dunn": {
+      "div": "E0",
+      "referee": "S Dunn",
+      "games": 61,
+      "raw_yellows_pg": 2.7541,
+      "raw_reds_pg": 0.1148,
+      "eb_yellows_pg": 3.0075,
+      "cards_multiplier": 0.744831,
+      "fouls_multiplier": 1.087169
+    },
+    "E0::S Hooper": {
+      "div": "E0",
+      "referee": "S Hooper",
+      "games": 116,
+      "raw_yellows_pg": 3.5086,
+      "raw_reds_pg": 0.069,
+      "eb_yellows_pg": 3.5692,
+      "cards_multiplier": 0.883956,
+      "fouls_multiplier": 0.988347
+    },
+    "E0::S Tanner": {
+      "div": "E0",
+      "referee": "S Tanner",
+      "games": 26,
+      "raw_yellows_pg": 3.1538,
+      "raw_reds_pg": 0.1538,
+      "eb_yellows_pg": 3.4772,
+      "cards_multiplier": 0.861177,
+      "fouls_multiplier": 1.083458
+    },
+    "E0::S. G. Bennett": {
+      "div": "E0",
+      "referee": "S. G. Bennett",
+      "games": 8,
+      "raw_yellows_pg": 3.25,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 3.7638,
+      "cards_multiplier": 0.932139,
+      "fouls_multiplier": 1.053649
+    },
+    "E0::S. W. Dunn": {
+      "div": "E0",
+      "referee": "S. W. Dunn",
+      "games": 8,
+      "raw_yellows_pg": 4.125,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 4.0681,
+      "cards_multiplier": 1.007514,
+      "fouls_multiplier": 1.118593
+    },
+    "E0::Steve Bennett": {
+      "div": "E0",
+      "referee": "Steve Bennett",
+      "games": 18,
+      "raw_yellows_pg": 2.5556,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 3.2293,
+      "cards_multiplier": 0.799771,
+      "fouls_multiplier": 0.999089
+    },
+    "E0::Steve Dunn": {
+      "div": "E0",
+      "referee": "Steve Dunn",
+      "games": 19,
+      "raw_yellows_pg": 2.6316,
+      "raw_reds_pg": 0.1053,
+      "eb_yellows_pg": 3.252,
+      "cards_multiplier": 0.805385,
+      "fouls_multiplier": 1.125466
+    },
+    "E0::Steve Lodge": {
+      "div": "E0",
+      "referee": "Steve Lodge",
+      "games": 18,
+      "raw_yellows_pg": 2.8889,
+      "raw_reds_pg": 0.0556,
+      "eb_yellows_pg": 3.4111,
+      "cards_multiplier": 0.8448,
+      "fouls_multiplier": 1.066299
+    },
+    "E0::Styles, R.": {
+      "div": "E0",
+      "referee": "Styles, R.",
+      "games": 8,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.6768,
+      "cards_multiplier": 0.910603,
+      "fouls_multiplier": 0.980832
+    },
+    "E0::T Bramall": {
+      "div": "E0",
+      "referee": "T Bramall",
+      "games": 23,
+      "raw_yellows_pg": 4.087,
+      "raw_reds_pg": 0.1739,
+      "eb_yellows_pg": 4.0675,
+      "cards_multiplier": 1.007373,
+      "fouls_multiplier": 1.065363
+    },
+    "E0::T Harrington": {
+      "div": "E0",
+      "referee": "T Harrington",
+      "games": 32,
+      "raw_yellows_pg": 3.625,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.7567,
+      "cards_multiplier": 0.930399,
+      "fouls_multiplier": 1.00004
+    },
+    "E0::T Robinson": {
+      "div": "E0",
+      "referee": "T Robinson",
+      "games": 34,
+      "raw_yellows_pg": 4.4118,
+      "raw_reds_pg": 0.0294,
+      "eb_yellows_pg": 4.2973,
+      "cards_multiplier": 1.06427,
+      "fouls_multiplier": 1.043284
+    },
+    "E0::U Rennie": {
+      "div": "E0",
+      "referee": "U Rennie",
+      "games": 100,
+      "raw_yellows_pg": 2.65,
+      "raw_reds_pg": 0.09,
+      "eb_yellows_pg": 2.831,
+      "cards_multiplier": 0.701133,
+      "fouls_multiplier": 1.193555
+    },
+    "E0::Wiley, A. G.": {
+      "div": "E0",
+      "referee": "Wiley, A. G.",
+      "games": 12,
+      "raw_yellows_pg": 2.75,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.4654,
+      "cards_multiplier": 0.858253,
+      "fouls_multiplier": 1.083639
+    },
+    "E0::Winter, J. T.": {
+      "div": "E0",
+      "referee": "Winter, J. T.",
+      "games": 10,
+      "raw_yellows_pg": 1.7,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.1027,
+      "cards_multiplier": 0.76841,
+      "fouls_multiplier": 1.056264
+    },
+    "E1::A Backhouse": {
+      "div": "E1",
+      "referee": "A Backhouse",
+      "games": 28,
+      "raw_yellows_pg": 4.1786,
+      "raw_reds_pg": 0.1071,
+      "eb_yellows_pg": 3.9633,
+      "cards_multiplier": 1.112818,
+      "fouls_multiplier": 0.967994
+    },
+    "E1::A Bates": {
+      "div": "E1",
+      "referee": "A Bates",
+      "games": 125,
+      "raw_yellows_pg": 2.616,
+      "raw_reds_pg": 0.112,
+      "eb_yellows_pg": 2.7173,
+      "cards_multiplier": 0.762963,
+      "fouls_multiplier": 0.958198
+    },
+    "E1::A Butler": {
+      "div": "E1",
+      "referee": "A Butler",
+      "games": 17,
+      "raw_yellows_pg": 3.8824,
+      "raw_reds_pg": 0.2353,
+      "eb_yellows_pg": 3.732,
+      "cards_multiplier": 1.047858,
+      "fouls_multiplier": 1.112651
+    },
+    "E1::A D'Urso": {
+      "div": "E1",
+      "referee": "A D'Urso",
+      "games": 161,
+      "raw_yellows_pg": 2.6584,
+      "raw_reds_pg": 0.1925,
+      "eb_yellows_pg": 2.7354,
+      "cards_multiplier": 0.768032,
+      "fouls_multiplier": 1.053513
+    },
+    "E1::A Davies": {
+      "div": "E1",
+      "referee": "A Davies",
+      "games": 211,
+      "raw_yellows_pg": 3.3934,
+      "raw_reds_pg": 0.128,
+      "eb_yellows_pg": 3.4045,
+      "cards_multiplier": 0.955921,
+      "fouls_multiplier": 0.97984
+    },
+    "E1::A Haines": {
+      "div": "E1",
+      "referee": "A Haines",
+      "games": 48,
+      "raw_yellows_pg": 3.0625,
+      "raw_reds_pg": 0.1875,
+      "eb_yellows_pg": 3.1813,
+      "cards_multiplier": 0.893247,
+      "fouls_multiplier": 0.998913
+    },
+    "E1::A Hall": {
+      "div": "E1",
+      "referee": "A Hall",
+      "games": 90,
+      "raw_yellows_pg": 3.7778,
+      "raw_reds_pg": 0.2889,
+      "eb_yellows_pg": 3.7469,
+      "cards_multiplier": 1.052048,
+      "fouls_multiplier": 1.159187
+    },
+    "E1::A Kaye": {
+      "div": "E1",
+      "referee": "A Kaye",
+      "games": 35,
+      "raw_yellows_pg": 2.2286,
+      "raw_reds_pg": 0.1143,
+      "eb_yellows_pg": 2.6285,
+      "cards_multiplier": 0.738016,
+      "fouls_multiplier": 1.048628
+    },
+    "E1::A Kitchen": {
+      "div": "E1",
+      "referee": "A Kitchen",
+      "games": 42,
+      "raw_yellows_pg": 3.2619,
+      "raw_reds_pg": 0.0952,
+      "eb_yellows_pg": 3.3407,
+      "cards_multiplier": 0.938014,
+      "fouls_multiplier": 1.033151
+    },
+    "E1::A Leake": {
+      "div": "E1",
+      "referee": "A Leake",
+      "games": 40,
+      "raw_yellows_pg": 2.45,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 2.7531,
+      "cards_multiplier": 0.773025,
+      "fouls_multiplier": 1.059537
+    },
+    "E1::A Madley": {
+      "div": "E1",
+      "referee": "A Madley",
+      "games": 164,
+      "raw_yellows_pg": 3.1951,
+      "raw_reds_pg": 0.1463,
+      "eb_yellows_pg": 3.2258,
+      "cards_multiplier": 0.905745,
+      "fouls_multiplier": 1.044201
+    },
+    "E1::A Marriner": {
+      "div": "E1",
+      "referee": "A Marriner",
+      "games": 71,
+      "raw_yellows_pg": 2.8451,
+      "raw_reds_pg": 0.1972,
+      "eb_yellows_pg": 2.97,
+      "cards_multiplier": 0.833924,
+      "fouls_multiplier": 1.010178
+    },
+    "E1::A Penn": {
+      "div": "E1",
+      "referee": "A Penn",
+      "games": 55,
+      "raw_yellows_pg": 2.1455,
+      "raw_reds_pg": 0.1091,
+      "eb_yellows_pg": 2.4489,
+      "cards_multiplier": 0.6876,
+      "fouls_multiplier": 0.952997
+    },
+    "E1::A Taylor": {
+      "div": "E1",
+      "referee": "A Taylor",
+      "games": 68,
+      "raw_yellows_pg": 3.2059,
+      "raw_reds_pg": 0.2941,
+      "eb_yellows_pg": 3.2702,
+      "cards_multiplier": 0.918192,
+      "fouls_multiplier": 0.995346
+    },
+    "E1::A Wiley": {
+      "div": "E1",
+      "referee": "A Wiley",
+      "games": 28,
+      "raw_yellows_pg": 3.4286,
+      "raw_reds_pg": 0.1071,
+      "eb_yellows_pg": 3.4749,
+      "cards_multiplier": 0.975694,
+      "fouls_multiplier": 1.098773
+    },
+    "E1::A Woolmer": {
+      "div": "E1",
+      "referee": "A Woolmer",
+      "games": 223,
+      "raw_yellows_pg": 3.0807,
+      "raw_reds_pg": 0.0897,
+      "eb_yellows_pg": 3.111,
+      "cards_multiplier": 0.87351,
+      "fouls_multiplier": 1.043592
+    },
+    "E1::Andrew Butler": {
+      "div": "E1",
+      "referee": "Andrew Butler",
+      "games": 11,
+      "raw_yellows_pg": 2.9091,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.2855,
+      "cards_multiplier": 0.922498,
+      "fouls_multiplier": 1.063572
+    },
+    "E1::Andy Hall": {
+      "div": "E1",
+      "referee": "Andy Hall",
+      "games": 13,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 3.7651,
+      "cards_multiplier": 1.057162,
+      "fouls_multiplier": 1.122541
+    },
+    "E1::B Curson": {
+      "div": "E1",
+      "referee": "B Curson",
+      "games": 50,
+      "raw_yellows_pg": 2.62,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 2.8373,
+      "cards_multiplier": 0.796648,
+      "fouls_multiplier": 1.068886
+    },
+    "E1::B Knight": {
+      "div": "E1",
+      "referee": "B Knight",
+      "games": 13,
+      "raw_yellows_pg": 2.4615,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 3.0508,
+      "cards_multiplier": 0.856605,
+      "fouls_multiplier": 1.099005
+    },
+    "E1::B Malone": {
+      "div": "E1",
+      "referee": "B Malone",
+      "games": 23,
+      "raw_yellows_pg": 2.1739,
+      "raw_reds_pg": 0.2174,
+      "eb_yellows_pg": 2.7217,
+      "cards_multiplier": 0.764183,
+      "fouls_multiplier": 0.932345
+    },
+    "E1::B Toner": {
+      "div": "E1",
+      "referee": "B Toner",
+      "games": 17,
+      "raw_yellows_pg": 4.4706,
+      "raw_reds_pg": 0.0588,
+      "eb_yellows_pg": 4.0445,
+      "cards_multiplier": 1.135601,
+      "fouls_multiplier": 1.042632
+    },
+    "E1::Bill Burns": {
+      "div": "E1",
+      "referee": "Bill Burns",
+      "games": 10,
+      "raw_yellows_pg": 1.2,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.6169,
+      "cards_multiplier": 0.734774,
+      "fouls_multiplier": 1.018247
+    },
+    "E1::Bill Jordan": {
+      "div": "E1",
+      "referee": "Bill Jordan",
+      "games": 12,
+      "raw_yellows_pg": 4.1667,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.8305,
+      "cards_multiplier": 1.075517,
+      "fouls_multiplier": 1.079504
+    },
+    "E1::C Boyeson": {
+      "div": "E1",
+      "referee": "C Boyeson",
+      "games": 89,
+      "raw_yellows_pg": 2.6067,
+      "raw_reds_pg": 0.1236,
+      "eb_yellows_pg": 2.7444,
+      "cards_multiplier": 0.770585,
+      "fouls_multiplier": 1.014875
+    },
+    "E1::C Breakspear": {
+      "div": "E1",
+      "referee": "C Breakspear",
+      "games": 17,
+      "raw_yellows_pg": 3.0588,
+      "raw_reds_pg": 0.1176,
+      "eb_yellows_pg": 3.2945,
+      "cards_multiplier": 0.925017,
+      "fouls_multiplier": 0.997326
+    },
+    "E1::C Foy": {
+      "div": "E1",
+      "referee": "C Foy",
+      "games": 64,
+      "raw_yellows_pg": 2.7031,
+      "raw_reds_pg": 0.2344,
+      "eb_yellows_pg": 2.8661,
+      "cards_multiplier": 0.804745,
+      "fouls_multiplier": 1.037402
+    },
+    "E1::C Kavanagh": {
+      "div": "E1",
+      "referee": "C Kavanagh",
+      "games": 82,
+      "raw_yellows_pg": 3.439,
+      "raw_reds_pg": 0.0976,
+      "eb_yellows_pg": 3.458,
+      "cards_multiplier": 0.970926,
+      "fouls_multiplier": 0.978506
+    },
+    "E1::C Oliver": {
+      "div": "E1",
+      "referee": "C Oliver",
+      "games": 37,
+      "raw_yellows_pg": 2.7838,
+      "raw_reds_pg": 0.1081,
+      "eb_yellows_pg": 3.0081,
+      "cards_multiplier": 0.844621,
+      "fouls_multiplier": 1.032797
+    },
+    "E1::C Pawson": {
+      "div": "E1",
+      "referee": "C Pawson",
+      "games": 57,
+      "raw_yellows_pg": 3.1228,
+      "raw_reds_pg": 0.1404,
+      "eb_yellows_pg": 3.2142,
+      "cards_multiplier": 0.902482,
+      "fouls_multiplier": 0.994866
+    },
+    "E1::C Penton": {
+      "div": "E1",
+      "referee": "C Penton",
+      "games": 78,
+      "raw_yellows_pg": 3.2564,
+      "raw_reds_pg": 0.1026,
+      "eb_yellows_pg": 3.3056,
+      "cards_multiplier": 0.92815,
+      "fouls_multiplier": 1.13208
+    },
+    "E1::C Sarginson": {
+      "div": "E1",
+      "referee": "C Sarginson",
+      "games": 26,
+      "raw_yellows_pg": 3.0769,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 3.2542,
+      "cards_multiplier": 0.913716,
+      "fouls_multiplier": 0.918773
+    },
+    "E1::C Webster": {
+      "div": "E1",
+      "referee": "C Webster",
+      "games": 135,
+      "raw_yellows_pg": 2.763,
+      "raw_reds_pg": 0.1704,
+      "eb_yellows_pg": 2.8428,
+      "cards_multiplier": 0.798205,
+      "fouls_multiplier": 1.013232
+    },
+    "E1::C Wilkes": {
+      "div": "E1",
+      "referee": "C Wilkes",
+      "games": 10,
+      "raw_yellows_pg": 2.7,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.2169,
+      "cards_multiplier": 0.903242,
+      "fouls_multiplier": 1.037578
+    },
+    "E1::C. J. Foy": {
+      "div": "E1",
+      "referee": "C. J. Foy",
+      "games": 9,
+      "raw_yellows_pg": 3.3333,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.4759,
+      "cards_multiplier": 0.975974,
+      "fouls_multiplier": 1.084472
+    },
+    "E1::Chris Foy": {
+      "div": "E1",
+      "referee": "Chris Foy",
+      "games": 12,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.5342,
+      "cards_multiplier": 0.992324,
+      "fouls_multiplier": 0.950957
+    },
+    "E1::Clive Wilkes": {
+      "div": "E1",
+      "referee": "Clive Wilkes",
+      "games": 8,
+      "raw_yellows_pg": 2.875,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.3227,
+      "cards_multiplier": 0.932953,
+      "fouls_multiplier": 1.034205
+    },
+    "E1::D Bond": {
+      "div": "E1",
+      "referee": "D Bond",
+      "games": 228,
+      "raw_yellows_pg": 3.2982,
+      "raw_reds_pg": 0.1491,
+      "eb_yellows_pg": 3.3145,
+      "cards_multiplier": 0.930642,
+      "fouls_multiplier": 0.977643
+    },
+    "E1::D Coote": {
+      "div": "E1",
+      "referee": "D Coote",
+      "games": 130,
+      "raw_yellows_pg": 3.7308,
+      "raw_reds_pg": 0.1308,
+      "eb_yellows_pg": 3.7133,
+      "cards_multiplier": 1.042607,
+      "fouls_multiplier": 1.069077
+    },
+    "E1::D Crick": {
+      "div": "E1",
+      "referee": "D Crick",
+      "games": 18,
+      "raw_yellows_pg": 2.0556,
+      "raw_reds_pg": 0.0556,
+      "eb_yellows_pg": 2.7401,
+      "cards_multiplier": 0.769359,
+      "fouls_multiplier": 1.070946
+    },
+    "E1::D Deadman": {
+      "div": "E1",
+      "referee": "D Deadman",
+      "games": 102,
+      "raw_yellows_pg": 3.7843,
+      "raw_reds_pg": 0.2059,
+      "eb_yellows_pg": 3.7557,
+      "cards_multiplier": 1.054537,
+      "fouls_multiplier": 0.955808
+    },
+    "E1::D Drysdale": {
+      "div": "E1",
+      "referee": "D Drysdale",
+      "games": 58,
+      "raw_yellows_pg": 2.6034,
+      "raw_reds_pg": 0.1379,
+      "eb_yellows_pg": 2.8003,
+      "cards_multiplier": 0.78627,
+      "fouls_multiplier": 0.921656
+    },
+    "E1::D England": {
+      "div": "E1",
+      "referee": "D England",
+      "games": 106,
+      "raw_yellows_pg": 3.8396,
+      "raw_reds_pg": 0.1038,
+      "eb_yellows_pg": 3.8051,
+      "cards_multiplier": 1.068407,
+      "fouls_multiplier": 1.07344
+    },
+    "E1::D Foster": {
+      "div": "E1",
+      "referee": "D Foster",
+      "games": 18,
+      "raw_yellows_pg": 3.0556,
+      "raw_reds_pg": 0.0556,
+      "eb_yellows_pg": 3.2855,
+      "cards_multiplier": 0.922511,
+      "fouls_multiplier": 0.975091
+    },
+    "E1::D Gallagher": {
+      "div": "E1",
+      "referee": "D Gallagher",
+      "games": 41,
+      "raw_yellows_pg": 2.5366,
+      "raw_reds_pg": 0.0976,
+      "eb_yellows_pg": 2.8111,
+      "cards_multiplier": 0.789305,
+      "fouls_multiplier": 1.056307
+    },
+    "E1::D McDermid": {
+      "div": "E1",
+      "referee": "D McDermid",
+      "games": 22,
+      "raw_yellows_pg": 3.3182,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.4168,
+      "cards_multiplier": 0.959376,
+      "fouls_multiplier": 0.99079
+    },
+    "E1::D Phillips": {
+      "div": "E1",
+      "referee": "D Phillips",
+      "games": 22,
+      "raw_yellows_pg": 2.5909,
+      "raw_reds_pg": 0.2273,
+      "eb_yellows_pg": 2.9844,
+      "cards_multiplier": 0.837957,
+      "fouls_multiplier": 1.013351
+    },
+    "E1::D Pugh": {
+      "div": "E1",
+      "referee": "D Pugh",
+      "games": 12,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.6082,
+      "cards_multiplier": 1.013122,
+      "fouls_multiplier": 1.033943
+    },
+    "E1::D Sheldrake": {
+      "div": "E1",
+      "referee": "D Sheldrake",
+      "games": 18,
+      "raw_yellows_pg": 3.1111,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.3158,
+      "cards_multiplier": 0.93102,
+      "fouls_multiplier": 0.984411
+    },
+    "E1::D Webb": {
+      "div": "E1",
+      "referee": "D Webb",
+      "games": 252,
+      "raw_yellows_pg": 2.9762,
+      "raw_reds_pg": 0.1032,
+      "eb_yellows_pg": 3.0091,
+      "cards_multiplier": 0.844886,
+      "fouls_multiplier": 0.929421
+    },
+    "E1::D Whitestone": {
+      "div": "E1",
+      "referee": "D Whitestone",
+      "games": 213,
+      "raw_yellows_pg": 2.9014,
+      "raw_reds_pg": 0.0939,
+      "eb_yellows_pg": 2.9448,
+      "cards_multiplier": 0.826849,
+      "fouls_multiplier": 0.962573
+    },
+    "E1::David Crick": {
+      "div": "E1",
+      "referee": "David Crick",
+      "games": 9,
+      "raw_yellows_pg": 1.3333,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.7259,
+      "cards_multiplier": 0.76539,
+      "fouls_multiplier": 0.98196
+    },
+    "E1::David Laws": {
+      "div": "E1",
+      "referee": "David Laws",
+      "games": 10,
+      "raw_yellows_pg": 3.7,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.6169,
+      "cards_multiplier": 1.015554,
+      "fouls_multiplier": 1.048122
+    },
+    "E1::David Pugh": {
+      "div": "E1",
+      "referee": "David Pugh",
+      "games": 11,
+      "raw_yellows_pg": 3.4545,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.5163,
+      "cards_multiplier": 0.987293,
+      "fouls_multiplier": 0.933461
+    },
+    "E1::E Evans": {
+      "div": "E1",
+      "referee": "E Evans",
+      "games": 17,
+      "raw_yellows_pg": 2.6471,
+      "raw_reds_pg": 0.2941,
+      "eb_yellows_pg": 3.0757,
+      "cards_multiplier": 0.863596,
+      "fouls_multiplier": 1.056361
+    },
+    "E1::E Ilderton": {
+      "div": "E1",
+      "referee": "E Ilderton",
+      "games": 114,
+      "raw_yellows_pg": 2.7105,
+      "raw_reds_pg": 0.114,
+      "eb_yellows_pg": 2.8095,
+      "cards_multiplier": 0.788844,
+      "fouls_multiplier": 0.867917
+    },
+    "E1::E Wolstenholme": {
+      "div": "E1",
+      "referee": "E Wolstenholme",
+      "games": 10,
+      "raw_yellows_pg": 2.5,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.1369,
+      "cards_multiplier": 0.880779,
+      "fouls_multiplier": 1.056909
+    },
+    "E1::Eddie Wolstenholme": {
+      "div": "E1",
+      "referee": "Eddie Wolstenholme",
+      "games": 11,
+      "raw_yellows_pg": 3.8182,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 3.6701,
+      "cards_multiplier": 1.03049,
+      "fouls_multiplier": 1.014569
+    },
+    "E1::F Graham": {
+      "div": "E1",
+      "referee": "F Graham",
+      "games": 70,
+      "raw_yellows_pg": 2.7429,
+      "raw_reds_pg": 0.1286,
+      "eb_yellows_pg": 2.8873,
+      "cards_multiplier": 0.810702,
+      "fouls_multiplier": 0.874239
+    },
+    "E1::F Stretton": {
+      "div": "E1",
+      "referee": "F Stretton",
+      "games": 14,
+      "raw_yellows_pg": 2.5714,
+      "raw_reds_pg": 0.2857,
+      "eb_yellows_pg": 3.0835,
+      "cards_multiplier": 0.865795,
+      "fouls_multiplier": 1.011115
+    },
+    "E1::Frazer Stretton": {
+      "div": "E1",
+      "referee": "Frazer Stretton",
+      "games": 12,
+      "raw_yellows_pg": 2.6667,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.1638,
+      "cards_multiplier": 0.888331,
+      "fouls_multiplier": 1.003027
+    },
+    "E1::G Cain": {
+      "div": "E1",
+      "referee": "G Cain",
+      "games": 21,
+      "raw_yellows_pg": 1.3333,
+      "raw_reds_pg": 0.0476,
+      "eb_yellows_pg": 2.2617,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 0.809628
+    },
+    "E1::G Eltrigham": {
+      "div": "E1",
+      "referee": "G Eltrigham",
+      "games": 11,
+      "raw_yellows_pg": 2.8182,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 3.247,
+      "cards_multiplier": 0.911699,
+      "fouls_multiplier": 0.995982
+    },
+    "E1::G Eltringham": {
+      "div": "E1",
+      "referee": "G Eltringham",
+      "games": 230,
+      "raw_yellows_pg": 3.3174,
+      "raw_reds_pg": 0.1435,
+      "eb_yellows_pg": 3.3323,
+      "cards_multiplier": 0.935652,
+      "fouls_multiplier": 1.045695
+    },
+    "E1::G Hegley": {
+      "div": "E1",
+      "referee": "G Hegley",
+      "games": 75,
+      "raw_yellows_pg": 1.8267,
+      "raw_reds_pg": 0.0667,
+      "eb_yellows_pg": 2.1158,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.010679
+    },
+    "E1::G Horwood": {
+      "div": "E1",
+      "referee": "G Horwood",
+      "games": 20,
+      "raw_yellows_pg": 3.05,
+      "raw_reds_pg": 0.15,
+      "eb_yellows_pg": 3.2692,
+      "cards_multiplier": 0.91793,
+      "fouls_multiplier": 1.059959
+    },
+    "E1::G Laws": {
+      "div": "E1",
+      "referee": "G Laws",
+      "games": 95,
+      "raw_yellows_pg": 2.9263,
+      "raw_reds_pg": 0.1368,
+      "eb_yellows_pg": 3.0129,
+      "cards_multiplier": 0.84597,
+      "fouls_multiplier": 1.132058
+    },
+    "E1::G Poll": {
+      "div": "E1",
+      "referee": "G Poll",
+      "games": 10,
+      "raw_yellows_pg": 3.1,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.3769,
+      "cards_multiplier": 0.948166,
+      "fouls_multiplier": 1.051637
+    },
+    "E1::G Salisbury": {
+      "div": "E1",
+      "referee": "G Salisbury",
+      "games": 129,
+      "raw_yellows_pg": 3.2248,
+      "raw_reds_pg": 0.1163,
+      "eb_yellows_pg": 3.2599,
+      "cards_multiplier": 0.915307,
+      "fouls_multiplier": 0.964837
+    },
+    "E1::G Scott": {
+      "div": "E1",
+      "referee": "G Scott",
+      "games": 133,
+      "raw_yellows_pg": 3.4962,
+      "raw_reds_pg": 0.1654,
+      "eb_yellows_pg": 3.5029,
+      "cards_multiplier": 0.98353,
+      "fouls_multiplier": 0.982694
+    },
+    "E1::G Sutton": {
+      "div": "E1",
+      "referee": "G Sutton",
+      "games": 25,
+      "raw_yellows_pg": 3.04,
+      "raw_reds_pg": 0.24,
+      "eb_yellows_pg": 3.2356,
+      "cards_multiplier": 0.908481,
+      "fouls_multiplier": 0.981283
+    },
+    "E1::G Ward": {
+      "div": "E1",
+      "referee": "G Ward",
+      "games": 221,
+      "raw_yellows_pg": 3.4163,
+      "raw_reds_pg": 0.1719,
+      "eb_yellows_pg": 3.4255,
+      "cards_multiplier": 0.961816,
+      "fouls_multiplier": 0.993424
+    },
+    "E1::George Cain": {
+      "div": "E1",
+      "referee": "George Cain",
+      "games": 10,
+      "raw_yellows_pg": 2.5,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.1369,
+      "cards_multiplier": 0.880779,
+      "fouls_multiplier": 0.967284
+    },
+    "E1::Graham Frankland": {
+      "div": "E1",
+      "referee": "Graham Frankland",
+      "games": 14,
+      "raw_yellows_pg": 3.1429,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.3594,
+      "cards_multiplier": 0.943252,
+      "fouls_multiplier": 1.095952
+    },
+    "E1::Graham Laws": {
+      "div": "E1",
+      "referee": "Graham Laws",
+      "games": 15,
+      "raw_yellows_pg": 3.0667,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.3141,
+      "cards_multiplier": 0.930528,
+      "fouls_multiplier": 1.132643
+    },
+    "E1::H Webb": {
+      "div": "E1",
+      "referee": "H Webb",
+      "games": 38,
+      "raw_yellows_pg": 3.2895,
+      "raw_reds_pg": 0.1316,
+      "eb_yellows_pg": 3.3665,
+      "cards_multiplier": 0.945234,
+      "fouls_multiplier": 1.102007
+    },
+    "E1::I Williamson": {
+      "div": "E1",
+      "referee": "I Williamson",
+      "games": 115,
+      "raw_yellows_pg": 3.7913,
+      "raw_reds_pg": 0.2348,
+      "eb_yellows_pg": 3.7648,
+      "cards_multiplier": 1.057076,
+      "fouls_multiplier": 1.174183
+    },
+    "E1::J Adcock": {
+      "div": "E1",
+      "referee": "J Adcock",
+      "games": 61,
+      "raw_yellows_pg": 3.082,
+      "raw_reds_pg": 0.1148,
+      "eb_yellows_pg": 3.1766,
+      "cards_multiplier": 0.891928,
+      "fouls_multiplier": 0.984704
+    },
+    "E1::J Bell": {
+      "div": "E1",
+      "referee": "J Bell",
+      "games": 42,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.639,
+      "cards_multiplier": 1.021755,
+      "fouls_multiplier": 0.924473
+    },
+    "E1::J Brooks": {
+      "div": "E1",
+      "referee": "J Brooks",
+      "games": 100,
+      "raw_yellows_pg": 3.6,
+      "raw_reds_pg": 0.11,
+      "eb_yellows_pg": 3.595,
+      "cards_multiplier": 1.009396,
+      "fouls_multiplier": 1.054567
+    },
+    "E1::J Busby": {
+      "div": "E1",
+      "referee": "J Busby",
+      "games": 87,
+      "raw_yellows_pg": 3.7011,
+      "raw_reds_pg": 0.069,
+      "eb_yellows_pg": 3.6806,
+      "cards_multiplier": 1.033441,
+      "fouls_multiplier": 0.935709
+    },
+    "E1::J Gillett": {
+      "div": "E1",
+      "referee": "J Gillett",
+      "games": 68,
+      "raw_yellows_pg": 3.0441,
+      "raw_reds_pg": 0.1176,
+      "eb_yellows_pg": 3.1376,
+      "cards_multiplier": 0.88098,
+      "fouls_multiplier": 0.990053
+    },
+    "E1::J Linington": {
+      "div": "E1",
+      "referee": "J Linington",
+      "games": 290,
+      "raw_yellows_pg": 3.5483,
+      "raw_reds_pg": 0.1379,
+      "eb_yellows_pg": 3.5489,
+      "cards_multiplier": 0.996466,
+      "fouls_multiplier": 1.047984
+    },
+    "E1::J Moss": {
+      "div": "E1",
+      "referee": "J Moss",
+      "games": 90,
+      "raw_yellows_pg": 3.2111,
+      "raw_reds_pg": 0.2556,
+      "eb_yellows_pg": 3.2612,
+      "cards_multiplier": 0.915669,
+      "fouls_multiplier": 0.968808
+    },
+    "E1::J P Robinson": {
+      "div": "E1",
+      "referee": "J P Robinson",
+      "games": 25,
+      "raw_yellows_pg": 2.6,
+      "raw_reds_pg": 0.28,
+      "eb_yellows_pg": 2.9606,
+      "cards_multiplier": 0.831267,
+      "fouls_multiplier": 1.046085
+    },
+    "E1::J Ross": {
+      "div": "E1",
+      "referee": "J Ross",
+      "games": 14,
+      "raw_yellows_pg": 2.5,
+      "raw_reds_pg": 0.1429,
+      "eb_yellows_pg": 3.0491,
+      "cards_multiplier": 0.856113,
+      "fouls_multiplier": 1.111102
+    },
+    "E1::J Simpson": {
+      "div": "E1",
+      "referee": "J Simpson",
+      "games": 228,
+      "raw_yellows_pg": 3.4298,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.438,
+      "cards_multiplier": 0.965307,
+      "fouls_multiplier": 1.06081
+    },
+    "E1::J Singh": {
+      "div": "E1",
+      "referee": "J Singh",
+      "games": 23,
+      "raw_yellows_pg": 3.3913,
+      "raw_reds_pg": 0.2174,
+      "eb_yellows_pg": 3.4585,
+      "cards_multiplier": 0.971074,
+      "fouls_multiplier": 1.089581
+    },
+    "E1::J Smith": {
+      "div": "E1",
+      "referee": "J Smith",
+      "games": 101,
+      "raw_yellows_pg": 3.8713,
+      "raw_reds_pg": 0.1188,
+      "eb_yellows_pg": 3.8312,
+      "cards_multiplier": 1.075731,
+      "fouls_multiplier": 0.993211
+    },
+    "E1::J Waugh": {
+      "div": "E1",
+      "referee": "J Waugh",
+      "games": 9,
+      "raw_yellows_pg": 2.4444,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.1426,
+      "cards_multiplier": 0.882381,
+      "fouls_multiplier": 0.932535
+    },
+    "E1::J Winter": {
+      "div": "E1",
+      "referee": "J Winter",
+      "games": 11,
+      "raw_yellows_pg": 1.7273,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 2.7855,
+      "cards_multiplier": 0.782108,
+      "fouls_multiplier": 1.00612
+    },
+    "E1::John Brandwood": {
+      "div": "E1",
+      "referee": "John Brandwood",
+      "games": 10,
+      "raw_yellows_pg": 2.2,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.0169,
+      "cards_multiplier": 0.847086,
+      "fouls_multiplier": 1.055152
+    },
+    "E1::K Evans": {
+      "div": "E1",
+      "referee": "K Evans",
+      "games": 11,
+      "raw_yellows_pg": 3.1818,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.4009,
+      "cards_multiplier": 0.954895,
+      "fouls_multiplier": 0.984153
+    },
+    "E1::K Friend": {
+      "div": "E1",
+      "referee": "K Friend",
+      "games": 133,
+      "raw_yellows_pg": 2.9549,
+      "raw_reds_pg": 0.188,
+      "eb_yellows_pg": 3.0164,
+      "cards_multiplier": 0.846935,
+      "fouls_multiplier": 1.061062
+    },
+    "E1::K Hill": {
+      "div": "E1",
+      "referee": "K Hill",
+      "games": 109,
+      "raw_yellows_pg": 3.4771,
+      "raw_reds_pg": 0.1835,
+      "eb_yellows_pg": 3.4873,
+      "cards_multiplier": 0.979156,
+      "fouls_multiplier": 1.111244
+    },
+    "E1::K Stroud": {
+      "div": "E1",
+      "referee": "K Stroud",
+      "games": 376,
+      "raw_yellows_pg": 3.9548,
+      "raw_reds_pg": 0.1489,
+      "eb_yellows_pg": 3.9397,
+      "cards_multiplier": 1.106187,
+      "fouls_multiplier": 1.107038
+    },
+    "E1::K Wright": {
+      "div": "E1",
+      "referee": "K Wright",
+      "games": 98,
+      "raw_yellows_pg": 2.7755,
+      "raw_reds_pg": 0.2143,
+      "eb_yellows_pg": 2.8798,
+      "cards_multiplier": 0.808602,
+      "fouls_multiplier": 1.149824
+    },
+    "E1::Keith Hill": {
+      "div": "E1",
+      "referee": "Keith Hill",
+      "games": 10,
+      "raw_yellows_pg": 2.9,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.2969,
+      "cards_multiplier": 0.925704,
+      "fouls_multiplier": 1.074482
+    },
+    "E1::L Cable": {
+      "div": "E1",
+      "referee": "L Cable",
+      "games": 20,
+      "raw_yellows_pg": 2.7,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.0692,
+      "cards_multiplier": 0.861774,
+      "fouls_multiplier": 1.102638
+    },
+    "E1::L Doughty": {
+      "div": "E1",
+      "referee": "L Doughty",
+      "games": 88,
+      "raw_yellows_pg": 4.1705,
+      "raw_reds_pg": 0.1364,
+      "eb_yellows_pg": 4.0818,
+      "cards_multiplier": 1.146078,
+      "fouls_multiplier": 0.991032
+    },
+    "E1::L Mason": {
+      "div": "E1",
+      "referee": "L Mason",
+      "games": 114,
+      "raw_yellows_pg": 3.2895,
+      "raw_reds_pg": 0.1053,
+      "eb_yellows_pg": 3.3211,
+      "cards_multiplier": 0.932498,
+      "fouls_multiplier": 1.050463
+    },
+    "E1::L Probert": {
+      "div": "E1",
+      "referee": "L Probert",
+      "games": 118,
+      "raw_yellows_pg": 3.3983,
+      "raw_reds_pg": 0.1949,
+      "eb_yellows_pg": 3.4167,
+      "cards_multiplier": 0.959342,
+      "fouls_multiplier": 1.069741
+    },
+    "E1::L Smith": {
+      "div": "E1",
+      "referee": "L Smith",
+      "games": 21,
+      "raw_yellows_pg": 3.381,
+      "raw_reds_pg": 0.0952,
+      "eb_yellows_pg": 3.4562,
+      "cards_multiplier": 0.970426,
+      "fouls_multiplier": 0.97926
+    },
+    "E1::Leake, A. R.": {
+      "div": "E1",
+      "referee": "Leake, A. R.",
+      "games": 8,
+      "raw_yellows_pg": 2.25,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.1053,
+      "cards_multiplier": 0.871914,
+      "fouls_multiplier": 1.036115
+    },
+    "E1::M Atkinson": {
+      "div": "E1",
+      "referee": "M Atkinson",
+      "games": 49,
+      "raw_yellows_pg": 2.4694,
+      "raw_reds_pg": 0.1429,
+      "eb_yellows_pg": 2.7254,
+      "cards_multiplier": 0.765224,
+      "fouls_multiplier": 1.062934
+    },
+    "E1::M Brown": {
+      "div": "E1",
+      "referee": "M Brown",
+      "games": 37,
+      "raw_yellows_pg": 3.1081,
+      "raw_reds_pg": 0.1081,
+      "eb_yellows_pg": 3.2389,
+      "cards_multiplier": 0.909416,
+      "fouls_multiplier": 1.038711
+    },
+    "E1::M Bull": {
+      "div": "E1",
+      "referee": "M Bull",
+      "games": 11,
+      "raw_yellows_pg": 3.3636,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 3.4778,
+      "cards_multiplier": 0.976494,
+      "fouls_multiplier": 1.012879
+    },
+    "E1::M Clattenburg": {
+      "div": "E1",
+      "referee": "M Clattenburg",
+      "games": 58,
+      "raw_yellows_pg": 3.2241,
+      "raw_reds_pg": 0.2241,
+      "eb_yellows_pg": 3.2935,
+      "cards_multiplier": 0.924736,
+      "fouls_multiplier": 1.055864
+    },
+    "E1::M Cooper": {
+      "div": "E1",
+      "referee": "M Cooper",
+      "games": 14,
+      "raw_yellows_pg": 4.5714,
+      "raw_reds_pg": 0.3571,
+      "eb_yellows_pg": 4.0491,
+      "cards_multiplier": 1.136893,
+      "fouls_multiplier": 1.133826
+    },
+    "E1::M Cowburn": {
+      "div": "E1",
+      "referee": "M Cowburn",
+      "games": 15,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 3.6141,
+      "cards_multiplier": 1.014762,
+      "fouls_multiplier": 1.107747
+    },
+    "E1::M Dean": {
+      "div": "E1",
+      "referee": "M Dean",
+      "games": 66,
+      "raw_yellows_pg": 3.5303,
+      "raw_reds_pg": 0.2576,
+      "eb_yellows_pg": 3.5361,
+      "cards_multiplier": 0.992859,
+      "fouls_multiplier": 1.055178
+    },
+    "E1::M Donohue": {
+      "div": "E1",
+      "referee": "M Donohue",
+      "games": 152,
+      "raw_yellows_pg": 3.8092,
+      "raw_reds_pg": 0.1579,
+      "eb_yellows_pg": 3.787,
+      "cards_multiplier": 1.063301,
+      "fouls_multiplier": 1.038206
+    },
+    "E1::M Fletcher": {
+      "div": "E1",
+      "referee": "M Fletcher",
+      "games": 30,
+      "raw_yellows_pg": 4.2667,
+      "raw_reds_pg": 0.0667,
+      "eb_yellows_pg": 4.0316,
+      "cards_multiplier": 1.131995,
+      "fouls_multiplier": 1.151474
+    },
+    "E1::M Halsey": {
+      "div": "E1",
+      "referee": "M Halsey",
+      "games": 52,
+      "raw_yellows_pg": 1.6731,
+      "raw_reds_pg": 0.0577,
+      "eb_yellows_pg": 2.0959,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 0.981243
+    },
+    "E1::M Haywood": {
+      "div": "E1",
+      "referee": "M Haywood",
+      "games": 82,
+      "raw_yellows_pg": 2.3049,
+      "raw_reds_pg": 0.0976,
+      "eb_yellows_pg": 2.4992,
+      "cards_multiplier": 0.701725,
+      "fouls_multiplier": 0.880675
+    },
+    "E1::M Heywood": {
+      "div": "E1",
+      "referee": "M Heywood",
+      "games": 19,
+      "raw_yellows_pg": 3.7368,
+      "raw_reds_pg": 0.0526,
+      "eb_yellows_pg": 3.6595,
+      "cards_multiplier": 1.02751,
+      "fouls_multiplier": 1.016189
+    },
+    "E1::M Jones": {
+      "div": "E1",
+      "referee": "M Jones",
+      "games": 145,
+      "raw_yellows_pg": 3.2897,
+      "raw_reds_pg": 0.1931,
+      "eb_yellows_pg": 3.3151,
+      "cards_multiplier": 0.930824,
+      "fouls_multiplier": 1.11191
+    },
+    "E1::M Messias": {
+      "div": "E1",
+      "referee": "M Messias",
+      "games": 21,
+      "raw_yellows_pg": 3.5238,
+      "raw_reds_pg": 0.0476,
+      "eb_yellows_pg": 3.5395,
+      "cards_multiplier": 0.993824,
+      "fouls_multiplier": 1.059805
+    },
+    "E1::M Naylor": {
+      "div": "E1",
+      "referee": "M Naylor",
+      "games": 26,
+      "raw_yellows_pg": 3.1923,
+      "raw_reds_pg": 0.0769,
+      "eb_yellows_pg": 3.3274,
+      "cards_multiplier": 0.934261,
+      "fouls_multiplier": 1.021642
+    },
+    "E1::M Oliver": {
+      "div": "E1",
+      "referee": "M Oliver",
+      "games": 49,
+      "raw_yellows_pg": 2.8571,
+      "raw_reds_pg": 0.1633,
+      "eb_yellows_pg": 3.0222,
+      "cards_multiplier": 0.84858,
+      "fouls_multiplier": 1.040968
+    },
+    "E1::M Pike": {
+      "div": "E1",
+      "referee": "M Pike",
+      "games": 62,
+      "raw_yellows_pg": 2.1613,
+      "raw_reds_pg": 0.0806,
+      "eb_yellows_pg": 2.4341,
+      "cards_multiplier": 0.683434,
+      "fouls_multiplier": 0.887472
+    },
+    "E1::M Riley": {
+      "div": "E1",
+      "referee": "M Riley",
+      "games": 18,
+      "raw_yellows_pg": 3.8889,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 3.7401,
+      "cards_multiplier": 1.050138,
+      "fouls_multiplier": 1.192097
+    },
+    "E1::M Russell": {
+      "div": "E1",
+      "referee": "M Russell",
+      "games": 94,
+      "raw_yellows_pg": 2.4149,
+      "raw_reds_pg": 0.1489,
+      "eb_yellows_pg": 2.5727,
+      "cards_multiplier": 0.722357,
+      "fouls_multiplier": 0.899801
+    },
+    "E1::M Ryan": {
+      "div": "E1",
+      "referee": "M Ryan",
+      "games": 29,
+      "raw_yellows_pg": 3.2414,
+      "raw_reds_pg": 0.2069,
+      "eb_yellows_pg": 3.3505,
+      "cards_multiplier": 0.940756,
+      "fouls_multiplier": 1.054829
+    },
+    "E1::M Salisbury": {
+      "div": "E1",
+      "referee": "M Salisbury",
+      "games": 49,
+      "raw_yellows_pg": 2.8367,
+      "raw_reds_pg": 0.2041,
+      "eb_yellows_pg": 3.0066,
+      "cards_multiplier": 0.844193,
+      "fouls_multiplier": 0.979872
+    },
+    "E1::M Thorpe": {
+      "div": "E1",
+      "referee": "M Thorpe",
+      "games": 60,
+      "raw_yellows_pg": 2.95,
+      "raw_reds_pg": 0.1833,
+      "eb_yellows_pg": 3.0723,
+      "cards_multiplier": 0.862639,
+      "fouls_multiplier": 1.148965
+    },
+    "E1::M Warren": {
+      "div": "E1",
+      "referee": "M Warren",
+      "games": 17,
+      "raw_yellows_pg": 4.0588,
+      "raw_reds_pg": 0.2353,
+      "eb_yellows_pg": 3.8257,
+      "cards_multiplier": 1.074181,
+      "fouls_multiplier": 1.103041
+    },
+    "E1::Mark Cowburn": {
+      "div": "E1",
+      "referee": "Mark Cowburn",
+      "games": 9,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.6009,
+      "cards_multiplier": 1.011072,
+      "fouls_multiplier": 1.031385
+    },
+    "E1::Matt Messias": {
+      "div": "E1",
+      "referee": "Matt Messias",
+      "games": 9,
+      "raw_yellows_pg": 2.8889,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.3093,
+      "cards_multiplier": 0.929178,
+      "fouls_multiplier": 1.053352
+    },
+    "E1::Michael Jones": {
+      "div": "E1",
+      "referee": "Michael Jones",
+      "games": 12,
+      "raw_yellows_pg": 2.0,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 2.8675,
+      "cards_multiplier": 0.805137,
+      "fouls_multiplier": 1.038825
+    },
+    "E1::Mick Fletcher": {
+      "div": "E1",
+      "referee": "Mick Fletcher",
+      "games": 10,
+      "raw_yellows_pg": 4.9,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 4.0969,
+      "cards_multiplier": 1.150328,
+      "fouls_multiplier": 1.077997
+    },
+    "E1::Mike Pike": {
+      "div": "E1",
+      "referee": "Mike Pike",
+      "games": 11,
+      "raw_yellows_pg": 2.9091,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.2855,
+      "cards_multiplier": 0.922498,
+      "fouls_multiplier": 1.041605
+    },
+    "E1::N Barry": {
+      "div": "E1",
+      "referee": "N Barry",
+      "games": 17,
+      "raw_yellows_pg": 2.5294,
+      "raw_reds_pg": 0.3529,
+      "eb_yellows_pg": 3.0132,
+      "cards_multiplier": 0.846047,
+      "fouls_multiplier": 1.030276
+    },
+    "E1::N Miller": {
+      "div": "E1",
+      "referee": "N Miller",
+      "games": 136,
+      "raw_yellows_pg": 2.5074,
+      "raw_reds_pg": 0.1838,
+      "eb_yellows_pg": 2.6121,
+      "cards_multiplier": 0.733416,
+      "fouls_multiplier": 0.851736
+    },
+    "E1::N Swarbrick": {
+      "div": "E1",
+      "referee": "N Swarbrick",
+      "games": 96,
+      "raw_yellows_pg": 3.125,
+      "raw_reds_pg": 0.1771,
+      "eb_yellows_pg": 3.184,
+      "cards_multiplier": 0.893998,
+      "fouls_multiplier": 1.002724
+    },
+    "E1::O Langford": {
+      "div": "E1",
+      "referee": "O Langford",
+      "games": 284,
+      "raw_yellows_pg": 3.25,
+      "raw_reds_pg": 0.1444,
+      "eb_yellows_pg": 3.2656,
+      "cards_multiplier": 0.916921,
+      "fouls_multiplier": 0.97527
+    },
+    "E1::P Armstrong": {
+      "div": "E1",
+      "referee": "P Armstrong",
+      "games": 51,
+      "raw_yellows_pg": 2.7255,
+      "raw_reds_pg": 0.1961,
+      "eb_yellows_pg": 2.9155,
+      "cards_multiplier": 0.818611,
+      "fouls_multiplier": 1.170513
+    },
+    "E1::P Bankes": {
+      "div": "E1",
+      "referee": "P Bankes",
+      "games": 140,
+      "raw_yellows_pg": 4.0857,
+      "raw_reds_pg": 0.1571,
+      "eb_yellows_pg": 4.035,
+      "cards_multiplier": 1.132941,
+      "fouls_multiplier": 1.061045
+    },
+    "E1::P Crossley": {
+      "div": "E1",
+      "referee": "P Crossley",
+      "games": 86,
+      "raw_yellows_pg": 2.8837,
+      "raw_reds_pg": 0.2209,
+      "eb_yellows_pg": 2.9844,
+      "cards_multiplier": 0.837953,
+      "fouls_multiplier": 0.980207
+    },
+    "E1::P Danson": {
+      "div": "E1",
+      "referee": "P Danson",
+      "games": 20,
+      "raw_yellows_pg": 2.9,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 3.1835,
+      "cards_multiplier": 0.893863,
+      "fouls_multiplier": 1.081298
+    },
+    "E1::P Dowd": {
+      "div": "E1",
+      "referee": "P Dowd",
+      "games": 66,
+      "raw_yellows_pg": 4.0152,
+      "raw_reds_pg": 0.2273,
+      "eb_yellows_pg": 3.9311,
+      "cards_multiplier": 1.103785,
+      "fouls_multiplier": 1.184267
+    },
+    "E1::P Gibbs": {
+      "div": "E1",
+      "referee": "P Gibbs",
+      "games": 44,
+      "raw_yellows_pg": 3.3409,
+      "raw_reds_pg": 0.0455,
+      "eb_yellows_pg": 3.397,
+      "cards_multiplier": 0.953806,
+      "fouls_multiplier": 1.008554
+    },
+    "E1::P Joslin": {
+      "div": "E1",
+      "referee": "P Joslin",
+      "games": 76,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.1447,
+      "eb_yellows_pg": 3.0926,
+      "cards_multiplier": 0.868326,
+      "fouls_multiplier": 1.112545
+    },
+    "E1::P Melin": {
+      "div": "E1",
+      "referee": "P Melin",
+      "games": 10,
+      "raw_yellows_pg": 2.7,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 3.2169,
+      "cards_multiplier": 0.903242,
+      "fouls_multiplier": 1.028791
+    },
+    "E1::P Miller": {
+      "div": "E1",
+      "referee": "P Miller",
+      "games": 32,
+      "raw_yellows_pg": 3.3438,
+      "raw_reds_pg": 0.2812,
+      "eb_yellows_pg": 3.4132,
+      "cards_multiplier": 0.95837,
+      "fouls_multiplier": 1.063215
+    },
+    "E1::P Prosser": {
+      "div": "E1",
+      "referee": "P Prosser",
+      "games": 20,
+      "raw_yellows_pg": 3.05,
+      "raw_reds_pg": 0.35,
+      "eb_yellows_pg": 3.2692,
+      "cards_multiplier": 0.91793,
+      "fouls_multiplier": 1.204312
+    },
+    "E1::P Rejer": {
+      "div": "E1",
+      "referee": "P Rejer",
+      "games": 12,
+      "raw_yellows_pg": 1.5833,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.6823,
+      "cards_multiplier": 0.753141,
+      "fouls_multiplier": 1.03557
+    },
+    "E1::P Robinson": {
+      "div": "E1",
+      "referee": "P Robinson",
+      "games": 13,
+      "raw_yellows_pg": 1.6923,
+      "raw_reds_pg": 0.3077,
+      "eb_yellows_pg": 2.6937,
+      "cards_multiplier": 0.756327,
+      "fouls_multiplier": 1.000155
+    },
+    "E1::P Taylor": {
+      "div": "E1",
+      "referee": "P Taylor",
+      "games": 111,
+      "raw_yellows_pg": 3.6036,
+      "raw_reds_pg": 0.3514,
+      "eb_yellows_pg": 3.5986,
+      "cards_multiplier": 1.010411,
+      "fouls_multiplier": 1.133355
+    },
+    "E1::P Tierney": {
+      "div": "E1",
+      "referee": "P Tierney",
+      "games": 91,
+      "raw_yellows_pg": 3.4505,
+      "raw_reds_pg": 0.2088,
+      "eb_yellows_pg": 3.4663,
+      "cards_multiplier": 0.973252,
+      "fouls_multiplier": 1.021838
+    },
+    "E1::P Walton": {
+      "div": "E1",
+      "referee": "P Walton",
+      "games": 82,
+      "raw_yellows_pg": 3.0854,
+      "raw_reds_pg": 0.1585,
+      "eb_yellows_pg": 3.159,
+      "cards_multiplier": 0.886981,
+      "fouls_multiplier": 1.017458
+    },
+    "E1::P. Dowd": {
+      "div": "E1",
+      "referee": "P. Dowd",
+      "games": 8,
+      "raw_yellows_pg": 3.75,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 3.6271,
+      "cards_multiplier": 1.018408,
+      "fouls_multiplier": 1.248142
+    },
+    "E1::Paul Alcock": {
+      "div": "E1",
+      "referee": "Paul Alcock",
+      "games": 10,
+      "raw_yellows_pg": 3.1,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.3769,
+      "cards_multiplier": 0.948166,
+      "fouls_multiplier": 0.984858
+    },
+    "E1::Paul Danson": {
+      "div": "E1",
+      "referee": "Paul Danson",
+      "games": 13,
+      "raw_yellows_pg": 3.3077,
+      "raw_reds_pg": 0.1538,
+      "eb_yellows_pg": 3.4437,
+      "cards_multiplier": 0.966911,
+      "fouls_multiplier": 1.094298
+    },
+    "E1::Paul Rejer": {
+      "div": "E1",
+      "referee": "Paul Rejer",
+      "games": 10,
+      "raw_yellows_pg": 2.4,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.0969,
+      "cards_multiplier": 0.869548,
+      "fouls_multiplier": 0.983101
+    },
+    "E1::Paul Robinson": {
+      "div": "E1",
+      "referee": "Paul Robinson",
+      "games": 9,
+      "raw_yellows_pg": 3.3333,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 3.4759,
+      "cards_multiplier": 0.975974,
+      "fouls_multiplier": 1.060674
+    },
+    "E1::Peter Walton": {
+      "div": "E1",
+      "referee": "Peter Walton",
+      "games": 12,
+      "raw_yellows_pg": 2.8333,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.2379,
+      "cards_multiplier": 0.90913,
+      "fouls_multiplier": 0.988382
+    },
+    "E1::Phil Dowd": {
+      "div": "E1",
+      "referee": "Phil Dowd",
+      "games": 10,
+      "raw_yellows_pg": 2.5,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.1369,
+      "cards_multiplier": 0.880779,
+      "fouls_multiplier": 1.165864
+    },
+    "E1::Phil Richards": {
+      "div": "E1",
+      "referee": "Phil Richards",
+      "games": 11,
+      "raw_yellows_pg": 2.4545,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 3.0932,
+      "cards_multiplier": 0.868502,
+      "fouls_multiplier": 1.053433
+    },
+    "E1::R Beeby": {
+      "div": "E1",
+      "referee": "R Beeby",
+      "games": 103,
+      "raw_yellows_pg": 2.835,
+      "raw_reds_pg": 0.2233,
+      "eb_yellows_pg": 2.9273,
+      "cards_multiplier": 0.821929,
+      "fouls_multiplier": 1.177056
+    },
+    "E1::R Booth": {
+      "div": "E1",
+      "referee": "R Booth",
+      "games": 54,
+      "raw_yellows_pg": 2.2778,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 2.5569,
+      "cards_multiplier": 0.717911,
+      "fouls_multiplier": 1.017746
+    },
+    "E1::R Clark": {
+      "div": "E1",
+      "referee": "R Clark",
+      "games": 9,
+      "raw_yellows_pg": 2.5556,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 3.1843,
+      "cards_multiplier": 0.89408,
+      "fouls_multiplier": 1.042369
+    },
+    "E1::R East": {
+      "div": "E1",
+      "referee": "R East",
+      "games": 82,
+      "raw_yellows_pg": 3.439,
+      "raw_reds_pg": 0.0854,
+      "eb_yellows_pg": 3.458,
+      "cards_multiplier": 0.970926,
+      "fouls_multiplier": 0.984394
+    },
+    "E1::R Jones": {
+      "div": "E1",
+      "referee": "R Jones",
+      "games": 96,
+      "raw_yellows_pg": 3.3021,
+      "raw_reds_pg": 0.0521,
+      "eb_yellows_pg": 3.3371,
+      "cards_multiplier": 0.937001,
+      "fouls_multiplier": 1.133733
+    },
+    "E1::R Lewis": {
+      "div": "E1",
+      "referee": "R Lewis",
+      "games": 19,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.1579,
+      "eb_yellows_pg": 3.2477,
+      "cards_multiplier": 0.911895,
+      "fouls_multiplier": 1.025234
+    },
+    "E1::R Madley": {
+      "div": "E1",
+      "referee": "R Madley",
+      "games": 84,
+      "raw_yellows_pg": 3.6429,
+      "raw_reds_pg": 0.2381,
+      "eb_yellows_pg": 3.6305,
+      "cards_multiplier": 1.019379,
+      "fouls_multiplier": 0.960514
+    },
+    "E1::R Olivier": {
+      "div": "E1",
+      "referee": "R Olivier",
+      "games": 43,
+      "raw_yellows_pg": 2.186,
+      "raw_reds_pg": 0.1628,
+      "eb_yellows_pg": 2.5418,
+      "cards_multiplier": 0.713677,
+      "fouls_multiplier": 1.040335
+    },
+    "E1::R Pearson": {
+      "div": "E1",
+      "referee": "R Pearson",
+      "games": 21,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.0952,
+      "eb_yellows_pg": 3.234,
+      "cards_multiplier": 0.908031,
+      "fouls_multiplier": 0.982921
+    },
+    "E1::R Shoebridge": {
+      "div": "E1",
+      "referee": "R Shoebridge",
+      "games": 41,
+      "raw_yellows_pg": 1.9024,
+      "raw_reds_pg": 0.0488,
+      "eb_yellows_pg": 2.3468,
+      "cards_multiplier": 0.68,
+      "fouls_multiplier": 1.127699
+    },
+    "E1::R Styles": {
+      "div": "E1",
+      "referee": "R Styles",
+      "games": 37,
+      "raw_yellows_pg": 3.6216,
+      "raw_reds_pg": 0.2162,
+      "eb_yellows_pg": 3.6043,
+      "cards_multiplier": 1.012009,
+      "fouls_multiplier": 1.052229
+    },
+    "E1::R Welch": {
+      "div": "E1",
+      "referee": "R Welch",
+      "games": 14,
+      "raw_yellows_pg": 4.2143,
+      "raw_reds_pg": 0.0714,
+      "eb_yellows_pg": 3.8766,
+      "cards_multiplier": 1.088482,
+      "fouls_multiplier": 0.973241
+    },
+    "E1::Ray Olivier": {
+      "div": "E1",
+      "referee": "Ray Olivier",
+      "games": 8,
+      "raw_yellows_pg": 4.25,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.801,
+      "cards_multiplier": 1.067239,
+      "fouls_multiplier": 1.057127
+    },
+    "E1::Richard Beeby": {
+      "div": "E1",
+      "referee": "Richard Beeby",
+      "games": 10,
+      "raw_yellows_pg": 1.2,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.6169,
+      "cards_multiplier": 0.734774,
+      "fouls_multiplier": 1.018247
+    },
+    "E1::Roger Furnandiz": {
+      "div": "E1",
+      "referee": "Roger Furnandiz",
+      "games": 10,
+      "raw_yellows_pg": 2.3,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.0569,
+      "cards_multiplier": 0.858317,
+      "fouls_multiplier": 0.909292
+    },
+    "E1::Roy Pearson": {
+      "div": "E1",
+      "referee": "Roy Pearson",
+      "games": 12,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.5342,
+      "cards_multiplier": 0.992324,
+      "fouls_multiplier": 1.004654
+    },
+    "E1::S Allison": {
+      "div": "E1",
+      "referee": "S Allison",
+      "games": 33,
+      "raw_yellows_pg": 3.9394,
+      "raw_reds_pg": 0.0606,
+      "eb_yellows_pg": 3.8213,
+      "cards_multiplier": 1.072944,
+      "fouls_multiplier": 0.973334
+    },
+    "E1::S Attwell": {
+      "div": "E1",
+      "referee": "S Attwell",
+      "games": 83,
+      "raw_yellows_pg": 3.3614,
+      "raw_reds_pg": 0.1807,
+      "eb_yellows_pg": 3.3921,
+      "cards_multiplier": 0.952423,
+      "fouls_multiplier": 0.986902
+    },
+    "E1::S Atwell": {
+      "div": "E1",
+      "referee": "S Atwell",
+      "games": 15,
+      "raw_yellows_pg": 2.8,
+      "raw_reds_pg": 0.1333,
+      "eb_yellows_pg": 3.1808,
+      "cards_multiplier": 0.893091,
+      "fouls_multiplier": 0.885151
+    },
+    "E1::S Baines": {
+      "div": "E1",
+      "referee": "S Baines",
+      "games": 10,
+      "raw_yellows_pg": 0.8,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.4569,
+      "cards_multiplier": 0.689849,
+      "fouls_multiplier": 0.983101
+    },
+    "E1::S Barrott": {
+      "div": "E1",
+      "referee": "S Barrott",
+      "games": 26,
+      "raw_yellows_pg": 2.8846,
+      "raw_reds_pg": 0.0769,
+      "eb_yellows_pg": 3.1323,
+      "cards_multiplier": 0.879475,
+      "fouls_multiplier": 0.940204
+    },
+    "E1::S Bennett": {
+      "div": "E1",
+      "referee": "S Bennett",
+      "games": 27,
+      "raw_yellows_pg": 4.1481,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.9386,
+      "cards_multiplier": 1.105888,
+      "fouls_multiplier": 1.148993
+    },
+    "E1::S Duncan": {
+      "div": "E1",
+      "referee": "S Duncan",
+      "games": 125,
+      "raw_yellows_pg": 3.04,
+      "raw_reds_pg": 0.248,
+      "eb_yellows_pg": 3.0959,
+      "cards_multiplier": 0.869258,
+      "fouls_multiplier": 0.947843
+    },
+    "E1::S Dunn": {
+      "div": "E1",
+      "referee": "S Dunn",
+      "games": 12,
+      "raw_yellows_pg": 2.5833,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.1268,
+      "cards_multiplier": 0.877932,
+      "fouls_multiplier": 0.999773
+    },
+    "E1::S Gill": {
+      "div": "E1",
+      "referee": "S Gill",
+      "games": 14,
+      "raw_yellows_pg": 2.9286,
+      "raw_reds_pg": 0.0714,
+      "eb_yellows_pg": 3.256,
+      "cards_multiplier": 0.914205,
+      "fouls_multiplier": 0.983846
+    },
+    "E1::S Hooper": {
+      "div": "E1",
+      "referee": "S Hooper",
+      "games": 196,
+      "raw_yellows_pg": 3.3622,
+      "raw_reds_pg": 0.1071,
+      "eb_yellows_pg": 3.3764,
+      "cards_multiplier": 0.948027,
+      "fouls_multiplier": 1.048247
+    },
+    "E1::S Martin": {
+      "div": "E1",
+      "referee": "S Martin",
+      "games": 243,
+      "raw_yellows_pg": 2.9712,
+      "raw_reds_pg": 0.107,
+      "eb_yellows_pg": 3.0055,
+      "cards_multiplier": 0.843887,
+      "fouls_multiplier": 1.018037
+    },
+    "E1::S Mathieson": {
+      "div": "E1",
+      "referee": "S Mathieson",
+      "games": 119,
+      "raw_yellows_pg": 2.4958,
+      "raw_reds_pg": 0.1765,
+      "eb_yellows_pg": 2.6151,
+      "cards_multiplier": 0.734265,
+      "fouls_multiplier": 1.001103
+    },
+    "E1::S Tanner": {
+      "div": "E1",
+      "referee": "S Tanner",
+      "games": 97,
+      "raw_yellows_pg": 3.4639,
+      "raw_reds_pg": 0.299,
+      "eb_yellows_pg": 3.477,
+      "cards_multiplier": 0.976267,
+      "fouls_multiplier": 1.096544
+    },
+    "E1::S Tomlin": {
+      "div": "E1",
+      "referee": "S Tomlin",
+      "games": 15,
+      "raw_yellows_pg": 2.8667,
+      "raw_reds_pg": 0.0667,
+      "eb_yellows_pg": 3.2141,
+      "cards_multiplier": 0.90245,
+      "fouls_multiplier": 1.057956
+    },
+    "E1::Scott Mathieson": {
+      "div": "E1",
+      "referee": "Scott Mathieson",
+      "games": 13,
+      "raw_yellows_pg": 4.3846,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.9437,
+      "cards_multiplier": 1.107301,
+      "fouls_multiplier": 1.022121
+    },
+    "E1::Steve Baines": {
+      "div": "E1",
+      "referee": "Steve Baines",
+      "games": 8,
+      "raw_yellows_pg": 1.0,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 2.6706,
+      "cards_multiplier": 0.749836,
+      "fouls_multiplier": 1.009373
+    },
+    "E1::T Bates": {
+      "div": "E1",
+      "referee": "T Bates",
+      "games": 12,
+      "raw_yellows_pg": 2.9167,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.2749,
+      "cards_multiplier": 0.919529,
+      "fouls_multiplier": 1.040452
+    },
+    "E1::T Bramall": {
+      "div": "E1",
+      "referee": "T Bramall",
+      "games": 52,
+      "raw_yellows_pg": 3.4038,
+      "raw_reds_pg": 0.1346,
+      "eb_yellows_pg": 3.4391,
+      "cards_multiplier": 0.965641,
+      "fouls_multiplier": 0.972718
+    },
+    "E1::T Harrington": {
+      "div": "E1",
+      "referee": "T Harrington",
+      "games": 191,
+      "raw_yellows_pg": 3.0942,
+      "raw_reds_pg": 0.1309,
+      "eb_yellows_pg": 3.1283,
+      "cards_multiplier": 0.878353,
+      "fouls_multiplier": 1.063027
+    },
+    "E1::T Kettle": {
+      "div": "E1",
+      "referee": "T Kettle",
+      "games": 101,
+      "raw_yellows_pg": 3.5842,
+      "raw_reds_pg": 0.2079,
+      "eb_yellows_pg": 3.5812,
+      "cards_multiplier": 1.005536,
+      "fouls_multiplier": 1.098121
+    },
+    "E1::T Kirk": {
+      "div": "E1",
+      "referee": "T Kirk",
+      "games": 8,
+      "raw_yellows_pg": 4.5,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.8879,
+      "cards_multiplier": 1.091655,
+      "fouls_multiplier": 0.996002
+    },
+    "E1::T Leake": {
+      "div": "E1",
+      "referee": "T Leake",
+      "games": 9,
+      "raw_yellows_pg": 2.7778,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.2676,
+      "cards_multiplier": 0.917479,
+      "fouls_multiplier": 1.122914
+    },
+    "E1::T Nield": {
+      "div": "E1",
+      "referee": "T Nield",
+      "games": 27,
+      "raw_yellows_pg": 4.1111,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.9148,
+      "cards_multiplier": 1.099203,
+      "fouls_multiplier": 1.016146
+    },
+    "E1::T Parkes": {
+      "div": "E1",
+      "referee": "T Parkes",
+      "games": 18,
+      "raw_yellows_pg": 2.8333,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.1643,
+      "cards_multiplier": 0.888477,
+      "fouls_multiplier": 0.979085
+    },
+    "E1::T Robinson": {
+      "div": "E1",
+      "referee": "T Robinson",
+      "games": 238,
+      "raw_yellows_pg": 3.584,
+      "raw_reds_pg": 0.1723,
+      "eb_yellows_pg": 3.5827,
+      "cards_multiplier": 1.005948,
+      "fouls_multiplier": 1.033467
+    },
+    "E1::Tony Bates": {
+      "div": "E1",
+      "referee": "Tony Bates",
+      "games": 10,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.4969,
+      "cards_multiplier": 0.98186,
+      "fouls_multiplier": 1.018247
+    },
+    "E1::Tony Leake": {
+      "div": "E1",
+      "referee": "Tony Leake",
+      "games": 12,
+      "raw_yellows_pg": 2.3333,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.0157,
+      "cards_multiplier": 0.846734,
+      "fouls_multiplier": 1.017671
+    },
+    "E1::Trevor Jones": {
+      "div": "E1",
+      "referee": "Trevor Jones",
+      "games": 13,
+      "raw_yellows_pg": 2.3846,
+      "raw_reds_pg": 0.3077,
+      "eb_yellows_pg": 3.0151,
+      "cards_multiplier": 0.846577,
+      "fouls_multiplier": 1.001724
+    },
+    "E1::Trevor Parkes": {
+      "div": "E1",
+      "referee": "Trevor Parkes",
+      "games": 8,
+      "raw_yellows_pg": 2.125,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.0619,
+      "cards_multiplier": 0.859707,
+      "fouls_multiplier": 1.007463
+    },
+    "E1::U Rennie": {
+      "div": "E1",
+      "referee": "U Rennie",
+      "games": 41,
+      "raw_yellows_pg": 2.6585,
+      "raw_reds_pg": 0.1463,
+      "eb_yellows_pg": 2.9004,
+      "cards_multiplier": 0.814374,
+      "fouls_multiplier": 1.115147
+    },
+    "E1::Uriah Rennie": {
+      "div": "E1",
+      "referee": "Uriah Rennie",
+      "games": 13,
+      "raw_yellows_pg": 2.0769,
+      "raw_reds_pg": 0.1538,
+      "eb_yellows_pg": 2.8722,
+      "cards_multiplier": 0.806466,
+      "fouls_multiplier": 1.10685
+    },
+    "E1::W Finnie": {
+      "div": "E1",
+      "referee": "W Finnie",
+      "games": 10,
+      "raw_yellows_pg": 4.2,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.8169,
+      "cards_multiplier": 1.071709,
+      "fouls_multiplier": 0.972556
+    },
+    "I1::A. Dattilo": {
+      "div": "I1",
+      "referee": "A. Dattilo",
+      "games": 10,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.752,
+      "cards_multiplier": 0.941133,
+      "fouls_multiplier": 1.194186
+    },
+    "I1::A. De Marco": {
+      "div": "I1",
+      "referee": "A. De Marco",
+      "games": 23,
+      "raw_yellows_pg": 3.8696,
+      "raw_reds_pg": 0.4348,
+      "eb_yellows_pg": 3.9158,
+      "cards_multiplier": 0.982214,
+      "fouls_multiplier": 1.301986
+    },
+    "I1::A. Giannoccaro": {
+      "div": "I1",
+      "referee": "A. Giannoccaro",
+      "games": 24,
+      "raw_yellows_pg": 3.9167,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.9436,
+      "cards_multiplier": 0.989187,
+      "fouls_multiplier": 1.296099
+    },
+    "I1::A. Romeo": {
+      "div": "I1",
+      "referee": "A. Romeo",
+      "games": 13,
+      "raw_yellows_pg": 4.7692,
+      "raw_reds_pg": 0.3846,
+      "eb_yellows_pg": 4.35,
+      "cards_multiplier": 1.09113,
+      "fouls_multiplier": 1.219436
+    },
+    "I1::C. Brighi": {
+      "div": "I1",
+      "referee": "C. Brighi",
+      "games": 20,
+      "raw_yellows_pg": 4.6,
+      "raw_reds_pg": 0.7,
+      "eb_yellows_pg": 4.3372,
+      "cards_multiplier": 1.087903,
+      "fouls_multiplier": 1.289891
+    },
+    "I1::D. Messina": {
+      "div": "I1",
+      "referee": "D. Messina",
+      "games": 34,
+      "raw_yellows_pg": 4.2941,
+      "raw_reds_pg": 0.1765,
+      "eb_yellows_pg": 4.2,
+      "cards_multiplier": 1.053502,
+      "fouls_multiplier": 1.32
+    },
+    "I1::D. Tombolini": {
+      "div": "I1",
+      "referee": "D. Tombolini",
+      "games": 10,
+      "raw_yellows_pg": 3.9,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.952,
+      "cards_multiplier": 0.991299,
+      "fouls_multiplier": 1.162411
+    },
+    "I1::E. Morganti": {
+      "div": "I1",
+      "referee": "E. Morganti",
+      "games": 22,
+      "raw_yellows_pg": 4.2273,
+      "raw_reds_pg": 0.4091,
+      "eb_yellows_pg": 4.1298,
+      "cards_multiplier": 1.035877,
+      "fouls_multiplier": 1.248544
+    },
+    "I1::G. Gava": {
+      "div": "I1",
+      "referee": "G. Gava",
+      "games": 13,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.3846,
+      "eb_yellows_pg": 3.9929,
+      "cards_multiplier": 1.001547,
+      "fouls_multiplier": 1.204288
+    },
+    "I1::G. Paparesta": {
+      "div": "I1",
+      "referee": "G. Paparesta",
+      "games": 29,
+      "raw_yellows_pg": 4.3103,
+      "raw_reds_pg": 0.2759,
+      "eb_yellows_pg": 4.2,
+      "cards_multiplier": 1.053502,
+      "fouls_multiplier": 1.32
+    },
+    "I1::G. Rocchi": {
+      "div": "I1",
+      "referee": "G. Rocchi",
+      "games": 29,
+      "raw_yellows_pg": 4.8621,
+      "raw_reds_pg": 0.4828,
+      "eb_yellows_pg": 4.5637,
+      "cards_multiplier": 1.144714,
+      "fouls_multiplier": 1.32
+    },
+    "I1::L. Banti": {
+      "div": "I1",
+      "referee": "L. Banti",
+      "games": 18,
+      "raw_yellows_pg": 4.5556,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 4.297,
+      "cards_multiplier": 1.077827,
+      "fouls_multiplier": 1.126146
+    },
+    "I1::L. Marelli": {
+      "div": "I1",
+      "referee": "L. Marelli",
+      "games": 9,
+      "raw_yellows_pg": 3.1111,
+      "raw_reds_pg": 0.5556,
+      "eb_yellows_pg": 3.6584,
+      "cards_multiplier": 0.917638,
+      "fouls_multiplier": 1.196142
+    },
+    "I1::L. Palanca": {
+      "div": "I1",
+      "referee": "L. Palanca",
+      "games": 18,
+      "raw_yellows_pg": 4.4444,
+      "raw_reds_pg": 0.6111,
+      "eb_yellows_pg": 4.2364,
+      "cards_multiplier": 1.062625,
+      "fouls_multiplier": 1.285019
+    },
+    "I1::M. Bergonzi": {
+      "div": "I1",
+      "referee": "M. Bergonzi",
+      "games": 23,
+      "raw_yellows_pg": 3.5652,
+      "raw_reds_pg": 0.4783,
+      "eb_yellows_pg": 3.7316,
+      "cards_multiplier": 0.936008,
+      "fouls_multiplier": 1.32
+    },
+    "I1::M. De Santis": {
+      "div": "I1",
+      "referee": "M. De Santis",
+      "games": 19,
+      "raw_yellows_pg": 4.6842,
+      "raw_reds_pg": 0.5789,
+      "eb_yellows_pg": 4.3765,
+      "cards_multiplier": 1.097768,
+      "fouls_multiplier": 1.317315
+    },
+    "I1::M. Saccani": {
+      "div": "I1",
+      "referee": "M. Saccani",
+      "games": 32,
+      "raw_yellows_pg": 4.75,
+      "raw_reds_pg": 0.2188,
+      "eb_yellows_pg": 4.5064,
+      "cards_multiplier": 1.130353,
+      "fouls_multiplier": 1.32
+    },
+    "I1::M. Trefoloni": {
+      "div": "I1",
+      "referee": "M. Trefoloni",
+      "games": 32,
+      "raw_yellows_pg": 4.6562,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 4.4426,
+      "cards_multiplier": 1.114342,
+      "fouls_multiplier": 1.32
+    },
+    "I1::N. Ayroldi": {
+      "div": "I1",
+      "referee": "N. Ayroldi",
+      "games": 29,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.4483,
+      "eb_yellows_pg": 3.9955,
+      "cards_multiplier": 1.002196,
+      "fouls_multiplier": 1.32
+    },
+    "I1::N. Rizzoli": {
+      "div": "I1",
+      "referee": "N. Rizzoli",
+      "games": 33,
+      "raw_yellows_pg": 4.4242,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 4.2875,
+      "cards_multiplier": 1.07545,
+      "fouls_multiplier": 1.32
+    },
+    "I1::N. Stefanini": {
+      "div": "I1",
+      "referee": "N. Stefanini",
+      "games": 17,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.2353,
+      "eb_yellows_pg": 3.9938,
+      "cards_multiplier": 1.00177,
+      "fouls_multiplier": 1.25005
+    },
+    "I1::O. Girardi": {
+      "div": "I1",
+      "referee": "O. Girardi",
+      "games": 19,
+      "raw_yellows_pg": 3.7895,
+      "raw_reds_pg": 0.3684,
+      "eb_yellows_pg": 3.8765,
+      "cards_multiplier": 0.972352,
+      "fouls_multiplier": 1.267083
+    },
+    "I1::O. Pantana": {
+      "div": "I1",
+      "referee": "O. Pantana",
+      "games": 15,
+      "raw_yellows_pg": 4.4667,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 4.2267,
+      "cards_multiplier": 1.060193,
+      "fouls_multiplier": 1.266563
+    },
+    "I1::P. Bertini": {
+      "div": "I1",
+      "referee": "P. Bertini",
+      "games": 30,
+      "raw_yellows_pg": 4.4667,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 4.3067,
+      "cards_multiplier": 1.080258,
+      "fouls_multiplier": 1.32
+    },
+    "I1::P. Dondarini": {
+      "div": "I1",
+      "referee": "P. Dondarini",
+      "games": 24,
+      "raw_yellows_pg": 3.4167,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 3.6359,
+      "cards_multiplier": 0.912007,
+      "fouls_multiplier": 1.232957
+    },
+    "I1::P. Mazzoleni": {
+      "div": "I1",
+      "referee": "P. Mazzoleni",
+      "games": 15,
+      "raw_yellows_pg": 3.8,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.8934,
+      "cards_multiplier": 0.976582,
+      "fouls_multiplier": 1.297014
+    },
+    "I1::P. Rodomonti": {
+      "div": "I1",
+      "referee": "P. Rodomonti",
+      "games": 12,
+      "raw_yellows_pg": 4.3333,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 4.1408,
+      "cards_multiplier": 1.038641,
+      "fouls_multiplier": 1.246948
+    },
+    "I1::P. Tagliavento": {
+      "div": "I1",
+      "referee": "P. Tagliavento",
+      "games": 28,
+      "raw_yellows_pg": 4.5714,
+      "raw_reds_pg": 0.2857,
+      "eb_yellows_pg": 4.3675,
+      "cards_multiplier": 1.095502,
+      "fouls_multiplier": 1.32
+    },
+    "I1::R. Rosetti": {
+      "div": "I1",
+      "referee": "R. Rosetti",
+      "games": 31,
+      "raw_yellows_pg": 4.3548,
+      "raw_reds_pg": 0.2903,
+      "eb_yellows_pg": 4.2348,
+      "cards_multiplier": 1.062227,
+      "fouls_multiplier": 1.32
+    },
+    "I1::S. Farina": {
+      "div": "I1",
+      "referee": "S. Farina",
+      "games": 36,
+      "raw_yellows_pg": 4.75,
+      "raw_reds_pg": 0.3889,
+      "eb_yellows_pg": 4.5255,
+      "cards_multiplier": 1.135145,
+      "fouls_multiplier": 1.32
+    },
+    "I1::S. Racalbuto": {
+      "div": "I1",
+      "referee": "S. Racalbuto",
+      "games": 13,
+      "raw_yellows_pg": 3.4615,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 3.7429,
+      "cards_multiplier": 0.938838,
+      "fouls_multiplier": 1.271956
+    },
+    "I1::T. Pieri": {
+      "div": "I1",
+      "referee": "T. Pieri",
+      "games": 26,
+      "raw_yellows_pg": 4.6923,
+      "raw_reds_pg": 0.3077,
+      "eb_yellows_pg": 4.4342,
+      "cards_multiplier": 1.112234,
+      "fouls_multiplier": 1.32
+    },
+    "SC0::A Crawford": {
+      "div": "SC0",
+      "referee": "A Crawford",
+      "games": 21,
+      "raw_yellows_pg": 2.7143,
+      "raw_reds_pg": 0.0952,
+      "eb_yellows_pg": 3.112,
+      "cards_multiplier": 0.848244,
+      "fouls_multiplier": 1.009226
+    },
+    "SC0::A Dallas": {
+      "div": "SC0",
+      "referee": "A Dallas",
+      "games": 105,
+      "raw_yellows_pg": 3.8952,
+      "raw_reds_pg": 0.181,
+      "eb_yellows_pg": 3.8669,
+      "cards_multiplier": 1.054027,
+      "fouls_multiplier": 1.078981
+    },
+    "SC0::A Freeland": {
+      "div": "SC0",
+      "referee": "A Freeland",
+      "games": 72,
+      "raw_yellows_pg": 3.8611,
+      "raw_reds_pg": 0.2778,
+      "eb_yellows_pg": 3.8279,
+      "cards_multiplier": 1.043401,
+      "fouls_multiplier": 1.254961
+    },
+    "SC0::A Muir": {
+      "div": "SC0",
+      "referee": "A Muir",
+      "games": 202,
+      "raw_yellows_pg": 3.6832,
+      "raw_reds_pg": 0.2079,
+      "eb_yellows_pg": 3.6822,
+      "cards_multiplier": 1.003667,
+      "fouls_multiplier": 1.18433
+    },
+    "SC0::A Newlands": {
+      "div": "SC0",
+      "referee": "A Newlands",
+      "games": 10,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.5612,
+      "cards_multiplier": 0.970702,
+      "fouls_multiplier": 1.050188
+    },
+    "SC0::A. Freeland": {
+      "div": "SC0",
+      "referee": "A. Freeland",
+      "games": 8,
+      "raw_yellows_pg": 4.5,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.9579,
+      "cards_multiplier": 1.078813,
+      "fouls_multiplier": 1.088276
+    },
+    "SC0::Alan Freeland": {
+      "div": "SC0",
+      "referee": "Alan Freeland",
+      "games": 18,
+      "raw_yellows_pg": 4.0,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.8494,
+      "cards_multiplier": 1.049255,
+      "fouls_multiplier": 1.123806
+    },
+    "SC0::B Colvin": {
+      "div": "SC0",
+      "referee": "B Colvin",
+      "games": 34,
+      "raw_yellows_pg": 2.3824,
+      "raw_reds_pg": 0.2941,
+      "eb_yellows_pg": 2.7761,
+      "cards_multiplier": 0.756706,
+      "fouls_multiplier": 0.983653
+    },
+    "SC0::B Cook": {
+      "div": "SC0",
+      "referee": "B Cook",
+      "games": 11,
+      "raw_yellows_pg": 3.8182,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.732,
+      "cards_multiplier": 1.017237,
+      "fouls_multiplier": 1.049642
+    },
+    "SC0::B Madden": {
+      "div": "SC0",
+      "referee": "B Madden",
+      "games": 197,
+      "raw_yellows_pg": 2.8325,
+      "raw_reds_pg": 0.203,
+      "eb_yellows_pg": 2.8917,
+      "cards_multiplier": 0.788193,
+      "fouls_multiplier": 1.114749
+    },
+    "SC0::B Winter": {
+      "div": "SC0",
+      "referee": "B Winter",
+      "games": 81,
+      "raw_yellows_pg": 3.1235,
+      "raw_reds_pg": 0.1728,
+      "eb_yellows_pg": 3.2087,
+      "cards_multiplier": 0.874599,
+      "fouls_multiplier": 1.070596
+    },
+    "SC0::C Allan": {
+      "div": "SC0",
+      "referee": "C Allan",
+      "games": 81,
+      "raw_yellows_pg": 3.0988,
+      "raw_reds_pg": 0.2469,
+      "eb_yellows_pg": 3.1878,
+      "cards_multiplier": 0.86892,
+      "fouls_multiplier": 1.05588
+    },
+    "SC0::C Boyle": {
+      "div": "SC0",
+      "referee": "C Boyle",
+      "games": 16,
+      "raw_yellows_pg": 3.125,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 3.3881,
+      "cards_multiplier": 0.923508,
+      "fouls_multiplier": 1.121875
+    },
+    "SC0::C Charleston": {
+      "div": "SC0",
+      "referee": "C Charleston",
+      "games": 9,
+      "raw_yellows_pg": 4.1111,
+      "raw_reds_pg": 0.5556,
+      "eb_yellows_pg": 3.8346,
+      "cards_multiplier": 1.04522,
+      "fouls_multiplier": 1.099832
+    },
+    "SC0::C Graham": {
+      "div": "SC0",
+      "referee": "C Graham",
+      "games": 30,
+      "raw_yellows_pg": 5.0667,
+      "raw_reds_pg": 0.2667,
+      "eb_yellows_pg": 4.6007,
+      "cards_multiplier": 1.254031,
+      "fouls_multiplier": 1.167364
+    },
+    "SC0::C MacKay": {
+      "div": "SC0",
+      "referee": "C MacKay",
+      "games": 25,
+      "raw_yellows_pg": 2.28,
+      "raw_reds_pg": 0.32,
+      "eb_yellows_pg": 2.8008,
+      "cards_multiplier": 0.763419,
+      "fouls_multiplier": 1.20733
+    },
+    "SC0::C Murray": {
+      "div": "SC0",
+      "referee": "C Murray",
+      "games": 149,
+      "raw_yellows_pg": 3.0067,
+      "raw_reds_pg": 0.1745,
+      "eb_yellows_pg": 3.0673,
+      "cards_multiplier": 0.836059,
+      "fouls_multiplier": 1.138085
+    },
+    "SC0::C Napier": {
+      "div": "SC0",
+      "referee": "C Napier",
+      "games": 40,
+      "raw_yellows_pg": 3.475,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.5278,
+      "cards_multiplier": 0.961599,
+      "fouls_multiplier": 1.138342
+    },
+    "SC0::C Richmond": {
+      "div": "SC0",
+      "referee": "C Richmond",
+      "games": 122,
+      "raw_yellows_pg": 3.5082,
+      "raw_reds_pg": 0.1475,
+      "eb_yellows_pg": 3.5258,
+      "cards_multiplier": 0.961037,
+      "fouls_multiplier": 1.300852
+    },
+    "SC0::C Scott": {
+      "div": "SC0",
+      "referee": "C Scott",
+      "games": 13,
+      "raw_yellows_pg": 3.1538,
+      "raw_reds_pg": 0.1538,
+      "eb_yellows_pg": 3.4297,
+      "cards_multiplier": 0.934842,
+      "fouls_multiplier": 0.972986
+    },
+    "SC0::C Steven": {
+      "div": "SC0",
+      "referee": "C Steven",
+      "games": 52,
+      "raw_yellows_pg": 3.9231,
+      "raw_reds_pg": 0.2885,
+      "eb_yellows_pg": 3.8661,
+      "cards_multiplier": 1.053811,
+      "fouls_multiplier": 1.08768
+    },
+    "SC0::C Thompson": {
+      "div": "SC0",
+      "referee": "C Thompson",
+      "games": 10,
+      "raw_yellows_pg": 3.9,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.7612,
+      "cards_multiplier": 1.025217,
+      "fouls_multiplier": 1.117999
+    },
+    "SC0::C Thomson": {
+      "div": "SC0",
+      "referee": "C Thomson",
+      "games": 297,
+      "raw_yellows_pg": 3.3502,
+      "raw_reds_pg": 0.1785,
+      "eb_yellows_pg": 3.3655,
+      "cards_multiplier": 0.917347,
+      "fouls_multiplier": 1.170709
+    },
+    "SC0::Clark, K. W.": {
+      "div": "SC0",
+      "referee": "Clark, K. W.",
+      "games": 9,
+      "raw_yellows_pg": 3.4444,
+      "raw_reds_pg": 0.5556,
+      "eb_yellows_pg": 3.5846,
+      "cards_multiplier": 0.977076,
+      "fouls_multiplier": 1.156734
+    },
+    "SC0::D Dickinson": {
+      "div": "SC0",
+      "referee": "D Dickinson",
+      "games": 56,
+      "raw_yellows_pg": 4.1607,
+      "raw_reds_pg": 0.1786,
+      "eb_yellows_pg": 4.0568,
+      "cards_multiplier": 1.105774,
+      "fouls_multiplier": 1.060228
+    },
+    "SC0::D McDonald": {
+      "div": "SC0",
+      "referee": "D McDonald",
+      "games": 160,
+      "raw_yellows_pg": 3.2375,
+      "raw_reds_pg": 0.2687,
+      "eb_yellows_pg": 3.2745,
+      "cards_multiplier": 0.892536,
+      "fouls_multiplier": 1.238228
+    },
+    "SC0::D Munro": {
+      "div": "SC0",
+      "referee": "D Munro",
+      "games": 68,
+      "raw_yellows_pg": 3.8088,
+      "raw_reds_pg": 0.1471,
+      "eb_yellows_pg": 3.7835,
+      "cards_multiplier": 1.031288,
+      "fouls_multiplier": 1.07942
+    },
+    "SC0::D Robertson": {
+      "div": "SC0",
+      "referee": "D Robertson",
+      "games": 191,
+      "raw_yellows_pg": 3.377,
+      "raw_reds_pg": 0.1885,
+      "eb_yellows_pg": 3.3982,
+      "cards_multiplier": 0.926266,
+      "fouls_multiplier": 1.088697
+    },
+    "SC0::D Somers": {
+      "div": "SC0",
+      "referee": "D Somers",
+      "games": 34,
+      "raw_yellows_pg": 3.3235,
+      "raw_reds_pg": 0.3235,
+      "eb_yellows_pg": 3.4292,
+      "cards_multiplier": 0.934714,
+      "fouls_multiplier": 1.32
+    },
+    "SC0::D. G. McDonald": {
+      "div": "SC0",
+      "referee": "D. G. McDonald",
+      "games": 10,
+      "raw_yellows_pg": 2.9,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.3612,
+      "cards_multiplier": 0.916187,
+      "fouls_multiplier": 1.198995
+    },
+    "SC0::Dallas, H.": {
+      "div": "SC0",
+      "referee": "Dallas, H.",
+      "games": 8,
+      "raw_yellows_pg": 2.625,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.3057,
+      "cards_multiplier": 0.901047,
+      "fouls_multiplier": 1.059612
+    },
+    "SC0::David Somers": {
+      "div": "SC0",
+      "referee": "David Somers",
+      "games": 9,
+      "raw_yellows_pg": 4.3333,
+      "raw_reds_pg": 0.5556,
+      "eb_yellows_pg": 3.9179,
+      "cards_multiplier": 1.067934,
+      "fouls_multiplier": 1.118987
+    },
+    "SC0::Dougal, S.": {
+      "div": "SC0",
+      "referee": "Dougal, S.",
+      "games": 10,
+      "raw_yellows_pg": 2.7,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.2812,
+      "cards_multiplier": 0.894381,
+      "fouls_multiplier": 1.121766
+    },
+    "SC0::Douglas McDonald": {
+      "div": "SC0",
+      "referee": "Douglas McDonald",
+      "games": 21,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.2381,
+      "eb_yellows_pg": 3.2786,
+      "cards_multiplier": 0.893673,
+      "fouls_multiplier": 1.162271
+    },
+    "SC0::E Anderson": {
+      "div": "SC0",
+      "referee": "E Anderson",
+      "games": 107,
+      "raw_yellows_pg": 3.5514,
+      "raw_reds_pg": 0.1682,
+      "eb_yellows_pg": 3.5658,
+      "cards_multiplier": 0.971955,
+      "fouls_multiplier": 1.071329
+    },
+    "SC0::E Norris": {
+      "div": "SC0",
+      "referee": "E Norris",
+      "games": 58,
+      "raw_yellows_pg": 3.8103,
+      "raw_reds_pg": 0.1724,
+      "eb_yellows_pg": 3.7812,
+      "cards_multiplier": 1.030672,
+      "fouls_multiplier": 1.115041
+    },
+    "SC0::E Smith": {
+      "div": "SC0",
+      "referee": "E Smith",
+      "games": 57,
+      "raw_yellows_pg": 3.3333,
+      "raw_reds_pg": 0.1228,
+      "eb_yellows_pg": 3.4032,
+      "cards_multiplier": 0.927629,
+      "fouls_multiplier": 1.13249
+    },
+    "SC0::G Aitken": {
+      "div": "SC0",
+      "referee": "G Aitken",
+      "games": 62,
+      "raw_yellows_pg": 3.5968,
+      "raw_reds_pg": 0.2258,
+      "eb_yellows_pg": 3.6108,
+      "cards_multiplier": 0.984211,
+      "fouls_multiplier": 1.096258
+    },
+    "SC0::G Duncan": {
+      "div": "SC0",
+      "referee": "G Duncan",
+      "games": 33,
+      "raw_yellows_pg": 2.9394,
+      "raw_reds_pg": 0.303,
+      "eb_yellows_pg": 3.1673,
+      "cards_multiplier": 0.863329,
+      "fouls_multiplier": 1.099309
+    },
+    "SC0::G Grainger": {
+      "div": "SC0",
+      "referee": "G Grainger",
+      "games": 14,
+      "raw_yellows_pg": 3.4286,
+      "raw_reds_pg": 0.2143,
+      "eb_yellows_pg": 3.5528,
+      "cards_multiplier": 0.9684,
+      "fouls_multiplier": 0.996268
+    },
+    "SC0::G Irvine": {
+      "div": "SC0",
+      "referee": "G Irvine",
+      "games": 38,
+      "raw_yellows_pg": 2.9737,
+      "raw_reds_pg": 0.1842,
+      "eb_yellows_pg": 3.1704,
+      "cards_multiplier": 0.864169,
+      "fouls_multiplier": 1.02581
+    },
+    "SC0::G Salmond": {
+      "div": "SC0",
+      "referee": "G Salmond",
+      "games": 17,
+      "raw_yellows_pg": 2.7059,
+      "raw_reds_pg": 0.2941,
+      "eb_yellows_pg": 3.1572,
+      "cards_multiplier": 0.860577,
+      "fouls_multiplier": 1.058857
+    },
+    "SC0::H Dallas": {
+      "div": "SC0",
+      "referee": "H Dallas",
+      "games": 58,
+      "raw_yellows_pg": 3.0517,
+      "raw_reds_pg": 0.1207,
+      "eb_yellows_pg": 3.1785,
+      "cards_multiplier": 0.866381,
+      "fouls_multiplier": 1.254795
+    },
+    "SC0::Hugh Dallas": {
+      "div": "SC0",
+      "referee": "Hugh Dallas",
+      "games": 21,
+      "raw_yellows_pg": 3.2381,
+      "raw_reds_pg": 0.1905,
+      "eb_yellows_pg": 3.4175,
+      "cards_multiplier": 0.931531,
+      "fouls_multiplier": 1.160963
+    },
+    "SC0::I Brines": {
+      "div": "SC0",
+      "referee": "I Brines",
+      "games": 181,
+      "raw_yellows_pg": 3.2762,
+      "raw_reds_pg": 0.1602,
+      "eb_yellows_pg": 3.3063,
+      "cards_multiplier": 0.901209,
+      "fouls_multiplier": 1.221366
+    },
+    "SC0::I Fyfe": {
+      "div": "SC0",
+      "referee": "I Fyfe",
+      "games": 26,
+      "raw_yellows_pg": 3.2692,
+      "raw_reds_pg": 0.1154,
+      "eb_yellows_pg": 3.4154,
+      "cards_multiplier": 0.930948,
+      "fouls_multiplier": 1.32
+    },
+    "SC0::I Snedden": {
+      "div": "SC0",
+      "referee": "I Snedden",
+      "games": 9,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.6679,
+      "cards_multiplier": 0.999791,
+      "fouls_multiplier": 0.950711
+    },
+    "SC0::J Beaton": {
+      "div": "SC0",
+      "referee": "J Beaton",
+      "games": 231,
+      "raw_yellows_pg": 3.619,
+      "raw_reds_pg": 0.1688,
+      "eb_yellows_pg": 3.6221,
+      "cards_multiplier": 0.987287,
+      "fouls_multiplier": 1.102716
+    },
+    "SC0::J Rowbotham": {
+      "div": "SC0",
+      "referee": "J Rowbotham",
+      "games": 49,
+      "raw_yellows_pg": 3.1224,
+      "raw_reds_pg": 0.2653,
+      "eb_yellows_pg": 3.2505,
+      "cards_multiplier": 0.886,
+      "fouls_multiplier": 1.159268
+    },
+    "SC0::J Underhill": {
+      "div": "SC0",
+      "referee": "J Underhill",
+      "games": 80,
+      "raw_yellows_pg": 2.7375,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 2.8845,
+      "cards_multiplier": 0.786252,
+      "fouls_multiplier": 1.157707
+    },
+    "SC0::J. R. Underhill": {
+      "div": "SC0",
+      "referee": "J. R. Underhill",
+      "games": 8,
+      "raw_yellows_pg": 3.625,
+      "raw_reds_pg": 0.625,
+      "eb_yellows_pg": 3.6535,
+      "cards_multiplier": 0.995855,
+      "fouls_multiplier": 1.084181
+    },
+    "SC0::John Rowbotham": {
+      "div": "SC0",
+      "referee": "John Rowbotham",
+      "games": 23,
+      "raw_yellows_pg": 3.8696,
+      "raw_reds_pg": 0.3478,
+      "eb_yellows_pg": 3.7903,
+      "cards_multiplier": 1.033136,
+      "fouls_multiplier": 1.205194
+    },
+    "SC0::John Underhill": {
+      "div": "SC0",
+      "referee": "John Underhill",
+      "games": 16,
+      "raw_yellows_pg": 1.9375,
+      "raw_reds_pg": 0.1875,
+      "eb_yellows_pg": 2.7752,
+      "cards_multiplier": 0.756446,
+      "fouls_multiplier": 1.030732
+    },
+    "SC0::K Clancy": {
+      "div": "SC0",
+      "referee": "K Clancy",
+      "games": 218,
+      "raw_yellows_pg": 4.1147,
+      "raw_reds_pg": 0.1743,
+      "eb_yellows_pg": 4.086,
+      "cards_multiplier": 1.113733,
+      "fouls_multiplier": 1.117554
+    },
+    "SC0::K Clark": {
+      "div": "SC0",
+      "referee": "K Clark",
+      "games": 90,
+      "raw_yellows_pg": 3.2444,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.3051,
+      "cards_multiplier": 0.900875,
+      "fouls_multiplier": 1.316988
+    },
+    "SC0::K Clarke": {
+      "div": "SC0",
+      "referee": "K Clarke",
+      "games": 12,
+      "raw_yellows_pg": 3.0833,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.4085,
+      "cards_multiplier": 0.929084,
+      "fouls_multiplier": 1.185177
+    },
+    "SC0::K Toner": {
+      "div": "SC0",
+      "referee": "K Toner",
+      "games": 25,
+      "raw_yellows_pg": 2.36,
+      "raw_reds_pg": 0.04,
+      "eb_yellows_pg": 2.8508,
+      "cards_multiplier": 0.777048,
+      "fouls_multiplier": 1.159062
+    },
+    "SC0::K. W. Clark": {
+      "div": "SC0",
+      "referee": "K. W. Clark",
+      "games": 8,
+      "raw_yellows_pg": 3.75,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.697,
+      "cards_multiplier": 1.007707,
+      "fouls_multiplier": 1.213169
+    },
+    "SC0::Kenny Clark": {
+      "div": "SC0",
+      "referee": "Kenny Clark",
+      "games": 18,
+      "raw_yellows_pg": 4.1111,
+      "raw_reds_pg": 0.4444,
+      "eb_yellows_pg": 3.91,
+      "cards_multiplier": 1.065774,
+      "fouls_multiplier": 1.236538
+    },
+    "SC0::M MacDermid": {
+      "div": "SC0",
+      "referee": "M MacDermid",
+      "games": 40,
+      "raw_yellows_pg": 3.65,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.6551,
+      "cards_multiplier": 0.99629,
+      "fouls_multiplier": 0.951691
+    },
+    "SC0::M McCurry": {
+      "div": "SC0",
+      "referee": "M McCurry",
+      "games": 118,
+      "raw_yellows_pg": 2.6525,
+      "raw_reds_pg": 0.1525,
+      "eb_yellows_pg": 2.7671,
+      "cards_multiplier": 0.754256,
+      "fouls_multiplier": 1.264559
+    },
+    "SC0::M Ritchie": {
+      "div": "SC0",
+      "referee": "M Ritchie",
+      "games": 18,
+      "raw_yellows_pg": 2.3889,
+      "raw_reds_pg": 0.0556,
+      "eb_yellows_pg": 2.9706,
+      "cards_multiplier": 0.809719,
+      "fouls_multiplier": 1.160907
+    },
+    "SC0::M Tumilty": {
+      "div": "SC0",
+      "referee": "M Tumilty",
+      "games": 65,
+      "raw_yellows_pg": 3.4,
+      "raw_reds_pg": 0.1538,
+      "eb_yellows_pg": 3.4504,
+      "cards_multiplier": 0.940489,
+      "fouls_multiplier": 1.11048
+    },
+    "SC0::McCurry, T. M.": {
+      "div": "SC0",
+      "referee": "McCurry, T. M.",
+      "games": 9,
+      "raw_yellows_pg": 2.7778,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.3346,
+      "cards_multiplier": 0.908932,
+      "fouls_multiplier": 1.139075
+    },
+    "SC0::McDonald, D. G.": {
+      "div": "SC0",
+      "referee": "McDonald, D. G.",
+      "games": 10,
+      "raw_yellows_pg": 3.3,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.5212,
+      "cards_multiplier": 0.959799,
+      "fouls_multiplier": 1.12365
+    },
+    "SC0::Michael McCurry": {
+      "div": "SC0",
+      "referee": "Michael McCurry",
+      "games": 22,
+      "raw_yellows_pg": 3.3636,
+      "raw_reds_pg": 0.1364,
+      "eb_yellows_pg": 3.4873,
+      "cards_multiplier": 0.950555,
+      "fouls_multiplier": 1.160131
+    },
+    "SC0::N Walsh": {
+      "div": "SC0",
+      "referee": "N Walsh",
+      "games": 172,
+      "raw_yellows_pg": 3.7558,
+      "raw_reds_pg": 0.1977,
+      "eb_yellows_pg": 3.7488,
+      "cards_multiplier": 1.021837,
+      "fouls_multiplier": 1.113945
+    },
+    "SC0::R Hardie": {
+      "div": "SC0",
+      "referee": "R Hardie",
+      "games": 12,
+      "raw_yellows_pg": 3.25,
+      "raw_reds_pg": 0.0833,
+      "eb_yellows_pg": 3.4826,
+      "cards_multiplier": 0.949275,
+      "fouls_multiplier": 0.986349
+    },
+    "SC0::Rowbotham, J": {
+      "div": "SC0",
+      "referee": "Rowbotham, J",
+      "games": 10,
+      "raw_yellows_pg": 2.6,
+      "raw_reds_pg": 0.6,
+      "eb_yellows_pg": 3.2412,
+      "cards_multiplier": 0.883478,
+      "fouls_multiplier": 1.016283
+    },
+    "SC0::S Conroy": {
+      "div": "SC0",
+      "referee": "S Conroy",
+      "games": 93,
+      "raw_yellows_pg": 2.6452,
+      "raw_reds_pg": 0.1828,
+      "eb_yellows_pg": 2.7873,
+      "cards_multiplier": 0.759754,
+      "fouls_multiplier": 1.037538
+    },
+    "SC0::S Dougal": {
+      "div": "SC0",
+      "referee": "S Dougal",
+      "games": 93,
+      "raw_yellows_pg": 3.8602,
+      "raw_reds_pg": 0.2688,
+      "eb_yellows_pg": 3.8336,
+      "cards_multiplier": 1.044948,
+      "fouls_multiplier": 1.239418
+    },
+    "SC0::S Finnie": {
+      "div": "SC0",
+      "referee": "S Finnie",
+      "games": 86,
+      "raw_yellows_pg": 3.7326,
+      "raw_reds_pg": 0.2326,
+      "eb_yellows_pg": 3.7231,
+      "cards_multiplier": 1.014818,
+      "fouls_multiplier": 1.140219
+    },
+    "SC0::S McLean": {
+      "div": "SC0",
+      "referee": "S McLean",
+      "games": 232,
+      "raw_yellows_pg": 3.2845,
+      "raw_reds_pg": 0.2198,
+      "eb_yellows_pg": 3.3078,
+      "cards_multiplier": 0.901628,
+      "fouls_multiplier": 1.084715
+    },
+    "SC0::S O'Reilly": {
+      "div": "SC0",
+      "referee": "S O'Reilly",
+      "games": 55,
+      "raw_yellows_pg": 3.0545,
+      "raw_reds_pg": 0.2182,
+      "eb_yellows_pg": 3.1862,
+      "cards_multiplier": 0.868466,
+      "fouls_multiplier": 1.099593
+    },
+    "SC0::S. Dougal": {
+      "div": "SC0",
+      "referee": "S. Dougal",
+      "games": 10,
+      "raw_yellows_pg": 4.3,
+      "raw_reds_pg": 0.2,
+      "eb_yellows_pg": 3.9212,
+      "cards_multiplier": 1.068829,
+      "fouls_multiplier": 1.166973
+    },
+    "SC0::Stuart Dougal": {
+      "div": "SC0",
+      "referee": "Stuart Dougal",
+      "games": 20,
+      "raw_yellows_pg": 3.9,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.8009,
+      "cards_multiplier": 1.036024,
+      "fouls_multiplier": 1.152424
+    },
+    "SC0::T Brown": {
+      "div": "SC0",
+      "referee": "T Brown",
+      "games": 11,
+      "raw_yellows_pg": 1.3636,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 2.6935,
+      "cards_multiplier": 0.734178,
+      "fouls_multiplier": 1.058698
+    },
+    "SC0::T. M. McCurry": {
+      "div": "SC0",
+      "referee": "T. M. McCurry",
+      "games": 10,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.6012,
+      "cards_multiplier": 0.981605,
+      "fouls_multiplier": 1.223482
+    },
+    "SC0::Tom Brown": {
+      "div": "SC0",
+      "referee": "Tom Brown",
+      "games": 10,
+      "raw_yellows_pg": 3.7,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 3.6812,
+      "cards_multiplier": 1.003411,
+      "fouls_multiplier": 1.08221
+    },
+    "SC0::Toner, K. E.": {
+      "div": "SC0",
+      "referee": "Toner, K. E.",
+      "games": 9,
+      "raw_yellows_pg": 2.4444,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.2096,
+      "cards_multiplier": 0.87486,
+      "fouls_multiplier": 1.154771
+    },
+    "SC0::Underhill, J. R.": {
+      "div": "SC0",
+      "referee": "Underhill, J. R.",
+      "games": 9,
+      "raw_yellows_pg": 3.3333,
+      "raw_reds_pg": 0.2222,
+      "eb_yellows_pg": 3.5429,
+      "cards_multiplier": 0.965719,
+      "fouls_multiplier": 1.054704
+    },
+    "SC0::W Collum": {
+      "div": "SC0",
+      "referee": "W Collum",
+      "games": 344,
+      "raw_yellows_pg": 3.1337,
+      "raw_reds_pg": 0.2849,
+      "eb_yellows_pg": 3.1561,
+      "cards_multiplier": 0.860267,
+      "fouls_multiplier": 1.117263
+    },
+    "SC0::W Young": {
+      "div": "SC0",
+      "referee": "W Young",
+      "games": 37,
+      "raw_yellows_pg": 2.2432,
+      "raw_reds_pg": 0.1622,
+      "eb_yellows_pg": 2.6544,
+      "cards_multiplier": 0.723533,
+      "fouls_multiplier": 1.142435
+    },
+    "SC0::W. S. G. Young": {
+      "div": "SC0",
+      "referee": "W. S. G. Young",
+      "games": 11,
+      "raw_yellows_pg": 1.9091,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 2.9243,
+      "cards_multiplier": 0.79708,
+      "fouls_multiplier": 1.065943
+    },
+    "SC0::Willie Young": {
+      "div": "SC0",
+      "referee": "Willie Young",
+      "games": 19,
+      "raw_yellows_pg": 2.4737,
+      "raw_reds_pg": 0.1579,
+      "eb_yellows_pg": 3.0009,
+      "cards_multiplier": 0.817971,
+      "fouls_multiplier": 1.067207
+    },
+    "SC0::Young, W. S. G.": {
+      "div": "SC0",
+      "referee": "Young, W. S. G.",
+      "games": 10,
+      "raw_yellows_pg": 2.1,
+      "raw_reds_pg": 0.3,
+      "eb_yellows_pg": 3.0412,
+      "cards_multiplier": 0.828963,
+      "fouls_multiplier": 1.084093
+    },
+    "SC1::A Dallas": {
+      "div": "SC1",
+      "referee": "A Dallas",
+      "games": 24,
+      "raw_yellows_pg": 3.375,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 3.5893,
+      "cards_multiplier": 0.912803,
+      "fouls_multiplier": 0.943523
+    },
+    "SC1::A Muir": {
+      "div": "SC1",
+      "referee": "A Muir",
+      "games": 51,
+      "raw_yellows_pg": 3.4118,
+      "raw_reds_pg": 0.1176,
+      "eb_yellows_pg": 3.53,
+      "cards_multiplier": 0.897733,
+      "fouls_multiplier": 1.110092
+    },
+    "SC1::A Newlands": {
+      "div": "SC1",
+      "referee": "A Newlands",
+      "games": 47,
+      "raw_yellows_pg": 3.0426,
+      "raw_reds_pg": 0.0638,
+      "eb_yellows_pg": 3.2578,
+      "cards_multiplier": 0.828495,
+      "fouls_multiplier": 1.00217
+    },
+    "SC1::B Cook": {
+      "div": "SC1",
+      "referee": "B Cook",
+      "games": 28,
+      "raw_yellows_pg": 3.4643,
+      "raw_reds_pg": 0.3214,
+      "eb_yellows_pg": 3.6275,
+      "cards_multiplier": 0.922519,
+      "fouls_multiplier": 1.061552
+    },
+    "SC1::B Madden": {
+      "div": "SC1",
+      "referee": "B Madden",
+      "games": 22,
+      "raw_yellows_pg": 2.6364,
+      "raw_reds_pg": 0.1818,
+      "eb_yellows_pg": 3.1617,
+      "cards_multiplier": 0.804057,
+      "fouls_multiplier": 1.025994
+    },
+    "SC1::Bobby Orr": {
+      "div": "SC1",
+      "referee": "Bobby Orr",
+      "games": 11,
+      "raw_yellows_pg": 1.5455,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 2.9224,
+      "cards_multiplier": 0.743204,
+      "fouls_multiplier": 1.089255
+    },
+    "SC1::C Charleston": {
+      "div": "SC1",
+      "referee": "C Charleston",
+      "games": 8,
+      "raw_yellows_pg": 3.75,
+      "raw_reds_pg": 0.375,
+      "eb_yellows_pg": 3.8688,
+      "cards_multiplier": 0.983886,
+      "fouls_multiplier": 1.004528
+    },
+    "SC1::C Graham": {
+      "div": "SC1",
+      "referee": "C Graham",
+      "games": 29,
+      "raw_yellows_pg": 4.5862,
+      "raw_reds_pg": 0.1379,
+      "eb_yellows_pg": 4.3632,
+      "cards_multiplier": 1.109626,
+      "fouls_multiplier": 1.017314
+    },
+    "SC1::C Napier": {
+      "div": "SC1",
+      "referee": "C Napier",
+      "games": 46,
+      "raw_yellows_pg": 3.413,
+      "raw_reds_pg": 0.2391,
+      "eb_yellows_pg": 3.5407,
+      "cards_multiplier": 0.900443,
+      "fouls_multiplier": 0.977368
+    },
+    "SC1::C Scott": {
+      "div": "SC1",
+      "referee": "C Scott",
+      "games": 27,
+      "raw_yellows_pg": 3.5185,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.6663,
+      "cards_multiplier": 0.932373,
+      "fouls_multiplier": 1.006983
+    },
+    "SC1::C Steven": {
+      "div": "SC1",
+      "referee": "C Steven",
+      "games": 73,
+      "raw_yellows_pg": 3.1644,
+      "raw_reds_pg": 0.1781,
+      "eb_yellows_pg": 3.2953,
+      "cards_multiplier": 0.838025,
+      "fouls_multiplier": 0.99082
+    },
+    "SC1::C Thomson": {
+      "div": "SC1",
+      "referee": "C Thomson",
+      "games": 13,
+      "raw_yellows_pg": 4.2308,
+      "raw_reds_pg": 0.3846,
+      "eb_yellows_pg": 4.0708,
+      "cards_multiplier": 1.035257,
+      "fouls_multiplier": 1.024758
+    },
+    "SC1::D Dickinson": {
+      "div": "SC1",
+      "referee": "D Dickinson",
+      "games": 24,
+      "raw_yellows_pg": 3.875,
+      "raw_reds_pg": 0.0417,
+      "eb_yellows_pg": 3.897,
+      "cards_multiplier": 0.991053,
+      "fouls_multiplier": 0.954271
+    },
+    "SC1::D Lowe": {
+      "div": "SC1",
+      "referee": "D Lowe",
+      "games": 15,
+      "raw_yellows_pg": 3.7333,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.8328,
+      "cards_multiplier": 0.974716,
+      "fouls_multiplier": 0.934706
+    },
+    "SC1::D McFarlane": {
+      "div": "SC1",
+      "referee": "D McFarlane",
+      "games": 14,
+      "raw_yellows_pg": 4.4286,
+      "raw_reds_pg": 0.3571,
+      "eb_yellows_pg": 4.1718,
+      "cards_multiplier": 1.060944,
+      "fouls_multiplier": 1.048846
+    },
+    "SC1::D Munro": {
+      "div": "SC1",
+      "referee": "D Munro",
+      "games": 48,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.125,
+      "eb_yellows_pg": 3.6029,
+      "cards_multiplier": 0.916262,
+      "fouls_multiplier": 1.021009
+    },
+    "SC1::D Robertson": {
+      "div": "SC1",
+      "referee": "D Robertson",
+      "games": 51,
+      "raw_yellows_pg": 3.0196,
+      "raw_reds_pg": 0.0784,
+      "eb_yellows_pg": 3.227,
+      "cards_multiplier": 0.820668,
+      "fouls_multiplier": 0.972482
+    },
+    "SC1::D Williams": {
+      "div": "SC1",
+      "referee": "D Williams",
+      "games": 18,
+      "raw_yellows_pg": 4.7778,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 4.3934,
+      "cards_multiplier": 1.117299,
+      "fouls_multiplier": 0.992282
+    },
+    "SC1::Dougie Smith": {
+      "div": "SC1",
+      "referee": "Dougie Smith",
+      "games": 8,
+      "raw_yellows_pg": 4.625,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 4.1732,
+      "cards_multiplier": 1.061285,
+      "fouls_multiplier": 1.09768
+    },
+    "SC1::E Anderson": {
+      "div": "SC1",
+      "referee": "E Anderson",
+      "games": 65,
+      "raw_yellows_pg": 3.8154,
+      "raw_reds_pg": 0.0769,
+      "eb_yellows_pg": 3.8373,
+      "cards_multiplier": 0.975868,
+      "fouls_multiplier": 0.99908
+    },
+    "SC1::G Aitken": {
+      "div": "SC1",
+      "referee": "G Aitken",
+      "games": 59,
+      "raw_yellows_pg": 3.2542,
+      "raw_reds_pg": 0.2712,
+      "eb_yellows_pg": 3.3917,
+      "cards_multiplier": 0.86254,
+      "fouls_multiplier": 0.952948
+    },
+    "SC1::G Beaton": {
+      "div": "SC1",
+      "referee": "G Beaton",
+      "games": 9,
+      "raw_yellows_pg": 3.0,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.5826,
+      "cards_multiplier": 0.911101,
+      "fouls_multiplier": 0.92386
+    },
+    "SC1::G Duncan": {
+      "div": "SC1",
+      "referee": "G Duncan",
+      "games": 54,
+      "raw_yellows_pg": 3.5926,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.6664,
+      "cards_multiplier": 0.932415,
+      "fouls_multiplier": 1.071952
+    },
+    "SC1::G Grainger": {
+      "div": "SC1",
+      "referee": "G Grainger",
+      "games": 27,
+      "raw_yellows_pg": 3.5556,
+      "raw_reds_pg": 0.1481,
+      "eb_yellows_pg": 3.6901,
+      "cards_multiplier": 0.938428,
+      "fouls_multiplier": 0.962626
+    },
+    "SC1::G Irvine": {
+      "div": "SC1",
+      "referee": "G Irvine",
+      "games": 44,
+      "raw_yellows_pg": 2.7273,
+      "raw_reds_pg": 0.1364,
+      "eb_yellows_pg": 3.0336,
+      "cards_multiplier": 0.771483,
+      "fouls_multiplier": 1.001026
+    },
+    "SC1::G Ross": {
+      "div": "SC1",
+      "referee": "G Ross",
+      "games": 13,
+      "raw_yellows_pg": 3.5385,
+      "raw_reds_pg": 0.2308,
+      "eb_yellows_pg": 3.7494,
+      "cards_multiplier": 0.953513,
+      "fouls_multiplier": 0.999807
+    },
+    "SC1::I Snedden": {
+      "div": "SC1",
+      "referee": "I Snedden",
+      "games": 21,
+      "raw_yellows_pg": 3.8571,
+      "raw_reds_pg": 0.1905,
+      "eb_yellows_pg": 3.8884,
+      "cards_multiplier": 0.98887,
+      "fouls_multiplier": 0.99498
+    },
+    "SC1::J Beaton": {
+      "div": "SC1",
+      "referee": "J Beaton",
+      "games": 38,
+      "raw_yellows_pg": 3.1053,
+      "raw_reds_pg": 0.1579,
+      "eb_yellows_pg": 3.3393,
+      "cards_multiplier": 0.849224,
+      "fouls_multiplier": 1.009774
+    },
+    "SC1::J McKendrick": {
+      "div": "SC1",
+      "referee": "J McKendrick",
+      "games": 10,
+      "raw_yellows_pg": 2.4,
+      "raw_reds_pg": 0.1,
+      "eb_yellows_pg": 3.3193,
+      "cards_multiplier": 0.84414,
+      "fouls_multiplier": 0.993098
+    },
+    "SC1::John Fleming": {
+      "div": "SC1",
+      "referee": "John Fleming",
+      "games": 8,
+      "raw_yellows_pg": 3.375,
+      "raw_reds_pg": 0.5,
+      "eb_yellows_pg": 3.7384,
+      "cards_multiplier": 0.950715,
+      "fouls_multiplier": 1.091605
+    },
+    "SC1::K Clancy": {
+      "div": "SC1",
+      "referee": "K Clancy",
+      "games": 32,
+      "raw_yellows_pg": 3.2812,
+      "raw_reds_pg": 0.0625,
+      "eb_yellows_pg": 3.489,
+      "cards_multiplier": 0.887294,
+      "fouls_multiplier": 0.954361
+    },
+    "SC1::Kevin Toner": {
+      "div": "SC1",
+      "referee": "Kevin Toner",
+      "games": 10,
+      "raw_yellows_pg": 3.5,
+      "raw_reds_pg": 0.4,
+      "eb_yellows_pg": 3.7593,
+      "cards_multiplier": 0.956037,
+      "fouls_multiplier": 1.006139
+    },
+    "SC1::L Wilson": {
+      "div": "SC1",
+      "referee": "L Wilson",
+      "games": 19,
+      "raw_yellows_pg": 4.6842,
+      "raw_reds_pg": 0.2105,
+      "eb_yellows_pg": 4.3524,
+      "cards_multiplier": 1.106877,
+      "fouls_multiplier": 0.957618
+    },
+    "SC1::M MacDermid": {
+      "div": "SC1",
+      "referee": "M MacDermid",
+      "games": 25,
+      "raw_yellows_pg": 3.56,
+      "raw_reds_pg": 0.0,
+      "eb_yellows_pg": 3.6996,
+      "cards_multiplier": 0.940845,
+      "fouls_multiplier": 0.960688
+    },
+    "SC1::M Roncone": {
+      "div": "SC1",
+      "referee": "M Roncone",
+      "games": 28,
+      "raw_yellows_pg": 2.8214,
+      "raw_reds_pg": 0.1786,
+      "eb_yellows_pg": 3.2089,
+      "cards_multiplier": 0.816062,
+      "fouls_multiplier": 0.985732
+    },
+    "SC1::N Walsh": {
+      "div": "SC1",
+      "referee": "N Walsh",
+      "games": 37,
+      "raw_yellows_pg": 3.4054,
+      "raw_reds_pg": 0.1892,
+      "eb_yellows_pg": 3.5574,
+      "cards_multiplier": 0.90468,
+      "fouls_multiplier": 1.028297
+    },
+    "SC1::P Stuart": {
+      "div": "SC1",
+      "referee": "P Stuart",
+      "games": 28,
+      "raw_yellows_pg": 4.1429,
+      "raw_reds_pg": 0.25,
+      "eb_yellows_pg": 4.0694,
+      "cards_multiplier": 1.034889,
+      "fouls_multiplier": 1.03339
+    },
+    "SC1::R Hardie": {
+      "div": "SC1",
+      "referee": "R Hardie",
+      "games": 12,
+      "raw_yellows_pg": 3.5833,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.7771,
+      "cards_multiplier": 0.960572,
+      "fouls_multiplier": 1.002336
+    },
+    "SC1::S Finnie": {
+      "div": "SC1",
+      "referee": "S Finnie",
+      "games": 11,
+      "raw_yellows_pg": 3.8182,
+      "raw_reds_pg": 0.2727,
+      "eb_yellows_pg": 3.8839,
+      "cards_multiplier": 0.987735,
+      "fouls_multiplier": 1.014017
+    },
+    "SC1::S Kirkland": {
+      "div": "SC1",
+      "referee": "S Kirkland",
+      "games": 48,
+      "raw_yellows_pg": 3.6042,
+      "raw_reds_pg": 0.1667,
+      "eb_yellows_pg": 3.6823,
+      "cards_multiplier": 0.936445,
+      "fouls_multiplier": 0.987741
+    },
+    "SC1::S Lambie": {
+      "div": "SC1",
+      "referee": "S Lambie",
+      "games": 19,
+      "raw_yellows_pg": 3.6316,
+      "raw_reds_pg": 0.2105,
+      "eb_yellows_pg": 3.7642,
+      "cards_multiplier": 0.957281,
+      "fouls_multiplier": 0.987755
+    },
+    "SC1::S McLean": {
+      "div": "SC1",
+      "referee": "S McLean",
+      "games": 56,
+      "raw_yellows_pg": 3.1786,
+      "raw_reds_pg": 0.0893,
+      "eb_yellows_pg": 3.3378,
+      "cards_multiplier": 0.84884,
+      "fouls_multiplier": 1.036509
+    },
+    "SC1::S Reid": {
+      "div": "SC1",
+      "referee": "S Reid",
+      "games": 22,
+      "raw_yellows_pg": 2.9091,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 3.3239,
+      "cards_multiplier": 0.845297,
+      "fouls_multiplier": 1.039841
+    },
+    "SC1::Tom Brown": {
+      "div": "SC1",
+      "referee": "Tom Brown",
+      "games": 9,
+      "raw_yellows_pg": 3.6667,
+      "raw_reds_pg": 0.1111,
+      "eb_yellows_pg": 3.8326,
+      "cards_multiplier": 0.97468,
+      "fouls_multiplier": 1.077172
+    },
+    "SC1::W Collum": {
+      "div": "SC1",
+      "referee": "W Collum",
+      "games": 55,
+      "raw_yellows_pg": 2.4727,
+      "raw_reds_pg": 0.0909,
+      "eb_yellows_pg": 2.7855,
+      "cards_multiplier": 0.708378,
+      "fouls_multiplier": 0.971472
+    },
+    "SC1::Willie Young": {
+      "div": "SC1",
+      "referee": "Willie Young",
+      "games": 9,
+      "raw_yellows_pg": 2.0,
+      "raw_reds_pg": 0.3333,
+      "eb_yellows_pg": 3.2076,
+      "cards_multiplier": 0.815734,
+      "fouls_multiplier": 1.028655
+    }
+  }
+}

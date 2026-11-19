@@ -1,0 +1,288 @@
+{
+  "schema_version": "epistemic_venn_abers_v5.1.0",
+  "codename": "PitchLab Inductive Venn-Abers & Conformal Logit Envelope v5.1",
+  "version": "5.1.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-19T16:48:12+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "sports": {
+    "soccer": {
+      "calibrated_logit_scale_90": 0.9,
+      "oos_empirical_coverage_90": 0.92464,
+      "oos_n_slices": 345,
+      "oos_decile_coverage_90": 1.0,
+      "venn_abers_bins": [
+        {
+          "p_lo": 0.0,
+          "p_hi": 0.155872,
+          "p0_lower": 0.092251,
+          "p1_upper": 0.10622,
+          "n_cal": 6197
+        },
+        {
+          "p_lo": 0.155872,
+          "p_hi": 0.206865,
+          "p0_lower": 0.177656,
+          "p1_upper": 0.186205,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.206865,
+          "p_hi": 0.243647,
+          "p0_lower": 0.223084,
+          "p1_upper": 0.234769,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.243647,
+          "p_hi": 0.278625,
+          "p0_lower": 0.257727,
+          "p1_upper": 0.264015,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.278625,
+          "p_hi": 0.314334,
+          "p0_lower": 0.290438,
+          "p1_upper": 0.298609,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.314334,
+          "p_hi": 0.355086,
+          "p0_lower": 0.331549,
+          "p1_upper": 0.337569,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.355086,
+          "p_hi": 0.394458,
+          "p0_lower": 0.372034,
+          "p1_upper": 0.38279,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.394458,
+          "p_hi": 0.430902,
+          "p0_lower": 0.404887,
+          "p1_upper": 0.415762,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.430902,
+          "p_hi": 0.473306,
+          "p0_lower": 0.448181,
+          "p1_upper": 0.454677,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.473306,
+          "p_hi": 0.52432,
+          "p0_lower": 0.494537,
+          "p1_upper": 0.507319,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.52432,
+          "p_hi": 0.604172,
+          "p0_lower": 0.555224,
+          "p1_upper": 0.562756,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.604172,
+          "p_hi": 1.0,
+          "p0_lower": 0.704775,
+          "p1_upper": 0.74269,
+          "n_cal": 6197
+        }
+      ]
+    },
+    "nfl": {
+      "calibrated_logit_scale_90": 1.0,
+      "oos_empirical_coverage_90": 1.0,
+      "oos_n_slices": 15,
+      "oos_decile_coverage_90": 1.0,
+      "venn_abers_bins": [
+        {
+          "p_lo": 0.0,
+          "p_hi": 0.302407,
+          "p0_lower": 0.223301,
+          "p1_upper": 0.27421,
+          "n_cal": 123
+        },
+        {
+          "p_lo": 0.302407,
+          "p_hi": 0.376188,
+          "p0_lower": 0.317158,
+          "p1_upper": 0.358805,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.376188,
+          "p_hi": 0.430792,
+          "p0_lower": 0.382127,
+          "p1_upper": 0.425326,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.430792,
+          "p_hi": 0.481794,
+          "p0_lower": 0.431809,
+          "p1_upper": 0.484127,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.481794,
+          "p_hi": 0.545207,
+          "p0_lower": 0.495687,
+          "p1_upper": 0.539682,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.545207,
+          "p_hi": 0.58124,
+          "p0_lower": 0.506579,
+          "p1_upper": 0.6,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.58124,
+          "p_hi": 0.615355,
+          "p0_lower": 0.576382,
+          "p1_upper": 0.619551,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.615355,
+          "p_hi": 0.652762,
+          "p0_lower": 0.606897,
+          "p1_upper": 0.655206,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.652762,
+          "p_hi": 0.694477,
+          "p0_lower": 0.63587,
+          "p1_upper": 0.693463,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.694477,
+          "p_hi": 0.747552,
+          "p0_lower": 0.701521,
+          "p1_upper": 0.788235,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.747552,
+          "p_hi": 0.80553,
+          "p0_lower": 0.758875,
+          "p1_upper": 0.795513,
+          "n_cal": 129
+        },
+        {
+          "p_lo": 0.80553,
+          "p_hi": 1.0,
+          "p0_lower": 0.807018,
+          "p1_upper": 0.864659,
+          "n_cal": 123
+        }
+      ]
+    },
+    "multisport": {
+      "calibrated_logit_scale_90": 1.0,
+      "oos_empirical_coverage_90": 0.92464,
+      "oos_n_slices": 360,
+      "calibration_basis": "pooled_soccer_nfl_transfer_conservative",
+      "venn_abers_bins": [
+        {
+          "p_lo": 0.0,
+          "p_hi": 0.155872,
+          "p0_lower": 0.092251,
+          "p1_upper": 0.10622,
+          "n_cal": 6197
+        },
+        {
+          "p_lo": 0.155872,
+          "p_hi": 0.206865,
+          "p0_lower": 0.177656,
+          "p1_upper": 0.186205,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.206865,
+          "p_hi": 0.243647,
+          "p0_lower": 0.223084,
+          "p1_upper": 0.234769,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.243647,
+          "p_hi": 0.278625,
+          "p0_lower": 0.257727,
+          "p1_upper": 0.264015,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.278625,
+          "p_hi": 0.314334,
+          "p0_lower": 0.290438,
+          "p1_upper": 0.298609,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.314334,
+          "p_hi": 0.355086,
+          "p0_lower": 0.331549,
+          "p1_upper": 0.337569,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.355086,
+          "p_hi": 0.394458,
+          "p0_lower": 0.372034,
+          "p1_upper": 0.38279,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.394458,
+          "p_hi": 0.430902,
+          "p0_lower": 0.404887,
+          "p1_upper": 0.415762,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.430902,
+          "p_hi": 0.473306,
+          "p0_lower": 0.448181,
+          "p1_upper": 0.454677,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.473306,
+          "p_hi": 0.52432,
+          "p0_lower": 0.494537,
+          "p1_upper": 0.507319,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.52432,
+          "p_hi": 0.604172,
+          "p0_lower": 0.555224,
+          "p1_upper": 0.562756,
+          "n_cal": 6506
+        },
+        {
+          "p_lo": 0.604172,
+          "p_hi": 1.0,
+          "p0_lower": 0.704775,
+          "p1_upper": 0.74269,
+          "n_cal": 6197
+        }
+      ]
+    }
+  }
+}

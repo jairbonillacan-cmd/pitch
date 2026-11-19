@@ -1,0 +1,175 @@
+{
+  "schema_version": "sgp_copula_v5.0.0",
+  "codename": "PitchLab Residualized Exact-Quantile QMC Copula & Raikov-DC Player-Linked SGP Engine v5.1",
+  "version": "5.1.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-19T16:40:02+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "qmc_halton_points": 2048,
+  "qmc_smooth_bandwidth": 0.012,
+  "default_player_linked_dc_rho": -0.08,
+  "sports": {
+    "soccer": {
+      "df_nu": 5.0,
+      "copula_family": "student_t",
+      "residualized": true,
+      "factors": [
+        "goal_diff",
+        "total_goals",
+        "ht_total_goals",
+        "home_corners",
+        "away_corners",
+        "total_corners",
+        "total_yellow_cards",
+        "total_shots_on_target"
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.108664,
+          0.078531,
+          -0.130294,
+          0.085629,
+          -0.043316,
+          -0.055505,
+          0.042664
+        ],
+        [
+          0.108664,
+          1.0,
+          0.674644,
+          -0.041903,
+          -0.010329,
+          -0.046583,
+          -0.023671,
+          0.494715
+        ],
+        [
+          0.078531,
+          0.674644,
+          1.0,
+          -0.049967,
+          0.000181,
+          -0.042939,
+          -0.004086,
+          0.321683
+        ],
+        [
+          -0.130294,
+          -0.041903,
+          -0.049967,
+          1.0,
+          -0.183588,
+          0.671858,
+          -0.021078,
+          0.102473
+        ],
+        [
+          0.085629,
+          -0.010329,
+          0.000181,
+          -0.183588,
+          1.0,
+          0.560171,
+          -0.016629,
+          0.07837
+        ],
+        [
+          -0.043316,
+          -0.046583,
+          -0.042939,
+          0.671858,
+          0.560171,
+          1.0,
+          -0.029441,
+          0.145358
+        ],
+        [
+          -0.055505,
+          -0.023671,
+          -0.004086,
+          -0.021078,
+          -0.016629,
+          -0.029441,
+          1.0,
+          -0.041152
+        ],
+        [
+          0.042664,
+          0.494715,
+          0.321683,
+          0.102473,
+          0.07837,
+          0.145358,
+          -0.041152,
+          1.0
+        ]
+      ]
+    },
+    "nfl": {
+      "df_nu": 500.0,
+      "copula_family": "gaussian",
+      "residualized": true,
+      "factors": [
+        "home_margin",
+        "total_points",
+        "home_pass_attempts",
+        "home_rush_attempts",
+        "away_pass_attempts",
+        "away_rush_attempts"
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.036784,
+          -0.401706,
+          0.572938,
+          0.33398,
+          -0.558167
+        ],
+        [
+          0.036784,
+          1.0,
+          0.136179,
+          0.043407,
+          0.131669,
+          0.066288
+        ],
+        [
+          -0.401706,
+          0.136179,
+          1.0,
+          -0.38728,
+          -0.243912,
+          0.134585
+        ],
+        [
+          0.572938,
+          0.043407,
+          -0.38728,
+          1.0,
+          0.11528,
+          -0.490179
+        ],
+        [
+          0.33398,
+          0.131669,
+          -0.243912,
+          0.11528,
+          1.0,
+          -0.378084
+        ],
+        [
+          -0.558167,
+          0.066288,
+          0.134585,
+          -0.490179,
+          -0.378084,
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "schema_version": "hierarchical_props_v3.6.0",
+  "codename": "PitchLab Hierarchical Props & Exposure v3.6 Candidate",
+  "version": "3.6.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T16:57:21+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "half_life_days": 120.0,
+  "one_way_book_power_exponent_default": 1.075,
+  "knockout_stage_config": {
+    "goal_multiplier": 0.88779,
+    "significance": "significativa"
+  },
+  "soccer": {
+    "positions": {
+      "GK": {
+        "mean_starter_minutes": 90.0,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.052219,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "DF_CB": {
+        "mean_starter_minutes": 89.121,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.046003,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.077063,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.206491,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "DF_FB": {
+        "mean_starter_minutes": 88.214,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.039131,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.140427,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.200952,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "MF_DM": {
+        "mean_starter_minutes": 86.895,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.057205,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.119713,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.255388,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "MF_CM": {
+        "mean_starter_minutes": 85.596,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.103368,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.220673,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.221768,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "MF_AM": {
+        "mean_starter_minutes": 83.774,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.23165,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.441185,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.168134,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "FW_W": {
+        "mean_starter_minutes": 83.314,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.232826,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.434234,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.154555,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      },
+      "FW_CF": {
+        "mean_starter_minutes": 84.156,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.398256,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.538854,
+            "prior_beta_90": 8.0,
+            "phi_dispersion": 6.5
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.161047,
+            "prior_beta_90": 10.0,
+            "phi_dispersion": 18.0
+          }
+        }
+      }
+    },
+    "calibration": {
+      "goals": {
+        "cal_slope": 0.785896,
+        "cal_intercept": -0.444146
+      },
+      "goals_assists": {
+        "cal_slope": 0.746242,
+        "cal_intercept": -0.380866
+      },
+      "yellow_cards": {
+        "cal_slope": 0.860995,
+        "cal_intercept": -0.103255
+      }
+    }
+  },
+  "nfl": {
+    "anchor_total_points": 45.0,
+    "positions": {
+      "QB": {
+        "pass_yds": {
+          "prior_mean": 232.0,
+          "prior_games": 4.0,
+          "cv_sd": 0.265,
+          "min_sd": 54.0,
+          "script_trailing_slope": 0.014
+        },
+        "pass_td": {
+          "prior_mean": 1.52,
+          "prior_games": 5.0,
+          "phi_dispersion": 14.0,
+          "script_trailing_slope": 0.01
+        },
+        "rush_yds": {
+          "prior_mean": 19.5,
+          "prior_games": 4.0,
+          "cv_sd": 0.52,
+          "min_sd": 12.0,
+          "script_trailing_slope": -0.008
+        }
+      },
+      "RB": {
+        "rush_yds": {
+          "prior_mean": 58.0,
+          "prior_games": 4.0,
+          "cv_sd": 0.42,
+          "min_sd": 15.0,
+          "script_trailing_slope": -0.022
+        },
+        "receptions": {
+          "prior_mean": 2.85,
+          "prior_games": 4.5,
+          "phi_dispersion": 9.5,
+          "script_trailing_slope": 0.018
+        },
+        "rec_yds": {
+          "prior_mean": 22.0,
+          "prior_games": 4.5,
+          "cv_sd": 0.55,
+          "min_sd": 11.0,
+          "script_trailing_slope": 0.018
+        },
+        "anytime_td": {
+          "prior_mean": 0.58,
+          "prior_games": 5.5,
+          "phi_dispersion": 12.0,
+          "script_trailing_slope": -0.015
+        }
+      },
+      "WR": {
+        "receptions": {
+          "prior_mean": 4.4,
+          "prior_games": 4.5,
+          "phi_dispersion": 10.5,
+          "script_trailing_slope": 0.015
+        },
+        "rec_yds": {
+          "prior_mean": 56.0,
+          "prior_games": 4.5,
+          "cv_sd": 0.48,
+          "min_sd": 14.0,
+          "script_trailing_slope": 0.015
+        },
+        "anytime_td": {
+          "prior_mean": 0.38,
+          "prior_games": 6.0,
+          "phi_dispersion": 15.0,
+          "script_trailing_slope": 0.008
+        }
+      },
+      "TE": {
+        "receptions": {
+          "prior_mean": 3.65,
+          "prior_games": 4.5,
+          "phi_dispersion": 11.0,
+          "script_trailing_slope": 0.012
+        },
+        "rec_yds": {
+          "prior_mean": 39.0,
+          "prior_games": 4.5,
+          "cv_sd": 0.5,
+          "min_sd": 12.0,
+          "script_trailing_slope": 0.012
+        },
+        "anytime_td": {
+          "prior_mean": 0.31,
+          "prior_games": 6.0,
+          "phi_dispersion": 16.0,
+          "script_trailing_slope": 0.008
+        }
+      }
+    }
+  }
+}

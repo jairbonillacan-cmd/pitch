@@ -1,0 +1,794 @@
+{
+  "schema_version": "soccer_micro_markets_v3.6.0",
+  "codename": "PitchLab Micro-Outlook & Halves v3.6 Candidate",
+  "version": "3.6.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T16:45:57+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "kappa_team_eb": 6.0,
+  "kappa_ref_cards": 15.0,
+  "kappa_ref_fouls": 15.0,
+  "halves_config": {
+    "base_share_1h_home": 0.436837,
+    "base_share_1h_away": 0.43238,
+    "ref_div_ht_share": 0.442,
+    "slope_abs_diff": 0.015,
+    "rho_1h": 0.0,
+    "rho_2h": -0.05,
+    "max_goals_half_grid": 6
+  },
+  "div_priors": {
+    "ARG": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    },
+    "B1": {
+      "ht_goal_share": 0.483471,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.4888,
+          "away_mean": 4.59457
+        },
+        "yellow_cards": {
+          "home_mean": 1.68415,
+          "away_mean": 2.0972
+        },
+        "fouls": {
+          "home_mean": 9.95684,
+          "away_mean": 10.70443
+        },
+        "shots_on_target": {
+          "home_mean": 5.25196,
+          "away_mean": 4.28827
+        },
+        "shots": {
+          "home_mean": 14.55101,
+          "away_mean": 12.16441
+        }
+      }
+    },
+    "BRA": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    },
+    "D1": {
+      "ht_goal_share": 0.483077,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.70621,
+          "away_mean": 4.03176
+        },
+        "yellow_cards": {
+          "home_mean": 1.88442,
+          "away_mean": 2.1647
+        },
+        "fouls": {
+          "home_mean": 10.64177,
+          "away_mean": 11.15684
+        },
+        "shots_on_target": {
+          "home_mean": 5.31702,
+          "away_mean": 4.07789
+        },
+        "shots": {
+          "home_mean": 14.70714,
+          "away_mean": 11.1094
+        }
+      }
+    },
+    "D2": {
+      "ht_goal_share": 0.451843,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.67268,
+          "away_mean": 4.82133
+        },
+        "yellow_cards": {
+          "home_mean": 2.2891,
+          "away_mean": 2.49928
+        },
+        "fouls": {
+          "home_mean": 11.39305,
+          "away_mean": 11.62263
+        },
+        "shots_on_target": {
+          "home_mean": 5.01426,
+          "away_mean": 4.58003
+        },
+        "shots": {
+          "home_mean": 14.19646,
+          "away_mean": 12.56334
+        }
+      }
+    },
+    "E0": {
+      "ht_goal_share": 0.42798,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.34264,
+          "away_mean": 4.82226
+        },
+        "yellow_cards": {
+          "home_mean": 1.81722,
+          "away_mean": 2.22055
+        },
+        "fouls": {
+          "home_mean": 10.67583,
+          "away_mean": 11.41663
+        },
+        "shots_on_target": {
+          "home_mean": 5.09544,
+          "away_mean": 4.41294
+        },
+        "shots": {
+          "home_mean": 14.02693,
+          "away_mean": 12.3197
+        }
+      }
+    },
+    "E1": {
+      "ht_goal_share": 0.426495,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.6819,
+          "away_mean": 4.37106
+        },
+        "yellow_cards": {
+          "home_mean": 1.61322,
+          "away_mean": 1.94829
+        },
+        "fouls": {
+          "home_mean": 10.7982,
+          "away_mean": 11.96345
+        },
+        "shots_on_target": {
+          "home_mean": 4.39102,
+          "away_mean": 3.4565
+        },
+        "shots": {
+          "home_mean": 13.30004,
+          "away_mean": 10.38011
+        }
+      }
+    },
+    "F1": {
+      "ht_goal_share": 0.456656,
+      "metrics": {
+        "corners": {
+          "home_mean": 4.71613,
+          "away_mean": 4.55342
+        },
+        "yellow_cards": {
+          "home_mean": 1.91938,
+          "away_mean": 1.95788
+        },
+        "fouls": {
+          "home_mean": 12.04596,
+          "away_mean": 12.05969
+        },
+        "shots_on_target": {
+          "home_mean": 4.85779,
+          "away_mean": 4.50327
+        },
+        "shots": {
+          "home_mean": 13.09913,
+          "away_mean": 11.60208
+        }
+      }
+    },
+    "F2": {
+      "ht_goal_share": 0.436975,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.11735,
+          "away_mean": 4.39685
+        },
+        "yellow_cards": {
+          "home_mean": 1.73294,
+          "away_mean": 1.94958
+        },
+        "fouls": {
+          "home_mean": 13.04948,
+          "away_mean": 13.66794
+        },
+        "shots_on_target": {
+          "home_mean": 4.59572,
+          "away_mean": 3.96254
+        },
+        "shots": {
+          "home_mean": 13.134,
+          "away_mean": 11.00683
+        }
+      }
+    },
+    "G1": {
+      "ht_goal_share": 0.406501,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.00062,
+          "away_mean": 4.006
+        },
+        "yellow_cards": {
+          "home_mean": 2.55813,
+          "away_mean": 3.06584
+        },
+        "fouls": {
+          "home_mean": 13.8417,
+          "away_mean": 14.70478
+        },
+        "shots_on_target": {
+          "home_mean": 5.22846,
+          "away_mean": 4.34736
+        },
+        "shots": {
+          "home_mean": 11.91593,
+          "away_mean": 9.58548
+        }
+      }
+    },
+    "I1": {
+      "ht_goal_share": 0.42752,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.46181,
+          "away_mean": 3.90147
+        },
+        "yellow_cards": {
+          "home_mean": 1.77616,
+          "away_mean": 2.21056
+        },
+        "fouls": {
+          "home_mean": 12.4299,
+          "away_mean": 12.74741
+        },
+        "shots_on_target": {
+          "home_mean": 4.57941,
+          "away_mean": 3.81644
+        },
+        "shots": {
+          "home_mean": 13.80165,
+          "away_mean": 10.75007
+        }
+      }
+    },
+    "I2": {
+      "ht_goal_share": 0.479248,
+      "metrics": {
+        "corners": {
+          "home_mean": 4.89817,
+          "away_mean": 3.95244
+        },
+        "yellow_cards": {
+          "home_mean": 2.36463,
+          "away_mean": 2.72225
+        },
+        "fouls": {
+          "home_mean": 14.97122,
+          "away_mean": 15.01069
+        },
+        "shots_on_target": {
+          "home_mean": 4.64633,
+          "away_mean": 3.76379
+        },
+        "shots": {
+          "home_mean": 14.27359,
+          "away_mean": 11.65505
+        }
+      }
+    },
+    "JPN": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    },
+    "MEX": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    },
+    "N1": {
+      "ht_goal_share": 0.428165,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.97092,
+          "away_mean": 4.3416
+        },
+        "yellow_cards": {
+          "home_mean": 1.33264,
+          "away_mean": 1.67959
+        },
+        "fouls": {
+          "home_mean": 9.80204,
+          "away_mean": 10.16191
+        },
+        "shots_on_target": {
+          "home_mean": 5.20083,
+          "away_mean": 4.2924
+        },
+        "shots": {
+          "home_mean": 14.92383,
+          "away_mean": 11.87795
+        }
+      }
+    },
+    "P1": {
+      "ht_goal_share": 0.461161,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.34108,
+          "away_mean": 4.38546
+        },
+        "yellow_cards": {
+          "home_mean": 2.33602,
+          "away_mean": 2.54167
+        },
+        "fouls": {
+          "home_mean": 13.47511,
+          "away_mean": 13.71645
+        },
+        "shots_on_target": {
+          "home_mean": 4.4835,
+          "away_mean": 3.7491
+        },
+        "shots": {
+          "home_mean": 12.67471,
+          "away_mean": 10.89256
+        }
+      }
+    },
+    "SC0": {
+      "ht_goal_share": 0.42174,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.96094,
+          "away_mean": 5.04668
+        },
+        "yellow_cards": {
+          "home_mean": 1.60774,
+          "away_mean": 2.06097
+        },
+        "fouls": {
+          "home_mean": 10.19393,
+          "away_mean": 11.04164
+        },
+        "shots_on_target": {
+          "home_mean": 4.62207,
+          "away_mean": 4.0217
+        },
+        "shots": {
+          "home_mean": 13.8501,
+          "away_mean": 11.56402
+        }
+      }
+    },
+    "SC1": {
+      "ht_goal_share": 0.458701,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.93359,
+          "away_mean": 4.54668
+        },
+        "yellow_cards": {
+          "home_mean": 1.82247,
+          "away_mean": 2.1097
+        },
+        "fouls": {
+          "home_mean": 10.80341,
+          "away_mean": 10.66705
+        },
+        "shots_on_target": {
+          "home_mean": 4.38913,
+          "away_mean": 3.48089
+        },
+        "shots": {
+          "home_mean": 10.53446,
+          "away_mean": 8.06125
+        }
+      }
+    },
+    "SP1": {
+      "ht_goal_share": 0.426548,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.10461,
+          "away_mean": 4.11305
+        },
+        "yellow_cards": {
+          "home_mean": 2.31205,
+          "away_mean": 2.52487
+        },
+        "fouls": {
+          "home_mean": 12.51812,
+          "away_mean": 12.60055
+        },
+        "shots_on_target": {
+          "home_mean": 4.51076,
+          "away_mean": 3.38219
+        },
+        "shots": {
+          "home_mean": 12.82239,
+          "away_mean": 10.58782
+        }
+      }
+    },
+    "SP2": {
+      "ht_goal_share": 0.402826,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.20911,
+          "away_mean": 3.86078
+        },
+        "yellow_cards": {
+          "home_mean": 2.14837,
+          "away_mean": 2.57192
+        },
+        "fouls": {
+          "home_mean": 13.74504,
+          "away_mean": 13.82955
+        },
+        "shots_on_target": {
+          "home_mean": 4.75382,
+          "away_mean": 3.58898
+        },
+        "shots": {
+          "home_mean": 14.06723,
+          "away_mean": 10.39609
+        }
+      }
+    },
+    "SWE": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    },
+    "T1": {
+      "ht_goal_share": 0.463048,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45198,
+          "away_mean": 4.74448
+        },
+        "yellow_cards": {
+          "home_mean": 2.32832,
+          "away_mean": 2.41475
+        },
+        "fouls": {
+          "home_mean": 12.77482,
+          "away_mean": 12.30289
+        },
+        "shots_on_target": {
+          "home_mean": 5.12883,
+          "away_mean": 3.82396
+        },
+        "shots": {
+          "home_mean": 14.05706,
+          "away_mean": 11.14832
+        }
+      }
+    },
+    "USA": {
+      "ht_goal_share": 0.442,
+      "metrics": {
+        "corners": {
+          "home_mean": 5.45,
+          "away_mean": 4.4
+        },
+        "yellow_cards": {
+          "home_mean": 1.85,
+          "away_mean": 2.15
+        },
+        "fouls": {
+          "home_mean": 11.8,
+          "away_mean": 12.2
+        },
+        "shots_on_target": {
+          "home_mean": 4.65,
+          "away_mean": 3.85
+        },
+        "shots": {
+          "home_mean": 13.4,
+          "away_mean": 10.9
+        }
+      }
+    }
+  },
+  "metrics": {
+    "corners": {
+      "canonical_total_line": 9.5,
+      "alt_total_lines": [
+        8.5,
+        9.0,
+        9.5,
+        10.0,
+        10.5
+      ],
+      "side_line": 4.5,
+      "max_k_side": 25,
+      "default_home_rate": 5.45,
+      "default_away_rate": 4.4,
+      "use_referee_multiplier": false,
+      "dispersion_r_home": 14.098785,
+      "dispersion_r_away": 12.44893,
+      "feature_names": [
+        "log_base_rate",
+        "goal_sup_side",
+        "tempo_excess",
+        "match_tightness",
+        "log_ref_mult"
+      ],
+      "home_coef": [
+        0.42733201882548333,
+        0.16768882334874352,
+        -0.011361865159662452,
+        0.0481311887066657,
+        0.0
+      ],
+      "home_intercept": 0.9499863756183289,
+      "away_coef": [
+        0.46091420974168074,
+        0.1508232535384453,
+        0.05810847683127008,
+        0.06989596870706025,
+        0.0
+      ],
+      "away_intercept": 0.8022048921909956
+    },
+    "yellow_cards": {
+      "canonical_total_line": 3.5,
+      "alt_total_lines": [
+        3.5,
+        4.0,
+        4.5,
+        5.5
+      ],
+      "side_line": 1.5,
+      "max_k_side": 16,
+      "default_home_rate": 1.85,
+      "default_away_rate": 2.15,
+      "use_referee_multiplier": true,
+      "dispersion_r_home": 80.0,
+      "dispersion_r_away": 80.0,
+      "feature_names": [
+        "log_base_rate",
+        "goal_sup_side",
+        "tempo_excess",
+        "match_tightness",
+        "log_ref_mult"
+      ],
+      "home_coef": [
+        0.6666725993575581,
+        -0.08415825044915978,
+        -0.0029632768704427356,
+        0.17581213717262203,
+        0.5197025509212697
+      ],
+      "home_intercept": 0.20298790417730297,
+      "away_coef": [
+        0.5832114460875998,
+        -0.046837881381646025,
+        -0.037919859126596865,
+        0.11726171266336367,
+        0.3079552275076732
+      ],
+      "away_intercept": 0.3528884120531277
+    },
+    "fouls": {
+      "canonical_total_line": 23.5,
+      "alt_total_lines": [
+        21.5,
+        23.5,
+        25.5
+      ],
+      "side_line": 11.5,
+      "max_k_side": 36,
+      "default_home_rate": 11.8,
+      "default_away_rate": 12.2,
+      "use_referee_multiplier": true,
+      "dispersion_r_home": 120.0,
+      "dispersion_r_away": 120.0,
+      "feature_names": [
+        "log_base_rate",
+        "goal_sup_side",
+        "tempo_excess",
+        "match_tightness",
+        "log_ref_mult"
+      ],
+      "home_coef": [
+        0.903127884824844,
+        -0.01610441879585227,
+        -0.0021038593779158727,
+        0.06779098235604869,
+        0.234537916577389
+      ],
+      "home_intercept": 0.23783629056299846,
+      "away_coef": [
+        0.8649024252539257,
+        -0.00902242271485341,
+        -0.015321608689675243,
+        0.09337018276974829,
+        0.2856740649327607
+      ],
+      "away_intercept": 0.347638946898292
+    },
+    "shots_on_target": {
+      "canonical_total_line": 8.5,
+      "alt_total_lines": [
+        7.5,
+        8.5,
+        9.5
+      ],
+      "side_line": 4.5,
+      "max_k_side": 24,
+      "default_home_rate": 4.65,
+      "default_away_rate": 3.85,
+      "use_referee_multiplier": false,
+      "dispersion_r_home": 33.199443,
+      "dispersion_r_away": 24.8526,
+      "feature_names": [
+        "log_base_rate",
+        "goal_sup_side",
+        "tempo_excess",
+        "match_tightness",
+        "log_ref_mult"
+      ],
+      "home_coef": [
+        0.5357100931555104,
+        0.15145368138821919,
+        0.012148768189746802,
+        -0.012526953018023038,
+        0.0
+      ],
+      "home_intercept": 0.7180618118870102,
+      "away_coef": [
+        0.5236314855522669,
+        0.16270588522839827,
+        0.08012961969649549,
+        0.02859380069495597,
+        0.0
+      ],
+      "away_intercept": 0.6433419111646251
+    },
+    "shots": {
+      "canonical_total_line": 24.5,
+      "alt_total_lines": [
+        22.5,
+        24.5,
+        26.5
+      ],
+      "side_line": 12.5,
+      "max_k_side": 38,
+      "default_home_rate": 13.4,
+      "default_away_rate": 10.9,
+      "use_referee_multiplier": false,
+      "dispersion_r_home": 28.531456,
+      "dispersion_r_away": 23.246558,
+      "feature_names": [
+        "log_base_rate",
+        "goal_sup_side",
+        "tempo_excess",
+        "match_tightness",
+        "log_ref_mult"
+      ],
+      "home_coef": [
+        0.7889817873684644,
+        0.10391807408323818,
+        -0.015485528187632821,
+        0.024867320778707385,
+        0.0
+      ],
+      "home_intercept": 0.5794694543580673,
+      "away_coef": [
+        0.7703433099558186,
+        0.10230035452160494,
+        0.03347811952678403,
+        0.04494623439167514,
+        0.0
+      ],
+      "away_intercept": 0.5003042332530223
+    }
+  }
+}

@@ -1,8 +1,129 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-18T19:14:34.616Z",
-  "source": "espn-public",
-  "coverageStatus": "no_public_feed",
-  "entries": []
+  "observedAt": "2026-11-19T19:21:21.713Z",
+  "source": "nflverse-cc-by-4.0",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Danielle Hunter",
+      "position": "DE",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Wyatt Teller",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Espalda",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Brevin Jordan",
+      "position": "TE",
+      "status": "Baja",
+      "detail": "Pie",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Jacob Hummel",
+      "position": "LB",
+      "status": "Duda",
+      "detail": "Ingle",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Marvin Harrison Jr.",
+      "position": "WR",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Jaylin Smith",
+      "position": "CB",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.houston-texans",
+      "player": "Woody Marks",
+      "position": "RB",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Luke Rhodes",
+      "position": "LS",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Charvarius Ward",
+      "position": "CB",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Jerry Tillery",
+      "position": "DT",
+      "status": "Baja",
+      "detail": "Gemelo",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Sauce Gardner",
+      "position": "CB",
+      "status": "Duda",
+      "detail": "Gemelo",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Bernhard Raimann",
+      "position": "T",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Will Mallory",
+      "position": "TE",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Anthony Gould",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Toe",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Jalen Travis",
+      "position": "T",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-19T19:21:21.713Z"
+    }
+  ]
 }

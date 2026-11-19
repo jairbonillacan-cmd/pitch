@@ -1,0 +1,589 @@
+{
+  "schema_version": "hierarchical_props_v4.0.0",
+  "codename": "PitchLab Hierarchical Props v4.0 (Shots/SoT/Assists + Empirical sub_cover + Isotonic PAVA)",
+  "version": "4.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-18T18:07:14+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "half_life_days": 120.0,
+  "knockout_stage_config": {
+    "goal_multiplier": 0.88779,
+    "significance": "significativa"
+  },
+  "soccer": {
+    "positions": {
+      "GK": {
+        "mean_starter_minutes": 89.603,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "assists": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.005,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 0.65
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.052717,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.53579
+          },
+          "shots": {
+            "prior_rate_per90": 0.02,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.008,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_CB": {
+        "mean_starter_minutes": 87.497,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.046282,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.20394
+          },
+          "assists": {
+            "prior_rate_per90": 0.030389,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.55395
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.076672,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.34267
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.203093,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 0.62,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.2263,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_FB": {
+        "mean_starter_minutes": 86.201,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.035001,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "assists": {
+            "prior_rate_per90": 0.093906,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.128908,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.193536,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 0.88,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.3212,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_DM": {
+        "mean_starter_minutes": 84.241,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.057657,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.5074
+          },
+          "assists": {
+            "prior_rate_per90": 0.061416,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.119073,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.60623
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.246737,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.05,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.38325,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_CM": {
+        "mean_starter_minutes": 82.433,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.104084,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.44388
+          },
+          "assists": {
+            "prior_rate_per90": 0.120141,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.41417
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.224226,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.42796
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.212797,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.42,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.5183,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_AM": {
+        "mean_starter_minutes": 80.3,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.229425,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.15089
+          },
+          "assists": {
+            "prior_rate_per90": 0.206111,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.22493
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.435536,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.18593
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.159552,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 1.95,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.71175,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_W": {
+        "mean_starter_minutes": 79.194,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.221164,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.2439
+          },
+          "assists": {
+            "prior_rate_per90": 0.195792,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.32478
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.416956,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.28188
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.148848,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 2.35,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.85775,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_CF": {
+        "mean_starter_minutes": 80.777,
+        "metrics": {
+          "goals": {
+            "prior_rate_per90": 0.387963,
+            "prior_beta_90": 5.5,
+            "phi_dispersion": 8.0,
+            "fresh_legs_sub_multiplier": 1.27605
+          },
+          "assists": {
+            "prior_rate_per90": 0.14118,
+            "prior_beta_90": 6.5,
+            "phi_dispersion": 10.0,
+            "fresh_legs_sub_multiplier": 1.33069
+          },
+          "goals_assists": {
+            "prior_rate_per90": 0.529144,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 7.5,
+            "fresh_legs_sub_multiplier": 1.29063
+          },
+          "yellow_cards": {
+            "prior_rate_per90": 0.14982,
+            "prior_beta_90": 7.0,
+            "phi_dispersion": 22.0,
+            "fresh_legs_sub_multiplier": 1.65
+          },
+          "shots": {
+            "prior_rate_per90": 2.85,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 1.04025,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      }
+    },
+    "isotonic_calibration": {
+      "goals": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.00925827,
+          0.03444402,
+          0.05386516,
+          0.08111075,
+          0.11325322,
+          0.15448583,
+          0.19668761,
+          0.22141365,
+          0.25938794,
+          0.29133986,
+          0.34423541,
+          0.3785817,
+          0.41772291,
+          0.52196941,
+          0.56365931,
+          0.62385321,
+          0.999
+        ]
+      },
+      "assists": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.0097959,
+          0.03460519,
+          0.06404268,
+          0.08866361,
+          0.11249159,
+          0.13169353,
+          0.15472594,
+          0.17557298,
+          0.20061411,
+          0.23562697,
+          0.25663459,
+          0.30346269,
+          0.33638095,
+          0.43148148,
+          0.68,
+          0.8,
+          0.999
+        ]
+      },
+      "goals_assists": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.00284271,
+          0.05447721,
+          0.07221257,
+          0.09039873,
+          0.1231291,
+          0.16521476,
+          0.21034031,
+          0.25093468,
+          0.29172558,
+          0.31899755,
+          0.35641145,
+          0.39007219,
+          0.43632406,
+          0.48293117,
+          0.55397945,
+          0.67269439,
+          0.999
+        ]
+      },
+      "yellow_cards": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.02687747,
+          0.04142944,
+          0.07285497,
+          0.11142845,
+          0.14361363,
+          0.1742048,
+          0.20145519,
+          0.22855252,
+          0.25528962,
+          0.28333052,
+          0.31984678,
+          0.36012821,
+          0.36012821,
+          0.59,
+          0.68,
+          0.8,
+          0.999
+        ]
+      },
+      "shots": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.001,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          0.999
+        ]
+      },
+      "shots_on_target": {
+        "x_knots": [
+          0.0,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          1.0
+        ],
+        "y_knots": [
+          0.001,
+          0.02,
+          0.04,
+          0.07,
+          0.1,
+          0.14,
+          0.18,
+          0.23,
+          0.28,
+          0.34,
+          0.4,
+          0.46,
+          0.52,
+          0.59,
+          0.68,
+          0.8,
+          0.999
+        ]
+      }
+    }
+  }
+}

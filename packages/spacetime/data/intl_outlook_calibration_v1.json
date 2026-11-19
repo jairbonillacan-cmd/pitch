@@ -1,0 +1,2971 @@
+{
+  "schema_version": "outlook_calibration_v3.2.0",
+  "eval_split": "walk_forward_dev",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "bootstrap_samples": 1000,
+  "max_sharp_age_minutes": 180.0,
+  "segments": {
+    "GLOBAL::football::1x2": {
+      "sport": "football",
+      "league": "GLOBAL",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (selecciones CC0 vs base_rate causal)",
+      "n": 12904,
+      "ece": 0.007686159684068224,
+      "ece_ci95": [
+        0.005438012243980952,
+        0.012754027344162101
+      ],
+      "log_loss": 0.8978013309685436,
+      "log_loss_ci95": [
+        0.887721472282271,
+        0.9086392137684558
+      ],
+      "brier": 0.5295878427279608,
+      "brier_ci95": [
+        0.5229745247379074,
+        0.5369136991338505
+      ],
+      "rps": 0.17565521351993862,
+      "rps_ci95": [
+        0.1729057438067596,
+        0.17840439596714117
+      ],
+      "delta_ll_vs_benchmark": -0.15451997870014691,
+      "delta_ll_ci95": [
+        -0.16305740103966262,
+        -0.14589127064515955
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 4695,
+          "mean_pred": 0.054646078054707475,
+          "empirical_freq": 0.05878594249201278,
+          "ci95_low": 0.052010287666028776,
+          "ci95_high": 0.06546103702976079
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 6505,
+          "mean_pred": 0.15256415978014837,
+          "empirical_freq": 0.1592621060722521,
+          "ci95_low": 0.15043771185336882,
+          "ci95_high": 0.1683053145366922
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 9751,
+          "mean_pred": 0.25402544005421557,
+          "empirical_freq": 0.25894780022561786,
+          "ci95_low": 0.250252437938237,
+          "ci95_high": 0.2668466733804668
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 6806,
+          "mean_pred": 0.3393149296772394,
+          "empirical_freq": 0.33397002644725243,
+          "ci95_low": 0.32709275250933967,
+          "ci95_high": 0.341656789097432
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 2897,
+          "mean_pred": 0.44772307671630296,
+          "empirical_freq": 0.4525371073524336,
+          "ci95_low": 0.4350043808899725,
+          "ci95_high": 0.46822659958832613
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 2471,
+          "mean_pred": 0.5477450605215706,
+          "empirical_freq": 0.5479562929987859,
+          "ci95_low": 0.5289196375640628,
+          "ci95_high": 0.5686201695006192
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 2101,
+          "mean_pred": 0.6483001903572226,
+          "empirical_freq": 0.615421227986673,
+          "ci95_low": 0.5929386820189502,
+          "ci95_high": 0.6376685494546162
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 1599,
+          "mean_pred": 0.747154242372654,
+          "empirical_freq": 0.7617260787992496,
+          "ci95_low": 0.7416658921933086,
+          "ci95_high": 0.7829384900813472
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 1207,
+          "mean_pred": 0.8454947965970228,
+          "empirical_freq": 0.8119304059652029,
+          "ci95_low": 0.7897619959288131,
+          "ci95_high": 0.8338764920406463
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 680,
+          "mean_pred": 0.9423602588652992,
+          "empirical_freq": 0.9382352941176471,
+          "ci95_low": 0.9187193867199954,
+          "ci95_high": 0.9559890159539755
+        }
+      ]
+    },
+    "GLOBAL::football::totals": {
+      "sport": "football",
+      "league": "GLOBAL",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (matriz \u00fanica Dixon-Coles vs base_rate)",
+      "n": 12904,
+      "ece": 0.06947308017914798,
+      "ece_ci95": [
+        0.060892291481444934,
+        0.0780100129822858
+      ],
+      "log_loss": 0.6971499130269093,
+      "log_loss_ci95": [
+        0.690183016998239,
+        0.7039262742991207
+      ],
+      "brier": 0.4977858757583979,
+      "brier_ci95": [
+        0.4921483355690635,
+        0.5032711389969944
+      ],
+      "rps": 0.24889293787919894,
+      "rps_ci95": [
+        0.24607416778453176,
+        0.2516355694984972
+      ],
+      "delta_ll_vs_benchmark": 0.0066132783566387274,
+      "delta_ll_ci95": [
+        -6.077910610799081e-05,
+        0.013427616995563132
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 369,
+          "mean_pred": 0.03931458806429457,
+          "empirical_freq": 0.1842818428184282,
+          "ci95_low": 0.14654032398158603,
+          "ci95_high": 0.22707908163265303
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 516,
+          "mean_pred": 0.1632433364388133,
+          "empirical_freq": 0.3313953488372093,
+          "ci95_low": 0.291160674443807,
+          "ci95_high": 0.37186977499641716
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 2246,
+          "mean_pred": 0.25783848297439127,
+          "empirical_freq": 0.39848619768477295,
+          "ci95_low": 0.37709661532256816,
+          "ci95_high": 0.41901131496942123
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 4295,
+          "mean_pred": 0.35274731907019735,
+          "empirical_freq": 0.41885913853317813,
+          "ci95_low": 0.4046781314092959,
+          "ci95_high": 0.43512845045762927
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 5478,
+          "mean_pred": 0.45119090189907696,
+          "empirical_freq": 0.47973713033953996,
+          "ci95_low": 0.466762449782036,
+          "ci95_high": 0.4923745897513339
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 5478,
+          "mean_pred": 0.5488090981009227,
+          "empirical_freq": 0.52026286966046,
+          "ci95_low": 0.5076254102486661,
+          "ci95_high": 0.5332375502179639
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 4295,
+          "mean_pred": 0.6472526809298035,
+          "empirical_freq": 0.5811408614668219,
+          "ci95_low": 0.5648715495423707,
+          "ci95_high": 0.595321868590704
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 2246,
+          "mean_pred": 0.7421615170256098,
+          "empirical_freq": 0.6015138023152271,
+          "ci95_low": 0.5809886850305788,
+          "ci95_high": 0.6229033846774319
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 516,
+          "mean_pred": 0.8367566635611862,
+          "empirical_freq": 0.6686046511627907,
+          "ci95_low": 0.6281302250035828,
+          "ci95_high": 0.7088393255561931
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 369,
+          "mean_pred": 0.9606854119357056,
+          "empirical_freq": 0.8157181571815718,
+          "ci95_low": 0.772920918367347,
+          "ci95_high": 0.853459676018414
+        }
+      ]
+    },
+    "GLOBAL::football::btts": {
+      "sport": "football",
+      "league": "GLOBAL",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (matriz \u00fanica Dixon-Coles vs base_rate)",
+      "n": 12904,
+      "ece": 0.05830219598772051,
+      "ece_ci95": [
+        0.049358091892356355,
+        0.06754450707685454
+      ],
+      "log_loss": 0.7071749221372192,
+      "log_loss_ci95": [
+        0.7025243986669641,
+        0.7120132738622315
+      ],
+      "brier": 0.5117021580704895,
+      "brier_ci95": [
+        0.5073346652483686,
+        0.5162907118306386
+      ],
+      "rps": 0.25585107903524473,
+      "rps_ci95": [
+        0.2536673326241843,
+        0.2581453559153193
+      ],
+      "delta_ll_vs_benchmark": 0.025301580980715242,
+      "delta_ll_ci95": [
+        0.020778332708351752,
+        0.02953486017547361
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 32,
+          "mean_pred": 0.1729177479401055,
+          "empirical_freq": 0.5625,
+          "ci95_low": 0.38461538461538464,
+          "ci95_high": 0.7333333333333333
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 1123,
+          "mean_pred": 0.2630250117092861,
+          "empirical_freq": 0.4746215494211932,
+          "ci95_low": 0.44526169402056953,
+          "ci95_high": 0.5043005544018393
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 4481,
+          "mean_pred": 0.3562335246997761,
+          "empirical_freq": 0.4374023655434055,
+          "ci95_low": 0.4221475239469406,
+          "ci95_high": 0.45236008560727664
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 7268,
+          "mean_pred": 0.45163395469333417,
+          "empirical_freq": 0.47069345074298297,
+          "ci95_low": 0.45944409051039936,
+          "ci95_high": 0.4826428748083902
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 7268,
+          "mean_pred": 0.5483660453066664,
+          "empirical_freq": 0.529306549257017,
+          "ci95_low": 0.5173571251916098,
+          "ci95_high": 0.5405559094896006
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 4481,
+          "mean_pred": 0.6437664753002255,
+          "empirical_freq": 0.5625976344565945,
+          "ci95_low": 0.5476399143927234,
+          "ci95_high": 0.5778524760530594
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 1123,
+          "mean_pred": 0.736974988290715,
+          "empirical_freq": 0.5253784505788067,
+          "ci95_low": 0.49569944559816065,
+          "ci95_high": 0.5547383059794305
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 32,
+          "mean_pred": 0.8270822520598946,
+          "empirical_freq": 0.4375,
+          "ci95_low": 0.26666666666666666,
+          "ci95_high": 0.6153846153846154
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_CONT::1x2": {
+      "sport": "football",
+      "league": "INTL_CONT",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_CONT vs base_rate)",
+      "n": 1103,
+      "ece": 0.01996892532390132,
+      "ece_ci95": [
+        0.01622450012864268,
+        0.03885297016582931
+      ],
+      "log_loss": 0.9242170513523535,
+      "log_loss_ci95": [
+        0.8917738565260428,
+        0.9538918170688195
+      ],
+      "brier": 0.5481864556982774,
+      "brier_ci95": [
+        0.526018073260559,
+        0.5698855072111825
+      ],
+      "rps": 0.1787309351111589,
+      "rps_ci95": [
+        0.17067097565184683,
+        0.18684990379879954
+      ],
+      "delta_ll_vs_benchmark": -0.14270572139409693,
+      "delta_ll_ci95": [
+        -0.17011334476943288,
+        -0.11842635746223318
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 285,
+          "mean_pred": 0.06435501505935036,
+          "empirical_freq": 0.06315789473684211,
+          "ci95_low": 0.037018701870187035,
+          "ci95_high": 0.09279150373266974
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 566,
+          "mean_pred": 0.15468950267271406,
+          "empirical_freq": 0.15371024734982333,
+          "ci95_low": 0.12565263535765012,
+          "ci95_high": 0.18305505572324124
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 1026,
+          "mean_pred": 0.25130410256551905,
+          "empirical_freq": 0.27582846003898637,
+          "ci95_low": 0.25164488017429193,
+          "ci95_high": 0.2994179590436222
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 465,
+          "mean_pred": 0.33790656323612245,
+          "empirical_freq": 0.2924731182795699,
+          "ci95_low": 0.26555832996731904,
+          "ci95_high": 0.32031823151805866
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 283,
+          "mean_pred": 0.4472287879195213,
+          "empirical_freq": 0.45936395759717313,
+          "ci95_low": 0.4022526289032189,
+          "ci95_high": 0.5166094999876173
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 236,
+          "mean_pred": 0.5463833822356633,
+          "empirical_freq": 0.5635593220338984,
+          "ci95_low": 0.5022194092827005,
+          "ci95_high": 0.6298188025210084
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 202,
+          "mean_pred": 0.6499028140479535,
+          "empirical_freq": 0.599009900990099,
+          "ci95_low": 0.5306122448979592,
+          "ci95_high": 0.6650012135922331
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 143,
+          "mean_pred": 0.7449204686256201,
+          "empirical_freq": 0.7412587412587412,
+          "ci95_low": 0.674074074074074,
+          "ci95_high": 0.8125323275862069
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 82,
+          "mean_pred": 0.8440561193631283,
+          "empirical_freq": 0.8414634146341463,
+          "ci95_low": 0.7618788819875776,
+          "ci95_high": 0.9156626506024096
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 21,
+          "mean_pred": 0.933865649073413,
+          "empirical_freq": 0.9523809523809523,
+          "ci95_low": 0.8398333333333334,
+          "ci95_high": 1.0
+        }
+      ]
+    },
+    "INTL_CONT::totals": {
+      "sport": "football",
+      "league": "INTL_CONT",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_CONT totals 2.5 vs base_rate)",
+      "n": 1103,
+      "ece": 0.1081552817736228,
+      "ece_ci95": [
+        0.08002182177714975,
+        0.1380476802971245
+      ],
+      "log_loss": 0.7210690148650862,
+      "log_loss_ci95": [
+        0.7010614178722894,
+        0.7417524421851551
+      ],
+      "brier": 0.5221158946995924,
+      "brier_ci95": [
+        0.5052780505262328,
+        0.5388972475587263
+      ],
+      "rps": 0.2610579473497962,
+      "rps_ci95": [
+        0.2526390252631164,
+        0.26944862377936313
+      ],
+      "delta_ll_vs_benchmark": 0.033768531766460066,
+      "delta_ll_ci95": [
+        0.010963588195416542,
+        0.05597049784649034
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 16,
+          "mean_pred": 0.04594786807441983,
+          "empirical_freq": 0.1875,
+          "ci95_low": 0.0,
+          "ci95_high": 0.38461538461538464
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 33,
+          "mean_pred": 0.1596201046145154,
+          "empirical_freq": 0.24242424242424243,
+          "ci95_low": 0.1111111111111111,
+          "ci95_high": 0.4
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 124,
+          "mean_pred": 0.2621645023681245,
+          "empirical_freq": 0.5161290322580645,
+          "ci95_low": 0.43083623693379797,
+          "ci95_high": 0.6038052957031869
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 334,
+          "mean_pred": 0.35309168650341366,
+          "empirical_freq": 0.47305389221556887,
+          "ci95_low": 0.4174109760648222,
+          "ci95_high": 0.5254859256215327
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 596,
+          "mean_pred": 0.45178032428932285,
+          "empirical_freq": 0.5234899328859061,
+          "ci95_low": 0.4863850435279007,
+          "ci95_high": 0.5626125919999528
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 596,
+          "mean_pred": 0.5482196757106761,
+          "empirical_freq": 0.47651006711409394,
+          "ci95_low": 0.4373874080000473,
+          "ci95_high": 0.5136149564720993
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 334,
+          "mean_pred": 0.6469083134965865,
+          "empirical_freq": 0.5269461077844312,
+          "ci95_low": 0.47451407437846727,
+          "ci95_high": 0.5825890239351778
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 124,
+          "mean_pred": 0.7378354976318754,
+          "empirical_freq": 0.4838709677419355,
+          "ci95_low": 0.39619470429681314,
+          "ci95_high": 0.569163763066202
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 33,
+          "mean_pred": 0.8403798953854845,
+          "empirical_freq": 0.7575757575757576,
+          "ci95_low": 0.6,
+          "ci95_high": 0.8888888888888888
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 16,
+          "mean_pred": 0.9540521319255802,
+          "empirical_freq": 0.8125,
+          "ci95_low": 0.6153846153846154,
+          "ci95_high": 1.0
+        }
+      ]
+    },
+    "INTL_CONT::btts": {
+      "sport": "football",
+      "league": "INTL_CONT",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_CONT btts vs base_rate)",
+      "n": 1103,
+      "ece": 0.07288784624474362,
+      "ece_ci95": [
+        0.047283236127783686,
+        0.10512250318242028
+      ],
+      "log_loss": 0.7139650212037133,
+      "log_loss_ci95": [
+        0.7017596376053541,
+        0.7272682286115326
+      ],
+      "brier": 0.5192297254917895,
+      "brier_ci95": [
+        0.5076269351419541,
+        0.5316476296552781
+      ],
+      "rps": 0.25961486274589474,
+      "rps_ci95": [
+        0.25381346757097706,
+        0.26582381482763906
+      ],
+      "delta_ll_vs_benchmark": 0.026572326834055176,
+      "delta_ll_ci95": [
+        0.008188263488016172,
+        0.04480804777561077
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 2,
+          "mean_pred": 0.15080788397912104,
+          "empirical_freq": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 45,
+          "mean_pred": 0.25967436937168376,
+          "empirical_freq": 0.4,
+          "ci95_low": 0.25,
+          "ci95_high": 0.5455086580086579
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 274,
+          "mean_pred": 0.36225471815872345,
+          "empirical_freq": 0.5401459854014599,
+          "ci95_low": 0.4823379132674968,
+          "ci95_high": 0.6013998682476943
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 782,
+          "mean_pred": 0.45442448903692273,
+          "empirical_freq": 0.4846547314578005,
+          "ci95_low": 0.44729737563936073,
+          "ci95_high": 0.521239652659886
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 782,
+          "mean_pred": 0.5455755109630774,
+          "empirical_freq": 0.5153452685421995,
+          "ci95_low": 0.47876034734011386,
+          "ci95_high": 0.5527026243606392
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 274,
+          "mean_pred": 0.6377452818412763,
+          "empirical_freq": 0.45985401459854014,
+          "ci95_low": 0.39860013175230563,
+          "ci95_high": 0.5176620867325032
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 45,
+          "mean_pred": 0.7403256306283164,
+          "empirical_freq": 0.6,
+          "ci95_low": 0.454491341991342,
+          "ci95_high": 0.75
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 2,
+          "mean_pred": 0.849192116020879,
+          "empirical_freq": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_FRIENDLY::1x2": {
+      "sport": "football",
+      "league": "INTL_FRIENDLY",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_FRIENDLY vs base_rate)",
+      "n": 4455,
+      "ece": 0.009059692363762162,
+      "ece_ci95": [
+        0.007645815742810155,
+        0.018659603140997717
+      ],
+      "log_loss": 0.9399489464956593,
+      "log_loss_ci95": [
+        0.9233889456665594,
+        0.9556863451532632
+      ],
+      "brier": 0.5580834072055819,
+      "brier_ci95": [
+        0.5470353859488665,
+        0.568554406400459
+      ],
+      "rps": 0.18404826408590075,
+      "rps_ci95": [
+        0.1797342065102106,
+        0.1884222762608916
+      ],
+      "delta_ll_vs_benchmark": -0.11109203809348216,
+      "delta_ll_ci95": [
+        -0.12560394500376382,
+        -0.09781370042301153
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 1355,
+          "mean_pred": 0.058421130395168275,
+          "empirical_freq": 0.06642066420664207,
+          "ci95_low": 0.053666947016800776,
+          "ci95_high": 0.07925387381455289
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 2103,
+          "mean_pred": 0.15255794236795864,
+          "empirical_freq": 0.17356157869709937,
+          "ci95_low": 0.15759490444416754,
+          "ci95_high": 0.189754530158952
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 3050,
+          "mean_pred": 0.2546755577106878,
+          "empirical_freq": 0.2537704918032787,
+          "ci95_low": 0.23918032252265725,
+          "ci95_high": 0.2678109119403939
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 3329,
+          "mean_pred": 0.3411477018784628,
+          "empirical_freq": 0.3382397116251126,
+          "ci95_low": 0.3272270598695525,
+          "ci95_high": 0.34859715428838794
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 1025,
+          "mean_pred": 0.4475664473809823,
+          "empirical_freq": 0.44878048780487806,
+          "ci95_low": 0.41851376287575803,
+          "ci95_high": 0.4789256166948318
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 857,
+          "mean_pred": 0.546791668561976,
+          "empirical_freq": 0.5390898483080513,
+          "ci95_low": 0.5051296826451763,
+          "ci95_high": 0.573565455296304
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 703,
+          "mean_pred": 0.6482724409812098,
+          "empirical_freq": 0.6073968705547653,
+          "ci95_low": 0.5698231808995412,
+          "ci95_high": 0.6430622979870463
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 491,
+          "mean_pred": 0.746869679691206,
+          "empirical_freq": 0.7556008146639511,
+          "ci95_low": 0.7176362102217937,
+          "ci95_high": 0.7945823492005814
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 325,
+          "mean_pred": 0.8431425793414591,
+          "empirical_freq": 0.8092307692307692,
+          "ci95_low": 0.7647008632804657,
+          "ci95_high": 0.8512221896955503
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 127,
+          "mean_pred": 0.9349836172949748,
+          "empirical_freq": 0.9212598425196851,
+          "ci95_low": 0.8706703812727783,
+          "ci95_high": 0.9661016949152542
+        }
+      ]
+    },
+    "INTL_FRIENDLY::totals": {
+      "sport": "football",
+      "league": "INTL_FRIENDLY",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_FRIENDLY totals 2.5 vs base_rate)",
+      "n": 4455,
+      "ece": 0.07564104387803404,
+      "ece_ci95": [
+        0.062385247885356473,
+        0.09003251657917652
+      ],
+      "log_loss": 0.697050307643841,
+      "log_loss_ci95": [
+        0.6858724110520379,
+        0.7086307559744622
+      ],
+      "brier": 0.49933368104497566,
+      "brier_ci95": [
+        0.48933289891046006,
+        0.5095343424679574
+      ],
+      "rps": 0.24966684052248783,
+      "rps_ci95": [
+        0.24466644945523003,
+        0.25476717123397863
+      ],
+      "delta_ll_vs_benchmark": 0.009554466777064275,
+      "delta_ll_ci95": [
+        -0.0006161976940185816,
+        0.019439223251068064
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 36,
+          "mean_pred": 0.03345629682430876,
+          "empirical_freq": 0.16666666666666666,
+          "ci95_low": 0.058823529411764705,
+          "ci95_high": 0.3055555555555556
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 170,
+          "mean_pred": 0.17269168893735423,
+          "empirical_freq": 0.32941176470588235,
+          "ci95_low": 0.25862068965517243,
+          "ci95_high": 0.39506890611541773
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 1302,
+          "mean_pred": 0.2565785518283403,
+          "empirical_freq": 0.3970814132104455,
+          "ci95_low": 0.3722161625612829,
+          "ci95_high": 0.42305166798378946
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 1686,
+          "mean_pred": 0.3482108402982712,
+          "empirical_freq": 0.4045077105575326,
+          "ci95_low": 0.38114242849707164,
+          "ci95_high": 0.4292384551469029
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 1261,
+          "mean_pred": 0.44909467446070417,
+          "empirical_freq": 0.4710547184773989,
+          "ci95_low": 0.4438324742268041,
+          "ci95_high": 0.4996157361500597
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 1261,
+          "mean_pred": 0.5509053255392954,
+          "empirical_freq": 0.5289452815226011,
+          "ci95_low": 0.5003842638499403,
+          "ci95_high": 0.5561675257731958
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 1686,
+          "mean_pred": 0.6517891597017278,
+          "empirical_freq": 0.5954922894424673,
+          "ci95_low": 0.5707615448530972,
+          "ci95_high": 0.6188575715029284
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 1302,
+          "mean_pred": 0.7434214481716604,
+          "empirical_freq": 0.6029185867895546,
+          "ci95_low": 0.5769483320162105,
+          "ci95_high": 0.6277838374387171
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 170,
+          "mean_pred": 0.8273083110626454,
+          "empirical_freq": 0.6705882352941176,
+          "ci95_low": 0.6049310938845823,
+          "ci95_high": 0.7413793103448276
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 36,
+          "mean_pred": 0.9665437031756912,
+          "empirical_freq": 0.8333333333333334,
+          "ci95_low": 0.6944444444444444,
+          "ci95_high": 0.9411764705882353
+        }
+      ]
+    },
+    "INTL_FRIENDLY::btts": {
+      "sport": "football",
+      "league": "INTL_FRIENDLY",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_FRIENDLY btts vs base_rate)",
+      "n": 4455,
+      "ece": 0.06917281759800585,
+      "ece_ci95": [
+        0.05728845100161919,
+        0.08443176458979966
+      ],
+      "log_loss": 0.7002449680080753,
+      "log_loss_ci95": [
+        0.691225192477199,
+        0.7098154778380277
+      ],
+      "brier": 0.5050824052301743,
+      "brier_ci95": [
+        0.4967240551956396,
+        0.5142025454110034
+      ],
+      "rps": 0.25254120261508717,
+      "rps_ci95": [
+        0.2483620275978198,
+        0.2571012727055018
+      ],
+      "delta_ll_vs_benchmark": 0.01760223334210261,
+      "delta_ll_ci95": [
+        0.011567729058629274,
+        0.02403977276856383
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 10,
+          "mean_pred": 0.19101714411656343,
+          "empirical_freq": 0.5,
+          "ci95_low": 0.16666666666666666,
+          "ci95_high": 0.8004545454545451
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 739,
+          "mean_pred": 0.27099465334654155,
+          "empirical_freq": 0.401894451962111,
+          "ci95_low": 0.36871004244130556,
+          "ci95_high": 0.4365732186784974
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 2415,
+          "mean_pred": 0.3494380717551695,
+          "empirical_freq": 0.42939958592132504,
+          "ci95_low": 0.41113793731778425,
+          "ci95_high": 0.44885454655705614
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 1291,
+          "mean_pred": 0.44211226494801553,
+          "empirical_freq": 0.4539116963594113,
+          "ci95_low": 0.4257288516013097,
+          "ci95_high": 0.4822037722501511
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 1291,
+          "mean_pred": 0.5578877350519853,
+          "empirical_freq": 0.5460883036405887,
+          "ci95_low": 0.5177962277498489,
+          "ci95_high": 0.5742711483986902
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 2415,
+          "mean_pred": 0.6505619282448286,
+          "empirical_freq": 0.5706004140786749,
+          "ci95_low": 0.551145453442944,
+          "ci95_high": 0.5888620626822157
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 739,
+          "mean_pred": 0.7290053466534586,
+          "empirical_freq": 0.5981055480378891,
+          "ci95_low": 0.5634267813215027,
+          "ci95_high": 0.6312899575586944
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 10,
+          "mean_pred": 0.8089828558834367,
+          "empirical_freq": 0.5,
+          "ci95_low": 0.19954545454545497,
+          "ci95_high": 0.8333333333333334
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_NAT::1x2": {
+      "sport": "football",
+      "league": "INTL_NAT",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_NAT vs base_rate)",
+      "n": 920,
+      "ece": 0.02494813672749052,
+      "ece_ci95": [
+        0.01768316869398612,
+        0.04459644189212863
+      ],
+      "log_loss": 0.9641027671768845,
+      "log_loss_ci95": [
+        0.925317071769531,
+        1.003113045856325
+      ],
+      "brier": 0.5670091175904514,
+      "brier_ci95": [
+        0.5418044911792326,
+        0.5923260988437117
+      ],
+      "rps": 0.19648069931067844,
+      "rps_ci95": [
+        0.18671103464248492,
+        0.206382256359339
+      ],
+      "delta_ll_vs_benchmark": -0.10385946052097673,
+      "delta_ll_ci95": [
+        -0.1369200158138204,
+        -0.07174052016031388
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 238,
+          "mean_pred": 0.061064788399022164,
+          "empirical_freq": 0.1092436974789916,
+          "ci95_low": 0.07357728108801072,
+          "ci95_high": 0.14748250554702166
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 479,
+          "mean_pred": 0.1539939313774632,
+          "empirical_freq": 0.17118997912317327,
+          "ci95_low": 0.13866989688832623,
+          "ci95_high": 0.20588835534213684
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 819,
+          "mean_pred": 0.2536972063104859,
+          "empirical_freq": 0.2576312576312576,
+          "ci95_low": 0.2296946222120236,
+          "ci95_high": 0.2859044489982556
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 432,
+          "mean_pred": 0.33919155313703536,
+          "empirical_freq": 0.30787037037037035,
+          "ci95_low": 0.27816091954022987,
+          "ci95_high": 0.33882855093256814
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 242,
+          "mean_pred": 0.44696589098179357,
+          "empirical_freq": 0.49173553719008267,
+          "ci95_low": 0.43118690261410314,
+          "ci95_high": 0.5582534863864907
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 182,
+          "mean_pred": 0.548523971239596,
+          "empirical_freq": 0.5384615384615384,
+          "ci95_low": 0.468049645390071,
+          "ci95_high": 0.6069696162046908
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 168,
+          "mean_pred": 0.6469768212482544,
+          "empirical_freq": 0.5773809523809523,
+          "ci95_low": 0.5063844086021505,
+          "ci95_high": 0.6470834702596122
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 105,
+          "mean_pred": 0.746012390108658,
+          "empirical_freq": 0.7523809523809524,
+          "ci95_low": 0.6699006228246932,
+          "ci95_high": 0.831470617480362
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 71,
+          "mean_pred": 0.8451242021318041,
+          "empirical_freq": 0.7746478873239436,
+          "ci95_low": 0.6785562953995158,
+          "ci95_high": 0.8676950127877238
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 24,
+          "mean_pred": 0.9320996100861055,
+          "empirical_freq": 0.8333333333333334,
+          "ci95_low": 0.6666666666666666,
+          "ci95_high": 0.9629960317460317
+        }
+      ]
+    },
+    "INTL_NAT::totals": {
+      "sport": "football",
+      "league": "INTL_NAT",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_NAT totals 2.5 vs base_rate)",
+      "n": 920,
+      "ece": 0.07298324974360121,
+      "ece_ci95": [
+        0.04337158623436578,
+        0.10676057478131445
+      ],
+      "log_loss": 0.6982939086353858,
+      "log_loss_ci95": [
+        0.6750893030531679,
+        0.7208383274349115
+      ],
+      "brier": 0.5013215913164071,
+      "brier_ci95": [
+        0.48206542208021924,
+        0.5207462685938817
+      ],
+      "rps": 0.25066079565820354,
+      "rps_ci95": [
+        0.24103271104010962,
+        0.26037313429694087
+      ],
+      "delta_ll_vs_benchmark": 0.004261775950360409,
+      "delta_ll_ci95": [
+        -0.020023710843939977,
+        0.028775422655959382
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 19,
+          "mean_pred": 0.05483509259718382,
+          "empirical_freq": 0.2631578947368421,
+          "ci95_low": 0.07678571428571442,
+          "ci95_high": 0.5
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 33,
+          "mean_pred": 0.1615039934963413,
+          "empirical_freq": 0.30303030303030304,
+          "ci95_low": 0.14801587301587313,
+          "ci95_high": 0.4594594594594595
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 123,
+          "mean_pred": 0.2611464500432258,
+          "empirical_freq": 0.3983739837398374,
+          "ci95_low": 0.31743747858855775,
+          "ci95_high": 0.48781448050700976
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 283,
+          "mean_pred": 0.35737324167635437,
+          "empirical_freq": 0.4134275618374558,
+          "ci95_low": 0.3581887493938251,
+          "ci95_high": 0.47222478474784746
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 462,
+          "mean_pred": 0.45287071632345494,
+          "empirical_freq": 0.5086580086580087,
+          "ci95_low": 0.46278409939744036,
+          "ci95_high": 0.5533438133874239
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 462,
+          "mean_pred": 0.5471292836765453,
+          "empirical_freq": 0.49134199134199136,
+          "ci95_low": 0.44665618661257606,
+          "ci95_high": 0.5372159006025596
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 283,
+          "mean_pred": 0.6426267583236458,
+          "empirical_freq": 0.5865724381625441,
+          "ci95_low": 0.5277752152521525,
+          "ci95_high": 0.6418112506061748
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 123,
+          "mean_pred": 0.7388535499567744,
+          "empirical_freq": 0.6016260162601627,
+          "ci95_low": 0.5121855194929902,
+          "ci95_high": 0.6825625214114422
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 33,
+          "mean_pred": 0.8384960065036587,
+          "empirical_freq": 0.696969696969697,
+          "ci95_low": 0.5405405405405406,
+          "ci95_high": 0.8519841269841268
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 19,
+          "mean_pred": 0.9451649074028161,
+          "empirical_freq": 0.7368421052631579,
+          "ci95_low": 0.5,
+          "ci95_high": 0.9232142857142857
+        }
+      ]
+    },
+    "INTL_NAT::btts": {
+      "sport": "football",
+      "league": "INTL_NAT",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_NAT btts vs base_rate)",
+      "n": 920,
+      "ece": 0.06151675615115511,
+      "ece_ci95": [
+        0.03274545389718133,
+        0.09227919974977268
+      ],
+      "log_loss": 0.703201918931769,
+      "log_loss_ci95": [
+        0.6891051047588063,
+        0.716883725498412
+      ],
+      "brier": 0.5087003283636862,
+      "brier_ci95": [
+        0.4953883461913007,
+        0.521330273057586
+      ],
+      "rps": 0.2543501641818431,
+      "rps_ci95": [
+        0.24769417309565034,
+        0.260665136528793
+      ],
+      "delta_ll_vs_benchmark": 0.014453203583814892,
+      "delta_ll_ci95": [
+        -0.004742726095728848,
+        0.032823548626512836
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 8,
+          "mean_pred": 0.17085122554832477,
+          "empirical_freq": 0.5,
+          "ci95_low": 0.125,
+          "ci95_high": 0.875
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 36,
+          "mean_pred": 0.26858791724408676,
+          "empirical_freq": 0.4166666666666667,
+          "ci95_low": 0.24242424242424243,
+          "ci95_high": 0.5862576064908721
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 252,
+          "mean_pred": 0.36470226043956566,
+          "empirical_freq": 0.46825396825396826,
+          "ci95_low": 0.4032889279266091,
+          "ci95_high": 0.5301308286581441
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 624,
+          "mean_pred": 0.4526660895592839,
+          "empirical_freq": 0.48878205128205127,
+          "ci95_low": 0.44906926695065674,
+          "ci95_high": 0.5270028677080975
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 624,
+          "mean_pred": 0.5473339104407164,
+          "empirical_freq": 0.5112179487179487,
+          "ci95_low": 0.4729971322919025,
+          "ci95_high": 0.5509307330493433
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 252,
+          "mean_pred": 0.6352977395604346,
+          "empirical_freq": 0.5317460317460317,
+          "ci95_low": 0.469869171341856,
+          "ci95_high": 0.5967110720733909
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 36,
+          "mean_pred": 0.7314120827559133,
+          "empirical_freq": 0.5833333333333334,
+          "ci95_low": 0.41374239350912784,
+          "ci95_high": 0.7575757575757576
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 8,
+          "mean_pred": 0.8291487744516753,
+          "empirical_freq": 0.5,
+          "ci95_low": 0.125,
+          "ci95_high": 0.875
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_QUAL::1x2": {
+      "sport": "football",
+      "league": "INTL_QUAL",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_QUAL vs base_rate)",
+      "n": 5035,
+      "ece": 0.007268879949878284,
+      "ece_ci95": [
+        0.005573702249471866,
+        0.015418573756232174
+      ],
+      "log_loss": 0.8216471628506683,
+      "log_loss_ci95": [
+        0.8036457521157967,
+        0.8384530892465244
+      ],
+      "brier": 0.4798275451372575,
+      "brier_ci95": [
+        0.46842353483593274,
+        0.491555937543237
+      ],
+      "rps": 0.15779885247801861,
+      "rps_ci95": [
+        0.15341934560578246,
+        0.16201289719418932
+      ],
+      "delta_ll_vs_benchmark": -0.22035679637564035,
+      "delta_ll_ci95": [
+        -0.23484356803446021,
+        -0.2059391858766556
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 2493,
+          "mean_pred": 0.05022009141354781,
+          "empirical_freq": 0.04773365423184918,
+          "ci95_low": 0.03946118357217495,
+          "ci95_high": 0.05627165407941338
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 2679,
+          "mean_pred": 0.15156552506674245,
+          "empirical_freq": 0.1433370660694289,
+          "ci95_low": 0.13069848752467997,
+          "ci95_high": 0.1576617783831044
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 3561,
+          "mean_pred": 0.2537984204769006,
+          "empirical_freq": 0.2516147149677057,
+          "ci95_low": 0.23874365244822238,
+          "ci95_high": 0.2651182222843517
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 1894,
+          "mean_pred": 0.3368803088568491,
+          "empirical_freq": 0.3426610348468849,
+          "ci95_low": 0.32827528321897553,
+          "ci95_high": 0.35644608814480205
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 941,
+          "mean_pred": 0.4487829849454821,
+          "empirical_freq": 0.46014877789585545,
+          "ci95_low": 0.42810494223363293,
+          "ci95_high": 0.49223083924482974
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 927,
+          "mean_pred": 0.5490490847850055,
+          "empirical_freq": 0.564185544768069,
+          "ci95_low": 0.5319654201519873,
+          "ci95_high": 0.595509281875916
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 792,
+          "mean_pred": 0.6489056072320135,
+          "empirical_freq": 0.6439393939393939,
+          "ci95_low": 0.609554071631213,
+          "ci95_high": 0.6760434491305769
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 711,
+          "mean_pred": 0.7487669909700426,
+          "empirical_freq": 0.7721518987341772,
+          "ci95_low": 0.7399871099050204,
+          "ci95_high": 0.8021192401250011
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 635,
+          "mean_pred": 0.8471591653979219,
+          "empirical_freq": 0.8236220472440945,
+          "ci95_low": 0.7938788698891976,
+          "ci95_high": 0.8527723629527013
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 472,
+          "mean_pred": 0.9457708860054513,
+          "empirical_freq": 0.951271186440678,
+          "ci95_low": 0.9312355567226891,
+          "ci95_high": 0.9686818372483221
+        }
+      ]
+    },
+    "INTL_QUAL::totals": {
+      "sport": "football",
+      "league": "INTL_QUAL",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_QUAL totals 2.5 vs base_rate)",
+      "n": 5035,
+      "ece": 0.05573034751316628,
+      "ece_ci95": [
+        0.04331509487227838,
+        0.07029984853052658
+      ],
+      "log_loss": 0.6870962875737965,
+      "log_loss_ci95": [
+        0.6755219082477031,
+        0.6989671951139377
+      ],
+      "brier": 0.48584633152198803,
+      "brier_ci95": [
+        0.47705586566009883,
+        0.494688007404956
+      ],
+      "rps": 0.24292316576099401,
+      "rps_ci95": [
+        0.23852793283004942,
+        0.247344003702478
+      ],
+      "delta_ll_vs_benchmark": -0.006726078117838527,
+      "delta_ll_ci95": [
+        -0.019092804098781835,
+        0.0058122361476171305
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 272,
+          "mean_pred": 0.03698493791275226,
+          "empirical_freq": 0.17279411764705882,
+          "ci95_low": 0.12887951807228917,
+          "ci95_high": 0.22021818434273308
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 246,
+          "mean_pred": 0.15752549123633486,
+          "empirical_freq": 0.32113821138211385,
+          "ci95_low": 0.2615985608487841,
+          "ci95_high": 0.3781701352415966
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 545,
+          "mean_pred": 0.25909086812054194,
+          "empirical_freq": 0.3706422018348624,
+          "ci95_low": 0.33085434178393625,
+          "ci95_high": 0.41115651321023894
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 1554,
+          "mean_pred": 0.3553882757698454,
+          "empirical_freq": 0.4086229086229086,
+          "ci95_low": 0.3854863585531066,
+          "ci95_high": 0.43379276975184905
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 2418,
+          "mean_pred": 0.451244260811731,
+          "empirical_freq": 0.4760132340777502,
+          "ci95_low": 0.4570963465973825,
+          "ci95_high": 0.4963528793258461
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 2418,
+          "mean_pred": 0.5487557391882691,
+          "empirical_freq": 0.5239867659222498,
+          "ci95_low": 0.503647120674154,
+          "ci95_high": 0.5429036534026175
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 1554,
+          "mean_pred": 0.6446117242301544,
+          "empirical_freq": 0.5913770913770914,
+          "ci95_low": 0.566207230248151,
+          "ci95_high": 0.6145136414468934
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 545,
+          "mean_pred": 0.7409091318794575,
+          "empirical_freq": 0.6293577981651376,
+          "ci95_low": 0.5888434867897611,
+          "ci95_high": 0.6691456582160638
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 246,
+          "mean_pred": 0.8424745087636649,
+          "empirical_freq": 0.6788617886178862,
+          "ci95_low": 0.6218298647584034,
+          "ci95_high": 0.7384014391512159
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 272,
+          "mean_pred": 0.9630150620872486,
+          "empirical_freq": 0.8272058823529411,
+          "ci95_low": 0.7797818156572669,
+          "ci95_high": 0.8711204819277107
+        }
+      ]
+    },
+    "INTL_QUAL::btts": {
+      "sport": "football",
+      "league": "INTL_QUAL",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_QUAL btts vs base_rate)",
+      "n": 5035,
+      "ece": 0.042270058445029,
+      "ece_ci95": [
+        0.03251504618259863,
+        0.056034111451596896
+      ],
+      "log_loss": 0.7128848737374169,
+      "log_loss_ci95": [
+        0.706855563838191,
+        0.7191412308684749
+      ],
+      "brier": 0.5164457355768816,
+      "brier_ci95": [
+        0.5107681633257826,
+        0.5222703828900032
+      ],
+      "rps": 0.2582228677884408,
+      "rps_ci95": [
+        0.2553840816628913,
+        0.2611351914450016
+      ],
+      "delta_ll_vs_benchmark": 0.03618151521259884,
+      "delta_ll_ci95": [
+        0.02935558612918458,
+        0.04333091033454291
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 7,
+          "mean_pred": 0.1606639081038987,
+          "empirical_freq": 0.8571428571428571,
+          "ci95_low": 0.5,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 260,
+          "mean_pred": 0.24087249368365685,
+          "empirical_freq": 0.6961538461538461,
+          "ci95_low": 0.6409836065573772,
+          "ci95_high": 0.7511506511001347
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 1202,
+          "mean_pred": 0.36448486711500383,
+          "empirical_freq": 0.415973377703827,
+          "ci95_low": 0.3889779788011696,
+          "ci95_high": 0.44381996471226925
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 3566,
+          "mean_pred": 0.4535356000399795,
+          "empirical_freq": 0.46130117779024116,
+          "ci95_low": 0.4442244125335959,
+          "ci95_high": 0.4783504922413207
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 3566,
+          "mean_pred": 0.5464643999600208,
+          "empirical_freq": 0.5386988222097588,
+          "ci95_low": 0.5216495077586794,
+          "ci95_high": 0.5557755874664041
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 1202,
+          "mean_pred": 0.6355151328849964,
+          "empirical_freq": 0.5840266222961731,
+          "ci95_low": 0.5561800352877307,
+          "ci95_high": 0.6110220211988304
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 260,
+          "mean_pred": 0.7591275063163428,
+          "empirical_freq": 0.3038461538461538,
+          "ci95_low": 0.24884934889986532,
+          "ci95_high": 0.3590163934426229
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 7,
+          "mean_pred": 0.8393360918961014,
+          "empirical_freq": 0.14285714285714285,
+          "ci95_low": 0.0,
+          "ci95_high": 0.5
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_REG::1x2": {
+      "sport": "football",
+      "league": "INTL_REG",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_REG vs base_rate)",
+      "n": 1135,
+      "ece": 0.023457556407040763,
+      "ece_ci95": [
+        0.013582019806812255,
+        0.041768121014430955
+      ],
+      "log_loss": 0.9685376076767849,
+      "log_loss_ci95": [
+        0.9367347501797495,
+        1.0024662194668774
+      ],
+      "brier": 0.5767023652539304,
+      "brier_ci95": [
+        0.5550608910089181,
+        0.599418648684272
+      ],
+      "rps": 0.19496706232066527,
+      "rps_ci95": [
+        0.1859595745953978,
+        0.2037872060445269
+      ],
+      "delta_ll_vs_benchmark": -0.1010781520793804,
+      "delta_ll_ci95": [
+        -0.12906474638272028,
+        -0.07059149796540645
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 265,
+          "mean_pred": 0.05805438131142882,
+          "empirical_freq": 0.06037735849056604,
+          "ci95_low": 0.03346106577184916,
+          "ci95_high": 0.09090909090909091
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 541,
+          "mean_pred": 0.15325398531787188,
+          "empirical_freq": 0.17375231053604437,
+          "ci95_low": 0.141296785512624,
+          "ci95_high": 0.20599502637831743
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 1038,
+          "mean_pred": 0.2560411292059662,
+          "empirical_freq": 0.27842003853564545,
+          "ci95_low": 0.25461436522661013,
+          "ci95_high": 0.3024020266734241
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 606,
+          "mean_pred": 0.3384245507203843,
+          "empirical_freq": 0.3465346534653465,
+          "ci95_low": 0.3209443686045978,
+          "ci95_high": 0.37094544898121884
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 328,
+          "mean_pred": 0.4459649472949213,
+          "empirical_freq": 0.4115853658536585,
+          "ci95_low": 0.3564902671997395,
+          "ci95_high": 0.46251157407407406
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 217,
+          "mean_pred": 0.5471115899426645,
+          "empirical_freq": 0.48847926267281105,
+          "ci95_low": 0.4208013640238704,
+          "ci95_high": 0.5570321974290564
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 187,
+          "mean_pred": 0.6456315336680916,
+          "empirical_freq": 0.5882352941176471,
+          "ci95_low": 0.5193370165745856,
+          "ci95_high": 0.6571616541353383
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 113,
+          "mean_pred": 0.7430733654143551,
+          "empirical_freq": 0.7345132743362832,
+          "ci95_low": 0.6494845360824743,
+          "ci95_high": 0.8166847826086956
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 77,
+          "mean_pred": 0.8472257787654442,
+          "empirical_freq": 0.7922077922077922,
+          "ci95_low": 0.6944362745098039,
+          "ci95_high": 0.8840579710144928
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 33,
+          "mean_pred": 0.9367491897021178,
+          "empirical_freq": 0.9393939393939394,
+          "ci95_low": 0.84375,
+          "ci95_high": 1.0
+        }
+      ]
+    },
+    "INTL_REG::totals": {
+      "sport": "football",
+      "league": "INTL_REG",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_REG totals 2.5 vs base_rate)",
+      "n": 1135,
+      "ece": 0.06713249643783259,
+      "ece_ci95": [
+        0.0484908123367324,
+        0.09791031363637988
+      ],
+      "log_loss": 0.7093662788230479,
+      "log_loss_ci95": [
+        0.6883835151808937,
+        0.729907986766651
+      ],
+      "brier": 0.5093446906532378,
+      "brier_ci95": [
+        0.4926355534525152,
+        0.5263444871597723
+      ],
+      "rps": 0.2546723453266189,
+      "rps_ci95": [
+        0.2463177767262576,
+        0.26317224357988617
+      ],
+      "delta_ll_vs_benchmark": 0.021954717110356205,
+      "delta_ll_ci95": [
+        6.42129442506965e-05,
+        0.04344849958065249
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 26,
+          "mean_pred": 0.05637386727860571,
+          "empirical_freq": 0.2692307692307692,
+          "ci95_low": 0.1,
+          "ci95_high": 0.46153846153846156
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 29,
+          "mean_pred": 0.16046488527241815,
+          "empirical_freq": 0.4827586206896552,
+          "ci95_low": 0.30288697788697805,
+          "ci95_high": 0.6666666666666666
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 135,
+          "mean_pred": 0.2571022941384298,
+          "empirical_freq": 0.4,
+          "ci95_low": 0.3157894736842105,
+          "ci95_high": 0.4827586206896552
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 356,
+          "mean_pred": 0.3576338724729293,
+          "empirical_freq": 0.4606741573033708,
+          "ci95_low": 0.4068230348325103,
+          "ci95_high": 0.5124533312968809
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 589,
+          "mean_pred": 0.4527316570659852,
+          "empirical_freq": 0.4617996604414261,
+          "ci95_low": 0.4217661564625851,
+          "ci95_high": 0.5040574048677777
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 589,
+          "mean_pred": 0.5472683429340149,
+          "empirical_freq": 0.5382003395585738,
+          "ci95_low": 0.4959425951322224,
+          "ci95_high": 0.5782338435374149
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 356,
+          "mean_pred": 0.6423661275270706,
+          "empirical_freq": 0.5393258426966292,
+          "ci95_low": 0.4875466687031192,
+          "ci95_high": 0.5931769651674896
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 135,
+          "mean_pred": 0.7428977058615701,
+          "empirical_freq": 0.6,
+          "ci95_low": 0.5172413793103449,
+          "ci95_high": 0.6842105263157895
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 29,
+          "mean_pred": 0.8395351147275819,
+          "empirical_freq": 0.5172413793103449,
+          "ci95_low": 0.3333333333333333,
+          "ci95_high": 0.6971130221130221
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 26,
+          "mean_pred": 0.9436261327213943,
+          "empirical_freq": 0.7307692307692307,
+          "ci95_low": 0.5384615384615384,
+          "ci95_high": 0.9
+        }
+      ]
+    },
+    "INTL_REG::btts": {
+      "sport": "football",
+      "league": "INTL_REG",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_REG btts vs base_rate)",
+      "n": 1135,
+      "ece": 0.056161547726968394,
+      "ece_ci95": [
+        0.0300858439569527,
+        0.08476205194926963
+      ],
+      "log_loss": 0.7041222324277705,
+      "log_loss_ci95": [
+        0.692670591104907,
+        0.7157570411918448
+      ],
+      "brier": 0.5098824670291092,
+      "brier_ci95": [
+        0.4988235708655329,
+        0.5209434649986867
+      ],
+      "rps": 0.2549412335145546,
+      "rps_ci95": [
+        0.24941178543276646,
+        0.26047173249934336
+      ],
+      "delta_ll_vs_benchmark": 0.017577546133751565,
+      "delta_ll_ci95": [
+        0.002923879989967186,
+        0.033186675146094496
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 5,
+          "mean_pred": 0.16602471276912245,
+          "empirical_freq": 0.2,
+          "ci95_low": 0.0,
+          "ci95_high": 0.6666666666666666
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 38,
+          "mean_pred": 0.25878794610125616,
+          "empirical_freq": 0.5263157894736842,
+          "ci95_low": 0.3513175675675676,
+          "ci95_high": 0.6945833333333332
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 273,
+          "mean_pred": 0.3625217640282856,
+          "empirical_freq": 0.45054945054945056,
+          "ci95_low": 0.38774757135326454,
+          "ci95_high": 0.5097542199703272
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 819,
+          "mean_pred": 0.45497452531682,
+          "empirical_freq": 0.4908424908424908,
+          "ci95_low": 0.4575155981004134,
+          "ci95_high": 0.5240993027801277
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 819,
+          "mean_pred": 0.54502547468318,
+          "empirical_freq": 0.5091575091575091,
+          "ci95_low": 0.4759006972198722,
+          "ci95_high": 0.5424844018995866
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 273,
+          "mean_pred": 0.6374782359717145,
+          "empirical_freq": 0.5494505494505495,
+          "ci95_low": 0.4902457800296728,
+          "ci95_high": 0.6122524286467355
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 38,
+          "mean_pred": 0.7412120538987438,
+          "empirical_freq": 0.47368421052631576,
+          "ci95_low": 0.30541666666666684,
+          "ci95_high": 0.6486824324324324
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 5,
+          "mean_pred": 0.8339752872308775,
+          "empirical_freq": 0.8,
+          "ci95_low": 0.3333333333333333,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_WC::1x2": {
+      "sport": "football",
+      "league": "INTL_WC",
+      "market": "1x2",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_WC vs base_rate)",
+      "n": 256,
+      "ece": 0.05064703274469217,
+      "ece_ci95": [
+        0.03591145539857053,
+        0.08627689397081585
+      ],
+      "log_loss": 0.9964305276143739,
+      "log_loss_ci95": [
+        0.9259624381358528,
+        1.0660178646406226
+      ],
+      "brier": 0.5888789855977246,
+      "brier_ci95": [
+        0.5426348282117613,
+        0.6357343756162697
+      ],
+      "rps": 0.20708029689214685,
+      "rps_ci95": [
+        0.1875904524681624,
+        0.22829471856354802
+      ],
+      "delta_ll_vs_benchmark": -0.08529487774140333,
+      "delta_ll_ci95": [
+        -0.14824718411967466,
+        -0.014759521508742462
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 59,
+          "mean_pred": 0.06686452388158369,
+          "empirical_freq": 0.11864406779661017,
+          "ci95_low": 0.043478260869565216,
+          "ci95_high": 0.20689655172413793
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 137,
+          "mean_pred": 0.15568399428258906,
+          "empirical_freq": 0.17518248175182483,
+          "ci95_low": 0.11678832116788321,
+          "ci95_high": 0.24050870848006092
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 257,
+          "mean_pred": 0.2532246160175449,
+          "empirical_freq": 0.2801556420233463,
+          "ci95_low": 0.23015873015873015,
+          "ci95_high": 0.33203199546755724
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 80,
+          "mean_pred": 0.3362853282307944,
+          "empirical_freq": 0.2375,
+          "ci95_low": 0.16666666666666666,
+          "ci95_high": 0.3132530120481928
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 78,
+          "mean_pred": 0.44853026328687606,
+          "empirical_freq": 0.4358974358974359,
+          "ci95_low": 0.32857142857142857,
+          "ci95_high": 0.5405812438944969
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 52,
+          "mean_pred": 0.5463082116289414,
+          "empirical_freq": 0.6153846153846154,
+          "ci95_low": 0.4736602870813397,
+          "ci95_high": 0.7541138261676461
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 49,
+          "mean_pred": 0.647027791829652,
+          "empirical_freq": 0.5714285714285714,
+          "ci95_low": 0.42850529100529106,
+          "ci95_high": 0.7000531914893616
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 36,
+          "mean_pred": 0.7441964438637805,
+          "empirical_freq": 0.8333333333333334,
+          "ci95_low": 0.7,
+          "ci95_high": 0.944481981981982
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 17,
+          "mean_pred": 0.8289415338164122,
+          "empirical_freq": 0.5294117647058824,
+          "ci95_low": 0.28551587301587317,
+          "ci95_high": 0.75
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 3,
+          "mean_pred": 0.9213019681966582,
+          "empirical_freq": 0.3333333333333333,
+          "ci95_low": 0.0,
+          "ci95_high": 1.0
+        }
+      ]
+    },
+    "INTL_WC::totals": {
+      "sport": "football",
+      "league": "INTL_WC",
+      "market": "totals",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_WC totals 2.5 vs base_rate)",
+      "n": 256,
+      "ece": 0.1030591948449775,
+      "ece_ci95": [
+        0.059211651036546555,
+        0.1656295961586373
+      ],
+      "log_loss": 0.7352863414334352,
+      "log_loss_ci95": [
+        0.7037714402166255,
+        0.7709601647183479
+      ],
+      "brier": 0.5368952842250971,
+      "brier_ci95": [
+        0.5078091539342043,
+        0.5681077930869203
+      ],
+      "rps": 0.26844764211254857,
+      "rps_ci95": [
+        0.25390457696710217,
+        0.28405389654346014
+      ],
+      "delta_ll_vs_benchmark": 0.04121980239285317,
+      "delta_ll_ci95": [
+        0.003973093117388254,
+        0.07917039988841743
+      ],
+      "significance": "significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 5,
+          "mean_pred": 0.17482534567612962,
+          "empirical_freq": 0.8,
+          "ci95_low": 0.3333333333333333,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 17,
+          "mean_pred": 0.26454198803747525,
+          "empirical_freq": 0.5294117647058824,
+          "ci95_low": 0.25,
+          "ci95_high": 0.7777777777777778
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 82,
+          "mean_pred": 0.3573898637849021,
+          "empirical_freq": 0.524390243902439,
+          "ci95_low": 0.42102014294996754,
+          "ci95_high": 0.6351351351351351
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 152,
+          "mean_pred": 0.45434515286640725,
+          "empirical_freq": 0.42105263157894735,
+          "ci95_low": 0.3404182949775655,
+          "ci95_high": 0.4966464885730579
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 152,
+          "mean_pred": 0.5456548471335926,
+          "empirical_freq": 0.5789473684210527,
+          "ci95_low": 0.5033535114269422,
+          "ci95_high": 0.6595817050224344
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 82,
+          "mean_pred": 0.6426101362150983,
+          "empirical_freq": 0.47560975609756095,
+          "ci95_low": 0.36486486486486486,
+          "ci95_high": 0.5789798570500325
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 17,
+          "mean_pred": 0.7354580119625248,
+          "empirical_freq": 0.47058823529411764,
+          "ci95_low": 0.2222222222222222,
+          "ci95_high": 0.75
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 5,
+          "mean_pred": 0.8251746543238705,
+          "empirical_freq": 0.2,
+          "ci95_low": 0.0,
+          "ci95_high": 0.6666666666666666
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    },
+    "INTL_WC::btts": {
+      "sport": "football",
+      "league": "INTL_WC",
+      "market": "btts",
+      "selected_source_when_sharp_present": "market_sharp_novig",
+      "fallback_order": [
+        "market_sharp_novig",
+        "model",
+        "base_rate"
+      ],
+      "benchmark_note": "sin cierre sharp (INTL_WC btts vs base_rate)",
+      "n": 256,
+      "ece": 0.11954227976006769,
+      "ece_ci95": [
+        0.06265923818099148,
+        0.18343740253679044
+      ],
+      "log_loss": 0.7140258043139223,
+      "log_loss_ci95": [
+        0.6931507526740023,
+        0.73655026759442
+      ],
+      "brier": 0.5200272047714768,
+      "brier_ci95": [
+        0.49944790385029303,
+        0.5418745813921565
+      ],
+      "rps": 0.2600136023857384,
+      "rps_ci95": [
+        0.24972395192514651,
+        0.27093729069607825
+      ],
+      "delta_ll_vs_benchmark": 0.013058530014714288,
+      "delta_ll_ci95": [
+        -0.018215975952162244,
+        0.04615047371902557
+      ],
+      "significance": "no significativa",
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "p_min": 0.0,
+          "p_max": 0.1,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 1,
+          "p_min": 0.1,
+          "p_max": 0.2,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 2,
+          "p_min": 0.2,
+          "p_max": 0.3,
+          "n": 5,
+          "mean_pred": 0.2593474748643786,
+          "empirical_freq": 0.4,
+          "ci95_low": 0.0,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 3,
+          "p_min": 0.3,
+          "p_max": 0.4,
+          "n": 65,
+          "mean_pred": 0.37149948665754534,
+          "empirical_freq": 0.5230769230769231,
+          "ci95_low": 0.4084507042253521,
+          "ci95_high": 0.6444623655913979
+        },
+        {
+          "bin_index": 4,
+          "p_min": 0.4,
+          "p_max": 0.5,
+          "n": 186,
+          "mean_pred": 0.451360066528819,
+          "empirical_freq": 0.5591397849462365,
+          "ci95_low": 0.4895833333333333,
+          "ci95_high": 0.6263878608438194
+        },
+        {
+          "bin_index": 5,
+          "p_min": 0.5,
+          "p_max": 0.6,
+          "n": 186,
+          "mean_pred": 0.548639933471181,
+          "empirical_freq": 0.44086021505376344,
+          "ci95_low": 0.37361213915618063,
+          "ci95_high": 0.5104166666666666
+        },
+        {
+          "bin_index": 6,
+          "p_min": 0.6,
+          "p_max": 0.7,
+          "n": 65,
+          "mean_pred": 0.6285005133424546,
+          "empirical_freq": 0.47692307692307695,
+          "ci95_low": 0.3555376344086022,
+          "ci95_high": 0.5915492957746479
+        },
+        {
+          "bin_index": 7,
+          "p_min": 0.7,
+          "p_max": 0.8,
+          "n": 5,
+          "mean_pred": 0.7406525251356214,
+          "empirical_freq": 0.6,
+          "ci95_low": 0.0,
+          "ci95_high": 1.0
+        },
+        {
+          "bin_index": 8,
+          "p_min": 0.8,
+          "p_max": 0.9,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        {
+          "bin_index": 9,
+          "p_min": 0.9,
+          "p_max": 1.0,
+          "n": 0,
+          "mean_pred": null,
+          "empirical_freq": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      ]
+    }
+  }
+}
