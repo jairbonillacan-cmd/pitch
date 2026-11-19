@@ -54,6 +54,11 @@ function buildSecurityHeaders(isDev) {
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   transpilePackages: [
     "@pitchlab/tokens",
     "@pitchlab/contracts",
@@ -115,6 +120,18 @@ export default function config(phase) {
           headers: [
             { key: "Content-Type", value: "application/manifest+json; charset=utf-8" },
             { key: "Cache-Control", value: "public, max-age=3600" },
+          ],
+        },
+        {
+          source: "/brand/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          ],
+        },
+        {
+          source: "/icons/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
           ],
         },
       ];

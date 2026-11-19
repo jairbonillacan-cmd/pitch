@@ -1,0 +1,4000 @@
+{
+  "schema_version": "nfl_v4.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "n_games": 80,
+  "n_props": 45,
+  "game_rows": [
+    {
+      "game_id": "2020_01_HOU_KC",
+      "p_home": 0.7440690839415603,
+      "p_tie": 0.0015098276251973388,
+      "p_away": 0.25442108843324224,
+      "t_model": 47.97116494190602,
+      "market_total_line": 53.5,
+      "expected": {
+        "theta": 0.04462381026879881,
+        "expected_margin": 10.02898436940013,
+        "p_margin_exact_plus_3": 0.0686105241303725,
+        "p_margin_exact_minus_3": 0.05249422031670354,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.642776711889194,
+          "pAwayCover": 0.28861276398043306,
+          "pPush": 0.0686105241303725,
+          "pHomeCoverNoPush": 0.6901266640242432,
+          "pAwayCoverNoPush": 0.30987333597575684
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.642776711889194,
+          "pAwayCover": 0.35722328811080556,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6427767118891944,
+          "pAwayCoverNoPush": 0.3572232881108056
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8710203939815881,
+          "pAwayCover": 0.10108340996073664,
+          "pPush": 0.027896196057674856,
+          "pHomeCoverNoPush": 0.8960158271670193,
+          "pAwayCoverNoPush": 0.10398417283298067
+        },
+        "phys_44_5_over": 0.5927163512910556,
+        "mkt_post_over": 0.47696825838711715,
+        "mkt_post_under": 0.5230317416128829,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_ARI_SF",
+      "p_home": 0.7557987721982138,
+      "p_tie": 0.0014862626108796716,
+      "p_away": 0.24271496519090646,
+      "t_model": 47.24440801367544,
+      "market_total_line": 48.5,
+      "expected": {
+        "theta": 0.047111455544276024,
+        "expected_margin": 10.59109709765356,
+        "p_margin_exact_plus_3": 0.06737312626612368,
+        "p_margin_exact_minus_3": 0.05078380401026753,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6564529190512437,
+          "pAwayCover": 0.2761739546826325,
+          "pPush": 0.06737312626612368,
+          "pHomeCoverNoPush": 0.7038751911823652,
+          "pAwayCoverNoPush": 0.2961248088176348
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6564529190512437,
+          "pAwayCover": 0.3435470809487562,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6564529190512438,
+          "pAwayCoverNoPush": 0.3435470809487562
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8785285939462844,
+          "pAwayCover": 0.0947513574642466,
+          "pPush": 0.02672004858946869,
+          "pHomeCoverNoPush": 0.9026473756837098,
+          "pAwayCoverNoPush": 0.09735262431629021
+        },
+        "phys_44_5_over": 0.5735552629100702,
+        "mkt_post_over": 0.49476674627299494,
+        "mkt_post_under": 0.505233253727005,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_CHI_DET",
+      "p_home": 0.4367252735159854,
+      "p_tie": 0.0017184819602222283,
+      "p_away": 0.5615562445237925,
+      "t_model": 44.35477543700005,
+      "market_total_line": 42.5,
+      "expected": {
+        "theta": -0.010685427313884908,
+        "expected_margin": -2.3888723958605005,
+        "p_margin_exact_plus_3": 0.07174550257402625,
+        "p_margin_exact_minus_3": 0.07649594513552761,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3278290977493655,
+          "pAwayCover": 0.600425399676609,
+          "pPush": 0.07174550257402625,
+          "pHomeCoverNoPush": 0.35316726033477563,
+          "pAwayCoverNoPush": 0.6468327396652244
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3278290977493655,
+          "pAwayCover": 0.6721709022506352,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.32782909774936525,
+          "pAwayCoverNoPush": 0.6721709022506348
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6256417483172326,
+          "pAwayCover": 0.3236412117146712,
+          "pPush": 0.050717039968096816,
+          "pHomeCoverNoPush": 0.6590677117981828,
+          "pAwayCoverNoPush": 0.3409322882018172
+        },
+        "phys_44_5_over": 0.49608543076016737,
+        "mkt_post_over": 0.5077303592665181,
+        "mkt_post_under": 0.4922696407334819,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_CLE_BAL",
+      "p_home": 0.8274797274767013,
+      "p_tie": 0.0013061488107723252,
+      "p_away": 0.17121412371252648,
+      "t_model": 46.02704994093984,
+      "market_total_line": 47.0,
+      "expected": {
+        "theta": 0.06401791656809913,
+        "expected_margin": 14.390209114534846,
+        "p_margin_exact_plus_3": 0.05737467379372829,
+        "p_margin_exact_minus_3": 0.03907549262694648,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.7435589020946813,
+          "pAwayCover": 0.1990664241115904,
+          "pPush": 0.05737467379372829,
+          "pHomeCoverNoPush": 0.7888170213792566,
+          "pAwayCoverNoPush": 0.21118297862074342
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.7435589020946813,
+          "pAwayCover": 0.25644109790531866,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7435589020946813,
+          "pAwayCoverNoPush": 0.25644109790531866
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9215327772392259,
+          "pAwayCover": 0.0592519326618322,
+          "pPush": 0.01921529009894208,
+          "pHomeCoverNoPush": 0.9395872182103966,
+          "pAwayCoverNoPush": 0.06041278178960341
+        },
+        "phys_44_5_over": 0.5410896217013883,
+        "mkt_post_over": 0.481065833608296,
+        "mkt_post_under": 0.4891706823525778,
+        "mkt_post_push": 0.029763484039126153
+      }
+    },
+    {
+      "game_id": "2020_01_DAL_LA",
+      "p_home": 0.5684229815304108,
+      "p_tie": 0.0017153169340843486,
+      "p_away": 0.42986170153550496,
+      "t_model": 49.021365077893634,
+      "market_total_line": 52.0,
+      "expected": {
+        "theta": 0.011871457878751218,
+        "expected_margin": 2.6543309124931502,
+        "p_margin_exact_plus_3": 0.07653921052399802,
+        "p_margin_exact_minus_3": 0.07127705156055919,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4535810633738315,
+          "pAwayCover": 0.4698797261021706,
+          "pPush": 0.07653921052399802,
+          "pHomeCoverNoPush": 0.4911752275169217,
+          "pAwayCoverNoPush": 0.5088247724830783
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4535810633738315,
+          "pAwayCover": 0.5464189366261686,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4535810633738315,
+          "pAwayCoverNoPush": 0.5464189366261685
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7427397438274492,
+          "pAwayCover": 0.21408052968363758,
+          "pPush": 0.04317972648891352,
+          "pHomeCoverNoPush": 0.776258367835308,
+          "pAwayCoverNoPush": 0.223741632164692
+        },
+        "phys_44_5_over": 0.6200063479017044,
+        "mkt_post_over": 0.47272020847228813,
+        "mkt_post_under": 0.49752920490645614,
+        "mkt_post_push": 0.029750586621255737
+      }
+    },
+    {
+      "game_id": "2020_01_GB_MIN",
+      "p_home": 0.4824075410327643,
+      "p_tie": 0.0017310823751659527,
+      "p_away": 0.5158613765920698,
+      "t_model": 45.26275513792499,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": -0.002853370302292051,
+        "expected_margin": -0.637611105072058,
+        "p_margin_exact_plus_3": 0.07432738105454624,
+        "p_margin_exact_minus_3": 0.07561083748594874,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.37004663174635466,
+          "pAwayCover": 0.5556259871990992,
+          "pPush": 0.07432738105454624,
+          "pHomeCoverNoPush": 0.3997597251692718,
+          "pAwayCoverNoPush": 0.6002402748307283
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.37004663174635466,
+          "pAwayCover": 0.6299533682536455,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.37004663174635466,
+          "pAwayCoverNoPush": 0.6299533682536453
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6684724769877658,
+          "pAwayCover": 0.2829434572891801,
+          "pPush": 0.04858406572305461,
+          "pHomeCoverNoPush": 0.7026080317813779,
+          "pAwayCoverNoPush": 0.2973919682186221
+        },
+        "phys_44_5_over": 0.5205514610394648,
+        "mkt_post_over": 0.4862119599446507,
+        "mkt_post_under": 0.4840231276010411,
+        "mkt_post_push": 0.02976491245430818
+      }
+    },
+    {
+      "game_id": "2020_01_IND_JAX",
+      "p_home": 0.4711868831944325,
+      "p_tie": 0.0017293408666837098,
+      "p_away": 0.5270837759388837,
+      "t_model": 44.343978959517344,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": -0.00476995825041209,
+        "expected_margin": -1.0659598280603249,
+        "p_margin_exact_plus_3": 0.07378061641887933,
+        "p_margin_exact_minus_3": 0.07592270600085503,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.35954276804456936,
+          "pAwayCover": 0.5666766155365516,
+          "pPush": 0.07378061641887933,
+          "pHomeCoverNoPush": 0.38818316094232286,
+          "pAwayCoverNoPush": 0.6118168390576771
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.35954276804456936,
+          "pAwayCover": 0.6404572319554309,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3595427680445693,
+          "pAwayCoverNoPush": 0.6404572319554307
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6581793544271368,
+          "pAwayCover": 0.29266075131492464,
+          "pPush": 0.0491598942579389,
+          "pHomeCoverNoPush": 0.6922082382226356,
+          "pAwayCoverNoPush": 0.30779176177736445
+        },
+        "phys_44_5_over": 0.4957944193047026,
+        "mkt_post_over": 0.4865503086687485,
+        "mkt_post_under": 0.48368485909139547,
+        "mkt_post_push": 0.029764832239856043
+      }
+    },
+    {
+      "game_id": "2020_01_LAC_CIN",
+      "p_home": 0.4149826164963765,
+      "p_tie": 0.0017072962246566866,
+      "p_away": 0.5833100872789668,
+      "t_model": 46.71666223334714,
+      "market_total_line": 41.5,
+      "expected": {
+        "theta": -0.014454889041198982,
+        "expected_margin": -3.2328855825561247,
+        "p_margin_exact_plus_3": 0.07019061522838653,
+        "p_margin_exact_minus_3": 0.07654998683593871,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.30823807071813486,
+          "pAwayCover": 0.6215713140534782,
+          "pPush": 0.07019061522838653,
+          "pHomeCoverNoPush": 0.3315067322038771,
+          "pAwayCoverNoPush": 0.6684932677961228
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.30823807071813486,
+          "pAwayCover": 0.6917619292818648,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.30823807071813497,
+          "pAwayCoverNoPush": 0.6917619292818651
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6043704326186912,
+          "pAwayCover": 0.34410565538296817,
+          "pPush": 0.05152391199834042,
+          "pHomeCoverNoPush": 0.6372015491629703,
+          "pAwayCoverNoPush": 0.36279845083702966
+        },
+        "phys_44_5_over": 0.5595287434436625,
+        "mkt_post_over": 0.5217326367692392,
+        "mkt_post_under": 0.4782673632307608,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_LV_CAR",
+      "p_home": 0.5168309598710773,
+      "p_tie": 0.0017309664936182693,
+      "p_away": 0.48143807363530444,
+      "t_model": 47.90753716448835,
+      "market_total_line": 48.0,
+      "expected": {
+        "theta": 0.0030188565695656714,
+        "expected_margin": 0.674593445850346,
+        "p_margin_exact_plus_3": 0.07564016586440094,
+        "p_margin_exact_minus_3": 0.07428241864811964,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.40282800693189896,
+          "pAwayCover": 0.5215318272037004,
+          "pPush": 0.07564016586440094,
+          "pHomeCoverNoPush": 0.435791335858505,
+          "pAwayCoverNoPush": 0.564208664141495
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.40282800693189896,
+          "pAwayCover": 0.5971719930681013,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.40282800693189885,
+          "pAwayCoverNoPush": 0.5971719930681012
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6991608020443539,
+          "pAwayCover": 0.2542167857019679,
+          "pPush": 0.046622412253678455,
+          "pHomeCoverNoPush": 0.7333514139944196,
+          "pAwayCoverNoPush": 0.2666485860055804
+        },
+        "phys_44_5_over": 0.5910469250222872,
+        "mkt_post_over": 0.48473237197437447,
+        "mkt_post_under": 0.4855026171108455,
+        "mkt_post_push": 0.02976501091478001
+      }
+    },
+    {
+      "game_id": "2020_01_MIA_NE",
+      "p_home": 0.6978146166088666,
+      "p_tie": 0.0015892999661188166,
+      "p_away": 0.30059608342501465,
+      "t_model": 45.71118084640173,
+      "market_total_line": 41.5,
+      "expected": {
+        "theta": 0.035319665167746525,
+        "expected_margin": 7.926499399727757,
+        "p_margin_exact_plus_3": 0.07253812357405447,
+        "p_margin_exact_minus_3": 0.05868559374826498,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5902369867248914,
+          "pAwayCover": 0.3372248897010543,
+          "pPush": 0.07253812357405447,
+          "pHomeCoverNoPush": 0.636400268008234,
+          "pAwayCoverNoPush": 0.363599731991766
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5902369867248914,
+          "pAwayCover": 0.4097630132751088,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5902369867248913,
+          "pAwayCoverNoPush": 0.40976301327510867
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8401366412028852,
+          "pAwayCover": 0.1274944577174411,
+          "pPush": 0.0323689010796737,
+          "pHomeCoverNoPush": 0.8682406364784078,
+          "pAwayCoverNoPush": 0.13175936352159223
+        },
+        "phys_44_5_over": 0.5326117182846621,
+        "mkt_post_over": 0.5175468309814497,
+        "mkt_post_under": 0.4824531690185503,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_NYJ_BUF",
+      "p_home": 0.6112226867147577,
+      "p_tie": 0.0016879110553127436,
+      "p_away": 0.38708940222992955,
+      "t_model": 39.92864028493046,
+      "market_total_line": 39.5,
+      "expected": {
+        "theta": 0.01935498559443673,
+        "expected_margin": 4.3316907340666315,
+        "p_margin_exact_plus_3": 0.07625625070359307,
+        "p_margin_exact_minus_3": 0.06789548075606869,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4972340504284346,
+          "pAwayCover": 0.4265096988679724,
+          "pPush": 0.07625625070359307,
+          "pHomeCoverNoPush": 0.5382813694892827,
+          "pAwayCoverNoPush": 0.46171863051071727
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4972340504284346,
+          "pAwayCover": 0.5027659495715655,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4972340504284346,
+          "pAwayCoverNoPush": 0.5027659495715654
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7767914241335399,
+          "pAwayCover": 0.18329038877464135,
+          "pPush": 0.03991818709181858,
+          "pHomeCoverNoPush": 0.8090887814868225,
+          "pAwayCoverNoPush": 0.1909112185131775
+        },
+        "phys_44_5_over": 0.3787081265024969,
+        "mkt_post_over": 0.501786601046853,
+        "mkt_post_under": 0.498213398953147,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_PHI_WAS",
+      "p_home": 0.26970923079898546,
+      "p_tie": 0.001538445322846934,
+      "p_away": 0.7287523238781677,
+      "t_model": 44.87212095272736,
+      "market_total_line": 41.5,
+      "expected": {
+        "theta": -0.041460556560165215,
+        "expected_margin": -9.314006143680253,
+        "p_margin_exact_plus_3": 0.05464208018739372,
+        "p_margin_exact_minus_3": 0.0700751070485812,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.1854177077012011,
+          "pAwayCover": 0.759940212111405,
+          "pPush": 0.05464208018739372,
+          "pHomeCoverNoPush": 0.1961349281740355,
+          "pAwayCoverNoPush": 0.8038650718259646
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.1854177077012011,
+          "pAwayCover": 0.8145822922987986,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.18541770770120114,
+          "pAwayCoverNoPush": 0.8145822922987989
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.4455304948481001,
+          "pAwayCover": 0.5019233276127122,
+          "pPush": 0.05254617753918763,
+          "pHomeCoverNoPush": 0.4702397988019387,
+          "pAwayCoverNoPush": 0.5297602011980613
+        },
+        "phys_44_5_over": 0.510029719237258,
+        "mkt_post_over": 0.5140523322963049,
+        "mkt_post_under": 0.48594766770369513,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_SEA_ATL",
+      "p_home": 0.5789018028724671,
+      "p_tie": 0.0017098374357179382,
+      "p_away": 0.41938835969181504,
+      "t_model": 49.04390745308544,
+      "market_total_line": 49.5,
+      "expected": {
+        "theta": 0.013688018294018552,
+        "expected_margin": 3.0610963387875954,
+        "p_margin_exact_plus_3": 0.0765587373898883,
+        "p_margin_exact_minus_3": 0.07052238276594575,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.46413556324794325,
+          "pAwayCover": 0.45930569936216864,
+          "pPush": 0.0765587373898883,
+          "pHomeCoverNoPush": 0.5026151440710603,
+          "pAwayCoverNoPush": 0.49738485592893966
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.46413556324794325,
+          "pAwayCover": 0.535864436752057,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.46413556324794314,
+          "pAwayCoverNoPush": 0.5358644367520569
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7512493867805697,
+          "pAwayCover": 0.2063373732657477,
+          "pPush": 0.04241323995368288,
+          "pHomeCoverNoPush": 0.7845235733462236,
+          "pAwayCoverNoPush": 0.21547642665377642
+        },
+        "phys_44_5_over": 0.6205861511790396,
+        "mkt_post_over": 0.4980989770211259,
+        "mkt_post_under": 0.5019010229788741,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_TB_NO",
+      "p_home": 0.7289819340060477,
+      "p_tie": 0.0015380337386790273,
+      "p_away": 0.2694800322552732,
+      "t_model": 47.44295836587981,
+      "market_total_line": 48.5,
+      "expected": {
+        "theta": 0.041507319361146926,
+        "expected_margin": 9.324575912564052,
+        "p_margin_exact_plus_3": 0.07005438421457713,
+        "p_margin_exact_minus_3": 0.05461059664074346,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.62540127717744,
+          "pAwayCover": 0.30454433860798313,
+          "pPush": 0.07005438421457713,
+          "pHomeCoverNoPush": 0.6725138186164059,
+          "pAwayCoverNoPush": 0.3274861813835941
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.62540127717744,
+          "pAwayCover": 0.37459872282256024,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6254012771774399,
+          "pAwayCoverNoPush": 0.3745987228225601
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8611705260059257,
+          "pAwayCover": 0.10944456719324643,
+          "pPush": 0.029384906800828264,
+          "pHomeCoverNoPush": 0.8872420509838618,
+          "pAwayCoverNoPush": 0.11275794901613823
+        },
+        "phys_44_5_over": 0.5788093630312284,
+        "mkt_post_over": 0.4955942581584607,
+        "mkt_post_under": 0.5044057418415393,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_01_PIT_NYG",
+      "p_home": 0.4356349489030527,
+      "p_tie": 0.0017180016004256244,
+      "p_away": 0.5626470494965217,
+      "t_model": 44.08149672398067,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": -0.01087362110496849,
+        "expected_margin": -2.430988271816996,
+        "p_margin_exact_plus_3": 0.07167247309293542,
+        "p_margin_exact_minus_3": 0.07650441738107451,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3268390260640493,
+          "pAwayCover": 0.601488500843015,
+          "pPush": 0.07167247309293542,
+          "pHomeCoverNoPush": 0.3520729662654606,
+          "pAwayCoverNoPush": 0.6479270337345394
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3268390260640493,
+          "pAwayCover": 0.6731609739359504,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.32683902606404935,
+          "pAwayCoverNoPush": 0.6731609739359506
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6245889975530596,
+          "pAwayCover": 0.32465014822310556,
+          "pPush": 0.05076085422383468,
+          "pHomeCoverNoPush": 0.6579890856085074,
+          "pAwayCoverNoPush": 0.34201091439149256
+        },
+        "phys_44_5_over": 0.48872046194727703,
+        "mkt_post_over": 0.48545693995332373,
+        "mkt_post_under": 0.4847780460268106,
+        "mkt_post_push": 0.029765014019865643
+      }
+    },
+    {
+      "game_id": "2020_01_TEN_DEN",
+      "p_home": 0.45550128511871446,
+      "p_tie": 0.001725433469077296,
+      "p_away": 0.5427732814122084,
+      "t_model": 47.008454150096995,
+      "market_total_line": 41.0,
+      "expected": {
+        "theta": -0.0074556267903386035,
+        "expected_margin": -1.6663795497287592,
+        "p_margin_exact_plus_3": 0.07292033808027634,
+        "p_margin_exact_minus_3": 0.07625640003567662,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3450063471911355,
+          "pAwayCover": 0.582073314728588,
+          "pPush": 0.07292033808027634,
+          "pHomeCoverNoPush": 0.37214315162164546,
+          "pAwayCoverNoPush": 0.6278568483783545
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3450063471911355,
+          "pAwayCover": 0.6549936528088643,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.34500634719113554,
+          "pAwayCoverNoPush": 0.6549936528088645
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6435447419314952,
+          "pAwayCover": 0.3065460079708153,
+          "pPush": 0.04990925009768942,
+          "pHomeCoverNoPush": 0.6773508130646102,
+          "pAwayCoverNoPush": 0.3226491869353898
+        },
+        "phys_44_5_over": 0.5672944385078795,
+        "mkt_post_over": 0.5101566039588173,
+        "mkt_post_under": 0.46013704420814866,
+        "mkt_post_push": 0.029706351833033995
+      }
+    },
+    {
+      "game_id": "2020_02_CIN_CLE",
+      "p_home": 0.6124839115423557,
+      "p_tie": 0.0016868989474311806,
+      "p_away": 0.3858291895102131,
+      "t_model": 44.465662428770415,
+      "market_total_line": 44.5,
+      "expected": {
+        "theta": 0.019578462453070013,
+        "expected_margin": 4.381852877133742,
+        "p_margin_exact_plus_3": 0.0762330846080914,
+        "p_margin_exact_minus_3": 0.06778390483520666,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4985426205052467,
+          "pAwayCover": 0.42522429488666186,
+          "pPush": 0.0762330846080914,
+          "pHomeCoverNoPush": 0.5396844292629162,
+          "pAwayCoverNoPush": 0.46031557073708385
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4985426205052467,
+          "pAwayCover": 0.5014573794947532,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4985426205052467,
+          "pAwayCoverNoPush": 0.5014573794947532
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7777668013001025,
+          "pAwayCover": 0.1824162196983682,
+          "pPush": 0.039816979001529466,
+          "pHomeCoverNoPush": 0.8100193237028103,
+          "pAwayCoverNoPush": 0.18998067629718973
+        },
+        "phys_44_5_over": 0.4990744061455019,
+        "mkt_post_over": 0.4998568777548008,
+        "mkt_post_under": 0.5001431222451992,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_ATL_DAL",
+      "p_home": 0.6261272348999988,
+      "p_tie": 0.0016751829937157307,
+      "p_away": 0.3721975821062855,
+      "t_model": 49.86746458562101,
+      "market_total_line": 53.0,
+      "expected": {
+        "theta": 0.02200926120094259,
+        "expected_margin": 4.92777070104692,
+        "p_margin_exact_plus_3": 0.07592650467142695,
+        "p_margin_exact_minus_3": 0.06653381145595215,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5127816275158453,
+          "pAwayCover": 0.4112918678127278,
+          "pPush": 0.07592650467142695,
+          "pHomeCoverNoPush": 0.5549143332300808,
+          "pAwayCoverNoPush": 0.44508566676991923
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5127816275158453,
+          "pAwayCover": 0.4872183724841548,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5127816275158453,
+          "pAwayCoverNoPush": 0.48721837248415467
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7882168244847342,
+          "pAwayCover": 0.17307868137890586,
+          "pPush": 0.03870449413635992,
+          "pHomeCoverNoPush": 0.8199526781066038,
+          "pAwayCoverNoPush": 0.18004732189339623
+        },
+        "phys_44_5_over": 0.6415729338380723,
+        "mkt_post_over": 0.47208027892082516,
+        "mkt_post_under": 0.49817066462626497,
+        "mkt_post_push": 0.029749056452909872
+      }
+    },
+    {
+      "game_id": "2020_02_BAL_HOU",
+      "p_home": 0.2904367316583159,
+      "p_tie": 0.0015735604334702958,
+      "p_away": 0.7079897079082139,
+      "t_model": 49.642599407668015,
+      "market_total_line": 49.5,
+      "expected": {
+        "theta": -0.03730638357213578,
+        "expected_margin": -8.37522925510839,
+        "p_margin_exact_plus_3": 0.05739922473518595,
+        "p_margin_exact_minus_3": 0.07179889588656353,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.20208849269156812,
+          "pAwayCover": 0.7405122825732459,
+          "pPush": 0.05739922473518595,
+          "pHomeCoverNoPush": 0.2143945750891128,
+          "pAwayCoverNoPush": 0.7856054249108873
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.20208849269156812,
+          "pAwayCover": 0.7979115073084319,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.20208849269156812,
+          "pAwayCoverNoPush": 0.7979115073084319
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.47016854666090546,
+          "pAwayCover": 0.4768799143350815,
+          "pPush": 0.052951539004013046,
+          "pHomeCoverNoPush": 0.49645669258196257,
+          "pAwayCoverNoPush": 0.5035433074180374
+        },
+        "phys_44_5_over": 0.6358819095208621,
+        "mkt_post_over": 0.5005943659879756,
+        "mkt_post_under": 0.4994056340120244,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_BUF_MIA",
+      "p_home": 0.40099473006173,
+      "p_tie": 0.001698291793649699,
+      "p_away": 0.5973069781446203,
+      "t_model": 44.24197895307288,
+      "market_total_line": 42.5,
+      "expected": {
+        "theta": -0.01690174762239774,
+        "expected_margin": -3.781321099305218,
+        "p_margin_exact_plus_3": 0.06908151160400292,
+        "p_margin_exact_minus_3": 0.07645463976380175,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2958030520512829,
+          "pAwayCover": 0.6351154363447142,
+          "pPush": 0.06908151160400292,
+          "pHomeCoverNoPush": 0.3177539771080937,
+          "pAwayCoverNoPush": 0.6822460228919063
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2958030520512829,
+          "pAwayCover": 0.7041969479487171,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2958030520512829,
+          "pAwayCoverNoPush": 0.7041969479487171
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5903704049991121,
+          "pAwayCover": 0.3576637271566639,
+          "pPush": 0.05196586784422384,
+          "pHomeCoverNoPush": 0.6227311707191842,
+          "pAwayCoverNoPush": 0.37726882928081584
+        },
+        "phys_44_5_over": 0.49304521417634556,
+        "mkt_post_over": 0.5072602986445605,
+        "mkt_post_under": 0.49273970135543954,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_CAR_TB",
+      "p_home": 0.6855204444177025,
+      "p_tie": 0.0016070821143151829,
+      "p_away": 0.31287247346798214,
+      "t_model": 45.22268297926489,
+      "market_total_line": 47.0,
+      "expected": {
+        "theta": 0.03295719814308343,
+        "expected_margin": 7.393204195662001,
+        "p_margin_exact_plus_3": 0.07334190203533257,
+        "p_margin_exact_minus_3": 0.06018293906643382,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5766245753961121,
+          "pAwayCover": 0.3500335225685552,
+          "pPush": 0.07334190203533257,
+          "pHomeCoverNoPush": 0.6222624899762095,
+          "pAwayCoverNoPush": 0.3777375100237905
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5766245753961121,
+          "pAwayCover": 0.4233754246038878,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5766245753961122,
+          "pAwayCoverNoPush": 0.4233754246038878
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8315848415066747,
+          "pAwayCover": 0.13490520145743387,
+          "pPush": 0.033509957035891526,
+          "pHomeCoverNoPush": 0.8604173913228367,
+          "pAwayCoverNoPush": 0.13958260867716332
+        },
+        "phys_44_5_over": 0.5194726522181234,
+        "mkt_post_over": 0.4777176703155337,
+        "mkt_post_under": 0.49252244610852974,
+        "mkt_post_push": 0.029759883575936563
+      }
+    },
+    {
+      "game_id": "2020_02_DEN_PIT",
+      "p_home": 0.6359522980047414,
+      "p_tie": 0.0016658644723559176,
+      "p_away": 0.36238183752290276,
+      "t_model": 43.15820211799941,
+      "market_total_line": 41.0,
+      "expected": {
+        "theta": 0.023776225323426263,
+        "expected_margin": 5.324947274963514,
+        "p_margin_exact_plus_3": 0.07564133165906275,
+        "p_margin_exact_minus_3": 0.06558490068146683,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5231315995787673,
+          "pAwayCover": 0.4012270687621698,
+          "pPush": 0.07564133165906275,
+          "pHomeCoverNoPush": 0.5659400593037089,
+          "pAwayCoverNoPush": 0.43405994069629106
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5231315995787673,
+          "pAwayCover": 0.4768684004212326,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5231315995787674,
+          "pAwayCoverNoPush": 0.4768684004212326
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7956282534778434,
+          "pAwayCover": 0.16648796471379265,
+          "pPush": 0.037883781808363326,
+          "pHomeCoverNoPush": 0.826956492816722,
+          "pAwayCoverNoPush": 0.173043507183278
+        },
+        "phys_44_5_over": 0.4638805129735537,
+        "mkt_post_over": 0.49410977833652825,
+        "mkt_post_under": 0.47613277750408606,
+        "mkt_post_push": 0.029757444159385693
+      }
+    },
+    {
+      "game_id": "2020_02_DET_GB",
+      "p_home": 0.8028863307077438,
+      "p_tie": 0.0013756527095648186,
+      "p_away": 0.1957380165826912,
+      "t_model": 47.03698425621427,
+      "market_total_line": 51.0,
+      "expected": {
+        "theta": 0.0578184429949299,
+        "expected_margin": 13.003725763277243,
+        "p_margin_exact_plus_3": 0.06131156859039142,
+        "p_margin_exact_minus_3": 0.04333921520405067,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.7129423425132669,
+          "pAwayCover": 0.22574608889634176,
+          "pPush": 0.06131156859039142,
+          "pHomeCoverNoPush": 0.7595090326644981,
+          "pAwayCoverNoPush": 0.2404909673355019
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.7129423425132669,
+          "pAwayCover": 0.2870576574867332,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7129423425132669,
+          "pAwayCoverNoPush": 0.28705765748673306
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9073422768895646,
+          "pAwayCover": 0.07081065739483859,
+          "pPush": 0.021847065715596692,
+          "pHomeCoverNoPush": 0.92760778512959,
+          "pAwayCoverNoPush": 0.07239221487041003
+        },
+        "phys_44_5_over": 0.5680523903254198,
+        "mkt_post_over": 0.4686283669122444,
+        "mkt_post_under": 0.5016321622147772,
+        "mkt_post_push": 0.029739470872978346
+      }
+    },
+    {
+      "game_id": "2020_02_JAX_TEN",
+      "p_home": 0.7269081464578893,
+      "p_tie": 0.0015417322349032653,
+      "p_away": 0.27155012130720746,
+      "t_model": 46.064951216956,
+      "market_total_line": 44.5,
+      "expected": {
+        "theta": 0.04108565718872983,
+        "expected_margin": 9.229268647162746,
+        "p_margin_exact_plus_3": 0.07024020915655713,
+        "p_margin_exact_minus_3": 0.05489416089487985,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6230314185622311,
+          "pAwayCover": 0.3067283722812115,
+          "pPush": 0.07024020915655713,
+          "pHomeCoverNoPush": 0.6700993360844748,
+          "pAwayCoverNoPush": 0.3299006639155252
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6230314185622311,
+          "pAwayCover": 0.3769685814377687,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6230314185622312,
+          "pAwayCoverNoPush": 0.3769685814377688
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8597996998695191,
+          "pAwayCover": 0.11061295148219667,
+          "pPush": 0.029587348648283954,
+          "pHomeCoverNoPush": 0.8860145203917935,
+          "pAwayCoverNoPush": 0.11398547960820649
+        },
+        "phys_44_5_over": 0.5421057109822403,
+        "mkt_post_over": 0.5065225447314889,
+        "mkt_post_under": 0.49347745526851106,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_KC_LAC",
+      "p_home": 0.2569598756346232,
+      "p_tie": 0.0015147461261422438,
+      "p_away": 0.7415253782392345,
+      "t_model": 47.21654479252936,
+      "market_total_line": 47.0,
+      "expected": {
+        "theta": -0.04409208485677489,
+        "expected_margin": -9.908808373343296,
+        "p_margin_exact_plus_3": 0.052857629788731444,
+        "p_margin_exact_minus_3": 0.0688654484180507,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.17530578868284682,
+          "pAwayCover": 0.7718365815284217,
+          "pPush": 0.052857629788731444,
+          "pHomeCoverNoPush": 0.1850891631463423,
+          "pAwayCoverNoPush": 0.8149108368536577
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.17530578868284682,
+          "pAwayCover": 0.8246942113171531,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.17530578868284682,
+          "pAwayCoverNoPush": 0.8246942113171531
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.43000302995875767,
+          "pAwayCover": 0.517811431264234,
+          "pPush": 0.05218553877700855,
+          "pHomeCoverNoPush": 0.45367848619223705,
+          "pAwayCoverNoPush": 0.546321513807763
+        },
+        "phys_44_5_over": 0.5728168698190138,
+        "mkt_post_over": 0.48601946897845194,
+        "mkt_post_under": 0.4842155825161714,
+        "mkt_post_push": 0.029764948505376643
+      }
+    },
+    {
+      "game_id": "2020_02_LA_PHI",
+      "p_home": 0.5034490134625631,
+      "p_tie": 0.0017319889380412576,
+      "p_away": 0.49481899759939557,
+      "t_model": 44.906292213902226,
+      "market_total_line": 46.0,
+      "expected": {
+        "theta": 0.0007358886785665519,
+        "expected_margin": 0.16443526199480316,
+        "p_margin_exact_plus_3": 0.07519591415335089,
+        "p_margin_exact_minus_3": 0.07486463112244798,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3899836523937581,
+          "pAwayCover": 0.5348204334528911,
+          "pPush": 0.07519591415335089,
+          "pHomeCoverNoPush": 0.4216932627808752,
+          "pAwayCoverNoPush": 0.5783067372191248
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3899836523937581,
+          "pAwayCover": 0.610016347606242,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3899836523937581,
+          "pAwayCoverNoPush": 0.6100163476062419
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6873880543279566,
+          "pAwayCover": 0.2651930631943387,
+          "pPush": 0.0474188824777048,
+          "pHomeCoverNoPush": 0.7216057947021695,
+          "pAwayCoverNoPush": 0.27839420529783054
+        },
+        "phys_44_5_over": 0.5109505088598623,
+        "mkt_post_over": 0.48056309055370594,
+        "mkt_post_under": 0.48967383160124683,
+        "mkt_post_push": 0.029763077845047226
+      }
+    },
+    {
+      "game_id": "2020_02_MIN_IND",
+      "p_home": 0.478354505504215,
+      "p_tie": 0.0017305544455301141,
+      "p_away": 0.5199149400502548,
+      "t_model": 50.191301607737714,
+      "market_total_line": 49.0,
+      "expected": {
+        "theta": -0.003545335695043991,
+        "expected_margin": -0.7922527589770064,
+        "p_margin_exact_plus_3": 0.07413653579111429,
+        "p_margin_exact_minus_3": 0.07573046213926418,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3662423226186483,
+          "pAwayCover": 0.5596211415902373,
+          "pPush": 0.07413653579111429,
+          "pHomeCoverNoPush": 0.39556839293965246,
+          "pAwayCoverNoPush": 0.6044316070603475
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3662423226186483,
+          "pAwayCover": 0.6337576773813516,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.36624232261864836,
+          "pAwayCoverNoPush": 0.6337576773813516
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6647712063260289,
+          "pAwayCover": 0.28643298933007105,
+          "pPush": 0.0487958043438998,
+          "pHomeCoverNoPush": 0.6988732906791882,
+          "pAwayCoverNoPush": 0.30112670932081176
+        },
+        "phys_44_5_over": 0.6497135612821372,
+        "mkt_post_over": 0.49008047819557665,
+        "mkt_post_under": 0.48015680691654977,
+        "mkt_post_push": 0.029762714887873576
+      }
+    },
+    {
+      "game_id": "2020_02_NE_SEA",
+      "p_home": 0.5753690907945798,
+      "p_tie": 0.0017117727812484846,
+      "p_away": 0.4229191364241717,
+      "t_model": 46.885868747992205,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": 0.013074642303006569,
+        "expected_margin": 2.9237230025896426,
+        "p_margin_exact_plus_3": 0.07655847324301347,
+        "p_margin_exact_minus_3": 0.0707821571413919,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.46056783658755684,
+          "pAwayCover": 0.46287369016943,
+          "pPush": 0.07655847324301347,
+          "pHomeCoverNoPush": 0.49875148912245093,
+          "pAwayCoverNoPush": 0.5012485108775491
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.46056783658755684,
+          "pAwayCover": 0.5394321634124435,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4605678365875566,
+          "pAwayCoverNoPush": 0.5394321634124434
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.74839318191177,
+          "pAwayCover": 0.20893277324966253,
+          "pPush": 0.042674044838568057,
+          "pHomeCoverNoPush": 0.781753777672903,
+          "pAwayCoverNoPush": 0.218246222327097
+        },
+        "phys_44_5_over": 0.5640349602888073,
+        "mkt_post_over": 0.4929748225601256,
+        "mkt_post_under": 0.47726594100254166,
+        "mkt_post_push": 0.029759236437332748
+      }
+    },
+    {
+      "game_id": "2020_02_NYG_CHI",
+      "p_home": 0.7203520181180771,
+      "p_tie": 0.001553148683502256,
+      "p_away": 0.27809483319842065,
+      "t_model": 46.35931356042482,
+      "market_total_line": 42.5,
+      "expected": {
+        "theta": 0.0397625502866364,
+        "expected_margin": 8.930227842188033,
+        "p_margin_exact_plus_3": 0.07080801956777184,
+        "p_margin_exact_minus_3": 0.055778972603058495,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.615568045834516,
+          "pAwayCover": 0.3136239345977126,
+          "pPush": 0.07080801956777184,
+          "pHomeCoverNoPush": 0.662476709654957,
+          "pAwayCoverNoPush": 0.337523290345043
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.615568045834516,
+          "pAwayCover": 0.3844319541654844,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6155680458345157,
+          "pAwayCoverNoPush": 0.38443195416548426
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8554390280940266,
+          "pAwayCover": 0.1143371848137382,
+          "pPush": 0.03022378709223562,
+          "pHomeCoverNoPush": 0.8820994129450639,
+          "pAwayCoverNoPush": 0.11790058705493611
+        },
+        "phys_44_5_over": 0.5499873518248106,
+        "mkt_post_over": 0.5160815305894293,
+        "mkt_post_under": 0.4839184694105707,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_SF_NYJ",
+      "p_home": 0.3821580617733412,
+      "p_tie": 0.001683882418731819,
+      "p_away": 0.616158055807927,
+      "t_model": 46.32060719462823,
+      "market_total_line": 41.5,
+      "expected": {
+        "theta": -0.020230633077053816,
+        "expected_margin": -4.528266491825981,
+        "p_margin_exact_plus_3": 0.06745501441934555,
+        "p_margin_exact_minus_3": 0.07616063446360731,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2792644216286186,
+          "pAwayCover": 0.6532805639520359,
+          "pPush": 0.06745501441934555,
+          "pHomeCoverNoPush": 0.2994648257689499,
+          "pAwayCoverNoPush": 0.7005351742310502
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2792644216286186,
+          "pAwayCover": 0.7207355783713815,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2792644216286186,
+          "pAwayCoverNoPush": 0.7207355783713814
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5711146541542117,
+          "pAwayCover": 0.3764254096768944,
+          "pPush": 0.05245993616889398,
+          "pHomeCoverNoPush": 0.6027340436087458,
+          "pAwayCoverNoPush": 0.39726595639125417
+        },
+        "phys_44_5_over": 0.5489520343856225,
+        "mkt_post_over": 0.5200841257048412,
+        "mkt_post_under": 0.4799158742951588,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_WAS_ARI",
+      "p_home": 0.7146580732469864,
+      "p_tie": 0.0015627287957629607,
+      "p_away": 0.2837791979572507,
+      "t_model": 48.6056913504901,
+      "market_total_line": 46.5,
+      "expected": {
+        "theta": 0.03862520558851101,
+        "expected_margin": 8.67320576954652,
+        "p_margin_exact_plus_3": 0.07127722406541126,
+        "p_margin_exact_minus_3": 0.056533060283392174,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6091212105046521,
+          "pAwayCover": 0.31960156542993623,
+          "pPush": 0.07127722406541126,
+          "pHomeCoverNoPush": 0.6558697883678839,
+          "pAwayCoverNoPush": 0.3441302116321161
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6091212105046521,
+          "pAwayCover": 0.3908787894953475,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6091212105046523,
+          "pAwayCoverNoPush": 0.3908787894953477
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8516186414529345,
+          "pAwayCover": 0.11760929389222216,
+          "pPush": 0.03077206465484247,
+          "pHomeCoverNoPush": 0.8786567229406778,
+          "pAwayCoverNoPush": 0.12134327705932224
+        },
+        "phys_44_5_over": 0.6092678892598588,
+        "mkt_post_over": 0.5087759699996487,
+        "mkt_post_under": 0.4912240300003513,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_02_NO_LV",
+      "p_home": 0.3535520478744046,
+      "p_tie": 0.0016568392881292802,
+      "p_away": 0.644791112837466,
+      "t_model": 51.718908412255644,
+      "market_total_line": 47.5,
+      "expected": {
+        "theta": -0.025378902645809748,
+        "expected_margin": -5.685449185699052,
+        "p_margin_exact_plus_3": 0.06469660961164171,
+        "p_margin_exact_minus_3": 0.07533781608100927,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2545990835477194,
+          "pAwayCover": 0.6807043068406392,
+          "pPush": 0.06469660961164171,
+          "pHomeCoverNoPush": 0.2722101578633263,
+          "pAwayCoverNoPush": 0.7277898421366737
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2545990835477194,
+          "pAwayCover": 0.7454009164522809,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2545990835477193,
+          "pAwayCoverNoPush": 0.7454009164522807
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5409534929805487,
+          "pAwayCover": 0.40607361405714487,
+          "pPush": 0.0529728929623066,
+          "pHomeCoverNoPush": 0.571212258826101,
+          "pAwayCoverNoPush": 0.42878774117389895
+        },
+        "phys_44_5_over": 0.6871415170895163,
+        "mkt_post_over": 0.5175790087189769,
+        "mkt_post_under": 0.4824209912810231,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_MIA_JAX",
+      "p_home": 0.6133843959150375,
+      "p_tie": 0.0016861690257356284,
+      "p_away": 0.384929435059227,
+      "t_model": 50.2160036876417,
+      "market_total_line": 49.0,
+      "expected": {
+        "theta": 0.019738141583961533,
+        "expected_margin": 4.417697593198091,
+        "p_margin_exact_plus_3": 0.07621601255123994,
+        "p_margin_exact_minus_3": 0.06770382852038899,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4994777026665709,
+          "pAwayCover": 0.42430628478218974,
+          "pPush": 0.07621601255123994,
+          "pHomeCoverNoPush": 0.54068668590586,
+          "pAwayCoverNoPush": 0.45931331409414
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4994777026665709,
+          "pAwayCover": 0.5005222973334297,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.49947770266657066,
+          "pAwayCoverNoPush": 0.5005222973334293
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7784622261118457,
+          "pAwayCover": 0.181793226164753,
+          "pPush": 0.0397445477234013,
+          "pHomeCoverNoPush": 0.8106824327487515,
+          "pAwayCoverNoPush": 0.1893175672512485
+        },
+        "phys_44_5_over": 0.6503317651439998,
+        "mkt_post_over": 0.4901834066227714,
+        "mkt_post_under": 0.48005397527406896,
+        "mkt_post_push": 0.029762618103159666
+      }
+    },
+    {
+      "game_id": "2020_03_CAR_LAC",
+      "p_home": 0.6269405674459078,
+      "p_tie": 0.0016744398289220786,
+      "p_away": 0.3713849927251703,
+      "t_model": 49.83922553090521,
+      "market_total_line": 43.5,
+      "expected": {
+        "theta": 0.022154984515386368,
+        "expected_margin": 4.9605151776689524,
+        "p_margin_exact_plus_3": 0.07590496197249245,
+        "p_margin_exact_minus_3": 0.06645680251203634,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5136353399363405,
+          "pAwayCover": 0.410459698091167,
+          "pPush": 0.07590496197249245,
+          "pHomeCoverNoPush": 0.5558252331196384,
+          "pAwayCoverNoPush": 0.4441747668803616
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5136353399363405,
+          "pAwayCover": 0.48636466006365947,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5136353399363405,
+          "pAwayCoverNoPush": 0.4863646600636595
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.788833965531029,
+          "pAwayCover": 0.1725288664007284,
+          "pPush": 0.03863716806824292,
+          "pHomeCoverNoPush": 0.8205371992028756,
+          "pAwayCoverNoPush": 0.1794628007971244
+        },
+        "phys_44_5_over": 0.6408599361997618,
+        "mkt_post_over": 0.5264029977132323,
+        "mkt_post_under": 0.4735970022867677,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_CHI_ATL",
+      "p_home": 0.5910588260267895,
+      "p_tie": 0.001702487968447368,
+      "p_away": 0.40723868600476315,
+      "t_model": 48.578511553626385,
+      "market_total_line": 46.0,
+      "expected": {
+        "theta": 0.015807118368993837,
+        "expected_margin": 3.5359128849596613,
+        "p_margin_exact_plus_3": 0.07650997857011241,
+        "p_margin_exact_minus_3": 0.06958704819957753,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.47648765875652055,
+          "pAwayCover": 0.4470023626733672,
+          "pPush": 0.07650997857011241,
+          "pHomeCoverNoPush": 0.5159640577585775,
+          "pAwayCoverNoPush": 0.48403594224142255
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.47648765875652055,
+          "pAwayCover": 0.5235123412434796,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.47648765875652055,
+          "pAwayCoverNoPush": 0.5235123412434795
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7609807799352878,
+          "pAwayCover": 0.19752174881170065,
+          "pPush": 0.04149747125301165,
+          "pHomeCoverNoPush": 0.7939267316593178,
+          "pAwayCoverNoPush": 0.20607326834068218
+        },
+        "phys_44_5_over": 0.6085627196016536,
+        "mkt_post_over": 0.49586151897738473,
+        "mkt_post_under": 0.4743842765218913,
+        "mkt_post_push": 0.02975420450072397
+      }
+    },
+    {
+      "game_id": "2020_03_CIN_PHI",
+      "p_home": 0.6830171332694973,
+      "p_tie": 0.0016105409570901837,
+      "p_away": 0.31537232577341245,
+      "t_model": 47.10779825663818,
+      "market_total_line": 46.5,
+      "expected": {
+        "theta": 0.032480898648210875,
+        "expected_margin": 7.285732188479459,
+        "p_margin_exact_plus_3": 0.07349380752794649,
+        "p_margin_exact_minus_3": 0.06048018310882668,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5738701637861652,
+          "pAwayCover": 0.3526360286858883,
+          "pPush": 0.07349380752794649,
+          "pHomeCoverNoPush": 0.6193916116793521,
+          "pAwayCoverNoPush": 0.3806083883206479
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5738701637861652,
+          "pAwayCover": 0.42612983621383477,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5738701637861652,
+          "pAwayCoverNoPush": 0.4261298362138348
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8298258112862265,
+          "pAwayCover": 0.1364345061380092,
+          "pPush": 0.03373968257576438,
+          "pHomeCoverNoPush": 0.8588015013369241,
+          "pAwayCoverNoPush": 0.14119849866307588
+        },
+        "phys_44_5_over": 0.5699325992760584,
+        "mkt_post_over": 0.5025333342147704,
+        "mkt_post_under": 0.4974666657852296,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_DAL_SEA",
+      "p_home": 0.6104110805774621,
+      "p_tie": 0.001688556052233639,
+      "p_away": 0.3879003633703043,
+      "t_model": 51.22815379675566,
+      "market_total_line": 58.0,
+      "expected": {
+        "theta": 0.019211281145199786,
+        "expected_margin": 4.299436867364912,
+        "p_margin_exact_plus_3": 0.07627069920146455,
+        "p_margin_exact_minus_3": 0.06796692275204572,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4963926628744589,
+          "pAwayCover": 0.4273366379240767,
+          "pPush": 0.07627069920146455,
+          "pHomeCoverNoPush": 0.5373789295688062,
+          "pAwayCoverNoPush": 0.4626210704311938
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4963926628744589,
+          "pAwayCover": 0.5036073371255413,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.49639266287445877,
+          "pAwayCoverNoPush": 0.5036073371255412
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7761629228240571,
+          "pAwayCover": 0.18385391034198645,
+          "pPush": 0.03998316683395721,
+          "pHomeCoverNoPush": 0.808488868121558,
+          "pAwayCoverNoPush": 0.19151113187844204
+        },
+        "phys_44_5_over": 0.6753032535713804,
+        "mkt_post_over": 0.4569723848735828,
+        "mkt_post_under": 0.5133370838267739,
+        "mkt_post_push": 0.029690531299643275
+      }
+    },
+    {
+      "game_id": "2020_03_DET_ARI",
+      "p_home": 0.7115827543872612,
+      "p_tie": 0.0015677756583145383,
+      "p_away": 0.2868494699544244,
+      "t_model": 50.72865818492688,
+      "market_total_line": 55.5,
+      "expected": {
+        "theta": 0.038015271415540036,
+        "expected_margin": 8.535387807828796,
+        "p_margin_exact_plus_3": 0.07152151134104298,
+        "p_margin_exact_minus_3": 0.05693479319037456,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6056526359220036,
+          "pAwayCover": 0.32282585273695336,
+          "pPush": 0.07152151134104298,
+          "pHomeCoverNoPush": 0.6523065890269303,
+          "pAwayCoverNoPush": 0.3476934109730697
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6056526359220036,
+          "pAwayCover": 0.3943473640779963,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6056526359220037,
+          "pAwayCoverNoPush": 0.3943473640779963
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.849542403573728,
+          "pAwayCover": 0.11939115904797777,
+          "pPush": 0.03106643737829405,
+          "pHomeCoverNoPush": 0.8767808612956564,
+          "pAwayCoverNoPush": 0.12321913870434364
+        },
+        "phys_44_5_over": 0.6630695798914914,
+        "mkt_post_over": 0.4801209576121082,
+        "mkt_post_under": 0.5198790423878918,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_GB_NO",
+      "p_home": 0.5882361516702005,
+      "p_tie": 0.0017042900554547808,
+      "p_away": 0.4100595582743447,
+      "t_model": 52.51062252856548,
+      "market_total_line": 52.0,
+      "expected": {
+        "theta": 0.015313881683341623,
+        "expected_margin": 3.425364535840284,
+        "p_margin_exact_plus_3": 0.07652820480654157,
+        "p_margin_exact_minus_3": 0.06980991672245518,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.47360933136542444,
+          "pAwayCover": 0.449862463828034,
+          "pPush": 0.07652820480654157,
+          "pHomeCoverNoPush": 0.5128573864740589,
+          "pAwayCoverNoPush": 0.4871426135259411
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.47360933136542444,
+          "pAwayCover": 0.5263906686345756,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.47360933136542444,
+          "pAwayCoverNoPush": 0.5263906686345756
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7587347283350242,
+          "pAwayCover": 0.19955267962581721,
+          "pPush": 0.041712592039158884,
+          "pHomeCoverNoPush": 0.7917611376628132,
+          "pAwayCoverNoPush": 0.2082388623371868
+        },
+        "phys_44_5_over": 0.7058352363292402,
+        "mkt_post_over": 0.4872445149368787,
+        "mkt_post_under": 0.48299088462728956,
+        "mkt_post_push": 0.029764600435831734
+      }
+    },
+    {
+      "game_id": "2020_03_HOU_PIT",
+      "p_home": 0.6610106141022805,
+      "p_tie": 0.0016386614028668668,
+      "p_away": 0.3373507244948528,
+      "t_model": 46.054919514486855,
+      "market_total_line": 46.5,
+      "expected": {
+        "theta": 0.02835584346441159,
+        "expected_margin": 6.355705421555597,
+        "p_margin_exact_plus_3": 0.07466257499765071,
+        "p_margin_exact_minus_3": 0.06298168071221318,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5499021717220559,
+          "pAwayCover": 0.3754352532802935,
+          "pPush": 0.07466257499765071,
+          "pHomeCoverNoPush": 0.5942720534843381,
+          "pAwayCoverNoPush": 0.4057279465156619
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5499021717220559,
+          "pAwayCover": 0.4500978282779442,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5499021717220559,
+          "pAwayCoverNoPush": 0.4500978282779441
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8141029007023362,
+          "pAwayCover": 0.15017737519248517,
+          "pPush": 0.03571972410517873,
+          "pHomeCoverNoPush": 0.8442596214538087,
+          "pAwayCoverNoPush": 0.15574037854619127
+        },
+        "phys_44_5_over": 0.5418367991737382,
+        "mkt_post_over": 0.4981448756368943,
+        "mkt_post_under": 0.5018551243631058,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_LA_BUF",
+      "p_home": 0.5094448749468564,
+      "p_tie": 0.0017316845998698693,
+      "p_away": 0.48882344045327375,
+      "t_model": 45.66944530196959,
+      "market_total_line": 46.5,
+      "expected": {
+        "theta": 0.0017585587854967045,
+        "expected_margin": 0.3929567295549759,
+        "p_margin_exact_plus_3": 0.07540546132493113,
+        "p_margin_exact_minus_3": 0.07461401446619034,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3957226675396978,
+          "pAwayCover": 0.5288718711353712,
+          "pPush": 0.07540546132493113,
+          "pHomeCoverNoPush": 0.42799589548383327,
+          "pAwayCoverNoPush": 0.5720041045161668
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3957226675396978,
+          "pAwayCover": 0.6042773324603022,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3957226675396978,
+          "pAwayCoverNoPush": 0.6042773324603021
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6926873502176325,
+          "pAwayCover": 0.26024543790326043,
+          "pPush": 0.047067211879107,
+          "pHomeCoverNoPush": 0.7269005315511878,
+          "pAwayCoverNoPush": 0.27309946844881217
+        },
+        "phys_44_5_over": 0.5314903472945853,
+        "mkt_post_over": 0.4965382264695087,
+        "mkt_post_under": 0.5034617735304914,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_LV_NE",
+      "p_home": 0.6242485209216703,
+      "p_tie": 0.00167688026916945,
+      "p_away": 0.37407459880916044,
+      "t_model": 50.12461884014426,
+      "market_total_line": 47.0,
+      "expected": {
+        "theta": 0.021673019481566365,
+        "expected_margin": 4.852223718977071,
+        "p_margin_exact_plus_3": 0.07597485152078107,
+        "p_margin_exact_minus_3": 0.06671062713520726,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.510811747314376,
+          "pAwayCover": 0.4132134011648432,
+          "pPush": 0.07597485152078107,
+          "pHomeCoverNoPush": 0.5528115205036153,
+          "pAwayCoverNoPush": 0.44718847949638474
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.510811747314376,
+          "pAwayCover": 0.48918825268562427,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5108117473143758,
+          "pAwayCoverNoPush": 0.48918825268562416
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7867887933243616,
+          "pAwayCover": 0.17435162441933405,
+          "pPush": 0.03885958225630473,
+          "pHomeCoverNoPush": 0.818599216929583,
+          "pAwayCoverNoPush": 0.18140078307041696
+        },
+        "phys_44_5_over": 0.6480427547039579,
+        "mkt_post_over": 0.4981376680848355,
+        "mkt_post_under": 0.4721131948725565,
+        "mkt_post_push": 0.02974913704260801
+      }
+    },
+    {
+      "game_id": "2020_03_NYJ_IND",
+      "p_home": 0.6873934450429519,
+      "p_tie": 0.001604458674633707,
+      "p_away": 0.3110020962824143,
+      "t_model": 46.704604464799715,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": 0.033314587361590875,
+        "expected_margin": 7.473856045452776,
+        "p_margin_exact_plus_3": 0.07322566366261869,
+        "p_margin_exact_minus_3": 0.05995884629691133,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.578689255639636,
+          "pAwayCover": 0.34808508069774563,
+          "pPush": 0.07322566366261869,
+          "pHomeCoverNoPush": 0.6244122576015859,
+          "pAwayCoverNoPush": 0.3755877423984141
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.578689255639636,
+          "pAwayCover": 0.4213107443603643,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5786892556396358,
+          "pAwayCoverNoPush": 0.4213107443603642
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8328970361025284,
+          "pAwayCover": 0.13376547399409558,
+          "pPush": 0.033337489903376455,
+          "pHomeCoverNoPush": 0.861621328439928,
+          "pAwayCoverNoPush": 0.138378671560072
+        },
+        "phys_44_5_over": 0.5592073258567066,
+        "mkt_post_over": 0.4963870587960496,
+        "mkt_post_under": 0.4738598206442454,
+        "mkt_post_push": 0.02975312055970497
+      }
+    },
+    {
+      "game_id": "2020_03_SF_NYG",
+      "p_home": 0.3762839787355919,
+      "p_tie": 0.001678843521551234,
+      "p_away": 0.6220371777428569,
+      "t_model": 47.67495526386976,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": -0.021277886100676945,
+        "expected_margin": -4.7634583804760195,
+        "p_margin_exact_plus_3": 0.06691683850168315,
+        "p_margin_exact_minus_3": 0.07602923585784875,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2741552916961836,
+          "pAwayCover": 0.6589278698021332,
+          "pPush": 0.06691683850168315,
+          "pHomeCoverNoPush": 0.29381656749217644,
+          "pAwayCoverNoPush": 0.7061834325078236
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2741552916961836,
+          "pAwayCover": 0.7258447083038164,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2741552916961836,
+          "pAwayCoverNoPush": 0.7258447083038164
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5650130706481655,
+          "pAwayCover": 0.3823976650958695,
+          "pPush": 0.05258926425596512,
+          "pHomeCoverNoPush": 0.5963760482452638,
+          "pAwayCoverNoPush": 0.4036239517547362
+        },
+        "phys_44_5_over": 0.5849307398747459,
+        "mkt_post_over": 0.5004315079423166,
+        "mkt_post_under": 0.46982544340752147,
+        "mkt_post_push": 0.02974304865016192
+      }
+    },
+    {
+      "game_id": "2020_03_TB_DEN",
+      "p_home": 0.4209487901154882,
+      "p_tie": 0.001710703844299573,
+      "p_away": 0.5773405060402123,
+      "t_model": 46.166725385933205,
+      "market_total_line": 42.5,
+      "expected": {
+        "theta": -0.013416808405012694,
+        "expected_margin": -3.000352103453894,
+        "p_margin_exact_plus_3": 0.0706378611517632,
+        "p_margin_exact_minus_3": 0.07655941668979384,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3135819704495025,
+          "pAwayCover": 0.6157801683987338,
+          "pPush": 0.0706378611517632,
+          "pHomeCoverNoPush": 0.3374163389506338,
+          "pAwayCoverNoPush": 0.6625836610493663
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3135819704495025,
+          "pAwayCover": 0.686418029550497,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.31358197044950264,
+          "pAwayCoverNoPush": 0.6864180295504974
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6102659985892718,
+          "pAwayCover": 0.33841726904351693,
+          "pPush": 0.0513167323672111,
+          "pHomeCoverNoPush": 0.6432768653251828,
+          "pAwayCoverNoPush": 0.3567231346748172
+        },
+        "phys_44_5_over": 0.5448327786795413,
+        "mkt_post_over": 0.5152794315666528,
+        "mkt_post_under": 0.4847205684333472,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_TEN_MIN",
+      "p_home": 0.4377201218071892,
+      "p_tie": 0.0017189128812775097,
+      "p_away": 0.5605609653115332,
+      "t_model": 50.8067624797711,
+      "market_total_line": 49.5,
+      "expected": {
+        "theta": -0.01051378095634611,
+        "expected_margin": -2.350461525054388,
+        "p_margin_exact_plus_3": 0.07181167901062085,
+        "p_margin_exact_minus_3": 0.07648768969618759,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.32873317924479206,
+          "pAwayCover": 0.5994551417445875,
+          "pPush": 0.07181167901062085,
+          "pHomeCoverNoPush": 0.35416646795812623,
+          "pAwayCoverNoPush": 0.6458335320418738
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.32873317924479206,
+          "pAwayCover": 0.6712668207552084,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3287331792447919,
+          "pAwayCoverNoPush": 0.6712668207552082
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6266010446395315,
+          "pAwayCover": 0.32272219464608676,
+          "pPush": 0.05067676071438235,
+          "pHomeCoverNoPush": 0.6600502533900459,
+          "pAwayCoverNoPush": 0.33994974660995414
+        },
+        "phys_44_5_over": 0.6649943492211549,
+        "mkt_post_over": 0.505446516951058,
+        "mkt_post_under": 0.494553483048942,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_03_WAS_CLE",
+      "p_home": 0.6980521283123567,
+      "p_tie": 0.001588943245456569,
+      "p_away": 0.3003589284421866,
+      "t_model": 45.67984879217344,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": 0.03536570356190831,
+        "expected_margin": 7.936895442990818,
+        "p_margin_exact_plus_3": 0.07252163960985608,
+        "p_margin_exact_minus_3": 0.058656052888596356,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5905013718014321,
+          "pAwayCover": 0.3369769885887117,
+          "pPush": 0.07252163960985608,
+          "pHomeCoverNoPush": 0.6366740152870388,
+          "pAwayCoverNoPush": 0.3633259847129612
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5905013718014321,
+          "pAwayCover": 0.4094986281985678,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5905013718014321,
+          "pAwayCoverNoPush": 0.40949862819856786
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8403004311394727,
+          "pAwayCover": 0.1273529187756543,
+          "pPush": 0.03234665008487296,
+          "pHomeCoverNoPush": 0.8683899365544238,
+          "pAwayCoverNoPush": 0.13161006344557624
+        },
+        "phys_44_5_over": 0.5317698970907183,
+        "mkt_post_over": 0.4879495198974586,
+        "mkt_post_under": 0.48228620757456975,
+        "mkt_post_push": 0.029764272527971647
+      }
+    },
+    {
+      "game_id": "2020_03_KC_BAL",
+      "p_home": 0.6806919780953556,
+      "p_tie": 0.001613705292254314,
+      "p_away": 0.31769431661239006,
+      "t_model": 48.66078045555686,
+      "market_total_line": 55.0,
+      "expected": {
+        "theta": 0.03203986337165934,
+        "expected_margin": 7.1862321304265455,
+        "p_margin_exact_plus_3": 0.07363138430575922,
+        "p_margin_exact_minus_3": 0.060753954321408586,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5713169647710227,
+          "pAwayCover": 0.3550516509232182,
+          "pPush": 0.07363138430575922,
+          "pHomeCoverNoPush": 0.6167274615006957,
+          "pAwayCoverNoPush": 0.3832725384993043
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5713169647710227,
+          "pAwayCover": 0.42868303522897744,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5713169647710227,
+          "pAwayCoverNoPush": 0.4286830352289773
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8281865835857104,
+          "pAwayCover": 0.13786116312629454,
+          "pPush": 0.03395225328799523,
+          "pHomeCoverNoPush": 0.8572936341961229,
+          "pAwayCoverNoPush": 0.14270636580387708
+        },
+        "phys_44_5_over": 0.6106960515247448,
+        "mkt_post_over": 0.4587655265930962,
+        "mkt_post_under": 0.5115347457783096,
+        "mkt_post_push": 0.029699727628594186
+      }
+    },
+    {
+      "game_id": "2020_04_DEN_NYJ",
+      "p_home": 0.5570252394917282,
+      "p_tie": 0.0017203869231594332,
+      "p_away": 0.44125437358511244,
+      "t_model": 43.59027131217285,
+      "market_total_line": 41.0,
+      "expected": {
+        "theta": 0.00990450547595591,
+        "expected_margin": 2.2141323240801043,
+        "p_margin_exact_plus_3": 0.07645432071833291,
+        "p_margin_exact_minus_3": 0.07204323427468028,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4421968190027416,
+          "pAwayCover": 0.48134886027892543,
+          "pPush": 0.07645432071833291,
+          "pHomeCoverNoPush": 0.47880340834541274,
+          "pAwayCoverNoPush": 0.5211965916545873
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4421968190027416,
+          "pAwayCover": 0.5578031809972583,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4421968190027416,
+          "pAwayCoverNoPush": 0.5578031809972583
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7333546721523927,
+          "pAwayCover": 0.2226567107908861,
+          "pPush": 0.04398861705672126,
+          "pHomeCoverNoPush": 0.7670982639292522,
+          "pAwayCoverNoPush": 0.23290173607074782
+        },
+        "phys_44_5_over": 0.4754931180765892,
+        "mkt_post_over": 0.4959105319180255,
+        "mkt_post_under": 0.47433536248618013,
+        "mkt_post_push": 0.02975410559579439
+      }
+    },
+    {
+      "game_id": "2020_04_ARI_CAR",
+      "p_home": 0.515403776900559,
+      "p_tie": 0.0017311347962947752,
+      "p_away": 0.48286508830314606,
+      "t_model": 48.71848402734591,
+      "market_total_line": 52.5,
+      "expected": {
+        "theta": 0.00277527360291746,
+        "expected_margin": 0.6201584702769296,
+        "p_margin_exact_plus_3": 0.07559683991792122,
+        "p_margin_exact_minus_3": 0.07434845113913942,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.40145199190203174,
+          "pAwayCover": 0.5229511681800472,
+          "pPush": 0.07559683991792122,
+          "pHomeCoverNoPush": 0.43428236643672474,
+          "pAwayCoverNoPush": 0.5657176335632752
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.40145199190203174,
+          "pAwayCover": 0.5985480080979684,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.40145199190203174,
+          "pAwayCoverNoPush": 0.5985480080979683
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6979146351494958,
+          "pAwayCover": 0.255376019907056,
+          "pPush": 0.046709344943448555,
+          "pHomeCoverNoPush": 0.7321110633441524,
+          "pAwayCoverNoPush": 0.26788893665584756
+        },
+        "phys_44_5_over": 0.6121903908224268,
+        "mkt_post_over": 0.48424247628408773,
+        "mkt_post_under": 0.5157575237159122,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_BAL_WAS",
+      "p_home": 0.21160180394834494,
+      "p_tie": 0.0014160751451006161,
+      "p_away": 0.7869821209065545,
+      "t_model": 46.89510131809776,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": -0.05405441823195199,
+        "expected_margin": -12.157431276754053,
+        "p_margin_exact_plus_3": 0.045958100700933154,
+        "p_margin_exact_minus_3": 0.06356459522390144,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.14022254896614578,
+          "pAwayCover": 0.8138193503329211,
+          "pPush": 0.045958100700933154,
+          "pHomeCoverNoPush": 0.1469773487612725,
+          "pAwayCoverNoPush": 0.8530226512387276
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.14022254896614578,
+          "pAwayCover": 0.8597774510338543,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.14022254896614578,
+          "pAwayCoverNoPush": 0.8597774510338543
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.3722567419379898,
+          "pAwayCover": 0.5776164070102748,
+          "pPush": 0.05012685105173516,
+          "pHomeCoverNoPush": 0.39190153164153185,
+          "pAwayCoverNoPush": 0.6080984683584681
+        },
+        "phys_44_5_over": 0.5642806036024179,
+        "mkt_post_over": 0.49301329862915855,
+        "mkt_post_under": 0.477227521743261,
+        "mkt_post_push": 0.029759179627580457
+      }
+    },
+    {
+      "game_id": "2020_04_BUF_LV",
+      "p_home": 0.48464028239452006,
+      "p_tie": 0.0017313244030632499,
+      "p_away": 0.5136283932024166,
+      "t_model": 52.5743089323231,
+      "market_total_line": 53.0,
+      "expected": {
+        "theta": -0.0024723064875663016,
+        "expected_margin": -0.5524539322384262,
+        "p_margin_exact_plus_3": 0.07442928586405796,
+        "p_margin_exact_minus_3": 0.0755415873564004,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.37214729397137913,
+          "pAwayCover": 0.553423420164563,
+          "pPush": 0.07442928586405796,
+          "pHomeCoverNoPush": 0.40207332436916365,
+          "pAwayCoverNoPush": 0.5979266756308363
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.37214729397137913,
+          "pAwayCover": 0.627852706028621,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.37214729397137913,
+          "pAwayCoverNoPush": 0.6278527060286209
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6705034056335586,
+          "pAwayCover": 0.2810309559434076,
+          "pPush": 0.04846563842303405,
+          "pHomeCoverNoPush": 0.7046549580430721,
+          "pAwayCoverNoPush": 0.2953450419569279
+        },
+        "phys_44_5_over": 0.7073162979212599,
+        "mkt_post_over": 0.48334456891475697,
+        "mkt_post_under": 0.486890701212534,
+        "mkt_post_push": 0.029764729872709006
+      }
+    },
+    {
+      "game_id": "2020_04_CLE_DAL",
+      "p_home": 0.6717185911306782,
+      "p_tie": 0.0016254856403987896,
+      "p_away": 0.32665592322892306,
+      "t_model": 52.38713068727195,
+      "market_total_line": 56.5,
+      "expected": {
+        "theta": 0.030349652546528716,
+        "expected_margin": 6.805050901498433,
+        "p_margin_exact_plus_3": 0.07413087990562443,
+        "p_margin_exact_minus_3": 0.061789550418236985,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5615098996784363,
+          "pAwayCover": 0.3643592204159393,
+          "pPush": 0.07413087990562443,
+          "pHomeCoverNoPush": 0.6064678986390653,
+          "pAwayCoverNoPush": 0.39353210136093475
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5615098996784363,
+          "pAwayCover": 0.43849010032156377,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5615098996784363,
+          "pAwayCoverNoPush": 0.43849010032156366
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8218116646742485,
+          "pAwayCover": 0.14342309114934368,
+          "pPush": 0.03476524417640806,
+          "pHomeCoverNoPush": 0.8514111823222039,
+          "pAwayCoverNoPush": 0.14858881767779608
+        },
+        "phys_44_5_over": 0.7029535434474015,
+        "mkt_post_over": 0.4828625501196234,
+        "mkt_post_under": 0.5171374498803766,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_IND_CHI",
+      "p_home": 0.4838672859648015,
+      "p_tie": 0.0017312445325778668,
+      "p_away": 0.5144014695026207,
+      "t_model": 44.81081112732437,
+      "market_total_line": 43.5,
+      "expected": {
+        "theta": -0.0026042252712975607,
+        "expected_margin": -0.5819338521799754,
+        "p_margin_exact_plus_3": 0.07439426547802003,
+        "p_margin_exact_minus_3": 0.07556583126232964,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3714196268675726,
+          "pAwayCover": 0.5541861076544073,
+          "pPush": 0.07439426547802003,
+          "pHomeCoverNoPush": 0.40127195955564027,
+          "pAwayCoverNoPush": 0.5987280404443598
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3714196268675726,
+          "pAwayCover": 0.6285803731324273,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3714196268675726,
+          "pAwayCoverNoPush": 0.6285803731324273
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6698009228738012,
+          "pAwayCover": 0.28169229533425666,
+          "pPush": 0.048506781791941886,
+          "pHomeCoverNoPush": 0.7039471328395106,
+          "pAwayCoverNoPush": 0.2960528671604894
+        },
+        "phys_44_5_over": 0.5083775139538094,
+        "mkt_post_over": 0.5054633904299204,
+        "mkt_post_under": 0.4945366095700796,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_JAX_CIN",
+      "p_home": 0.5557150952350786,
+      "p_tie": 0.0017209106418249603,
+      "p_away": 0.4425639941230965,
+      "t_model": 48.7831378229334,
+      "market_total_line": 50.0,
+      "expected": {
+        "theta": 0.009678932162334846,
+        "expected_margin": 2.1636642434752265,
+        "p_margin_exact_plus_3": 0.0764403586415418,
+        "p_margin_exact_minus_3": 0.0721276321318604,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4408945638406196,
+          "pAwayCover": 0.4826650775178387,
+          "pPush": 0.0764403586415418,
+          "pHomeCoverNoPush": 0.47738613089687465,
+          "pAwayCoverNoPush": 0.5226138691031254
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4408945638406196,
+          "pAwayCover": 0.5591054361593806,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4408945638406195,
+          "pAwayCoverNoPush": 0.5591054361593806
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.73226718846084,
+          "pAwayCover": 0.2236529072387533,
+          "pPush": 0.044079904300406765,
+          "pHomeCoverNoPush": 0.7660338889778521,
+          "pAwayCoverNoPush": 0.23396611102214793
+        },
+        "phys_44_5_over": 0.6138627463198556,
+        "mkt_post_over": 0.48005040151475553,
+        "mkt_post_under": 0.4901869837814243,
+        "mkt_post_push": 0.02976261470382019
+      }
+    },
+    {
+      "game_id": "2020_04_LAC_TB",
+      "p_home": 0.7450235659151542,
+      "p_tie": 0.0015079646489036282,
+      "p_away": 0.2534684694359422,
+      "t_model": 45.620131526911244,
+      "market_total_line": 42.5,
+      "expected": {
+        "theta": 0.04482402048181362,
+        "expected_margin": 10.074232415753892,
+        "p_margin_exact_plus_3": 0.06851364733258133,
+        "p_margin_exact_minus_3": 0.052357167014451034,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6438840323379198,
+          "pAwayCover": 0.2876023203294988,
+          "pPush": 0.06851364733258133,
+          "pHomeCoverNoPush": 0.6912436564358496,
+          "pAwayCoverNoPush": 0.3087563435641504
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6438840323379198,
+          "pAwayCover": 0.3561159676620801,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6438840323379199,
+          "pAwayCoverNoPush": 0.3561159676620801
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8716362579537174,
+          "pAwayCover": 0.10056265128357954,
+          "pPush": 0.027801090762703158,
+          "pHomeCoverNoPush": 0.8965616497528553,
+          "pAwayCoverNoPush": 0.10343835024714465
+        },
+        "phys_44_5_over": 0.5301650391302498,
+        "mkt_post_over": 0.513002628603441,
+        "mkt_post_under": 0.48699737139655896,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_MIN_HOU",
+      "p_home": 0.565671149817246,
+      "p_tie": 0.0017166256310301243,
+      "p_away": 0.43261222455172393,
+      "t_model": 51.31229995353909,
+      "market_total_line": 52.5,
+      "expected": {
+        "theta": 0.011395772355527193,
+        "expected_margin": 2.5478518678807576,
+        "p_margin_exact_plus_3": 0.07652475059052612,
+        "p_margin_exact_minus_3": 0.07146727063223195,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4508233977889255,
+          "pAwayCover": 0.47265185162054846,
+          "pPush": 0.07652475059052612,
+          "pHomeCoverNoPush": 0.4881813541588789,
+          "pAwayCoverNoPush": 0.5118186458411211
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4508233977889255,
+          "pAwayCover": 0.5491766022110746,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4508233977889255,
+          "pAwayCoverNoPush": 0.5491766022110744
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.740486223821351,
+          "pAwayCover": 0.21613635717111773,
+          "pPush": 0.043377419007531066,
+          "pHomeCoverNoPush": 0.7740630824887257,
+          "pAwayCoverNoPush": 0.22593691751127432
+        },
+        "phys_44_5_over": 0.6773461338611093,
+        "mkt_post_over": 0.49504970177627244,
+        "mkt_post_under": 0.5049502982237275,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_NO_DET",
+      "p_home": 0.3355050573959306,
+      "p_tie": 0.0016364552379423776,
+      "p_away": 0.662858487366127,
+      "t_model": 52.861755686015705,
+      "market_total_line": 51.5,
+      "expected": {
+        "theta": -0.028698210726110757,
+        "expected_margin": -6.432840438026721,
+        "p_margin_exact_plus_3": 0.06277935199577621,
+        "p_margin_exact_minus_3": 0.07457575794616231,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2393163449725162,
+          "pAwayCover": 0.6979043030317076,
+          "pPush": 0.06277935199577621,
+          "pHomeCoverNoPush": 0.2553468550678342,
+          "pAwayCoverNoPush": 0.7446531449321658
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2393163449725162,
+          "pAwayCover": 0.7606836550274838,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2393163449725162,
+          "pAwayCoverNoPush": 0.7606836550274838
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5213297779912068,
+          "pAwayCover": 0.42553229970387235,
+          "pPush": 0.053137922304920766,
+          "pHomeCoverNoPush": 0.5505868175228497,
+          "pAwayCoverNoPush": 0.44941318247715034
+        },
+        "phys_44_5_over": 0.7139575377125786,
+        "mkt_post_over": 0.5056757103391958,
+        "mkt_post_under": 0.4943242896608042,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_NYG_LA",
+      "p_home": 0.8248900014244833,
+      "p_tie": 0.001313899707338883,
+      "p_away": 0.17379609886817782,
+      "t_model": 50.70018159542153,
+      "market_total_line": 49.5,
+      "expected": {
+        "theta": 0.06334024372256558,
+        "expected_margin": 14.239207516628802,
+        "p_margin_exact_plus_3": 0.05781658231882605,
+        "p_margin_exact_minus_3": 0.03953689013461048,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.7402956405187686,
+          "pAwayCover": 0.20188777716240539,
+          "pPush": 0.05781658231882605,
+          "pHomeCoverNoPush": 0.7857234871960755,
+          "pAwayCoverNoPush": 0.21427651280392446
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.7402956405187686,
+          "pAwayCover": 0.25970435948123144,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7402956405187686,
+          "pAwayCoverNoPush": 0.2597043594812314
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9200668167282333,
+          "pAwayCover": 0.06043822868612652,
+          "pPush": 0.01949495458564024,
+          "pHomeCoverNoPush": 0.9383601043474638,
+          "pAwayCoverNoPush": 0.06163989565253625
+        },
+        "phys_44_5_over": 0.6623667478911517,
+        "mkt_post_over": 0.5050023181847969,
+        "mkt_post_under": 0.4949976818152031,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_PHI_SF",
+      "p_home": 0.7247389845592838,
+      "p_tie": 0.001545555694492746,
+      "p_away": 0.27371545974622363,
+      "t_model": 46.75586653929596,
+      "market_total_line": 45.5,
+      "expected": {
+        "theta": 0.04064624144022849,
+        "expected_margin": 9.129950976448352,
+        "p_margin_exact_plus_3": 0.07043136937454324,
+        "p_margin_exact_minus_3": 0.05518887002573821,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6205572650731181,
+          "pAwayCover": 0.30901136555233827,
+          "pPush": 0.07043136937454324,
+          "pHomeCoverNoPush": 0.6675755233431002,
+          "pAwayCoverNoPush": 0.3324244766568998
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6205572650731181,
+          "pAwayCover": 0.3794427349268815,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6205572650731184,
+          "pAwayCoverNoPush": 0.37944273492688163
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8583614525437325,
+          "pAwayCover": 0.11184002407021153,
+          "pPush": 0.029798523386055643,
+          "pHomeCoverNoPush": 0.8847249496459856,
+          "pAwayCoverNoPush": 0.11527505035401442
+        },
+        "phys_44_5_over": 0.5605735198483134,
+        "mkt_post_over": 0.5052343979852851,
+        "mkt_post_under": 0.49476560201471487,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_SEA_MIA",
+      "p_home": 0.38316294281152474,
+      "p_tie": 0.001684718225459262,
+      "p_away": 0.6151523389630159,
+      "t_model": 51.608789969058606,
+      "market_total_line": 55.0,
+      "expected": {
+        "theta": -0.020051943358309978,
+        "expected_margin": -4.488146443538938,
+        "p_margin_exact_plus_3": 0.06754561070307008,
+        "p_margin_exact_minus_3": 0.07618120235122518,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.2801407386161173,
+          "pAwayCover": 0.6523136506808126,
+          "pPush": 0.06754561070307008,
+          "pHomeCoverNoPush": 0.3004337175433785,
+          "pAwayCoverNoPush": 0.6995662824566216
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.2801407386161173,
+          "pAwayCover": 0.7198592613838827,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.2801407386161173,
+          "pAwayCoverNoPush": 0.7198592613838827
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5721537914098476,
+          "pAwayCover": 0.37540959805798557,
+          "pPush": 0.052436610532167235,
+          "pHomeCoverNoPush": 0.6038158478570793,
+          "pAwayCoverNoPush": 0.3961841521429207
+        },
+        "phys_44_5_over": 0.684501352240392,
+        "mkt_post_over": 0.47100485418689786,
+        "mkt_post_under": 0.49924883471069265,
+        "mkt_post_push": 0.029746311102409495
+      }
+    },
+    {
+      "game_id": "2020_04_ATL_GB",
+      "p_home": 0.7917532047854453,
+      "p_tie": 0.0014042970592939642,
+      "p_away": 0.20684249815526068,
+      "t_model": 52.83487072122129,
+      "market_total_line": 56.5,
+      "expected": {
+        "theta": 0.05516583418861006,
+        "expected_margin": 12.407593692125957,
+        "p_margin_exact_plus_3": 0.06291171547876251,
+        "p_margin_exact_minus_3": 0.0451837449363503,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6993447099581114,
+          "pAwayCover": 0.23774357456312606,
+          "pPush": 0.06291171547876251,
+          "pHomeCoverNoPush": 0.7462954360969413,
+          "pAwayCoverNoPush": 0.25370456390305873
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6993447099581114,
+          "pAwayCover": 0.30065529004188857,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6993447099581114,
+          "pAwayCoverNoPush": 0.3006552900418886
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9007229494763962,
+          "pAwayCover": 0.07625720795537355,
+          "pPush": 0.023019842568230295,
+          "pHomeCoverNoPush": 0.9219460012823246,
+          "pAwayCoverNoPush": 0.07805399871767538
+        },
+        "phys_44_5_over": 0.7133394270183735,
+        "mkt_post_over": 0.48472721622842696,
+        "mkt_post_under": 0.515272783771573,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_04_NE_KC",
+      "p_home": 0.7559798147880037,
+      "p_tie": 0.0014858872821711488,
+      "p_away": 0.24253429792982525,
+      "t_model": 48.35073944169746,
+      "market_total_line": 52.5,
+      "expected": {
+        "theta": 0.04715033190412246,
+        "expected_margin": 10.59987944082937,
+        "p_margin_exact_plus_3": 0.06735321896042189,
+        "p_margin_exact_minus_3": 0.050756957636059294,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6566651823595582,
+          "pAwayCover": 0.27598159868002,
+          "pPush": 0.06735321896042189,
+          "pHomeCoverNoPush": 0.7040877593847522,
+          "pAwayCoverNoPush": 0.2959122406152478
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6566651823595582,
+          "pAwayCover": 0.3433348176404419,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6566651823595582,
+          "pAwayCoverNoPush": 0.3433348176404418
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8786434520814239,
+          "pAwayCover": 0.0946547772217029,
+          "pPush": 0.026701770696873423,
+          "pHomeCoverNoPush": 0.9027484337565528,
+          "pAwayCoverNoPush": 0.09725156624344722
+        },
+        "phys_44_5_over": 0.6026394413572763,
+        "mkt_post_over": 0.48271101044409753,
+        "mkt_post_under": 0.5172889895559025,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_TB_CHI",
+      "p_home": 0.43225309005611334,
+      "p_tie": 0.0017164578210469624,
+      "p_away": 0.5660304521228398,
+      "t_model": 46.229516339619906,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": -0.011457851840877742,
+        "expected_margin": -2.5617471240995533,
+        "p_margin_exact_plus_3": 0.0714426226982993,
+        "p_margin_exact_minus_3": 0.07652685759119553,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3237732728268081,
+          "pAwayCover": 0.6047841044748925,
+          "pPush": 0.0714426226982993,
+          "pHomeCoverNoPush": 0.3486841855348373,
+          "pAwayCoverNoPush": 0.6513158144651627
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3237732728268081,
+          "pAwayCover": 0.6762267271731918,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3237732728268082,
+          "pAwayCoverNoPush": 0.6762267271731919
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6213144073810161,
+          "pAwayCover": 0.3277910515087434,
+          "pPush": 0.05089454111024013,
+          "pHomeCoverNoPush": 0.6546315813079556,
+          "pAwayCoverNoPush": 0.3453684186920444
+        },
+        "phys_44_5_over": 0.5465142349718519,
+        "mkt_post_over": 0.4944069903623134,
+        "mkt_post_under": 0.47583607467509237,
+        "mkt_post_push": 0.02975693496259424
+      }
+    },
+    {
+      "game_id": "2020_05_ARI_NYJ",
+      "p_home": 0.40827855294428667,
+      "p_tie": 0.001703159040783634,
+      "p_away": 0.5900182880149296,
+      "t_model": 47.709639446999994,
+      "market_total_line": 48.5,
+      "expected": {
+        "theta": -0.015625204242565555,
+        "expected_margin": -3.495138497394686,
+        "p_margin_exact_plus_3": 0.06966960543591612,
+        "p_margin_exact_minus_3": 0.07651718614971698,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.3022618605341049,
+          "pAwayCover": 0.6280685340299789,
+          "pPush": 0.06966960543591612,
+          "pHomeCoverNoPush": 0.3248973292716433,
+          "pAwayCoverNoPush": 0.6751026707283567
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.3022618605341049,
+          "pAwayCover": 0.697738139465895,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.3022618605341049,
+          "pAwayCoverNoPush": 0.697738139465895
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.5976918630601845,
+          "pAwayCover": 0.35056464356360306,
+          "pPush": 0.0517434933762123,
+          "pHomeCoverNoPush": 0.6303061027107864,
+          "pAwayCoverNoPush": 0.36969389728921365
+        },
+        "phys_44_5_over": 0.5858441720030633,
+        "mkt_post_over": 0.49670575268446027,
+        "mkt_post_under": 0.5032942473155397,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_CAR_ATL",
+      "p_home": 0.5557659587410652,
+      "p_tie": 0.001720890536124568,
+      "p_away": 0.4425131507228102,
+      "t_model": 51.167247831207355,
+      "market_total_line": 53.5,
+      "expected": {
+        "theta": 0.009687687690629639,
+        "expected_margin": 2.165623086936438,
+        "p_margin_exact_plus_3": 0.07644091676938954,
+        "p_margin_exact_minus_3": 0.07212436974913196,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.440945096810223,
+          "pAwayCover": 0.4826139864203875,
+          "pPush": 0.07644091676938954,
+          "pHomeCoverNoPush": 0.47744113486253276,
+          "pAwayCoverNoPush": 0.5225588651374673
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.440945096810223,
+          "pAwayCover": 0.559054903189777,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.440945096810223,
+          "pAwayCoverNoPush": 0.559054903189777
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7323094412310316,
+          "pAwayCover": 0.22361419190768533,
+          "pPush": 0.044076366861282974,
+          "pHomeCoverNoPush": 0.766075255223619,
+          "pAwayCoverNoPush": 0.23392474477638103
+        },
+        "phys_44_5_over": 0.6738212917601034,
+        "mkt_post_over": 0.4902778796866906,
+        "mkt_post_under": 0.5097221203133093,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_CIN_BAL",
+      "p_home": 0.8347598610065348,
+      "p_tie": 0.0012837755550372514,
+      "p_away": 0.16395636343842804,
+      "t_model": 48.283429585259505,
+      "market_total_line": 49.0,
+      "expected": {
+        "theta": 0.06595835251294187,
+        "expected_margin": 14.821691945260925,
+        "p_margin_exact_plus_3": 0.056096185312442454,
+        "p_margin_exact_minus_3": 0.0377625434431591,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.7527843595206378,
+          "pAwayCover": 0.19111945516691967,
+          "pPush": 0.056096185312442454,
+          "pHomeCoverNoPush": 0.7975223193369737,
+          "pAwayCoverNoPush": 0.2024776806630263
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.7527843595206378,
+          "pAwayCover": 0.24721564047936212,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7527843595206378,
+          "pAwayCoverNoPush": 0.24721564047936218
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9256176407054695,
+          "pAwayCover": 0.05595628410410901,
+          "pPush": 0.018426075190421293,
+          "pHomeCoverNoPush": 0.9429933062708808,
+          "pAwayCoverNoPush": 0.05700669372911915
+        },
+        "phys_44_5_over": 0.6008844216370188,
+        "mkt_post_over": 0.4821333018833238,
+        "mkt_post_under": 0.4881025090528831,
+        "mkt_post_push": 0.02976418906379308
+      }
+    },
+    {
+      "game_id": "2020_05_IND_CLE",
+      "p_home": 0.49216652511038284,
+      "p_tie": 0.00173188508011678,
+      "p_away": 0.5061015898095004,
+      "t_model": 46.83952833730446,
+      "market_total_line": 48.5,
+      "expected": {
+        "theta": -0.0011882896382796864,
+        "expected_margin": -0.2655258772875978,
+        "p_margin_exact_plus_3": 0.07475581780378888,
+        "p_margin_exact_minus_3": 0.07529071174690302,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.37925426614296676,
+          "pAwayCover": 0.5459899160532445,
+          "pPush": 0.07475581780378888,
+          "pHomeCoverNoPush": 0.4098964072843426,
+          "pAwayCoverNoPush": 0.5901035927156574
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.37925426614296676,
+          "pAwayCover": 0.6207457338570335,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.37925426614296665,
+          "pAwayCoverNoPush": 0.6207457338570334
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.6773075908747801,
+          "pAwayCover": 0.27463518644561874,
+          "pPush": 0.048057222679601094,
+          "pHomeCoverNoPush": 0.7115003201992006,
+          "pAwayCoverNoPush": 0.2884996798007994
+        },
+        "phys_44_5_over": 0.5628016482338392,
+        "mkt_post_over": 0.49307937581035644,
+        "mkt_post_under": 0.5069206241896436,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_JAX_HOU",
+      "p_home": 0.5587770227898076,
+      "p_tie": 0.0017196676789889111,
+      "p_away": 0.43950330953120353,
+      "t_model": 51.87944763474236,
+      "market_total_line": 55.0,
+      "expected": {
+        "theta": 0.01020627689904978,
+        "expected_margin": 2.2816528872394715,
+        "p_margin_exact_plus_3": 0.07647164083300481,
+        "p_margin_exact_minus_3": 0.07192920005397214,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4439400878005374,
+          "pAwayCover": 0.4795882713664578,
+          "pPush": 0.07647164083300481,
+          "pHomeCoverNoPush": 0.48070000600843793,
+          "pAwayCoverNoPush": 0.5192999939915621
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4439400878005374,
+          "pAwayCover": 0.5560599121994626,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4439400878005374,
+          "pAwayCoverNoPush": 0.5560599121994626
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7348059288105425,
+          "pAwayCover": 0.22132806387415038,
+          "pPush": 0.04386600731530734,
+          "pHomeCoverNoPush": 0.7685177333224065,
+          "pAwayCoverNoPush": 0.23148226667759353
+        },
+        "phys_44_5_over": 0.6909733886347399,
+        "mkt_post_over": 0.4721301027513758,
+        "mkt_post_under": 0.49812071888903225,
+        "mkt_post_push": 0.029749178359591955
+      }
+    },
+    {
+      "game_id": "2020_05_LA_WAS",
+      "p_home": 0.2761239382883342,
+      "p_tie": 0.0015497545847435437,
+      "p_away": 0.7223263071269221,
+      "t_model": 47.712630100357735,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": -0.040159426271959474,
+        "expected_margin": -9.019923800563681,
+        "p_margin_exact_plus_3": 0.05551438675272697,
+        "p_margin_exact_minus_3": 0.07064015606275073,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.19054644927438438,
+          "pAwayCover": 0.7539391639728885,
+          "pPush": 0.05551438675272697,
+          "pHomeCoverNoPush": 0.2017462697173959,
+          "pAwayCoverNoPush": 0.798253730282604
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.19054644927438438,
+          "pAwayCover": 0.8094535507256155,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.1905464492743844,
+          "pAwayCoverNoPush": 0.8094535507256155
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.45323411105303685,
+          "pAwayCover": 0.49407097323146026,
+          "pPush": 0.052694915715502805,
+          "pHomeCoverNoPush": 0.4784457706097568,
+          "pAwayCoverNoPush": 0.5215542293902432
+        },
+        "phys_44_5_over": 0.5859229112778512,
+        "mkt_post_over": 0.49642050888760014,
+        "mkt_post_under": 0.47382644129421525,
+        "mkt_post_push": 0.029753049818184607
+      }
+    },
+    {
+      "game_id": "2020_05_LV_KC",
+      "p_home": 0.8232127361260899,
+      "p_tie": 0.0013188629977369424,
+      "p_away": 0.17546840087617316,
+      "t_model": 48.53426125760861,
+      "market_total_line": 54.5,
+      "expected": {
+        "theta": 0.06290470810417674,
+        "expected_margin": 14.142079655337465,
+        "p_margin_exact_plus_3": 0.05809924847756088,
+        "p_margin_exact_minus_3": 0.039834145840600584,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.738187232056192,
+          "pAwayCover": 0.20371351946624733,
+          "pPush": 0.05809924847756088,
+          "pHomeCoverNoPush": 0.7837208228818424,
+          "pAwayCoverNoPush": 0.21627917711815758
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.738187232056192,
+          "pAwayCover": 0.2618127679438082,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7381872320561919,
+          "pAwayCoverNoPush": 0.26181276794380814
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9191137852190332,
+          "pAwayCover": 0.061210440402905096,
+          "pPush": 0.019675774378061787,
+          "pHomeCoverNoPush": 0.9375610244008079,
+          "pAwayCoverNoPush": 0.06243897559919209
+        },
+        "phys_44_5_over": 0.6074138996013692,
+        "mkt_post_over": 0.47515050149515703,
+        "mkt_post_under": 0.524849498504843,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_MIA_SF",
+      "p_home": 0.7472551167016759,
+      "p_tie": 0.001503571755499161,
+      "p_away": 0.2512413115428248,
+      "t_model": 50.20017193362234,
+      "market_total_line": 50.5,
+      "expected": {
+        "theta": 0.045293599439511556,
+        "expected_margin": 10.180354049990841,
+        "p_margin_exact_plus_3": 0.06828453799797084,
+        "p_margin_exact_minus_3": 0.052035270145073545,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6464767250617857,
+          "pAwayCover": 0.28523873694024326,
+          "pPush": 0.06828453799797084,
+          "pHomeCoverNoPush": 0.6938563879498845,
+          "pAwayCoverNoPush": 0.30614361205011553
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6464767250617857,
+          "pAwayCover": 0.3535232749382141,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6464767250617858,
+          "pAwayCoverNoPush": 0.3535232749382142
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8730727455425569,
+          "pAwayCover": 0.09934893692918112,
+          "pPush": 0.02757831752826197,
+          "pHomeCoverNoPush": 0.8978334824079074,
+          "pAwayCoverNoPush": 0.10216651759209261
+        },
+        "phys_44_5_over": 0.6499355992574207,
+        "mkt_post_over": 0.498750294391943,
+        "mkt_post_under": 0.5012497056080569,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_MIN_SEA",
+      "p_home": 0.7140855248417115,
+      "p_tie": 0.0015636751209209827,
+      "p_away": 0.28435080003736746,
+      "t_model": 52.28698011459817,
+      "market_total_line": 54.0,
+      "expected": {
+        "theta": 0.03851142398178281,
+        "expected_margin": 8.647495163828097,
+        "p_margin_exact_plus_3": 0.07132318693793287,
+        "p_margin_exact_minus_3": 0.056608148040351726,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.6084747400244376,
+          "pAwayCover": 0.3202020730376297,
+          "pPush": 0.07132318693793287,
+          "pHomeCoverNoPush": 0.6552061292648756,
+          "pAwayCoverNoPush": 0.34479387073512435
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.6084747400244376,
+          "pAwayCover": 0.3915252599755626,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.6084747400244375,
+          "pAwayCoverNoPush": 0.39152525997556253
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8512327793616347,
+          "pAwayCover": 0.11794025725645978,
+          "pPush": 0.03082696338190543,
+          "pHomeCoverNoPush": 0.8783083589819942,
+          "pAwayCoverNoPush": 0.12169164101800578
+        },
+        "phys_44_5_over": 0.7006070836111378,
+        "mkt_post_over": 0.47798525124610824,
+        "mkt_post_under": 0.492254499947327,
+        "mkt_post_push": 0.02976024880656475
+      }
+    },
+    {
+      "game_id": "2020_05_NYG_DAL",
+      "p_home": 0.7558489225520754,
+      "p_tie": 0.0014861586775212232,
+      "p_away": 0.2426649187704034,
+      "t_model": 49.423901255772634,
+      "market_total_line": 52.0,
+      "expected": {
+        "theta": 0.04712222311392528,
+        "expected_margin": 10.593529548150862,
+        "p_margin_exact_plus_3": 0.06736761426265858,
+        "p_margin_exact_minus_3": 0.0507763686959856,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.656511714188688,
+          "pAwayCover": 0.27612067154865344,
+          "pPush": 0.06736761426265858,
+          "pHomeCoverNoPush": 0.7039340733054731,
+          "pAwayCoverNoPush": 0.2960659266945269
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.656511714188688,
+          "pAwayCover": 0.343488285811312,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.656511714188688,
+          "pAwayCoverNoPush": 0.34348828581131197
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8785604137681811,
+          "pAwayCover": 0.09472460040159891,
+          "pPush": 0.026714985830219966,
+          "pHomeCoverNoPush": 0.9026753735827323,
+          "pAwayCoverNoPush": 0.09732462641726769
+        },
+        "phys_44_5_over": 0.6303180590831354,
+        "mkt_post_over": 0.4743943125108847,
+        "mkt_post_under": 0.4958514627511703,
+        "mkt_post_push": 0.02975422473794498
+      }
+    },
+    {
+      "game_id": "2020_05_PHI_PIT",
+      "p_home": 0.6761992539613499,
+      "p_tie": 0.0016196886138373629,
+      "p_away": 0.3221810574248127,
+      "t_model": 45.09527836532281,
+      "market_total_line": 44.0,
+      "expected": {
+        "theta": 0.031191313624660443,
+        "expected_margin": 6.994836368221791,
+        "p_margin_exact_plus_3": 0.07388768128999054,
+        "p_margin_exact_minus_3": 0.061276612079457636,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5663976695989614,
+          "pAwayCover": 0.35971464911104784,
+          "pPush": 0.07388768128999054,
+          "pHomeCoverNoPush": 0.6115863682581203,
+          "pAwayCoverNoPush": 0.3884136317418797
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5663976695989614,
+          "pAwayCover": 0.43360233040103835,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5663976695989615,
+          "pAwayCoverNoPush": 0.43360233040103846
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8250045190901327,
+          "pAwayCover": 0.14063471155899132,
+          "pPush": 0.034360769350875967,
+          "pHomeCoverNoPush": 0.8543610210777647,
+          "pAwayCoverNoPush": 0.14563897892223532
+        },
+        "phys_44_5_over": 0.5160417980689,
+        "mkt_post_over": 0.4896803756884187,
+        "mkt_post_under": 0.4805565520621807,
+        "mkt_post_push": 0.029763072249400613
+      }
+    },
+    {
+      "game_id": "2020_05_LAC_NO",
+      "p_home": 0.7963105445923249,
+      "p_tie": 0.0013927712702892245,
+      "p_away": 0.20229668413738594,
+      "t_model": 52.45053722230351,
+      "market_total_line": 49.5,
+      "expected": {
+        "theta": 0.05624134166292933,
+        "expected_margin": 12.649465543400447,
+        "p_margin_exact_plus_3": 0.062269830625649746,
+        "p_margin_exact_minus_3": 0.04443506895044046,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.7048919418341071,
+          "pAwayCover": 0.23283822754024314,
+          "pPush": 0.062269830625649746,
+          "pHomeCoverNoPush": 0.7517001850376726,
+          "pAwayCoverNoPush": 0.24829981496232745
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.7048919418341071,
+          "pAwayCover": 0.29510805816589286,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.7048919418341071,
+          "pAwayCoverNoPush": 0.2951080581658929
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.9034471572257695,
+          "pAwayCover": 0.0740116114277962,
+          "pPush": 0.0225412313464342,
+          "pHomeCoverNoPush": 0.924281602660595,
+          "pAwayCoverNoPush": 0.075718397339405
+        },
+        "phys_44_5_over": 0.7044347536683052,
+        "mkt_post_over": 0.5122961041188949,
+        "mkt_post_under": 0.4877038958811051,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_05_BUF_TEN",
+      "p_home": 0.6318424123381106,
+      "p_tie": 0.0016698532019621384,
+      "p_away": 0.3664877344599272,
+      "t_model": 50.95917407618949,
+      "market_total_line": 52.0,
+      "expected": {
+        "theta": 0.023035307164739546,
+        "expected_margin": 5.158368684390464,
+        "p_margin_exact_plus_3": 0.07576725623714772,
+        "p_margin_exact_minus_3": 0.06598677746844803,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5187922677744978,
+          "pAwayCover": 0.4054404759883545,
+          "pPush": 0.07576725623714772,
+          "pHomeCoverNoPush": 0.5613221034155592,
+          "pAwayCoverNoPush": 0.4386778965844408
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5187922677744978,
+          "pAwayCover": 0.48120773222550217,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5187922677744978,
+          "pAwayCoverNoPush": 0.48120773222550217
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7925395706689566,
+          "pAwayCover": 0.16923138092286633,
+          "pPush": 0.03822904840817676,
+          "pHomeCoverNoPush": 0.8240419086864995,
+          "pAwayCoverNoPush": 0.1759580913135005
+        },
+        "phys_44_5_over": 0.6687378262014613,
+        "mkt_post_over": 0.48078324652338433,
+        "mkt_post_under": 0.48945349191074317,
+        "mkt_post_push": 0.0297632615658725
+      }
+    },
+    {
+      "game_id": "2020_06_ATL_MIN",
+      "p_home": 0.6614396940473568,
+      "p_tie": 0.0016381516204807187,
+      "p_away": 0.33692215433216244,
+      "t_model": 53.28788780832919,
+      "market_total_line": 53.0,
+      "expected": {
+        "theta": 0.02843528040065651,
+        "expected_margin": 6.37360156714497,
+        "p_margin_exact_plus_3": 0.07464259819989663,
+        "p_margin_exact_minus_3": 0.06293482601882038,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.5503653401537756,
+          "pAwayCover": 0.37499206164632753,
+          "pPush": 0.07464259819989663,
+          "pHomeCoverNoPush": 0.5947597534564987,
+          "pAwayCoverNoPush": 0.4052402465435013
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.5503653401537756,
+          "pAwayCover": 0.4496346598462242,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.5503653401537757,
+          "pAwayCoverNoPush": 0.4496346598462243
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.8144139302231975,
+          "pAwayCover": 0.14990425867742171,
+          "pPush": 0.03568181109938078,
+          "pHomeCoverNoPush": 0.8445489669251997,
+          "pAwayCoverNoPush": 0.15545103307480035
+        },
+        "phys_44_5_over": 0.7236691420743055,
+        "mkt_post_over": 0.48631665240250643,
+        "mkt_post_under": 0.4839184576689682,
+        "mkt_post_push": 0.029764889928525384
+      }
+    },
+    {
+      "game_id": "2020_06_BAL_PHI",
+      "p_home": 0.27457186218681895,
+      "p_tie": 0.001547055209092136,
+      "p_away": 0.7238810826040889,
+      "t_model": 47.58644144239594,
+      "market_total_line": 46.5,
+      "expected": {
+        "theta": -0.04047290839692082,
+        "expected_margin": -9.090774723748922,
+        "p_margin_exact_plus_3": 0.05530489228964077,
+        "p_margin_exact_minus_3": 0.07050607125227011,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.189303007824848,
+          "pAwayCover": 0.7553920998855113,
+          "pPush": 0.05530489228964077,
+          "pHomeCoverNoPush": 0.20038529498015326,
+          "pAwayCoverNoPush": 0.7996147050198468
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.189303007824848,
+          "pAwayCover": 0.810696992175152,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.189303007824848,
+          "pAwayCoverNoPush": 0.810696992175152
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.4513767426043455,
+          "pAwayCover": 0.4959623723347583,
+          "pPush": 0.05266088506089607,
+          "pHomeCoverNoPush": 0.47646796747473114,
+          "pAwayCoverNoPush": 0.5235320325252688
+        },
+        "phys_44_5_over": 0.5825975962269028,
+        "mkt_post_over": 0.5045282747292184,
+        "mkt_post_under": 0.49547172527078165,
+        "mkt_post_push": 0.0
+      }
+    },
+    {
+      "game_id": "2020_06_CHI_CAR",
+      "p_home": 0.6113210850281174,
+      "p_tie": 0.0016878325213466145,
+      "p_away": 0.3869910824505358,
+      "t_model": 46.528106059852064,
+      "market_total_line": 45.0,
+      "expected": {
+        "theta": 0.01937241370695897,
+        "expected_margin": 4.335602527645494,
+        "p_margin_exact_plus_3": 0.07625447456577127,
+        "p_margin_exact_minus_3": 0.06788680015088248,
+        "spread_minus_3_0": {
+          "spreadHome": -3.0,
+          "pHomeCover": 0.4973360958787124,
+          "pAwayCover": 0.4264094295555167,
+          "pPush": 0.07625447456577127,
+          "pHomeCoverNoPush": 0.5383908037280369,
+          "pAwayCoverNoPush": 0.46160919627196306
+        },
+        "spread_minus_3_5": {
+          "spreadHome": -3.5,
+          "pHomeCover": 0.4973360958787124,
+          "pAwayCover": 0.5026639041212879,
+          "pPush": 0.0,
+          "pHomeCoverNoPush": 0.4973360958787122,
+          "pAwayCoverNoPush": 0.5026639041212878
+        },
+        "spread_plus_7_0": {
+          "spreadHome": 7.0,
+          "pHomeCover": 0.7768675782815612,
+          "pAwayCover": 0.18322212060745213,
+          "pPush": 0.03991030111098736,
+          "pHomeCoverNoPush": 0.8091614556228743,
+          "pAwayCoverNoPush": 0.19083854437712566
+        },
+        "phys_44_5_over": 0.5544981447462358,
+        "mkt_post_over": 0.4914839265376998,
+        "mkt_post_under": 0.4787548492568918,
+        "mkt_post_push": 0.029761224205408388
+      }
+    }
+  ],
+  "prop_rows": [
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.576527171088345,
+        0.12367352088185868,
+        0.31468637279660355,
+        1.4327119400281567
+      ],
+      "expected_mu": 35.22000200830376,
+      "expected_p_over": 0.6034484350761489,
+      "expected_p_under": 0.39655156492385113,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.570915865772983,
+        0.11457710310449798,
+        0.20231976852939154,
+        -1.4327119400281567
+      ],
+      "expected_mu": 35.02653771935387,
+      "expected_p_over": 0.5948667064017643,
+      "expected_p_under": 0.40513329359823563,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.4544537803309665,
+        -0.25182126700742913,
+        0.22402299702724662,
+        1.513013749892472
+      ],
+      "expected_mu": 32.72918329490456,
+      "expected_p_over": 0.4861619094939498,
+      "expected_p_under": 0.5138380905060502,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.3174962629187896,
+        -0.5619762666995929,
+        0.34601166798326377,
+        -1.513013749892472
+      ],
+      "expected_mu": 30.77494392228543,
+      "expected_p_over": 0.3876453588431854,
+      "expected_p_under": 0.6123546411568146,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.6253740155555603,
+        0.2830758865031221,
+        0.420695613527122,
+        -0.34126746272123254
+      ],
+      "expected_mu": 36.43761398254206,
+      "expected_p_over": 0.6549743420994223,
+      "expected_p_under": 0.34502565790057776,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.5904367488820093,
+        0.029162900628102763,
+        0.0035996153300708045,
+        0.34126746272123254
+      ],
+      "expected_mu": 34.64832756057346,
+      "expected_p_over": 0.5777997174192089,
+      "expected_p_under": 0.4222002825807912,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.478387487692019,
+        -0.38374662494288286,
+        -0.25344720534177867,
+        -2.0557439733186564
+      ],
+      "expected_mu": 32.0125966145579,
+      "expected_p_over": 0.45035711597280925,
+      "expected_p_under": 0.5496428840271907,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.4794603499668573,
+        -0.11723744662981801,
+        -0.19308561865593105,
+        2.0557439733186564
+      ],
+      "expected_mu": 32.79134929541753,
+      "expected_p_over": 0.4892375435235252,
+      "expected_p_under": 0.5107624564764748,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.6339601627779605,
+        0.3800425091599401,
+        -0.062396534018775186,
+        0.37919010538757003
+      ],
+      "expected_mu": 36.1063027154743,
+      "expected_p_over": 0.6413946279058755,
+      "expected_p_under": 0.3586053720941244,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.71950269263096,
+        0.6106878277556902,
+        0.17708534466669335,
+        -0.37919010538757003
+      ],
+      "expected_mu": 38.19174688255562,
+      "expected_p_over": 0.7210345480641249,
+      "expected_p_under": 0.2789654519358751,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.6062654588376586,
+        0.24266106104782495,
+        -0.04145598050189321,
+        -0.09108729481970797
+      ],
+      "expected_mu": 35.41725517612829,
+      "expected_p_over": 0.6120909654507021,
+      "expected_p_under": 0.3879090345492979,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.420511873093528,
+        -0.411543914821619,
+        -0.07541632271006407,
+        0.09108729481970797
+      ],
+      "expected_mu": 31.57997781487155,
+      "expected_p_over": 0.4285058187379499,
+      "expected_p_under": 0.5714941812620501,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.625307584278284,
+        -0.28558969838171466,
+        -0.2857914488946161,
+        -0.15227996554820766
+      ],
+      "expected_mu": 33.65875729156729,
+      "expected_p_over": 0.5314856729457536,
+      "expected_p_under": 0.4685143270542464,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.5360847215324185,
+        0.12665230191557483,
+        0.21662671328052455,
+        0.15227996554820766
+      ],
+      "expected_mu": 34.69102657192791,
+      "expected_p_over": 0.5797452526369227,
+      "expected_p_under": 0.4202547473630773,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "pass_attempts",
+      "line": 32.5,
+      "features4": [
+        3.6009913174778343,
+        0.2634532901815291,
+        -0.45633822224353615,
+        0.46184076685812364
+      ],
+      "expected_mu": 34.81687445746182,
+      "expected_p_over": 0.5854519862943169,
+      "expected_p_under": 0.41454801370568306,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.138173947034775,
+        0.12367352088185868,
+        0.19295640792615387,
+        1.4327119400281567
+      ],
+      "expected_mu": 22.08896171549589,
+      "expected_p_over": 0.5877096848167085,
+      "expected_p_under": 0.41229031518329157,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.131635841689687,
+        0.11457710310449798,
+        0.090930111506385,
+        -1.4327119400281567
+      ],
+      "expected_mu": 22.705516337129065,
+      "expected_p_over": 0.6276837421851964,
+      "expected_p_under": 0.37231625781480354,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.0271898332244893,
+        -0.25182126700742913,
+        0.042744514508384616,
+        1.513013749892472
+      ],
+      "expected_mu": 20.228822011939204,
+      "expected_p_over": 0.45666183845235997,
+      "expected_p_under": 0.54333816154764,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        2.9337825434939644,
+        -0.5619762666995929,
+        0.013040931279030388,
+        -1.513013749892472
+      ],
+      "expected_mu": 19.605879331197617,
+      "expected_p_over": 0.4107729811900057,
+      "expected_p_under": 0.5892270188099943,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.1596395152009777,
+        0.2830758865031221,
+        -0.1700983049867283,
+        -0.34126746272123254
+      ],
+      "expected_mu": 22.763880795496753,
+      "expected_p_over": 0.631354735245372,
+      "expected_p_under": 0.368645264754628,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.1649652824704773,
+        0.029162900628102763,
+        0.22293671470409135,
+        0.34126746272123254
+      ],
+      "expected_mu": 22.483667515779622,
+      "expected_p_over": 0.6135470828572768,
+      "expected_p_under": 0.38645291714272323,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.001003685931528,
+        -0.38374662494288286,
+        0.16309460222784272,
+        -2.0557439733186564
+      ],
+      "expected_mu": 20.76549581391559,
+      "expected_p_over": 0.4956863892952744,
+      "expected_p_under": 0.5043136107047256,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        2.957847477527406,
+        -0.11723744662981801,
+        -0.15305396127043666,
+        2.0557439733186564
+      ],
+      "expected_mu": 19.58393183051589,
+      "expected_p_over": 0.40915154591434977,
+      "expected_p_under": 0.5908484540856502,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.161535388727812,
+        0.3800425091599401,
+        -0.23681304200851439,
+        0.37919010538757003
+      ],
+      "expected_mu": 22.713130698269097,
+      "expected_p_over": 0.6281638199375198,
+      "expected_p_under": 0.3718361800624802,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.2636078371999417,
+        0.6106878277556902,
+        0.07623439880799093,
+        -0.37919010538757003
+      ],
+      "expected_mu": 24.763700933189767,
+      "expected_p_over": 0.7438927567166285,
+      "expected_p_under": 0.25610724328337153,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.143547218289804,
+        0.24266106104782495,
+        0.21754676753291063,
+        -0.09108729481970797
+      ],
+      "expected_mu": 22.823957445042755,
+      "expected_p_over": 0.635112091086635,
+      "expected_p_under": 0.3648879089133649,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.0285328954333055,
+        -0.411543914821619,
+        0.1323125932475931,
+        0.09108729481970797
+      ],
+      "expected_mu": 20.383830637212842,
+      "expected_p_over": 0.4680000873449577,
+      "expected_p_under": 0.5319999126550423,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.2249246304955115,
+        -0.28558969838171466,
+        0.49018294644605087,
+        -0.15227996554820766
+      ],
+      "expected_mu": 22.817147116734183,
+      "expected_p_over": 0.6346872485644783,
+      "expected_p_under": 0.36531275143552167,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.0320356383085763,
+        0.12665230191557483,
+        -0.4058873654688574,
+        0.15227996554820766
+      ],
+      "expected_mu": 20.925715657128197,
+      "expected_p_over": 0.5071886181097962,
+      "expected_p_under": 0.49281138189020374,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "completions",
+      "line": 20.5,
+      "features4": [
+        3.0819099697950434,
+        0.2634532901815291,
+        0.0,
+        0.46184076685812364
+      ],
+      "expected_mu": 21.922596083676467,
+      "expected_p_over": 0.5765711193261847,
+      "expected_p_under": 0.4234288806738153,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        1.7000729444082272,
+        0.75,
+        -0.44733779559409026,
+        -1.4327119400281567
+      ],
+      "expected_mu": 8.433007108935747,
+      "expected_p_over": 0.10860013569833149,
+      "expected_p_under": 0.8913998643016685,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.690134714170013,
+        0.0,
+        -0.511907181806377,
+        -1.513013749892472
+      ],
+      "expected_mu": 14.215544728769201,
+      "expected_p_over": 0.5034610851669714,
+      "expected_p_under": 0.49653891483302864,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.607662235241533,
+        0.0,
+        0.1283430516777404,
+        1.513013749892472
+      ],
+      "expected_mu": 14.468784536557823,
+      "expected_p_over": 0.5199792805613921,
+      "expected_p_under": 0.48002071943860797,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.663349891079703,
+        0.75,
+        -0.05284765617920195,
+        -0.34126746272123254
+      ],
+      "expected_mu": 15.661321793390139,
+      "expected_p_over": 0.5929023490220185,
+      "expected_p_under": 0.40709765097798145,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.7210953058985896,
+        0.0,
+        0.349755154929416,
+        0.34126746272123254
+      ],
+      "expected_mu": 15.852398725306628,
+      "expected_p_over": 0.6037958546637378,
+      "expected_p_under": 0.39620414533626225,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.759859119751288,
+        0.0,
+        -0.19833947687548337,
+        -2.0557439733186564
+      ],
+      "expected_mu": 15.319158721538876,
+      "expected_p_over": 0.5728372553957335,
+      "expected_p_under": 0.4271627446042665,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.4568245688705592,
+        0.0,
+        0.6388306592445012,
+        2.0557439733186564
+      ],
+      "expected_mu": 13.945142532070978,
+      "expected_p_over": 0.48546068167257483,
+      "expected_p_under": 0.5145393183274252,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.867787170422853,
+        0.0,
+        0.09764968339983993,
+        -0.37919010538757003
+      ],
+      "expected_mu": 16.858273237106296,
+      "expected_p_over": 0.6573982306349251,
+      "expected_p_under": 0.3426017693650749,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.7818100891877107,
+        0.0,
+        0.47706170945746473,
+        0.09108729481970797
+      ],
+      "expected_mu": 16.661677517663847,
+      "expected_p_over": 0.6474182391944855,
+      "expected_p_under": 0.3525817608055145,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.7281701818622746,
+        0.3359288246909341,
+        0.12090107885386914,
+        -0.09108729481970797
+      ],
+      "expected_mu": 15.999396920582708,
+      "expected_p_over": 0.6120227728765236,
+      "expected_p_under": 0.3879772271234764,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.7120890175390326,
+        0.0,
+        0.27376444822415547,
+        0.15227996554820766
+      ],
+      "expected_mu": 15.64180243601955,
+      "expected_p_over": 0.5917768846618277,
+      "expected_p_under": 0.4082231153381724,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        3.0245515533962966,
+        0.0,
+        -0.0038715331586498536,
+        -0.46184076685812364
+      ],
+      "expected_mu": 18.32361489980005,
+      "expected_p_over": 0.724329178308605,
+      "expected_p_under": 0.27567082169139495,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.8318243415923123,
+        0.7072259363242092,
+        0.4103705257691246,
+        -0.09637048601624902
+      ],
+      "expected_mu": 18.1228020993499,
+      "expected_p_over": 0.7159165148422616,
+      "expected_p_under": 0.2840834851577384,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.6522797412005352,
+        0.0,
+        -0.3208844159524058,
+        0.09637048601624902
+      ],
+      "expected_mu": 14.177117112640442,
+      "expected_p_over": 0.5009253397171957,
+      "expected_p_under": 0.49907466028280434,
+      "expected_p_push": 0.0
+    },
+    {
+      "market": "rush_attempts",
+      "line": 13.5,
+      "features4": [
+        2.6987890265661023,
+        0.0,
+        0.38704308742751925,
+        1.1323569735011836
+      ],
+      "expected_mu": 15.702607484416811,
+      "expected_p_over": 0.5952751318856331,
+      "expected_p_under": 0.4047248681143669,
+      "expected_p_push": 0.0
+    }
+  ]
+}

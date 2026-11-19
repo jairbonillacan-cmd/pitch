@@ -7,6 +7,8 @@ import {
 } from "@pitchlab/contracts";
 import { BrandLogo } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
+import { CalibrationCurveChart } from "../components/CalibrationCurveChart";
+import { CalibrationHonestyLab } from "../components/CalibrationHonestyLab";
 import { checkParlayCompatibility, computeParlaySummary } from "../parlay-engine";
 import {
   CORTEX_SAMPLE_QUOTE,
@@ -2381,6 +2383,14 @@ export function ResultadosPageSurface({
           </div>
 
           <ResultsFilterListIsland results={results} />
+          {results.length > 0 ? (
+            <CalibrationCurveChart
+              samples={results.map((r) => ({ p: r.p, hit: r.hit }))}
+              title="Curva de calibración observada"
+              subtitle="Comparación directa entre la probabilidad publicada antes del partido y el porcentaje real cumplido."
+            />
+          ) : null}
+          <CalibrationHonestyLab settledCount={results.length} />
           <CalibrationCard />
         </div>
       </section>

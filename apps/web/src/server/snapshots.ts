@@ -335,25 +335,117 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
   }
 }
 
-export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEnvelope> {
-  const entries = PRODUCT_LEAGUES.map((league) => [
-    league,
-    loadLeagueSnapshotEnvelope(league),
-  ]) as Array<[ProductLeague, SnapshotEnvelope]>;
-  return Object.fromEntries(entries) as Record<ProductLeague, SnapshotEnvelope>;
+interface ShellIndexFile {
+  schemaVersion?: number;
+  builtAt?: string;
+  leagues?: Record<string, SnapshotEnvelope>;
 }
+
+let shellIndexCache: { mtime: number; leagues: Record<string, SnapshotEnvelope> } | null = null;
+
+function readFreshShellIndex(root: string): { mtime: number; leagues: Record<string, SnapshotEnvelope> } | null {
+  const indexPath = path.join(root, "shell-index.json");
+  const mtime = fileMtime(indexPath);
+  if (!mtime) {
+    shellIndexCache = null;
+    return null;
+  }
+  if (shellIndexCache && shellIndexCache.mtime === mtime) {
+    return shellIndexCache;
+  }
+  try {
+    const parsed = JSON.parse(fs.readFileSync(indexPath, "utf8")) as ShellIndexFile;
+    if (parsed?.schemaVersion === 1 && parsed.leagues && typeof parsed.leagues === "object") {
+      shellIndexCache = { mtime, leagues: parsed.leagues };
+      return shellIndexCache;
+    }
+  } catch (err) {
+    void err;
+  }
+  return null;
+}
+
+const ALL_SNAPSHOTS_TTL_MS = 15_000;
+let allSnapshotsMemo: {
+  root: string;
+  at: number;
+  envelopes: Record<ProductLeague, SnapshotEnvelope>;
+} | null = null;
+
+export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEnvelope> {
+  const root = resolveSnapshotsRoot();
+  const now = Date.now();
+  if (
+    allSnapshotsMemo &&
+    allSnapshotsMemo.root === root &&
+    now - allSnapshotsMemo.at < ALL_SNAPSHOTS_TTL_MS
+  ) {
+    return allSnapshotsMemo.envelopes;
+  }
+
+  const precompiled = readFreshShellIndex(root);
+  const entries = PRODUCT_LEAGUES.map((league) => {
+    if (precompiled) {
+      const pre = precompiled.leagues[league];
+      if (pre) {
+        const latestM = fileMtime(path.join(root, league, "latest.json"));
+        const injuriesM = fileMtime(path.join(root, league, "injuries.json"));
+        const pulseM = fileMtime(path.join(root, league, "market-pulse.json"));
+        if (latestM <= precompiled.mtime && injuriesM <= precompiled.mtime && pulseM <= precompiled.mtime) {
+          return [league, pre] as [ProductLeague, SnapshotEnvelope];
+        }
+      }
+    }
+    return [league, loadLeagueSnapshotEnvelope(league)] as [ProductLeague, SnapshotEnvelope];
+  });
+  const envelopes = Object.fromEntries(entries) as Record<ProductLeague, SnapshotEnvelope>;
+  allSnapshotsMemo = { root, at: now, envelopes };
+  return envelopes;
+}
+
+const cortexWriteupCache = new Map<
+  string,
+  { mtime: number; byGame: Map<string, CortexWriteup | null> }
+>();
 
 /**
  * Análisis por secciones de Cortex IA de un partido (lo redacta el corte; aquí no se llama al
  * modelo). `null` si el partido no lo tiene o el archivo no se puede leer.
+ * Cacheado en memoria por liga + `mtimeMs` para evitar releer `latest.json` en cada visita.
  */
 export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): CortexWriteup | null {
   try {
     const latestPath = path.join(resolveSnapshotsRoot(), leagueKey, "latest.json");
-    if (!fs.existsSync(latestPath)) return null;
-    const raw = JSON.parse(fs.readFileSync(latestPath, "utf8")) as { analyses?: Record<string, { cortex?: unknown }> };
-    const parsed = CortexWriteupSchema.safeParse(raw.analyses?.[gameId]?.cortex);
-    return parsed.success ? parsed.data : null;
+    const mtime = fileMtime(latestPath);
+    if (!mtime) {
+      cortexWriteupCache.delete(leagueKey);
+      return null;
+    }
+
+    const cached = cortexWriteupCache.get(leagueKey);
+    if (cached && cached.mtime === mtime) {
+      return cached.byGame.get(gameId) ?? null;
+    }
+
+    // Si ya tenemos el snapshot crudo en caché para el mismo mtime, evitar otra lectura de disco.
+    const rawCached = rawSnapshotCache.get(leagueKey);
+    const analyses =
+      rawCached && rawCached.mtime === mtime
+        ? (rawCached.snapshot.analyses as Record<string, { cortex?: unknown }> | undefined)
+        : (JSON.parse(fs.readFileSync(latestPath, "utf8")) as {
+            analyses?: Record<string, { cortex?: unknown }>;
+          }).analyses;
+
+    const byGame = new Map<string, CortexWriteup | null>();
+    if (analyses && typeof analyses === "object") {
+      for (const [id, entry] of Object.entries(analyses)) {
+        if (!entry || entry.cortex === undefined) continue;
+        const parsed = CortexWriteupSchema.safeParse(entry.cortex);
+        if (parsed.success) byGame.set(id, parsed.data);
+      }
+    }
+    cortexWriteupCache.set(leagueKey, { mtime, byGame });
+    return byGame.get(gameId) ?? null;
   } catch (err) {
     void err;
     return null;

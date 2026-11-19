@@ -41,6 +41,7 @@ import {
   PRODUCT_LEAGUES,
   resolveSnapshotsRoot,
   type ProductLeague,
+  type SnapshotEnvelope,
 } from "./snapshots";
 import { findSpacetimeTeamRecord } from "./spacetime";
 
@@ -867,6 +868,80 @@ export function teamExistsInSnapshots(leagueRaw: string, teamSlugOrId: string): 
   return findTeamRefInSnapshots(leagueRaw, teamSlugOrId) !== null;
 }
 
+/**
+ * Construye el directorio global de equipos directamente desde los sobres ya cargados en memoria
+ * (provenientes de `shell-index.json`), evitando releer y validar con Zod los 57 `latest.json`
+ * en cada arranque en frío del servidor.
+ */
+export function buildTeamsDirectoryFromEnvelopes(
+  envelopes: Readonly<Partial<Record<ProductLeague, SnapshotEnvelope>>>,
+): TeamLeagueDirectoryItem[] {
+  const items: TeamLeagueDirectoryItem[] = [];
+
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = envelopes[lg]?.data;
+    if (!data) continue;
+    const bySlug = new Map<
+      string,
+      { id: string; slug: string; name: string; shortName: string; code: string; rank: number | null }
+    >();
+    const leagueLabel = data.leagueLabel || LEAGUE_LABELS[lg];
+
+    (data.standings ?? []).forEach((row, idx) => {
+      const slug = slugFromTeamId(row.teamId);
+      if (!bySlug.has(slug)) {
+        bySlug.set(slug, {
+          id: row.teamId,
+          slug,
+          name: row.name,
+          shortName: row.shortName,
+          code: row.code,
+          rank: idx + 1,
+        });
+      }
+    });
+
+    for (const g of data.games) {
+      for (const side of [g.home, g.away]) {
+        const slug = slugFromTeamId(side.slug);
+        if (!bySlug.has(slug)) {
+          bySlug.set(slug, {
+            id: `${lg}.${slug}`,
+            slug,
+            name: side.name,
+            shortName: side.shortName,
+            code: side.code ?? side.shortName.slice(0, 3).toUpperCase(),
+            rank: null,
+          });
+        }
+      }
+    }
+
+    const leagueItems: TeamLeagueDirectoryItem[] = [...bySlug.values()].map((t) => ({
+      id: t.id,
+      league: asLeagueId(lg),
+      leagueLabel,
+      slug: t.slug,
+      name: t.name,
+      shortName: t.shortName,
+      code: t.code,
+      rank: t.rank,
+      href: canonicalTeamHref(lg, t.slug),
+    }));
+
+    leagueItems.sort((a, b) => {
+      if (a.rank !== null && b.rank !== null) return a.rank - b.rank;
+      if (a.rank !== null) return -1;
+      if (b.rank !== null) return 1;
+      return a.name.localeCompare(b.name, "es-MX");
+    });
+
+    items.push(...leagueItems);
+  }
+
+  return items;
+}
+
 /** Devuelve el directorio ordenado de todos los clubes/franquicias de una o todas las ligas activas. */
 export function loadLeagueTeamsDirectory(
   onlyLeague?: ProductLeague,
@@ -1486,6 +1561,28 @@ export function loadPlayerProfile(
   };
 }
 
+let nbaPropsFileCache: { mtimeMs: number; seeds: NbaPlayerPropSeed[] } | null = null;
+
+function readCachedNbaPropSeeds(): NbaPlayerPropSeed[] {
+  const nbaFile = path.join(resolveSnapshotsRoot(), "nba", "player-props.json");
+  if (!fs.existsSync(nbaFile)) return [];
+  try {
+    const mtimeMs = fs.statSync(nbaFile).mtimeMs;
+    if (nbaPropsFileCache && nbaPropsFileCache.mtimeMs === mtimeMs) {
+      return nbaPropsFileCache.seeds;
+    }
+    const raw = JSON.parse(fs.readFileSync(nbaFile, "utf8")) as
+      | NbaPlayerPropSeed[]
+      | { seeds?: NbaPlayerPropSeed[] };
+    const seeds = Array.isArray(raw) ? raw : Array.isArray(raw.seeds) ? raw.seeds : [];
+    nbaPropsFileCache = { mtimeMs, seeds };
+    return seeds;
+  } catch (err) {
+    void err;
+    return [];
+  }
+}
+
 /** Construye props individuales de jugadores de fútbol para próximos partidos a partir de `squads.json`. */
 export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPropItem[] {
   const items: PlayerPropItem[] = [];
@@ -1584,13 +1681,9 @@ export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPro
     .filter((g) => g.sport === "basketball" && g.league === "nba" && g.status !== "FT")
     .slice(0, 24);
   if (nbaUpcoming.length > 0) {
-    const nbaFile = path.join(resolveSnapshotsRoot(), "nba", "player-props.json");
-    if (fs.existsSync(nbaFile)) {
+    const seeds = readCachedNbaPropSeeds();
+    if (seeds.length > 0) {
       try {
-        const raw = JSON.parse(fs.readFileSync(nbaFile, "utf8")) as
-          | NbaPlayerPropSeed[]
-          | { seeds?: NbaPlayerPropSeed[] };
-        const seeds = Array.isArray(raw) ? raw : Array.isArray(raw.seeds) ? raw.seeds : [];
         const byTeamSlug = new Map<string, NbaPlayerPropSeed[]>();
         for (const s of seeds) {
           if (!s || typeof s.player !== "string" || typeof s.teamSlug !== "string") continue;

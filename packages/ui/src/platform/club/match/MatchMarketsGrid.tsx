@@ -49,7 +49,7 @@ function categoryHeading(
     case "marcador":
       return "Marcador";
     case "primer_tiempo":
-      return "1er tiempo";
+      return sport === "baseball" ? "Primeras 5 entradas" : "Mitades (1T y 2T)";
   }
 }
 
@@ -61,20 +61,36 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
     m === "corners_total" ||
     m === "fouls_total" ||
     m === "yellow_total" ||
+    m === "shots_total" ||
+    m === "sot_total" ||
+    m === "red_cards" ||
+    m === "booking_points" ||
     g.includes("esquina") ||
     g.includes("córner") ||
     g.includes("corner") ||
     g.includes("faltas") ||
-    g.includes("amarillas")
+    g.includes("amarillas") ||
+    g.includes("tarjeta") ||
+    g.includes("remates")
   ) {
     return "conteos";
   }
   if (m === "correct_score" || g.includes("marcador")) return "marcador";
-  if (m.startsWith("ht_") || g.includes("1er tiempo")) return "primer_tiempo";
+  if (
+    m.startsWith("ht_") ||
+    m.startsWith("2h_") ||
+    m === "mlb_f5" ||
+    g.includes("1er tiempo") ||
+    g.includes("2do tiempo") ||
+    g.includes("5 entradas")
+  ) {
+    return "primer_tiempo";
+  }
   if (
     m === "handicap" ||
     m === "spread" ||
     m === "spreads" ||
+    m === "nhl_puckline" ||
     m.startsWith("ah_") ||
     g.includes("hándicap") ||
     g.includes("handicap") ||
@@ -89,10 +105,12 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
     m === "double_chance" ||
     m === "dnb" ||
     m === "h2h" ||
+    m === "nfl_ot" ||
     g.includes("resultado") ||
     g.includes("ganador") ||
     g.includes("doble oportunidad") ||
-    g.includes("empate no acción")
+    g.includes("empate no acción") ||
+    g.includes("tiempo extra")
   ) {
     return "resultado";
   }

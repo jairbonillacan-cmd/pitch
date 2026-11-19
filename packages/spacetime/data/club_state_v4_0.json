@@ -1,0 +1,1638 @@
+{
+  "schema_version": "club_tactical_state_v4.0.0",
+  "as_of_cutoff_iso": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "n_clubs": 163,
+  "clubs": {
+    "D1::Augsburg": {
+      "real_xg_for": 0.9938,
+      "real_xg_against": 1.28913,
+      "real_xg_luck": 0.2681,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.28659,
+      "deep_ewm": 4.71152,
+      "ppda_ewm": 15.68036,
+      "elevation_m": 490.0
+    },
+    "D1::Bayern Munich": {
+      "real_xg_for": 3.16312,
+      "real_xg_against": 0.82533,
+      "real_xg_luck": -0.10326,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 2.15321,
+      "deep_ewm": 12.19348,
+      "ppda_ewm": 10.84077,
+      "elevation_m": 491.0
+    },
+    "D1::Bielefeld": {
+      "real_xg_for": 0.83106,
+      "real_xg_against": 2.537,
+      "real_xg_luck": -0.09979,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.56408,
+      "deep_ewm": 4.57868,
+      "ppda_ewm": 16.95494,
+      "elevation_m": 120.0
+    },
+    "D1::Bochum": {
+      "real_xg_for": 1.28565,
+      "real_xg_against": 2.34034,
+      "real_xg_luck": -0.4258,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.97395,
+      "deep_ewm": 6.94421,
+      "ppda_ewm": 10.83316,
+      "elevation_m": 120.0
+    },
+    "D1::Darmstadt": {
+      "real_xg_for": 0.72313,
+      "real_xg_against": 2.73766,
+      "real_xg_luck": -0.31273,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 120.0
+    },
+    "D1::Dortmund": {
+      "real_xg_for": 1.60715,
+      "real_xg_against": 1.41864,
+      "real_xg_luck": 0.10431,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.17504,
+      "deep_ewm": 6.69281,
+      "ppda_ewm": 10.06382,
+      "elevation_m": 90.0
+    },
+    "D1::Ein Frankfurt": {
+      "real_xg_for": 2.19925,
+      "real_xg_against": 1.54653,
+      "real_xg_luck": -0.01708,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.54512,
+      "deep_ewm": 8.97564,
+      "ppda_ewm": 12.59127,
+      "elevation_m": 124.0
+    },
+    "D1::FC Koln": {
+      "real_xg_for": 1.856,
+      "real_xg_against": 1.75266,
+      "real_xg_luck": -0.76587,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.29713,
+      "deep_ewm": 6.60646,
+      "ppda_ewm": 11.59823,
+      "elevation_m": 120.0
+    },
+    "D1::Fortuna Dusseldorf": {
+      "real_xg_for": 0.92245,
+      "real_xg_against": 1.38566,
+      "real_xg_luck": 0.04483,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.4654,
+      "deep_ewm": 4.6283,
+      "ppda_ewm": 15.29394,
+      "elevation_m": 120.0
+    },
+    "D1::Freiburg": {
+      "real_xg_for": 1.44324,
+      "real_xg_against": 1.60198,
+      "real_xg_luck": -0.25081,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.04756,
+      "deep_ewm": 5.87155,
+      "ppda_ewm": 15.19889,
+      "elevation_m": 237.0
+    },
+    "D1::Greuther Furth": {
+      "real_xg_for": 0.68703,
+      "real_xg_against": 1.47223,
+      "real_xg_luck": 0.08541,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.61485,
+      "deep_ewm": 2.70553,
+      "ppda_ewm": 14.33879,
+      "elevation_m": 120.0
+    },
+    "D1::Hannover": {
+      "real_xg_for": 1.15139,
+      "real_xg_against": 2.2094,
+      "real_xg_luck": -0.06638,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.13332,
+      "deep_ewm": 4.89507,
+      "ppda_ewm": 13.53636,
+      "elevation_m": 120.0
+    },
+    "D1::Heidenheim": {
+      "real_xg_for": 1.0934,
+      "real_xg_against": 2.12745,
+      "real_xg_luck": 0.04296,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.89406,
+      "deep_ewm": 7.1067,
+      "ppda_ewm": 15.43962,
+      "elevation_m": 555.0
+    },
+    "D1::Hertha": {
+      "real_xg_for": 1.21498,
+      "real_xg_against": 2.43293,
+      "real_xg_luck": 0.21969,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.25739,
+      "deep_ewm": 5.23032,
+      "ppda_ewm": 14.49565,
+      "elevation_m": 120.0
+    },
+    "D1::Hoffenheim": {
+      "real_xg_for": 1.50037,
+      "real_xg_against": 1.79415,
+      "real_xg_luck": -0.14771,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.1151,
+      "deep_ewm": 7.00466,
+      "ppda_ewm": 11.85138,
+      "elevation_m": 160.0
+    },
+    "D1::Holstein Kiel": {
+      "real_xg_for": 1.31496,
+      "real_xg_against": 2.23455,
+      "real_xg_luck": 0.7882,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.89969,
+      "deep_ewm": 5.77936,
+      "ppda_ewm": 17.4805,
+      "elevation_m": 120.0
+    },
+    "D1::Leverkusen": {
+      "real_xg_for": 2.07177,
+      "real_xg_against": 0.94817,
+      "real_xg_luck": 0.37709,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.98505,
+      "deep_ewm": 7.34669,
+      "ppda_ewm": 15.4843,
+      "elevation_m": 44.0
+    },
+    "D1::M'gladbach": {
+      "real_xg_for": 1.55827,
+      "real_xg_against": 1.93547,
+      "real_xg_luck": 0.16734,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.25273,
+      "deep_ewm": 5.73639,
+      "ppda_ewm": 16.31829,
+      "elevation_m": 84.0
+    },
+    "D1::Mainz": {
+      "real_xg_for": 1.54305,
+      "real_xg_against": 1.66781,
+      "real_xg_luck": -0.14999,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.01039,
+      "deep_ewm": 7.78263,
+      "ppda_ewm": 11.43072,
+      "elevation_m": 115.0
+    },
+    "D1::Nurnberg": {
+      "real_xg_for": 1.0503,
+      "real_xg_against": 1.44807,
+      "real_xg_luck": -0.41954,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.50989,
+      "deep_ewm": 4.64557,
+      "ppda_ewm": 21.94609,
+      "elevation_m": 120.0
+    },
+    "D1::Paderborn": {
+      "real_xg_for": 1.08661,
+      "real_xg_against": 2.19955,
+      "real_xg_luck": -0.09573,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.97939,
+      "deep_ewm": 3.7165,
+      "ppda_ewm": 15.60058,
+      "elevation_m": 118.0
+    },
+    "D1::RB Leipzig": {
+      "real_xg_for": 1.28509,
+      "real_xg_against": 2.17419,
+      "real_xg_luck": 0.39437,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.8198,
+      "deep_ewm": 8.19798,
+      "ppda_ewm": 12.22762,
+      "elevation_m": 113.0
+    },
+    "D1::Schalke 04": {
+      "real_xg_for": 1.25728,
+      "real_xg_against": 2.22916,
+      "real_xg_luck": 0.31048,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.93195,
+      "deep_ewm": 5.70398,
+      "ppda_ewm": 10.81463,
+      "elevation_m": 68.0
+    },
+    "D1::St Pauli": {
+      "real_xg_for": 1.48076,
+      "real_xg_against": 1.24066,
+      "real_xg_luck": -0.27775,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.12705,
+      "deep_ewm": 4.8979,
+      "ppda_ewm": 18.00737,
+      "elevation_m": 120.0
+    },
+    "D1::Stuttgart": {
+      "real_xg_for": 1.84639,
+      "real_xg_against": 1.4532,
+      "real_xg_luck": -0.23994,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.27631,
+      "deep_ewm": 10.39963,
+      "ppda_ewm": 10.16654,
+      "elevation_m": 219.0
+    },
+    "D1::Union Berlin": {
+      "real_xg_for": 1.46664,
+      "real_xg_against": 1.32346,
+      "real_xg_luck": -0.91879,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.1786,
+      "deep_ewm": 6.18129,
+      "ppda_ewm": 13.09575,
+      "elevation_m": 38.0
+    },
+    "D1::Werder Bremen": {
+      "real_xg_for": 1.69487,
+      "real_xg_against": 1.5129,
+      "real_xg_luck": -0.01573,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.03715,
+      "deep_ewm": 7.3768,
+      "ppda_ewm": 12.02355,
+      "elevation_m": 3.0
+    },
+    "D1::Wolfsburg": {
+      "real_xg_for": 1.91133,
+      "real_xg_against": 1.67888,
+      "real_xg_luck": 0.44167,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.13913,
+      "deep_ewm": 7.02911,
+      "ppda_ewm": 16.2275,
+      "elevation_m": 59.0
+    },
+    "E0::Arsenal": {
+      "real_xg_for": 1.8755,
+      "real_xg_against": 0.82913,
+      "real_xg_luck": -0.05597,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.07978,
+      "deep_ewm": 8.69362,
+      "ppda_ewm": 8.96117,
+      "elevation_m": 30.0
+    },
+    "E0::Aston Villa": {
+      "real_xg_for": 1.33149,
+      "real_xg_against": 1.58148,
+      "real_xg_luck": -0.18616,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.31465,
+      "deep_ewm": 6.11626,
+      "ppda_ewm": 12.82499,
+      "elevation_m": 101.0
+    },
+    "E0::Bournemouth": {
+      "real_xg_for": 2.1299,
+      "real_xg_against": 1.52242,
+      "real_xg_luck": -0.02483,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.60706,
+      "deep_ewm": 7.7485,
+      "ppda_ewm": 7.95238,
+      "elevation_m": 36.0
+    },
+    "E0::Brentford": {
+      "real_xg_for": 1.91463,
+      "real_xg_against": 1.99459,
+      "real_xg_luck": -0.21277,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.28132,
+      "deep_ewm": 8.96926,
+      "ppda_ewm": 12.15915,
+      "elevation_m": 8.0
+    },
+    "E0::Brighton": {
+      "real_xg_for": 1.23938,
+      "real_xg_against": 1.78931,
+      "real_xg_luck": -0.12565,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.20838,
+      "deep_ewm": 8.30415,
+      "ppda_ewm": 10.01643,
+      "elevation_m": 93.0
+    },
+    "E0::Burnley": {
+      "real_xg_for": 1.35875,
+      "real_xg_against": 2.32114,
+      "real_xg_luck": -0.11472,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.09919,
+      "deep_ewm": 5.73684,
+      "ppda_ewm": 15.27173,
+      "elevation_m": 120.0
+    },
+    "E0::Cardiff": {
+      "real_xg_for": 1.21965,
+      "real_xg_against": 1.7751,
+      "real_xg_luck": -0.1605,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.61713,
+      "deep_ewm": 3.23985,
+      "ppda_ewm": 16.37172,
+      "elevation_m": 120.0
+    },
+    "E0::Chelsea": {
+      "real_xg_for": 2.16546,
+      "real_xg_against": 1.57825,
+      "real_xg_luck": -0.47436,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.70792,
+      "deep_ewm": 10.19262,
+      "ppda_ewm": 12.69914,
+      "elevation_m": 13.0
+    },
+    "E0::Crystal Palace": {
+      "real_xg_for": 1.698,
+      "real_xg_against": 1.48222,
+      "real_xg_luck": -0.27199,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.24849,
+      "deep_ewm": 6.80957,
+      "ppda_ewm": 14.50674,
+      "elevation_m": 55.0
+    },
+    "E0::Everton": {
+      "real_xg_for": 1.51014,
+      "real_xg_against": 1.29579,
+      "real_xg_luck": -0.02406,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.15232,
+      "deep_ewm": 5.70895,
+      "ppda_ewm": 14.85118,
+      "elevation_m": 46.0
+    },
+    "E0::Fulham": {
+      "real_xg_for": 1.63391,
+      "real_xg_against": 1.0681,
+      "real_xg_luck": -0.09321,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.49425,
+      "deep_ewm": 5.86042,
+      "ppda_ewm": 14.91324,
+      "elevation_m": 2.0
+    },
+    "E0::Huddersfield": {
+      "real_xg_for": 0.84252,
+      "real_xg_against": 2.05209,
+      "real_xg_luck": -0.14852,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.11732,
+      "deep_ewm": 3.28105,
+      "ppda_ewm": 14.06187,
+      "elevation_m": 120.0
+    },
+    "E0::Ipswich": {
+      "real_xg_for": 1.13731,
+      "real_xg_against": 2.0382,
+      "real_xg_luck": -0.29093,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.8663,
+      "deep_ewm": 3.16422,
+      "ppda_ewm": 14.89154,
+      "elevation_m": 6.0
+    },
+    "E0::Leeds": {
+      "real_xg_for": 1.16929,
+      "real_xg_against": 2.24885,
+      "real_xg_luck": 0.03402,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.89162,
+      "deep_ewm": 5.47041,
+      "ppda_ewm": 11.06175,
+      "elevation_m": 45.0
+    },
+    "E0::Leicester": {
+      "real_xg_for": 1.06557,
+      "real_xg_against": 2.21508,
+      "real_xg_luck": -0.37771,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.16632,
+      "deep_ewm": 3.99597,
+      "ppda_ewm": 14.80653,
+      "elevation_m": 56.0
+    },
+    "E0::Liverpool": {
+      "real_xg_for": 2.88177,
+      "real_xg_against": 1.10042,
+      "real_xg_luck": -0.20541,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.54791,
+      "deep_ewm": 14.34788,
+      "ppda_ewm": 8.33069,
+      "elevation_m": 66.0
+    },
+    "E0::Luton": {
+      "real_xg_for": 1.14548,
+      "real_xg_against": 2.26199,
+      "real_xg_luck": 0.16611,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 120.0
+    },
+    "E0::Man City": {
+      "real_xg_for": 2.20835,
+      "real_xg_against": 1.60171,
+      "real_xg_luck": 0.52303,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.59933,
+      "deep_ewm": 10.58124,
+      "ppda_ewm": 15.00228,
+      "elevation_m": 57.0
+    },
+    "E0::Man United": {
+      "real_xg_for": 1.38068,
+      "real_xg_against": 1.5619,
+      "real_xg_luck": -0.08036,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.19106,
+      "deep_ewm": 7.48982,
+      "ppda_ewm": 10.78556,
+      "elevation_m": 18.0
+    },
+    "E0::Newcastle": {
+      "real_xg_for": 2.02883,
+      "real_xg_against": 1.38082,
+      "real_xg_luck": 0.0638,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.52709,
+      "deep_ewm": 10.64165,
+      "ppda_ewm": 10.71676,
+      "elevation_m": 71.0
+    },
+    "E0::Norwich": {
+      "real_xg_for": 0.9078,
+      "real_xg_against": 2.44947,
+      "real_xg_luck": -0.42385,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.40036,
+      "deep_ewm": 4.7522,
+      "ppda_ewm": 18.77216,
+      "elevation_m": 120.0
+    },
+    "E0::Nott'm Forest": {
+      "real_xg_for": 1.97668,
+      "real_xg_against": 1.53244,
+      "real_xg_luck": 0.5821,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.28424,
+      "deep_ewm": 7.27157,
+      "ppda_ewm": 16.40454,
+      "elevation_m": 19.0
+    },
+    "E0::Sheffield United": {
+      "real_xg_for": 1.26858,
+      "real_xg_against": 2.36593,
+      "real_xg_luck": -0.47441,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.95382,
+      "deep_ewm": 4.3523,
+      "ppda_ewm": 14.32153,
+      "elevation_m": 120.0
+    },
+    "E0::Southampton": {
+      "real_xg_for": 1.09081,
+      "real_xg_against": 2.83534,
+      "real_xg_luck": -0.03555,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.56861,
+      "deep_ewm": 3.30778,
+      "ppda_ewm": 11.80512,
+      "elevation_m": 18.0
+    },
+    "E0::Tottenham": {
+      "real_xg_for": 1.53251,
+      "real_xg_against": 2.04724,
+      "real_xg_luck": 0.1173,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.52406,
+      "deep_ewm": 7.43334,
+      "ppda_ewm": 11.75746,
+      "elevation_m": 13.0
+    },
+    "E0::Watford": {
+      "real_xg_for": 0.96364,
+      "real_xg_against": 1.98358,
+      "real_xg_luck": -0.28317,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.86284,
+      "deep_ewm": 3.36539,
+      "ppda_ewm": 18.37959,
+      "elevation_m": 120.0
+    },
+    "E0::West Brom": {
+      "real_xg_for": 1.215,
+      "real_xg_against": 2.13239,
+      "real_xg_luck": -0.0642,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.62144,
+      "deep_ewm": 5.44805,
+      "ppda_ewm": 14.48236,
+      "elevation_m": 120.0
+    },
+    "E0::West Ham": {
+      "real_xg_for": 1.23261,
+      "real_xg_against": 1.9592,
+      "real_xg_luck": -0.13237,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.61597,
+      "deep_ewm": 5.10915,
+      "ppda_ewm": 12.53957,
+      "elevation_m": 10.0
+    },
+    "E0::Wolves": {
+      "real_xg_for": 1.23749,
+      "real_xg_against": 1.63559,
+      "real_xg_luck": -0.0858,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.2905,
+      "deep_ewm": 5.43288,
+      "ppda_ewm": 11.77705,
+      "elevation_m": 135.0
+    },
+    "F1::Ajaccio": {
+      "real_xg_for": 0.33148,
+      "real_xg_against": 1.73555,
+      "real_xg_luck": -0.01647,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.21135,
+      "deep_ewm": 2.56865,
+      "ppda_ewm": 18.01245,
+      "elevation_m": 120.0
+    },
+    "F1::Amiens": {
+      "real_xg_for": 0.93909,
+      "real_xg_against": 1.27062,
+      "real_xg_luck": 0.15179,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.53772,
+      "deep_ewm": 3.99731,
+      "ppda_ewm": 10.02359,
+      "elevation_m": 120.0
+    },
+    "F1::Angers": {
+      "real_xg_for": 1.2905,
+      "real_xg_against": 1.36309,
+      "real_xg_luck": -0.07273,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.00665,
+      "deep_ewm": 3.84919,
+      "ppda_ewm": 15.60874,
+      "elevation_m": 32.0
+    },
+    "F1::Auxerre": {
+      "real_xg_for": 1.01658,
+      "real_xg_against": 1.82544,
+      "real_xg_luck": 0.10294,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.77276,
+      "deep_ewm": 4.44271,
+      "ppda_ewm": 14.08002,
+      "elevation_m": 102.0
+    },
+    "F1::Bordeaux": {
+      "real_xg_for": 1.56387,
+      "real_xg_against": 1.65455,
+      "real_xg_luck": -0.02661,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.16519,
+      "deep_ewm": 5.16317,
+      "ppda_ewm": 12.47479,
+      "elevation_m": 120.0
+    },
+    "F1::Brest": {
+      "real_xg_for": 1.47087,
+      "real_xg_against": 2.08622,
+      "real_xg_luck": 0.21287,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.62362,
+      "deep_ewm": 5.24544,
+      "ppda_ewm": 15.35976,
+      "elevation_m": 88.0
+    },
+    "F1::Caen": {
+      "real_xg_for": 0.63473,
+      "real_xg_against": 1.73686,
+      "real_xg_luck": 0.00901,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.8226,
+      "deep_ewm": 3.68633,
+      "ppda_ewm": 12.08281,
+      "elevation_m": 120.0
+    },
+    "F1::Clermont": {
+      "real_xg_for": 1.10239,
+      "real_xg_against": 2.45514,
+      "real_xg_luck": -0.28902,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.23232,
+      "deep_ewm": 7.07551,
+      "ppda_ewm": 13.44089,
+      "elevation_m": 120.0
+    },
+    "F1::Dijon": {
+      "real_xg_for": 0.93426,
+      "real_xg_against": 2.07692,
+      "real_xg_luck": -0.31378,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.29287,
+      "deep_ewm": 3.13553,
+      "ppda_ewm": 15.87041,
+      "elevation_m": 120.0
+    },
+    "F1::Guingamp": {
+      "real_xg_for": 1.38529,
+      "real_xg_against": 1.84421,
+      "real_xg_luck": -0.42382,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.56287,
+      "deep_ewm": 4.37269,
+      "ppda_ewm": 10.0245,
+      "elevation_m": 120.0
+    },
+    "F1::Le Havre": {
+      "real_xg_for": 1.15487,
+      "real_xg_against": 2.15175,
+      "real_xg_luck": -0.52543,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.95994,
+      "deep_ewm": 3.74649,
+      "ppda_ewm": 15.48645,
+      "elevation_m": 8.0
+    },
+    "F1::Lens": {
+      "real_xg_for": 2.08407,
+      "real_xg_against": 1.1941,
+      "real_xg_luck": -0.67921,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.97586,
+      "deep_ewm": 9.29915,
+      "ppda_ewm": 8.87894,
+      "elevation_m": 44.0
+    },
+    "F1::Lille": {
+      "real_xg_for": 1.84141,
+      "real_xg_against": 1.48748,
+      "real_xg_luck": -0.01642,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.21454,
+      "deep_ewm": 11.30969,
+      "ppda_ewm": 9.25742,
+      "elevation_m": 43.0
+    },
+    "F1::Lorient": {
+      "real_xg_for": 1.75088,
+      "real_xg_against": 2.10394,
+      "real_xg_luck": -0.23236,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.50302,
+      "deep_ewm": 7.2259,
+      "ppda_ewm": 12.2024,
+      "elevation_m": 16.0
+    },
+    "F1::Lyon": {
+      "real_xg_for": 1.55852,
+      "real_xg_against": 1.44384,
+      "real_xg_luck": -0.25695,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.10837,
+      "deep_ewm": 12.21546,
+      "ppda_ewm": 10.41993,
+      "elevation_m": 192.0
+    },
+    "F1::Marseille": {
+      "real_xg_for": 2.0739,
+      "real_xg_against": 1.47054,
+      "real_xg_luck": -0.36794,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.4592,
+      "deep_ewm": 7.33861,
+      "ppda_ewm": 9.09045,
+      "elevation_m": 8.0
+    },
+    "F1::Metz": {
+      "real_xg_for": 1.20781,
+      "real_xg_against": 1.92494,
+      "real_xg_luck": -0.06146,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.51732,
+      "deep_ewm": 2.76417,
+      "ppda_ewm": 13.09954,
+      "elevation_m": 120.0
+    },
+    "F1::Monaco": {
+      "real_xg_for": 2.41396,
+      "real_xg_against": 1.60215,
+      "real_xg_luck": -0.22097,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.88164,
+      "deep_ewm": 12.57335,
+      "ppda_ewm": 6.89283,
+      "elevation_m": 20.0
+    },
+    "F1::Montpellier": {
+      "real_xg_for": 1.48314,
+      "real_xg_against": 2.14564,
+      "real_xg_luck": -0.42982,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.67331,
+      "deep_ewm": 3.32466,
+      "ppda_ewm": 12.99687,
+      "elevation_m": 120.0
+    },
+    "F1::Nantes": {
+      "real_xg_for": 1.332,
+      "real_xg_against": 1.75533,
+      "real_xg_luck": -0.21511,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.47557,
+      "deep_ewm": 4.04951,
+      "ppda_ewm": 18.47517,
+      "elevation_m": 30.0
+    },
+    "F1::Nice": {
+      "real_xg_for": 2.17594,
+      "real_xg_against": 1.39396,
+      "real_xg_luck": -0.08696,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.69236,
+      "deep_ewm": 6.22626,
+      "ppda_ewm": 13.34368,
+      "elevation_m": 28.0
+    },
+    "F1::Nimes": {
+      "real_xg_for": 1.27725,
+      "real_xg_against": 1.40642,
+      "real_xg_luck": 0.05301,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.31172,
+      "deep_ewm": 4.45061,
+      "ppda_ewm": 16.57493,
+      "elevation_m": 120.0
+    },
+    "F1::Paris SG": {
+      "real_xg_for": 2.98308,
+      "real_xg_against": 1.04421,
+      "real_xg_luck": -0.35042,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.87682,
+      "deep_ewm": 12.69638,
+      "ppda_ewm": 7.2647,
+      "elevation_m": 32.0
+    },
+    "F1::Reims": {
+      "real_xg_for": 1.22827,
+      "real_xg_against": 1.88798,
+      "real_xg_luck": -0.16862,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.53952,
+      "deep_ewm": 4.94863,
+      "ppda_ewm": 13.26816,
+      "elevation_m": 120.0
+    },
+    "F1::Rennes": {
+      "real_xg_for": 1.46196,
+      "real_xg_against": 1.82799,
+      "real_xg_luck": -0.01427,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.50928,
+      "deep_ewm": 6.50364,
+      "ppda_ewm": 12.1099,
+      "elevation_m": 28.0
+    },
+    "F1::St Etienne": {
+      "real_xg_for": 1.27059,
+      "real_xg_against": 2.14766,
+      "real_xg_luck": -0.19066,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.67074,
+      "deep_ewm": 4.61984,
+      "ppda_ewm": 13.34443,
+      "elevation_m": 120.0
+    },
+    "F1::Strasbourg": {
+      "real_xg_for": 1.41025,
+      "real_xg_against": 2.09569,
+      "real_xg_luck": 0.2982,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.51594,
+      "deep_ewm": 4.57761,
+      "ppda_ewm": 17.34878,
+      "elevation_m": 144.0
+    },
+    "F1::Toulouse": {
+      "real_xg_for": 1.52009,
+      "real_xg_against": 1.07326,
+      "real_xg_luck": -0.55487,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.33419,
+      "deep_ewm": 8.55027,
+      "ppda_ewm": 12.20632,
+      "elevation_m": 142.0
+    },
+    "F1::Troyes": {
+      "real_xg_for": 0.55959,
+      "real_xg_against": 2.33568,
+      "real_xg_luck": 0.26941,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.78452,
+      "deep_ewm": 2.84452,
+      "ppda_ewm": 20.83266,
+      "elevation_m": 110.0
+    },
+    "I1::Atalanta": {
+      "real_xg_for": 1.91805,
+      "real_xg_against": 1.10851,
+      "real_xg_luck": -0.31825,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.69272,
+      "deep_ewm": 7.11041,
+      "ppda_ewm": 10.67395,
+      "elevation_m": 266.0
+    },
+    "I1::Benevento": {
+      "real_xg_for": 0.9653,
+      "real_xg_against": 1.76686,
+      "real_xg_luck": 0.00307,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.85883,
+      "deep_ewm": 6.60245,
+      "ppda_ewm": 15.60209,
+      "elevation_m": 120.0
+    },
+    "I1::Bologna": {
+      "real_xg_for": 1.70539,
+      "real_xg_against": 0.9449,
+      "real_xg_luck": 0.16104,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.66737,
+      "deep_ewm": 4.2752,
+      "ppda_ewm": 7.72112,
+      "elevation_m": 65.0
+    },
+    "I1::Brescia": {
+      "real_xg_for": 1.24755,
+      "real_xg_against": 2.40356,
+      "real_xg_luck": -0.30166,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.09506,
+      "deep_ewm": 6.13634,
+      "ppda_ewm": 15.45247,
+      "elevation_m": 120.0
+    },
+    "I1::Cagliari": {
+      "real_xg_for": 1.36203,
+      "real_xg_against": 1.79439,
+      "real_xg_luck": -0.10521,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.32271,
+      "deep_ewm": 4.43295,
+      "ppda_ewm": 15.04962,
+      "elevation_m": 6.0
+    },
+    "I1::Chievo": {
+      "real_xg_for": 0.59708,
+      "real_xg_against": 1.33625,
+      "real_xg_luck": -0.23564,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.69551,
+      "deep_ewm": 2.83882,
+      "ppda_ewm": 13.73509,
+      "elevation_m": 120.0
+    },
+    "I1::Como": {
+      "real_xg_for": 1.21317,
+      "real_xg_against": 1.19627,
+      "real_xg_luck": 0.03497,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.01096,
+      "deep_ewm": 5.29989,
+      "ppda_ewm": 10.59317,
+      "elevation_m": 201.0
+    },
+    "I1::Cremonese": {
+      "real_xg_for": 0.88494,
+      "real_xg_against": 1.6287,
+      "real_xg_luck": 0.44098,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.90391,
+      "deep_ewm": 3.18948,
+      "ppda_ewm": 18.27504,
+      "elevation_m": 120.0
+    },
+    "I1::Crotone": {
+      "real_xg_for": 1.32138,
+      "real_xg_against": 1.66815,
+      "real_xg_luck": -0.24532,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.46449,
+      "deep_ewm": 5.08935,
+      "ppda_ewm": 15.46441,
+      "elevation_m": 120.0
+    },
+    "I1::Empoli": {
+      "real_xg_for": 1.07169,
+      "real_xg_against": 1.34656,
+      "real_xg_luck": 0.00301,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.36111,
+      "deep_ewm": 4.25236,
+      "ppda_ewm": 12.68448,
+      "elevation_m": 120.0
+    },
+    "I1::Fiorentina": {
+      "real_xg_for": 1.4008,
+      "real_xg_against": 1.29607,
+      "real_xg_luck": -0.02875,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.03336,
+      "deep_ewm": 6.75087,
+      "ppda_ewm": 13.54761,
+      "elevation_m": 54.0
+    },
+    "I1::Frosinone": {
+      "real_xg_for": 1.41606,
+      "real_xg_against": 1.39195,
+      "real_xg_luck": -0.68347,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.52441,
+      "deep_ewm": 5.13806,
+      "ppda_ewm": 12.15105,
+      "elevation_m": 185.0
+    },
+    "I1::Genoa": {
+      "real_xg_for": 1.44868,
+      "real_xg_against": 1.07581,
+      "real_xg_luck": -0.34509,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.3563,
+      "deep_ewm": 3.931,
+      "ppda_ewm": 11.65059,
+      "elevation_m": 18.0
+    },
+    "I1::Inter": {
+      "real_xg_for": 2.27028,
+      "real_xg_against": 0.67504,
+      "real_xg_luck": 0.59873,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.30599,
+      "deep_ewm": 9.69565,
+      "ppda_ewm": 11.3091,
+      "elevation_m": 139.0
+    },
+    "I1::Juventus": {
+      "real_xg_for": 1.57411,
+      "real_xg_against": 1.2143,
+      "real_xg_luck": -0.09011,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.46738,
+      "deep_ewm": 5.31998,
+      "ppda_ewm": 10.4371,
+      "elevation_m": 281.0
+    },
+    "I1::Lazio": {
+      "real_xg_for": 1.58112,
+      "real_xg_against": 1.45725,
+      "real_xg_luck": -0.16709,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.09333,
+      "deep_ewm": 6.72909,
+      "ppda_ewm": 10.58612,
+      "elevation_m": 17.0
+    },
+    "I1::Lecce": {
+      "real_xg_for": 0.84333,
+      "real_xg_against": 2.12352,
+      "real_xg_luck": 0.40904,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.99224,
+      "deep_ewm": 3.37771,
+      "ppda_ewm": 11.54235,
+      "elevation_m": 48.0
+    },
+    "I1::Milan": {
+      "real_xg_for": 1.84815,
+      "real_xg_against": 1.31412,
+      "real_xg_luck": -0.41909,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.37594,
+      "deep_ewm": 8.38306,
+      "ppda_ewm": 11.29053,
+      "elevation_m": 133.0
+    },
+    "I1::Monza": {
+      "real_xg_for": 0.8443,
+      "real_xg_against": 1.74697,
+      "real_xg_luck": -0.10571,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.7101,
+      "deep_ewm": 4.04234,
+      "ppda_ewm": 10.17629,
+      "elevation_m": 162.0
+    },
+    "I1::Napoli": {
+      "real_xg_for": 1.72236,
+      "real_xg_against": 0.75442,
+      "real_xg_luck": 0.2485,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.7428,
+      "deep_ewm": 6.77464,
+      "ppda_ewm": 11.78378,
+      "elevation_m": 35.0
+    },
+    "I1::Parma": {
+      "real_xg_for": 1.33645,
+      "real_xg_against": 1.9842,
+      "real_xg_luck": -0.22479,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.65477,
+      "deep_ewm": 4.59711,
+      "ppda_ewm": 19.2192,
+      "elevation_m": 58.0
+    },
+    "I1::Roma": {
+      "real_xg_for": 1.92767,
+      "real_xg_against": 1.30745,
+      "real_xg_luck": 0.10206,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.29077,
+      "deep_ewm": 6.40408,
+      "ppda_ewm": 15.39108,
+      "elevation_m": 17.0
+    },
+    "I1::Salernitana": {
+      "real_xg_for": 0.99002,
+      "real_xg_against": 2.35926,
+      "real_xg_luck": 0.19081,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.879,
+      "deep_ewm": 2.86936,
+      "ppda_ewm": 14.57843,
+      "elevation_m": 120.0
+    },
+    "I1::Sampdoria": {
+      "real_xg_for": 0.98494,
+      "real_xg_against": 2.34798,
+      "real_xg_luck": -0.20418,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.10281,
+      "deep_ewm": 4.38517,
+      "ppda_ewm": 17.87428,
+      "elevation_m": 120.0
+    },
+    "I1::Sassuolo": {
+      "real_xg_for": 0.88522,
+      "real_xg_against": 1.76532,
+      "real_xg_luck": 0.0061,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.28818,
+      "deep_ewm": 8.33515,
+      "ppda_ewm": 15.58856,
+      "elevation_m": 62.0
+    },
+    "I1::Spal": {
+      "real_xg_for": 0.77626,
+      "real_xg_against": 1.93764,
+      "real_xg_luck": -0.12181,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.99608,
+      "deep_ewm": 5.23135,
+      "ppda_ewm": 14.04399,
+      "elevation_m": 120.0
+    },
+    "I1::Spezia": {
+      "real_xg_for": 1.12998,
+      "real_xg_against": 1.39413,
+      "real_xg_luck": -0.42892,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.07356,
+      "deep_ewm": 5.64259,
+      "ppda_ewm": 12.18599,
+      "elevation_m": 120.0
+    },
+    "I1::Torino": {
+      "real_xg_for": 0.92763,
+      "real_xg_against": 1.45211,
+      "real_xg_luck": 0.06864,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.33974,
+      "deep_ewm": 4.02436,
+      "ppda_ewm": 15.10721,
+      "elevation_m": 243.0
+    },
+    "I1::Udinese": {
+      "real_xg_for": 1.0447,
+      "real_xg_against": 1.44803,
+      "real_xg_luck": 0.27688,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.15083,
+      "deep_ewm": 3.34071,
+      "ppda_ewm": 10.73688,
+      "elevation_m": 112.0
+    },
+    "I1::Venezia": {
+      "real_xg_for": 0.97748,
+      "real_xg_against": 1.8181,
+      "real_xg_luck": 0.12715,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.7271,
+      "deep_ewm": 4.33363,
+      "ppda_ewm": 13.48259,
+      "elevation_m": 2.0
+    },
+    "I1::Verona": {
+      "real_xg_for": 1.16692,
+      "real_xg_against": 1.41138,
+      "real_xg_luck": -0.31847,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.24876,
+      "deep_ewm": 4.70363,
+      "ppda_ewm": 12.56631,
+      "elevation_m": 120.0
+    },
+    "MEX::Atlas": {
+      "real_xg_for": 1.34171,
+      "real_xg_against": 1.43756,
+      "real_xg_luck": 0.11773,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1558.0
+    },
+    "MEX::Club America": {
+      "real_xg_for": 1.29157,
+      "real_xg_against": 1.29761,
+      "real_xg_luck": 0.32447,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2248.0
+    },
+    "MEX::Club Leon": {
+      "real_xg_for": 1.23887,
+      "real_xg_against": 1.04714,
+      "real_xg_luck": -0.06196,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1805.0
+    },
+    "MEX::Club Tijuana": {
+      "real_xg_for": 1.35507,
+      "real_xg_against": 1.442,
+      "real_xg_luck": -0.12657,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 65.0
+    },
+    "MEX::Cruz Azul": {
+      "real_xg_for": 1.18107,
+      "real_xg_against": 1.15054,
+      "real_xg_luck": -0.2802,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2245.0
+    },
+    "MEX::Guadalajara Chivas": {
+      "real_xg_for": 1.40225,
+      "real_xg_against": 1.01523,
+      "real_xg_luck": 0.21849,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1675.0
+    },
+    "MEX::Juarez": {
+      "real_xg_for": 1.1544,
+      "real_xg_against": 1.62286,
+      "real_xg_luck": -0.43837,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1129.0
+    },
+    "MEX::Lobos BUAP": {
+      "real_xg_for": 0.83234,
+      "real_xg_against": 2.03039,
+      "real_xg_luck": -0.03002,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2175.0
+    },
+    "MEX::Mazatlan FC": {
+      "real_xg_for": 0.90993,
+      "real_xg_against": 2.00192,
+      "real_xg_luck": 0.09491,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 12.0
+    },
+    "MEX::Monarcas": {
+      "real_xg_for": 1.86173,
+      "real_xg_against": 1.54155,
+      "real_xg_luck": 0.25592,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1920.0
+    },
+    "MEX::Monterrey": {
+      "real_xg_for": 1.65244,
+      "real_xg_against": 0.82723,
+      "real_xg_luck": 0.05196,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 489.0
+    },
+    "MEX::Necaxa": {
+      "real_xg_for": 0.88898,
+      "real_xg_against": 1.82955,
+      "real_xg_luck": -0.17252,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1883.0
+    },
+    "MEX::Pachuca": {
+      "real_xg_for": 1.68946,
+      "real_xg_against": 1.21705,
+      "real_xg_luck": -0.36641,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2390.0
+    },
+    "MEX::Puebla": {
+      "real_xg_for": 1.27695,
+      "real_xg_against": 1.5617,
+      "real_xg_luck": 0.18603,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2220.0
+    },
+    "MEX::Queretaro": {
+      "real_xg_for": 1.02657,
+      "real_xg_against": 1.44437,
+      "real_xg_luck": -0.13314,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 1873.0
+    },
+    "MEX::Tigres UANL": {
+      "real_xg_for": 1.19415,
+      "real_xg_against": 0.84971,
+      "real_xg_luck": 0.01055,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 523.0
+    },
+    "MEX::Toluca": {
+      "real_xg_for": 1.67543,
+      "real_xg_against": 1.40364,
+      "real_xg_luck": 0.35109,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2678.0
+    },
+    "MEX::UNAM Pumas": {
+      "real_xg_for": 1.28341,
+      "real_xg_against": 1.78929,
+      "real_xg_luck": -0.09629,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 2285.0
+    },
+    "MEX::Veracruz": {
+      "real_xg_for": 1.01962,
+      "real_xg_against": 1.78797,
+      "real_xg_luck": -0.39116,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.0,
+      "deep_ewm": 5.5,
+      "ppda_ewm": 11.2,
+      "elevation_m": 10.0
+    },
+    "SP1::Alaves": {
+      "real_xg_for": 1.25122,
+      "real_xg_against": 1.04433,
+      "real_xg_luck": 0.05483,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.01067,
+      "deep_ewm": 2.93207,
+      "ppda_ewm": 9.61818,
+      "elevation_m": 535.0
+    },
+    "SP1::Almeria": {
+      "real_xg_for": 1.47429,
+      "real_xg_against": 1.64725,
+      "real_xg_luck": 0.56859,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.04678,
+      "deep_ewm": 5.21994,
+      "ppda_ewm": 14.7775,
+      "elevation_m": 120.0
+    },
+    "SP1::Ath Bilbao": {
+      "real_xg_for": 1.73287,
+      "real_xg_against": 0.9673,
+      "real_xg_luck": -0.3608,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.81543,
+      "deep_ewm": 4.58157,
+      "ppda_ewm": 10.7095,
+      "elevation_m": 19.0
+    },
+    "SP1::Ath Madrid": {
+      "real_xg_for": 1.94907,
+      "real_xg_against": 0.99058,
+      "real_xg_luck": -0.36613,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.97663,
+      "deep_ewm": 9.55844,
+      "ppda_ewm": 15.51217,
+      "elevation_m": 665.0
+    },
+    "SP1::Barcelona": {
+      "real_xg_for": 3.06702,
+      "real_xg_against": 1.27671,
+      "real_xg_luck": -0.33614,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.80317,
+      "deep_ewm": 14.22206,
+      "ppda_ewm": 6.57323,
+      "elevation_m": 103.0
+    },
+    "SP1::Betis": {
+      "real_xg_for": 1.24922,
+      "real_xg_against": 1.35294,
+      "real_xg_luck": -0.18466,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.07691,
+      "deep_ewm": 6.10739,
+      "ppda_ewm": 9.70133,
+      "elevation_m": 7.0
+    },
+    "SP1::Cadiz": {
+      "real_xg_for": 1.23604,
+      "real_xg_against": 1.60846,
+      "real_xg_luck": -0.55647,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.18289,
+      "deep_ewm": 4.18861,
+      "ppda_ewm": 11.38867,
+      "elevation_m": 120.0
+    },
+    "SP1::Celta": {
+      "real_xg_for": 1.24762,
+      "real_xg_against": 1.21688,
+      "real_xg_luck": -0.06616,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.11114,
+      "deep_ewm": 4.99648,
+      "ppda_ewm": 11.91184,
+      "elevation_m": 22.0
+    },
+    "SP1::Eibar": {
+      "real_xg_for": 1.35108,
+      "real_xg_against": 0.95943,
+      "real_xg_luck": -0.57984,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.29956,
+      "deep_ewm": 5.55745,
+      "ppda_ewm": 11.21449,
+      "elevation_m": 120.0
+    },
+    "SP1::Elche": {
+      "real_xg_for": 1.37649,
+      "real_xg_against": 1.76706,
+      "real_xg_luck": -0.36382,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.37536,
+      "deep_ewm": 4.39917,
+      "ppda_ewm": 9.02556,
+      "elevation_m": 85.0
+    },
+    "SP1::Espanol": {
+      "real_xg_for": 1.00564,
+      "real_xg_against": 1.49267,
+      "real_xg_luck": 0.01028,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.44837,
+      "deep_ewm": 3.47194,
+      "ppda_ewm": 18.82506,
+      "elevation_m": 40.0
+    },
+    "SP1::Getafe": {
+      "real_xg_for": 1.09546,
+      "real_xg_against": 1.63918,
+      "real_xg_luck": -0.1054,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.40738,
+      "deep_ewm": 3.29823,
+      "ppda_ewm": 9.23296,
+      "elevation_m": 625.0
+    },
+    "SP1::Girona": {
+      "real_xg_for": 1.29142,
+      "real_xg_against": 1.77213,
+      "real_xg_luck": 0.11695,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.40311,
+      "deep_ewm": 7.84478,
+      "ppda_ewm": 11.44395,
+      "elevation_m": 103.0
+    },
+    "SP1::Granada": {
+      "real_xg_for": 1.07076,
+      "real_xg_against": 2.46935,
+      "real_xg_luck": -0.3254,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.1552,
+      "deep_ewm": 4.47889,
+      "ppda_ewm": 11.46415,
+      "elevation_m": 738.0
+    },
+    "SP1::Huesca": {
+      "real_xg_for": 0.88823,
+      "real_xg_against": 0.83945,
+      "real_xg_luck": -0.26379,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.10947,
+      "deep_ewm": 3.2538,
+      "ppda_ewm": 9.99704,
+      "elevation_m": 488.0
+    },
+    "SP1::Las Palmas": {
+      "real_xg_for": 1.04279,
+      "real_xg_against": 2.45031,
+      "real_xg_luck": 0.10766,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.37008,
+      "deep_ewm": 4.08368,
+      "ppda_ewm": 13.40444,
+      "elevation_m": 120.0
+    },
+    "SP1::Leganes": {
+      "real_xg_for": 1.09888,
+      "real_xg_against": 2.21702,
+      "real_xg_luck": -0.38154,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.1026,
+      "deep_ewm": 2.92709,
+      "ppda_ewm": 14.31067,
+      "elevation_m": 665.0
+    },
+    "SP1::Levante": {
+      "real_xg_for": 2.18095,
+      "real_xg_against": 2.08752,
+      "real_xg_luck": -0.0114,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.06725,
+      "deep_ewm": 6.26458,
+      "ppda_ewm": 11.1057,
+      "elevation_m": 14.0
+    },
+    "SP1::Mallorca": {
+      "real_xg_for": 0.9921,
+      "real_xg_against": 1.45376,
+      "real_xg_luck": -0.372,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.45283,
+      "deep_ewm": 3.41033,
+      "ppda_ewm": 13.51579,
+      "elevation_m": 120.0
+    },
+    "SP1::Osasuna": {
+      "real_xg_for": 1.19979,
+      "real_xg_against": 1.30908,
+      "real_xg_luck": -0.25195,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.15042,
+      "deep_ewm": 4.36395,
+      "ppda_ewm": 12.34842,
+      "elevation_m": 440.0
+    },
+    "SP1::Real Madrid": {
+      "real_xg_for": 2.62007,
+      "real_xg_against": 0.90182,
+      "real_xg_luck": -0.29648,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.35608,
+      "deep_ewm": 11.89421,
+      "ppda_ewm": 10.76743,
+      "elevation_m": 716.0
+    },
+    "SP1::Sevilla": {
+      "real_xg_for": 1.22882,
+      "real_xg_against": 1.34844,
+      "real_xg_luck": -0.12831,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.1631,
+      "deep_ewm": 4.09259,
+      "ppda_ewm": 10.96632,
+      "elevation_m": 8.0
+    },
+    "SP1::Sociedad": {
+      "real_xg_for": 1.07762,
+      "real_xg_against": 1.27495,
+      "real_xg_luck": -0.44681,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.21898,
+      "deep_ewm": 7.053,
+      "ppda_ewm": 7.01323,
+      "elevation_m": 7.0
+    },
+    "SP1::Valencia": {
+      "real_xg_for": 1.30947,
+      "real_xg_against": 1.89933,
+      "real_xg_luck": -0.26292,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -0.53059,
+      "deep_ewm": 3.45495,
+      "ppda_ewm": 14.02278,
+      "elevation_m": 24.0
+    },
+    "SP1::Valladolid": {
+      "real_xg_for": 0.85681,
+      "real_xg_against": 2.12341,
+      "real_xg_luck": -0.18149,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": -1.17636,
+      "deep_ewm": 2.35228,
+      "ppda_ewm": 16.2038,
+      "elevation_m": 698.0
+    },
+    "SP1::Vallecano": {
+      "real_xg_for": 1.6736,
+      "real_xg_against": 1.50484,
+      "real_xg_luck": -0.35275,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 0.35358,
+      "deep_ewm": 5.23675,
+      "ppda_ewm": 8.20576,
+      "elevation_m": 670.0
+    },
+    "SP1::Villarreal": {
+      "real_xg_for": 2.42165,
+      "real_xg_against": 1.13995,
+      "real_xg_luck": 0.04257,
+      "has_real_xg": 1.0,
+      "npxgd_ewm": 1.12264,
+      "deep_ewm": 9.97681,
+      "ppda_ewm": 12.88439,
+      "elevation_m": 51.0
+    }
+  }
+}

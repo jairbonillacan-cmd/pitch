@@ -19,10 +19,63 @@ export interface LivePickProgressItem {
   readonly clockLabel: string;
   readonly scoreLabel: string;
   readonly statusText: string;
+  /** Lectura compacta `actual / línea` (ej. `2 / 2.5 goles` o `+1.0 margen`). */
+  readonly progressRatioLabel?: string;
+  /** `true` cuando un mercado Over ya cruzó su línea en vivo (provisional hasta FT). */
+  readonly lineReached?: boolean;
   readonly currentValue: number | null;
   readonly targetValue: number | null;
   readonly tone: "brand" | "success" | "warning";
   readonly href?: string;
+}
+
+export type AsianHandicapLiveState =
+  | "covering_full"
+  | "covering_half"
+  | "push"
+  | "losing_half"
+  | "not_covering";
+
+/**
+ * Evalúa un hándicap asiático o spread (incluyendo cuartos `.0`, `.25`, `.5`, `.75`)
+ * respecto al margen actual `(equipo elegido − rival)`.
+ */
+export function evaluateAsianHandicapLive(
+  teamMargin: number,
+  handicapLine: number,
+): { state: AsianHandicapLiveState; label: string; tone: "brand" | "success" | "warning" } {
+  const adjusted = Math.round((teamMargin + handicapLine) * 100) / 100;
+  if (adjusted >= 0.5) {
+    return { state: "covering_full", label: "Cubriendo completo", tone: "success" };
+  }
+  if (adjusted > 0 && adjusted < 0.5) {
+    return { state: "covering_half", label: "Media ganancia parcial", tone: "success" };
+  }
+  if (adjusted === 0) {
+    return { state: "push", label: "Empate en línea (push)", tone: "brand" };
+  }
+  if (adjusted < 0 && adjusted > -0.5) {
+    return { state: "losing_half", label: "Media pérdida parcial", tone: "warning" };
+  }
+  return { state: "not_covering", label: "Por debajo de la línea", tone: "warning" };
+}
+
+function parseHandicapTarget(
+  label: string,
+  game?: PlatformGame,
+): { side: "home" | "away"; line: number } | null {
+  const m = /([+-]\d+(?:\.(?:0|25|5|75))?)\b/.exec(label);
+  if (!m?.[1]) return null;
+  const line = Number(m[1]);
+  if (!Number.isFinite(line)) return null;
+  const lower = label.toLowerCase();
+  if (lower.includes("local") || (game && lower.includes(game.home.shortName.toLowerCase()))) {
+    return { side: "home", line };
+  }
+  if (lower.includes("visit") || (game && lower.includes(game.away.shortName.toLowerCase()))) {
+    return { side: "away", line };
+  }
+  return null;
 }
 
 function parseThresholdTarget(label: string): {
@@ -114,6 +167,7 @@ export function computeLivePickProgress(params: {
     }
 
     if (currentMetric !== null) {
+      const ratioLabel = `${currentMetric} / ${parsedTotal.line} ${unitWord}`;
       if (parsedTotal.direction === "over") {
         const needed = Math.floor(parsedTotal.line) + 1;
         const met = currentMetric >= needed;
@@ -126,8 +180,10 @@ export function computeLivePickProgress(params: {
           clockLabel,
           scoreLabel,
           statusText: met
-            ? `Meta alcanzada · van ${currentMetric} ${unitWord}`
-            : `Van ${currentMetric} de ${needed} ${unitWord}`,
+            ? `Línea cumplida (provisional hasta FT)`
+            : `Faltan ${needed - currentMetric} ${unitWord}`,
+          progressRatioLabel: ratioLabel,
+          lineReached: met,
           currentValue: Math.min(currentMetric, needed),
           targetValue: needed,
           tone: met ? "success" : "brand",
@@ -146,13 +202,40 @@ export function computeLivePickProgress(params: {
         scoreLabel,
         statusText: busted
           ? `Línea superada (${currentMetric} ${unitWord})`
-          : `Margen activo · ${currentMetric} de máx. ${maxAllowed} ${unitWord}`,
+          : `Margen activo · máx. ${maxAllowed} ${unitWord}`,
+        progressRatioLabel: ratioLabel,
+        lineReached: false,
         currentValue: Math.min(currentMetric, Math.max(1, maxAllowed + 1)),
         targetValue: Math.max(1, maxAllowed + 1),
         tone: busted ? "warning" : "brand",
         ...(href ? { href } : {}),
       };
     }
+  }
+
+  const parsedHandicap = parseHandicapTarget(entry.pickLabel, game);
+  if (parsedHandicap) {
+    const teamMargin =
+      parsedHandicap.side === "home" ? score.home - score.away : score.away - score.home;
+    const hcp = evaluateAsianHandicapLive(teamMargin, parsedHandicap.line);
+    const marginText = teamMargin > 0 ? `+${teamMargin}` : `${teamMargin}`;
+    const lineText = parsedHandicap.line > 0 ? `+${parsedHandicap.line}` : `${parsedHandicap.line}`;
+    return {
+      entryId: entry.id,
+      gameId: entry.gameId,
+      leagueLabel: entry.leagueLabel,
+      matchLabel: entry.matchLabel,
+      pickLabel: entry.pickLabel,
+      clockLabel,
+      scoreLabel,
+      statusText: hcp.label,
+      progressRatioLabel: `Margen ${marginText} vs ${lineText}`,
+      lineReached: hcp.state === "covering_full",
+      currentValue: null,
+      targetValue: null,
+      tone: hcp.tone,
+      ...(href ? { href } : {}),
+    };
   }
 
   const lower = entry.pickLabel.toLowerCase();
@@ -170,6 +253,8 @@ export function computeLivePickProgress(params: {
         clockLabel,
         scoreLabel,
         statusText: met ? "Ambos equipos ya anotaron" : `${scoredTeams} de 2 equipos con gol`,
+        progressRatioLabel: `${scoredTeams} / 2 equipos`,
+        lineReached: met,
         currentValue: scoredTeams,
         targetValue: 2,
         tone: met ? "success" : "brand",

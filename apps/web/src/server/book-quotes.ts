@@ -332,13 +332,33 @@ export function parseQuotesLedgerTicks(
 let snapshotLinesCache: {
   hourBucket: number;
   signature: string;
+  scannedAtMs: number;
+  root: string;
   byLeague: Map<string, ParsedEventQuotes[]>;
 } | null = null;
 
-function loadSnapshotMarketLinesByLeague(nowMs: number): Map<string, ParsedEventQuotes[]> {
+let mergedQuotesCache: {
+  key: string;
+  byLeague: Map<string, ParsedEventQuotes[]>;
+} | null = null;
+
+const SNAPSHOT_DIR_SCAN_TTL_MS = 30_000;
+
+function loadSnapshotMarketLinesByLeague(nowMs: number): {
+  signature: string;
+  byLeague: Map<string, ParsedEventQuotes[]>;
+} {
   const root = resolveSnapshotsRoot();
-  if (!root) return new Map();
+  if (!root) return { signature: "", byLeague: new Map() };
   const hourBucket = Math.floor(nowMs / 3_600_000);
+  if (
+    snapshotLinesCache &&
+    snapshotLinesCache.root === root &&
+    snapshotLinesCache.hourBucket === hourBucket &&
+    Math.abs(nowMs - snapshotLinesCache.scannedAtMs) < SNAPSHOT_DIR_SCAN_TTL_MS
+  ) {
+    return { signature: snapshotLinesCache.signature, byLeague: snapshotLinesCache.byLeague };
+  }
   const files: Array<{ league: string; filePath: string; mtimeMs: number }> = [];
   try {
     for (const entry of readdirSync(root, { withFileTypes: true })) {
@@ -353,15 +373,17 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): Map<string, ParsedEvent
     }
   } catch (err) {
     void err;
-    return new Map();
+    return { signature: "", byLeague: new Map() };
   }
   const signature = files.map((f) => `${f.league}:${f.mtimeMs}`).sort().join("|");
   if (
     snapshotLinesCache &&
+    snapshotLinesCache.root === root &&
     snapshotLinesCache.hourBucket === hourBucket &&
     snapshotLinesCache.signature === signature
   ) {
-    return snapshotLinesCache.byLeague;
+    snapshotLinesCache.scannedAtMs = nowMs;
+    return { signature, byLeague: snapshotLinesCache.byLeague };
   }
 
   const byLeague = new Map<string, ParsedEventQuotes[]>();
@@ -469,51 +491,58 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): Map<string, ParsedEvent
     }
   }
 
-  snapshotLinesCache = { hourBucket, signature, byLeague };
-  return byLeague;
+  snapshotLinesCache = { hourBucket, signature, scannedAtMs: nowMs, root, byLeague };
+  return { signature, byLeague };
 }
 
 function getParsedQuotesByLeague(nowMs: number = Date.now()): Map<string, ParsedEventQuotes[]> {
-  const merged = new Map<string, ParsedEventQuotes[]>();
+  const hourBucket = Math.floor(nowMs / 3_600_000);
   const quotesPath = resolveQuotesPath();
+  let quotesMtimeMs = 0;
+  let ledgerMap: Map<string, ParsedEventQuotes[]> | null = null;
+
   if (quotesPath) {
-    const hourBucket = Math.floor(nowMs / 3_600_000);
-    let mtimeMs = 0;
     try {
-      mtimeMs = statSync(quotesPath).mtimeMs;
+      quotesMtimeMs = statSync(quotesPath).mtimeMs;
     } catch (err) {
       void err;
     }
 
-    let ledgerMap: Map<string, ParsedEventQuotes[]> | null = null;
     if (
-      mtimeMs > 0 &&
+      quotesMtimeMs > 0 &&
       ledgerCache &&
-      ledgerCache.mtimeMs === mtimeMs &&
+      ledgerCache.mtimeMs === quotesMtimeMs &&
       ledgerCache.hourBucket === hourBucket
     ) {
       ledgerMap = ledgerCache.byLeague;
-    } else if (mtimeMs > 0) {
+    } else if (quotesMtimeMs > 0) {
       try {
         const raw = JSON.parse(readFileSync(quotesPath, "utf8")) as RawQuotesLedger;
         ledgerMap = Array.isArray(raw.ticks) ? parseQuotesLedgerTicks(raw.ticks, nowMs) : new Map();
-        ledgerCache = { mtimeMs, hourBucket, byLeague: ledgerMap };
+        ledgerCache = { mtimeMs: quotesMtimeMs, hourBucket, byLeague: ledgerMap };
       } catch (err) {
         void err;
       }
     }
-    if (ledgerMap) {
-      for (const [lg, list] of ledgerMap.entries()) {
-        merged.set(lg, [...list]);
-      }
-    }
   }
 
-  const snapshotLines = loadSnapshotMarketLinesByLeague(nowMs);
+  const { signature: snapSig, byLeague: snapshotLines } = loadSnapshotMarketLinesByLeague(nowMs);
+  const cacheKey = `${hourBucket}|${quotesMtimeMs}|${snapSig}`;
+  if (mergedQuotesCache && mergedQuotesCache.key === cacheKey) {
+    return mergedQuotesCache.byLeague;
+  }
+
+  const merged = new Map<string, ParsedEventQuotes[]>();
+  if (ledgerMap) {
+    for (const [lg, list] of ledgerMap.entries()) {
+      merged.set(lg, [...list]);
+    }
+  }
   for (const [lg, list] of snapshotLines.entries()) {
     const existing = merged.get(lg);
     merged.set(lg, existing ? [...existing, ...list] : [...list]);
   }
+  mergedQuotesCache = { key: cacheKey, byLeague: merged };
   return merged;
 }
 

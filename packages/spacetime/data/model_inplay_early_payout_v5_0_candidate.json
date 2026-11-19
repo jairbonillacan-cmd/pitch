@@ -1,0 +1,53 @@
+{
+  "schema_version": "inplay_early_payout_v5.0.0",
+  "codename": "PitchLab Early-Payout Passage-Time DP & In-Play Spacetime v5.1 Remediated",
+  "version": "5.1.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "created_at": "2026-11-19T16:44:26+00:00",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "soccer": {
+    "minute_bucket_weights_6": [
+      0.126799,
+      0.143104,
+      0.167323,
+      0.164121,
+      0.169973,
+      0.22868
+    ],
+    "own_red_card_rate_mult": 0.4778,
+    "opp_red_card_rate_mult": 1.7351,
+    "second_half_trailing_push": 0.08,
+    "second_half_tied_damping": -0.03,
+    "second_half_lead_openness": 0.0,
+    "tempo_gamma_prior_weight": 24.0,
+    "max_goals_dp": 10
+  },
+  "points_sports_early_payout": {
+    "nfl": {
+      "trigger_lead": 17,
+      "sigma_margin": 13.077,
+      "effective_barrier": 16.5,
+      "validation_status": "oos_validated_nflverse_2020_2024"
+    },
+    "nba": {
+      "trigger_lead": 20,
+      "sigma_margin": 12.2,
+      "effective_barrier": 18.8,
+      "validation_status": "theoretical_reflection_unvalidated"
+    },
+    "mlb": {
+      "trigger_lead": 5,
+      "sigma_margin": 4.25,
+      "effective_barrier": 4.55,
+      "validation_status": "theoretical_reflection_unvalidated"
+    }
+  },
+  "nfl_inplay": {
+    "sigma_full_game": 13.077,
+    "sigma_total_full_game": 13.4,
+    "possession_value_points": 2.0,
+    "validation_status": "oos_validated_nflverse_2020_2024"
+  }
+}

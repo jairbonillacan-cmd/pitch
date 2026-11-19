@@ -464,3 +464,336 @@ export function buildDerivedOutlookExtras(
     })),
   };
 }
+
+function erfApprox(x: number): number {
+  const sign = x < 0 ? -1 : 1;
+  const ax = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * ax);
+  const y =
+    1 -
+    (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) *
+      t) *
+      Math.exp(-ax * ax);
+  return sign * y;
+}
+
+function normalCdf(z: number): number {
+  return 0.5 * (1 + erfApprox(z / Math.SQRT2));
+}
+
+function clampProb(p: number): number {
+  return Math.max(0.02, Math.min(0.98, Math.round(p * 10_000) / 10_000));
+}
+
+function fairFromProb(p: number): { decimal: number; american: number } {
+  const dec = Math.round((1 / p) * 100) / 100;
+  const american = p >= 0.5 ? Math.round((-p / (1 - p)) * 100) : Math.round(((1 - p) / p) * 100);
+  return { decimal: Math.max(1.01, dec), american };
+}
+
+function roundToHalf(n: number): number {
+  return Math.round(n - 0.5) + 0.5;
+}
+
+/**
+ * Paridad de mercados derivados para deportes de EE. UU. (NBA, NHL y MLB) a partir de las
+ * proyecciones calibradas del snapshot (`projection.home`, `projection.away`, `projection.total`).
+ * Todas las filas se marcan `isDerived: true` («Derivado del motor») con etiqueta honesta.
+ */
+export function buildDerivedUsSportRows(
+  game: TeamNamesWithProjection & {
+    readonly sport: string;
+    readonly existingMarkets?: readonly Pick<PlatformMarketRow, "market" | "selection">[];
+  },
+): PlatformMarketRow[] {
+  const homeMean = game.projection?.home;
+  const awayMean = game.projection?.away;
+  if (
+    typeof homeMean !== "number" ||
+    typeof awayMean !== "number" ||
+    !(homeMean > 0) ||
+    !(awayMean > 0)
+  ) {
+    return [];
+  }
+
+  const totalMean =
+    typeof game.projection?.total === "number" && game.projection.total > 0
+      ? game.projection.total
+      : homeMean + awayMean;
+  const marginMean = homeMean - awayMean;
+  const existingKeys = new Set(
+    (game.existingMarkets ?? []).map((r) => `${r.market}|${r.selection}`),
+  );
+  const rows: PlatformMarketRow[] = [];
+
+  const pushPair = (input: {
+    group: string;
+    market: string;
+    cardCategory: MarketCardCategory;
+    cardTitle: string;
+    aSel: string;
+    aLabel: string;
+    bSel: string;
+    bLabel: string;
+    pA: number;
+  }) => {
+    if (
+      existingKeys.has(`${input.market}|${input.aSel}`) ||
+      existingKeys.has(`${input.market}|${input.bSel}`)
+    ) {
+      return;
+    }
+    const pA = clampProb(input.pA);
+    const pB = clampProb(1 - pA);
+    const fairA = fairFromProb(pA);
+    const fairB = fairFromProb(pB);
+    rows.push(
+      makeDerivedRow({
+        group: input.group,
+        market: input.market,
+        selection: input.aSel,
+        label: input.aLabel,
+        p: pA,
+        fairDecimal: fairA.decimal,
+        fairAmerican: fairA.american,
+        cardCategory: input.cardCategory,
+        cardTitle: input.cardTitle,
+        isMostLikely: pA >= pB,
+      }),
+      makeDerivedRow({
+        group: input.group,
+        market: input.market,
+        selection: input.bSel,
+        label: input.bLabel,
+        p: pB,
+        fairDecimal: fairB.decimal,
+        fairAmerican: fairB.american,
+        cardCategory: input.cardCategory,
+        cardTitle: input.cardTitle,
+        isMostLikely: pB > pA,
+      }),
+    );
+  };
+
+  const homeName = game.home.name;
+  const awayName = game.away.name;
+
+  if (game.sport === "basketball") {
+    const sigmaMargin = 12.2;
+    const sigmaTotal = 17.5;
+    const sigmaTeam = 11.4;
+    const centerSpread = roundToHalf(-marginMean);
+    const spreadLines = Array.from(new Set([centerSpread - 3, centerSpread, centerSpread + 3]));
+    for (const homeLine of spreadLines) {
+      const pHomeCover = 1 - normalCdf((-homeLine - marginMean) / sigmaMargin);
+      const awayLine = -homeLine;
+      pushPair({
+        group: "Hándicap alternativo",
+        market: "spread",
+        cardCategory: "handicap",
+        cardTitle: `Hándicap (${formatSignedLine(homeLine)})`,
+        aSel: `home_${formatSignedLine(homeLine)}`,
+        aLabel: `${homeName} (${formatSignedLine(homeLine)})`,
+        bSel: `away_${formatSignedLine(awayLine)}`,
+        bLabel: `${awayName} (${formatSignedLine(awayLine)})`,
+        pA: pHomeCover,
+      });
+    }
+    const centerTot = roundToHalf(totalMean);
+    for (const totLine of [centerTot - 5, centerTot, centerTot + 5]) {
+      if (totLine < 160) continue;
+      const pOver = 1 - normalCdf((totLine - totalMean) / sigmaTotal);
+      pushPair({
+        group: "Totales alternativos",
+        market: "totals",
+        cardCategory: "goles",
+        cardTitle: `Total de puntos (${totLine})`,
+        aSel: `over_${totLine}`,
+        aLabel: `Más de ${totLine} pts`,
+        bSel: `under_${totLine}`,
+        bLabel: `Menos de ${totLine} pts`,
+        pA: pOver,
+      });
+    }
+    const homeLine = roundToHalf(homeMean);
+    const awayLine = roundToHalf(awayMean);
+    pushPair({
+      group: `Puntos · ${homeName}`,
+      market: "team_totals_home",
+      cardCategory: "goles",
+      cardTitle: `Puntos ${homeName} (${homeLine})`,
+      aSel: `home_over_${homeLine}`,
+      aLabel: `${homeName} · Más de ${homeLine} pts`,
+      bSel: `home_under_${homeLine}`,
+      bLabel: `${homeName} · Menos de ${homeLine} pts`,
+      pA: 1 - normalCdf((homeLine - homeMean) / sigmaTeam),
+    });
+    pushPair({
+      group: `Puntos · ${awayName}`,
+      market: "team_totals_away",
+      cardCategory: "goles",
+      cardTitle: `Puntos ${awayName} (${awayLine})`,
+      aSel: `away_over_${awayLine}`,
+      aLabel: `${awayName} · Más de ${awayLine} pts`,
+      bSel: `away_under_${awayLine}`,
+      bLabel: `${awayName} · Menos de ${awayLine} pts`,
+      pA: 1 - normalCdf((awayLine - awayMean) / sigmaTeam),
+    });
+    const firstHalfTot = roundToHalf(totalMean * 0.495);
+    pushPair({
+      group: "1.ª mitad · Total",
+      market: "first_half_totals",
+      cardCategory: "primer_tiempo",
+      cardTitle: `1.ª mitad (${firstHalfTot} pts)`,
+      aSel: `1h_over_${firstHalfTot}`,
+      aLabel: `1.ª mitad · Más de ${firstHalfTot} pts`,
+      bSel: `1h_under_${firstHalfTot}`,
+      bLabel: `1.ª mitad · Menos de ${firstHalfTot} pts`,
+      pA: 1 - normalCdf((firstHalfTot - totalMean * 0.495) / (sigmaTotal * 0.72)),
+    });
+    return rows;
+  }
+
+  if (game.sport === "ice-hockey") {
+    const sigmaMargin = 2.15;
+    const sigmaTotal = 2.25;
+    const sigmaTeam = 1.6;
+    const favIsHome = marginMean >= 0;
+    const puckHomeLine = favIsHome ? -1.5 : 1.5;
+    const puckAwayLine = -puckHomeLine;
+    pushPair({
+      group: "Puck line",
+      market: "spread",
+      cardCategory: "handicap",
+      cardTitle: `Puck line (${formatSignedLine(puckHomeLine)})`,
+      aSel: `home_${formatSignedLine(puckHomeLine)}`,
+      aLabel: `${homeName} (${formatSignedLine(puckHomeLine)})`,
+      bSel: `away_${formatSignedLine(puckAwayLine)}`,
+      bLabel: `${awayName} (${formatSignedLine(puckAwayLine)})`,
+      pA: 1 - normalCdf((-puckHomeLine - marginMean) / sigmaMargin),
+    });
+    for (const totLine of [5.5, 6.5]) {
+      pushPair({
+        group: "Total de goles",
+        market: "totals",
+        cardCategory: "goles",
+        cardTitle: `Total de goles (${totLine})`,
+        aSel: `over_${totLine}`,
+        aLabel: `Más de ${totLine} goles`,
+        bSel: `under_${totLine}`,
+        bLabel: `Menos de ${totLine} goles`,
+        pA: 1 - normalCdf((totLine - totalMean) / sigmaTotal),
+      });
+    }
+    for (const side of [
+      { key: "home", name: homeName, mean: homeMean },
+      { key: "away", name: awayName, mean: awayMean },
+    ] as const) {
+      const tLine = side.mean >= 3.2 ? 3.5 : 2.5;
+      pushPair({
+        group: `Goles · ${side.name}`,
+        market: `team_totals_${side.key}`,
+        cardCategory: "goles",
+        cardTitle: `Goles ${side.name} (${tLine})`,
+        aSel: `${side.key}_over_${tLine}`,
+        aLabel: `${side.name} · Más de ${tLine} goles`,
+        bSel: `${side.key}_under_${tLine}`,
+        bLabel: `${side.name} · Menos de ${tLine} goles`,
+        pA: 1 - normalCdf((tLine - side.mean) / sigmaTeam),
+      });
+    }
+    pushPair({
+      group: "1er periodo · Goles",
+      market: "first_period_totals",
+      cardCategory: "primer_tiempo",
+      cardTitle: "1er periodo (1.5 goles)",
+      aSel: "1p_over_1.5",
+      aLabel: "1er periodo · Más de 1.5 goles",
+      bSel: "1p_under_1.5",
+      bLabel: "1er periodo · Menos de 1.5 goles",
+      pA: 1 - normalCdf((1.5 - totalMean * 0.31) / 1.25),
+    });
+    return rows;
+  }
+
+  if (game.sport === "baseball") {
+    const sigmaMargin = 3.6;
+    const sigmaTotal = 4.1;
+    const sigmaTeam = 2.75;
+    const runHomeLine = marginMean >= 0 ? -1.5 : 1.5;
+    const runAwayLine = -runHomeLine;
+    pushPair({
+      group: "Run line",
+      market: "spread",
+      cardCategory: "handicap",
+      cardTitle: `Run line (${formatSignedLine(runHomeLine)})`,
+      aSel: `home_${formatSignedLine(runHomeLine)}`,
+      aLabel: `${homeName} (${formatSignedLine(runHomeLine)})`,
+      bSel: `away_${formatSignedLine(runAwayLine)}`,
+      bLabel: `${awayName} (${formatSignedLine(runAwayLine)})`,
+      pA: 1 - normalCdf((-runHomeLine - marginMean) / sigmaMargin),
+    });
+    const centerRuns = roundToHalf(totalMean);
+    const runLines = Array.from(new Set([centerRuns - 1, centerRuns, centerRuns + 1])).filter(
+      (l) => l >= 5.5 && l <= 13.5,
+    );
+    for (const totLine of runLines) {
+      pushPair({
+        group: "Total de carreras",
+        market: "totals",
+        cardCategory: "goles",
+        cardTitle: `Total de carreras (${totLine})`,
+        aSel: `over_${totLine}`,
+        aLabel: `Más de ${totLine} carreras`,
+        bSel: `under_${totLine}`,
+        bLabel: `Menos de ${totLine} carreras`,
+        pA: 1 - normalCdf((totLine - totalMean) / sigmaTotal),
+      });
+    }
+    for (const side of [
+      { key: "home", name: homeName, mean: homeMean },
+      { key: "away", name: awayName, mean: awayMean },
+    ] as const) {
+      const tLine = roundToHalf(side.mean);
+      pushPair({
+        group: `Carreras · ${side.name}`,
+        market: `team_totals_${side.key}`,
+        cardCategory: "goles",
+        cardTitle: `Carreras ${side.name} (${tLine})`,
+        aSel: `${side.key}_over_${tLine}`,
+        aLabel: `${side.name} · Más de ${tLine} carreras`,
+        bSel: `${side.key}_under_${tLine}`,
+        bLabel: `${side.name} · Menos de ${tLine} carreras`,
+        pA: 1 - normalCdf((tLine - side.mean) / sigmaTeam),
+      });
+    }
+    const f5Mean = totalMean * 0.56;
+    const f5Line = roundToHalf(f5Mean);
+    pushPair({
+      group: "Primeras 5 entradas (F5)",
+      market: "f5_totals",
+      cardCategory: "primer_tiempo",
+      cardTitle: `F5 · Total de carreras (${f5Line})`,
+      aSel: `f5_over_${f5Line}`,
+      aLabel: `F5 · Más de ${f5Line} carreras`,
+      bSel: `f5_under_${f5Line}`,
+      bLabel: `F5 · Menos de ${f5Line} carreras`,
+      pA: 1 - normalCdf((f5Line - f5Mean) / (sigmaTotal * 0.74)),
+    });
+    pushPair({
+      group: "Primeras 5 entradas (F5)",
+      market: "f5_moneyline",
+      cardCategory: "primer_tiempo",
+      cardTitle: "F5 · Ganador (5 entradas)",
+      aSel: "f5_home",
+      aLabel: `F5 · ${homeName}`,
+      bSel: "f5_away",
+      bLabel: `F5 · ${awayName}`,
+      pA: 1 - normalCdf((-marginMean * 0.56) / (sigmaMargin * 0.74)),
+    });
+    return rows;
+  }
+
+  return rows;
+}

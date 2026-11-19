@@ -503,23 +503,53 @@ export function computeParlaySummary(
     };
   }
 
-  const byGameCount = new Map<string, number>();
+  const byGameLegs = new Map<string, MatchPick[]>();
   let rawProb = 1;
   let bookDecimal = 1;
 
   for (const { pick } of legs) {
     rawProb *= pick.p;
     bookDecimal *= pickReferenceDecimal(pick);
-    byGameCount.set(pick.gameId, (byGameCount.get(pick.gameId) ?? 0) + 1);
+    const list = byGameLegs.get(pick.gameId) ?? [];
+    list.push(pick);
+    byGameLegs.set(pick.gameId, list);
   }
 
   let sgpPairsCount = 0;
-  for (const count of byGameCount.values()) {
-    if (count >= 2) sgpPairsCount += 1;
+  let sgpFactor = 1;
+  for (const gamePicks of byGameLegs.values()) {
+    if (gamePicks.length < 2) continue;
+    sgpPairsCount += 1;
+    // Estimación direccional inmediata (refinada al vuelo por la Cópula Student-t v5.1 en /api/parlays/sgp):
+    // Over + BTTS Sí o Local + Over se refuerzan ligeramente; Under + BTTS Sí o Local + Under se penalizan.
+    const hasOver = gamePicks.some(
+      (p) => p.conflictGroup === "over_total" || p.conflictGroup === "btts_yes",
+    );
+    const hasUnder = gamePicks.some(
+      (p) => p.conflictGroup === "under_total" || p.conflictGroup === "btts_no",
+    );
+    const hasBttsYes = gamePicks.some((p) => p.conflictGroup === "btts_yes");
+    const hasOverTotal = gamePicks.some((p) => p.conflictGroup === "over_total");
+    const hasHomeSide = gamePicks.some((p) => p.conflictGroup === "home_side");
+    if (hasOverTotal && hasBttsYes) {
+      sgpFactor *= 1.09;
+    } else if (hasHomeSide && hasOver) {
+      sgpFactor *= 1.04;
+    } else if (hasHomeSide && hasUnder) {
+      sgpFactor *= 0.93;
+    } else {
+      sgpFactor *= 0.96;
+    }
   }
 
-  // Ajuste conservador de correlación SGP en Geodesic v2.0 (evita sobreestimar bordes correlacionados)
-  const sgpFactor = sgpPairsCount > 0 ? Math.pow(0.95, sgpPairsCount) : 1;
+  const sgpCorrelationDirection: ParlaySummary["sgpCorrelationDirection"] =
+    sgpPairsCount === 0
+      ? undefined
+      : sgpFactor > 1.03
+        ? "positively_correlated"
+        : sgpFactor < 0.97
+          ? "negatively_correlated"
+          : "near_independent";
   const combinedProbability = Math.min(0.92, Math.max(0.0001, rawProb * sgpFactor));
   const fairDecimal = Math.max(1.05, Math.round((1 / combinedProbability) * 100) / 100);
   const roundedBook = Math.max(1.08, Math.round(bookDecimal * (sgpPairsCount > 0 ? 0.94 : 1) * 100) / 100);
@@ -532,6 +562,8 @@ export function computeParlaySummary(
     legs: [...legs],
     hasSgpCorrelation: sgpPairsCount > 0,
     sgpPairsCount,
+    ...(sgpCorrelationDirection ? { sgpCorrelationDirection } : {}),
+    ...(sgpPairsCount > 0 ? { sgpCorrelationMultiplier: Math.round(sgpFactor * 100) / 100 } : {}),
     combinedProbability,
     fairDecimal,
     fairAmerican: decimalToAmericanInt(fairDecimal),

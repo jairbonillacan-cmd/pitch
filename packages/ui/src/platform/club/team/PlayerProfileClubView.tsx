@@ -5,6 +5,10 @@ import { canonicalTeamHref } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import {
+  PlayerPropStreakCard,
+  type PropMetricSeries,
+} from "../../components/PlayerPropStreakCard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { decimalToAmericanInt, formatOddsValue } from "../../access-guard";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
@@ -987,6 +991,66 @@ export function PlayerProfileClubView({
               ))}
             </div>
           </section>
+
+          {/* Explorador interactivo de racha contra línea deslizable */}
+          {profile.player.recentGames && profile.player.recentGames.length >= 3 ? (() => {
+            const logs = profile.player.recentGames;
+            const labels = Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label)))).slice(0, 4);
+            const series: PropMetricSeries[] = [];
+            for (const lbl of labels) {
+              const pts = logs
+                .slice()
+                .reverse()
+                .map((g) => {
+                  const found = g.stats.find((s) => s.label === lbl);
+                  const raw = (found?.value ?? "").trim().replace(",", ".");
+                  const num = raw.includes("/") ? Number(raw.split("/")[0]) : Number(raw);
+                  if (!Number.isFinite(num) || num < 0) return null;
+                  return {
+                    label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
+                    opponent: g.opponent,
+                    date: g.dateIso,
+                    value: num,
+                  };
+                })
+                .filter((p): p is NonNullable<typeof p> => p !== null);
+              if (pts.length < 3) continue;
+              const vals = pts.map((p) => p.value);
+              const maxVal = Math.max(...vals);
+              if (maxVal <= 0) continue;
+              const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+              const step = maxVal >= 40 ? 5 : maxVal >= 12 ? 1 : 0.5;
+              const defLine =
+                step === 5
+                  ? Math.max(4.5, Math.floor(avg / 5) * 5 - 0.5)
+                  : step === 1
+                    ? Math.max(0.5, Math.floor(avg) - 0.5)
+                    : Math.max(0.5, Math.floor(avg) + 0.5);
+              series.push({
+                key: lbl.toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+                label: lbl,
+                unit: lbl.toLowerCase(),
+                defaultLine: defLine,
+                minLine: step === 5 ? Math.max(0.5, defLine - 25) : 0.5,
+                maxLine: Math.max(defLine + step * 3, Math.ceil(maxVal) + 0.5),
+                step,
+                points: pts,
+              });
+            }
+            if (series.length === 0) return null;
+            return (
+              <PlayerPropStreakCard
+                playerName={profile.player.name}
+                teamName={profile.team.name}
+                teamSlug={profile.team.slug}
+                league={profile.league}
+                photoKey={profile.player.photoKey}
+                positionLabel={profile.player.positionLabel}
+                oddsFormat={oddsFormat}
+                series={series}
+              />
+            );
+          })() : null}
 
           {/* Últimos 5 partidos del jugador (o contexto reciente del equipo si no hay box-score individual) */}
           {(profile.player.recentGames && profile.player.recentGames.length > 0) ||

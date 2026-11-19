@@ -64,10 +64,10 @@
 | `/app` | Jornada de hoy | Partidos próximos, spotlight y top 3 picks |
 | `/app/picks` | Todos los picks del día | Buscador con comparador de momio en vivo |
 | `/app/parlays` | Armador de parlays y SGP | De 2 a 6 selecciones + guardado en bitácora |
-| `/app/props` | Props de jugadores | Estado honesto "próximamente" si el catálogo está vacío |
+| `/app/props` | Tendencias y props de jugadores (ADR-046) | Rachas U5/U10/U20 contra línea deslizable (`<PlayerPropStreakCard>`) + catálogo multi-deporte |
 | `/app/momios` | Comparador de momios | Movimientos y líneas del corte |
-| `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara con historial real y jugadores lado a lado |
-| `/app/historial` | Resultados cerrados (`FT`) | Historial completo de partidos finalizados |
+| `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara, jugadores lado a lado y descarga 9:16 |
+| `/app/historial` | Resultados cerrados (`FT`) | Historial completo + `<CalibrationCurveChart>` (Brier, ECE y cubetas reales) |
 | `/app/lab` | Mi Bitácora | Picks y parlays sellados con CLV y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
 | `/app/social` | Comunidad VIP | Feed y ranking de socios |

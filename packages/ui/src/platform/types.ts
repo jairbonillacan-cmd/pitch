@@ -352,13 +352,107 @@ export interface PlatformGame {
   spacetime: SpacetimeSignal | null;
 }
 
+/** Banda de confianza calibrada al 90 % para una probabilidad del partido (sin stake ni EV). */
+export interface EpistemicBandView {
+  readonly pPoint: number;
+  readonly pLower90: number;
+  readonly pUpper90: number;
+  readonly halfWidth90: number;
+  readonly conservativeFairDecimal: number;
+  readonly grade: "high" | "moderate" | "elevated";
+}
+
+/** Ventaja matemática exacta de Pago Anticipado (+2 goles, +17 NFL, +20 NBA, +5 MLB). */
+export interface EarlyPayoutSummaryView {
+  readonly triggerLabel: string;
+  readonly homeWinProb: number;
+  readonly awayWinProb: number;
+  readonly homeLiftPts: number;
+  readonly awayLiftPts: number;
+  readonly fairHomeDecimal: number;
+  readonly fairAwayDecimal: number;
+  readonly bothTriggerProb?: number;
+  readonly validatedOos: boolean;
+}
+
+/** Proyecciones causales de micro-mercados y rigor arbitral histórico para la ficha del partido. */
+export interface MicroCountsV5View {
+  readonly corners?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly yellowCards?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly fouls?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly shots?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly shotsOnTarget?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly redCardMatchProb?: number;
+  readonly bookingPointsMean?: number;
+  readonly refereeProfile?: {
+    readonly name: string;
+    readonly games: number;
+    readonly cardsMultiplier: number;
+    readonly foulsMultiplier: number;
+    readonly redsMultiplier: number;
+  } | null;
+}
+
+/** Enriquecimiento aditivo de Spacetime Suite v5.1 para la ficha del partido (Cero-Fuga / FD-16). */
+export interface MatchIntelligenceV5View {
+  readonly epistemic: {
+    readonly home: EpistemicBandView;
+    readonly draw?: EpistemicBandView | null;
+    readonly away: EpistemicBandView;
+  };
+  readonly earlyPayout?: EarlyPayoutSummaryView | null;
+  readonly microCounts?: MicroCountsV5View | null;
+  readonly nflSpecials?: {
+    readonly expectedMargin: number;
+    readonly pExactPlus3: number;
+    readonly pExactMinus3: number;
+    readonly pOvertime: number;
+    readonly fairOvertimeDecimal: number;
+  } | null;
+  readonly multisportSpecials?: {
+    readonly sport: "mlb" | "nhl" | "nba";
+    readonly highlights: ReadonlyArray<{
+      readonly label: string;
+      readonly value: string;
+      readonly sub?: string;
+    }>;
+  } | null;
+  /** Síntesis determinista verificada en español (respaldo inmediato sin LLM, 0 alucinaciones). */
+  readonly verifiedSummaryEs: string;
+  readonly guardrailPassed: boolean;
+}
+
+/** Auditoría de correlación y margen oculto SGP calculada con Cópula Student-t. */
+export interface SgpCopulaAuditView {
+  readonly sport: "soccer" | "nfl";
+  readonly nLegs: number;
+  readonly independentProbability: number;
+  readonly jointProbability: number;
+  readonly correlationMultiplier: number;
+  readonly correlationDirection:
+    | "positively_correlated"
+    | "negatively_correlated"
+    | "near_independent";
+  readonly fairCombinedDecimal: number;
+  readonly fairCombinedAmerican: number;
+  readonly bookQuoteAudit?: {
+    readonly offeredDecimal: number;
+    readonly impliedBookProbability: number;
+    readonly fairCombinedDecimal: number;
+    readonly effectiveHoldPct: number;
+    readonly taxFlag: "fair_or_low_vig" | "standard_sgp_vig" | "severe_sgp_tax";
+  } | null;
+}
+
 /**
  * Detalle pesado de un partido (mercados, enfrentamientos previos y factores). Solo lo usa la
  * ficha del partido: el layout manda los partidos sin él y la ficha lo pide para su partido.
  */
 export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors"> & {
-  /** Panorama por mercado del motor v3.2; `null` si el partido no está en el snapshot. */
+  /** Panorama por mercado del motor v3.2 (o v5.1 en ligas de expansión); `null` si no aplica. */
   outlook?: MatchOutlookSummary | null;
+  /** Enriquecimiento aditivo de Spacetime Suite v5.1 (bandas 90 %, pago anticipado, micro-mercados). */
+  v5?: MatchIntelligenceV5View | null;
   /** Pick principal congelado 60 min antes del inicio (persistido en servidor si ya cruzó el umbral). */
   frozenMainPick?: FrozenMainPickSnapshot | null;
 };
@@ -591,6 +685,8 @@ export interface ParlaySummary {
   legs: ParlayLeg[];
   hasSgpCorrelation: boolean;
   sgpPairsCount: number;
+  sgpCorrelationDirection?: SgpCopulaAuditView["correlationDirection"];
+  sgpCorrelationMultiplier?: number;
   combinedProbability: number;
   fairDecimal: number;
   fairAmerican: number;

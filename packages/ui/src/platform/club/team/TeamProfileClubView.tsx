@@ -24,6 +24,7 @@ import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrom
 import { useLiveScoreboard } from "../../live/live-store";
 import { resolveCircularCountryFlag } from "../../country-flags";
 import { usePlatform } from "../../platform-provider";
+import { teamTopicKey, useFollowedTopics } from "../community-ui";
 import { PersonAvatar } from "./PersonAvatar";
 import { resolveTeamVenueGeo, type TeamVenueGeo } from "./team-venues";
 import { TeamSquadSection } from "./TeamSquadSection";
@@ -1328,6 +1329,9 @@ export function TeamProfileClubView({
     toggleWatchlistGame,
     navigateTo,
   } = usePlatform();
+  const { topics, toggleTeam } = useFollowedTopics();
+  const teamKey = teamTopicKey(profile.league, profile.team.slug);
+  const isFollowingTeam = topics.teams.includes(teamKey);
   const iconBase = usePackIconBase();
   const liveSnap = useLiveScoreboard(liveBoardOverride === undefined);
   const liveBoard = liveBoardOverride !== undefined ? liveBoardOverride : liveSnap.data;
@@ -1632,6 +1636,16 @@ export function TeamProfileClubView({
                     <h1 className="pl-team-hero-title">
                       {profile.team.name}
                     </h1>
+                    <button
+                      type="button"
+                      className={`pl-fav-star-btn ${isFollowingTeam ? "is-active" : ""}`.trim()}
+                      aria-pressed={isFollowingTeam}
+                      data-follow-team-btn=""
+                      onClick={() => toggleTeam(teamKey)}
+                    >
+                      <span aria-hidden="true">{isFollowingTeam ? "★" : "☆"}</span>
+                      <span>{isFollowingTeam ? "Siguiendo" : "Seguir"}</span>
+                    </button>
                     {profile.standing ? (
                       <span className="pl-team-standing-inline num">
                         <MaestroIcon name="standings" size={15} />

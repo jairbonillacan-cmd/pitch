@@ -19,9 +19,10 @@ import {
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { MaestroIcon } from "../components/MaestroPrimitives";
-import { DEFAULT_FOLLOW_ALERTS, usePlatform, type FollowAlerts } from "../platform-provider";
+import { DEFAULT_FOLLOW_ALERTS, useOptionalPlatformCore, usePlatform, type FollowAlerts } from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
+import { LiveWinProbBar } from "./LiveWinProbBar";
 import { useLiveMatch, useLiveScoreboard } from "./live-store";
 
 // ---------- Piezas ----------
@@ -417,6 +418,8 @@ export function LiveMatchPanelView({
   hideScoreboard = false,
   hideTimeline = false,
 }: LiveMatchPanelViewProps): React.JSX.Element | null {
+  const platformCore = useOptionalPlatformCore();
+  const oddsFormat = platformCore?.oddsFormat ?? "american";
   const home = game.home.shortName;
   const away = game.away.shortName;
   if (!detail) {
@@ -477,6 +480,15 @@ export function LiveMatchPanelView({
           ) : null}
         </div>
       )}
+
+      {live && detail.inPlayWinProb ? (
+        <LiveWinProbBar
+          homeLabel={home}
+          awayLabel={away}
+          inPlay={detail.inPlayWinProb}
+          oddsFormat={oddsFormat}
+        />
+      ) : null}
 
       {detail.notice || error ? (
         <p className="pl-live-notice" role="status">

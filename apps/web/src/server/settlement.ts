@@ -50,12 +50,56 @@ export function loadFinalMatchScores(
     for (const leagueDir of leagues) {
       const dirPath = path.join(snapshotsRoot, leagueDir.name);
       const files = readdirSync(dirPath)
-        .filter((f) => f.endsWith(".json") && f !== "injuries.json" && f !== "market-pulse.json")
-        .sort((a, b) => (a === "latest.json" ? -1 : b === "latest.json" ? 1 : b.localeCompare(a)));
+        .filter(
+          (f) =>
+            f.endsWith(".json") &&
+            f !== "injuries.json" &&
+            f !== "market-pulse.json" &&
+            f !== "squads.json" &&
+            f !== "market-lines.json",
+        )
+        .sort((a, b) =>
+          a === "latest.json"
+            ? -1
+            : b === "latest.json"
+              ? 1
+              : a === "season-results.json"
+                ? -1
+                : b === "season-results.json"
+                  ? 1
+                  : b.localeCompare(a),
+        );
 
       for (const file of files) {
         try {
-          const parsed = LeagueSnapshotSchema.safeParse(JSON.parse(readFileSync(path.join(dirPath, file), "utf8")));
+          const rawObj = JSON.parse(readFileSync(path.join(dirPath, file), "utf8")) as {
+            games?: Array<{
+              id?: string;
+              status?: string;
+              result?: { home?: number; away?: number; observedAt?: string };
+            }>;
+          };
+          if (file === "season-results.json") {
+            for (const game of rawObj.games ?? []) {
+              if (!game?.id || game.status !== "final" || !game.result) continue;
+              const { home, away, observedAt } = game.result;
+              if (
+                typeof home !== "number" ||
+                typeof away !== "number" ||
+                !Number.isInteger(home) ||
+                !Number.isInteger(away) ||
+                home < 0 ||
+                away < 0
+              ) {
+                continue;
+              }
+              if (!scores.has(game.id)) {
+                scores.set(game.id, { gameId: game.id, home, away, observedAt: observedAt ?? null });
+              }
+            }
+            continue;
+          }
+          const parsed = LeagueSnapshotSchema.safeParse(rawObj);
           if (!parsed.success) continue;
           for (const game of parsed.data.games) {
             if (game.status !== "final" || !game.result) continue;
@@ -65,7 +109,8 @@ export function loadFinalMatchScores(
               scores.set(game.id, { gameId: game.id, home, away, observedAt: observedAt ?? null });
             }
           }
-        } catch {
+        } catch (err) {
+          void err;
           // Archivo corrupto o en escritura: se ignora de forma segura.
         }
       }

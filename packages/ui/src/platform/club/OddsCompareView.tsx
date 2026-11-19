@@ -4,7 +4,11 @@ import React, { useMemo, useState } from "react";
 import { canonicalGameHref, isLeagueActiveInWindow } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import { decimalToAmericanInt, formatOddsValue, isPickUnlocked } from "../access-guard";
-import { BOOKMAKER_OPTIONS } from "../bookmakers";
+import {
+  BOOKMAKER_OPTIONS,
+  computeDeVigProbs,
+  computeMarketOverroundPct,
+} from "../bookmakers";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
@@ -22,25 +26,42 @@ export function edgeAgainstBook(p: number, bookDecimal: number): number {
 
 function Converter(): React.JSX.Element {
   const [raw, setRaw] = useState("");
+  const [rawOpp, setRawOpp] = useState("");
   const dec = raw.trim() ? parseUserOdds(raw) : null;
+  const decOpp = rawOpp.trim() ? parseUserOdds(rawOpp) : null;
+  const overroundPct = dec && decOpp ? computeMarketOverroundPct([dec, decOpp]) : null;
+  const devig = dec && decOpp ? computeDeVigProbs([dec, decOpp]) : null;
+
   return (
     <section className="pl-odds-conv glass-card glass-ring" aria-labelledby="conv-title">
       <div className="flex items-center justify-between gap-2">
         <h2 id="conv-title" className="m-0 text-base font-extrabold">
-          Convertidor instantáneo
+          Convertidor y margen real
         </h2>
         <span className="pl-pill text-[11px]">MX / Global</span>
       </div>
-      <label className="pl-finder-select">
-        <span>Escribe un momio</span>
-        <input
-          className="glass-input num min-h-11"
-          inputMode="decimal"
-          placeholder="−110, +150 o 1.91"
-          value={raw}
-          onChange={(e) => setRaw(e.target.value)}
-        />
-      </label>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <label className="pl-finder-select">
+          <span>Lado A (tu momio)</span>
+          <input
+            className="glass-input num min-h-11"
+            inputMode="decimal"
+            placeholder="−110, +150 o 1.91"
+            value={raw}
+            onChange={(e) => setRaw(e.target.value)}
+          />
+        </label>
+        <label className="pl-finder-select">
+          <span>Lado B (opcional, ver margen)</span>
+          <input
+            className="glass-input num min-h-11"
+            inputMode="decimal"
+            placeholder="−110 o 1.91"
+            value={rawOpp}
+            onChange={(e) => setRawOpp(e.target.value)}
+          />
+        </label>
+      </div>
       <dl className="pl-odds-conv-out num" aria-live="polite">
         <div>
           <dt>Americano</dt>
@@ -51,11 +72,34 @@ function Converter(): React.JSX.Element {
           <dd>{dec ? dec.toFixed(2) : "—"}</dd>
         </div>
         <div>
-          <dt>Prob. implícita</dt>
-          <dd>{dec ? `${((1 / dec) * 100).toFixed(1)} %` : "—"}</dd>
+          <dt>{devig ? "Prob. sin comisión" : "Prob. implícita"}</dt>
+          <dd>
+            {devig
+              ? `${(devig[0]! * 100).toFixed(1)} %`
+              : dec
+                ? `${((1 / dec) * 100).toFixed(1)} %`
+                : "—"}
+          </dd>
         </div>
       </dl>
-      {raw.trim() && !dec ? (
+      {overroundPct !== null && devig ? (
+        <div
+          className="pl-odds-vig-strip num"
+          data-converter-overround=""
+          aria-live="polite"
+        >
+          <span>
+            Comisión implícita de la casa:{" "}
+            <strong style={{ color: overroundPct > 6 ? "var(--pl-warning)" : "var(--pl-text)" }}>
+              {overroundPct.toFixed(1)} %
+            </strong>
+          </span>
+          <span style={{ color: "var(--pl-text-muted)" }}>
+            Limpio: {(devig[0]! * 100).toFixed(1)} % / {(devig[1]! * 100).toFixed(1)} %
+          </span>
+        </div>
+      ) : null}
+      {(raw.trim() && !dec) || (rawOpp.trim() && !decOpp) ? (
         <p className="m-0 text-xs" role="alert" style={{ color: "var(--pl-danger)" }}>
           Escribe un momio válido, como −110, +150 o 1.91.
         </p>

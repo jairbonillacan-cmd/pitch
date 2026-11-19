@@ -3,6 +3,8 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { canonicalGameHref } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
+import { CalibrationCurveChart } from "../components/CalibrationCurveChart";
+import { CalibrationHonestyLab } from "../components/CalibrationHonestyLab";
 import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -226,6 +228,17 @@ export function HistorialClubView(): React.JSX.Element {
         ) : null}
 
         <DailyParlaysResultsSection games={dataset.games} oddsFormat={oddsFormat} />
+
+        {scoped.length > 0 ? (
+          <CalibrationCurveChart
+            samples={scoped.map((g) => ({
+              p: g.picks[0]!.p,
+              hit: g.picks[0]!.result === "hit",
+            }))}
+          />
+        ) : null}
+
+        <CalibrationHonestyLab oddsFormat={oddsFormat} settledCount={scoped.length} />
 
         {scoped.length > 0 ? (
           <div className="pl-hist-grid">

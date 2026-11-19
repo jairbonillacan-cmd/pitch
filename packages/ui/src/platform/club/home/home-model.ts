@@ -3,6 +3,7 @@
  * Sin React ni estado, para probarla aparte de la vista.
  */
 import {
+  COMPETITION_BY_ID,
   COMPETITION_CATALOG,
   competitionPrestigeScore,
   isLeagueActiveInWindow,
@@ -333,7 +334,7 @@ export function groupMatchesByDayAndLeague(
         const first = leagueGames[0]!;
         return {
           league,
-          label: first.leagueLabel,
+          label: COMPETITION_BY_ID[league]?.label ?? first.leagueLabel,
           logoUrl: leagueGames.find((g) => g.leagueLogoUrl)?.leagueLogoUrl,
           sport: sportOf(first),
           round: mostCommon(leagueGames.map((g) => g.round)),

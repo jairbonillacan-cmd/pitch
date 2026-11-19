@@ -2296,7 +2296,8 @@ export function HomeClubView({
           watchlistSet.has(g.id) ||
           favoriteLeagueSet.has(g.league) ||
           favoriteTeamSet.has(teamTopicKey(g.league, g.home.slug)) ||
-          favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug)),
+          favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug)) ||
+          (g.picks[0]?.edgePts ?? 0) >= 2.0,
       );
     }
 
@@ -2776,7 +2777,7 @@ export function HomeClubView({
                 <div className="pl-home-board-tabs" role="tablist" aria-label="Vista de partidos">
                   {([
                     { id: "all", label: "Todos" },
-                    { id: "favorites", label: "Favoritos" },
+                    { id: "favorites", label: "Para ti" },
                     { id: "competitions", label: "Competiciones" },
                   ] as const).map((tabItem) => {
                     const selected = boardView === tabItem.id;

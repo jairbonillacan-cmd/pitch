@@ -34,8 +34,10 @@ import {
   type Db,
   type LiveMomentInput,
 } from "@pitchlab/db";
+import { BZZOIRO_LEAGUE_IDS } from "@pitchlab/sports-assets";
 import { serverDb } from "./session-user";
-import { resolveSnapshotsRoot } from "./snapshots";
+import { loadLeagueSnapshotEnvelope, PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import { evaluateLiveInPlaySoccerV5 } from "./spacetime-v5";
 import { isWebPushConfigured, sendPushToUsers } from "./web-push";
 import {
   BZZOIRO_ATTRIBUTION,
@@ -61,16 +63,16 @@ import {
 } from "@pitchlab/ingest/providers/bzzoiro-live";
 import { readProviderConfigs } from "@pitchlab/ingest/providers/config";
 
-/** Ligas de fútbol con marcador en vivo y su id en Bzzoiro (ver `BZZOIRO_LEAGUES`). */
-export const LIVE_LEAGUES = {
-  "liga-mx": [19, 20],
-  "premier-league": [1],
-  laliga: [3],
-  bundesliga: [5],
-  "serie-a": [4],
-  "ligue-1": [6],
-} as const;
-export type LiveLeague = keyof typeof LIVE_LEAGUES;
+/** Ligas de fútbol con marcador en vivo y su id en Bzzoiro (núcleo + expansión ADR-043). */
+export const LIVE_LEAGUES: Readonly<Record<string, readonly number[]>> = {
+  ...Object.fromEntries(
+    Object.entries(BZZOIRO_LEAGUE_IDS)
+      .filter(([slug]) => slug !== "nba" && slug !== "la-liga")
+      .map(([slug, id]) => [slug, [id] as const]),
+  ),
+  "liga-mx": [19, 20] as const,
+};
+export type LiveLeague = string;
 
 const TTL = {
   scoreboard: 20_000,
@@ -651,14 +653,58 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
       : Promise.resolve(null),
   ]);
 
+  const incidents = inc.value ?? [];
+  let inPlayWinProb: LiveMatchDetail["inPlayWinProb"] = null;
+  if (isLivePhaseActive(entry.phase)) {
+    const rawClock = entry.clock ?? "";
+    const clockMatch = /\d+/.exec(rawClock);
+    const minute =
+      entry.phase === "halftime"
+        ? 45
+        : clockMatch
+          ? Math.max(0, Math.min(90, Number(clockMatch[0])))
+          : 0;
+    const redCardsHome = incidents.filter(
+      (i) => i.side === "home" && (i.kind === "red" || i.kind === "second_yellow"),
+    ).length;
+    const redCardsAway = incidents.filter(
+      (i) => i.side === "away" && (i.kind === "red" || i.kind === "second_yellow"),
+    ).length;
+    // Leer goles esperados prepartido reales desde el snapshot cacheado de la liga (respaldo 1.45 / 1.15).
+    let pregameMuHome = 1.45;
+    let pregameMuAway = 1.15;
+    if ((PRODUCT_LEAGUES as readonly string[]).includes(c.league)) {
+      const env = loadLeagueSnapshotEnvelope(c.league as ProductLeague);
+      const snapGame = env.data?.games.find((g) => g.id === gameId);
+      if (snapGame?.projection) {
+        if (Number.isFinite(snapGame.projection.home) && snapGame.projection.home > 0.1) {
+          pregameMuHome = snapGame.projection.home;
+        }
+        if (Number.isFinite(snapGame.projection.away) && snapGame.projection.away > 0.1) {
+          pregameMuAway = snapGame.projection.away;
+        }
+      }
+    }
+    inPlayWinProb = evaluateLiveInPlaySoccerV5({
+      pregameMuHome,
+      pregameMuAway,
+      currentMinute: minute,
+      currentHomeGoals: entry.score?.home ?? 0,
+      currentAwayGoals: entry.score?.away ?? 0,
+      redCardsHome,
+      redCardsAway,
+    });
+  }
+
   return {
     ...empty,
     entry,
-    incidents: inc.value ?? [],
+    incidents,
     ...(st.value ?? {}),
     ...(comm?.value && comm.value.length > 0 ? { commentary: comm.value } : {}),
     ...(pstats?.value && pstats.value.length > 0 ? { playerStats: pstats.value } : {}),
     ...(bcasts?.value && bcasts.value.length > 0 ? { broadcastsMx: bcasts.value } : {}),
+    ...(inPlayWinProb ? { inPlayWinProb } : {}),
     sourceFetchedAt: sourceFetchedAt ?? inc.fetchedAt?.toISOString() ?? null,
     notice: notice ?? inc.notice ?? st.notice ?? comm?.notice ?? pstats?.notice ?? bcasts?.notice ?? null,
     nextPollSeconds: finished ? null : livePoll(entry, now),

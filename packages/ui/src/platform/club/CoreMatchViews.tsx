@@ -18,6 +18,8 @@ import {
 } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { FormSquares } from "../components/FormSquares";
+import { RefereeRigorBadge } from "../components/RefereeRigorBadge";
+import { buildLeagueRefereeDirectory, type RefereeRigorTier } from "../referee-stats";
 import {
   resolveThemedPackSrcSet,
   resolveThemedPackUrl,
@@ -104,12 +106,13 @@ import type {
 } from "../types";
 import { shortDateLabel } from "./home/home-model";
 
-export type LeagueHubSectionKey = "partidos" | "tabla" | "noticias" | "equipos";
+export type LeagueHubSectionKey = "partidos" | "tabla" | "noticias" | "equipos" | "arbitros";
 
 const LEAGUE_SECTIONS: ReadonlyArray<{ key: LeagueHubSectionKey; label: string }> = [
   { key: "tabla", label: "Clasificación" },
   { key: "partidos", label: "Partidos" },
   { key: "equipos", label: "Equipos" },
+  { key: "arbitros", label: "Árbitros" },
   { key: "noticias", label: "Noticias" },
 ];
 
@@ -155,6 +158,7 @@ function normalizeLeagueSection(raw: string | null | undefined): LeagueHubSectio
   if (v === "tabla" || v === "posiciones" || v === "standings") return "tabla";
   if (v === "noticias" || v === "news") return "noticias";
   if (v === "equipos" || v === "selecciones" || v === "teams") return "equipos";
+  if (v === "arbitros" || v === "referees") return "arbitros";
   return "partidos";
 }
 
@@ -609,6 +613,7 @@ export function LeagueHubClubView({
   const [section, setSection] = useState<LeagueHubSectionKey>(defaultSection);
   const [standingsConference, setStandingsConference] = useState<string>("auto");
   const [teamQuery, setTeamQuery] = useState<string>("");
+  const [refereeTier, setRefereeTier] = useState<RefereeRigorTier | "all">("all");
   const [newsCategory, setNewsCategory] = useState<LeagueNewsCategory | "all">("all");
   const [selectedNewsItem, setSelectedNewsItem] = useState<LeagueNewsItem | null>(null);
   const [loadedNewsSummary, setLoadedNewsSummary] = useState<LeagueNewsArticleSummary | null>(null);
@@ -621,6 +626,7 @@ export function LeagueHubClubView({
   const panelTablaRef = useRef<HTMLDivElement | null>(null);
   const panelNoticiasRef = useRef<HTMLDivElement | null>(null);
   const panelEquiposRef = useRef<HTMLDivElement | null>(null);
+  const panelArbitrosRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -643,6 +649,7 @@ export function LeagueHubClubView({
       [panelTablaRef, "tabla"],
       [panelNoticiasRef, "noticias"],
       [panelEquiposRef, "equipos"],
+      [panelArbitrosRef, "arbitros"],
     ];
     const cleanups: Array<() => void> = [];
     for (const [ref, key] of map) {
@@ -670,6 +677,17 @@ export function LeagueHubClubView({
   const leagueGames = useMemo(
     () => dataset.games.filter((g) => g.league === leagueSummary.league),
     [dataset.games, leagueSummary.league],
+  );
+  const leagueReferees = useMemo(
+    () => buildLeagueRefereeDirectory(dataset.games, leagueSummary.league),
+    [dataset.games, leagueSummary.league],
+  );
+  const filteredReferees = useMemo(
+    () =>
+      refereeTier === "all"
+        ? leagueReferees
+        : leagueReferees.filter((r) => r.rigorTier === refereeTier),
+    [leagueReferees, refereeTier],
   );
 
   const dayOptions = useMemo(() => {
@@ -1167,6 +1185,7 @@ export function LeagueHubClubView({
                   className="pl-team-main-tabs pl-league-tabs"
                 >
                 {LEAGUE_SECTIONS.filter((tabDef) => {
+                  if (tabDef.key === "arbitros") return leagueReferees.length >= 1;
                   if (tabDef.key !== "equipos") return true;
                   return (
                     leagueSummary.standings.length === 0 ||
@@ -1182,9 +1201,11 @@ export function LeagueHubClubView({
                         ? leagueSummary.standings.length > 0
                           ? leagueSummary.standings.length
                           : undefined
-                        : tabDef.key === "noticias"
-                          ? newsItems.length
-                          : directoryTeams.length;
+                        : tabDef.key === "arbitros"
+                          ? leagueReferees.length
+                          : tabDef.key === "noticias"
+                            ? newsItems.length
+                            : directoryTeams.length;
                   return (
                     <button
                       key={tabDef.key}
@@ -1852,6 +1873,85 @@ export function LeagueHubClubView({
                 ) : null}
               </div>
             </div>
+
+            {/* Sección 5: Índice arbitral de la liga (rigurosidad Empirical Bayes κ=15) */}
+            {leagueReferees.length >= 1 ? (
+              <div
+                ref={panelArbitrosRef}
+                role="tabpanel"
+                id="pl-league-panel-arbitros"
+                aria-labelledby="pl-league-tab-arbitros"
+                className="pl-match-panel"
+                {...(section !== "arbitros"
+                  ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
+                  : {})}
+              >
+                <div className="pl-match-panel-body">
+                  <section
+                    className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+                    aria-labelledby="league-referees-heading"
+                    data-league-referees-directory=""
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-2.5">
+                      <div>
+                        <h2 id="league-referees-heading" className="m-0 text-base sm:text-lg font-extrabold">
+                          Árbitros y rigurosidad · {leagueSummary.label}
+                        </h2>
+                        <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                          Promedio de amarillas ajustado con contracción bayesiana (κ = 15) frente a la
+                          media de la competición ({leagueReferees[0]!.leagueMeanYellow.toFixed(2)} amar./p).
+                        </p>
+                      </div>
+                      <span className="pl-pill pl-pill--brand num text-xs shrink-0">
+                        {filteredReferees.length} árbitros
+                      </span>
+                    </div>
+
+                    <div
+                      className="pl-league-news-cats"
+                      role="group"
+                      aria-label="Filtrar árbitros por perfil de rigurosidad"
+                    >
+                      {(
+                        [
+                          { id: "all", label: "Todos" },
+                          { id: "estricto", label: "Estrictos" },
+                          { id: "promedio", label: "Promedio" },
+                          { id: "permisivo", label: "Permisivos" },
+                        ] as const
+                      ).map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          className="pl-astro-status-btn"
+                          aria-pressed={refereeTier === opt.id}
+                          onClick={() => setRefereeTier(opt.id)}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {filteredReferees.length === 0 ? (
+                      <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                        Ningún árbitro coincide con ese filtro en esta jornada.
+                      </p>
+                    ) : (
+                      <div className="pl-ref-dir-grid">
+                        {filteredReferees.map((refItem) => (
+                          <RefereeRigorBadge
+                            key={refItem.name}
+                            referee={refItem}
+                            variant="card"
+                            onNavigate={navigateTo}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                </div>
+              </div>
+            ) : null}
             </div>
           </div>
 
@@ -2629,7 +2729,9 @@ export function MatchStudioClubView({
             synthesis={
               cortexSections?.find((sec) => sec.key === "lectura")?.text ??
               cortexSynthesisOverride ??
-              game.preGame.cortexSynthesis
+              (game.preGame.cortexSynthesis?.trim()
+                ? game.preGame.cortexSynthesis
+                : (detail?.v5?.verifiedSummaryEs ?? ""))
             }
             unlocked={intelUnlocked || isFinished || !hasForecast}
             sections={cortexSections}
@@ -2729,6 +2831,7 @@ export function MatchStudioClubView({
             isFinished={isFinished}
             canSeal={viewerRole !== "visitor"}
             outlook={detail?.outlook ?? null}
+            v5={detail?.v5 ?? null}
             sealedKeys={sealedMarketKeys}
             globalHouseOddRaw={marketUserOddsRaw}
             houseOddsByKey={houseOddsByKey}
@@ -2778,6 +2881,7 @@ export function MatchStudioClubView({
                 : (dataset.leagues.find((l) => l.league === game.league)?.standings ?? [])
             }
             unlocked={intelUnlocked}
+            v5={detail?.v5 ?? null}
             opinionsSlot={
               <aside
                 aria-label="Opiniones de socios sobre el partido"

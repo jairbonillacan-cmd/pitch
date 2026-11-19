@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./index.ts",
+    "./v5": "./src/v5_index.ts",
     "./data/*": "./data/*"
   },
   "scripts": {

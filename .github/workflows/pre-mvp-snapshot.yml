@@ -213,6 +213,11 @@ jobs:
         continue-on-error: true
         run: pnpm --filter @pitchlab/ingest exec tsx src/market-pulse-cli.ts
 
+      # Índice precompilado único para arranque en frío instantáneo en Vercel (< 50 ms).
+      - name: Precompilar shell-index.json (57 competencias)
+        continue-on-error: true
+        run: pnpm --filter @pitchlab/ingest snapshot:shell-index
+
       - name: Respaldo de Salud de datos ante caída abrupta
         if: failure()
         env:

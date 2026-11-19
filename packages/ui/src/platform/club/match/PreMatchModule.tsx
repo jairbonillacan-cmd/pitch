@@ -8,6 +8,7 @@ import {
   isPreGameIntelUnlocked,
 } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { TacticalPitchSvg } from "../../components/TacticalPitchSvg";
 import { formatPctEs } from "../../notifications";
 import { usePlatform } from "../../platform-provider";
 import type {
@@ -19,6 +20,7 @@ import { MatchCommunityPoll } from "./MatchCommunityPoll";
 import {
   DEFAULT_PRE_MATCH_TIMEZONE,
   isValidFrozenSnapshot,
+  localizeInjuryLabelEs,
   readClientFrozenPick,
   resolveConfirmedLineupSlotState,
   resolvePreMatchAbsencesState,
@@ -83,7 +85,8 @@ export function PreMatchModule({
   } = usePlatform();
 
   const headingId = useId();
-  const [liveNowMs, setLiveNowMs] = useState<number>(() => Date.now());
+  // Ancla determinista en SSR para evitar discrepancias de hidratación si el minuto cambia entre servidor y cliente.
+  const [liveNowMs, setLiveNowMs] = useState<number | null>(null);
   const [clientFrozen, setClientFrozen] = useState<FrozenMainPickSnapshot | null>(null);
   const stickyFrozenRef = useRef<FrozenMainPickSnapshot | null>(null);
 
@@ -112,7 +115,13 @@ export function PreMatchModule({
     return () => window.clearInterval(interval);
   }, [nowProp, game.id, game.status]);
 
-  const effectiveNow = nowProp ?? liveNowMs;
+  const kickoffAnchorMs = Date.parse(game.kickoffUtc);
+  const ssrSafeFallbackNow = Number.isFinite(kickoffAnchorMs)
+    ? game.status === "FT"
+      ? kickoffAnchorMs + 3 * 3_600_000
+      : kickoffAnchorMs - 4 * 3_600_000
+    : 0;
+  const effectiveNow = nowProp ?? liveNowMs ?? ssrSafeFallbackNow;
   const effectiveTimeZone = timeZoneProp || userTimezone || DEFAULT_PRE_MATCH_TIMEZONE;
 
   const existingFrozen = useMemo<FrozenMainPickSnapshot | null>(() => {
@@ -386,9 +395,16 @@ export function PreMatchModule({
                       </span>
                     </div>
                     <p className="pl-prematch-absence-impact">
-                      {item.injuryType ? `${item.injuryType} · ` : ""}
-                      {item.returnDate ? `Regreso est. ${item.returnDate} · ` : ""}
-                      {item.impactNote}
+                      {(() => {
+                        const injEs = localizeInjuryLabelEs(item.injuryType);
+                        const noteEs = localizeInjuryLabelEs(item.impactNote);
+                        const parts = [
+                          injEs || null,
+                          item.returnDate ? `Regreso est. ${item.returnDate}` : null,
+                          noteEs && noteEs.toLowerCase() !== injEs.toLowerCase() ? noteEs : null,
+                        ].filter(Boolean);
+                        return parts.join(" · ");
+                      })()}
                     </p>
                   </li>
                 );
@@ -426,38 +442,50 @@ export function PreMatchModule({
             (() => {
               const active = lineupSlot.enabled ? lineupSlot.lineups! : probableSlot!.lineups!;
               const helper = lineupSlot.enabled ? lineupSlot.helperText : probableSlot!.helperText;
+              const canRenderPitch =
+                game.sport === "football" &&
+                (active.homeStarters.length >= 7 || active.awayStarters.length >= 7);
               return (
-                <div className="space-y-2.5">
-                  <div className="pl-prematch-lineup-grid">
-                    <div className="pl-prematch-lineup-col">
-                      <strong className="pl-prematch-lineup-team">
-                        {game.home.shortName}
-                        {active.homeFormation ? ` · ${active.homeFormation}` : ""}
-                      </strong>
-                      <ul role="list" className="pl-prematch-starters">
-                        {active.homeStarters.map((p, idx) => (
-                          <li key={`h-${p.name}-${idx}`}>
-                            {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                            <span>{p.name}</span>
-                          </li>
-                        ))}
-                      </ul>
+                <div className="space-y-3">
+                  {canRenderPitch ? (
+                    <TacticalPitchSvg
+                      homeName={game.home.shortName}
+                      awayName={game.away.shortName}
+                      lineups={active}
+                      mode={lineupSlot.enabled ? "confirmed" : "estimated"}
+                    />
+                  ) : (
+                    <div className="pl-prematch-lineup-grid">
+                      <div className="pl-prematch-lineup-col">
+                        <strong className="pl-prematch-lineup-team">
+                          {game.home.shortName}
+                          {active.homeFormation ? ` · ${active.homeFormation}` : ""}
+                        </strong>
+                        <ul role="list" className="pl-prematch-starters">
+                          {active.homeStarters.map((p, idx) => (
+                            <li key={`h-${p.name}-${idx}`}>
+                              {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                              <span>{p.name}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="pl-prematch-lineup-col">
+                        <strong className="pl-prematch-lineup-team">
+                          {game.away.shortName}
+                          {active.awayFormation ? ` · ${active.awayFormation}` : ""}
+                        </strong>
+                        <ul role="list" className="pl-prematch-starters">
+                          {active.awayStarters.map((p, idx) => (
+                            <li key={`a-${p.name}-${idx}`}>
+                              {p.number !== undefined ? <span className="num">{p.number}</span> : null}
+                              <span>{p.name}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div className="pl-prematch-lineup-col">
-                      <strong className="pl-prematch-lineup-team">
-                        {game.away.shortName}
-                        {active.awayFormation ? ` · ${active.awayFormation}` : ""}
-                      </strong>
-                      <ul role="list" className="pl-prematch-starters">
-                        {active.awayStarters.map((p, idx) => (
-                          <li key={`a-${p.name}-${idx}`}>
-                            {p.number !== undefined ? <span className="num">{p.number}</span> : null}
-                            <span>{p.name}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                  )}
                   {probableSlot?.available && !lineupSlot.enabled ? (
                     <p className="pl-prematch-note">{helper}</p>
                   ) : null}

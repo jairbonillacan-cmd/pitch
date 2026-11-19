@@ -165,6 +165,7 @@ export function toggleLeagueSelection(
 
 export type ThemePreference = "dark" | "light" | "system";
 export type PauseChoice = "24h" | "7d" | "30d" | null;
+export type AlertCadence = "inmediato" | "cada_15m" | "solo_hitos";
 
 export interface StoredAccountPrefsV1 {
   v: 1;
@@ -180,6 +181,7 @@ export interface StoredAccountPrefsV1 {
     weeklyDigest: boolean;
     monthlyRecord: boolean;
   };
+  alertCadence: AlertCadence;
   privacy: {
     publicProfile: boolean;
     showInRanking: boolean;
@@ -206,6 +208,7 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
     weeklyDigest: false,
     monthlyRecord: false,
   },
+  alertCadence: "inmediato",
   privacy: {
     publicProfile: true,
     showInRanking: true,
@@ -270,6 +273,10 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
         monthlyRecord:
           parsed.alerts?.monthlyRecord ?? DEFAULT_STORED_PREFS_V1.alerts.monthlyRecord,
       },
+      alertCadence:
+        parsed.alertCadence === "cada_15m" || parsed.alertCadence === "solo_hitos"
+          ? parsed.alertCadence
+          : "inmediato",
       privacy: {
         publicProfile:
           parsed.privacy?.publicProfile ?? DEFAULT_STORED_PREFS_V1.privacy.publicProfile,

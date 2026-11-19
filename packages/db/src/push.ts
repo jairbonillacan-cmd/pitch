@@ -3,7 +3,8 @@
  */
 import { and, desc, eq, inArray } from "drizzle-orm";
 import type { Db } from "./billing";
-import { pushSubscriptions } from "./schema";
+import { pushSubscriptions, userPreferences } from "./schema";
+import { sanitizeFollowedTopics } from "./preferences";
 
 export type PushTopic = "picks" | "live" | "social";
 
@@ -158,4 +159,59 @@ export async function markPushSent(db: Db, endpoints: readonly string[], now = n
 export async function deleteInvalidPushSubscriptions(db: Db, endpoints: readonly string[]): Promise<void> {
   if (endpoints.length === 0) return;
   await db.delete(pushSubscriptions).where(inArray(pushSubscriptions.endpoint, [...endpoints]));
+}
+
+export interface PushAlertRecipient {
+  userId: string;
+  favoriteLeagues: string[];
+  followedTeams: string[];
+  lineMoveAlerts: boolean;
+  emailValueAlerts: boolean;
+}
+
+/** Lista usuarios con al menos una suscripción Web Push activa para despachar alertas programadas. */
+export async function listPushAlertRecipients(
+  db: Db,
+  topic: PushTopic = "picks",
+): Promise<PushAlertRecipient[]> {
+  const topicFilter =
+    topic === "picks"
+      ? eq(pushSubscriptions.topicPicks, true)
+      : topic === "live"
+        ? eq(pushSubscriptions.topicLive, true)
+        : eq(pushSubscriptions.topicSocial, true);
+
+  const subRows = await db
+    .select({ userId: pushSubscriptions.userId })
+    .from(pushSubscriptions)
+    .where(topicFilter);
+  const userIds = Array.from(new Set(subRows.map((r) => r.userId).filter(Boolean)));
+  if (userIds.length === 0) return [];
+
+  const prefs = await db
+    .select({
+      userId: userPreferences.userId,
+      favoriteLeagues: userPreferences.favoriteLeagues,
+      followedTopics: userPreferences.followedTopics,
+      emailValueAlerts: userPreferences.emailValueAlerts,
+      pushEnabled: userPreferences.pushEnabled,
+    })
+    .from(userPreferences)
+    .where(inArray(userPreferences.userId, userIds));
+
+  const prefByUser = new Map(prefs.map((p) => [p.userId, p]));
+  const out: PushAlertRecipient[] = [];
+  for (const uid of userIds) {
+    const p = prefByUser.get(uid);
+    if (p && p.pushEnabled === false) continue;
+    const ft = sanitizeFollowedTopics(p?.followedTopics);
+    out.push({
+      userId: uid,
+      favoriteLeagues: p?.favoriteLeagues ?? [],
+      followedTeams: ft.teams,
+      lineMoveAlerts: ft.lineMoveAlerts ?? true,
+      emailValueAlerts: p?.emailValueAlerts ?? true,
+    });
+  }
+  return out;
 }

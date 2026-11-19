@@ -4,9 +4,12 @@ import React, { useMemo } from "react";
 import { sportScoringUnit, type CountProjection } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
+import { EarlyPayoutStrip } from "../../components/EarlyPayoutStrip";
+import { EpistemicBandStrip } from "../../components/EpistemicBandStrip";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchOutlookStrip } from "../../components/MatchOutlookStrip";
 import type {
+  MatchIntelligenceV5View,
   MatchOutlookSummary,
   OddsFormat,
   PlatformGame,
@@ -24,6 +27,7 @@ export interface MatchNumbersPanelProps {
   readonly isFinished: boolean;
   readonly canSeal: boolean;
   readonly outlook?: MatchOutlookSummary | null;
+  readonly v5?: MatchIntelligenceV5View | null;
   readonly sealedKeys: ReadonlySet<string>;
   readonly globalHouseOddRaw: string;
   readonly houseOddsByKey: Readonly<Record<string, string>>;
@@ -33,7 +37,7 @@ export interface MatchNumbersPanelProps {
 }
 
 interface MetricCardItem {
-  readonly key: "goals" | "corners" | "fouls" | "yellow";
+  readonly key: "goals" | "corners" | "fouls" | "yellow" | "sot" | "shots";
   readonly title: string;
   readonly subtitle: string;
   readonly homeValue: string;
@@ -102,6 +106,7 @@ export function MatchNumbersPanel({
   isFinished,
   canSeal,
   outlook,
+  v5 = null,
   sealedKeys,
   globalHouseOddRaw,
   houseOddsByKey,
@@ -151,27 +156,56 @@ export function MatchNumbersPanel({
     });
 
     if (!isNfl) {
+      const v5Mic = v5?.microCounts;
+      const v5ByKey: Record<"corners" | "fouls" | "yellow", { home: number; away: number; total: number } | undefined> = {
+        corners: v5Mic?.corners,
+        fouls: v5Mic?.fouls,
+        yellow: v5Mic?.yellowCards,
+      };
       for (const meta of COUNT_MARKET_META) {
         const count = game.counts?.[meta.key];
+        const v5Fallback = v5ByKey[meta.key];
         const marketRows = markets.filter((r) => r.market === meta.market);
-        if (!count && marketRows.length === 0) continue;
+        if (!count && !v5Fallback && marketRows.length === 0) continue;
+
+        const homeVal = count ? count.home : v5Fallback?.home;
+        const awayVal = count ? count.away : v5Fallback?.away;
+        const totalVal = count ? count.total : v5Fallback?.total;
 
         items.push({
           key: meta.key,
           title: meta.title,
           subtitle: meta.subtitle,
-          homeValue: count ? count.home.toFixed(1) : "—",
-          awayValue: count ? count.away.toFixed(1) : "—",
-          homeSharePct: count ? sharePct(count.home, count.away) : 50,
-          totalValue: count ? count.total.toFixed(1) : "Ver línea",
+          homeValue: homeVal !== undefined ? homeVal.toFixed(1) : "—",
+          awayValue: awayVal !== undefined ? awayVal.toFixed(1) : "—",
+          homeSharePct:
+            homeVal !== undefined && awayVal !== undefined
+              ? sharePct(homeVal, awayVal)
+              : 50,
+          totalValue: totalVal !== undefined ? totalVal.toFixed(1) : "Ver línea",
           lineSummary: formatLineSummary(count, marketRows, oddsFormat, meta.unit),
           marketRows,
+        });
+      }
+
+      if (v5Mic?.shotsOnTarget) {
+        const sotRows = markets.filter((r) => r.market === "sot_total");
+        items.push({
+          key: "sot",
+          title: "Remates a puerta",
+          subtitle: "Disparos al arco proyectados por equipo",
+          homeValue: v5Mic.shotsOnTarget.home.toFixed(1),
+          awayValue: v5Mic.shotsOnTarget.away.toFixed(1),
+          homeSharePct: sharePct(v5Mic.shotsOnTarget.home, v5Mic.shotsOnTarget.away),
+          totalValue: v5Mic.shotsOnTarget.total.toFixed(1),
+          lineSummary: formatLineSummary(undefined, sotRows, oddsFormat, "remates a puerta"),
+          marketRows: sotRows,
         });
       }
     }
 
     return items;
-  }, [canReadNumbers, decimals, game.counts, game.goalLine, game.projection, game.score, isFinished, isNfl, markets, oddsFormat]);
+  }, [canReadNumbers, decimals, game.counts, game.goalLine, game.projection, game.score, isFinished, isNfl, markets, oddsFormat, v5]);
 
   const hasCountMetrics = cards.some((card) => card.key !== "goals");
   const hasSimulator =
@@ -283,6 +317,120 @@ export function MatchNumbersPanel({
               Córners, faltas y tarjetas esperadas se muestran cuando ambos clubes acumulan historial reciente suficiente en la liga.
             </p>
           ) : null}
+
+          {v5?.microCounts &&
+          (v5.microCounts.redCardMatchProb !== undefined ||
+            v5.microCounts.bookingPointsMean !== undefined) ? (
+            <div
+              className="flex flex-wrap items-center gap-2 pt-1 text-xs num"
+              data-v5-discipline-pills=""
+            >
+              {v5.microCounts.redCardMatchProb !== undefined ? (
+                <span className="pl-pill text-xs">
+                  Tarjeta roja:{" "}
+                  <strong>{(v5.microCounts.redCardMatchProb * 100).toFixed(1)} %</strong>
+                </span>
+              ) : null}
+              {v5.microCounts.bookingPointsMean !== undefined ? (
+                <span className="pl-pill text-xs">
+                  Puntos por tarjeta esp.:{" "}
+                  <strong>{v5.microCounts.bookingPointsMean.toFixed(1)}</strong>
+                </span>
+              ) : null}
+              {v5.microCounts.shots ? (
+                <span className="pl-pill text-xs">
+                  Remates totales esp.:{" "}
+                  <strong>{v5.microCounts.shots.total.toFixed(1)}</strong>
+                </span>
+              ) : null}
+            </div>
+          ) : null}
+
+          {v5?.nflSpecials ? (
+            <div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-xs num"
+              data-v5-nfl-specials=""
+            >
+              <div
+                className="rounded-xl p-3"
+                style={{
+                  background: "var(--pl-surface)",
+                  boxShadow: "inset 0 0 0 1px var(--pl-border)",
+                }}
+              >
+                <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Tiempo extra (OT)
+                </span>
+                <strong className="text-sm font-extrabold">
+                  {(v5.nflSpecials.pOvertime * 100).toFixed(1)} %
+                </strong>{" "}
+                <span style={{ color: "var(--pl-text-muted)" }}>
+                  · justo {formatOddsValue(v5.nflSpecials.fairOvertimeDecimal, oddsFormat)}
+                </span>
+              </div>
+              <div
+                className="rounded-xl p-3"
+                style={{
+                  background: "var(--pl-surface)",
+                  boxShadow: "inset 0 0 0 1px var(--pl-border)",
+                }}
+              >
+                <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Margen exacto ±3 pts
+                </span>
+                <strong className="text-sm font-extrabold">
+                  {((v5.nflSpecials.pExactPlus3 + v5.nflSpecials.pExactMinus3) * 100).toFixed(1)} %
+                </strong>
+                <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  +3 ({(v5.nflSpecials.pExactPlus3 * 100).toFixed(1)} %) · −3 (
+                  {(v5.nflSpecials.pExactMinus3 * 100).toFixed(1)} %)
+                </span>
+              </div>
+              <div
+                className="rounded-xl p-3"
+                style={{
+                  background: "var(--pl-surface)",
+                  boxShadow: "inset 0 0 0 1px var(--pl-border)",
+                }}
+              >
+                <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Margen esperado local
+                </span>
+                <strong className="text-sm font-extrabold">
+                  {v5.nflSpecials.expectedMargin >= 0 ? "+" : ""}
+                  {v5.nflSpecials.expectedMargin.toFixed(1)} pts
+                </strong>
+              </div>
+            </div>
+          ) : null}
+
+          {v5?.multisportSpecials && v5.multisportSpecials.highlights.length > 0 ? (
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs num"
+              data-v5-multisport-specials={v5.multisportSpecials.sport}
+            >
+              {v5.multisportSpecials.highlights.map((h) => (
+                <div
+                  key={h.label}
+                  className="rounded-xl p-3"
+                  style={{
+                    background: "var(--pl-surface)",
+                    boxShadow: "inset 0 0 0 1px var(--pl-border)",
+                  }}
+                >
+                  <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                    {h.label}
+                  </span>
+                  <strong className="block text-sm font-extrabold mt-0.5">{h.value}</strong>
+                  {h.sub ? (
+                    <span className="block text-[11px] mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                      {h.sub}
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
         </>
       )}
     </section>
@@ -336,6 +484,27 @@ export function MatchNumbersPanel({
 
         {outlook && markets.length > 0 ? (
           <MatchOutlookStrip outlook={outlook} oddsFormat={oddsFormat} />
+        ) : null}
+
+        {canReadNumbers && v5 ? (
+          <div className="space-y-3" data-v5-outlook-strips="">
+            <EpistemicBandStrip
+              homeLabel={game.home.shortName}
+              awayLabel={game.away.shortName}
+              homeBand={v5.epistemic.home}
+              drawBand={v5.epistemic.draw ?? null}
+              awayBand={v5.epistemic.away}
+              oddsFormat={oddsFormat}
+            />
+            {v5.earlyPayout ? (
+              <EarlyPayoutStrip
+                homeLabel={game.home.shortName}
+                awayLabel={game.away.shortName}
+                earlyPayout={v5.earlyPayout}
+                oddsFormat={oddsFormat}
+              />
+            ) : null}
+          </div>
         ) : null}
 
         <MatchMarketsGrid

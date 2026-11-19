@@ -19,6 +19,9 @@ import {
 } from "@pitchlab/db";
 import type { PlatformGame } from "@pitchlab/ui";
 import { checkEndpointRateLimit } from "./request-security";
+import { auditCortexNarrativeV5 } from "./spacetime-v5";
+
+export { deterministicVerifiedSummaryV5 } from "./spacetime-v5";
 
 export const DEFAULT_CORTEX_MODEL = "deepseek/deepseek-v4.1-flash-1017";
 const TIMEOUT_MS = 6000;
@@ -237,8 +240,18 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
       const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
       const content = json.choices?.[0]?.message?.content ?? "";
       const checked = validateCortexText(content, facts);
-      if (checked.ok) result = checked.text;
-      else console.warn(`[cortex] ${game.id}: texto rechazado (${checked.reason})`);
+      if (checked.ok) {
+        const v5Audit = auditCortexNarrativeV5(game, checked.text);
+        if (v5Audit.passed) {
+          result = checked.text;
+        } else {
+          console.warn(
+            `[cortex] ${game.id}: texto rechazado por guardrail v5.1 (${v5Audit.reasons.join("; ")})`,
+          );
+        }
+      } else {
+        console.warn(`[cortex] ${game.id}: texto rechazado (${checked.reason})`);
+      }
     } else {
       console.warn(`[cortex] ${game.id}: OpenRouter respondió ${res.status}`);
     }

@@ -1,0 +1,1127 @@
+{
+  "schema_version": "multisport_v4.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "n": 80,
+  "rows": [
+    {
+      "case_id": "mlb_v4_00",
+      "sport": "mlb",
+      "home_key": "BAL",
+      "away_key": "SEA",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.5562731719251097,
+        "p_away": 0.44372682807488983,
+        "expected_total": 8.137713712566331,
+        "p_over": 0.4765174631101011
+      }
+    },
+    {
+      "case_id": "mlb_v4_01",
+      "sport": "mlb",
+      "home_key": "LAA",
+      "away_key": "WSH",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.42950724666323387,
+        "p_away": 0.5704927533367661,
+        "expected_total": 8.024507825977361,
+        "p_over": 0.4619176946524169
+      }
+    },
+    {
+      "case_id": "mlb_v4_02",
+      "sport": "mlb",
+      "home_key": "PHI",
+      "away_key": "BAL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5387801223929551,
+        "p_away": 0.46121987760704514,
+        "expected_total": 9.120742027527594,
+        "p_over": 0.595224100996849
+      }
+    },
+    {
+      "case_id": "mlb_v4_03",
+      "sport": "mlb",
+      "home_key": "BAL",
+      "away_key": "MIL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.570256216206852,
+        "p_away": 0.4297437837931492,
+        "expected_total": 9.169787317239422,
+        "p_over": 0.6006899606511065
+      }
+    },
+    {
+      "case_id": "mlb_v4_04",
+      "sport": "mlb",
+      "home_key": "PIT",
+      "away_key": "SD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.3750067274605514,
+        "p_away": 0.6249932725394483,
+        "expected_total": 8.05194652346802,
+        "p_over": 0.4653411771397785
+      }
+    },
+    {
+      "case_id": "mlb_v4_05",
+      "sport": "mlb",
+      "home_key": "MIL",
+      "away_key": "SD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4634410323044274,
+        "p_away": 0.536558967695573,
+        "expected_total": 8.961172354462436,
+        "p_over": 0.5769820570008546
+      }
+    },
+    {
+      "case_id": "mlb_v4_06",
+      "sport": "mlb",
+      "home_key": "SF",
+      "away_key": "LAD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.43499501037389093,
+        "p_away": 0.5650049896261097,
+        "expected_total": 9.021604418767684,
+        "p_over": 0.5839146598292189
+      }
+    },
+    {
+      "case_id": "mlb_v4_07",
+      "sport": "mlb",
+      "home_key": "HOU",
+      "away_key": "CIN",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.6031507239868393,
+        "p_away": 0.3968492760131613,
+        "expected_total": 8.713180510044065,
+        "p_over": 0.547550992944776
+      }
+    },
+    {
+      "case_id": "mlb_v4_08",
+      "sport": "mlb",
+      "home_key": "OAK",
+      "away_key": "SD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.3856278647283032,
+        "p_away": 0.6143721352716975,
+        "expected_total": 8.604800570446066,
+        "p_over": 0.5345395491968064
+      }
+    },
+    {
+      "case_id": "mlb_v4_09",
+      "sport": "mlb",
+      "home_key": "MIN",
+      "away_key": "SEA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5528851410401708,
+        "p_away": 0.4471148589598286,
+        "expected_total": 7.848759913716323,
+        "p_over": 0.4389485839176217
+      }
+    },
+    {
+      "case_id": "mlb_v4_10",
+      "sport": "mlb",
+      "home_key": "CLE",
+      "away_key": "LAD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.42757948729357015,
+        "p_away": 0.5724205127064291,
+        "expected_total": 9.161695063270134,
+        "p_over": 0.5997335652861191
+      }
+    },
+    {
+      "case_id": "mlb_v4_11",
+      "sport": "mlb",
+      "home_key": "TB",
+      "away_key": "MIN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.41547924230578115,
+        "p_away": 0.5845207576942183,
+        "expected_total": 7.83916562313602,
+        "p_over": 0.4376029385586646
+      }
+    },
+    {
+      "case_id": "mlb_v4_12",
+      "sport": "mlb",
+      "home_key": "WSH",
+      "away_key": "SF",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4835695346635495,
+        "p_away": 0.5164304653364502,
+        "expected_total": 7.596264396120296,
+        "p_over": 0.40547577385380945
+      }
+    },
+    {
+      "case_id": "mlb_v4_13",
+      "sport": "mlb",
+      "home_key": "NYY",
+      "away_key": "CHC",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.597987243697803,
+        "p_away": 0.40201275630219635,
+        "expected_total": 9.111295983388894,
+        "p_over": 0.5940911125377389
+      }
+    },
+    {
+      "case_id": "mlb_v4_14",
+      "sport": "mlb",
+      "home_key": "HOU",
+      "away_key": "PHI",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.46752506666681964,
+        "p_away": 0.5324749333331807,
+        "expected_total": 9.078132260850992,
+        "p_over": 0.590287075259472
+      }
+    },
+    {
+      "case_id": "mlb_v4_15",
+      "sport": "mlb",
+      "home_key": "TOR",
+      "away_key": "LAD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.3735980356733924,
+        "p_away": 0.6264019643266062,
+        "expected_total": 9.767323895273798,
+        "p_over": 0.6634528119500268
+      }
+    },
+    {
+      "case_id": "mlb_v4_16",
+      "sport": "mlb",
+      "home_key": "OAK",
+      "away_key": "SEA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.458024357892654,
+        "p_away": 0.5419756421073465,
+        "expected_total": 7.744132988606584,
+        "p_over": 0.4251107363206936
+      }
+    },
+    {
+      "case_id": "mlb_v4_17",
+      "sport": "mlb",
+      "home_key": "HOU",
+      "away_key": "CIN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.6263120739950273,
+        "p_away": 0.373687926004972,
+        "expected_total": 8.72245860851487,
+        "p_over": 0.5488043104342032
+      }
+    },
+    {
+      "case_id": "mlb_v4_18",
+      "sport": "mlb",
+      "home_key": "MIA",
+      "away_key": "AZ",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.3244213658144748,
+        "p_away": 0.6755786341855257,
+        "expected_total": 9.428617692008597,
+        "p_over": 0.6284841076040112
+      }
+    },
+    {
+      "case_id": "mlb_v4_19",
+      "sport": "mlb",
+      "home_key": "CHC",
+      "away_key": "SD",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4478150540821203,
+        "p_away": 0.5521849459178797,
+        "expected_total": 8.615915182060919,
+        "p_over": 0.5359778640729653
+      }
+    },
+    {
+      "case_id": "nhl_v4_00",
+      "sport": "nhl",
+      "home_key": "SEA",
+      "away_key": "VAN",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.5252575678387067,
+        "p_away": 0.47474243216129347,
+        "expected_total": 5.723970195144913,
+        "p_over": 0.4156001994913821,
+        "ot_residual": 1.7458257062230587e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_01",
+      "sport": "nhl",
+      "home_key": "LAK",
+      "away_key": "VGK",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5642743843640533,
+        "p_away": 0.4357256156359465,
+        "expected_total": 5.717176198504188,
+        "p_over": 0.41425822708694865,
+        "ot_residual": 1.715294573045867e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_02",
+      "sport": "nhl",
+      "home_key": "EDM",
+      "away_key": "VAN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5810654491081566,
+        "p_away": 0.4189345508918435,
+        "expected_total": 5.749937509783313,
+        "p_over": 0.4204783682917884,
+        "ot_residual": 1.7930101847696278e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_03",
+      "sport": "nhl",
+      "home_key": "STL",
+      "away_key": "MIN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.48577996010244506,
+        "p_away": 0.514220039897555,
+        "expected_total": 5.75720069981959,
+        "p_over": 0.42193962547192887,
+        "ot_residual": 2.123301534595612e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_04",
+      "sport": "nhl",
+      "home_key": "MIN",
+      "away_key": "CAR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.49065674450749563,
+        "p_away": 0.5093432554925043,
+        "expected_total": 5.781289127595201,
+        "p_over": 0.42653084149022913,
+        "ot_residual": 2.2926105458509483e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_05",
+      "sport": "nhl",
+      "home_key": "DET",
+      "away_key": "MIN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4956564581386073,
+        "p_away": 0.5043435418613929,
+        "expected_total": 5.780120124879026,
+        "p_over": 0.42630930551100404,
+        "ot_residual": 2.2676305277968822e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_06",
+      "sport": "nhl",
+      "home_key": "NSH",
+      "away_key": "PHI",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5496215657183287,
+        "p_away": 0.4503784342816714,
+        "expected_total": 5.802396458505779,
+        "p_over": 0.4305254423985247,
+        "ot_residual": 2.403632848313464e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_07",
+      "sport": "nhl",
+      "home_key": "LAK",
+      "away_key": "CBJ",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.623089381099998,
+        "p_away": 0.3769106189000018,
+        "expected_total": 5.743855294512191,
+        "p_over": 0.4192060760476502,
+        "ot_residual": 1.5737411374061594e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_08",
+      "sport": "nhl",
+      "home_key": "PIT",
+      "away_key": "NYR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5525901353574753,
+        "p_away": 0.44740986464252486,
+        "expected_total": 5.721598751786181,
+        "p_over": 0.4151203714968838,
+        "ot_residual": 1.687538997430238e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_09",
+      "sport": "nhl",
+      "home_key": "DAL",
+      "away_key": "SJS",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.6492155900364992,
+        "p_away": 0.3507844099635007,
+        "expected_total": 5.775987081710856,
+        "p_over": 0.4252548987428749,
+        "ot_residual": 1.637578961322106e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_10",
+      "sport": "nhl",
+      "home_key": "LAK",
+      "away_key": "STL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.62323579706891,
+        "p_away": 0.37676420293109,
+        "expected_total": 5.704071022914716,
+        "p_over": 0.41160086652918254,
+        "ot_residual": 1.174060848541103e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_11",
+      "sport": "nhl",
+      "home_key": "VAN",
+      "away_key": "FLA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5170556272389075,
+        "p_away": 0.4829443727610926,
+        "expected_total": 5.702979775989176,
+        "p_over": 0.4116001011466416,
+        "ot_residual": 1.484923295436147e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_12",
+      "sport": "nhl",
+      "home_key": "CHI",
+      "away_key": "PHI",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4586514303174763,
+        "p_away": 0.5413485696825238,
+        "expected_total": 5.821500438627586,
+        "p_over": 0.4341645159896556,
+        "ot_residual": 2.7700064464397656e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_13",
+      "sport": "nhl",
+      "home_key": "TBL",
+      "away_key": "CAR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.47719340896744394,
+        "p_away": 0.5228065910325559,
+        "expected_total": 5.8000441018605695,
+        "p_over": 0.43009599453146113,
+        "ot_residual": 2.5146551507759796e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_14",
+      "sport": "nhl",
+      "home_key": "SJS",
+      "away_key": "ANA",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.4882754828299877,
+        "p_away": 0.5117245171700124,
+        "expected_total": 5.818418905795946,
+        "p_over": 0.4335971112852367,
+        "ot_residual": 2.6617597015388128e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_15",
+      "sport": "nhl",
+      "home_key": "SJS",
+      "away_key": "WSH",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4767418141025039,
+        "p_away": 0.5232581858974962,
+        "expected_total": 5.784405385427084,
+        "p_over": 0.4271181192931974,
+        "ot_residual": 2.3064883336587627e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_16",
+      "sport": "nhl",
+      "home_key": "PIT",
+      "away_key": "MIN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5456307022720503,
+        "p_away": 0.4543692977279496,
+        "expected_total": 5.764136377133175,
+        "p_over": 0.42324144018895055,
+        "ot_residual": 2.120525977034049e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_17",
+      "sport": "nhl",
+      "home_key": "NSH",
+      "away_key": "SJS",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.6362525664661209,
+        "p_away": 0.3637474335338793,
+        "expected_total": 5.791954686559482,
+        "p_over": 0.42834975719703977,
+        "ot_residual": 1.765254609153999e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_18",
+      "sport": "nhl",
+      "home_key": "NYI",
+      "away_key": "MTL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5682422181052252,
+        "p_away": 0.4317577818947747,
+        "expected_total": 5.75282657612898,
+        "p_over": 0.42105359006597376,
+        "ot_residual": 1.9095836023552692e-14
+      }
+    },
+    {
+      "case_id": "nhl_v4_19",
+      "sport": "nhl",
+      "home_key": "CHI",
+      "away_key": "CAR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4187230608379875,
+        "p_away": 0.5812769391620125,
+        "expected_total": 5.786380499644059,
+        "p_over": 0.42741859021062484,
+        "ot_residual": 2.1760371282653068e-14
+      }
+    },
+    {
+      "case_id": "nba_v4_00",
+      "sport": "nba",
+      "home_key": "LAC",
+      "away_key": "OKC",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.25159092661017535,
+        "p_away": 0.7484090733898247,
+        "expected_margin": -7.9,
+        "expected_total": 223.7675,
+        "p_over": 0.4824017177832495
+      }
+    },
+    {
+      "case_id": "nba_v4_01",
+      "sport": "nba",
+      "home_key": "LAL",
+      "away_key": "SAC",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.6014988709165234,
+        "p_away": 0.39850112908347657,
+        "expected_margin": 3.0353000000000003,
+        "expected_total": 226.88325,
+        "p_over": 0.4851812018392995
+      }
+    },
+    {
+      "case_id": "nba_v4_02",
+      "sport": "nba",
+      "home_key": "BOS",
+      "away_key": "PHI",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.9321426192403947,
+        "p_away": 0.06785738075960535,
+        "expected_margin": 17.604900000000004,
+        "expected_total": 222.93395000000007,
+        "p_over": 0.4863988871873151
+      }
+    },
+    {
+      "case_id": "nba_v4_03",
+      "sport": "nba",
+      "home_key": "NOP",
+      "away_key": "MIL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.20906745665259407,
+        "p_away": 0.7909325433474059,
+        "expected_margin": -9.553999999999998,
+        "expected_total": 227.9616,
+        "p_over": 0.4870630243404285
+      }
+    },
+    {
+      "case_id": "nba_v4_04",
+      "sport": "nba",
+      "home_key": "BOS",
+      "away_key": "MIL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.7815806417433286,
+        "p_away": 0.21841935825667136,
+        "expected_margin": 9.175,
+        "expected_total": 224.7375,
+        "p_over": 0.48168146750814206
+      }
+    },
+    {
+      "case_id": "nba_v4_05",
+      "sport": "nba",
+      "home_key": "NOP",
+      "away_key": "DET",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.22313869603518666,
+        "p_away": 0.7768613039648133,
+        "expected_margin": -8.987300000000001,
+        "expected_total": 227.93939999999995,
+        "p_over": 0.486529790128767
+      }
+    },
+    {
+      "case_id": "nba_v4_06",
+      "sport": "nba",
+      "home_key": "HOU",
+      "away_key": "LAL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.682071736631604,
+        "p_away": 0.31792826336839597,
+        "expected_margin": 5.587299999999999,
+        "expected_total": 224.01135,
+        "p_over": 0.48825808022264533
+      }
+    },
+    {
+      "case_id": "nba_v4_07",
+      "sport": "nba",
+      "home_key": "DET",
+      "away_key": "DAL",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.6031072584576694,
+        "p_away": 0.39689274154233056,
+        "expected_margin": 3.0845,
+        "expected_total": 228.30274999999997,
+        "p_over": 0.49525964115676047
+      }
+    },
+    {
+      "case_id": "nba_v4_08",
+      "sport": "nba",
+      "home_key": "SAC",
+      "away_key": "UTA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.8446580559237606,
+        "p_away": 0.15534194407623936,
+        "expected_margin": 11.962699999999998,
+        "expected_total": 230.15974999999997,
+        "p_over": 0.4918234162408791
+      }
+    },
+    {
+      "case_id": "nba_v4_09",
+      "sport": "nba",
+      "home_key": "POR",
+      "away_key": "DAL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5191959765898708,
+        "p_away": 0.4808040234101292,
+        "expected_margin": 0.5679999999999998,
+        "expected_total": 226.31399999999996,
+        "p_over": 0.495529991939238
+      }
+    },
+    {
+      "case_id": "nba_v4_10",
+      "sport": "nba",
+      "home_key": "POR",
+      "away_key": "DET",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4155875013401194,
+        "p_away": 0.5844124986598807,
+        "expected_margin": -2.5157000000000003,
+        "expected_total": 225.65925,
+        "p_over": 0.4798031024611506
+      }
+    },
+    {
+      "case_id": "nba_v4_11",
+      "sport": "nba",
+      "home_key": "DET",
+      "away_key": "LAL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.601682026944439,
+        "p_away": 0.39831797305556105,
+        "expected_margin": 3.0408999999999997,
+        "expected_total": 226.36845000000002,
+        "p_over": 0.4968385168319075
+      }
+    },
+    {
+      "case_id": "nba_v4_12",
+      "sport": "nba",
+      "home_key": "CHA",
+      "away_key": "MIL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.21612487601335967,
+        "p_away": 0.7838751239866404,
+        "expected_margin": -9.267100000000001,
+        "expected_total": 223.0877,
+        "p_over": 0.49009230271355103
+      }
+    },
+    {
+      "case_id": "nba_v4_13",
+      "sport": "nba",
+      "home_key": "PHI",
+      "away_key": "WAS",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.7590672478064121,
+        "p_away": 0.2409327521935879,
+        "expected_margin": 8.299000000000001,
+        "expected_total": 226.062,
+        "p_over": 0.4894748638249412
+      }
+    },
+    {
+      "case_id": "nba_v4_14",
+      "sport": "nba",
+      "home_key": "LAC",
+      "away_key": "IND",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.5860807038406999,
+        "p_away": 0.4139192961593001,
+        "expected_margin": 2.5661999999999994,
+        "expected_total": 225.1347,
+        "p_over": 0.49122153173436645
+      }
+    },
+    {
+      "case_id": "nba_v4_15",
+      "sport": "nba",
+      "home_key": "GSW",
+      "away_key": "PHX",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.7673464158496971,
+        "p_away": 0.2326535841503029,
+        "expected_margin": 8.6156,
+        "expected_total": 226.2469,
+        "p_over": 0.49391753472049965
+      }
+    },
+    {
+      "case_id": "nba_v4_16",
+      "sport": "nba",
+      "home_key": "ATL",
+      "away_key": "GSW",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4300870573283563,
+        "p_away": 0.5699129426716437,
+        "expected_margin": -2.0786000000000002,
+        "expected_total": 229.98525,
+        "p_over": 0.4876311124112017
+      }
+    },
+    {
+      "case_id": "nba_v4_17",
+      "sport": "nba",
+      "home_key": "BOS",
+      "away_key": "PHX",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.890371857478812,
+        "p_away": 0.10962814252118802,
+        "expected_margin": 14.496400000000001,
+        "expected_total": 225.19039999999998,
+        "p_over": 0.49255987909832605
+      }
+    },
+    {
+      "case_id": "nba_v4_18",
+      "sport": "nba",
+      "home_key": "OKC",
+      "away_key": "LAL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.8790812851841528,
+        "p_away": 0.12091871481584715,
+        "expected_margin": 13.8108,
+        "expected_total": 226.4496,
+        "p_over": 0.4987887474693121
+      }
+    },
+    {
+      "case_id": "nba_v4_19",
+      "sport": "nba",
+      "home_key": "CHI",
+      "away_key": "TOR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.6698165616614841,
+        "p_away": 0.33018343833851593,
+        "expected_margin": 5.1850000000000005,
+        "expected_total": 230.34375,
+        "p_over": 0.49624492924312064
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_00",
+      "sport": "ncaaf",
+      "home_key": "CLEM",
+      "away_key": "VAN",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.6976952123787671,
+        "p_away": 0.3023047876212329,
+        "expected_margin": 8.184999999999999,
+        "expected_total": 54.415000000000006,
+        "p_spread_home_cover_no_push": 0.48018889210298826,
+        "p_over": 0.49790678089262613
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_01",
+      "sport": "ncaaf",
+      "home_key": "NAVY",
+      "away_key": "SYR",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.517916571879145,
+        "p_away": 0.48208342812085503,
+        "expected_margin": 0.71,
+        "expected_total": 58.345,
+        "p_spread_home_cover_no_push": 0.4956468362650122,
+        "p_over": 0.4961829956785564
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_02",
+      "sport": "ncaaf",
+      "home_key": "LSU",
+      "away_key": "CMU",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.9730003620178526,
+        "p_away": 0.02699963798214744,
+        "expected_margin": 32.87,
+        "expected_total": 53.510000000000005,
+        "p_spread_home_cover_no_push": 0.4460051072106996,
+        "p_over": 0.47563529055420345
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_03",
+      "sport": "ncaaf",
+      "home_key": "IOWA",
+      "away_key": "SMU",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.4949515059321864,
+        "p_away": 0.5050484940678136,
+        "expected_margin": -0.19999999999999885,
+        "expected_total": 52.05500000000001,
+        "p_spread_home_cover_no_push": 0.49495150593218656,
+        "p_over": 0.48904272793388054
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_04",
+      "sport": "ncaaf",
+      "home_key": "OU",
+      "away_key": "LIB",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.9133606654430291,
+        "p_away": 0.08663933455697093,
+        "expected_margin": 22.270000000000003,
+        "expected_total": 48.894999999999996,
+        "p_spread_home_cover_no_push": 0.4615387075717145,
+        "p_over": 0.48510463215624366
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_05",
+      "sport": "ncaaf",
+      "home_key": "KENT",
+      "away_key": "BAY",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.013987676152318548,
+        "p_away": 0.9860123238476814,
+        "expected_margin": -38.345,
+        "expected_total": 59.535000000000004,
+        "p_spread_home_cover_no_push": 0.5278332254462349,
+        "p_over": 0.47624982256303894
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_06",
+      "sport": "ncaaf",
+      "home_key": "WIS",
+      "away_key": "KENN",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.9706970801302492,
+        "p_away": 0.029302919869750754,
+        "expected_margin": 32.17,
+        "expected_total": 46.665,
+        "p_spread_home_cover_no_push": 0.4532680617896458,
+        "p_over": 0.4794462677839493
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_07",
+      "sport": "ncaaf",
+      "home_key": "UTAH",
+      "away_key": "NAVY",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.5948797439305968,
+        "p_away": 0.40512025606940316,
+        "expected_margin": 3.7949999999999995,
+        "expected_total": 48.855,
+        "p_spread_home_cover_no_push": 0.48726035063846007,
+        "p_over": 0.4841203207183447
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_08",
+      "sport": "ncaaf",
+      "home_key": "MIZ",
+      "away_key": "GT",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.7083086209402579,
+        "p_away": 0.2916913790597421,
+        "expected_margin": 8.67,
+        "expected_total": 51.92,
+        "p_spread_home_cover_no_push": 0.46978931719592704,
+        "p_over": 0.48571987339020545
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_09",
+      "sport": "ncaaf",
+      "home_key": "WIS",
+      "away_key": "GAST",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.8985185825432616,
+        "p_away": 0.10148141745673844,
+        "expected_margin": 20.69,
+        "expected_total": 51.66,
+        "p_spread_home_cover_no_push": 0.4459909183938385,
+        "p_over": 0.4793233017835031
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_10",
+      "sport": "ncaaf",
+      "home_key": "GAST",
+      "away_key": "TEM",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.7384400773022967,
+        "p_away": 0.26155992269770334,
+        "expected_margin": 10.095,
+        "expected_total": 56.33,
+        "p_spread_home_cover_no_push": 0.47251342429307236,
+        "p_over": 0.49581362143719127
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_11",
+      "sport": "ncaaf",
+      "home_key": "TLSA",
+      "away_key": "MISS",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.006210877153903108,
+        "p_away": 0.9937891228460969,
+        "expected_margin": -44.88,
+        "expected_total": 60.25,
+        "p_spread_home_cover_no_push": 0.5687915171468378,
+        "p_over": 0.4938436945605991
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_12",
+      "sport": "ncaaf",
+      "home_key": "BGSU",
+      "away_key": "BALL",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.8661723926705355,
+        "p_away": 0.13382760732946453,
+        "expected_margin": 17.805000000000003,
+        "expected_total": 57.055,
+        "p_spread_home_cover_no_push": 0.4544818586614852,
+        "p_over": 0.48904272793388054
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_13",
+      "sport": "ncaaf",
+      "home_key": "CAL",
+      "away_key": "USU",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.8576851637980175,
+        "p_away": 0.1423148362019825,
+        "expected_margin": 17.14,
+        "expected_total": 58.53,
+        "p_spread_home_cover_no_push": 0.46083518120085826,
+        "p_over": 0.47612691159027226
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_14",
+      "sport": "ncaaf",
+      "home_key": "TA&M",
+      "away_key": "ECU",
+      "neutral_site": true,
+      "expected": {
+        "p_home": 0.8908374478134083,
+        "p_away": 0.10916255218659165,
+        "expected_margin": 19.945,
+        "expected_total": 55.96,
+        "p_spread_home_cover_no_push": 0.4614258589578785,
+        "p_over": 0.4867043296456992
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_15",
+      "sport": "ncaaf",
+      "home_key": "ISU",
+      "away_key": "UGA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.305511318396834,
+        "p_away": 0.694488681603166,
+        "expected_margin": -8.04,
+        "expected_total": 53.035,
+        "p_spread_home_cover_no_push": 0.5009898100460705,
+        "p_over": 0.48855039944262857
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_16",
+      "sport": "ncaaf",
+      "home_key": "CONN",
+      "away_key": "NMSU",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.917328666780441,
+        "p_away": 0.082671333219559,
+        "expected_margin": 22.73,
+        "expected_total": 56.415,
+        "p_spread_home_cover_no_push": 0.44994935488093357,
+        "p_over": 0.49790678089262613
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_17",
+      "sport": "ncaaf",
+      "home_key": "UNM",
+      "away_key": "ALA",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.032824482962587324,
+        "p_away": 0.9671755170374127,
+        "expected_margin": -31.1911,
+        "expected_total": 61.325,
+        "p_spread_home_cover_no_push": 0.5230187250171968,
+        "p_over": 0.4956904974819038
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_18",
+      "sport": "ncaaf",
+      "home_key": "MTSU",
+      "away_key": "TEM",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5264857016780042,
+        "p_away": 0.47351429832199576,
+        "expected_margin": 1.0499999999999994,
+        "expected_total": 53.665,
+        "p_spread_home_cover_no_push": 0.5042108989286677,
+        "p_over": 0.4794462677839493
+      }
+    },
+    {
+      "case_id": "ncaaf_v4_19",
+      "sport": "ncaaf",
+      "home_key": "MICH",
+      "away_key": "ISU",
+      "neutral_site": false,
+      "expected": {
+        "p_home": 0.5744066104618273,
+        "p_away": 0.4255933895381727,
+        "expected_margin": 2.9650000000000003,
+        "expected_total": 47.96,
+        "p_spread_home_cover_no_push": 0.4888010563939006,
+        "p_over": 0.4867043296456992
+      }
+    }
+  ]
+}

@@ -1177,21 +1177,100 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
           id?: string;
           date?: string;
           competitions?: Array<{
-            competitors?: Array<{ homeAway?: string; team?: { abbreviation?: string; displayName?: string } }>;
+            competitors?: Array<{
+              homeAway?: string;
+              team?: { abbreviation?: string; displayName?: string };
+              probables?: Array<{
+                athlete?: {
+                  displayName?: string;
+                  fullName?: string;
+                  headshot?: string | { href?: string };
+                  throws?: { abbreviation?: string };
+                };
+                record?: string;
+                statistics?: Array<{ name?: string; displayValue?: string }>;
+              }>;
+            }>;
           }>;
         }>;
       };
-      for (const ev of (sbJson.events ?? []).slice(0, 12)) {
+      for (const ev of (sbJson.events ?? []).slice(0, 16)) {
         if (!ev.id) continue;
         const comp = ev.competitions?.[0];
-        const homeAbbr = comp?.competitors?.find((c) => c.homeAway === "home")?.team?.abbreviation?.toUpperCase();
-        const awayAbbr = comp?.competitors?.find((c) => c.homeAway === "away")?.team?.abbreviation?.toUpperCase();
+        const homeComp = comp?.competitors?.find((c) => c.homeAway === "home");
+        const awayComp = comp?.competitors?.find((c) => c.homeAway === "away");
+        const homeAbbr = homeComp?.team?.abbreviation?.toUpperCase();
+        const awayAbbr = awayComp?.team?.abbreviation?.toUpperCase();
         if (!homeAbbr || !awayAbbr) continue;
 
         const targetGame = snap.games.find(
           (g) => g.home.code.toUpperCase() === homeAbbr && g.away.code.toUpperCase() === awayAbbr,
         );
-        if (!targetGame || targetGame.referee) continue;
+        if (!targetGame) continue;
+
+        // En MLB también hidratamos lanzadores abridores probables (ERA, WHIP, K/9, récord y mano).
+        if (league === "mlb") {
+          const parseProbable = (
+            prob:
+              | {
+                  athlete?: {
+                    displayName?: string;
+                    fullName?: string;
+                    headshot?: string | { href?: string };
+                    throws?: { abbreviation?: string };
+                  };
+                  record?: string;
+                  statistics?: Array<{ name?: string; displayValue?: string }>;
+                }
+              | undefined,
+          ) => {
+            const pName = (prob?.athlete?.displayName ?? prob?.athlete?.fullName ?? "").trim();
+            if (!pName) return undefined;
+            const statVal = (names: readonly string[]): number | undefined => {
+              const hit = prob?.statistics?.find((s) =>
+                names.includes((s.name ?? "").toLowerCase()),
+              );
+              const n = hit?.displayValue ? Number(hit.displayValue) : NaN;
+              return Number.isFinite(n) && n >= 0 ? n : undefined;
+            };
+            const rawHand = prob?.athlete?.throws?.abbreviation?.trim().toUpperCase();
+            const throwingHand: "R" | "L" | "S" | undefined =
+              rawHand === "R" || rawHand === "L" || rawHand === "S" ? rawHand : undefined;
+            const rawHead =
+              typeof prob?.athlete?.headshot === "string"
+                ? prob.athlete.headshot
+                : prob?.athlete?.headshot?.href;
+            const safePhoto =
+              rawHead && rawHead.startsWith("https://a.espncdn.com/i/headshots/") ? rawHead : undefined;
+            const era = statVal(["era", "earnedrunaverage"]);
+            const whip = statVal(["whip"]);
+            const k9 = statVal(["strikeoutspernine", "k/9", "k9"]);
+            return {
+              name: pName.slice(0, 120),
+              ...(throwingHand ? { throwingHand } : {}),
+              ...(era !== undefined ? { era } : {}),
+              ...(whip !== undefined ? { whip } : {}),
+              ...(k9 !== undefined ? { strikeoutsPer9: k9 } : {}),
+              ...(prob?.record?.trim() ? { record: prob.record.trim().slice(0, 32) } : {}),
+              ...(safePhoto ? { photoKey: safePhoto } : {}),
+            };
+          };
+          const homePitcher = parseProbable(homeComp?.probables?.[0]);
+          const awayPitcher = parseProbable(awayComp?.probables?.[0]);
+          const analysis = snap.analyses[targetGame.id];
+          if (analysis && (homePitcher || awayPitcher)) {
+            analysis.matchContext = {
+              ...(analysis.matchContext ?? {}),
+              probablePitchers: {
+                ...(homePitcher ? { home: homePitcher } : {}),
+                ...(awayPitcher ? { away: awayPitcher } : {}),
+              },
+            };
+            leagueHits += 1;
+          }
+        }
+
+        if (targetGame.referee) continue;
 
         const sumRes = await fetch(
           `https://site.api.espn.com/apis/site/v2/sports/${sportPath}/summary?event=${ev.id}`,

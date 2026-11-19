@@ -113,9 +113,26 @@ export const RefereeStatsSchema = z.object({
 });
 export type RefereeStats = z.infer<typeof RefereeStatsSchema>;
 
+export const ProbablePitcherSchema = z.object({
+  name: z.string().min(1).max(120),
+  throwingHand: z.enum(["R", "L", "S"]).optional(),
+  era: z.number().nonnegative().max(99).optional(),
+  whip: z.number().nonnegative().max(25).optional(),
+  strikeoutsPer9: z.number().nonnegative().max(30).optional(),
+  record: z.string().max(32).optional(),
+  photoKey: z.string().max(240).optional(),
+});
+export type ProbablePitcher = z.infer<typeof ProbablePitcherSchema>;
+
 export const MatchPreGameContextSchema = z.object({
   referee: z.string().max(120).optional(),
   refereeStats: RefereeStatsSchema.optional(),
+  probablePitchers: z
+    .object({
+      home: ProbablePitcherSchema.optional(),
+      away: ProbablePitcherSchema.optional(),
+    })
+    .optional(),
   weather: z
     .object({
       description: z.string().max(120).optional(),

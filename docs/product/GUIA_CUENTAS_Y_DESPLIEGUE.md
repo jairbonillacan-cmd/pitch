@@ -205,10 +205,12 @@ En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportami
    - `PITCHLAB_PAYMENTS_MODE=transfer`
    - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para mostrar la cuenta destino y la referencia única ligada a la cuenta en `/precio` y `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
    - `EMAIL_NOREPLY_FROM` (por defecto `PitchLab <noreply@pitchlab.mx>`, remitente de los cupones SPEI y comprobantes).
-   - `CRON_SECRET` para que Vercel Cron ejecute los cuatro trabajos declarados en `apps/web/vercel.json`:
-     - `/api/cron/settle-picks` (diario `0 10 * * *`): congela momios de cierre en `closing_odds`, liquida picks pendientes y parlays reales en `sealed_picks`, actualiza ranking e insignias y despacha avisos.
+   - `CRON_SECRET` para que Vercel Cron ejecute los cinco trabajos declarados en `apps/web/vercel.json`:
+     - `/api/cron/settle-picks` (cada 4 h `0 */4 * * *`): congela momios de cierre en `closing_odds` en las 57 competencias, liquida picks pendientes y parlays reales en `sealed_picks`, actualiza ranking e insignias y despacha avisos.
+     - `/api/cron/push-alerts` (cada 30 min `*/30 * * * *`): envía Web Push con VAPID para partidos vigilados a 60 min del saque inicial y movimientos de línea ≥ 5 % respecto a apertura (deduplicados en `live_feed_cache`).
      - `/api/cron/tipster-payouts` (diario `0 15 * * *`): promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails`.
      - `/api/cron/weekly-digest` (lunes `0 14 * * 1`) y `/api/cron/monthly-record` (día 1 `0 15 1 * *`): envían resumen semanal y corte mensual únicamente a quienes activaron el opt-in y adjuntan enlace firmado con `UNSUBSCRIBE_SECRET`.
+   - **Pre-vuelo antes de abrir a producción:** corre `node scripts/check-prod-readiness.mjs` (solo lectura; verifica migraciones SQL, crons, `data/snapshots/shell-index.json` y presencia de variables sin imprimir secretos).
    - Web Push e instalación PWA en móvil (opcional hasta que generes llaves):
      - Genera un par VAPID P-256 con:
        ```bash

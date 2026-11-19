@@ -86,9 +86,10 @@ export function LivePicksTrackerStrip({
               <div className="flex items-center justify-between gap-2 text-[11px] num">
                 <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
                   {item.matchLabel}
+                  {item.progressRatioLabel ? ` · ${item.progressRatioLabel}` : ""}
                 </span>
                 <span
-                  className="font-semibold shrink-0"
+                  className={`font-semibold shrink-0 inline-flex items-center gap-1 ${item.lineReached ? "pl-live-pick-met" : ""}`.trim()}
                   style={{
                     color:
                       item.tone === "success"
@@ -98,7 +99,8 @@ export function LivePicksTrackerStrip({
                           : "var(--pl-brand)",
                   }}
                 >
-                  {item.statusText}
+                  {item.lineReached ? <span aria-hidden="true">✓</span> : null}
+                  <span>{item.statusText}</span>
                 </span>
               </div>
               {item.currentValue !== null && item.targetValue !== null ? (
@@ -106,7 +108,7 @@ export function LivePicksTrackerStrip({
                   className={`pl-live-progress pl-live-progress--${item.tone}`}
                   value={item.currentValue}
                   max={item.targetValue}
-                  aria-label={`${item.pickLabel}: ${item.statusText}`}
+                  aria-label={`${item.pickLabel}: ${item.progressRatioLabel ? `${item.progressRatioLabel}, ` : ""}${item.statusText}`}
                 />
               ) : null}
             </>

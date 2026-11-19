@@ -9,7 +9,12 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { canonicalGameHref, isLeagueActiveInWindow, isNationalCompetition } from "@pitchlab/contracts";
+import {
+  canonicalGameHref,
+  isLeagueActiveInWindow,
+  isNationalCompetition,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
@@ -28,6 +33,7 @@ import {
 } from "../club/home/home-model";
 import { HomeLeagueStrip, HomeSportStrip } from "../club/home/HomeSportStrip";
 import { LeagueCategorySheet } from "./LeagueCategorySheet";
+import { MobileParlaySheet } from "./MobileParlaySheet";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
@@ -265,7 +271,7 @@ function FloatingQuickJumpBar({
     <aside
       aria-label="Salto rápido de 11 vistas PitchLab"
       data-quick-jump-bar=""
-      className="pl-quick-jump-bar glass-ring lg:max-w-[calc(100vw-16rem)]"
+      className="pl-quick-jump-bar glass-ring hidden md:inline-flex lg:max-w-[calc(100vw-16rem)]"
     >
       {collapsed ? (
         <button
@@ -425,7 +431,7 @@ function AtmosphereStageImpl({
         {inClubApp ? (
           <>
             <FloatingQuickJumpBar activePath={activePath} />
-            <ParlayFloatingDock />
+            {activePath !== "/app/parlays" ? <ParlayFloatingDock /> : null}
             <PickComposerModal />
             <ShareTicketModal />
             <CommandPaletteModal />
@@ -772,7 +778,7 @@ function ClubWorkspaceShellImpl({
     [isHomeRoute, dataset.leagues, dataset.games, homeDayGames, homeSport, homeToday],
   );
   const hasLeaguesOpen = Boolean(
-    isHomeRoute && homeNav && homeSport !== ALL && homeSportLeagues.length > 0,
+    isHomeRoute && homeNav && homeSport !== ALL && homeSportLeagues.length > 1,
   );
   const activeLeagueSnapshot = useMemo(
     () =>
@@ -963,6 +969,7 @@ function ClubWorkspaceShellImpl({
     // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Buscar picks", icon: "search" },
+      { href: "/app/props", label: "Tendencias de jugadores", icon: "users" },
       { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
       { href: "/app/comparar", label: "Comparar H2H", icon: "layers" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
@@ -992,6 +999,17 @@ function ClubWorkspaceShellImpl({
   const profileGrad =
     viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 
+  const todayGamesByLeague = useMemo(() => {
+    const refDay = homeActiveDay || homeToday;
+    const map = new Map<LeagueId, number>();
+    for (const g of dataset.games) {
+      if (g.dayId === refDay) {
+        map.set(g.league, (map.get(g.league) ?? 0) + 1);
+      }
+    }
+    return map;
+  }, [dataset.games, homeActiveDay, homeToday]);
+
   const activeDatasetLeagues = useMemo(() => {
     const inWindow = dataset.leagues.filter(
       (lg) =>
@@ -999,9 +1017,24 @@ function ClubWorkspaceShellImpl({
         activePath === `/app/${lg.league}` ||
         activePath.startsWith(`/app/${lg.league}/`),
     );
-    if (inWindow.length > 0) return inWindow;
-    return dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
-  }, [activePath, dataset.leagues, dataset.games, homeToday]);
+    const list =
+      inWindow.length > 0
+        ? inWindow
+        : dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
+    return [...list].sort((a, b) => {
+      const aToday = todayGamesByLeague.get(a.league) ?? 0;
+      const bToday = todayGamesByLeague.get(b.league) ?? 0;
+      if ((aToday > 0) !== (bToday > 0)) return bToday > 0 ? 1 : -1;
+      if (aToday !== bToday) return bToday - aToday;
+      const aUp = a.upcomingCount > 0 ? 1 : 0;
+      const bUp = b.upcomingCount > 0 ? 1 : 0;
+      if (aUp !== bUp) return bUp - aUp;
+      const aFav = favoriteLeagues.includes(a.league) ? 1 : 0;
+      const bFav = favoriteLeagues.includes(b.league) ? 1 : 0;
+      if (aFav !== bFav) return bFav - aFav;
+      return b.upcomingCount - a.upcomingCount;
+    });
+  }, [activePath, dataset.leagues, dataset.games, favoriteLeagues, homeToday, todayGamesByLeague]);
   const clubLeagues = useMemo(
     () => activeDatasetLeagues.filter((lg) => !isNationalCompetition(lg.league)),
     [activeDatasetLeagues],
@@ -1021,9 +1054,10 @@ function ClubWorkspaceShellImpl({
 
   const navExploreHints: Record<string, string> = {
     "/app/picks": "Filtros por cuota, deporte y probabilidad",
+    "/app/props": "Rachas U5/U10/U20 contra línea deslizable",
     "/app/momios": "Calcula tu ventaja real frente a tu casa",
     "/app/comparar": "Cara a cara entre clubes y jugadores",
-    "/app/historial": "Balance verificado y marcadores finales",
+    "/app/historial": "Balance verificado, calibración y marcadores finales",
   };
 
   return (
@@ -1342,16 +1376,16 @@ function ClubWorkspaceShellImpl({
 
               <button
                 type="button"
-                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
                 aria-label="Buscar"
                 onClick={() => setCmdkOpen(true)}
               >
-                <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0 truncate" style={{ color: "var(--pl-text-secondary)" }}>
+                <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0" style={{ color: "var(--pl-text-secondary)" }}>
                   <MaestroIcon name="search" size={16} className="shrink-0" />
                   <span className="hidden sm:inline truncate">
                     Buscar partido, liga o @socio
                   </span>
-                  <span className="sm:hidden font-semibold">Buscar</span>
+                  <span className="sm:hidden font-semibold whitespace-nowrap">Buscar</span>
                 </span>
                 <span className="hidden md:inline-flex items-center pl-header-kbd-group shrink-0" aria-hidden="true">
                   <kbd className="pl-header-kbd">
@@ -1858,10 +1892,12 @@ function ClubWorkspaceShellImpl({
           label: lg.label,
           logoUrl: lg.logoUrl,
           activeCount: lg.upcomingCount || lg.totalGames,
+          dayCount: todayGamesByLeague.get(lg.league) ?? 0,
           isFavorite: favoriteLeagues.includes(lg.league),
           isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
         }))}
       />
+      {activePath !== "/app/parlays" ? <MobileParlaySheet /> : null}
     </>
   );
 }

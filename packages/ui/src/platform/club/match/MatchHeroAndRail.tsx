@@ -14,8 +14,10 @@ import { LeagueBadge, ProbSplit, TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { ConfidenceChip } from "../../components/ConfidenceChip";
 import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
+import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
 import { MomentumChart } from "../../live/live-charts";
+import { usePlatform } from "../../platform-provider";
 import type {
   MatchTabKey,
   OddsFormat,
@@ -268,6 +270,7 @@ export function MatchHeroScoreboard({
   readonly liveDetail: LiveMatchDetail | null;
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
+  const { oddsFormat, pushToast } = usePlatform();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -324,6 +327,25 @@ export function MatchHeroScoreboard({
         </a>
 
         <div className="pl-match-hero-actions">
+          <button
+            type="button"
+            className="pl-btn-glass text-xs min-h-9 px-2.5 inline-flex items-center gap-1.5"
+            aria-label="Compartir tarjeta 9:16 del partido"
+            data-share-match-story=""
+            onClick={() => {
+              void shareMatchStoryCard({ game, oddsFormat }).then((mode) => {
+                pushToast(
+                  mode === "shared" ? "Tarjeta 9:16 compartida" : "Tarjeta 9:16 descargada (PNG)",
+                  "success",
+                );
+              }).catch(() => {
+                pushToast("No se pudo generar la tarjeta PNG", "warning");
+              });
+            }}
+          >
+            <MaestroIcon name="share" size={13} />
+            <span className="hidden sm:inline">9:16</span>
+          </button>
           {isFinished ? null : <ConfidenceChip game={game} size="lg" />}
           {isFinished ? (
             <span className="pl-pill pl-pill--brand num text-xs">Finalizado · FT</span>

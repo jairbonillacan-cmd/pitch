@@ -56,14 +56,21 @@ export function MatchCommunityPoll({
       : rawMainPick
         ? { label: rawMainPick.label, p: rawMainPick.p }
         : null;
-  const nowMs =
-    nowOverride === undefined
-      ? Date.now()
-      : typeof nowOverride === "number"
-        ? nowOverride
-        : nowOverride.getTime();
+  const [clientNowMs, setClientNowMs] = useState<number | null>(null);
+  useEffect(() => {
+    if (nowOverride !== undefined) return;
+    setClientNowMs(Date.now());
+  }, [nowOverride]);
   const kickoffMs = parseKickoffUtcMs(game.kickoffUtc);
-  const closed = game.status !== "NS" || (Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
+  const nowMs =
+    nowOverride !== undefined
+      ? typeof nowOverride === "number"
+        ? nowOverride
+        : nowOverride.getTime()
+      : clientNowMs;
+  const closed =
+    game.status !== "NS" ||
+    (nowMs !== null && Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
   const HeadingTag = headingLevel === 3 ? "h3" : "h2";
 
   useEffect(() => {

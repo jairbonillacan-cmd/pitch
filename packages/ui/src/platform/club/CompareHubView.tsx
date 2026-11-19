@@ -11,6 +11,7 @@ import { LeagueBadge, TeamBadge } from "../../sports";
 import { FormSquares } from "../components/FormSquares";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
+import { shareH2hStoryCard } from "../components/share-story-card";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { PersonAvatar } from "./team/PersonAvatar";
@@ -352,11 +353,53 @@ export function CompareHubView({
                 </p>
               </div>
 
-              <div
-                className="seg-well"
-                role="tablist"
-                aria-label="Modo de comparación"
-              >
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+                  aria-label="Compartir comparativa H2H en formato 9:16"
+                  data-share-h2h-story=""
+                  disabled={mode === "equipos" ? !teamComparison : !playerComparison}
+                  onClick={() => {
+                    if (mode === "equipos" && teamComparison) {
+                      void shareH2hStoryCard({
+                        leagueLabel: teamComparison.leagueLabel,
+                        leftTitle: teamComparison.teamA.name,
+                        rightTitle: teamComparison.teamB.name,
+                        headline:
+                          teamComparison.h2hSummary.played > 0
+                            ? `H2H (${teamComparison.h2hSummary.played}): ${teamComparison.h2hSummary.winsA}G – ${teamComparison.h2hSummary.draws}E – ${teamComparison.h2hSummary.winsB}G`
+                            : `Temporada ${teamComparison.seasonLabel}`,
+                        rows: teamComparison.metrics.slice(0, 6).map((m) => ({
+                          label: m.label,
+                          leftValue: m.valueA,
+                          rightValue: m.valueB,
+                        })),
+                      });
+                    } else if (mode === "jugadores" && playerComparison) {
+                      void shareH2hStoryCard({
+                        leagueLabel: playerComparison.leagueLabel,
+                        leftTitle: playerComparison.playerA.name,
+                        rightTitle: playerComparison.playerB.name,
+                        headline: `${playerComparison.playerA.teamName} vs ${playerComparison.playerB.teamName}`,
+                        rows: playerComparison.metrics.slice(0, 6).map((m) => ({
+                          label: m.label,
+                          leftValue: m.valueA,
+                          rightValue: m.valueB,
+                        })),
+                      });
+                    }
+                  }}
+                >
+                  <MaestroIcon name="share" size={13} />
+                  <span>9:16</span>
+                </button>
+
+                <div
+                  className="seg-well"
+                  role="tablist"
+                  aria-label="Modo de comparación"
+                >
                 <button
                   id={`${tabIdBase}-tab-equipos`}
                   type="button"
@@ -379,6 +422,7 @@ export function CompareHubView({
                 >
                   Jugadores
                 </button>
+              </div>
               </div>
             </div>
 

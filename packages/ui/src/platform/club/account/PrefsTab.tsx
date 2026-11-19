@@ -30,6 +30,7 @@ import {
   readStoredPrefs,
   toggleLeagueSelection,
   writeStoredPrefs,
+  type AlertCadence,
   type PauseChoice,
   type SessionAccountIdentity,
   type StoredAccountPrefsV1,
@@ -364,6 +365,10 @@ export function PrefsTab({
                 recordPrivacy?: unknown;
                 bankrollStartMxnCentavos?: number | null;
                 preferredBooks?: string[];
+                showInactiveLeagues?: boolean;
+                lineMoveAlerts?: boolean;
+                language?: string;
+                alertCadence?: AlertCadence;
               };
             } | null)
           : null,
@@ -396,6 +401,9 @@ export function PrefsTab({
         }
         if (Array.isArray(p.preferredBooks)) {
           setPreferredBooks(sanitizePreferredBooks(p.preferredBooks));
+        }
+        if (typeof p.showInactiveLeagues === "boolean") {
+          setShowInactiveLeagues(p.showInactiveLeagues);
         }
         const unitMxnValue =
           typeof p.unitMxnCentavos === "number" && Number.isFinite(p.unitMxnCentavos)
@@ -452,6 +460,12 @@ export function PrefsTab({
                   ? p.emailMonthlyRecord
                   : prev.alerts.monthlyRecord,
             },
+            alertCadence:
+              p.alertCadence === "inmediato" ||
+              p.alertCadence === "cada_15m" ||
+              p.alertCadence === "solo_hitos"
+                ? p.alertCadence
+                : prev.alertCadence,
             privacy: {
               publicProfile:
                 typeof p.publicRecordVisible === "boolean"
@@ -866,7 +880,14 @@ export function PrefsTab({
                 </span>
                 <Switch
                   isSelected={showInactiveLeagues}
-                  onChange={setShowInactiveLeagues}
+                  onChange={(next) => {
+                    const prevVal = showInactiveLeagues;
+                    setShowInactiveLeagues(next);
+                    notifySaved();
+                    void persistServerPrefs({ showInactiveLeagues: next }, () => {
+                      setShowInactiveLeagues(prevVal);
+                    });
+                  }}
                   aria-label="Ver competencias en pausa sin partidos en 30 días"
                 >
                   <Switch.Control>
@@ -1270,6 +1291,38 @@ export function PrefsTab({
                 </div>
               );
             })}
+
+            <div className="pl-acct-prefs-row" data-alert-cadence-row="">
+              <div className="pl-acct-prefs-row-copy">
+                <b id={`${baseId}-cadence-title`} className="pl-acct-prefs-row-title">
+                  Frecuencia de avisos en vivo
+                </b>
+                <span className="pl-acct-prefs-row-detail">
+                  Controla cada cuánto recibes alertas de movimiento de línea o hitos de tus picks.
+                </span>
+              </div>
+              <PrefsSegment<AlertCadence>
+                labelledBy={`${baseId}-cadence-title`}
+                value={prefs.alertCadence}
+                dataAttr="data-alert-cadence"
+                options={[
+                  { value: "inmediato", label: "Inmediato" },
+                  { value: "cada_15m", label: "Cada 15 min" },
+                  { value: "solo_hitos", label: "Solo hitos" },
+                ]}
+                onChange={(nextCadence) => {
+                  const prevCadence = prefs.alertCadence;
+                  updatePrefs((prev) => ({ ...prev, alertCadence: nextCadence }));
+                  void persistServerPrefs({ alertCadence: nextCadence }, () => {
+                    setPrefs((curr) => {
+                      const reverted = { ...curr, alertCadence: prevCadence };
+                      writeStoredPrefs(reverted);
+                      return reverted;
+                    });
+                  });
+                }}
+              />
+            </div>
 
             <PwaAndPushSection
               accountsEnabled={accountsEnabled}

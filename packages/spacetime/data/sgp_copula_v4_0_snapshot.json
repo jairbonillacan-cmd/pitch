@@ -1,0 +1,1601 @@
+{
+  "schema_version": "sgp_copula_v4.0_parity_snapshot",
+  "holdout_sealed_untouched": true,
+  "n": 50,
+  "rows": [
+    {
+      "case_id": "sgp_v4_00",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "goal_diff",
+          "marginalProbability": 0.6952,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.5984,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 1.827,
+      "expected": {
+        "independent_probability": 0.41600768000000005,
+        "joint_probability": 0.4210191788904107,
+        "correlation_multiplier": 1.0120466499330267,
+        "effective_hold_pct": 23.079796016721964,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_01",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.6367,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "goal_diff",
+          "marginalProbability": 0.6516,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.2569,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.10658105866800001,
+        "joint_probability": 0.043926554066858574,
+        "correlation_multiplier": 0.412142219413393,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_02",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6737,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.446,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_corners",
+          "marginalProbability": 0.3163,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_corners",
+          "marginalProbability": 0.5128,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 15.594,
+      "expected": {
+        "independent_probability": 0.048735857800528005,
+        "joint_probability": 0.039363691481949764,
+        "correlation_multiplier": 0.8076946474003233,
+        "effective_hold_pct": 38.616259503047544,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_03",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6766,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.559,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.37821940000000004,
+        "joint_probability": 0.36594615772400785,
+        "correlation_multiplier": 0.967549939860324,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_04",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.7159,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "goal_diff",
+          "marginalProbability": 0.647,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.2968,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 5.528,
+      "expected": {
+        "independent_probability": 0.13747399064000002,
+        "joint_probability": 0.1325524205289057,
+        "correlation_multiplier": 0.9641999909351412,
+        "effective_hold_pct": 26.72502193162093,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_05",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_corners",
+          "marginalProbability": 0.5898,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6269,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.7605,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_corners",
+          "marginalProbability": 0.3755,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.10558742477575499,
+        "joint_probability": 0.07159219157537935,
+        "correlation_multiplier": 0.6780371026893193,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_06",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2937,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.258,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 10.03,
+      "expected": {
+        "independent_probability": 0.07577460000000001,
+        "joint_probability": 0.07596998344746658,
+        "correlation_multiplier": 1.002578482070068,
+        "effective_hold_pct": 23.80210660219102,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_07",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.5819,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.4423,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.6796,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.17491162185200002,
+        "joint_probability": 0.15555053664188262,
+        "correlation_multiplier": 0.8893093265895183,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_08",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.4125,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.353,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "goal_diff",
+          "marginalProbability": 0.5895,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2639,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 33.55,
+      "expected": {
+        "independent_probability": 0.022652798293125,
+        "joint_probability": 0.03379166206757025,
+        "correlation_multiplier": 1.491721315411431,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_09",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.1844,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_corners",
+          "marginalProbability": 0.6522,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.12026568,
+        "joint_probability": 0.12605474113910362,
+        "correlation_multiplier": 1.048135603932091,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_10",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.4553,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.5212,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_corners",
+          "marginalProbability": 0.2639,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 12.136,
+      "expected": {
+        "independent_probability": 0.062624092804,
+        "joint_probability": 0.07712739547436775,
+        "correlation_multiplier": 1.2315930182934545,
+        "effective_hold_pct": 6.398192852307294,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_11",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.5191,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.639,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.5608,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "goal_diff",
+          "marginalProbability": 0.5121,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.095260897265832,
+        "joint_probability": 0.133317052148533,
+        "correlation_multiplier": 1.3994939789040903,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_12",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "goal_diff",
+          "marginalProbability": 0.1985,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.442,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 8.662,
+      "expected": {
+        "independent_probability": 0.08773700000000001,
+        "joint_probability": 0.08191553949469794,
+        "correlation_multiplier": 0.9336487399238398,
+        "effective_hold_pct": 29.044759689692633,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_13",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.692,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.3204,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.215,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.047669112,
+        "joint_probability": 0.015224046532542048,
+        "correlation_multiplier": 0.3193692077280997,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_14",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.6503,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_corners",
+          "marginalProbability": 0.5786,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.4238,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "total_goals",
+          "marginalProbability": 0.6684,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 7.131,
+      "expected": {
+        "independent_probability": 0.10658340167835359,
+        "joint_probability": 0.14402671833870737,
+        "correlation_multiplier": 1.3513053258831977,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_15",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.1936,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.234,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.0453024,
+        "joint_probability": 0.049974368138430536,
+        "correlation_multiplier": 1.1031284907296421,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_16",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.4806,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.2714,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.5978,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 9.747,
+      "expected": {
+        "independent_probability": 0.077973947352,
+        "joint_probability": 0.05082051893695054,
+        "correlation_multiplier": 0.6517628087690627,
+        "effective_hold_pct": 50.465240192154305,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_17",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_goals",
+          "marginalProbability": 0.5582,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.3971,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "goal_diff",
+          "marginalProbability": 0.2326,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2508,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.012930846662817602,
+        "joint_probability": 0.028489339327769196,
+        "correlation_multiplier": 2.2032075757026597,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_18",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.5998,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.3395,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 3.732,
+      "expected": {
+        "independent_probability": 0.2036321,
+        "joint_probability": 0.15290969213966835,
+        "correlation_multiplier": 0.7509115318246403,
+        "effective_hold_pct": 42.93410289347577,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_19",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6101,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.4496,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.3433,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.09416751956799999,
+        "joint_probability": 0.08919188768834034,
+        "correlation_multiplier": 0.9471619099400123,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_20",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.3636,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.5275,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_corners",
+          "marginalProbability": 0.2861,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "goal_diff",
+          "marginalProbability": 0.694,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 19.957,
+      "expected": {
+        "independent_probability": 0.038082343566599994,
+        "joint_probability": 0.01787596240358196,
+        "correlation_multiplier": 0.46940289723293244,
+        "effective_hold_pct": 64.32494183117147,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_21",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_goals",
+          "marginalProbability": 0.6117,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "goal_diff",
+          "marginalProbability": 0.4393,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.26871981,
+        "joint_probability": 0.2522192421037685,
+        "correlation_multiplier": 0.9385956402089168,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_22",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.2307,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_goals",
+          "marginalProbability": 0.4295,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_corners",
+          "marginalProbability": 0.205,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 37.415,
+      "expected": {
+        "independent_probability": 0.020312558249999998,
+        "joint_probability": 0.030276035761105546,
+        "correlation_multiplier": 1.4905082554584452,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_23",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.242,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.5326,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.2824,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "total_goals",
+          "marginalProbability": 0.7351,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.026756397739807997,
+        "joint_probability": 0.03179862606345703,
+        "correlation_multiplier": 1.1884494457244232,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_24",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_corners",
+          "marginalProbability": 0.5345,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.1937,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 7.341,
+      "expected": {
+        "independent_probability": 0.10353265,
+        "joint_probability": 0.10651315772389107,
+        "correlation_multiplier": 1.0287880946145112,
+        "effective_hold_pct": 21.80869091489156,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_25",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.6496,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.2296,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_goals",
+          "marginalProbability": 0.472,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.07039793152,
+        "joint_probability": 0.016970603863863305,
+        "correlation_multiplier": 0.24106679695612887,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_26",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_shots_on_target",
+          "marginalProbability": 0.3402,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_yellow_cards",
+          "marginalProbability": 0.3789,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.4924,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_corners",
+          "marginalProbability": 0.4433,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 27.011,
+      "expected": {
+        "independent_probability": 0.0281367991280376,
+        "joint_probability": 0.04019221202065551,
+        "correlation_multiplier": 1.4284571545526301,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_27",
+      "sport": "soccer",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "ht_total_goals",
+          "marginalProbability": 0.6758,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_corners",
+          "marginalProbability": 0.7177,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.48502165999999997,
+        "joint_probability": 0.48932740932457036,
+        "correlation_multiplier": 1.0088774371943934,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_28",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.5833,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.3487,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.5757,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 6.49,
+      "expected": {
+        "independent_probability": 0.117095485947,
+        "joint_probability": 0.15907927368587127,
+        "correlation_multiplier": 1.3585431786659483,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_29",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.7296,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.3181,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.2024,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.5129,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.0240930455479296,
+        "joint_probability": 0.002368733170247943,
+        "correlation_multiplier": 0.09831605413004735,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_30",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.665,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.3703,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 3.086,
+      "expected": {
+        "independent_probability": 0.24624950000000004,
+        "joint_probability": 0.225708233930018,
+        "correlation_multiplier": 0.9165835217128073,
+        "effective_hold_pct": 30.34643900919646,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_31",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.489,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.3336,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "total_points",
+          "marginalProbability": 0.7416,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.12097750464000001,
+        "joint_probability": 0.051502890651269756,
+        "correlation_multiplier": 0.4257228714092755,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_32",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_margin",
+          "marginalProbability": 0.715,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.6292,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.7145,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.7161,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 3.302,
+      "expected": {
+        "independent_probability": 0.23018163077909995,
+        "joint_probability": 0.254464171981397,
+        "correlation_multiplier": 1.1054929584090072,
+        "effective_hold_pct": 15.975930411742711,
+        "tax_flag": "standard_sgp_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_33",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.3696,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.6432,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.23772671999999997,
+        "joint_probability": 0.1930136246113566,
+        "correlation_multiplier": 0.8119138841917165,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_34",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.6281,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.3375,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.7421,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 4.831,
+      "expected": {
+        "independent_probability": 0.157313140875,
+        "joint_probability": 0.2046610590273495,
+        "correlation_multiplier": 1.3009787859360828,
+        "effective_hold_pct": 1.1282423838874567,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_35",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.272,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.2876,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.5396,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_margin",
+          "marginalProbability": 0.7047,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.029746371550464,
+        "joint_probability": 0.024174511838644126,
+        "correlation_multiplier": 0.8126877524417608,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_36",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.6464,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.7631,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 1.541,
+      "expected": {
+        "independent_probability": 0.49326783999999996,
+        "joint_probability": 0.4859320092064011,
+        "correlation_multiplier": 0.9851280983702508,
+        "effective_hold_pct": 25.117877381293596,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_37",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.1884,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.3178,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.2591,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.015513229032000002,
+        "joint_probability": 0.0248827394729365,
+        "correlation_multiplier": 1.603969065473699,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_38",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_margin",
+          "marginalProbability": 0.5287,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.2999,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.6625,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.6092,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 11.876,
+      "expected": {
+        "independent_probability": 0.06399286488234998,
+        "joint_probability": 0.04505593812085158,
+        "correlation_multiplier": 0.7040775280757677,
+        "effective_hold_pct": 46.491567887676666,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_39",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.2586,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.2543,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.06576198000000001,
+        "joint_probability": 0.00932081169867136,
+        "correlation_multiplier": 0.14173556968131676,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_40",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.4732,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.5777,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.7534,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 3.69,
+      "expected": {
+        "independent_probability": 0.20595517997600002,
+        "joint_probability": 0.16047399068224016,
+        "correlation_multiplier": 0.779169480956683,
+        "effective_hold_pct": 40.78509743825338,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_41",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "total_points",
+          "marginalProbability": 0.5131,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.5604,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.2435,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2642,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.018498304330548,
+        "joint_probability": 0.045047791511166335,
+        "correlation_multiplier": 2.4352389660264513,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_42",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.5376,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.7398,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 1.911,
+      "expected": {
+        "independent_probability": 0.39771648,
+        "joint_probability": 0.45390461706439456,
+        "correlation_multiplier": 1.141276864022317,
+        "effective_hold_pct": 13.258827678994201,
+        "tax_flag": "standard_sgp_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_43",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.6509,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.1907,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.2455,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.030473087665000002,
+        "joint_probability": 0.01810645130559902,
+        "correlation_multiplier": 0.5941784273601938,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_44",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.5436,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.7006,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_margin",
+          "marginalProbability": 0.5419,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.4275,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 8.614,
+      "expected": {
+        "independent_probability": 0.08822767832946,
+        "joint_probability": 0.1415867637770772,
+        "correlation_multiplier": 1.6047885024058277,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_45",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_margin",
+          "marginalProbability": 0.4355,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.5712,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.24875760000000002,
+        "joint_probability": 0.3047987884704709,
+        "correlation_multiplier": 1.2252843268727103,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_46",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.322,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "total_points",
+          "marginalProbability": 0.6276,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.6699,
+          "direction": -1
+        }
+      ],
+      "offered_odds": 5.614,
+      "expected": {
+        "independent_probability": 0.13537821528000002,
+        "joint_probability": 0.11493236450423577,
+        "correlation_multiplier": 0.8489723717107919,
+        "effective_hold_pct": 35.47697056732204,
+        "tax_flag": "severe_sgp_tax"
+      }
+    },
+    {
+      "case_id": "sgp_v4_47",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2677,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.6748,
+          "direction": -1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_rush_attempts",
+          "marginalProbability": 0.3662,
+          "direction": 1
+        },
+        {
+          "legId": "leg_3",
+          "factor": "home_margin",
+          "marginalProbability": 0.2663,
+          "direction": 1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.017616229173877597,
+        "joint_probability": 0.003998572693918089,
+        "correlation_multiplier": 0.22698232717404773,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    },
+    {
+      "case_id": "sgp_v4_48",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_pass_attempts",
+          "marginalProbability": 0.3508,
+          "direction": -1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2722,
+          "direction": 1
+        }
+      ],
+      "offered_odds": 7.959,
+      "expected": {
+        "independent_probability": 0.09548776,
+        "joint_probability": 0.15286340799823203,
+        "correlation_multiplier": 1.6008691375547193,
+        "effective_hold_pct": 0.0,
+        "tax_flag": "fair_or_low_vig"
+      }
+    },
+    {
+      "case_id": "sgp_v4_49",
+      "sport": "nfl",
+      "legs": [
+        {
+          "legId": "leg_0",
+          "factor": "away_rush_attempts",
+          "marginalProbability": 0.2132,
+          "direction": 1
+        },
+        {
+          "legId": "leg_1",
+          "factor": "home_margin",
+          "marginalProbability": 0.2848,
+          "direction": 1
+        },
+        {
+          "legId": "leg_2",
+          "factor": "home_pass_attempts",
+          "marginalProbability": 0.212,
+          "direction": -1
+        }
+      ],
+      "offered_odds": null,
+      "expected": {
+        "independent_probability": 0.01287250432,
+        "joint_probability": 0.004074238632278922,
+        "correlation_multiplier": 0.31650707049666943,
+        "effective_hold_pct": null,
+        "tax_flag": null
+      }
+    }
+  ]
+}

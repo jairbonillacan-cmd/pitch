@@ -435,3 +435,58 @@ export function saveClientFrozenPick(snapshot: FrozenMainPickSnapshot): FrozenMa
   }
   return snapshot;
 }
+
+const INJURY_ES_MAP: Readonly<Record<string, string>> = {
+  "hip injury": "Lesión de cadera",
+  "cruciate ligament injury": "Lesión de ligamento cruzado",
+  "cruciate ligament tear": "Rotura de ligamento cruzado",
+  "acl injury": "Lesión de ligamento cruzado (LCA)",
+  "hamstring injury": "Lesión de isquiotibiales",
+  "knee injury": "Lesión de rodilla",
+  "sprained knee": "Esguince de rodilla",
+  "sprained ankle": "Esguince de tobillo",
+  "ankle injury": "Lesión de tobillo",
+  "muscle injury": "Lesión muscular",
+  "muscular problems": "Molestias musculares",
+  "thigh injury": "Lesión de muslo",
+  "calf injury": "Lesión de gemelo",
+  "groin injury": "Lesión inguinal",
+  "adductor problems": "Molestias en aductor",
+  "back injury": "Lesión de espalda",
+  "shoulder injury": "Lesión de hombro",
+  "foot injury": "Lesión de pie",
+  "achilles tendon injury": "Lesión del tendón de Aquiles",
+  "meniscus injury": "Lesión de menisco",
+  "broken leg": "Fractura de pierna",
+  "broken foot": "Fractura de pie",
+  "broken toe": "Fractura en dedo del pie",
+  "broken nose": "Fractura nasal",
+  "concussion": "Conmoción cerebral",
+  "illness": "Enfermedad",
+  "unknown injury": "Lesión no especificada",
+  "knock": "Golpe / contusión",
+  "suspended": "Suspendido",
+  "red card suspension": "Suspensión por roja",
+  "yellow card suspension": "Acumulación de amarillas",
+  "inactive": "Inactivo",
+  "doubtful": "En duda",
+  "questionable": "En duda",
+  "out": "Baja confirmada",
+};
+
+/** Traduce descripciones médicas frecuentes en inglés a español limpio para la UI. */
+export function localizeInjuryLabelEs(raw: string | null | undefined): string {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+  const exact = INJURY_ES_MAP[trimmed.toLowerCase()];
+  if (exact) return exact;
+  return trimmed
+    .replace(/\bSprained\s+Knee\b/gi, "Esguince de rodilla")
+    .replace(/\bSprained\s+Ankle\b/gi, "Esguince de tobillo")
+    .replace(/\bKnee\s+Injury\b/gi, "Lesión de rodilla")
+    .replace(/\bAnkle\s+Injury\b/gi, "Lesión de tobillo")
+    .replace(/\bInjury\b/gi, "lesión")
+    .replace(/\bSuspended\b/gi, "Suspendido")
+    .replace(/\bIllness\b/gi, "Enfermedad");
+}

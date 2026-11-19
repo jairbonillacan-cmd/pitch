@@ -6,6 +6,7 @@ import { PBar, TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import {
   DEFAULT_PREFERRED_BOOKS,
+  computeMarketOverroundPct,
   parseManualOddsInput,
   resolvePreferredBookQuote,
 } from "../../bookmakers";
@@ -372,6 +373,18 @@ export function MatchMoneyPanel({
     return list;
   }, [game.away.shortName, game.home.shortName, game.x12, hasDraw]);
 
+  const marketOverroundPct = useMemo(() => {
+    const h2hRows = markets.filter((m) => m.market === "h2h");
+    const expectedWays = hasDraw ? 3 : 2;
+    if (h2hRows.length < expectedWays) return null;
+    const decs = h2hRows
+      .slice(0, expectedWays)
+      .map((m) => resolvePreferredBookQuote(m.bookQuotes, preferredBooks)?.decimal ?? m.currentDecimal)
+      .filter((d): d is number => typeof d === "number" && Number.isFinite(d) && d > 1.01);
+    if (decs.length !== expectedWays) return null;
+    return computeMarketOverroundPct(decs);
+  }, [hasDraw, markets, preferredBooks]);
+
   return (
     <div className="pl-dinero-grid">
       {/* Izquierda: lectura principal de dónde está el dinero vs. modelo */}
@@ -389,20 +402,31 @@ export function MatchMoneyPanel({
               Contraste entre el dinero estimado en mercado y la probabilidad real del modelo.
             </p>
           </div>
-          <span className="pl-pill pl-pill--brand text-[11px] num shrink-0">
-            {flow && game.spacetime?.market?.asOfUtc ? (
-              <>
-                {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
-                <time dateTime={game.spacetime.market.asOfUtc}>
-                  {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
-                </time>
-              </>
-            ) : flow ? (
-              game.spacetime?.market?.bookLabel ?? "Mercado"
-            ) : (
-              "Sin corte de casa"
-            )}
-          </span>
+          <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+            {marketOverroundPct !== null ? (
+              <span
+                className="pl-pill text-[11px] num"
+                data-market-overround=""
+                title="Comisión implícita incluida en los momios del mercado (overround)"
+              >
+                Margen casa {marketOverroundPct.toFixed(1)} %
+              </span>
+            ) : null}
+            <span className="pl-pill pl-pill--brand text-[11px] num shrink-0">
+              {flow && game.spacetime?.market?.asOfUtc ? (
+                <>
+                  {game.spacetime.market.bookLabel.split(" · ")[0] ?? "Mercado"} ·{" "}
+                  <time dateTime={game.spacetime.market.asOfUtc}>
+                    {formatOddsCaptureEs(game.spacetime.market.asOfUtc)}
+                  </time>
+                </>
+              ) : flow ? (
+                game.spacetime?.market?.bookLabel ?? "Mercado"
+              ) : (
+                "Sin corte de casa"
+              )}
+            </span>
+          </div>
         </div>
 
         {!flow ? (

@@ -6,6 +6,7 @@ import type {
   PlatformMarketRow,
 } from "../../types";
 import type { CortexSectionView, CortexStatView } from "./CortexAnalysisCard";
+import { localizeInjuryLabelEs } from "./pre-match-logic";
 
 export interface CortexForecastLine {
   label: string;
@@ -518,7 +519,8 @@ export function buildCortexEditorialSections(
     const parts: string[] = [];
     if (absences.length > 0) {
       const listed = absences.slice(0, 3).map((a) => {
-        const note = a.impactNote ? `, ${a.impactNote}` : "";
+        const localizedNote = localizeInjuryLabelEs(a.impactNote);
+        const note = localizedNote ? `, ${localizedNote}` : "";
         return `${a.player} (${a.role} · ${a.status}${note})`;
       });
       parts.push(

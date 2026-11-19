@@ -141,6 +141,23 @@ export interface LiveScoreboard {
   entries: LiveScoreboardEntry[];
 }
 
+/** Probabilidades en vivo minuto a minuto (motor determinista In-Play v5.1, sin stake ni EV). */
+export interface LiveInPlayWinProb {
+  readonly minute: number;
+  readonly pHome: number;
+  readonly pDraw: number | null;
+  readonly pAway: number;
+  readonly fairHomeDecimal: number;
+  readonly fairDrawDecimal: number | null;
+  readonly fairAwayDecimal: number;
+  readonly pNextGoalHome?: number;
+  readonly pNextGoalAway?: number;
+  readonly pNoMoreGoals?: number;
+  readonly expectedFinalTotal?: number;
+  readonly redCardsHome?: number;
+  readonly redCardsAway?: number;
+}
+
 /** Ficha en vivo de un partido. */
 export interface LiveMatchDetail {
   gameId: string;
@@ -159,6 +176,8 @@ export interface LiveMatchDetail {
   playerStats?: LivePlayerStatRow[];
   /** Canales de transmisión para México (`country_code=MX`). */
   broadcastsMx?: string[];
+  /** Probabilidad dinámica en vivo según minuto, marcador y tarjetas rojas. */
+  inPlayWinProb?: LiveInPlayWinProb | null;
   nextPollSeconds: number | null;
   notice: string | null;
   /** Atribución exigida por la licencia de la fuente. */

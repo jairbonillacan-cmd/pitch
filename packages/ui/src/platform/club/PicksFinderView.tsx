@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { canonicalGameHref } from "@pitchlab/contracts";
 import { LeagueBadge, PBar } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
@@ -11,12 +11,39 @@ import {
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useIsPickInParlay, usePlatform, usePlatformActions } from "../platform-provider";
+import {
+  MAX_SAVED_SCREENER_VIEWS,
+  sliderStepToOdds,
+  smoothOddsWeight,
+  type SavedScreenerView,
+  type ScreenerBandFilter,
+  type ScreenerKindFilter,
+  type ScreenerSortKey,
+  type ScreenerSportFilter,
+  type ScreenerWindowFilter,
+} from "../screener-views";
 import type { MatchPick, PlatformGame } from "../types";
+import { addDays, matchesSportFilter, todayId } from "./home/home-model";
 
-type Band = "all" | "alta" | "media" | "baja";
-type Kind = "all" | "resultado" | "goles" | "conteos" | "ambos" | "handicap";
-type Sort = "p" | "hora" | "momio" | "ventaja";
+type Band = ScreenerBandFilter;
+type Kind = ScreenerKindFilter;
+type Sort = ScreenerSortKey;
 type QuickPreset = "todos" | "probables" | "valor" | "goles" | "conteos";
+
+const SPORT_OPTIONS: ReadonlyArray<{ id: ScreenerSportFilter; label: string }> = [
+  { id: "all", label: "Todos" },
+  { id: "futbol", label: "Fútbol" },
+  { id: "nfl", label: "NFL" },
+  { id: "nba", label: "NBA" },
+  { id: "nhl", label: "NHL" },
+  { id: "mlb", label: "MLB" },
+];
+
+const WINDOW_OPTIONS: ReadonlyArray<{ id: ScreenerWindowFilter; label: string }> = [
+  { id: "all", label: "Toda la agenda" },
+  { id: "today", label: "Hoy" },
+  { id: "next48h", label: "Próx. 48 h" },
+];
 
 const BANDS: ReadonlyArray<{ id: Band; label: string; hint: string }> = [
   { id: "all", label: "Todas", hint: "" },
@@ -97,20 +124,67 @@ function ParlayToggle({ pick }: { pick: MatchPick }): React.JSX.Element {
 }
 
 /**
- * Explorar picks: todas las selecciones de los partidos por jugar en una sola lista con chips
- * rápidos de 1 toque, mejor cuota vigente en tus casas de referencia y comparador manual en fila.
+ * Explorar picks: todas las selecciones de los partidos por jugar en una sola lista con
+ * vistas guardadas multi-deporte, slider no lineal de momios (68 % en 1.30–3.00), chips
+ * rápidos de 1 toque, mejor cuota en tus casas y comparador manual en fila (ADR-048).
  */
 export function PicksFinderClubView(): React.JSX.Element {
-  const { dataset, viewerRole, oddsFormat, preferredBooks, openComposer, navigateTo } = usePlatform();
+  const {
+    dataset,
+    viewerRole,
+    oddsFormat,
+    preferredBooks,
+    userTimezone,
+    savedScreenerViews,
+    setSavedScreenerViews,
+    pushToast,
+    openComposer,
+    navigateTo,
+  } = usePlatform();
+  const minSliderId = useId();
+  const maxSliderId = useId();
+  const minSliderRef = useRef<HTMLInputElement | null>(null);
+  const maxSliderRef = useRef<HTMLInputElement | null>(null);
+
   const [preset, setPreset] = useState<QuickPreset>("todos");
+  const [sport, setSport] = useState<ScreenerSportFilter>("all");
+  const [windowFilter, setWindowFilter] = useState<ScreenerWindowFilter>("all");
   const [band, setBand] = useState<Band>("all");
   const [kind, setKind] = useState<Kind>("all");
   const [onlyPositiveEdge, setOnlyPositiveEdge] = useState<boolean>(false);
   const [league, setLeague] = useState<string>("all");
   const [sort, setSort] = useState<Sort>("p");
+  const [minOddsStep, setMinOddsStep] = useState<number>(0);
+  const [maxOddsStep, setMaxOddsStep] = useState<number>(100);
+  const [activeViewId, setActiveViewId] = useState<string | null>(null);
+  const [saveOpen, setSaveOpen] = useState<boolean>(false);
+  const [saveName, setSaveName] = useState<string>("");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
   const [shown, setShown] = useState(30);
   const [manualOddsByPick, setManualOddsByPick] = useState<Record<string, string>>({});
   const [openManualPickId, setOpenManualPickId] = useState<string | null>(null);
+
+  const today = useMemo(() => todayId(userTimezone || "America/Mexico_City"), [userTimezone]);
+  const plus2Days = useMemo(() => addDays(today, 2), [today]);
+
+  const minOddsVal = useMemo(() => sliderStepToOdds(minOddsStep) ?? 1.01, [minOddsStep]);
+  const maxOddsVal = useMemo(() => sliderStepToOdds(maxOddsStep), [maxOddsStep]);
+
+  useEffect(() => {
+    if (minSliderRef.current) {
+      minSliderRef.current.style.setProperty("--attr-min", "0");
+      minSliderRef.current.style.setProperty("--attr-max", "99");
+      minSliderRef.current.style.setProperty("--control-value", String(minOddsStep));
+    }
+  }, [minOddsStep, mobileFiltersOpen]);
+
+  useEffect(() => {
+    if (maxSliderRef.current) {
+      maxSliderRef.current.style.setProperty("--attr-min", "1");
+      maxSliderRef.current.style.setProperty("--attr-max", "100");
+      maxSliderRef.current.style.setProperty("--control-value", String(maxOddsStep));
+    }
+  }, [maxOddsStep, mobileFiltersOpen]);
 
   const all = useMemo(() => {
     const out: Array<{
@@ -192,11 +266,15 @@ export function PicksFinderClubView(): React.JSX.Element {
 
   const leagues = useMemo(() => {
     const seen = new Map<string, string>();
-    for (const { game } of all) seen.set(game.league, game.leagueLabel);
+    for (const { game } of all) {
+      if (sport !== "all" && !matchesSportFilter(game, sport)) continue;
+      seen.set(game.league, game.leagueLabel);
+    }
     return Array.from(seen.entries());
-  }, [all]);
+  }, [all, sport]);
 
   const applyQuickPreset = (next: QuickPreset) => {
+    setActiveViewId(null);
     setPreset(next);
     setShown(30);
     if (next === "todos") {
@@ -227,39 +305,176 @@ export function PicksFinderClubView(): React.JSX.Element {
     }
   };
 
+  const applySavedView = (view: SavedScreenerView) => {
+    setActiveViewId(view.id);
+    setPreset("todos");
+    setSport(view.sport);
+    setLeague(view.league);
+    setBand(view.band);
+    setKind(view.kind);
+    setSort(view.sort);
+    setOnlyPositiveEdge(view.onlyPositiveEdge);
+    setMinOddsStep(view.minOddsStep);
+    setMaxOddsStep(view.maxOddsStep);
+    setWindowFilter(view.window);
+    setShown(30);
+  };
+
+  const handleSaveCurrentView = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanName = saveName.trim().slice(0, 40);
+    if (cleanName.length < 2) {
+      pushToast("Escribe un nombre corto para tu vista (mínimo 2 caracteres).", "warning");
+      return;
+    }
+    if (savedScreenerViews.length >= MAX_SAVED_SCREENER_VIEWS) {
+      pushToast(`Puedes guardar hasta ${MAX_SAVED_SCREENER_VIEWS} vistas personalizadas.`, "warning");
+      return;
+    }
+    const newView: SavedScreenerView = {
+      id: `sv-${Date.now().toString(36)}`,
+      name: cleanName,
+      sport,
+      league,
+      band,
+      kind,
+      sort,
+      onlyPositiveEdge,
+      minOddsStep,
+      maxOddsStep,
+      window: windowFilter,
+    };
+    const nextViews = [newView, ...savedScreenerViews];
+    setSavedScreenerViews(nextViews);
+    setActiveViewId(newView.id);
+    setSaveName("");
+    setSaveOpen(false);
+    pushToast(`Vista «${cleanName}» guardada.`, "success");
+  };
+
+  const handleDeleteSavedView = (viewId: string) => {
+    const nextViews = savedScreenerViews.filter((v) => v.id !== viewId);
+    setSavedScreenerViews(nextViews);
+    if (activeViewId === viewId) setActiveViewId(null);
+    pushToast("Vista guardada eliminada.", "default");
+  };
+
+  const resetAllFilters = () => {
+    setActiveViewId(null);
+    setPreset("todos");
+    setSport("all");
+    setWindowFilter("all");
+    setBand("all");
+    setKind("all");
+    setOnlyPositiveEdge(false);
+    setLeague("all");
+    setSort("p");
+    setMinOddsStep(0);
+    setMaxOddsStep(100);
+    setShown(30);
+  };
+
+  const activeAdvancedCount =
+    (sport !== "all" ? 1 : 0) +
+    (league !== "all" ? 1 : 0) +
+    (windowFilter !== "all" ? 1 : 0) +
+    (band !== "all" ? 1 : 0) +
+    (kind !== "all" ? 1 : 0) +
+    (onlyPositiveEdge ? 1 : 0) +
+    (minOddsStep > 0 || maxOddsStep < 100 ? 1 : 0);
+
+  const matchesWindow = (game: PlatformGame): boolean => {
+    if (windowFilter === "all") return true;
+    if (windowFilter === "today") return game.dayId === today;
+    return game.dayId >= today && game.dayId <= plus2Days;
+  };
+
+  const matchesOddsRange = (effectiveDec: number): boolean => {
+    if (minOddsStep > 0 && effectiveDec < minOddsVal - 0.001) return false;
+    if (maxOddsVal !== null && effectiveDec > maxOddsVal + 0.001) return false;
+    return true;
+  };
+
   const rows = useMemo(() => {
-    const filtered = all.filter(({ game, pick, edgePts }) => {
+    const filtered = all.filter(({ game, pick, houseDecimal, edgePts }) => {
+      if (sport !== "all" && !matchesSportFilter(game, sport)) return false;
       if (league !== "all" && game.league !== league) return false;
+      if (!matchesWindow(game)) return false;
       if (band !== "all" && bandOf(pick.p) !== band) return false;
       if (kind !== "all" && kindOf(pick) !== kind) return false;
       if (onlyPositiveEdge && (edgePts === null || edgePts <= 0)) return false;
+      const effectiveDec = houseDecimal ?? pick.fairDecimal;
+      if (!matchesOddsRange(effectiveDec)) return false;
       return true;
     });
     return filtered.sort((a, b) => {
       if (sort === "ventaja") {
         return (b.edgePts ?? -999) - (a.edgePts ?? -999) || b.pick.p - a.pick.p;
       }
+      if (sort === "relevancia") {
+        const aScore =
+          a.pick.p * 0.55 +
+          smoothOddsWeight(a.houseDecimal ?? a.pick.fairDecimal) * 0.25 +
+          Math.max(0, (a.edgePts ?? 0) / 100) * 0.2;
+        const bScore =
+          b.pick.p * 0.55 +
+          smoothOddsWeight(b.houseDecimal ?? b.pick.fairDecimal) * 0.25 +
+          Math.max(0, (b.edgePts ?? 0) / 100) * 0.2;
+        return bScore - aScore;
+      }
       if (sort === "momio") {
-        return b.pick.fairDecimal - a.pick.fairDecimal;
+        return (b.houseDecimal ?? b.pick.fairDecimal) - (a.houseDecimal ?? a.pick.fairDecimal);
       }
       if (sort === "hora") {
         return Date.parse(a.game.kickoffUtc) - Date.parse(b.game.kickoffUtc);
       }
       return b.pick.p - a.pick.p;
     });
-  }, [all, band, kind, league, onlyPositiveEdge, sort]);
+  }, [
+    all,
+    band,
+    kind,
+    league,
+    maxOddsStep,
+    maxOddsVal,
+    minOddsStep,
+    minOddsVal,
+    onlyPositiveEdge,
+    plus2Days,
+    sort,
+    sport,
+    today,
+    windowFilter,
+  ]);
 
   const counts = useMemo(() => {
     const c = { all: 0, alta: 0, media: 0, baja: 0 } as Record<Band, number>;
-    for (const { game, pick, edgePts } of all) {
+    for (const { game, pick, houseDecimal, edgePts } of all) {
+      if (sport !== "all" && !matchesSportFilter(game, sport)) continue;
       if (league !== "all" && game.league !== league) continue;
+      if (!matchesWindow(game)) continue;
       if (kind !== "all" && kindOf(pick) !== kind) continue;
       if (onlyPositiveEdge && (edgePts === null || edgePts <= 0)) continue;
+      const effectiveDec = houseDecimal ?? pick.fairDecimal;
+      if (!matchesOddsRange(effectiveDec)) continue;
       c.all += 1;
       c[bandOf(pick.p)] += 1;
     }
     return c;
-  }, [all, kind, league, onlyPositiveEdge]);
+  }, [
+    all,
+    kind,
+    league,
+    maxOddsStep,
+    maxOddsVal,
+    minOddsStep,
+    minOddsVal,
+    onlyPositiveEdge,
+    plus2Days,
+    sport,
+    today,
+    windowFilter,
+  ]);
 
   return (
     <AtmosphereStage activePath="/app/picks">
@@ -285,42 +500,136 @@ export function PicksFinderClubView(): React.JSX.Element {
           </p>
         </header>
 
-        {/* Tira de filtros de 1 toque */}
-        <div
-          className="flex items-center gap-2 overflow-x-auto pb-1"
-          role="group"
-          aria-label="Atajos de exploración"
-          data-finder-quick-chips=""
+        {/* Vistas guardadas del socio (multi-deporte · sincronizadas con cuenta) */}
+        <section
+          className="pl-saved-views-bar"
+          aria-label="Mis vistas guardadas"
+          data-saved-views-bar=""
         >
-          {QUICK_CHIPS.map((chip) => {
-            const active = preset === chip.id;
-            return (
+          <div className="pl-saved-views-scroll">
+            {savedScreenerViews.map((view) => {
+              const isSelected = activeViewId === view.id;
+              return (
+                <div
+                  key={view.id}
+                  className={`pl-saved-view-chip ${isSelected ? "is-on" : ""}`.trim()}
+                  data-saved-view-id={view.id}
+                >
+                  <button
+                    type="button"
+                    aria-pressed={isSelected}
+                    className="pl-saved-view-apply"
+                    onClick={() => applySavedView(view)}
+                  >
+                    <MaestroIcon name="bookmark" size={12} />
+                    <span>{view.name}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="pl-saved-view-del"
+                    aria-label={`Eliminar vista ${view.name}`}
+                    onClick={() => handleDeleteSavedView(view.id)}
+                  >
+                    <MaestroIcon name="x" size={12} />
+                  </button>
+                </div>
+              );
+            })}
+
+            {!saveOpen ? (
               <button
-                key={chip.id}
                 type="button"
-                data-finder-chip={chip.id}
-                aria-pressed={active}
-                onClick={() => applyQuickPreset(chip.id)}
-                className={`shrink-0 rounded-full px-3.5 min-h-11 text-xs font-bold transition-colors border ${
-                  active ? "pl-pill--brand" : "pl-btn-glass"
-                }`}
-                style={
-                  active
-                    ? {
-                        background: "var(--pl-brand)",
-                        color: "var(--pl-on-primary)",
-                        borderColor: "var(--pl-brand)",
-                      }
-                    : undefined
-                }
+                className="pl-btn-glass text-xs min-h-11 px-3 shrink-0 inline-flex items-center gap-1.5"
+                data-open-save-view=""
+                onClick={() => setSaveOpen(true)}
               >
-                {chip.label}
+                <MaestroIcon name="plus" size={13} />
+                <span>Guardar vista</span>
               </button>
-            );
-          })}
+            ) : (
+              <form className="pl-save-view-form" onSubmit={handleSaveCurrentView}>
+                <input
+                  type="text"
+                  value={saveName}
+                  onChange={(e) => setSaveName(e.target.value)}
+                  placeholder="Ej. Valor Fútbol 1.50–2.40"
+                  aria-label="Nombre de la vista guardada"
+                  maxLength={40}
+                  autoFocus
+                  className="glass-input text-base sm:text-xs min-h-11 px-3 rounded-xl"
+                />
+                <button type="submit" className="pl-btn-primary text-xs min-h-11 px-3.5 shrink-0">
+                  Guardar
+                </button>
+                <button
+                  type="button"
+                  className="pl-btn-glass text-xs min-h-11 px-2.5 shrink-0"
+                  aria-label="Cancelar"
+                  onClick={() => {
+                    setSaveOpen(false);
+                    setSaveName("");
+                  }}
+                >
+                  <MaestroIcon name="x" size={14} />
+                </button>
+              </form>
+            )}
+          </div>
+        </section>
+
+        {/* Tira de filtros de 1 toque + botón colapsable de filtros en móvil */}
+        <div className="flex items-center gap-2">
+          <div
+            className="flex flex-1 min-w-0 items-center gap-2 overflow-x-auto pb-1"
+            role="group"
+            aria-label="Atajos de exploración"
+            data-finder-quick-chips=""
+          >
+            {QUICK_CHIPS.map((chip) => {
+              const active = preset === chip.id && activeViewId === null;
+              return (
+                <button
+                  key={chip.id}
+                  type="button"
+                  data-finder-chip={chip.id}
+                  aria-pressed={active}
+                  onClick={() => applyQuickPreset(chip.id)}
+                  className={`shrink-0 rounded-full px-3.5 min-h-11 text-xs font-bold transition-colors border ${
+                    active ? "pl-pill--brand" : "pl-btn-glass"
+                  }`}
+                  style={
+                    active
+                      ? {
+                          background: "var(--pl-brand)",
+                          color: "var(--pl-on-primary)",
+                          borderColor: "var(--pl-brand)",
+                        }
+                      : undefined
+                  }
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="sm:hidden pl-btn-glass text-xs min-h-11 px-3 shrink-0 inline-flex items-center gap-1.5"
+            aria-expanded={mobileFiltersOpen}
+            aria-controls="pl-finder-advanced-panel"
+            data-mobile-filters-toggle=""
+            onClick={() => setMobileFiltersOpen((v) => !v)}
+          >
+            <MaestroIcon name="sliders" size={14} />
+            <span>Filtros{activeAdvancedCount > 0 ? ` (${activeAdvancedCount})` : ""}</span>
+          </button>
         </div>
 
-        <section className="pl-finder-filters glass-card glass-ring" aria-label="Filtros">
+        <section
+          id="pl-finder-advanced-panel"
+          className={`pl-finder-filters glass-card glass-ring ${mobileFiltersOpen ? "is-open-mobile" : ""}`.trim()}
+          aria-label="Filtros"
+        >
           <div className="seg-well" role="group" aria-label="Qué tan probable">
             {BANDS.map((b) => (
               <button
@@ -330,6 +639,7 @@ export function PicksFinderClubView(): React.JSX.Element {
                 aria-pressed={band === b.id}
                 title={b.hint || undefined}
                 onClick={() => {
+                  setActiveViewId(null);
                   setPreset("todos");
                   setOnlyPositiveEdge(false);
                   setBand(b.id);
@@ -340,16 +650,36 @@ export function PicksFinderClubView(): React.JSX.Element {
               </button>
             ))}
           </div>
-          <div className="pl-finder-selects">
+
+          <div className="pl-finder-selects pl-finder-selects--wide">
+            <label className="pl-finder-select">
+              <span>Deporte</span>
+              <select
+                value={sport}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setSport(e.target.value as ScreenerSportFilter);
+                  setLeague("all");
+                }}
+                className="glass-input min-h-11 sm:min-h-10"
+              >
+                {SPORT_OPTIONS.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </label>
             <label className="pl-finder-select">
               <span>Mercado</span>
               <select
                 value={kind}
                 onChange={(e) => {
+                  setActiveViewId(null);
                   setPreset("todos");
                   setKind(e.target.value as Kind);
                 }}
-                className="glass-input"
+                className="glass-input min-h-11 sm:min-h-10"
               >
                 {KINDS.map((k) => (
                   <option key={k.id} value={k.id}>
@@ -360,7 +690,14 @@ export function PicksFinderClubView(): React.JSX.Element {
             </label>
             <label className="pl-finder-select">
               <span>Liga</span>
-              <select value={league} onChange={(e) => setLeague(e.target.value)} className="glass-input">
+              <select
+                value={league}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setLeague(e.target.value);
+                }}
+                className="glass-input min-h-11 sm:min-h-10"
+              >
                 <option value="all">Todas</option>
                 {leagues.map(([id, label]) => (
                   <option key={id} value={id}>
@@ -370,14 +707,102 @@ export function PicksFinderClubView(): React.JSX.Element {
               </select>
             </label>
             <label className="pl-finder-select">
+              <span>Ventana</span>
+              <select
+                value={windowFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setWindowFilter(e.target.value as ScreenerWindowFilter);
+                }}
+                className="glass-input min-h-11 sm:min-h-10"
+              >
+                {WINDOW_OPTIONS.map((w) => (
+                  <option key={w.id} value={w.id}>
+                    {w.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="pl-finder-select">
               <span>Ordenar</span>
-              <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="glass-input">
+              <select
+                value={sort}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setSort(e.target.value as Sort);
+                }}
+                className="glass-input min-h-11 sm:min-h-10"
+              >
                 <option value="p">Más probable primero</option>
+                <option value="relevancia">Balance probabilidad y momio</option>
                 <option value="ventaja">Mayor ventaja vs casa</option>
-                <option value="momio">Mayor momio justo</option>
+                <option value="momio">Mayor momio</option>
                 <option value="hora">Más pronto primero</option>
               </select>
             </label>
+          </div>
+
+          {/* Slider no lineal de momios (68 % del recorrido dedicado al tramo fino 1.30–3.00) */}
+          <div className="pl-odds-range-box" data-odds-range-slider="">
+            <div className="pl-odds-range-head">
+              <span className="text-xs font-bold">Rango de momios (escala de precisión)</span>
+              <span className="pl-pill text-[11px] num">
+                {formatOddsValue(minOddsVal, oddsFormat)} —{" "}
+                {maxOddsVal === null ? "25.00+" : formatOddsValue(maxOddsVal, oddsFormat)}
+              </span>
+            </div>
+            <div className="pl-odds-range-grid">
+              <div className="pl-prop-slider-wrap">
+                <div className="pl-prop-slider-label-row">
+                  <label htmlFor={minSliderId} className="text-[11px] font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                    Mínimo
+                  </label>
+                  <strong className="text-xs num">{formatOddsValue(minOddsVal, oddsFormat)}</strong>
+                </div>
+                <input
+                  ref={minSliderRef}
+                  id={minSliderId}
+                  type="range"
+                  className="pl-range-slider"
+                  min={0}
+                  max={99}
+                  step={1}
+                  value={minOddsStep}
+                  aria-valuetext={`Momio mínimo ${formatOddsValue(minOddsVal, oddsFormat)}`}
+                  onChange={(e) => {
+                    const next = Number(e.target.value);
+                    setActiveViewId(null);
+                    setMinOddsStep(Math.min(next, maxOddsStep - 1));
+                  }}
+                />
+              </div>
+              <div className="pl-prop-slider-wrap">
+                <div className="pl-prop-slider-label-row">
+                  <label htmlFor={maxSliderId} className="text-[11px] font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                    Máximo
+                  </label>
+                  <strong className="text-xs num">
+                    {maxOddsVal === null ? "Sin tope (25.00+)" : formatOddsValue(maxOddsVal, oddsFormat)}
+                  </strong>
+                </div>
+                <input
+                  ref={maxSliderRef}
+                  id={maxSliderId}
+                  type="range"
+                  className="pl-range-slider"
+                  min={1}
+                  max={100}
+                  step={1}
+                  value={maxOddsStep}
+                  aria-valuetext={`Momio máximo ${maxOddsVal === null ? "sin tope" : formatOddsValue(maxOddsVal, oddsFormat)}`}
+                  onChange={(e) => {
+                    const next = Number(e.target.value);
+                    setActiveViewId(null);
+                    setMaxOddsStep(Math.max(next, minOddsStep + 1));
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -387,13 +812,7 @@ export function PicksFinderClubView(): React.JSX.Element {
             <button
               type="button"
               className="pl-acct-text-link"
-              onClick={() => {
-                setPreset("todos");
-                setBand("all");
-                setKind("all");
-                setOnlyPositiveEdge(false);
-                setLeague("all");
-              }}
+              onClick={resetAllFilters}
             >
               Quitar filtros
             </button>

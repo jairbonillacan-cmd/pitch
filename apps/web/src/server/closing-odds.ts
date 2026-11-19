@@ -53,43 +53,59 @@ export function collectPreKickoffClosingOdds(dataset: PlatformDataset = buildSer
     if (!kickoffAt || Number.isNaN(kickoffAt.getTime())) continue;
 
     const mkt = game.spacetime?.market;
-    if (!mkt?.asOfUtc) continue;
-    const capturedAt = new Date(mkt.asOfUtc);
-    if (Number.isNaN(capturedAt.getTime()) || capturedAt.getTime() > kickoffAt.getTime()) continue;
+    const capturedSpacetimeAt = mkt?.asOfUtc ? new Date(mkt.asOfUtc) : null;
+    const validSpacetime =
+      Boolean(mkt) &&
+      capturedSpacetimeAt !== null &&
+      !Number.isNaN(capturedSpacetimeAt.getTime()) &&
+      capturedSpacetimeAt.getTime() <= kickoffAt.getTime();
+    const seenKeys = new Set<string>();
 
-    const book = mkt.bookLabel.split(" · ")[0]?.trim() || "mercado";
+    if (validSpacetime && mkt && capturedSpacetimeAt) {
+      const book = mkt.bookLabel.split(" · ")[0]?.trim() || "mercado";
 
-    const pushH2h = (sel: "home" | "draw" | "away", dec: number | null | undefined, nv: number | undefined) => {
-      if (typeof dec !== "number" || !Number.isFinite(dec) || dec < 1.01) return;
-      const validNv = typeof nv === "number" && nv > 0 && nv < 1 ? nv : null;
-      rows.push({
-        gameId: game.id,
-        market: "h2h",
-        selection: sel,
-        lineKey: "",
-        book,
-        decimalOdds: dec,
-        fairDecimal: validNv ? 1 / validNv : null,
-        noVigProb: validNv,
-        source: "spacetime_snapshot",
-        kickoffAt,
-        capturedAt,
-      });
-    };
+      const pushH2h = (sel: "home" | "draw" | "away", dec: number | null | undefined, nv: number | undefined) => {
+        if (typeof dec !== "number" || !Number.isFinite(dec) || dec < 1.01) return;
+        const validNv = typeof nv === "number" && nv > 0 && nv < 1 ? nv : null;
+        seenKeys.add(`h2h|${sel}|`);
+        rows.push({
+          gameId: game.id,
+          market: "h2h",
+          selection: sel,
+          lineKey: "",
+          book,
+          decimalOdds: dec,
+          fairDecimal: validNv ? 1 / validNv : null,
+          noVigProb: validNv,
+          source: "spacetime_snapshot",
+          kickoffAt,
+          capturedAt: capturedSpacetimeAt,
+        });
+      };
 
-    pushH2h("home", mkt.odds.home, mkt.noVig.home);
-    pushH2h("away", mkt.odds.away, mkt.noVig.away);
-    if (mkt.odds.draw !== null) {
-      pushH2h("draw", mkt.odds.draw, mkt.noVig.draw);
+      pushH2h("home", mkt.odds.home, mkt.noVig.home);
+      pushH2h("away", mkt.odds.away, mkt.noVig.away);
+      if (mkt.odds.draw !== null) {
+        pushH2h("draw", mkt.odds.draw, mkt.noVig.draw);
+      }
     }
 
+    // Cubre TODAS las 57 ligas (incluidas las 37 de expansión + NBA/NHL/MLB) desde `game.markets` y `market-lines.json`.
     for (const row of game.markets) {
       if (typeof row.currentDecimal !== "number" || !Number.isFinite(row.currentDecimal) || row.currentDecimal < 1.01) {
         continue;
       }
       const key = normalizeClosingSelectionAndLine(row.market, row.selection, row.line);
-      // Para h2h preferimos las filas sin vig ya calculadas arriba.
-      if (key.market === "h2h") continue;
+      const dedupeKey = `${key.market}|${key.selection}|${key.lineKey}`;
+      if (seenKeys.has(dedupeKey)) continue;
+      const rawCap = row.quoteCapturedAtUtc ?? row.bookQuotes?.[0]?.capturedAtUtc ?? mkt?.asOfUtc;
+      if (!rawCap) continue;
+      const capturedAt = new Date(rawCap);
+      if (Number.isNaN(capturedAt.getTime()) || capturedAt.getTime() > kickoffAt.getTime()) continue;
+      seenKeys.add(dedupeKey);
+      const book = (row.quoteBookLabel ?? row.bookQuotes?.[0]?.bookLabel ?? mkt?.bookLabel ?? "mercado")
+        .split(" · ")[0]
+        ?.trim() || "mercado";
       rows.push({
         gameId: game.id,
         market: key.market,
@@ -99,7 +115,33 @@ export function collectPreKickoffClosingOdds(dataset: PlatformDataset = buildSer
         decimalOdds: row.currentDecimal,
         fairDecimal: row.fairDecimal >= 1.01 ? row.fairDecimal : null,
         noVigProb: row.p > 0 && row.p < 1 ? row.p : null,
-        source: "spacetime_markets",
+        source: validSpacetime ? "spacetime_markets" : "snapshot_market_lines",
+        kickoffAt,
+        capturedAt,
+      });
+    }
+
+    // Respaldo adicional desde `game.picks` cuando el shell ya trae cotización vigente por casa.
+    for (const pk of game.picks) {
+      if (pk.isRedacted || typeof pk.marketDecimal !== "number" || pk.marketDecimal < 1.01 || !pk.marketCapturedAtUtc) {
+        continue;
+      }
+      const capturedAt = new Date(pk.marketCapturedAtUtc);
+      if (Number.isNaN(capturedAt.getTime()) || capturedAt.getTime() > kickoffAt.getTime()) continue;
+      const key = normalizeClosingSelectionAndLine(pk.market ?? pk.marketGroup, pk.selectionKey, pk.line);
+      const dedupeKey = `${key.market}|${key.selection}|${key.lineKey}`;
+      if (seenKeys.has(dedupeKey)) continue;
+      seenKeys.add(dedupeKey);
+      rows.push({
+        gameId: game.id,
+        market: key.market,
+        selection: key.selection,
+        lineKey: key.lineKey,
+        book: (pk.marketBookLabel ?? "mercado").split(" · ")[0]?.trim() || "mercado",
+        decimalOdds: pk.marketDecimal,
+        fairDecimal: pk.fairDecimal >= 1.01 ? pk.fairDecimal : null,
+        noVigProb: pk.p > 0 && pk.p < 1 ? pk.p : null,
+        source: "pick_quote_capture",
         kickoffAt,
         capturedAt,
       });

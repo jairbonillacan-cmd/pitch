@@ -1,0 +1,3850 @@
+{
+  "schema_version": "official_priors_v4.0.0",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "n_global_officials_tracked": 480,
+  "officials": {
+    "A Backhouse": {
+      "referee": "A Backhouse",
+      "n_matches_global": 28,
+      "cards_multiplier": 1.041639,
+      "fouls_multiplier": 0.980986,
+      "cards_per_foul_multiplier": 1.088325,
+      "red_cards_per_match": 0.10714
+    },
+    "A Bates": {
+      "referee": "A Bates",
+      "n_matches_global": 125,
+      "cards_multiplier": 0.911719,
+      "fouls_multiplier": 0.919019,
+      "cards_per_foul_multiplier": 0.983938,
+      "red_cards_per_match": 0.112
+    },
+    "A Butler": {
+      "referee": "A Butler",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.178049,
+      "fouls_multiplier": 1.051733,
+      "cards_per_foul_multiplier": 1.102456,
+      "red_cards_per_match": 0.23529
+    },
+    "A Crawford": {
+      "referee": "A Crawford",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.927995,
+      "fouls_multiplier": 0.962761,
+      "cards_per_foul_multiplier": 0.940025,
+      "red_cards_per_match": 0.09524
+    },
+    "A D'Urso": {
+      "referee": "A D'Urso",
+      "n_matches_global": 218,
+      "cards_multiplier": 0.948908,
+      "fouls_multiplier": 1.01002,
+      "cards_per_foul_multiplier": 0.926874,
+      "red_cards_per_match": 0.18807
+    },
+    "A Dallas": {
+      "referee": "A Dallas",
+      "n_matches_global": 129,
+      "cards_multiplier": 1.094927,
+      "fouls_multiplier": 0.951442,
+      "cards_per_foul_multiplier": 1.167108,
+      "red_cards_per_match": 0.21705
+    },
+    "A Davies": {
+      "referee": "A Davies",
+      "n_matches_global": 211,
+      "cards_multiplier": 0.989834,
+      "fouls_multiplier": 0.965896,
+      "cards_per_foul_multiplier": 1.044149,
+      "red_cards_per_match": 0.12796
+    },
+    "A Freeland": {
+      "referee": "A Freeland",
+      "n_matches_global": 72,
+      "cards_multiplier": 1.219324,
+      "fouls_multiplier": 1.003082,
+      "cards_per_foul_multiplier": 1.202029,
+      "red_cards_per_match": 0.27778
+    },
+    "A Haines": {
+      "referee": "A Haines",
+      "n_matches_global": 48,
+      "cards_multiplier": 1.01837,
+      "fouls_multiplier": 1.022884,
+      "cards_per_foul_multiplier": 1.019685,
+      "red_cards_per_match": 0.1875
+    },
+    "A Hall": {
+      "referee": "A Hall",
+      "n_matches_global": 90,
+      "cards_multiplier": 1.228067,
+      "fouls_multiplier": 1.069401,
+      "cards_per_foul_multiplier": 1.170264,
+      "red_cards_per_match": 0.28889
+    },
+    "A Kaye": {
+      "referee": "A Kaye",
+      "n_matches_global": 35,
+      "cards_multiplier": 0.85213,
+      "fouls_multiplier": 0.968056,
+      "cards_per_foul_multiplier": 0.878182,
+      "red_cards_per_match": 0.11429
+    },
+    "A Kitchen": {
+      "referee": "A Kitchen",
+      "n_matches_global": 42,
+      "cards_multiplier": 0.880933,
+      "fouls_multiplier": 1.054302,
+      "cards_per_foul_multiplier": 0.845007,
+      "red_cards_per_match": 0.09524
+    },
+    "A Leake": {
+      "referee": "A Leake",
+      "n_matches_global": 40,
+      "cards_multiplier": 0.88898,
+      "fouls_multiplier": 0.967835,
+      "cards_per_foul_multiplier": 0.94407,
+      "red_cards_per_match": 0.125
+    },
+    "A Madley": {
+      "referee": "A Madley",
+      "n_matches_global": 268,
+      "cards_multiplier": 0.951547,
+      "fouls_multiplier": 1.041878,
+      "cards_per_foul_multiplier": 0.918615,
+      "red_cards_per_match": 0.12687
+    },
+    "A Marriner": {
+      "referee": "A Marriner",
+      "n_matches_global": 463,
+      "cards_multiplier": 0.972754,
+      "fouls_multiplier": 0.941388,
+      "cards_per_foul_multiplier": 1.043959,
+      "red_cards_per_match": 0.16199
+    },
+    "A Muir": {
+      "referee": "A Muir",
+      "n_matches_global": 253,
+      "cards_multiplier": 1.07774,
+      "fouls_multiplier": 1.082564,
+      "cards_per_foul_multiplier": 1.015516,
+      "red_cards_per_match": 0.18972
+    },
+    "A Newlands": {
+      "referee": "A Newlands",
+      "n_matches_global": 57,
+      "cards_multiplier": 0.9776,
+      "fouls_multiplier": 0.985309,
+      "cards_per_foul_multiplier": 0.998324,
+      "red_cards_per_match": 0.05263
+    },
+    "A Penn": {
+      "referee": "A Penn",
+      "n_matches_global": 55,
+      "cards_multiplier": 0.807329,
+      "fouls_multiplier": 0.909284,
+      "cards_per_foul_multiplier": 0.881541,
+      "red_cards_per_match": 0.10909
+    },
+    "A Taylor": {
+      "referee": "A Taylor",
+      "n_matches_global": 460,
+      "cards_multiplier": 1.052178,
+      "fouls_multiplier": 0.979867,
+      "cards_per_foul_multiplier": 1.086363,
+      "red_cards_per_match": 0.1587
+    },
+    "A Wiley": {
+      "referee": "A Wiley",
+      "n_matches_global": 235,
+      "cards_multiplier": 1.023422,
+      "fouls_multiplier": 1.034728,
+      "cards_per_foul_multiplier": 0.985499,
+      "red_cards_per_match": 0.13191
+    },
+    "A Woolmer": {
+      "referee": "A Woolmer",
+      "n_matches_global": 223,
+      "cards_multiplier": 0.977678,
+      "fouls_multiplier": 1.021269,
+      "cards_per_foul_multiplier": 0.977936,
+      "red_cards_per_match": 0.08969
+    },
+    "A. Dattilo": {
+      "referee": "A. Dattilo",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.922395,
+      "fouls_multiplier": 1.036516,
+      "cards_per_foul_multiplier": 0.917713,
+      "red_cards_per_match": 0.1
+    },
+    "A. De Marco": {
+      "referee": "A. De Marco",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.94066,
+      "fouls_multiplier": 1.023902,
+      "cards_per_foul_multiplier": 0.923216,
+      "red_cards_per_match": 0.43478
+    },
+    "A. Freeland": {
+      "referee": "A. Freeland",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.221145,
+      "fouls_multiplier": 0.990547,
+      "cards_per_foul_multiplier": 1.260887,
+      "red_cards_per_match": 0.08333
+    },
+    "A. G. Wiley": {
+      "referee": "A. G. Wiley",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.96801,
+      "fouls_multiplier": 1.03148,
+      "cards_per_foul_multiplier": 0.967779,
+      "red_cards_per_match": 0.09091
+    },
+    "A. Giannoccaro": {
+      "referee": "A. Giannoccaro",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.950223,
+      "fouls_multiplier": 1.015984,
+      "cards_per_foul_multiplier": 0.957033,
+      "red_cards_per_match": 0.25
+    },
+    "A. P. D'Urso": {
+      "referee": "A. P. D'Urso",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.07467,
+      "fouls_multiplier": 0.957076,
+      "cards_per_foul_multiplier": 1.135536,
+      "red_cards_per_match": 0.46154
+    },
+    "A. Romeo": {
+      "referee": "A. Romeo",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.051696,
+      "fouls_multiplier": 1.007935,
+      "cards_per_foul_multiplier": 1.074774,
+      "red_cards_per_match": 0.38462
+    },
+    "Alan Freeland": {
+      "referee": "Alan Freeland",
+      "n_matches_global": 23,
+      "cards_multiplier": 1.054344,
+      "fouls_multiplier": 0.975846,
+      "cards_per_foul_multiplier": 1.095612,
+      "red_cards_per_match": 0.34783
+    },
+    "Alan Wiley": {
+      "referee": "Alan Wiley",
+      "n_matches_global": 28,
+      "cards_multiplier": 0.953863,
+      "fouls_multiplier": 1.007152,
+      "cards_per_foul_multiplier": 0.961379,
+      "red_cards_per_match": 0.07143
+    },
+    "Albrecht, H": {
+      "referee": "Albrecht, H",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.904478,
+      "fouls_multiplier": 1.022095,
+      "cards_per_foul_multiplier": 0.889119,
+      "red_cards_per_match": 0.11111
+    },
+    "Alfons Berg": {
+      "referee": "Alfons Berg",
+      "n_matches_global": 32,
+      "cards_multiplier": 0.799463,
+      "fouls_multiplier": 1.04325,
+      "cards_per_foul_multiplier": 0.831056,
+      "red_cards_per_match": 0.03125
+    },
+    "Andrew Butler": {
+      "referee": "Andrew Butler",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.974915,
+      "fouls_multiplier": 1.032582,
+      "cards_per_foul_multiplier": 0.929755,
+      "red_cards_per_match": 0.09091
+    },
+    "Andy D'Urso": {
+      "referee": "Andy D'Urso",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.98634,
+      "fouls_multiplier": 1.007778,
+      "cards_per_foul_multiplier": 0.952505,
+      "red_cards_per_match": 0.26087
+    },
+    "Andy Hall": {
+      "referee": "Andy Hall",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.145334,
+      "fouls_multiplier": 1.092496,
+      "cards_per_foul_multiplier": 1.059675,
+      "red_cards_per_match": 0.28571
+    },
+    "Aust, J": {
+      "referee": "Aust, J",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.999915,
+      "fouls_multiplier": 0.92745,
+      "cards_per_foul_multiplier": 1.106497,
+      "red_cards_per_match": 0.08333
+    },
+    "B Colvin": {
+      "referee": "B Colvin",
+      "n_matches_global": 34,
+      "cards_multiplier": 0.853807,
+      "fouls_multiplier": 0.954736,
+      "cards_per_foul_multiplier": 0.900288,
+      "red_cards_per_match": 0.29412
+    },
+    "B Cook": {
+      "referee": "B Cook",
+      "n_matches_global": 39,
+      "cards_multiplier": 1.070358,
+      "fouls_multiplier": 1.026795,
+      "cards_per_foul_multiplier": 1.085411,
+      "red_cards_per_match": 0.23077
+    },
+    "B Curson": {
+      "referee": "B Curson",
+      "n_matches_global": 50,
+      "cards_multiplier": 0.92301,
+      "fouls_multiplier": 0.973696,
+      "cards_per_foul_multiplier": 0.95458,
+      "red_cards_per_match": 0.2
+    },
+    "B Knight": {
+      "referee": "B Knight",
+      "n_matches_global": 49,
+      "cards_multiplier": 0.925775,
+      "fouls_multiplier": 1.046192,
+      "cards_per_foul_multiplier": 0.894277,
+      "red_cards_per_match": 0.28571
+    },
+    "B Madden": {
+      "referee": "B Madden",
+      "n_matches_global": 219,
+      "cards_multiplier": 0.858307,
+      "fouls_multiplier": 1.015328,
+      "cards_per_foul_multiplier": 0.857772,
+      "red_cards_per_match": 0.20091
+    },
+    "B Malone": {
+      "referee": "B Malone",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.827165,
+      "fouls_multiplier": 0.94904,
+      "cards_per_foul_multiplier": 0.877569,
+      "red_cards_per_match": 0.21739
+    },
+    "B Toner": {
+      "referee": "B Toner",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.075145,
+      "fouls_multiplier": 1.060053,
+      "cards_per_foul_multiplier": 1.015113,
+      "red_cards_per_match": 0.05882
+    },
+    "B Winter": {
+      "referee": "B Winter",
+      "n_matches_global": 81,
+      "cards_multiplier": 0.974621,
+      "fouls_multiplier": 0.913639,
+      "cards_per_foul_multiplier": 1.061934,
+      "red_cards_per_match": 0.17284
+    },
+    "Babak Rafati": {
+      "referee": "Babak Rafati",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.035188,
+      "fouls_multiplier": 1.009282,
+      "cards_per_foul_multiplier": 1.020609,
+      "red_cards_per_match": 0.23077
+    },
+    "Barber, G. P.": {
+      "referee": "Barber, G. P.",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.13978,
+      "fouls_multiplier": 1.092676,
+      "cards_per_foul_multiplier": 1.057807,
+      "red_cards_per_match": 0.21429
+    },
+    "Barry Knight": {
+      "referee": "Barry Knight",
+      "n_matches_global": 22,
+      "cards_multiplier": 1.082437,
+      "fouls_multiplier": 1.036236,
+      "cards_per_foul_multiplier": 1.058103,
+      "red_cards_per_match": 0.45455
+    },
+    "Barry, N. S.": {
+      "referee": "Barry, N. S.",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.928721,
+      "fouls_multiplier": 0.990425,
+      "cards_per_foul_multiplier": 0.959834,
+      "red_cards_per_match": 0.18182
+    },
+    "Bennett, S. G.": {
+      "referee": "Bennett, S. G.",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.94218,
+      "fouls_multiplier": 0.930738,
+      "cards_per_foul_multiplier": 1.03241,
+      "red_cards_per_match": 0.18182
+    },
+    "Berg, A": {
+      "referee": "Berg, A",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.940636,
+      "fouls_multiplier": 0.987356,
+      "cards_per_foul_multiplier": 0.963853,
+      "red_cards_per_match": 0.0
+    },
+    "Bernd Heynemann": {
+      "referee": "Bernd Heynemann",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.980113,
+      "fouls_multiplier": 1.052538,
+      "cards_per_foul_multiplier": 0.960544,
+      "red_cards_per_match": 0.25
+    },
+    "Bill Burns": {
+      "referee": "Bill Burns",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.755086,
+      "fouls_multiplier": 0.98598,
+      "cards_per_foul_multiplier": 0.758759,
+      "red_cards_per_match": 0.0
+    },
+    "Bill Jordan": {
+      "referee": "Bill Jordan",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.173821,
+      "fouls_multiplier": 1.041701,
+      "cards_per_foul_multiplier": 1.126718,
+      "red_cards_per_match": 0.08333
+    },
+    "Bobby Orr": {
+      "referee": "Bobby Orr",
+      "n_matches_global": 18,
+      "cards_multiplier": 0.684855,
+      "fouls_multiplier": 1.012121,
+      "cards_per_foul_multiplier": 0.703597,
+      "red_cards_per_match": 0.22222
+    },
+    "C Allan": {
+      "referee": "C Allan",
+      "n_matches_global": 81,
+      "cards_multiplier": 0.951417,
+      "fouls_multiplier": 0.961087,
+      "cards_per_foul_multiplier": 1.004507,
+      "red_cards_per_match": 0.24691
+    },
+    "C Boyeson": {
+      "referee": "C Boyeson",
+      "n_matches_global": 89,
+      "cards_multiplier": 0.887173,
+      "fouls_multiplier": 1.00457,
+      "cards_per_foul_multiplier": 0.915126,
+      "red_cards_per_match": 0.1236
+    },
+    "C Boyle": {
+      "referee": "C Boyle",
+      "n_matches_global": 16,
+      "cards_multiplier": 0.966265,
+      "fouls_multiplier": 1.000825,
+      "cards_per_foul_multiplier": 0.959197,
+      "red_cards_per_match": 0.5
+    },
+    "C Breakspear": {
+      "referee": "C Breakspear",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.971211,
+      "fouls_multiplier": 1.005597,
+      "cards_per_foul_multiplier": 0.970714,
+      "red_cards_per_match": 0.11765
+    },
+    "C Charleston": {
+      "referee": "C Charleston",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.151182,
+      "fouls_multiplier": 1.051219,
+      "cards_per_foul_multiplier": 1.070907,
+      "red_cards_per_match": 0.47059
+    },
+    "C Foy": {
+      "referee": "C Foy",
+      "n_matches_global": 321,
+      "cards_multiplier": 0.882444,
+      "fouls_multiplier": 0.965808,
+      "cards_per_foul_multiplier": 0.929203,
+      "red_cards_per_match": 0.16199
+    },
+    "C Graham": {
+      "referee": "C Graham",
+      "n_matches_global": 59,
+      "cards_multiplier": 1.280965,
+      "fouls_multiplier": 1.091678,
+      "cards_per_foul_multiplier": 1.205065,
+      "red_cards_per_match": 0.20339
+    },
+    "C Kavanagh": {
+      "referee": "C Kavanagh",
+      "n_matches_global": 236,
+      "cards_multiplier": 1.012859,
+      "fouls_multiplier": 0.981539,
+      "cards_per_foul_multiplier": 1.051012,
+      "red_cards_per_match": 0.11017
+    },
+    "C MacKay": {
+      "referee": "C MacKay",
+      "n_matches_global": 25,
+      "cards_multiplier": 0.830454,
+      "fouls_multiplier": 1.017437,
+      "cards_per_foul_multiplier": 0.836072,
+      "red_cards_per_match": 0.32
+    },
+    "C Murray": {
+      "referee": "C Murray",
+      "n_matches_global": 149,
+      "cards_multiplier": 0.966172,
+      "fouls_multiplier": 0.990281,
+      "cards_per_foul_multiplier": 0.983465,
+      "red_cards_per_match": 0.1745
+    },
+    "C Napier": {
+      "referee": "C Napier",
+      "n_matches_global": 86,
+      "cards_multiplier": 1.00796,
+      "fouls_multiplier": 1.020085,
+      "cards_per_foul_multiplier": 0.977832,
+      "red_cards_per_match": 0.26744
+    },
+    "C Oliver": {
+      "referee": "C Oliver",
+      "n_matches_global": 37,
+      "cards_multiplier": 0.968438,
+      "fouls_multiplier": 0.962815,
+      "cards_per_foul_multiplier": 1.01653,
+      "red_cards_per_match": 0.10811
+    },
+    "C Pawson": {
+      "referee": "C Pawson",
+      "n_matches_global": 317,
+      "cards_multiplier": 1.058439,
+      "fouls_multiplier": 1.050683,
+      "cards_per_foul_multiplier": 1.004928,
+      "red_cards_per_match": 0.14196
+    },
+    "C Penton": {
+      "referee": "C Penton",
+      "n_matches_global": 78,
+      "cards_multiplier": 1.093114,
+      "fouls_multiplier": 1.029265,
+      "cards_per_foul_multiplier": 1.087298,
+      "red_cards_per_match": 0.10256
+    },
+    "C Richmond": {
+      "referee": "C Richmond",
+      "n_matches_global": 123,
+      "cards_multiplier": 1.096152,
+      "fouls_multiplier": 1.051033,
+      "cards_per_foul_multiplier": 1.038748,
+      "red_cards_per_match": 0.14634
+    },
+    "C Sarginson": {
+      "referee": "C Sarginson",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.007091,
+      "fouls_multiplier": 0.941784,
+      "cards_per_foul_multiplier": 1.05999,
+      "red_cards_per_match": 0.23077
+    },
+    "C Scott": {
+      "referee": "C Scott",
+      "n_matches_global": 40,
+      "cards_multiplier": 0.953245,
+      "fouls_multiplier": 0.998887,
+      "cards_per_foul_multiplier": 0.975657,
+      "red_cards_per_match": 0.125
+    },
+    "C Steven": {
+      "referee": "C Steven",
+      "n_matches_global": 125,
+      "cards_multiplier": 1.023328,
+      "fouls_multiplier": 0.98796,
+      "cards_per_foul_multiplier": 1.070705,
+      "red_cards_per_match": 0.224
+    },
+    "C Thompson": {
+      "referee": "C Thompson",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.075319,
+      "fouls_multiplier": 1.025822,
+      "cards_per_foul_multiplier": 1.038508,
+      "red_cards_per_match": 0.08333
+    },
+    "C Thomson": {
+      "referee": "C Thomson",
+      "n_matches_global": 310,
+      "cards_multiplier": 1.043159,
+      "fouls_multiplier": 1.011127,
+      "cards_per_foul_multiplier": 1.037629,
+      "red_cards_per_match": 0.1871
+    },
+    "C Webster": {
+      "referee": "C Webster",
+      "n_matches_global": 135,
+      "cards_multiplier": 0.952225,
+      "fouls_multiplier": 0.965108,
+      "cards_per_foul_multiplier": 0.991214,
+      "red_cards_per_match": 0.17037
+    },
+    "C Wilkes": {
+      "referee": "C Wilkes",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.015832,
+      "fouls_multiplier": 1.015023,
+      "cards_per_foul_multiplier": 1.032619,
+      "red_cards_per_match": 0.27778
+    },
+    "C. Brighi": {
+      "referee": "C. Brighi",
+      "n_matches_global": 20,
+      "cards_multiplier": 1.052588,
+      "fouls_multiplier": 1.032669,
+      "cards_per_foul_multiplier": 1.023227,
+      "red_cards_per_match": 0.7
+    },
+    "C. J. Foy": {
+      "referee": "C. J. Foy",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.04459,
+      "fouls_multiplier": 1.013627,
+      "cards_per_foul_multiplier": 1.025588,
+      "red_cards_per_match": 0.1
+    },
+    "C. R. Wilkes": {
+      "referee": "C. R. Wilkes",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.100242,
+      "fouls_multiplier": 1.052848,
+      "cards_per_foul_multiplier": 1.026942,
+      "red_cards_per_match": 0.45455
+    },
+    "Chris Foy": {
+      "referee": "Chris Foy",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.064034,
+      "fouls_multiplier": 0.918647,
+      "cards_per_foul_multiplier": 1.194609,
+      "red_cards_per_match": 0.08333
+    },
+    "Christian Sch\u00fcssling": {
+      "referee": "Christian Sch\u00fcssling",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.142665,
+      "fouls_multiplier": 1.004181,
+      "cards_per_foul_multiplier": 0.958251,
+      "red_cards_per_match": 0.54545
+    },
+    "Clark, K. W.": {
+      "referee": "Clark, K. W.",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.01727,
+      "fouls_multiplier": 1.033242,
+      "cards_per_foul_multiplier": 0.996167,
+      "red_cards_per_match": 0.5
+    },
+    "Clive Wilkes": {
+      "referee": "Clive Wilkes",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.004995,
+      "fouls_multiplier": 1.005439,
+      "cards_per_foul_multiplier": 0.988067,
+      "red_cards_per_match": 0.11765
+    },
+    "D Bond": {
+      "referee": "D Bond",
+      "n_matches_global": 247,
+      "cards_multiplier": 0.989232,
+      "fouls_multiplier": 0.959206,
+      "cards_per_foul_multiplier": 1.037001,
+      "red_cards_per_match": 0.15385
+    },
+    "D Coote": {
+      "referee": "D Coote",
+      "n_matches_global": 242,
+      "cards_multiplier": 1.110412,
+      "fouls_multiplier": 1.078367,
+      "cards_per_foul_multiplier": 1.044629,
+      "red_cards_per_match": 0.12397
+    },
+    "D Crick": {
+      "referee": "D Crick",
+      "n_matches_global": 18,
+      "cards_multiplier": 0.832902,
+      "fouls_multiplier": 1.015398,
+      "cards_per_foul_multiplier": 0.834846,
+      "red_cards_per_match": 0.05556
+    },
+    "D Deadman": {
+      "referee": "D Deadman",
+      "n_matches_global": 102,
+      "cards_multiplier": 1.244907,
+      "fouls_multiplier": 0.967645,
+      "cards_per_foul_multiplier": 1.292116,
+      "red_cards_per_match": 0.20588
+    },
+    "D Dickinson": {
+      "referee": "D Dickinson",
+      "n_matches_global": 80,
+      "cards_multiplier": 1.110269,
+      "fouls_multiplier": 0.976729,
+      "cards_per_foul_multiplier": 1.147537,
+      "red_cards_per_match": 0.1375
+    },
+    "D Drysdale": {
+      "referee": "D Drysdale",
+      "n_matches_global": 58,
+      "cards_multiplier": 0.88601,
+      "fouls_multiplier": 0.920675,
+      "cards_per_foul_multiplier": 0.975157,
+      "red_cards_per_match": 0.13793
+    },
+    "D Elleray": {
+      "referee": "D Elleray",
+      "n_matches_global": 22,
+      "cards_multiplier": 0.942178,
+      "fouls_multiplier": 0.968359,
+      "cards_per_foul_multiplier": 0.984716,
+      "red_cards_per_match": 0.13636
+    },
+    "D England": {
+      "referee": "D England",
+      "n_matches_global": 174,
+      "cards_multiplier": 1.09866,
+      "fouls_multiplier": 1.029283,
+      "cards_per_foul_multiplier": 1.075923,
+      "red_cards_per_match": 0.0977
+    },
+    "D Foster": {
+      "referee": "D Foster",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.032336,
+      "fouls_multiplier": 0.972776,
+      "cards_per_foul_multiplier": 1.050239,
+      "red_cards_per_match": 0.05556
+    },
+    "D Gallagher": {
+      "referee": "D Gallagher",
+      "n_matches_global": 130,
+      "cards_multiplier": 0.871092,
+      "fouls_multiplier": 0.949236,
+      "cards_per_foul_multiplier": 0.926532,
+      "red_cards_per_match": 0.18462
+    },
+    "D Lowe": {
+      "referee": "D Lowe",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.106288,
+      "fouls_multiplier": 0.930074,
+      "cards_per_foul_multiplier": 1.191163,
+      "red_cards_per_match": 0.0
+    },
+    "D McDermid": {
+      "referee": "D McDermid",
+      "n_matches_global": 22,
+      "cards_multiplier": 1.09415,
+      "fouls_multiplier": 1.003146,
+      "cards_per_foul_multiplier": 1.084722,
+      "red_cards_per_match": 0.09091
+    },
+    "D McDonald": {
+      "referee": "D McDonald",
+      "n_matches_global": 160,
+      "cards_multiplier": 1.031215,
+      "fouls_multiplier": 0.993633,
+      "cards_per_foul_multiplier": 1.033111,
+      "red_cards_per_match": 0.26875
+    },
+    "D McFarlane": {
+      "referee": "D McFarlane",
+      "n_matches_global": 19,
+      "cards_multiplier": 1.099792,
+      "fouls_multiplier": 1.088435,
+      "cards_per_foul_multiplier": 1.003761,
+      "red_cards_per_match": 0.36842
+    },
+    "D Munro": {
+      "referee": "D Munro",
+      "n_matches_global": 116,
+      "cards_multiplier": 1.072093,
+      "fouls_multiplier": 1.000503,
+      "cards_per_foul_multiplier": 1.082455,
+      "red_cards_per_match": 0.13793
+    },
+    "D Phillips": {
+      "referee": "D Phillips",
+      "n_matches_global": 22,
+      "cards_multiplier": 0.933769,
+      "fouls_multiplier": 1.050514,
+      "cards_per_foul_multiplier": 0.881939,
+      "red_cards_per_match": 0.22727
+    },
+    "D Pugh": {
+      "referee": "D Pugh",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.090115,
+      "fouls_multiplier": 0.961373,
+      "cards_per_foul_multiplier": 1.128119,
+      "red_cards_per_match": 0.23529
+    },
+    "D Robertson": {
+      "referee": "D Robertson",
+      "n_matches_global": 242,
+      "cards_multiplier": 0.958182,
+      "fouls_multiplier": 0.977685,
+      "cards_per_foul_multiplier": 0.996133,
+      "red_cards_per_match": 0.16529
+    },
+    "D Sheldrake": {
+      "referee": "D Sheldrake",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.017497,
+      "fouls_multiplier": 1.018727,
+      "cards_per_foul_multiplier": 1.014985,
+      "red_cards_per_match": 0.16667
+    },
+    "D Somers": {
+      "referee": "D Somers",
+      "n_matches_global": 34,
+      "cards_multiplier": 1.015712,
+      "fouls_multiplier": 1.122913,
+      "cards_per_foul_multiplier": 0.908563,
+      "red_cards_per_match": 0.32353
+    },
+    "D Webb": {
+      "referee": "D Webb",
+      "n_matches_global": 252,
+      "cards_multiplier": 0.897664,
+      "fouls_multiplier": 0.929045,
+      "cards_per_foul_multiplier": 0.979288,
+      "red_cards_per_match": 0.10317
+    },
+    "D Whitestone": {
+      "referee": "D Whitestone",
+      "n_matches_global": 213,
+      "cards_multiplier": 0.890938,
+      "fouls_multiplier": 0.96018,
+      "cards_per_foul_multiplier": 0.928352,
+      "red_cards_per_match": 0.0939
+    },
+    "D Williams": {
+      "referee": "D Williams",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.197074,
+      "fouls_multiplier": 1.010092,
+      "cards_per_foul_multiplier": 1.209781,
+      "red_cards_per_match": 0.33333
+    },
+    "D'Urso, A. P.": {
+      "referee": "D'Urso, A. P.",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.935845,
+      "fouls_multiplier": 0.985468,
+      "cards_per_foul_multiplier": 0.937684,
+      "red_cards_per_match": 0.23077
+    },
+    "D. G. McDonald": {
+      "referee": "D. G. McDonald",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.014529,
+      "fouls_multiplier": 1.084185,
+      "cards_per_foul_multiplier": 0.928524,
+      "red_cards_per_match": 0.35714
+    },
+    "D. J. Gallagher": {
+      "referee": "D. J. Gallagher",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.907309,
+      "fouls_multiplier": 0.944865,
+      "cards_per_foul_multiplier": 0.936766,
+      "red_cards_per_match": 0.08333
+    },
+    "D. Messina": {
+      "referee": "D. Messina",
+      "n_matches_global": 34,
+      "cards_multiplier": 1.001454,
+      "fouls_multiplier": 1.019513,
+      "cards_per_foul_multiplier": 0.96599,
+      "red_cards_per_match": 0.17647
+    },
+    "D. Pugh": {
+      "referee": "D. Pugh",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.993152,
+      "fouls_multiplier": 0.984134,
+      "cards_per_foul_multiplier": 0.973239,
+      "red_cards_per_match": 0.22222
+    },
+    "D. R. Elleray": {
+      "referee": "D. R. Elleray",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.056304,
+      "fouls_multiplier": 0.976982,
+      "cards_per_foul_multiplier": 1.07457,
+      "red_cards_per_match": 0.375
+    },
+    "D. Somers": {
+      "referee": "D. Somers",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.024353,
+      "fouls_multiplier": 1.024198,
+      "cards_per_foul_multiplier": 1.003998,
+      "red_cards_per_match": 0.22222
+    },
+    "D. Tombolini": {
+      "referee": "D. Tombolini",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.978915,
+      "fouls_multiplier": 1.00332,
+      "cards_per_foul_multiplier": 0.976126,
+      "red_cards_per_match": 0.2
+    },
+    "Dallas, H.": {
+      "referee": "Dallas, H.",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.896992,
+      "fouls_multiplier": 0.938874,
+      "cards_per_foul_multiplier": 0.995982,
+      "red_cards_per_match": 0.0
+    },
+    "David Crick": {
+      "referee": "David Crick",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.788646,
+      "fouls_multiplier": 0.956348,
+      "cards_per_foul_multiplier": 0.813775,
+      "red_cards_per_match": 0.0
+    },
+    "David Ellaray": {
+      "referee": "David Ellaray",
+      "n_matches_global": 26,
+      "cards_multiplier": 0.953295,
+      "fouls_multiplier": 1.000072,
+      "cards_per_foul_multiplier": 0.954997,
+      "red_cards_per_match": 0.15385
+    },
+    "David Laws": {
+      "referee": "David Laws",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.093446,
+      "fouls_multiplier": 1.014101,
+      "cards_per_foul_multiplier": 1.110388,
+      "red_cards_per_match": 0.2
+    },
+    "David Pugh": {
+      "referee": "David Pugh",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.063865,
+      "fouls_multiplier": 0.901903,
+      "cards_per_foul_multiplier": 1.21571,
+      "red_cards_per_match": 0.0
+    },
+    "David Somers": {
+      "referee": "David Somers",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.030792,
+      "fouls_multiplier": 1.006773,
+      "cards_per_foul_multiplier": 1.081277,
+      "red_cards_per_match": 0.4
+    },
+    "Dean, M. L": {
+      "referee": "Dean, M. L",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.137874,
+      "fouls_multiplier": 0.979271,
+      "cards_per_foul_multiplier": 1.178833,
+      "red_cards_per_match": 0.38462
+    },
+    "Dermot Gallagher": {
+      "referee": "Dermot Gallagher",
+      "n_matches_global": 25,
+      "cards_multiplier": 0.903031,
+      "fouls_multiplier": 0.995917,
+      "cards_per_foul_multiplier": 0.890229,
+      "red_cards_per_match": 0.16
+    },
+    "Detlef Scheppe": {
+      "referee": "Detlef Scheppe",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.024264,
+      "fouls_multiplier": 1.019589,
+      "cards_per_foul_multiplier": 0.952253,
+      "red_cards_per_match": 0.41667
+    },
+    "Dirk Margenberg": {
+      "referee": "Dirk Margenberg",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.989958,
+      "fouls_multiplier": 1.065868,
+      "cards_per_foul_multiplier": 0.920823,
+      "red_cards_per_match": 0.14286
+    },
+    "Dougal, S.": {
+      "referee": "Dougal, S.",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.905454,
+      "fouls_multiplier": 1.001399,
+      "cards_per_foul_multiplier": 0.913093,
+      "red_cards_per_match": 0.21429
+    },
+    "Dougie Smith": {
+      "referee": "Dougie Smith",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.117386,
+      "fouls_multiplier": 1.053456,
+      "cards_per_foul_multiplier": 1.067869,
+      "red_cards_per_match": 0.5
+    },
+    "Douglas McDonald": {
+      "referee": "Douglas McDonald",
+      "n_matches_global": 25,
+      "cards_multiplier": 0.901557,
+      "fouls_multiplier": 1.030213,
+      "cards_per_foul_multiplier": 0.884908,
+      "red_cards_per_match": 0.2
+    },
+    "Dowd, P.": {
+      "referee": "Dowd, P.",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.094895,
+      "fouls_multiplier": 1.118489,
+      "cards_per_foul_multiplier": 0.98156,
+      "red_cards_per_match": 0.4
+    },
+    "Dunn, S. W.": {
+      "referee": "Dunn, S. W.",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.887083,
+      "fouls_multiplier": 0.96406,
+      "cards_per_foul_multiplier": 0.943604,
+      "red_cards_per_match": 0.0
+    },
+    "Durkin, P. A.": {
+      "referee": "Durkin, P. A.",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.90574,
+      "fouls_multiplier": 1.00624,
+      "cards_per_foul_multiplier": 0.902792,
+      "red_cards_per_match": 0.21429
+    },
+    "E Anderson": {
+      "referee": "E Anderson",
+      "n_matches_global": 172,
+      "cards_multiplier": 1.059173,
+      "fouls_multiplier": 0.977592,
+      "cards_per_foul_multiplier": 1.094617,
+      "red_cards_per_match": 0.13372
+    },
+    "E Evans": {
+      "referee": "E Evans",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.970443,
+      "fouls_multiplier": 0.994732,
+      "cards_per_foul_multiplier": 0.964537,
+      "red_cards_per_match": 0.29412
+    },
+    "E Ilderton": {
+      "referee": "E Ilderton",
+      "n_matches_global": 114,
+      "cards_multiplier": 0.907965,
+      "fouls_multiplier": 0.849154,
+      "cards_per_foul_multiplier": 1.052977,
+      "red_cards_per_match": 0.11404
+    },
+    "E Norris": {
+      "referee": "E Norris",
+      "n_matches_global": 58,
+      "cards_multiplier": 1.152136,
+      "fouls_multiplier": 1.031349,
+      "cards_per_foul_multiplier": 1.157619,
+      "red_cards_per_match": 0.17241
+    },
+    "E Smith": {
+      "referee": "E Smith",
+      "n_matches_global": 57,
+      "cards_multiplier": 1.028604,
+      "fouls_multiplier": 0.935547,
+      "cards_per_foul_multiplier": 1.122496,
+      "red_cards_per_match": 0.12281
+    },
+    "E Wolstenholme": {
+      "referee": "E Wolstenholme",
+      "n_matches_global": 19,
+      "cards_multiplier": 0.939425,
+      "fouls_multiplier": 1.02119,
+      "cards_per_foul_multiplier": 0.911036,
+      "red_cards_per_match": 0.10526
+    },
+    "E. K. Wolstenholme": {
+      "referee": "E. K. Wolstenholme",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.164306,
+      "fouls_multiplier": 1.044546,
+      "cards_per_foul_multiplier": 1.12017,
+      "red_cards_per_match": 0.22222
+    },
+    "E. Morganti": {
+      "referee": "E. Morganti",
+      "n_matches_global": 22,
+      "cards_multiplier": 0.99598,
+      "fouls_multiplier": 0.992354,
+      "cards_per_foul_multiplier": 1.00052,
+      "red_cards_per_match": 0.40909
+    },
+    "Eddie Wolstenholme": {
+      "referee": "Eddie Wolstenholme",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.101934,
+      "fouls_multiplier": 0.979872,
+      "cards_per_foul_multiplier": 1.128768,
+      "red_cards_per_match": 0.18182
+    },
+    "Edgar Steinborn": {
+      "referee": "Edgar Steinborn",
+      "n_matches_global": 32,
+      "cards_multiplier": 0.834131,
+      "fouls_multiplier": 1.102004,
+      "cards_per_foul_multiplier": 0.779976,
+      "red_cards_per_match": 0.0625
+    },
+    "Elleray, D. R.": {
+      "referee": "Elleray, D. R.",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.7925,
+      "fouls_multiplier": 0.909199,
+      "cards_per_foul_multiplier": 0.85394,
+      "red_cards_per_match": 0.16667
+    },
+    "Eric Martindale": {
+      "referee": "Eric Martindale",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.984989,
+      "fouls_multiplier": 1.052844,
+      "cards_per_foul_multiplier": 0.975932,
+      "red_cards_per_match": 0.54545
+    },
+    "F Graham": {
+      "referee": "F Graham",
+      "n_matches_global": 70,
+      "cards_multiplier": 0.933666,
+      "fouls_multiplier": 0.881514,
+      "cards_per_foul_multiplier": 1.086998,
+      "red_cards_per_match": 0.12857
+    },
+    "F Stretton": {
+      "referee": "F Stretton",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.914938,
+      "fouls_multiplier": 0.955643,
+      "cards_per_foul_multiplier": 0.979583,
+      "red_cards_per_match": 0.28571
+    },
+    "Fandel, H": {
+      "referee": "Fandel, H",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.063719,
+      "fouls_multiplier": 1.063391,
+      "cards_per_foul_multiplier": 1.00741,
+      "red_cards_per_match": 0.27273
+    },
+    "Fleischer, H": {
+      "referee": "Fleischer, H",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.040855,
+      "fouls_multiplier": 0.997227,
+      "cards_per_foul_multiplier": 1.048508,
+      "red_cards_per_match": 0.33333
+    },
+    "Florian Meyer": {
+      "referee": "Florian Meyer",
+      "n_matches_global": 32,
+      "cards_multiplier": 1.067908,
+      "fouls_multiplier": 0.97801,
+      "cards_per_foul_multiplier": 1.1677,
+      "red_cards_per_match": 0.28125
+    },
+    "Foy, C. J.": {
+      "referee": "Foy, C. J.",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.0349,
+      "fouls_multiplier": 1.04864,
+      "cards_per_foul_multiplier": 1.000707,
+      "red_cards_per_match": 0.25
+    },
+    "Frank Minskowski": {
+      "referee": "Frank Minskowski",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.843261,
+      "fouls_multiplier": 1.056146,
+      "cards_per_foul_multiplier": 0.939614,
+      "red_cards_per_match": 0.09091
+    },
+    "Franz-Xaver Wack": {
+      "referee": "Franz-Xaver Wack",
+      "n_matches_global": 28,
+      "cards_multiplier": 0.98069,
+      "fouls_multiplier": 1.219674,
+      "cards_per_foul_multiplier": 0.836439,
+      "red_cards_per_match": 0.32143
+    },
+    "Frazer Stretton": {
+      "referee": "Frazer Stretton",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.941927,
+      "fouls_multiplier": 0.973568,
+      "cards_per_foul_multiplier": 0.981182,
+      "red_cards_per_match": 0.16667
+    },
+    "Freeland, A.": {
+      "referee": "Freeland, A.",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.089034,
+      "fouls_multiplier": 0.9979,
+      "cards_per_foul_multiplier": 1.099996,
+      "red_cards_per_match": 0.0
+    },
+    "Fr\u00f6hlich, L.-M.": {
+      "referee": "Fr\u00f6hlich, L.-M.",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.001335,
+      "fouls_multiplier": 0.994293,
+      "cards_per_foul_multiplier": 1.010174,
+      "red_cards_per_match": 0.45455
+    },
+    "G Aitken": {
+      "referee": "G Aitken",
+      "n_matches_global": 121,
+      "cards_multiplier": 1.025663,
+      "fouls_multiplier": 0.956709,
+      "cards_per_foul_multiplier": 1.106431,
+      "red_cards_per_match": 0.24793
+    },
+    "G Barber": {
+      "referee": "G Barber",
+      "n_matches_global": 41,
+      "cards_multiplier": 0.924129,
+      "fouls_multiplier": 0.996387,
+      "cards_per_foul_multiplier": 0.938179,
+      "red_cards_per_match": 0.2439
+    },
+    "G Beaton": {
+      "referee": "G Beaton",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.021153,
+      "fouls_multiplier": 0.925217,
+      "cards_per_foul_multiplier": 1.146261,
+      "red_cards_per_match": 0.0
+    },
+    "G Cain": {
+      "referee": "G Cain",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.684757,
+      "fouls_multiplier": 0.765637,
+      "cards_per_foul_multiplier": 0.887173,
+      "red_cards_per_match": 0.04762
+    },
+    "G Duncan": {
+      "referee": "G Duncan",
+      "n_matches_global": 87,
+      "cards_multiplier": 1.0147,
+      "fouls_multiplier": 1.038148,
+      "cards_per_foul_multiplier": 0.999834,
+      "red_cards_per_match": 0.18391
+    },
+    "G Eltrigham": {
+      "referee": "G Eltrigham",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.953826,
+      "fouls_multiplier": 1.014834,
+      "cards_per_foul_multiplier": 0.926354,
+      "red_cards_per_match": 0.18182
+    },
+    "G Eltringham": {
+      "referee": "G Eltringham",
+      "n_matches_global": 230,
+      "cards_multiplier": 0.990019,
+      "fouls_multiplier": 1.027522,
+      "cards_per_foul_multiplier": 0.958992,
+      "red_cards_per_match": 0.14348
+    },
+    "G Grainger": {
+      "referee": "G Grainger",
+      "n_matches_global": 41,
+      "cards_multiplier": 0.975854,
+      "fouls_multiplier": 0.965593,
+      "cards_per_foul_multiplier": 1.021668,
+      "red_cards_per_match": 0.17073
+    },
+    "G Hegley": {
+      "referee": "G Hegley",
+      "n_matches_global": 75,
+      "cards_multiplier": 0.703925,
+      "fouls_multiplier": 0.959305,
+      "cards_per_foul_multiplier": 0.731366,
+      "red_cards_per_match": 0.06667
+    },
+    "G Horwood": {
+      "referee": "G Horwood",
+      "n_matches_global": 20,
+      "cards_multiplier": 1.020458,
+      "fouls_multiplier": 1.045205,
+      "cards_per_foul_multiplier": 0.983845,
+      "red_cards_per_match": 0.15
+    },
+    "G Irvine": {
+      "referee": "G Irvine",
+      "n_matches_global": 82,
+      "cards_multiplier": 0.849122,
+      "fouls_multiplier": 0.984151,
+      "cards_per_foul_multiplier": 0.873301,
+      "red_cards_per_match": 0.15854
+    },
+    "G Laws": {
+      "referee": "G Laws",
+      "n_matches_global": 95,
+      "cards_multiplier": 0.991081,
+      "fouls_multiplier": 1.030021,
+      "cards_per_foul_multiplier": 0.978769,
+      "red_cards_per_match": 0.13684
+    },
+    "G Poll": {
+      "referee": "G Poll",
+      "n_matches_global": 149,
+      "cards_multiplier": 1.06113,
+      "fouls_multiplier": 1.06261,
+      "cards_per_foul_multiplier": 0.994533,
+      "red_cards_per_match": 0.11409
+    },
+    "G Ross": {
+      "referee": "G Ross",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.062525,
+      "fouls_multiplier": 0.990147,
+      "cards_per_foul_multiplier": 1.093229,
+      "red_cards_per_match": 0.23077
+    },
+    "G Salisbury": {
+      "referee": "G Salisbury",
+      "n_matches_global": 129,
+      "cards_multiplier": 1.073941,
+      "fouls_multiplier": 0.94084,
+      "cards_per_foul_multiplier": 1.147423,
+      "red_cards_per_match": 0.11628
+    },
+    "G Salmond": {
+      "referee": "G Salmond",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.902744,
+      "fouls_multiplier": 1.018782,
+      "cards_per_foul_multiplier": 0.903098,
+      "red_cards_per_match": 0.29412
+    },
+    "G Scott": {
+      "referee": "G Scott",
+      "n_matches_global": 238,
+      "cards_multiplier": 0.971036,
+      "fouls_multiplier": 0.974893,
+      "cards_per_foul_multiplier": 0.997163,
+      "red_cards_per_match": 0.16807
+    },
+    "G Sutton": {
+      "referee": "G Sutton",
+      "n_matches_global": 25,
+      "cards_multiplier": 1.010405,
+      "fouls_multiplier": 0.996913,
+      "cards_per_foul_multiplier": 0.985803,
+      "red_cards_per_match": 0.24
+    },
+    "G Ward": {
+      "referee": "G Ward",
+      "n_matches_global": 221,
+      "cards_multiplier": 1.012808,
+      "fouls_multiplier": 0.989581,
+      "cards_per_foul_multiplier": 1.042035,
+      "red_cards_per_match": 0.17195
+    },
+    "G. Gava": {
+      "referee": "G. Gava",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.96289,
+      "fouls_multiplier": 0.987966,
+      "cards_per_foul_multiplier": 1.021125,
+      "red_cards_per_match": 0.38462
+    },
+    "G. P. Barber": {
+      "referee": "G. P. Barber",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.118114,
+      "fouls_multiplier": 1.014825,
+      "cards_per_foul_multiplier": 1.091095,
+      "red_cards_per_match": 0.30769
+    },
+    "G. Paparesta": {
+      "referee": "G. Paparesta",
+      "n_matches_global": 29,
+      "cards_multiplier": 1.009244,
+      "fouls_multiplier": 1.108152,
+      "cards_per_foul_multiplier": 0.937285,
+      "red_cards_per_match": 0.27586
+    },
+    "G. Poll": {
+      "referee": "G. Poll",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.916835,
+      "fouls_multiplier": 0.995936,
+      "cards_per_foul_multiplier": 0.965589,
+      "red_cards_per_match": 0.30769
+    },
+    "G. Rocchi": {
+      "referee": "G. Rocchi",
+      "n_matches_global": 29,
+      "cards_multiplier": 1.097519,
+      "fouls_multiplier": 1.03597,
+      "cards_per_foul_multiplier": 1.085946,
+      "red_cards_per_match": 0.48276
+    },
+    "Gagelmann, P": {
+      "referee": "Gagelmann, P",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.06303,
+      "fouls_multiplier": 1.078812,
+      "cards_per_foul_multiplier": 1.034686,
+      "red_cards_per_match": 0.0
+    },
+    "Gallagher, D. J.": {
+      "referee": "Gallagher, D. J.",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.032333,
+      "fouls_multiplier": 0.97087,
+      "cards_per_foul_multiplier": 1.057962,
+      "red_cards_per_match": 0.16667
+    },
+    "Gary Mitchell": {
+      "referee": "Gary Mitchell",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.86138,
+      "fouls_multiplier": 0.928623,
+      "cards_per_foul_multiplier": 0.908668,
+      "red_cards_per_match": 0.28571
+    },
+    "George Cain": {
+      "referee": "George Cain",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.921952,
+      "fouls_multiplier": 0.936991,
+      "cards_per_foul_multiplier": 1.074435,
+      "red_cards_per_match": 0.1
+    },
+    "George Clyde": {
+      "referee": "George Clyde",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.853425,
+      "fouls_multiplier": 1.004828,
+      "cards_per_foul_multiplier": 0.85414,
+      "red_cards_per_match": 0.42857
+    },
+    "Graham Barber": {
+      "referee": "Graham Barber",
+      "n_matches_global": 23,
+      "cards_multiplier": 1.26713,
+      "fouls_multiplier": 1.18038,
+      "cards_per_foul_multiplier": 1.067732,
+      "red_cards_per_match": 0.08696
+    },
+    "Graham Frankland": {
+      "referee": "Graham Frankland",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.010875,
+      "fouls_multiplier": 1.054954,
+      "cards_per_foul_multiplier": 0.971981,
+      "red_cards_per_match": 0.0
+    },
+    "Graham Laws": {
+      "referee": "Graham Laws",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.011045,
+      "fouls_multiplier": 1.086832,
+      "cards_per_foul_multiplier": 0.951406,
+      "red_cards_per_match": 0.2
+    },
+    "Graham Poll": {
+      "referee": "Graham Poll",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.007598,
+      "fouls_multiplier": 1.10205,
+      "cards_per_foul_multiplier": 0.924794,
+      "red_cards_per_match": 0.46154
+    },
+    "G\u00fcnter Perl": {
+      "referee": "G\u00fcnter Perl",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.989038,
+      "fouls_multiplier": 0.901528,
+      "cards_per_foul_multiplier": 1.115695,
+      "red_cards_per_match": 0.42857
+    },
+    "H Dallas": {
+      "referee": "H Dallas",
+      "n_matches_global": 58,
+      "cards_multiplier": 1.015899,
+      "fouls_multiplier": 1.001972,
+      "cards_per_foul_multiplier": 0.995876,
+      "red_cards_per_match": 0.12069
+    },
+    "H Webb": {
+      "referee": "H Webb",
+      "n_matches_global": 335,
+      "cards_multiplier": 1.066411,
+      "fouls_multiplier": 1.017486,
+      "cards_per_foul_multiplier": 1.046174,
+      "red_cards_per_match": 0.11343
+    },
+    "H. Dallas": {
+      "referee": "H. Dallas",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.957905,
+      "fouls_multiplier": 0.924591,
+      "cards_per_foul_multiplier": 1.034231,
+      "red_cards_per_match": 0.2
+    },
+    "Halsey, M. R.": {
+      "referee": "Halsey, M. R.",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.93801,
+      "fouls_multiplier": 0.981431,
+      "cards_per_foul_multiplier": 0.967573,
+      "red_cards_per_match": 0.14286
+    },
+    "Hartmut Strampe": {
+      "referee": "Hartmut Strampe",
+      "n_matches_global": 27,
+      "cards_multiplier": 1.064785,
+      "fouls_multiplier": 1.018704,
+      "cards_per_foul_multiplier": 1.089415,
+      "red_cards_per_match": 0.59259
+    },
+    "Hellmut Krug": {
+      "referee": "Hellmut Krug",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.065235,
+      "fouls_multiplier": 1.072547,
+      "cards_per_foul_multiplier": 0.995705,
+      "red_cards_per_match": 0.33333
+    },
+    "Helmut Fleischer": {
+      "referee": "Helmut Fleischer",
+      "n_matches_global": 33,
+      "cards_multiplier": 0.843765,
+      "fouls_multiplier": 1.05193,
+      "cards_per_foul_multiplier": 0.828141,
+      "red_cards_per_match": 0.12121
+    },
+    "Helmut Krug": {
+      "referee": "Helmut Krug",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.995639,
+      "fouls_multiplier": 1.082937,
+      "cards_per_foul_multiplier": 0.973142,
+      "red_cards_per_match": 0.25
+    },
+    "Herbert Fandel": {
+      "referee": "Herbert Fandel",
+      "n_matches_global": 35,
+      "cards_multiplier": 1.003481,
+      "fouls_multiplier": 1.092318,
+      "cards_per_foul_multiplier": 0.933627,
+      "red_cards_per_match": 0.28571
+    },
+    "Hermann Albrecht": {
+      "referee": "Hermann Albrecht",
+      "n_matches_global": 28,
+      "cards_multiplier": 1.093425,
+      "fouls_multiplier": 1.039189,
+      "cards_per_foul_multiplier": 1.093612,
+      "red_cards_per_match": 0.10714
+    },
+    "Hugh Dallas": {
+      "referee": "Hugh Dallas",
+      "n_matches_global": 26,
+      "cards_multiplier": 0.901092,
+      "fouls_multiplier": 1.015886,
+      "cards_per_foul_multiplier": 0.92782,
+      "red_cards_per_match": 0.23077
+    },
+    "I Brines": {
+      "referee": "I Brines",
+      "n_matches_global": 181,
+      "cards_multiplier": 1.031077,
+      "fouls_multiplier": 1.012145,
+      "cards_per_foul_multiplier": 1.030663,
+      "red_cards_per_match": 0.16022
+    },
+    "I Fyfe": {
+      "referee": "I Fyfe",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.05186,
+      "fouls_multiplier": 1.12799,
+      "cards_per_foul_multiplier": 0.932821,
+      "red_cards_per_match": 0.11538
+    },
+    "I Snedden": {
+      "referee": "I Snedden",
+      "n_matches_global": 30,
+      "cards_multiplier": 1.020173,
+      "fouls_multiplier": 0.981903,
+      "cards_per_foul_multiplier": 1.059951,
+      "red_cards_per_match": 0.26667
+    },
+    "I Williamson": {
+      "referee": "I Williamson",
+      "n_matches_global": 116,
+      "cards_multiplier": 1.27642,
+      "fouls_multiplier": 1.10896,
+      "cards_per_foul_multiplier": 1.177812,
+      "red_cards_per_match": 0.24138
+    },
+    "I. M. Fyfe": {
+      "referee": "I. M. Fyfe",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.200846,
+      "fouls_multiplier": 1.172311,
+      "cards_per_foul_multiplier": 0.997271,
+      "red_cards_per_match": 0.27273
+    },
+    "J Adcock": {
+      "referee": "J Adcock",
+      "n_matches_global": 61,
+      "cards_multiplier": 0.963322,
+      "fouls_multiplier": 0.99,
+      "cards_per_foul_multiplier": 0.980784,
+      "red_cards_per_match": 0.11475
+    },
+    "J Beaton": {
+      "referee": "J Beaton",
+      "n_matches_global": 269,
+      "cards_multiplier": 1.037308,
+      "fouls_multiplier": 1.003769,
+      "cards_per_foul_multiplier": 1.053587,
+      "red_cards_per_match": 0.16729
+    },
+    "J Bell": {
+      "referee": "J Bell",
+      "n_matches_global": 42,
+      "cards_multiplier": 0.966402,
+      "fouls_multiplier": 0.948419,
+      "cards_per_foul_multiplier": 1.007277,
+      "red_cards_per_match": 0.16667
+    },
+    "J Brooks": {
+      "referee": "J Brooks",
+      "n_matches_global": 156,
+      "cards_multiplier": 1.117455,
+      "fouls_multiplier": 1.009716,
+      "cards_per_foul_multiplier": 1.109153,
+      "red_cards_per_match": 0.10256
+    },
+    "J Busby": {
+      "referee": "J Busby",
+      "n_matches_global": 87,
+      "cards_multiplier": 0.997416,
+      "fouls_multiplier": 0.963946,
+      "cards_per_foul_multiplier": 1.048313,
+      "red_cards_per_match": 0.06897
+    },
+    "J Gillett": {
+      "referee": "J Gillett",
+      "n_matches_global": 120,
+      "cards_multiplier": 0.982077,
+      "fouls_multiplier": 0.938127,
+      "cards_per_foul_multiplier": 1.026837,
+      "red_cards_per_match": 0.09167
+    },
+    "J Linington": {
+      "referee": "J Linington",
+      "n_matches_global": 290,
+      "cards_multiplier": 1.051814,
+      "fouls_multiplier": 1.039729,
+      "cards_per_foul_multiplier": 1.025746,
+      "red_cards_per_match": 0.13793
+    },
+    "J McKendrick": {
+      "referee": "J McKendrick",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.899492,
+      "fouls_multiplier": 0.959472,
+      "cards_per_foul_multiplier": 0.923733,
+      "red_cards_per_match": 0.11765
+    },
+    "J Moss": {
+      "referee": "J Moss",
+      "n_matches_global": 364,
+      "cards_multiplier": 1.021336,
+      "fouls_multiplier": 0.981168,
+      "cards_per_foul_multiplier": 1.049345,
+      "red_cards_per_match": 0.16758
+    },
+    "J P Robinson": {
+      "referee": "J P Robinson",
+      "n_matches_global": 25,
+      "cards_multiplier": 0.921092,
+      "fouls_multiplier": 0.976408,
+      "cards_per_foul_multiplier": 0.963168,
+      "red_cards_per_match": 0.28
+    },
+    "J Ross": {
+      "referee": "J Ross",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.922913,
+      "fouls_multiplier": 1.052499,
+      "cards_per_foul_multiplier": 0.87455,
+      "red_cards_per_match": 0.14286
+    },
+    "J Rowbotham": {
+      "referee": "J Rowbotham",
+      "n_matches_global": 52,
+      "cards_multiplier": 1.035566,
+      "fouls_multiplier": 0.940544,
+      "cards_per_foul_multiplier": 1.082289,
+      "red_cards_per_match": 0.25
+    },
+    "J Simpson": {
+      "referee": "J Simpson",
+      "n_matches_global": 228,
+      "cards_multiplier": 1.022353,
+      "fouls_multiplier": 1.039755,
+      "cards_per_foul_multiplier": 0.990635,
+      "red_cards_per_match": 0.16667
+    },
+    "J Singh": {
+      "referee": "J Singh",
+      "n_matches_global": 23,
+      "cards_multiplier": 1.111292,
+      "fouls_multiplier": 1.043459,
+      "cards_per_foul_multiplier": 1.0679,
+      "red_cards_per_match": 0.21739
+    },
+    "J Smith": {
+      "referee": "J Smith",
+      "n_matches_global": 109,
+      "cards_multiplier": 1.043318,
+      "fouls_multiplier": 1.022653,
+      "cards_per_foul_multiplier": 1.033876,
+      "red_cards_per_match": 0.12844
+    },
+    "J Underhill": {
+      "referee": "J Underhill",
+      "n_matches_global": 80,
+      "cards_multiplier": 0.898362,
+      "fouls_multiplier": 0.920988,
+      "cards_per_foul_multiplier": 0.982772,
+      "red_cards_per_match": 0.25
+    },
+    "J Waugh": {
+      "referee": "J Waugh",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.93889,
+      "fouls_multiplier": 0.966297,
+      "cards_per_foul_multiplier": 0.966998,
+      "red_cards_per_match": 0.22222
+    },
+    "J Winter": {
+      "referee": "J Winter",
+      "n_matches_global": 52,
+      "cards_multiplier": 0.713193,
+      "fouls_multiplier": 0.937929,
+      "cards_per_foul_multiplier": 0.799628,
+      "red_cards_per_match": 0.05769
+    },
+    "J. R. Underhill": {
+      "referee": "J. R. Underhill",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.107997,
+      "fouls_multiplier": 0.984466,
+      "cards_per_foul_multiplier": 1.161332,
+      "red_cards_per_match": 0.38462
+    },
+    "J. T. Winter": {
+      "referee": "J. T. Winter",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.051371,
+      "fouls_multiplier": 1.054548,
+      "cards_per_foul_multiplier": 1.008682,
+      "red_cards_per_match": 0.18182
+    },
+    "Jansen, J": {
+      "referee": "Jansen, J",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.878611,
+      "fouls_multiplier": 1.028707,
+      "cards_per_foul_multiplier": 0.871882,
+      "red_cards_per_match": 0.0
+    },
+    "Jeff Winter": {
+      "referee": "Jeff Winter",
+      "n_matches_global": 26,
+      "cards_multiplier": 0.955911,
+      "fouls_multiplier": 0.944871,
+      "cards_per_foul_multiplier": 1.030506,
+      "red_cards_per_match": 0.11538
+    },
+    "John Brandwood": {
+      "referee": "John Brandwood",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.879226,
+      "fouls_multiplier": 1.020118,
+      "cards_per_foul_multiplier": 0.888594,
+      "red_cards_per_match": 0.1
+    },
+    "John Fleming": {
+      "referee": "John Fleming",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.030005,
+      "fouls_multiplier": 1.051351,
+      "cards_per_foul_multiplier": 0.978667,
+      "red_cards_per_match": 0.61538
+    },
+    "John Rowbotham": {
+      "referee": "John Rowbotham",
+      "n_matches_global": 29,
+      "cards_multiplier": 0.988551,
+      "fouls_multiplier": 1.054079,
+      "cards_per_foul_multiplier": 0.927332,
+      "red_cards_per_match": 0.27586
+    },
+    "John Underhill": {
+      "referee": "John Underhill",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.758116,
+      "fouls_multiplier": 0.921716,
+      "cards_per_foul_multiplier": 0.820815,
+      "red_cards_per_match": 0.26087
+    },
+    "Jones, P.": {
+      "referee": "Jones, P.",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.992388,
+      "fouls_multiplier": 1.015675,
+      "cards_per_foul_multiplier": 0.964198,
+      "red_cards_per_match": 0.11111
+    },
+    "J\u00f6rg Kessler": {
+      "referee": "J\u00f6rg Kessler",
+      "n_matches_global": 28,
+      "cards_multiplier": 1.138048,
+      "fouls_multiplier": 1.020833,
+      "cards_per_foul_multiplier": 1.213556,
+      "red_cards_per_match": 0.46429
+    },
+    "J\u00fcrgen Aust": {
+      "referee": "J\u00fcrgen Aust",
+      "n_matches_global": 33,
+      "cards_multiplier": 1.092871,
+      "fouls_multiplier": 1.035177,
+      "cards_per_foul_multiplier": 1.164181,
+      "red_cards_per_match": 0.24242
+    },
+    "J\u00fcrgen Jansen": {
+      "referee": "J\u00fcrgen Jansen",
+      "n_matches_global": 30,
+      "cards_multiplier": 0.876773,
+      "fouls_multiplier": 1.045891,
+      "cards_per_foul_multiplier": 0.946098,
+      "red_cards_per_match": 0.16667
+    },
+    "K Clancy": {
+      "referee": "K Clancy",
+      "n_matches_global": 250,
+      "cards_multiplier": 1.164985,
+      "fouls_multiplier": 1.006882,
+      "cards_per_foul_multiplier": 1.161526,
+      "red_cards_per_match": 0.16
+    },
+    "K Clark": {
+      "referee": "K Clark",
+      "n_matches_global": 90,
+      "cards_multiplier": 1.05299,
+      "fouls_multiplier": 1.044385,
+      "cards_per_foul_multiplier": 0.995999,
+      "red_cards_per_match": 0.16667
+    },
+    "K Clarke": {
+      "referee": "K Clarke",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.971931,
+      "fouls_multiplier": 1.04071,
+      "cards_per_foul_multiplier": 0.935761,
+      "red_cards_per_match": 0.08333
+    },
+    "K Evans": {
+      "referee": "K Evans",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.044166,
+      "fouls_multiplier": 0.982279,
+      "cards_per_foul_multiplier": 1.069756,
+      "red_cards_per_match": 0.09091
+    },
+    "K Friend": {
+      "referee": "K Friend",
+      "n_matches_global": 405,
+      "cards_multiplier": 1.028946,
+      "fouls_multiplier": 1.006842,
+      "cards_per_foul_multiplier": 1.021006,
+      "red_cards_per_match": 0.13827
+    },
+    "K Hill": {
+      "referee": "K Hill",
+      "n_matches_global": 109,
+      "cards_multiplier": 1.144207,
+      "fouls_multiplier": 1.071304,
+      "cards_per_foul_multiplier": 1.111044,
+      "red_cards_per_match": 0.18349
+    },
+    "K Stroud": {
+      "referee": "K Stroud",
+      "n_matches_global": 393,
+      "cards_multiplier": 1.186533,
+      "fouls_multiplier": 1.088744,
+      "cards_per_foul_multiplier": 1.091385,
+      "red_cards_per_match": 0.14504
+    },
+    "K Toner": {
+      "referee": "K Toner",
+      "n_matches_global": 25,
+      "cards_multiplier": 0.881521,
+      "fouls_multiplier": 0.97304,
+      "cards_per_foul_multiplier": 0.892245,
+      "red_cards_per_match": 0.04
+    },
+    "K Wright": {
+      "referee": "K Wright",
+      "n_matches_global": 98,
+      "cards_multiplier": 0.940549,
+      "fouls_multiplier": 1.112207,
+      "cards_per_foul_multiplier": 0.844427,
+      "red_cards_per_match": 0.21429
+    },
+    "K. E. Toner": {
+      "referee": "K. E. Toner",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.949956,
+      "fouls_multiplier": 1.004447,
+      "cards_per_foul_multiplier": 0.937428,
+      "red_cards_per_match": 0.3
+    },
+    "K. W. Clark": {
+      "referee": "K. W. Clark",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.079775,
+      "fouls_multiplier": 1.100213,
+      "cards_per_foul_multiplier": 0.983281,
+      "red_cards_per_match": 0.1
+    },
+    "Kai Voss": {
+      "referee": "Kai Voss",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.163852,
+      "fouls_multiplier": 1.088736,
+      "cards_per_foul_multiplier": 1.029506,
+      "red_cards_per_match": 0.08333
+    },
+    "Keith Hill": {
+      "referee": "Keith Hill",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.987678,
+      "fouls_multiplier": 1.043064,
+      "cards_per_foul_multiplier": 0.969848,
+      "red_cards_per_match": 0.2
+    },
+    "Kemmling, U": {
+      "referee": "Kemmling, U",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.109862,
+      "fouls_multiplier": 1.010492,
+      "cards_per_foul_multiplier": 1.086134,
+      "red_cards_per_match": 0.55556
+    },
+    "Kenny Clark": {
+      "referee": "Kenny Clark",
+      "n_matches_global": 23,
+      "cards_multiplier": 1.021926,
+      "fouls_multiplier": 1.108601,
+      "cards_per_foul_multiplier": 0.901013,
+      "red_cards_per_match": 0.43478
+    },
+    "Kevin Toner": {
+      "referee": "Kevin Toner",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.918356,
+      "fouls_multiplier": 0.942201,
+      "cards_per_foul_multiplier": 1.004192,
+      "red_cards_per_match": 0.29412
+    },
+    "Knight, B.": {
+      "referee": "Knight, B.",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.069626,
+      "fouls_multiplier": 1.013243,
+      "cards_per_foul_multiplier": 1.048969,
+      "red_cards_per_match": 0.07692
+    },
+    "Knut Kircher": {
+      "referee": "Knut Kircher",
+      "n_matches_global": 16,
+      "cards_multiplier": 0.824057,
+      "fouls_multiplier": 0.982296,
+      "cards_per_foul_multiplier": 0.864382,
+      "red_cards_per_match": 0.0625
+    },
+    "Koop, T": {
+      "referee": "Koop, T",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.957367,
+      "fouls_multiplier": 0.987307,
+      "cards_per_foul_multiplier": 0.952672,
+      "red_cards_per_match": 0.4
+    },
+    "Krug, H": {
+      "referee": "Krug, H",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.983704,
+      "fouls_multiplier": 0.994337,
+      "cards_per_foul_multiplier": 0.994204,
+      "red_cards_per_match": 0.23077
+    },
+    "L Cable": {
+      "referee": "L Cable",
+      "n_matches_global": 20,
+      "cards_multiplier": 0.938682,
+      "fouls_multiplier": 1.032783,
+      "cards_per_foul_multiplier": 0.909945,
+      "red_cards_per_match": 0.1
+    },
+    "L Doughty": {
+      "referee": "L Doughty",
+      "n_matches_global": 88,
+      "cards_multiplier": 1.131632,
+      "fouls_multiplier": 1.008194,
+      "cards_per_foul_multiplier": 1.141936,
+      "red_cards_per_match": 0.13636
+    },
+    "L Mason": {
+      "referee": "L Mason",
+      "n_matches_global": 401,
+      "cards_multiplier": 1.002122,
+      "fouls_multiplier": 1.003236,
+      "cards_per_foul_multiplier": 1.015398,
+      "red_cards_per_match": 0.12968
+    },
+    "L Probert": {
+      "referee": "L Probert",
+      "n_matches_global": 300,
+      "cards_multiplier": 0.934562,
+      "fouls_multiplier": 0.973221,
+      "cards_per_foul_multiplier": 0.958493,
+      "red_cards_per_match": 0.18
+    },
+    "L Smith": {
+      "referee": "L Smith",
+      "n_matches_global": 27,
+      "cards_multiplier": 0.923359,
+      "fouls_multiplier": 0.995303,
+      "cards_per_foul_multiplier": 0.959129,
+      "red_cards_per_match": 0.14815
+    },
+    "L Wilson": {
+      "referee": "L Wilson",
+      "n_matches_global": 25,
+      "cards_multiplier": 1.196347,
+      "fouls_multiplier": 0.977354,
+      "cards_per_foul_multiplier": 1.241271,
+      "red_cards_per_match": 0.28
+    },
+    "L. Banti": {
+      "referee": "L. Banti",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.044503,
+      "fouls_multiplier": 0.919609,
+      "cards_per_foul_multiplier": 1.171875,
+      "red_cards_per_match": 0.44444
+    },
+    "L. Marelli": {
+      "referee": "L. Marelli",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.891886,
+      "fouls_multiplier": 1.016014,
+      "cards_per_foul_multiplier": 0.927871,
+      "red_cards_per_match": 0.55556
+    },
+    "L. Palanca": {
+      "referee": "L. Palanca",
+      "n_matches_global": 18,
+      "cards_multiplier": 1.03299,
+      "fouls_multiplier": 1.044063,
+      "cards_per_foul_multiplier": 1.001624,
+      "red_cards_per_match": 0.61111
+    },
+    "Leake, A. R.": {
+      "referee": "Leake, A. R.",
+      "n_matches_global": 8,
+      "cards_multiplier": 0.931145,
+      "fouls_multiplier": 0.987477,
+      "cards_per_foul_multiplier": 0.946079,
+      "red_cards_per_match": 0.125
+    },
+    "Lutz Michael Fr\u00f6hlich": {
+      "referee": "Lutz Michael Fr\u00f6hlich",
+      "n_matches_global": 30,
+      "cards_multiplier": 0.949465,
+      "fouls_multiplier": 1.030784,
+      "cards_per_foul_multiplier": 0.943284,
+      "red_cards_per_match": 0.23333
+    },
+    "Lutz Wagner": {
+      "referee": "Lutz Wagner",
+      "n_matches_global": 32,
+      "cards_multiplier": 1.033091,
+      "fouls_multiplier": 1.122582,
+      "cards_per_foul_multiplier": 0.933864,
+      "red_cards_per_match": 0.46875
+    },
+    "M Atkinson": {
+      "referee": "M Atkinson",
+      "n_matches_global": 509,
+      "cards_multiplier": 0.999417,
+      "fouls_multiplier": 0.984711,
+      "cards_per_foul_multiplier": 1.027479,
+      "red_cards_per_match": 0.14538
+    },
+    "M Brown": {
+      "referee": "M Brown",
+      "n_matches_global": 37,
+      "cards_multiplier": 1.00849,
+      "fouls_multiplier": 1.063984,
+      "cards_per_foul_multiplier": 0.960488,
+      "red_cards_per_match": 0.10811
+    },
+    "M Bull": {
+      "referee": "M Bull",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.025109,
+      "fouls_multiplier": 1.024444,
+      "cards_per_foul_multiplier": 0.993769,
+      "red_cards_per_match": 0.27273
+    },
+    "M Clattenburg": {
+      "referee": "M Clattenburg",
+      "n_matches_global": 351,
+      "cards_multiplier": 1.039281,
+      "fouls_multiplier": 0.981215,
+      "cards_per_foul_multiplier": 1.065667,
+      "red_cards_per_match": 0.17094
+    },
+    "M Cooper": {
+      "referee": "M Cooper",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.248878,
+      "fouls_multiplier": 1.07229,
+      "cards_per_foul_multiplier": 1.156144,
+      "red_cards_per_match": 0.35714
+    },
+    "M Cowburn": {
+      "referee": "M Cowburn",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.13101,
+      "fouls_multiplier": 1.046892,
+      "cards_per_foul_multiplier": 1.115037,
+      "red_cards_per_match": 0.4
+    },
+    "M Dean": {
+      "referee": "M Dean",
+      "n_matches_global": 595,
+      "cards_multiplier": 1.160972,
+      "fouls_multiplier": 0.994276,
+      "cards_per_foul_multiplier": 1.173307,
+      "red_cards_per_match": 0.21008
+    },
+    "M Donohue": {
+      "referee": "M Donohue",
+      "n_matches_global": 154,
+      "cards_multiplier": 1.072785,
+      "fouls_multiplier": 1.04805,
+      "cards_per_foul_multiplier": 1.029531,
+      "red_cards_per_match": 0.15584
+    },
+    "M Fletcher": {
+      "referee": "M Fletcher",
+      "n_matches_global": 30,
+      "cards_multiplier": 1.298824,
+      "fouls_multiplier": 1.061024,
+      "cards_per_foul_multiplier": 1.229168,
+      "red_cards_per_match": 0.06667
+    },
+    "M Halsey": {
+      "referee": "M Halsey",
+      "n_matches_global": 280,
+      "cards_multiplier": 0.690337,
+      "fouls_multiplier": 0.90688,
+      "cards_per_foul_multiplier": 0.764653,
+      "red_cards_per_match": 0.10357
+    },
+    "M Haywood": {
+      "referee": "M Haywood",
+      "n_matches_global": 82,
+      "cards_multiplier": 0.80053,
+      "fouls_multiplier": 0.891439,
+      "cards_per_foul_multiplier": 0.900552,
+      "red_cards_per_match": 0.09756
+    },
+    "M Heywood": {
+      "referee": "M Heywood",
+      "n_matches_global": 19,
+      "cards_multiplier": 1.09488,
+      "fouls_multiplier": 1.026373,
+      "cards_per_foul_multiplier": 1.059392,
+      "red_cards_per_match": 0.05263
+    },
+    "M Jones": {
+      "referee": "M Jones",
+      "n_matches_global": 347,
+      "cards_multiplier": 1.027072,
+      "fouls_multiplier": 1.053627,
+      "cards_per_foul_multiplier": 0.976578,
+      "red_cards_per_match": 0.1585
+    },
+    "M MacDermid": {
+      "referee": "M MacDermid",
+      "n_matches_global": 65,
+      "cards_multiplier": 0.991629,
+      "fouls_multiplier": 0.926129,
+      "cards_per_foul_multiplier": 1.0809,
+      "red_cards_per_match": 0.12308
+    },
+    "M McCurry": {
+      "referee": "M McCurry",
+      "n_matches_global": 118,
+      "cards_multiplier": 0.871357,
+      "fouls_multiplier": 1.000773,
+      "cards_per_foul_multiplier": 0.869017,
+      "red_cards_per_match": 0.15254
+    },
+    "M Messias": {
+      "referee": "M Messias",
+      "n_matches_global": 58,
+      "cards_multiplier": 1.159134,
+      "fouls_multiplier": 1.006644,
+      "cards_per_foul_multiplier": 1.148012,
+      "red_cards_per_match": 0.12069
+    },
+    "M Naylor": {
+      "referee": "M Naylor",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.051227,
+      "fouls_multiplier": 1.063383,
+      "cards_per_foul_multiplier": 0.976597,
+      "red_cards_per_match": 0.07692
+    },
+    "M Oliver": {
+      "referee": "M Oliver",
+      "n_matches_global": 441,
+      "cards_multiplier": 0.973993,
+      "fouls_multiplier": 1.018941,
+      "cards_per_foul_multiplier": 0.969844,
+      "red_cards_per_match": 0.14059
+    },
+    "M Pike": {
+      "referee": "M Pike",
+      "n_matches_global": 62,
+      "cards_multiplier": 0.79382,
+      "fouls_multiplier": 0.8093,
+      "cards_per_foul_multiplier": 1.003902,
+      "red_cards_per_match": 0.08065
+    },
+    "M Riley": {
+      "referee": "M Riley",
+      "n_matches_global": 187,
+      "cards_multiplier": 1.194721,
+      "fouls_multiplier": 1.136439,
+      "cards_per_foul_multiplier": 1.048834,
+      "red_cards_per_match": 0.24064
+    },
+    "M Ritchie": {
+      "referee": "M Ritchie",
+      "n_matches_global": 18,
+      "cards_multiplier": 0.895325,
+      "fouls_multiplier": 0.998329,
+      "cards_per_foul_multiplier": 0.902348,
+      "red_cards_per_match": 0.05556
+    },
+    "M Roncone": {
+      "referee": "M Roncone",
+      "n_matches_global": 29,
+      "cards_multiplier": 0.914438,
+      "fouls_multiplier": 0.977793,
+      "cards_per_foul_multiplier": 0.921112,
+      "red_cards_per_match": 0.2069
+    },
+    "M Russell": {
+      "referee": "M Russell",
+      "n_matches_global": 94,
+      "cards_multiplier": 0.834804,
+      "fouls_multiplier": 0.877133,
+      "cards_per_foul_multiplier": 0.97492,
+      "red_cards_per_match": 0.14894
+    },
+    "M Ryan": {
+      "referee": "M Ryan",
+      "n_matches_global": 29,
+      "cards_multiplier": 1.075815,
+      "fouls_multiplier": 0.979664,
+      "cards_per_foul_multiplier": 1.121338,
+      "red_cards_per_match": 0.2069
+    },
+    "M Salisbury": {
+      "referee": "M Salisbury",
+      "n_matches_global": 89,
+      "cards_multiplier": 0.943495,
+      "fouls_multiplier": 1.013373,
+      "cards_per_foul_multiplier": 0.949251,
+      "red_cards_per_match": 0.17978
+    },
+    "M Thorpe": {
+      "referee": "M Thorpe",
+      "n_matches_global": 60,
+      "cards_multiplier": 0.992663,
+      "fouls_multiplier": 1.044808,
+      "cards_per_foul_multiplier": 0.954746,
+      "red_cards_per_match": 0.18333
+    },
+    "M Tumilty": {
+      "referee": "M Tumilty",
+      "n_matches_global": 65,
+      "cards_multiplier": 1.025793,
+      "fouls_multiplier": 0.951302,
+      "cards_per_foul_multiplier": 1.100264,
+      "red_cards_per_match": 0.15385
+    },
+    "M Warren": {
+      "referee": "M Warren",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.165601,
+      "fouls_multiplier": 1.041378,
+      "cards_per_foul_multiplier": 1.116145,
+      "red_cards_per_match": 0.23529
+    },
+    "M. A. Riley": {
+      "referee": "M. A. Riley",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.16684,
+      "fouls_multiplier": 1.071997,
+      "cards_per_foul_multiplier": 1.105929,
+      "red_cards_per_match": 0.6
+    },
+    "M. Bergonzi": {
+      "referee": "M. Bergonzi",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.902291,
+      "fouls_multiplier": 1.051549,
+      "cards_per_foul_multiplier": 0.884345,
+      "red_cards_per_match": 0.47826
+    },
+    "M. De Santis": {
+      "referee": "M. De Santis",
+      "n_matches_global": 19,
+      "cards_multiplier": 1.06407,
+      "fouls_multiplier": 1.058347,
+      "cards_per_foul_multiplier": 1.015817,
+      "red_cards_per_match": 0.57895
+    },
+    "M. L Dean": {
+      "referee": "M. L Dean",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.966048,
+      "fouls_multiplier": 0.968138,
+      "cards_per_foul_multiplier": 1.009794,
+      "red_cards_per_match": 0.1
+    },
+    "M. R. Halsey": {
+      "referee": "M. R. Halsey",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.073389,
+      "fouls_multiplier": 0.965287,
+      "cards_per_foul_multiplier": 1.124564,
+      "red_cards_per_match": 0.25
+    },
+    "M. Saccani": {
+      "referee": "M. Saccani",
+      "n_matches_global": 32,
+      "cards_multiplier": 1.077859,
+      "fouls_multiplier": 1.041819,
+      "cards_per_foul_multiplier": 1.044033,
+      "red_cards_per_match": 0.21875
+    },
+    "M. Trefoloni": {
+      "referee": "M. Trefoloni",
+      "n_matches_global": 32,
+      "cards_multiplier": 1.064374,
+      "fouls_multiplier": 1.008088,
+      "cards_per_foul_multiplier": 1.066363,
+      "red_cards_per_match": 0.375
+    },
+    "Mark Cowburn": {
+      "referee": "Mark Cowburn",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.079013,
+      "fouls_multiplier": 0.99702,
+      "cards_per_foul_multiplier": 1.075797,
+      "red_cards_per_match": 0.44444
+    },
+    "Mark Halsey": {
+      "referee": "Mark Halsey",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.903343,
+      "fouls_multiplier": 1.025742,
+      "cards_per_foul_multiplier": 0.891265,
+      "red_cards_per_match": 0.09524
+    },
+    "Markus Merk": {
+      "referee": "Markus Merk",
+      "n_matches_global": 33,
+      "cards_multiplier": 0.991447,
+      "fouls_multiplier": 1.059407,
+      "cards_per_foul_multiplier": 0.928534,
+      "red_cards_per_match": 0.27273
+    },
+    "Markus Schmidt": {
+      "referee": "Markus Schmidt",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.032675,
+      "fouls_multiplier": 0.980052,
+      "cards_per_foul_multiplier": 1.05292,
+      "red_cards_per_match": 0.42857
+    },
+    "Matt Messias": {
+      "referee": "Matt Messias",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.001563,
+      "fouls_multiplier": 1.048684,
+      "cards_per_foul_multiplier": 0.967986,
+      "red_cards_per_match": 0.0
+    },
+    "Matthias Anklam": {
+      "referee": "Matthias Anklam",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.99835,
+      "fouls_multiplier": 0.934997,
+      "cards_per_foul_multiplier": 1.054499,
+      "red_cards_per_match": 0.46667
+    },
+    "McCurry, T. M.": {
+      "referee": "McCurry, T. M.",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.889105,
+      "fouls_multiplier": 0.998606,
+      "cards_per_foul_multiplier": 0.890631,
+      "red_cards_per_match": 0.18182
+    },
+    "McDonald, D. G.": {
+      "referee": "McDonald, D. G.",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.00556,
+      "fouls_multiplier": 0.975676,
+      "cards_per_foul_multiplier": 0.998765,
+      "red_cards_per_match": 0.14286
+    },
+    "Merk, M": {
+      "referee": "Merk, M",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.0385,
+      "fouls_multiplier": 0.976268,
+      "cards_per_foul_multiplier": 1.084833,
+      "red_cards_per_match": 0.125
+    },
+    "Messias, M. D.": {
+      "referee": "Messias, M. D.",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.971088,
+      "fouls_multiplier": 0.971848,
+      "cards_per_foul_multiplier": 0.999601,
+      "red_cards_per_match": 0.0
+    },
+    "Meyer, F": {
+      "referee": "Meyer, F",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.957788,
+      "fouls_multiplier": 0.98397,
+      "cards_per_foul_multiplier": 0.964923,
+      "red_cards_per_match": 0.44444
+    },
+    "Michael Jones": {
+      "referee": "Michael Jones",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.826878,
+      "fouls_multiplier": 0.999422,
+      "cards_per_foul_multiplier": 0.850443,
+      "red_cards_per_match": 0.08333
+    },
+    "Michael McCurry": {
+      "referee": "Michael McCurry",
+      "n_matches_global": 28,
+      "cards_multiplier": 0.977688,
+      "fouls_multiplier": 1.02343,
+      "cards_per_foul_multiplier": 0.980844,
+      "red_cards_per_match": 0.17857
+    },
+    "Michael Weiner": {
+      "referee": "Michael Weiner",
+      "n_matches_global": 30,
+      "cards_multiplier": 1.162219,
+      "fouls_multiplier": 1.014405,
+      "cards_per_foul_multiplier": 1.117065,
+      "red_cards_per_match": 0.3
+    },
+    "Mick Fletcher": {
+      "referee": "Mick Fletcher",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.240444,
+      "fouls_multiplier": 1.044495,
+      "cards_per_foul_multiplier": 1.176421,
+      "red_cards_per_match": 0.4
+    },
+    "Mike Dean": {
+      "referee": "Mike Dean",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.960949,
+      "fouls_multiplier": 0.9503,
+      "cards_per_foul_multiplier": 0.994408,
+      "red_cards_per_match": 0.09524
+    },
+    "Mike Pickel": {
+      "referee": "Mike Pickel",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.07532,
+      "fouls_multiplier": 0.984921,
+      "cards_per_foul_multiplier": 1.076995,
+      "red_cards_per_match": 0.45455
+    },
+    "Mike Pike": {
+      "referee": "Mike Pike",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.967081,
+      "fouls_multiplier": 1.004086,
+      "cards_per_foul_multiplier": 0.957112,
+      "red_cards_per_match": 0.09091
+    },
+    "Mike Riley": {
+      "referee": "Mike Riley",
+      "n_matches_global": 25,
+      "cards_multiplier": 1.218309,
+      "fouls_multiplier": 1.090568,
+      "cards_per_foul_multiplier": 1.109236,
+      "red_cards_per_match": 0.12
+    },
+    "N Barry": {
+      "referee": "N Barry",
+      "n_matches_global": 78,
+      "cards_multiplier": 0.971253,
+      "fouls_multiplier": 0.995537,
+      "cards_per_foul_multiplier": 0.977991,
+      "red_cards_per_match": 0.16667
+    },
+    "N Miller": {
+      "referee": "N Miller",
+      "n_matches_global": 136,
+      "cards_multiplier": 0.855004,
+      "fouls_multiplier": 0.820984,
+      "cards_per_foul_multiplier": 1.043376,
+      "red_cards_per_match": 0.18382
+    },
+    "N Swarbrick": {
+      "referee": "N Swarbrick",
+      "n_matches_global": 228,
+      "cards_multiplier": 1.02471,
+      "fouls_multiplier": 0.977259,
+      "cards_per_foul_multiplier": 1.056589,
+      "red_cards_per_match": 0.12281
+    },
+    "N Walsh": {
+      "referee": "N Walsh",
+      "n_matches_global": 209,
+      "cards_multiplier": 1.045808,
+      "fouls_multiplier": 1.006687,
+      "cards_per_foul_multiplier": 1.056104,
+      "red_cards_per_match": 0.19617
+    },
+    "N. Ayroldi": {
+      "referee": "N. Ayroldi",
+      "n_matches_global": 29,
+      "cards_multiplier": 0.963398,
+      "fouls_multiplier": 1.045397,
+      "cards_per_foul_multiplier": 0.930197,
+      "red_cards_per_match": 0.44828
+    },
+    "N. Rizzoli": {
+      "referee": "N. Rizzoli",
+      "n_matches_global": 33,
+      "cards_multiplier": 1.024289,
+      "fouls_multiplier": 1.00773,
+      "cards_per_foul_multiplier": 1.020438,
+      "red_cards_per_match": 0.27273
+    },
+    "N. S. Barry": {
+      "referee": "N. S. Barry",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.893269,
+      "fouls_multiplier": 1.000083,
+      "cards_per_foul_multiplier": 0.891082,
+      "red_cards_per_match": 0.2
+    },
+    "N. Stefanini": {
+      "referee": "N. Stefanini",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.9669,
+      "fouls_multiplier": 1.014535,
+      "cards_per_foul_multiplier": 0.9619,
+      "red_cards_per_match": 0.23529
+    },
+    "Neale Barry": {
+      "referee": "Neale Barry",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.866311,
+      "fouls_multiplier": 0.96249,
+      "cards_per_foul_multiplier": 0.904584,
+      "red_cards_per_match": 0.16667
+    },
+    "O Langford": {
+      "referee": "O Langford",
+      "n_matches_global": 285,
+      "cards_multiplier": 0.972596,
+      "fouls_multiplier": 0.965591,
+      "cards_per_foul_multiplier": 1.015599,
+      "red_cards_per_match": 0.14386
+    },
+    "O. Girardi": {
+      "referee": "O. Girardi",
+      "n_matches_global": 19,
+      "cards_multiplier": 0.941853,
+      "fouls_multiplier": 1.017818,
+      "cards_per_foul_multiplier": 0.933979,
+      "red_cards_per_match": 0.36842
+    },
+    "O. Pantana": {
+      "referee": "O. Pantana",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.028197,
+      "fouls_multiplier": 1.030592,
+      "cards_per_foul_multiplier": 1.00764,
+      "red_cards_per_match": 0.4
+    },
+    "Orr, R.": {
+      "referee": "Orr, R.",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.759246,
+      "fouls_multiplier": 0.977165,
+      "cards_per_foul_multiplier": 0.779724,
+      "red_cards_per_match": 0.11111
+    },
+    "P Armstrong": {
+      "referee": "P Armstrong",
+      "n_matches_global": 51,
+      "cards_multiplier": 0.940918,
+      "fouls_multiplier": 1.067433,
+      "cards_per_foul_multiplier": 0.915542,
+      "red_cards_per_match": 0.19608
+    },
+    "P Bankes": {
+      "referee": "P Bankes",
+      "n_matches_global": 224,
+      "cards_multiplier": 1.182229,
+      "fouls_multiplier": 1.02171,
+      "cards_per_foul_multiplier": 1.17309,
+      "red_cards_per_match": 0.13839
+    },
+    "P Crossley": {
+      "referee": "P Crossley",
+      "n_matches_global": 88,
+      "cards_multiplier": 1.011519,
+      "fouls_multiplier": 0.926967,
+      "cards_per_foul_multiplier": 1.089694,
+      "red_cards_per_match": 0.21591
+    },
+    "P Danson": {
+      "referee": "P Danson",
+      "n_matches_global": 20,
+      "cards_multiplier": 0.980639,
+      "fouls_multiplier": 1.009454,
+      "cards_per_foul_multiplier": 0.9906,
+      "red_cards_per_match": 0.4
+    },
+    "P Dowd": {
+      "referee": "P Dowd",
+      "n_matches_global": 367,
+      "cards_multiplier": 1.163999,
+      "fouls_multiplier": 1.080142,
+      "cards_per_foul_multiplier": 1.095169,
+      "red_cards_per_match": 0.21798
+    },
+    "P Durkin": {
+      "referee": "P Durkin",
+      "n_matches_global": 52,
+      "cards_multiplier": 0.840953,
+      "fouls_multiplier": 0.945353,
+      "cards_per_foul_multiplier": 0.890258,
+      "red_cards_per_match": 0.09615
+    },
+    "P Gibbs": {
+      "referee": "P Gibbs",
+      "n_matches_global": 44,
+      "cards_multiplier": 1.089507,
+      "fouls_multiplier": 1.042152,
+      "cards_per_foul_multiplier": 1.0452,
+      "red_cards_per_match": 0.04545
+    },
+    "P Joslin": {
+      "referee": "P Joslin",
+      "n_matches_global": 76,
+      "cards_multiplier": 1.007887,
+      "fouls_multiplier": 1.009736,
+      "cards_per_foul_multiplier": 1.030072,
+      "red_cards_per_match": 0.14474
+    },
+    "P Melin": {
+      "referee": "P Melin",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.973625,
+      "fouls_multiplier": 0.976123,
+      "cards_per_foul_multiplier": 0.992999,
+      "red_cards_per_match": 0.4
+    },
+    "P Miller": {
+      "referee": "P Miller",
+      "n_matches_global": 32,
+      "cards_multiplier": 1.097653,
+      "fouls_multiplier": 1.052611,
+      "cards_per_foul_multiplier": 1.032357,
+      "red_cards_per_match": 0.28125
+    },
+    "P Prosser": {
+      "referee": "P Prosser",
+      "n_matches_global": 20,
+      "cards_multiplier": 1.011077,
+      "fouls_multiplier": 1.128524,
+      "cards_per_foul_multiplier": 0.898382,
+      "red_cards_per_match": 0.35
+    },
+    "P Rejer": {
+      "referee": "P Rejer",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.777065,
+      "fouls_multiplier": 0.979693,
+      "cards_per_foul_multiplier": 0.793647,
+      "red_cards_per_match": 0.0
+    },
+    "P Robinson": {
+      "referee": "P Robinson",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.822501,
+      "fouls_multiplier": 0.944959,
+      "cards_per_foul_multiplier": 0.919684,
+      "red_cards_per_match": 0.30769
+    },
+    "P Stuart": {
+      "referee": "P Stuart",
+      "n_matches_global": 28,
+      "cards_multiplier": 1.139864,
+      "fouls_multiplier": 1.041401,
+      "cards_per_foul_multiplier": 1.087923,
+      "red_cards_per_match": 0.25
+    },
+    "P Taylor": {
+      "referee": "P Taylor",
+      "n_matches_global": 111,
+      "cards_multiplier": 1.215239,
+      "fouls_multiplier": 1.039666,
+      "cards_per_foul_multiplier": 1.188525,
+      "red_cards_per_match": 0.35135
+    },
+    "P Tierney": {
+      "referee": "P Tierney",
+      "n_matches_global": 274,
+      "cards_multiplier": 1.037434,
+      "fouls_multiplier": 1.039759,
+      "cards_per_foul_multiplier": 1.010472,
+      "red_cards_per_match": 0.13869
+    },
+    "P Walton": {
+      "referee": "P Walton",
+      "n_matches_global": 251,
+      "cards_multiplier": 0.955996,
+      "fouls_multiplier": 0.908177,
+      "cards_per_foul_multiplier": 1.072879,
+      "red_cards_per_match": 0.13147
+    },
+    "P. A. Durkin": {
+      "referee": "P. A. Durkin",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.943305,
+      "fouls_multiplier": 0.969365,
+      "cards_per_foul_multiplier": 0.96574,
+      "red_cards_per_match": 0.0
+    },
+    "P. Bertini": {
+      "referee": "P. Bertini",
+      "n_matches_global": 30,
+      "cards_multiplier": 1.037133,
+      "fouls_multiplier": 1.021774,
+      "cards_per_foul_multiplier": 1.056447,
+      "red_cards_per_match": 0.3
+    },
+    "P. Dondarini": {
+      "referee": "P. Dondarini",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.873629,
+      "fouls_multiplier": 0.978197,
+      "cards_per_foul_multiplier": 0.919104,
+      "red_cards_per_match": 0.25
+    },
+    "P. Dowd": {
+      "referee": "P. Dowd",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.136066,
+      "fouls_multiplier": 1.178175,
+      "cards_per_foul_multiplier": 0.990908,
+      "red_cards_per_match": 0.55556
+    },
+    "P. Jones": {
+      "referee": "P. Jones",
+      "n_matches_global": 8,
+      "cards_multiplier": 0.941884,
+      "fouls_multiplier": 1.013575,
+      "cards_per_foul_multiplier": 0.9343,
+      "red_cards_per_match": 0.375
+    },
+    "P. Mazzoleni": {
+      "referee": "P. Mazzoleni",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.945979,
+      "fouls_multiplier": 1.061238,
+      "cards_per_foul_multiplier": 0.919698,
+      "red_cards_per_match": 0.2
+    },
+    "P. Rodomonti": {
+      "referee": "P. Rodomonti",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.022982,
+      "fouls_multiplier": 1.065006,
+      "cards_per_foul_multiplier": 0.984779,
+      "red_cards_per_match": 0.33333
+    },
+    "P. Tagliavento": {
+      "referee": "P. Tagliavento",
+      "n_matches_global": 28,
+      "cards_multiplier": 1.046103,
+      "fouls_multiplier": 1.063173,
+      "cards_per_foul_multiplier": 0.991831,
+      "red_cards_per_match": 0.28571
+    },
+    "Paul Alcock": {
+      "referee": "Paul Alcock",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.994542,
+      "fouls_multiplier": 0.95605,
+      "cards_per_foul_multiplier": 1.086785,
+      "red_cards_per_match": 0.3
+    },
+    "Paul Danson": {
+      "referee": "Paul Danson",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.048508,
+      "fouls_multiplier": 1.054771,
+      "cards_per_foul_multiplier": 1.00302,
+      "red_cards_per_match": 0.15385
+    },
+    "Paul Durkin": {
+      "referee": "Paul Durkin",
+      "n_matches_global": 28,
+      "cards_multiplier": 0.714028,
+      "fouls_multiplier": 1.031458,
+      "cards_per_foul_multiplier": 0.715296,
+      "red_cards_per_match": 0.07143
+    },
+    "Paul Rejer": {
+      "referee": "Paul Rejer",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.911284,
+      "fouls_multiplier": 0.951423,
+      "cards_per_foul_multiplier": 0.964545,
+      "red_cards_per_match": 0.0
+    },
+    "Paul Robinson": {
+      "referee": "Paul Robinson",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.025374,
+      "fouls_multiplier": 1.028126,
+      "cards_per_foul_multiplier": 0.990702,
+      "red_cards_per_match": 0.33333
+    },
+    "Paul Taylor": {
+      "referee": "Paul Taylor",
+      "n_matches_global": 17,
+      "cards_multiplier": 0.893611,
+      "fouls_multiplier": 1.07015,
+      "cards_per_foul_multiplier": 0.857006,
+      "red_cards_per_match": 0.11765
+    },
+    "Peter Gagelmann": {
+      "referee": "Peter Gagelmann",
+      "n_matches_global": 27,
+      "cards_multiplier": 0.949166,
+      "fouls_multiplier": 1.000493,
+      "cards_per_foul_multiplier": 1.013174,
+      "red_cards_per_match": 0.14815
+    },
+    "Peter Jones": {
+      "referee": "Peter Jones",
+      "n_matches_global": 20,
+      "cards_multiplier": 1.057239,
+      "fouls_multiplier": 1.099041,
+      "cards_per_foul_multiplier": 0.970103,
+      "red_cards_per_match": 0.1
+    },
+    "Peter Lange": {
+      "referee": "Peter Lange",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.983227,
+      "fouls_multiplier": 1.001684,
+      "cards_per_foul_multiplier": 1.091748,
+      "red_cards_per_match": 0.23077
+    },
+    "Peter Sippel": {
+      "referee": "Peter Sippel",
+      "n_matches_global": 26,
+      "cards_multiplier": 0.976433,
+      "fouls_multiplier": 1.062198,
+      "cards_per_foul_multiplier": 0.963906,
+      "red_cards_per_match": 0.34615
+    },
+    "Peter Walton": {
+      "referee": "Peter Walton",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.974842,
+      "fouls_multiplier": 0.951798,
+      "cards_per_foul_multiplier": 1.062155,
+      "red_cards_per_match": 0.08333
+    },
+    "Phil Dowd": {
+      "referee": "Phil Dowd",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.928924,
+      "fouls_multiplier": 1.127086,
+      "cards_per_foul_multiplier": 0.867416,
+      "red_cards_per_match": 0.2
+    },
+    "Phil Richards": {
+      "referee": "Phil Richards",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.937416,
+      "fouls_multiplier": 1.01857,
+      "cards_per_foul_multiplier": 0.975409,
+      "red_cards_per_match": 0.27273
+    },
+    "Poll, G.": {
+      "referee": "Poll, G.",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.88374,
+      "fouls_multiplier": 0.983437,
+      "cards_per_foul_multiplier": 0.943883,
+      "red_cards_per_match": 0.13333
+    },
+    "Pugh, D.": {
+      "referee": "Pugh, D.",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.119132,
+      "fouls_multiplier": 0.976634,
+      "cards_per_foul_multiplier": 1.15927,
+      "red_cards_per_match": 0.11111
+    },
+    "R Beeby": {
+      "referee": "R Beeby",
+      "n_matches_global": 106,
+      "cards_multiplier": 0.975101,
+      "fouls_multiplier": 1.066401,
+      "cards_per_foul_multiplier": 0.909212,
+      "red_cards_per_match": 0.21698
+    },
+    "R Booth": {
+      "referee": "R Booth",
+      "n_matches_global": 54,
+      "cards_multiplier": 0.842172,
+      "fouls_multiplier": 0.984328,
+      "cards_per_foul_multiplier": 0.896492,
+      "red_cards_per_match": 0.11111
+    },
+    "R Clark": {
+      "referee": "R Clark",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.917083,
+      "fouls_multiplier": 1.049307,
+      "cards_per_foul_multiplier": 0.881993,
+      "red_cards_per_match": 0.33333
+    },
+    "R East": {
+      "referee": "R East",
+      "n_matches_global": 173,
+      "cards_multiplier": 1.030306,
+      "fouls_multiplier": 1.018482,
+      "cards_per_foul_multiplier": 1.02218,
+      "red_cards_per_match": 0.10405
+    },
+    "R Hardie": {
+      "referee": "R Hardie",
+      "n_matches_global": 24,
+      "cards_multiplier": 0.966232,
+      "fouls_multiplier": 0.998899,
+      "cards_per_foul_multiplier": 0.989901,
+      "red_cards_per_match": 0.125
+    },
+    "R Jones": {
+      "referee": "R Jones",
+      "n_matches_global": 180,
+      "cards_multiplier": 1.00308,
+      "fouls_multiplier": 1.077774,
+      "cards_per_foul_multiplier": 0.943013,
+      "red_cards_per_match": 0.08333
+    },
+    "R Lee": {
+      "referee": "R Lee",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.041926,
+      "fouls_multiplier": 1.026122,
+      "cards_per_foul_multiplier": 1.014336,
+      "red_cards_per_match": 0.25
+    },
+    "R Lewis": {
+      "referee": "R Lewis",
+      "n_matches_global": 19,
+      "cards_multiplier": 0.985997,
+      "fouls_multiplier": 1.016806,
+      "cards_per_foul_multiplier": 0.964061,
+      "red_cards_per_match": 0.15789
+    },
+    "R Madley": {
+      "referee": "R Madley",
+      "n_matches_global": 177,
+      "cards_multiplier": 1.003325,
+      "fouls_multiplier": 0.999473,
+      "cards_per_foul_multiplier": 1.005429,
+      "red_cards_per_match": 0.19209
+    },
+    "R Olivier": {
+      "referee": "R Olivier",
+      "n_matches_global": 43,
+      "cards_multiplier": 0.82229,
+      "fouls_multiplier": 0.948087,
+      "cards_per_foul_multiplier": 0.898871,
+      "red_cards_per_match": 0.16279
+    },
+    "R Pearson": {
+      "referee": "R Pearson",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.983752,
+      "fouls_multiplier": 0.918189,
+      "cards_per_foul_multiplier": 1.067747,
+      "red_cards_per_match": 0.09524
+    },
+    "R Shoebridge": {
+      "referee": "R Shoebridge",
+      "n_matches_global": 41,
+      "cards_multiplier": 0.758303,
+      "fouls_multiplier": 1.099736,
+      "cards_per_foul_multiplier": 0.760267,
+      "red_cards_per_match": 0.04878
+    },
+    "R Styles": {
+      "referee": "R Styles",
+      "n_matches_global": 213,
+      "cards_multiplier": 1.093634,
+      "fouls_multiplier": 0.901635,
+      "cards_per_foul_multiplier": 1.230835,
+      "red_cards_per_match": 0.2723
+    },
+    "R Welch": {
+      "referee": "R Welch",
+      "n_matches_global": 16,
+      "cards_multiplier": 1.029374,
+      "fouls_multiplier": 1.004314,
+      "cards_per_foul_multiplier": 1.0314,
+      "red_cards_per_match": 0.125
+    },
+    "R. Orr": {
+      "referee": "R. Orr",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.947194,
+      "fouls_multiplier": 1.0058,
+      "cards_per_foul_multiplier": 0.979494,
+      "red_cards_per_match": 0.0
+    },
+    "R. Rosetti": {
+      "referee": "R. Rosetti",
+      "n_matches_global": 31,
+      "cards_multiplier": 1.017206,
+      "fouls_multiplier": 1.034368,
+      "cards_per_foul_multiplier": 0.99937,
+      "red_cards_per_match": 0.29032
+    },
+    "R. Styles": {
+      "referee": "R. Styles",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.154835,
+      "fouls_multiplier": 0.978738,
+      "cards_per_foul_multiplier": 1.234257,
+      "red_cards_per_match": 0.09091
+    },
+    "Ralf Sp\u00e4ker": {
+      "referee": "Ralf Sp\u00e4ker",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.872915,
+      "fouls_multiplier": 0.974303,
+      "cards_per_foul_multiplier": 0.916553,
+      "red_cards_per_match": 0.21429
+    },
+    "Ray Olivier": {
+      "referee": "Ray Olivier",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.129081,
+      "fouls_multiplier": 1.030753,
+      "cards_per_foul_multiplier": 1.103757,
+      "red_cards_per_match": 0.125
+    },
+    "Rennie, U. D.": {
+      "referee": "Rennie, U. D.",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.901265,
+      "fouls_multiplier": 1.024174,
+      "cards_per_foul_multiplier": 0.881633,
+      "red_cards_per_match": 0.08333
+    },
+    "Richard Beeby": {
+      "referee": "Richard Beeby",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.749569,
+      "fouls_multiplier": 0.988984,
+      "cards_per_foul_multiplier": 0.760202,
+      "red_cards_per_match": 0.0
+    },
+    "Riley, M. A.": {
+      "referee": "Riley, M. A.",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.144236,
+      "fouls_multiplier": 1.011297,
+      "cards_per_foul_multiplier": 1.176613,
+      "red_cards_per_match": 0.7
+    },
+    "Rob Harris": {
+      "referee": "Rob Harris",
+      "n_matches_global": 17,
+      "cards_multiplier": 1.085106,
+      "fouls_multiplier": 1.043377,
+      "cards_per_foul_multiplier": 1.080895,
+      "red_cards_per_match": 0.17647
+    },
+    "Rob Styles": {
+      "referee": "Rob Styles",
+      "n_matches_global": 22,
+      "cards_multiplier": 1.061062,
+      "fouls_multiplier": 0.950939,
+      "cards_per_foul_multiplier": 1.107402,
+      "red_cards_per_match": 0.31818
+    },
+    "Roger Furnandiz": {
+      "referee": "Roger Furnandiz",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.911049,
+      "fouls_multiplier": 0.878943,
+      "cards_per_foul_multiplier": 1.071157,
+      "red_cards_per_match": 0.0
+    },
+    "Rowbotham, J": {
+      "referee": "Rowbotham, J",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.865896,
+      "fouls_multiplier": 0.895535,
+      "cards_per_foul_multiplier": 0.956489,
+      "red_cards_per_match": 0.4
+    },
+    "Roy Pearson": {
+      "referee": "Roy Pearson",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.077227,
+      "fouls_multiplier": 0.971415,
+      "cards_per_foul_multiplier": 1.102504,
+      "red_cards_per_match": 0.08333
+    },
+    "S Allison": {
+      "referee": "S Allison",
+      "n_matches_global": 37,
+      "cards_multiplier": 1.020907,
+      "fouls_multiplier": 1.00706,
+      "cards_per_foul_multiplier": 1.046848,
+      "red_cards_per_match": 0.05405
+    },
+    "S Attwell": {
+      "referee": "S Attwell",
+      "n_matches_global": 295,
+      "cards_multiplier": 1.072176,
+      "fouls_multiplier": 0.956078,
+      "cards_per_foul_multiplier": 1.131529,
+      "red_cards_per_match": 0.14915
+    },
+    "S Atwell": {
+      "referee": "S Atwell",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.938081,
+      "fouls_multiplier": 0.888575,
+      "cards_per_foul_multiplier": 1.046726,
+      "red_cards_per_match": 0.13333
+    },
+    "S Baines": {
+      "referee": "S Baines",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.707944,
+      "fouls_multiplier": 0.93696,
+      "cards_per_foul_multiplier": 0.76464,
+      "red_cards_per_match": 0.0
+    },
+    "S Barrott": {
+      "referee": "S Barrott",
+      "n_matches_global": 56,
+      "cards_multiplier": 0.856442,
+      "fouls_multiplier": 0.949186,
+      "cards_per_foul_multiplier": 0.888229,
+      "red_cards_per_match": 0.05357
+    },
+    "S Bennett": {
+      "referee": "S Bennett",
+      "n_matches_global": 232,
+      "cards_multiplier": 1.175504,
+      "fouls_multiplier": 0.997519,
+      "cards_per_foul_multiplier": 1.183462,
+      "red_cards_per_match": 0.22845
+    },
+    "S Conroy": {
+      "referee": "S Conroy",
+      "n_matches_global": 94,
+      "cards_multiplier": 0.850615,
+      "fouls_multiplier": 0.873856,
+      "cards_per_foul_multiplier": 0.972758,
+      "red_cards_per_match": 0.18085
+    },
+    "S Dougal": {
+      "referee": "S Dougal",
+      "n_matches_global": 93,
+      "cards_multiplier": 1.198348,
+      "fouls_multiplier": 0.985858,
+      "cards_per_foul_multiplier": 1.23952,
+      "red_cards_per_match": 0.26882
+    },
+    "S Duncan": {
+      "referee": "S Duncan",
+      "n_matches_global": 125,
+      "cards_multiplier": 0.941007,
+      "fouls_multiplier": 0.924064,
+      "cards_per_foul_multiplier": 1.043314,
+      "red_cards_per_match": 0.248
+    },
+    "S Dunn": {
+      "referee": "S Dunn",
+      "n_matches_global": 73,
+      "cards_multiplier": 0.97394,
+      "fouls_multiplier": 0.953192,
+      "cards_per_foul_multiplier": 1.021255,
+      "red_cards_per_match": 0.12329
+    },
+    "S Finnie": {
+      "referee": "S Finnie",
+      "n_matches_global": 97,
+      "cards_multiplier": 1.126132,
+      "fouls_multiplier": 1.020111,
+      "cards_per_foul_multiplier": 1.120085,
+      "red_cards_per_match": 0.23711
+    },
+    "S Gill": {
+      "referee": "S Gill",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.876997,
+      "fouls_multiplier": 1.000382,
+      "cards_per_foul_multiplier": 0.884933,
+      "red_cards_per_match": 0.07143
+    },
+    "S Hooper": {
+      "referee": "S Hooper",
+      "n_matches_global": 312,
+      "cards_multiplier": 1.004422,
+      "fouls_multiplier": 1.033174,
+      "cards_per_foul_multiplier": 0.976122,
+      "red_cards_per_match": 0.09295
+    },
+    "S Kirkland": {
+      "referee": "S Kirkland",
+      "n_matches_global": 53,
+      "cards_multiplier": 1.092308,
+      "fouls_multiplier": 0.978036,
+      "cards_per_foul_multiplier": 1.159564,
+      "red_cards_per_match": 0.18868
+    },
+    "S Lambie": {
+      "referee": "S Lambie",
+      "n_matches_global": 19,
+      "cards_multiplier": 1.061898,
+      "fouls_multiplier": 1.002497,
+      "cards_per_foul_multiplier": 1.083951,
+      "red_cards_per_match": 0.21053
+    },
+    "S Martin": {
+      "referee": "S Martin",
+      "n_matches_global": 243,
+      "cards_multiplier": 0.86977,
+      "fouls_multiplier": 1.004488,
+      "cards_per_foul_multiplier": 0.87736,
+      "red_cards_per_match": 0.107
+    },
+    "S Mathieson": {
+      "referee": "S Mathieson",
+      "n_matches_global": 119,
+      "cards_multiplier": 0.855543,
+      "fouls_multiplier": 0.973667,
+      "cards_per_foul_multiplier": 0.888005,
+      "red_cards_per_match": 0.17647
+    },
+    "S McLean": {
+      "referee": "S McLean",
+      "n_matches_global": 288,
+      "cards_multiplier": 0.973184,
+      "fouls_multiplier": 1.001979,
+      "cards_per_foul_multiplier": 0.971928,
+      "red_cards_per_match": 0.19444
+    },
+    "S O'Reilly": {
+      "referee": "S O'Reilly",
+      "n_matches_global": 55,
+      "cards_multiplier": 0.956232,
+      "fouls_multiplier": 1.000536,
+      "cards_per_foul_multiplier": 1.004322,
+      "red_cards_per_match": 0.21818
+    },
+    "S Reid": {
+      "referee": "S Reid",
+      "n_matches_global": 22,
+      "cards_multiplier": 0.95603,
+      "fouls_multiplier": 1.03504,
+      "cards_per_foul_multiplier": 0.915332,
+      "red_cards_per_match": 0.09091
+    },
+    "S Tanner": {
+      "referee": "S Tanner",
+      "n_matches_global": 123,
+      "cards_multiplier": 1.121751,
+      "fouls_multiplier": 1.031548,
+      "cards_per_foul_multiplier": 1.089209,
+      "red_cards_per_match": 0.26829
+    },
+    "S Tomlin": {
+      "referee": "S Tomlin",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.968228,
+      "fouls_multiplier": 1.000021,
+      "cards_per_foul_multiplier": 1.004432,
+      "red_cards_per_match": 0.06667
+    },
+    "S. Dougal": {
+      "referee": "S. Dougal",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.142882,
+      "fouls_multiplier": 1.030585,
+      "cards_per_foul_multiplier": 1.084912,
+      "red_cards_per_match": 0.16667
+    },
+    "S. Farina": {
+      "referee": "S. Farina",
+      "n_matches_global": 36,
+      "cards_multiplier": 1.07893,
+      "fouls_multiplier": 1.114954,
+      "cards_per_foul_multiplier": 0.983578,
+      "red_cards_per_match": 0.38889
+    },
+    "S. G. Bennett": {
+      "referee": "S. G. Bennett",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.12483,
+      "fouls_multiplier": 0.978377,
+      "cards_per_foul_multiplier": 1.14956,
+      "red_cards_per_match": 0.36364
+    },
+    "S. Racalbuto": {
+      "referee": "S. Racalbuto",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.915813,
+      "fouls_multiplier": 1.052489,
+      "cards_per_foul_multiplier": 0.933972,
+      "red_cards_per_match": 0.23077
+    },
+    "S. W. Dunn": {
+      "referee": "S. W. Dunn",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.119284,
+      "fouls_multiplier": 1.056432,
+      "cards_per_foul_multiplier": 1.079057,
+      "red_cards_per_match": 0.3
+    },
+    "Scott Mathieson": {
+      "referee": "Scott Mathieson",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.209001,
+      "fouls_multiplier": 0.985865,
+      "cards_per_foul_multiplier": 1.219035,
+      "red_cards_per_match": 0.0
+    },
+    "Sippel, P": {
+      "referee": "Sippel, P",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.929148,
+      "fouls_multiplier": 0.976961,
+      "cards_per_foul_multiplier": 0.952634,
+      "red_cards_per_match": 0.11111
+    },
+    "Stark, W": {
+      "referee": "Stark, W",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.965598,
+      "fouls_multiplier": 0.965875,
+      "cards_per_foul_multiplier": 1.004836,
+      "red_cards_per_match": 0.44444
+    },
+    "Stefan Kammerer": {
+      "referee": "Stefan Kammerer",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.987405,
+      "fouls_multiplier": 1.049539,
+      "cards_per_foul_multiplier": 0.976938,
+      "red_cards_per_match": 0.0
+    },
+    "Stefan Weber": {
+      "referee": "Stefan Weber",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.967451,
+      "fouls_multiplier": 0.949048,
+      "cards_per_foul_multiplier": 1.01746,
+      "red_cards_per_match": 0.26667
+    },
+    "Steinborn, E.": {
+      "referee": "Steinborn, E.",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.083402,
+      "fouls_multiplier": 1.003542,
+      "cards_per_foul_multiplier": 1.100719,
+      "red_cards_per_match": 0.11111
+    },
+    "Steve Baines": {
+      "referee": "Steve Baines",
+      "n_matches_global": 8,
+      "cards_multiplier": 0.765509,
+      "fouls_multiplier": 0.987837,
+      "cards_per_foul_multiplier": 0.774673,
+      "red_cards_per_match": 0.0
+    },
+    "Steve Bennett": {
+      "referee": "Steve Bennett",
+      "n_matches_global": 22,
+      "cards_multiplier": 0.888253,
+      "fouls_multiplier": 0.911252,
+      "cards_per_foul_multiplier": 0.966851,
+      "red_cards_per_match": 0.31818
+    },
+    "Steve Dunn": {
+      "referee": "Steve Dunn",
+      "n_matches_global": 21,
+      "cards_multiplier": 0.877095,
+      "fouls_multiplier": 1.024379,
+      "cards_per_foul_multiplier": 0.860056,
+      "red_cards_per_match": 0.09524
+    },
+    "Steve Lodge": {
+      "referee": "Steve Lodge",
+      "n_matches_global": 23,
+      "cards_multiplier": 0.90981,
+      "fouls_multiplier": 0.981154,
+      "cards_per_foul_multiplier": 0.919897,
+      "red_cards_per_match": 0.13043
+    },
+    "Strampe, H": {
+      "referee": "Strampe, H",
+      "n_matches_global": 11,
+      "cards_multiplier": 1.03029,
+      "fouls_multiplier": 0.997298,
+      "cards_per_foul_multiplier": 1.034395,
+      "red_cards_per_match": 0.27273
+    },
+    "Stuart Dougal": {
+      "referee": "Stuart Dougal",
+      "n_matches_global": 27,
+      "cards_multiplier": 0.940161,
+      "fouls_multiplier": 1.027441,
+      "cards_per_foul_multiplier": 0.929243,
+      "red_cards_per_match": 0.25926
+    },
+    "Styles, R.": {
+      "referee": "Styles, R.",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.152431,
+      "fouls_multiplier": 0.928674,
+      "cards_per_foul_multiplier": 1.2309,
+      "red_cards_per_match": 0.41667
+    },
+    "T Bates": {
+      "referee": "T Bates",
+      "n_matches_global": 12,
+      "cards_multiplier": 1.017203,
+      "fouls_multiplier": 0.995173,
+      "cards_per_foul_multiplier": 1.011677,
+      "red_cards_per_match": 0.08333
+    },
+    "T Bramall": {
+      "referee": "T Bramall",
+      "n_matches_global": 75,
+      "cards_multiplier": 0.958769,
+      "fouls_multiplier": 1.035979,
+      "cards_per_foul_multiplier": 0.930126,
+      "red_cards_per_match": 0.14667
+    },
+    "T Brown": {
+      "referee": "T Brown",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.76736,
+      "fouls_multiplier": 0.938298,
+      "cards_per_foul_multiplier": 0.794143,
+      "red_cards_per_match": 0.09091
+    },
+    "T Harrington": {
+      "referee": "T Harrington",
+      "n_matches_global": 223,
+      "cards_multiplier": 0.936302,
+      "fouls_multiplier": 1.026454,
+      "cards_per_foul_multiplier": 0.916155,
+      "red_cards_per_match": 0.13004
+    },
+    "T Kettle": {
+      "referee": "T Kettle",
+      "n_matches_global": 101,
+      "cards_multiplier": 1.194321,
+      "fouls_multiplier": 1.042793,
+      "cards_per_foul_multiplier": 1.136244,
+      "red_cards_per_match": 0.20792
+    },
+    "T Kirk": {
+      "referee": "T Kirk",
+      "n_matches_global": 8,
+      "cards_multiplier": 1.051684,
+      "fouls_multiplier": 1.007133,
+      "cards_per_foul_multiplier": 1.045075,
+      "red_cards_per_match": 0.125
+    },
+    "T Leake": {
+      "referee": "T Leake",
+      "n_matches_global": 9,
+      "cards_multiplier": 1.025992,
+      "fouls_multiplier": 1.06658,
+      "cards_per_foul_multiplier": 0.968955,
+      "red_cards_per_match": 0.44444
+    },
+    "T Nield": {
+      "referee": "T Nield",
+      "n_matches_global": 27,
+      "cards_multiplier": 1.037427,
+      "fouls_multiplier": 1.030817,
+      "cards_per_foul_multiplier": 1.016076,
+      "red_cards_per_match": 0.0
+    },
+    "T Parkes": {
+      "referee": "T Parkes",
+      "n_matches_global": 18,
+      "cards_multiplier": 0.958218,
+      "fouls_multiplier": 0.918901,
+      "cards_per_foul_multiplier": 1.04593,
+      "red_cards_per_match": 0.16667
+    },
+    "T Robinson": {
+      "referee": "T Robinson",
+      "n_matches_global": 272,
+      "cards_multiplier": 1.065766,
+      "fouls_multiplier": 1.019095,
+      "cards_per_foul_multiplier": 1.065116,
+      "red_cards_per_match": 0.15441
+    },
+    "T. Brown": {
+      "referee": "T. Brown",
+      "n_matches_global": 10,
+      "cards_multiplier": 0.957135,
+      "fouls_multiplier": 0.999497,
+      "cards_per_foul_multiplier": 0.940275,
+      "red_cards_per_match": 0.1
+    },
+    "T. M. McCurry": {
+      "referee": "T. M. McCurry",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.021712,
+      "fouls_multiplier": 1.093846,
+      "cards_per_foul_multiplier": 0.961439,
+      "red_cards_per_match": 0.06667
+    },
+    "T. Pieri": {
+      "referee": "T. Pieri",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.066831,
+      "fouls_multiplier": 1.042986,
+      "cards_per_foul_multiplier": 1.034093,
+      "red_cards_per_match": 0.30769
+    },
+    "Thomas Frank": {
+      "referee": "Thomas Frank",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.981324,
+      "fouls_multiplier": 0.999451,
+      "cards_per_foul_multiplier": 0.994744,
+      "red_cards_per_match": 0.21429
+    },
+    "Thorsten Kinh\u00f6fer": {
+      "referee": "Thorsten Kinh\u00f6fer",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.085024,
+      "fouls_multiplier": 1.107331,
+      "cards_per_foul_multiplier": 0.965846,
+      "red_cards_per_match": 0.38462
+    },
+    "Tom Brown": {
+      "referee": "Tom Brown",
+      "n_matches_global": 19,
+      "cards_multiplier": 1.023286,
+      "fouls_multiplier": 1.021737,
+      "cards_per_foul_multiplier": 0.990924,
+      "red_cards_per_match": 0.26316
+    },
+    "Toner, K. E.": {
+      "referee": "Toner, K. E.",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.899769,
+      "fouls_multiplier": 1.030503,
+      "cards_per_foul_multiplier": 0.885434,
+      "red_cards_per_match": 0.07692
+    },
+    "Tony Bates": {
+      "referee": "Tony Bates",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.052031,
+      "fouls_multiplier": 0.987965,
+      "cards_per_foul_multiplier": 1.067787,
+      "red_cards_per_match": 0.0
+    },
+    "Tony Leake": {
+      "referee": "Tony Leake",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.896374,
+      "fouls_multiplier": 0.980969,
+      "cards_per_foul_multiplier": 0.934317,
+      "red_cards_per_match": 0.0
+    },
+    "Torsten Koop": {
+      "referee": "Torsten Koop",
+      "n_matches_global": 15,
+      "cards_multiplier": 1.000037,
+      "fouls_multiplier": 1.006159,
+      "cards_per_foul_multiplier": 1.009573,
+      "red_cards_per_match": 0.13333
+    },
+    "Trevor Jones": {
+      "referee": "Trevor Jones",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.890896,
+      "fouls_multiplier": 0.964762,
+      "cards_per_foul_multiplier": 0.943935,
+      "red_cards_per_match": 0.30769
+    },
+    "Trevor Parkes": {
+      "referee": "Trevor Parkes",
+      "n_matches_global": 8,
+      "cards_multiplier": 0.881848,
+      "fouls_multiplier": 0.983255,
+      "cards_per_foul_multiplier": 0.898038,
+      "red_cards_per_match": 0.25
+    },
+    "U Rennie": {
+      "referee": "U Rennie",
+      "n_matches_global": 141,
+      "cards_multiplier": 0.918021,
+      "fouls_multiplier": 1.04102,
+      "cards_per_foul_multiplier": 0.885191,
+      "red_cards_per_match": 0.10638
+    },
+    "U. D. Rennie": {
+      "referee": "U. D. Rennie",
+      "n_matches_global": 11,
+      "cards_multiplier": 0.978161,
+      "fouls_multiplier": 1.126979,
+      "cards_per_foul_multiplier": 0.906906,
+      "red_cards_per_match": 0.0
+    },
+    "Underhill, J. R.": {
+      "referee": "Underhill, J. R.",
+      "n_matches_global": 12,
+      "cards_multiplier": 0.966704,
+      "fouls_multiplier": 0.947031,
+      "cards_per_foul_multiplier": 1.046767,
+      "red_cards_per_match": 0.16667
+    },
+    "Uriah Rennie": {
+      "referee": "Uriah Rennie",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.863693,
+      "fouls_multiplier": 1.070508,
+      "cards_per_foul_multiplier": 0.833491,
+      "red_cards_per_match": 0.15385
+    },
+    "Uwe Kemmling": {
+      "referee": "Uwe Kemmling",
+      "n_matches_global": 30,
+      "cards_multiplier": 1.170393,
+      "fouls_multiplier": 1.006792,
+      "cards_per_foul_multiplier": 1.196361,
+      "red_cards_per_match": 0.56667
+    },
+    "Volker Wezel": {
+      "referee": "Volker Wezel",
+      "n_matches_global": 14,
+      "cards_multiplier": 1.091858,
+      "fouls_multiplier": 1.138684,
+      "cards_per_foul_multiplier": 0.96263,
+      "red_cards_per_match": 0.28571
+    },
+    "W Collum": {
+      "referee": "W Collum",
+      "n_matches_global": 399,
+      "cards_multiplier": 0.914843,
+      "fouls_multiplier": 0.9917,
+      "cards_per_foul_multiplier": 0.95278,
+      "red_cards_per_match": 0.25815
+    },
+    "W Finnie": {
+      "referee": "W Finnie",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.033573,
+      "fouls_multiplier": 0.971433,
+      "cards_per_foul_multiplier": 1.078316,
+      "red_cards_per_match": 0.0
+    },
+    "W Young": {
+      "referee": "W Young",
+      "n_matches_global": 37,
+      "cards_multiplier": 0.821825,
+      "fouls_multiplier": 0.932434,
+      "cards_per_foul_multiplier": 0.864544,
+      "red_cards_per_match": 0.16216
+    },
+    "W. S. G. Young": {
+      "referee": "W. S. G. Young",
+      "n_matches_global": 15,
+      "cards_multiplier": 0.815772,
+      "fouls_multiplier": 0.951236,
+      "cards_per_foul_multiplier": 0.859966,
+      "red_cards_per_match": 0.2
+    },
+    "Wack, F.-X.": {
+      "referee": "Wack, F.-X.",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.991489,
+      "fouls_multiplier": 1.037979,
+      "cards_per_foul_multiplier": 0.967504,
+      "red_cards_per_match": 0.11111
+    },
+    "Weiner, M": {
+      "referee": "Weiner, M",
+      "n_matches_global": 10,
+      "cards_multiplier": 1.183539,
+      "fouls_multiplier": 1.03057,
+      "cards_per_foul_multiplier": 1.150472,
+      "red_cards_per_match": 0.5
+    },
+    "Wiley, A. G.": {
+      "referee": "Wiley, A. G.",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.958278,
+      "fouls_multiplier": 1.006709,
+      "cards_per_foul_multiplier": 0.944957,
+      "red_cards_per_match": 0.07143
+    },
+    "Wilkes, C. R.": {
+      "referee": "Wilkes, C. R.",
+      "n_matches_global": 9,
+      "cards_multiplier": 0.979427,
+      "fouls_multiplier": 1.015097,
+      "cards_per_foul_multiplier": 0.986835,
+      "red_cards_per_match": 0.22222
+    },
+    "Willie Young": {
+      "referee": "Willie Young",
+      "n_matches_global": 28,
+      "cards_multiplier": 0.771658,
+      "fouls_multiplier": 0.963786,
+      "cards_per_foul_multiplier": 0.806713,
+      "red_cards_per_match": 0.21429
+    },
+    "Winter, J. T.": {
+      "referee": "Winter, J. T.",
+      "n_matches_global": 13,
+      "cards_multiplier": 0.775061,
+      "fouls_multiplier": 0.995976,
+      "cards_per_foul_multiplier": 0.772768,
+      "red_cards_per_match": 0.0
+    },
+    "Wolfgang Stark": {
+      "referee": "Wolfgang Stark",
+      "n_matches_global": 26,
+      "cards_multiplier": 1.044052,
+      "fouls_multiplier": 0.994174,
+      "cards_per_foul_multiplier": 1.071402,
+      "red_cards_per_match": 0.19231
+    },
+    "Wolstenholme, E. K.": {
+      "referee": "Wolstenholme, E. K.",
+      "n_matches_global": 13,
+      "cards_multiplier": 1.023808,
+      "fouls_multiplier": 0.995162,
+      "cards_per_foul_multiplier": 1.020204,
+      "red_cards_per_match": 0.38462
+    },
+    "Young, W. S. G.": {
+      "referee": "Young, W. S. G.",
+      "n_matches_global": 14,
+      "cards_multiplier": 0.816462,
+      "fouls_multiplier": 0.977538,
+      "cards_per_foul_multiplier": 0.836364,
+      "red_cards_per_match": 0.21429
+    }
+  }
+}

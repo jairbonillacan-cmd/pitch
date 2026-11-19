@@ -19,9 +19,13 @@ import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
-  NoticeCard,
 } from "../components/MaestroPrimitives";
 import { PlLeagueSelect } from "../components/PlSelect";
+import {
+  PlayerPropStreakCard,
+  type PlayerPropStreakCardProps,
+} from "../components/PlayerPropStreakCard";
+import { SgpCopulaAuditCard } from "../components/SgpCopulaAuditCard";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -37,7 +41,7 @@ import {
   type ParlayCompatibilityResult,
 } from "../parlay-engine";
 import { usePlatform } from "../platform-provider";
-import type { MatchPick, PlayerPropItem, RiskBand } from "../types";
+import type { MatchPick, PlayerPropItem, RiskBand, SgpCopulaAuditView } from "../types";
 
 function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
   if (tone === "success") return "var(--pl-success)";
@@ -121,6 +125,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   const [autoLegCount, setAutoLegCount] = useState<number>(3);
   const [catalogLimit, setCatalogLimit] = useState<number>(12);
   const [bookParlayOddsRaw, setBookParlayOddsRaw] = useState<string>("");
+  const [resolvedSgpAudit, setResolvedSgpAudit] = useState<SgpCopulaAuditView | null>(null);
 
   const parsedBookParlayDec = useMemo(
     () => (bookParlayOddsRaw.trim() ? parseUserOdds(bookParlayOddsRaw) : null),
@@ -156,7 +161,45 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
-  const slipRisk = useMemo(() => assessParlayRisk(parlaySummary), [parlaySummary]);
+
+  // Cuando la Cópula Student-t v5.1 (/api/parlays/sgp) responde, alinea el resumen del boleto
+  // para que Prob. Conjunta Real, Momio justo y Nivel de riesgo coincidan exactamente.
+  const activeSgpAudit = parlaySummary.hasSgpCorrelation ? resolvedSgpAudit : null;
+  const effectiveSlipProb = useMemo(() => {
+    if (!activeSgpAudit || parlaySummary.legs.length === 0) {
+      return parlaySummary.combinedProbability;
+    }
+    if (parlaySummary.legs.length === activeSgpAudit.nLegs) {
+      return activeSgpAudit.jointProbability;
+    }
+    const localMult = parlaySummary.sgpCorrelationMultiplier ?? 1;
+    const adjusted =
+      (parlaySummary.combinedProbability / Math.max(localMult, 0.05)) *
+      activeSgpAudit.correlationMultiplier;
+    return Math.min(0.92, Math.max(0.0001, adjusted));
+  }, [activeSgpAudit, parlaySummary]);
+
+  const effectiveSlipFairDec = useMemo(() => {
+    if (
+      activeSgpAudit &&
+      parlaySummary.legs.length === activeSgpAudit.nLegs &&
+      activeSgpAudit.fairCombinedDecimal > 1
+    ) {
+      return activeSgpAudit.fairCombinedDecimal;
+    }
+    return parlaySummary.legs.length > 0
+      ? Math.max(1.05, Math.round((1 / Math.max(effectiveSlipProb, 0.0001)) * 100) / 100)
+      : parlaySummary.fairDecimal;
+  }, [activeSgpAudit, effectiveSlipProb, parlaySummary.fairDecimal, parlaySummary.legs.length]);
+
+  const slipRisk = useMemo(
+    () =>
+      assessParlayRisk({
+        ...parlaySummary,
+        combinedProbability: effectiveSlipProb,
+      }),
+    [effectiveSlipProb, parlaySummary],
+  );
 
   const effectiveSlipBookDec =
     parsedBookParlayDec && parsedBookParlayDec > 1
@@ -164,7 +207,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       : parlaySummary.bookDecimal;
   const effectiveSlipEdgePts =
     parlaySummary.legs.length > 0 && effectiveSlipBookDec > 1
-      ? (parlaySummary.combinedProbability - 1 / effectiveSlipBookDec) * 100
+      ? (effectiveSlipProb - 1 / effectiveSlipBookDec) * 100
       : parlaySummary.edgePts;
   const effectiveReturnUnits =
     parlaySummary.legs.length > 0
@@ -536,7 +579,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           </div>
 
           {/* Columna derecha: Boleto Combinado PitchLab Perforado */}
-          <aside className="xl:col-span-5 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 sticky top-20 relative overflow-hidden">
+          <aside className="xl:col-span-5 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto relative overflow-x-hidden">
             <LensGlowOrbs subtle />
 
             <div className="space-y-4 relative z-10">
@@ -727,14 +770,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
 
                 {parlaySummary.hasSgpCorrelation ? (
-                  <NoticeCard
-                    tone="info"
-                    icon="activity"
-                    badgeText="Mismo partido"
-                    title="Probabilidad ajustada"
-                  >
-                    Las selecciones del mismo partido no son independientes: calculamos la probabilidad de que salgan juntas.
-                  </NoticeCard>
+                  <SgpCopulaAuditCard
+                    legs={parlaySummary.legs}
+                    oddsFormat={oddsFormat}
+                    offeredCombinedDecimalOdds={parsedBookParlayDec}
+                    onAuditResolved={setResolvedSgpAudit}
+                  />
                 ) : null}
 
                 <div className="grid grid-cols-2 gap-2.5 num">
@@ -749,9 +790,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       Prob. Conjunta Real
                     </span>
                     <strong className="text-base font-extrabold">
-                      {parlaySummary.combinedProbability * 100 < 0.1 && parlaySummary.legs.length > 0
+                      {effectiveSlipProb * 100 < 0.1 && parlaySummary.legs.length > 0
                         ? "< 0.1 %"
-                        : `${(parlaySummary.combinedProbability * 100).toFixed(1)} %`}
+                        : `${(effectiveSlipProb * 100).toFixed(1)} %`}
                     </strong>
                   </div>
                   <div
@@ -779,7 +820,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       Momio justo
                     </span>
                     <strong className="text-base font-bold">
-                      {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
+                      {formatOddsValue(effectiveSlipFairDec, oddsFormat)}
                     </strong>
                   </div>
                   <div
@@ -870,7 +911,17 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   );
 }
 
-export function PropsLabClubView(): React.JSX.Element {
+export interface PropsStreakExplorerItem extends PlayerPropStreakCardProps {
+  readonly id: string;
+  readonly sport: string;
+  readonly leagueLabel: string;
+}
+
+export interface PropsLabClubViewProps {
+  streakCards?: readonly PropsStreakExplorerItem[];
+}
+
+export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {}): React.JSX.Element {
   const {
     dataset,
     viewerRole,
@@ -889,6 +940,33 @@ export function PropsLabClubView(): React.JSX.Element {
   const [propOddsInputs, setPropOddsInputs] = useState<Record<string, string>>(
     {},
   );
+  const [streakSport, setStreakSport] = useState<string>("all");
+  const [streakQuery, setStreakQuery] = useState<string>("");
+
+  const filteredStreaks = useMemo(() => {
+    const q = streakQuery.trim().toLowerCase();
+    return streakCards.filter((card) => {
+      if (streakSport !== "all" && card.sport !== streakSport) return false;
+      if (!q) return true;
+      return (
+        card.playerName.toLowerCase().includes(q) ||
+        card.teamName.toLowerCase().includes(q) ||
+        card.leagueLabel.toLowerCase().includes(q)
+      );
+    });
+  }, [streakCards, streakSport, streakQuery]);
+
+  const availableStreakSports = useMemo(() => {
+    const set = new Set(streakCards.map((c) => c.sport));
+    const labels: Record<string, string> = {
+      football: "Fútbol",
+      basketball: "NBA",
+      "american-football": "NFL",
+      "ice-hockey": "NHL",
+      baseball: "MLB",
+    };
+    return Array.from(set).map((id) => ({ id, label: labels[id] ?? id }));
+  }, [streakCards]);
 
   const handleSealProp = (
     prop: PlayerPropItem,
@@ -944,14 +1022,65 @@ export function PropsLabClubView(): React.JSX.Element {
             <span>Líneas alternativas</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Props de jugadores
+            Tendencias y props de jugadores
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            {catalog.length > 0
-              ? "Mueve la línea alternativa con − / +, vuelve a la línea base en un clic, compara el momio de tu casa con el momio justo y guarda el prop en tu bitácora."
-              : "Proyecciones individuales de jugadores para NFL y fútbol europeo."}
+            Explora rachas reales en los últimos 5, 10 o 20 partidos contra una línea deslizable y compara el momio de tu casa contra la proyección.
           </p>
         </section>
+
+        {viewerRole !== "visitor" && streakCards.length > 0 ? (
+          <section className="space-y-4" aria-label="Tendencias de jugadores contra línea">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filtrar tendencias por deporte">
+                <button
+                  type="button"
+                  className={`pl-prop-metric-pill ${streakSport === "all" ? "is-on" : ""}`.trim()}
+                  aria-pressed={streakSport === "all"}
+                  onClick={() => setStreakSport("all")}
+                >
+                  Todos ({streakCards.length})
+                </button>
+                {availableStreakSports.map((sp) => (
+                  <button
+                    key={sp.id}
+                    type="button"
+                    className={`pl-prop-metric-pill ${streakSport === sp.id ? "is-on" : ""}`.trim()}
+                    aria-pressed={streakSport === sp.id}
+                    onClick={() => setStreakSport(sp.id)}
+                  >
+                    {sp.label}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="search"
+                value={streakQuery}
+                onChange={(e) => setStreakQuery(e.target.value)}
+                placeholder="Buscar jugador, equipo o liga…"
+                aria-label="Buscar jugador en tendencias"
+                className="glass-input text-base sm:text-xs min-h-11 sm:min-h-9 px-3 w-full sm:w-64"
+              />
+            </div>
+
+            {filteredStreaks.length > 0 ? (
+              <div className="pl-props-grid">
+                {filteredStreaks.map((card) => (
+                  <PlayerPropStreakCard
+                    key={card.id}
+                    {...card}
+                    oddsFormat={oddsFormat}
+                    onNavigate={navigateTo}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Ningún jugador coincide con «{streakQuery}». Prueba con otro nombre o deporte.
+              </p>
+            )}
+          </section>
+        ) : null}
 
         {viewerRole === "visitor" ? (
           <div className="glass-lens glass-ring glass-ring--featured rounded-3xl p-6 space-y-3 relative overflow-hidden">
@@ -979,7 +1108,7 @@ export function PropsLabClubView(): React.JSX.Element {
               </a>
             </div>
           </div>
-        ) : catalog.length === 0 ? (
+        ) : catalog.length === 0 && streakCards.length === 0 ? (
           <div className="glass-lens glass-ring rounded-3xl p-6 space-y-2" data-props-empty="">
             <h2 className="m-0 text-xl font-extrabold">Props de jugadores: próximamente</h2>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>

@@ -109,10 +109,25 @@ export function LeagueCategorySheet({
     };
   }, [open]);
 
-  const grouped = useMemo(() => {
+  const { playingToday, grouped } = useMemo(() => {
     const norm = (s: string) =>
       s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     const q = norm(query);
+
+    const sortEntries = (list: LeaguePickerEntry[]): LeaguePickerEntry[] =>
+      [...list].sort((a, b) => {
+        const aToday = (a.dayCount ?? 0) > 0 ? 1 : 0;
+        const bToday = (b.dayCount ?? 0) > 0 ? 1 : 0;
+        if (aToday !== bToday) return bToday - aToday;
+        if (aToday === 1 && (a.dayCount ?? 0) !== (b.dayCount ?? 0)) {
+          return (b.dayCount ?? 0) - (a.dayCount ?? 0);
+        }
+        const aFav = a.isFavorite ? 1 : 0;
+        const bFav = b.isFavorite ? 1 : 0;
+        if (aFav !== bFav) return bFav - aFav;
+        if (a.activeCount !== b.activeCount) return b.activeCount - a.activeCount;
+        return a.label.localeCompare(b.label, "es-MX");
+      });
 
     const visible = leagues.filter((item) => {
       if (!showInactive && item.isActive === false) return false;
@@ -125,6 +140,10 @@ export function LeagueCategorySheet({
       );
     });
 
+    const todayItems = !q
+      ? sortEntries(visible.filter((item) => (item.dayCount ?? 0) > 0))
+      : [];
+
     const buckets = new Map<LeagueRegionKey, LeaguePickerEntry[]>();
     for (const item of visible) {
       const region = COMPETITION_BY_ID[item.league]?.region ?? "europe-other";
@@ -133,10 +152,13 @@ export function LeagueCategorySheet({
       buckets.set(region, arr);
     }
 
-    return LEAGUE_REGIONS.map((region) => ({
-      region,
-      items: buckets.get(region.key) ?? [],
-    })).filter((g) => g.items.length > 0);
+    return {
+      playingToday: todayItems,
+      grouped: LEAGUE_REGIONS.map((region) => ({
+        region,
+        items: sortEntries(buckets.get(region.key) ?? []),
+      })).filter((g) => g.items.length > 0),
+    };
   }, [leagues, query, showInactive]);
 
   const inactiveCount = useMemo(
@@ -221,6 +243,53 @@ export function LeagueCategorySheet({
           </button>
         ) : null}
 
+        {playingToday.length > 0 ? (
+          <section
+            className="pl-sheet-group pl-sheet-group--today"
+            aria-label="Con partidos en esta fecha"
+            data-sheet-playing-today=""
+          >
+            <h3 className="pl-sheet-group-title">Con partidos en esta fecha</h3>
+            <div className="pl-sheet-grid">
+              {playingToday.map((item) => {
+                const isSel = selectedLeague === item.league;
+                const meta = COMPETITION_BY_ID[item.league];
+                return (
+                  <button
+                    key={`today-${item.league}`}
+                    type="button"
+                    className={`pl-sheet-item pl-sheet-item--active-day ${isSel ? "is-selected" : ""}`.trim()}
+                    aria-pressed={isSel}
+                    data-sheet-league={item.league}
+                    onClick={() => choose(item.league)}
+                  >
+                    <span className="pl-sheet-item-left">
+                      <LeagueBadge
+                        league={item.league}
+                        label={item.label}
+                        logoUrl={item.logoUrl}
+                        size={22}
+                      />
+                      <span className="pl-sheet-item-copy">
+                        <strong>{item.label}</strong>
+                        {meta?.country ? <small>{meta.country}</small> : null}
+                      </span>
+                    </span>
+                    <span className="pl-sheet-item-right">
+                      {item.isFavorite ? (
+                        <MaestroIcon name="star" size={12} className="pl-sheet-fav-star" />
+                      ) : null}
+                      <span className="pl-sheet-item-count pl-sheet-item-count--live num">
+                        {item.dayCount}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
+
         {grouped.length === 0 ? (
           <p className="pl-bm-empty">No encontramos ninguna competencia con ese filtro.</p>
         ) : (
@@ -231,11 +300,13 @@ export function LeagueCategorySheet({
                 {items.map((item) => {
                   const isSel = selectedLeague === item.league;
                   const meta = COMPETITION_BY_ID[item.league];
+                  const hasDayGames = (item.dayCount ?? 0) > 0;
+                  const countVal = item.dayCount !== undefined ? item.dayCount : item.activeCount;
                   return (
                     <button
                       key={item.league}
                       type="button"
-                      className={`pl-sheet-item ${isSel ? "is-selected" : ""}`.trim()}
+                      className={`pl-sheet-item ${isSel ? "is-selected" : ""} ${item.dayCount === 0 ? "is-zero-day" : ""}`.trim()}
                       aria-pressed={isSel}
                       data-sheet-league={item.league}
                       onClick={() => choose(item.league)}
@@ -256,8 +327,15 @@ export function LeagueCategorySheet({
                         {item.isFavorite ? (
                           <MaestroIcon name="star" size={12} className="pl-sheet-fav-star" />
                         ) : null}
-                        <span className="pl-sheet-item-count num">
-                          {item.dayCount !== undefined ? item.dayCount : item.activeCount}
+                        <span
+                          className={`pl-sheet-item-count num ${hasDayGames ? "pl-sheet-item-count--live" : ""}`.trim()}
+                          title={
+                            item.dayCount !== undefined
+                              ? `${item.dayCount} hoy · ${item.activeCount} en catálogo`
+                              : `${item.activeCount} partidos activos`
+                          }
+                        >
+                          {countVal}
                         </span>
                       </span>
                     </button>

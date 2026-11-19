@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import {
   getUserPreferences,
   sanitizeFollowedTopics,
+  sanitizeSavedViewsPref,
   upsertUserPreferences,
+  type AlertCadencePref,
   type OddsFormatPref,
   type ResponsiblePauseKind,
   type RiskPreference,
@@ -29,6 +31,7 @@ const ODDS_FORMATS = new Set<OddsFormatPref>(["american", "decimal"]);
 const THEME_MODES = new Set<ThemeModePref>(["dark", "light", "system"]);
 const RISK_PREFERENCES = new Set<RiskPreference>(["conservador", "medio", "arriesgado"]);
 const PAUSE_KINDS = new Set<ResponsiblePauseKind>(["24h", "7d", "30d"]);
+const ALERT_CADENCES = new Set<AlertCadencePref>(["inmediato", "cada_15m", "solo_hitos"]);
 
 function serializePreferences(pref: UserPreferencesRecord) {
   return {
@@ -55,7 +58,13 @@ function serializePreferences(pref: UserPreferencesRecord) {
     recordPrivacy: normalizeRecordPrivacy(pref.recordPrivacy),
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos,
     followedTopics: pref.followedTopics,
+    followedPlayers: pref.followedPlayers,
     preferredBooks: sanitizePreferredBooks(pref.preferredBooks),
+    showInactiveLeagues: pref.showInactiveLeagues,
+    lineMoveAlerts: pref.lineMoveAlerts,
+    language: pref.language,
+    alertCadence: pref.alertCadence,
+    savedViews: pref.savedViews,
     featuredBadges: pref.featuredBadges,
     updatedAtIso: pref.updatedAt ? pref.updatedAt.toISOString() : null,
   };
@@ -108,7 +117,7 @@ function parsePatch(body: Record<string, unknown>): {
       .filter((v): v is string => typeof v === "string")
       .map((v) => v.trim())
       .filter(Boolean)
-      .slice(0, 25);
+      .slice(0, 60);
     if (clean.length === 0) {
       return { error: "Selecciona al menos una liga favorita." };
     }
@@ -140,6 +149,8 @@ function parsePatch(body: Record<string, unknown>): {
     "pushEnabled",
     "showInRanking",
     "pauseCommunity",
+    "showInactiveLeagues",
+    "lineMoveAlerts",
   ] as const;
 
   for (const key of boolKeys) {
@@ -202,6 +213,39 @@ function parsePatch(body: Record<string, unknown>): {
       return { error: "Lista de casas de referencia inválida." };
     }
     patch.preferredBooks = sanitizePreferredBooks(body.preferredBooks);
+  }
+
+  if (body.followedPlayers !== undefined) {
+    if (!Array.isArray(body.followedPlayers) || body.followedPlayers.some((p) => typeof p !== "string")) {
+      return { error: "Lista de jugadores seguidos inválida." };
+    }
+    patch.followedPlayers = Array.from(
+      new Set((body.followedPlayers as string[]).map((p) => p.trim()).filter((p) => p.length > 0 && p.length <= 80)),
+    ).slice(0, 60);
+  }
+
+  if (body.language !== undefined) {
+    if (typeof body.language !== "string" || body.language.trim().length < 2) {
+      return { error: "Idioma inválido." };
+    }
+    patch.language = body.language.trim().slice(0, 16);
+  }
+
+  if (body.alertCadence !== undefined) {
+    if (
+      typeof body.alertCadence !== "string" ||
+      !ALERT_CADENCES.has(body.alertCadence as AlertCadencePref)
+    ) {
+      return { error: "Frecuencia de avisos inválida." };
+    }
+    patch.alertCadence = body.alertCadence as AlertCadencePref;
+  }
+
+  if (body.savedViews !== undefined) {
+    if (!Array.isArray(body.savedViews)) {
+      return { error: "Vistas guardadas inválidas." };
+    }
+    patch.savedViews = sanitizeSavedViewsPref(body.savedViews);
   }
 
   if (body.featuredBadges !== undefined) {

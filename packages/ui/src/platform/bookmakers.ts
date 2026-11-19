@@ -79,6 +79,40 @@ export function computeEdgePts(p: number, decimal: number | null): number | null
 }
 
 /**
+ * Calcula el margen implícito (overround / vig %) de un mercado completo (2 o 3 vías).
+ * Ejemplo: cuotas `[1.91, 1.91]` → suma implícita `1.0471` → overround `4.7 %`.
+ */
+export function computeMarketOverroundPct(decimals: readonly number[]): number | null {
+  if (decimals.length < 2) return null;
+  let impliedSum = 0;
+  for (const d of decimals) {
+    if (!Number.isFinite(d) || d <= 1.001) return null;
+    impliedSum += 1 / d;
+  }
+  const margin = (impliedSum - 1) * 100;
+  if (margin < -5 || margin > 40) return null;
+  return Math.round(margin * 10) / 10;
+}
+
+/**
+ * Elimina el margen implícito de la casa (de-vig multiplicativo) para recuperar
+ * las probabilidades limpias que suman exactamente `1.0`.
+ */
+export function computeDeVigProbs(decimals: readonly number[]): number[] | null {
+  if (decimals.length < 2) return null;
+  let impliedSum = 0;
+  const implied: number[] = [];
+  for (const d of decimals) {
+    if (!Number.isFinite(d) || d <= 1.001) return null;
+    const p = 1 / d;
+    implied.push(p);
+    impliedSum += p;
+  }
+  if (impliedSum <= 0) return null;
+  return implied.map((p) => Math.round((p / impliedSum) * 10_000) / 10_000);
+}
+
+/**
  * Elige la mejor cuota disponible dentro de las casas seleccionadas por el socio.
  * Si ninguna casa preferida tiene captura vigente pero sí hay una cuota verificada de otra casa,
  * usa la mejor cuota disponible como respaldo transparente.

@@ -9,11 +9,14 @@ import {
   type StandingRow,
 } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
+import { PersonAvatar } from "../team/PersonAvatar";
 import { FormSquares } from "../../components/FormSquares";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
-import { useOptionalPlatformActions } from "../../platform-provider";
-import type { PlatformGame } from "../../types";
-import { HONEST_NO_ABSENCES_COPY } from "./pre-match-logic";
+import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
+import { useOptionalPlatformActions, useOptionalPlatformCore } from "../../platform-provider";
+import { resolveMatchRefereeAnalytics } from "../../referee-stats";
+import type { MatchIntelligenceV5View, PlatformGame } from "../../types";
+import { HONEST_NO_ABSENCES_COPY, localizeInjuryLabelEs } from "./pre-match-logic";
 
 type Result = "G" | "E" | "P";
 
@@ -98,14 +101,17 @@ export function MatchContextPanel({
   game,
   standings = [],
   unlocked = true,
+  v5 = null,
   opinionsSlot,
 }: {
   readonly game: PlatformGame;
   readonly standings?: readonly StandingRow[];
   readonly unlocked?: boolean;
+  readonly v5?: MatchIntelligenceV5View | null;
   readonly opinionsSlot?: React.ReactNode;
 }): React.JSX.Element {
   const platformActions = useOptionalPlatformActions();
+  const platformCore = useOptionalPlatformCore();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport).short;
   const isFinished = game.status === "FT";
@@ -160,6 +166,9 @@ export function MatchContextPanel({
 
   const preContext = game.preGame?.matchContext;
   const effectiveReferee = game.referee ?? preContext?.referee;
+  const refereeAnalytics = effectiveReferee
+    ? resolveMatchRefereeAnalytics(game, platformCore?.dataset.games ?? [game])
+    : null;
 
   return (
     <div className="pl-ctx">
@@ -315,6 +324,31 @@ export function MatchContextPanel({
                         : null}
                     </span>
                   ) : null}
+                  {refereeAnalytics && refereeAnalytics.ebYellow !== null ? (
+                    <RefereeRigorBadge referee={refereeAnalytics} variant="compact" />
+                  ) : null}
+                  {v5?.microCounts?.refereeProfile ? (() => {
+                    const rp = v5.microCounts.refereeProfile;
+                    const cardDeltaPct = Math.round((rp.cardsMultiplier - 1) * 100);
+                    const foulDeltaPct = Math.round((rp.foulsMultiplier - 1) * 100);
+                    const cardTone =
+                      cardDeltaPct >= 6
+                        ? "var(--pl-warning)"
+                        : cardDeltaPct <= -6
+                          ? "var(--pl-success)"
+                          : "var(--pl-text-secondary)";
+                    return (
+                      <span
+                        className="text-[11px] font-semibold num"
+                        style={{ color: cardTone }}
+                        data-v5-referee-prior=""
+                      >
+                        Perfil histórico ({rp.games} p):{" "}
+                        {cardDeltaPct >= 0 ? `+${cardDeltaPct}` : `${cardDeltaPct}`} % tarjetas ·{" "}
+                        {foulDeltaPct >= 0 ? `+${foulDeltaPct}` : `${foulDeltaPct}`} % faltas vs liga
+                      </span>
+                    );
+                  })() : null}
                 </dd>
               </div>
             ) : null}
@@ -407,6 +441,55 @@ export function MatchContextPanel({
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
             {game.dayLabel} · {game.kickoffLocal}
           </p>
+          {preContext?.probablePitchers &&
+          (preContext.probablePitchers.home || preContext.probablePitchers.away) ? (
+            <div className="pt-2" data-mlb-probable-pitchers="">
+              <h4 className="pl-cortex-label m-0">Lanzadores abridores probables</h4>
+              <div className="pl-pitchers-grid">
+                {(
+                  [
+                    { sideLabel: game.home.shortName, pitcher: preContext.probablePitchers.home },
+                    { sideLabel: game.away.shortName, pitcher: preContext.probablePitchers.away },
+                  ] as const
+                )
+                  .filter((item) => Boolean(item.pitcher))
+                  .map(({ sideLabel, pitcher }) => {
+                    const p = pitcher!;
+                    const handLabel =
+                      p.throwingHand === "L"
+                        ? "Zurdo"
+                        : p.throwingHand === "R"
+                          ? "Derecho"
+                          : p.throwingHand === "S"
+                            ? "Ambidiestro"
+                            : null;
+                    const statParts = [
+                      p.record ? p.record : null,
+                      p.era != null ? `ERA ${p.era.toFixed(2)}` : null,
+                      p.whip != null ? `WHIP ${p.whip.toFixed(2)}` : null,
+                      p.strikeoutsPer9 != null ? `K/9 ${p.strikeoutsPer9.toFixed(1)}` : null,
+                    ].filter(Boolean);
+                    return (
+                      <div key={sideLabel} className="pl-pitcher-card">
+                        <PersonAvatar photoKey={p.photoKey} size={36} />
+                        <div className="min-w-0 flex-1">
+                          <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                            {sideLabel}
+                            {handLabel ? ` · ${handLabel}` : ""}
+                          </span>
+                          <strong className="block text-sm font-bold truncate">{p.name}</strong>
+                          {statParts.length > 0 ? (
+                            <span className="block text-xs num" style={{ color: "var(--pl-text-secondary)" }}>
+                              {statParts.join(" · ")}
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          ) : null}
           {others.length > 0 ? (
             <>
               <h3 className="pl-cortex-label mt-1">Otros datos del encuentro</h3>
@@ -505,9 +588,16 @@ export function MatchContextPanel({
                       <strong className="block text-sm truncate">{item.player}</strong>
                       <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                         {item.role}
-                        {item.injuryType ? ` · ${item.injuryType}` : ""}
-                        {item.returnDate ? ` · Regreso est.: ${item.returnDate}` : ""}
-                        {item.impactNote ? ` · ${item.impactNote}` : ""}
+                        {(() => {
+                          const injEs = localizeInjuryLabelEs(item.injuryType);
+                          const noteEs = localizeInjuryLabelEs(item.impactNote);
+                          const parts = [
+                            injEs || null,
+                            item.returnDate ? `Regreso est.: ${item.returnDate}` : null,
+                            noteEs && noteEs.toLowerCase() !== injEs.toLowerCase() ? noteEs : null,
+                          ].filter(Boolean);
+                          return parts.length > 0 ? ` · ${parts.join(" · ")}` : "";
+                        })()}
                       </span>
                     </div>
                     <span className="pl-pill text-[11px] shrink-0">{item.status}</span>

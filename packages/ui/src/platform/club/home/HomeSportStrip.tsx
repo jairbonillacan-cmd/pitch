@@ -43,6 +43,92 @@ function countLabel(n: number, one: string, many: string): string {
   return `${n} ${n === 1 ? one : many}`;
 }
 
+export interface OrderedHomeSport {
+  readonly def: HomeSportDef;
+  readonly count: number;
+}
+
+/**
+ * Ordena la tira de deportes: «Todos» siempre primero, luego los deportes con
+ * partidos en el día seleccionado (mayor actividad primero) y al final los que están en 0.
+ */
+export function orderHomeSports(
+  dayGames: readonly PlatformGame[],
+  selectedSport: SportFilter,
+): OrderedHomeSport[] {
+  const withCounts = HOME_SPORTS.map((def, idx) => ({
+    def,
+    idx,
+    count: def.soon
+      ? 0
+      : def.id === ALL
+        ? dayGames.length
+        : dayGames.filter((g) => matchesSportFilter(g, def.id as SportFilter)).length,
+  }));
+
+  const [allItem, ...rest] = withCounts;
+  const sortedRest = [...rest].sort((a, b) => {
+    const aActive = a.count > 0 ? 1 : 0;
+    const bActive = b.count > 0 ? 1 : 0;
+    if (aActive !== bActive) return bActive - aActive;
+    if (aActive === 1 && a.count !== b.count) return b.count - a.count;
+    const aSel = a.def.id === selectedSport ? 1 : 0;
+    const bSel = b.def.id === selectedSport ? 1 : 0;
+    if (aSel !== bSel) return bSel - aSel;
+    return a.idx - b.idx;
+  });
+
+  return [
+    ...(allItem ? [{ def: allItem.def, count: allItem.count }] : []),
+    ...sortedRest.map(({ def, count }) => ({ def, count })),
+  ];
+}
+
+export interface PartitionedHomeLeagues {
+  readonly inlineLeagues: readonly HomeSportLeagueItem[];
+  readonly hiddenCount: number;
+  readonly playingTodayCount: number;
+}
+
+/**
+ * Muestra en la tira rápida horizontal únicamente ligas que tienen partidos en el día
+ * seleccionado (más la liga elegida si el usuario filtró explícitamente una en 0),
+ * ordenadas primero por actividad del día, luego favoritas activas y cantidad de partidos.
+ * El resto de competiciones vigentes (próximos 30 días) vive dentro de «Más ligas».
+ */
+export function partitionHomeLeagues(
+  leagues: readonly HomeSportLeagueItem[],
+  selectedLeague: LeagueFilter,
+  favoriteLeagues?: readonly string[],
+  maxInline = 8,
+): PartitionedHomeLeagues {
+  const favSet = new Set(favoriteLeagues ?? []);
+  const playingToday = leagues
+    .filter((lg) => lg.dayCount > 0)
+    .sort((a, b) => {
+      const aFav = favSet.has(a.league) ? 1 : 0;
+      const bFav = favSet.has(b.league) ? 1 : 0;
+      if (aFav !== bFav) return bFav - aFav;
+      if (a.dayCount !== b.dayCount) return b.dayCount - a.dayCount;
+      return 0;
+    });
+
+  let inline: HomeSportLeagueItem[] = playingToday.slice(0, maxInline);
+
+  if (selectedLeague !== ALL && !inline.some((lg) => lg.league === selectedLeague)) {
+    const picked = leagues.find((lg) => lg.league === selectedLeague);
+    if (picked) {
+      inline = [...inline.slice(0, Math.max(0, maxInline - 1)), picked];
+    }
+  }
+
+  return {
+    inlineLeagues: inline,
+    hiddenCount: Math.max(0, leagues.length - inline.length),
+    playingTodayCount: playingToday.length,
+  };
+}
+
 export function SportThumb({ def }: { def: HomeSportDef }): React.JSX.Element {
   const iconBase = usePackIconBase();
   if (!def.iconKey) {
@@ -217,14 +303,14 @@ export function HomeSportStrip({
         count: "pl-home-sport-badge",
       };
 
-  const buttons = HOME_SPORTS.map((def) => {
-    const count = def.soon
-      ? 0
-      : def.id === ALL
-        ? dayGames.length
-        : dayGames.filter((g) => matchesSportFilter(g, def.id as SportFilter)).length;
+  const orderedSports = useMemo(
+    () => orderHomeSports(dayGames, sport),
+    [dayGames, sport],
+  );
+
+  const buttons = orderedSports.map(({ def, count }) => {
     const on = !def.soon && sport === def.id;
-    const isEmpty = !def.soon && count === 0;
+    const isEmpty = !def.soon && def.id !== ALL && count === 0;
     const badgeText = def.soon ? "Pronto" : String(count);
     const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
     const aria = `${def.a11yName}, ${subtext}`;
@@ -240,7 +326,11 @@ export function HomeSportStrip({
         onClick={(e) => {
           if (def.soon) return;
           onSelectSport(def.id as SportFilter);
-          e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+          e.currentTarget.scrollIntoView({
+            block: "nearest",
+            inline: "nearest",
+            container: "nearest",
+          } as ScrollIntoViewOptions);
           if (scrollToTopOnSelect && typeof window !== "undefined" && window.scrollY > 120) {
             const reduced =
               typeof window.matchMedia === "function" &&
@@ -260,7 +350,10 @@ export function HomeSportStrip({
 
   if (isHeader) {
     return (
-      <HeaderScrollTrack roleLabel="Elegir deporte" depsKey="header-sports">
+      <HeaderScrollTrack
+        roleLabel="Elegir deporte"
+        depsKey={`header-sports-${orderedSports.map((s) => `${s.def.id}:${s.count}`).join(",")}`}
+      >
         {buttons}
       </HeaderScrollTrack>
     );
@@ -292,34 +385,19 @@ export function HomeLeagueStrip({
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const favSet = useMemo(() => new Set(favoriteLeagues ?? []), [favoriteLeagues]);
-  const MAX_INLINE = 7;
+  const MAX_INLINE = 8;
 
-  const { inlineLeagues, hiddenCount } = useMemo(() => {
-    if (leagues.length <= MAX_INLINE + 1) {
-      return { inlineLeagues: leagues, hiddenCount: 0 };
-    }
-    const prioritized = [...leagues].sort((a, b) => {
-      const aSelected = a.league === league ? 1 : 0;
-      const bSelected = b.league === league ? 1 : 0;
-      if (aSelected !== bSelected) return bSelected - aSelected;
-      const aFav = favSet.has(a.league) ? 1 : 0;
-      const bFav = favSet.has(b.league) ? 1 : 0;
-      if (aFav !== bFav) return bFav - aFav;
-      if ((b.dayCount > 0) !== (a.dayCount > 0)) return b.dayCount > 0 ? 1 : -1;
-      return 0;
-    });
-    return {
-      inlineLeagues: prioritized.slice(0, MAX_INLINE),
-      hiddenCount: Math.max(0, prioritized.length - MAX_INLINE),
-    };
-  }, [leagues, league, favSet]);
+  const { inlineLeagues, hiddenCount, playingTodayCount } = useMemo(
+    () => partitionHomeLeagues(leagues, league, favoriteLeagues, MAX_INLINE),
+    [leagues, league, favoriteLeagues],
+  );
 
   return (
     <>
       <HeaderScrollTrack
         roleLabel="Ligas del deporte"
         dataAttr={{ "data-home-leaguebar": "" }}
-        depsKey={inlineLeagues.map((l) => l.league).join(",")}
+        depsKey={`${inlineLeagues.map((l) => `${l.league}:${l.dayCount}`).join(",")}|${hiddenCount}`}
       >
         <button
           type="button"
@@ -328,7 +406,11 @@ export function HomeLeagueStrip({
           data-league-chip={ALL}
           onClick={(e) => {
             onSelectLeague(ALL);
-            e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+            e.currentTarget.scrollIntoView({
+              block: "nearest",
+              inline: "nearest",
+              container: "nearest",
+            } as ScrollIntoViewOptions);
           }}
         >
           <span className="pl-astro-sport-icon" aria-hidden="true">
@@ -352,7 +434,11 @@ export function HomeLeagueStrip({
               data-league-chip={lg.league}
               onClick={(e) => {
                 onSelectLeague(on ? ALL : lg.league);
-                e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+                e.currentTarget.scrollIntoView({
+                  block: "nearest",
+                  inline: "nearest",
+                  container: "nearest",
+                } as ScrollIntoViewOptions);
               }}
             >
               <span className="pl-astro-sport-icon pl-header-league-emblem" aria-hidden="true">
@@ -376,7 +462,9 @@ export function HomeLeagueStrip({
                 <MaestroIcon name="grid" size={13} />
               </span>
             </span>
-            <strong className="pl-astro-sport-label">Más ligas</strong>
+            <strong className="pl-astro-sport-label">
+              {playingTodayCount > 0 ? "Más ligas" : "Explorar ligas"}
+            </strong>
             <span className="pl-astro-sport-count num">+{hiddenCount}</span>
           </button>
         ) : null}

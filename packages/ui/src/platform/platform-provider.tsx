@@ -228,6 +228,12 @@ import {
   DEFAULT_PREFERRED_BOOKS,
   sanitizePreferredBooks,
 } from "./bookmakers";
+import {
+  readSavedScreenerViews,
+  sanitizeSavedScreenerViews,
+  writeSavedScreenerViews,
+  type SavedScreenerView,
+} from "./screener-views";
 import type {
   JournalEntry,
   MatchPick,
@@ -450,6 +456,8 @@ export interface PlatformContextValue {
   setUnitMxn: (unit: number) => void;
   preferredBooks: string[];
   setPreferredBooks: (books: string[]) => void;
+  savedScreenerViews: SavedScreenerView[];
+  setSavedScreenerViews: (views: SavedScreenerView[]) => void;
 
   referralPaidFriends: number;
   memberReferralsSnapshot: (ServerProfileSummary & {
@@ -518,6 +526,7 @@ export interface PlatformCoreValue {
   showMxnBalance: boolean;
   unitMxn: number;
   preferredBooks: string[];
+  savedScreenerViews: SavedScreenerView[];
   month1NoCardMode: boolean;
 }
 
@@ -565,6 +574,7 @@ const ACTION_KEYS = [
   "setShowMxnBalance",
   "setUnitMxn",
   "setPreferredBooks",
+  "setSavedScreenerViews",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
   "setTipsterWeeklyPickOrigin",
@@ -788,6 +798,7 @@ export function PlatformProvider({
   const [preferredBooks, setPreferredBooksState] = useState<string[]>(() => [
     ...DEFAULT_PREFERRED_BOOKS,
   ]);
+  const [savedScreenerViews, setSavedScreenerViewsState] = useState<SavedScreenerView[]>([]);
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
   const [memberReferralsSnapshot, setMemberReferralsSnapshot] = useState<
     | (ServerProfileSummary & {
@@ -895,6 +906,7 @@ export function PlatformProvider({
       setShowMxnBalanceState(storedPrefs.showMxnBalance);
       setUnitMxnState(storedPrefs.unitMxn);
       setPreferredBooksState(sanitizePreferredBooks(storedPrefs.preferredBooks));
+      setSavedScreenerViewsState(readSavedScreenerViews());
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
       if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
@@ -960,11 +972,18 @@ export function PlatformProvider({
       }
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
       if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
-      const prefsRes = await getJson<{ preferences?: { preferredBooks?: string[] } }>("/api/me/preferences");
+      const prefsRes = await getJson<{
+        preferences?: { preferredBooks?: string[]; savedViews?: unknown };
+      }>("/api/me/preferences");
       if (active && Array.isArray(prefsRes?.preferences?.preferredBooks)) {
         const syncedBooks = sanitizePreferredBooks(prefsRes.preferences.preferredBooks);
         setPreferredBooksState(syncedBooks);
         writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: syncedBooks });
+      }
+      if (active && Array.isArray(prefsRes?.preferences?.savedViews)) {
+        const syncedViews = sanitizeSavedScreenerViews(prefsRes.preferences.savedViews);
+        setSavedScreenerViewsState(syncedViews);
+        writeSavedScreenerViews(syncedViews);
       }
       const refs = await getJson<
         ServerProfileSummary & {
@@ -1122,6 +1141,25 @@ export function PlatformProvider({
     setPreferredBooksState(clean);
     writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: clean });
   }, []);
+
+  const setSavedScreenerViews = useCallback(
+    (views: SavedScreenerView[]) => {
+      const clean = sanitizeSavedScreenerViews(views);
+      setSavedScreenerViewsState(clean);
+      writeSavedScreenerViews(clean);
+      if (hasAccountSessionAuth) {
+        void fetch("/api/me/preferences", {
+          method: "PUT",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ savedViews: clean }),
+        }).catch((err) => {
+          void err;
+        });
+      }
+    },
+    [hasAccountSessionAuth],
+  );
 
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
@@ -2355,6 +2393,8 @@ export function PlatformProvider({
       setUnitMxn,
       preferredBooks,
       setPreferredBooks,
+      savedScreenerViews,
+      setSavedScreenerViews,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2449,6 +2489,8 @@ export function PlatformProvider({
       setUnitMxn,
       preferredBooks,
       setPreferredBooks,
+      savedScreenerViews,
+      setSavedScreenerViews,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2504,6 +2546,7 @@ export function PlatformProvider({
       showMxnBalance,
       unitMxn,
       preferredBooks,
+      savedScreenerViews,
       month1NoCardMode,
     }),
     [
@@ -2525,6 +2568,7 @@ export function PlatformProvider({
       showMxnBalance,
       unitMxn,
       preferredBooks,
+      savedScreenerViews,
       month1NoCardMode,
     ],
   );

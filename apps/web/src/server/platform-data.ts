@@ -14,9 +14,13 @@ import type {
 import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
+import { buildMatchDetailV5 } from "./spacetime-v5";
 import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
-import { buildDerivedFootballFallbackRows } from "./outlook-derived-rows";
+import {
+  buildDerivedFootballFallbackRows,
+  buildDerivedUsSportRows,
+} from "./outlook-derived-rows";
 import {
   enrichDatasetWithBookQuotes,
   enrichMarketRowsWithBookQuotes,
@@ -34,7 +38,10 @@ import {
   PRODUCT_LEAGUES,
   type ProductLeague,
 } from "./snapshots";
-import { loadLeaguePlayerProps, loadLeagueTeamsDirectory } from "./team-profile";
+import {
+  buildTeamsDirectoryFromEnvelopes,
+  loadLeaguePlayerProps,
+} from "./team-profile";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -101,7 +108,65 @@ export function previewToolsEnabled(viewerIsAdmin: boolean = false): boolean {
 
 /** Cuánto vive el dataset calculado en memoria del servidor. Los snapshots cambian una vez al día. */
 const DATASET_TTL_MS = 5 * 60 * 1000;
-let datasetMemo: { value: PlatformDataset; at: number } | null = null;
+
+interface DatasetMemoBundle {
+  value: PlatformDataset;
+  gamesById: Map<string, PlatformGame>;
+  redactedValue: PlatformDataset | null;
+  redactedGamesById: Map<string, PlatformGame> | null;
+  slimMemberShell: PlatformDataset | null;
+  slimVisitorShell: PlatformDataset | null;
+  at: number;
+}
+
+let datasetMemo: DatasetMemoBundle | null = null;
+
+function getDatasetMemoBundle(): DatasetMemoBundle {
+  const now = Date.now();
+  if (datasetMemo && now - datasetMemo.at < DATASET_TTL_MS) return datasetMemo;
+  const value = buildServerRawPlatformDatasetUncached();
+  const gamesById = new Map<string, PlatformGame>();
+  for (const g of value.games) gamesById.set(g.id, g);
+  datasetMemo = {
+    value,
+    gamesById,
+    redactedValue: null,
+    redactedGamesById: null,
+    slimMemberShell: null,
+    slimVisitorShell: null,
+    at: now,
+  };
+  return datasetMemo;
+}
+
+function getRedactedMemo(bundle: DatasetMemoBundle): {
+  dataset: PlatformDataset;
+  gamesById: Map<string, PlatformGame>;
+} {
+  if (!bundle.redactedValue || !bundle.redactedGamesById) {
+    const redacted = redactDatasetForVisitor(bundle.value);
+    const map = new Map<string, PlatformGame>();
+    for (const g of redacted.games) map.set(g.id, g);
+    bundle.redactedValue = redacted;
+    bundle.redactedGamesById = map;
+  }
+  return { dataset: bundle.redactedValue, gamesById: bundle.redactedGamesById };
+}
+
+function getSlimMemberShell(bundle: DatasetMemoBundle): PlatformDataset {
+  if (!bundle.slimMemberShell) {
+    bundle.slimMemberShell = withoutGameDetail(upcomingPlusRecentFinished(bundle.value, 12));
+  }
+  return bundle.slimMemberShell;
+}
+
+function getSlimVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
+  if (!bundle.slimVisitorShell) {
+    const { dataset } = getRedactedMemo(bundle);
+    bundle.slimVisitorShell = withoutGameDetail(upcomingPlusRecentFinished(dataset, 12));
+  }
+  return bundle.slimVisitorShell;
+}
 
 /**
  * Dataset completo de la jornada. Se guarda 5 minutos en memoria del servidor (calcular las
@@ -109,11 +174,7 @@ let datasetMemo: { value: PlatformDataset; at: number } | null = null;
  * evita repetirlo dentro de una misma solicitud.
  */
 export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
-  const now = Date.now();
-  if (datasetMemo && now - datasetMemo.at < DATASET_TTL_MS) return datasetMemo.value;
-  const value = buildServerRawPlatformDatasetUncached();
-  datasetMemo = { value, at: now };
-  return value;
+  return getDatasetMemoBundle().value;
 });
 
 function buildServerRawPlatformDatasetUncached(): PlatformDataset {
@@ -150,7 +211,7 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
 
   return {
     ...dataset,
-    teams: loadLeagueTeamsDirectory(),
+    teams: buildTeamsDirectoryFromEnvelopes(envelopes),
     playerProps: loadLeaguePlayerProps(dataset.games),
   };
 }
@@ -209,8 +270,8 @@ export function upcomingPlusRecentFinished(
 }
 
 async function redactedForViewer(): Promise<PlatformDataset> {
-  const full = buildServerRawPlatformDataset();
-  return (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
+  const bundle = getDatasetMemoBundle();
+  return (await hasAuthenticatedBetaSession()) ? bundle.value : getRedactedMemo(bundle).dataset;
 }
 
 /** Tabla de posiciones de una sola liga (evita serializar las 57 tablas en cada página del shell). */
@@ -243,8 +304,11 @@ export async function loadFinishedGames(league?: string): Promise<PlatformGame[]
 
 /** Un partido sin detalle pesado, para la ficha de un partido que el layout no trae. */
 export async function loadGameSummary(gameId: string): Promise<PlatformGame | null> {
-  const dataset = await redactedForViewer();
-  const game = dataset.games.find((g) => g.id === gameId);
+  const bundle = getDatasetMemoBundle();
+  const hasSession = await hasAuthenticatedBetaSession();
+  const game = hasSession
+    ? bundle.gamesById.get(gameId)
+    : getRedactedMemo(bundle).gamesById.get(gameId);
   return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
 }
 
@@ -283,10 +347,11 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
 
 /** Detalle de un partido con la misma redacción Cero-Fuga que el resto del dataset. */
 export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
-  const full = buildServerRawPlatformDataset();
+  const bundle = getDatasetMemoBundle();
   const hasSession = await hasAuthenticatedBetaSession();
-  const dataset = hasSession ? full : redactDatasetForVisitor(full);
-  const game = dataset.games.find((g) => g.id === gameId);
+  const game = hasSession
+    ? bundle.gamesById.get(gameId)
+    : getRedactedMemo(bundle).gamesById.get(gameId);
   if (!game) return null;
   if (!hasSession && game.status !== "FT") {
     return { markets: [], headToHead: game.headToHead, factors: [] };
@@ -301,13 +366,31 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
       row.market === "yellow_total",
   );
   const derivedFallbackRows =
-    !v32 && game.status !== "FT" && game.sport === "football"
-      ? buildDerivedFootballFallbackRows(
-          game,
-          !game.markets.some((row) => row.market === "correct_score"),
-        )
+    !v32 && game.status !== "FT"
+      ? game.sport === "football"
+        ? buildDerivedFootballFallbackRows(
+            game,
+            !game.markets.some((row) => row.market === "correct_score"),
+          )
+        : game.sport === "basketball" || game.sport === "ice-hockey" || game.sport === "baseball"
+          ? buildDerivedUsSportRows({
+              home: game.home,
+              away: game.away,
+              projection: game.projection,
+              sport: game.sport,
+              existingMarkets: game.markets,
+            })
+          : []
       : [];
-  const rawMarkets = v32 ? [...v32.markets, ...countMarkets] : [...game.markets, ...derivedFallbackRows];
+  const rawBaseMarkets = v32 ? [...v32.markets, ...countMarkets] : [...game.markets, ...derivedFallbackRows];
+  const v5Detail =
+    game.status !== "FT"
+      ? buildMatchDetailV5(game, {
+          hasV32Outlook: Boolean(v32),
+          existingMarkets: rawBaseMarkets,
+        })
+      : null;
+  const rawMarkets = v5Detail ? [...rawBaseMarkets, ...v5Detail.extraMarkets] : rawBaseMarkets;
   const markets = enrichMarketRowsWithBookQuotes(game, rawMarkets);
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
@@ -315,7 +398,8 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
     markets,
     headToHead: game.headToHead,
     factors: game.factors,
-    outlook: v32?.outlook ?? null,
+    outlook: v32?.outlook ?? v5Detail?.fallbackOutlook ?? null,
+    v5: v5Detail?.v5 ?? null,
     frozenMainPick,
   };
 }
@@ -502,22 +586,34 @@ export async function loadPublicPlatformState(
 export async function loadClubPlatformState(
   preferredRole: ViewerRole = "member",
 ): Promise<LoadedPlatformState> {
-  const fullDataset = buildServerRawPlatformDataset();
-  const access = await getViewerAccess();
+  const bundle = getDatasetMemoBundle();
+  const [access, serverMonth1NoCardMode] = await Promise.all([
+    getViewerAccess(),
+    loadMonth1Flag(),
+  ]);
   const currentPaymentMode = paymentMode();
   const hasActiveSession = access.fullAccess;
+  const viewerIdentity: ViewerIdentity | null = access.profile?.handle
+    ? {
+        handle: access.profile.handle,
+        displayName: access.profile.displayName,
+        initials: access.profile.initials,
+        avatarUrl: access.profile.avatarUrl,
+        referralCode: access.profile.referralCode,
+      }
+    : null;
 
   if (!hasActiveSession) {
     return {
-      dataset: upcomingPlusRecentFinished(withoutGameDetail(redactDatasetForVisitor(fullDataset)), 12),
+      dataset: getSlimVisitorShell(bundle),
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
       accountsEnabled: accountsEnabled(),
       viewerVia: access.via,
       paymentMode: currentPaymentMode,
-      serverMonth1NoCardMode: await loadMonth1Flag(),
-      viewerIdentity: await loadViewerIdentity(),
+      serverMonth1NoCardMode,
+      viewerIdentity,
     };
   }
 
@@ -530,14 +626,14 @@ export async function loadClubPlatformState(
     : preferredRole;
 
   return {
-    dataset: upcomingPlusRecentFinished(withoutGameDetail(fullDataset), 12),
+    dataset: getSlimMemberShell(bundle),
     initialRole: resolvedRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(access.isAdmin),
     accountsEnabled: accountsEnabled(),
     viewerVia: access.via,
     paymentMode: currentPaymentMode,
-    serverMonth1NoCardMode: await loadMonth1Flag(),
-    viewerIdentity: await loadViewerIdentity(),
+    serverMonth1NoCardMode,
+    viewerIdentity,
   };
 }
