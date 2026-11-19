@@ -1,8 +1,14 @@
 "use client";
 
 import React, { useEffect, useId, useState } from "react";
-import type { LeagueId, PlatformSport } from "@pitchlab/contracts";
+import {
+  LEAGUE_REGIONS,
+  type LeagueId,
+  type LeagueRegionKey,
+  type PlatformSport,
+} from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
+import { FormSquares } from "../components/FormSquares";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -32,6 +38,7 @@ export interface CompareTeamOption {
 export interface CompareLeagueCatalog {
   league: LeagueId;
   label: string;
+  region?: LeagueRegionKey;
   sport: PlatformSport;
   teams: CompareTeamOption[];
 }
@@ -389,7 +396,13 @@ export function CompareHubView({
                   ariaLabel="Seleccionar liga para comparar"
                   value={league}
                   onChange={handleLeagueChange}
-                  options={catalog.map((c) => ({ value: c.league, label: c.label }))}
+                  options={catalog.map((c) => {
+                    const reg = c.region ? LEAGUE_REGIONS.find((r) => r.key === c.region) : undefined;
+                    return {
+                      value: c.league,
+                      label: reg && catalog.length > 10 ? `${c.label} · ${reg.shortLabel}` : c.label,
+                    };
+                  })}
                 />
               </div>
 
@@ -539,15 +552,8 @@ export function CompareHubView({
                             </div>
                           </a>
                           {side.streak.length > 0 ? (
-                            <div className="flex items-center gap-1 mt-2" aria-label={`Últimas 5 de ${side.shortName}`}>
-                              {side.streak.slice(-5).map((tok, sIdx) => (
-                                <span
-                                  key={`${side.slug}-st-${sIdx}`}
-                                  className={`pl-st-form-pill ${tok === "G" ? "is-win" : tok === "P" ? "is-loss" : "is-draw"}`}
-                                >
-                                  {tok}
-                                </span>
-                              ))}
+                            <div className="mt-2">
+                              <FormSquares form={side.streak} size="sm" />
                             </div>
                           ) : null}
                         </div>

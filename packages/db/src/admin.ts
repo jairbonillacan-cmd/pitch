@@ -484,3 +484,172 @@ export async function adminRevokeGrant(
     return { ok: true, userId: revoked.userId, removedMs: revoked.removedMs, newAccessUntil } as const;
   });
 }
+
+export type MemberInboxKind = "feedback" | "support" | "deletion";
+
+export interface AdminInboxItem {
+  id: string;
+  kind: MemberInboxKind;
+  actorUserId: string | null;
+  actorEmail: string;
+  handle: string | null;
+  displayName: string | null;
+  subject: string | null;
+  category: string | null;
+  message: string;
+  createdAtIso: string;
+  resolved: boolean;
+  resolvedAtIso: string | null;
+  resolvedByEmail: string | null;
+  resolutionNote: string | null;
+}
+
+export interface AdminAuditEntryItem {
+  id: string;
+  action: string;
+  actorEmail: string;
+  targetKey: string;
+  payloadJson: Record<string, unknown> | null;
+  createdAtIso: string;
+}
+
+/** Registra un mensaje de «Feedback e ideas» o «Contactar con soporte» visible en /app/admin. */
+export async function recordMemberInboxMessage(
+  db: Db,
+  input: {
+    userId: string;
+    email: string;
+    handle: string | null;
+    displayName: string | null;
+    kind: "feedback" | "support";
+    category?: string | null;
+    subject?: string | null;
+    message: string;
+    ipSubnetHash?: string | null;
+  },
+): Promise<{ id: string; createdAt: Date }> {
+  const action = input.kind === "feedback" ? "member_feedback" : "member_support_contact";
+  const [inserted] = await db
+    .insert(adminAuditLogs)
+    .values({
+      actorUserId: input.userId,
+      actorEmail: input.email.trim().toLowerCase(),
+      action,
+      targetKey: input.userId,
+      payloadJson: {
+        handle: input.handle,
+        displayName: input.displayName,
+        category: input.category?.trim().slice(0, 60) || null,
+        subject: input.subject?.trim().slice(0, 120) || null,
+        message: input.message.trim().slice(0, 1500),
+      },
+      ipSubnetHash: input.ipSubnetHash ?? null,
+    })
+    .returning({ id: adminAuditLogs.id, createdAt: adminAuditLogs.createdAt });
+  return { id: inserted!.id, createdAt: inserted!.createdAt };
+}
+
+/** Lista los envíos de feedback, soporte y solicitudes de baja junto con su estado de atención. */
+export async function listAdminInbox(db: Db, limit = 80): Promise<AdminInboxItem[]> {
+  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+  const rows = await db
+    .select()
+    .from(adminAuditLogs)
+    .where(inArray(adminAuditLogs.action, ["member_feedback", "member_support_contact", "member_deletion_request"]))
+    .orderBy(desc(adminAuditLogs.createdAt))
+    .limit(safeLimit);
+
+  if (rows.length === 0) return [];
+
+  const itemIds = rows.map((r) => r.id);
+  const resolutions = await db
+    .select()
+    .from(adminAuditLogs)
+    .where(and(eq(adminAuditLogs.action, "admin_inbox_resolved"), inArray(adminAuditLogs.targetKey, itemIds)))
+    .orderBy(desc(adminAuditLogs.createdAt));
+
+  const resByTarget = new Map<string, (typeof resolutions)[number]>();
+  for (const r of resolutions) {
+    if (!resByTarget.has(r.targetKey)) resByTarget.set(r.targetKey, r);
+  }
+
+  return rows.map((r) => {
+    const payload = (r.payloadJson ?? {}) as Record<string, unknown>;
+    const resolvedRow = resByTarget.get(r.id) ?? null;
+    const resolvedPayload = (resolvedRow?.payloadJson ?? {}) as Record<string, unknown>;
+    const kind: MemberInboxKind =
+      r.action === "member_deletion_request"
+        ? "deletion"
+        : r.action === "member_feedback"
+          ? "feedback"
+          : "support";
+    const msgRaw =
+      kind === "deletion"
+        ? String(payload.reason ?? "Solicitud de eliminación de cuenta y datos.")
+        : String(payload.message ?? "");
+    return {
+      id: r.id,
+      kind,
+      actorUserId: r.actorUserId,
+      actorEmail: r.actorEmail,
+      handle: typeof payload.handle === "string" ? payload.handle : null,
+      displayName: typeof payload.displayName === "string" ? payload.displayName : null,
+      subject: typeof payload.subject === "string" ? payload.subject : null,
+      category: typeof payload.category === "string" ? payload.category : null,
+      message: msgRaw,
+      createdAtIso: r.createdAt.toISOString(),
+      resolved: Boolean(resolvedRow),
+      resolvedAtIso: resolvedRow ? resolvedRow.createdAt.toISOString() : null,
+      resolvedByEmail: resolvedRow?.actorEmail ?? null,
+      resolutionNote: typeof resolvedPayload.note === "string" ? resolvedPayload.note : null,
+    };
+  });
+}
+
+/** Marca un elemento de la bandeja administrativa como atendido con trazabilidad. */
+export async function markAdminInboxResolved(
+  db: Db,
+  input: {
+    adminUserId: string | null;
+    adminEmail: string;
+    itemId: string;
+    note?: string | null;
+    ipSubnetHash?: string | null;
+  },
+): Promise<{ ok: true } | { ok: false; reason: "no_encontrado" }> {
+  const [exists] = await db
+    .select({ id: adminAuditLogs.id })
+    .from(adminAuditLogs)
+    .where(eq(adminAuditLogs.id, input.itemId))
+    .limit(1);
+  if (!exists) return { ok: false, reason: "no_encontrado" };
+
+  await recordAdminAudit(db, {
+    actorUserId: input.adminUserId,
+    actorEmail: input.adminEmail,
+    action: "admin_inbox_resolved",
+    targetKey: input.itemId,
+    payloadJson: { note: input.note?.trim().slice(0, 280) || null },
+    ipSubnetHash: input.ipSubnetHash ?? null,
+  });
+  return { ok: true };
+}
+
+/** Devuelve los últimos registros administrativos de seguridad y operación. */
+export async function listAdminAuditLogs(db: Db, limit = 60): Promise<AdminAuditEntryItem[]> {
+  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+  const rows = await db
+    .select()
+    .from(adminAuditLogs)
+    .orderBy(desc(adminAuditLogs.createdAt))
+    .limit(safeLimit);
+
+  return rows.map((r) => ({
+    id: r.id,
+    action: r.action,
+    actorEmail: r.actorEmail,
+    targetKey: r.targetKey,
+    payloadJson: (r.payloadJson as Record<string, unknown> | null) ?? null,
+    createdAtIso: r.createdAt.toISOString(),
+  }));
+}

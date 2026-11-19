@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "league": "serie-b",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Alessandro Di Pardo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Fabio Depaoli",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Lorenzo Insigne",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Salvatore Esposito",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.virtus-entella",
+      "player": "Andrea Tiritiello",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.virtus-entella",
+      "player": "Mattia Alborghetti",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Andrea Favilli",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Dimitrios Sounas",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Lorenco Šimić",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Luca Di Maggio",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

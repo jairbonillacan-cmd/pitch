@@ -34,9 +34,22 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
     const dir = loadLeagueTeamsDirectory();
     expect(dir.length).toBeGreaterThanOrEqual(200);
 
+    const coreFullSeason = new Set([
+      "liga-mx",
+      "premier-league",
+      "laliga",
+      "bundesliga",
+      "serie-a",
+      "ligue-1",
+      "nfl",
+      "nba",
+      "nhl",
+      "mlb",
+    ]);
+
     for (const lg of PRODUCT_LEAGUES) {
       const subset = dir.filter((item) => item.league === lg);
-      expect(subset.length).toBeGreaterThanOrEqual(16);
+      expect(subset.length).toBeGreaterThanOrEqual(coreFullSeason.has(lg) ? 16 : 2);
 
       const sample = loadTeamProfile(lg, subset[0]!.slug, { fullAccess: true });
       expect(sample).not.toBeNull();

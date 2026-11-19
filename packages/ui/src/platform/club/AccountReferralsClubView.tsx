@@ -35,8 +35,8 @@ export type AccountTabKey = "referrals" | "plan" | "prefs" | "cfdi";
 export const BILLING_TAB_ENABLED = false;
 
 const ACCOUNT_TABS: readonly TabDef<AccountTabKey>[] = [
-  { key: "referrals", label: "Invitar amigos" },
   { key: "plan", label: "Mi plan" },
+  { key: "referrals", label: "Invitar amigos" },
   { key: "prefs", label: "Preferencias" },
   ...(BILLING_TAB_ENABLED ? [{ key: "cfdi" as const, label: "Facturación" }] : []),
 ];
@@ -91,7 +91,7 @@ export function AccountReferralsClubView({
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
 
   const [accountTab, setAccountTabState] = useState<AccountTabKey>(
-    resolveAccountTab(initialTab) ?? "referrals",
+    resolveAccountTab(initialTab) ?? "plan",
   );
   const [prefsSavedTick, setPrefsSavedTick] = useState<number>(0);
 
@@ -112,7 +112,7 @@ export function AccountReferralsClubView({
     if (typeof window === "undefined") return;
     try {
       const url = new URL(window.location.href);
-      if (next === "referrals") {
+      if (next === "plan") {
         url.searchParams.delete("tab");
       } else {
         url.searchParams.set("tab", next);
@@ -130,9 +130,9 @@ export function AccountReferralsClubView({
         if (param) {
           setAccountTabState(param);
         } else if (initialTab) {
-          setAccountTabState(resolveAccountTab(initialTab) ?? "referrals");
+          setAccountTabState(resolveAccountTab(initialTab) ?? "plan");
         } else {
-          setAccountTabState("referrals");
+          setAccountTabState("plan");
         }
       } catch (err) {
         void err;

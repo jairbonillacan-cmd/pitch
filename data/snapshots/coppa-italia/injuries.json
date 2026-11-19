@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "league": "coppa-italia",
+  "observedAt": "2026-11-19T16:13:44.585Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "coppa-italia.frosinone",
+      "player": "Aleksa Terzić",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.frosinone",
+      "player": "Antonio Raimondo",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.frosinone",
+      "player": "Florian Grillitsch",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.frosinone",
+      "player": "Gabriele Bracaglia",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.hellas-verona",
+      "player": "Davide De Battisti",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Sprained Knee Injury",
+      "injuryType": "Sprained Knee Injury",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.virtus-entella",
+      "player": "Andrea Tiritiello",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    },
+    {
+      "teamId": "coppa-italia.virtus-entella",
+      "player": "Mattia Alborghetti",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:13:44.585Z"
+    }
+  ]
+}

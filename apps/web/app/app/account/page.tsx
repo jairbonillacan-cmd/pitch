@@ -12,9 +12,9 @@ import { loadMemberPlanSummary, type MemberPlanSummary } from "../../../src/serv
 
 function parseAccountTab(value: unknown): AccountTabKey {
   if (value === "preferencias") return "prefs";
-  return value === "plan" || value === "prefs" || value === "cfdi"
-    ? value
-    : "referrals";
+  if (value === "referrals" || value === "invitar") return "referrals";
+  if (value === "prefs" || value === "cfdi" || value === "plan") return value;
+  return "plan";
 }
 
 let cachedDb: Db | null = null;

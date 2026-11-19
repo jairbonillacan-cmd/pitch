@@ -103,8 +103,19 @@ export const MatchLineupsProjectionSchema = z.object({
 });
 export type MatchLineupsProjection = z.infer<typeof MatchLineupsProjectionSchema>;
 
+export const RefereeStatsSchema = z.object({
+  country: z.string().max(80).optional(),
+  matches: z.number().int().nonnegative().optional(),
+  avgYellow: z.number().nonnegative().optional(),
+  avgRed: z.number().nonnegative().optional(),
+  avgFouls: z.number().nonnegative().optional(),
+  avgGoals: z.number().nonnegative().optional(),
+});
+export type RefereeStats = z.infer<typeof RefereeStatsSchema>;
+
 export const MatchPreGameContextSchema = z.object({
   referee: z.string().max(120).optional(),
+  refereeStats: RefereeStatsSchema.optional(),
   weather: z
     .object({
       description: z.string().max(120).optional(),
@@ -116,5 +127,15 @@ export const MatchPreGameContextSchema = z.object({
   travelDistanceKm: z.number().nonnegative().optional(),
   isLocalDerby: z.boolean().optional(),
   broadcastsMx: z.array(z.string().min(1).max(80)).max(12).optional(),
+  halfTimeScore: z.object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() }).optional(),
+  extraTimeScore: z.object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() }).optional(),
+  penaltyShootout: z.object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() }).optional(),
+  previousLegGameId: z.string().max(120).optional(),
+  groupName: z.string().max(80).optional(),
+  stageName: z.string().max(100).optional(),
+  venueCity: z.string().max(80).optional(),
+  venueCountry: z.string().max(80).optional(),
+  venueCapacity: z.number().int().positive().optional(),
+  attendance: z.number().int().nonnegative().optional(),
 });
 export type MatchPreGameContext = z.infer<typeof MatchPreGameContextSchema>;

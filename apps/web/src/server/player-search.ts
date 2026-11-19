@@ -1,7 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
-import { isNationalCompetition, LeagueSquadsFileSchema } from "@pitchlab/contracts";
-import { PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import {
+  canonicalPlayerHref,
+  isNationalCompetition,
+  LeagueSquadsFileSchema,
+} from "@pitchlab/contracts";
+import {
+  LEAGUE_LABELS,
+  PRODUCT_LEAGUES,
+  resolveSnapshotsRoot,
+  type ProductLeague,
+} from "./snapshots";
 
 export interface PlayerSearchItem {
   id: string;
@@ -23,29 +32,6 @@ export interface PlayerSearchItem {
   searchHaystack: string;
   searchName: string;
 }
-
-const LEAGUE_LABELS: Readonly<Record<ProductLeague, string>> = {
-  "liga-mx": "Liga MX",
-  "premier-league": "Premier League",
-  laliga: "LaLiga",
-  bundesliga: "Bundesliga",
-  "serie-a": "Serie A",
-  "ligue-1": "Ligue 1",
-  nfl: "NFL",
-  nba: "NBA",
-  nhl: "NHL",
-  mlb: "MLB",
-  "concacaf-nations": "Concacaf Nations",
-  "uefa-nations": "UEFA Nations",
-  amistosos: "Amistosos FIFA",
-  "copa-del-mundo": "Copa del Mundo",
-  eliminatorias: "Eliminatorias",
-  "copa-america": "Copa América",
-  eurocopa: "Eurocopa",
-  "copa-oro": "Copa Oro",
-  "copa-africana": "Copa Africana",
-  "copa-asiatica": "Copa Asiática",
-};
 
 function normSearch(raw: string): string {
   return raw
@@ -100,7 +86,7 @@ export function getPlayerSearchIndex(): readonly PlayerSearchItem[] {
             leagueLabel,
             photoKey: p.photoKey ?? null,
             fallbackPhotoKey: p.fallbackPhotoKey ?? null,
-            href: `/app/${league}/teams/${team.teamSlug}/players/${p.slug}`,
+            href: canonicalPlayerHref(league, team.teamSlug, p.slug),
             isNational: isNat,
             searchHaystack,
             searchName,

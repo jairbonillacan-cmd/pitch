@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  COMPETITION_BY_ID,
   LeagueSnapshotSchema,
   LeagueInjuriesFileSchema,
   MarketPulseFileSchema,
@@ -76,6 +77,49 @@ export const PRODUCT_LEAGUES = [
   "nba",
   "nhl",
   "mlb",
+  // Norteamérica y CONCACAF clubes
+  "mls",
+  "concacaf-champions",
+  "leagues-cup",
+  // Copas internacionales de clubes
+  "champions-league",
+  "europa-league",
+  "conference-league",
+  "uefa-super-cup",
+  "libertadores",
+  "sudamericana",
+  "caf-champions",
+  // Sudamérica
+  "liga-argentina",
+  "brasileirao",
+  "brasileirao-b",
+  "copa-do-brasil",
+  "primera-a-colombia",
+  "copa-colombia",
+  "primera-chile",
+  "ligapro-ecuador",
+  "liga-1-peru",
+  // Copas y 2.ª división del Top 5 europeo
+  "championship",
+  "fa-cup",
+  "carabao-cup",
+  "segunda-espana",
+  "copa-del-rey",
+  "liga-f",
+  "bundesliga-2",
+  "dfb-pokal",
+  "serie-b",
+  "coppa-italia",
+  "ligue-2",
+  "coupe-de-france",
+  // Otras 1.ª divisiones europeas, Medio Oriente y Asia
+  "eredivisie",
+  "liga-portugal",
+  "pro-league-belgica",
+  "super-lig",
+  "saudi-pro-league",
+  "j1-league",
+  // Selecciones
   "concacaf-nations",
   "uefa-nations",
   "amistosos",
@@ -159,51 +203,13 @@ function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): 
   };
 }
 
-export const LEAGUE_LABELS: Record<ProductLeague, string> = {
-  "liga-mx": "Liga MX",
-  "premier-league": "Premier League",
-  laliga: "LaLiga",
-  bundesliga: "Bundesliga",
-  "serie-a": "Serie A",
-  "ligue-1": "Ligue 1",
-  nfl: "NFL",
-  nba: "NBA",
-  nhl: "NHL",
-  mlb: "MLB",
-  "concacaf-nations": "Concacaf Nations League",
-  "uefa-nations": "UEFA Nations League",
-  amistosos: "Amistosos FIFA",
-  "copa-del-mundo": "Copa del Mundo FIFA",
-  eliminatorias: "Eliminatorias Mundialistas",
-  "copa-america": "Copa América",
-  eurocopa: "Eurocopa UEFA",
-  "copa-oro": "Copa Oro Concacaf",
-  "copa-africana": "Copa Africana de Naciones",
-  "copa-asiatica": "Copa Asiática AFC",
-};
+export const LEAGUE_LABELS: Record<ProductLeague, string> = Object.fromEntries(
+  PRODUCT_LEAGUES.map((id) => [id, COMPETITION_BY_ID[id]?.label ?? id]),
+) as Record<ProductLeague, string>;
 
-const LEAGUE_SEASONS: Record<ProductLeague, string> = {
-  "liga-mx": "Apertura 2026",
-  "premier-league": "2026/27",
-  laliga: "2026/27",
-  bundesliga: "2026/27",
-  "serie-a": "2026/27",
-  "ligue-1": "2026/27",
-  nfl: "2026",
-  nba: "2026-27",
-  nhl: "2026-27",
-  mlb: "2026",
-  "concacaf-nations": "2026/27",
-  "uefa-nations": "2026/27",
-  amistosos: "2026",
-  "copa-del-mundo": "2026",
-  eliminatorias: "2025–26",
-  "copa-america": "2024",
-  eurocopa: "2024",
-  "copa-oro": "2025",
-  "copa-africana": "2025–26",
-  "copa-asiatica": "2026/27",
-};
+const LEAGUE_SEASONS: Record<ProductLeague, string> = Object.fromEntries(
+  PRODUCT_LEAGUES.map((id) => [id, COMPETITION_BY_ID[id]?.season ?? "2026"]),
+) as Record<ProductLeague, string>;
 
 export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
   const root = resolveSnapshotsRoot();

@@ -19225,35 +19225,45 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
 .pl-st-zone-row th {
   position: relative;
-  padding: 14px 8px 6px 16px;
+  padding: 10px 6px 4px 16px;
   text-align: left;
-  font-size: 0.72rem;
-  font-weight: 550;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--pl-text-muted);
 }
 
+.pl-st-row {
+  background: transparent;
+  transition: background-color 140ms ease;
+}
+
 .pl-st-row td {
-  padding: 7px 8px;
+  padding: 4px 6px;
   vertical-align: middle;
   white-space: nowrap;
+  font-size: 0.8125rem;
 }
 
 .pl-st-row.is-leader {
-  background: color-mix(in oklab, var(--pl-text) 3.4%, transparent);
+  background: transparent;
+}
+
+.pl-st-row.is-leader .pl-st-rank-cell {
+  color: var(--pl-brand);
 }
 
 .pl-st-row:hover {
-  background: color-mix(in oklab, var(--pl-text) 4.2%, transparent);
+  background: color-mix(in oklab, var(--pl-brand) 5%, transparent);
 }
 
 .pl-st-rank-cell {
   position: relative;
-  width: 34px;
-  padding-inline-start: 16px !important;
+  width: 30px;
+  padding-inline-start: 14px !important;
   padding-inline-end: 4px !important;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--pl-text);
+  font-size: 0.78rem;
+  font-weight: 750;
+  color: var(--pl-text-secondary);
 }
 
 .pl-st-row[data-zone-tone] .pl-st-rank-cell::before {
@@ -19262,40 +19272,44 @@ html[data-theme="light"] .pl-clean-hero-light img {
   left: 3px;
   top: 0;
   bottom: 0;
-  width: 6px;
-  border-left: 2px solid var(--st-zone-color);
+  width: 5px;
+  border-left: 2.5px solid var(--st-zone-color);
   pointer-events: none;
 }
 
 .pl-st-row[data-zone-tone][data-zone-end="true"] .pl-st-rank-cell::before {
-  bottom: 5px;
+  bottom: 4px;
   border-bottom: 2px solid var(--st-zone-color);
 }
 
 .pl-st-team-cell {
-  min-width: 152px;
+  min-width: 144px;
 }
 
 .pl-st-team-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 36px;
-  font-weight: 550;
+  gap: 8px;
+  min-height: 30px;
+  font-weight: 600;
   color: var(--pl-text);
   text-decoration: none;
   max-width: 100%;
 }
 
+.pl-st-team-link:hover {
+  color: var(--pl-brand);
+}
+
 .pl-st-num-cell {
   text-align: right;
-  color: var(--pl-text);
+  color: var(--pl-text-secondary);
   font-weight: 500;
 }
 
 .pl-st-pts-cell {
   text-align: right;
-  font-weight: 750;
+  font-weight: 800;
   color: var(--pl-text);
 }
 
@@ -19306,12 +19320,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
 .pl-st-form-pill {
   display: inline-flex;
   align-items: center;
-  gap: 1px;
-  height: 20px;
-  padding-right: 12px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--pl-text) 6%, var(--pl-surface-elevated));
-  overflow: hidden;
+  gap: 4px;
   vertical-align: middle;
 }
 
@@ -20424,5 +20433,1163 @@ html[data-theme="dark"] .pl-sq-jersey {
 
   .pl-cmp-duel-head {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Goal #2 · Componentes atómicos v2, Tablas compactas, Modales nativos,
+   Preferencias agrupadas, Calendario vivo y Rediseño Mobile-First (ADR-044)
+   ========================================================================== */
+
+/* ---------- FormSquares: Últimas 5 en cuadros redondeados limpios ---------- */
+.pl-form-sq-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.pl-form-sq {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.pl-form-sq.is-xs {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  font-size: 9.5px;
+}
+
+.pl-form-sq-row--sm .pl-form-sq,
+.pl-form-sq.is-sm {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 10.5px;
+}
+
+.pl-form-sq-row--md .pl-form-sq,
+.pl-form-sq.is-md {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  font-size: 11.5px;
+}
+
+.pl-form-sq-empty {
+  color: var(--pl-text-muted);
+  font-size: 0.78rem;
+}
+
+.pl-form-sq.is-G {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border-color: var(--pl-pill-success-border);
+}
+
+.pl-form-sq.is-E {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border-color: var(--pl-pill-warning-border);
+}
+
+.pl-form-sq.is-P {
+  background: var(--pl-pill-danger-bg);
+  color: var(--pl-pill-danger-fg);
+  border-color: var(--pl-pill-danger-border);
+}
+
+.pl-form-sq.is-placeholder {
+  background: color-mix(in oklab, var(--pl-text) 5%, transparent);
+  color: var(--pl-text-muted);
+  border-color: var(--pl-border);
+}
+
+@media (max-width: 767px) {
+  .pl-st-row td {
+    padding: 4px 5px;
+  }
+
+  .pl-st-team-link {
+    min-height: 28px;
+    gap: 6px;
+  }
+
+  .pl-form-sq.is-sm {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* ---------- SettingsGroup / SettingsRow (estilo Apple HIG) ---------- */
+.pl-sg {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pl-sg-heading {
+  margin: 0;
+  padding-inline: 4px;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pl-text-muted);
+}
+
+.pl-sg-card {
+  border-radius: 16px;
+  background: var(--pl-surface);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-sg-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 54px;
+  padding: 11px 15px;
+  border: 0;
+  background: transparent;
+  color: var(--pl-text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+  transition: background-color 150ms ease;
+}
+
+.pl-sg-row + .pl-sg-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 56px;
+  right: 15px;
+  height: 1px;
+  background: var(--pl-row-rule);
+  pointer-events: none;
+}
+
+.pl-sg-row.is-interactive {
+  cursor: pointer;
+}
+
+.pl-sg-row.is-interactive:hover:not(.is-disabled) {
+  background: var(--pl-surface-hover);
+}
+
+.pl-sg-row.is-interactive:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: -2px;
+}
+
+.pl-sg-row.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pl-sg-row.is-danger .pl-sg-title {
+  color: var(--pl-danger);
+}
+
+.pl-sg-row.is-accent .pl-sg-title {
+  color: var(--pl-brand);
+}
+
+.pl-sg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text-secondary);
+  flex-shrink: 0;
+}
+
+.pl-sg-icon.is-danger {
+  background: var(--pl-pill-danger-bg);
+  border-color: var(--pl-pill-danger-border);
+  color: var(--pl-danger);
+}
+
+.pl-sg-icon.is-accent {
+  background: var(--pl-pill-brand-bg);
+  border-color: var(--pl-pill-brand-border);
+  color: var(--pl-brand);
+}
+
+.pl-sg-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.pl-sg-title {
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.25;
+  color: var(--pl-text);
+}
+
+.pl-sg-subtitle {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--pl-text-muted);
+}
+
+.pl-sg-value {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pl-sg-trailing {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pl-sg-chev {
+  color: var(--pl-text-muted);
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pl-sg-footnote {
+  margin: 0;
+  padding-inline: 6px;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--pl-text-muted);
+}
+
+/* ---------- Modales nativos (<dialog closedby="any">) + scroll containment ---------- */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: color-mix(in oklab, var(--pl-bg) 72%, transparent);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.pl-native-modal {
+  width: min(36rem, calc(100vw - 24px));
+  max-height: min(86dvh, 720px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--pl-border-strong);
+  border-radius: 22px;
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  box-shadow: var(--pl-shadow-lg, 0 24px 60px color-mix(in oklab, var(--pl-text) 18%, transparent));
+  overflow: hidden;
+}
+
+.pl-native-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-native-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--pl-row-rule);
+}
+
+.pl-native-modal-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--pl-text);
+}
+
+.pl-native-modal-sub {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--pl-text-muted);
+}
+
+.pl-native-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.pl-native-modal-close:hover {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+
+.pl-native-modal-close:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-native-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pl-native-modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--pl-row-rule);
+  background: var(--pl-surface-elevated);
+}
+
+/* Mobile bottom-sheet para selector de ligas por región */
+.pl-sheet-modal {
+  width: min(44rem, calc(100vw - 24px));
+}
+
+.pl-sheet-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--pl-row-rule);
+  background: var(--pl-surface-elevated);
+}
+
+.pl-sheet-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 200px;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-muted);
+}
+
+.pl-sheet-search-input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.pl-sheet-inactive-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pl-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pl-sheet-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pl-sheet-all-btn.is-active {
+  border-color: var(--pl-brand);
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
+}
+
+.pl-sheet-group {
+  display: grid;
+  gap: 8px;
+}
+
+.pl-sheet-group-title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pl-text-muted);
+}
+
+.pl-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pl-sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 11px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.pl-sheet-item:hover {
+  background: var(--pl-surface-hover);
+  border-color: var(--pl-border-strong);
+}
+
+.pl-sheet-item.is-active {
+  border-color: var(--pl-brand);
+  background: var(--pl-pill-brand-bg);
+}
+
+.pl-sheet-item.is-paused {
+  opacity: 0.76;
+}
+
+.pl-sheet-item-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.pl-sheet-item-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--pl-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pl-sheet-item-sub {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+
+.pl-sheet-item-count {
+  font-size: 0.72rem;
+  font-weight: 750;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .pl-sheet-modal,
+  .pl-badge-modal,
+  .pl-support-modal {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 90dvh;
+    margin: auto 0 0;
+    border-radius: 22px 22px 0 0;
+    border-bottom: 0;
+  }
+
+  .pl-sheet-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Modal de Insignias + Botón en encabezado de perfil ---------- */
+.pl-badge-modal {
+  width: min(44rem, calc(100vw - 24px));
+}
+
+.pl-prof-badges-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border-strong);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.pl-prof-badges-btn:hover {
+  background: var(--pl-surface-hover);
+  border-color: var(--pl-brand);
+}
+
+.pl-prof-badges-btn:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+.pl-prof-record-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-bm-section {
+  display: grid;
+  gap: 10px;
+}
+
+.pl-bm-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pl-bm-section-head h3 {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-bm-saving {
+  font-size: 0.74rem;
+  color: var(--pl-brand);
+  font-weight: 600;
+}
+
+.pl-bm-empty {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--pl-text-muted);
+}
+
+.pl-bm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pl-bm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+}
+
+.pl-bm-card.is-featured {
+  border-color: var(--pl-brand);
+  background: color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface-elevated));
+}
+
+.pl-bm-card.is-locked {
+  opacity: 0.85;
+}
+
+.pl-bm-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pl-bm-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  flex-shrink: 0;
+}
+
+.pl-bm-glyph.is-muted {
+  opacity: 0.65;
+}
+
+.pl-bm-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pl-bm-card-meta strong {
+  font-size: 0.84rem;
+  font-weight: 750;
+  color: var(--pl-text);
+}
+
+.pl-bm-card-meta span {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+
+.pl-bm-crit {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--pl-text-secondary);
+}
+
+.pl-bm-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border-strong);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.pl-bm-toggle.is-on {
+  background: var(--pl-brand);
+  border-color: var(--pl-brand);
+  color: var(--pl-on-primary);
+}
+
+.pl-bm-toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pl-bm-prog {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.pl-bm-prog-track {
+  flex: 1 1 auto;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--pl-border);
+  overflow: hidden;
+}
+
+.pl-bm-prog-track > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pl-brand);
+}
+
+.pl-bm-prog-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+
+.pl-bm-footnote {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--pl-text-muted);
+}
+
+/* ---------- FeedbackSupportDialog ---------- */
+.pl-support-done {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--pl-pill-success-bg);
+  border: 1px solid var(--pl-pill-success-border);
+  color: var(--pl-pill-success-fg);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+/* ---------- Calendario vivo con conteo, punto live y resumen por liga ---------- */
+.pl-home-cal-day {
+  height: 44px;
+}
+
+.pl-home-cal-meta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 12px;
+}
+
+.pl-home-cal-count {
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pl-brand);
+}
+
+.pl-home-cal-day.is-selected .pl-home-cal-count {
+  color: var(--pl-on-primary);
+}
+
+.pl-home-cal-day.is-past-only:not(.is-selected) .pl-home-cal-count {
+  color: var(--pl-text-muted);
+}
+
+.pl-home-cal-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--pl-success);
+  flex-shrink: 0;
+}
+
+.pl-home-cal-day.is-selected .pl-home-cal-live-dot {
+  background: var(--pl-on-primary);
+}
+
+.pl-home-cal-summary-leagues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* ---------- Preferencias: búsqueda de ligas + switch en pausa ---------- */
+.pl-prefs-inactive-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.pl-prefs-league-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text-muted);
+  margin-bottom: 12px;
+}
+
+.pl-prefs-league-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.84rem;
+  outline: none;
+}
+
+.pl-prefs-pause-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text-muted);
+}
+
+/* ---------- Mi plan (pasos SPEI) + Invitar amigos (franja de beneficios) ---------- */
+.pl-acct-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pl-acct-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--pl-text-secondary);
+}
+
+.pl-acct-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
+  border: 1px solid var(--pl-pill-brand-border);
+  font-size: 0.72rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.pl-acct-perk-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.pl-acct-perk-tile {
+  padding: 10px 11px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-acct-perk-tile.is-accent {
+  background: var(--pl-pill-brand-bg);
+  border-color: var(--pl-pill-brand-border);
+}
+
+.pl-acct-perk-tile dt {
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: var(--pl-text-muted);
+}
+
+.pl-acct-perk-tile dd {
+  margin: 3px 0 0;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-acct-perk-tile.is-accent dd {
+  color: var(--pl-pill-brand-fg);
+}
+
+@media (max-width: 639px) {
+  .pl-acct-steps,
+  .pl-acct-perk-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Directorio de equipos enriquecido (solo copas sin tabla) ---------- */
+.pl-team-dir-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  text-decoration: none;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.pl-team-dir-card:hover {
+  border-color: var(--pl-brand);
+  background: var(--pl-surface-hover);
+}
+
+/* ---------- MatchContextPanel: ficha de árbitro + tiempos ---------- */
+.pl-ctx-referee-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+/* ---------- Historial y Momios mobile-first ---------- */
+.pl-hist-league-pills,
+.pl-odds-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.pl-hist-league-pills::-webkit-scrollbar,
+.pl-odds-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-hist-league-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  min-height: 36px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text-secondary);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.pl-hist-league-pill:hover {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+
+.pl-hist-league-pill.is-on {
+  background: var(--pl-pill-brand-bg);
+  border-color: var(--pl-pill-brand-border);
+  color: var(--pl-pill-brand-fg);
+}
+
+.pl-hist-match-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+}
+
+.pl-hist-score-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 7px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-odds-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 20px;
+}
+
+.pl-odds-hero-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 240px;
+}
+
+.pl-odds-mini-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-odds-mini-kpi span {
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: var(--pl-text-muted);
+}
+
+.pl-odds-mini-kpi strong {
+  font-size: 1rem;
+  font-weight: 850;
+  color: var(--pl-text);
+}
+
+.pl-odds-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pl-odds-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-muted);
+}
+
+.pl-odds-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.pl-odds-books-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.pl-odds-books-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-odds-book-chip {
+  flex: none;
+  min-height: 32px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pl-odds-book-chip.is-on {
+  background: var(--pl-brand);
+  border-color: var(--pl-brand);
+  color: var(--pl-on-primary);
+}
+
+.pl-odds-game-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--pl-row-rule);
+}
+
+.pl-odds-game-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pl-text);
+  font-weight: 750;
+  font-size: 0.9rem;
+}
+
+.pl-odds-game-link:hover {
+  color: var(--pl-brand);
+}
+
+.pl-odds-row-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pl-astro-sport-tab--more {
+  border-style: dashed;
+}
+
+@media (max-width: 767px) {
+  .pl-odds-hero {
+    padding: 14px;
+  }
+
+  .pl-odds-hero-kpis {
+    width: 100%;
+    min-width: 0;
   }
 }

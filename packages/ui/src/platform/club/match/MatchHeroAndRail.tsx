@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import {
+  canonicalTeamHref,
   isLivePhaseActive,
   sportHasDraw,
   sportScoringUnit,
@@ -293,7 +294,7 @@ export function MatchHeroScoreboard({
 
   const goTeam = (slug: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    onNavigate(`/app/${game.league}/teams/${slug}`);
+    onNavigate(canonicalTeamHref(game.league, slug));
   };
 
   return (
@@ -337,7 +338,7 @@ export function MatchHeroScoreboard({
           <div className="pl-match-hero-team-text">
             <h1 className="pl-match-hero-name">
               <a
-                href={`/app/${game.league}/teams/${game.home.slug}`}
+                href={canonicalTeamHref(game.league, game.home.slug)}
                 onClick={goTeam(game.home.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.home.name}`}
@@ -447,7 +448,7 @@ export function MatchHeroScoreboard({
           <div className="pl-match-hero-team-text">
             <h2 className="pl-match-hero-name">
               <a
-                href={`/app/${game.league}/teams/${game.away.slug}`}
+                href={canonicalTeamHref(game.league, game.away.slug)}
                 onClick={goTeam(game.away.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.away.name}`}

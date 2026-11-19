@@ -1,5 +1,6 @@
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
+import { COMPETITION_BY_ID } from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "@pitchlab/ui/access-guard";
 import {
   formatCanonicalBookLabel,
@@ -63,9 +64,41 @@ const QUOTE_LEAGUE_TO_APP: Readonly<Record<string, string>> = {
 
 interface ParsedEventQuotes {
   readonly appLeague: string;
+  readonly gameId?: string;
   readonly homeHint: string;
   readonly awayHint: string;
   readonly bySelectionKey: ReadonlyMap<string, readonly BookQuoteItem[]>;
+}
+
+interface RawSnapshotMarketLine {
+  readonly gameId?: string;
+  readonly homeName?: string;
+  readonly awayName?: string;
+  readonly market?: string;
+  readonly outcome?: string;
+  readonly line?: number | null;
+  readonly book?: string;
+  readonly decimal?: number;
+  readonly openingDecimal?: number | null;
+  readonly movement?: "shortening" | "drifting" | "stable" | null;
+  readonly capturedAtUtc?: string;
+}
+
+interface RawSnapshotMarketLinesFile {
+  readonly league?: string;
+  readonly updatedAt?: string;
+  readonly lines?: readonly RawSnapshotMarketLine[];
+}
+
+function resolveSnapshotsRoot(): string | null {
+  const candidates = [
+    path.resolve(process.cwd(), "data", "snapshots"),
+    path.resolve(process.cwd(), "..", "..", "data", "snapshots"),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  return null;
 }
 
 function resolveQuotesPath(): string | null {
@@ -83,7 +116,14 @@ function normalizeMarketKey(rawMarket: string | undefined): string {
   const m = (rawMarket ?? "").trim().toLowerCase();
   if (m === "h2h" || m === "1x2" || m === "moneyline" || m === "ml") return "1x2";
   if (m === "btts" || m === "both_teams_to_score") return "btts";
-  if (m === "totals" || m === "total" || m === "ou" || m === "over_under" || m.startsWith("totals_")) {
+  if (
+    m === "totals" ||
+    m === "total" ||
+    m === "ou" ||
+    m === "over_under" ||
+    m.startsWith("totals_") ||
+    m.startsWith("over_under_")
+  ) {
     return "totals";
   }
   if (m === "corners_total" || m === "total_corners" || m === "corners_over_under" || m.startsWith("corners_")) {
@@ -196,7 +236,9 @@ export function parseQuotesLedgerTicks(
       continue;
     }
     if (!isMarketFresh(tick.ts_captured, nowMs)) continue;
-    const appLeague = tick.league ? QUOTE_LEAGUE_TO_APP[tick.league] : undefined;
+    const appLeague = tick.league
+      ? (QUOTE_LEAGUE_TO_APP[tick.league] ?? (COMPETITION_BY_ID[tick.league] ? tick.league : undefined))
+      : undefined;
     if (!appLeague || !tick.event_id) continue;
     const hints = extractEventTeamHints(tick.event_id);
     if (!hints) continue;
@@ -287,43 +329,205 @@ export function parseQuotesLedgerTicks(
   return byLeague;
 }
 
-function getParsedQuotesByLeague(nowMs: number = Date.now()): Map<string, ParsedEventQuotes[]> {
-  const quotesPath = resolveQuotesPath();
-  if (!quotesPath) return new Map();
+let snapshotLinesCache: {
+  hourBucket: number;
+  signature: string;
+  byLeague: Map<string, ParsedEventQuotes[]>;
+} | null = null;
+
+function loadSnapshotMarketLinesByLeague(nowMs: number): Map<string, ParsedEventQuotes[]> {
+  const root = resolveSnapshotsRoot();
+  if (!root) return new Map();
   const hourBucket = Math.floor(nowMs / 3_600_000);
-  let mtimeMs = 0;
+  const files: Array<{ league: string; filePath: string; mtimeMs: number }> = [];
   try {
-    mtimeMs = statSync(quotesPath).mtimeMs;
+    for (const entry of readdirSync(root, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const fp = path.join(root, entry.name, "market-lines.json");
+      if (!existsSync(fp)) continue;
+      try {
+        files.push({ league: entry.name, filePath: fp, mtimeMs: statSync(fp).mtimeMs });
+      } catch (err) {
+        void err;
+      }
+    }
   } catch (err) {
     void err;
     return new Map();
   }
-
+  const signature = files.map((f) => `${f.league}:${f.mtimeMs}`).sort().join("|");
   if (
-    ledgerCache &&
-    ledgerCache.mtimeMs === mtimeMs &&
-    ledgerCache.hourBucket === hourBucket
+    snapshotLinesCache &&
+    snapshotLinesCache.hourBucket === hourBucket &&
+    snapshotLinesCache.signature === signature
   ) {
-    return ledgerCache.byLeague;
+    return snapshotLinesCache.byLeague;
   }
 
-  try {
-    const raw = JSON.parse(readFileSync(quotesPath, "utf8")) as RawQuotesLedger;
-    const byLeague = Array.isArray(raw.ticks) ? parseQuotesLedgerTicks(raw.ticks, nowMs) : new Map();
-    ledgerCache = { mtimeMs, hourBucket, byLeague };
-    return byLeague;
-  } catch (err) {
-    void err;
-    return new Map();
+  const byLeague = new Map<string, ParsedEventQuotes[]>();
+  for (const f of files) {
+    try {
+      const parsed = JSON.parse(readFileSync(f.filePath, "utf8")) as RawSnapshotMarketLinesFile;
+      const appLeague = parsed.league && COMPETITION_BY_ID[parsed.league] ? parsed.league : f.league;
+      const fallbackCaptured = parsed.updatedAt ?? new Date(nowMs).toISOString();
+      if (!Array.isArray(parsed.lines) || parsed.lines.length === 0) continue;
+
+      const eventsMap = new Map<
+        string,
+        {
+          gameId: string;
+          homeHint: string;
+          awayHint: string;
+          quotesByKey: Map<string, Map<string, BookQuoteItem>>;
+        }
+      >();
+
+      for (const line of parsed.lines) {
+        if (!line || typeof line !== "object" || !line.gameId) continue;
+        const price = line.decimal;
+        if (typeof price !== "number" || !Number.isFinite(price) || price <= 1.01 || price > 500) {
+          continue;
+        }
+        const capturedAtUtc = line.capturedAtUtc ?? fallbackCaptured;
+        if (!isMarketFresh(capturedAtUtc, nowMs)) continue;
+        const book = normalizeBookKey(line.book ?? "consensus") || "consensus";
+        const selKey = buildLookupKey(line.market, line.outcome, line.line);
+
+        let bucket = eventsMap.get(line.gameId);
+        if (!bucket) {
+          bucket = {
+            gameId: line.gameId,
+            homeHint: line.homeName ?? "",
+            awayHint: line.awayName ?? "",
+            quotesByKey: new Map(),
+          };
+          eventsMap.set(line.gameId, bucket);
+        }
+        let bookMap = bucket.quotesByKey.get(selKey);
+        if (!bookMap) {
+          bookMap = new Map();
+          bucket.quotesByKey.set(selKey, bookMap);
+        }
+        const roundedDec = Math.round(price * 1000) / 1000;
+        const openingDecimal =
+          typeof line.openingDecimal === "number" &&
+          Number.isFinite(line.openingDecimal) &&
+          line.openingDecimal > 1.01
+            ? Math.round(line.openingDecimal * 1000) / 1000
+            : undefined;
+        const movementDirection =
+          line.movement === "shortening" || line.movement === "drifting" || line.movement === "stable"
+            ? line.movement
+            : openingDecimal !== undefined
+              ? roundedDec < openingDecimal - 0.01
+                ? "shortening"
+                : roundedDec > openingDecimal + 0.01
+                  ? "drifting"
+                  : "stable"
+              : undefined;
+
+        bookMap.set(book, {
+          book,
+          bookLabel: formatCanonicalBookLabel(book),
+          decimal: roundedDec,
+          capturedAtUtc,
+          ...(openingDecimal !== undefined ? { openingDecimal } : {}),
+          ...(movementDirection ? { movementDirection } : {}),
+        });
+      }
+
+      const list: ParsedEventQuotes[] = [];
+      for (const ev of eventsMap.values()) {
+        const finalizedMap = new Map<string, readonly BookQuoteItem[]>();
+        for (const [k, bookMap] of ev.quotesByKey.entries()) {
+          const rawSorted = [...bookMap.values()].sort((a, b) => b.decimal - a.decimal);
+          if (rawSorted.length > 0) {
+            const bestPrice = rawSorted[0]!.decimal;
+            finalizedMap.set(
+              k,
+              rawSorted.map((q) => ({
+                ...q,
+                ...(Math.abs(q.decimal - bestPrice) < 1e-6 ? { isBest: true } : {}),
+              })),
+            );
+          }
+        }
+        if (finalizedMap.size === 0) continue;
+        list.push({
+          appLeague,
+          gameId: ev.gameId,
+          homeHint: ev.homeHint,
+          awayHint: ev.awayHint,
+          bySelectionKey: finalizedMap,
+        });
+      }
+      if (list.length > 0) {
+        byLeague.set(appLeague, list);
+      }
+    } catch (err) {
+      void err;
+    }
   }
+
+  snapshotLinesCache = { hourBucket, signature, byLeague };
+  return byLeague;
+}
+
+function getParsedQuotesByLeague(nowMs: number = Date.now()): Map<string, ParsedEventQuotes[]> {
+  const merged = new Map<string, ParsedEventQuotes[]>();
+  const quotesPath = resolveQuotesPath();
+  if (quotesPath) {
+    const hourBucket = Math.floor(nowMs / 3_600_000);
+    let mtimeMs = 0;
+    try {
+      mtimeMs = statSync(quotesPath).mtimeMs;
+    } catch (err) {
+      void err;
+    }
+
+    let ledgerMap: Map<string, ParsedEventQuotes[]> | null = null;
+    if (
+      mtimeMs > 0 &&
+      ledgerCache &&
+      ledgerCache.mtimeMs === mtimeMs &&
+      ledgerCache.hourBucket === hourBucket
+    ) {
+      ledgerMap = ledgerCache.byLeague;
+    } else if (mtimeMs > 0) {
+      try {
+        const raw = JSON.parse(readFileSync(quotesPath, "utf8")) as RawQuotesLedger;
+        ledgerMap = Array.isArray(raw.ticks) ? parseQuotesLedgerTicks(raw.ticks, nowMs) : new Map();
+        ledgerCache = { mtimeMs, hourBucket, byLeague: ledgerMap };
+      } catch (err) {
+        void err;
+      }
+    }
+    if (ledgerMap) {
+      for (const [lg, list] of ledgerMap.entries()) {
+        merged.set(lg, [...list]);
+      }
+    }
+  }
+
+  const snapshotLines = loadSnapshotMarketLinesByLeague(nowMs);
+  for (const [lg, list] of snapshotLines.entries()) {
+    const existing = merged.get(lg);
+    merged.set(lg, existing ? [...existing, ...list] : [...list]);
+  }
+  return merged;
 }
 
 function findEventQuotesForGame(
-  game: Pick<PlatformGame, "league" | "home" | "away">,
+  game: Pick<PlatformGame, "league" | "home" | "away"> & { readonly id?: string },
   byLeague: Map<string, ParsedEventQuotes[]>,
 ): ParsedEventQuotes | null {
   const candidates = byLeague.get(game.league);
   if (!candidates || candidates.length === 0) return null;
+
+  if (game.id) {
+    const byId = candidates.find((cand) => cand.gameId === game.id);
+    if (byId) return byId;
+  }
 
   let bestMatch: ParsedEventQuotes | null = null;
   let bestScore = 0;
@@ -331,6 +535,7 @@ function findEventQuotesForGame(
   const awaySlugText = game.away.slug.replace(/[-_]+/g, " ");
 
   for (const cand of candidates) {
+    if (!cand.homeHint || !cand.awayHint) continue;
     const hScore = Math.max(
       teamScore(cand.homeHint, game.home.name),
       teamScore(cand.homeHint, homeSlugText),
@@ -404,7 +609,7 @@ function enrichPickWithQuotes(
 }
 
 export function enrichMarketRowsWithBookQuotes(
-  game: Pick<PlatformGame, "league" | "home" | "away" | "status">,
+  game: Pick<PlatformGame, "league" | "home" | "away" | "status"> & { readonly id?: string },
   rows: readonly PlatformMarketRow[],
   nowMs: number = Date.now(),
   byLeagueOverride?: Map<string, ParsedEventQuotes[]>,

@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
 import { buildPlatformDataset } from "@pitchlab/ui/picks-engine";
@@ -245,5 +247,116 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
     expect(enrichedRows[0]!.currentDecimal).toBe(1.9);
     expect(enrichedRows[0]!.movementDirection).toBe("shortening");
     expect(enrichedRows[0]!.quoteBookLabel).toBe("Betcris");
+  });
+
+  it("normaliza mercados over_under_* y ligas de expansión (ADR-043) con movimiento de apertura", () => {
+    const byLeague = parseQuotesLedgerTicks(
+      [
+        {
+          event_id: "ws:football:champions-league:20261125:shakhtar:fenerbahce",
+          sport: "football",
+          league: "champions-league",
+          market: "over_under_25",
+          line: 2.5,
+          selection: "over",
+          book: "bet365",
+          price_decimal: 1.727,
+          opening_price: 1.85,
+          movement_direction: "shortening",
+          ts_captured: "2026-11-17T11:00:00Z",
+        },
+      ],
+      nowMs,
+    );
+
+    const ucl = byLeague.get("champions-league") ?? [];
+    expect(ucl).toHaveLength(1);
+    const overQuotes = ucl[0]!.bySelectionKey.get("totals|2.5|over") ?? [];
+    expect(overQuotes).toHaveLength(1);
+    expect(overQuotes[0]).toMatchObject({
+      book: "bet365",
+      decimal: 1.727,
+      openingDecimal: 1.85,
+      movementDirection: "shortening",
+      isBest: true,
+    });
+  });
+
+  it("enriquece en vivo partidos de expansión desde data/snapshots/<league>/market-lines.json", () => {
+    const mlPath = path.resolve(
+      process.cwd(),
+      "..",
+      "..",
+      "data",
+      "snapshots",
+      "champions-league",
+      "market-lines.json",
+    );
+    const snapPath = path.resolve(
+      process.cwd(),
+      "..",
+      "..",
+      "data",
+      "snapshots",
+      "champions-league",
+      "latest.json",
+    );
+    if (!existsSync(mlPath) || !existsSync(snapPath)) return;
+    const ml = JSON.parse(readFileSync(mlPath, "utf8")) as {
+      updatedAt: string;
+      lines: Array<{ gameId: string; market: string; outcome: string; decimal: number }>;
+    };
+    const snap = JSON.parse(readFileSync(snapPath, "utf8")) as {
+      games: Array<{
+        id: string;
+        home: { name: string; shortName: string; code: string };
+        away: { name: string; shortName: string; code: string };
+      }>;
+    };
+    const firstHomeLine = ml.lines.find(
+      (l) => l.market === "1x2" && l.outcome.toUpperCase() === "HOME",
+    );
+    expect(firstHomeLine).toBeDefined();
+    const matchingGame = snap.games.find((g) => g.id === firstHomeLine!.gameId);
+    expect(matchingGame).toBeDefined();
+
+    const rows = enrichMarketRowsWithBookQuotes(
+      {
+        id: matchingGame!.id,
+        league: asLeagueId("champions-league"),
+        home: {
+          slug: "home",
+          name: matchingGame!.home.name,
+          shortName: matchingGame!.home.shortName,
+          code: matchingGame!.home.code,
+          record: "0G",
+        },
+        away: {
+          slug: "away",
+          name: matchingGame!.away.name,
+          shortName: matchingGame!.away.shortName,
+          code: matchingGame!.away.code,
+          record: "0G",
+        },
+        status: "NS",
+      },
+      [
+        {
+          group: "Resultado 1X2",
+          market: "1x2",
+          selection: "home",
+          label: `Gana ${matchingGame!.home.shortName}`,
+          p: 0.55,
+          fairDecimal: 1.82,
+          fairAmerican: -122,
+          openDecimal: null,
+          currentDecimal: null,
+          edgePts: null,
+        },
+      ],
+      Date.parse(ml.updatedAt),
+    );
+    expect(rows[0]!.currentDecimal).toBeGreaterThan(1.01);
+    expect(rows[0]!.bookQuotes?.length ?? 0).toBeGreaterThan(0);
   });
 });

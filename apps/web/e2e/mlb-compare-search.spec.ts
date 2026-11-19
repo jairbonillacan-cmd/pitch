@@ -72,7 +72,7 @@ test.describe("MLB, Standings US por conferencia, búsqueda de jugadores y Compa
     await expect(playersGroup).toBeVisible({ timeout: 8000 });
     await playersGroup.locator("a").first().click();
 
-    await page.waitForURL(/\/app\/mlb\/teams\/[^/]+\/players\//);
+    await page.waitForURL(/\/app\/mlb\/t\/[^/]+\/p\//);
     await expect(page.locator("[data-team-hero='player']")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Estadísticas de temporada" })).toBeVisible();
     await assertNoHorizontalOverflow(page);

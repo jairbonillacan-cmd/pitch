@@ -2,12 +2,14 @@
 
 import React from "react";
 import {
+  canonicalTeamHref,
   isNationalCompetition,
   sportHasDraw,
   sportScoringUnit,
   type StandingRow,
 } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
+import { FormSquares } from "../../components/FormSquares";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { useOptionalPlatformActions } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
@@ -191,11 +193,11 @@ export function MatchContextPanel({
                 <div className="min-w-0 flex-1">
                   <h3 className="m-0 text-base font-extrabold truncate">
                     <a
-                      href={`/app/${game.league}/teams/${s.team.slug}`}
+                      href={canonicalTeamHref(game.league, s.team.slug)}
                       onClick={(e) => {
                         if (!platformActions) return;
                         e.preventDefault();
-                        platformActions.navigateTo(`/app/${game.league}/teams/${s.team.slug}`);
+                        platformActions.navigateTo(canonicalTeamHref(game.league, s.team.slug));
                       }}
                       className="pl-team-link"
                       title={`Ver perfil de ${s.team.name}`}
@@ -212,7 +214,7 @@ export function MatchContextPanel({
               {form.length > 0 ? (
                 <div className="pl-ctx-row">
                   <span>Últimos {form.length}</span>
-                  <FormDots form={form} />
+                  <FormSquares form={form} size="sm" />
                 </div>
               ) : null}
               <dl className="pl-ctx-stats">
@@ -285,11 +287,66 @@ export function MatchContextPanel({
               <dd className="text-sm font-bold num">{game.kickoffLocal}</dd>
             </div>
             {effectiveReferee ? (
-              <div>
+              <div className="pl-ctx-referee-cell">
                 <dt>Árbitro</dt>
-                <dd className="text-sm font-bold inline-flex items-center gap-1.5">
-                  <MaestroIcon name="whistle" size={14} />
-                  <span>{effectiveReferee}</span>
+                <dd className="text-sm font-bold inline-flex flex-col gap-1">
+                  <span className="inline-flex items-center gap-1.5">
+                    <MaestroIcon name="whistle" size={14} />
+                    <span>{effectiveReferee}</span>
+                    {preContext?.refereeStats?.country ? (
+                      <span className="text-xs font-normal" style={{ color: "var(--pl-text-muted)" }}>
+                        · {preContext.refereeStats.country}
+                      </span>
+                    ) : null}
+                  </span>
+                  {preContext?.refereeStats &&
+                  (preContext.refereeStats.avgYellow != null ||
+                    preContext.refereeStats.avgFouls != null ||
+                    preContext.refereeStats.avgRed != null) ? (
+                    <span className="pl-ctx-referee-stats num">
+                      {preContext.refereeStats.avgYellow != null
+                        ? `${preContext.refereeStats.avgYellow.toFixed(1)} amar./p`
+                        : null}
+                      {preContext.refereeStats.avgRed != null
+                        ? ` · ${preContext.refereeStats.avgRed.toFixed(2)} roj./p`
+                        : null}
+                      {preContext.refereeStats.avgFouls != null
+                        ? ` · ${preContext.refereeStats.avgFouls.toFixed(1)} faltas/p`
+                        : null}
+                    </span>
+                  ) : null}
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.venueCapacity ? (
+              <div>
+                <dt>Capacidad</dt>
+                <dd className="text-sm font-bold num">
+                  {preContext.venueCapacity.toLocaleString("es-MX")} esp.
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.halfTimeScore ? (
+              <div>
+                <dt>Al descanso</dt>
+                <dd className="text-sm font-bold num">
+                  {preContext.halfTimeScore.home} – {preContext.halfTimeScore.away}
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.extraTimeScore ? (
+              <div>
+                <dt>Prórroga</dt>
+                <dd className="text-sm font-bold num">
+                  {preContext.extraTimeScore.home} – {preContext.extraTimeScore.away}
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.penaltyShootout ? (
+              <div>
+                <dt>Penales</dt>
+                <dd className="text-sm font-bold num">
+                  {preContext.penaltyShootout.home} – {preContext.penaltyShootout.away}
                 </dd>
               </div>
             ) : null}
@@ -541,11 +598,11 @@ export function MatchContextPanel({
                         <div className="flex items-center gap-2 font-semibold">
                           <TeamBadge league={game.league} slug={slug} name={row.name} logoUrl={row.logoUrl} size={20} />
                           <a
-                            href={`/app/${game.league}/teams/${slug}`}
+                            href={canonicalTeamHref(game.league, slug)}
                             onClick={(e) => {
                               if (!platformActions) return;
                               e.preventDefault();
-                              platformActions.navigateTo(`/app/${game.league}/teams/${slug}`);
+                              platformActions.navigateTo(canonicalTeamHref(game.league, slug));
                             }}
                             className="pl-team-link"
                             title={`Ver perfil de ${row.name}`}

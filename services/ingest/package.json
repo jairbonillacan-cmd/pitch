@@ -32,6 +32,8 @@
     "snapshot:us": "tsx src/us-snapshot-cli.ts",
     "snapshot:us-standings": "tsx src/us-standings-cli.ts",
     "snapshot:mlb": "tsx src/us-standings-cli.ts --leagues=mlb",
+    "snapshot:expansion": "tsx src/bzzoiro-expansion-cli.ts",
+    "snapshot:referees": "tsx src/bzzoiro-expansion-cli.ts --referees-only",
     "history": "tsx src/history/cli.ts",
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",

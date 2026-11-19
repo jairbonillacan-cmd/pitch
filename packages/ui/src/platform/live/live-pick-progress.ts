@@ -3,6 +3,7 @@
  * y las estadísticas en vivo ya sincronizados por `/api/live/*`).
  */
 import {
+  canonicalGameHref,
   isLivePhaseActive,
   type LiveMatchDetail,
   type LiveScoreboardEntry,
@@ -79,7 +80,7 @@ export function computeLivePickProgress(params: {
     (scoreboardEntry?.phase === "halftime" ? "MT" : "En vivo");
   const clockLabel = /^\d/.test(clockRaw) && !clockRaw.endsWith("'") ? `${clockRaw}'` : clockRaw;
   const scoreLabel = `${score.home}–${score.away}`;
-  const href = game ? `/app/${game.league}/games/${game.id}` : undefined;
+  const href = game ? canonicalGameHref(game.league, game) : undefined;
 
   const stats = detail?.stats ?? null;
   const parsedTotal = parseThresholdTarget(entry.pickLabel);

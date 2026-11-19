@@ -118,7 +118,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
         accountsEnabled={false}
         allowRoleSimulation={false}
       >
-        <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 
@@ -147,7 +147,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
         accountsEnabled={false}
         allowRoleSimulation={true}
       >
-        <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 
@@ -159,6 +159,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     const generatingHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
+          initialTab="referrals"
           storyOverride={{
             accountsEnabled: true,
             invite: {
@@ -178,6 +179,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     const emptyRealHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
+          initialTab="referrals"
           storyOverride={{
             accountsEnabled: true,
             profile: { handle: "carlos_mx", displayName: "Carlos M." },
@@ -369,7 +371,10 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(prefsNoAccountsHtml).toContain("Juego responsable");
     expect(prefsNoAccountsHtml).toContain("PitchLab no sugiere cuánto apostar");
     expect(prefsNoAccountsHtml).toContain('data-example-badge=""');
-    expect(prefsNoAccountsHtml).toContain("Disponible cuando se activen las cuentas con correo.");
+    expect(prefsNoAccountsHtml).toContain("Disponible al iniciar sesión con correo");
+    expect(prefsNoAccountsHtml).toContain("Feedback e ideas");
+    expect(prefsNoAccountsHtml).toContain("Contactar con soporte");
+    expect(prefsNoAccountsHtml).toContain("Zona de peligro");
 
     expect(prefsNoAccountsHtml).not.toContain("Simulador de stake");
     expect(prefsNoAccountsHtml).not.toContain("Autoexclusión");

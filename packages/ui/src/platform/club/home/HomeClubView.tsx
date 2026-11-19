@@ -2,6 +2,8 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
+  canonicalGameHref,
+  canonicalTeamHref,
   formatOddsCaptureEs,
   isLivePhaseActive,
   sportHasDraw,
@@ -52,6 +54,7 @@ import {
   dayNumber,
   filterGames,
   gamesForSelection,
+  getTrendingMatches,
   groupMatchesByDayAndLeague,
   leaguesIn,
   longDayLabel,
@@ -212,7 +215,7 @@ function scrollToMatchCard(gameId: string): void {
   if (card) {
     card.scrollIntoView({ behavior, block: "center" });
     card
-      .querySelector<HTMLElement>("a[data-card-open], a.pl-mlist-matchup, a[href*='/games/']")
+      .querySelector<HTMLElement>("a[data-card-open], a.pl-mlist-matchup, a[href*='/g/'], a[href*='/games/']")
       ?.focus({ preventScroll: true });
     return;
   }
@@ -680,9 +683,9 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
   const goalHint = hasForecast ? formatGoalLineHint(game, intelUnlocked) : null;
   const countsHint = hasForecast ? formatCountsHint(game, intelUnlocked) : null;
   const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
-  const studioHref = `/app/${game.league}/games/${game.id}`;
-  const homeHref = `/app/${game.league}/teams/${game.home.slug}`;
-  const awayHref = `/app/${game.league}/teams/${game.away.slug}`;
+  const studioHref = canonicalGameHref(game.league, game);
+  const homeHref = canonicalTeamHref(game.league, game.home.slug);
+  const awayHref = canonicalTeamHref(game.league, game.away.slug);
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
   const time = formatGameKickoffTime(game, userTimezone);
 
@@ -1893,7 +1896,7 @@ function TopPickRailItem({
   const { addPickToParlay, removePickFromParlay, navigateTo } = usePlatformActions();
   const inParlay = useIsPickInParlay(pick.id);
   const time = formatGameKickoffTime(game, userTimezone);
-  const studioHref = `/app/${game.league}/games/${game.id}`;
+  const studioHref = canonicalGameHref(game.league, game);
 
   return (
     <article className="pl-rail-top-pick">
@@ -2347,25 +2350,27 @@ export function HomeClubView({
   );
 
   const trendGames = useMemo(() => {
-    if (visible.length > 0) return visible;
-    if (league === ALL) return visible;
-    const upcoming = games.filter((g) => g.league === league && g.dayId >= today);
-    if (upcoming.length > 0) return upcoming;
-    return games.filter((g) => g.league === league);
-  }, [visible, league, games, today]);
+    const liveIds = new Set<string>();
+    for (const [gid, entry] of liveByGameId.entries()) {
+      if (isLivePhaseActive(entry.phase)) liveIds.add(gid);
+    }
+    return getTrendingMatches({
+      games,
+      sport,
+      league,
+      today,
+      liveIds,
+      maxItems: 12,
+    });
+  }, [games, sport, league, today, liveByGameId]);
 
   const orderedChips = useMemo(() => {
-    return trendGames
-      .map((game) => {
-        const entry = liveByGameId.get(game.id);
-        const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
-        const score = entry?.score ?? game.score ?? null;
-        return { game, live, score, entry };
-      })
-      .sort((a, b) => {
-        if (a.live !== b.live) return a.live ? -1 : 1;
-        return a.game.kickoffUtc.localeCompare(b.game.kickoffUtc) || a.game.id.localeCompare(b.game.id);
-      });
+    return trendGames.map((game) => {
+      const entry = liveByGameId.get(game.id);
+      const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
+      const score = entry?.score ?? game.score ?? null;
+      return { game, live, score, entry };
+    });
   }, [trendGames, liveByGameId]);
 
   const emptyJumpTarget = useMemo<{ dayId: string; resetFilters: boolean } | null>(() => {
@@ -2478,32 +2483,51 @@ export function HomeClubView({
   }, [calendarOpen]);
 
   const calendarEventDays = useMemo(() => {
-    const countsByDay = new Map<string, { total: number; live: number; fav: number }>();
+    const countsByDay = new Map<
+      string,
+      { total: number; live: number; upcoming: number; finished: number; fav: number; leagues: Set<string> }
+    >();
     const scopedGames = filterGames(games, sport, league);
     let anyLive = false;
     for (const g of scopedGames) {
       const entry = liveByGameId.get(g.id);
       const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
+      const isFinished = g.status === "FT";
       const isFav =
         watchlistSet.has(g.id) ||
         favoriteLeagueSet.has(g.league) ||
         favoriteTeamSet.has(teamTopicKey(g.league, g.home.slug)) ||
         favoriteTeamSet.has(teamTopicKey(g.league, g.away.slug));
       if (boardView === "favorites" && !isFav) continue;
-      const cur = countsByDay.get(g.dayId) ?? { total: 0, live: 0, fav: 0 };
+      const cur = countsByDay.get(g.dayId) ?? {
+        total: 0,
+        live: 0,
+        upcoming: 0,
+        finished: 0,
+        fav: 0,
+        leagues: new Set<string>(),
+      };
       cur.total += 1;
       if (isLive) {
         cur.live += 1;
         anyLive = true;
+      } else if (isFinished) {
+        cur.finished += 1;
+      } else {
+        cur.upcoming += 1;
       }
       if (isFav) cur.fav += 1;
+      cur.leagues.add(g.leagueLabel);
       countsByDay.set(g.dayId, cur);
     }
 
+    const horizon30 = addDays(today, 30);
     const sortedDays = [...countsByDay.keys()].sort();
+    const nearFuture = sortedDays.filter((d) => d > day && d <= horizon30);
     const nextActionDay =
+      nearFuture[0] ??
+      sortedDays.find((d) => d >= today && d <= horizon30 && d !== day) ??
       sortedDays.find((d) => d > day) ??
-      sortedDays.find((d) => d >= today && d !== day) ??
       sortedDays.find((d) => d !== day) ??
       null;
     const selectedStats = countsByDay.get(day) ?? null;
@@ -2891,12 +2915,17 @@ export function HomeClubView({
                           }
                           const isSelected = cell.iso === day;
                           const isTodayCell = cell.iso === today;
+                          const isPastCell = cell.iso < today;
                           const dayMeta = calendarEventDays.countsByDay.get(cell.iso);
                           const hasGames = Boolean(dayMeta && dayMeta.total > 0);
                           const hasLive = Boolean(dayMeta && dayMeta.live > 0);
+                          const isFinishedOnly = Boolean(dayMeta && dayMeta.total > 0 && dayMeta.upcoming === 0 && dayMeta.live === 0);
                           const isBusy = Boolean(dayMeta && dayMeta.total >= 6);
                           const countText = dayMeta
                             ? `, ${dayMeta.total} ${dayMeta.total === 1 ? "partido" : "partidos"}${dayMeta.live > 0 ? `, ${dayMeta.live} en vivo` : ""}`
+                            : "";
+                          const leaguePreview = dayMeta && dayMeta.leagues.size > 0
+                            ? ` · ${[...dayMeta.leagues].slice(0, 3).join(", ")}`
                             : "";
                           return (
                             <button
@@ -2906,13 +2935,15 @@ export function HomeClubView({
                               aria-pressed={isSelected}
                               aria-current={isTodayCell ? "date" : undefined}
                               aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${countText}`}
-                              title={hasGames ? `${dayMeta!.total} ${dayMeta!.total === 1 ? "partido" : "partidos"}` : undefined}
+                              title={hasGames ? `${dayMeta!.total} ${dayMeta!.total === 1 ? "partido" : "partidos"}${leaguePreview}` : undefined}
                               className={[
                                 "pl-home-cal-day num",
                                 isSelected ? "is-selected" : "",
                                 isTodayCell ? "is-today" : "",
+                                isPastCell && !hasGames ? "is-past-empty" : "",
                                 hasGames ? "has-games" : "",
                                 hasLive ? "has-live" : "",
+                                isFinishedOnly ? "is-finished-only" : "",
                                 isBusy ? "is-busy" : "",
                               ]
                                 .filter(Boolean)
@@ -2924,7 +2955,14 @@ export function HomeClubView({
                               }}
                             >
                               <span className="pl-home-cal-num">{cell.dayNum}</span>
-                              <i className="pl-home-cal-dot" aria-hidden="true" />
+                              {hasGames ? (
+                                <span className="pl-home-cal-meta" aria-hidden="true">
+                                  {hasLive ? <i className="pl-home-cal-live-dot" /> : null}
+                                  <span className="pl-home-cal-count">{dayMeta!.total}</span>
+                                </span>
+                              ) : (
+                                <i className="pl-home-cal-dot" aria-hidden="true" />
+                              )}
                             </button>
                           );
                         })}
@@ -2941,17 +2979,23 @@ export function HomeClubView({
                               : "Sin partidos"}
                           </span>
                         </div>
+                        {calendarEventDays.selectedStats && calendarEventDays.selectedStats.leagues.size > 0 ? (
+                          <p className="pl-home-cal-summary-leagues">
+                            {[...calendarEventDays.selectedStats.leagues].slice(0, 4).join(" · ")}
+                            {calendarEventDays.selectedStats.leagues.size > 4
+                              ? ` +${calendarEventDays.selectedStats.leagues.size - 4}`
+                              : ""}
+                          </p>
+                        ) : null}
                         <div className="pl-home-cal-legend">
                           <span className="pl-home-cal-legend-item">
                             <i className="pl-home-cal-legend-pill" aria-hidden="true" />
                             <span>{calendarEventDays.legendLabel}</span>
                           </span>
-                          {calendarEventDays.anyLive ? (
-                            <span className="pl-home-cal-legend-item is-live">
-                              <i className="pl-home-cal-legend-dot" aria-hidden="true" />
-                              <span>En vivo</span>
-                            </span>
-                          ) : null}
+                          <span className="pl-home-cal-legend-item is-live">
+                            <i className="pl-home-cal-legend-dot" aria-hidden="true" />
+                            <span>En vivo</span>
+                          </span>
                         </div>
                       </div>
 

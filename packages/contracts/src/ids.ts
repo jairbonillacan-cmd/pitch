@@ -25,6 +25,48 @@ export const VALID_LEAGUES = [
   "copa-oro",
   "copa-africana",
   "copa-asiatica",
+  // Norteamérica y CONCACAF clubes
+  "mls",
+  "concacaf-champions",
+  "leagues-cup",
+  // Copas internacionales de clubes
+  "champions-league",
+  "europa-league",
+  "conference-league",
+  "uefa-super-cup",
+  "libertadores",
+  "sudamericana",
+  "caf-champions",
+  // Sudamérica
+  "liga-argentina",
+  "brasileirao",
+  "brasileirao-b",
+  "copa-do-brasil",
+  "primera-a-colombia",
+  "copa-colombia",
+  "primera-chile",
+  "ligapro-ecuador",
+  "liga-1-peru",
+  // Copas y 2.ª división del Top 5 europeo
+  "championship",
+  "fa-cup",
+  "carabao-cup",
+  "segunda-espana",
+  "copa-del-rey",
+  "liga-f",
+  "bundesliga-2",
+  "dfb-pokal",
+  "serie-b",
+  "coppa-italia",
+  "ligue-2",
+  "coupe-de-france",
+  // Otras 1.ª divisiones europeas, Medio Oriente y Asia
+  "eredivisie",
+  "liga-portugal",
+  "pro-league-belgica",
+  "super-lig",
+  "saudi-pro-league",
+  "j1-league",
 ] as const;
 
 export type SportId = Brand<(typeof VALID_SPORTS)[number], "SportId">;

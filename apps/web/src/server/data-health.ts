@@ -15,69 +15,30 @@ import {
   type LeagueDataHealthRow,
   type LeagueDataTypeCell,
 } from "@pitchlab/contracts";
-import { PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import {
+  LEAGUE_LABELS,
+  PRODUCT_LEAGUES,
+  resolveSnapshotsRoot,
+  type ProductLeague,
+} from "./snapshots";
 
-const LEAGUE_LABELS: Record<ProductLeague, string> = {
-  "liga-mx": "Liga MX",
-  "premier-league": "Premier League",
-  laliga: "LaLiga",
-  bundesliga: "Bundesliga",
-  "serie-a": "Serie A",
-  "ligue-1": "Ligue 1",
-  nfl: "NFL",
-  nba: "NBA",
-  nhl: "NHL",
-  mlb: "MLB",
-  "concacaf-nations": "Concacaf Nations League",
-  "uefa-nations": "UEFA Nations League",
-  amistosos: "Amistosos FIFA",
-  "copa-del-mundo": "Copa del Mundo FIFA",
-  eliminatorias: "Eliminatorias Mundialistas",
-  "copa-america": "Copa América",
-  eurocopa: "Eurocopa UEFA",
-  "copa-oro": "Copa Oro Concacaf",
-  "copa-africana": "Copa Africana de Naciones",
-  "copa-asiatica": "Copa Asiática AFC",
-};
-
-const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>([
-  "nba",
-  "nhl",
-  "mlb",
-  "concacaf-nations",
-  "uefa-nations",
-  "amistosos",
-  "copa-del-mundo",
-  "eliminatorias",
-  "copa-america",
-  "eurocopa",
-  "copa-oro",
-  "copa-africana",
-  "copa-asiatica",
+const V3_MODEL_LEAGUES = new Set<ProductLeague>([
+  "liga-mx",
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "nfl",
 ]);
 
-const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
-  nfl: "nfl",
-  "premier-league": "epl",
-  laliga: "laliga",
-  bundesliga: "bundesliga",
-  "serie-a": "serie-a",
-  "ligue-1": "ligue-1",
-  "liga-mx": "liga-mx",
-  nba: "nba",
-  nhl: "nhl",
-  mlb: "mlb",
-  "concacaf-nations": "concacaf-nations",
-  "uefa-nations": "uefa-nations",
-  amistosos: "amistosos",
-  "copa-del-mundo": "copa-del-mundo",
-  eliminatorias: "eliminatorias",
-  "copa-america": "copa-america",
-  eurocopa: "eurocopa",
-  "copa-oro": "copa-oro",
-  "copa-africana": "copa-africana",
-  "copa-asiatica": "copa-asiatica",
-};
+const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>(
+  PRODUCT_LEAGUES.filter((lg) => !V3_MODEL_LEAGUES.has(lg)),
+);
+
+const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = Object.fromEntries(
+  PRODUCT_LEAGUES.map((lg) => [lg, lg === "premier-league" ? "epl" : lg]),
+) as Record<ProductLeague, string>;
 
 function resolveRepoRoot(): string {
   const snapshotsRoot = resolveSnapshotsRoot();

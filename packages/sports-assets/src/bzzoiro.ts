@@ -41,6 +41,11 @@ export function getOfficialEspnTeamLogoUrl(league: string, slug?: string): strin
   return null;
 }
 
+const LOCAL_CLUB_COMPETITION_ASSETS: ReadonlySet<string> = new Set([
+  "concacaf-champions",
+  "leagues-cup",
+]);
+
 /**
  * Ruta pública del escudo oficial de liga/competencia en `/brand/official/{nfl|nhl|mlb|competitions}/<league>.png`.
  */
@@ -48,7 +53,7 @@ export function getOfficialEspnLeagueLogoUrl(league: string): string | null {
   if (league === "nfl" || league === "nhl" || league === "mlb") {
     return `${ESPN_IMAGE_BASE_URL}/${league}/${league}.png`;
   }
-  if (NATIONAL_COMPETITION_ASSETS.has(league)) {
+  if (NATIONAL_COMPETITION_ASSETS.has(league) || LOCAL_CLUB_COMPETITION_ASSETS.has(league)) {
     return `${ESPN_IMAGE_BASE_URL}/competitions/${league}.png`;
   }
   return null;
@@ -62,7 +67,42 @@ export const BZZOIRO_LEAGUE_IDS: Readonly<Record<string, number>> = {
   bundesliga: 5,
   "serie-a": 4,
   "ligue-1": 6,
+  // Expansión clubes fútbol (ADR-043)
+  mls: 18,
   "champions-league": 7,
+  "europa-league": 8,
+  "conference-league": 83,
+  "uefa-super-cup": 90,
+  libertadores: 32,
+  sudamericana: 33,
+  "caf-champions": 29,
+  "liga-argentina": 85,
+  brasileirao: 9,
+  "brasileirao-b": 34,
+  "copa-do-brasil": 35,
+  "primera-a-colombia": 80,
+  "copa-colombia": 81,
+  "primera-chile": 111,
+  "ligapro-ecuador": 112,
+  "liga-1-peru": 113,
+  championship: 12,
+  "fa-cup": 39,
+  "carabao-cup": 40,
+  "segunda-espana": 38,
+  "copa-del-rey": 41,
+  "liga-f": 36,
+  "bundesliga-2": 94,
+  "dfb-pokal": 43,
+  "serie-b": 100,
+  "coppa-italia": 42,
+  "ligue-2": 89,
+  "coupe-de-france": 44,
+  eredivisie: 10,
+  "liga-portugal": 2,
+  "pro-league-belgica": 14,
+  "super-lig": 11,
+  "saudi-pro-league": 17,
+  "j1-league": 49,
   nba: 1,
 };
 

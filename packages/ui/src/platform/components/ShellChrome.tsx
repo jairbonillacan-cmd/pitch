@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { isNationalCompetition } from "@pitchlab/contracts";
+import { canonicalGameHref, isLeagueActiveInWindow, isNationalCompetition } from "@pitchlab/contracts";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
@@ -27,6 +27,7 @@ import {
   type SportFilter,
 } from "../club/home/home-model";
 import { HomeLeagueStrip, HomeSportStrip } from "../club/home/HomeSportStrip";
+import { LeagueCategorySheet } from "./LeagueCategorySheet";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
@@ -220,7 +221,7 @@ function FloatingQuickJumpBar({
     const firstUpcoming =
       rawDataset.games.find((g) => g.status !== "FT") ?? rawDataset.games[0];
     return firstUpcoming
-      ? `/app/${firstUpcoming.league}/games/${firstUpcoming.id}`
+      ? canonicalGameHref(firstUpcoming.league, firstUpcoming)
       : "/app";
   }, [rawDataset.games]);
 
@@ -252,7 +253,7 @@ function FloatingQuickJumpBar({
   const isItemActive = (href: string, id: string) => {
     if (!clientPath) return false;
     if (id === "studio") {
-      return clientPath.includes("/games/");
+      return clientPath.includes("/g/") || clientPath.includes("/games/");
     }
     return clientPath === href;
   };
@@ -733,6 +734,7 @@ function ClubWorkspaceShellImpl({
     navigateTo,
     oddsFormat,
     setOddsFormat,
+    favoriteLeagues,
     viewerIdentity,
     hasAccountSession,
     upgradeHref,
@@ -765,9 +767,9 @@ function ClubWorkspaceShellImpl({
   const homeSportLeagues = useMemo(
     () =>
       isHomeRoute
-        ? buildHomeSportLeagues(dataset.leagues, dataset.games, homeDayGames, homeSport)
+        ? buildHomeSportLeagues(dataset.leagues, dataset.games, homeDayGames, homeSport, homeToday)
         : [],
-    [isHomeRoute, dataset.leagues, dataset.games, homeDayGames, homeSport],
+    [isHomeRoute, dataset.leagues, dataset.games, homeDayGames, homeSport, homeToday],
   );
   const hasLeaguesOpen = Boolean(
     isHomeRoute && homeNav && homeSport !== ALL && homeSportLeagues.length > 0,
@@ -900,9 +902,7 @@ function ClubWorkspaceShellImpl({
         label: "Tu cuenta",
         items: [
           { href: "/app/account?tab=plan", label: "Mi plan Ultra", icon: "crown", accountTab: "plan" },
-          { href: "/app/account?tab=referrals", label: "Invitar amigos", icon: "gift", accountTab: "referrals" },
           { href: "/app/account?tab=prefs", label: "Preferencias", icon: "sliders", accountTab: "prefs" },
-          { href: "/app/account?tab=cfdi", label: "Facturación", icon: "receipt", accountTab: "cfdi" },
         ],
       },
     ];
@@ -955,6 +955,7 @@ function ClubWorkspaceShellImpl({
     }
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
+  const [leagueHubSheetOpen, setLeagueHubSheetOpen] = useState<boolean>(false);
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
   // El portal de tipsters y la consola solo aparecen para quien los usa.
@@ -963,6 +964,7 @@ function ClubWorkspaceShellImpl({
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Buscar picks", icon: "search" },
       { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
+      { href: "/app/comparar", label: "Comparar H2H", icon: "layers" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
     return [
@@ -990,13 +992,23 @@ function ClubWorkspaceShellImpl({
   const profileGrad =
     viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 
+  const activeDatasetLeagues = useMemo(() => {
+    const inWindow = dataset.leagues.filter(
+      (lg) =>
+        isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30) ||
+        activePath === `/app/${lg.league}` ||
+        activePath.startsWith(`/app/${lg.league}/`),
+    );
+    if (inWindow.length > 0) return inWindow;
+    return dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
+  }, [activePath, dataset.leagues, dataset.games, homeToday]);
   const clubLeagues = useMemo(
-    () => dataset.leagues.filter((lg) => !isNationalCompetition(lg.league)),
-    [dataset.leagues],
+    () => activeDatasetLeagues.filter((lg) => !isNationalCompetition(lg.league)),
+    [activeDatasetLeagues],
   );
   const nationalLeagues = useMemo(
-    () => dataset.leagues.filter((lg) => isNationalCompetition(lg.league)),
-    [dataset.leagues],
+    () => activeDatasetLeagues.filter((lg) => isNationalCompetition(lg.league)),
+    [activeDatasetLeagues],
   );
   const activeLeaguePage = useMemo(
     () =>
@@ -1010,6 +1022,7 @@ function ClubWorkspaceShellImpl({
   const navExploreHints: Record<string, string> = {
     "/app/picks": "Filtros por cuota, deporte y probabilidad",
     "/app/momios": "Calcula tu ventaja real frente a tu casa",
+    "/app/comparar": "Cara a cara entre clubes y jugadores",
     "/app/historial": "Balance verificado y marcadores finales",
   };
 
@@ -1197,12 +1210,12 @@ function ClubWorkspaceShellImpl({
                     <section aria-labelledby="pl-nav-col-leagues" className="pl-header-overlay-col">
                       <div className="pl-header-overlay-head">
                         <h2 id="pl-nav-col-leagues" className="pl-header-overlay-title">
-                          Ligas
+                          Ligas activas
                         </h2>
-                        <span className="pl-pill num text-[11px]">{dataset.leagues.length}</span>
+                        <span className="pl-pill num text-[11px]">{activeDatasetLeagues.length}</span>
                       </div>
                       <div className="pl-header-overlay-leagues">
-                        {clubLeagues.map((lg) => {
+                        {clubLeagues.slice(0, 12).map((lg) => {
                           const href = `/app/${lg.league}`;
                           const active = activePath === href || activePath.startsWith(`${href}/`);
                           return (
@@ -1230,6 +1243,18 @@ function ClubWorkspaceShellImpl({
                           );
                         })}
                       </div>
+                      {clubLeagues.length > 12 ? (
+                        <button
+                          type="button"
+                          className="pl-btn-glass text-xs min-h-9 px-3 mt-2 w-full justify-center"
+                          onClick={() => {
+                            closeHeaderNav();
+                            setLeagueHubSheetOpen(true);
+                          }}
+                        >
+                          Explorar todas las ligas por región ({activeDatasetLeagues.length})
+                        </button>
+                      ) : null}
 
                       {nationalLeagues.length > 0 ? (
                         <div className="pt-2.5 mt-2.5 border-t" style={{ borderColor: "var(--pl-row-rule)" }}>
@@ -1631,6 +1656,7 @@ function ClubWorkspaceShellImpl({
                     sportDayGamesCount={displayedLeagues.count}
                     league={displayedLeagues.league}
                     onSelectLeague={homeNav.setLeague}
+                    favoriteLeagues={favoriteLeagues}
                   />
                 </div>
               ) : null}
@@ -1736,9 +1762,24 @@ function ClubWorkspaceShellImpl({
           <div className="ticket-perf" />
 
           <div className="space-y-2">
-            <span className="pl-header-overlay-subheading block">Ligas</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="pl-header-overlay-subheading block">Ligas activas</span>
+              {clubLeagues.length > 10 ? (
+                <button
+                  type="button"
+                  className="text-xs font-semibold"
+                  style={{ color: "var(--pl-brand)" }}
+                  onClick={() => {
+                    setMobileMoreOpen(false);
+                    setLeagueHubSheetOpen(true);
+                  }}
+                >
+                  Ver todas ({activeDatasetLeagues.length})
+                </button>
+              ) : null}
+            </div>
             <div className="grid grid-cols-2 gap-2">
-              {clubLeagues.map((lg) => {
+              {clubLeagues.slice(0, 10).map((lg) => {
                 const href = `/app/${lg.league}`;
                 const active = activePath === href || activePath.startsWith(`${href}/`);
                 return (
@@ -1801,6 +1842,26 @@ function ClubWorkspaceShellImpl({
           </div>
         </div>
       </TopLayerModalDialog>
+
+      <LeagueCategorySheet
+        open={leagueHubSheetOpen}
+        onClose={() => setLeagueHubSheetOpen(false)}
+        title="Todas las competiciones"
+        selectedLeague="all"
+        includeAllOption={false}
+        allowShowInactive
+        onSelect={(next) => {
+          if (next !== "all") navigateTo(`/app/${next}`);
+        }}
+        leagues={dataset.leagues.map((lg) => ({
+          league: lg.league,
+          label: lg.label,
+          logoUrl: lg.logoUrl,
+          activeCount: lg.upcomingCount || lg.totalGames,
+          isFavorite: favoriteLeagues.includes(lg.league),
+          isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
+        }))}
+      />
     </>
   );
 }

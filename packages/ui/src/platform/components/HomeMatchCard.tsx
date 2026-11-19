@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { isLivePhaseActive, sportHasDraw, sportScoringUnit, type LiveScoreboardEntry } from "@pitchlab/contracts";
+import { canonicalGameHref, canonicalTeamHref, isLivePhaseActive, sportHasDraw, sportScoringUnit, type LiveScoreboardEntry } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
@@ -41,7 +41,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
   const goalHint = hasForecast ? formatGoalLineHint(game, intelUnlocked) : null;
   const countsHint = hasForecast ? formatCountsHint(game, intelUnlocked) : null;
   const decimals = unit.decimals;
-  const studioHref = `/app/${game.league}/games/${game.id}`;
+  const studioHref = canonicalGameHref(game.league, game);
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
   const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
 
@@ -95,7 +95,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
         {teams.map(({ side, team, proj, score }) => {
           const favored = !isFinished && outcome !== null && outcome.side === side;
           const colors = getTeamColors(game.league, team.slug);
-          const teamHref = `/app/${game.league}/teams/${team.slug}`;
+          const teamHref = canonicalTeamHref(game.league, team.slug);
           const showScore = live || isFinished;
           return (
             <div key={side} className="pl-home-team">

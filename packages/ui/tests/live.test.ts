@@ -160,7 +160,8 @@ describe("avisos de «Siguiendo» en la campana", () => {
       now: NOW,
     });
     expect(items.map((n) => n.title)).toEqual(["Gol de Monterrey · Querétaro 0–1 Monterrey", "Empezó Querétaro vs Monterrey"]);
-    expect(items[0]).toMatchObject({ priority: "urgent", href: "/app/liga-mx/games/mx-qro-mty" });
+    expect(items[0]).toMatchObject({ priority: "urgent" });
+    expect(items[0]!.href).toMatch(/^\/app\/liga-mx\/g\/[a-z0-9-]+-vs-[a-z0-9-]+-[a-z0-9]{6}$/);
     expect(items[0]!.context.text).toContain("Minuto 34");
   });
 

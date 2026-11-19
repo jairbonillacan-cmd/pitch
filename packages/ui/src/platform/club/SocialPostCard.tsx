@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState } from "react";
-import { LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
+import { canonicalGameHref, LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
@@ -272,8 +272,12 @@ export function SocialPostCard({
   const targetGameId = pick?.gameId ?? post.gameId;
   const meta: EntryGameMeta | null = targetGameId ? resolveEntryGame(targetGameId, dataset) : null;
   const resolvedLeague = meta?.league ?? resolveLeagueIdFromLabel(post.leagueLabel);
-  const gameHref =
-    targetGameId && resolvedLeague ? `/app/${resolvedLeague}/games/${encodeURIComponent(targetGameId)}` : null;
+  const matchedGame = targetGameId ? dataset.games.find((g) => g.id === targetGameId) : null;
+  const gameHref = matchedGame
+    ? canonicalGameHref(matchedGame.league, matchedGame)
+    : targetGameId && resolvedLeague
+      ? `/app/${resolvedLeague}/g/${encodeURIComponent(targetGameId)}`
+      : null;
 
   const units =
     pick && pickStatus

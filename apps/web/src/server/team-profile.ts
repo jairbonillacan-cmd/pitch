@@ -2,6 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   asLeagueId,
+  canonicalGameHref,
+  canonicalPlayerHref,
+  canonicalTeamHref,
   findNationalTeamDef,
   isNationalCompetition,
   LeagueSquadsFileSchema,
@@ -885,7 +888,7 @@ export function loadLeagueTeamsDirectory(
       shortName: t.shortName,
       code: t.code,
       rank: rankById.get(t.id) ?? null,
-      href: `/app/${lg}/teams/${t.slug}`,
+      href: canonicalTeamHref(lg, t.slug),
     }));
 
     leagueItems.sort((a, b) => {
@@ -982,7 +985,7 @@ export function loadTeamProfile(
 
       return {
         id: g.id,
-        gameHref: `/app/${leagueRaw}/games/${g.id}`,
+        gameHref: canonicalGameHref(leagueRaw, g),
         dateLabel,
         kickoffLocal,
         round: g.round ?? (g.week ? `Semana ${g.week}` : null),
@@ -993,7 +996,7 @@ export function loadTeamProfile(
           slug: oppSlug,
           name: opp.name,
           shortName: opp.shortName,
-          href: bySlug.has(oppSlug) ? `/app/${leagueRaw}/teams/${oppSlug}` : null,
+          href: bySlug.has(oppSlug) ? canonicalTeamHref(leagueRaw, oppSlug) : null,
         },
         hasForecast,
         isRedacted: !options.fullAccess && hasForecast,
@@ -1027,7 +1030,7 @@ export function loadTeamProfile(
       );
       finishedMap.set(dedupeKey, {
         id: g.id,
-        gameHref: inLatest ? `/app/${leagueRaw}/games/${g.id}` : null,
+        gameHref: inLatest ? canonicalGameHref(leagueRaw, g) : null,
         date,
         sortKey: g.startTime,
         round: g.round ?? (g.week ? `Semana ${g.week}` : null),
@@ -1061,7 +1064,13 @@ export function loadTeamProfile(
     const awayRef = byCanonical.get(aKey);
     finishedMap.set(dedupeKey, {
       id: s.id,
-      gameHref: latestGameIds.has(s.id) ? `/app/${leagueRaw}/games/${s.id}` : null,
+      gameHref: latestGameIds.has(s.id)
+        ? canonicalGameHref(leagueRaw, {
+            id: s.id,
+            home: { slug: hKey, name: homeRef?.name ?? s.homeTeam, shortName: homeRef?.shortName },
+            away: { slug: aKey, name: awayRef?.name ?? s.awayTeam, shortName: awayRef?.shortName },
+          })
+        : null,
       date: s.date,
       sortKey: s.startTime || `${s.date}T12:00:00Z`,
       round: s.round,
@@ -1152,7 +1161,7 @@ export function loadTeamProfile(
         slug: oppSlug,
         name: oppRef?.name ?? (isHome ? m.awayName : m.homeName),
         shortName: oppRef?.shortName ?? (isHome ? m.awayName : m.homeName),
-        href: oppRef ? `/app/${leagueRaw}/teams/${oppRef.slug}` : null,
+        href: oppRef ? canonicalTeamHref(leagueRaw, oppRef.slug) : null,
       },
       teamScore: myScore,
       opponentScore: oppScore,
@@ -1456,7 +1465,7 @@ export function loadPlayerProfile(
       positionGroup: p.positionGroup,
       photoKey: p.photoKey ?? null,
       fallbackPhotoKey: p.fallbackPhotoKey ?? null,
-      href: `/app/${teamProfile.league}/teams/${teamProfile.team.slug}/players/${p.slug}`,
+      href: canonicalPlayerHref(teamProfile.league, teamProfile.team.slug, p.slug),
     }));
 
   return {

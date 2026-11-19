@@ -1,44 +1,16 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { PlayerProfileClubView } from "@pitchlab/ui/player-profile";
-import { hydratePlayerLivePerformance } from "../../../../../../../src/server/player-live-stats";
-import { loadPlayerProfile } from "../../../../../../../src/server/team-profile";
-import { getViewerAccess } from "../../../../../../../src/server/viewer-access";
+import { notFound, permanentRedirect } from "next/navigation";
+import { canonicalPlayerHref } from "@pitchlab/contracts";
+import { playerExistsInSnapshots } from "../../../../../../../src/server/team-profile";
 
-export const dynamic = "force-dynamic";
-
-export async function generateMetadata({
+/** Redirección permanente 308 desde `/app/<league>/teams/<teamId>/players/<playerSlug>` hacia `/app/<league>/t/<teamSlug>/p/<playerSlug>`. */
+export default async function LegacyPlayerRedirectPage({
   params,
 }: {
   params: Promise<{ league: string; teamId: string; playerSlug: string }>;
-}): Promise<Metadata> {
+}): Promise<never> {
   const { league, teamId, playerSlug } = await params;
-  const profile = loadPlayerProfile(league, teamId, playerSlug, { fullAccess: false });
-  if (!profile) {
-    return { title: "Jugador no encontrado | PitchLab" };
-  }
-  return {
-    title: `${profile.player.name} · ${profile.team.shortName} | PitchLab`,
-    description: `Ficha, estadísticas de temporada y picks aplicables de ${profile.player.name} (${profile.team.name}) en ${profile.leagueLabel}.`,
-  };
-}
-
-export default async function PlayerProfilePage({
-  params,
-}: {
-  params: Promise<{ league: string; teamId: string; playerSlug: string }>;
-}) {
-  const { league, teamId, playerSlug } = await params;
-  const access = await getViewerAccess();
-  const profile = loadPlayerProfile(league, teamId, playerSlug, {
-    fullAccess: access.fullAccess,
-  });
-
-  if (!profile) {
+  if (!playerExistsInSnapshots(league, teamId, playerSlug)) {
     notFound();
   }
-
-  const enrichedProfile = await hydratePlayerLivePerformance(profile);
-
-  return <PlayerProfileClubView profile={enrichedProfile} />;
+  permanentRedirect(canonicalPlayerHref(league, teamId, playerSlug));
 }

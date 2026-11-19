@@ -443,6 +443,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
         <ParlayBuilderClubView />
         <SocialVipClubView />
         <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 

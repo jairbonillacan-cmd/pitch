@@ -124,7 +124,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
       await jumpBtn.click();
     }
     const scheduledFootballLink = page
-      .locator('[data-game-card]:has(button[aria-label^="Agregar al parlay"]) a[href^="/app/"][href*="/games/"]')
+      .locator('[data-game-card]:has(button[aria-label^="Agregar al parlay"]) a[href^="/app/"][href*="/g/"]')
       .first();
     if ((await scheduledFootballLink.count()) > 0) {
       firstMatchHref = await scheduledFootballLink.getAttribute("href");
@@ -137,7 +137,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }
   if (!firstMatchHref) {
     firstMatchHref = await page
-      .locator('a[href^="/app/"][href*="/games/"]')
+      .locator('a[href^="/app/"][href*="/g/"]')
       .first()
       .getAttribute("href");
   }
@@ -187,7 +187,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(searchInput).toBeVisible();
   await searchInput.fill("NFL");
   await expect(
-    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/games/"]').first(),
+    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/g/"]').first(),
   ).toBeVisible();
   await page
     .getByRole("dialog", { name: "Buscar en PitchLab" })
@@ -267,8 +267,8 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(shareDialog).toContainText("SOFIA5");
   await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
 
-  // 5) Cuenta & Referidos (CUENTA-2): enlace corto, muestra marcada «Ejemplo» sin cuentas y cero simulador en producción
-  await page.goto("/app/account");
+  // 5) Cuenta & Referidos (CUENTA-2 / ADR-044): Mi plan abre primero; ?tab=referrals abre Invitar amigos
+  await page.goto("/app/account?tab=referrals");
   await page.waitForLoadState("networkidle");
   await expect(page.locator("[data-referral-days]:visible")).toContainText("+14 días");
   await expect(page.locator("[data-example-badge]:visible").first()).toBeVisible();

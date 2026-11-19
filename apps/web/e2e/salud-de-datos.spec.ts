@@ -42,7 +42,7 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
 
   // 2) En /app/nfl, una ficha por jugar muestra las bajas nominales reales leídas de data/snapshots/nfl/injuries.json
   await page.goto("/app/nfl");
-  const nflGameLink = page.locator('a[href^="/app/nfl/games/"]').first();
+  const nflGameLink = page.locator('a[href^="/app/nfl/g/"]').first();
   if ((await nflGameLink.count()) > 0) {
     const href = await nflGameLink.getAttribute("href");
     if (href) {

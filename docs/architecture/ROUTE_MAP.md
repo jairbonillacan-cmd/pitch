@@ -1,36 +1,22 @@
 # Mapa de rutas (`pitchlab.mx`)
 
 > **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
-> **Actualizado:** 2026-11-18 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
+> **Actualizado:** 2026-11-19 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
 
 - Un solo origen `https://pitchlab.mx`. Las páginas públicas de marketing y legales son indexables (`/sitemap.ts` y `Allow: /` en `/robots.txt`).
 - Rutas privadas, flujos de autenticación, referidos, boletos compartidos, onboarding y área interna llevan `noindex` y/o exclusión en `robots.ts` (`/app/`, `/api/`, `/i/`, `/onboarding`, `/p/`, `/baja`, `/canjear`).
-- **`[league]`** acepta exactamente las ligas y competencias activas del producto (`PRODUCT_LEAGUES` en `apps/web/src/server/snapshots.ts`):
-
-  | league | Deporte |
-  |---|---|
-  | `liga-mx` | soccer |
-  | `premier-league` | soccer |
-  | `laliga` | soccer |
-  | `bundesliga` | soccer |
-  | `serie-a` | soccer |
-  | `ligue-1` | soccer |
-  | `nfl` | american-football |
-  | `nba` | basketball |
-  | `nhl` | hockey (`ice-hockey`) |
-  | `mlb` | baseball |
-  | `concacaf-nations` | soccer (selecciones) |
-  | `uefa-nations` | soccer (selecciones) |
-  | `amistosos` | soccer (selecciones) |
-  | `copa-del-mundo` | soccer (selecciones) |
-  | `eliminatorias` | soccer (selecciones) |
-  | `copa-america` | soccer (selecciones) |
-  | `eurocopa` | soccer (selecciones) |
-  | `copa-oro` | soccer (selecciones) |
-  | `copa-africana` | soccer (selecciones) |
-  | `copa-asiatica` | soccer (selecciones) |
+- **`[league]`** acepta exactamente las **57 competencias** registradas en `PRODUCT_LEAGUES` / `COMPETITION_CATALOG` (`packages/contracts/src/competitions.ts`, ADR-043):
+  - *Principales de fútbol (6):* `liga-mx`, `premier-league`, `laliga`, `bundesliga`, `serie-a`, `ligue-1`.
+  - *Deportes EE. UU. (4):* `nfl`, `nba`, `nhl`, `mlb`.
+  - *Norteamérica y CONCACAF clubes (3):* `mls`, `concacaf-champions`, `leagues-cup`.
+  - *Copas internacionales de clubes (7):* `champions-league`, `europa-league`, `conference-league`, `uefa-super-cup`, `libertadores`, `sudamericana`, `caf-champions`.
+  - *Sudamérica (9):* `liga-argentina`, `brasileirao`, `brasileirao-b`, `copa-do-brasil`, `primera-a-colombia`, `copa-colombia`, `primera-chile`, `ligapro-ecuador`, `liga-1-peru`.
+  - *Copas y 2.ª división Top 5 europeo (12):* `championship`, `fa-cup`, `carabao-cup`, `segunda-espana`, `copa-del-rey`, `liga-f`, `bundesliga-2`, `dfb-pokal`, `serie-b`, `coppa-italia`, `ligue-2`, `coupe-de-france`.
+  - *Otras 1.ª divisiones europeas, Medio Oriente y Asia (6):* `eredivisie`, `liga-portugal`, `pro-league-belgica`, `super-lig`, `saudi-pro-league`, `j1-league`.
+  - *Selecciones nacionales (10):* `concacaf-nations`, `uefa-nations`, `amistosos`, `copa-del-mundo`, `eliminatorias`, `copa-america`, `eurocopa`, `copa-oro`, `copa-africana`, `copa-asiatica`.
+  - Las competencias sin partidos en vivo ni programados en los próximos 30 días se ocultan automáticamente de las tiras activas (manteniendo su URL directa y activables en `Preferencias → Ver en pausa`).
 
 - Las rutas inexistentes bajo `/` o bajo `/app/*` devuelven `HTTP 404` real (validado antes del streaming por `resolveClubRoute` en `apps/web/app/app/layout.tsx`).
 
@@ -89,11 +75,14 @@
 | `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
 | `/app/tipster` | Portal de Tipsters Oficiales | En Beta 1.0 lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
-| `/app/[league]` | Hub por liga o competencia (`liga-mx`, …, `nfl`, `nba`, `nhl`, `concacaf-nations`, …, `copa-asiatica`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
-| `/app/[league]/games/[gameId]` | Match Studio (clubes y selecciones) | Analizador 360°, `?tab=resumen\|ia\|numeros\|dinero\|contexto` (con redirección interna desde alias legados `picks`, `mercados`) |
-| `/app/[league]/teams/[teamId]` | Perfil del club o selección | `?league` y `teamId` validados contra snapshots activos (`404` si faltan), `?tab=resumen\|estadisticas\|plantilla\|partidos` |
-| `/app/[league]/teams/[teamId]/players/[playerSlug]` | Perfil individual del jugador | `?league`, `teamId` y `playerSlug` validados contra snapshots/plantillas activas (`404` si faltan) |
-| `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
+| `/app/[league]` | Hub por liga o competencia (57 ligas activas en `PRODUCT_LEAGUES`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
+| `/app/[league]/g/[gameSlug]` | **Canónica** · Match Studio (`<home>-vs-<away>-<hash6>`, ADR-042) | Analizador 360°, árbitro y contexto, `?tab=resumen\|ia\|numeros\|dinero\|contexto` |
+| `/app/[league]/t/[teamSlug]` | **Canónica** · Perfil del club o selección (ADR-042) | `?league` y `teamSlug` validados (`404` si faltan), `?tab=resumen\|estadisticas\|plantilla\|partidos` |
+| `/app/[league]/t/[teamSlug]/p/[playerSlug]` | **Canónica** · Perfil individual del jugador (ADR-042) | `?league`, `teamSlug` y `playerSlug` validados (`404` si faltan) |
+| `/app/[league]/games/[gameId]` | Redirección permanente `308` -> `/app/[league]/g/[gameSlug]` | Preserva query string (ADR-042) |
+| `/app/[league]/teams/[teamId]` | Redirección permanente `308` -> `/app/[league]/t/[teamSlug]` | Preserva query string (ADR-042) |
+| `/app/[league]/teams/[teamId]/players/[playerSlug]` | Redirección permanente `308` -> `/app/[league]/t/[teamSlug]/p/[playerSlug]` | Preserva query string (ADR-042) |
+| `/app/u/[handle]` | Perfil público de socio o tipster | `404` si el handle no existe o es privado; botón `Insignias` en cabecera |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)
 
@@ -115,6 +104,6 @@
 
 - Autenticación y onboarding: `/api/auth/[...all]`, `/api/handles/check`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`.
 - Búsqueda, comparación y utilidades del Club: `/api/search/players`, `/api/compare`, `/api/me/push`.
-- Cuenta, plan, cupones, preferencias y privacidad: `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
+- Cuenta, plan, cupones, preferencias, feedback y privacidad: `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/feedback`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
 - Comunidad, perfiles, tipsters, pagos y tareas programadas: `/api/u/[handle]`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/like`, `/api/social/follows`, `/api/social/reports`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
-- Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.
+- Administración interna (`requireAdmin`): `/api/admin/overview`, `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/batch`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/inbox`, `/api/admin/audit`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.

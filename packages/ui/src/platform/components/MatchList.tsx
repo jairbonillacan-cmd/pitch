@@ -1,6 +1,6 @@
 "use client";
 
-import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
+import { canonicalGameHref, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import React, { useState } from "react";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import { isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
@@ -114,7 +114,7 @@ export const MatchListRow = React.memo(function MatchListRow({
 
   const goalHint = formatGoalLineHint(game, intelUnlocked);
   const countsHint = formatCountsHint(game, intelUnlocked);
-  const studioHref = `/app/${game.league}/games/${game.id}`;
+  const studioHref = canonicalGameHref(game.league, game);
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
 
   const openStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {

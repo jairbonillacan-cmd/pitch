@@ -2,6 +2,8 @@
 
 import React, { useMemo, useRef, useState } from "react";
 import {
+  canonicalGameHref,
+  canonicalTeamHref,
   isLivePhaseActive,
   sportHasDraw,
   sportScoringUnit,
@@ -1411,7 +1413,7 @@ export function TeamProfileClubView({
         id: g.id,
         league: g.league as LeagueId,
         leagueLabel: g.leagueLabel,
-        gameHref: `/app/${g.league}/games/${g.id}`,
+        gameHref: canonicalGameHref(g.league, g),
         kickoffLocal: g.kickoffLocal,
         clockLabel: formatLiveClockLabel(entry),
         home: {
@@ -1558,8 +1560,8 @@ export function TeamProfileClubView({
     : null;
 
   return (
-    <AtmosphereStage activePath={`/app/${profile.league}/teams/${profile.team.slug}`}>
-      <ClubWorkspaceShell activePath={`/app/${profile.league}/teams/${profile.team.slug}`}>
+    <AtmosphereStage activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
+      <ClubWorkspaceShell activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
         {/* Ruta superior estilo editorial deportivo */}
         <nav aria-label="Ruta del equipo" className="pl-team-crumb">
           <ol className="pl-team-crumb-list">

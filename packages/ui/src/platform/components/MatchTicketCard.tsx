@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { formatOddsCaptureEs, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
+import { canonicalGameHref, canonicalTeamHref, formatOddsCaptureEs, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
@@ -281,7 +281,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const unlockedMain = mainPick
     ? isPickUnlocked(mainPick, game.status, viewerRole)
     : false;
-  const studioHref = `/app/${game.league}/games/${game.id}`;
+  const studioHref = canonicalGameHref(game.league, game);
 
   const homeColors = getTeamColors(game.league, game.home.slug);
   const awayColors = getTeamColors(game.league, game.away.slug);
@@ -388,10 +388,10 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <div className="min-w-0">
                 <p className="m-0 text-sm font-bold truncate">
                   <a
-                    href={`/app/${game.league}/teams/${game.home.slug}`}
+                    href={canonicalTeamHref(game.league, game.home.slug)}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigateTo(`/app/${game.league}/teams/${game.home.slug}`);
+                      navigateTo(canonicalTeamHref(game.league, game.home.slug));
                     }}
                     className="pl-team-link"
                     title={`Ver perfil de ${game.home.name}`}
@@ -423,10 +423,10 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <div className="min-w-0">
                 <p className="m-0 text-sm font-bold truncate">
                   <a
-                    href={`/app/${game.league}/teams/${game.away.slug}`}
+                    href={canonicalTeamHref(game.league, game.away.slug)}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigateTo(`/app/${game.league}/teams/${game.away.slug}`);
+                      navigateTo(canonicalTeamHref(game.league, game.away.slug));
                     }}
                     className="pl-team-link"
                     title={`Ver perfil de ${game.away.name}`}

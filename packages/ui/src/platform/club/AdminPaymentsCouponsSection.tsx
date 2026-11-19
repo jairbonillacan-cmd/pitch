@@ -10,16 +10,53 @@ import {
   readPreviewSpeiState,
   rejectPreviewTransfer,
 } from "../preview-spei-store";
+import { sanitizeCsvCell } from "./account/account-helpers";
 import { TabPanel, UnderlineTabs, type TabDef } from "./community-ui";
 
-export type AdminOpsTabKey = "transfers" | "members" | "coupons" | "payouts";
+export type AdminOpsTabKey = "transfers" | "members" | "coupons" | "payouts" | "inbox" | "audit";
 
 const ADMIN_OPS_TABS: readonly TabDef<AdminOpsTabKey>[] = [
   { key: "transfers", label: "Transferencias SPEI", shortLabel: "SPEI" },
   { key: "members", label: "Socios y acceso", shortLabel: "Socios" },
   { key: "coupons", label: "Cupones", shortLabel: "Cupones" },
   { key: "payouts", label: "Liquidaciones tipsters", shortLabel: "Tipsters" },
+  { key: "inbox", label: "Bandeja y soporte", shortLabel: "Bandeja" },
+  { key: "audit", label: "Auditoría", shortLabel: "Auditoría" },
 ];
+
+export interface AdminInboxRow {
+  id: string;
+  kind: "feedback" | "support" | "deletion";
+  actorUserId: string | null;
+  actorEmail: string;
+  handle: string | null;
+  displayName: string | null;
+  subject: string | null;
+  category: string | null;
+  message: string;
+  createdAtIso: string;
+  resolved: boolean;
+  resolvedAtIso: string | null;
+  resolvedByEmail: string | null;
+  resolutionNote: string | null;
+}
+
+export interface AdminAuditRow {
+  id: string;
+  action: string;
+  actorEmail: string;
+  targetKey: string;
+  payloadJson: Record<string, unknown> | null;
+  createdAtIso: string;
+}
+
+const INBOX_KIND_META: Record<AdminInboxRow["kind"], { label: string; pill: string }> = {
+  feedback: { label: "Feedback", pill: "pl-pill--brand" },
+  support: { label: "Soporte", pill: "pl-pill--warning" },
+  deletion: { label: "Solicitud de baja", pill: "pl-pill--danger" },
+};
+
+const QUICK_COUPON_DAYS = [7, 15, 30, 90, 365] as const;
 
 export interface AdminTransferRow {
   id: string;
@@ -232,12 +269,29 @@ export function AdminPaymentsCouponsSection({
   const [couponsLoading, setCouponsLoading] = useState(false);
   const [couponsError, setCouponsError] = useState<string | null>(null);
   const [newCouponCode, setNewCouponCode] = useState("");
-  const [newCouponDays, setNewCouponDays] = useState("15");
-  const [newCouponMaxUses, setNewCouponMaxUses] = useState("");
+  const [newCouponDays, setNewCouponDays] = useState("30");
+  const [newCouponMaxUses, setNewCouponMaxUses] = useState("1");
   const [newCouponExpires, setNewCouponExpires] = useState("");
   const [newCouponNote, setNewCouponNote] = useState("");
+  const [batchCount, setBatchCount] = useState("10");
+  const [batchDays, setBatchDays] = useState("30");
+  const [batchPrefix, setBatchPrefix] = useState("");
+  const [batchExpires, setBatchExpires] = useState("");
+  const [batchNote, setBatchNote] = useState("");
+  const [generatedBatch, setGeneratedBatch] = useState<AdminCouponItem[]>([]);
   const [redemptions, setRedemptions] = useState<AdminCouponRedemptionItem[]>([]);
   const [redemptionsLoading, setRedemptionsLoading] = useState(false);
+
+  // --- Inbox (Feedback, Soporte, Bajas) ---
+  const [inboxItems, setInboxItems] = useState<AdminInboxRow[]>([]);
+  const [inboxFilter, setInboxFilter] = useState<"pending" | "all" | "feedback" | "support" | "deletion">("pending");
+  const [inboxLoading, setInboxLoading] = useState(false);
+  const [inboxError, setInboxError] = useState<string | null>(null);
+
+  // --- Security Audit ---
+  const [auditEntries, setAuditEntries] = useState<AdminAuditRow[]>([]);
+  const [auditLoading, setAuditLoading] = useState(false);
+  const [auditError, setAuditError] = useState<string | null>(null);
 
   // --- Tipster payouts ---
   const [tipsterTotals, setTipsterTotals] = useState<AdminTipsterSummaryItem[]>(
@@ -433,12 +487,60 @@ export function AdminPaymentsCouponsSection({
     }
   }, [canFetchAdmin]);
 
+  const loadInbox = useCallback(async () => {
+    if (!canFetchAdmin) return;
+    setInboxLoading(true);
+    setInboxError(null);
+    try {
+      const res = await fetch("/api/admin/inbox", { credentials: "same-origin" });
+      const json = (await res.json().catch(() => null)) as {
+        items?: AdminInboxRow[];
+        error?: string;
+      } | null;
+      if (!res.ok) {
+        setInboxError(json?.error ?? "No se pudo cargar la bandeja.");
+        return;
+      }
+      setInboxItems(json?.items ?? []);
+    } catch (err) {
+      void err;
+      setInboxError("Sin conexión al consultar la bandeja.");
+    } finally {
+      setInboxLoading(false);
+    }
+  }, [canFetchAdmin]);
+
+  const loadAudit = useCallback(async () => {
+    if (!canFetchAdmin) return;
+    setAuditLoading(true);
+    setAuditError(null);
+    try {
+      const res = await fetch("/api/admin/audit", { credentials: "same-origin" });
+      const json = (await res.json().catch(() => null)) as {
+        entries?: AdminAuditRow[];
+        error?: string;
+      } | null;
+      if (!res.ok) {
+        setAuditError(json?.error ?? "No se pudo cargar la auditoría.");
+        return;
+      }
+      setAuditEntries(json?.entries ?? []);
+    } catch (err) {
+      void err;
+      setAuditError("Sin conexión al consultar la auditoría.");
+    } finally {
+      setAuditLoading(false);
+    }
+  }, [canFetchAdmin]);
+
   useEffect(() => {
     if (activeTab === "transfers") void loadTransfers();
     else if (activeTab === "members") void loadMembers();
     else if (activeTab === "coupons") void loadCoupons();
     else if (activeTab === "payouts") void loadPayouts();
-  }, [activeTab, loadCoupons, loadMembers, loadPayouts, loadTransfers]);
+    else if (activeTab === "inbox") void loadInbox();
+    else if (activeTab === "audit") void loadAudit();
+  }, [activeTab, loadAudit, loadCoupons, loadInbox, loadMembers, loadPayouts, loadTransfers]);
 
   const openRedemptionsModal = useCallback(
     async (coupon: AdminCouponItem) => {
@@ -690,13 +792,144 @@ export function AdminPaymentsCouponsSection({
       }
       pushToast(`Cupón ${json?.coupon?.code ?? ""} creado.`, "success");
       setNewCouponCode("");
-      setNewCouponMaxUses("");
+      setNewCouponMaxUses("1");
       setNewCouponExpires("");
       setNewCouponNote("");
       await loadCoupons();
     } catch (err) {
       void err;
       pushToast("Error de conexión al crear el cupón.", "danger");
+    } finally {
+      setBusyAction(false);
+    }
+  };
+
+  const handleGenerateBatchCoupons = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const count = Number(batchCount);
+    const days = Number(batchDays);
+    if (!Number.isInteger(count) || count < 1 || count > 50) {
+      pushToast("Indica entre 1 y 50 códigos por lote.", "warning");
+      return;
+    }
+    if (!Number.isInteger(days) || days < 1 || days > 365) {
+      pushToast("Indica entre 1 y 365 días de acceso.", "warning");
+      return;
+    }
+    if (!canFetchAdmin) {
+      const sample: AdminCouponItem[] = Array.from({ length: Math.min(count, 5) }, (_, idx) => ({
+        id: `demo-batch-${idx}`,
+        code: `${batchPrefix.trim().toUpperCase() || "PL"}-DEMO${idx + 1}K9`,
+        days,
+        maxRedemptions: 1,
+        redeemedCount: 0,
+        expiresAtIso: batchExpires ? `${batchExpires}T23:59:59.000Z` : null,
+        active: true,
+        note: batchNote.trim() || "Lote vista previa",
+        createdAtIso: new Date().toISOString(),
+      }));
+      setGeneratedBatch(sample);
+      pushToast(`Vista previa: ${sample.length} códigos de 1 uso (+${days}d).`, "success");
+      return;
+    }
+    setBusyAction(true);
+    try {
+      const res = await fetch("/api/admin/coupons/batch", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          count,
+          days,
+          prefix: batchPrefix.trim() || null,
+          expiresAtIso: batchExpires.trim() || null,
+          note: batchNote.trim() || null,
+        }),
+      });
+      const json = (await res.json().catch(() => null)) as {
+        coupons?: AdminCouponItem[];
+        error?: string;
+      } | null;
+      if (!res.ok) {
+        pushToast(json?.error ?? "No se pudo generar el lote de cupones.", "danger");
+        return;
+      }
+      const created = json?.coupons ?? [];
+      setGeneratedBatch(created);
+      pushToast(`Se generaron ${created.length} cupones de 1 uso (+${days} días).`, "success");
+      await loadCoupons();
+    } catch (err) {
+      void err;
+      pushToast("Error de conexión al generar el lote.", "danger");
+    } finally {
+      setBusyAction(false);
+    }
+  };
+
+  const handleCopyBatchCodes = async () => {
+    if (generatedBatch.length === 0) return;
+    const text = generatedBatch.map((c) => c.code).join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+      pushToast(`${generatedBatch.length} códigos copiados al portapapeles.`, "success");
+    } catch (err) {
+      void err;
+      pushToast("No se pudo copiar automáticamente.", "warning");
+    }
+  };
+
+  const handleDownloadBatchCsv = () => {
+    if (generatedBatch.length === 0) return;
+    const header = "codigo,dias,usos_maximos,expira,nota,enlace_canje";
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://pitchlab.mx";
+    const rows = generatedBatch.map((c) =>
+      [
+        c.code,
+        String(c.days),
+        String(c.maxRedemptions ?? 1),
+        c.expiresAtIso ?? "",
+        c.note ?? "",
+        `${origin}/canjear?code=${encodeURIComponent(c.code)}`,
+      ]
+        .map(sanitizeCsvCell)
+        .join(","),
+    );
+    const blob = new Blob([[header, ...rows].join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `pitchlab-cupones-${generatedBatch.length}x${batchDays}d.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const handleResolveInboxItem = async (itemId: string) => {
+    if (!canFetchAdmin) {
+      setInboxItems((prev) =>
+        prev.map((it) => (it.id === itemId ? { ...it, resolved: true, resolvedAtIso: new Date().toISOString() } : it)),
+      );
+      pushToast("Marcado como atendido (vista previa).", "success");
+      return;
+    }
+    setBusyAction(true);
+    try {
+      const res = await fetch("/api/admin/inbox", {
+        method: "PATCH",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ itemId }),
+      });
+      if (!res.ok) {
+        pushToast("No se pudo actualizar el elemento.", "danger");
+        return;
+      }
+      pushToast("Mensaje marcado como atendido.", "success");
+      await loadInbox();
+    } catch (err) {
+      void err;
+      pushToast("Error de conexión al actualizar la bandeja.", "danger");
     } finally {
       setBusyAction(false);
     }
@@ -1211,9 +1444,21 @@ export function AdminPaymentsCouponsSection({
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Sugerencia para códigos leídos en voz alta: evita caracteres 0/O y 1/I.
-              </span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                  Duración rápida:
+                </span>
+                {QUICK_COUPON_DAYS.map((d) => (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => setNewCouponDays(String(d))}
+                    className={`pl-pill text-xs num ${newCouponDays === String(d) ? "pl-pill--brand" : ""}`.trim()}
+                  >
+                    {d}d
+                  </button>
+                ))}
+              </div>
               <button
                 type="submit"
                 disabled={busyAction}
@@ -1224,6 +1469,131 @@ export function AdminPaymentsCouponsSection({
                 <span>{busyAction ? "Creando…" : "Crear cupón"}</span>
               </button>
             </div>
+          </form>
+
+          {/* Generador en lote de códigos de un solo uso */}
+          <form
+            onSubmit={handleGenerateBatchCoupons}
+            noValidate
+            className="glass-ring rounded-xl p-4 space-y-3"
+            style={{ background: "var(--pl-surface)" }}
+            data-admin-coupon-batch=""
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <strong className="text-sm font-extrabold">Generar lote de códigos de un solo uso</strong>
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Crea hasta 50 códigos únicos (1 uso cada uno) eligiendo los días exactos de pase, con seguimiento de quién canjeó cada código.
+                </p>
+              </div>
+              <span className="pl-pill pl-pill--brand text-xs">1 uso · auditable</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
+              <input
+                type="number"
+                min={1}
+                max={50}
+                placeholder="Cantidad (1-50)"
+                aria-label="Cantidad de códigos de un solo uso"
+                value={batchCount}
+                onChange={(e) => setBatchCount(e.target.value)}
+                className="glass-input min-h-[44px] px-3 text-sm num"
+              />
+              <input
+                type="number"
+                min={1}
+                max={365}
+                placeholder="Días (1-365)"
+                aria-label="Días de pase del lote"
+                value={batchDays}
+                onChange={(e) => setBatchDays(e.target.value)}
+                className="glass-input min-h-[44px] px-3 text-sm num"
+              />
+              <input
+                type="text"
+                maxLength={10}
+                placeholder="Prefijo (ej. VIP, PROMO)"
+                aria-label="Prefijo opcional del lote"
+                value={batchPrefix}
+                onChange={(e) => setBatchPrefix(e.target.value.toUpperCase())}
+                className="glass-input min-h-[44px] px-3 text-sm uppercase font-bold num"
+              />
+              <input
+                type="date"
+                aria-label="Fecha límite del lote"
+                value={batchExpires}
+                onChange={(e) => setBatchExpires(e.target.value)}
+                className="glass-input min-h-[44px] px-3 text-sm num"
+              />
+              <input
+                type="text"
+                maxLength={200}
+                placeholder="Campaña o nota interna"
+                aria-label="Nota del lote de cupones"
+                value={batchNote}
+                onChange={(e) => setBatchNote(e.target.value)}
+                className="glass-input min-h-[44px] px-3 text-sm"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-1.5">
+                {QUICK_COUPON_DAYS.map((d) => (
+                  <button
+                    key={`batch-${d}`}
+                    type="button"
+                    onClick={() => setBatchDays(String(d))}
+                    className={`pl-pill text-xs num ${batchDays === String(d) ? "pl-pill--brand" : ""}`.trim()}
+                  >
+                    +{d}d
+                  </button>
+                ))}
+              </div>
+              <button
+                type="submit"
+                disabled={busyAction}
+                className="pl-btn-primary min-h-[44px] px-4 text-xs"
+                data-admin-generate-batch=""
+              >
+                <MaestroIcon name="layers" size={14} />
+                <span>{busyAction ? "Generando…" : `Generar ${batchCount || 1} códigos`}</span>
+              </button>
+            </div>
+
+            {generatedBatch.length > 0 ? (
+              <div className="glass-ring rounded-xl p-3 space-y-2.5" style={{ background: "var(--pl-surface-elevated)" }}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <strong className="text-xs font-extrabold num" style={{ color: "var(--pl-success)" }}>
+                    {generatedBatch.length} códigos listos (+{generatedBatch[0]?.days ?? batchDays} días · 1 uso)
+                  </strong>
+                  <div className="flex flex-wrap gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => void handleCopyBatchCodes()}
+                      className="pl-btn-glass glass-ring min-h-9 px-3 text-xs"
+                    >
+                      <MaestroIcon name="copy" size={13} />
+                      <span>Copiar lista</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDownloadBatchCsv}
+                      className="pl-btn-glass glass-ring min-h-9 px-3 text-xs"
+                    >
+                      <MaestroIcon name="download" size={13} />
+                      <span>Exportar CSV</span>
+                    </button>
+                  </div>
+                </div>
+                <pre
+                  className="m-0 max-h-40 overflow-y-auto rounded-lg p-2.5 text-xs font-mono num"
+                  style={{ background: "var(--pl-bg-subtle)", color: "var(--pl-text)" }}
+                >
+                  {generatedBatch.map((c) => c.code).join("\n")}
+                </pre>
+              </div>
+            ) : null}
           </form>
 
           {couponsLoading ? (
@@ -1417,6 +1787,172 @@ export function AdminPaymentsCouponsSection({
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+        </div>
+      </TabPanel>
+
+      {/* Tab 5: Bandeja (Feedback, Soporte y Bajas) */}
+      <TabPanel idPrefix={idPrefix} tabKey="inbox" active={activeTab}>
+        <div className="space-y-3 pt-2" data-admin-inbox-panel="">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filtrar bandeja">
+              {(
+                [
+                  ["pending", "Pendientes"],
+                  ["all", "Todos"],
+                  ["feedback", "Feedback"],
+                  ["support", "Soporte"],
+                  ["deletion", "Bajas"],
+                ] as const
+              ).map(([key, lbl]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setInboxFilter(key)}
+                  className={`pl-pill text-xs ${inboxFilter === key ? "pl-pill--brand" : ""}`.trim()}
+                >
+                  {lbl}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => void loadInbox()}
+              className="pl-btn-glass glass-ring min-h-9 px-3 text-xs"
+            >
+              Actualizar
+            </button>
+          </div>
+
+          {inboxLoading ? (
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Cargando bandeja…
+            </p>
+          ) : inboxError ? (
+            <p className="m-0 text-xs font-semibold" style={{ color: "var(--pl-danger)" }} role="alert">
+              {inboxError}
+            </p>
+          ) : (() => {
+            const visible = inboxItems.filter((it) => {
+              if (inboxFilter === "pending") return !it.resolved;
+              if (inboxFilter === "all") return true;
+              return it.kind === inboxFilter;
+            });
+            if (visible.length === 0) {
+              return (
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Sin mensajes en esta vista. Los envíos desde Preferencias → Feedback, Soporte y Eliminar cuenta aparecen aquí.
+                </p>
+              );
+            }
+            return (
+              <div className="space-y-2.5">
+                {visible.map((item) => {
+                  const meta = INBOX_KIND_META[item.kind];
+                  return (
+                    <article
+                      key={item.id}
+                      className="glass-ring rounded-xl p-3.5 space-y-2"
+                      style={{ background: "var(--pl-surface)" }}
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <div className="space-y-0.5 min-w-0">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <span className={`pl-pill text-[11px] ${meta.pill}`}>{meta.label}</span>
+                            {item.category ? <span className="pl-pill text-[11px]">{item.category}</span> : null}
+                            {item.resolved ? (
+                              <span className="pl-pill pl-pill--success text-[11px]">Atendido</span>
+                            ) : (
+                              <span className="pl-pill pl-pill--warning text-[11px]">Pendiente</span>
+                            )}
+                          </div>
+                          <strong className="block text-sm font-bold">
+                            {item.subject || (item.kind === "deletion" ? "Solicitud formal de eliminación de cuenta" : "Mensaje de socio")}
+                          </strong>
+                          <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                            {item.handle ? `@${item.handle} · ` : ""}
+                            {item.actorEmail} · {formatDateMx(item.createdAtIso)}
+                          </span>
+                        </div>
+                        {!item.resolved ? (
+                          <button
+                            type="button"
+                            disabled={busyAction}
+                            onClick={() => void handleResolveInboxItem(item.id)}
+                            className="pl-btn-primary min-h-9 px-3 text-xs shrink-0"
+                          >
+                            Marcar atendido
+                          </button>
+                        ) : null}
+                      </div>
+                      <p className="m-0 text-xs leading-relaxed whitespace-pre-wrap" style={{ color: "var(--pl-text-secondary)" }}>
+                        {item.message}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+            );
+          })()}
+        </div>
+      </TabPanel>
+
+      {/* Tab 6: Auditoría de seguridad */}
+      <TabPanel idPrefix={idPrefix} tabKey="audit" active={activeTab}>
+        <div className="space-y-3 pt-2" data-admin-audit-panel="">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Bitácora inmutable de accesos administrativos, emisión de cupones, concesiones, moderación y solicitudes de privacidad.
+            </p>
+            <button
+              type="button"
+              onClick={() => void loadAudit()}
+              className="pl-btn-glass glass-ring min-h-9 px-3 text-xs"
+            >
+              Actualizar
+            </button>
+          </div>
+
+          {auditLoading ? (
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Cargando auditoría…
+            </p>
+          ) : auditError ? (
+            <p className="m-0 text-xs font-semibold" style={{ color: "var(--pl-danger)" }} role="alert">
+              {auditError}
+            </p>
+          ) : auditEntries.length === 0 ? (
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Sin registros recientes en la auditoría.
+            </p>
+          ) : (
+            <div className="pl-table-region" tabIndex={0} role="region" aria-label="Registro de auditoría administrativa">
+              <table className="w-full text-left border-collapse text-xs num">
+                <caption className="sr-only">Auditoría de seguridad y operación</caption>
+                <thead>
+                  <tr className="hairline-b" style={{ color: "var(--pl-text-muted)" }}>
+                    <th scope="col" className="py-2 pr-3">Acción</th>
+                    <th scope="col" className="py-2 px-2">Actor</th>
+                    <th scope="col" className="py-2 px-2">Objetivo</th>
+                    <th scope="col" className="py-2 pl-2 text-right">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {auditEntries.map((entry) => (
+                    <tr key={entry.id} className="hairline-b row-hover">
+                      <th scope="row" className="py-2.5 pr-3 font-bold">
+                        <span className="pl-pill text-[11px]">{entry.action}</span>
+                      </th>
+                      <td className="py-2.5 px-2">{entry.actorEmail}</td>
+                      <td className="py-2.5 px-2 font-mono text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                        {entry.targetKey.slice(0, 36)}
+                      </td>
+                      <td className="py-2.5 pl-2 text-right">{formatDateMx(entry.createdAtIso)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>

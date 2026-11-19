@@ -439,6 +439,22 @@ export function InviteTab({
             <h2 id="pl-acct-offer-h" className="pl-acct-h2">
               Regala {trialDays} días de Ultra. Suma +{bothDays} días cuando tu amigo pague.
             </h2>
+
+            <dl className="pl-acct-perk-strip num" aria-label="Resumen de recompensas">
+              <div className="pl-acct-perk-tile">
+                <dt>Para tu amigo</dt>
+                <dd>{trialDays} días + ${firstMonthMxn}</dd>
+              </div>
+              <div className="pl-acct-perk-tile">
+                <dt>Cuando paga</dt>
+                <dd>+{bothDays} días c/u</dd>
+              </div>
+              <div className="pl-acct-perk-tile is-accent">
+                <dt>Meta {threshold} amigos</dt>
+                <dd>+{bonusDays} días extra</dd>
+              </div>
+            </dl>
+
             <ul className="pl-acct-offer-lines" role="list">
               <li>
                 <span>Tu amigo recibe </span>

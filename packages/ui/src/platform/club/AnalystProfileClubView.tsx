@@ -55,7 +55,8 @@ import {
   publicBadges as publicBadgeList,
   type BadgeView,
 } from "../badges";
-import { FeaturedBadgeRow, ProfileBadgesSection, useOwnBadges } from "./badges/ProfileBadges";
+import { BadgePickerDialog } from "../components/BadgePickerDialog";
+import { FeaturedBadgeRow, useOwnBadges } from "./badges/ProfileBadges";
 import type { JournalEntry, OddsFormat, SocialPost } from "../types";
 import {
   BalanceCurveFigure,
@@ -115,6 +116,7 @@ const LEAGUE_IDS_BY_LABEL: Record<string, LeagueId> = {
   NFL: "nfl" as LeagueId,
   NBA: "nba" as LeagueId,
   NHL: "nhl" as LeagueId,
+  MLB: "mlb" as LeagueId,
   "Liga MX": "liga-mx" as LeagueId,
   "Premier League": "premier-league" as LeagueId,
   Premier: "premier-league" as LeagueId,
@@ -402,43 +404,48 @@ export function AnalystProfileClubView({
     return badges ?? { public: [], featured: [] };
   }, [badges, isOwn, localBadges, ownBadges.featured, profile?.isExample]);
 
+  const [badgesModalOpen, setBadgesModalOpen] = useState(false);
+  const badgeTotalCount = isOwn && !profile?.isExample
+    ? ownBadges.own?.all.filter((b) => b.earned).length ?? 0
+    : visibleBadges.public.length;
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath={`/app/u/${profile?.handle ?? cleanHandle}`}>
         {profile ? (
-          <ProfileContent
-            profile={profile}
-            isOwn={isOwn}
-            ownHandle={own?.handle ?? null}
-            publicRecord={effectivePublicRecord}
-            featuredBadges={visibleBadges.featured}
-            badgesSection={
-              <ProfileBadgesSection
-                isOwn={isOwn && !profile.isExample}
-                publicBadges={visibleBadges.public}
-                own={ownBadges.own}
-                onToggleFeatured={ownBadges.toggle}
-                onNavigate={(e) => {
-                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-                  e.preventDefault();
-                  navigateTo("/app/lab?tab=privacidad");
-                }}
-              />
-            }
-            onEdit={isOwn && memberProfile ? saveProfile : undefined}
-            avatarEnabled={avatarEnabled}
-            xEnabled={xEnabled}
-            xLinkError={isOwn && xLinkError}
-            rows={rows}
-            today={today}
-            dataset={dataset}
-            socialPosts={socialPosts}
-            oddsFormat={oddsFormat}
-            isVisitor={viewerRole === "visitor"}
-            toggleSocialLike={toggleSocialLike}
-            pushToast={pushToast}
-            navigateTo={navigateTo}
-          />
+          <>
+            <ProfileContent
+              profile={profile}
+              isOwn={isOwn}
+              ownHandle={own?.handle ?? null}
+              publicRecord={effectivePublicRecord}
+              featuredBadges={visibleBadges.featured}
+              badgeTotalCount={badgeTotalCount}
+              onOpenBadges={() => setBadgesModalOpen(true)}
+              onEdit={isOwn && memberProfile ? saveProfile : undefined}
+              avatarEnabled={avatarEnabled}
+              xEnabled={xEnabled}
+              xLinkError={isOwn && xLinkError}
+              rows={rows}
+              today={today}
+              dataset={dataset}
+              socialPosts={socialPosts}
+              oddsFormat={oddsFormat}
+              isVisitor={viewerRole === "visitor"}
+              toggleSocialLike={toggleSocialLike}
+              pushToast={pushToast}
+              navigateTo={navigateTo}
+            />
+            <BadgePickerDialog
+              open={badgesModalOpen}
+              onClose={() => setBadgesModalOpen(false)}
+              isOwn={isOwn && !profile.isExample}
+              memberName={profile.name}
+              publicBadges={visibleBadges.public}
+              own={ownBadges.own}
+              onToggleFeatured={ownBadges.toggle}
+            />
+          </>
         ) : (
           <section className="pl-prof pl-prof-missing glass-lens glass-ring" aria-labelledby="pl-prof-missing-title">
             <h1 id="pl-prof-missing-title" className="pl-prof-missing-title">
@@ -470,7 +477,8 @@ function ProfileContent({
   ownHandle,
   publicRecord,
   featuredBadges,
-  badgesSection,
+  badgeTotalCount,
+  onOpenBadges,
   onEdit,
   avatarEnabled,
   xEnabled,
@@ -490,7 +498,8 @@ function ProfileContent({
   ownHandle: string | null;
   publicRecord?: PublicRecordPayload | null;
   featuredBadges: readonly BadgeView[];
-  badgesSection: React.ReactNode;
+  badgeTotalCount: number;
+  onOpenBadges: () => void;
   onEdit?: (profile: EditableProfile) => void;
   avatarEnabled: boolean;
   xEnabled: boolean;
@@ -656,6 +665,19 @@ function ProfileContent({
             </h1>
             {profile.isTipster ? <TipsterVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
             <FeaturedBadgeRow badges={featuredBadges} />
+            {(isOwn || badgeTotalCount > 0) ? (
+              <button
+                type="button"
+                className="pl-prof-badges-btn"
+                data-open-badges-modal=""
+                onClick={onOpenBadges}
+                aria-label={isOwn ? "Elegir insignias destacadas" : "Ver insignias"}
+              >
+                <MaestroIcon name="star" size={13} />
+                <span>Insignias</span>
+                {badgeTotalCount > 0 ? <em className="num">{badgeTotalCount}</em> : null}
+              </button>
+            ) : null}
           </div>
           <p className="pl-prof-handle">
             @{profile.handle}{profile.specialty ? ` · ${profile.specialty}` : ""}
@@ -794,7 +816,24 @@ function ProfileContent({
         )}
       </section>
 
-      {badgesSection}
+      {/* Acceso directo sin duplicar la cabina privada de Mi récord */}
+      {isOwn ? (
+        <a
+          href="/app/lab"
+          onClick={go("/app/lab")}
+          className="pl-prof-record-cta glass-lens glass-ring"
+          data-profile-record-shortcut=""
+        >
+          <span className="pl-prof-record-cta-icon" aria-hidden="true">
+            <MaestroIcon name="ticket" size={18} />
+          </span>
+          <span className="pl-prof-record-cta-copy">
+            <strong>Gestionar mi récord privado</strong>
+            <span>Banca en MXN, curva de unidades, calibración avanzada y privacidad</span>
+          </span>
+          <ChevronRightIcon size={16} />
+        </a>
+      ) : null}
 
       {/* Tipster: pick gratis de la semana */}
       {profile.isTipster && profile.weeklyPickSlug ? (
@@ -819,8 +858,8 @@ function ProfileContent({
       ) : null}
 
       <UnderlineTabs
-        tabs={PROFILE_TABS}
-        active={tab}
+        tabs={isOwn ? PROFILE_TABS.filter((t) => t.key !== "estadisticas") : PROFILE_TABS}
+        active={isOwn && tab === "estadisticas" ? "picks" : tab}
         onChange={setTab}
         label="Contenido del perfil"
         idPrefix="pl-prof"

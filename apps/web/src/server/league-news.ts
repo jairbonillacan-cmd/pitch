@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  canonicalGameHref,
+  canonicalTeamHref,
   LeagueInjuriesFileSchema,
   MarketPulseFileSchema,
   toMarketPulseView,
@@ -122,7 +124,7 @@ function loadStandingNews(
         name: leader.name,
         logoUrl: teamLogoOf(league, leaderSlug),
       },
-      href: `/app/${league}/teams/${leaderSlug}`,
+      href: canonicalTeamHref(league, leaderSlug),
       ctaLabel: `Ver perfil de ${leader.shortName || leader.name}`,
     },
   ];
@@ -144,7 +146,7 @@ function loadStandingNews(
         name: topScorer.name,
         logoUrl: teamLogoOf(league, atkSlug),
       },
-      href: `/app/${league}/teams/${atkSlug}`,
+      href: canonicalTeamHref(league, atkSlug),
       ctaLabel: `Ver ${topScorer.shortName || topScorer.name}`,
     });
   }
@@ -245,7 +247,16 @@ function loadInjuryNews(
               name,
               logoUrl: teamLogoOf(league, slug),
             },
-            href: gameId ? `/app/${league}/games/${gameId}` : `/app/${league}/teams/${slug}`,
+            href: (() => {
+              const g = gameId ? snapshot.games.find((x) => String(x.id) === String(gameId)) : undefined;
+              return g
+                ? canonicalGameHref(league, {
+                    id: g.id,
+                    home: { slug: g.home.id, name: g.home.name, shortName: g.home.shortName },
+                    away: { slug: g.away.id, name: g.away.name, shortName: g.away.shortName },
+                  })
+                : canonicalTeamHref(league, slug);
+            })(),
             ctaLabel: gameId ? "Ver impacto en el partido" : `Ver perfil de ${name}`,
           },
         };
@@ -320,7 +331,11 @@ function loadMarketNews(
             name: favSide.name,
             logoUrl: teamLogoOf(league, favSide.slug),
           },
-          href: `/app/${league}/games/${game.id}`,
+          href: canonicalGameHref(league, {
+            id: game.id,
+            home: { slug: game.home.id, name: game.home.name, shortName: game.home.shortName },
+            away: { slug: game.away.id, name: game.away.name, shortName: game.away.shortName },
+          }),
           ctaLabel: "Abrir análisis del partido",
         },
       });
@@ -384,7 +399,11 @@ function loadAnalysisAndResultNews(
           name: favTeam.name,
           logoUrl: teamLogoOf(league, favSlug),
         },
-        href: `/app/${league}/games/${game.id}`,
+        href: canonicalGameHref(league, {
+          id: game.id,
+          home: { slug: game.home.id, name: game.home.name, shortName: game.home.shortName },
+          away: { slug: game.away.id, name: game.away.name, shortName: game.away.shortName },
+        }),
         ctaLabel: "Ver partido y análisis IA",
       });
     }
@@ -419,7 +438,11 @@ function loadAnalysisAndResultNews(
         name: winner.name,
         logoUrl: teamLogoOf(league, winnerSlug),
       },
-      href: `/app/${league}/games/${game.id}`,
+      href: canonicalGameHref(league, {
+        id: game.id,
+        home: { slug: game.home.id, name: game.home.name, shortName: game.home.shortName },
+        away: { slug: game.away.id, name: game.away.name, shortName: game.away.shortName },
+      }),
       ctaLabel: "Ver ficha del resultado",
     });
   }

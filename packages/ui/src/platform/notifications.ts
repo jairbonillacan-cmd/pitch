@@ -6,7 +6,7 @@
  * contenido se recalcule. Funciones puras: `now` entra como argumento.
  */
 import { formatOddsValue } from "./access-guard";
-import type { LeagueId, LiveScoreboardEntry } from "@pitchlab/contracts";
+import { canonicalGameHref, type LeagueId, type LiveScoreboardEntry } from "@pitchlab/contracts";
 import type { JournalEntry, OddsFormat, PlatformGame } from "./types";
 
 export type NotificationKind = "partidos" | "cuotas" | "picks" | "comunidad" | "resumen";
@@ -108,7 +108,7 @@ function clampToNow(ms: number, now: number): string {
 }
 
 function gameHref(g: PlatformGame): string {
-  return `/app/${g.league}/games/${g.id}`;
+  return canonicalGameHref(g.league, g);
 }
 
 export function buildNotifications(input: BuildNotificationsInput): PlatformNotification[] {
@@ -545,7 +545,7 @@ export function buildLiveNotifications(input: BuildLiveNotificationsInput): Plat
       },
       atIso: clampToNow(Number.isNaN(atMs) ? now : atMs, now),
       actionLabel: "Ver en vivo",
-      href: `/app/${g.league}/games/${g.id}`,
+      href: gameHref(g),
     });
   }
   return out.sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso));

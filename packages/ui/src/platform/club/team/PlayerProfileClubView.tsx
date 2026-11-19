@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { canonicalTeamHref } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
@@ -469,8 +470,8 @@ export function PlayerProfileClubView({
   void getTeamColors;
 
   const leagueHref = `/app/${profile.league}`;
-  const squadHref = `/app/${profile.league}/teams/${profile.team.slug}?tab=plantilla`;
-  const teamHref = `/app/${profile.league}/teams/${profile.team.slug}`;
+  const teamHref = canonicalTeamHref(profile.league, profile.team.slug);
+  const squadHref = `${teamHref}?tab=plantilla`;
   const isVisitorRestricted = viewerRole === "visitor" || profile.picksLocked;
 
   const statTiles = buildPlayerStatTiles(profile.player, profile.sport);
@@ -1043,12 +1044,6 @@ export function PlayerProfileClubView({
                           {profile.player.recentGames.map((row, idx) => {
                             const resEs =
                               row.result === "W" ? "G" : row.result === "L" ? "P" : row.result === "D" ? "E" : "—";
-                            const resTone =
-                              row.result === "W"
-                                ? "is-win"
-                                : row.result === "L"
-                                  ? "is-loss"
-                                  : "is-draw";
                             return (
                               <tr key={`${row.dateIso}-${idx}`} className="hairline-b">
                                 <th scope="row" className="py-2.5 pr-3 font-semibold num whitespace-nowrap">
@@ -1061,7 +1056,10 @@ export function PlayerProfileClubView({
                                   <strong>{row.opponentAbbr ?? row.opponent}</strong>
                                 </td>
                                 <td className="py-2.5 px-2 text-center num whitespace-nowrap" data-col-label="Resultado">
-                                  <span className={`pl-st-form-pill ${resTone}`} style={{ display: "inline-flex", marginInlineEnd: 6 }}>
+                                  <span
+                                    className={`pl-form-sq is-${resEs === "G" || resEs === "P" ? resEs : "E"} is-xs`}
+                                    style={{ display: "inline-flex", marginInlineEnd: 6 }}
+                                  >
                                     {resEs}
                                   </span>
                                   <span>{row.score ?? ""}</span>
@@ -1107,8 +1105,6 @@ export function PlayerProfileClubView({
                     </thead>
                     <tbody>
                       {(profile.teamRecentMatches ?? []).map((m) => {
-                        const resTone =
-                          m.outcome === "G" ? "is-win" : m.outcome === "P" ? "is-loss" : "is-draw";
                         return (
                           <tr key={m.id} className="hairline-b">
                             <th scope="row" className="py-2.5 pr-3 font-semibold num whitespace-nowrap">
@@ -1121,7 +1117,10 @@ export function PlayerProfileClubView({
                               {m.neutralSite ? "Neutral" : m.isHome ? "Local" : "Visita"}
                             </td>
                             <td className="py-2.5 pl-2 text-right num font-bold whitespace-nowrap" data-col-label="Marcador">
-                              <span className={`pl-st-form-pill ${resTone}`} style={{ display: "inline-flex", marginInlineEnd: 6 }}>
+                              <span
+                                className={`pl-form-sq is-${m.outcome === "G" || m.outcome === "P" ? m.outcome : "E"} is-xs`}
+                                style={{ display: "inline-flex", marginInlineEnd: 6 }}
+                              >
                                 {m.outcome}
                               </span>
                               <span>{m.teamScore}–{m.opponentScore}</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { isNationalCompetition } from "@pitchlab/contracts";
+import { canonicalGameHref, canonicalTeamHref, isNationalCompetition } from "@pitchlab/contracts";
 import { getLogoPath } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import {
@@ -1403,7 +1403,7 @@ export function CommandPaletteModal({
               shortName: row.shortName,
               code: row.code,
               rank: idx + 1,
-              href: `/app/${lg.league}/teams/${slug}`,
+              href: canonicalTeamHref(lg.league, slug),
             });
           }
         });
@@ -1421,7 +1421,7 @@ export function CommandPaletteModal({
               shortName: side.shortName,
               code: side.code,
               rank: null,
-              href: `/app/${g.league}/teams/${side.slug}`,
+              href: canonicalTeamHref(g.league, side.slug),
             });
           }
         }
@@ -1474,7 +1474,7 @@ export function CommandPaletteModal({
   const orderedTargets: string[] = [
     ...matchingTeams.map((t) => t.href),
     ...matchingPlayers.map((p) => p.href),
-    ...matchingGames.map((g) => `/app/${g.league}/games/${g.id}`),
+    ...matchingGames.map((g) => canonicalGameHref(g.league, g)),
     ...matchingLeagues.map((lg) => `/app/${lg.league}`),
     ...matchingTipsters.map((c) => `/app/u/${c.handle}`),
     ...quickRoutes.map((r) => r.href),
@@ -1707,7 +1707,7 @@ export function CommandPaletteModal({
                 {matchingGames.map((g, i) => {
                   const idx = gamesOffset + i;
                   const active = idx === clampedActive;
-                  const href = `/app/${g.league}/games/${g.id}`;
+                  const href = canonicalGameHref(g.league, g);
                   return (
                     <a
                       key={g.id}

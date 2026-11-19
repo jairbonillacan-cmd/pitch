@@ -265,4 +265,30 @@ describe("@pitchlab/sports-assets", () => {
     expect(resolvePersonPhotoUrl("/brand/official/coaches/../secrets.webp")).toBeNull();
     expect(resolvePersonPhotoUrl("https://img.mlbstatic.com/foo.png")).toBeNull();
   });
+
+  it("resuelve emblemas oficiales para las 37 competiciones de expansión de fútbol (ADR-043)", () => {
+    const webPublic = resolve(import.meta.dirname, "../../../apps/web/public");
+    expect(getBzzoiroLeagueEmblemUrl("champions-league")).toBe(
+      "https://sports.bzzoiro.com/img/league/7/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("mls")).toBe(
+      "https://sports.bzzoiro.com/img/league/18/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("libertadores")).toBe(
+      "https://sports.bzzoiro.com/img/league/32/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("j1-league")).toBe(
+      "https://sports.bzzoiro.com/img/league/49/?bg=transparent",
+    );
+    expect(getOfficialEspnLeagueLogoUrl("concacaf-champions")).toBe(
+      "/brand/official/competitions/concacaf-champions.png",
+    );
+    expect(getOfficialEspnLeagueLogoUrl("leagues-cup")).toBe(
+      "/brand/official/competitions/leagues-cup.png",
+    );
+    expect(existsSync(resolve(webPublic, "brand/official/competitions/concacaf-champions.png"))).toBe(
+      true,
+    );
+    expect(existsSync(resolve(webPublic, "brand/official/competitions/leagues-cup.png"))).toBe(true);
+  });
 });

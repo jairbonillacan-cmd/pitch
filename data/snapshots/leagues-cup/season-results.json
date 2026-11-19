@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "league": "leagues-cup",
+  "season": "2026",
+  "updatedAt": "2026-11-19T16:13:44.585Z",
+  "matches": [
+    {
+      "id": "leagues-cup-2026-09-06-leon-america-binrai",
+      "date": "2026-09-06",
+      "startTime": "2026-09-06T22:00:00.000Z",
+      "round": null,
+      "homeTeam": "leagues-cup.leon",
+      "awayTeam": "leagues-cup.america",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "leagues-cup-2026-09-07-toluca-monterrey-tkfylr",
+      "date": "2026-09-07",
+      "startTime": "2026-09-07T01:15:00.000Z",
+      "round": null,
+      "homeTeam": "leagues-cup.toluca",
+      "awayTeam": "leagues-cup.monterrey",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    }
+  ]
+}

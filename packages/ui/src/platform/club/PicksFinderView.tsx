@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { canonicalGameHref } from "@pitchlab/contracts";
 import { LeagueBadge, PBar } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
 import {
@@ -401,7 +402,7 @@ export function PicksFinderClubView(): React.JSX.Element {
           <ul className="pl-finder-list" aria-label={`${rows.length} picks`}>
             {rows.slice(0, shown).map(({ game, pick, houseDecimal, houseLabel, edgePts }) => {
               const unlocked = isPickUnlocked(pick, game.status, viewerRole);
-              const href = `/app/${game.league}/games/${game.id}`;
+              const href = canonicalGameHref(game.league, game);
               const manualRaw = manualOddsByPick[pick.id] ?? "";
               const manualDec = parseManualOddsInput(manualRaw);
               const effectiveDec = manualDec ?? houseDecimal;

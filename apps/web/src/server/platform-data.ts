@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { COMPETITION_BY_ID, type StandingRow } from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import { buildPlatformDataset, type RawLeagueInput } from "@pitchlab/ui/picks-engine";
 import type {
@@ -164,12 +165,42 @@ export function upcomingOnly(dataset: PlatformDataset): PlatformDataset {
   return upcoming.length > 0 ? { ...dataset, games: upcoming } : dataset;
 }
 
+const CORE_SHELL_LEAGUES = new Set<string>([
+  "liga-mx",
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "nfl",
+  "nba",
+  "nhl",
+  "mlb",
+]);
+
 export function upcomingPlusRecentFinished(
   dataset: PlatformDataset,
   maxFinished = 12,
 ): PlatformDataset {
-  const upcoming = dataset.games.filter((g) => g.status !== "FT");
-  if (upcoming.length === 0) return dataset;
+  const upcomingAll = dataset.games.filter((g) => g.status !== "FT");
+  if (upcomingAll.length === 0) return dataset;
+  const nowMs = Date.now();
+  const maxExpansionHorizonMs = nowMs + 16 * 86_400_000;
+  const perExpansionCount = new Map<string, number>();
+
+  const upcoming = upcomingAll
+    .slice()
+    .sort((a, b) => (a.kickoffUtc || "").localeCompare(b.kickoffUtc || ""))
+    .filter((g) => {
+      if (g.status === "LIVE" || CORE_SHELL_LEAGUES.has(g.league)) return true;
+      const ms = Date.parse(g.kickoffUtc);
+      if (Number.isFinite(ms) && ms > maxExpansionHorizonMs) return false;
+      const seen = perExpansionCount.get(g.league) ?? 0;
+      if (seen >= 10) return false;
+      perExpansionCount.set(g.league, seen + 1);
+      return true;
+    });
+
   const recentFinished = dataset.games
     .filter((g) => g.status === "FT")
     .sort((a, b) => (b.kickoffUtc || "").localeCompare(a.kickoffUtc || ""))
@@ -180,6 +211,25 @@ export function upcomingPlusRecentFinished(
 async function redactedForViewer(): Promise<PlatformDataset> {
   const full = buildServerRawPlatformDataset();
   return (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
+}
+
+/** Tabla de posiciones de una sola liga (evita serializar las 57 tablas en cada página del shell). */
+export function loadLeagueStandings(league: ProductLeague): StandingRow[] {
+  const full = buildServerRawPlatformDataset();
+  return full.leagues.find((l) => l.league === league)?.standings ?? [];
+}
+
+/** Todos los partidos de una liga (por jugar + terminados, sin detalle pesado) para `/app/[league]`. */
+export async function loadLeagueHubGames(league: ProductLeague): Promise<PlatformGame[]> {
+  const dataset = await redactedForViewer();
+  return dataset.games
+    .filter((g) => g.league === league)
+    .map((g) => ({
+      ...g,
+      markets: [],
+      headToHead: [],
+      factors: [],
+    }));
 }
 
 /** Partidos terminados (sin detalle pesado), opcionalmente de una liga. */
@@ -199,13 +249,35 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
 }
 
 /**
- * Quita el detalle pesado de cada partido (mercados, enfrentamientos y factores, ~la mitad del
- * peso). Solo lo usa la ficha del partido, que lo pide con `loadGameDetail`.
+ * Quita el detalle pesado de cada partido y del shell compartido (mercados, H2H, factores,
+ * tablas de las 57 ligas, alineaciones probables y clubes amateur de copas menores).
+ * Cada página de liga o partido recibe su tabla y detalle puntual en servidor.
  */
 export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
   return {
     ...dataset,
-    games: dataset.games.map((g) => ({ ...g, markets: [], headToHead: [], factors: [] })),
+    leagues: dataset.leagues.map((lg) => ({
+      ...lg,
+      standings: [],
+    })),
+    teams: (dataset.teams ?? []).filter((t) => {
+      if (CORE_SHELL_LEAGUES.has(t.league)) return true;
+      const tier = COMPETITION_BY_ID[t.league]?.prestigeTier ?? 4;
+      return tier <= 2;
+    }),
+    games: dataset.games.map((g) => ({
+      ...g,
+      markets: [],
+      headToHead: [],
+      factors: [],
+      preGame: g.preGame
+        ? {
+            ...g.preGame,
+            injuries: undefined,
+            probableLineups: undefined,
+          }
+        : g.preGame,
+    })),
   };
 }
 

@@ -1,4 +1,8 @@
-import type { LeagueSnapshot } from "@pitchlab/contracts";
+import {
+  canonicalGameHref,
+  canonicalTeamHref,
+  type LeagueSnapshot,
+} from "@pitchlab/contracts";
 import {
   getBzzoiroTeamEmblemUrl,
   getOfficialEspnTeamLogoUrl,
@@ -11,7 +15,7 @@ import type {
 import type { ProductLeague } from "./snapshots";
 
 const ESPN_NEWS_SLUGS: Readonly<
-  Record<ProductLeague, { sportPath: string; slug: string }>
+  Partial<Record<ProductLeague, { sportPath: string; slug: string }>>
 > = {
   "liga-mx": { sportPath: "soccer", slug: "mex.1" },
   "premier-league": { sportPath: "soccer", slug: "eng.1" },
@@ -23,6 +27,43 @@ const ESPN_NEWS_SLUGS: Readonly<
   nba: { sportPath: "basketball", slug: "nba" },
   nhl: { sportPath: "hockey", slug: "nhl" },
   mlb: { sportPath: "baseball", slug: "mlb" },
+  mls: { sportPath: "soccer", slug: "usa.1" },
+  "concacaf-champions": { sportPath: "soccer", slug: "concacaf.champions" },
+  "leagues-cup": { sportPath: "soccer", slug: "concacaf.leagues.cup" },
+  "champions-league": { sportPath: "soccer", slug: "uefa.champions" },
+  "europa-league": { sportPath: "soccer", slug: "uefa.europa" },
+  "conference-league": { sportPath: "soccer", slug: "uefa.europa.conf" },
+  "uefa-super-cup": { sportPath: "soccer", slug: "uefa.super_cup" },
+  libertadores: { sportPath: "soccer", slug: "conmebol.libertadores" },
+  sudamericana: { sportPath: "soccer", slug: "conmebol.sudamericana" },
+  "caf-champions": { sportPath: "soccer", slug: "caf.champions" },
+  "liga-argentina": { sportPath: "soccer", slug: "arg.1" },
+  brasileirao: { sportPath: "soccer", slug: "bra.1" },
+  "brasileirao-b": { sportPath: "soccer", slug: "bra.2" },
+  "copa-do-brasil": { sportPath: "soccer", slug: "bra.copa_do_brazil" },
+  "primera-a-colombia": { sportPath: "soccer", slug: "col.1" },
+  "copa-colombia": { sportPath: "soccer", slug: "col.copa" },
+  "primera-chile": { sportPath: "soccer", slug: "chi.1" },
+  "ligapro-ecuador": { sportPath: "soccer", slug: "ecu.1" },
+  "liga-1-peru": { sportPath: "soccer", slug: "per.1" },
+  championship: { sportPath: "soccer", slug: "eng.2" },
+  "fa-cup": { sportPath: "soccer", slug: "eng.fa" },
+  "carabao-cup": { sportPath: "soccer", slug: "eng.league_cup" },
+  "segunda-espana": { sportPath: "soccer", slug: "esp.2" },
+  "copa-del-rey": { sportPath: "soccer", slug: "esp.copa_del_rey" },
+  "liga-f": { sportPath: "soccer", slug: "esp.w.1" },
+  "bundesliga-2": { sportPath: "soccer", slug: "ger.2" },
+  "dfb-pokal": { sportPath: "soccer", slug: "ger.dfb_pokal" },
+  "serie-b": { sportPath: "soccer", slug: "ita.2" },
+  "coppa-italia": { sportPath: "soccer", slug: "ita.coppa_italia" },
+  "ligue-2": { sportPath: "soccer", slug: "fra.2" },
+  "coupe-de-france": { sportPath: "soccer", slug: "fra.coupe_de_france" },
+  eredivisie: { sportPath: "soccer", slug: "ned.1" },
+  "liga-portugal": { sportPath: "soccer", slug: "por.1" },
+  "pro-league-belgica": { sportPath: "soccer", slug: "bel.1" },
+  "super-lig": { sportPath: "soccer", slug: "tur.1" },
+  "saudi-pro-league": { sportPath: "soccer", slug: "ksa.1" },
+  "j1-league": { sportPath: "soccer", slug: "jpn.1" },
   "concacaf-nations": { sportPath: "soccer", slug: "concacaf.nations.league" },
   "uefa-nations": { sportPath: "soccer", slug: "uefa.nations" },
   amistosos: { sportPath: "soccer", slug: "fifa.friendly" },
@@ -224,6 +265,10 @@ async function loadOrRefreshFeed(
   fetcher: NewsFetcher = defaultFetcher,
   nowMs: number = Date.now(),
 ): Promise<LeagueCacheEntry | null> {
+  if (fetcher === defaultFetcher && process.env.PITCHLAB_OFFLINE === "1") {
+    return null;
+  }
+
   const store = getCacheStore();
   const cached = store.entries.get(league);
   if (cached && nowMs - cached.fetchedAtMs < NEWS_CACHE_TTL_MS) {
@@ -234,6 +279,7 @@ async function loadOrRefreshFeed(
   if (pending) return pending;
 
   const target = ESPN_NEWS_SLUGS[league];
+  if (!target) return null;
   const url = `https://site.api.espn.com/apis/site/v2/sports/${target.sportPath}/${target.slug}/news?lang=es&region=mx&limit=18`;
 
   const promise = (async (): Promise<LeagueCacheEntry | null> => {
@@ -464,10 +510,26 @@ export function buildNewsItemsFromEspn(
     const { category, categoryLabel } = classifyEspnArticle(art);
     const matchedTeam = matchTeamInSnapshot(league, art, snapshot);
 
-    const href = matchedTeam?.gameId
-      ? `/app/${league}/games/${matchedTeam.gameId}`
+    const matchedGame =
+      matchedTeam?.gameId && snapshot
+        ? snapshot.games.find((g) => String(g.id) === matchedTeam.gameId)
+        : undefined;
+    const href = matchedGame
+      ? canonicalGameHref(league, {
+          id: matchedGame.id,
+          home: {
+            slug: matchedGame.home.id,
+            name: matchedGame.home.name,
+            shortName: matchedGame.home.shortName,
+          },
+          away: {
+            slug: matchedGame.away.id,
+            name: matchedGame.away.name,
+            shortName: matchedGame.away.shortName,
+          },
+        })
       : matchedTeam?.slug
-        ? `/app/${league}/teams/${matchedTeam.slug}`
+        ? canonicalTeamHref(league, matchedTeam.slug)
         : undefined;
     const ctaLabel = matchedTeam?.gameId
       ? "Ver partido y picks"

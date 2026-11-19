@@ -153,9 +153,9 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
     await assertAxeClean(page, `Bayern Plantilla @ ${checkWidth}px`);
 
     // Navegar a perfil de jugador y validar retrato LCP, DT, bio y cero overflow
-    const playerLink = bayernSquad.locator('a[href*="/players/"]').first();
+    const playerLink = bayernSquad.locator('a[href*="/p/"]').first();
     await playerLink.click();
-    await expect(page).toHaveURL(/\/app\/bundesliga\/teams\/bayern-munchen\/players\//);
+    await expect(page).toHaveURL(/\/app\/bundesliga\/t\/bayern-munchen\/p\//);
     const playerHero = page.locator('[data-team-hero="player"]');
     await expect(playerHero).toBeVisible();
     await expect(playerHero).toContainText("DT: Vincent Kompany");

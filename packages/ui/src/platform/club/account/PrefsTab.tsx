@@ -2,13 +2,25 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Switch } from "@heroui/react";
-import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
+import {
+  COMPETITION_CATALOG,
+  LEAGUE_REGIONS,
+  isLeagueActiveInWindow,
+  type LeagueId,
+  type LeagueRegionKey,
+} from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
+import {
+  FeedbackSupportDialog,
+  type AccountSupportModalKind,
+} from "../../components/FeedbackSupportDialog";
 import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { type VisualStyle } from "../../components/ShellChrome";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { PlSelect } from "../../components/PlSelect";
+import { SettingsGroup, SettingsRow } from "../../components/SettingsGroup";
 import { BOOKMAKER_OPTIONS, sanitizePreferredBooks } from "../../bookmakers";
+import { todayId } from "../home/home-model";
 import { usePlatform } from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
 import { normalizeRecordPrivacy } from "../../record-stats";
@@ -33,38 +45,24 @@ export interface PrefsTabStoryOverride {
 }
 
 const PREF_GROUPS = [
+  { id: "pl-prefs-resumen", label: "General" },
   { id: "pl-prefs-ligas", label: "Tus ligas" },
-  { id: "pl-prefs-datos", label: "Cómo ves los datos" },
+  { id: "pl-prefs-datos", label: "Datos y casas" },
   { id: "pl-prefs-picks", label: "Picks y parlays" },
-  { id: "pl-prefs-alertas", label: "Alertas" },
+  { id: "pl-prefs-alertas", label: "Notificaciones" },
   { id: "pl-prefs-privacidad", label: "Privacidad" },
   { id: "pl-prefs-descanso", label: "Juego responsable" },
+  { id: "pl-prefs-soporte", label: "Soporte y cuenta" },
 ] as const;
 
 type PrefGroupId = (typeof PREF_GROUPS)[number]["id"];
 
-const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string }> = [
-  { id: "liga-mx" as LeagueId, name: "Liga MX" },
-  { id: "nfl" as LeagueId, name: "NFL" },
-  { id: "nba" as LeagueId, name: "NBA" },
-  { id: "nhl" as LeagueId, name: "NHL" },
-  { id: "mlb" as LeagueId, name: "MLB" },
-  { id: "premier-league" as LeagueId, name: "Premier League" },
-  { id: "laliga" as LeagueId, name: "LaLiga" },
-  { id: "bundesliga" as LeagueId, name: "Bundesliga" },
-  { id: "serie-a" as LeagueId, name: "Serie A" },
-  { id: "ligue-1" as LeagueId, name: "Ligue 1" },
-  { id: "concacaf-nations" as LeagueId, name: "Concacaf Nations League" },
-  { id: "uefa-nations" as LeagueId, name: "UEFA Nations League" },
-  { id: "amistosos" as LeagueId, name: "Amistosos FIFA" },
-  { id: "copa-del-mundo" as LeagueId, name: "Copa del Mundo FIFA" },
-  { id: "eliminatorias" as LeagueId, name: "Eliminatorias Mundialistas" },
-  { id: "copa-america" as LeagueId, name: "Copa América" },
-  { id: "eurocopa" as LeagueId, name: "Eurocopa UEFA" },
-  { id: "copa-oro" as LeagueId, name: "Copa Oro Concacaf" },
-  { id: "copa-africana" as LeagueId, name: "Copa Africana de Naciones" },
-  { id: "copa-asiatica" as LeagueId, name: "Copa Asiática AFC" },
-];
+const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string; region: LeagueRegionKey }> =
+  COMPETITION_CATALOG.map((c) => ({
+    id: c.id,
+    name: c.label,
+    region: c.region,
+  }));
 
 const TIMEZONE_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
   { value: "America/Mexico_City", label: "Ciudad de México (UTC−6)" },
@@ -255,6 +253,7 @@ export function PrefsTab({
   storyOverride?: PrefsTabStoryOverride;
 }): React.JSX.Element {
   const {
+    dataset,
     hasAccountSessionAuth,
     favoriteLeagues,
     setFavoriteLeagues,
@@ -262,6 +261,7 @@ export function PrefsTab({
     setOddsFormat,
     riskPreference,
     setRiskPreference,
+    userTimezone,
     setUserTimezone,
     setShowMxnBalance,
     setUnitMxn,
@@ -269,6 +269,8 @@ export function PrefsTab({
     setPreferredBooks,
     journal,
     pushToast,
+    navigateTo,
+    logoutSession,
   } = usePlatform();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
@@ -299,9 +301,12 @@ export function PrefsTab({
   const [unitError, setUnitError] = useState<string | null>(null);
   const [pendingBreak, setPendingBreak] = useState<Exclude<PauseChoice, null>>("7d");
   const [lastLeagueWarn, setLastLeagueWarn] = useState<boolean>(false);
-  const [activeGroup, setActiveGroup] = useState<PrefGroupId>("pl-prefs-ligas");
+  const [activeGroup, setActiveGroup] = useState<PrefGroupId>("pl-prefs-resumen");
   const [localSavedTick, setLocalSavedTick] = useState<number>(0);
   const [activeDialog, setActiveDialog] = useState<PrefsDialogKind>(null);
+  const [supportModal, setSupportModal] = useState<AccountSupportModalKind>(null);
+  const [showInactiveLeagues, setShowInactiveLeagues] = useState<boolean>(false);
+  const [leagueSearch, setLeagueSearch] = useState<string>("");
   const [accountActionNote, setAccountActionNote] = useState<string | null>(null);
   const [exportBusy, setExportBusy] = useState<boolean>(false);
   const [deleteBusy, setDeleteBusy] = useState<boolean>(false);
@@ -730,6 +735,48 @@ export function PrefsTab({
   const selectedBreakLabel =
     BREAK_OPTIONS.find((b) => b.value === (prefs.pauseChoice ?? pendingBreak))?.label ?? "7 días";
 
+  const todayIso = useMemo(
+    () => todayId(userTimezone || prefs.timezone || "America/Mexico_City"),
+    [userTimezone, prefs.timezone],
+  );
+  const groupedLeagues = useMemo(() => {
+    const norm = (s: string) =>
+      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    const q = norm(leagueSearch);
+    const byRegion = new Map<LeagueRegionKey, Array<{ id: LeagueId; name: string; active: boolean }>>();
+    for (const lg of LEAGUE_OPTIONS) {
+      const active =
+        dataset.games.length === 0
+          ? true
+          : isLeagueActiveInWindow(dataset.games, lg.id, todayIso, 30);
+      const isFav = favoriteLeagues.includes(lg.id);
+      if (!showInactiveLeagues && !active && !isFav) continue;
+      if (q && !norm(lg.name).includes(q) && !norm(lg.id).includes(q)) continue;
+      const arr = byRegion.get(lg.region) ?? [];
+      arr.push({ id: lg.id, name: lg.name, active });
+      byRegion.set(lg.region, arr);
+    }
+    return LEAGUE_REGIONS.map((region) => ({
+      region,
+      items: byRegion.get(region.key) ?? [],
+    })).filter((g) => g.items.length > 0);
+  }, [dataset.games, favoriteLeagues, leagueSearch, showInactiveLeagues, todayIso]);
+
+  const telegramUrl =
+    typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TELEGRAM_URL?.trim() || "" : "";
+  const activeAlertsCount = Object.values(prefs.alerts).filter(Boolean).length;
+
+  const scrollToSection = (groupId: PrefGroupId) => {
+    setActiveGroup(groupId);
+    if (typeof document === "undefined") return;
+    const section = document.getElementById(groupId);
+    if (!section) return;
+    const reduced =
+      typeof window !== "undefined" &&
+      Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+    section.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  };
+
   return (
     <div className="pl-acct-prefs-wrap">
       {!onSaved ? (
@@ -765,65 +812,113 @@ export function PrefsTab({
         </nav>
 
         <div className="pl-acct-prefs-content">
-          {/* 1. Tus ligas */}
+          {/* 0. Resumen rápido (estilo app nativa · Imágenes 7 y 8) */}
+          <SettingsGroup id="pl-prefs-resumen" title="General">
+            <SettingsRow
+              icon="globe"
+              title="Idioma"
+              subtitle="Interfaz y formatos regionales"
+              value="Español (MX)"
+              showChevron={false}
+            />
+            <SettingsRow
+              icon="activity"
+              title="Formato de cuotas"
+              subtitle="Americano (−110) o Decimal (1.91)"
+              value={oddsFormat === "decimal" ? "Decimal" : "Americano"}
+              onClick={() => scrollToSection("pl-prefs-datos")}
+            />
+            <SettingsRow
+              icon="ticket"
+              title="Casas de apuestas"
+              subtitle="Tus casas habituales de referencia"
+              value={`${preferredBooks.length} selec.`}
+              onClick={() => scrollToSection("pl-prefs-datos")}
+            />
+            <SettingsRow
+              icon="bell"
+              title="Notificaciones"
+              subtitle="Alertas de valor, picks y app móvil"
+              value={`${activeAlertsCount} activas`}
+              onClick={() => scrollToSection("pl-prefs-alertas")}
+            />
+          </SettingsGroup>
+
+          {/* 1. Tus ligas (agrupadas por región · solo activas 30d por defecto) */}
           <section
             id="pl-prefs-ligas"
             className="pl-acct-card pl-acct-prefs-section glass-card glass-ring"
             aria-labelledby="pl-prefs-h-ligas"
           >
-            <div>
-              <h2 id="pl-prefs-h-ligas" className="pl-acct-prefs-h2">
-                Tus ligas
-              </h2>
-              <p className="pl-acct-prefs-lead">
-                Inicio, la tira de fechas y tus alertas muestran solo estas ligas. Elige al menos
-                una.
-              </p>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 id="pl-prefs-h-ligas" className="pl-acct-prefs-h2">
+                  Tus ligas
+                </h2>
+                <p className="pl-acct-prefs-lead">
+                  Inicio, la tira de fechas y tus alertas priorizan estas competencias. Elige al
+                  menos una ({favoriteLeagues.length} seleccionadas).
+                </p>
+              </div>
+              <label className="pl-prefs-inactive-switch">
+                <span className="text-xs font-medium" style={{ color: "var(--pl-text-secondary)" }}>
+                  Ver en pausa
+                </span>
+                <Switch
+                  isSelected={showInactiveLeagues}
+                  onChange={setShowInactiveLeagues}
+                  aria-label="Ver competencias en pausa sin partidos en 30 días"
+                >
+                  <Switch.Control>
+                    <Switch.Thumb />
+                  </Switch.Control>
+                </Switch>
+              </label>
             </div>
 
-            <div className="space-y-3" role="group" aria-label="Ligas">
-              <div className="pl-acct-league-grid">
-                {LEAGUE_OPTIONS.filter((l) => !isNationalCompetition(l.id)).map((league) => {
-                  const isSelected = favoriteLeagues.includes(league.id);
-                  return (
-                    <button
-                      key={league.id}
-                      type="button"
-                      className="pl-acct-league-pill"
-                      data-league-toggle={league.id}
-                      aria-pressed={isSelected}
-                      onClick={() => handleToggleLeague(league.id)}
-                    >
-                      <LeagueBadge league={league.id} size={20} />
-                      <span>{league.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-              <p
-                className="m-0 text-xs font-bold uppercase tracking-wider"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                Selecciones y competencias internacionales
-              </p>
-              <div className="pl-acct-league-grid">
-                {LEAGUE_OPTIONS.filter((l) => isNationalCompetition(l.id)).map((league) => {
-                  const isSelected = favoriteLeagues.includes(league.id);
-                  return (
-                    <button
-                      key={league.id}
-                      type="button"
-                      className="pl-acct-league-pill"
-                      data-league-toggle={league.id}
-                      aria-pressed={isSelected}
-                      onClick={() => handleToggleLeague(league.id)}
-                    >
-                      <LeagueBadge league={league.id} size={20} />
-                      <span>{league.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="pl-prefs-league-search">
+              <MaestroIcon name="search" size={14} />
+              <input
+                type="search"
+                value={leagueSearch}
+                onChange={(e) => setLeagueSearch(e.target.value)}
+                placeholder="Buscar liga o copa (Liga MX, Champions, MLS, MLB…)"
+                aria-label="Filtrar ligas disponibles"
+              />
+            </div>
+
+            <div className="space-y-4" role="group" aria-label="Ligas">
+              {groupedLeagues.map(({ region, items }) => (
+                <div key={region.key} className="space-y-2">
+                  <p
+                    className="m-0 text-[11px] font-bold uppercase tracking-wider"
+                    style={{ color: "var(--pl-text-muted)" }}
+                  >
+                    {region.label}
+                  </p>
+                  <div className="pl-acct-league-grid">
+                    {items.map((league) => {
+                      const isSelected = favoriteLeagues.includes(league.id);
+                      return (
+                        <button
+                          key={league.id}
+                          type="button"
+                          className="pl-acct-league-pill"
+                          data-league-toggle={league.id}
+                          aria-pressed={isSelected}
+                          onClick={() => handleToggleLeague(league.id)}
+                        >
+                          <LeagueBadge league={league.id} size={20} />
+                          <span>{league.name}</span>
+                          {!league.active ? (
+                            <span className="pl-prefs-pause-tag">En pausa</span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {lastLeagueWarn ? (
@@ -1321,52 +1416,111 @@ export function PrefsTab({
             </a>
           </section>
 
-          {/* Pie · Tu cuenta */}
-          <section
-            className="pl-acct-card pl-acct-prefs-account-foot glass-card glass-ring"
-            aria-labelledby="pl-prefs-h-cuenta"
-          >
-            <div className="pl-acct-prefs-row-copy">
-              <b id="pl-prefs-h-cuenta" className="pl-acct-prefs-row-title">
-                Tu cuenta
-              </b>
-              <span className="pl-acct-prefs-row-detail">
-                {accountsEnabled
-                  ? `${emailDisplay} · descarga tus datos o solicita eliminar tu cuenta.`
-                  : "Disponible cuando se activen las cuentas con correo."}
-              </span>
-            </div>
+          {/* Soporte, Comunidad, Legal, Sesión y Zona de peligro (Imágenes 8 y 9) */}
+          <div id="pl-prefs-soporte" className="space-y-4">
+            <SettingsGroup title="Soporte">
+              <SettingsRow
+                icon="sparkles"
+                title="Feedback e ideas"
+                subtitle="Ayúdanos a decidir qué construir después"
+                dataAttr="prefs-feedback-row"
+                onClick={() => setSupportModal("feedback")}
+              />
+              <SettingsRow
+                icon="message"
+                title="Contactar con soporte"
+                subtitle="Recibe ayuda del equipo de PitchLab."
+                dataAttr="prefs-support-row"
+                onClick={() => setSupportModal("support")}
+              />
+            </SettingsGroup>
 
-            <div className="pl-acct-prefs-account-actions">
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm"
+            <SettingsGroup title="Comunidad">
+              <SettingsRow
+                icon="share"
+                title="Únete a nuestra comunidad de Telegram"
+                subtitle={telegramUrl ? "Canal oficial de novedades y análisis" : "Próximamente · avisos y novedades"}
+                href={telegramUrl || undefined}
+                external={Boolean(telegramUrl)}
+                dataAttr="prefs-telegram-row"
+                onClick={telegramUrl ? undefined : () => setSupportModal("telegram")}
+              />
+            </SettingsGroup>
+
+            <SettingsGroup title="Legal y datos">
+              <SettingsRow
+                icon="shield"
+                title="Política de privacidad"
+                href="/legal/privacidad"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/legal/privacidad");
+                }}
+              />
+              <SettingsRow
+                icon="receipt"
+                title="Términos de uso"
+                href="/legal/terminos"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/legal/terminos");
+                }}
+              />
+              <SettingsRow
+                icon="download"
+                title="Descargar mis datos"
+                subtitle={
+                  accountsEnabled
+                    ? `${emailDisplay} · copia en JSON de tu cuenta y bitácora`
+                    : "Disponible al iniciar sesión con correo"
+                }
                 disabled={!accountsEnabled || exportBusy}
                 onClick={() => setActiveDialog("export")}
-              >
-                Descargar mis datos
-              </button>
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm pl-acct-btn--muted-text"
-                disabled={!accountsEnabled || deleteBusy}
-                onClick={() => {
-                  setDeleteError(null);
-                  setActiveDialog("delete");
-                }}
-              >
-                Eliminar cuenta
-              </button>
-            </div>
+              />
+            </SettingsGroup>
 
-            {accountActionNote ? (
-              <p role="status" className="pl-acct-prefs-foot-note">
-                {accountActionNote}
-              </p>
-            ) : null}
-          </section>
+            <SettingsGroup>
+              <SettingsRow
+                icon="logout"
+                title="Cerrar sesión"
+                tone="danger"
+                showChevron={false}
+                dataAttr="prefs-logout-row"
+                onClick={() => {
+                  void logoutSession();
+                }}
+              />
+            </SettingsGroup>
+
+            <SettingsGroup
+              title="Zona de peligro"
+              footnote={accountActionNote ?? undefined}
+            >
+              <SettingsRow
+                icon="trash"
+                title="Eliminar cuenta"
+                subtitle="Solicita la baja definitiva y borrado de tus datos"
+                tone="danger"
+                showChevron={false}
+                disabled={deleteBusy}
+                dataAttr="prefs-delete-account-row"
+                onClick={() => setSupportModal("delete")}
+              />
+            </SettingsGroup>
+          </div>
         </div>
       </div>
+
+      <FeedbackSupportDialog
+        kind={supportModal}
+        onClose={() => setSupportModal(null)}
+        accountsEnabled={accountsEnabled}
+        onSuccessToast={(msg) => {
+          setAccountActionNote(msg);
+          pushToast(msg, "success");
+        }}
+        onErrorToast={(err) => pushToast(err, "warning")}
+      />
 
       {/* Confirmación de pausa de cuenta */}
       <TopLayerModalDialog

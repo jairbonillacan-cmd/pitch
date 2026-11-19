@@ -2,7 +2,13 @@
  * Lógica pura del Inicio del Club: días, deportes, ligas, agrupación y picks destacados.
  * Sin React ni estado, para probarla aparte de la vista.
  */
-import { isNationalCompetition, type LeagueId } from "@pitchlab/contracts";
+import {
+  COMPETITION_CATALOG,
+  competitionPrestigeScore,
+  isLeagueActiveInWindow,
+  isNationalCompetition,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import type { MatchPick, PlatformGame, PlatformLeagueSummary } from "../../types";
 
 export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl" | "mlb";
@@ -25,29 +31,8 @@ export const SPORTS: ReadonlyArray<{ id: SportId; label: string; shortLabel: str
   { id: "mlb", label: "Béisbol", shortLabel: "MLB" },
 ];
 
-/** Orden fijo de ligas y competencias: México y clubes top primero, luego selecciones y EE. UU. / Canadá. */
-const LEAGUE_ORDER: readonly string[] = [
-  "liga-mx",
-  "premier-league",
-  "laliga",
-  "bundesliga",
-  "serie-a",
-  "ligue-1",
-  "concacaf-nations",
-  "uefa-nations",
-  "amistosos",
-  "copa-del-mundo",
-  "eliminatorias",
-  "copa-america",
-  "eurocopa",
-  "copa-oro",
-  "copa-africana",
-  "copa-asiatica",
-  "nfl",
-  "nba",
-  "nhl",
-  "mlb",
-];
+/** Orden fijo de ligas y competencias derivado del catálogo maestro (ADR-043). */
+const LEAGUE_ORDER: readonly string[] = COMPETITION_CATALOG.map((c) => c.id);
 
 export function sportOf(game: Pick<PlatformGame, "sport">): SportId {
   if (game.sport === "american-football") return "nfl";
@@ -170,8 +155,10 @@ export function buildHomeSportLeagues(
   games: readonly PlatformGame[],
   dayGames: readonly PlatformGame[],
   sport: SportFilter,
+  today?: string,
 ): HomeSportLeagueItem[] {
   if (sport === ALL) return [];
+  const refToday = today || todayId("America/Mexico_City");
   const dayCountByLeague = new Map<LeagueId, number>();
   for (const g of dayGames) {
     dayCountByLeague.set(g.league, (dayCountByLeague.get(g.league) ?? 0) + 1);
@@ -189,8 +176,15 @@ export function buildHomeSportLeagues(
       dayCount: dayCountByLeague.get(lg.league) ?? 0,
       totalCount: totalCountByLeague.get(lg.league) ?? lg.totalGames,
     }))
-    .filter((lg) => lg.totalCount > 0 || lg.dayCount > 0)
-    .sort((a, b) => leagueRank(a.league) - leagueRank(b.league));
+    .filter(
+      (lg) =>
+        lg.dayCount > 0 ||
+        isLeagueActiveInWindow(games, lg.league, refToday, 30),
+    )
+    .sort((a, b) => {
+      if ((b.dayCount > 0) !== (a.dayCount > 0)) return b.dayCount > 0 ? 1 : -1;
+      return leagueRank(a.league) - leagueRank(b.league);
+    });
 }
 
 export function gamesForSelection(
@@ -438,4 +432,96 @@ export function alternativePick(game: Pick<PlatformGame, "picks">): MatchPick | 
   const [main, ...rest] = game.picks;
   if (!main) return null;
   return rest.reduce<MatchPick | null>((best, p) => (best === null || p.p > best.p ? p : best), null);
+}
+
+/**
+ * Motor de relevancia para la barra de «Tendencias» (Imagen 1 · ADR-043).
+ *
+ * - En `Todos` muestra los próximos partidos más relevantes de TODOS los deportes
+ *   (asegurando variedad multideporte cuando hay acción en varios deportes).
+ * - En `Fútbol` + `Todas las ligas` muestra los próximos más relevantes de todas las ligas de fútbol.
+ * - En cualquier deporte o liga específica aplica la misma lógica de proximidad + prestigio + derbi + señal.
+ */
+export function getTrendingMatches(params: {
+  games: readonly PlatformGame[];
+  sport: SportFilter;
+  league: LeagueFilter;
+  today: string;
+  liveIds?: ReadonlySet<string>;
+  maxItems?: number;
+}): PlatformGame[] {
+  const { games, sport, league, today, liveIds, maxItems = 12 } = params;
+  const scoped = games.filter((g) => {
+    if (!matchesSportFilter(g, sport)) return false;
+    if (league !== ALL && g.league !== league) return false;
+    return true;
+  });
+  if (scoped.length === 0) return [];
+
+  const horizon30 = addDays(today, 30);
+  const upcomingOrLive = scoped.filter((g) => {
+    const isLive = Boolean(liveIds?.has(g.id)) || String(g.status) === "LIVE";
+    if (isLive) return true;
+    if (g.status === "FT") return false;
+    return g.dayId >= today && g.dayId <= horizon30;
+  });
+  const pool = upcomingOrLive.length > 0 ? upcomingOrLive : scoped.filter((g) => g.status !== "FT");
+  const effectivePool = pool.length > 0 ? pool : scoped;
+
+  const todayMs = Date.parse(`${today}T12:00:00Z`);
+  const scoreOf = (g: PlatformGame): number => {
+    const isLive = Boolean(liveIds?.has(g.id)) || String(g.status) === "LIVE";
+    let score = 0;
+    if (isLive) score += 1000;
+    const dayMs = Date.parse(`${g.dayId}T12:00:00Z`);
+    const deltaDays = Number.isFinite(dayMs) && Number.isFinite(todayMs)
+      ? Math.round((dayMs - todayMs) / 86_400_000)
+      : 7;
+    if (deltaDays <= 0) score += 420;
+    else if (deltaDays === 1) score += 340;
+    else if (deltaDays <= 3) score += 260;
+    else if (deltaDays <= 7) score += 180;
+    else if (deltaDays <= 14) score += 100;
+    else score += 40;
+
+    score += competitionPrestigeScore(g.league);
+    if (g.preGame?.matchContext?.isLocalDerby) score += 75;
+    if (typeof g.confidenceScore === "number") score += Math.round(g.confidenceScore * 0.5);
+    const mainPick = g.picks[0];
+    if (mainPick && mainPick.marketDecimal && mainPick.marketDecimal > mainPick.fairDecimal) {
+      score += 35;
+    }
+    return score;
+  };
+
+  const ranked = [...effectivePool].sort((a, b) => {
+    const diff = scoreOf(b) - scoreOf(a);
+    if (diff !== 0) return diff;
+    return a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id);
+  });
+
+  // En vista amplia (Todos los deportes o Todas las ligas de fútbol), balanceamos para no repetir una sola liga 10 veces
+  if (league === ALL && ranked.length > maxItems) {
+    const picked: PlatformGame[] = [];
+    const seenIds = new Set<string>();
+    const perBucketCap = sport === ALL ? 3 : 2;
+    const bucketCounts = new Map<string, number>();
+
+    for (const g of ranked) {
+      if (picked.length >= maxItems) break;
+      const bucket = sport === ALL ? sportOf(g) : g.league;
+      const count = bucketCounts.get(bucket) ?? 0;
+      if (count >= perBucketCap) continue;
+      picked.push(g);
+      seenIds.add(g.id);
+      bucketCounts.set(bucket, count + 1);
+    }
+    for (const g of ranked) {
+      if (picked.length >= maxItems) break;
+      if (!seenIds.has(g.id)) picked.push(g);
+    }
+    return picked;
+  }
+
+  return ranked.slice(0, maxItems);
 }

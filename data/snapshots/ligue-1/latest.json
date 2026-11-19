@@ -232,6 +232,7 @@
         "code": "STR"
       },
       "venue": "Francia",
+      "referee": "Mathieu Vernice",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -263,6 +264,7 @@
         "code": "PAR"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -294,6 +296,7 @@
         "code": "EST"
       },
       "venue": "Francia",
+      "referee": "Ruddy Buquet",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -325,6 +328,7 @@
         "code": "LIL"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -356,6 +360,7 @@
         "code": "MON"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -387,6 +392,7 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -418,6 +424,7 @@
         "code": "LOR"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -449,6 +456,7 @@
         "code": "OGC"
       },
       "venue": "Francia",
+      "referee": "Geoffrey Kubler",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -480,6 +488,7 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "Willy Delajod",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -511,6 +520,7 @@
         "code": "LEH"
       },
       "venue": "Francia",
+      "referee": "Jeremie Pignard",
       "neutralSite": false
     },
     {
@@ -536,6 +546,7 @@
         "code": "PAR"
       },
       "venue": "Francia",
+      "referee": "Jérôme Brisard",
       "neutralSite": false
     },
     {
@@ -561,6 +572,7 @@
         "code": "AJA"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false
     },
     {
@@ -586,6 +598,7 @@
         "code": "TOU"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false
     },
     {
@@ -611,6 +624,7 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "François Letexier",
       "neutralSite": false
     },
     {
@@ -636,6 +650,7 @@
         "code": "STA"
       },
       "venue": "Francia",
+      "referee": "Azzedine Souifi",
       "neutralSite": false
     },
     {
@@ -661,6 +676,7 @@
         "code": "ANG"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false
     },
     {
@@ -686,6 +702,7 @@
         "code": "STA"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false
     },
     {
@@ -711,6 +728,7 @@
         "code": "LEM"
       },
       "venue": "Francia",
+      "referee": "Eric Wattellier",
       "neutralSite": false
     }
   ],
@@ -1182,6 +1200,17 @@
           "home": 5,
           "away": 5
         }
+      },
+      "matchContext": {
+        "referee": "Mathieu Vernice",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 4.73,
+          "avgRed": 0.23,
+          "avgFouls": 27.3,
+          "avgGoals": 2.45
+        }
       }
     },
     "ligue-1-2026-27-md10-aj-auxerre-paris": {
@@ -1622,6 +1651,17 @@
         "restDays": {
           "home": 6,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Marc Bollengier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 41,
+          "avgYellow": 3.98,
+          "avgRed": 0.24,
+          "avgFouls": 28,
+          "avgGoals": 2.76
         }
       }
     },
@@ -2092,6 +2132,17 @@
           "home": 8,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Ruddy Buquet",
+        "refereeStats": {
+          "country": "France",
+          "matches": 36,
+          "avgYellow": 3.5,
+          "avgRed": 0.17,
+          "avgFouls": 23.2,
+          "avgGoals": 2.64
+        }
       }
     },
     "ligue-1-2026-27-md10-stade-rennais-lille-osc": {
@@ -2561,6 +2612,17 @@
           "home": 9,
           "away": 9
         }
+      },
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
       }
     },
     "ligue-1-2026-27-md10-le-mans-monaco": {
@@ -2992,6 +3054,17 @@
         "restDays": {
           "home": 8,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Bastien Dechepy",
+        "refereeStats": {
+          "country": "France",
+          "matches": 43,
+          "avgYellow": 4.42,
+          "avgRed": 0.28,
+          "avgFouls": 25,
+          "avgGoals": 3.02
         }
       }
     },
@@ -3462,6 +3535,17 @@
           "home": 6,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
       }
     },
     "ligue-1-2026-27-md10-le-havre-lorient": {
@@ -3923,6 +4007,17 @@
         "restDays": {
           "home": 9,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Aurelien Petit",
+        "refereeStats": {
+          "country": "France",
+          "matches": 40,
+          "avgYellow": 3.95,
+          "avgRed": 0.23,
+          "avgFouls": 27.2,
+          "avgGoals": 2.48
         }
       }
     },
@@ -4393,6 +4488,17 @@
           "home": 7,
           "away": 9
         }
+      },
+      "matchContext": {
+        "referee": "Geoffrey Kubler",
+        "refereeStats": {
+          "country": "French Guiana",
+          "matches": 39,
+          "avgYellow": 4.08,
+          "avgRed": 0.18,
+          "avgFouls": 26.7,
+          "avgGoals": 2.38
+        }
       }
     },
     "ligue-1-2026-27-md10-racing-lens-olympique-marseille": {
@@ -4861,6 +4967,17 @@
         "restDays": {
           "home": 9,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Willy Delajod",
+        "refereeStats": {
+          "country": "France",
+          "matches": 60,
+          "avgYellow": 3.28,
+          "avgRed": 0.17,
+          "avgFouls": 22.8,
+          "avgGoals": 2.8
         }
       }
     },
@@ -5486,7 +5603,18 @@
           "Le Havre AC anota 15 % menos que la media."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jeremie Pignard",
+        "refereeStats": {
+          "country": "France",
+          "matches": 52,
+          "avgYellow": 4.1,
+          "avgRed": 0.23,
+          "avgFouls": 21.9,
+          "avgGoals": 2.98
+        }
+      }
     },
     "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain": {
       "game": "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain",
@@ -6147,7 +6275,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jérôme Brisard",
+        "refereeStats": {
+          "country": "France",
+          "matches": 58,
+          "avgYellow": 4.24,
+          "avgRed": 0.34,
+          "avgFouls": 23.4,
+          "avgGoals": 2.95
+        }
+      }
     },
     "ligue-1-2026-27-md11-monaco-aj-auxerre": {
       "game": "ligue-1-2026-27-md11-monaco-aj-auxerre",
@@ -6809,7 +6948,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
+      }
     },
     "ligue-1-2026-27-md11-racing-lens-toulouse": {
       "game": "ligue-1-2026-27-md11-racing-lens-toulouse",
@@ -7471,7 +7621,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Bastien Dechepy",
+        "refereeStats": {
+          "country": "France",
+          "matches": 43,
+          "avgYellow": 4.42,
+          "avgRed": 0.28,
+          "avgFouls": 25,
+          "avgGoals": 3.02
+        }
+      }
     },
     "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais": {
       "game": "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais",
@@ -8131,7 +8292,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "François Letexier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 76,
+          "avgYellow": 4.08,
+          "avgRed": 0.3,
+          "avgFouls": 21.8,
+          "avgGoals": 3.05
+        }
+      }
     },
     "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois": {
       "game": "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois",
@@ -8792,7 +8964,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Azzedine Souifi",
+        "refereeStats": {
+          "country": "France",
+          "matches": 25,
+          "avgYellow": 3.88,
+          "avgRed": 0.16,
+          "avgFouls": 30.7,
+          "avgGoals": 2.48
+        }
+      }
     },
     "ligue-1-2026-27-md11-paris-angers-sco": {
       "game": "ligue-1-2026-27-md11-paris-angers-sco",
@@ -9424,7 +9607,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Aurelien Petit",
+        "refereeStats": {
+          "country": "France",
+          "matches": 40,
+          "avgYellow": 3.95,
+          "avgRed": 0.23,
+          "avgFouls": 27.2,
+          "avgGoals": 2.48
+        }
+      }
     },
     "ligue-1-2026-27-md11-lorient-stade-rennais": {
       "game": "ligue-1-2026-27-md11-lorient-stade-rennais",
@@ -10085,7 +10279,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Marc Bollengier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 41,
+          "avgYellow": 3.98,
+          "avgRed": 0.24,
+          "avgFouls": 28,
+          "avgGoals": 2.76
+        }
+      }
     },
     "ligue-1-2026-27-md11-olympique-marseille-le-mans": {
       "game": "ligue-1-2026-27-md11-olympique-marseille-le-mans",
@@ -10707,7 +10912,18 @@
           "Le Mans FC anota 10 % más que la media."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Eric Wattellier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 47,
+          "avgYellow": 3.21,
+          "avgRed": 0.23,
+          "avgFouls": 20.3,
+          "avgGoals": 3.38
+        }
+      }
     }
   },
   "standings": [

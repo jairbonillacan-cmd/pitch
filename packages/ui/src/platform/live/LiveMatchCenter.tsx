@@ -9,6 +9,7 @@
  */
 import React from "react";
 import {
+  canonicalGameHref,
   LIVE_PHASE_LABEL_ES,
   isLivePhaseActive,
   type LiveIncident,
@@ -581,7 +582,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
           <li key={g.id} className={`pl-live-row${isLivePhaseActive(e.phase) ? " is-live" : ""}`}>
             <a
               className="pl-live-row-link"
-              href={`/app/${g.league}/games/${g.id}`}
+              href={canonicalGameHref(g.league, g)}
               onClick={(ev) => {
                 if (!onOpen || ev.metaKey || ev.ctrlKey) return;
                 ev.preventDefault();
@@ -623,7 +624,7 @@ export function LiveScoreboardStrip(): React.JSX.Element | null {
     <LiveScoreboardView
       board={snap.data}
       games={dataset.games}
-      onOpen={(g) => navigateTo(`/app/${g.league}/games/${g.id}`)}
+      onOpen={(g) => navigateTo(canonicalGameHref(g.league, g))}
     />
   );
 }

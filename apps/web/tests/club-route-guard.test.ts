@@ -55,13 +55,17 @@ describe("resolveClubRoute", () => {
     expect(resolveClubRoute("/app/nba", opts)).toEqual({ kind: "ok", pathname: "/app/nba" });
     expect(resolveClubRoute("/app/nhl", opts)).toEqual({ kind: "ok", pathname: "/app/nhl" });
     expect(resolveClubRoute("/app/mlb", opts)).toEqual({ kind: "ok", pathname: "/app/mlb" });
-    expect(resolveClubRoute("/app/mlb/teams/los-angeles-dodgers", opts)).toEqual({
+    expect(resolveClubRoute("/app/mlb/t/los-angeles-dodgers", opts)).toEqual({
       kind: "ok",
-      pathname: "/app/mlb/teams/los-angeles-dodgers",
+      pathname: "/app/mlb/t/los-angeles-dodgers",
     });
-    expect(resolveClubRoute("/app/nfl/games/nfl-buf-kc", opts)).toEqual({
+    expect(resolveClubRoute("/app/mlb/teams/los-angeles-dodgers", opts)).toEqual({
+      kind: "permanent_redirect",
+      to: "/app/mlb/t/los-angeles-dodgers",
+    });
+    expect(resolveClubRoute("/app/nfl/g/nfl-buf-kc", opts)).toEqual({
       kind: "ok",
-      pathname: "/app/nfl/games/nfl-buf-kc",
+      pathname: "/app/nfl/g/nfl-buf-kc",
     });
     expect(resolveClubRoute("/app/nba/games/nba-2026-11-15-ind-phi", opts)).toEqual({
       kind: "ok",
@@ -71,19 +75,25 @@ describe("resolveClubRoute", () => {
       kind: "ok",
       pathname: "/app/u/sofia_nfl",
     });
-    expect(resolveClubRoute("/app/nfl/teams/kansas-city-chiefs", opts)).toEqual({
+    expect(resolveClubRoute("/app/nfl/t/kansas-city-chiefs", opts)).toEqual({
       kind: "ok",
-      pathname: "/app/nfl/teams/kansas-city-chiefs",
+      pathname: "/app/nfl/t/kansas-city-chiefs",
     });
     expect(resolveClubRoute("/app/liga-mx/teams/monterrey?tab=partidos", opts)).toEqual({
-      kind: "ok",
-      pathname: "/app/liga-mx/teams/monterrey",
+      kind: "permanent_redirect",
+      to: "/app/liga-mx/t/monterrey?tab=partidos",
     });
     expect(
       resolveClubRoute("/app/liga-mx/teams/monterrey/players/sergio-canales", opts),
     ).toEqual({
+      kind: "permanent_redirect",
+      to: "/app/liga-mx/t/monterrey/p/sergio-canales",
+    });
+    expect(
+      resolveClubRoute("/app/liga-mx/t/monterrey/p/sergio-canales", opts),
+    ).toEqual({
       kind: "ok",
-      pathname: "/app/liga-mx/teams/monterrey/players/sergio-canales",
+      pathname: "/app/liga-mx/t/monterrey/p/sergio-canales",
     });
   });
 

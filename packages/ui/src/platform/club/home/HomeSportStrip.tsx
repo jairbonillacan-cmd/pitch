@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge } from "../../../sports";
+import { LeagueCategorySheet } from "../../components/LeagueCategorySheet";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import type { PlatformGame } from "../../types";
 import {
@@ -274,66 +275,130 @@ export function HomeSportStrip({
   );
 }
 
-/** Tira de ligas dentro del header de `/app`, con el mismo formato y ritmo visual que deportes. */
+/** Tira de ligas dentro del header de `/app`, con curaduría inicial + bottom-sheet por región (ADR-043). */
 export function HomeLeagueStrip({
   leagues,
   sportDayGamesCount,
   league,
   onSelectLeague,
+  favoriteLeagues,
 }: {
   leagues: readonly HomeSportLeagueItem[];
   sportDayGamesCount: number;
   league: LeagueFilter;
   onSelectLeague: (next: LeagueFilter) => void;
+  favoriteLeagues?: readonly string[];
 }): React.JSX.Element {
-  return (
-    <HeaderScrollTrack
-      roleLabel="Ligas del deporte"
-      dataAttr={{ "data-home-leaguebar": "" }}
-      depsKey={leagues.map((l) => l.league).join(",")}
-    >
-      <button
-        type="button"
-        className={`pl-astro-sport-tab pl-astro-sport-tab--league ${league === ALL ? "is-on" : ""}`.trim()}
-        aria-pressed={league === ALL}
-        data-league-chip={ALL}
-        onClick={(e) => {
-          onSelectLeague(ALL);
-          e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
-        }}
-      >
-        <span className="pl-astro-sport-icon" aria-hidden="true">
-          <span className="pl-home-sport-gridbox">
-            <MaestroIcon name="trophy" size={13} />
-          </span>
-        </span>
-        <strong className="pl-astro-sport-label">Todas</strong>
-        <span className="pl-astro-sport-count num">{sportDayGamesCount}</span>
-      </button>
+  const [sheetOpen, setSheetOpen] = useState(false);
 
-      {leagues.map((lg) => {
-        const on = league === lg.league;
-        const isEmpty = lg.dayCount === 0;
-        return (
-          <button
-            key={lg.league}
-            type="button"
-            className={`pl-astro-sport-tab pl-astro-sport-tab--league ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""}`.trim()}
-            aria-pressed={on}
-            data-league-chip={lg.league}
-            onClick={(e) => {
-              onSelectLeague(on ? ALL : lg.league);
-              e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
-            }}
-          >
-            <span className="pl-astro-sport-icon pl-header-league-emblem" aria-hidden="true">
-              <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+  const favSet = useMemo(() => new Set(favoriteLeagues ?? []), [favoriteLeagues]);
+  const MAX_INLINE = 7;
+
+  const { inlineLeagues, hiddenCount } = useMemo(() => {
+    if (leagues.length <= MAX_INLINE + 1) {
+      return { inlineLeagues: leagues, hiddenCount: 0 };
+    }
+    const prioritized = [...leagues].sort((a, b) => {
+      const aSelected = a.league === league ? 1 : 0;
+      const bSelected = b.league === league ? 1 : 0;
+      if (aSelected !== bSelected) return bSelected - aSelected;
+      const aFav = favSet.has(a.league) ? 1 : 0;
+      const bFav = favSet.has(b.league) ? 1 : 0;
+      if (aFav !== bFav) return bFav - aFav;
+      if ((b.dayCount > 0) !== (a.dayCount > 0)) return b.dayCount > 0 ? 1 : -1;
+      return 0;
+    });
+    return {
+      inlineLeagues: prioritized.slice(0, MAX_INLINE),
+      hiddenCount: Math.max(0, prioritized.length - MAX_INLINE),
+    };
+  }, [leagues, league, favSet]);
+
+  return (
+    <>
+      <HeaderScrollTrack
+        roleLabel="Ligas del deporte"
+        dataAttr={{ "data-home-leaguebar": "" }}
+        depsKey={inlineLeagues.map((l) => l.league).join(",")}
+      >
+        <button
+          type="button"
+          className={`pl-astro-sport-tab pl-astro-sport-tab--league ${league === ALL ? "is-on" : ""}`.trim()}
+          aria-pressed={league === ALL}
+          data-league-chip={ALL}
+          onClick={(e) => {
+            onSelectLeague(ALL);
+            e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+          }}
+        >
+          <span className="pl-astro-sport-icon" aria-hidden="true">
+            <span className="pl-home-sport-gridbox">
+              <MaestroIcon name="trophy" size={13} />
             </span>
-            <strong className="pl-astro-sport-label">{lg.label}</strong>
-            <span className="pl-astro-sport-count num">{lg.dayCount}</span>
+          </span>
+          <strong className="pl-astro-sport-label">Todas</strong>
+          <span className="pl-astro-sport-count num">{sportDayGamesCount}</span>
+        </button>
+
+        {inlineLeagues.map((lg) => {
+          const on = league === lg.league;
+          const isEmpty = lg.dayCount === 0;
+          return (
+            <button
+              key={lg.league}
+              type="button"
+              className={`pl-astro-sport-tab pl-astro-sport-tab--league ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""}`.trim()}
+              aria-pressed={on}
+              data-league-chip={lg.league}
+              onClick={(e) => {
+                onSelectLeague(on ? ALL : lg.league);
+                e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+              }}
+            >
+              <span className="pl-astro-sport-icon pl-header-league-emblem" aria-hidden="true">
+                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+              </span>
+              <strong className="pl-astro-sport-label">{lg.label}</strong>
+              <span className="pl-astro-sport-count num">{lg.dayCount}</span>
+            </button>
+          );
+        })}
+
+        {hiddenCount > 0 ? (
+          <button
+            type="button"
+            className="pl-astro-sport-tab pl-astro-sport-tab--league pl-astro-sport-tab--more"
+            data-more-leagues-trigger=""
+            onClick={() => setSheetOpen(true)}
+          >
+            <span className="pl-astro-sport-icon" aria-hidden="true">
+              <span className="pl-home-sport-gridbox">
+                <MaestroIcon name="grid" size={13} />
+              </span>
+            </span>
+            <strong className="pl-astro-sport-label">Más ligas</strong>
+            <span className="pl-astro-sport-count num">+{hiddenCount}</span>
           </button>
-        );
-      })}
-    </HeaderScrollTrack>
+        ) : null}
+      </HeaderScrollTrack>
+
+      <LeagueCategorySheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        title="Ligas y copas activas"
+        selectedLeague={league}
+        onSelect={(next) => onSelectLeague(next === "all" ? ALL : next)}
+        allCount={sportDayGamesCount}
+        leagues={leagues.map((lg) => ({
+          league: lg.league,
+          label: lg.label,
+          logoUrl: lg.logoUrl,
+          activeCount: lg.totalCount,
+          dayCount: lg.dayCount,
+          isFavorite: favSet.has(lg.league),
+          isActive: true,
+        }))}
+      />
+    </>
   );
 }

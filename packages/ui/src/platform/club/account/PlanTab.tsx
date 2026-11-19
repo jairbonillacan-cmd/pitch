@@ -1280,6 +1280,15 @@ export function PlanTab({
                 Cancelar renovación
               </button>
             ) : null}
+
+            <button
+              type="button"
+              className="pl-acct-btn pl-acct-btn--ghost"
+              onClick={scrollToTransfer}
+            >
+              <MaestroIcon name="ticket" size={14} />
+              <span>Canjear cupón</span>
+            </button>
           </div>
         </section>
       </div>
@@ -1416,7 +1425,7 @@ export function PlanTab({
             </h3>
             <p className="m-0 text-xs pt-1" style={{ color: "var(--pl-text-muted)" }}>
               {isTransferMode
-                ? "Paso 1: transfiere con tu referencia única SPEI. Paso 2: confirmamos tu pago y te enviamos un cupón desde noreply@pitchlab.mx para canjearlo aquí o en /canjear."
+                ? "Activa o renueva sin tarjeta con transferencia SPEI o canjea un cupón directo."
                 : "Si recibiste un código promocional o regalo, súmalo a tu acceso actual."}
             </p>
           </div>
@@ -1426,6 +1435,29 @@ export function PlanTab({
             <span className="pl-pill pl-pill--info">Cupón enviado</span>
           ) : null}
         </div>
+
+        {isTransferMode ? (
+          <ol className="pl-acct-steps" aria-label="Cómo activar por SPEI">
+            <li>
+              <span className="pl-acct-step-num num">1</span>
+              <span>
+                <strong>Genera tu referencia</strong> y copia la CLABE.
+              </span>
+            </li>
+            <li>
+              <span className="pl-acct-step-num num">2</span>
+              <span>
+                <strong>Transfiere y reporta</strong> tu clave de rastreo.
+              </span>
+            </li>
+            <li>
+              <span className="pl-acct-step-num num">3</span>
+              <span>
+                <strong>Recibe tu cupón</strong> y actívalo en 1 toque.
+              </span>
+            </li>
+          </ol>
+        ) : null}
 
         {transferHistory.some((item) => item.awaitingCouponRedemption) ? (
           <div

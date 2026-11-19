@@ -14,6 +14,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  canonicalGameHref,
   type LiveMatchDetail,
   type LiveScoreboard,
   type LiveScoreboardEntry,
@@ -148,7 +149,13 @@ export function dbLiveStore(db: Db): LiveStore {
         await sendPushToUsers(db, recipients, "live", {
           title,
           body,
-          url: cand ? `/app/${cand.league}/games/${ev.gameId}` : "/app",
+          url: cand
+            ? canonicalGameHref(cand.league, {
+                id: ev.gameId,
+                home: { name: cand.homeName },
+                away: { name: cand.awayName },
+              })
+            : "/app",
           tag: `live-${ev.gameId}-${ev.kind}-${ev.homeScore}-${ev.awayScore}`,
         }).catch(() => undefined);
       }

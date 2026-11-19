@@ -232,6 +232,7 @@
         "code": "BOR"
       },
       "venue": "Alemania",
+      "referee": "Sven Jablonski",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -263,6 +264,7 @@
         "code": "AUG"
       },
       "venue": "Alemania",
+      "referee": "Daniel Schlager",
       "neutralSite": false,
       "result": {
         "home": 5,
@@ -294,6 +296,7 @@
         "code": "ELV"
       },
       "venue": "Alemania",
+      "referee": "Harm Osmers",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -325,6 +328,7 @@
         "code": "BAY"
       },
       "venue": "Alemania",
+      "referee": "Robert Schröder",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -356,6 +360,7 @@
         "code": "EIN"
       },
       "venue": "Alemania",
+      "referee": "Bastian Dankert",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -387,6 +392,7 @@
         "code": "WER"
       },
       "venue": "Alemania",
+      "referee": "Sören Storks",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -418,6 +424,7 @@
         "code": "UNI"
       },
       "venue": "Alemania",
+      "referee": "Sascha Stegemann",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -449,6 +456,7 @@
         "code": "SCH"
       },
       "venue": "Alemania",
+      "referee": "Martin Petersen",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -480,6 +488,7 @@
         "code": "KOL"
       },
       "venue": "Alemania",
+      "referee": "Robin Braun",
       "neutralSite": false
     },
     {
@@ -505,6 +514,7 @@
         "code": "PAD"
       },
       "venue": "Alemania",
+      "referee": "Tobias Reichel",
       "neutralSite": false
     },
     {
@@ -530,6 +540,7 @@
         "code": "RBL"
       },
       "venue": "Alemania",
+      "referee": "Christian Dingert",
       "neutralSite": false
     },
     {
@@ -555,6 +566,7 @@
         "code": "FRE"
       },
       "venue": "Alemania",
+      "referee": "Richard Hempel",
       "neutralSite": false
     },
     {
@@ -580,6 +592,7 @@
         "code": "BOR"
       },
       "venue": "Alemania",
+      "referee": "Robert Hartmann",
       "neutralSite": false
     },
     {
@@ -605,6 +618,7 @@
         "code": "HOF"
       },
       "venue": "Alemania",
+      "referee": "Max Burda",
       "neutralSite": false
     },
     {
@@ -630,6 +644,7 @@
         "code": "STU"
       },
       "venue": "Alemania",
+      "referee": "Daniel Siebert",
       "neutralSite": false
     },
     {
@@ -1151,6 +1166,17 @@
           "home": 5,
           "away": 6
         }
+      },
+      "matchContext": {
+        "referee": "Sven Jablonski",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 76,
+          "avgYellow": 3.14,
+          "avgRed": 0.13,
+          "avgFouls": 22,
+          "avgGoals": 3.22
+        }
       }
     },
     "bundesliga-2026-27-md9-rb-leipzig-augsburg": {
@@ -1620,6 +1646,17 @@
           "home": 7,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Daniel Schlager",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 56,
+          "avgYellow": 3.32,
+          "avgRed": 0.18,
+          "avgFouls": 21.5,
+          "avgGoals": 3.07
+        }
       }
     },
     "bundesliga-2026-27-md9-borussia-dortmund-elversberg": {
@@ -2051,6 +2088,17 @@
         "restDays": {
           "home": 7,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Harm Osmers",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 68,
+          "avgYellow": 3.87,
+          "avgRed": 0.16,
+          "avgFouls": 21.5,
+          "avgGoals": 2.84
         }
       }
     },
@@ -2521,6 +2569,17 @@
           "home": 8,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Robert Schröder",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 28,
+          "avgYellow": 3.18,
+          "avgRed": 0.21,
+          "avgFouls": 23.9,
+          "avgGoals": 2.86
+        }
       }
     },
     "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt": {
@@ -2983,6 +3042,17 @@
         "restDays": {
           "home": 7,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Bastian Dankert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 35,
+          "avgYellow": 3.14,
+          "avgRed": 0.11,
+          "avgFouls": 21,
+          "avgGoals": 3.46
         }
       }
     },
@@ -3452,6 +3522,17 @@
         "restDays": {
           "home": 7,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Sören Storks",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 39,
+          "avgYellow": 3.82,
+          "avgRed": 0.15,
+          "avgFouls": 22.1,
+          "avgGoals": 2.97
         }
       }
     },
@@ -3923,6 +4004,17 @@
           "home": 8,
           "away": 15
         }
+      },
+      "matchContext": {
+        "referee": "Sascha Stegemann",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 61,
+          "avgYellow": 3.59,
+          "avgRed": 0.21,
+          "avgFouls": 22.7,
+          "avgGoals": 3.03
+        }
       }
     },
     "bundesliga-2026-27-md9-hoffenheim-schalke": {
@@ -4391,6 +4483,17 @@
         "restDays": {
           "home": 8,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Martin Petersen",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 39,
+          "avgYellow": 3.28,
+          "avgRed": 0.18,
+          "avgFouls": 23.4,
+          "avgGoals": 3.08
         }
       }
     },
@@ -5043,7 +5146,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Robin Braun",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 33,
+          "avgYellow": 2.03,
+          "avgRed": 0.15,
+          "avgFouls": 22.1,
+          "avgGoals": 2.88
+        }
+      }
     },
     "bundesliga-2026-27-md10-bayer-leverkusen-paderborn": {
       "game": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
@@ -5698,7 +5812,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Tobias Reichel",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 36,
+          "avgYellow": 3.47,
+          "avgRed": 0.11,
+          "avgFouls": 23.6,
+          "avgGoals": 2.44
+        }
+      }
     },
     "bundesliga-2026-27-md10-union-berlin-rb-leipzig": {
       "game": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
@@ -6357,7 +6482,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Christian Dingert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 35,
+          "avgYellow": 3.43,
+          "avgRed": 0.2,
+          "avgFouls": 22.4,
+          "avgGoals": 2.83
+        }
+      }
     },
     "bundesliga-2026-27-md10-elversberg-freiburg": {
       "game": "bundesliga-2026-27-md10-elversberg-freiburg",
@@ -6981,7 +7117,18 @@
           "La historia larga favorece menos a SV 07 Elversberg que esta temporada."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Richard Hempel",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 27,
+          "avgYellow": 1.07,
+          "avgRed": 0.04,
+          "avgFouls": 24.9,
+          "avgGoals": 3.11
+        }
+      }
     },
     "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund": {
       "game": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
@@ -7643,7 +7790,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Robert Hartmann",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 40,
+          "avgYellow": 2.7,
+          "avgRed": 0.1,
+          "avgFouls": 24.5,
+          "avgGoals": 3.42
+        }
+      }
     },
     "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim": {
       "game": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
@@ -8303,7 +8461,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Max Burda",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 32,
+          "avgYellow": 1,
+          "avgRed": 0,
+          "avgFouls": 24.5,
+          "avgGoals": 3.34
+        }
+      }
     },
     "bundesliga-2026-27-md10-schalke-stuttgart": {
       "game": "bundesliga-2026-27-md10-schalke-stuttgart",
@@ -8964,7 +9133,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Daniel Siebert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 76,
+          "avgYellow": 4.46,
+          "avgRed": 0.24,
+          "avgFouls": 22.2,
+          "avgGoals": 3.04
+        }
+      }
     },
     "bundesliga-2026-27-md10-augsburg-mainz": {
       "game": "bundesliga-2026-27-md10-augsburg-mainz",

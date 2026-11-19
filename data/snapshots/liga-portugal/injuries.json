@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "league": "liga-portugal",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "liga-portugal.moreirense",
+      "player": "João Veloso",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.moreirense",
+      "player": "Kiko",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.moreirense",
+      "player": "Kiko Bondoso",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.moreirense",
+      "player": "Miguel Silva",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.porto",
+      "player": "Chris Smalling",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.porto",
+      "player": "João Costa",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Meniscus Injury",
+      "injuryType": "Meniscus Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.porto",
+      "player": "William Gomes",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.estoril-praia",
+      "player": "Fabrício Garcia",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Ligament Injury",
+      "injuryType": "Ligament Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-portugal.nacional",
+      "player": "Filipe Soares",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Broken Ankle",
+      "injuryType": "Broken Ankle",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

@@ -16,17 +16,18 @@ describe("Búsqueda de jugadores, comparador H2H y paridad US/MLB en disco", () 
     const ohtani = searchPlayersDirectory("Ohtani", { limit: 6 });
     expect(ohtani.length).toBeGreaterThan(0);
     expect(ohtani[0]!.league).toBe("mlb");
-    expect(ohtani[0]!.href).toMatch(/^\/app\/mlb\/teams\/[^/]+\/players\/.+$/);
+    expect(ohtani[0]!.href).toMatch(/^\/app\/mlb\/t\/[^/]+\/p\/.+$/);
 
     const henry = searchPlayersDirectory("Henry Martin", { limit: 6 });
     expect(henry.length).toBeGreaterThan(0);
   });
 
-  it("buildCompareLeagueCatalog incluye las 10 ligas de clubes (incluida MLB) y compara equipos H2H", () => {
+  it("buildCompareLeagueCatalog incluye ligas activas en ventana de 30 días (y nuevas competencias) y compara equipos H2H", () => {
     const catalog = buildCompareLeagueCatalog();
     const leagues = catalog.map((c) => c.league);
     expect(leagues).toContain("liga-mx");
-    expect(leagues).toContain("mlb");
+    expect(leagues).toContain("champions-league");
+    expect(leagues).toContain("mls");
     expect(leagues).toContain("nba");
     expect(leagues).toContain("nhl");
 

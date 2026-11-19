@@ -232,6 +232,7 @@
         "code": "MTY"
       },
       "venue": "Estadio Corregidora",
+      "referee": "Luis Santander",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -971,7 +972,18 @@
           "away": 6
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Luis Santander",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 38,
+          "avgYellow": 4.55,
+          "avgRed": 0.42,
+          "avgFouls": 26.6,
+          "avgGoals": 3.18
+        }
+      }
     },
     "mx-2026-j17-puebla-atletico-san-luis-401877054": {
       "game": "mx-2026-j17-puebla-atletico-san-luis-401877054",

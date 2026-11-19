@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "league": "primera-chile",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "primera-chile.union-la-calera",
+      "player": "Javier Saldías",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Chest Injury",
+      "injuryType": "Chest Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "primera-chile.union-la-calera",
+      "player": "Rodrigo Caseres",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "primera-chile.colo-colo",
+      "player": "Claudio Aquino",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Appendicitis",
+      "injuryType": "Appendicitis",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "primera-chile.universidad-concepcion",
+      "player": "Harol Salgado",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "primera-chile.o-higgins",
+      "player": "Nicolás Garrido",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

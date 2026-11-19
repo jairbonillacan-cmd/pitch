@@ -2,6 +2,10 @@
 
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
+  COMPETITION_BY_ID,
+  canonicalGameHref,
+  canonicalTeamHref,
+  isKnockoutCupCompetition,
   isLivePhaseActive,
   isNationalCompetition,
   sportForLeague,
@@ -10,8 +14,10 @@ import {
   type LeagueId,
   type LiveMatchDetail,
   type LiveScoreboardEntry,
+  type StandingRow,
 } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
+import { FormSquares } from "../components/FormSquares";
 import {
   resolveThemedPackSrcSet,
   resolveThemedPackUrl,
@@ -108,19 +114,13 @@ const LEAGUE_SECTIONS: ReadonlyArray<{ key: LeagueHubSectionKey; label: string }
 ];
 
 const LEAGUE_COUNTRY_META: Readonly<Record<string, { country: string; slug: string | null }>> = {
-  "liga-mx": { country: "México", slug: "mexico" },
-  "premier-league": { country: "Inglaterra", slug: "inglaterra" },
-  laliga: { country: "España", slug: "espana" },
+  ...Object.fromEntries(
+    Object.values(COMPETITION_BY_ID).map((c) => [
+      c.id,
+      { country: c.country, slug: c.countrySlug },
+    ]),
+  ),
   "la-liga": { country: "España", slug: "espana" },
-  bundesliga: { country: "Alemania", slug: "alemania" },
-  "serie-a": { country: "Italia", slug: "italia" },
-  "ligue-1": { country: "Francia", slug: "francia" },
-  "champions-league": { country: "Europa", slug: null },
-  "europa-league": { country: "Europa", slug: null },
-  nfl: { country: "Estados Unidos", slug: "estados-unidos" },
-  nba: { country: "Estados Unidos", slug: "estados-unidos" },
-  nhl: { country: "Estados Unidos", slug: "estados-unidos" },
-  mlb: { country: "Estados Unidos", slug: "estados-unidos" },
   ncaaf: { country: "Estados Unidos", slug: "estados-unidos" },
 };
 
@@ -189,7 +189,7 @@ function buildFallbackLeagueNews(
         name: leader.name,
         logoUrl: leader.logoUrl,
       },
-      href: `/app/${league}/teams/${leaderSlug}`,
+      href: canonicalTeamHref(league, leaderSlug),
       ctaLabel: `Ver perfil de ${leader.shortName || leader.name}`,
     });
   }
@@ -215,7 +215,7 @@ function buildFallbackLeagueNews(
           name: g.home.name,
           logoUrl: g.home.logoUrl,
         },
-        href: `/app/${league}/games/${g.id}`,
+        href: canonicalGameHref(league, g),
         ctaLabel: "Ver partido",
       });
     } else if (intelUnlocked && g.status !== "FT" && g.preGame.cortexSynthesis) {
@@ -232,7 +232,7 @@ function buildFallbackLeagueNews(
           name: g.home.name,
           logoUrl: g.home.logoUrl,
         },
-        href: `/app/${league}/games/${g.id}`,
+        href: canonicalGameHref(league, g),
         ctaLabel: "Ver análisis y picks",
       });
     } else if (g.status === "FT" && g.score) {
@@ -249,7 +249,7 @@ function buildFallbackLeagueNews(
           name: g.score.away > g.score.home ? g.away.name : g.home.name,
           logoUrl: g.score.away > g.score.home ? g.away.logoUrl : g.home.logoUrl,
         },
-        href: `/app/${league}/games/${g.id}`,
+        href: canonicalGameHref(league, g),
         ctaLabel: "Ver resultado",
       });
     }
@@ -572,11 +572,13 @@ export function LeagueHubClubView({
   initialNews,
   initialSection,
   standingsMeta,
+  initialStandings,
 }: {
   leagueId: LeagueId;
   initialNews?: readonly LeagueNewsItem[];
   initialSection?: LeagueHubSectionKey;
   standingsMeta?: LeagueStandingsMeta | null;
+  initialStandings?: readonly StandingRow[];
 }): React.JSX.Element {
   const {
     dataset,
@@ -591,8 +593,15 @@ export function LeagueHubClubView({
   const iconBase = usePackIconBase();
   const liveSnap = useLiveScoreboard(true);
 
-  const leagueSummary =
+  const baseLeagueSummary =
     dataset.leagues.find((l) => l.league === leagueId) ?? dataset.leagues[0]!;
+  const leagueSummary = useMemo(
+    () =>
+      initialStandings && initialStandings.length > 0
+        ? { ...baseLeagueSummary, standings: [...initialStandings] }
+        : baseLeagueSummary,
+    [baseLeagueSummary, initialStandings],
+  );
   const defaultSection: LeagueHubSectionKey =
     initialSection ?? (leagueSummary.standings.length > 0 ? "tabla" : "partidos");
 
@@ -712,7 +721,7 @@ export function LeagueHubClubView({
             slug: side.slug,
             name: side.name,
             shortName: side.shortName,
-            href: `/app/${leagueSummary.league}/teams/${side.slug}`,
+            href: canonicalTeamHref(leagueSummary.league, side.slug),
           });
         }
       }
@@ -1157,7 +1166,14 @@ export function LeagueHubClubView({
                   aria-label={`Navegar en ${leagueSummary.label}`}
                   className="pl-team-main-tabs pl-league-tabs"
                 >
-                {LEAGUE_SECTIONS.map((tabDef, index) => {
+                {LEAGUE_SECTIONS.filter((tabDef) => {
+                  if (tabDef.key !== "equipos") return true;
+                  return (
+                    leagueSummary.standings.length === 0 ||
+                    isKnockoutCupCompetition(leagueSummary.league) ||
+                    isNational
+                  );
+                }).map((tabDef, index) => {
                   const isSelected = section === tabDef.key;
                   const badgeCount =
                     tabDef.key === "partidos"
@@ -1386,10 +1402,10 @@ export function LeagueHubClubView({
                                         <td className="pl-st-rank-cell num">{rank}</td>
                                         <td className="pl-st-team-cell">
                                           <a
-                                            href={`/app/${leagueSummary.league}/teams/${row.slug}`}
+                                            href={canonicalTeamHref(leagueSummary.league, row.slug)}
                                             onClick={(e) => {
                                               e.preventDefault();
-                                              navigateTo(`/app/${leagueSummary.league}/teams/${row.slug}`);
+                                              navigateTo(canonicalTeamHref(leagueSummary.league, row.slug));
                                             }}
                                             className="pl-team-link pl-st-team-link"
                                             title={`Ver perfil de ${row.name}`}
@@ -1428,25 +1444,7 @@ export function LeagueHubClubView({
                                           {row.goalsFor}:{row.goalsAgainst}
                                         </td>
                                         <td className="pl-st-form-cell hidden md:table-cell">
-                                          {row.form.length > 0 ? (
-                                            <span
-                                              className="pl-st-form-pill"
-                                              role="img"
-                                              aria-label={`Últimos ${row.form.length}: ${row.form.join(", ")}`}
-                                            >
-                                              {row.form.map((r, fIdx) => (
-                                                <span
-                                                  key={`${r}-${fIdx}`}
-                                                  className={`pl-st-form-seg is-${r}`}
-                                                  aria-hidden="true"
-                                                >
-                                                  {r}
-                                                </span>
-                                              ))}
-                                            </span>
-                                          ) : (
-                                            <span className="pl-sq-muted text-xs">—</span>
-                                          )}
+                                          <FormSquares form={row.form} size="sm" />
                                         </td>
                                         {showPtsCol ? (
                                           <td className="pl-st-pts-cell num">{row.points}</td>
@@ -1826,20 +1824,26 @@ export function LeagueHubClubView({
                           .map((teamItem) => (
                             <a
                               key={teamItem.slug}
-                              href={teamItem.href}
+                              href={canonicalTeamHref(leagueSummary.league, teamItem.slug)}
                               onClick={(e) => {
                                 e.preventDefault();
-                                navigateTo(teamItem.href);
+                                navigateTo(canonicalTeamHref(leagueSummary.league, teamItem.slug));
                               }}
-                              className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center justify-start gap-2 no-underline min-w-0"
+                              className="pl-team-dir-card no-underline"
                             >
-                              <TeamBadge
-                                league={leagueSummary.league}
-                                slug={teamItem.slug}
-                                name={teamItem.name}
-                                size={20}
-                              />
-                              <span className="truncate">{teamItem.shortName}</span>
+                              <span className="pl-team-dir-main">
+                                <TeamBadge
+                                  league={leagueSummary.league}
+                                  slug={teamItem.slug}
+                                  name={teamItem.name}
+                                  size={28}
+                                />
+                                <span className="pl-team-dir-copy">
+                                  <strong className="truncate">{teamItem.name}</strong>
+                                  <small>{leagueSummary.label}</small>
+                                </span>
+                              </span>
+                              <MaestroIcon name="chevronRight" size={14} className="pl-team-dir-chev" />
                             </a>
                           ))}
                       </div>
@@ -1872,10 +1876,10 @@ export function LeagueHubClubView({
 
                 <div className="pl-league-featured-duel">
                   <a
-                    href={`/app/${leagueSummary.league}/teams/${featuredMatch.game.home.slug}`}
+                    href={canonicalTeamHref(leagueSummary.league, featuredMatch.game.home.slug)}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigateTo(`/app/${leagueSummary.league}/teams/${featuredMatch.game.home.slug}`);
+                      navigateTo(canonicalTeamHref(leagueSummary.league, featuredMatch.game.home.slug));
                     }}
                     className="pl-league-featured-team pl-team-link"
                   >
@@ -1920,10 +1924,10 @@ export function LeagueHubClubView({
                   </div>
 
                   <a
-                    href={`/app/${leagueSummary.league}/teams/${featuredMatch.game.away.slug}`}
+                    href={canonicalTeamHref(leagueSummary.league, featuredMatch.game.away.slug)}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigateTo(`/app/${leagueSummary.league}/teams/${featuredMatch.game.away.slug}`);
+                      navigateTo(canonicalTeamHref(leagueSummary.league, featuredMatch.game.away.slug));
                     }}
                     className="pl-league-featured-team pl-team-link"
                   >
@@ -1994,10 +1998,10 @@ export function LeagueHubClubView({
                 ) : null}
 
                 <a
-                  href={`/app/${leagueSummary.league}/games/${featuredMatch.game.id}`}
+                  href={canonicalGameHref(leagueSummary.league, featuredMatch.game)}
                   onClick={(e) => {
                     e.preventDefault();
-                    navigateTo(`/app/${leagueSummary.league}/games/${featuredMatch.game.id}`);
+                    navigateTo(canonicalGameHref(leagueSummary.league, featuredMatch.game));
                   }}
                   className="pl-league-featured-cta"
                 >
@@ -2223,6 +2227,7 @@ export function MatchStudioClubView({
   cortexSections,
   cortexHeadline,
   detail,
+  leagueStandings,
   liveDetailOverride,
   initialTab = "resumen",
 }: {
@@ -2236,6 +2241,8 @@ export function MatchStudioClubView({
   cortexHeadline?: string | null;
   /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
+  /** Tabla general de la liga de este partido (evita enviar 57 tablas en el layout). */
+  leagueStandings?: readonly StandingRow[];
   /** Snapshot en vivo inyectado para stories o pruebas deterministas. */
   liveDetailOverride?: LiveMatchDetail | null;
   /** Pestaña inicial resuelta en servidor desde `?tab=` para compartir enlaces. */
@@ -2329,7 +2336,7 @@ export function MatchStudioClubView({
     getTeamColors(game.league, game.away.slug)?.[0] ??
     "var(--pl-aura-default-away)";
 
-  const studioPath = `/app/${game.league}/games/${game.id}`;
+  const studioPath = canonicalGameHref(game.league, game);
   const mainEngineName =
     game.picks[0]?.engineName ??
     (game.sport === "american-football"
@@ -2766,7 +2773,9 @@ export function MatchStudioClubView({
           <MatchContextPanel
             game={game}
             standings={
-              dataset.leagues.find((l) => l.league === game.league)?.standings ?? []
+              leagueStandings && leagueStandings.length > 0
+                ? [...leagueStandings]
+                : (dataset.leagues.find((l) => l.league === game.league)?.standings ?? [])
             }
             unlocked={intelUnlocked}
             opinionsSlot={

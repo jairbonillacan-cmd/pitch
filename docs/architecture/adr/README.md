@@ -45,3 +45,6 @@
 | [ADR-039](ADR-039-perfiles-equipo-jugador-retratos-y-resultados-temporada.md) | Perfiles multi-deporte de equipo/jugador, retratos opacos con respaldo (`<PersonAvatar>`) y resultados de temporada separados del corpus canónico | Aceptada |
 | [ADR-040](ADR-040-bordes-planos-iconos-tematicos-webp-y-microinteracciones.md) | Bordes planos por token dedicado (`--pl-card-border`), paquete dual de iconos WebP y micro-interacciones CSS sin `backdrop-filter` | Aceptada |
 | [ADR-041](ADR-041-bzzoiro-fase1-mlb-standings-us-perfiles-y-pwa.md) | Bzzoiro Fase 1, MLB y standings US por conferencia, retratos/estadísticas de jugadores, búsqueda global, comparador H2H y PWA/Push | Aceptada |
+| [ADR-042](ADR-042-urls-cortas-canonicas-en-ingles-y-redirecciones-308.md) | URLs cortas canónicas en inglés (`/g/`, `/t/`, `/p/`) y redirecciones permanentes `308` | Aceptada |
+| [ADR-043](ADR-043-expansion-catalogo-futbol-arbitros-y-navegacion-categorizada.md) | Expansión de +37 competencias de fútbol, árbitros verificados, filtro de 30 días y navegación categorizada por región | Aceptada |
+| [ADR-044](ADR-044-rediseno-mobile-first-insignias-preferencias-tablas-y-admin.md) | Rediseño mobile-first de Perfil, Preferencias agrupadas, Tablas compactas (`<FormSquares>`), Calendario vivo y Consola Admin | Aceptada |

@@ -122,6 +122,15 @@ jobs:
           BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
         run: pnpm --filter @pitchlab/ingest snapshot:us-standings --leagues=nfl,nba,nhl,mlb
 
+      # Expansión de fútbol (+37 competiciones Bzzoiro/CONCACAF) y árbitros en ligas principales y US.
+      - name: Expansión fútbol clubes y árbitros
+        if: inputs.mode != 'injuries'
+        continue-on-error: true
+        env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
+        run: pnpm --filter @pitchlab/ingest snapshot:expansion --max-squad-teams=8
+
       - name: Guardar caché de Bzzoiro
         if: always()
         continue-on-error: true

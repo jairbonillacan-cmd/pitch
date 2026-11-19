@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useCallback, useMemo, useState } from "react";
-import { LeagueBadge } from "../../sports";
+import { canonicalGameHref } from "@pitchlab/contracts";
+import { LeagueBadge, TeamBadge } from "../../sports";
 import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -127,7 +128,7 @@ export function HistorialClubView(): React.JSX.Element {
             label: `${g.home.shortName} ${g.score!.home}–${g.score!.away} ${g.away.shortName}`,
             subtitle: `${g.leagueLabel} · ${pk.label}`,
             hit: pk.result === "hit",
-            href: `/app/${g.league}/games/${g.id}`,
+            href: canonicalGameHref(g.league, g),
           };
         }),
         ym || undefined,
@@ -164,10 +165,13 @@ export function HistorialClubView(): React.JSX.Element {
           <div className="pl-hist-kpi glass-card glass-ring">
             <span>Partidos calificados</span>
             <strong className="num">{scoped.length}</strong>
+            <small>{league === "all" ? `${byLeague.length} ligas` : byLeague.find((r) => r.key === league)?.label ?? ""}</small>
           </div>
           <div className="pl-hist-kpi glass-card glass-ring">
             <span>Pick principal cumplido</span>
-            <strong className="num">{pct(hits, scoped.length).toFixed(1)} %</strong>
+            <strong className="num" style={{ color: pct(hits, scoped.length) >= 55 ? "var(--pl-success)" : "var(--pl-text)" }}>
+              {pct(hits, scoped.length).toFixed(1)} %
+            </strong>
             <small className="num">
               {hits} de {scoped.length}
             </small>
@@ -176,13 +180,50 @@ export function HistorialClubView(): React.JSX.Element {
             <span>Últimos {recent.length}</span>
             <span className="pl-hist-streak" aria-label={`Últimos resultados: ${recent.map((g) => (g.picks[0]!.result === "hit" ? "cumplido" : "no cumplido")).join(", ")}`}>
               {recent.map((g) => (
-                <span key={g.id} className={g.picks[0]!.result === "hit" ? "is-hit" : "is-miss"} aria-hidden="true">
+                <span key={g.id} className={`pl-hist-sq ${g.picks[0]!.result === "hit" ? "is-hit" : "is-miss"}`} aria-hidden="true">
                   <MaestroIcon name={g.picks[0]!.result === "hit" ? "check" : "x"} size={11} />
                 </span>
               ))}
             </span>
           </div>
         </section>
+
+        {byLeague.length > 1 ? (
+          <div className="pl-hist-league-pills" role="group" aria-label="Filtrar resultados por liga">
+            <button
+              type="button"
+              className={`pl-hist-league-pill ${league === "all" ? "is-on" : ""}`.trim()}
+              aria-pressed={league === "all"}
+              onClick={() => {
+                setLeague("all");
+                setShown(20);
+              }}
+            >
+              Todas <span className="num">{graded.length}</span>
+            </button>
+            {byLeague.slice(0, 10).map((r) => (
+              <button
+                key={r.key}
+                type="button"
+                className={`pl-hist-league-pill ${league === r.key ? "is-on" : ""}`.trim()}
+                aria-pressed={league === r.key}
+                onClick={() => {
+                  setLeague(r.key);
+                  setShown(20);
+                }}
+              >
+                <LeagueBadge
+                  league={r.key as PlatformGame["league"]}
+                  label={r.label}
+                  logoUrl={dataset.leagues.find((l) => l.league === r.key)?.logoUrl}
+                  size={15}
+                />
+                <span>{r.label}</span>
+                <span className="num">{pct(r.hits, r.total).toFixed(0)}%</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
 
         <DailyParlaysResultsSection games={dataset.games} oddsFormat={oddsFormat} />
 
@@ -283,7 +324,7 @@ export function HistorialClubView(): React.JSX.Element {
                   {games.map((g) => {
                     const pick = g.picks[0]!;
                     const hit = pick.result === "hit";
-                    const href = `/app/${g.league}/games/${g.id}`;
+                    const href = canonicalGameHref(g.league, g);
                     return (
                       <li key={g.id}>
                         <a
@@ -294,15 +335,21 @@ export function HistorialClubView(): React.JSX.Element {
                             navigateTo(href);
                           }}
                         >
-                          <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={18} />
-                          <span className="pl-hist-match">
-                            <strong className="truncate">
-                              {g.home.shortName} <span className="num">{g.score!.home}–{g.score!.away}</span> {g.away.shortName}
-                            </strong>
-                            <span className="truncate text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                              {pick.label} · <span className="num">{(pick.p * 100).toFixed(0)} %</span>
+                          <div className="pl-hist-row-left">
+                            <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={18} />
+                            <span className="pl-hist-match">
+                              <strong className="pl-hist-match-line">
+                                <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} logoUrl={g.home.logoUrl} size={18} />
+                                <span className="truncate">{g.home.shortName}</span>
+                                <span className="pl-hist-score-pill num">{g.score!.home}–{g.score!.away}</span>
+                                <span className="truncate">{g.away.shortName}</span>
+                                <TeamBadge league={g.league} slug={g.away.slug} name={g.away.name} logoUrl={g.away.logoUrl} size={18} />
+                              </strong>
+                              <span className="truncate text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                                {pick.label} · <span className="num">{(pick.p * 100).toFixed(0)} %</span>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                           <span className={`pl-hist-chip ${hit ? "is-hit" : "is-miss"}`}>
                             <MaestroIcon name={hit ? "check" : "x"} size={12} />
                             <span>{hit ? "Cumplido" : "No cumplido"}</span>

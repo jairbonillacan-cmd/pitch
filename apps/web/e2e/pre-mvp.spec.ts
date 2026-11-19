@@ -557,13 +557,13 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(dayChips.nth(1)).toHaveAttribute("aria-pressed", "true");
     await dayChips.first().click();
 
-    // Abrir la ficha del primer partido -> /app/premier-league/games/<gameId>
+    // Abrir la ficha del primer partido -> /app/premier-league/g/<slug> (ADR-042)
     const firstCard = page.locator("[data-game-card]").first();
     const gameId = await firstCard.getAttribute("data-game-card");
     expect(gameId).toBeTruthy();
 
     await firstCard.locator("a", { hasText: "Ver partido" }).click();
-    await page.waitForURL(`**/app/premier-league/games/${gameId}`);
+    await page.waitForURL(/\/app\/premier-league\/g\/[a-z0-9-]+-vs-[a-z0-9-]+-[a-z0-9]{6}/);
 
     await expect(page.locator("body")).toContainText("Cortex IA");
     await expect(page.locator("[data-picks]")).toBeVisible();
@@ -693,11 +693,22 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(socialA11y.violations).toEqual([]);
 
-    // CUENTA-2: Mi cuenta (/app/account), copiar enlace corto, voltear tarjeta por teclado,
-    // pestañas con flechas, Axe AA en las 4 pestañas en oscuro y claro, y redirección /i/JAIR-2611
+    // CUENTA-2 / ADR-044: Mi cuenta (/app/account) abre en Mi plan primero, luego Invitar amigos y Preferencias
     await page.goto("/app/account");
     await page.waitForLoadState("networkidle");
     await expect(page.getByRole("heading", { level: 1, name: "Mi cuenta" })).toBeVisible();
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
+    await page.waitForTimeout(400);
+    const accountPlanDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPlanDarkA11y.violations).toEqual([]);
+
+    // Cambiar a Invitar amigos con ArrowRight y probar copiar + voltear tarjeta
+    await page.locator("#pl-acct-tab-plan").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-referrals")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=referrals/);
 
     const copyBtn = page.locator("[data-copy-short-link]:visible");
     await expect(async () => {
@@ -718,18 +729,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(accountReferralsDarkA11y.violations).toEqual([]);
 
-    // Cambiar a Mi plan y a Preferencias con flechas
+    // Cambiar a Preferencias con ArrowRight
     await page.locator("#pl-acct-tab-referrals").focus();
-    await page.keyboard.press("ArrowRight");
-    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
-    await expect(page).toHaveURL(/\?tab=plan/);
-    await page.waitForTimeout(400);
-    const accountPlanDarkA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(accountPlanDarkA11y.violations).toEqual([]);
-
-    await page.locator("#pl-acct-tab-plan").focus();
     await page.keyboard.press("ArrowRight");
     await expect(page.locator("#pl-acct-tab-prefs")).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(/\?tab=prefs/);

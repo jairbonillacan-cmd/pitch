@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  canonicalPlayerHref,
+  canonicalTeamHref,
+  COMPETITION_CATALOG,
+  isLeagueActiveInWindow,
   LeagueSquadsFileSchema,
   sportForLeague,
   sportHasDraw,
@@ -21,25 +25,25 @@ import { hydratePlayerLivePerformance } from "./player-live-stats";
 import { loadLeagueSnapshotEnvelope, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
 import { loadPlayerProfile, loadTeamProfile } from "./team-profile";
 
-const COMPARE_LEAGUES: ReadonlyArray<{ league: ProductLeague; label: string }> = [
-  { league: "liga-mx", label: "Liga MX" },
-  { league: "premier-league", label: "Premier League" },
-  { league: "laliga", label: "LaLiga" },
-  { league: "bundesliga", label: "Bundesliga" },
-  { league: "serie-a", label: "Serie A" },
-  { league: "ligue-1", label: "Ligue 1" },
-  { league: "nfl", label: "NFL" },
-  { league: "nba", label: "NBA" },
-  { league: "nhl", label: "NHL" },
-  { league: "mlb", label: "MLB" },
-];
-
 export function buildCompareLeagueCatalog(): CompareLeagueCatalog[] {
   const out: CompareLeagueCatalog[] = [];
-  for (const item of COMPARE_LEAGUES) {
-    const env = loadLeagueSnapshotEnvelope(item.league);
+  const todayIso = new Date().toISOString().slice(0, 10);
+  for (const meta of COMPETITION_CATALOG) {
+    const env = loadLeagueSnapshotEnvelope(meta.id as ProductLeague);
     const snap = env.data;
     if (!snap) continue;
+    // Oculta competencias sin partidos en los próximos 30 días (ni en vivo) del comparador activo.
+    const active = isLeagueActiveInWindow(
+      snap.games.map((g) => ({
+        league: meta.id,
+        status: g.status,
+        kickoffUtc: g.kickoffUtc,
+      })),
+      meta.id,
+      todayIso,
+      30,
+    );
+    if (!active) continue;
     const seen = new Map<string, { slug: string; name: string; shortName: string; rank: number | null }>();
     (snap.standings ?? []).forEach((row, idx) => {
       const slug = row.teamId.includes(".") ? row.teamId.split(".").slice(1).join(".") : row.teamId;
@@ -58,9 +62,10 @@ export function buildCompareLeagueCatalog(): CompareLeagueCatalog[] {
     const teams = [...seen.values()];
     if (teams.length < 2) continue;
     out.push({
-      league: item.league as LeagueId,
-      label: item.label,
-      sport: sportForLeague(item.league as LeagueId),
+      league: meta.id,
+      label: meta.label,
+      region: meta.region,
+      sport: sportForLeague(meta.id),
       teams,
     });
   }
@@ -132,7 +137,7 @@ function toTeamCard(profile: NonNullable<ReturnType<typeof loadTeamProfile>>): C
     streak: profile.recentAverages.streak.slice(-5),
     coachName: profile.squad?.coach?.name ?? profile.squad?.coachName ?? null,
     coachPhotoKey: profile.squad?.coach?.photoKey ?? null,
-    href: `/app/${profile.league}/teams/${profile.team.slug}`,
+    href: canonicalTeamHref(profile.league, profile.team.slug),
   };
 }
 
@@ -285,7 +290,7 @@ function toPlayerCard(
     nationality: p.nationality,
     photoKey: p.photoKey ?? null,
     fallbackPhotoKey: p.fallbackPhotoKey ?? null,
-    href: `/app/${profile.league}/teams/${profile.team.slug}/players/${p.slug}`,
+    href: canonicalPlayerHref(profile.league, profile.team.slug, p.slug),
   };
 }
 

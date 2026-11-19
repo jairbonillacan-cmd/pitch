@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import type { LeagueId, PlatformSport } from "@pitchlab/contracts";
+import { canonicalPlayerHref, type LeagueId, type PlatformSport } from "@pitchlab/contracts";
 import {
   resolveThemedPackSrcSet,
   resolveThemedPackUrl,
@@ -339,7 +339,7 @@ export function TeamSquadSection({
                 </tr>
 
                 {sec.players.map((player) => {
-                  const href = `/app/${league}/teams/${teamSlug}/players/${player.slug}`;
+                  const href = canonicalPlayerHref(league, teamSlug, player.slug);
                   const posCode = resolveTacticalPositionCode(player, sec.fallbackCode);
                   const natCode = resolveNationalityCode3(
                     player.nationality,

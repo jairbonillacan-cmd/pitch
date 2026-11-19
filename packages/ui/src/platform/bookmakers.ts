@@ -11,9 +11,13 @@ export interface BookmakerOption {
 }
 
 export const BOOKMAKER_OPTIONS: readonly BookmakerOption[] = [
+  { id: "caliente_mx", label: "Caliente", regionHint: "MX" },
   { id: "codere", label: "Codere", regionHint: "MX" },
-  { id: "betcris", label: "Betcris", regionHint: "MX / LatAm" },
   { id: "bet365", label: "Bet365", regionHint: "MX / Global" },
+  { id: "betcris", label: "Betcris", regionHint: "MX / LatAm" },
+  { id: "novibet", label: "Novibet", regionHint: "MX / LatAm" },
+  { id: "betway", label: "Betway", regionHint: "MX / Global" },
+  { id: "playdoit", label: "Playdoit", regionHint: "MX" },
   { id: "pinnacle", label: "Pinnacle", regionHint: "Referencia" },
   { id: "betmgm", label: "BetMGM", regionHint: "US" },
   { id: "bwin", label: "Bwin", regionHint: "Global" },

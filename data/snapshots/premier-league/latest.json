@@ -254,6 +254,7 @@
         "code": "COV"
       },
       "venue": "Hill Dickinson Stadium",
+      "referee": "Stuart Attwell",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -285,6 +286,7 @@
         "code": "TOT"
       },
       "venue": "Elland Road",
+      "referee": "John Brooks",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -316,6 +318,7 @@
         "code": "HUL"
       },
       "venue": "Emirates Stadium",
+      "referee": "Farai Hallam",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -347,6 +350,7 @@
         "code": "NEW"
       },
       "venue": "Craven Cottage",
+      "referee": "Robert Jones",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -378,6 +382,7 @@
         "code": "MCI"
       },
       "venue": "City Ground",
+      "referee": "Samuel Barrott",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -409,6 +414,7 @@
         "code": "LIV"
       },
       "venue": "Selhurst Park",
+      "referee": "Tony Harrington",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -440,6 +446,7 @@
         "code": "CHE"
       },
       "venue": "Stadium of Light",
+      "referee": "Jarred Gillett",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -471,6 +478,7 @@
         "code": "BOU"
       },
       "venue": "Portman Road",
+      "referee": "Simon Hooper",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -502,6 +510,7 @@
         "code": "BRE"
       },
       "venue": "Amex Stadium",
+      "referee": "Michael Oliver",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -533,6 +542,7 @@
         "code": "AVL"
       },
       "venue": "Old Trafford",
+      "referee": "Chris Kavanagh",
       "neutralSite": false,
       "result": {
         "home": 4,
@@ -564,6 +574,7 @@
         "code": "FUL"
       },
       "venue": "Etihad Stadium",
+      "referee": "Thomas Bramall",
       "neutralSite": false
     },
     {
@@ -589,6 +600,7 @@
         "code": "LEE"
       },
       "venue": "Stamford Bridge",
+      "referee": "Michael Oliver",
       "neutralSite": false
     },
     {
@@ -614,6 +626,7 @@
         "code": "SUN"
       },
       "venue": "Villa Park",
+      "referee": "Andy Madley",
       "neutralSite": false
     },
     {
@@ -639,6 +652,7 @@
         "code": "NFO"
       },
       "venue": "Vitality Stadium",
+      "referee": "Adam Herczeg",
       "neutralSite": false
     },
     {
@@ -664,6 +678,7 @@
         "code": "IPS"
       },
       "venue": "Tottenham Hotspur Stadium",
+      "referee": "Robert Jones",
       "neutralSite": false
     },
     {
@@ -689,6 +704,7 @@
         "code": "CRY"
       },
       "venue": "Coventry Building Society Arena",
+      "referee": "Darren England",
       "neutralSite": false
     },
     {
@@ -714,6 +730,7 @@
         "code": "ARS"
       },
       "venue": "St. James' Park",
+      "referee": "Chris Kavanagh",
       "neutralSite": false
     },
     {
@@ -739,6 +756,7 @@
         "code": "BHA"
       },
       "venue": "MKM Stadium",
+      "referee": "Peter Bankes",
       "neutralSite": false
     },
     {
@@ -764,6 +782,7 @@
         "code": "MUN"
       },
       "venue": "Anfield",
+      "referee": "Samuel Barrott",
       "neutralSite": false
     },
     {
@@ -1222,6 +1241,17 @@
         "restDays": {
           "home": 4,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Stuart Attwell",
+        "refereeStats": {
+          "country": "England",
+          "matches": 60,
+          "avgYellow": 4.5,
+          "avgRed": 0.12,
+          "avgFouls": 21.9,
+          "avgGoals": 2.72
         }
       }
     },
@@ -1691,6 +1721,17 @@
         "restDays": {
           "home": 7,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "John Brooks",
+        "refereeStats": {
+          "country": "England",
+          "matches": 54,
+          "avgYellow": 4.87,
+          "avgRed": 0.19,
+          "avgFouls": 23,
+          "avgGoals": 2.74
         }
       }
     },
@@ -2162,6 +2203,17 @@
           "home": 6,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Farai Hallam",
+        "refereeStats": {
+          "country": "England",
+          "matches": 69,
+          "avgYellow": 3.64,
+          "avgRed": 0.03,
+          "avgFouls": 21.1,
+          "avgGoals": 2.65
+        }
       }
     },
     "pl-2026-27-md10-fulham-newcastle-united": {
@@ -2630,6 +2682,17 @@
         "restDays": {
           "home": 7,
           "away": 5
+        }
+      },
+      "matchContext": {
+        "referee": "Robert Jones",
+        "refereeStats": {
+          "country": "England",
+          "matches": 60,
+          "avgYellow": 4.12,
+          "avgRed": 0.05,
+          "avgFouls": 23.1,
+          "avgGoals": 2.85
         }
       }
     },
@@ -3100,6 +3163,17 @@
           "home": 7,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Samuel Barrott",
+        "refereeStats": {
+          "country": "England",
+          "matches": 68,
+          "avgYellow": 4.03,
+          "avgRed": 0.04,
+          "avgFouls": 20.9,
+          "avgGoals": 3.07
+        }
       }
     },
     "pl-2026-27-md10-crystal-palace-liverpool": {
@@ -3568,6 +3642,17 @@
         "restDays": {
           "home": 8,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Tony Harrington",
+        "refereeStats": {
+          "country": "England",
+          "matches": 49,
+          "avgYellow": 3.76,
+          "avgRed": 0.16,
+          "avgFouls": 21.4,
+          "avgGoals": 2.86
         }
       }
     },
@@ -4038,6 +4123,17 @@
           "home": 8,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "Jarred Gillett",
+        "refereeStats": {
+          "country": "Australia",
+          "matches": 57,
+          "avgYellow": 3.98,
+          "avgRed": 0.05,
+          "avgFouls": 21.3,
+          "avgGoals": 2.88
+        }
       }
     },
     "pl-2026-27-md10-ipswich-town-afc-bournemouth": {
@@ -4485,6 +4581,17 @@
         "restDays": {
           "home": 8,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Simon Hooper",
+        "refereeStats": {
+          "country": "England",
+          "matches": 46,
+          "avgYellow": 4.28,
+          "avgRed": 0.13,
+          "avgFouls": 23.3,
+          "avgGoals": 3.24
         }
       }
     },
@@ -4955,6 +5062,17 @@
           "home": 8,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "Michael Oliver",
+        "refereeStats": {
+          "country": "England",
+          "matches": 102,
+          "avgYellow": 3.75,
+          "avgRed": 0.16,
+          "avgFouls": 23.1,
+          "avgGoals": 2.94
+        }
       }
     },
     "pl-2026-27-md10-manchester-united-aston-villa": {
@@ -5423,6 +5541,17 @@
         "restDays": {
           "home": 8,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Chris Kavanagh",
+        "refereeStats": {
+          "country": "England",
+          "matches": 86,
+          "avgYellow": 4.31,
+          "avgRed": 0.16,
+          "avgFouls": 23.3,
+          "avgGoals": 2.69
         }
       }
     },
@@ -6086,7 +6215,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Thomas Bramall",
+        "refereeStats": {
+          "country": "England",
+          "matches": 60,
+          "avgYellow": 3.78,
+          "avgRed": 0.18,
+          "avgFouls": 22,
+          "avgGoals": 2.62
+        }
+      }
     },
     "pl-2026-27-md11-chelsea-leeds-united": {
       "game": "pl-2026-27-md11-chelsea-leeds-united",
@@ -6751,7 +6891,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Michael Oliver",
+        "refereeStats": {
+          "country": "England",
+          "matches": 102,
+          "avgYellow": 3.75,
+          "avgRed": 0.16,
+          "avgFouls": 23.1,
+          "avgGoals": 2.94
+        }
+      }
     },
     "pl-2026-27-md11-aston-villa-sunderland": {
       "game": "pl-2026-27-md11-aston-villa-sunderland",
@@ -7416,7 +7567,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Andy Madley",
+        "refereeStats": {
+          "country": "England",
+          "matches": 62,
+          "avgYellow": 3.84,
+          "avgRed": 0.11,
+          "avgFouls": 23.1,
+          "avgGoals": 2.89
+        }
+      }
     },
     "pl-2026-27-md11-afc-bournemouth-nottingham-forest": {
       "game": "pl-2026-27-md11-afc-bournemouth-nottingham-forest",
@@ -8076,7 +8238,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Adam Herczeg",
+        "refereeStats": {
+          "country": "England",
+          "matches": 65,
+          "avgYellow": 3.69,
+          "avgRed": 0.14,
+          "avgFouls": 22.4,
+          "avgGoals": 2.74
+        }
+      }
     },
     "pl-2026-27-md11-tottenham-hotspur-ipswich-town": {
       "game": "pl-2026-27-md11-tottenham-hotspur-ipswich-town",
@@ -8719,7 +8892,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Robert Jones",
+        "refereeStats": {
+          "country": "England",
+          "matches": 60,
+          "avgYellow": 4.12,
+          "avgRed": 0.05,
+          "avgFouls": 23.1,
+          "avgGoals": 2.85
+        }
+      }
     },
     "pl-2026-27-md11-coventry-city-crystal-palace": {
       "game": "pl-2026-27-md11-coventry-city-crystal-palace",
@@ -9345,7 +9529,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Darren England",
+        "refereeStats": {
+          "country": "England",
+          "matches": 56,
+          "avgYellow": 4.04,
+          "avgRed": 0.09,
+          "avgFouls": 22.1,
+          "avgGoals": 2.64
+        }
+      }
     },
     "pl-2026-27-md11-newcastle-united-arsenal": {
       "game": "pl-2026-27-md11-newcastle-united-arsenal",
@@ -10006,7 +10201,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Chris Kavanagh",
+        "refereeStats": {
+          "country": "England",
+          "matches": 86,
+          "avgYellow": 4.31,
+          "avgRed": 0.16,
+          "avgFouls": 23.3,
+          "avgGoals": 2.69
+        }
+      }
     },
     "pl-2026-27-md11-hull-city-brighton-hove-albion": {
       "game": "pl-2026-27-md11-hull-city-brighton-hove-albion",
@@ -10633,7 +10839,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Peter Bankes",
+        "refereeStats": {
+          "country": "England",
+          "matches": 56,
+          "avgYellow": 3.98,
+          "avgRed": 0.18,
+          "avgFouls": 22.5,
+          "avgGoals": 2.88
+        }
+      }
     },
     "pl-2026-27-md11-liverpool-manchester-united": {
       "game": "pl-2026-27-md11-liverpool-manchester-united",
@@ -11299,7 +11516,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Samuel Barrott",
+        "refereeStats": {
+          "country": "England",
+          "matches": 68,
+          "avgYellow": 4.03,
+          "avgRed": 0.04,
+          "avgFouls": 20.9,
+          "avgGoals": 3.07
+        }
+      }
     },
     "pl-2026-27-md11-brentford-everton": {
       "game": "pl-2026-27-md11-brentford-everton",
